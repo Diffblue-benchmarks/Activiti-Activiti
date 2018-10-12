@@ -8,7 +8,6 @@ phases:
  cbmcArguments:
    java-assume-inputs-non-null: true
    max-nondet-array-length: 10
-   java-test-input-factory: 'bmc'
    unwind: 1
    java-generate-no-comments: true
    string-non-empty: true
@@ -18,7 +17,6 @@ phases:
    java-assume-inputs-non-null: true
    max-nondet-array-length: 20
    max-nondet-string-length: 30
-   java-test-input-factory: 'bmc'
    unwind: 2
    java-generate-no-comments: true
    string-non-empty: true
@@ -28,7 +26,6 @@ phases:
    java-assume-inputs-non-null: true
    max-nondet-array-length: 30
    max-nondet-string-length: 50
-   java-test-input-factory: 'greedy'
    unwind: 3
    java-generate-no-comments: true
    string-non-empty: true
