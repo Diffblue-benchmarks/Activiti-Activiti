@@ -1,24 +1,49 @@
 cbmcArguments:
  classpath: '/tools/cbmc/models-simple-overlay.jar:/tools/cbmc/models.jar:.'
  depth: false
- slice-function-calls: org\.slf4j\.Logger.*
+units:
+  - target:
+    - dir: activiti-bpmn-converter/target/classes
+      file: org/activiti/bpmn/converter/CatchEventXMLConverter.class
+      sourceDir: activiti-bpmn-converter/src/main/java
+      sourceFile: org/activiti/bpmn/converter/CatchEventXMLConverter.java
+    - dir: activiti-bpmn-converter/target/classes
+      file: org/activiti/bpmn/converter/util/BpmnXMLUtil.class
+      sourceDir: activiti-bpmn-converter/src/main/java
+      sourceFile: org/activiti/bpmn/converter/util/BpmnXMLUtil.java
+    - dir: activiti-bpmn-model/target/classes
+      file: org/activiti/bpmn/model/BaseElement.class
+      sourceDir: activiti-bpmn-model/src/main/java
+      sourceFile: org/activiti/bpmn/model/BaseElement.java
+    - dir: activiti-bpmn-model/target/classes
+      file: org/activiti/bpmn/model/BpmnModel.class
+      sourceDir: activiti-bpmn-model/src/main/java
+      sourceFile: org/activiti/bpmn/model/BpmnModel.java
+    - dir: activiti-bpmn-model/target/classes
+      file: org/activiti/bpmn/model/IntermediateCatchEvent.class
+      sourceDir: activiti-bpmn-model/src/main/java
+      sourceFile: org/activiti/bpmn/model/IntermediateCatchEvent.java
 phases:
 -
  timeout: 300
  cbmcArguments:
    java-assume-inputs-non-null: true
    max-nondet-array-length: 10
+   do-not-test-methods-with-access: [ private ]
+   cover-function-only: false
    unwind: 1
 -
  timeout: 300
  cbmcArguments:
    java-assume-inputs-non-null: true
    max-nondet-array-length: 20
-   unwind: 2
+   do-not-test-methods-with-access: [ private ]
+   cover-function-only: false
+   unwind: 3
 -
  timeout: 300
  cbmcArguments:
    java-assume-inputs-non-null: true
    max-nondet-array-length: 30
    max-nondet-string-length: 10
-   unwind: 3
+   unwind: 5
