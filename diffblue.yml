@@ -23,6 +23,31 @@ units:
       file: org/activiti/bpmn/model/IntermediateCatchEvent.class
       sourceDir: activiti-bpmn-model/src/main/java
       sourceFile: org/activiti/bpmn/model/IntermediateCatchEvent.java
+  - target:
+    - dir: activiti-bpmn-converter/target/classes
+      file: org/activiti/bpmn/converter/AssociationXMLConverter.class
+      sourceDir: activiti-bpmn-converter/src/main/java
+      sourceFile: org/activiti/bpmn/converter/AssociationXMLConverter.java
+    - dir: activiti-bpmn-converter/target/classes
+      file: org/activiti/bpmn/converter/util/BpmnXMLUtil.class
+      sourceDir: activiti-bpmn-converter/src/main/java
+      sourceFile: org/activiti/bpmn/converter/util/BpmnXMLUtil.java
+    - dir: activiti-bpmn-model/target/classes
+      file: org/activiti/bpmn/model/BaseElement.class
+      sourceDir: activiti-bpmn-model/src/main/java
+      sourceFile: org/activiti/bpmn/model/BaseElement.java
+    - dir: activiti-bpmn-model/target/classes
+      file: org/activiti/bpmn/model/BpmnModel.class
+      sourceDir: activiti-bpmn-model/src/main/java
+      sourceFile: org/activiti/bpmn/model/BpmnModel.java
+    - dir: activiti-bpmn-model/target/classes
+      file: org/activiti/bpmn/model/Association.class
+      sourceDir: activiti-bpmn-model/src/main/java
+      sourceFile: org/activiti/bpmn/model/Association.java
+    - dir: activiti-bpmn-model/target/classes
+      file: org/activiti/bpmn/model/AssociationDirection.class
+      sourceDir: activiti-bpmn-model/src/main/java
+      sourceFile: org/activiti/bpmn/model/AssociationDirection.java
 phases:
 -
  timeout: 300
