@@ -4,9 +4,9 @@ cbmcArguments:
 units:
   - target:
     - dir: activiti-bpmn-converter/target/classes
-      file: org/activiti/bpmn/converter/util/CommaSplitter.class
+      file: org/activiti/bpmn/converter/util/BpmnXMLUtil.class
       sourceDir: activiti-bpmn-converter/src/main/java
-      sourceFile: org/activiti/bpmn/converter/util/CommaSplitter.java
+      sourceFile: org/activiti/bpmn/converter/util/BpmnXMLUtil.java
 phases:
 -
  timeout: 300
