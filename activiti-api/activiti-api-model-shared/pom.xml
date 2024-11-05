@@ -10,4 +10,14 @@
   </parent>
   <artifactId>activiti-api-model-shared</artifactId>
   <name>Activiti :: API :: Model Common</name>
+  <dependencies>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+    </dependency>
+  </dependencies>
 </project>
