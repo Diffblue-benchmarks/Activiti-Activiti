@@ -1,0 +1,19 @@
+# no code
+--exclude-modules org.activiti:activiti-dependency-check
+--exclude-modules org.activiti:activiti-api-dependencies
+--exclude-modules org.activiti:activiti-core-common-dependencies
+--exclude-modules org.activiti:activiti-core-dependencies
+--exclude-modules org.activiti:activiti-dependencies
+# tests only
+--exclude-modules org.activiti:activiti-spring-conformance-set0
+--exclude-modules org.activiti:activiti-spring-conformance-set1
+--exclude-modules org.activiti:activiti-spring-conformance-set2
+--exclude-modules org.activiti:activiti-spring-conformance-set3
+--exclude-modules org.activiti:activiti-spring-conformance-set4
+--exclude-modules org.activiti:activiti-spring-conformance-set5
+--exclude-modules org.activiti:activiti-spring-conformance-variables
+--exclude-modules org.activiti:activiti-spring-conformance-signals
+# interfaces only
+--exclude-modules org.activiti:activiti-api-process-runtime
+--exclude-modules org.activiti:activiti-api-task-runtime
+
