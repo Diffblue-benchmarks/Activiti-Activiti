@@ -156,6 +156,7 @@
     <module>activiti-core</module>
     <module>activiti-dependencies</module>
     <module>activiti-examples</module>
+    <module>activiti-mutation-aggregation</module>
   </modules>
   <scm>
     <url>http://github.com/${project.scm.organization}/${project.scm.repository}</url>
@@ -516,6 +517,38 @@ limitations under the License.
       </plugins>
     </pluginManagement>
     <plugins>
+      <plugin>
+        <groupId>org.pitest</groupId>
+        <artifactId>pitest-maven</artifactId>
+        <version>1.17.1</version>
+        <configuration>
+          <failWhenNoMutations>false</failWhenNoMutations>
+          <targetTests>
+            <param>**DiffblueTest*</param>
+          </targetTests>
+          <exportLineCoverage>true</exportLineCoverage>
+          <outputFormats>
+            <value>XML</value>
+            <value>HTML</value>
+          </outputFormats>
+          <timestampedReports>false</timestampedReports>
+        </configuration>
+        <executions>
+          <execution>
+            <id>run-mutation-tests</id>
+            <goals>
+              <goal>mutationCoverage</goal>
+            </goals>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.pitest</groupId>
+            <artifactId>pitest-junit5-plugin</artifactId>
+            <version>1.2.1</version>
+          </dependency>
+        </dependencies>
+      </plugin>
       <plugin>
         <groupId>com.mycila</groupId>
         <artifactId>license-maven-plugin</artifactId>
