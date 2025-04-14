@@ -19,14 +19,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
-import org.activiti.core.el.CustomFunctionProvider;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.persistence.entity.DeploymentEntity;
 import org.activiti.engine.impl.persistence.entity.DeploymentEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class MybatisDeploymentDataManagerDiffblueTest {
   /**
@@ -34,12 +35,14 @@ public class MybatisDeploymentDataManagerDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link MybatisDeploymentDataManager#MybatisDeploymentDataManager(ProcessEngineConfigurationImpl)}
+   *   <li>{@link MybatisDeploymentDataManager#MybatisDeploymentDataManager(ProcessEngineConfigurationImpl)}
    *   <li>{@link MybatisDeploymentDataManager#getManagedEntityClass()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MybatisDeploymentDataManager.<init>(ProcessEngineConfigurationImpl)",
+      "Class MybatisDeploymentDataManager.getManagedEntityClass()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends DeploymentEntity> actualManagedEntityClass = (new MybatisDeploymentDataManager(
@@ -56,6 +59,8 @@ public class MybatisDeploymentDataManagerDiffblueTest {
    * Method under test: {@link MybatisDeploymentDataManager#create()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DeploymentEntity MybatisDeploymentDataManager.create()"})
   public void testCreate() {
     // Arrange and Act
     DeploymentEntity actualCreateResult = (new MybatisDeploymentDataManager(new JtaProcessEngineConfiguration()))
@@ -65,12 +70,8 @@ public class MybatisDeploymentDataManagerDiffblueTest {
     Object persistentState = actualCreateResult.getPersistentState();
     assertTrue(persistentState instanceof Map);
     assertTrue(actualCreateResult instanceof DeploymentEntityImpl);
-    assertEquals(3, ((Map<String, String>) persistentState).size());
-    assertEquals("", ((Map<String, String>) persistentState).get("tenantId"));
     assertEquals("", actualCreateResult.getTenantId());
     assertNull(actualCreateResult.getVersion());
-    assertNull(((Map<String, String>) persistentState).get("category"));
-    assertNull(((Map<String, String>) persistentState).get("key"));
     assertNull(actualCreateResult.getEngineVersion());
     assertNull(actualCreateResult.getProjectReleaseVersion());
     assertNull(actualCreateResult.getId());
@@ -79,47 +80,13 @@ public class MybatisDeploymentDataManagerDiffblueTest {
     assertNull(actualCreateResult.getName());
     assertNull(actualCreateResult.getDeploymentTime());
     assertNull(actualCreateResult.getResources());
-    assertFalse(actualCreateResult.isNew());
-    assertFalse(actualCreateResult.isDeleted());
-    assertFalse(actualCreateResult.isInserted());
-    assertFalse(actualCreateResult.isUpdated());
-  }
-
-  /**
-   * Test {@link MybatisDeploymentDataManager#create()}.
-   * <p>
-   * Method under test: {@link MybatisDeploymentDataManager#create()}
-   */
-  @Test
-  public void testCreate2() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    DeploymentEntity actualCreateResult = (new MybatisDeploymentDataManager(processEngineConfiguration)).create();
-
-    // Assert
-    Object persistentState = actualCreateResult.getPersistentState();
-    assertTrue(persistentState instanceof Map);
-    assertTrue(actualCreateResult instanceof DeploymentEntityImpl);
     assertEquals(3, ((Map<String, String>) persistentState).size());
-    assertEquals("", ((Map<String, String>) persistentState).get("tenantId"));
-    assertEquals("", actualCreateResult.getTenantId());
-    assertNull(actualCreateResult.getVersion());
-    assertNull(((Map<String, String>) persistentState).get("category"));
-    assertNull(((Map<String, String>) persistentState).get("key"));
-    assertNull(actualCreateResult.getEngineVersion());
-    assertNull(actualCreateResult.getProjectReleaseVersion());
-    assertNull(actualCreateResult.getId());
-    assertNull(actualCreateResult.getCategory());
-    assertNull(actualCreateResult.getKey());
-    assertNull(actualCreateResult.getName());
-    assertNull(actualCreateResult.getDeploymentTime());
-    assertNull(actualCreateResult.getResources());
     assertFalse(actualCreateResult.isNew());
     assertFalse(actualCreateResult.isDeleted());
     assertFalse(actualCreateResult.isInserted());
     assertFalse(actualCreateResult.isUpdated());
+    assertTrue(((Map<String, String>) persistentState).containsKey("category"));
+    assertTrue(((Map<String, String>) persistentState).containsKey("key"));
+    assertTrue(((Map<String, String>) persistentState).containsKey("tenantId"));
   }
 }

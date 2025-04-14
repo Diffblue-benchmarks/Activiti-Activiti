@@ -16,7 +16,10 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class GetTaskCommentsCmdDiffblueTest {
   /**
@@ -25,6 +28,8 @@ public class GetTaskCommentsCmdDiffblueTest {
    * Method under test: {@link GetTaskCommentsCmd#GetTaskCommentsCmd(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void GetTaskCommentsCmd.<init>(String)"})
   public void testNewGetTaskCommentsCmd() {
     // Arrange, Act and Assert
     assertEquals("42", (new GetTaskCommentsCmd("42")).taskId);

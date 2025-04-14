@@ -20,7 +20,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import java.util.Set;
 import org.activiti.bpmn.model.Activity;
@@ -66,24 +67,18 @@ import org.activiti.engine.impl.bpmn.parser.factory.MessageExecutionContext;
 import org.activiti.engine.impl.delegate.BpmnMessagePayloadMappingProvider;
 import org.activiti.engine.impl.delegate.BpmnMessagePayloadMappingProviderFactory;
 import org.activiti.engine.impl.delegate.DefaultThrowMessageJavaDelegate;
-import org.activiti.engine.impl.delegate.MessagePayloadMappingProviderFactory;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class TestActivityBehaviorFactoryDiffblueTest {
-  @InjectMocks
-  private TestActivityBehaviorFactory testActivityBehaviorFactory;
-
   /**
    * Test {@link TestActivityBehaviorFactory#TestActivityBehaviorFactory()}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#TestActivityBehaviorFactory()}
+   * Method under test: {@link TestActivityBehaviorFactory#TestActivityBehaviorFactory()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TestActivityBehaviorFactory.<init>()"})
   public void testNewTestActivityBehaviorFactory() {
     // Arrange and Act
     TestActivityBehaviorFactory actualTestActivityBehaviorFactory = new TestActivityBehaviorFactory();
@@ -102,52 +97,14 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#TestActivityBehaviorFactory(ActivityBehaviorFactory)}.
-   * <ul>
-   *   <li>Given {@link MessagePayloadMappingProviderFactory}.</li>
-   * </ul>
+   * Test {@link TestActivityBehaviorFactory#TestActivityBehaviorFactory(ActivityBehaviorFactory)}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#TestActivityBehaviorFactory(ActivityBehaviorFactory)}
+   * Method under test: {@link TestActivityBehaviorFactory#TestActivityBehaviorFactory(ActivityBehaviorFactory)}
    */
   @Test
-  public void testNewTestActivityBehaviorFactory_givenMessagePayloadMappingProviderFactory() {
-    // Arrange
-    DefaultActivityBehaviorFactory wrappedActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    wrappedActivityBehaviorFactory
-        .setMessagePayloadMappingProviderFactory(mock(MessagePayloadMappingProviderFactory.class));
-
-    // Act
-    TestActivityBehaviorFactory actualTestActivityBehaviorFactory = new TestActivityBehaviorFactory(
-        wrappedActivityBehaviorFactory);
-
-    // Assert
-    assertTrue(actualTestActivityBehaviorFactory
-        .getMessageExecutionContextFactory() instanceof DefaultMessageExecutionContextFactory);
-    assertTrue(actualTestActivityBehaviorFactory
-        .getMessagePayloadMappingProviderFactory() instanceof BpmnMessagePayloadMappingProviderFactory);
-    assertNull(actualTestActivityBehaviorFactory.getExpressionManager());
-    assertFalse(actualTestActivityBehaviorFactory.allServiceTasksNoOp);
-    assertTrue(actualTestActivityBehaviorFactory.mockedClassDelegatesMapping.isEmpty());
-    assertTrue(actualTestActivityBehaviorFactory.noOpServiceTaskClassNames.isEmpty());
-    assertTrue(actualTestActivityBehaviorFactory.noOpServiceTaskIds.isEmpty());
-    assertSame(wrappedActivityBehaviorFactory, actualTestActivityBehaviorFactory.getWrappedActivityBehaviorFactory());
-  }
-
-  /**
-   * Test
-   * {@link TestActivityBehaviorFactory#TestActivityBehaviorFactory(ActivityBehaviorFactory)}.
-   * <ul>
-   *   <li>When
-   * {@link DefaultActivityBehaviorFactory#DefaultActivityBehaviorFactory()}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#TestActivityBehaviorFactory(ActivityBehaviorFactory)}
-   */
-  @Test
-  public void testNewTestActivityBehaviorFactory_whenDefaultActivityBehaviorFactory() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TestActivityBehaviorFactory.<init>(ActivityBehaviorFactory)"})
+  public void testNewTestActivityBehaviorFactory2() {
     // Arrange
     DefaultActivityBehaviorFactory wrappedActivityBehaviorFactory = new DefaultActivityBehaviorFactory();
 
@@ -173,13 +130,16 @@ public class TestActivityBehaviorFactoryDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link TestActivityBehaviorFactory#setWrappedActivityBehaviorFactory(ActivityBehaviorFactory)}
+   *   <li>{@link TestActivityBehaviorFactory#setWrappedActivityBehaviorFactory(ActivityBehaviorFactory)}
    *   <li>{@link TestActivityBehaviorFactory#setAllServiceTasksNoOp()}
    *   <li>{@link TestActivityBehaviorFactory#getWrappedActivityBehaviorFactory()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ActivityBehaviorFactory TestActivityBehaviorFactory.getWrappedActivityBehaviorFactory()",
+      "void TestActivityBehaviorFactory.setAllServiceTasksNoOp()",
+      "void TestActivityBehaviorFactory.setWrappedActivityBehaviorFactory(ActivityBehaviorFactory)"})
   public void testGettersAndSetters() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory();
@@ -189,7 +149,7 @@ public class TestActivityBehaviorFactoryDiffblueTest {
     testActivityBehaviorFactory.setWrappedActivityBehaviorFactory(wrappedActivityBehaviorFactory);
     testActivityBehaviorFactory.setAllServiceTasksNoOp();
 
-    // Assert that nothing has changed
+    // Assert
     assertSame(wrappedActivityBehaviorFactory, testActivityBehaviorFactory.getWrappedActivityBehaviorFactory());
   }
 
@@ -199,10 +159,12 @@ public class TestActivityBehaviorFactoryDiffblueTest {
    *   <li>Then return MultiInstanceActivityBehavior is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createTaskActivityBehavior(Task)}
+   * Method under test: {@link TestActivityBehaviorFactory#createTaskActivityBehavior(Task)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.TaskActivityBehavior TestActivityBehaviorFactory.createTaskActivityBehavior(Task)"})
   public void testCreateTaskActivityBehavior_thenReturnMultiInstanceActivityBehaviorIsNull() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -213,13 +175,14 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createManualTaskActivityBehavior(ManualTask)}.
+   * Test {@link TestActivityBehaviorFactory#createManualTaskActivityBehavior(ManualTask)}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createManualTaskActivityBehavior(ManualTask)}
+   * Method under test: {@link TestActivityBehaviorFactory#createManualTaskActivityBehavior(ManualTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.ManualTaskActivityBehavior TestActivityBehaviorFactory.createManualTaskActivityBehavior(ManualTask)"})
   public void testCreateManualTaskActivityBehavior() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -231,13 +194,14 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createReceiveTaskActivityBehavior(ReceiveTask)}.
+   * Test {@link TestActivityBehaviorFactory#createReceiveTaskActivityBehavior(ReceiveTask)}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createReceiveTaskActivityBehavior(ReceiveTask)}
+   * Method under test: {@link TestActivityBehaviorFactory#createReceiveTaskActivityBehavior(ReceiveTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.ReceiveTaskActivityBehavior TestActivityBehaviorFactory.createReceiveTaskActivityBehavior(ReceiveTask)"})
   public void testCreateReceiveTaskActivityBehavior() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -249,16 +213,17 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createUserTaskActivityBehavior(UserTask)}.
+   * Test {@link TestActivityBehaviorFactory#createUserTaskActivityBehavior(UserTask)}.
    * <ul>
    *   <li>Then return MultiInstanceActivityBehavior is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createUserTaskActivityBehavior(UserTask)}
+   * Method under test: {@link TestActivityBehaviorFactory#createUserTaskActivityBehavior(UserTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.UserTaskActivityBehavior TestActivityBehaviorFactory.createUserTaskActivityBehavior(UserTask)"})
   public void testCreateUserTaskActivityBehavior_thenReturnMultiInstanceActivityBehaviorIsNull() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -270,16 +235,16 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}.
+   * Test {@link TestActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}.
    * <ul>
    *   <li>Then return ClassName is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}
+   * Method under test: {@link TestActivityBehaviorFactory#createClassDelegateServiceTask(ServiceTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ClassDelegate TestActivityBehaviorFactory.createClassDelegateServiceTask(ServiceTask)"})
   public void testCreateClassDelegateServiceTask_thenReturnClassNameIsNull() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -295,14 +260,14 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createWebServiceActivityBehavior(SendTask)}
-   * with {@code sendTask}.
+   * Test {@link TestActivityBehaviorFactory#createWebServiceActivityBehavior(SendTask)} with {@code sendTask}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createWebServiceActivityBehavior(SendTask)}
+   * Method under test: {@link TestActivityBehaviorFactory#createWebServiceActivityBehavior(SendTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.WebServiceActivityBehavior TestActivityBehaviorFactory.createWebServiceActivityBehavior(SendTask)"})
   public void testCreateWebServiceActivityBehaviorWithSendTask() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -314,14 +279,14 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createWebServiceActivityBehavior(ServiceTask)}
-   * with {@code serviceTask}.
+   * Test {@link TestActivityBehaviorFactory#createWebServiceActivityBehavior(ServiceTask)} with {@code serviceTask}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createWebServiceActivityBehavior(ServiceTask)}
+   * Method under test: {@link TestActivityBehaviorFactory#createWebServiceActivityBehavior(ServiceTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.WebServiceActivityBehavior TestActivityBehaviorFactory.createWebServiceActivityBehavior(ServiceTask)"})
   public void testCreateWebServiceActivityBehaviorWithServiceTask() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -333,13 +298,14 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link TestActivityBehaviorFactory#createMailActivityBehavior(SendTask)}
-   * with {@code sendTask}.
+   * Test {@link TestActivityBehaviorFactory#createMailActivityBehavior(SendTask)} with {@code sendTask}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createMailActivityBehavior(SendTask)}
+   * Method under test: {@link TestActivityBehaviorFactory#createMailActivityBehavior(SendTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.MailActivityBehavior TestActivityBehaviorFactory.createMailActivityBehavior(SendTask)"})
   public void testCreateMailActivityBehaviorWithSendTask() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -351,14 +317,14 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createMailActivityBehavior(ServiceTask)}
-   * with {@code serviceTask}.
+   * Test {@link TestActivityBehaviorFactory#createMailActivityBehavior(ServiceTask)} with {@code serviceTask}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createMailActivityBehavior(ServiceTask)}
+   * Method under test: {@link TestActivityBehaviorFactory#createMailActivityBehavior(ServiceTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.MailActivityBehavior TestActivityBehaviorFactory.createMailActivityBehavior(ServiceTask)"})
   public void testCreateMailActivityBehaviorWithServiceTask() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -370,16 +336,17 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createShellActivityBehavior(ServiceTask)}.
+   * Test {@link TestActivityBehaviorFactory#createShellActivityBehavior(ServiceTask)}.
    * <ul>
    *   <li>Then return MultiInstanceActivityBehavior is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createShellActivityBehavior(ServiceTask)}
+   * Method under test: {@link TestActivityBehaviorFactory#createShellActivityBehavior(ServiceTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.ShellActivityBehavior TestActivityBehaviorFactory.createShellActivityBehavior(ServiceTask)"})
   public void testCreateShellActivityBehavior_thenReturnMultiInstanceActivityBehaviorIsNull() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -391,13 +358,14 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createScriptTaskActivityBehavior(ScriptTask)}.
+   * Test {@link TestActivityBehaviorFactory#createScriptTaskActivityBehavior(ScriptTask)}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createScriptTaskActivityBehavior(ScriptTask)}
+   * Method under test: {@link TestActivityBehaviorFactory#createScriptTaskActivityBehavior(ScriptTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.ScriptTaskActivityBehavior TestActivityBehaviorFactory.createScriptTaskActivityBehavior(ScriptTask)"})
   public void testCreateScriptTaskActivityBehavior() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -409,13 +377,14 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createSequentialMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}.
+   * Test {@link TestActivityBehaviorFactory#createSequentialMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createSequentialMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}
+   * Method under test: {@link TestActivityBehaviorFactory#createSequentialMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "SequentialMultiInstanceBehavior TestActivityBehaviorFactory.createSequentialMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)"})
   public void testCreateSequentialMultiInstanceBehavior() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -446,13 +415,14 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createParallelMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}.
+   * Test {@link TestActivityBehaviorFactory#createParallelMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createParallelMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}
+   * Method under test: {@link TestActivityBehaviorFactory#createParallelMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ParallelMultiInstanceBehavior TestActivityBehaviorFactory.createParallelMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)"})
   public void testCreateParallelMultiInstanceBehavior() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -483,13 +453,14 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createSubprocessActivityBehavior(SubProcess)}.
+   * Test {@link TestActivityBehaviorFactory#createSubprocessActivityBehavior(SubProcess)}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createSubprocessActivityBehavior(SubProcess)}
+   * Method under test: {@link TestActivityBehaviorFactory#createSubprocessActivityBehavior(SubProcess)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.SubProcessActivityBehavior TestActivityBehaviorFactory.createSubprocessActivityBehavior(SubProcess)"})
   public void testCreateSubprocessActivityBehavior() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -501,13 +472,14 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createEventSubProcessErrorStartEventActivityBehavior(StartEvent)}.
+   * Test {@link TestActivityBehaviorFactory#createEventSubProcessErrorStartEventActivityBehavior(StartEvent)}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createEventSubProcessErrorStartEventActivityBehavior(StartEvent)}
+   * Method under test: {@link TestActivityBehaviorFactory#createEventSubProcessErrorStartEventActivityBehavior(StartEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.EventSubProcessErrorStartEventActivityBehavior TestActivityBehaviorFactory.createEventSubProcessErrorStartEventActivityBehavior(StartEvent)"})
   public void testCreateEventSubProcessErrorStartEventActivityBehavior() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -519,13 +491,14 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createEventSubProcessMessageStartEventActivityBehavior(StartEvent, MessageEventDefinition)}.
+   * Test {@link TestActivityBehaviorFactory#createEventSubProcessMessageStartEventActivityBehavior(StartEvent, MessageEventDefinition)}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createEventSubProcessMessageStartEventActivityBehavior(StartEvent, MessageEventDefinition)}
+   * Method under test: {@link TestActivityBehaviorFactory#createEventSubProcessMessageStartEventActivityBehavior(StartEvent, MessageEventDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.EventSubProcessMessageStartEventActivityBehavior TestActivityBehaviorFactory.createEventSubProcessMessageStartEventActivityBehavior(StartEvent, MessageEventDefinition)"})
   public void testCreateEventSubProcessMessageStartEventActivityBehavior() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -539,13 +512,14 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createAdhocSubprocessActivityBehavior(SubProcess)}.
+   * Test {@link TestActivityBehaviorFactory#createAdhocSubprocessActivityBehavior(SubProcess)}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createAdhocSubprocessActivityBehavior(SubProcess)}
+   * Method under test: {@link TestActivityBehaviorFactory#createAdhocSubprocessActivityBehavior(SubProcess)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.AdhocSubProcessActivityBehavior TestActivityBehaviorFactory.createAdhocSubprocessActivityBehavior(SubProcess)"})
   public void testCreateAdhocSubprocessActivityBehavior() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -557,16 +531,16 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createCallActivityBehavior(CallActivity)}.
+   * Test {@link TestActivityBehaviorFactory#createCallActivityBehavior(CallActivity)}.
    * <ul>
    *   <li>Then return ProcessDefinitionKey is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createCallActivityBehavior(CallActivity)}
+   * Method under test: {@link TestActivityBehaviorFactory#createCallActivityBehavior(CallActivity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CallActivityBehavior TestActivityBehaviorFactory.createCallActivityBehavior(CallActivity)"})
   public void testCreateCallActivityBehavior_thenReturnProcessDefinitionKeyIsNull() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -582,13 +556,14 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createTransactionActivityBehavior(Transaction)}.
+   * Test {@link TestActivityBehaviorFactory#createTransactionActivityBehavior(Transaction)}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createTransactionActivityBehavior(Transaction)}
+   * Method under test: {@link TestActivityBehaviorFactory#createTransactionActivityBehavior(Transaction)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.TransactionActivityBehavior TestActivityBehaviorFactory.createTransactionActivityBehavior(Transaction)"})
   public void testCreateTransactionActivityBehavior() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -600,13 +575,14 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createIntermediateCatchEventActivityBehavior(IntermediateCatchEvent)}.
+   * Test {@link TestActivityBehaviorFactory#createIntermediateCatchEventActivityBehavior(IntermediateCatchEvent)}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createIntermediateCatchEventActivityBehavior(IntermediateCatchEvent)}
+   * Method under test: {@link TestActivityBehaviorFactory#createIntermediateCatchEventActivityBehavior(IntermediateCatchEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.IntermediateCatchEventActivityBehavior TestActivityBehaviorFactory.createIntermediateCatchEventActivityBehavior(IntermediateCatchEvent)"})
   public void testCreateIntermediateCatchEventActivityBehavior() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -618,13 +594,14 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createIntermediateCatchMessageEventActivityBehavior(IntermediateCatchEvent, MessageEventDefinition)}.
+   * Test {@link TestActivityBehaviorFactory#createIntermediateCatchMessageEventActivityBehavior(IntermediateCatchEvent, MessageEventDefinition)}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createIntermediateCatchMessageEventActivityBehavior(IntermediateCatchEvent, MessageEventDefinition)}
+   * Method under test: {@link TestActivityBehaviorFactory#createIntermediateCatchMessageEventActivityBehavior(IntermediateCatchEvent, MessageEventDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "IntermediateCatchMessageEventActivityBehavior TestActivityBehaviorFactory.createIntermediateCatchMessageEventActivityBehavior(IntermediateCatchEvent, MessageEventDefinition)"})
   public void testCreateIntermediateCatchMessageEventActivityBehavior() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -649,13 +626,14 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createIntermediateCatchTimerEventActivityBehavior(IntermediateCatchEvent, TimerEventDefinition)}.
+   * Test {@link TestActivityBehaviorFactory#createIntermediateCatchTimerEventActivityBehavior(IntermediateCatchEvent, TimerEventDefinition)}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createIntermediateCatchTimerEventActivityBehavior(IntermediateCatchEvent, TimerEventDefinition)}
+   * Method under test: {@link TestActivityBehaviorFactory#createIntermediateCatchTimerEventActivityBehavior(IntermediateCatchEvent, TimerEventDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.IntermediateCatchTimerEventActivityBehavior TestActivityBehaviorFactory.createIntermediateCatchTimerEventActivityBehavior(IntermediateCatchEvent, TimerEventDefinition)"})
   public void testCreateIntermediateCatchTimerEventActivityBehavior() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -669,13 +647,14 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createIntermediateCatchSignalEventActivityBehavior(IntermediateCatchEvent, SignalEventDefinition, Signal)}.
+   * Test {@link TestActivityBehaviorFactory#createIntermediateCatchSignalEventActivityBehavior(IntermediateCatchEvent, SignalEventDefinition, Signal)}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createIntermediateCatchSignalEventActivityBehavior(IntermediateCatchEvent, SignalEventDefinition, Signal)}
+   * Method under test: {@link TestActivityBehaviorFactory#createIntermediateCatchSignalEventActivityBehavior(IntermediateCatchEvent, SignalEventDefinition, Signal)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.IntermediateCatchSignalEventActivityBehavior TestActivityBehaviorFactory.createIntermediateCatchSignalEventActivityBehavior(IntermediateCatchEvent, SignalEventDefinition, Signal)"})
   public void testCreateIntermediateCatchSignalEventActivityBehavior() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -691,13 +670,14 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)}.
+   * Test {@link TestActivityBehaviorFactory#createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)}
+   * Method under test: {@link TestActivityBehaviorFactory#createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.IntermediateThrowSignalEventActivityBehavior TestActivityBehaviorFactory.createIntermediateThrowSignalEventActivityBehavior(ThrowEvent, SignalEventDefinition, Signal)"})
   public void testCreateIntermediateThrowSignalEventActivityBehavior() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -712,13 +692,14 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createErrorEndEventActivityBehavior(EndEvent, ErrorEventDefinition)}.
+   * Test {@link TestActivityBehaviorFactory#createErrorEndEventActivityBehavior(EndEvent, ErrorEventDefinition)}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createErrorEndEventActivityBehavior(EndEvent, ErrorEventDefinition)}
+   * Method under test: {@link TestActivityBehaviorFactory#createErrorEndEventActivityBehavior(EndEvent, ErrorEventDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.ErrorEndEventActivityBehavior TestActivityBehaviorFactory.createErrorEndEventActivityBehavior(EndEvent, ErrorEventDefinition)"})
   public void testCreateErrorEndEventActivityBehavior() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -731,16 +712,17 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createErrorEndEventActivityBehavior(EndEvent, ErrorEventDefinition)}.
+   * Test {@link TestActivityBehaviorFactory#createErrorEndEventActivityBehavior(EndEvent, ErrorEventDefinition)}.
    * <ul>
    *   <li>Then return ErrorRef is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createErrorEndEventActivityBehavior(EndEvent, ErrorEventDefinition)}
+   * Method under test: {@link TestActivityBehaviorFactory#createErrorEndEventActivityBehavior(EndEvent, ErrorEventDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.ErrorEndEventActivityBehavior TestActivityBehaviorFactory.createErrorEndEventActivityBehavior(EndEvent, ErrorEventDefinition)"})
   public void testCreateErrorEndEventActivityBehavior_thenReturnErrorRefIsNull() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -753,13 +735,14 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createTerminateEndEventActivityBehavior(EndEvent)}.
+   * Test {@link TestActivityBehaviorFactory#createTerminateEndEventActivityBehavior(EndEvent)}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createTerminateEndEventActivityBehavior(EndEvent)}
+   * Method under test: {@link TestActivityBehaviorFactory#createTerminateEndEventActivityBehavior(EndEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "TerminateEndEventActivityBehavior TestActivityBehaviorFactory.createTerminateEndEventActivityBehavior(EndEvent)"})
   public void testCreateTerminateEndEventActivityBehavior() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -775,16 +758,17 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createTerminateEndEventActivityBehavior(EndEvent)}.
+   * Test {@link TestActivityBehaviorFactory#createTerminateEndEventActivityBehavior(EndEvent)}.
    * <ul>
    *   <li>Then return not TerminateAll.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createTerminateEndEventActivityBehavior(EndEvent)}
+   * Method under test: {@link TestActivityBehaviorFactory#createTerminateEndEventActivityBehavior(EndEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "TerminateEndEventActivityBehavior TestActivityBehaviorFactory.createTerminateEndEventActivityBehavior(EndEvent)"})
   public void testCreateTerminateEndEventActivityBehavior_thenReturnNotTerminateAll() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -800,13 +784,14 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createBoundaryEventActivityBehavior(BoundaryEvent, boolean)}.
+   * Test {@link TestActivityBehaviorFactory#createBoundaryEventActivityBehavior(BoundaryEvent, boolean)}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createBoundaryEventActivityBehavior(BoundaryEvent, boolean)}
+   * Method under test: {@link TestActivityBehaviorFactory#createBoundaryEventActivityBehavior(BoundaryEvent, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.BoundaryEventActivityBehavior TestActivityBehaviorFactory.createBoundaryEventActivityBehavior(BoundaryEvent, boolean)"})
   public void testCreateBoundaryEventActivityBehavior() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -818,16 +803,17 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createBoundaryEventActivityBehavior(BoundaryEvent, boolean)}.
+   * Test {@link TestActivityBehaviorFactory#createBoundaryEventActivityBehavior(BoundaryEvent, boolean)}.
    * <ul>
    *   <li>Then return Interrupting.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createBoundaryEventActivityBehavior(BoundaryEvent, boolean)}
+   * Method under test: {@link TestActivityBehaviorFactory#createBoundaryEventActivityBehavior(BoundaryEvent, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.BoundaryEventActivityBehavior TestActivityBehaviorFactory.createBoundaryEventActivityBehavior(BoundaryEvent, boolean)"})
   public void testCreateBoundaryEventActivityBehavior_thenReturnInterrupting() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -839,13 +825,14 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createBoundaryCancelEventActivityBehavior(CancelEventDefinition)}.
+   * Test {@link TestActivityBehaviorFactory#createBoundaryCancelEventActivityBehavior(CancelEventDefinition)}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createBoundaryCancelEventActivityBehavior(CancelEventDefinition)}
+   * Method under test: {@link TestActivityBehaviorFactory#createBoundaryCancelEventActivityBehavior(CancelEventDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.BoundaryCancelEventActivityBehavior TestActivityBehaviorFactory.createBoundaryCancelEventActivityBehavior(CancelEventDefinition)"})
   public void testCreateBoundaryCancelEventActivityBehavior() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -857,16 +844,17 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createBoundaryCancelEventActivityBehavior(CancelEventDefinition)}.
+   * Test {@link TestActivityBehaviorFactory#createBoundaryCancelEventActivityBehavior(CancelEventDefinition)}.
    * <ul>
    *   <li>Then return not Interrupting.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createBoundaryCancelEventActivityBehavior(CancelEventDefinition)}
+   * Method under test: {@link TestActivityBehaviorFactory#createBoundaryCancelEventActivityBehavior(CancelEventDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.BoundaryCancelEventActivityBehavior TestActivityBehaviorFactory.createBoundaryCancelEventActivityBehavior(CancelEventDefinition)"})
   public void testCreateBoundaryCancelEventActivityBehavior_thenReturnNotInterrupting() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -878,13 +866,14 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createBoundaryTimerEventActivityBehavior(BoundaryEvent, TimerEventDefinition, boolean)}.
+   * Test {@link TestActivityBehaviorFactory#createBoundaryTimerEventActivityBehavior(BoundaryEvent, TimerEventDefinition, boolean)}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createBoundaryTimerEventActivityBehavior(BoundaryEvent, TimerEventDefinition, boolean)}
+   * Method under test: {@link TestActivityBehaviorFactory#createBoundaryTimerEventActivityBehavior(BoundaryEvent, TimerEventDefinition, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.BoundaryTimerEventActivityBehavior TestActivityBehaviorFactory.createBoundaryTimerEventActivityBehavior(BoundaryEvent, TimerEventDefinition, boolean)"})
   public void testCreateBoundaryTimerEventActivityBehavior() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -898,16 +887,17 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createBoundaryTimerEventActivityBehavior(BoundaryEvent, TimerEventDefinition, boolean)}.
+   * Test {@link TestActivityBehaviorFactory#createBoundaryTimerEventActivityBehavior(BoundaryEvent, TimerEventDefinition, boolean)}.
    * <ul>
    *   <li>Then return Interrupting.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createBoundaryTimerEventActivityBehavior(BoundaryEvent, TimerEventDefinition, boolean)}
+   * Method under test: {@link TestActivityBehaviorFactory#createBoundaryTimerEventActivityBehavior(BoundaryEvent, TimerEventDefinition, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.BoundaryTimerEventActivityBehavior TestActivityBehaviorFactory.createBoundaryTimerEventActivityBehavior(BoundaryEvent, TimerEventDefinition, boolean)"})
   public void testCreateBoundaryTimerEventActivityBehavior_thenReturnInterrupting() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -921,13 +911,14 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createBoundarySignalEventActivityBehavior(BoundaryEvent, SignalEventDefinition, Signal, boolean)}.
+   * Test {@link TestActivityBehaviorFactory#createBoundarySignalEventActivityBehavior(BoundaryEvent, SignalEventDefinition, Signal, boolean)}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createBoundarySignalEventActivityBehavior(BoundaryEvent, SignalEventDefinition, Signal, boolean)}
+   * Method under test: {@link TestActivityBehaviorFactory#createBoundarySignalEventActivityBehavior(BoundaryEvent, SignalEventDefinition, Signal, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.BoundarySignalEventActivityBehavior TestActivityBehaviorFactory.createBoundarySignalEventActivityBehavior(BoundaryEvent, SignalEventDefinition, Signal, boolean)"})
   public void testCreateBoundarySignalEventActivityBehavior() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -942,16 +933,17 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createBoundarySignalEventActivityBehavior(BoundaryEvent, SignalEventDefinition, Signal, boolean)}.
+   * Test {@link TestActivityBehaviorFactory#createBoundarySignalEventActivityBehavior(BoundaryEvent, SignalEventDefinition, Signal, boolean)}.
    * <ul>
    *   <li>Then return Interrupting.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createBoundarySignalEventActivityBehavior(BoundaryEvent, SignalEventDefinition, Signal, boolean)}
+   * Method under test: {@link TestActivityBehaviorFactory#createBoundarySignalEventActivityBehavior(BoundaryEvent, SignalEventDefinition, Signal, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.BoundarySignalEventActivityBehavior TestActivityBehaviorFactory.createBoundarySignalEventActivityBehavior(BoundaryEvent, SignalEventDefinition, Signal, boolean)"})
   public void testCreateBoundarySignalEventActivityBehavior_thenReturnInterrupting() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -966,13 +958,14 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createBoundaryMessageEventActivityBehavior(BoundaryEvent, MessageEventDefinition, boolean)}.
+   * Test {@link TestActivityBehaviorFactory#createBoundaryMessageEventActivityBehavior(BoundaryEvent, MessageEventDefinition, boolean)}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createBoundaryMessageEventActivityBehavior(BoundaryEvent, MessageEventDefinition, boolean)}
+   * Method under test: {@link TestActivityBehaviorFactory#createBoundaryMessageEventActivityBehavior(BoundaryEvent, MessageEventDefinition, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "BoundaryMessageEventActivityBehavior TestActivityBehaviorFactory.createBoundaryMessageEventActivityBehavior(BoundaryEvent, MessageEventDefinition, boolean)"})
   public void testCreateBoundaryMessageEventActivityBehavior() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -997,13 +990,14 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createBoundaryCompensateEventActivityBehavior(BoundaryEvent, CompensateEventDefinition, boolean)}.
+   * Test {@link TestActivityBehaviorFactory#createBoundaryCompensateEventActivityBehavior(BoundaryEvent, CompensateEventDefinition, boolean)}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createBoundaryCompensateEventActivityBehavior(BoundaryEvent, CompensateEventDefinition, boolean)}
+   * Method under test: {@link TestActivityBehaviorFactory#createBoundaryCompensateEventActivityBehavior(BoundaryEvent, CompensateEventDefinition, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.BoundaryCompensateEventActivityBehavior TestActivityBehaviorFactory.createBoundaryCompensateEventActivityBehavior(BoundaryEvent, CompensateEventDefinition, boolean)"})
   public void testCreateBoundaryCompensateEventActivityBehavior() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -1017,16 +1011,17 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createBoundaryCompensateEventActivityBehavior(BoundaryEvent, CompensateEventDefinition, boolean)}.
+   * Test {@link TestActivityBehaviorFactory#createBoundaryCompensateEventActivityBehavior(BoundaryEvent, CompensateEventDefinition, boolean)}.
    * <ul>
    *   <li>Then return Interrupting.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createBoundaryCompensateEventActivityBehavior(BoundaryEvent, CompensateEventDefinition, boolean)}
+   * Method under test: {@link TestActivityBehaviorFactory#createBoundaryCompensateEventActivityBehavior(BoundaryEvent, CompensateEventDefinition, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.behavior.BoundaryCompensateEventActivityBehavior TestActivityBehaviorFactory.createBoundaryCompensateEventActivityBehavior(BoundaryEvent, CompensateEventDefinition, boolean)"})
   public void testCreateBoundaryCompensateEventActivityBehavior_thenReturnInterrupting() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -1040,13 +1035,14 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createThrowMessageEventActivityBehavior(ThrowEvent, MessageEventDefinition, Message)}.
+   * Test {@link TestActivityBehaviorFactory#createThrowMessageEventActivityBehavior(ThrowEvent, MessageEventDefinition, Message)}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createThrowMessageEventActivityBehavior(ThrowEvent, MessageEventDefinition, Message)}
+   * Method under test: {@link TestActivityBehaviorFactory#createThrowMessageEventActivityBehavior(ThrowEvent, MessageEventDefinition, Message)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "IntermediateThrowMessageEventActivityBehavior TestActivityBehaviorFactory.createThrowMessageEventActivityBehavior(ThrowEvent, MessageEventDefinition, Message)"})
   public void testCreateThrowMessageEventActivityBehavior() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -1060,26 +1056,23 @@ public class TestActivityBehaviorFactoryDiffblueTest {
             new Message("42", "Name", "Item Ref"));
 
     // Assert
-    MessageExecutionContext messageExecutionContext = actualCreateThrowMessageEventActivityBehaviorResult
-        .getMessageExecutionContext();
-    assertTrue(messageExecutionContext instanceof DefaultMessageExecutionContext);
-    assertTrue(((DefaultMessageExecutionContext) messageExecutionContext)
-        .getMessagePayloadMappingProvider() instanceof BpmnMessagePayloadMappingProvider);
+    assertTrue(actualCreateThrowMessageEventActivityBehaviorResult
+        .getMessageExecutionContext() instanceof DefaultMessageExecutionContext);
     assertTrue(
         actualCreateThrowMessageEventActivityBehaviorResult.getDelegate() instanceof DefaultThrowMessageJavaDelegate);
-    assertNull(((DefaultMessageExecutionContext) messageExecutionContext).getExpressionManager());
     assertSame(messageEventDefinition, actualCreateThrowMessageEventActivityBehaviorResult.getMessageEventDefinition());
     assertSame(throwEvent, actualCreateThrowMessageEventActivityBehaviorResult.getThrowEvent());
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#createThrowMessageEndEventActivityBehavior(EndEvent, MessageEventDefinition, Message)}.
+   * Test {@link TestActivityBehaviorFactory#createThrowMessageEndEventActivityBehavior(EndEvent, MessageEventDefinition, Message)}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#createThrowMessageEndEventActivityBehavior(EndEvent, MessageEventDefinition, Message)}
+   * Method under test: {@link TestActivityBehaviorFactory#createThrowMessageEndEventActivityBehavior(EndEvent, MessageEventDefinition, Message)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ThrowMessageEndEventActivityBehavior TestActivityBehaviorFactory.createThrowMessageEndEventActivityBehavior(EndEvent, MessageEventDefinition, Message)"})
   public void testCreateThrowMessageEndEventActivityBehavior() {
     // Arrange
     TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory(
@@ -1093,29 +1086,26 @@ public class TestActivityBehaviorFactoryDiffblueTest {
             new Message("42", "Name", "Item Ref"));
 
     // Assert
-    MessageExecutionContext messageExecutionContext = actualCreateThrowMessageEndEventActivityBehaviorResult
-        .getMessageExecutionContext();
-    assertTrue(messageExecutionContext instanceof DefaultMessageExecutionContext);
-    assertTrue(((DefaultMessageExecutionContext) messageExecutionContext)
-        .getMessagePayloadMappingProvider() instanceof BpmnMessagePayloadMappingProvider);
+    assertTrue(actualCreateThrowMessageEndEventActivityBehaviorResult
+        .getMessageExecutionContext() instanceof DefaultMessageExecutionContext);
     assertTrue(actualCreateThrowMessageEndEventActivityBehaviorResult
         .getDelegate() instanceof DefaultThrowMessageJavaDelegate);
-    assertNull(((DefaultMessageExecutionContext) messageExecutionContext).getExpressionManager());
     assertSame(endEvent, actualCreateThrowMessageEndEventActivityBehaviorResult.getEndEvent());
     assertSame(messageEventDefinition,
         actualCreateThrowMessageEndEventActivityBehaviorResult.getMessageEventDefinition());
   }
 
   /**
-   * Test {@link TestActivityBehaviorFactory#addClassDelegateMock(String, Class)}
-   * with {@code originalClassFqn}, {@code mockClass}.
+   * Test {@link TestActivityBehaviorFactory#addClassDelegateMock(String, Class)} with {@code originalClassFqn}, {@code mockClass}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#addClassDelegateMock(String, Class)}
+   * Method under test: {@link TestActivityBehaviorFactory#addClassDelegateMock(String, Class)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TestActivityBehaviorFactory.addClassDelegateMock(String, Class)"})
   public void testAddClassDelegateMockWithOriginalClassFqnMockClass() {
     // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory();
     Class<Object> mockClass = Object.class;
 
     // Act
@@ -1128,15 +1118,18 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test {@link TestActivityBehaviorFactory#addClassDelegateMock(String, String)}
-   * with {@code originalClassFqn}, {@code mockedClassFqn}.
+   * Test {@link TestActivityBehaviorFactory#addClassDelegateMock(String, String)} with {@code originalClassFqn}, {@code mockedClassFqn}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#addClassDelegateMock(String, String)}
+   * Method under test: {@link TestActivityBehaviorFactory#addClassDelegateMock(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TestActivityBehaviorFactory.addClassDelegateMock(String, String)"})
   public void testAddClassDelegateMockWithOriginalClassFqnMockedClassFqn() {
-    // Arrange and Act
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory();
+
+    // Act
     testActivityBehaviorFactory.addClassDelegateMock("Original Class Fqn", "Mocked Class Fqn");
 
     // Assert
@@ -1148,12 +1141,16 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   /**
    * Test {@link TestActivityBehaviorFactory#addNoOpServiceTaskById(String)}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#addNoOpServiceTaskById(String)}
+   * Method under test: {@link TestActivityBehaviorFactory#addNoOpServiceTaskById(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TestActivityBehaviorFactory.addNoOpServiceTaskById(String)"})
   public void testAddNoOpServiceTaskById() {
-    // Arrange and Act
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory();
+
+    // Act
     testActivityBehaviorFactory.addNoOpServiceTaskById("42");
 
     // Assert
@@ -1163,15 +1160,18 @@ public class TestActivityBehaviorFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TestActivityBehaviorFactory#addNoOpServiceTaskByClassName(String)}.
+   * Test {@link TestActivityBehaviorFactory#addNoOpServiceTaskByClassName(String)}.
    * <p>
-   * Method under test:
-   * {@link TestActivityBehaviorFactory#addNoOpServiceTaskByClassName(String)}
+   * Method under test: {@link TestActivityBehaviorFactory#addNoOpServiceTaskByClassName(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TestActivityBehaviorFactory.addNoOpServiceTaskByClassName(String)"})
   public void testAddNoOpServiceTaskByClassName() {
-    // Arrange and Act
+    // Arrange
+    TestActivityBehaviorFactory testActivityBehaviorFactory = new TestActivityBehaviorFactory();
+
+    // Act
     testActivityBehaviorFactory.addNoOpServiceTaskByClassName("Class Name");
 
     // Assert

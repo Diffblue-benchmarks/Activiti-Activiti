@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.api.model.shared.event.RuntimeEvent;
@@ -44,6 +45,7 @@ import org.activiti.api.process.runtime.events.ProcessResumedEvent;
 import org.activiti.api.process.runtime.events.ProcessStartedEvent;
 import org.activiti.api.process.runtime.events.ProcessSuspendedEvent;
 import org.activiti.api.task.model.Task;
+import org.activiti.api.task.model.Task.TaskStatus;
 import org.activiti.api.task.runtime.TaskRuntime;
 import org.activiti.api.task.runtime.events.TaskAssignedEvent;
 import org.activiti.api.task.runtime.events.TaskCancelledEvent;
@@ -60,17 +62,19 @@ import org.activiti.test.assertions.SignalAssertionsImpl;
 import org.activiti.test.assertions.TaskAssertionsImpl;
 import org.activiti.test.operations.ProcessRuntimeOperations;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ActivitiAssertionsAutoConfigurationDiffblueTest {
   /**
    * Test {@link ActivitiAssertionsAutoConfiguration#handledEvents()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#handledEvents()}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#handledEvents()}
    */
   @Test
   @DisplayName("Test handledEvents()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"LocalEventSource ActivitiAssertionsAutoConfiguration.handledEvents()"})
   void testHandledEvents() {
     // Arrange and Act
     LocalEventSource actualHandledEventsResult = (new ActivitiAssertionsAutoConfiguration()).handledEvents();
@@ -85,14 +89,14 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#localTaskProvider(TaskRuntime)}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#localTaskProvider(TaskRuntime)}.
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#localTaskProvider(TaskRuntime)}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#localTaskProvider(TaskRuntime)}
    */
   @Test
   @DisplayName("Test localTaskProvider(TaskRuntime)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"TaskSource ActivitiAssertionsAutoConfiguration.localTaskProvider(TaskRuntime)"})
   void testLocalTaskProvider() {
     // Arrange and Act
     TaskSource actualLocalTaskProviderResult = (new ActivitiAssertionsAutoConfiguration())
@@ -100,22 +104,22 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
 
     // Assert
     assertTrue(actualLocalTaskProviderResult instanceof LocalTaskSource);
-    assertTrue(actualLocalTaskProviderResult.canHandle(Task.TaskStatus.CREATED));
+    assertTrue(actualLocalTaskProviderResult.canHandle(TaskStatus.CREATED));
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#processRuntimeOperations(ProcessRuntime, EventSource, List)}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#processRuntimeOperations(ProcessRuntime, EventSource, List)}.
    * <ul>
-   *   <li>Given {@link LocalTaskSource#LocalTaskSource(TaskRuntime)} with
-   * {@link TaskRuntime}.</li>
+   *   <li>Given {@link LocalTaskSource#LocalTaskSource(TaskRuntime)} with {@link TaskRuntime}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#processRuntimeOperations(ProcessRuntime, EventSource, List)}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#processRuntimeOperations(ProcessRuntime, EventSource, List)}
    */
   @Test
   @DisplayName("Test processRuntimeOperations(ProcessRuntime, EventSource, List); given LocalTaskSource(TaskRuntime) with TaskRuntime")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "ProcessRuntimeOperations ActivitiAssertionsAutoConfiguration.processRuntimeOperations(ProcessRuntime, EventSource, List)"})
   void testProcessRuntimeOperations_givenLocalTaskSourceWithTaskRuntime() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -135,18 +139,18 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#processRuntimeOperations(ProcessRuntime, EventSource, List)}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#processRuntimeOperations(ProcessRuntime, EventSource, List)}.
    * <ul>
-   *   <li>Given {@link LocalTaskSource#LocalTaskSource(TaskRuntime)} with
-   * {@link TaskRuntime}.</li>
+   *   <li>Given {@link LocalTaskSource#LocalTaskSource(TaskRuntime)} with {@link TaskRuntime}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#processRuntimeOperations(ProcessRuntime, EventSource, List)}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#processRuntimeOperations(ProcessRuntime, EventSource, List)}
    */
   @Test
   @DisplayName("Test processRuntimeOperations(ProcessRuntime, EventSource, List); given LocalTaskSource(TaskRuntime) with TaskRuntime")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "ProcessRuntimeOperations ActivitiAssertionsAutoConfiguration.processRuntimeOperations(ProcessRuntime, EventSource, List)"})
   void testProcessRuntimeOperations_givenLocalTaskSourceWithTaskRuntime2() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -167,17 +171,18 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#processRuntimeOperations(ProcessRuntime, EventSource, List)}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#processRuntimeOperations(ProcessRuntime, EventSource, List)}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#processRuntimeOperations(ProcessRuntime, EventSource, List)}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#processRuntimeOperations(ProcessRuntime, EventSource, List)}
    */
   @Test
   @DisplayName("Test processRuntimeOperations(ProcessRuntime, EventSource, List); when ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "ProcessRuntimeOperations ActivitiAssertionsAutoConfiguration.processRuntimeOperations(ProcessRuntime, EventSource, List)"})
   void testProcessRuntimeOperations_whenArrayList() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -194,18 +199,18 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#taskRuntimeOperations(TaskRuntime, EventSource, List)}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#taskRuntimeOperations(TaskRuntime, EventSource, List)}.
    * <ul>
-   *   <li>Given {@link LocalTaskSource#LocalTaskSource(TaskRuntime)} with
-   * {@link TaskRuntime}.</li>
+   *   <li>Given {@link LocalTaskSource#LocalTaskSource(TaskRuntime)} with {@link TaskRuntime}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#taskRuntimeOperations(TaskRuntime, EventSource, List)}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#taskRuntimeOperations(TaskRuntime, EventSource, List)}
    */
   @Test
   @DisplayName("Test taskRuntimeOperations(TaskRuntime, EventSource, List); given LocalTaskSource(TaskRuntime) with TaskRuntime")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.test.operations.TaskRuntimeOperations ActivitiAssertionsAutoConfiguration.taskRuntimeOperations(TaskRuntime, EventSource, List)"})
   void testTaskRuntimeOperations_givenLocalTaskSourceWithTaskRuntime() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -221,18 +226,18 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#taskRuntimeOperations(TaskRuntime, EventSource, List)}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#taskRuntimeOperations(TaskRuntime, EventSource, List)}.
    * <ul>
-   *   <li>Given {@link LocalTaskSource#LocalTaskSource(TaskRuntime)} with
-   * {@link TaskRuntime}.</li>
+   *   <li>Given {@link LocalTaskSource#LocalTaskSource(TaskRuntime)} with {@link TaskRuntime}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#taskRuntimeOperations(TaskRuntime, EventSource, List)}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#taskRuntimeOperations(TaskRuntime, EventSource, List)}
    */
   @Test
   @DisplayName("Test taskRuntimeOperations(TaskRuntime, EventSource, List); given LocalTaskSource(TaskRuntime) with TaskRuntime")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.test.operations.TaskRuntimeOperations ActivitiAssertionsAutoConfiguration.taskRuntimeOperations(TaskRuntime, EventSource, List)"})
   void testTaskRuntimeOperations_givenLocalTaskSourceWithTaskRuntime2() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -249,17 +254,18 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#taskRuntimeOperations(TaskRuntime, EventSource, List)}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#taskRuntimeOperations(TaskRuntime, EventSource, List)}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#taskRuntimeOperations(TaskRuntime, EventSource, List)}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#taskRuntimeOperations(TaskRuntime, EventSource, List)}
    */
   @Test
   @DisplayName("Test taskRuntimeOperations(TaskRuntime, EventSource, List); when ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.test.operations.TaskRuntimeOperations ActivitiAssertionsAutoConfiguration.taskRuntimeOperations(TaskRuntime, EventSource, List)"})
   void testTaskRuntimeOperations_whenArrayList() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -272,14 +278,15 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnActivityStartedListener()}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnActivityStartedListener()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnActivityStartedListener()}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnActivityStartedListener()}
    */
   @Test
   @DisplayName("Test keepInMemoryBpmnActivityStartedListener()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.runtime.events.listener.BPMNElementEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryBpmnActivityStartedListener()"})
   void testKeepInMemoryBpmnActivityStartedListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -295,14 +302,15 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnActivityCompletedListener()}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnActivityCompletedListener()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnActivityCompletedListener()}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnActivityCompletedListener()}
    */
   @Test
   @DisplayName("Test keepInMemoryBpmnActivityCompletedListener()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.runtime.events.listener.BPMNElementEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryBpmnActivityCompletedListener()"})
   void testKeepInMemoryBpmnActivityCompletedListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -318,14 +326,15 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnActivityCancelledListener()}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnActivityCancelledListener()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnActivityCancelledListener()}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnActivityCancelledListener()}
    */
   @Test
   @DisplayName("Test keepInMemoryBpmnActivityCancelledListener()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.runtime.events.listener.BPMNElementEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryBpmnActivityCancelledListener()"})
   void testKeepInMemoryBpmnActivityCancelledListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -341,14 +350,15 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnSequenceFlowTakenListener()}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnSequenceFlowTakenListener()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnSequenceFlowTakenListener()}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnSequenceFlowTakenListener()}
    */
   @Test
   @DisplayName("Test keepInMemoryBpmnSequenceFlowTakenListener()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.runtime.events.listener.BPMNElementEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryBpmnSequenceFlowTakenListener()"})
   void testKeepInMemoryBpmnSequenceFlowTakenListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -364,14 +374,15 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessCreatedListener()}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessCreatedListener()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessCreatedListener()}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessCreatedListener()}
    */
   @Test
   @DisplayName("Test keepInMemoryProcessCreatedListener()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryProcessCreatedListener()"})
   void testKeepInMemoryProcessCreatedListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -387,14 +398,15 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessStartedListener()}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessStartedListener()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessStartedListener()}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessStartedListener()}
    */
   @Test
   @DisplayName("Test keepInMemoryProcessStartedListener()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryProcessStartedListener()"})
   void testKeepInMemoryProcessStartedListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -410,14 +422,15 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessCompletedListener()}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessCompletedListener()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessCompletedListener()}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessCompletedListener()}
    */
   @Test
   @DisplayName("Test keepInMemoryProcessCompletedListener()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryProcessCompletedListener()"})
   void testKeepInMemoryProcessCompletedListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -433,14 +446,15 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessResumedListener()}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessResumedListener()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessResumedListener()}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessResumedListener()}
    */
   @Test
   @DisplayName("Test keepInMemoryProcessResumedListener()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryProcessResumedListener()"})
   void testKeepInMemoryProcessResumedListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -456,14 +470,15 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessSuspendedListener()}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessSuspendedListener()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessSuspendedListener()}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessSuspendedListener()}
    */
   @Test
   @DisplayName("Test keepInMemoryProcessSuspendedListener()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryProcessSuspendedListener()"})
   void testKeepInMemoryProcessSuspendedListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -479,14 +494,15 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessCancelledListener()}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessCancelledListener()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessCancelledListener()}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryProcessCancelledListener()}
    */
   @Test
   @DisplayName("Test keepInMemoryProcessCancelledListener()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryProcessCancelledListener()"})
   void testKeepInMemoryProcessCancelledListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -502,14 +518,15 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryVariableCreatedEventListener()}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryVariableCreatedEventListener()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryVariableCreatedEventListener()}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryVariableCreatedEventListener()}
    */
   @Test
   @DisplayName("Test keepInMemoryVariableCreatedEventListener()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.runtime.shared.events.VariableEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryVariableCreatedEventListener()"})
   void testKeepInMemoryVariableCreatedEventListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -525,14 +542,15 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryVariableDeletedEventListener()}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryVariableDeletedEventListener()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryVariableDeletedEventListener()}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryVariableDeletedEventListener()}
    */
   @Test
   @DisplayName("Test keepInMemoryVariableDeletedEventListener()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.runtime.shared.events.VariableEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryVariableDeletedEventListener()"})
   void testKeepInMemoryVariableDeletedEventListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -548,14 +566,15 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryVariableUpdatedEventListener()}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryVariableUpdatedEventListener()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryVariableUpdatedEventListener()}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryVariableUpdatedEventListener()}
    */
   @Test
   @DisplayName("Test keepInMemoryVariableUpdatedEventListener()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.runtime.shared.events.VariableEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryVariableUpdatedEventListener()"})
   void testKeepInMemoryVariableUpdatedEventListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -571,14 +590,15 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskCreatedEventListener()}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskCreatedEventListener()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskCreatedEventListener()}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskCreatedEventListener()}
    */
   @Test
   @DisplayName("Test keepInMemoryTaskCreatedEventListener()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.task.runtime.events.listener.TaskEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryTaskCreatedEventListener()"})
   void testKeepInMemoryTaskCreatedEventListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -594,14 +614,15 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskUpdatedEventListener()}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskUpdatedEventListener()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskUpdatedEventListener()}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskUpdatedEventListener()}
    */
   @Test
   @DisplayName("Test keepInMemoryTaskUpdatedEventListener()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.task.runtime.events.listener.TaskEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryTaskUpdatedEventListener()"})
   void testKeepInMemoryTaskUpdatedEventListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -617,14 +638,15 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskCompletedEventListener()}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskCompletedEventListener()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskCompletedEventListener()}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskCompletedEventListener()}
    */
   @Test
   @DisplayName("Test keepInMemoryTaskCompletedEventListener()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.task.runtime.events.listener.TaskEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryTaskCompletedEventListener()"})
   void testKeepInMemoryTaskCompletedEventListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -640,14 +662,15 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskSuspendedEventListener()}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskSuspendedEventListener()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskSuspendedEventListener()}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskSuspendedEventListener()}
    */
   @Test
   @DisplayName("Test keepInMemoryTaskSuspendedEventListener()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.task.runtime.events.listener.TaskEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryTaskSuspendedEventListener()"})
   void testKeepInMemoryTaskSuspendedEventListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -663,14 +686,15 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskAssignedEventListener()}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskAssignedEventListener()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskAssignedEventListener()}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskAssignedEventListener()}
    */
   @Test
   @DisplayName("Test keepInMemoryTaskAssignedEventListener()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.task.runtime.events.listener.TaskEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryTaskAssignedEventListener()"})
   void testKeepInMemoryTaskAssignedEventListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -686,14 +710,15 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskCancelledEventListener()}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskCancelledEventListener()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskCancelledEventListener()}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTaskCancelledEventListener()}
    */
   @Test
   @DisplayName("Test keepInMemoryTaskCancelledEventListener()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.task.runtime.events.listener.TaskEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryTaskCancelledEventListener()"})
   void testKeepInMemoryTaskCancelledEventListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -709,14 +734,15 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnSignalReceivedListener()}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnSignalReceivedListener()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnSignalReceivedListener()}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryBpmnSignalReceivedListener()}
    */
   @Test
   @DisplayName("Test keepInMemoryBpmnSignalReceivedListener()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.runtime.events.listener.BPMNElementEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryBpmnSignalReceivedListener()"})
   void testKeepInMemoryBpmnSignalReceivedListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -732,14 +758,15 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerScheduledListener()}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerScheduledListener()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerScheduledListener()}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerScheduledListener()}
    */
   @Test
   @DisplayName("Test keepInMemoryTimerScheduledListener()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.runtime.events.listener.BPMNElementEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryTimerScheduledListener()"})
   void testKeepInMemoryTimerScheduledListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -749,22 +776,21 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
     activitiAssertionsAutoConfiguration.keepInMemoryTimerScheduledListener().onEvent(bpmnTimerScheduledEvent);
 
     // Assert
-    LocalEventSource handledEventsResult = activitiAssertionsAutoConfiguration.handledEvents();
-    List<RuntimeEvent<?, ?>> events = handledEventsResult.getEvents();
+    List<RuntimeEvent<?, ?>> events = activitiAssertionsAutoConfiguration.handledEvents().getEvents();
     assertEquals(1, events.size());
-    assertEquals(events, handledEventsResult.getTimerScheduledEvents());
     assertSame(bpmnTimerScheduledEvent, events.get(0));
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerFiredListener()}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerFiredListener()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerFiredListener()}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerFiredListener()}
    */
   @Test
   @DisplayName("Test keepInMemoryTimerFiredListener()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.runtime.events.listener.BPMNElementEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryTimerFiredListener()"})
   void testKeepInMemoryTimerFiredListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -774,22 +800,21 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
     activitiAssertionsAutoConfiguration.keepInMemoryTimerFiredListener().onEvent(bpmnTimerFiredEvent);
 
     // Assert
-    LocalEventSource handledEventsResult = activitiAssertionsAutoConfiguration.handledEvents();
-    List<RuntimeEvent<?, ?>> events = handledEventsResult.getEvents();
+    List<RuntimeEvent<?, ?>> events = activitiAssertionsAutoConfiguration.handledEvents().getEvents();
     assertEquals(1, events.size());
-    assertEquals(events, handledEventsResult.getTimerFiredEvents());
     assertSame(bpmnTimerFiredEvent, events.get(0));
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerExecutedListener()}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerExecutedListener()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerExecutedListener()}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerExecutedListener()}
    */
   @Test
   @DisplayName("Test keepInMemoryTimerExecutedListener()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.runtime.events.listener.BPMNElementEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryTimerExecutedListener()"})
   void testKeepInMemoryTimerExecutedListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -805,14 +830,15 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerFailedListener()}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerFailedListener()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerFailedListener()}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerFailedListener()}
    */
   @Test
   @DisplayName("Test keepInMemoryTimerFailedListener()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.runtime.events.listener.BPMNElementEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryTimerFailedListener()"})
   void testKeepInMemoryTimerFailedListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -828,14 +854,15 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerCancelledListener()}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerCancelledListener()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerCancelledListener()}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryTimerCancelledListener()}
    */
   @Test
   @DisplayName("Test keepInMemoryTimerCancelledListener()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.runtime.events.listener.BPMNElementEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryTimerCancelledListener()"})
   void testKeepInMemoryTimerCancelledListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -845,22 +872,21 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
     activitiAssertionsAutoConfiguration.keepInMemoryTimerCancelledListener().onEvent(bpmnTimerCancelledEvent);
 
     // Assert
-    LocalEventSource handledEventsResult = activitiAssertionsAutoConfiguration.handledEvents();
-    List<RuntimeEvent<?, ?>> events = handledEventsResult.getEvents();
+    List<RuntimeEvent<?, ?>> events = activitiAssertionsAutoConfiguration.handledEvents().getEvents();
     assertEquals(1, events.size());
-    assertEquals(events, handledEventsResult.getTimerCancelledEvents());
     assertSame(bpmnTimerCancelledEvent, events.get(0));
   }
 
   /**
-   * Test
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryErrorReceivedListener()}.
+   * Test {@link ActivitiAssertionsAutoConfiguration#keepInMemoryErrorReceivedListener()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiAssertionsAutoConfiguration#keepInMemoryErrorReceivedListener()}
+   * Method under test: {@link ActivitiAssertionsAutoConfiguration#keepInMemoryErrorReceivedListener()}
    */
   @Test
   @DisplayName("Test keepInMemoryErrorReceivedListener()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.runtime.events.listener.BPMNElementEventListener ActivitiAssertionsAutoConfiguration.keepInMemoryErrorReceivedListener()"})
   void testKeepInMemoryErrorReceivedListener() {
     // Arrange
     ActivitiAssertionsAutoConfiguration activitiAssertionsAutoConfiguration = new ActivitiAssertionsAutoConfiguration();
@@ -878,11 +904,12 @@ class ActivitiAssertionsAutoConfigurationDiffblueTest {
   /**
    * Test new {@link ActivitiAssertionsAutoConfiguration} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link ActivitiAssertionsAutoConfiguration}
+   * Method under test: default or parameterless constructor of {@link ActivitiAssertionsAutoConfiguration}
    */
   @Test
   @DisplayName("Test new ActivitiAssertionsAutoConfiguration (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ActivitiAssertionsAutoConfiguration.<init>()"})
   void testNewActivitiAssertionsAutoConfiguration() {
     // Arrange, Act and Assert
     LocalEventSource handledEventsResult = (new ActivitiAssertionsAutoConfiguration()).handledEvents();

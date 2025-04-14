@@ -16,8 +16,11 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertThrows;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class SetJobRetriesCmdDiffblueTest {
   /**
@@ -29,6 +32,8 @@ public class SetJobRetriesCmdDiffblueTest {
    * Method under test: {@link SetJobRetriesCmd#SetJobRetriesCmd(String, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SetJobRetriesCmd.<init>(String, int)"})
   public void testNewSetJobRetriesCmd_whenEmptyString() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> new SetJobRetriesCmd("", 1));
@@ -45,6 +50,8 @@ public class SetJobRetriesCmdDiffblueTest {
    * Method under test: {@link SetJobRetriesCmd#SetJobRetriesCmd(String, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SetJobRetriesCmd.<init>(String, int)"})
   public void testNewSetJobRetriesCmd_whenMinusOne_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> new SetJobRetriesCmd("42", -1));
@@ -61,9 +68,11 @@ public class SetJobRetriesCmdDiffblueTest {
    * Method under test: {@link SetJobRetriesCmd#SetJobRetriesCmd(String, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SetJobRetriesCmd.<init>(String, int)"})
   public void testNewSetJobRetriesCmd_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> new SetJobRetriesCmd(null, 1));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> new SetJobRetriesCmd(null, 0));
 
   }
 }

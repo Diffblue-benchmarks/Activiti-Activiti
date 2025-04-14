@@ -16,20 +16,23 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class CreateAttachmentCmdDiffblueTest {
   /**
-   * Test
-   * {@link CreateAttachmentCmd#CreateAttachmentCmd(String, String, String, String, String, InputStream, String)}.
+   * Test {@link CreateAttachmentCmd#CreateAttachmentCmd(String, String, String, String, String, InputStream, String)}.
    * <p>
-   * Method under test:
-   * {@link CreateAttachmentCmd#CreateAttachmentCmd(String, String, String, String, String, InputStream, String)}
+   * Method under test: {@link CreateAttachmentCmd#CreateAttachmentCmd(String, String, String, String, String, InputStream, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CreateAttachmentCmd.<init>(String, String, String, String, String, InputStream, String)"})
   public void testNewCreateAttachmentCmd() throws IOException {
     // Arrange, Act and Assert
     assertEquals(8,

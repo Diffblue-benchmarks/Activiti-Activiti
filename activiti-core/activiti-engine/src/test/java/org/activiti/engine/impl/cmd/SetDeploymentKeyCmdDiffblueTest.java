@@ -16,7 +16,23 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import org.activiti.engine.ActivitiEngineAgendaFactory;
+import org.activiti.engine.ActivitiIllegalArgumentException;
+import org.activiti.engine.delegate.event.impl.ActivitiEventDispatcherImpl;
+import org.activiti.engine.impl.agenda.DefaultActivitiEngineAgenda;
+import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
+import org.activiti.engine.impl.interceptor.Command;
+import org.activiti.engine.impl.interceptor.CommandContext;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.mockito.Mockito;
 
 public class SetDeploymentKeyCmdDiffblueTest {
   /**
@@ -32,6 +48,10 @@ public class SetDeploymentKeyCmdDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SetDeploymentKeyCmd.<init>(String, String)", "String SetDeploymentKeyCmd.getDeploymentId()",
+      "String SetDeploymentKeyCmd.getKey()", "void SetDeploymentKeyCmd.setDeploymentId(String)",
+      "void SetDeploymentKeyCmd.setKey(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     SetDeploymentKeyCmd actualSetDeploymentKeyCmd = new SetDeploymentKeyCmd("42", "Key");
@@ -39,8 +59,39 @@ public class SetDeploymentKeyCmdDiffblueTest {
     actualSetDeploymentKeyCmd.setKey("Key");
     String actualDeploymentId = actualSetDeploymentKeyCmd.getDeploymentId();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualDeploymentId);
     assertEquals("Key", actualSetDeploymentKeyCmd.getKey());
+  }
+
+  /**
+   * Test {@link SetDeploymentKeyCmd#execute(CommandContext)}.
+   * <ul>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SetDeploymentKeyCmd#execute(CommandContext)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Void SetDeploymentKeyCmd.execute(CommandContext)"})
+  public void testExecute_thenThrowActivitiIllegalArgumentException() {
+    // Arrange
+    SetDeploymentKeyCmd setDeploymentKeyCmd = new SetDeploymentKeyCmd(null, "Key");
+
+    ActivitiEventDispatcherImpl eventDispatcher = new ActivitiEventDispatcherImpl();
+    eventDispatcher.setEnabled(false);
+    ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
+    when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
+        .thenReturn(new DefaultActivitiEngineAgenda(null));
+
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
+    processEngineConfiguration.setEventDispatcher(eventDispatcher);
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> setDeploymentKeyCmd.execute(new CommandContext(mock(Command.class), processEngineConfiguration)));
+    verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
   }
 }

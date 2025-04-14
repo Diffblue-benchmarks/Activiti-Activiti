@@ -20,20 +20,23 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import org.activiti.engine.impl.persistence.entity.EventSubscriptionEntity;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class SignalEventSubscriptionByNameAndExecutionMatcherDiffblueTest {
   /**
-   * Test
-   * {@link SignalEventSubscriptionByNameAndExecutionMatcher#isRetained(EventSubscriptionEntity, Object)}
-   * with {@code EventSubscriptionEntity}, {@code Object}.
+   * Test {@link SignalEventSubscriptionByNameAndExecutionMatcher#isRetained(EventSubscriptionEntity, Object)} with {@code EventSubscriptionEntity}, {@code Object}.
    * <p>
-   * Method under test:
-   * {@link SignalEventSubscriptionByNameAndExecutionMatcher#isRetained(EventSubscriptionEntity, Object)}
+   * Method under test: {@link SignalEventSubscriptionByNameAndExecutionMatcher#isRetained(EventSubscriptionEntity, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "boolean SignalEventSubscriptionByNameAndExecutionMatcher.isRetained(EventSubscriptionEntity, Object)"})
   public void testIsRetainedWithEventSubscriptionEntityObject() {
     // Arrange
     SignalEventSubscriptionByNameAndExecutionMatcher signalEventSubscriptionByNameAndExecutionMatcher = new SignalEventSubscriptionByNameAndExecutionMatcher();
@@ -52,14 +55,14 @@ public class SignalEventSubscriptionByNameAndExecutionMatcherDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link SignalEventSubscriptionByNameAndExecutionMatcher#isRetained(EventSubscriptionEntity, Object)}
-   * with {@code EventSubscriptionEntity}, {@code Object}.
+   * Test {@link SignalEventSubscriptionByNameAndExecutionMatcher#isRetained(EventSubscriptionEntity, Object)} with {@code EventSubscriptionEntity}, {@code Object}.
    * <p>
-   * Method under test:
-   * {@link SignalEventSubscriptionByNameAndExecutionMatcher#isRetained(EventSubscriptionEntity, Object)}
+   * Method under test: {@link SignalEventSubscriptionByNameAndExecutionMatcher#isRetained(EventSubscriptionEntity, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "boolean SignalEventSubscriptionByNameAndExecutionMatcher.isRetained(EventSubscriptionEntity, Object)"})
   public void testIsRetainedWithEventSubscriptionEntityObject2() {
     // Arrange
     SignalEventSubscriptionByNameAndExecutionMatcher signalEventSubscriptionByNameAndExecutionMatcher = new SignalEventSubscriptionByNameAndExecutionMatcher();
@@ -76,17 +79,17 @@ public class SignalEventSubscriptionByNameAndExecutionMatcherDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link SignalEventSubscriptionByNameAndExecutionMatcher#isRetained(EventSubscriptionEntity, Object)}
-   * with {@code EventSubscriptionEntity}, {@code Object}.
+   * Test {@link SignalEventSubscriptionByNameAndExecutionMatcher#isRetained(EventSubscriptionEntity, Object)} with {@code EventSubscriptionEntity}, {@code Object}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SignalEventSubscriptionByNameAndExecutionMatcher#isRetained(EventSubscriptionEntity, Object)}
+   * Method under test: {@link SignalEventSubscriptionByNameAndExecutionMatcher#isRetained(EventSubscriptionEntity, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "boolean SignalEventSubscriptionByNameAndExecutionMatcher.isRetained(EventSubscriptionEntity, Object)"})
   public void testIsRetainedWithEventSubscriptionEntityObject_given42() {
     // Arrange
     SignalEventSubscriptionByNameAndExecutionMatcher signalEventSubscriptionByNameAndExecutionMatcher = new SignalEventSubscriptionByNameAndExecutionMatcher();
@@ -105,17 +108,17 @@ public class SignalEventSubscriptionByNameAndExecutionMatcherDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link SignalEventSubscriptionByNameAndExecutionMatcher#isRetained(EventSubscriptionEntity, Object)}
-   * with {@code EventSubscriptionEntity}, {@code Object}.
+   * Test {@link SignalEventSubscriptionByNameAndExecutionMatcher#isRetained(EventSubscriptionEntity, Object)} with {@code EventSubscriptionEntity}, {@code Object}.
    * <ul>
    *   <li>Given {@code Event Type}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SignalEventSubscriptionByNameAndExecutionMatcher#isRetained(EventSubscriptionEntity, Object)}
+   * Method under test: {@link SignalEventSubscriptionByNameAndExecutionMatcher#isRetained(EventSubscriptionEntity, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "boolean SignalEventSubscriptionByNameAndExecutionMatcher.isRetained(EventSubscriptionEntity, Object)"})
   public void testIsRetainedWithEventSubscriptionEntityObject_givenEventType() {
     // Arrange
     SignalEventSubscriptionByNameAndExecutionMatcher signalEventSubscriptionByNameAndExecutionMatcher = new SignalEventSubscriptionByNameAndExecutionMatcher();

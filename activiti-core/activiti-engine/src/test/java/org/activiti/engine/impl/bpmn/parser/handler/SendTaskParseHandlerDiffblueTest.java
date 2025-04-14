@@ -18,7 +18,8 @@ package org.activiti.engine.impl.bpmn.parser.handler;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.SendTask;
 import org.activiti.engine.impl.bpmn.behavior.MailActivityBehavior;
@@ -26,18 +27,18 @@ import org.activiti.engine.impl.bpmn.helper.DefaultClassDelegateFactory;
 import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
-import org.activiti.engine.impl.cfg.BpmnParseFactory;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class SendTaskParseHandlerDiffblueTest {
   /**
-   * Test {@link SendTaskParseHandler#executeParse(BpmnParse, SendTask)} with
-   * {@code BpmnParse}, {@code SendTask}.
+   * Test {@link SendTaskParseHandler#executeParse(BpmnParse, SendTask)} with {@code BpmnParse}, {@code SendTask}.
    * <p>
-   * Method under test:
-   * {@link SendTaskParseHandler#executeParse(BpmnParse, SendTask)}
+   * Method under test: {@link SendTaskParseHandler#executeParse(BpmnParse, SendTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SendTaskParseHandler.executeParse(BpmnParse, SendTask)"})
   public void testExecuteParseWithBpmnParseSendTask() {
     // Arrange
     SendTaskParseHandler sendTaskParseHandler = new SendTaskParseHandler();
@@ -48,7 +49,7 @@ public class SendTaskParseHandlerDiffblueTest {
 
     SendTask sendTask = new SendTask();
     sendTask.setType("mail");
-    sendTask.setOperationRef(null);
+    sendTask.setOperationRef("not empty");
 
     // Act
     sendTaskParseHandler.executeParse(bpmnParse, sendTask);
@@ -60,104 +61,17 @@ public class SendTaskParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link SendTaskParseHandler#executeParse(BpmnParse, SendTask)} with
-   * {@code BpmnParse}, {@code SendTask}.
+   * Test {@link SendTaskParseHandler#executeParse(BpmnParse, SendTask)} with {@code BpmnParse}, {@code SendTask}.
    * <ul>
-   *   <li>Given {@link BpmnParseFactory}.</li>
+   *   <li>Given {@link DefaultActivityBehaviorFactory#DefaultActivityBehaviorFactory()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SendTaskParseHandler#executeParse(BpmnParse, SendTask)}
+   * Method under test: {@link SendTaskParseHandler#executeParse(BpmnParse, SendTask)}
    */
   @Test
-  public void testExecuteParseWithBpmnParseSendTask_givenBpmnParseFactory() {
-    // Arrange
-    SendTaskParseHandler sendTaskParseHandler = new SendTaskParseHandler();
-
-    BpmnParser parser = new BpmnParser();
-    parser.setBpmnParseFactory(mock(BpmnParseFactory.class));
-    BpmnParse bpmnParse = new BpmnParse(parser);
-    SendTask sendTask = new SendTask();
-
-    // Act
-    sendTaskParseHandler.executeParse(bpmnParse, sendTask);
-
-    // Assert that nothing has changed
-    assertNull(sendTask.getBehavior());
-  }
-
-  /**
-   * Test {@link SendTaskParseHandler#executeParse(BpmnParse, SendTask)} with
-   * {@code BpmnParse}, {@code SendTask}.
-   * <ul>
-   *   <li>Given empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link SendTaskParseHandler#executeParse(BpmnParse, SendTask)}
-   */
-  @Test
-  public void testExecuteParseWithBpmnParseSendTask_givenEmptyString() {
-    // Arrange
-    SendTaskParseHandler sendTaskParseHandler = new SendTaskParseHandler();
-
-    BpmnParser parser = new BpmnParser();
-    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
-    BpmnParse bpmnParse = new BpmnParse(parser);
-
-    SendTask sendTask = new SendTask();
-    sendTask.setType("");
-    sendTask.setOperationRef(null);
-
-    // Act
-    sendTaskParseHandler.executeParse(bpmnParse, sendTask);
-
-    // Assert that nothing has changed
-    assertNull(sendTask.getBehavior());
-  }
-
-  /**
-   * Test {@link SendTaskParseHandler#executeParse(BpmnParse, SendTask)} with
-   * {@code BpmnParse}, {@code SendTask}.
-   * <ul>
-   *   <li>Given {@code Send Task}.</li>
-   *   <li>When {@link SendTask} (default constructor) Type is
-   * {@code Send Task}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link SendTaskParseHandler#executeParse(BpmnParse, SendTask)}
-   */
-  @Test
-  public void testExecuteParseWithBpmnParseSendTask_givenSendTask_whenSendTaskTypeIsSendTask() {
-    // Arrange
-    SendTaskParseHandler sendTaskParseHandler = new SendTaskParseHandler();
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-
-    SendTask sendTask = new SendTask();
-    sendTask.setType("Send Task");
-    sendTask.setOperationRef(null);
-
-    // Act
-    sendTaskParseHandler.executeParse(bpmnParse, sendTask);
-
-    // Assert that nothing has changed
-    assertNull(sendTask.getBehavior());
-  }
-
-  /**
-   * Test {@link SendTaskParseHandler#executeParse(BpmnParse, SendTask)} with
-   * {@code BpmnParse}, {@code SendTask}.
-   * <ul>
-   *   <li>Then {@link SendTask} (default constructor) Behavior
-   * {@link MailActivityBehavior}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link SendTaskParseHandler#executeParse(BpmnParse, SendTask)}
-   */
-  @Test
-  public void testExecuteParseWithBpmnParseSendTask_thenSendTaskBehaviorMailActivityBehavior() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SendTaskParseHandler.executeParse(BpmnParse, SendTask)"})
+  public void testExecuteParseWithBpmnParseSendTask_givenDefaultActivityBehaviorFactory() {
     // Arrange
     SendTaskParseHandler sendTaskParseHandler = new SendTaskParseHandler();
 
@@ -167,7 +81,7 @@ public class SendTaskParseHandlerDiffblueTest {
 
     SendTask sendTask = new SendTask();
     sendTask.setType("mail");
-    sendTask.setOperationRef(null);
+    sendTask.setOperationRef("not empty");
 
     // Act
     sendTaskParseHandler.executeParse(bpmnParse, sendTask);
@@ -179,18 +93,71 @@ public class SendTaskParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link SendTaskParseHandler#executeParse(BpmnParse, SendTask)} with
-   * {@code BpmnParse}, {@code SendTask}.
+   * Test {@link SendTaskParseHandler#executeParse(BpmnParse, SendTask)} with {@code BpmnParse}, {@code SendTask}.
    * <ul>
-   *   <li>When {@link SendTask} (default constructor).</li>
-   *   <li>Then {@link SendTask} (default constructor) Behavior is
-   * {@code null}.</li>
+   *   <li>Given empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SendTaskParseHandler#executeParse(BpmnParse, SendTask)}
+   * Method under test: {@link SendTaskParseHandler#executeParse(BpmnParse, SendTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SendTaskParseHandler.executeParse(BpmnParse, SendTask)"})
+  public void testExecuteParseWithBpmnParseSendTask_givenEmptyString() {
+    // Arrange
+    SendTaskParseHandler sendTaskParseHandler = new SendTaskParseHandler();
+    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
+
+    SendTask sendTask = new SendTask();
+    sendTask.setType("");
+    sendTask.setOperationRef("not empty");
+
+    // Act
+    sendTaskParseHandler.executeParse(bpmnParse, sendTask);
+
+    // Assert that nothing has changed
+    assertNull(sendTask.getBehavior());
+  }
+
+  /**
+   * Test {@link SendTaskParseHandler#executeParse(BpmnParse, SendTask)} with {@code BpmnParse}, {@code SendTask}.
+   * <ul>
+   *   <li>When {@link SendTask} (default constructor) Type is {@code not empty}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SendTaskParseHandler#executeParse(BpmnParse, SendTask)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SendTaskParseHandler.executeParse(BpmnParse, SendTask)"})
+  public void testExecuteParseWithBpmnParseSendTask_whenSendTaskTypeIsNotEmpty() {
+    // Arrange
+    SendTaskParseHandler sendTaskParseHandler = new SendTaskParseHandler();
+    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
+
+    SendTask sendTask = new SendTask();
+    sendTask.setType("not empty");
+    sendTask.setOperationRef("not empty");
+
+    // Act
+    sendTaskParseHandler.executeParse(bpmnParse, sendTask);
+
+    // Assert that nothing has changed
+    assertNull(sendTask.getBehavior());
+  }
+
+  /**
+   * Test {@link SendTaskParseHandler#executeParse(BpmnParse, SendTask)} with {@code BpmnParse}, {@code SendTask}.
+   * <ul>
+   *   <li>When {@link SendTask} (default constructor).</li>
+   *   <li>Then {@link SendTask} (default constructor) Behavior is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SendTaskParseHandler#executeParse(BpmnParse, SendTask)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SendTaskParseHandler.executeParse(BpmnParse, SendTask)"})
   public void testExecuteParseWithBpmnParseSendTask_whenSendTask_thenSendTaskBehaviorIsNull() {
     // Arrange
     SendTaskParseHandler sendTaskParseHandler = new SendTaskParseHandler();
@@ -214,6 +181,8 @@ public class SendTaskParseHandlerDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SendTaskParseHandler.<init>()", "Class SendTaskParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends BaseElement> actualHandledType = (new SendTaskParseHandler()).getHandledType();

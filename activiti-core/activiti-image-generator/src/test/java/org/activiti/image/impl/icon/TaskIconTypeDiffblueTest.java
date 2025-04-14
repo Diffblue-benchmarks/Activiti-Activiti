@@ -17,7 +17,9 @@ package org.activiti.image.impl.icon;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class TaskIconTypeDiffblueTest {
@@ -28,6 +30,8 @@ class TaskIconTypeDiffblueTest {
    */
   @Test
   @DisplayName("Test getAnchorValue()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.lang.String TaskIconType.getAnchorValue()"})
   void testGetAnchorValue() {
     // Arrange, Act and Assert
     assertEquals("top left", (new BusinessRuleTaskIconType()).getAnchorValue());
@@ -40,6 +44,8 @@ class TaskIconTypeDiffblueTest {
    */
   @Test
   @DisplayName("Test getStrokeValue()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.lang.String TaskIconType.getStrokeValue()"})
   void testGetStrokeValue() {
     // Arrange, Act and Assert
     assertNull((new BusinessRuleTaskIconType()).getStrokeValue());
@@ -52,6 +58,8 @@ class TaskIconTypeDiffblueTest {
    */
   @Test
   @DisplayName("Test getFillValue()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.lang.String TaskIconType.getFillValue()"})
   void testGetFillValue() {
     // Arrange, Act and Assert
     assertNull((new BusinessRuleTaskIconType()).getFillValue());
@@ -64,6 +72,8 @@ class TaskIconTypeDiffblueTest {
    */
   @Test
   @DisplayName("Test getWidth()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.lang.Integer TaskIconType.getWidth()"})
   void testGetWidth() {
     // Arrange, Act and Assert
     assertNull((new BusinessRuleTaskIconType()).getWidth());
@@ -76,6 +86,8 @@ class TaskIconTypeDiffblueTest {
    */
   @Test
   @DisplayName("Test getHeight()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.lang.Integer TaskIconType.getHeight()"})
   void testGetHeight() {
     // Arrange, Act and Assert
     assertNull((new BusinessRuleTaskIconType()).getHeight());
@@ -88,6 +100,8 @@ class TaskIconTypeDiffblueTest {
    */
   @Test
   @DisplayName("Test getStrokeWidth()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.lang.String TaskIconType.getStrokeWidth()"})
   void testGetStrokeWidth() {
     // Arrange, Act and Assert
     assertNull((new BusinessRuleTaskIconType()).getStrokeWidth());

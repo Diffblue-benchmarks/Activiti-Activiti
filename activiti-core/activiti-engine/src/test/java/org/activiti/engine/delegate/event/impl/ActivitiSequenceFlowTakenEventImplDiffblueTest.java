@@ -17,21 +17,24 @@ package org.activiti.engine.delegate.event.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ActivitiSequenceFlowTakenEventImplDiffblueTest {
   /**
-   * Test
-   * {@link ActivitiSequenceFlowTakenEventImpl#ActivitiSequenceFlowTakenEventImpl(ActivitiEventType)}.
+   * Test {@link ActivitiSequenceFlowTakenEventImpl#ActivitiSequenceFlowTakenEventImpl(ActivitiEventType)}.
    * <ul>
    *   <li>Then return ExecutionId is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiSequenceFlowTakenEventImpl#ActivitiSequenceFlowTakenEventImpl(ActivitiEventType)}
+   * Method under test: {@link ActivitiSequenceFlowTakenEventImpl#ActivitiSequenceFlowTakenEventImpl(ActivitiEventType)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiSequenceFlowTakenEventImpl.<init>(ActivitiEventType)"})
   public void testNewActivitiSequenceFlowTakenEventImpl_thenReturnExecutionIdIsNull() {
     // Arrange and Act
     ActivitiSequenceFlowTakenEventImpl actualActivitiSequenceFlowTakenEventImpl = new ActivitiSequenceFlowTakenEventImpl(
@@ -60,30 +63,45 @@ public class ActivitiSequenceFlowTakenEventImplDiffblueTest {
    * Methods under test:
    * <ul>
    *   <li>{@link ActivitiSequenceFlowTakenEventImpl#setId(String)}
-   *   <li>
-   * {@link ActivitiSequenceFlowTakenEventImpl#setSourceActivityBehaviorClass(String)}
+   *   <li>{@link ActivitiSequenceFlowTakenEventImpl#setSourceActivityBehaviorClass(String)}
    *   <li>{@link ActivitiSequenceFlowTakenEventImpl#setSourceActivityId(String)}
    *   <li>{@link ActivitiSequenceFlowTakenEventImpl#setSourceActivityName(String)}
    *   <li>{@link ActivitiSequenceFlowTakenEventImpl#setSourceActivityType(String)}
-   *   <li>
-   * {@link ActivitiSequenceFlowTakenEventImpl#setTargetActivityBehaviorClass(String)}
+   *   <li>{@link ActivitiSequenceFlowTakenEventImpl#setTargetActivityBehaviorClass(String)}
    *   <li>{@link ActivitiSequenceFlowTakenEventImpl#setTargetActivityId(String)}
    *   <li>{@link ActivitiSequenceFlowTakenEventImpl#setTargetActivityName(String)}
    *   <li>{@link ActivitiSequenceFlowTakenEventImpl#setTargetActivityType(String)}
    *   <li>{@link ActivitiSequenceFlowTakenEventImpl#getId()}
-   *   <li>
-   * {@link ActivitiSequenceFlowTakenEventImpl#getSourceActivityBehaviorClass()}
+   *   <li>{@link ActivitiSequenceFlowTakenEventImpl#getSourceActivityBehaviorClass()}
    *   <li>{@link ActivitiSequenceFlowTakenEventImpl#getSourceActivityId()}
    *   <li>{@link ActivitiSequenceFlowTakenEventImpl#getSourceActivityName()}
    *   <li>{@link ActivitiSequenceFlowTakenEventImpl#getSourceActivityType()}
-   *   <li>
-   * {@link ActivitiSequenceFlowTakenEventImpl#getTargetActivityBehaviorClass()}
+   *   <li>{@link ActivitiSequenceFlowTakenEventImpl#getTargetActivityBehaviorClass()}
    *   <li>{@link ActivitiSequenceFlowTakenEventImpl#getTargetActivityId()}
    *   <li>{@link ActivitiSequenceFlowTakenEventImpl#getTargetActivityName()}
    *   <li>{@link ActivitiSequenceFlowTakenEventImpl#getTargetActivityType()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ActivitiSequenceFlowTakenEventImpl.getId()",
+      "String ActivitiSequenceFlowTakenEventImpl.getSourceActivityBehaviorClass()",
+      "String ActivitiSequenceFlowTakenEventImpl.getSourceActivityId()",
+      "String ActivitiSequenceFlowTakenEventImpl.getSourceActivityName()",
+      "String ActivitiSequenceFlowTakenEventImpl.getSourceActivityType()",
+      "String ActivitiSequenceFlowTakenEventImpl.getTargetActivityBehaviorClass()",
+      "String ActivitiSequenceFlowTakenEventImpl.getTargetActivityId()",
+      "String ActivitiSequenceFlowTakenEventImpl.getTargetActivityName()",
+      "String ActivitiSequenceFlowTakenEventImpl.getTargetActivityType()",
+      "void ActivitiSequenceFlowTakenEventImpl.setId(String)",
+      "void ActivitiSequenceFlowTakenEventImpl.setSourceActivityBehaviorClass(String)",
+      "void ActivitiSequenceFlowTakenEventImpl.setSourceActivityId(String)",
+      "void ActivitiSequenceFlowTakenEventImpl.setSourceActivityName(String)",
+      "void ActivitiSequenceFlowTakenEventImpl.setSourceActivityType(String)",
+      "void ActivitiSequenceFlowTakenEventImpl.setTargetActivityBehaviorClass(String)",
+      "void ActivitiSequenceFlowTakenEventImpl.setTargetActivityId(String)",
+      "void ActivitiSequenceFlowTakenEventImpl.setTargetActivityName(String)",
+      "void ActivitiSequenceFlowTakenEventImpl.setTargetActivityType(String)"})
   public void testGettersAndSetters() {
     // Arrange
     ActivitiSequenceFlowTakenEventImpl activitiSequenceFlowTakenEventImpl = new ActivitiSequenceFlowTakenEventImpl(
@@ -108,7 +126,7 @@ public class ActivitiSequenceFlowTakenEventImplDiffblueTest {
     String actualTargetActivityId = activitiSequenceFlowTakenEventImpl.getTargetActivityId();
     String actualTargetActivityName = activitiSequenceFlowTakenEventImpl.getTargetActivityName();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualId);
     assertEquals("42", actualSourceActivityId);
     assertEquals("42", actualTargetActivityId);

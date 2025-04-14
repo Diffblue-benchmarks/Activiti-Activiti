@@ -18,20 +18,18 @@ package org.activiti.engine.impl.calendar;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.runtime.ClockReader;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -43,12 +41,13 @@ public class CycleBusinessCalendarDiffblueTest {
   private CycleBusinessCalendar cycleBusinessCalendar;
 
   /**
-   * Test {@link CycleBusinessCalendar#resolveDuedate(String, int)} with
-   * {@code duedateDescription}, {@code maxIterations}.
+   * Test {@link CycleBusinessCalendar#resolveDuedate(String, int)} with {@code duedateDescription}, {@code maxIterations}.
    * <p>
    * Method under test: {@link CycleBusinessCalendar#resolveDuedate(String, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Date CycleBusinessCalendar.resolveDuedate(String, int)"})
   public void testResolveDuedateWithDuedateDescriptionMaxIterations() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class,
@@ -56,8 +55,7 @@ public class CycleBusinessCalendarDiffblueTest {
   }
 
   /**
-   * Test {@link CycleBusinessCalendar#resolveDuedate(String, int)} with
-   * {@code duedateDescription}, {@code maxIterations}.
+   * Test {@link CycleBusinessCalendar#resolveDuedate(String, int)} with {@code duedateDescription}, {@code maxIterations}.
    * <ul>
    *   <li>When {@code 42}.</li>
    * </ul>
@@ -65,14 +63,15 @@ public class CycleBusinessCalendarDiffblueTest {
    * Method under test: {@link CycleBusinessCalendar#resolveDuedate(String, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Date CycleBusinessCalendar.resolveDuedate(String, int)"})
   public void testResolveDuedateWithDuedateDescriptionMaxIterations_when42() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> cycleBusinessCalendar.resolveDuedate("42", 3));
   }
 
   /**
-   * Test {@link CycleBusinessCalendar#resolveDuedate(String, int)} with
-   * {@code duedateDescription}, {@code maxIterations}.
+   * Test {@link CycleBusinessCalendar#resolveDuedate(String, int)} with {@code duedateDescription}, {@code maxIterations}.
    * <ul>
    *   <li>When {@code 2020-03-01}.</li>
    * </ul>
@@ -80,16 +79,47 @@ public class CycleBusinessCalendarDiffblueTest {
    * Method under test: {@link CycleBusinessCalendar#resolveDuedate(String, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Date CycleBusinessCalendar.resolveDuedate(String, int)"})
   public void testResolveDuedateWithDuedateDescriptionMaxIterations_when20200301() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> cycleBusinessCalendar.resolveDuedate("2020-03-01", 3));
+  }
+
+  /**
+   * Test {@link CycleBusinessCalendar#resolveDuedate(String, int)} with {@code duedateDescription}, {@code maxIterations}.
+   * <ul>
+   *   <li>When {@code 2020/03/01}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link CycleBusinessCalendar#resolveDuedate(String, int)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Date CycleBusinessCalendar.resolveDuedate(String, int)"})
+  public void testResolveDuedateWithDuedateDescriptionMaxIterations_when202003012() {
+    // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> cycleBusinessCalendar.resolveDuedate("2020/03/01", 3));
+  }
+
+  /**
+   * Test {@link CycleBusinessCalendar#resolveDuedate(String, int)} with {@code duedateDescription}, {@code maxIterations}.
+   * <ul>
+   *   <li>When {@code 20200301}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link CycleBusinessCalendar#resolveDuedate(String, int)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Date CycleBusinessCalendar.resolveDuedate(String, int)"})
+  public void testResolveDuedateWithDuedateDescriptionMaxIterations_when202003013() {
+    // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> cycleBusinessCalendar.resolveDuedate("20200301", 3));
   }
 
   /**
-   * Test {@link CycleBusinessCalendar#resolveDuedate(String, int)} with
-   * {@code duedateDescription}, {@code maxIterations}.
+   * Test {@link CycleBusinessCalendar#resolveDuedate(String, int)} with {@code duedateDescription}, {@code maxIterations}.
    * <ul>
    *   <li>When {@code ,}.</li>
    * </ul>
@@ -97,14 +127,15 @@ public class CycleBusinessCalendarDiffblueTest {
    * Method under test: {@link CycleBusinessCalendar#resolveDuedate(String, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Date CycleBusinessCalendar.resolveDuedate(String, int)"})
   public void testResolveDuedateWithDuedateDescriptionMaxIterations_whenComma() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> cycleBusinessCalendar.resolveDuedate(",", 3));
   }
 
   /**
-   * Test {@link CycleBusinessCalendar#resolveDuedate(String, int)} with
-   * {@code duedateDescription}, {@code maxIterations}.
+   * Test {@link CycleBusinessCalendar#resolveDuedate(String, int)} with {@code duedateDescription}, {@code maxIterations}.
    * <ul>
    *   <li>When {@code null}.</li>
    * </ul>
@@ -112,14 +143,15 @@ public class CycleBusinessCalendarDiffblueTest {
    * Method under test: {@link CycleBusinessCalendar#resolveDuedate(String, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Date CycleBusinessCalendar.resolveDuedate(String, int)"})
   public void testResolveDuedateWithDuedateDescriptionMaxIterations_whenNull() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> cycleBusinessCalendar.resolveDuedate(null, 3));
   }
 
   /**
-   * Test {@link CycleBusinessCalendar#resolveDuedate(String, int)} with
-   * {@code duedateDescription}, {@code maxIterations}.
+   * Test {@link CycleBusinessCalendar#resolveDuedate(String, int)} with {@code duedateDescription}, {@code maxIterations}.
    * <ul>
    *   <li>When {@code /}.</li>
    * </ul>
@@ -127,14 +159,15 @@ public class CycleBusinessCalendarDiffblueTest {
    * Method under test: {@link CycleBusinessCalendar#resolveDuedate(String, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Date CycleBusinessCalendar.resolveDuedate(String, int)"})
   public void testResolveDuedateWithDuedateDescriptionMaxIterations_whenSlash() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> cycleBusinessCalendar.resolveDuedate("/", 3));
   }
 
   /**
-   * Test {@link CycleBusinessCalendar#resolveDuedate(String, int)} with
-   * {@code duedateDescription}, {@code maxIterations}.
+   * Test {@link CycleBusinessCalendar#resolveDuedate(String, int)} with {@code duedateDescription}, {@code maxIterations}.
    * <ul>
    *   <li>When space tab.</li>
    * </ul>
@@ -142,6 +175,8 @@ public class CycleBusinessCalendarDiffblueTest {
    * Method under test: {@link CycleBusinessCalendar#resolveDuedate(String, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Date CycleBusinessCalendar.resolveDuedate(String, int)"})
   public void testResolveDuedateWithDuedateDescriptionMaxIterations_whenSpaceTab() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> cycleBusinessCalendar.resolveDuedate(" \t", 3));
@@ -150,40 +185,14 @@ public class CycleBusinessCalendarDiffblueTest {
   /**
    * Test {@link CycleBusinessCalendar#validateDuedate(String, int, Date, Date)}.
    * <ul>
-   *   <li>Given {@code true}.</li>
-   *   <li>When {@link java.sql.Date} {@link java.util.Date#after(Date)} return
-   * {@code true}.</li>
-   *   <li>Then calls {@link java.util.Date#after(Date)}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link CycleBusinessCalendar#validateDuedate(String, int, java.util.Date, java.util.Date)}
-   */
-  @Test
-  public void testValidateDuedate_givenTrue_whenDateAfterReturnTrue_thenCallsAfter() {
-    // Arrange
-    java.sql.Date endDate = mock(java.sql.Date.class);
-    when(endDate.after(Mockito.<java.util.Date>any())).thenReturn(true);
-
-    // Act
-    Boolean actualValidateDuedateResult = cycleBusinessCalendar.validateDuedate("2020-03-01", 3, endDate,
-        java.util.Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-
-    // Assert
-    verify(endDate).after(isA(java.util.Date.class));
-    assertTrue(actualValidateDuedateResult);
-  }
-
-  /**
-   * Test {@link CycleBusinessCalendar#validateDuedate(String, int, Date, Date)}.
-   * <ul>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link CycleBusinessCalendar#validateDuedate(String, int, Date, Date)}
+   * Method under test: {@link CycleBusinessCalendar#validateDuedate(String, int, Date, Date)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Boolean CycleBusinessCalendar.validateDuedate(String, int, Date, Date)"})
   public void testValidateDuedate_thenReturnFalse() {
     // Arrange
     Date endDate = Date.from(LocalDate.ofYearDay(1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
@@ -199,10 +208,11 @@ public class CycleBusinessCalendarDiffblueTest {
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link CycleBusinessCalendar#validateDuedate(String, int, Date, Date)}
+   * Method under test: {@link CycleBusinessCalendar#validateDuedate(String, int, Date, Date)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Boolean CycleBusinessCalendar.validateDuedate(String, int, Date, Date)"})
   public void testValidateDuedate_thenReturnTrue() {
     // Arrange
     Date endDate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
@@ -219,10 +229,11 @@ public class CycleBusinessCalendarDiffblueTest {
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link CycleBusinessCalendar#validateDuedate(String, int, Date, Date)}
+   * Method under test: {@link CycleBusinessCalendar#validateDuedate(String, int, Date, Date)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Boolean CycleBusinessCalendar.validateDuedate(String, int, Date, Date)"})
   public void testValidateDuedate_whenFromNowAtStartOfDayAtZoneUtcToInstant_thenReturnTrue() {
     // Arrange
     Date endDate = Date.from(LocalDate.now().atStartOfDay().atZone(ZoneOffset.UTC).toInstant());

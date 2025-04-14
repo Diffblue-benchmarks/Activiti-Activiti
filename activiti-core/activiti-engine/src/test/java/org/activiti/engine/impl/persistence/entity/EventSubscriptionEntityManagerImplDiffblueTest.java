@@ -31,31 +31,25 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import org.activiti.bpmn.model.Signal;
-import org.activiti.core.el.CustomFunctionProvider;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventDispatcher;
 import org.activiti.engine.delegate.event.impl.ActivitiEventDispatcherImpl;
-import org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor;
-import org.activiti.engine.impl.asyncexecutor.DefaultJobManager;
-import org.activiti.engine.impl.asyncexecutor.multitenant.ExecutorPerTenantAsyncExecutor;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.PerformanceSettings;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
-import org.activiti.engine.impl.db.DbSqlSessionFactory;
-import org.activiti.engine.impl.event.EventHandler;
-import org.activiti.engine.impl.interceptor.CommandContext;
-import org.activiti.engine.impl.interceptor.SessionFactory;
 import org.activiti.engine.impl.persistence.entity.data.DataManager;
 import org.activiti.engine.impl.persistence.entity.data.EventSubscriptionDataManager;
-import org.activiti.engine.impl.persistence.entity.data.JobDataManager;
 import org.activiti.engine.impl.persistence.entity.data.impl.MybatisEventSubscriptionDataManager;
 import org.activiti.engine.impl.util.json.JSONObject;
-import org.activiti.engine.test.cfg.multitenant.DummyTenantInfoHolder;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -78,16 +72,19 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link EventSubscriptionEntityManagerImpl#EventSubscriptionEntityManagerImpl(ProcessEngineConfigurationImpl, EventSubscriptionDataManager)}
-   *   <li>
-   * {@link EventSubscriptionEntityManagerImpl#setEventSubscriptionDataManager(EventSubscriptionDataManager)}
+   *   <li>{@link EventSubscriptionEntityManagerImpl#EventSubscriptionEntityManagerImpl(ProcessEngineConfigurationImpl, EventSubscriptionDataManager)}
+   *   <li>{@link EventSubscriptionEntityManagerImpl#setEventSubscriptionDataManager(EventSubscriptionDataManager)}
    *   <li>{@link EventSubscriptionEntityManagerImpl#getDataManager()}
-   *   <li>
-   * {@link EventSubscriptionEntityManagerImpl#getEventSubscriptionDataManager()}
+   *   <li>{@link EventSubscriptionEntityManagerImpl#getEventSubscriptionDataManager()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "void EventSubscriptionEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, EventSubscriptionDataManager)",
+      "DataManager EventSubscriptionEntityManagerImpl.getDataManager()",
+      "EventSubscriptionDataManager EventSubscriptionEntityManagerImpl.getEventSubscriptionDataManager()",
+      "void EventSubscriptionEntityManagerImpl.setEventSubscriptionDataManager(EventSubscriptionDataManager)"})
   public void testGettersAndSetters() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
@@ -100,23 +97,24 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
     actualEventSubscriptionEntityManagerImpl.setEventSubscriptionDataManager(eventSubscriptionDataManager);
     DataManager<EventSubscriptionEntity> actualDataManager = actualEventSubscriptionEntityManagerImpl.getDataManager();
 
-    // Assert that nothing has changed
+    // Assert
     assertSame(eventSubscriptionDataManager, actualDataManager);
     assertSame(eventSubscriptionDataManager,
         actualEventSubscriptionEntityManagerImpl.getEventSubscriptionDataManager());
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#createCompensateEventSubscription()}.
+   * Test {@link EventSubscriptionEntityManagerImpl#createCompensateEventSubscription()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#createCompensateEventSubscription()}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#createCompensateEventSubscription()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "CompensateEventSubscriptionEntity EventSubscriptionEntityManagerImpl.createCompensateEventSubscription()"})
   public void testCreateCompensateEventSubscription_thenReturnNull() {
     // Arrange
     EventSubscriptionDataManager eventSubscriptionDataManager = mock(EventSubscriptionDataManager.class);
@@ -132,16 +130,17 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#createMessageEventSubscription()}.
+   * Test {@link EventSubscriptionEntityManagerImpl#createMessageEventSubscription()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#createMessageEventSubscription()}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#createMessageEventSubscription()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "MessageEventSubscriptionEntity EventSubscriptionEntityManagerImpl.createMessageEventSubscription()"})
   public void testCreateMessageEventSubscription_thenReturnNull() {
     // Arrange
     EventSubscriptionDataManager eventSubscriptionDataManager = mock(EventSubscriptionDataManager.class);
@@ -157,16 +156,17 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#createSignalEventSubscription()}.
+   * Test {@link EventSubscriptionEntityManagerImpl#createSignalEventSubscription()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#createSignalEventSubscription()}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#createSignalEventSubscription()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "SignalEventSubscriptionEntity EventSubscriptionEntityManagerImpl.createSignalEventSubscription()"})
   public void testCreateSignalEventSubscription_thenReturnNull() {
     // Arrange
     EventSubscriptionDataManager eventSubscriptionDataManager = mock(EventSubscriptionDataManager.class);
@@ -182,13 +182,14 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "SignalEventSubscriptionEntity EventSubscriptionEntityManagerImpl.insertSignalEvent(String, Signal, ExecutionEntity)"})
   public void testInsertSignalEvent() {
     // Arrange
     PerformanceSettings performanceSettings = new PerformanceSettings();
@@ -235,13 +236,14 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "SignalEventSubscriptionEntity EventSubscriptionEntityManagerImpl.insertSignalEvent(String, Signal, ExecutionEntity)"})
   public void testInsertSignalEvent2() {
     // Arrange
     PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
@@ -295,13 +297,14 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "SignalEventSubscriptionEntity EventSubscriptionEntityManagerImpl.insertSignalEvent(String, Signal, ExecutionEntity)"})
   public void testInsertSignalEvent3() {
     // Arrange
     ActivitiEventDispatcherImpl activitiEventDispatcherImpl = mock(ActivitiEventDispatcherImpl.class);
@@ -363,13 +366,14 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "SignalEventSubscriptionEntity EventSubscriptionEntityManagerImpl.insertSignalEvent(String, Signal, ExecutionEntity)"})
   public void testInsertSignalEvent4() {
     // Arrange
     ActivitiEventDispatcherImpl activitiEventDispatcherImpl = mock(ActivitiEventDispatcherImpl.class);
@@ -416,13 +420,14 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "SignalEventSubscriptionEntity EventSubscriptionEntityManagerImpl.insertSignalEvent(String, Signal, ExecutionEntity)"})
   public void testInsertSignalEvent5() {
     // Arrange
     ActivitiEventDispatcherImpl activitiEventDispatcherImpl = mock(ActivitiEventDispatcherImpl.class);
@@ -481,13 +486,14 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "SignalEventSubscriptionEntity EventSubscriptionEntityManagerImpl.insertSignalEvent(String, Signal, ExecutionEntity)"})
   public void testInsertSignalEvent6() {
     // Arrange
     ActivitiEventDispatcherImpl activitiEventDispatcherImpl = mock(ActivitiEventDispatcherImpl.class);
@@ -542,13 +548,14 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "SignalEventSubscriptionEntity EventSubscriptionEntityManagerImpl.insertSignalEvent(String, Signal, ExecutionEntity)"})
   public void testInsertSignalEvent7() {
     // Arrange
     PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
@@ -586,17 +593,17 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}.
    * <ul>
-   *   <li>Given {@link ActivitiEventDispatcherImpl}
-   * {@link ActivitiEventDispatcherImpl#isEnabled()} return {@code false}.</li>
+   *   <li>Given {@link ActivitiEventDispatcherImpl} {@link ActivitiEventDispatcherImpl#isEnabled()} return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "SignalEventSubscriptionEntity EventSubscriptionEntityManagerImpl.insertSignalEvent(String, Signal, ExecutionEntity)"})
   public void testInsertSignalEvent_givenActivitiEventDispatcherImplIsEnabledReturnFalse() {
     // Arrange
     ActivitiEventDispatcherImpl activitiEventDispatcherImpl = mock(ActivitiEventDispatcherImpl.class);
@@ -656,16 +663,71 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}.
+   * <ul>
+   *   <li>Given {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "SignalEventSubscriptionEntity EventSubscriptionEntityManagerImpl.insertSignalEvent(String, Signal, ExecutionEntity)"})
+  public void testInsertSignalEvent_givenNull() {
+    // Arrange
+    PerformanceSettings performanceSettings = new PerformanceSettings();
+    performanceSettings.setEnableEagerExecutionTreeFetching(true);
+    performanceSettings.setEnableExecutionRelationshipCounts(true);
+    performanceSettings.setEnableLocalization(true);
+    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
+    when(processEngineConfigurationImpl.getPerformanceSettings()).thenReturn(performanceSettings);
+    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
+    SignalEventSubscriptionEntityImpl signalEventSubscriptionEntityImpl = mock(SignalEventSubscriptionEntityImpl.class);
+    when(signalEventSubscriptionEntityImpl.getExecution())
+        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    when(signalEventSubscriptionEntityImpl.getExecutionId()).thenReturn("42");
+    doNothing().when(signalEventSubscriptionEntityImpl).setActivityId(Mockito.<String>any());
+    doNothing().when(signalEventSubscriptionEntityImpl).setEventName(Mockito.<String>any());
+    doNothing().when(signalEventSubscriptionEntityImpl).setExecution(Mockito.<ExecutionEntity>any());
+    doNothing().when(signalEventSubscriptionEntityImpl).setProcessDefinitionId(Mockito.<String>any());
+    doNothing().when(eventSubscriptionDataManager).insert(Mockito.<EventSubscriptionEntity>any());
+    when(eventSubscriptionDataManager.createSignalEventSubscription()).thenReturn(signalEventSubscriptionEntityImpl);
+    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+    execution.setTenantId(null);
+
+    // Act
+    eventSubscriptionEntityManagerImpl.insertSignalEvent("Signal Name", null, execution);
+
+    // Assert
+    verify(processEngineConfigurationImpl).getEventDispatcher();
+    verify(processEngineConfigurationImpl, atLeast(1)).getPerformanceSettings();
+    verify(signalEventSubscriptionEntityImpl).getExecution();
+    verify(signalEventSubscriptionEntityImpl).getExecutionId();
+    verify(signalEventSubscriptionEntityImpl).setActivityId(isNull());
+    verify(signalEventSubscriptionEntityImpl).setEventName(eq("Signal Name"));
+    verify(signalEventSubscriptionEntityImpl).setExecution(isA(ExecutionEntity.class));
+    verify(signalEventSubscriptionEntityImpl).setProcessDefinitionId(isNull());
+    verify(eventSubscriptionDataManager).insert(isA(EventSubscriptionEntity.class));
+    verify(eventSubscriptionDataManager).createSignalEventSubscription();
+    List<EventSubscriptionEntity> eventSubscriptions = execution.getEventSubscriptions();
+    assertEquals(1, eventSubscriptions.size());
+    assertEquals(1, execution.eventSubscriptions.size());
+    assertSame(execution.eventSubscriptions, eventSubscriptions);
+  }
+
+  /**
+   * Test {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}.
    * <ul>
    *   <li>Then calls {@link Signal#getName()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "SignalEventSubscriptionEntity EventSubscriptionEntityManagerImpl.insertSignalEvent(String, Signal, ExecutionEntity)"})
   public void testInsertSignalEvent_thenCallsGetName() {
     // Arrange
     ActivitiEventDispatcherImpl activitiEventDispatcherImpl = mock(ActivitiEventDispatcherImpl.class);
@@ -738,17 +800,17 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}.
    * <ul>
-   *   <li>Then calls
-   * {@link ExecutionEntityImpl#setEventSubscriptionCount(int)}.</li>
+   *   <li>Then calls {@link ExecutionEntityImpl#setEventSubscriptionCount(int)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "SignalEventSubscriptionEntity EventSubscriptionEntityManagerImpl.insertSignalEvent(String, Signal, ExecutionEntity)"})
   public void testInsertSignalEvent_thenCallsSetEventSubscriptionCount() {
     // Arrange
     ActivitiEventDispatcherImpl activitiEventDispatcherImpl = mock(ActivitiEventDispatcherImpl.class);
@@ -816,18 +878,18 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}.
    * <ul>
    *   <li>When {@code null}.</li>
-   *   <li>Then calls
-   * {@link ExecutionEntityImpl#setEventSubscriptionCount(int)}.</li>
+   *   <li>Then calls {@link ExecutionEntityImpl#setEventSubscriptionCount(int)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#insertSignalEvent(String, Signal, ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "SignalEventSubscriptionEntity EventSubscriptionEntityManagerImpl.insertSignalEvent(String, Signal, ExecutionEntity)"})
   public void testInsertSignalEvent_whenNull_thenCallsSetEventSubscriptionCount() {
     // Arrange
     ActivitiEventDispatcherImpl activitiEventDispatcherImpl = mock(ActivitiEventDispatcherImpl.class);
@@ -893,13 +955,14 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "MessageEventSubscriptionEntity EventSubscriptionEntityManagerImpl.insertMessageEvent(String, ExecutionEntity)"})
   public void testInsertMessageEvent() {
     // Arrange
     PerformanceSettings performanceSettings = new PerformanceSettings();
@@ -945,13 +1008,14 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "MessageEventSubscriptionEntity EventSubscriptionEntityManagerImpl.insertMessageEvent(String, ExecutionEntity)"})
   public void testInsertMessageEvent2() {
     // Arrange
     PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
@@ -1004,81 +1068,15 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "MessageEventSubscriptionEntity EventSubscriptionEntityManagerImpl.insertMessageEvent(String, ExecutionEntity)"})
   public void testInsertMessageEvent3() {
-    // Arrange
-    ActivitiEventDispatcherImpl activitiEventDispatcherImpl = mock(ActivitiEventDispatcherImpl.class);
-    doNothing().when(activitiEventDispatcherImpl).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcherImpl.isEnabled()).thenReturn(true);
-    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
-    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
-    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
-    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
-    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
-    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
-    performanceSettings.setEnableEagerExecutionTreeFetching(true);
-    performanceSettings.setEnableExecutionRelationshipCounts(true);
-    performanceSettings.setEnableLocalization(true);
-    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-    when(processEngineConfigurationImpl.getPerformanceSettings()).thenReturn(performanceSettings);
-    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcherImpl);
-    MessageEventSubscriptionEntityImpl messageEventSubscriptionEntityImpl = mock(
-        MessageEventSubscriptionEntityImpl.class);
-    when(messageEventSubscriptionEntityImpl.getExecution())
-        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    when(messageEventSubscriptionEntityImpl.getExecutionId()).thenReturn("42");
-    doNothing().when(messageEventSubscriptionEntityImpl).setActivityId(Mockito.<String>any());
-    doNothing().when(messageEventSubscriptionEntityImpl).setEventName(Mockito.<String>any());
-    doNothing().when(messageEventSubscriptionEntityImpl).setExecution(Mockito.<ExecutionEntity>any());
-    doNothing().when(messageEventSubscriptionEntityImpl).setProcessDefinitionId(Mockito.<String>any());
-    doNothing().when(messageEventSubscriptionEntityImpl).setTenantId(Mockito.<String>any());
-    doNothing().when(eventSubscriptionDataManager).insert(Mockito.<EventSubscriptionEntity>any());
-    when(eventSubscriptionDataManager.createMessageEventSubscription()).thenReturn(messageEventSubscriptionEntityImpl);
-    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-
-    // Act
-    eventSubscriptionEntityManagerImpl.insertMessageEvent("Message Name", execution);
-
-    // Assert
-    verify(activitiEventDispatcherImpl, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
-    verify(activitiEventDispatcherImpl).isEnabled();
-    verify(performanceSettings, atLeast(1)).isEnableExecutionRelationshipCounts();
-    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
-    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
-    verify(performanceSettings).setEnableLocalization(eq(true));
-    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
-    verify(processEngineConfigurationImpl).getEventDispatcher();
-    verify(processEngineConfigurationImpl, atLeast(1)).getPerformanceSettings();
-    verify(messageEventSubscriptionEntityImpl).getExecution();
-    verify(messageEventSubscriptionEntityImpl).getExecutionId();
-    verify(messageEventSubscriptionEntityImpl).setActivityId(isNull());
-    verify(messageEventSubscriptionEntityImpl).setEventName(eq("Message Name"));
-    verify(messageEventSubscriptionEntityImpl).setExecution(isA(ExecutionEntity.class));
-    verify(messageEventSubscriptionEntityImpl).setProcessDefinitionId(isNull());
-    verify(messageEventSubscriptionEntityImpl).setTenantId(eq(""));
-    verify(eventSubscriptionDataManager).insert(isA(EventSubscriptionEntity.class));
-    verify(eventSubscriptionDataManager).createMessageEventSubscription();
-    List<EventSubscriptionEntity> eventSubscriptions = execution.getEventSubscriptions();
-    assertEquals(1, eventSubscriptions.size());
-    assertEquals(1, execution.eventSubscriptions.size());
-    assertSame(execution.eventSubscriptions, eventSubscriptions);
-  }
-
-  /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}.
-   * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}
-   */
-  @Test
-  public void testInsertMessageEvent4() {
     // Arrange
     ActivitiEventDispatcherImpl activitiEventDispatcherImpl = mock(ActivitiEventDispatcherImpl.class);
     doThrow(new ActivitiException("An error occurred")).when(activitiEventDispatcherImpl)
@@ -1124,14 +1122,15 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}
    */
   @Test
-  public void testInsertMessageEvent5() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "MessageEventSubscriptionEntity EventSubscriptionEntityManagerImpl.insertMessageEvent(String, ExecutionEntity)"})
+  public void testInsertMessageEvent4() {
     // Arrange
     ActivitiEventDispatcherImpl activitiEventDispatcherImpl = mock(ActivitiEventDispatcherImpl.class);
     doNothing().when(activitiEventDispatcherImpl).dispatchEvent(Mockito.<ActivitiEvent>any());
@@ -1189,14 +1188,15 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}
    */
   @Test
-  public void testInsertMessageEvent6() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "MessageEventSubscriptionEntity EventSubscriptionEntityManagerImpl.insertMessageEvent(String, ExecutionEntity)"})
+  public void testInsertMessageEvent5() {
     // Arrange
     ActivitiEventDispatcherImpl activitiEventDispatcherImpl = mock(ActivitiEventDispatcherImpl.class);
     doNothing().when(activitiEventDispatcherImpl).dispatchEvent(Mockito.<ActivitiEvent>any());
@@ -1249,17 +1249,17 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}.
    * <ul>
-   *   <li>Given {@link ActivitiEventDispatcherImpl}
-   * {@link ActivitiEventDispatcherImpl#isEnabled()} return {@code false}.</li>
+   *   <li>Given {@link ActivitiEventDispatcherImpl} {@link ActivitiEventDispatcherImpl#isEnabled()} return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "MessageEventSubscriptionEntity EventSubscriptionEntityManagerImpl.insertMessageEvent(String, ExecutionEntity)"})
   public void testInsertMessageEvent_givenActivitiEventDispatcherImplIsEnabledReturnFalse() {
     // Arrange
     ActivitiEventDispatcherImpl activitiEventDispatcherImpl = mock(ActivitiEventDispatcherImpl.class);
@@ -1318,17 +1318,143 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}.
    * <ul>
-   *   <li>Then calls
-   * {@link ExecutionEntityImpl#setEventSubscriptionCount(int)}.</li>
+   *   <li>Given {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "MessageEventSubscriptionEntity EventSubscriptionEntityManagerImpl.insertMessageEvent(String, ExecutionEntity)"})
+  public void testInsertMessageEvent_givenNull() {
+    // Arrange
+    PerformanceSettings performanceSettings = new PerformanceSettings();
+    performanceSettings.setEnableEagerExecutionTreeFetching(true);
+    performanceSettings.setEnableExecutionRelationshipCounts(true);
+    performanceSettings.setEnableLocalization(true);
+    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
+    when(processEngineConfigurationImpl.getPerformanceSettings()).thenReturn(performanceSettings);
+    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
+    MessageEventSubscriptionEntityImpl messageEventSubscriptionEntityImpl = mock(
+        MessageEventSubscriptionEntityImpl.class);
+    when(messageEventSubscriptionEntityImpl.getExecution())
+        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    when(messageEventSubscriptionEntityImpl.getExecutionId()).thenReturn("42");
+    doNothing().when(messageEventSubscriptionEntityImpl).setActivityId(Mockito.<String>any());
+    doNothing().when(messageEventSubscriptionEntityImpl).setEventName(Mockito.<String>any());
+    doNothing().when(messageEventSubscriptionEntityImpl).setExecution(Mockito.<ExecutionEntity>any());
+    doNothing().when(messageEventSubscriptionEntityImpl).setProcessDefinitionId(Mockito.<String>any());
+    doNothing().when(eventSubscriptionDataManager).insert(Mockito.<EventSubscriptionEntity>any());
+    when(eventSubscriptionDataManager.createMessageEventSubscription()).thenReturn(messageEventSubscriptionEntityImpl);
+    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+    execution.setTenantId(null);
+
+    // Act
+    eventSubscriptionEntityManagerImpl.insertMessageEvent("Message Name", execution);
+
+    // Assert
+    verify(processEngineConfigurationImpl).getEventDispatcher();
+    verify(processEngineConfigurationImpl, atLeast(1)).getPerformanceSettings();
+    verify(messageEventSubscriptionEntityImpl).getExecution();
+    verify(messageEventSubscriptionEntityImpl).getExecutionId();
+    verify(messageEventSubscriptionEntityImpl).setActivityId(isNull());
+    verify(messageEventSubscriptionEntityImpl).setEventName(eq("Message Name"));
+    verify(messageEventSubscriptionEntityImpl).setExecution(isA(ExecutionEntity.class));
+    verify(messageEventSubscriptionEntityImpl).setProcessDefinitionId(isNull());
+    verify(eventSubscriptionDataManager).insert(isA(EventSubscriptionEntity.class));
+    verify(eventSubscriptionDataManager).createMessageEventSubscription();
+    List<EventSubscriptionEntity> eventSubscriptions = execution.getEventSubscriptions();
+    assertEquals(1, eventSubscriptions.size());
+    assertEquals(1, execution.eventSubscriptions.size());
+    assertSame(execution.eventSubscriptions, eventSubscriptions);
+  }
+
+  /**
+   * Test {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}.
+   * <ul>
+   *   <li>Then calls {@link ActivitiEventDispatcherImpl#dispatchEvent(ActivitiEvent)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "MessageEventSubscriptionEntity EventSubscriptionEntityManagerImpl.insertMessageEvent(String, ExecutionEntity)"})
+  public void testInsertMessageEvent_thenCallsDispatchEvent() {
+    // Arrange
+    ActivitiEventDispatcherImpl activitiEventDispatcherImpl = mock(ActivitiEventDispatcherImpl.class);
+    doNothing().when(activitiEventDispatcherImpl).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcherImpl.isEnabled()).thenReturn(true);
+    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
+    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
+    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
+    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
+    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
+    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
+    performanceSettings.setEnableEagerExecutionTreeFetching(true);
+    performanceSettings.setEnableExecutionRelationshipCounts(true);
+    performanceSettings.setEnableLocalization(true);
+    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
+    when(processEngineConfigurationImpl.getPerformanceSettings()).thenReturn(performanceSettings);
+    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcherImpl);
+    MessageEventSubscriptionEntityImpl messageEventSubscriptionEntityImpl = mock(
+        MessageEventSubscriptionEntityImpl.class);
+    when(messageEventSubscriptionEntityImpl.getExecution())
+        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    when(messageEventSubscriptionEntityImpl.getExecutionId()).thenReturn("42");
+    doNothing().when(messageEventSubscriptionEntityImpl).setActivityId(Mockito.<String>any());
+    doNothing().when(messageEventSubscriptionEntityImpl).setEventName(Mockito.<String>any());
+    doNothing().when(messageEventSubscriptionEntityImpl).setExecution(Mockito.<ExecutionEntity>any());
+    doNothing().when(messageEventSubscriptionEntityImpl).setProcessDefinitionId(Mockito.<String>any());
+    doNothing().when(messageEventSubscriptionEntityImpl).setTenantId(Mockito.<String>any());
+    doNothing().when(eventSubscriptionDataManager).insert(Mockito.<EventSubscriptionEntity>any());
+    when(eventSubscriptionDataManager.createMessageEventSubscription()).thenReturn(messageEventSubscriptionEntityImpl);
+    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+
+    // Act
+    eventSubscriptionEntityManagerImpl.insertMessageEvent("Message Name", execution);
+
+    // Assert
+    verify(activitiEventDispatcherImpl, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcherImpl).isEnabled();
+    verify(performanceSettings, atLeast(1)).isEnableExecutionRelationshipCounts();
+    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
+    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
+    verify(performanceSettings).setEnableLocalization(eq(true));
+    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
+    verify(processEngineConfigurationImpl).getEventDispatcher();
+    verify(processEngineConfigurationImpl, atLeast(1)).getPerformanceSettings();
+    verify(messageEventSubscriptionEntityImpl).getExecution();
+    verify(messageEventSubscriptionEntityImpl).getExecutionId();
+    verify(messageEventSubscriptionEntityImpl).setActivityId(isNull());
+    verify(messageEventSubscriptionEntityImpl).setEventName(eq("Message Name"));
+    verify(messageEventSubscriptionEntityImpl).setExecution(isA(ExecutionEntity.class));
+    verify(messageEventSubscriptionEntityImpl).setProcessDefinitionId(isNull());
+    verify(messageEventSubscriptionEntityImpl).setTenantId(eq(""));
+    verify(eventSubscriptionDataManager).insert(isA(EventSubscriptionEntity.class));
+    verify(eventSubscriptionDataManager).createMessageEventSubscription();
+    List<EventSubscriptionEntity> eventSubscriptions = execution.getEventSubscriptions();
+    assertEquals(1, eventSubscriptions.size());
+    assertEquals(1, execution.eventSubscriptions.size());
+    assertSame(execution.eventSubscriptions, eventSubscriptions);
+  }
+
+  /**
+   * Test {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}.
+   * <ul>
+   *   <li>Then calls {@link ExecutionEntityImpl#setEventSubscriptionCount(int)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#insertMessageEvent(String, ExecutionEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "MessageEventSubscriptionEntity EventSubscriptionEntityManagerImpl.insertMessageEvent(String, ExecutionEntity)"})
   public void testInsertMessageEvent_thenCallsSetEventSubscriptionCount() {
     // Arrange
     ActivitiEventDispatcherImpl activitiEventDispatcherImpl = mock(ActivitiEventDispatcherImpl.class);
@@ -1395,13 +1521,14 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "CompensateEventSubscriptionEntity EventSubscriptionEntityManagerImpl.insertCompensationEvent(ExecutionEntity, String)"})
   public void testInsertCompensationEvent() {
     // Arrange
     PerformanceSettings performanceSettings = new PerformanceSettings();
@@ -1440,13 +1567,14 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "CompensateEventSubscriptionEntity EventSubscriptionEntityManagerImpl.insertCompensationEvent(ExecutionEntity, String)"})
   public void testInsertCompensationEvent2() {
     // Arrange
     PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
@@ -1492,13 +1620,14 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "CompensateEventSubscriptionEntity EventSubscriptionEntityManagerImpl.insertCompensationEvent(ExecutionEntity, String)"})
   public void testInsertCompensationEvent3() {
     // Arrange
     ActivitiEventDispatcherImpl activitiEventDispatcherImpl = mock(ActivitiEventDispatcherImpl.class);
@@ -1552,13 +1681,14 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "CompensateEventSubscriptionEntity EventSubscriptionEntityManagerImpl.insertCompensationEvent(ExecutionEntity, String)"})
   public void testInsertCompensationEvent4() {
     // Arrange
     ActivitiEventDispatcherImpl activitiEventDispatcherImpl = mock(ActivitiEventDispatcherImpl.class);
@@ -1602,13 +1732,14 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "CompensateEventSubscriptionEntity EventSubscriptionEntityManagerImpl.insertCompensationEvent(ExecutionEntity, String)"})
   public void testInsertCompensationEvent5() {
     // Arrange
     ActivitiEventDispatcherImpl activitiEventDispatcherImpl = mock(ActivitiEventDispatcherImpl.class);
@@ -1664,13 +1795,14 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "CompensateEventSubscriptionEntity EventSubscriptionEntityManagerImpl.insertCompensationEvent(ExecutionEntity, String)"})
   public void testInsertCompensationEvent6() {
     // Arrange
     ActivitiEventDispatcherImpl activitiEventDispatcherImpl = mock(ActivitiEventDispatcherImpl.class);
@@ -1717,17 +1849,17 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}.
    * <ul>
-   *   <li>Given {@link ActivitiEventDispatcherImpl}
-   * {@link ActivitiEventDispatcherImpl#isEnabled()} return {@code false}.</li>
+   *   <li>Given {@link ActivitiEventDispatcherImpl} {@link ActivitiEventDispatcherImpl#isEnabled()} return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "CompensateEventSubscriptionEntity EventSubscriptionEntityManagerImpl.insertCompensationEvent(ExecutionEntity, String)"})
   public void testInsertCompensationEvent_givenActivitiEventDispatcherImplIsEnabledReturnFalse() {
     // Arrange
     ActivitiEventDispatcherImpl activitiEventDispatcherImpl = mock(ActivitiEventDispatcherImpl.class);
@@ -1779,17 +1911,65 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}.
    * <ul>
-   *   <li>Then calls
-   * {@link ExecutionEntityImpl#setEventSubscriptionCount(int)}.</li>
+   *   <li>Given {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "CompensateEventSubscriptionEntity EventSubscriptionEntityManagerImpl.insertCompensationEvent(ExecutionEntity, String)"})
+  public void testInsertCompensationEvent_givenNull() {
+    // Arrange
+    PerformanceSettings performanceSettings = new PerformanceSettings();
+    performanceSettings.setEnableEagerExecutionTreeFetching(true);
+    performanceSettings.setEnableExecutionRelationshipCounts(true);
+    performanceSettings.setEnableLocalization(true);
+    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
+    when(processEngineConfigurationImpl.getPerformanceSettings()).thenReturn(performanceSettings);
+    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
+    CompensateEventSubscriptionEntityImpl compensateEventSubscriptionEntityImpl = mock(
+        CompensateEventSubscriptionEntityImpl.class);
+    when(compensateEventSubscriptionEntityImpl.getExecution())
+        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    when(compensateEventSubscriptionEntityImpl.getExecutionId()).thenReturn("42");
+    doNothing().when(compensateEventSubscriptionEntityImpl).setActivityId(Mockito.<String>any());
+    doNothing().when(compensateEventSubscriptionEntityImpl).setExecution(Mockito.<ExecutionEntity>any());
+    doNothing().when(eventSubscriptionDataManager).insert(Mockito.<EventSubscriptionEntity>any());
+    when(eventSubscriptionDataManager.createCompensateEventSubscription())
+        .thenReturn(compensateEventSubscriptionEntityImpl);
+    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+    execution.setTenantId(null);
+
+    // Act
+    eventSubscriptionEntityManagerImpl.insertCompensationEvent(execution, "42");
+
+    // Assert
+    verify(processEngineConfigurationImpl).getEventDispatcher();
+    verify(processEngineConfigurationImpl, atLeast(1)).getPerformanceSettings();
+    verify(compensateEventSubscriptionEntityImpl).getExecution();
+    verify(compensateEventSubscriptionEntityImpl).getExecutionId();
+    verify(compensateEventSubscriptionEntityImpl).setActivityId(eq("42"));
+    verify(compensateEventSubscriptionEntityImpl).setExecution(isA(ExecutionEntity.class));
+    verify(eventSubscriptionDataManager).insert(isA(EventSubscriptionEntity.class));
+    verify(eventSubscriptionDataManager).createCompensateEventSubscription();
+  }
+
+  /**
+   * Test {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}.
+   * <ul>
+   *   <li>Then calls {@link ExecutionEntityImpl#setEventSubscriptionCount(int)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#insertCompensationEvent(ExecutionEntity, String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "CompensateEventSubscriptionEntity EventSubscriptionEntityManagerImpl.insertCompensationEvent(ExecutionEntity, String)"})
   public void testInsertCompensationEvent_thenCallsSetEventSubscriptionCount() {
     // Arrange
     ActivitiEventDispatcherImpl activitiEventDispatcherImpl = mock(ActivitiEventDispatcherImpl.class);
@@ -1849,30 +2029,24 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#delete(EventSubscriptionEntity, boolean)}
-   * with {@code EventSubscriptionEntity}, {@code boolean}.
+   * Test {@link EventSubscriptionEntityManagerImpl#delete(EventSubscriptionEntity, boolean)} with {@code EventSubscriptionEntity}, {@code boolean}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#delete(EventSubscriptionEntity, boolean)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#delete(EventSubscriptionEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventSubscriptionEntityManagerImpl.delete(EventSubscriptionEntity, boolean)"})
   public void testDeleteWithEventSubscriptionEntityBoolean() {
     // Arrange
-    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
-    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
-    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
-    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
-    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
-    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
+    PerformanceSettings performanceSettings = new PerformanceSettings();
     performanceSettings.setEnableEagerExecutionTreeFetching(true);
     performanceSettings.setEnableExecutionRelationshipCounts(true);
     performanceSettings.setEnableLocalization(true);
     performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
     when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
     when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    MybatisEventSubscriptionDataManager eventSubscriptionDataManager = mock(MybatisEventSubscriptionDataManager.class);
+    EventSubscriptionDataManager eventSubscriptionDataManager = mock(EventSubscriptionDataManager.class);
     doNothing().when(eventSubscriptionDataManager).delete(Mockito.<EventSubscriptionEntity>any());
     EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
         processEngineConfiguration, eventSubscriptionDataManager);
@@ -1884,11 +2058,6 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
     eventSubscriptionEntityManagerImpl.delete(entity, true);
 
     // Assert
-    verify(performanceSettings, atLeast(1)).isEnableExecutionRelationshipCounts();
-    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
-    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
-    verify(performanceSettings).setEnableLocalization(eq(true));
-    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
     verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
     verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
     verify(entity).getExecution();
@@ -1897,32 +2066,26 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#delete(EventSubscriptionEntity, boolean)}
-   * with {@code EventSubscriptionEntity}, {@code boolean}.
+   * Test {@link EventSubscriptionEntityManagerImpl#delete(EventSubscriptionEntity, boolean)} with {@code EventSubscriptionEntity}, {@code boolean}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#delete(EventSubscriptionEntity, boolean)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#delete(EventSubscriptionEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventSubscriptionEntityManagerImpl.delete(EventSubscriptionEntity, boolean)"})
   public void testDeleteWithEventSubscriptionEntityBoolean2() {
     // Arrange
-    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
-    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
-    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
-    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
-    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
-    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
+    PerformanceSettings performanceSettings = new PerformanceSettings();
     performanceSettings.setEnableEagerExecutionTreeFetching(true);
     performanceSettings.setEnableExecutionRelationshipCounts(true);
     performanceSettings.setEnableLocalization(true);
     performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     when(activitiEventDispatcher.isEnabled()).thenReturn(false);
-    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
     when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    MybatisEventSubscriptionDataManager eventSubscriptionDataManager = mock(MybatisEventSubscriptionDataManager.class);
+    EventSubscriptionDataManager eventSubscriptionDataManager = mock(EventSubscriptionDataManager.class);
     doNothing().when(eventSubscriptionDataManager).delete(Mockito.<EventSubscriptionEntity>any());
     EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
         processEngineConfiguration, eventSubscriptionDataManager);
@@ -1933,13 +2096,8 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
     // Act
     eventSubscriptionEntityManagerImpl.delete(entity, true);
 
-    // Assert that nothing has changed
+    // Assert
     verify(activitiEventDispatcher).isEnabled();
-    verify(performanceSettings, atLeast(1)).isEnableExecutionRelationshipCounts();
-    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
-    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
-    verify(performanceSettings).setEnableLocalization(eq(true));
-    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
     verify(processEngineConfiguration).getEventDispatcher();
     verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
     verify(entity).getExecution();
@@ -1948,82 +2106,21 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#delete(EventSubscriptionEntity, boolean)}
-   * with {@code EventSubscriptionEntity}, {@code boolean}.
+   * Test {@link EventSubscriptionEntityManagerImpl#delete(EventSubscriptionEntity, boolean)} with {@code EventSubscriptionEntity}, {@code boolean}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#delete(EventSubscriptionEntity, boolean)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#delete(EventSubscriptionEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventSubscriptionEntityManagerImpl.delete(EventSubscriptionEntity, boolean)"})
   public void testDeleteWithEventSubscriptionEntityBoolean3() {
     // Arrange
-    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
-    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(false);
-    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
-    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
-    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
-    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
-    performanceSettings.setEnableEagerExecutionTreeFetching(true);
-    performanceSettings.setEnableExecutionRelationshipCounts(true);
-    performanceSettings.setEnableLocalization(true);
-    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
     when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
     when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    MybatisEventSubscriptionDataManager eventSubscriptionDataManager = mock(MybatisEventSubscriptionDataManager.class);
-    doNothing().when(eventSubscriptionDataManager).delete(Mockito.<EventSubscriptionEntity>any());
-    EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
-        processEngineConfiguration, eventSubscriptionDataManager);
-    CompensateEventSubscriptionEntityImpl entity = mock(CompensateEventSubscriptionEntityImpl.class);
-    when(entity.getExecutionId()).thenReturn("42");
-
-    // Act
-    eventSubscriptionEntityManagerImpl.delete(entity, true);
-
-    // Assert
-    verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
-    verify(activitiEventDispatcher).isEnabled();
-    verify(performanceSettings).isEnableExecutionRelationshipCounts();
-    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
-    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
-    verify(performanceSettings).setEnableLocalization(eq(true));
-    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfiguration).getPerformanceSettings();
-    verify(entity).getExecutionId();
-    verify(eventSubscriptionDataManager).delete(isA(EventSubscriptionEntity.class));
-  }
-
-  /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#delete(EventSubscriptionEntity, boolean)}
-   * with {@code EventSubscriptionEntity}, {@code boolean}.
-   * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#delete(EventSubscriptionEntity, boolean)}
-   */
-  @Test
-  public void testDeleteWithEventSubscriptionEntityBoolean4() {
-    // Arrange
-    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
-    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
-    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
-    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
-    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
-    performanceSettings.setEnableEagerExecutionTreeFetching(true);
-    performanceSettings.setEnableExecutionRelationshipCounts(true);
-    performanceSettings.setEnableLocalization(true);
-    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    MybatisEventSubscriptionDataManager eventSubscriptionDataManager = mock(MybatisEventSubscriptionDataManager.class);
+    EventSubscriptionDataManager eventSubscriptionDataManager = mock(EventSubscriptionDataManager.class);
     doNothing().when(eventSubscriptionDataManager).delete(Mockito.<EventSubscriptionEntity>any());
     EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
         processEngineConfiguration, eventSubscriptionDataManager);
@@ -2036,36 +2133,25 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
     // Assert
     verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
     verify(activitiEventDispatcher).isEnabled();
-    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
-    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
-    verify(performanceSettings).setEnableLocalization(eq(true));
-    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
     verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
     verify(entity).getExecutionId();
     verify(eventSubscriptionDataManager).delete(isA(EventSubscriptionEntity.class));
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#delete(EventSubscriptionEntity, boolean)}
-   * with {@code EventSubscriptionEntity}, {@code boolean}.
+   * Test {@link EventSubscriptionEntityManagerImpl#delete(EventSubscriptionEntity, boolean)} with {@code EventSubscriptionEntity}, {@code boolean}.
    * <ul>
-   *   <li>Then calls
-   * {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#delete(EventSubscriptionEntity, boolean)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#delete(EventSubscriptionEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventSubscriptionEntityManagerImpl.delete(EventSubscriptionEntity, boolean)"})
   public void testDeleteWithEventSubscriptionEntityBoolean_thenCallsDispatchEvent() {
     // Arrange
-    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
-    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
-    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
-    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
-    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
-    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
+    PerformanceSettings performanceSettings = new PerformanceSettings();
     performanceSettings.setEnableEagerExecutionTreeFetching(true);
     performanceSettings.setEnableExecutionRelationshipCounts(true);
     performanceSettings.setEnableLocalization(true);
@@ -2073,10 +2159,10 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
     when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
     when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    MybatisEventSubscriptionDataManager eventSubscriptionDataManager = mock(MybatisEventSubscriptionDataManager.class);
+    EventSubscriptionDataManager eventSubscriptionDataManager = mock(EventSubscriptionDataManager.class);
     doNothing().when(eventSubscriptionDataManager).delete(Mockito.<EventSubscriptionEntity>any());
     EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
         processEngineConfiguration, eventSubscriptionDataManager);
@@ -2090,11 +2176,6 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
     // Assert
     verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
     verify(activitiEventDispatcher).isEnabled();
-    verify(performanceSettings, atLeast(1)).isEnableExecutionRelationshipCounts();
-    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
-    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
-    verify(performanceSettings).setEnableLocalization(eq(true));
-    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
     verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
     verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
     verify(entity).getExecution();
@@ -2103,26 +2184,19 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#delete(EventSubscriptionEntity, boolean)}
-   * with {@code EventSubscriptionEntity}, {@code boolean}.
+   * Test {@link EventSubscriptionEntityManagerImpl#delete(EventSubscriptionEntity, boolean)} with {@code EventSubscriptionEntity}, {@code boolean}.
    * <ul>
-   *   <li>Then calls
-   * {@link ExecutionEntityImpl#setEventSubscriptionCount(int)}.</li>
+   *   <li>Then calls {@link ExecutionEntityImpl#setEventSubscriptionCount(int)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#delete(EventSubscriptionEntity, boolean)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#delete(EventSubscriptionEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventSubscriptionEntityManagerImpl.delete(EventSubscriptionEntity, boolean)"})
   public void testDeleteWithEventSubscriptionEntityBoolean_thenCallsSetEventSubscriptionCount() {
     // Arrange
-    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
-    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
-    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
-    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
-    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
-    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
+    PerformanceSettings performanceSettings = new PerformanceSettings();
     performanceSettings.setEnableEagerExecutionTreeFetching(true);
     performanceSettings.setEnableExecutionRelationshipCounts(true);
     performanceSettings.setEnableLocalization(true);
@@ -2130,10 +2204,10 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
     when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
     when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    MybatisEventSubscriptionDataManager eventSubscriptionDataManager = mock(MybatisEventSubscriptionDataManager.class);
+    EventSubscriptionDataManager eventSubscriptionDataManager = mock(EventSubscriptionDataManager.class);
     doNothing().when(eventSubscriptionDataManager).delete(Mockito.<EventSubscriptionEntity>any());
     EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
         processEngineConfiguration, eventSubscriptionDataManager);
@@ -2151,11 +2225,6 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
     // Assert
     verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
     verify(activitiEventDispatcher).isEnabled();
-    verify(performanceSettings, atLeast(1)).isEnableExecutionRelationshipCounts();
-    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
-    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
-    verify(performanceSettings).setEnableLocalization(eq(true));
-    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
     verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
     verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
     verify(entity).getExecution();
@@ -2167,33 +2236,26 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#delete(EventSubscriptionEntity, boolean)}
-   * with {@code EventSubscriptionEntity}, {@code boolean}.
+   * Test {@link EventSubscriptionEntityManagerImpl#delete(EventSubscriptionEntity, boolean)} with {@code EventSubscriptionEntity}, {@code boolean}.
    * <ul>
-   *   <li>Then calls
-   * {@link ExecutionEntityImpl#setEventSubscriptionCount(int)}.</li>
+   *   <li>Then calls {@link ExecutionEntityImpl#setEventSubscriptionCount(int)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#delete(EventSubscriptionEntity, boolean)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#delete(EventSubscriptionEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventSubscriptionEntityManagerImpl.delete(EventSubscriptionEntity, boolean)"})
   public void testDeleteWithEventSubscriptionEntityBoolean_thenCallsSetEventSubscriptionCount2() {
     // Arrange
-    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
-    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
-    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
-    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
-    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
-    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
+    PerformanceSettings performanceSettings = new PerformanceSettings();
     performanceSettings.setEnableEagerExecutionTreeFetching(true);
     performanceSettings.setEnableExecutionRelationshipCounts(true);
     performanceSettings.setEnableLocalization(true);
     performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
     when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    MybatisEventSubscriptionDataManager eventSubscriptionDataManager = mock(MybatisEventSubscriptionDataManager.class);
+    EventSubscriptionDataManager eventSubscriptionDataManager = mock(EventSubscriptionDataManager.class);
     doNothing().when(eventSubscriptionDataManager).delete(Mockito.<EventSubscriptionEntity>any());
     EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
         processEngineConfiguration, eventSubscriptionDataManager);
@@ -2208,12 +2270,7 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
     // Act
     eventSubscriptionEntityManagerImpl.delete(entity, false);
 
-    // Assert that nothing has changed
-    verify(performanceSettings, atLeast(1)).isEnableExecutionRelationshipCounts();
-    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
-    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
-    verify(performanceSettings).setEnableLocalization(eq(true));
-    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
+    // Assert
     verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
     verify(entity).getExecution();
     verify(entity).getExecutionId();
@@ -2224,33 +2281,27 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#delete(EventSubscriptionEntity, boolean)}
-   * with {@code EventSubscriptionEntity}, {@code boolean}.
+   * Test {@link EventSubscriptionEntityManagerImpl#delete(EventSubscriptionEntity, boolean)} with {@code EventSubscriptionEntity}, {@code boolean}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#delete(EventSubscriptionEntity, boolean)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#delete(EventSubscriptionEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventSubscriptionEntityManagerImpl.delete(EventSubscriptionEntity, boolean)"})
   public void testDeleteWithEventSubscriptionEntityBoolean_thenThrowActivitiException() {
     // Arrange
-    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
-    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
-    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
-    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
-    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
-    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
+    PerformanceSettings performanceSettings = new PerformanceSettings();
     performanceSettings.setEnableEagerExecutionTreeFetching(true);
     performanceSettings.setEnableExecutionRelationshipCounts(true);
     performanceSettings.setEnableLocalization(true);
     performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
     when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
     EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
-        processEngineConfiguration, mock(MybatisEventSubscriptionDataManager.class));
+        processEngineConfiguration, mock(EventSubscriptionDataManager.class));
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
     when(executionEntityImpl.getEventSubscriptionCount()).thenThrow(new ActivitiException("An error occurred"));
     when(executionEntityImpl.isCountEnabled()).thenReturn(true);
@@ -2260,11 +2311,6 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
 
     // Act and Assert
     assertThrows(ActivitiException.class, () -> eventSubscriptionEntityManagerImpl.delete(entity, true));
-    verify(performanceSettings, atLeast(1)).isEnableExecutionRelationshipCounts();
-    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
-    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
-    verify(performanceSettings).setEnableLocalization(eq(true));
-    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
     verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
     verify(entity).getExecution();
     verify(entity).getExecutionId();
@@ -2273,16 +2319,16 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionId(String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionId(String)}.
    * <ul>
    *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionId(String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List EventSubscriptionEntityManagerImpl.findCompensateEventSubscriptionsByExecutionId(String)"})
   public void testFindCompensateEventSubscriptionsByExecutionId_givenArrayListAddNull() {
     // Arrange
     ArrayList<EventSubscriptionEntity> eventSubscriptionEntityList = new ArrayList<>();
@@ -2300,16 +2346,16 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionId(String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionId(String)}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionId(String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List EventSubscriptionEntityManagerImpl.findCompensateEventSubscriptionsByExecutionId(String)"})
   public void testFindCompensateEventSubscriptionsByExecutionId_thenReturnEmpty() {
     // Arrange
     when(eventSubscriptionDataManager.findEventSubscriptionsByExecutionAndType(Mockito.<String>any(),
@@ -2325,16 +2371,16 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionId(String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionId(String)}.
    * <ul>
    *   <li>Then return size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionId(String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List EventSubscriptionEntityManagerImpl.findCompensateEventSubscriptionsByExecutionId(String)"})
   public void testFindCompensateEventSubscriptionsByExecutionId_thenReturnSizeIsOne() {
     // Arrange
     ArrayList<EventSubscriptionEntity> eventSubscriptionEntityList = new ArrayList<>();
@@ -2352,16 +2398,16 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionId(String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionId(String)}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionId(String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List EventSubscriptionEntityManagerImpl.findCompensateEventSubscriptionsByExecutionId(String)"})
   public void testFindCompensateEventSubscriptionsByExecutionId_thenThrowActivitiException() {
     // Arrange
     when(eventSubscriptionDataManager.findEventSubscriptionsByExecutionAndType(Mockito.<String>any(),
@@ -2374,13 +2420,14 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionIdAndActivityId(String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionIdAndActivityId(String, String)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionIdAndActivityId(String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionIdAndActivityId(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List EventSubscriptionEntityManagerImpl.findCompensateEventSubscriptionsByExecutionIdAndActivityId(String, String)"})
   public void testFindCompensateEventSubscriptionsByExecutionIdAndActivityId() {
     // Arrange
     when(eventSubscriptionDataManager.findEventSubscriptionsByExecutionAndType(Mockito.<String>any(),
@@ -2393,13 +2440,14 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionIdAndActivityId(String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionIdAndActivityId(String, String)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionIdAndActivityId(String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionIdAndActivityId(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List EventSubscriptionEntityManagerImpl.findCompensateEventSubscriptionsByExecutionIdAndActivityId(String, String)"})
   public void testFindCompensateEventSubscriptionsByExecutionIdAndActivityId2() {
     // Arrange
     ArrayList<EventSubscriptionEntity> eventSubscriptionEntityList = new ArrayList<>();
@@ -2417,13 +2465,14 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionIdAndActivityId(String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionIdAndActivityId(String, String)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionIdAndActivityId(String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionIdAndActivityId(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List EventSubscriptionEntityManagerImpl.findCompensateEventSubscriptionsByExecutionIdAndActivityId(String, String)"})
   public void testFindCompensateEventSubscriptionsByExecutionIdAndActivityId3() {
     // Arrange
     CompensateEventSubscriptionEntityImpl compensateEventSubscriptionEntityImpl = mock(
@@ -2446,13 +2495,14 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionIdAndActivityId(String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionIdAndActivityId(String, String)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionIdAndActivityId(String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionIdAndActivityId(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List EventSubscriptionEntityManagerImpl.findCompensateEventSubscriptionsByExecutionIdAndActivityId(String, String)"})
   public void testFindCompensateEventSubscriptionsByExecutionIdAndActivityId4() {
     // Arrange
     CompensateEventSubscriptionEntityImpl compensateEventSubscriptionEntityImpl = mock(
@@ -2476,16 +2526,17 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionIdAndActivityId(String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionIdAndActivityId(String, String)}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionIdAndActivityId(String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionIdAndActivityId(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List EventSubscriptionEntityManagerImpl.findCompensateEventSubscriptionsByExecutionIdAndActivityId(String, String)"})
   public void testFindCompensateEventSubscriptionsByExecutionIdAndActivityId_thenReturnEmpty() {
     // Arrange
     when(eventSubscriptionDataManager.findEventSubscriptionsByExecutionAndType(Mockito.<String>any(),
@@ -2501,16 +2552,17 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionIdAndActivityId(String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionIdAndActivityId(String, String)}.
    * <ul>
    *   <li>When {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionIdAndActivityId(String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByExecutionIdAndActivityId(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List EventSubscriptionEntityManagerImpl.findCompensateEventSubscriptionsByExecutionIdAndActivityId(String, String)"})
   public void testFindCompensateEventSubscriptionsByExecutionIdAndActivityId_whenNull() {
     // Arrange
     ArrayList<EventSubscriptionEntity> eventSubscriptionEntityList = new ArrayList<>();
@@ -2528,13 +2580,14 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByProcessInstanceIdAndActivityId(String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByProcessInstanceIdAndActivityId(String, String)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByProcessInstanceIdAndActivityId(String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByProcessInstanceIdAndActivityId(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List EventSubscriptionEntityManagerImpl.findCompensateEventSubscriptionsByProcessInstanceIdAndActivityId(String, String)"})
   public void testFindCompensateEventSubscriptionsByProcessInstanceIdAndActivityId() {
     // Arrange
     when(eventSubscriptionDataManager.findEventSubscriptionsByProcessInstanceAndActivityId(Mockito.<String>any(),
@@ -2551,13 +2604,14 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByProcessInstanceIdAndActivityId(String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByProcessInstanceIdAndActivityId(String, String)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByProcessInstanceIdAndActivityId(String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByProcessInstanceIdAndActivityId(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List EventSubscriptionEntityManagerImpl.findCompensateEventSubscriptionsByProcessInstanceIdAndActivityId(String, String)"})
   public void testFindCompensateEventSubscriptionsByProcessInstanceIdAndActivityId2() {
     // Arrange
     when(eventSubscriptionDataManager.findEventSubscriptionsByProcessInstanceAndActivityId(Mockito.<String>any(),
@@ -2571,13 +2625,14 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByProcessInstanceIdAndActivityId(String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByProcessInstanceIdAndActivityId(String, String)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByProcessInstanceIdAndActivityId(String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findCompensateEventSubscriptionsByProcessInstanceIdAndActivityId(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List EventSubscriptionEntityManagerImpl.findCompensateEventSubscriptionsByProcessInstanceIdAndActivityId(String, String)"})
   public void testFindCompensateEventSubscriptionsByProcessInstanceIdAndActivityId3() {
     // Arrange
     ArrayList<EventSubscriptionEntity> eventSubscriptionEntityList = new ArrayList<>();
@@ -2597,24 +2652,22 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#addToExecution(EventSubscriptionEntity)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#addToExecution(EventSubscriptionEntity)}.
    * <ul>
    *   <li>Given createWithEmptyRelationshipCollections.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#addToExecution(EventSubscriptionEntity)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#addToExecution(EventSubscriptionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventSubscriptionEntityManagerImpl.addToExecution(EventSubscriptionEntity)"})
   public void testAddToExecution_givenCreateWithEmptyRelationshipCollections() {
     // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
-    doNothing().when(processEngineConfiguration).addSessionFactory(Mockito.<SessionFactory>any());
-    processEngineConfiguration.addSessionFactory(new DbSqlSessionFactory());
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
-        mock(JtaProcessEngineConfiguration.class), new MybatisEventSubscriptionDataManager(processEngineConfiguration));
-    CompensateEventSubscriptionEntityImpl eventSubscriptionEntity = mock(CompensateEventSubscriptionEntityImpl.class);
+        processEngineConfiguration, new MybatisEventSubscriptionDataManager(new JtaProcessEngineConfiguration()));
+    EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
     when(eventSubscriptionEntity.getExecution())
         .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
@@ -2622,47 +2675,45 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
     eventSubscriptionEntityManagerImpl.addToExecution(eventSubscriptionEntity);
 
     // Assert
-    verify(processEngineConfiguration).addSessionFactory(isA(SessionFactory.class));
     verify(eventSubscriptionEntity).getExecution();
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#addToExecution(EventSubscriptionEntity)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#addToExecution(EventSubscriptionEntity)}.
    * <ul>
    *   <li>Given {@code null}.</li>
+   *   <li>When {@link EventSubscriptionEntity} {@link EventSubscriptionEntity#getExecution()} return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#addToExecution(EventSubscriptionEntity)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#addToExecution(EventSubscriptionEntity)}
    */
   @Test
-  public void testAddToExecution_givenNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventSubscriptionEntityManagerImpl.addToExecution(EventSubscriptionEntity)"})
+  public void testAddToExecution_givenNull_whenEventSubscriptionEntityGetExecutionReturnNull() {
     // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
-    doNothing().when(processEngineConfiguration).addSessionFactory(Mockito.<SessionFactory>any());
-    processEngineConfiguration.addSessionFactory(new DbSqlSessionFactory());
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
-        mock(JtaProcessEngineConfiguration.class), new MybatisEventSubscriptionDataManager(processEngineConfiguration));
-    CompensateEventSubscriptionEntityImpl eventSubscriptionEntity = mock(CompensateEventSubscriptionEntityImpl.class);
+        processEngineConfiguration, new MybatisEventSubscriptionDataManager(new JtaProcessEngineConfiguration()));
+    EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
     when(eventSubscriptionEntity.getExecution()).thenReturn(null);
 
     // Act
     eventSubscriptionEntityManagerImpl.addToExecution(eventSubscriptionEntity);
 
-    // Assert that nothing has changed
-    verify(processEngineConfiguration).addSessionFactory(isA(SessionFactory.class));
+    // Assert
     verify(eventSubscriptionEntity).getExecution();
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findMessageEventSubscriptionsByProcessInstanceAndEventName(String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findMessageEventSubscriptionsByProcessInstanceAndEventName(String, String)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findMessageEventSubscriptionsByProcessInstanceAndEventName(String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findMessageEventSubscriptionsByProcessInstanceAndEventName(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List EventSubscriptionEntityManagerImpl.findMessageEventSubscriptionsByProcessInstanceAndEventName(String, String)"})
   public void testFindMessageEventSubscriptionsByProcessInstanceAndEventName() {
     // Arrange
     when(eventSubscriptionDataManager.findMessageEventSubscriptionsByProcessInstanceAndEventName(Mockito.<String>any(),
@@ -2676,16 +2727,17 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findMessageEventSubscriptionsByProcessInstanceAndEventName(String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findMessageEventSubscriptionsByProcessInstanceAndEventName(String, String)}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findMessageEventSubscriptionsByProcessInstanceAndEventName(String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findMessageEventSubscriptionsByProcessInstanceAndEventName(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List EventSubscriptionEntityManagerImpl.findMessageEventSubscriptionsByProcessInstanceAndEventName(String, String)"})
   public void testFindMessageEventSubscriptionsByProcessInstanceAndEventName_thenReturnEmpty() {
     // Arrange
     when(eventSubscriptionDataManager.findMessageEventSubscriptionsByProcessInstanceAndEventName(Mockito.<String>any(),
@@ -2702,16 +2754,16 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findSignalEventSubscriptionsByEventName(String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findSignalEventSubscriptionsByEventName(String, String)}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findSignalEventSubscriptionsByEventName(String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findSignalEventSubscriptionsByEventName(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List EventSubscriptionEntityManagerImpl.findSignalEventSubscriptionsByEventName(String, String)"})
   public void testFindSignalEventSubscriptionsByEventName_thenReturnEmpty() {
     // Arrange
     when(eventSubscriptionDataManager.findSignalEventSubscriptionsByEventName(Mockito.<String>any(),
@@ -2727,16 +2779,16 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findSignalEventSubscriptionsByEventName(String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findSignalEventSubscriptionsByEventName(String, String)}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findSignalEventSubscriptionsByEventName(String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findSignalEventSubscriptionsByEventName(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List EventSubscriptionEntityManagerImpl.findSignalEventSubscriptionsByEventName(String, String)"})
   public void testFindSignalEventSubscriptionsByEventName_thenThrowActivitiException() {
     // Arrange
     when(eventSubscriptionDataManager.findSignalEventSubscriptionsByEventName(Mockito.<String>any(),
@@ -2749,13 +2801,14 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findSignalEventSubscriptionsByProcessInstanceAndEventName(String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findSignalEventSubscriptionsByProcessInstanceAndEventName(String, String)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findSignalEventSubscriptionsByProcessInstanceAndEventName(String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findSignalEventSubscriptionsByProcessInstanceAndEventName(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List EventSubscriptionEntityManagerImpl.findSignalEventSubscriptionsByProcessInstanceAndEventName(String, String)"})
   public void testFindSignalEventSubscriptionsByProcessInstanceAndEventName() {
     // Arrange
     when(eventSubscriptionDataManager.findSignalEventSubscriptionsByProcessInstanceAndEventName(Mockito.<String>any(),
@@ -2769,16 +2822,17 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findSignalEventSubscriptionsByProcessInstanceAndEventName(String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findSignalEventSubscriptionsByProcessInstanceAndEventName(String, String)}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findSignalEventSubscriptionsByProcessInstanceAndEventName(String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findSignalEventSubscriptionsByProcessInstanceAndEventName(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List EventSubscriptionEntityManagerImpl.findSignalEventSubscriptionsByProcessInstanceAndEventName(String, String)"})
   public void testFindSignalEventSubscriptionsByProcessInstanceAndEventName_thenReturnEmpty() {
     // Arrange
     when(eventSubscriptionDataManager.findSignalEventSubscriptionsByProcessInstanceAndEventName(Mockito.<String>any(),
@@ -2795,16 +2849,17 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findSignalEventSubscriptionsByNameAndExecution(String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findSignalEventSubscriptionsByNameAndExecution(String, String)}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findSignalEventSubscriptionsByNameAndExecution(String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findSignalEventSubscriptionsByNameAndExecution(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List EventSubscriptionEntityManagerImpl.findSignalEventSubscriptionsByNameAndExecution(String, String)"})
   public void testFindSignalEventSubscriptionsByNameAndExecution_thenReturnEmpty() {
     // Arrange
     when(eventSubscriptionDataManager.findSignalEventSubscriptionsByNameAndExecution(Mockito.<String>any(),
@@ -2820,16 +2875,17 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findSignalEventSubscriptionsByNameAndExecution(String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findSignalEventSubscriptionsByNameAndExecution(String, String)}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findSignalEventSubscriptionsByNameAndExecution(String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findSignalEventSubscriptionsByNameAndExecution(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List EventSubscriptionEntityManagerImpl.findSignalEventSubscriptionsByNameAndExecution(String, String)"})
   public void testFindSignalEventSubscriptionsByNameAndExecution_thenThrowActivitiException() {
     // Arrange
     when(eventSubscriptionDataManager.findSignalEventSubscriptionsByNameAndExecution(Mockito.<String>any(),
@@ -2842,16 +2898,17 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByExecutionAndType(String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByExecutionAndType(String, String)}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByExecutionAndType(String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByExecutionAndType(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List EventSubscriptionEntityManagerImpl.findEventSubscriptionsByExecutionAndType(String, String)"})
   public void testFindEventSubscriptionsByExecutionAndType_thenReturnEmpty() {
     // Arrange
     when(eventSubscriptionDataManager.findEventSubscriptionsByExecutionAndType(Mockito.<String>any(),
@@ -2867,16 +2924,17 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByExecutionAndType(String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByExecutionAndType(String, String)}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByExecutionAndType(String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByExecutionAndType(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List EventSubscriptionEntityManagerImpl.findEventSubscriptionsByExecutionAndType(String, String)"})
   public void testFindEventSubscriptionsByExecutionAndType_thenThrowActivitiException() {
     // Arrange
     when(eventSubscriptionDataManager.findEventSubscriptionsByExecutionAndType(Mockito.<String>any(),
@@ -2889,13 +2947,14 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByProcessInstanceAndActivityId(String, String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByProcessInstanceAndActivityId(String, String, String)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByProcessInstanceAndActivityId(String, String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByProcessInstanceAndActivityId(String, String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List EventSubscriptionEntityManagerImpl.findEventSubscriptionsByProcessInstanceAndActivityId(String, String, String)"})
   public void testFindEventSubscriptionsByProcessInstanceAndActivityId() {
     // Arrange
     when(eventSubscriptionDataManager.findEventSubscriptionsByProcessInstanceAndActivityId(Mockito.<String>any(),
@@ -2909,16 +2968,17 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByProcessInstanceAndActivityId(String, String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByProcessInstanceAndActivityId(String, String, String)}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByProcessInstanceAndActivityId(String, String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByProcessInstanceAndActivityId(String, String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List EventSubscriptionEntityManagerImpl.findEventSubscriptionsByProcessInstanceAndActivityId(String, String, String)"})
   public void testFindEventSubscriptionsByProcessInstanceAndActivityId_thenReturnEmpty() {
     // Arrange
     when(eventSubscriptionDataManager.findEventSubscriptionsByProcessInstanceAndActivityId(Mockito.<String>any(),
@@ -2935,16 +2995,16 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByExecution(String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByExecution(String)}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByExecution(String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByExecution(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List EventSubscriptionEntityManagerImpl.findEventSubscriptionsByExecution(String)"})
   public void testFindEventSubscriptionsByExecution_thenReturnEmpty() {
     // Arrange
     when(eventSubscriptionDataManager.findEventSubscriptionsByExecution(Mockito.<String>any()))
@@ -2960,16 +3020,16 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByExecution(String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByExecution(String)}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByExecution(String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByExecution(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List EventSubscriptionEntityManagerImpl.findEventSubscriptionsByExecution(String)"})
   public void testFindEventSubscriptionsByExecution_thenThrowActivitiException() {
     // Arrange
     when(eventSubscriptionDataManager.findEventSubscriptionsByExecution(Mockito.<String>any()))
@@ -2982,13 +3042,14 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByTypeAndProcessDefinitionId(String, String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByTypeAndProcessDefinitionId(String, String, String)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByTypeAndProcessDefinitionId(String, String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByTypeAndProcessDefinitionId(String, String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List EventSubscriptionEntityManagerImpl.findEventSubscriptionsByTypeAndProcessDefinitionId(String, String, String)"})
   public void testFindEventSubscriptionsByTypeAndProcessDefinitionId() {
     // Arrange
     when(eventSubscriptionDataManager.findEventSubscriptionsByTypeAndProcessDefinitionId(Mockito.<String>any(),
@@ -3002,16 +3063,17 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByTypeAndProcessDefinitionId(String, String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByTypeAndProcessDefinitionId(String, String, String)}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByTypeAndProcessDefinitionId(String, String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByTypeAndProcessDefinitionId(String, String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List EventSubscriptionEntityManagerImpl.findEventSubscriptionsByTypeAndProcessDefinitionId(String, String, String)"})
   public void testFindEventSubscriptionsByTypeAndProcessDefinitionId_thenReturnEmpty() {
     // Arrange
     when(eventSubscriptionDataManager.findEventSubscriptionsByTypeAndProcessDefinitionId(Mockito.<String>any(),
@@ -3028,16 +3090,16 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByName(String, String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByName(String, String, String)}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByName(String, String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByName(String, String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List EventSubscriptionEntityManagerImpl.findEventSubscriptionsByName(String, String, String)"})
   public void testFindEventSubscriptionsByName_thenReturnEmpty() {
     // Arrange
     when(eventSubscriptionDataManager.findEventSubscriptionsByName(Mockito.<String>any(), Mockito.<String>any(),
@@ -3053,16 +3115,16 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByName(String, String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByName(String, String, String)}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByName(String, String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByName(String, String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List EventSubscriptionEntityManagerImpl.findEventSubscriptionsByName(String, String, String)"})
   public void testFindEventSubscriptionsByName_thenThrowActivitiException() {
     // Arrange
     when(eventSubscriptionDataManager.findEventSubscriptionsByName(Mockito.<String>any(), Mockito.<String>any(),
@@ -3075,16 +3137,17 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByNameAndExecution(String, String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByNameAndExecution(String, String, String)}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByNameAndExecution(String, String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByNameAndExecution(String, String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List EventSubscriptionEntityManagerImpl.findEventSubscriptionsByNameAndExecution(String, String, String)"})
   public void testFindEventSubscriptionsByNameAndExecution_thenReturnEmpty() {
     // Arrange
     when(eventSubscriptionDataManager.findEventSubscriptionsByNameAndExecution(Mockito.<String>any(),
@@ -3101,16 +3164,17 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByNameAndExecution(String, String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByNameAndExecution(String, String, String)}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByNameAndExecution(String, String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findEventSubscriptionsByNameAndExecution(String, String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List EventSubscriptionEntityManagerImpl.findEventSubscriptionsByNameAndExecution(String, String, String)"})
   public void testFindEventSubscriptionsByNameAndExecution_thenThrowActivitiException() {
     // Arrange
     when(eventSubscriptionDataManager.findEventSubscriptionsByNameAndExecution(Mockito.<String>any(),
@@ -3124,16 +3188,17 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findMessageStartEventSubscriptionByName(String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findMessageStartEventSubscriptionByName(String, String)}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findMessageStartEventSubscriptionByName(String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findMessageStartEventSubscriptionByName(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "MessageEventSubscriptionEntity EventSubscriptionEntityManagerImpl.findMessageStartEventSubscriptionByName(String, String)"})
   public void testFindMessageStartEventSubscriptionByName_thenReturnNull() {
     // Arrange
     when(eventSubscriptionDataManager.findMessageStartEventSubscriptionByName(Mockito.<String>any(),
@@ -3149,16 +3214,17 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#findMessageStartEventSubscriptionByName(String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#findMessageStartEventSubscriptionByName(String, String)}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#findMessageStartEventSubscriptionByName(String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#findMessageStartEventSubscriptionByName(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "MessageEventSubscriptionEntity EventSubscriptionEntityManagerImpl.findMessageStartEventSubscriptionByName(String, String)"})
   public void testFindMessageStartEventSubscriptionByName_thenThrowActivitiException() {
     // Arrange
     when(eventSubscriptionDataManager.findMessageStartEventSubscriptionByName(Mockito.<String>any(),
@@ -3171,13 +3237,13 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#updateEventSubscriptionTenantId(String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#updateEventSubscriptionTenantId(String, String)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#updateEventSubscriptionTenantId(String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#updateEventSubscriptionTenantId(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventSubscriptionEntityManagerImpl.updateEventSubscriptionTenantId(String, String)"})
   public void testUpdateEventSubscriptionTenantId() {
     // Arrange
     doNothing().when(eventSubscriptionDataManager)
@@ -3191,16 +3257,16 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#updateEventSubscriptionTenantId(String, String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#updateEventSubscriptionTenantId(String, String)}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#updateEventSubscriptionTenantId(String, String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#updateEventSubscriptionTenantId(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventSubscriptionEntityManagerImpl.updateEventSubscriptionTenantId(String, String)"})
   public void testUpdateEventSubscriptionTenantId_thenThrowActivitiException() {
     // Arrange
     doThrow(new ActivitiException("An error occurred")).when(eventSubscriptionDataManager)
@@ -3213,13 +3279,13 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#deleteEventSubscriptionsForProcessDefinition(String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#deleteEventSubscriptionsForProcessDefinition(String)}.
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#deleteEventSubscriptionsForProcessDefinition(String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#deleteEventSubscriptionsForProcessDefinition(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventSubscriptionEntityManagerImpl.deleteEventSubscriptionsForProcessDefinition(String)"})
   public void testDeleteEventSubscriptionsForProcessDefinition() {
     // Arrange
     doNothing().when(eventSubscriptionDataManager).deleteEventSubscriptionsForProcessDefinition(Mockito.<String>any());
@@ -3232,16 +3298,16 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#deleteEventSubscriptionsForProcessDefinition(String)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#deleteEventSubscriptionsForProcessDefinition(String)}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#deleteEventSubscriptionsForProcessDefinition(String)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#deleteEventSubscriptionsForProcessDefinition(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventSubscriptionEntityManagerImpl.deleteEventSubscriptionsForProcessDefinition(String)"})
   public void testDeleteEventSubscriptionsForProcessDefinition_thenThrowActivitiException() {
     // Arrange
     doThrow(new ActivitiException("An error occurred")).when(eventSubscriptionDataManager)
@@ -3254,1120 +3320,43 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#eventReceived(EventSubscriptionEntity, Object, boolean)}.
-   * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#eventReceived(EventSubscriptionEntity, Object, boolean)}
-   */
-  @Test
-  public void testEventReceived() {
-    // Arrange
-    JobEntityManager jobEntityManager = mock(JobEntityManager.class);
-    when(jobEntityManager.create()).thenReturn(new JobEntityImpl());
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
-    JobDataManager jobDataManager = mock(JobDataManager.class);
-    doNothing().when(jobDataManager).insert(Mockito.<JobEntity>any());
-    JobEntityManagerImpl jobEntityManagerImpl = new JobEntityManagerImpl(processEngineConfiguration, jobDataManager);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration2.getAsyncExecutor()).thenReturn(new DefaultAsyncJobExecutor());
-    when(processEngineConfiguration2.getJobEntityManager()).thenReturn(jobEntityManagerImpl);
-
-    DefaultJobManager defaultJobManager = new DefaultJobManager();
-    defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration2);
-    JtaProcessEngineConfiguration processEngineConfiguration3 = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration3.getJobManager()).thenReturn(defaultJobManager);
-    when(processEngineConfiguration3.getJobEntityManager()).thenReturn(jobEntityManager);
-    JtaProcessEngineConfiguration processEngineConfiguration4 = mock(JtaProcessEngineConfiguration.class);
-    doNothing().when(processEngineConfiguration4).addSessionFactory(Mockito.<SessionFactory>any());
-    processEngineConfiguration4.addSessionFactory(new DbSqlSessionFactory());
-    EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
-        processEngineConfiguration3, new MybatisEventSubscriptionDataManager(processEngineConfiguration4));
-    EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
-    when(eventSubscriptionEntity.getId()).thenReturn("42");
-    when(eventSubscriptionEntity.getTenantId()).thenReturn("42");
-
-    // Act
-    eventSubscriptionEntityManagerImpl.eventReceived(eventSubscriptionEntity, JSONObject.NULL, true);
-
-    // Assert
-    verify(processEngineConfiguration2).getAsyncExecutor();
-    verify(processEngineConfiguration4).addSessionFactory(isA(SessionFactory.class));
-    verify(processEngineConfiguration).getEventDispatcher();
-    verify(processEngineConfiguration3).getJobEntityManager();
-    verify(processEngineConfiguration2).getJobEntityManager();
-    verify(processEngineConfiguration3).getJobManager();
-    verify(eventSubscriptionEntity).getId();
-    verify(jobEntityManager).create();
-    verify(eventSubscriptionEntity).getTenantId();
-    verify(jobDataManager).insert(isA(JobEntity.class));
-  }
-
-  /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#eventReceived(EventSubscriptionEntity, Object, boolean)}.
-   * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#eventReceived(EventSubscriptionEntity, Object, boolean)}
-   */
-  @Test
-  public void testEventReceived2() {
-    // Arrange
-    JobEntityManager jobEntityManager = mock(JobEntityManager.class);
-    when(jobEntityManager.create()).thenReturn(new JobEntityImpl());
-    JobEntityManager jobEntityManager2 = mock(JobEntityManager.class);
-    doNothing().when(jobEntityManager2).insert(Mockito.<JobEntity>any());
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getAsyncExecutor())
-        .thenReturn(new ExecutorPerTenantAsyncExecutor(new DummyTenantInfoHolder()));
-    when(processEngineConfiguration.getJobEntityManager()).thenReturn(jobEntityManager2);
-
-    DefaultJobManager defaultJobManager = new DefaultJobManager();
-    defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
-    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration2.getJobManager()).thenReturn(defaultJobManager);
-    when(processEngineConfiguration2.getJobEntityManager()).thenReturn(jobEntityManager);
-    JtaProcessEngineConfiguration processEngineConfiguration3 = mock(JtaProcessEngineConfiguration.class);
-    doNothing().when(processEngineConfiguration3).addSessionFactory(Mockito.<SessionFactory>any());
-    processEngineConfiguration3.addSessionFactory(new DbSqlSessionFactory());
-    EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
-        processEngineConfiguration2, new MybatisEventSubscriptionDataManager(processEngineConfiguration3));
-    EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
-    when(eventSubscriptionEntity.getId()).thenReturn("42");
-    when(eventSubscriptionEntity.getTenantId()).thenReturn("42");
-
-    // Act
-    eventSubscriptionEntityManagerImpl.eventReceived(eventSubscriptionEntity, JSONObject.NULL, true);
-
-    // Assert
-    verify(processEngineConfiguration).getAsyncExecutor();
-    verify(processEngineConfiguration3).addSessionFactory(isA(SessionFactory.class));
-    verify(processEngineConfiguration2).getJobEntityManager();
-    verify(processEngineConfiguration).getJobEntityManager();
-    verify(processEngineConfiguration2).getJobManager();
-    verify(eventSubscriptionEntity).getId();
-    verify(jobEntityManager).create();
-    verify(jobEntityManager2).insert(isA(JobEntity.class));
-    verify(eventSubscriptionEntity).getTenantId();
-  }
-
-  /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#eventReceived(EventSubscriptionEntity, Object, boolean)}.
-   * <ul>
-   *   <li>Given {@link ActivitiEventDispatcher}
-   * {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#eventReceived(EventSubscriptionEntity, Object, boolean)}
-   */
-  @Test
-  public void testEventReceived_givenActivitiEventDispatcherIsEnabledReturnFalse() {
-    // Arrange
-    JobEntityManager jobEntityManager = mock(JobEntityManager.class);
-    when(jobEntityManager.create()).thenReturn(new JobEntityImpl());
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    JobDataManager jobDataManager = mock(JobDataManager.class);
-    doNothing().when(jobDataManager).insert(Mockito.<JobEntity>any());
-    JobEntityManagerImpl jobEntityManagerImpl = new JobEntityManagerImpl(processEngineConfiguration, jobDataManager);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration2.getAsyncExecutor()).thenReturn(new DefaultAsyncJobExecutor());
-    when(processEngineConfiguration2.getJobEntityManager()).thenReturn(jobEntityManagerImpl);
-
-    DefaultJobManager defaultJobManager = new DefaultJobManager();
-    defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration2);
-    JtaProcessEngineConfiguration processEngineConfiguration3 = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration3.getJobManager()).thenReturn(defaultJobManager);
-    when(processEngineConfiguration3.getJobEntityManager()).thenReturn(jobEntityManager);
-    JtaProcessEngineConfiguration processEngineConfiguration4 = mock(JtaProcessEngineConfiguration.class);
-    doNothing().when(processEngineConfiguration4).addSessionFactory(Mockito.<SessionFactory>any());
-    processEngineConfiguration4.addSessionFactory(new DbSqlSessionFactory());
-    EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
-        processEngineConfiguration3, new MybatisEventSubscriptionDataManager(processEngineConfiguration4));
-    EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
-    when(eventSubscriptionEntity.getId()).thenReturn("42");
-    when(eventSubscriptionEntity.getTenantId()).thenReturn("42");
-
-    // Act
-    eventSubscriptionEntityManagerImpl.eventReceived(eventSubscriptionEntity, JSONObject.NULL, true);
-
-    // Assert
-    verify(processEngineConfiguration2).getAsyncExecutor();
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfiguration4).addSessionFactory(isA(SessionFactory.class));
-    verify(processEngineConfiguration).getEventDispatcher();
-    verify(processEngineConfiguration3).getJobEntityManager();
-    verify(processEngineConfiguration2).getJobEntityManager();
-    verify(processEngineConfiguration3).getJobManager();
-    verify(eventSubscriptionEntity).getId();
-    verify(jobEntityManager).create();
-    verify(eventSubscriptionEntity).getTenantId();
-    verify(jobDataManager).insert(isA(JobEntity.class));
-  }
-
-  /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#eventReceived(EventSubscriptionEntity, Object, boolean)}.
-   * <ul>
-   *   <li>Given {@link EventHandler}
-   * {@link EventHandler#handleEvent(EventSubscriptionEntity, Object, CommandContext)}
-   * does nothing.</li>
-   *   <li>Then calls
-   * {@link EventHandler#handleEvent(EventSubscriptionEntity, Object, CommandContext)}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#eventReceived(EventSubscriptionEntity, Object, boolean)}
-   */
-  @Test
-  public void testEventReceived_givenEventHandlerHandleEventDoesNothing_thenCallsHandleEvent() {
-    // Arrange
-    EventHandler eventHandler = mock(EventHandler.class);
-    doNothing().when(eventHandler)
-        .handleEvent(Mockito.<EventSubscriptionEntity>any(), Mockito.<Object>any(), Mockito.<CommandContext>any());
-    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.getEventHandler(Mockito.<String>any())).thenReturn(eventHandler);
-    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
-    doNothing().when(processEngineConfiguration2).addSessionFactory(Mockito.<SessionFactory>any());
-    processEngineConfiguration2.addSessionFactory(new DbSqlSessionFactory());
-    EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
-        processEngineConfiguration, new MybatisEventSubscriptionDataManager(processEngineConfiguration2));
-    EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
-    when(eventSubscriptionEntity.getEventType()).thenReturn("Event Type");
-
-    // Act
-    eventSubscriptionEntityManagerImpl.eventReceived(eventSubscriptionEntity, JSONObject.NULL, false);
-
-    // Assert
-    verify(processEngineConfiguration2).addSessionFactory(isA(SessionFactory.class));
-    verify(processEngineConfiguration).getEventHandler(eq("Event Type"));
-    verify(eventHandler).handleEvent(isA(EventSubscriptionEntity.class), isA(Object.class), isNull());
-    verify(eventSubscriptionEntity).getEventType();
-  }
-
-  /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#eventReceived(EventSubscriptionEntity, Object, boolean)}.
-   * <ul>
-   *   <li>Given {@link JobEntityManager} {@link EntityManager#insert(Entity)} does
-   * nothing.</li>
-   *   <li>Then calls {@link EntityManager#insert(Entity)}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#eventReceived(EventSubscriptionEntity, Object, boolean)}
-   */
-  @Test
-  public void testEventReceived_givenJobEntityManagerInsertDoesNothing_thenCallsInsert() {
-    // Arrange
-    JobEntityManager jobEntityManager = mock(JobEntityManager.class);
-    when(jobEntityManager.create()).thenReturn(new JobEntityImpl());
-    JobEntityManager jobEntityManager2 = mock(JobEntityManager.class);
-    doNothing().when(jobEntityManager2).insert(Mockito.<JobEntity>any());
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getAsyncExecutor()).thenReturn(new DefaultAsyncJobExecutor());
-    when(processEngineConfiguration.getJobEntityManager()).thenReturn(jobEntityManager2);
-
-    DefaultJobManager defaultJobManager = new DefaultJobManager();
-    defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
-    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration2.getJobManager()).thenReturn(defaultJobManager);
-    when(processEngineConfiguration2.getJobEntityManager()).thenReturn(jobEntityManager);
-    JtaProcessEngineConfiguration processEngineConfiguration3 = mock(JtaProcessEngineConfiguration.class);
-    doNothing().when(processEngineConfiguration3).addSessionFactory(Mockito.<SessionFactory>any());
-    processEngineConfiguration3.addSessionFactory(new DbSqlSessionFactory());
-    EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
-        processEngineConfiguration2, new MybatisEventSubscriptionDataManager(processEngineConfiguration3));
-    EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
-    when(eventSubscriptionEntity.getId()).thenReturn("42");
-    when(eventSubscriptionEntity.getTenantId()).thenReturn("42");
-
-    // Act
-    eventSubscriptionEntityManagerImpl.eventReceived(eventSubscriptionEntity, JSONObject.NULL, true);
-
-    // Assert
-    verify(processEngineConfiguration).getAsyncExecutor();
-    verify(processEngineConfiguration3).addSessionFactory(isA(SessionFactory.class));
-    verify(processEngineConfiguration2).getJobEntityManager();
-    verify(processEngineConfiguration).getJobEntityManager();
-    verify(processEngineConfiguration2).getJobManager();
-    verify(eventSubscriptionEntity).getId();
-    verify(jobEntityManager).create();
-    verify(jobEntityManager2).insert(isA(JobEntity.class));
-    verify(eventSubscriptionEntity).getTenantId();
-  }
-
-  /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#eventReceived(EventSubscriptionEntity, Object, boolean)}.
-   * <ul>
-   *   <li>Then calls
-   * {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#eventReceived(EventSubscriptionEntity, Object, boolean)}
-   */
-  @Test
-  public void testEventReceived_thenCallsDispatchEvent() {
-    // Arrange
-    JobEntityManager jobEntityManager = mock(JobEntityManager.class);
-    when(jobEntityManager.create()).thenReturn(new JobEntityImpl());
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    JobDataManager jobDataManager = mock(JobDataManager.class);
-    doNothing().when(jobDataManager).insert(Mockito.<JobEntity>any());
-    JobEntityManagerImpl jobEntityManagerImpl = new JobEntityManagerImpl(processEngineConfiguration, jobDataManager);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration2.getAsyncExecutor()).thenReturn(new DefaultAsyncJobExecutor());
-    when(processEngineConfiguration2.getJobEntityManager()).thenReturn(jobEntityManagerImpl);
-
-    DefaultJobManager defaultJobManager = new DefaultJobManager();
-    defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration2);
-    JtaProcessEngineConfiguration processEngineConfiguration3 = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration3.getJobManager()).thenReturn(defaultJobManager);
-    when(processEngineConfiguration3.getJobEntityManager()).thenReturn(jobEntityManager);
-    JtaProcessEngineConfiguration processEngineConfiguration4 = mock(JtaProcessEngineConfiguration.class);
-    doNothing().when(processEngineConfiguration4).addSessionFactory(Mockito.<SessionFactory>any());
-    processEngineConfiguration4.addSessionFactory(new DbSqlSessionFactory());
-    EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
-        processEngineConfiguration3, new MybatisEventSubscriptionDataManager(processEngineConfiguration4));
-    EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
-    when(eventSubscriptionEntity.getId()).thenReturn("42");
-    when(eventSubscriptionEntity.getTenantId()).thenReturn("42");
-
-    // Act
-    eventSubscriptionEntityManagerImpl.eventReceived(eventSubscriptionEntity, JSONObject.NULL, true);
-
-    // Assert
-    verify(processEngineConfiguration2).getAsyncExecutor();
-    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfiguration4).addSessionFactory(isA(SessionFactory.class));
-    verify(processEngineConfiguration).getEventDispatcher();
-    verify(processEngineConfiguration3).getJobEntityManager();
-    verify(processEngineConfiguration2).getJobEntityManager();
-    verify(processEngineConfiguration3).getJobManager();
-    verify(eventSubscriptionEntity).getId();
-    verify(jobEntityManager).create();
-    verify(eventSubscriptionEntity).getTenantId();
-    verify(jobDataManager).insert(isA(JobEntity.class));
-  }
-
-  /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#eventReceived(EventSubscriptionEntity, Object, boolean)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#processEventSync(EventSubscriptionEntity, Object)}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#eventReceived(EventSubscriptionEntity, Object, boolean)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#processEventSync(EventSubscriptionEntity, Object)}
    */
   @Test
-  public void testEventReceived_thenThrowActivitiException() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.getEventHandler(Mockito.<String>any())).thenReturn(null);
-    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
-    doNothing().when(processEngineConfiguration2).addSessionFactory(Mockito.<SessionFactory>any());
-    processEngineConfiguration2.addSessionFactory(new DbSqlSessionFactory());
-    EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
-        processEngineConfiguration, new MybatisEventSubscriptionDataManager(processEngineConfiguration2));
-    EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
-    when(eventSubscriptionEntity.getEventType()).thenReturn("Event Type");
-
-    // Act and Assert
-    assertThrows(ActivitiException.class,
-        () -> eventSubscriptionEntityManagerImpl.eventReceived(eventSubscriptionEntity, JSONObject.NULL, false));
-    verify(processEngineConfiguration2).addSessionFactory(isA(SessionFactory.class));
-    verify(processEngineConfiguration).getEventHandler(eq("Event Type"));
-    verify(eventSubscriptionEntity, atLeast(1)).getEventType();
-  }
-
-  /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#processEventSync(EventSubscriptionEntity, Object)}.
-   * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#processEventSync(EventSubscriptionEntity, Object)}
-   */
-  @Test
-  public void testProcessEventSync() {
-    // Arrange
-    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
-    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
-    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
-    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
-    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
-    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
-    performanceSettings.setEnableEagerExecutionTreeFetching(true);
-    performanceSettings.setEnableExecutionRelationshipCounts(true);
-    performanceSettings.setEnableLocalization(true);
-    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-    EventHandler eventHandler = mock(EventHandler.class);
-    doNothing().when(eventHandler)
-        .handleEvent(Mockito.<EventSubscriptionEntity>any(), Mockito.<Object>any(), Mockito.<CommandContext>any());
-    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.getEventHandler(Mockito.<String>any())).thenReturn(eventHandler);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
-    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    MybatisEventSubscriptionDataManager eventSubscriptionDataManager = mock(MybatisEventSubscriptionDataManager.class);
-    doNothing().when(eventSubscriptionDataManager).delete(Mockito.<EventSubscriptionEntity>any());
-    EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
-        processEngineConfiguration, eventSubscriptionDataManager);
-    CompensateEventSubscriptionEntityImpl eventSubscriptionEntity = mock(CompensateEventSubscriptionEntityImpl.class);
-    when(eventSubscriptionEntity.getEventType()).thenReturn("Event Type");
-    when(eventSubscriptionEntity.getExecution())
-        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    when(eventSubscriptionEntity.getExecutionId()).thenReturn("42");
-
-    // Act
-    eventSubscriptionEntityManagerImpl.processEventSync(eventSubscriptionEntity, JSONObject.NULL);
-
-    // Assert
-    verify(performanceSettings, atLeast(1)).isEnableExecutionRelationshipCounts();
-    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
-    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
-    verify(performanceSettings).setEnableLocalization(eq(true));
-    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfiguration).getEventHandler(eq("Event Type"));
-    verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
-    verify(eventHandler).handleEvent(isA(EventSubscriptionEntity.class), isA(Object.class), isNull());
-    verify(eventSubscriptionEntity).getEventType();
-    verify(eventSubscriptionEntity).getExecution();
-    verify(eventSubscriptionEntity).getExecutionId();
-    verify(eventSubscriptionDataManager).delete(isA(EventSubscriptionEntity.class));
-  }
-
-  /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#processEventSync(EventSubscriptionEntity, Object)}.
-   * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#processEventSync(EventSubscriptionEntity, Object)}
-   */
-  @Test
-  public void testProcessEventSync2() {
-    // Arrange
-    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
-    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(false);
-    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
-    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
-    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
-    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
-    performanceSettings.setEnableEagerExecutionTreeFetching(true);
-    performanceSettings.setEnableExecutionRelationshipCounts(true);
-    performanceSettings.setEnableLocalization(true);
-    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    EventHandler eventHandler = mock(EventHandler.class);
-    doNothing().when(eventHandler)
-        .handleEvent(Mockito.<EventSubscriptionEntity>any(), Mockito.<Object>any(), Mockito.<CommandContext>any());
-    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.getEventHandler(Mockito.<String>any())).thenReturn(eventHandler);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    MybatisEventSubscriptionDataManager eventSubscriptionDataManager = mock(MybatisEventSubscriptionDataManager.class);
-    doNothing().when(eventSubscriptionDataManager).delete(Mockito.<EventSubscriptionEntity>any());
-    EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
-        processEngineConfiguration, eventSubscriptionDataManager);
-    CompensateEventSubscriptionEntityImpl eventSubscriptionEntity = mock(CompensateEventSubscriptionEntityImpl.class);
-    when(eventSubscriptionEntity.getEventType()).thenReturn("Event Type");
-    when(eventSubscriptionEntity.getExecutionId()).thenReturn("42");
-
-    // Act
-    eventSubscriptionEntityManagerImpl.processEventSync(eventSubscriptionEntity, JSONObject.NULL);
-
-    // Assert
-    verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
-    verify(activitiEventDispatcher).isEnabled();
-    verify(performanceSettings).isEnableExecutionRelationshipCounts();
-    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
-    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
-    verify(performanceSettings).setEnableLocalization(eq(true));
-    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfiguration).getEventHandler(eq("Event Type"));
-    verify(processEngineConfiguration).getPerformanceSettings();
-    verify(eventHandler).handleEvent(isA(EventSubscriptionEntity.class), isA(Object.class), isNull());
-    verify(eventSubscriptionEntity).getEventType();
-    verify(eventSubscriptionEntity).getExecutionId();
-    verify(eventSubscriptionDataManager).delete(isA(EventSubscriptionEntity.class));
-  }
-
-  /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#processEventSync(EventSubscriptionEntity, Object)}.
-   * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#processEventSync(EventSubscriptionEntity, Object)}
-   */
-  @Test
-  public void testProcessEventSync3() {
-    // Arrange
-    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
-    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
-    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
-    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
-    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
-    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
-    performanceSettings.setEnableEagerExecutionTreeFetching(true);
-    performanceSettings.setEnableExecutionRelationshipCounts(true);
-    performanceSettings.setEnableLocalization(true);
-    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
-        processEngineConfiguration, mock(MybatisEventSubscriptionDataManager.class));
-    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
-    when(executionEntityImpl.getEventSubscriptionCount()).thenThrow(new ActivitiException("An error occurred"));
-    when(executionEntityImpl.isCountEnabled()).thenReturn(true);
-    CompensateEventSubscriptionEntityImpl eventSubscriptionEntity = mock(CompensateEventSubscriptionEntityImpl.class);
-    when(eventSubscriptionEntity.getExecution()).thenReturn(executionEntityImpl);
-    when(eventSubscriptionEntity.getExecutionId()).thenReturn("42");
-
-    // Act and Assert
-    assertThrows(ActivitiException.class,
-        () -> eventSubscriptionEntityManagerImpl.processEventSync(eventSubscriptionEntity, JSONObject.NULL));
-    verify(performanceSettings, atLeast(1)).isEnableExecutionRelationshipCounts();
-    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
-    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
-    verify(performanceSettings).setEnableLocalization(eq(true));
-    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
-    verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
-    verify(eventSubscriptionEntity).getExecution();
-    verify(eventSubscriptionEntity).getExecutionId();
-    verify(executionEntityImpl).getEventSubscriptionCount();
-    verify(executionEntityImpl).isCountEnabled();
-  }
-
-  /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#processEventSync(EventSubscriptionEntity, Object)}.
-   * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#processEventSync(EventSubscriptionEntity, Object)}
-   */
-  @Test
-  public void testProcessEventSync4() {
-    // Arrange
-    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
-    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
-    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
-    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
-    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
-    performanceSettings.setEnableEagerExecutionTreeFetching(true);
-    performanceSettings.setEnableExecutionRelationshipCounts(true);
-    performanceSettings.setEnableLocalization(true);
-    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    EventHandler eventHandler = mock(EventHandler.class);
-    doNothing().when(eventHandler)
-        .handleEvent(Mockito.<EventSubscriptionEntity>any(), Mockito.<Object>any(), Mockito.<CommandContext>any());
-    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.getEventHandler(Mockito.<String>any())).thenReturn(eventHandler);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    MybatisEventSubscriptionDataManager eventSubscriptionDataManager = mock(MybatisEventSubscriptionDataManager.class);
-    doNothing().when(eventSubscriptionDataManager).delete(Mockito.<EventSubscriptionEntity>any());
-    EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
-        processEngineConfiguration, eventSubscriptionDataManager);
-    CompensateEventSubscriptionEntityImpl eventSubscriptionEntity = mock(CompensateEventSubscriptionEntityImpl.class);
-    when(eventSubscriptionEntity.getEventType()).thenReturn("Event Type");
-    when(eventSubscriptionEntity.getExecutionId()).thenReturn(null);
-
-    // Act
-    eventSubscriptionEntityManagerImpl.processEventSync(eventSubscriptionEntity, JSONObject.NULL);
-
-    // Assert
-    verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
-    verify(activitiEventDispatcher).isEnabled();
-    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
-    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
-    verify(performanceSettings).setEnableLocalization(eq(true));
-    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfiguration).getEventHandler(eq("Event Type"));
-    verify(eventHandler).handleEvent(isA(EventSubscriptionEntity.class), isA(Object.class), isNull());
-    verify(eventSubscriptionEntity).getEventType();
-    verify(eventSubscriptionEntity).getExecutionId();
-    verify(eventSubscriptionDataManager).delete(isA(EventSubscriptionEntity.class));
-  }
-
-  /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#processEventSync(EventSubscriptionEntity, Object)}.
-   * <ul>
-   *   <li>Given {@link ActivitiEventDispatcher}
-   * {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#processEventSync(EventSubscriptionEntity, Object)}
-   */
-  @Test
-  public void testProcessEventSync_givenActivitiEventDispatcherIsEnabledReturnFalse() {
-    // Arrange
-    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
-    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
-    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
-    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
-    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
-    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
-    performanceSettings.setEnableEagerExecutionTreeFetching(true);
-    performanceSettings.setEnableExecutionRelationshipCounts(true);
-    performanceSettings.setEnableLocalization(true);
-    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
-    EventHandler eventHandler = mock(EventHandler.class);
-    doNothing().when(eventHandler)
-        .handleEvent(Mockito.<EventSubscriptionEntity>any(), Mockito.<Object>any(), Mockito.<CommandContext>any());
-    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.getEventHandler(Mockito.<String>any())).thenReturn(eventHandler);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    MybatisEventSubscriptionDataManager eventSubscriptionDataManager = mock(MybatisEventSubscriptionDataManager.class);
-    doNothing().when(eventSubscriptionDataManager).delete(Mockito.<EventSubscriptionEntity>any());
-    EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
-        processEngineConfiguration, eventSubscriptionDataManager);
-    CompensateEventSubscriptionEntityImpl eventSubscriptionEntity = mock(CompensateEventSubscriptionEntityImpl.class);
-    when(eventSubscriptionEntity.getEventType()).thenReturn("Event Type");
-    when(eventSubscriptionEntity.getExecution())
-        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    when(eventSubscriptionEntity.getExecutionId()).thenReturn("42");
-
-    // Act
-    eventSubscriptionEntityManagerImpl.processEventSync(eventSubscriptionEntity, JSONObject.NULL);
-
-    // Assert
-    verify(activitiEventDispatcher).isEnabled();
-    verify(performanceSettings, atLeast(1)).isEnableExecutionRelationshipCounts();
-    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
-    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
-    verify(performanceSettings).setEnableLocalization(eq(true));
-    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
-    verify(processEngineConfiguration).getEventDispatcher();
-    verify(processEngineConfiguration).getEventHandler(eq("Event Type"));
-    verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
-    verify(eventHandler).handleEvent(isA(EventSubscriptionEntity.class), isA(Object.class), isNull());
-    verify(eventSubscriptionEntity).getEventType();
-    verify(eventSubscriptionEntity).getExecution();
-    verify(eventSubscriptionEntity).getExecutionId();
-    verify(eventSubscriptionDataManager).delete(isA(EventSubscriptionEntity.class));
-  }
-
-  /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#processEventSync(EventSubscriptionEntity, Object)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration}
-   * {@link ProcessEngineConfigurationImpl#getEventHandler(String)} return
-   * {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#processEventSync(EventSubscriptionEntity, Object)}
-   */
-  @Test
-  public void testProcessEventSync_givenJtaProcessEngineConfigurationGetEventHandlerReturnNull() {
-    // Arrange
-    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
-    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
-    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
-    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
-    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
-    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
-    performanceSettings.setEnableEagerExecutionTreeFetching(true);
-    performanceSettings.setEnableExecutionRelationshipCounts(true);
-    performanceSettings.setEnableLocalization(true);
-    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.getEventHandler(Mockito.<String>any())).thenReturn(null);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
-    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    MybatisEventSubscriptionDataManager eventSubscriptionDataManager = mock(MybatisEventSubscriptionDataManager.class);
-    doNothing().when(eventSubscriptionDataManager).delete(Mockito.<EventSubscriptionEntity>any());
-    EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
-        processEngineConfiguration, eventSubscriptionDataManager);
-    CompensateEventSubscriptionEntityImpl eventSubscriptionEntity = mock(CompensateEventSubscriptionEntityImpl.class);
-    when(eventSubscriptionEntity.getEventType()).thenReturn("Event Type");
-    when(eventSubscriptionEntity.getExecution())
-        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    when(eventSubscriptionEntity.getExecutionId()).thenReturn("42");
-
-    // Act and Assert
-    assertThrows(ActivitiException.class,
-        () -> eventSubscriptionEntityManagerImpl.processEventSync(eventSubscriptionEntity, JSONObject.NULL));
-    verify(performanceSettings, atLeast(1)).isEnableExecutionRelationshipCounts();
-    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
-    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
-    verify(performanceSettings).setEnableLocalization(eq(true));
-    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfiguration).getEventHandler(eq("Event Type"));
-    verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
-    verify(eventSubscriptionEntity, atLeast(1)).getEventType();
-    verify(eventSubscriptionEntity).getExecution();
-    verify(eventSubscriptionEntity).getExecutionId();
-    verify(eventSubscriptionDataManager).delete(isA(EventSubscriptionEntity.class));
-  }
-
-  /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#processEventSync(EventSubscriptionEntity, Object)}.
-   * <ul>
-   *   <li>Then calls
-   * {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#processEventSync(EventSubscriptionEntity, Object)}
-   */
-  @Test
-  public void testProcessEventSync_thenCallsDispatchEvent() {
-    // Arrange
-    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
-    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
-    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
-    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
-    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
-    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
-    performanceSettings.setEnableEagerExecutionTreeFetching(true);
-    performanceSettings.setEnableExecutionRelationshipCounts(true);
-    performanceSettings.setEnableLocalization(true);
-    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    EventHandler eventHandler = mock(EventHandler.class);
-    doNothing().when(eventHandler)
-        .handleEvent(Mockito.<EventSubscriptionEntity>any(), Mockito.<Object>any(), Mockito.<CommandContext>any());
-    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.getEventHandler(Mockito.<String>any())).thenReturn(eventHandler);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    MybatisEventSubscriptionDataManager eventSubscriptionDataManager = mock(MybatisEventSubscriptionDataManager.class);
-    doNothing().when(eventSubscriptionDataManager).delete(Mockito.<EventSubscriptionEntity>any());
-    EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
-        processEngineConfiguration, eventSubscriptionDataManager);
-    CompensateEventSubscriptionEntityImpl eventSubscriptionEntity = mock(CompensateEventSubscriptionEntityImpl.class);
-    when(eventSubscriptionEntity.getEventType()).thenReturn("Event Type");
-    when(eventSubscriptionEntity.getExecution())
-        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    when(eventSubscriptionEntity.getExecutionId()).thenReturn("42");
-
-    // Act
-    eventSubscriptionEntityManagerImpl.processEventSync(eventSubscriptionEntity, JSONObject.NULL);
-
-    // Assert
-    verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
-    verify(activitiEventDispatcher).isEnabled();
-    verify(performanceSettings, atLeast(1)).isEnableExecutionRelationshipCounts();
-    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
-    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
-    verify(performanceSettings).setEnableLocalization(eq(true));
-    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfiguration).getEventHandler(eq("Event Type"));
-    verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
-    verify(eventHandler).handleEvent(isA(EventSubscriptionEntity.class), isA(Object.class), isNull());
-    verify(eventSubscriptionEntity).getEventType();
-    verify(eventSubscriptionEntity).getExecution();
-    verify(eventSubscriptionEntity).getExecutionId();
-    verify(eventSubscriptionDataManager).delete(isA(EventSubscriptionEntity.class));
-  }
-
-  /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#processEventSync(EventSubscriptionEntity, Object)}.
-   * <ul>
-   *   <li>Then calls
-   * {@link ExecutionEntityImpl#setEventSubscriptionCount(int)}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#processEventSync(EventSubscriptionEntity, Object)}
-   */
-  @Test
-  public void testProcessEventSync_thenCallsSetEventSubscriptionCount() {
-    // Arrange
-    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
-    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
-    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
-    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
-    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
-    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
-    performanceSettings.setEnableEagerExecutionTreeFetching(true);
-    performanceSettings.setEnableExecutionRelationshipCounts(true);
-    performanceSettings.setEnableLocalization(true);
-    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    EventHandler eventHandler = mock(EventHandler.class);
-    doNothing().when(eventHandler)
-        .handleEvent(Mockito.<EventSubscriptionEntity>any(), Mockito.<Object>any(), Mockito.<CommandContext>any());
-    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.getEventHandler(Mockito.<String>any())).thenReturn(eventHandler);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
-    MybatisEventSubscriptionDataManager eventSubscriptionDataManager = mock(MybatisEventSubscriptionDataManager.class);
-    doNothing().when(eventSubscriptionDataManager).delete(Mockito.<EventSubscriptionEntity>any());
-    EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
-        processEngineConfiguration, eventSubscriptionDataManager);
-    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
-    when(executionEntityImpl.getEventSubscriptionCount()).thenReturn(3);
-    doNothing().when(executionEntityImpl).setEventSubscriptionCount(anyInt());
-    when(executionEntityImpl.isCountEnabled()).thenReturn(true);
-    CompensateEventSubscriptionEntityImpl eventSubscriptionEntity = mock(CompensateEventSubscriptionEntityImpl.class);
-    when(eventSubscriptionEntity.getEventType()).thenReturn("Event Type");
-    when(eventSubscriptionEntity.getExecution()).thenReturn(executionEntityImpl);
-    when(eventSubscriptionEntity.getExecutionId()).thenReturn("42");
-
-    // Act
-    eventSubscriptionEntityManagerImpl.processEventSync(eventSubscriptionEntity, JSONObject.NULL);
-
-    // Assert
-    verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
-    verify(activitiEventDispatcher).isEnabled();
-    verify(performanceSettings, atLeast(1)).isEnableExecutionRelationshipCounts();
-    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
-    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
-    verify(performanceSettings).setEnableLocalization(eq(true));
-    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
-    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfiguration).getEventHandler(eq("Event Type"));
-    verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
-    verify(eventHandler).handleEvent(isA(EventSubscriptionEntity.class), isA(Object.class), isNull());
-    verify(eventSubscriptionEntity).getEventType();
-    verify(eventSubscriptionEntity).getExecution();
-    verify(eventSubscriptionEntity).getExecutionId();
-    verify(executionEntityImpl).getEventSubscriptionCount();
-    verify(executionEntityImpl).isCountEnabled();
-    verify(executionEntityImpl).setEventSubscriptionCount(eq(2));
-    verify(eventSubscriptionDataManager).delete(isA(EventSubscriptionEntity.class));
-  }
-
-  /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#scheduleEventAsync(EventSubscriptionEntity, Object)}.
-   * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#scheduleEventAsync(EventSubscriptionEntity, Object)}
-   */
-  @Test
-  public void testScheduleEventAsync() {
-    // Arrange
-    JobEntityManager jobEntityManager = mock(JobEntityManager.class);
-    when(jobEntityManager.create()).thenReturn(new JobEntityImpl());
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
-    JobDataManager jobDataManager = mock(JobDataManager.class);
-    doNothing().when(jobDataManager).insert(Mockito.<JobEntity>any());
-    JobEntityManagerImpl jobEntityManagerImpl = new JobEntityManagerImpl(processEngineConfiguration, jobDataManager);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration2.getAsyncExecutor()).thenReturn(new DefaultAsyncJobExecutor());
-    when(processEngineConfiguration2.getJobEntityManager()).thenReturn(jobEntityManagerImpl);
-
-    DefaultJobManager defaultJobManager = new DefaultJobManager();
-    defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration2);
-    JtaProcessEngineConfiguration processEngineConfiguration3 = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration3.getJobManager()).thenReturn(defaultJobManager);
-    when(processEngineConfiguration3.getJobEntityManager()).thenReturn(jobEntityManager);
-    JtaProcessEngineConfiguration processEngineConfiguration4 = mock(JtaProcessEngineConfiguration.class);
-    doNothing().when(processEngineConfiguration4).addSessionFactory(Mockito.<SessionFactory>any());
-    processEngineConfiguration4.addSessionFactory(new DbSqlSessionFactory());
-    EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
-        processEngineConfiguration3, new MybatisEventSubscriptionDataManager(processEngineConfiguration4));
-    EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
-    when(eventSubscriptionEntity.getId()).thenReturn("42");
-    when(eventSubscriptionEntity.getTenantId()).thenReturn("42");
-
-    // Act
-    eventSubscriptionEntityManagerImpl.scheduleEventAsync(eventSubscriptionEntity, JSONObject.NULL);
-
-    // Assert
-    verify(processEngineConfiguration2).getAsyncExecutor();
-    verify(processEngineConfiguration4).addSessionFactory(isA(SessionFactory.class));
-    verify(processEngineConfiguration).getEventDispatcher();
-    verify(processEngineConfiguration3).getJobEntityManager();
-    verify(processEngineConfiguration2).getJobEntityManager();
-    verify(processEngineConfiguration3).getJobManager();
-    verify(eventSubscriptionEntity).getId();
-    verify(jobEntityManager).create();
-    verify(eventSubscriptionEntity).getTenantId();
-    verify(jobDataManager).insert(isA(JobEntity.class));
-  }
-
-  /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#scheduleEventAsync(EventSubscriptionEntity, Object)}.
-   * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#scheduleEventAsync(EventSubscriptionEntity, Object)}
-   */
-  @Test
-  public void testScheduleEventAsync2() {
-    // Arrange
-    JobEntityManager jobEntityManager = mock(JobEntityManager.class);
-    when(jobEntityManager.create()).thenReturn(new JobEntityImpl());
-    JobEntityManager jobEntityManager2 = mock(JobEntityManager.class);
-    doNothing().when(jobEntityManager2).insert(Mockito.<JobEntity>any());
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getAsyncExecutor())
-        .thenReturn(new ExecutorPerTenantAsyncExecutor(new DummyTenantInfoHolder()));
-    when(processEngineConfiguration.getJobEntityManager()).thenReturn(jobEntityManager2);
-
-    DefaultJobManager defaultJobManager = new DefaultJobManager();
-    defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
-    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration2.getJobManager()).thenReturn(defaultJobManager);
-    when(processEngineConfiguration2.getJobEntityManager()).thenReturn(jobEntityManager);
-    JtaProcessEngineConfiguration processEngineConfiguration3 = mock(JtaProcessEngineConfiguration.class);
-    doNothing().when(processEngineConfiguration3).addSessionFactory(Mockito.<SessionFactory>any());
-    processEngineConfiguration3.addSessionFactory(new DbSqlSessionFactory());
-    EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
-        processEngineConfiguration2, new MybatisEventSubscriptionDataManager(processEngineConfiguration3));
-    EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
-    when(eventSubscriptionEntity.getId()).thenReturn("42");
-    when(eventSubscriptionEntity.getTenantId()).thenReturn("42");
-
-    // Act
-    eventSubscriptionEntityManagerImpl.scheduleEventAsync(eventSubscriptionEntity, JSONObject.NULL);
-
-    // Assert
-    verify(processEngineConfiguration).getAsyncExecutor();
-    verify(processEngineConfiguration3).addSessionFactory(isA(SessionFactory.class));
-    verify(processEngineConfiguration2).getJobEntityManager();
-    verify(processEngineConfiguration).getJobEntityManager();
-    verify(processEngineConfiguration2).getJobManager();
-    verify(eventSubscriptionEntity).getId();
-    verify(jobEntityManager).create();
-    verify(jobEntityManager2).insert(isA(JobEntity.class));
-    verify(eventSubscriptionEntity).getTenantId();
-  }
-
-  /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#scheduleEventAsync(EventSubscriptionEntity, Object)}.
-   * <ul>
-   *   <li>Given {@link ActivitiEventDispatcher}
-   * {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#scheduleEventAsync(EventSubscriptionEntity, Object)}
-   */
-  @Test
-  public void testScheduleEventAsync_givenActivitiEventDispatcherIsEnabledReturnFalse() {
-    // Arrange
-    JobEntityManager jobEntityManager = mock(JobEntityManager.class);
-    when(jobEntityManager.create()).thenReturn(new JobEntityImpl());
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    JobDataManager jobDataManager = mock(JobDataManager.class);
-    doNothing().when(jobDataManager).insert(Mockito.<JobEntity>any());
-    JobEntityManagerImpl jobEntityManagerImpl = new JobEntityManagerImpl(processEngineConfiguration, jobDataManager);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration2.getAsyncExecutor()).thenReturn(new DefaultAsyncJobExecutor());
-    when(processEngineConfiguration2.getJobEntityManager()).thenReturn(jobEntityManagerImpl);
-
-    DefaultJobManager defaultJobManager = new DefaultJobManager();
-    defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration2);
-    JtaProcessEngineConfiguration processEngineConfiguration3 = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration3.getJobManager()).thenReturn(defaultJobManager);
-    when(processEngineConfiguration3.getJobEntityManager()).thenReturn(jobEntityManager);
-    JtaProcessEngineConfiguration processEngineConfiguration4 = mock(JtaProcessEngineConfiguration.class);
-    doNothing().when(processEngineConfiguration4).addSessionFactory(Mockito.<SessionFactory>any());
-    processEngineConfiguration4.addSessionFactory(new DbSqlSessionFactory());
-    EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
-        processEngineConfiguration3, new MybatisEventSubscriptionDataManager(processEngineConfiguration4));
-    EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
-    when(eventSubscriptionEntity.getId()).thenReturn("42");
-    when(eventSubscriptionEntity.getTenantId()).thenReturn("42");
-
-    // Act
-    eventSubscriptionEntityManagerImpl.scheduleEventAsync(eventSubscriptionEntity, JSONObject.NULL);
-
-    // Assert
-    verify(processEngineConfiguration2).getAsyncExecutor();
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfiguration4).addSessionFactory(isA(SessionFactory.class));
-    verify(processEngineConfiguration).getEventDispatcher();
-    verify(processEngineConfiguration3).getJobEntityManager();
-    verify(processEngineConfiguration2).getJobEntityManager();
-    verify(processEngineConfiguration3).getJobManager();
-    verify(eventSubscriptionEntity).getId();
-    verify(jobEntityManager).create();
-    verify(eventSubscriptionEntity).getTenantId();
-    verify(jobDataManager).insert(isA(JobEntity.class));
-  }
-
-  /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#scheduleEventAsync(EventSubscriptionEntity, Object)}.
-   * <ul>
-   *   <li>Given {@link JobEntityManager} {@link EntityManager#insert(Entity)} does
-   * nothing.</li>
-   *   <li>Then calls {@link EntityManager#insert(Entity)}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#scheduleEventAsync(EventSubscriptionEntity, Object)}
-   */
-  @Test
-  public void testScheduleEventAsync_givenJobEntityManagerInsertDoesNothing_thenCallsInsert() {
-    // Arrange
-    JobEntityManager jobEntityManager = mock(JobEntityManager.class);
-    when(jobEntityManager.create()).thenReturn(new JobEntityImpl());
-    JobEntityManager jobEntityManager2 = mock(JobEntityManager.class);
-    doNothing().when(jobEntityManager2).insert(Mockito.<JobEntity>any());
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getAsyncExecutor()).thenReturn(new DefaultAsyncJobExecutor());
-    when(processEngineConfiguration.getJobEntityManager()).thenReturn(jobEntityManager2);
-
-    DefaultJobManager defaultJobManager = new DefaultJobManager();
-    defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration);
-    JtaProcessEngineConfiguration processEngineConfiguration2 = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration2.getJobManager()).thenReturn(defaultJobManager);
-    when(processEngineConfiguration2.getJobEntityManager()).thenReturn(jobEntityManager);
-    JtaProcessEngineConfiguration processEngineConfiguration3 = mock(JtaProcessEngineConfiguration.class);
-    doNothing().when(processEngineConfiguration3).addSessionFactory(Mockito.<SessionFactory>any());
-    processEngineConfiguration3.addSessionFactory(new DbSqlSessionFactory());
-    EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
-        processEngineConfiguration2, new MybatisEventSubscriptionDataManager(processEngineConfiguration3));
-    EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
-    when(eventSubscriptionEntity.getId()).thenReturn("42");
-    when(eventSubscriptionEntity.getTenantId()).thenReturn("42");
-
-    // Act
-    eventSubscriptionEntityManagerImpl.scheduleEventAsync(eventSubscriptionEntity, JSONObject.NULL);
-
-    // Assert
-    verify(processEngineConfiguration).getAsyncExecutor();
-    verify(processEngineConfiguration3).addSessionFactory(isA(SessionFactory.class));
-    verify(processEngineConfiguration2).getJobEntityManager();
-    verify(processEngineConfiguration).getJobEntityManager();
-    verify(processEngineConfiguration2).getJobManager();
-    verify(eventSubscriptionEntity).getId();
-    verify(jobEntityManager).create();
-    verify(jobEntityManager2).insert(isA(JobEntity.class));
-    verify(eventSubscriptionEntity).getTenantId();
-  }
-
-  /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#scheduleEventAsync(EventSubscriptionEntity, Object)}.
-   * <ul>
-   *   <li>Then calls
-   * {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#scheduleEventAsync(EventSubscriptionEntity, Object)}
-   */
-  @Test
-  public void testScheduleEventAsync_thenCallsDispatchEvent() {
-    // Arrange
-    JobEntityManager jobEntityManager = mock(JobEntityManager.class);
-    when(jobEntityManager.create()).thenReturn(new JobEntityImpl());
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    JobDataManager jobDataManager = mock(JobDataManager.class);
-    doNothing().when(jobDataManager).insert(Mockito.<JobEntity>any());
-    JobEntityManagerImpl jobEntityManagerImpl = new JobEntityManagerImpl(processEngineConfiguration, jobDataManager);
-
-    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration2.getAsyncExecutor()).thenReturn(new DefaultAsyncJobExecutor());
-    when(processEngineConfiguration2.getJobEntityManager()).thenReturn(jobEntityManagerImpl);
-
-    DefaultJobManager defaultJobManager = new DefaultJobManager();
-    defaultJobManager.setProcessEngineConfiguration(processEngineConfiguration2);
-    JtaProcessEngineConfiguration processEngineConfiguration3 = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration3.getJobManager()).thenReturn(defaultJobManager);
-    when(processEngineConfiguration3.getJobEntityManager()).thenReturn(jobEntityManager);
-    JtaProcessEngineConfiguration processEngineConfiguration4 = mock(JtaProcessEngineConfiguration.class);
-    doNothing().when(processEngineConfiguration4).addSessionFactory(Mockito.<SessionFactory>any());
-    processEngineConfiguration4.addSessionFactory(new DbSqlSessionFactory());
-    EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
-        processEngineConfiguration3, new MybatisEventSubscriptionDataManager(processEngineConfiguration4));
-    EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
-    when(eventSubscriptionEntity.getId()).thenReturn("42");
-    when(eventSubscriptionEntity.getTenantId()).thenReturn("42");
-
-    // Act
-    eventSubscriptionEntityManagerImpl.scheduleEventAsync(eventSubscriptionEntity, JSONObject.NULL);
-
-    // Assert
-    verify(processEngineConfiguration2).getAsyncExecutor();
-    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfiguration4).addSessionFactory(isA(SessionFactory.class));
-    verify(processEngineConfiguration).getEventDispatcher();
-    verify(processEngineConfiguration3).getJobEntityManager();
-    verify(processEngineConfiguration2).getJobEntityManager();
-    verify(processEngineConfiguration3).getJobManager();
-    verify(eventSubscriptionEntity).getId();
-    verify(jobEntityManager).create();
-    verify(eventSubscriptionEntity).getTenantId();
-    verify(jobDataManager).insert(isA(JobEntity.class));
-  }
-
-  /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#toSignalEventSubscriptionEntityList(List)}.
-   * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#toSignalEventSubscriptionEntityList(List)}
-   */
-  @Test
-  public void testToSignalEventSubscriptionEntityList() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventSubscriptionEntityManagerImpl.processEventSync(EventSubscriptionEntity, Object)"})
+  public void testProcessEventSync_thenThrowActivitiException() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
+    processEngineConfiguration.setEventHandlers(new HashMap<>());
     EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
         processEngineConfiguration, new MybatisEventSubscriptionDataManager(new JtaProcessEngineConfiguration()));
+    EventSubscriptionEntity eventSubscriptionEntity = mock(EventSubscriptionEntity.class);
+    when(eventSubscriptionEntity.getEventType()).thenReturn("Event Type");
 
     // Act and Assert
-    assertTrue(eventSubscriptionEntityManagerImpl.toSignalEventSubscriptionEntityList(new ArrayList<>()).isEmpty());
+    assertThrows(ActivitiException.class,
+        () -> eventSubscriptionEntityManagerImpl.processEventSync(eventSubscriptionEntity, JSONObject.NULL));
+    verify(eventSubscriptionEntity, atLeast(1)).getEventType();
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#toSignalEventSubscriptionEntityList(List)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#toSignalEventSubscriptionEntityList(List)}.
    * <ul>
    *   <li>Given {@code null}.</li>
    *   <li>Then return {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#toSignalEventSubscriptionEntityList(List)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#toSignalEventSubscriptionEntityList(List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List EventSubscriptionEntityManagerImpl.toSignalEventSubscriptionEntityList(List)"})
   public void testToSignalEventSubscriptionEntityList_givenNull_thenReturnArrayList() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
@@ -4382,17 +3371,17 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#toSignalEventSubscriptionEntityList(List)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#toSignalEventSubscriptionEntityList(List)}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#toSignalEventSubscriptionEntityList(List)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#toSignalEventSubscriptionEntityList(List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List EventSubscriptionEntityManagerImpl.toSignalEventSubscriptionEntityList(List)"})
   public void testToSignalEventSubscriptionEntityList_whenArrayList_thenReturnEmpty() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
@@ -4404,36 +3393,17 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#toMessageEventSubscriptionEntityList(List)}.
-   * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#toMessageEventSubscriptionEntityList(List)}
-   */
-  @Test
-  public void testToMessageEventSubscriptionEntityList() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-    EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
-        processEngineConfiguration, new MybatisEventSubscriptionDataManager(new JtaProcessEngineConfiguration()));
-
-    // Act and Assert
-    assertTrue(eventSubscriptionEntityManagerImpl.toMessageEventSubscriptionEntityList(new ArrayList<>()).isEmpty());
-  }
-
-  /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#toMessageEventSubscriptionEntityList(List)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#toMessageEventSubscriptionEntityList(List)}.
    * <ul>
    *   <li>Given {@code null}.</li>
    *   <li>Then return {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#toMessageEventSubscriptionEntityList(List)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#toMessageEventSubscriptionEntityList(List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List EventSubscriptionEntityManagerImpl.toMessageEventSubscriptionEntityList(List)"})
   public void testToMessageEventSubscriptionEntityList_givenNull_thenReturnArrayList() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
@@ -4448,17 +3418,17 @@ public class EventSubscriptionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionEntityManagerImpl#toMessageEventSubscriptionEntityList(List)}.
+   * Test {@link EventSubscriptionEntityManagerImpl#toMessageEventSubscriptionEntityList(List)}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionEntityManagerImpl#toMessageEventSubscriptionEntityList(List)}
+   * Method under test: {@link EventSubscriptionEntityManagerImpl#toMessageEventSubscriptionEntityList(List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List EventSubscriptionEntityManagerImpl.toMessageEventSubscriptionEntityList(List)"})
   public void testToMessageEventSubscriptionEntityList_whenArrayList_thenReturnEmpty() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();

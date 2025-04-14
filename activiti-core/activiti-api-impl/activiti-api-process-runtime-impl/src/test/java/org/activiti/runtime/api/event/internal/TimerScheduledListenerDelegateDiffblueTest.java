@@ -20,19 +20,23 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import org.activiti.api.process.model.events.BPMNTimerScheduledEvent;
 import org.activiti.api.process.runtime.events.listener.BPMNElementEventListener;
 import org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener;
-import org.activiti.api.runtime.event.impl.BPMNTimerScheduledEventImpl;
 import org.activiti.engine.delegate.event.ActivitiEvent;
-import org.activiti.engine.delegate.event.impl.ActivitiActivityCancelledEventImpl;
+import org.activiti.engine.delegate.event.ActivitiEventType;
+import org.activiti.engine.delegate.event.impl.ActivitiEntityEventImpl;
+import org.activiti.engine.impl.persistence.entity.JobEntityImpl;
 import org.activiti.runtime.api.event.impl.BPMNTimerConverter;
 import org.activiti.runtime.api.event.impl.ToTimerScheduledConverter;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -42,13 +46,15 @@ class TimerScheduledListenerDelegateDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link TimerScheduledListenerDelegate#TimerScheduledListenerDelegate(List, ToTimerScheduledConverter)}
+   *   <li>{@link TimerScheduledListenerDelegate#TimerScheduledListenerDelegate(List, ToTimerScheduledConverter)}
    *   <li>{@link TimerScheduledListenerDelegate#isFailOnException()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TimerScheduledListenerDelegate.<init>(List, ToTimerScheduledConverter)",
+      "boolean TimerScheduledListenerDelegate.isFailOnException()"})
   void testGettersAndSetters() {
     // Arrange
     ArrayList<BPMNElementEventListener<BPMNTimerScheduledEvent>> processRuntimeEventListeners = new ArrayList<>();
@@ -61,17 +67,16 @@ class TimerScheduledListenerDelegateDiffblueTest {
   /**
    * Test {@link TimerScheduledListenerDelegate#onEvent(ActivitiEvent)}.
    * <ul>
-   *   <li>Given {@link BPMNElementEventListener}
-   * {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)} does nothing.</li>
-   *   <li>Then calls
-   * {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)}.</li>
+   *   <li>Given {@link BPMNElementEventListener} {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)} does nothing.</li>
+   *   <li>Then calls {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerScheduledListenerDelegate#onEvent(ActivitiEvent)}
+   * Method under test: {@link TimerScheduledListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
   @DisplayName("Test onEvent(ActivitiEvent); given BPMNElementEventListener onEvent(RuntimeEvent) does nothing; then calls onEvent(RuntimeEvent)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TimerScheduledListenerDelegate.onEvent(ActivitiEvent)"})
   void testOnEvent_givenBPMNElementEventListenerOnEventDoesNothing_thenCallsOnEvent() {
     // Arrange
     BPMNElementEventListener<BPMNTimerScheduledEvent> bpmnElementEventListener = mock(BPMNElementEventListener.class);
@@ -79,43 +84,39 @@ class TimerScheduledListenerDelegateDiffblueTest {
 
     ArrayList<BPMNElementEventListener<BPMNTimerScheduledEvent>> processRuntimeEventListeners = new ArrayList<>();
     processRuntimeEventListeners.add(bpmnElementEventListener);
-    ToTimerScheduledConverter converter = mock(ToTimerScheduledConverter.class);
-    Optional<BPMNTimerScheduledEvent> ofResult = Optional.of(new BPMNTimerScheduledEventImpl());
-    when(converter.from(Mockito.<ActivitiEvent>any())).thenReturn(ofResult);
     TimerScheduledListenerDelegate timerScheduledListenerDelegate = new TimerScheduledListenerDelegate(
-        processRuntimeEventListeners, converter);
+        processRuntimeEventListeners, new ToTimerScheduledConverter(new BPMNTimerConverter()));
+
+    JobEntityImpl jobEntityImpl = new JobEntityImpl();
+    jobEntityImpl.setDeleted(true);
+    jobEntityImpl.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    jobEntityImpl.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    jobEntityImpl.setExceptionMessage("An error occurred");
+    jobEntityImpl.setExclusive(true);
+    jobEntityImpl.setExecutionId("42");
+    jobEntityImpl.setId("42");
+    jobEntityImpl.setInserted(true);
+    jobEntityImpl.setJobHandlerConfiguration("timer");
+    jobEntityImpl.setJobHandlerType("timer");
+    jobEntityImpl.setJobType("timer");
+    jobEntityImpl
+        .setLockExpirationTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    jobEntityImpl.setLockOwner("timer");
+    jobEntityImpl.setMaxIterations(3);
+    jobEntityImpl.setProcessDefinitionId("42");
+    jobEntityImpl.setProcessInstanceId("42");
+    jobEntityImpl.setRepeat("timer");
+    jobEntityImpl.setRetries(1);
+    jobEntityImpl.setRevision(1);
+    jobEntityImpl.setTenantId("42");
+    jobEntityImpl.setUpdated(true);
+    jobEntityImpl.setJobType("timer");
 
     // Act
-    timerScheduledListenerDelegate.onEvent(new ActivitiActivityCancelledEventImpl());
+    timerScheduledListenerDelegate
+        .onEvent(new ActivitiEntityEventImpl(jobEntityImpl, ActivitiEventType.ENTITY_CREATED));
 
     // Assert
     verify(bpmnElementEventListener).onEvent(isA(BPMNTimerScheduledEvent.class));
-    verify(converter).from(isA(ActivitiEvent.class));
-  }
-
-  /**
-   * Test {@link TimerScheduledListenerDelegate#onEvent(ActivitiEvent)}.
-   * <ul>
-   *   <li>Then calls {@link ToTimerScheduledConverter#from(ActivitiEvent)}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link TimerScheduledListenerDelegate#onEvent(ActivitiEvent)}
-   */
-  @Test
-  @DisplayName("Test onEvent(ActivitiEvent); then calls from(ActivitiEvent)")
-  void testOnEvent_thenCallsFrom() {
-    // Arrange
-    ToTimerScheduledConverter converter = mock(ToTimerScheduledConverter.class);
-    Optional<BPMNTimerScheduledEvent> ofResult = Optional.of(new BPMNTimerScheduledEventImpl());
-    when(converter.from(Mockito.<ActivitiEvent>any())).thenReturn(ofResult);
-    TimerScheduledListenerDelegate timerScheduledListenerDelegate = new TimerScheduledListenerDelegate(
-        new ArrayList<>(), converter);
-
-    // Act
-    timerScheduledListenerDelegate.onEvent(new ActivitiActivityCancelledEventImpl());
-
-    // Assert that nothing has changed
-    verify(converter).from(isA(ActivitiEvent.class));
   }
 }

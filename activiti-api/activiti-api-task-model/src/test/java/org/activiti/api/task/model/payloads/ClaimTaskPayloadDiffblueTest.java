@@ -17,7 +17,9 @@ package org.activiti.api.task.model.payloads;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ClaimTaskPayloadDiffblueTest {
@@ -28,6 +30,8 @@ class ClaimTaskPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test new ClaimTaskPayload()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ClaimTaskPayload.<init>()"})
   void testNewClaimTaskPayload() {
     // Arrange and Act
     ClaimTaskPayload actualClaimTaskPayload = new ClaimTaskPayload();
@@ -44,6 +48,8 @@ class ClaimTaskPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test new ClaimTaskPayload(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ClaimTaskPayload.<init>(String, String)"})
   void testNewClaimTaskPayload2() {
     // Arrange and Act
     ClaimTaskPayload actualClaimTaskPayload = new ClaimTaskPayload("42", "Assignee");
@@ -67,6 +73,10 @@ class ClaimTaskPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String ClaimTaskPayload.getAssignee()", "String ClaimTaskPayload.getId()",
+      "String ClaimTaskPayload.getTaskId()", "void ClaimTaskPayload.setAssignee(String)",
+      "void ClaimTaskPayload.setTaskId(String)"})
   void testGettersAndSetters() {
     // Arrange
     ClaimTaskPayload claimTaskPayload = new ClaimTaskPayload();
@@ -77,7 +87,7 @@ class ClaimTaskPayloadDiffblueTest {
     String actualAssignee = claimTaskPayload.getAssignee();
     claimTaskPayload.getId();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", claimTaskPayload.getTaskId());
     assertEquals("Assignee", actualAssignee);
   }

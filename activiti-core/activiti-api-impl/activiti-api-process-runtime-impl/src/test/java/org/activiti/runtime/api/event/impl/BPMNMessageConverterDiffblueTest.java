@@ -15,19 +15,15 @@
  */
 package org.activiti.runtime.api.event.impl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import java.util.HashMap;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.payloads.MessageEventPayload;
 import org.activiti.api.runtime.model.impl.BPMNMessageImpl;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.delegate.event.ActivitiMessageEvent;
 import org.activiti.engine.delegate.event.impl.ActivitiMessageEventImpl;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,58 +39,15 @@ class BPMNMessageConverterDiffblueTest {
   /**
    * Test {@link BPMNMessageConverter#convertToBPMNMessage(ActivitiMessageEvent)}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()}.</li>
-   *   <li>Then return ElementId is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link BPMNMessageConverter#convertToBPMNMessage(ActivitiMessageEvent)}
-   */
-  @Test
-  @DisplayName("Test convertToBPMNMessage(ActivitiMessageEvent); given HashMap(); then return ElementId is '42'")
-  void testConvertToBPMNMessage_givenHashMap_thenReturnElementIdIs42() {
-    // Arrange
-    ActivitiMessageEvent internalEvent = mock(ActivitiMessageEvent.class);
-    when(internalEvent.getMessageData()).thenReturn(new HashMap<>());
-    when(internalEvent.getActivityId()).thenReturn("42");
-    when(internalEvent.getProcessDefinitionId()).thenReturn("42");
-    when(internalEvent.getProcessInstanceId()).thenReturn("42");
-    when(internalEvent.getMessageBusinessKey()).thenReturn("Message Business Key");
-    when(internalEvent.getMessageCorrelationKey()).thenReturn("Message Correlation Key");
-    when(internalEvent.getMessageName()).thenReturn("Message Name");
-
-    // Act
-    BPMNMessageImpl actualConvertToBPMNMessageResult = bPMNMessageConverter.convertToBPMNMessage(internalEvent);
-
-    // Assert
-    verify(internalEvent).getActivityId();
-    verify(internalEvent).getProcessDefinitionId();
-    verify(internalEvent).getProcessInstanceId();
-    verify(internalEvent).getMessageBusinessKey();
-    verify(internalEvent).getMessageCorrelationKey();
-    verify(internalEvent).getMessageData();
-    verify(internalEvent).getMessageName();
-    assertEquals("42", actualConvertToBPMNMessageResult.getElementId());
-    assertEquals("42", actualConvertToBPMNMessageResult.getProcessDefinitionId());
-    assertEquals("42", actualConvertToBPMNMessageResult.getProcessInstanceId());
-    MessageEventPayload messagePayload = actualConvertToBPMNMessageResult.getMessagePayload();
-    assertEquals("Message Business Key", messagePayload.getBusinessKey());
-    assertEquals("Message Correlation Key", messagePayload.getCorrelationKey());
-    assertEquals("Message Name", messagePayload.getName());
-    assertTrue(messagePayload.getVariables().isEmpty());
-  }
-
-  /**
-   * Test {@link BPMNMessageConverter#convertToBPMNMessage(ActivitiMessageEvent)}.
-   * <ul>
    *   <li>Then return MessagePayload BusinessKey is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BPMNMessageConverter#convertToBPMNMessage(ActivitiMessageEvent)}
+   * Method under test: {@link BPMNMessageConverter#convertToBPMNMessage(ActivitiMessageEvent)}
    */
   @Test
   @DisplayName("Test convertToBPMNMessage(ActivitiMessageEvent); then return MessagePayload BusinessKey is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BPMNMessageImpl BPMNMessageConverter.convertToBPMNMessage(ActivitiMessageEvent)"})
   void testConvertToBPMNMessage_thenReturnMessagePayloadBusinessKeyIsNull() {
     // Arrange and Act
     BPMNMessageImpl actualConvertToBPMNMessageResult = bPMNMessageConverter

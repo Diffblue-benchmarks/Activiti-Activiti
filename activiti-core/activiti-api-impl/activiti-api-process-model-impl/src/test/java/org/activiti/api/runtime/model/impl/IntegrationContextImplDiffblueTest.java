@@ -19,22 +19,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import java.util.HashMap;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
-import java.util.function.BiFunction;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class IntegrationContextImplDiffblueTest {
   /**
    * Test new {@link IntegrationContextImpl} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link IntegrationContextImpl}
+   * Method under test: default or parameterless constructor of {@link IntegrationContextImpl}
    */
   @Test
   @DisplayName("Test new IntegrationContextImpl (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IntegrationContextImpl.<init>()"})
   void testNewIntegrationContextImpl() {
     // Arrange and Act
     IntegrationContextImpl actualIntegrationContextImpl = new IntegrationContextImpl();
@@ -60,11 +60,12 @@ class IntegrationContextImplDiffblueTest {
   /**
    * Test {@link IntegrationContextImpl#addInBoundVariable(String, Object)}.
    * <p>
-   * Method under test:
-   * {@link IntegrationContextImpl#addInBoundVariable(String, Object)}
+   * Method under test: {@link IntegrationContextImpl#addInBoundVariable(String, Object)}
    */
   @Test
   @DisplayName("Test addInBoundVariable(String, Object)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IntegrationContextImpl.addInBoundVariable(String, Object)"})
   void testAddInBoundVariable() {
     // Arrange
     IntegrationContextImpl integrationContextImpl = new IntegrationContextImpl();
@@ -72,7 +73,7 @@ class IntegrationContextImplDiffblueTest {
     // Act
     integrationContextImpl.addInBoundVariable("Name", "Value");
 
-    // Assert that nothing has changed
+    // Assert
     Map<String, Object> inBoundVariables = integrationContextImpl.getInBoundVariables();
     assertEquals(1, inBoundVariables.size());
     assertEquals("Value", inBoundVariables.get("Name"));
@@ -81,11 +82,12 @@ class IntegrationContextImplDiffblueTest {
   /**
    * Test {@link IntegrationContextImpl#addOutBoundVariable(String, Object)}.
    * <p>
-   * Method under test:
-   * {@link IntegrationContextImpl#addOutBoundVariable(String, Object)}
+   * Method under test: {@link IntegrationContextImpl#addOutBoundVariable(String, Object)}
    */
   @Test
   @DisplayName("Test addOutBoundVariable(String, Object)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IntegrationContextImpl.addOutBoundVariable(String, Object)"})
   void testAddOutBoundVariable() {
     // Arrange
     IntegrationContextImpl integrationContextImpl = new IntegrationContextImpl();
@@ -93,7 +95,7 @@ class IntegrationContextImplDiffblueTest {
     // Act
     integrationContextImpl.addOutBoundVariable("Name", "Value");
 
-    // Assert that nothing has changed
+    // Assert
     Map<String, Object> outBoundVariables = integrationContextImpl.getOutBoundVariables();
     assertEquals(1, outBoundVariables.size());
     assertEquals("Value", outBoundVariables.get("Name"));
@@ -138,6 +140,27 @@ class IntegrationContextImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String IntegrationContextImpl.getAppVersion()", "String IntegrationContextImpl.getBusinessKey()",
+      "String IntegrationContextImpl.getClientId()", "String IntegrationContextImpl.getClientName()",
+      "String IntegrationContextImpl.getClientType()", "String IntegrationContextImpl.getConnectorType()",
+      "String IntegrationContextImpl.getExecutionId()", "String IntegrationContextImpl.getId()",
+      "Map IntegrationContextImpl.getInBoundVariables()", "Map IntegrationContextImpl.getOutBoundVariables()",
+      "String IntegrationContextImpl.getParentProcessInstanceId()",
+      "String IntegrationContextImpl.getProcessDefinitionId()",
+      "String IntegrationContextImpl.getProcessDefinitionKey()",
+      "Integer IntegrationContextImpl.getProcessDefinitionVersion()",
+      "String IntegrationContextImpl.getProcessInstanceId()",
+      "String IntegrationContextImpl.getRootProcessInstanceId()", "void IntegrationContextImpl.setAppVersion(String)",
+      "void IntegrationContextImpl.setBusinessKey(String)", "void IntegrationContextImpl.setClientId(String)",
+      "void IntegrationContextImpl.setClientName(String)", "void IntegrationContextImpl.setClientType(String)",
+      "void IntegrationContextImpl.setConnectorType(String)", "void IntegrationContextImpl.setExecutionId(String)",
+      "void IntegrationContextImpl.setId(String)", "void IntegrationContextImpl.setParentProcessInstanceId(String)",
+      "void IntegrationContextImpl.setProcessDefinitionId(String)",
+      "void IntegrationContextImpl.setProcessDefinitionKey(String)",
+      "void IntegrationContextImpl.setProcessDefinitionVersion(Integer)",
+      "void IntegrationContextImpl.setProcessInstanceId(String)",
+      "void IntegrationContextImpl.setRootProcessInstanceId(String)"})
   void testGettersAndSetters() {
     // Arrange
     IntegrationContextImpl integrationContextImpl = new IntegrationContextImpl();
@@ -173,7 +196,7 @@ class IntegrationContextImplDiffblueTest {
     Integer actualProcessDefinitionVersion = integrationContextImpl.getProcessDefinitionVersion();
     String actualProcessInstanceId = integrationContextImpl.getProcessInstanceId();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("1.0.2", actualAppVersion);
     assertEquals("42", actualClientId);
     assertEquals("42", actualExecutionId);
@@ -193,8 +216,7 @@ class IntegrationContextImplDiffblueTest {
   }
 
   /**
-   * Test {@link IntegrationContextImpl#equals(Object)}, and
-   * {@link IntegrationContextImpl#hashCode()}.
+   * Test {@link IntegrationContextImpl#equals(Object)}, and {@link IntegrationContextImpl#hashCode()}.
    * <ul>
    *   <li>When other is same.</li>
    *   <li>Then return equal.</li>
@@ -208,6 +230,8 @@ class IntegrationContextImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean IntegrationContextImpl.equals(Object)", "int IntegrationContextImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
     IntegrationContextImpl integrationContextImpl = new IntegrationContextImpl();
@@ -229,6 +253,8 @@ class IntegrationContextImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean IntegrationContextImpl.equals(Object)", "int IntegrationContextImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
     IntegrationContextImpl integrationContextImpl = new IntegrationContextImpl();
@@ -248,6 +274,8 @@ class IntegrationContextImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean IntegrationContextImpl.equals(Object)", "int IntegrationContextImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
     // Arrange
     IntegrationContextImpl integrationContextImpl = new IntegrationContextImpl();
@@ -268,6 +296,8 @@ class IntegrationContextImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean IntegrationContextImpl.equals(Object)", "int IntegrationContextImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual3() {
     // Arrange
     IntegrationContextImpl integrationContextImpl = new IntegrationContextImpl();
@@ -288,6 +318,8 @@ class IntegrationContextImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean IntegrationContextImpl.equals(Object)", "int IntegrationContextImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual4() {
     // Arrange
     IntegrationContextImpl integrationContextImpl = new IntegrationContextImpl();
@@ -308,6 +340,8 @@ class IntegrationContextImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean IntegrationContextImpl.equals(Object)", "int IntegrationContextImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual5() {
     // Arrange
     IntegrationContextImpl integrationContextImpl = new IntegrationContextImpl();
@@ -328,6 +362,8 @@ class IntegrationContextImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean IntegrationContextImpl.equals(Object)", "int IntegrationContextImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual6() {
     // Arrange
     IntegrationContextImpl integrationContextImpl = new IntegrationContextImpl();
@@ -348,6 +384,8 @@ class IntegrationContextImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean IntegrationContextImpl.equals(Object)", "int IntegrationContextImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual7() {
     // Arrange
     IntegrationContextImpl integrationContextImpl = new IntegrationContextImpl();
@@ -368,6 +406,8 @@ class IntegrationContextImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean IntegrationContextImpl.equals(Object)", "int IntegrationContextImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual8() {
     // Arrange
     IntegrationContextImpl integrationContextImpl = new IntegrationContextImpl();
@@ -388,6 +428,8 @@ class IntegrationContextImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean IntegrationContextImpl.equals(Object)", "int IntegrationContextImpl.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new IntegrationContextImpl(), null);
@@ -404,20 +446,36 @@ class IntegrationContextImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean IntegrationContextImpl.equals(Object)", "int IntegrationContextImpl.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new IntegrationContextImpl(), "Different type to IntegrationContextImpl");
   }
 
   /**
-   * Test {@link IntegrationContextImpl#getInBoundVariable(String, Class)} with
-   * {@code name}, {@code type}.
+   * Test {@link IntegrationContextImpl#getInBoundVariable(String)} with {@code name}.
    * <p>
-   * Method under test:
-   * {@link IntegrationContextImpl#getInBoundVariable(String, Class)}
+   * Method under test: {@link IntegrationContextImpl#getInBoundVariable(String)}
+   */
+  @Test
+  @DisplayName("Test getInBoundVariable(String) with 'name'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object IntegrationContextImpl.getInBoundVariable(String)"})
+  void testGetInBoundVariableWithName() {
+    // Arrange, Act and Assert
+    assertNull((new IntegrationContextImpl()).getInBoundVariable("Name"));
+  }
+
+  /**
+   * Test {@link IntegrationContextImpl#getInBoundVariable(String, Class)} with {@code name}, {@code type}.
+   * <p>
+   * Method under test: {@link IntegrationContextImpl#getInBoundVariable(String, Class)}
    */
   @Test
   @DisplayName("Test getInBoundVariable(String, Class) with 'name', 'type'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object IntegrationContextImpl.getInBoundVariable(String, Class)"})
   void testGetInBoundVariableWithNameType() {
     // Arrange
     IntegrationContextImpl integrationContextImpl = new IntegrationContextImpl();
@@ -428,54 +486,28 @@ class IntegrationContextImplDiffblueTest {
   }
 
   /**
-   * Test {@link IntegrationContextImpl#getInBoundVariable(String)} with
-   * {@code name}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@code foo} and
-   * {@link BiFunction}.</li>
-   * </ul>
+   * Test {@link IntegrationContextImpl#getOutBoundVariable(String)} with {@code name}.
    * <p>
-   * Method under test: {@link IntegrationContextImpl#getInBoundVariable(String)}
+   * Method under test: {@link IntegrationContextImpl#getOutBoundVariable(String)}
    */
   @Test
-  @DisplayName("Test getInBoundVariable(String) with 'name'; given HashMap() computeIfPresent 'foo' and BiFunction")
-  void testGetInBoundVariableWithName_givenHashMapComputeIfPresentFooAndBiFunction() {
-    // Arrange
-    HashMap<String, Object> inboundVariables = new HashMap<>();
-    inboundVariables.computeIfPresent("foo", mock(BiFunction.class));
-
-    IntegrationContextImpl integrationContextImpl = new IntegrationContextImpl();
-    integrationContextImpl.addInBoundVariables(inboundVariables);
-
-    // Act and Assert
-    assertNull(integrationContextImpl.getInBoundVariable("Name"));
-  }
-
-  /**
-   * Test {@link IntegrationContextImpl#getInBoundVariable(String)} with
-   * {@code name}.
-   * <ul>
-   *   <li>Given {@link IntegrationContextImpl} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IntegrationContextImpl#getInBoundVariable(String)}
-   */
-  @Test
-  @DisplayName("Test getInBoundVariable(String) with 'name'; given IntegrationContextImpl (default constructor)")
-  void testGetInBoundVariableWithName_givenIntegrationContextImpl() {
+  @DisplayName("Test getOutBoundVariable(String) with 'name'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object IntegrationContextImpl.getOutBoundVariable(String)"})
+  void testGetOutBoundVariableWithName() {
     // Arrange, Act and Assert
-    assertNull((new IntegrationContextImpl()).getInBoundVariable("Name"));
+    assertNull((new IntegrationContextImpl()).getOutBoundVariable("Name"));
   }
 
   /**
-   * Test {@link IntegrationContextImpl#getOutBoundVariable(String, Class)} with
-   * {@code name}, {@code type}.
+   * Test {@link IntegrationContextImpl#getOutBoundVariable(String, Class)} with {@code name}, {@code type}.
    * <p>
-   * Method under test:
-   * {@link IntegrationContextImpl#getOutBoundVariable(String, Class)}
+   * Method under test: {@link IntegrationContextImpl#getOutBoundVariable(String, Class)}
    */
   @Test
   @DisplayName("Test getOutBoundVariable(String, Class) with 'name', 'type'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object IntegrationContextImpl.getOutBoundVariable(String, Class)"})
   void testGetOutBoundVariableWithNameType() {
     // Arrange
     IntegrationContextImpl integrationContextImpl = new IntegrationContextImpl();
@@ -483,45 +515,5 @@ class IntegrationContextImplDiffblueTest {
 
     // Act and Assert
     assertNull(integrationContextImpl.getOutBoundVariable("Name", type));
-  }
-
-  /**
-   * Test {@link IntegrationContextImpl#getOutBoundVariable(String)} with
-   * {@code name}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@code foo} and
-   * {@link BiFunction}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IntegrationContextImpl#getOutBoundVariable(String)}
-   */
-  @Test
-  @DisplayName("Test getOutBoundVariable(String) with 'name'; given HashMap() computeIfPresent 'foo' and BiFunction")
-  void testGetOutBoundVariableWithName_givenHashMapComputeIfPresentFooAndBiFunction() {
-    // Arrange
-    HashMap<String, Object> inboundVariables = new HashMap<>();
-    inboundVariables.computeIfPresent("foo", mock(BiFunction.class));
-
-    IntegrationContextImpl integrationContextImpl = new IntegrationContextImpl();
-    integrationContextImpl.addInBoundVariables(inboundVariables);
-
-    // Act and Assert
-    assertNull(integrationContextImpl.getOutBoundVariable("Name"));
-  }
-
-  /**
-   * Test {@link IntegrationContextImpl#getOutBoundVariable(String)} with
-   * {@code name}.
-   * <ul>
-   *   <li>Given {@link IntegrationContextImpl} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IntegrationContextImpl#getOutBoundVariable(String)}
-   */
-  @Test
-  @DisplayName("Test getOutBoundVariable(String) with 'name'; given IntegrationContextImpl (default constructor)")
-  void testGetOutBoundVariableWithName_givenIntegrationContextImpl() {
-    // Arrange, Act and Assert
-    assertNull((new IntegrationContextImpl()).getOutBoundVariable("Name"));
   }
 }

@@ -21,9 +21,12 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class ActivityBehaviorInvocationDiffblueTest {
@@ -32,12 +35,14 @@ public class ActivityBehaviorInvocationDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link ActivityBehaviorInvocation#ActivityBehaviorInvocation(ActivityBehavior, DelegateExecution)}
+   *   <li>{@link ActivityBehaviorInvocation#ActivityBehaviorInvocation(ActivityBehavior, DelegateExecution)}
    *   <li>{@link ActivityBehaviorInvocation#getTarget()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivityBehaviorInvocation.<init>(ActivityBehavior, DelegateExecution)",
+      "Object ActivityBehaviorInvocation.getTarget()"})
   public void testGettersAndSetters() {
     // Arrange
     ActivityBehavior behaviorInstance = mock(ActivityBehavior.class);
@@ -48,8 +53,8 @@ public class ActivityBehaviorInvocationDiffblueTest {
     Object actualTarget = actualActivityBehaviorInvocation.getTarget();
 
     // Assert
-    assertNull(actualActivityBehaviorInvocation.getInvocationParameters());
     assertNull(actualActivityBehaviorInvocation.getInvocationResult());
+    assertNull(actualActivityBehaviorInvocation.getInvocationParameters());
     assertSame(behaviorInstance, actualTarget);
   }
 
@@ -59,6 +64,8 @@ public class ActivityBehaviorInvocationDiffblueTest {
    * Method under test: {@link ActivityBehaviorInvocation#invoke()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivityBehaviorInvocation.invoke()"})
   public void testInvoke() {
     // Arrange
     ActivityBehavior behaviorInstance = mock(ActivityBehavior.class);

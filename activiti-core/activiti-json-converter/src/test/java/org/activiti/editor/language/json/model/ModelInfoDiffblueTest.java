@@ -16,7 +16,9 @@
 package org.activiti.editor.language.json.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ModelInfoDiffblueTest {
@@ -36,6 +38,10 @@ class ModelInfoDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ModelInfo.<init>(String, String, String)", "String ModelInfo.getId()",
+      "String ModelInfo.getKey()", "String ModelInfo.getName()", "void ModelInfo.setId(String)",
+      "void ModelInfo.setKey(String)", "void ModelInfo.setName(String)"})
   void testGettersAndSetters() {
     // Arrange and Act
     ModelInfo actualModelInfo = new ModelInfo("42", "Name", "Key");
@@ -45,7 +51,7 @@ class ModelInfoDiffblueTest {
     String actualId = actualModelInfo.getId();
     String actualKey = actualModelInfo.getKey();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualId);
     assertEquals("Key", actualKey);
     assertEquals("Name", actualModelInfo.getName());

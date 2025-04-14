@@ -17,18 +17,21 @@ package org.activiti.api.process.model.payloads;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class CreateProcessInstancePayloadDiffblueTest {
   /**
    * Test {@link CreateProcessInstancePayload#CreateProcessInstancePayload()}.
    * <p>
-   * Method under test:
-   * {@link CreateProcessInstancePayload#CreateProcessInstancePayload()}
+   * Method under test: {@link CreateProcessInstancePayload#CreateProcessInstancePayload()}
    */
   @Test
   @DisplayName("Test new CreateProcessInstancePayload()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void CreateProcessInstancePayload.<init>()"})
   void testNewCreateProcessInstancePayload() {
     // Arrange and Act
     CreateProcessInstancePayload actualCreateProcessInstancePayload = new CreateProcessInstancePayload();
@@ -41,14 +44,14 @@ class CreateProcessInstancePayloadDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link CreateProcessInstancePayload#CreateProcessInstancePayload(String, String, String, String)}.
+   * Test {@link CreateProcessInstancePayload#CreateProcessInstancePayload(String, String, String, String)}.
    * <p>
-   * Method under test:
-   * {@link CreateProcessInstancePayload#CreateProcessInstancePayload(String, String, String, String)}
+   * Method under test: {@link CreateProcessInstancePayload#CreateProcessInstancePayload(String, String, String, String)}
    */
   @Test
   @DisplayName("Test new CreateProcessInstancePayload(String, String, String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void CreateProcessInstancePayload.<init>(String, String, String, String)"})
   void testNewCreateProcessInstancePayload2() {
     // Arrange and Act
     CreateProcessInstancePayload actualCreateProcessInstancePayload = new CreateProcessInstancePayload("42",
@@ -76,19 +79,27 @@ class CreateProcessInstancePayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String CreateProcessInstancePayload.getBusinessKey()",
+      "String CreateProcessInstancePayload.getId()", "String CreateProcessInstancePayload.getName()",
+      "String CreateProcessInstancePayload.getProcessDefinitionId()",
+      "String CreateProcessInstancePayload.getProcessDefinitionKey()",
+      "void CreateProcessInstancePayload.setName(String)"})
   void testGettersAndSetters() {
     // Arrange
     CreateProcessInstancePayload createProcessInstancePayload = new CreateProcessInstancePayload();
 
     // Act
     createProcessInstancePayload.setName("Name");
-    createProcessInstancePayload.getBusinessKey();
+    String actualBusinessKey = createProcessInstancePayload.getBusinessKey();
     createProcessInstancePayload.getId();
     String actualName = createProcessInstancePayload.getName();
-    createProcessInstancePayload.getProcessDefinitionId();
-    createProcessInstancePayload.getProcessDefinitionKey();
+    String actualProcessDefinitionId = createProcessInstancePayload.getProcessDefinitionId();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Name", actualName);
+    assertNull(actualBusinessKey);
+    assertNull(actualProcessDefinitionId);
+    assertNull(createProcessInstancePayload.getProcessDefinitionKey());
   }
 }

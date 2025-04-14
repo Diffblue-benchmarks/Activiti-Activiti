@@ -19,22 +19,26 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.persistence.entity.HistoricDetailVariableInstanceUpdateEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ByteArrayTypeDiffblueTest {
   /**
    * Test {@link ByteArrayType#getValue(ValueFields)}.
    * <ul>
-   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default
-   * constructor).</li>
+   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor).</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ByteArrayType#getValue(ValueFields)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object ByteArrayType.getValue(ValueFields)"})
   public void testGetValue_whenHistoricDetailVariableInstanceUpdateEntityImpl_thenReturnNull() {
     // Arrange
     ByteArrayType byteArrayType = new ByteArrayType();
@@ -53,6 +57,8 @@ public class ByteArrayTypeDiffblueTest {
    * Method under test: {@link ByteArrayType#isAbleToStore(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ByteArrayType.isAbleToStore(Object)"})
   public void testIsAbleToStore_whenNull_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new ByteArrayType()).isAbleToStore(JSONObject.NULL));
@@ -68,6 +74,8 @@ public class ByteArrayTypeDiffblueTest {
    * Method under test: {@link ByteArrayType#isAbleToStore(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ByteArrayType.isAbleToStore(Object)"})
   public void testIsAbleToStore_whenNull_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue((new ByteArrayType()).isAbleToStore(null));
@@ -84,6 +92,9 @@ public class ByteArrayTypeDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ByteArrayType.<init>()", "String ByteArrayType.getTypeName()",
+      "boolean ByteArrayType.isCachable()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ByteArrayType actualByteArrayType = new ByteArrayType();

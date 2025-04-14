@@ -17,7 +17,9 @@ package org.activiti.image.impl.icon;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class SignalIconTypeDiffblueTest {
@@ -28,6 +30,8 @@ class SignalIconTypeDiffblueTest {
    */
   @Test
   @DisplayName("Test getWidth()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.lang.Integer SignalIconType.getWidth()"})
   void testGetWidth() {
     // Arrange, Act and Assert
     assertEquals(17, (new SignalIconType()).getWidth().intValue());
@@ -40,6 +44,8 @@ class SignalIconTypeDiffblueTest {
    */
   @Test
   @DisplayName("Test getHeight()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.lang.Integer SignalIconType.getHeight()"})
   void testGetHeight() {
     // Arrange, Act and Assert
     assertEquals(15, (new SignalIconType()).getHeight().intValue());
@@ -61,6 +67,11 @@ class SignalIconTypeDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SignalIconType.<init>()", "String SignalIconType.getAnchorValue()",
+      "String SignalIconType.getDValue()", "String SignalIconType.getFillValue()",
+      "String SignalIconType.getStrokeValue()", "String SignalIconType.getStrokeWidth()",
+      "String SignalIconType.getStyleValue()"})
   void testGettersAndSetters() {
     // Arrange and Act
     SignalIconType actualSignalIconType = new SignalIconType();

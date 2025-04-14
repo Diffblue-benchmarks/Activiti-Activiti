@@ -17,23 +17,63 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashSet;
 import java.util.Set;
+import org.activiti.engine.ActivitiEngineAgendaFactory;
 import org.activiti.engine.ActivitiIllegalArgumentException;
+import org.activiti.engine.impl.agenda.DefaultActivitiEngineAgenda;
+import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
+import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandContext;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.mockito.Mockito;
 
 public class GetTasksLocalVariablesCmdDiffblueTest {
   /**
    * Test {@link GetTasksLocalVariablesCmd#GetTasksLocalVariablesCmd(Set)}.
    * <p>
-   * Method under test:
-   * {@link GetTasksLocalVariablesCmd#GetTasksLocalVariablesCmd(Set)}
+   * Method under test: {@link GetTasksLocalVariablesCmd#GetTasksLocalVariablesCmd(Set)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void GetTasksLocalVariablesCmd.<init>(Set)"})
   public void testNewGetTasksLocalVariablesCmd() {
     // Arrange, Act and Assert
     assertTrue((new GetTasksLocalVariablesCmd(new HashSet<>())).taskIds.isEmpty());
+  }
+
+  /**
+   * Test {@link GetTasksLocalVariablesCmd#execute(CommandContext)}.
+   * <ul>
+   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link GetTasksLocalVariablesCmd#execute(CommandContext)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.List GetTasksLocalVariablesCmd.execute(CommandContext)"})
+  public void testExecute_thenCallsCreateAgenda() {
+    // Arrange
+    GetTasksLocalVariablesCmd getTasksLocalVariablesCmd = new GetTasksLocalVariablesCmd(null);
+    ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
+    when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
+        .thenReturn(new DefaultActivitiEngineAgenda(null));
+
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> getTasksLocalVariablesCmd.execute(new CommandContext(mock(Command.class), processEngineConfiguration)));
+    verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
   }
 
   /**
@@ -46,6 +86,8 @@ public class GetTasksLocalVariablesCmdDiffblueTest {
    * Method under test: {@link GetTasksLocalVariablesCmd#execute(CommandContext)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.List GetTasksLocalVariablesCmd.execute(CommandContext)"})
   public void testExecute_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,

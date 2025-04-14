@@ -20,11 +20,21 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationConfig;
+import com.fasterxml.jackson.databind.cfg.CacheProvider;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper.Builder;
+import com.fasterxml.jackson.databind.util.LRUMap;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -45,54 +55,204 @@ class StringToObjectValueConverterDiffblueTest {
   private StringToObjectValueConverter stringToObjectValueConverter;
 
   /**
-   * Test {@link StringToObjectValueConverter#convert(String)} with
-   * {@code String}.
+   * Test {@link StringToObjectValueConverter#convert(String)} with {@code String}.
+   * <p>
+   * Method under test: {@link StringToObjectValueConverter#convert(String)}
+   */
+  @Test
+  @DisplayName("Test convert(String) with 'String'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ObjectValue StringToObjectValueConverter.convert(String)"})
+  void testConvertWithString() throws JsonProcessingException {
+    // Arrange
+    StringToObjectValueConverter stringToObjectValueConverter = new StringToObjectValueConverter(
+        JsonMapper.builder().findAndAddModules().build());
+    JsonMapper buildResult = JsonMapper.builder().findAndAddModules().build();
+
+    // Act and Assert
+    assertNull(stringToObjectValueConverter.convert(buildResult.writeValueAsString(new ObjectValue())).getObject());
+  }
+
+  /**
+   * Test {@link StringToObjectValueConverter#convert(String)} with {@code String}.
    * <ul>
-   *   <li>Then return Object is {@code null}.</li>
+   *   <li>Given builder addMixIn {@link Object} and {@link Object}.</li>
    * </ul>
    * <p>
    * Method under test: {@link StringToObjectValueConverter#convert(String)}
    */
   @Test
-  @DisplayName("Test convert(String) with 'String'; then return Object is 'null'")
-  void testConvertWithString_thenReturnObjectIsNull() throws JsonProcessingException {
+  @DisplayName("Test convert(String) with 'String'; given builder addMixIn Object and Object")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ObjectValue StringToObjectValueConverter.convert(String)"})
+  void testConvertWithString_givenBuilderAddMixInObjectAndObject() throws JsonProcessingException {
     // Arrange
-    ObjectValue objectValue = new ObjectValue();
-    when(objectMapper.readValue(Mockito.<String>any(), Mockito.<Class<ObjectValue>>any())).thenReturn(objectValue);
+    Builder builderResult = JsonMapper.builder();
+    Class<Object> target = Object.class;
+    Class<Object> mixinSource = Object.class;
+    builderResult.addMixIn(target, mixinSource);
+    StringToObjectValueConverter stringToObjectValueConverter = new StringToObjectValueConverter(
+        builderResult.findAndAddModules().build());
+    JsonMapper buildResult = JsonMapper.builder().findAndAddModules().build();
 
-    ObjectMapper objectMapper2 = new ObjectMapper();
+    // Act and Assert
+    assertNull(stringToObjectValueConverter.convert(buildResult.writeValueAsString(new ObjectValue())).getObject());
+  }
+
+  /**
+   * Test {@link StringToObjectValueConverter#convert(String)} with {@code String}.
+   * <ul>
+   *   <li>Given builder addMixIn {@link Object} and {@link ObjectValue}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link StringToObjectValueConverter#convert(String)}
+   */
+  @Test
+  @DisplayName("Test convert(String) with 'String'; given builder addMixIn Object and ObjectValue")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ObjectValue StringToObjectValueConverter.convert(String)"})
+  void testConvertWithString_givenBuilderAddMixInObjectAndObjectValue() throws JsonProcessingException {
+    // Arrange
+    Builder builderResult = JsonMapper.builder();
+    Class<Object> target = Object.class;
+    Class<ObjectValue> mixinSource = ObjectValue.class;
+    builderResult.addMixIn(target, mixinSource);
+    StringToObjectValueConverter stringToObjectValueConverter = new StringToObjectValueConverter(
+        builderResult.findAndAddModules().build());
+    JsonMapper buildResult = JsonMapper.builder().findAndAddModules().build();
+
+    // Act and Assert
+    assertNull(stringToObjectValueConverter.convert(buildResult.writeValueAsString(new ObjectValue())).getObject());
+  }
+
+  /**
+   * Test {@link StringToObjectValueConverter#convert(String)} with {@code String}.
+   * <ul>
+   *   <li>Given builder addMixIn {@link ObjectValue} and {@link Object}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link StringToObjectValueConverter#convert(String)}
+   */
+  @Test
+  @DisplayName("Test convert(String) with 'String'; given builder addMixIn ObjectValue and Object")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ObjectValue StringToObjectValueConverter.convert(String)"})
+  void testConvertWithString_givenBuilderAddMixInObjectValueAndObject() throws JsonProcessingException {
+    // Arrange
+    Builder builderResult = JsonMapper.builder();
+    Class<ObjectValue> target = ObjectValue.class;
+    Class<Object> mixinSource = Object.class;
+    builderResult.addMixIn(target, mixinSource);
+    StringToObjectValueConverter stringToObjectValueConverter = new StringToObjectValueConverter(
+        builderResult.findAndAddModules().build());
+    JsonMapper buildResult = JsonMapper.builder().findAndAddModules().build();
+
+    // Act and Assert
+    assertNull(stringToObjectValueConverter.convert(buildResult.writeValueAsString(new ObjectValue())).getObject());
+  }
+
+  /**
+   * Test {@link StringToObjectValueConverter#convert(String)} with {@code String}.
+   * <ul>
+   *   <li>Then calls {@link CacheProvider#forDeserializerCache(DeserializationConfig)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link StringToObjectValueConverter#convert(String)}
+   */
+  @Test
+  @DisplayName("Test convert(String) with 'String'; then calls forDeserializerCache(DeserializationConfig)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ObjectValue StringToObjectValueConverter.convert(String)"})
+  void testConvertWithString_thenCallsForDeserializerCache() throws JsonProcessingException {
+    // Arrange
+    CacheProvider cacheProvider = mock(CacheProvider.class);
+    when(cacheProvider.forDeserializerCache(Mockito.<DeserializationConfig>any())).thenReturn(new LRUMap<>(1, 3));
+    when(cacheProvider.forSerializerCache(Mockito.<SerializationConfig>any())).thenReturn(new LRUMap<>(1, 3));
+    when(cacheProvider.forTypeFactory()).thenReturn(new LRUMap<>(1, 3));
+    Builder builderResult = JsonMapper.builder();
+    builderResult.cacheProvider(cacheProvider);
+    Class<Object> target = Object.class;
+    Class<Object> mixinSource = Object.class;
+    builderResult.addMixIn(target, mixinSource);
+    StringToObjectValueConverter stringToObjectValueConverter = new StringToObjectValueConverter(
+        builderResult.findAndAddModules().build());
+    JsonMapper buildResult = JsonMapper.builder().findAndAddModules().build();
 
     // Act
     ObjectValue actualConvertResult = stringToObjectValueConverter
-        .convert(objectMapper2.writeValueAsString(new ObjectValue()));
+        .convert(buildResult.writeValueAsString(new ObjectValue()));
 
     // Assert
-    verify(objectMapper).readValue(eq("{\"object\":null}"), isA(Class.class));
+    verify(cacheProvider).forDeserializerCache(isNull());
+    verify(cacheProvider).forSerializerCache(isNull());
+    verify(cacheProvider).forTypeFactory();
+    assertNull(actualConvertResult.getObject());
+  }
+
+  /**
+   * Test {@link StringToObjectValueConverter#convert(String)} with {@code String}.
+   * <ul>
+   *   <li>Then return {@link ObjectValue#ObjectValue()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link StringToObjectValueConverter#convert(String)}
+   */
+  @Test
+  @DisplayName("Test convert(String) with 'String'; then return ObjectValue()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ObjectValue StringToObjectValueConverter.convert(String)"})
+  void testConvertWithString_thenReturnObjectValue() throws JsonProcessingException {
+    // Arrange
+    ObjectValue objectValue = new ObjectValue();
+    when(objectMapper.readValue(Mockito.<String>any(), Mockito.<Class<ObjectValue>>any())).thenReturn(objectValue);
+    when(objectMapper.writeValueAsString(Mockito.<Object>any())).thenReturn("42");
+
+    // Act
+    ObjectValue actualConvertResult = stringToObjectValueConverter
+        .convert(objectMapper.writeValueAsString(new ObjectValue()));
+
+    // Assert
+    verify(objectMapper).readValue(eq("42"), isA(Class.class));
+    verify(objectMapper).writeValueAsString(isA(Object.class));
     assertNull(actualConvertResult.getObject());
     assertSame(objectValue, actualConvertResult);
   }
 
   /**
-   * Test {@link StringToObjectValueConverter#convert(String)} with
-   * {@code String}.
+   * Test {@link StringToObjectValueConverter#convert(String)} with {@code String}.
    * <ul>
+   *   <li>When {@code null}.</li>
    *   <li>Then throw {@link RuntimeException}.</li>
    * </ul>
    * <p>
    * Method under test: {@link StringToObjectValueConverter#convert(String)}
    */
   @Test
-  @DisplayName("Test convert(String) with 'String'; then throw RuntimeException")
-  void testConvertWithString_thenThrowRuntimeException() throws JsonProcessingException {
-    // Arrange
-    when(objectMapper.readValue(Mockito.<String>any(), Mockito.<Class<ObjectValue>>any()))
-        .thenThrow(new RuntimeException("foo"));
-
-    ObjectMapper objectMapper2 = new ObjectMapper();
-
-    // Act and Assert
+  @DisplayName("Test convert(String) with 'String'; when 'null'; then throw RuntimeException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ObjectValue StringToObjectValueConverter.convert(String)"})
+  void testConvertWithString_whenNull_thenThrowRuntimeException() {
+    // Arrange, Act and Assert
     assertThrows(RuntimeException.class,
-        () -> stringToObjectValueConverter.convert(objectMapper2.writeValueAsString(new ObjectValue())));
-    verify(objectMapper).readValue(eq("{\"object\":null}"), isA(Class.class));
+        () -> (new StringToObjectValueConverter(JsonMapper.builder().findAndAddModules().build())).convert(null));
+  }
+
+  /**
+   * Test {@link StringToObjectValueConverter#convert(String)} with {@code String}.
+   * <ul>
+   *   <li>When {@code Source}.</li>
+   *   <li>Then throw {@link RuntimeException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link StringToObjectValueConverter#convert(String)}
+   */
+  @Test
+  @DisplayName("Test convert(String) with 'String'; when 'Source'; then throw RuntimeException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ObjectValue StringToObjectValueConverter.convert(String)"})
+  void testConvertWithString_whenSource_thenThrowRuntimeException() {
+    // Arrange, Act and Assert
+    assertThrows(RuntimeException.class,
+        () -> (new StringToObjectValueConverter(JsonMapper.builder().findAndAddModules().build())).convert("Source"));
   }
 }

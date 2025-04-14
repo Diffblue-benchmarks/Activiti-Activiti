@@ -16,25 +16,46 @@
 package org.activiti.engine.impl.delegate;
 
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import org.activiti.engine.test.bpmn.event.message.MessageThrowCatchEventTest;
+import org.activiti.engine.test.bpmn.event.message.MessageThrowCatchEventTest.TestThrowMessageDelegate;
+import org.activiti.engine.test.bpmn.event.message.MessageThrowCatchEventTest.TestThrowMessageDelegateFactory;
 import org.activiti.engine.test.bpmn.event.message.MessageThrowEventTest;
+import org.activiti.engine.test.bpmn.event.message.MessageThrowEventTest.MyThrowMessageDelegateFactory;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ThrowMessageDelegateFactoryDiffblueTest {
-  @InjectMocks
-  private MessageThrowEventTest.MyThrowMessageDelegateFactory myThrowMessageDelegateFactory;
-
   /**
    * Test {@link ThrowMessageDelegateFactory#create()}.
+   * <ul>
+   *   <li>Then return {@link DefaultThrowMessageJavaDelegate}.</li>
+   * </ul>
    * <p>
    * Method under test: {@link ThrowMessageDelegateFactory#create()}
    */
   @Test
-  public void testCreate() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.impl.delegate.ThrowMessageDelegate ThrowMessageDelegateFactory.create()"})
+  public void testCreate_thenReturnDefaultThrowMessageJavaDelegate() {
     // Arrange, Act and Assert
-    assertTrue(myThrowMessageDelegateFactory.create() instanceof DefaultThrowMessageJavaDelegate);
+    assertTrue((new MyThrowMessageDelegateFactory()).create() instanceof DefaultThrowMessageJavaDelegate);
+  }
+
+  /**
+   * Test {@link ThrowMessageDelegateFactory#create()}.
+   * <ul>
+   *   <li>Then return {@link TestThrowMessageDelegate}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ThrowMessageDelegateFactory#create()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.impl.delegate.ThrowMessageDelegate ThrowMessageDelegateFactory.create()"})
+  public void testCreate_thenReturnTestThrowMessageDelegate() {
+    // Arrange, Act and Assert
+    assertTrue((new TestThrowMessageDelegateFactory()).create() instanceof TestThrowMessageDelegate);
   }
 }

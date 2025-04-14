@@ -24,6 +24,8 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.bpmn.model.ComplexDataType;
@@ -32,25 +34,27 @@ import org.activiti.bpmn.model.DataGrid;
 import org.activiti.bpmn.model.DataGridRow;
 import org.activiti.bpmn.model.FieldExtension;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class AlfrescoMailTaskDiffblueTest {
   /**
    * Test {@link AlfrescoMailTask#clone()}.
    * <ul>
-   *   <li>Given {@link AlfrescoMailTask} (default constructor) CustomProperties is
-   * {@code null}.</li>
+   *   <li>Given {@link AlfrescoMailTask} (default constructor) CustomProperties is {@code null}.</li>
    *   <li>Then return Behavior is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AlfrescoMailTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"AlfrescoMailTask AlfrescoMailTask.clone()"})
   public void testClone_givenAlfrescoMailTaskCustomPropertiesIsNull_thenReturnBehaviorIsNull() {
     // Arrange
     AlfrescoMailTask alfrescoMailTask = new AlfrescoMailTask();
-    alfrescoMailTask.setCustomProperties(null);
     alfrescoMailTask.setFieldExtensions(null);
+    alfrescoMailTask.setCustomProperties(null);
 
     // Act
     AlfrescoMailTask actualCloneResult = alfrescoMailTask.clone();
@@ -104,6 +108,8 @@ public class AlfrescoMailTaskDiffblueTest {
    * Method under test: {@link AlfrescoMailTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"AlfrescoMailTask AlfrescoMailTask.clone()"})
   public void testClone_givenAlfrescoMailTask_thenReturnBehaviorIsNull() {
     // Arrange and Act
     AlfrescoMailTask actualCloneResult = (new AlfrescoMailTask()).clone();
@@ -150,31 +156,23 @@ public class AlfrescoMailTaskDiffblueTest {
   /**
    * Test {@link AlfrescoMailTask#clone()}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default constructor).</li>
    *   <li>Then return FieldExtensions size is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link AlfrescoMailTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"AlfrescoMailTask AlfrescoMailTask.clone()"})
   public void testClone_givenArrayListAddFieldExtension_thenReturnFieldExtensionsSizeIsOne() {
     // Arrange
-    DataGrid complexValue = new DataGrid();
-    complexValue.setRows(null);
-
-    CustomProperty customProperty = new CustomProperty();
-    customProperty.setComplexValue(complexValue);
-
-    ArrayList<CustomProperty> customProperties = new ArrayList<>();
-    customProperties.add(customProperty);
-
     ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
     fieldExtensions.add(new FieldExtension());
 
     AlfrescoMailTask alfrescoMailTask = new AlfrescoMailTask();
-    alfrescoMailTask.setCustomProperties(customProperties);
     alfrescoMailTask.setFieldExtensions(fieldExtensions);
+    alfrescoMailTask.setCustomProperties(null);
 
     // Act and Assert
     List<FieldExtension> fieldExtensions2 = alfrescoMailTask.clone().getFieldExtensions();
@@ -199,10 +197,18 @@ public class AlfrescoMailTaskDiffblueTest {
    * Method under test: {@link AlfrescoMailTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"AlfrescoMailTask AlfrescoMailTask.clone()"})
   public void testClone_thenCustomPropertiesFirstComplexValueReturnDataGrid() {
     // Arrange
+    DataGridRow dataGridRow = new DataGridRow();
+    dataGridRow.setFields(null);
+
+    ArrayList<DataGridRow> rows = new ArrayList<>();
+    rows.add(dataGridRow);
+
     DataGrid complexValue = new DataGrid();
-    complexValue.setRows(null);
+    complexValue.setRows(rows);
 
     CustomProperty customProperty = new CustomProperty();
     customProperty.setComplexValue(complexValue);
@@ -211,35 +217,33 @@ public class AlfrescoMailTaskDiffblueTest {
     customProperties.add(customProperty);
 
     AlfrescoMailTask alfrescoMailTask = new AlfrescoMailTask();
-    alfrescoMailTask.setCustomProperties(customProperties);
     alfrescoMailTask.setFieldExtensions(null);
+    alfrescoMailTask.setCustomProperties(customProperties);
 
     // Act and Assert
     List<CustomProperty> customProperties2 = alfrescoMailTask.clone().getCustomProperties();
     assertEquals(1, customProperties2.size());
-    CustomProperty getResult = customProperties2.get(0);
-    ComplexDataType complexValue2 = getResult.getComplexValue();
+    ComplexDataType complexValue2 = customProperties2.get(0).getComplexValue();
     assertTrue(complexValue2 instanceof DataGrid);
-    assertNull(getResult.getId());
-    assertNull(getResult.getName());
-    assertNull(getResult.getSimpleValue());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(((DataGrid) complexValue2).getRows().isEmpty());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
+    List<DataGridRow> rows2 = ((DataGrid) complexValue2).getRows();
+    assertEquals(1, rows2.size());
+    DataGridRow getResult = rows2.get(0);
+    assertEquals(0, getResult.getIndex());
+    assertTrue(getResult.getFields().isEmpty());
   }
 
   /**
    * Test {@link AlfrescoMailTask#clone()}.
    * <ul>
-   *   <li>Then return CustomProperties first ComplexValue is {@code null}.</li>
+   *   <li>Then return CustomProperties first Id is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AlfrescoMailTask#clone()}
    */
   @Test
-  public void testClone_thenReturnCustomPropertiesFirstComplexValueIsNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"AlfrescoMailTask AlfrescoMailTask.clone()"})
+  public void testClone_thenReturnCustomPropertiesFirstIdIsNull() {
     // Arrange
     CustomProperty customProperty = new CustomProperty();
     customProperty.setComplexValue(null);
@@ -248,8 +252,8 @@ public class AlfrescoMailTaskDiffblueTest {
     customProperties.add(customProperty);
 
     AlfrescoMailTask alfrescoMailTask = new AlfrescoMailTask();
-    alfrescoMailTask.setCustomProperties(customProperties);
     alfrescoMailTask.setFieldExtensions(null);
+    alfrescoMailTask.setCustomProperties(customProperties);
 
     // Act and Assert
     List<CustomProperty> customProperties2 = alfrescoMailTask.clone().getCustomProperties();
@@ -266,8 +270,7 @@ public class AlfrescoMailTaskDiffblueTest {
   }
 
   /**
-   * Test {@link AlfrescoMailTask#setValues(AlfrescoMailTask)} with
-   * {@code AlfrescoMailTask}.
+   * Test {@link AlfrescoMailTask#setValues(AlfrescoMailTask)} with {@code AlfrescoMailTask}.
    * <ul>
    *   <li>Then calls {@link CustomProperty#clone()}.</li>
    * </ul>
@@ -275,6 +278,8 @@ public class AlfrescoMailTaskDiffblueTest {
    * Method under test: {@link AlfrescoMailTask#setValues(AlfrescoMailTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AlfrescoMailTask.setValues(AlfrescoMailTask)"})
   public void testSetValuesWithAlfrescoMailTask_thenCallsClone() {
     // Arrange
     AlfrescoMailTask alfrescoMailTask = new AlfrescoMailTask();
@@ -296,8 +301,8 @@ public class AlfrescoMailTaskDiffblueTest {
     customProperties.add(customProperty);
 
     AlfrescoMailTask otherElement = new AlfrescoMailTask();
-    otherElement.setFieldExtensions(null);
     otherElement.setCustomProperties(customProperties);
+    otherElement.setFieldExtensions(null);
 
     // Act
     alfrescoMailTask.setValues(otherElement);
@@ -308,8 +313,7 @@ public class AlfrescoMailTaskDiffblueTest {
   }
 
   /**
-   * Test {@link AlfrescoMailTask#setValues(AlfrescoMailTask)} with
-   * {@code AlfrescoMailTask}.
+   * Test {@link AlfrescoMailTask#setValues(AlfrescoMailTask)} with {@code AlfrescoMailTask}.
    * <ul>
    *   <li>Then calls {@link FieldExtension#clone()}.</li>
    * </ul>
@@ -317,9 +321,26 @@ public class AlfrescoMailTaskDiffblueTest {
    * Method under test: {@link AlfrescoMailTask#setValues(AlfrescoMailTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AlfrescoMailTask.setValues(AlfrescoMailTask)"})
   public void testSetValuesWithAlfrescoMailTask_thenCallsClone2() {
     // Arrange
     AlfrescoMailTask alfrescoMailTask = new AlfrescoMailTask();
+
+    DataGridRow dataGridRow = new DataGridRow();
+    dataGridRow.setFields(null);
+
+    ArrayList<DataGridRow> rows = new ArrayList<>();
+    rows.add(dataGridRow);
+
+    DataGrid complexValue = new DataGrid();
+    complexValue.setRows(rows);
+
+    CustomProperty customProperty = new CustomProperty();
+    customProperty.setComplexValue(complexValue);
+
+    ArrayList<CustomProperty> customProperties = new ArrayList<>();
+    customProperties.add(customProperty);
     FieldExtension fieldExtension = mock(FieldExtension.class);
     when(fieldExtension.clone()).thenReturn(new FieldExtension());
 
@@ -327,8 +348,8 @@ public class AlfrescoMailTaskDiffblueTest {
     fieldExtensions.add(fieldExtension);
 
     AlfrescoMailTask otherElement = new AlfrescoMailTask();
+    otherElement.setCustomProperties(customProperties);
     otherElement.setFieldExtensions(fieldExtensions);
-    otherElement.setCustomProperties(null);
 
     // Act
     alfrescoMailTask.setValues(otherElement);
@@ -340,10 +361,11 @@ public class AlfrescoMailTaskDiffblueTest {
   /**
    * Test new {@link AlfrescoMailTask} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link AlfrescoMailTask}
+   * Method under test: default or parameterless constructor of {@link AlfrescoMailTask}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AlfrescoMailTask.<init>()"})
   public void testNewAlfrescoMailTask() {
     // Arrange and Act
     AlfrescoMailTask actualAlfrescoMailTask = new AlfrescoMailTask();

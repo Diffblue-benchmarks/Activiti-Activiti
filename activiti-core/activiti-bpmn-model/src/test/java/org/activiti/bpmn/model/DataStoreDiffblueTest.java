@@ -19,26 +19,26 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import java.util.Map;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class DataStoreDiffblueTest {
   /**
    * Test {@link DataStore#clone()}.
    * <ul>
-   *   <li>Given {@link DataStore} (default constructor) ExtensionElements is
-   * {@code null}.</li>
+   *   <li>Given {@link DataStore} (default constructor) ExtensionElements is {@code null}.</li>
    *   <li>Then return Id is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link DataStore#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DataStore DataStore.clone()"})
   public void testClone_givenDataStoreExtensionElementsIsNull_thenReturnIdIsNull() {
     // Arrange
     DataStore dataStore = new DataStore();
@@ -69,6 +69,8 @@ public class DataStoreDiffblueTest {
    * Method under test: {@link DataStore#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DataStore DataStore.clone()"})
   public void testClone_givenDataStore_thenReturnIdIsNull() {
     // Arrange and Act
     DataStore actualCloneResult = (new DataStore()).clone();
@@ -93,6 +95,8 @@ public class DataStoreDiffblueTest {
    * Method under test: {@link DataStore#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DataStore DataStore.clone()"})
   public void testClone_thenReturnAttributesSizeIsOne() {
     // Arrange
     DataStore dataStore = new DataStore();
@@ -116,6 +120,8 @@ public class DataStoreDiffblueTest {
    * Method under test: {@link DataStore#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DataStore DataStore.clone()"})
   public void testClone_thenReturnAttributesSizeIsTwo() {
     // Arrange
     DataStore dataStore = new DataStore();
@@ -133,31 +139,6 @@ public class DataStoreDiffblueTest {
   }
 
   /**
-   * Test {@link DataStore#setValues(DataStore)} with {@code DataStore}.
-   * <ul>
-   *   <li>Then calls {@link ExtensionAttribute#getName()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DataStore#setValues(DataStore)}
-   */
-  @Test
-  public void testSetValuesWithDataStore_thenCallsGetName() {
-    // Arrange
-    DataStore dataStore = new DataStore();
-    ExtensionAttribute attribute = mock(ExtensionAttribute.class);
-    when(attribute.getName()).thenReturn("Name");
-
-    DataStore otherElement = new DataStore();
-    otherElement.addAttribute(attribute);
-
-    // Act
-    dataStore.setValues(otherElement);
-
-    // Assert
-    verify(attribute, atLeast(1)).getName();
-  }
-
-  /**
    * Test getters and setters.
    * <p>
    * Methods under test:
@@ -172,6 +153,10 @@ public class DataStoreDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DataStore.<init>()", "String DataStore.getDataState()",
+      "String DataStore.getItemSubjectRef()", "String DataStore.getName()", "void DataStore.setDataState(String)",
+      "void DataStore.setItemSubjectRef(String)", "void DataStore.setName(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     DataStore actualDataStore = new DataStore();
@@ -181,10 +166,11 @@ public class DataStoreDiffblueTest {
     String actualDataState = actualDataStore.getDataState();
     String actualItemSubjectRef = actualDataStore.getItemSubjectRef();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Data State", actualDataState);
     assertEquals("Hello from the Dreaming Spires", actualItemSubjectRef);
     assertEquals("Name", actualDataStore.getName());
+    assertNull(actualDataStore.getId());
     assertEquals(0, actualDataStore.getXmlColumnNumber());
     assertEquals(0, actualDataStore.getXmlRowNumber());
     assertTrue(actualDataStore.getAttributes().isEmpty());

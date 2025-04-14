@@ -23,25 +23,30 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import org.activiti.engine.ActivitiEngineAgenda;
 import org.activiti.engine.ActivitiEngineAgendaFactory;
 import org.activiti.engine.impl.agenda.DefaultActivitiEngineAgenda;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class CommandContextFactoryDiffblueTest {
   /**
    * Test {@link CommandContextFactory#createCommandContext(Command)}.
    * <ul>
-   *   <li>Then return Result is {@code null}.</li>
+   *   <li>Then Agenda return {@link DefaultActivitiEngineAgenda}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link CommandContextFactory#createCommandContext(Command)}
+   * Method under test: {@link CommandContextFactory#createCommandContext(Command)}
    */
   @Test
-  public void testCreateCommandContext_thenReturnResultIsNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CommandContext CommandContextFactory.createCommandContext(Command)"})
+  public void testCreateCommandContext_thenAgendaReturnDefaultActivitiEngineAgenda() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
     DefaultActivitiEngineAgenda defaultActivitiEngineAgenda = new DefaultActivitiEngineAgenda(null);
@@ -59,6 +64,11 @@ public class CommandContextFactoryDiffblueTest {
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
+    ActivitiEngineAgenda agenda = actualCreateCommandContextResult.getAgenda();
+    assertTrue(agenda instanceof DefaultActivitiEngineAgenda);
+    ProcessEngineConfigurationImpl processEngineConfiguration2 = actualCreateCommandContextResult
+        .getProcessEngineConfiguration();
+    assertTrue(processEngineConfiguration2 instanceof JtaProcessEngineConfiguration);
     assertNull(actualCreateCommandContextResult.getResult());
     assertNull(actualCreateCommandContextResult.getException());
     assertNull(actualCreateCommandContextResult.getCloseListeners());
@@ -100,8 +110,8 @@ public class CommandContextFactoryDiffblueTest {
     assertTrue(actualCreateCommandContextResult.getInvolvedExecutions().isEmpty());
     assertTrue(actualCreateCommandContextResult.getSessions().isEmpty());
     assertTrue(actualCreateCommandContextResult.involvedExecutions.isEmpty());
-    assertSame(defaultActivitiEngineAgenda, actualCreateCommandContextResult.getAgenda());
-    assertSame(processEngineConfiguration, actualCreateCommandContextResult.getProcessEngineConfiguration());
+    assertSame(defaultActivitiEngineAgenda, agenda);
+    assertSame(processEngineConfiguration, processEngineConfiguration2);
     assertSame(cmd, actualCreateCommandContextResult.getCommand());
   }
 
@@ -111,19 +121,22 @@ public class CommandContextFactoryDiffblueTest {
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link CommandContextFactory}
-   *   <li>
-   * {@link CommandContextFactory#setProcessEngineConfiguration(ProcessEngineConfigurationImpl)}
+   *   <li>{@link CommandContextFactory#setProcessEngineConfiguration(ProcessEngineConfigurationImpl)}
    *   <li>{@link CommandContextFactory#getProcessEngineConfiguration()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CommandContextFactory.<init>()",
+      "ProcessEngineConfigurationImpl CommandContextFactory.getProcessEngineConfiguration()",
+      "void CommandContextFactory.setProcessEngineConfiguration(ProcessEngineConfigurationImpl)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     CommandContextFactory actualCommandContextFactory = new CommandContextFactory();
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     actualCommandContextFactory.setProcessEngineConfiguration(processEngineConfiguration);
 
-    // Assert that nothing has changed
+    // Assert
     assertSame(processEngineConfiguration, actualCommandContextFactory.getProcessEngineConfiguration());
   }
 }

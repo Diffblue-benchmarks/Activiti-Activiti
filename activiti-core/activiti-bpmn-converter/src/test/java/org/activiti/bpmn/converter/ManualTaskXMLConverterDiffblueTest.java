@@ -16,12 +16,14 @@
 package org.activiti.bpmn.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import javax.xml.stream.XMLStreamWriter;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.ManualTask;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ManualTaskXMLConverterDiffblueTest {
@@ -31,16 +33,19 @@ class ManualTaskXMLConverterDiffblueTest {
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ManualTaskXMLConverter}
-   *   <li>
-   * {@link ManualTaskXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
-   *   <li>
-   * {@link ManualTaskXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
+   *   <li>{@link ManualTaskXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
+   *   <li>{@link ManualTaskXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
    *   <li>{@link ManualTaskXMLConverter#getBpmnElementType()}
    *   <li>{@link ManualTaskXMLConverter#getXMLElementName()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ManualTaskXMLConverter.<init>()", "Class ManualTaskXMLConverter.getBpmnElementType()",
+      "java.lang.String ManualTaskXMLConverter.getXMLElementName()",
+      "void ManualTaskXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)",
+      "void ManualTaskXMLConverter.writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)"})
   void testGettersAndSetters() throws Exception {
     // Arrange and Act
     ManualTaskXMLConverter actualManualTaskXMLConverter = new ManualTaskXMLConverter();
@@ -52,7 +57,7 @@ class ManualTaskXMLConverterDiffblueTest {
     actualManualTaskXMLConverter.writeAdditionalChildElements(element2, model2, new IndentingXMLStreamWriter(null));
     Class<? extends BaseElement> actualBpmnElementType = actualManualTaskXMLConverter.getBpmnElementType();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("manualTask", actualManualTaskXMLConverter.getXMLElementName());
     Class<ManualTask> expectedBpmnElementType = ManualTask.class;
     assertEquals(expectedBpmnElementType, actualBpmnElementType);

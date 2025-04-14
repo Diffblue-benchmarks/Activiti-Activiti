@@ -17,22 +17,20 @@ package org.activiti.engine.repository;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class DiagramElementDiffblueTest {
-  @InjectMocks
-  private DiagramEdge diagramEdge;
-
   /**
    * Test {@link DiagramElement#getId()}.
    * <p>
    * Method under test: {@link DiagramElement#getId()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String DiagramElement.getId()"})
   public void testGetId() {
     // Arrange, Act and Assert
     assertNull((new DiagramEdge()).getId());
@@ -44,8 +42,13 @@ public class DiagramElementDiffblueTest {
    * Method under test: {@link DiagramElement#setId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DiagramElement.setId(String)"})
   public void testSetId() {
-    // Arrange and Act
+    // Arrange
+    DiagramEdge diagramEdge = new DiagramEdge();
+
+    // Act
     diagramEdge.setId("42");
 
     // Assert
@@ -58,6 +61,8 @@ public class DiagramElementDiffblueTest {
    * Method under test: {@link DiagramElement#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String DiagramElement.toString()"})
   public void testToString() {
     // Arrange, Act and Assert
     assertEquals("id=null", (new DiagramEdge()).toString());

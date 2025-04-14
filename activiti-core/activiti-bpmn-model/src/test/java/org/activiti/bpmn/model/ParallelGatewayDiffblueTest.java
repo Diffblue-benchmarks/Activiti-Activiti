@@ -19,67 +19,24 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import java.util.HashMap;
-import java.util.List;
-import java.util.function.BiFunction;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ParallelGatewayDiffblueTest {
   /**
    * Test {@link ParallelGateway#clone()}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@code foo} and
-   * {@link BiFunction}.</li>
-   *   <li>Then return not Asynchronous.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ParallelGateway#clone()}
-   */
-  @Test
-  public void testClone_givenHashMapComputeIfPresentFooAndBiFunction_thenReturnNotAsynchronous() {
-    // Arrange
-    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
-    attributes.computeIfPresent("foo", mock(BiFunction.class));
-
-    ParallelGateway parallelGateway = new ParallelGateway();
-    parallelGateway.setExtensionElements(null);
-    parallelGateway.setAttributes(attributes);
-
-    // Act
-    ParallelGateway actualCloneResult = parallelGateway.clone();
-
-    // Assert
-    assertNull(actualCloneResult.getBehavior());
-    assertNull(actualCloneResult.getId());
-    assertNull(actualCloneResult.getDocumentation());
-    assertNull(actualCloneResult.getName());
-    assertNull(actualCloneResult.getDefaultFlow());
-    assertNull(actualCloneResult.getParentContainer());
-    assertNull(actualCloneResult.getSubProcess());
-    assertEquals(0, actualCloneResult.getXmlColumnNumber());
-    assertEquals(0, actualCloneResult.getXmlRowNumber());
-    assertFalse(actualCloneResult.isAsynchronous());
-    assertFalse(actualCloneResult.isNotExclusive());
-    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
-    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
-    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
-    assertTrue(actualCloneResult.getAttributes().isEmpty());
-    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-    assertTrue(actualCloneResult.isExclusive());
-  }
-
-  /**
-   * Test {@link ParallelGateway#clone()}.
-   * <ul>
-   *   <li>Given {@link ParallelGateway} (default constructor) Asynchronous is
-   * {@code true}.</li>
+   *   <li>Given {@link ParallelGateway} (default constructor) Asynchronous is {@code true}.</li>
    *   <li>Then return Asynchronous.</li>
    * </ul>
    * <p>
    * Method under test: {@link ParallelGateway#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ParallelGateway ParallelGateway.clone()"})
   public void testClone_givenParallelGatewayAsynchronousIsTrue_thenReturnAsynchronous() {
     // Arrange
     ParallelGateway parallelGateway = new ParallelGateway();
@@ -118,6 +75,8 @@ public class ParallelGatewayDiffblueTest {
    * Method under test: {@link ParallelGateway#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ParallelGateway ParallelGateway.clone()"})
   public void testClone_givenParallelGateway_thenReturnNotAsynchronous() {
     // Arrange and Act
     ParallelGateway actualCloneResult = (new ParallelGateway()).clone();
@@ -145,10 +104,11 @@ public class ParallelGatewayDiffblueTest {
   /**
    * Test new {@link ParallelGateway} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link ParallelGateway}
+   * Method under test: default or parameterless constructor of {@link ParallelGateway}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ParallelGateway.<init>()"})
   public void testNewParallelGateway() {
     // Arrange and Act
     ParallelGateway actualParallelGateway = new ParallelGateway();

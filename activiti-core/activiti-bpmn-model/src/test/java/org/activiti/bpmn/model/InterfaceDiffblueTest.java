@@ -20,17 +20,18 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.isNull;
-import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiFunction;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class InterfaceDiffblueTest {
@@ -44,6 +45,8 @@ public class InterfaceDiffblueTest {
    * Method under test: {@link Interface#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Interface Interface.clone()"})
   public void testClone_givenArrayListAddFoo_thenReturnOperationsFirstErrorMessageRefSizeIsOne() {
     // Arrange
     ArrayList<String> errorMessageRef = new ArrayList<>();
@@ -79,14 +82,15 @@ public class InterfaceDiffblueTest {
   /**
    * Test {@link Interface#clone()}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code 42} is
-   * {@link ArrayList#ArrayList()}.</li>
+   *   <li>Given {@link HashMap#HashMap()} {@code 42} is {@link ArrayList#ArrayList()}.</li>
    *   <li>Then return Id is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Interface#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Interface Interface.clone()"})
   public void testClone_givenHashMap42IsArrayList_thenReturnIdIsNull() {
     // Arrange
     HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
@@ -114,49 +118,15 @@ public class InterfaceDiffblueTest {
   /**
    * Test {@link Interface#clone()}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@code foo} and
-   * {@link BiFunction}.</li>
+   *   <li>Given {@link Interface} (default constructor) Attributes is {@link HashMap#HashMap()}.</li>
    *   <li>Then return Id is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Interface#clone()}
    */
   @Test
-  public void testClone_givenHashMapComputeIfPresentFooAndBiFunction_thenReturnIdIsNull() {
-    // Arrange
-    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
-    attributes.computeIfPresent("foo", mock(BiFunction.class));
-    attributes.put("foo", new ArrayList<>());
-
-    Interface resultInterface = new Interface();
-    resultInterface.setExtensionElements(null);
-    resultInterface.setAttributes(attributes);
-
-    // Act
-    Interface actualCloneResult = resultInterface.clone();
-
-    // Assert
-    assertNull(actualCloneResult.getId());
-    assertNull(actualCloneResult.getImplementationRef());
-    assertNull(actualCloneResult.getName());
-    assertEquals(0, actualCloneResult.getXmlColumnNumber());
-    assertEquals(0, actualCloneResult.getXmlRowNumber());
-    assertTrue(actualCloneResult.getOperations().isEmpty());
-    assertTrue(actualCloneResult.getAttributes().isEmpty());
-    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link Interface#clone()}.
-   * <ul>
-   *   <li>Given {@link Interface} (default constructor) Attributes is
-   * {@link HashMap#HashMap()}.</li>
-   *   <li>Then return Id is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Interface#clone()}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Interface Interface.clone()"})
   public void testClone_givenInterfaceAttributesIsHashMap_thenReturnIdIsNull() {
     // Arrange
     HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
@@ -183,14 +153,15 @@ public class InterfaceDiffblueTest {
   /**
    * Test {@link Interface#clone()}.
    * <ul>
-   *   <li>Given {@link Interface} (default constructor) ExtensionElements is
-   * {@link HashMap#HashMap()}.</li>
+   *   <li>Given {@link Interface} (default constructor) ExtensionElements is {@link HashMap#HashMap()}.</li>
    *   <li>Then return Id is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Interface#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Interface Interface.clone()"})
   public void testClone_givenInterfaceExtensionElementsIsHashMap_thenReturnIdIsNull() {
     // Arrange
     HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
@@ -217,14 +188,15 @@ public class InterfaceDiffblueTest {
   /**
    * Test {@link Interface#clone()}.
    * <ul>
-   *   <li>Given {@link Interface} (default constructor) ExtensionElements is
-   * {@code null}.</li>
+   *   <li>Given {@link Interface} (default constructor) ExtensionElements is {@code null}.</li>
    *   <li>Then return Id is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Interface#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Interface Interface.clone()"})
   public void testClone_givenInterfaceExtensionElementsIsNull_thenReturnIdIsNull() {
     // Arrange
     Interface resultInterface = new Interface();
@@ -248,14 +220,15 @@ public class InterfaceDiffblueTest {
   /**
    * Test {@link Interface#clone()}.
    * <ul>
-   *   <li>Given {@link Interface} (default constructor) Operations is
-   * {@code null}.</li>
+   *   <li>Given {@link Interface} (default constructor) Operations is {@code null}.</li>
    *   <li>Then return Id is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Interface#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Interface Interface.clone()"})
   public void testClone_givenInterfaceOperationsIsNull_thenReturnIdIsNull() {
     // Arrange
     Interface resultInterface = new Interface();
@@ -285,6 +258,8 @@ public class InterfaceDiffblueTest {
    * Method under test: {@link Interface#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Interface Interface.clone()"})
   public void testClone_givenInterface_thenReturnIdIsNull() {
     // Arrange and Act
     Interface actualCloneResult = (new Interface()).clone();
@@ -303,13 +278,14 @@ public class InterfaceDiffblueTest {
   /**
    * Test {@link Interface#clone()}.
    * <ul>
-   *   <li>Given {@link Operation} (default constructor) ErrorMessageRef is
-   * {@code null}.</li>
+   *   <li>Given {@link Operation} (default constructor) ErrorMessageRef is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Interface#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Interface Interface.clone()"})
   public void testClone_givenOperationErrorMessageRefIsNull() {
     // Arrange
     Operation operation = new Operation();
@@ -346,6 +322,8 @@ public class InterfaceDiffblueTest {
    * Method under test: {@link Interface#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Interface Interface.clone()"})
   public void testClone_thenReturnAttributesSizeIsOne() {
     // Arrange
     Interface resultInterface = new Interface();
@@ -369,6 +347,8 @@ public class InterfaceDiffblueTest {
    * Method under test: {@link Interface#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Interface Interface.clone()"})
   public void testClone_thenReturnAttributesSizeIsTwo() {
     // Arrange
     Interface resultInterface = new Interface();
@@ -394,6 +374,8 @@ public class InterfaceDiffblueTest {
    * Method under test: {@link Interface#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Interface Interface.clone()"})
   public void testClone_thenReturnOperationsFirstErrorMessageRefEmpty() {
     // Arrange
     Operation operation = new Operation();
@@ -424,14 +406,15 @@ public class InterfaceDiffblueTest {
   /**
    * Test {@link Interface#setValues(Interface)} with {@code Interface}.
    * <ul>
-   *   <li>Given {@link Operation} {@link Operation#clone()} return
-   * {@link Operation} (default constructor).</li>
+   *   <li>Given {@link Operation} {@link Operation#clone()} return {@link Operation} (default constructor).</li>
    *   <li>Then calls {@link Operation#clone()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Interface#setValues(Interface)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Interface.setValues(Interface)"})
   public void testSetValuesWithInterface_givenOperationCloneReturnOperation_thenCallsClone() {
     // Arrange
     Interface resultInterface = new Interface();
@@ -455,31 +438,6 @@ public class InterfaceDiffblueTest {
   }
 
   /**
-   * Test {@link Interface#setValues(Interface)} with {@code Interface}.
-   * <ul>
-   *   <li>Then calls {@link ExtensionAttribute#getName()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Interface#setValues(Interface)}
-   */
-  @Test
-  public void testSetValuesWithInterface_thenCallsGetName() {
-    // Arrange
-    Interface resultInterface = new Interface();
-    ExtensionAttribute attribute = mock(ExtensionAttribute.class);
-    when(attribute.getName()).thenReturn("Name");
-
-    Interface otherElement = new Interface();
-    otherElement.addAttribute(attribute);
-
-    // Act
-    resultInterface.setValues(otherElement);
-
-    // Assert
-    verify(attribute, atLeast(1)).getName();
-  }
-
-  /**
    * Test getters and setters.
    * <p>
    * Methods under test:
@@ -494,6 +452,10 @@ public class InterfaceDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Interface.<init>()", "String Interface.getImplementationRef()", "String Interface.getName()",
+      "List Interface.getOperations()", "void Interface.setImplementationRef(String)", "void Interface.setName(String)",
+      "void Interface.setOperations(List)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Interface actualResultInterface = new Interface();
@@ -505,9 +467,10 @@ public class InterfaceDiffblueTest {
     String actualName = actualResultInterface.getName();
     List<Operation> actualOperations = actualResultInterface.getOperations();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Implementation Ref", actualImplementationRef);
     assertEquals("Name", actualName);
+    assertNull(actualResultInterface.getId());
     assertEquals(0, actualResultInterface.getXmlColumnNumber());
     assertEquals(0, actualResultInterface.getXmlRowNumber());
     assertTrue(actualOperations.isEmpty());

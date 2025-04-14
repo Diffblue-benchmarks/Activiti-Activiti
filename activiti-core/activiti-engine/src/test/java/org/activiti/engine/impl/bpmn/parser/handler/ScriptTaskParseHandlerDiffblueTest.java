@@ -18,6 +18,8 @@ package org.activiti.engine.impl.bpmn.parser.handler;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.ScriptTask;
 import org.activiti.engine.impl.bpmn.behavior.ScriptTaskActivityBehavior;
@@ -25,16 +27,17 @@ import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ScriptTaskParseHandlerDiffblueTest {
   /**
-   * Test {@link ScriptTaskParseHandler#executeParse(BpmnParse, ScriptTask)} with
-   * {@code BpmnParse}, {@code ScriptTask}.
+   * Test {@link ScriptTaskParseHandler#executeParse(BpmnParse, ScriptTask)} with {@code BpmnParse}, {@code ScriptTask}.
    * <p>
-   * Method under test:
-   * {@link ScriptTaskParseHandler#executeParse(BpmnParse, ScriptTask)}
+   * Method under test: {@link ScriptTaskParseHandler#executeParse(BpmnParse, ScriptTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ScriptTaskParseHandler.executeParse(BpmnParse, ScriptTask)"})
   public void testExecuteParseWithBpmnParseScriptTask() {
     // Arrange
     ScriptTaskParseHandler scriptTaskParseHandler = new ScriptTaskParseHandler();
@@ -54,13 +57,13 @@ public class ScriptTaskParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link ScriptTaskParseHandler#executeParse(BpmnParse, ScriptTask)} with
-   * {@code BpmnParse}, {@code ScriptTask}.
+   * Test {@link ScriptTaskParseHandler#executeParse(BpmnParse, ScriptTask)} with {@code BpmnParse}, {@code ScriptTask}.
    * <p>
-   * Method under test:
-   * {@link ScriptTaskParseHandler#executeParse(BpmnParse, ScriptTask)}
+   * Method under test: {@link ScriptTaskParseHandler#executeParse(BpmnParse, ScriptTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ScriptTaskParseHandler.executeParse(BpmnParse, ScriptTask)"})
   public void testExecuteParseWithBpmnParseScriptTask2() {
     // Arrange
     ScriptTaskParseHandler scriptTaskParseHandler = new ScriptTaskParseHandler();
@@ -88,6 +91,8 @@ public class ScriptTaskParseHandlerDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ScriptTaskParseHandler.<init>()", "Class ScriptTaskParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends BaseElement> actualHandledType = (new ScriptTaskParseHandler()).getHandledType();

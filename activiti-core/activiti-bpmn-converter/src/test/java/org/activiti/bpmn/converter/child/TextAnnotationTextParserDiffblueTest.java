@@ -16,7 +16,9 @@
 package org.activiti.bpmn.converter.child;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class TextAnnotationTextParserDiffblueTest {
@@ -31,6 +33,9 @@ class TextAnnotationTextParserDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TextAnnotationTextParser.<init>()",
+      "java.lang.String TextAnnotationTextParser.getElementName()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("text", (new TextAnnotationTextParser()).getElementName());

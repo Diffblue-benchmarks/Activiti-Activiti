@@ -17,18 +17,21 @@ package org.activiti.api.task.model.payloads;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class UpdateTaskVariablePayloadDiffblueTest {
   /**
    * Test {@link UpdateTaskVariablePayload#UpdateTaskVariablePayload()}.
    * <p>
-   * Method under test:
-   * {@link UpdateTaskVariablePayload#UpdateTaskVariablePayload()}
+   * Method under test: {@link UpdateTaskVariablePayload#UpdateTaskVariablePayload()}
    */
   @Test
   @DisplayName("Test new UpdateTaskVariablePayload()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UpdateTaskVariablePayload.<init>()"})
   void testNewUpdateTaskVariablePayload() {
     // Arrange and Act
     UpdateTaskVariablePayload actualUpdateTaskVariablePayload = new UpdateTaskVariablePayload();
@@ -40,14 +43,14 @@ class UpdateTaskVariablePayloadDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link UpdateTaskVariablePayload#UpdateTaskVariablePayload(String, String, Object)}.
+   * Test {@link UpdateTaskVariablePayload#UpdateTaskVariablePayload(String, String, Object)}.
    * <p>
-   * Method under test:
-   * {@link UpdateTaskVariablePayload#UpdateTaskVariablePayload(String, String, Object)}
+   * Method under test: {@link UpdateTaskVariablePayload#UpdateTaskVariablePayload(String, String, Object)}
    */
   @Test
   @DisplayName("Test new UpdateTaskVariablePayload(String, String, Object)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UpdateTaskVariablePayload.<init>(String, String, Object)"})
   void testNewUpdateTaskVariablePayload2() {
     // Arrange and Act
     UpdateTaskVariablePayload actualUpdateTaskVariablePayload = new UpdateTaskVariablePayload("42", "Name", "Value");
@@ -74,6 +77,11 @@ class UpdateTaskVariablePayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String UpdateTaskVariablePayload.getId()", "String UpdateTaskVariablePayload.getName()",
+      "String UpdateTaskVariablePayload.getTaskId()", "Object UpdateTaskVariablePayload.getValue()",
+      "void UpdateTaskVariablePayload.setName(String)", "void UpdateTaskVariablePayload.setTaskId(String)",
+      "void UpdateTaskVariablePayload.setValue(Object)"})
   void testGettersAndSetters() {
     // Arrange
     UpdateTaskVariablePayload updateTaskVariablePayload = new UpdateTaskVariablePayload();
@@ -86,7 +94,7 @@ class UpdateTaskVariablePayloadDiffblueTest {
     String actualName = updateTaskVariablePayload.getName();
     String actualTaskId = updateTaskVariablePayload.getTaskId();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualTaskId);
     assertEquals("Name", actualName);
     assertEquals("Value", updateTaskVariablePayload.getValue());

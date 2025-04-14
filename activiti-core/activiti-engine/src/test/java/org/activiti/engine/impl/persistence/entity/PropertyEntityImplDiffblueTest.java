@@ -18,17 +18,13 @@ package org.activiti.engine.impl.persistence.entity;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiException;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class PropertyEntityImplDiffblueTest {
-  @InjectMocks
-  private PropertyEntityImpl propertyEntityImpl;
-
   /**
    * Test getters and setters.
    * <p>
@@ -45,6 +41,11 @@ public class PropertyEntityImplDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void PropertyEntityImpl.<init>()", "String PropertyEntityImpl.getId()",
+      "String PropertyEntityImpl.getName()", "Object PropertyEntityImpl.getPersistentState()",
+      "String PropertyEntityImpl.getValue()", "void PropertyEntityImpl.setName(String)",
+      "void PropertyEntityImpl.setValue(String)", "String PropertyEntityImpl.toString()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     PropertyEntityImpl actualPropertyEntityImpl = new PropertyEntityImpl();
@@ -55,7 +56,7 @@ public class PropertyEntityImplDiffblueTest {
     String actualName = actualPropertyEntityImpl.getName();
     Object actualPersistentState = actualPropertyEntityImpl.getPersistentState();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualPropertyEntityImpl.getValue());
     assertEquals("42", actualPersistentState);
     assertEquals("Name", actualId);
@@ -73,6 +74,8 @@ public class PropertyEntityImplDiffblueTest {
    * Method under test: {@link PropertyEntityImpl#setId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void PropertyEntityImpl.setId(String)"})
   public void testSetId() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> (new PropertyEntityImpl()).setId("42"));

@@ -25,12 +25,14 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
 import org.activiti.api.task.model.Task;
+import org.activiti.api.task.model.Task.TaskStatus;
 import org.activiti.api.task.model.impl.TaskImpl;
 import org.activiti.api.task.runtime.events.TaskCreatedEvent;
 import org.activiti.engine.TaskService;
@@ -40,25 +42,24 @@ import org.activiti.engine.impl.persistence.entity.TaskEntityImpl;
 import org.activiti.engine.task.IdentityLink;
 import org.activiti.runtime.api.model.impl.APITaskConverter;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class ToAPITaskCreatedEventConverterDiffblueTest {
   /**
-   * Test {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)} with
-   * {@code ActivitiEntityEvent}.
+   * Test {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)} with {@code ActivitiEntityEvent}.
    * <p>
-   * Method under test:
-   * {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)}
+   * Method under test: {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)}
    */
   @Test
   @DisplayName("Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Optional ToAPITaskCreatedEventConverter.from(ActivitiEntityEvent)"})
   void testFromWithActivitiEntityEvent() {
-    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
-
     // Arrange
     APITaskConverter taskConverter = mock(APITaskConverter.class);
-    TaskImpl taskImpl = new TaskImpl("42", "Name", Task.TaskStatus.CREATED);
+    TaskImpl taskImpl = new TaskImpl("42", "Name", TaskStatus.CREATED);
 
     when(taskConverter.fromWithCandidates(Mockito.<org.activiti.engine.task.Task>any())).thenReturn(taskImpl);
     ToAPITaskCreatedEventConverter toAPITaskCreatedEventConverter = new ToAPITaskCreatedEventConverter(taskConverter);
@@ -77,21 +78,18 @@ class ToAPITaskCreatedEventConverterDiffblueTest {
   }
 
   /**
-   * Test {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)} with
-   * {@code ActivitiEntityEvent}.
+   * Test {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)} with {@code ActivitiEntityEvent}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link IdentityLinkEntityImpl}
-   * (default constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link IdentityLinkEntityImpl} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)}
+   * Method under test: {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)}
    */
   @Test
   @DisplayName("Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'; given ArrayList() add IdentityLinkEntityImpl (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Optional ToAPITaskCreatedEventConverter.from(ActivitiEntityEvent)"})
   void testFromWithActivitiEntityEvent_givenArrayListAddIdentityLinkEntityImpl() {
-    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
-
     // Arrange
     ArrayList<IdentityLink> identityLinkList = new ArrayList<>();
     identityLinkList.add(new IdentityLinkEntityImpl());
@@ -161,28 +159,25 @@ class ToAPITaskCreatedEventConverterDiffblueTest {
     assertEquals("Task Definition Key", entity.getTaskDefinitionKey());
     assertEquals("The characteristics of someone or something", entity.getDescription());
     assertEquals(1, entity.getPriority());
-    assertEquals(Task.TaskStatus.CANCELLED, entity.getStatus());
+    assertEquals(TaskStatus.CANCELLED, entity.getStatus());
     assertFalse(entity.isStandalone());
     assertTrue(entity.getCandidateGroups().isEmpty());
     assertTrue(entity.getCandidateUsers().isEmpty());
   }
 
   /**
-   * Test {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)} with
-   * {@code ActivitiEntityEvent}.
+   * Test {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)} with {@code ActivitiEntityEvent}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link IdentityLinkEntityImpl}
-   * (default constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link IdentityLinkEntityImpl} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)}
+   * Method under test: {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)}
    */
   @Test
   @DisplayName("Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'; given ArrayList() add IdentityLinkEntityImpl (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Optional ToAPITaskCreatedEventConverter.from(ActivitiEntityEvent)"})
   void testFromWithActivitiEntityEvent_givenArrayListAddIdentityLinkEntityImpl2() {
-    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
-
     // Arrange
     ArrayList<IdentityLink> identityLinkList = new ArrayList<>();
     identityLinkList.add(new IdentityLinkEntityImpl());
@@ -253,27 +248,25 @@ class ToAPITaskCreatedEventConverterDiffblueTest {
     assertEquals("Task Definition Key", entity.getTaskDefinitionKey());
     assertEquals("The characteristics of someone or something", entity.getDescription());
     assertEquals(1, entity.getPriority());
-    assertEquals(Task.TaskStatus.CANCELLED, entity.getStatus());
+    assertEquals(TaskStatus.CANCELLED, entity.getStatus());
     assertFalse(entity.isStandalone());
     assertTrue(entity.getCandidateGroups().isEmpty());
     assertTrue(entity.getCandidateUsers().isEmpty());
   }
 
   /**
-   * Test {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)} with
-   * {@code ActivitiEntityEvent}.
+   * Test {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)} with {@code ActivitiEntityEvent}.
    * <ul>
    *   <li>Then {@link Optional#get()} Entity return {@link TaskImpl}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)}
+   * Method under test: {@link ToAPITaskCreatedEventConverter#from(ActivitiEntityEvent)}
    */
   @Test
   @DisplayName("Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'; then get() Entity return TaskImpl")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Optional ToAPITaskCreatedEventConverter.from(ActivitiEntityEvent)"})
   void testFromWithActivitiEntityEvent_thenGetEntityReturnTaskImpl() {
-    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
-
     // Arrange
     TaskService taskService = mock(TaskService.class);
     when(taskService.getIdentityLinksForTask(Mockito.<String>any())).thenReturn(new ArrayList<>());
@@ -341,7 +334,7 @@ class ToAPITaskCreatedEventConverterDiffblueTest {
     assertEquals("Task Definition Key", entity.getTaskDefinitionKey());
     assertEquals("The characteristics of someone or something", entity.getDescription());
     assertEquals(1, entity.getPriority());
-    assertEquals(Task.TaskStatus.CANCELLED, entity.getStatus());
+    assertEquals(TaskStatus.CANCELLED, entity.getStatus());
     assertFalse(entity.isStandalone());
     assertTrue(entity.getCandidateGroups().isEmpty());
     assertTrue(entity.getCandidateUsers().isEmpty());

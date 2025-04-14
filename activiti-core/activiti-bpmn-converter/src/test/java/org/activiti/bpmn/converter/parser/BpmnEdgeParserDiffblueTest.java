@@ -16,7 +16,9 @@
 package org.activiti.bpmn.converter.parser;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class BpmnEdgeParserDiffblueTest {
@@ -27,6 +29,8 @@ class BpmnEdgeParserDiffblueTest {
    */
   @Test
   @DisplayName("Test parseElement()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.bpmn.model.BaseElement BpmnEdgeParser.parseElement()"})
   void testParseElement() {
     // Arrange, Act and Assert
     assertNull((new BpmnEdgeParser()).parseElement());

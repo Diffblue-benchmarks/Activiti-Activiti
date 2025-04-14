@@ -16,12 +16,15 @@
 package org.activiti.core.el.juel.tree.impl.ast;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import jakarta.el.ELException;
 import jakarta.el.ValueExpression;
@@ -30,9 +33,9 @@ import java.util.ArrayList;
 import org.activiti.core.el.juel.ObjectValueExpression;
 import org.activiti.core.el.juel.misc.TypeConverter;
 import org.activiti.core.el.juel.tree.Bindings;
-import org.activiti.core.el.juel.tree.impl.ast.AstBinary.Operator;
 import org.activiti.core.el.juel.util.SimpleContext;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -49,6 +52,8 @@ class AstNestedDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstNested.<init>(AstNode)", "int AstNested.getCardinality()", "String AstNested.toString()"})
   void testGettersAndSetters() {
     // Arrange and Act
     AstNested actualAstNested = new AstNested(new AstNull());
@@ -62,15 +67,65 @@ class AstNestedDiffblueTest {
   /**
    * Test {@link AstNested#eval(Bindings, ELContext)}.
    * <ul>
-   *   <li>Given {@link AstChoice#AstChoice(AstNode, AstNode, AstNode)} with
-   * question is {@link AstNull} (default constructor) and yes is {@link AstNull}
-   * (default constructor) and no is {@link AstNull} (default constructor).</li>
+   *   <li>Given {@link AstBoolean#AstBoolean(boolean)} with value is {@code false}.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AstNested#eval(Bindings, ELContext)}
+   */
+  @Test
+  @DisplayName("Test eval(Bindings, ELContext); given AstBoolean(boolean) with value is 'false'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object AstNested.eval(Bindings, ELContext)"})
+  void testEval_givenAstBooleanWithValueIsFalse_thenReturnFalse() {
+    // Arrange
+    AstNested astNested = new AstNested(new AstBoolean(false));
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    Bindings bindings = new Bindings(new Method[]{null},
+        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
+
+    // Act and Assert
+    assertFalse((Boolean) astNested.eval(bindings, new SimpleContext()));
+  }
+
+  /**
+   * Test {@link AstNested#eval(Bindings, ELContext)}.
+   * <ul>
+   *   <li>Given {@link AstBoolean#AstBoolean(boolean)} with value is {@code true}.</li>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AstNested#eval(Bindings, ELContext)}
+   */
+  @Test
+  @DisplayName("Test eval(Bindings, ELContext); given AstBoolean(boolean) with value is 'true'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object AstNested.eval(Bindings, ELContext)"})
+  void testEval_givenAstBooleanWithValueIsTrue_thenReturnTrue() {
+    // Arrange
+    AstNested astNested = new AstNested(new AstBoolean(true));
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+    Bindings bindings = new Bindings(new Method[]{null},
+        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
+
+    // Act and Assert
+    assertTrue((Boolean) astNested.eval(bindings, new SimpleContext()));
+  }
+
+  /**
+   * Test {@link AstNested#eval(Bindings, ELContext)}.
+   * <ul>
+   *   <li>Given {@link AstChoice#AstChoice(AstNode, AstNode, AstNode)} with question is {@link AstNull} (default constructor) and yes is {@link AstNull} (default constructor) and no is {@link AstNull} (default constructor).</li>
    * </ul>
    * <p>
    * Method under test: {@link AstNested#eval(Bindings, ELContext)}
    */
   @Test
   @DisplayName("Test eval(Bindings, ELContext); given AstChoice(AstNode, AstNode, AstNode) with question is AstNull (default constructor) and yes is AstNull (default constructor) and no is AstNull (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object AstNested.eval(Bindings, ELContext)"})
   void testEval_givenAstChoiceWithQuestionIsAstNullAndYesIsAstNullAndNoIsAstNull() {
     // Arrange
     AstNull question = new AstNull();
@@ -88,8 +143,7 @@ class AstNestedDiffblueTest {
   /**
    * Test {@link AstNested#eval(Bindings, ELContext)}.
    * <ul>
-   *   <li>Given {@link AstIdentifier#AstIdentifier(String, int)} with {@code Name}
-   * and index is zero.</li>
+   *   <li>Given {@link AstIdentifier#AstIdentifier(String, int)} with {@code Name} and index is zero.</li>
    *   <li>Then return {@code Convert}.</li>
    * </ul>
    * <p>
@@ -97,6 +151,8 @@ class AstNestedDiffblueTest {
    */
   @Test
   @DisplayName("Test eval(Bindings, ELContext); given AstIdentifier(String, int) with 'Name' and index is zero; then return 'Convert'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object AstNested.eval(Bindings, ELContext)"})
   void testEval_givenAstIdentifierWithNameAndIndexIsZero_thenReturnConvert() throws ELException {
     // Arrange
     AstNested astNested = new AstNested(new AstIdentifier("Name", 0));
@@ -117,8 +173,7 @@ class AstNestedDiffblueTest {
   /**
    * Test {@link AstNested#eval(Bindings, ELContext)}.
    * <ul>
-   *   <li>Given {@link AstNested#AstNested(AstNode)} with child is {@link AstNull}
-   * (default constructor).</li>
+   *   <li>Given {@link AstNested#AstNested(AstNode)} with child is {@link AstNull} (default constructor).</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
@@ -126,6 +181,8 @@ class AstNestedDiffblueTest {
    */
   @Test
   @DisplayName("Test eval(Bindings, ELContext); given AstNested(AstNode) with child is AstNull (default constructor); then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object AstNested.eval(Bindings, ELContext)"})
   void testEval_givenAstNestedWithChildIsAstNull_thenReturnNull() {
     // Arrange
     AstNested astNested = new AstNested(new AstNull());
@@ -145,6 +202,8 @@ class AstNestedDiffblueTest {
    */
   @Test
   @DisplayName("Test appendStructure(StringBuilder, Bindings)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstNested.appendStructure(StringBuilder, Bindings)"})
   void testAppendStructure() {
     // Arrange
     AstNested astNested = new AstNested(new AstFunction("(", 1, new AstParameters(new ArrayList<>())));
@@ -167,6 +226,8 @@ class AstNestedDiffblueTest {
    */
   @Test
   @DisplayName("Test appendStructure(StringBuilder, Bindings)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstNested.appendStructure(StringBuilder, Bindings)"})
   void testAppendStructure2() {
     // Arrange
     AstNested astNested = new AstNested(new AstFunction("(", -1, new AstParameters(new ArrayList<>())));
@@ -185,14 +246,15 @@ class AstNestedDiffblueTest {
   /**
    * Test {@link AstNested#appendStructure(StringBuilder, Bindings)}.
    * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo}
-   * toString is {@code foo(<fn>())}.</li>
+   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foo(<fn>())}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstNested#appendStructure(StringBuilder, Bindings)}
    */
   @Test
   @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foo(<fn>())'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstNested.appendStructure(StringBuilder, Bindings)"})
   void testAppendStructure_thenStringBuilderWithFooToStringIsFooFn() {
     // Arrange
     AstNested astNested = new AstNested(new AstFunction("(", 0, new AstParameters(new ArrayList<>())));
@@ -211,14 +273,15 @@ class AstNestedDiffblueTest {
   /**
    * Test {@link AstNested#appendStructure(StringBuilder, Bindings)}.
    * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo}
-   * toString is {@code foo(null)}.</li>
+   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foo(null)}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstNested#appendStructure(StringBuilder, Bindings)}
    */
   @Test
   @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foo(null)'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstNested.appendStructure(StringBuilder, Bindings)"})
   void testAppendStructure_thenStringBuilderWithFooToStringIsFooNull() {
     // Arrange
     AstNested astNested = new AstNested(new AstNull());
@@ -237,28 +300,6 @@ class AstNestedDiffblueTest {
   /**
    * Test {@link AstNested#getChild(int)}.
    * <ul>
-   *   <li>Given {@link AstBinary#AstBinary(AstNode, AstNode, Operator)} with left
-   * is {@link AstNull} (default constructor) and right is {@link AstNull}
-   * (default constructor) and {@link Operator}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstNested#getChild(int)}
-   */
-  @Test
-  @DisplayName("Test getChild(int); given AstBinary(AstNode, AstNode, Operator) with left is AstNull (default constructor) and right is AstNull (default constructor) and Operator")
-  void testGetChild_givenAstBinaryWithLeftIsAstNullAndRightIsAstNullAndOperator() {
-    // Arrange
-    AstNull left = new AstNull();
-
-    // Act and Assert
-    assertNull((new AstNested(new AstBinary(left, new AstNull(), mock(AstBinary.Operator.class)))).getChild(1));
-  }
-
-  /**
-   * Test {@link AstNested#getChild(int)}.
-   * <ul>
-   *   <li>Given {@link AstNested#AstNested(AstNode)} with child is {@link AstNull}
-   * (default constructor).</li>
    *   <li>When one.</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
@@ -266,8 +307,10 @@ class AstNestedDiffblueTest {
    * Method under test: {@link AstNested#getChild(int)}
    */
   @Test
-  @DisplayName("Test getChild(int); given AstNested(AstNode) with child is AstNull (default constructor); when one; then return 'null'")
-  void testGetChild_givenAstNestedWithChildIsAstNull_whenOne_thenReturnNull() {
+  @DisplayName("Test getChild(int); when one; then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"AstNode AstNested.getChild(int)"})
+  void testGetChild_whenOne_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new AstNested(new AstNull())).getChild(1));
   }
@@ -275,8 +318,6 @@ class AstNestedDiffblueTest {
   /**
    * Test {@link AstNested#getChild(int)}.
    * <ul>
-   *   <li>Given {@link AstNested#AstNested(AstNode)} with child is {@link AstNull}
-   * (default constructor).</li>
    *   <li>When zero.</li>
    *   <li>Then return {@link AstNull} (default constructor).</li>
    * </ul>
@@ -284,8 +325,10 @@ class AstNestedDiffblueTest {
    * Method under test: {@link AstNested#getChild(int)}
    */
   @Test
-  @DisplayName("Test getChild(int); given AstNested(AstNode) with child is AstNull (default constructor); when zero; then return AstNull (default constructor)")
-  void testGetChild_givenAstNestedWithChildIsAstNull_whenZero_thenReturnAstNull() {
+  @DisplayName("Test getChild(int); when zero; then return AstNull (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"AstNode AstNested.getChild(int)"})
+  void testGetChild_whenZero_thenReturnAstNull() {
     // Arrange
     AstNull child = new AstNull();
 

@@ -18,12 +18,12 @@ package org.activiti.runtime.api.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.BiFunction;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,22 +39,6 @@ class VariableNameValidatorDiffblueTest {
   /**
    * Test {@link VariableNameValidator#validate(String)}.
    * <ul>
-   *   <li>When empty string.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableNameValidator#validate(String)}
-   */
-  @Test
-  @DisplayName("Test validate(String); when empty string; then return 'false'")
-  void testValidate_whenEmptyString_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(variableNameValidator.validate(""));
-  }
-
-  /**
-   * Test {@link VariableNameValidator#validate(String)}.
-   * <ul>
    *   <li>When {@code (?i)[a-z][a-z0-9_]*}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
@@ -63,6 +47,8 @@ class VariableNameValidatorDiffblueTest {
    */
   @Test
   @DisplayName("Test validate(String); when '(?i)[a-z][a-z0-9_]*'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean VariableNameValidator.validate(String)"})
   void testValidate_whenIAZAZ09_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(variableNameValidator.validate("(?i)[a-z][a-z0-9_]*"));
@@ -79,9 +65,29 @@ class VariableNameValidatorDiffblueTest {
    */
   @Test
   @DisplayName("Test validate(String); when 'Name'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean VariableNameValidator.validate(String)"})
   void testValidate_whenName_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(variableNameValidator.validate("Name"));
+  }
+
+  /**
+   * Test {@link VariableNameValidator#validate(String)}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableNameValidator#validate(String)}
+   */
+  @Test
+  @DisplayName("Test validate(String); when 'null'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean VariableNameValidator.validate(String)"})
+  void testValidate_whenNull_thenReturnFalse() {
+    // Arrange, Act and Assert
+    assertFalse(variableNameValidator.validate(null));
   }
 
   /**
@@ -96,6 +102,8 @@ class VariableNameValidatorDiffblueTest {
    */
   @Test
   @DisplayName("Test validateVariables(Map); given '42'; when HashMap() '42' is '42'; then return contains '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Set VariableNameValidator.validateVariables(Map)"})
   void testValidateVariables_given42_whenHashMap42Is42_thenReturnContains42() {
     // Arrange
     HashMap<String, Object> variables = new HashMap<>();
@@ -121,6 +129,8 @@ class VariableNameValidatorDiffblueTest {
    */
   @Test
   @DisplayName("Test validateVariables(Map); given 'foo'; when HashMap() 'foo' is '42'; then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Set VariableNameValidator.validateVariables(Map)"})
   void testValidateVariables_givenFoo_whenHashMapFooIs42_thenReturnEmpty() {
     // Arrange
     HashMap<String, Object> variables = new HashMap<>();
@@ -142,6 +152,8 @@ class VariableNameValidatorDiffblueTest {
    */
   @Test
   @DisplayName("Test validateVariables(Map); given 'null'; when HashMap() 'null' is '42'; then return contains 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Set VariableNameValidator.validateVariables(Map)"})
   void testValidateVariables_givenNull_whenHashMapNullIs42_thenReturnContainsNull() {
     // Arrange
     HashMap<String, Object> variables = new HashMap<>();
@@ -158,28 +170,6 @@ class VariableNameValidatorDiffblueTest {
   /**
    * Test {@link VariableNameValidator#validateVariables(Map)}.
    * <ul>
-   *   <li>Given {@code UU}.</li>
-   *   <li>When {@link HashMap#HashMap()} computeIfPresent {@code UU} and
-   * {@link BiFunction}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableNameValidator#validateVariables(Map)}
-   */
-  @Test
-  @DisplayName("Test validateVariables(Map); given 'UU'; when HashMap() computeIfPresent 'UU' and BiFunction")
-  void testValidateVariables_givenUu_whenHashMapComputeIfPresentUuAndBiFunction() {
-    // Arrange
-    HashMap<String, Object> variables = new HashMap<>();
-    variables.computeIfPresent("UU", mock(BiFunction.class));
-    variables.put("foo", "42");
-
-    // Act and Assert
-    assertTrue(variableNameValidator.validateVariables(variables).isEmpty());
-  }
-
-  /**
-   * Test {@link VariableNameValidator#validateVariables(Map)}.
-   * <ul>
    *   <li>When {@link HashMap#HashMap()}.</li>
    *   <li>Then return Empty.</li>
    * </ul>
@@ -188,8 +178,28 @@ class VariableNameValidatorDiffblueTest {
    */
   @Test
   @DisplayName("Test validateVariables(Map); when HashMap(); then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Set VariableNameValidator.validateVariables(Map)"})
   void testValidateVariables_whenHashMap_thenReturnEmpty() {
     // Arrange, Act and Assert
     assertTrue(variableNameValidator.validateVariables(new HashMap<>()).isEmpty());
+  }
+
+  /**
+   * Test {@link VariableNameValidator#validateVariables(Map)}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   *   <li>Then return Empty.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableNameValidator#validateVariables(Map)}
+   */
+  @Test
+  @DisplayName("Test validateVariables(Map); when 'null'; then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Set VariableNameValidator.validateVariables(Map)"})
+  void testValidateVariables_whenNull_thenReturnEmpty() {
+    // Arrange, Act and Assert
+    assertTrue(variableNameValidator.validateVariables(null).isEmpty());
   }
 }

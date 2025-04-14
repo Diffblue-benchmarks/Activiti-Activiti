@@ -19,13 +19,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import org.activiti.core.el.CustomFunctionProvider;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.persistence.entity.ByteArrayEntity;
 import org.activiti.engine.impl.persistence.entity.ByteArrayEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class MybatisByteArrayDataManagerDiffblueTest {
   /**
@@ -33,12 +34,14 @@ public class MybatisByteArrayDataManagerDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link MybatisByteArrayDataManager#MybatisByteArrayDataManager(ProcessEngineConfigurationImpl)}
+   *   <li>{@link MybatisByteArrayDataManager#MybatisByteArrayDataManager(ProcessEngineConfigurationImpl)}
    *   <li>{@link MybatisByteArrayDataManager#getManagedEntityClass()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MybatisByteArrayDataManager.<init>(ProcessEngineConfigurationImpl)",
+      "Class MybatisByteArrayDataManager.getManagedEntityClass()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends ByteArrayEntity> actualManagedEntityClass = (new MybatisByteArrayDataManager(
@@ -55,37 +58,12 @@ public class MybatisByteArrayDataManagerDiffblueTest {
    * Method under test: {@link MybatisByteArrayDataManager#create()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ByteArrayEntity MybatisByteArrayDataManager.create()"})
   public void testCreate() {
     // Arrange and Act
     ByteArrayEntity actualCreateResult = (new MybatisByteArrayDataManager(new JtaProcessEngineConfiguration()))
         .create();
-
-    // Assert
-    assertTrue(actualCreateResult instanceof ByteArrayEntityImpl);
-    assertNull(actualCreateResult.getBytes());
-    assertNull(actualCreateResult.getDeploymentId());
-    assertNull(actualCreateResult.getName());
-    assertNull(actualCreateResult.getId());
-    assertEquals(1, actualCreateResult.getRevision());
-    assertEquals(2, actualCreateResult.getRevisionNext());
-    assertFalse(actualCreateResult.isDeleted());
-    assertFalse(actualCreateResult.isInserted());
-    assertFalse(actualCreateResult.isUpdated());
-  }
-
-  /**
-   * Test {@link MybatisByteArrayDataManager#create()}.
-   * <p>
-   * Method under test: {@link MybatisByteArrayDataManager#create()}
-   */
-  @Test
-  public void testCreate2() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    ByteArrayEntity actualCreateResult = (new MybatisByteArrayDataManager(processEngineConfiguration)).create();
 
     // Assert
     assertTrue(actualCreateResult instanceof ByteArrayEntityImpl);

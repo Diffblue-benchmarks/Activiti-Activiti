@@ -27,6 +27,8 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,6 +42,7 @@ import org.activiti.engine.impl.persistence.entity.data.TaskDataManager;
 import org.activiti.engine.impl.persistence.entity.data.impl.MybatisTaskDataManager;
 import org.activiti.engine.task.Task;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -62,14 +65,18 @@ public class TaskEntityManagerImplDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link TaskEntityManagerImpl#TaskEntityManagerImpl(ProcessEngineConfigurationImpl, TaskDataManager)}
+   *   <li>{@link TaskEntityManagerImpl#TaskEntityManagerImpl(ProcessEngineConfigurationImpl, TaskDataManager)}
    *   <li>{@link TaskEntityManagerImpl#setTaskDataManager(TaskDataManager)}
    *   <li>{@link TaskEntityManagerImpl#getDataManager()}
    *   <li>{@link TaskEntityManagerImpl#getTaskDataManager()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TaskEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, TaskDataManager)",
+      "DataManager TaskEntityManagerImpl.getDataManager()",
+      "TaskDataManager TaskEntityManagerImpl.getTaskDataManager()",
+      "void TaskEntityManagerImpl.setTaskDataManager(TaskDataManager)"})
   public void testGettersAndSetters() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
@@ -81,23 +88,22 @@ public class TaskEntityManagerImplDiffblueTest {
     actualTaskEntityManagerImpl.setTaskDataManager(taskDataManager);
     DataManager<TaskEntity> actualDataManager = actualTaskEntityManagerImpl.getDataManager();
 
-    // Assert that nothing has changed
+    // Assert
     assertSame(taskDataManager, actualDataManager);
     assertSame(taskDataManager, actualTaskEntityManagerImpl.getTaskDataManager());
   }
 
   /**
-   * Test
-   * {@link TaskEntityManagerImpl#deleteTasksByProcessInstanceId(String, String, boolean)}.
+   * Test {@link TaskEntityManagerImpl#deleteTasksByProcessInstanceId(String, String, boolean)}.
    * <ul>
-   *   <li>Then calls
-   * {@link TaskDataManager#findTasksByProcessInstanceId(String)}.</li>
+   *   <li>Then calls {@link TaskDataManager#findTasksByProcessInstanceId(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskEntityManagerImpl#deleteTasksByProcessInstanceId(String, String, boolean)}
+   * Method under test: {@link TaskEntityManagerImpl#deleteTasksByProcessInstanceId(String, String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TaskEntityManagerImpl.deleteTasksByProcessInstanceId(String, String, boolean)"})
   public void testDeleteTasksByProcessInstanceId_thenCallsFindTasksByProcessInstanceId() {
     // Arrange
     when(taskDataManager.findTasksByProcessInstanceId(Mockito.<String>any())).thenReturn(new ArrayList<>());
@@ -110,15 +116,38 @@ public class TaskEntityManagerImplDiffblueTest {
   }
 
   /**
+   * Test {@link TaskEntityManagerImpl#deleteTasksByProcessInstanceId(String, String, boolean)}.
+   * <ul>
+   *   <li>Then throw {@link ActivitiException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link TaskEntityManagerImpl#deleteTasksByProcessInstanceId(String, String, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TaskEntityManagerImpl.deleteTasksByProcessInstanceId(String, String, boolean)"})
+  public void testDeleteTasksByProcessInstanceId_thenThrowActivitiException() {
+    // Arrange
+    when(taskDataManager.findTasksByProcessInstanceId(Mockito.<String>any()))
+        .thenThrow(new ActivitiException("An error occurred"));
+
+    // Act and Assert
+    assertThrows(ActivitiException.class,
+        () -> taskEntityManagerImpl.deleteTasksByProcessInstanceId("42", "Just cause", false));
+    verify(taskDataManager).findTasksByProcessInstanceId(eq("42"));
+  }
+
+  /**
    * Test {@link TaskEntityManagerImpl#findTasksByExecutionId(String)}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskEntityManagerImpl#findTasksByExecutionId(String)}
+   * Method under test: {@link TaskEntityManagerImpl#findTasksByExecutionId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List TaskEntityManagerImpl.findTasksByExecutionId(String)"})
   public void testFindTasksByExecutionId_thenReturnEmpty() {
     // Arrange
     when(taskDataManager.findTasksByExecutionId(Mockito.<String>any())).thenReturn(new ArrayList<>());
@@ -137,10 +166,11 @@ public class TaskEntityManagerImplDiffblueTest {
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskEntityManagerImpl#findTasksByExecutionId(String)}
+   * Method under test: {@link TaskEntityManagerImpl#findTasksByExecutionId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List TaskEntityManagerImpl.findTasksByExecutionId(String)"})
   public void testFindTasksByExecutionId_thenThrowActivitiException() {
     // Arrange
     when(taskDataManager.findTasksByExecutionId(Mockito.<String>any()))
@@ -157,10 +187,11 @@ public class TaskEntityManagerImplDiffblueTest {
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskEntityManagerImpl#findTasksByProcessInstanceId(String)}
+   * Method under test: {@link TaskEntityManagerImpl#findTasksByProcessInstanceId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List TaskEntityManagerImpl.findTasksByProcessInstanceId(String)"})
   public void testFindTasksByProcessInstanceId_thenReturnEmpty() {
     // Arrange
     when(taskDataManager.findTasksByProcessInstanceId(Mockito.<String>any())).thenReturn(new ArrayList<>());
@@ -180,10 +211,11 @@ public class TaskEntityManagerImplDiffblueTest {
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskEntityManagerImpl#findTasksByProcessInstanceId(String)}
+   * Method under test: {@link TaskEntityManagerImpl#findTasksByProcessInstanceId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List TaskEntityManagerImpl.findTasksByProcessInstanceId(String)"})
   public void testFindTasksByProcessInstanceId_thenThrowActivitiException() {
     // Arrange
     when(taskDataManager.findTasksByProcessInstanceId(Mockito.<String>any()))
@@ -200,10 +232,11 @@ public class TaskEntityManagerImplDiffblueTest {
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskEntityManagerImpl#findTasksByQueryCriteria(TaskQueryImpl)}
+   * Method under test: {@link TaskEntityManagerImpl#findTasksByQueryCriteria(TaskQueryImpl)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List TaskEntityManagerImpl.findTasksByQueryCriteria(TaskQueryImpl)"})
   public void testFindTasksByQueryCriteria_thenReturnEmpty() {
     // Arrange
     TaskDataManager taskDataManager = mock(TaskDataManager.class);
@@ -221,16 +254,16 @@ public class TaskEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TaskEntityManagerImpl#findTasksAndVariablesByQueryCriteria(TaskQueryImpl)}.
+   * Test {@link TaskEntityManagerImpl#findTasksAndVariablesByQueryCriteria(TaskQueryImpl)}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskEntityManagerImpl#findTasksAndVariablesByQueryCriteria(TaskQueryImpl)}
+   * Method under test: {@link TaskEntityManagerImpl#findTasksAndVariablesByQueryCriteria(TaskQueryImpl)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List TaskEntityManagerImpl.findTasksAndVariablesByQueryCriteria(TaskQueryImpl)"})
   public void testFindTasksAndVariablesByQueryCriteria_thenReturnEmpty() {
     // Arrange
     TaskDataManager taskDataManager = mock(TaskDataManager.class);
@@ -249,16 +282,16 @@ public class TaskEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TaskEntityManagerImpl#findTaskCountByQueryCriteria(TaskQueryImpl)}.
+   * Test {@link TaskEntityManagerImpl#findTaskCountByQueryCriteria(TaskQueryImpl)}.
    * <ul>
    *   <li>Then return three.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskEntityManagerImpl#findTaskCountByQueryCriteria(TaskQueryImpl)}
+   * Method under test: {@link TaskEntityManagerImpl#findTaskCountByQueryCriteria(TaskQueryImpl)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long TaskEntityManagerImpl.findTaskCountByQueryCriteria(TaskQueryImpl)"})
   public void testFindTaskCountByQueryCriteria_thenReturnThree() {
     // Arrange
     TaskDataManager taskDataManager = mock(TaskDataManager.class);
@@ -281,10 +314,11 @@ public class TaskEntityManagerImplDiffblueTest {
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskEntityManagerImpl#findTasksByNativeQuery(Map, int, int)}
+   * Method under test: {@link TaskEntityManagerImpl#findTasksByNativeQuery(Map, int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List TaskEntityManagerImpl.findTasksByNativeQuery(Map, int, int)"})
   public void testFindTasksByNativeQuery_thenReturnEmpty() {
     // Arrange
     TaskDataManager taskDataManager = mock(TaskDataManager.class);
@@ -307,10 +341,11 @@ public class TaskEntityManagerImplDiffblueTest {
    *   <li>Then return three.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskEntityManagerImpl#findTaskCountByNativeQuery(Map)}
+   * Method under test: {@link TaskEntityManagerImpl#findTaskCountByNativeQuery(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long TaskEntityManagerImpl.findTaskCountByNativeQuery(Map)"})
   public void testFindTaskCountByNativeQuery_thenReturnThree() {
     // Arrange
     TaskDataManager taskDataManager = mock(TaskDataManager.class);
@@ -332,10 +367,11 @@ public class TaskEntityManagerImplDiffblueTest {
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskEntityManagerImpl#findTasksByParentTaskId(String)}
+   * Method under test: {@link TaskEntityManagerImpl#findTasksByParentTaskId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List TaskEntityManagerImpl.findTasksByParentTaskId(String)"})
   public void testFindTasksByParentTaskId_thenReturnEmpty() {
     // Arrange
     when(taskDataManager.findTasksByParentTaskId(Mockito.<String>any())).thenReturn(new ArrayList<>());
@@ -354,10 +390,11 @@ public class TaskEntityManagerImplDiffblueTest {
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskEntityManagerImpl#findTasksByParentTaskId(String)}
+   * Method under test: {@link TaskEntityManagerImpl#findTasksByParentTaskId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List TaskEntityManagerImpl.findTasksByParentTaskId(String)"})
   public void testFindTasksByParentTaskId_thenThrowActivitiException() {
     // Arrange
     when(taskDataManager.findTasksByParentTaskId(Mockito.<String>any()))
@@ -369,13 +406,13 @@ public class TaskEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TaskEntityManagerImpl#updateTaskTenantIdForDeployment(String, String)}.
+   * Test {@link TaskEntityManagerImpl#updateTaskTenantIdForDeployment(String, String)}.
    * <p>
-   * Method under test:
-   * {@link TaskEntityManagerImpl#updateTaskTenantIdForDeployment(String, String)}
+   * Method under test: {@link TaskEntityManagerImpl#updateTaskTenantIdForDeployment(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TaskEntityManagerImpl.updateTaskTenantIdForDeployment(String, String)"})
   public void testUpdateTaskTenantIdForDeployment() {
     // Arrange
     doNothing().when(taskDataManager).updateTaskTenantIdForDeployment(Mockito.<String>any(), Mockito.<String>any());
@@ -388,16 +425,16 @@ public class TaskEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TaskEntityManagerImpl#updateTaskTenantIdForDeployment(String, String)}.
+   * Test {@link TaskEntityManagerImpl#updateTaskTenantIdForDeployment(String, String)}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskEntityManagerImpl#updateTaskTenantIdForDeployment(String, String)}
+   * Method under test: {@link TaskEntityManagerImpl#updateTaskTenantIdForDeployment(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TaskEntityManagerImpl.updateTaskTenantIdForDeployment(String, String)"})
   public void testUpdateTaskTenantIdForDeployment_thenThrowActivitiException() {
     // Arrange
     doThrow(new ActivitiException("An error occurred")).when(taskDataManager)

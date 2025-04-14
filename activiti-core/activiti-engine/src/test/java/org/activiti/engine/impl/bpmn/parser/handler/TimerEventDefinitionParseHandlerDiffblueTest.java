@@ -18,6 +18,8 @@ package org.activiti.engine.impl.bpmn.parser.handler;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BoundaryEvent;
 import org.activiti.bpmn.model.FlowElement;
@@ -29,17 +31,17 @@ import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class TimerEventDefinitionParseHandlerDiffblueTest {
   /**
-   * Test
-   * {@link TimerEventDefinitionParseHandler#executeParse(BpmnParse, TimerEventDefinition)}
-   * with {@code BpmnParse}, {@code TimerEventDefinition}.
+   * Test {@link TimerEventDefinitionParseHandler#executeParse(BpmnParse, TimerEventDefinition)} with {@code BpmnParse}, {@code TimerEventDefinition}.
    * <p>
-   * Method under test:
-   * {@link TimerEventDefinitionParseHandler#executeParse(BpmnParse, TimerEventDefinition)}
+   * Method under test: {@link TimerEventDefinitionParseHandler#executeParse(BpmnParse, TimerEventDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerEventDefinitionParseHandler.executeParse(BpmnParse, TimerEventDefinition)"})
   public void testExecuteParseWithBpmnParseTimerEventDefinition() {
     // Arrange
     TimerEventDefinitionParseHandler timerEventDefinitionParseHandler = new TimerEventDefinitionParseHandler();
@@ -62,14 +64,13 @@ public class TimerEventDefinitionParseHandlerDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TimerEventDefinitionParseHandler#executeParse(BpmnParse, TimerEventDefinition)}
-   * with {@code BpmnParse}, {@code TimerEventDefinition}.
+   * Test {@link TimerEventDefinitionParseHandler#executeParse(BpmnParse, TimerEventDefinition)} with {@code BpmnParse}, {@code TimerEventDefinition}.
    * <p>
-   * Method under test:
-   * {@link TimerEventDefinitionParseHandler#executeParse(BpmnParse, TimerEventDefinition)}
+   * Method under test: {@link TimerEventDefinitionParseHandler#executeParse(BpmnParse, TimerEventDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerEventDefinitionParseHandler.executeParse(BpmnParse, TimerEventDefinition)"})
   public void testExecuteParseWithBpmnParseTimerEventDefinition2() {
     // Arrange
     TimerEventDefinitionParseHandler timerEventDefinitionParseHandler = new TimerEventDefinitionParseHandler();
@@ -96,12 +97,14 @@ public class TimerEventDefinitionParseHandlerDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of
-   * {@link TimerEventDefinitionParseHandler}
+   *   <li>default or parameterless constructor of {@link TimerEventDefinitionParseHandler}
    *   <li>{@link TimerEventDefinitionParseHandler#getHandledType()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerEventDefinitionParseHandler.<init>()",
+      "Class TimerEventDefinitionParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends BaseElement> actualHandledType = (new TimerEventDefinitionParseHandler()).getHandledType();

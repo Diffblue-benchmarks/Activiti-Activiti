@@ -16,27 +16,29 @@
 package org.activiti.engine.impl.delegate;
 
 import static org.junit.Assert.assertFalse;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.impl.el.FixedValue;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ThrowMessageDelegateExpressionDiffblueTest {
   /**
-   * Test
-   * {@link ThrowMessageDelegateExpression#send(DelegateExecution, ThrowMessage)}.
+   * Test {@link ThrowMessageDelegateExpression#send(DelegateExecution, ThrowMessage)}.
    * <ul>
-   *   <li>Given {@link FixedValue#FixedValue(Object)} with value is
-   * {@link JSONObject#NULL}.</li>
+   *   <li>Given {@link FixedValue#FixedValue(Object)} with value is {@link JSONObject#NULL}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ThrowMessageDelegateExpression#send(DelegateExecution, ThrowMessage)}
+   * Method under test: {@link ThrowMessageDelegateExpression#send(DelegateExecution, ThrowMessage)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ThrowMessageDelegateExpression.send(DelegateExecution, ThrowMessage)"})
   public void testSend_givenFixedValueWithValueIsNull_thenReturnFalse() {
     // Arrange
     FixedValue delegateExpression = new FixedValue(JSONObject.NULL);

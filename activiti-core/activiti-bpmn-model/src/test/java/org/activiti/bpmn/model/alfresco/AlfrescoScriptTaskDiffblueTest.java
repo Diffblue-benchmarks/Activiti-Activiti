@@ -24,6 +24,8 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.bpmn.model.ComplexDataType;
@@ -32,25 +34,27 @@ import org.activiti.bpmn.model.DataGrid;
 import org.activiti.bpmn.model.DataGridRow;
 import org.activiti.bpmn.model.FieldExtension;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class AlfrescoScriptTaskDiffblueTest {
   /**
    * Test {@link AlfrescoScriptTask#clone()}.
    * <ul>
-   *   <li>Given {@link AlfrescoScriptTask} (default constructor) CustomProperties
-   * is {@code null}.</li>
+   *   <li>Given {@link AlfrescoScriptTask} (default constructor) CustomProperties is {@code null}.</li>
    *   <li>Then return Behavior is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AlfrescoScriptTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"AlfrescoScriptTask AlfrescoScriptTask.clone()"})
   public void testClone_givenAlfrescoScriptTaskCustomPropertiesIsNull_thenReturnBehaviorIsNull() {
     // Arrange
     AlfrescoScriptTask alfrescoScriptTask = new AlfrescoScriptTask();
-    alfrescoScriptTask.setCustomProperties(null);
     alfrescoScriptTask.setFieldExtensions(null);
+    alfrescoScriptTask.setCustomProperties(null);
 
     // Act
     AlfrescoScriptTask actualCloneResult = alfrescoScriptTask.clone();
@@ -104,6 +108,8 @@ public class AlfrescoScriptTaskDiffblueTest {
    * Method under test: {@link AlfrescoScriptTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"AlfrescoScriptTask AlfrescoScriptTask.clone()"})
   public void testClone_givenAlfrescoScriptTask_thenReturnBehaviorIsNull() {
     // Arrange and Act
     AlfrescoScriptTask actualCloneResult = (new AlfrescoScriptTask()).clone();
@@ -150,28 +156,23 @@ public class AlfrescoScriptTaskDiffblueTest {
   /**
    * Test {@link AlfrescoScriptTask#clone()}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default constructor).</li>
    *   <li>Then return FieldExtensions size is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link AlfrescoScriptTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"AlfrescoScriptTask AlfrescoScriptTask.clone()"})
   public void testClone_givenArrayListAddFieldExtension_thenReturnFieldExtensionsSizeIsOne() {
     // Arrange
-    CustomProperty customProperty = new CustomProperty();
-    customProperty.setComplexValue(null);
-
-    ArrayList<CustomProperty> customProperties = new ArrayList<>();
-    customProperties.add(customProperty);
-
     ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
     fieldExtensions.add(new FieldExtension());
 
     AlfrescoScriptTask alfrescoScriptTask = new AlfrescoScriptTask();
-    alfrescoScriptTask.setCustomProperties(customProperties);
     alfrescoScriptTask.setFieldExtensions(fieldExtensions);
+    alfrescoScriptTask.setCustomProperties(null);
 
     // Act and Assert
     List<FieldExtension> fieldExtensions2 = alfrescoScriptTask.clone().getFieldExtensions();
@@ -196,30 +197,35 @@ public class AlfrescoScriptTaskDiffblueTest {
    * Method under test: {@link AlfrescoScriptTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"AlfrescoScriptTask AlfrescoScriptTask.clone()"})
   public void testClone_thenCustomPropertiesFirstComplexValueReturnDataGrid() {
     // Arrange
+    DataGrid complexValue = new DataGrid();
+    complexValue.setRows(null);
+
     CustomProperty customProperty = new CustomProperty();
-    customProperty.setComplexValue(new DataGrid());
+    customProperty.setComplexValue(complexValue);
 
     ArrayList<CustomProperty> customProperties = new ArrayList<>();
     customProperties.add(customProperty);
 
     AlfrescoScriptTask alfrescoScriptTask = new AlfrescoScriptTask();
-    alfrescoScriptTask.setCustomProperties(customProperties);
     alfrescoScriptTask.setFieldExtensions(null);
+    alfrescoScriptTask.setCustomProperties(customProperties);
 
     // Act and Assert
     List<CustomProperty> customProperties2 = alfrescoScriptTask.clone().getCustomProperties();
     assertEquals(1, customProperties2.size());
     CustomProperty getResult = customProperties2.get(0);
-    ComplexDataType complexValue = getResult.getComplexValue();
-    assertTrue(complexValue instanceof DataGrid);
+    ComplexDataType complexValue2 = getResult.getComplexValue();
+    assertTrue(complexValue2 instanceof DataGrid);
     assertNull(getResult.getId());
     assertNull(getResult.getName());
     assertNull(getResult.getSimpleValue());
     assertEquals(0, getResult.getXmlColumnNumber());
     assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(((DataGrid) complexValue).getRows().isEmpty());
+    assertTrue(((DataGrid) complexValue2).getRows().isEmpty());
     assertTrue(getResult.getAttributes().isEmpty());
     assertTrue(getResult.getExtensionElements().isEmpty());
   }
@@ -233,6 +239,8 @@ public class AlfrescoScriptTaskDiffblueTest {
    * Method under test: {@link AlfrescoScriptTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"AlfrescoScriptTask AlfrescoScriptTask.clone()"})
   public void testClone_thenReturnCustomPropertiesFirstComplexValueIsNull() {
     // Arrange
     CustomProperty customProperty = new CustomProperty();
@@ -242,8 +250,8 @@ public class AlfrescoScriptTaskDiffblueTest {
     customProperties.add(customProperty);
 
     AlfrescoScriptTask alfrescoScriptTask = new AlfrescoScriptTask();
-    alfrescoScriptTask.setCustomProperties(customProperties);
     alfrescoScriptTask.setFieldExtensions(null);
+    alfrescoScriptTask.setCustomProperties(customProperties);
 
     // Act and Assert
     List<CustomProperty> customProperties2 = alfrescoScriptTask.clone().getCustomProperties();
@@ -260,8 +268,7 @@ public class AlfrescoScriptTaskDiffblueTest {
   }
 
   /**
-   * Test {@link AlfrescoScriptTask#setValues(AlfrescoScriptTask)} with
-   * {@code AlfrescoScriptTask}.
+   * Test {@link AlfrescoScriptTask#setValues(AlfrescoScriptTask)} with {@code AlfrescoScriptTask}.
    * <ul>
    *   <li>Then calls {@link CustomProperty#clone()}.</li>
    * </ul>
@@ -269,6 +276,8 @@ public class AlfrescoScriptTaskDiffblueTest {
    * Method under test: {@link AlfrescoScriptTask#setValues(AlfrescoScriptTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AlfrescoScriptTask.setValues(AlfrescoScriptTask)"})
   public void testSetValuesWithAlfrescoScriptTask_thenCallsClone() {
     // Arrange
     AlfrescoScriptTask alfrescoScriptTask = new AlfrescoScriptTask();
@@ -290,8 +299,8 @@ public class AlfrescoScriptTaskDiffblueTest {
     customProperties.add(customProperty);
 
     AlfrescoScriptTask otherElement = new AlfrescoScriptTask();
-    otherElement.setFieldExtensions(null);
     otherElement.setCustomProperties(customProperties);
+    otherElement.setFieldExtensions(null);
 
     // Act
     alfrescoScriptTask.setValues(otherElement);
@@ -302,8 +311,7 @@ public class AlfrescoScriptTaskDiffblueTest {
   }
 
   /**
-   * Test {@link AlfrescoScriptTask#setValues(AlfrescoScriptTask)} with
-   * {@code AlfrescoScriptTask}.
+   * Test {@link AlfrescoScriptTask#setValues(AlfrescoScriptTask)} with {@code AlfrescoScriptTask}.
    * <ul>
    *   <li>Then calls {@link FieldExtension#clone()}.</li>
    * </ul>
@@ -311,9 +319,26 @@ public class AlfrescoScriptTaskDiffblueTest {
    * Method under test: {@link AlfrescoScriptTask#setValues(AlfrescoScriptTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AlfrescoScriptTask.setValues(AlfrescoScriptTask)"})
   public void testSetValuesWithAlfrescoScriptTask_thenCallsClone2() {
     // Arrange
     AlfrescoScriptTask alfrescoScriptTask = new AlfrescoScriptTask();
+
+    DataGridRow dataGridRow = new DataGridRow();
+    dataGridRow.setFields(null);
+
+    ArrayList<DataGridRow> rows = new ArrayList<>();
+    rows.add(dataGridRow);
+
+    DataGrid complexValue = new DataGrid();
+    complexValue.setRows(rows);
+
+    CustomProperty customProperty = new CustomProperty();
+    customProperty.setComplexValue(complexValue);
+
+    ArrayList<CustomProperty> customProperties = new ArrayList<>();
+    customProperties.add(customProperty);
     FieldExtension fieldExtension = mock(FieldExtension.class);
     when(fieldExtension.clone()).thenReturn(new FieldExtension());
 
@@ -321,8 +346,8 @@ public class AlfrescoScriptTaskDiffblueTest {
     fieldExtensions.add(fieldExtension);
 
     AlfrescoScriptTask otherElement = new AlfrescoScriptTask();
+    otherElement.setCustomProperties(customProperties);
     otherElement.setFieldExtensions(fieldExtensions);
-    otherElement.setCustomProperties(null);
 
     // Act
     alfrescoScriptTask.setValues(otherElement);
@@ -334,10 +359,11 @@ public class AlfrescoScriptTaskDiffblueTest {
   /**
    * Test new {@link AlfrescoScriptTask} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link AlfrescoScriptTask}
+   * Method under test: default or parameterless constructor of {@link AlfrescoScriptTask}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AlfrescoScriptTask.<init>()"})
   public void testNewAlfrescoScriptTask() {
     // Arrange and Act
     AlfrescoScriptTask actualAlfrescoScriptTask = new AlfrescoScriptTask();

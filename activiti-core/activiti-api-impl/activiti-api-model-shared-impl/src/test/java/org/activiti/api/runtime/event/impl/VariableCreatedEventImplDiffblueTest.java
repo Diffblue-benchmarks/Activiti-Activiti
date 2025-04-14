@@ -18,21 +18,26 @@ package org.activiti.api.runtime.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.model.shared.event.VariableEvent;
+import org.activiti.api.model.shared.event.VariableEvent.VariableEvents;
 import org.activiti.api.model.shared.model.VariableInstance;
 import org.activiti.api.runtime.model.impl.VariableInstanceImpl;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class VariableCreatedEventImplDiffblueTest {
   /**
    * Test {@link VariableCreatedEventImpl#VariableCreatedEventImpl()}.
    * <p>
-   * Method under test:
-   * {@link VariableCreatedEventImpl#VariableCreatedEventImpl()}
+   * Method under test: {@link VariableCreatedEventImpl#VariableCreatedEventImpl()}
    */
   @Test
   @DisplayName("Test new VariableCreatedEventImpl()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void VariableCreatedEventImpl.<init>()"})
   void testNewVariableCreatedEventImpl() {
     // Arrange and Act
     VariableCreatedEventImpl actualVariableCreatedEventImpl = new VariableCreatedEventImpl();
@@ -45,22 +50,22 @@ class VariableCreatedEventImplDiffblueTest {
     assertNull(actualVariableCreatedEventImpl.getProcessDefinitionKey());
     assertNull(actualVariableCreatedEventImpl.getProcessInstanceId());
     assertNull(actualVariableCreatedEventImpl.getEntity());
-    assertEquals(VariableEvent.VariableEvents.VARIABLE_CREATED, actualVariableCreatedEventImpl.getEventType());
+    assertEquals(VariableEvents.VARIABLE_CREATED, actualVariableCreatedEventImpl.getEventType());
   }
 
   /**
-   * Test
-   * {@link VariableCreatedEventImpl#VariableCreatedEventImpl(VariableInstance, String)}.
+   * Test {@link VariableCreatedEventImpl#VariableCreatedEventImpl(VariableInstance, String)}.
    * <ul>
-   *   <li>Then return ProcessDefinitionId is {@code 42}.</li>
+   *   <li>Then Entity return {@link VariableInstanceImpl}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableCreatedEventImpl#VariableCreatedEventImpl(VariableInstance, String)}
+   * Method under test: {@link VariableCreatedEventImpl#VariableCreatedEventImpl(VariableInstance, String)}
    */
   @Test
-  @DisplayName("Test new VariableCreatedEventImpl(VariableInstance, String); then return ProcessDefinitionId is '42'")
-  void testNewVariableCreatedEventImpl_thenReturnProcessDefinitionIdIs42() {
+  @DisplayName("Test new VariableCreatedEventImpl(VariableInstance, String); then Entity return VariableInstanceImpl")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void VariableCreatedEventImpl.<init>(VariableInstance, String)"})
+  void testNewVariableCreatedEventImpl_thenEntityReturnVariableInstanceImpl() {
     // Arrange
     VariableInstanceImpl<Object> entity = new VariableInstanceImpl<>();
 
@@ -68,14 +73,16 @@ class VariableCreatedEventImplDiffblueTest {
     VariableCreatedEventImpl actualVariableCreatedEventImpl = new VariableCreatedEventImpl(entity, "42");
 
     // Assert
+    VariableInstance entity2 = actualVariableCreatedEventImpl.getEntity();
+    assertTrue(entity2 instanceof VariableInstanceImpl);
     assertEquals("42", actualVariableCreatedEventImpl.getProcessDefinitionId());
     assertNull(actualVariableCreatedEventImpl.getProcessDefinitionVersion());
     assertNull(actualVariableCreatedEventImpl.getBusinessKey());
     assertNull(actualVariableCreatedEventImpl.getParentProcessInstanceId());
     assertNull(actualVariableCreatedEventImpl.getProcessDefinitionKey());
     assertNull(actualVariableCreatedEventImpl.getProcessInstanceId());
-    assertEquals(VariableEvent.VariableEvents.VARIABLE_CREATED, actualVariableCreatedEventImpl.getEventType());
-    assertSame(entity, actualVariableCreatedEventImpl.getEntity());
+    assertEquals(VariableEvents.VARIABLE_CREATED, actualVariableCreatedEventImpl.getEventType());
+    assertSame(entity, entity2);
   }
 
   /**
@@ -85,8 +92,10 @@ class VariableCreatedEventImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getEventType()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"VariableEvents VariableCreatedEventImpl.getEventType()"})
   void testGetEventType() {
     // Arrange, Act and Assert
-    assertEquals(VariableEvent.VariableEvents.VARIABLE_CREATED, (new VariableCreatedEventImpl()).getEventType());
+    assertEquals(VariableEvents.VARIABLE_CREATED, (new VariableCreatedEventImpl()).getEventType());
   }
 }

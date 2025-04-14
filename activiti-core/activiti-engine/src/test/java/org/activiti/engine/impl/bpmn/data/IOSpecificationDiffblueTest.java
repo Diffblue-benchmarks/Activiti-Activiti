@@ -26,20 +26,24 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.VariableScope;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class IOSpecificationDiffblueTest {
   /**
    * Test new {@link IOSpecification} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link IOSpecification}
+   * Method under test: default or parameterless constructor of {@link IOSpecification}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IOSpecification.<init>()"})
   public void testNewIOSpecification() {
     // Arrange and Act
     IOSpecification actualIoSpecification = new IOSpecification();
@@ -57,6 +61,8 @@ public class IOSpecificationDiffblueTest {
    * Method under test: {@link IOSpecification#initialize(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IOSpecification.initialize(DelegateExecution)"})
   public void testInitialize() {
     // Arrange
     ItemDefinition definition = mock(ItemDefinition.class);
@@ -97,6 +103,8 @@ public class IOSpecificationDiffblueTest {
    * Method under test: {@link IOSpecification#initialize(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IOSpecification.initialize(DelegateExecution)"})
   public void testInitialize_thenCallsSetVariable() {
     // Arrange
     ItemDefinition definition = mock(ItemDefinition.class);
@@ -123,14 +131,15 @@ public class IOSpecificationDiffblueTest {
   /**
    * Test {@link IOSpecification#initialize(DelegateExecution)}.
    * <ul>
-   *   <li>When {@link DelegateExecution}
-   * {@link VariableScope#setVariable(String, Object)} does nothing.</li>
+   *   <li>When {@link DelegateExecution} {@link VariableScope#setVariable(String, Object)} does nothing.</li>
    *   <li>Then calls {@link VariableScope#setVariable(String, Object)}.</li>
    * </ul>
    * <p>
    * Method under test: {@link IOSpecification#initialize(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IOSpecification.initialize(DelegateExecution)"})
   public void testInitialize_whenDelegateExecutionSetVariableDoesNothing_thenCallsSetVariable() {
     // Arrange
     ItemDefinition definition = mock(ItemDefinition.class);
@@ -159,6 +168,8 @@ public class IOSpecificationDiffblueTest {
    * Method under test: {@link IOSpecification#getDataInputs()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List IOSpecification.getDataInputs()"})
   public void testGetDataInputs() {
     // Arrange, Act and Assert
     assertTrue((new IOSpecification()).getDataInputs().isEmpty());
@@ -170,6 +181,8 @@ public class IOSpecificationDiffblueTest {
    * Method under test: {@link IOSpecification#getDataOutputs()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List IOSpecification.getDataOutputs()"})
   public void testGetDataOutputs() {
     // Arrange, Act and Assert
     assertTrue((new IOSpecification()).getDataOutputs().isEmpty());
@@ -181,6 +194,8 @@ public class IOSpecificationDiffblueTest {
    * Method under test: {@link IOSpecification#addInput(Data)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IOSpecification.addInput(Data)"})
   public void testAddInput() {
     // Arrange
     IOSpecification ioSpecification = new IOSpecification();
@@ -205,6 +220,8 @@ public class IOSpecificationDiffblueTest {
    * Method under test: {@link IOSpecification#addOutput(Data)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IOSpecification.addOutput(Data)"})
   public void testAddOutput() {
     // Arrange
     IOSpecification ioSpecification = new IOSpecification();
@@ -229,6 +246,8 @@ public class IOSpecificationDiffblueTest {
    * Method under test: {@link IOSpecification#addInputRef(DataRef)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IOSpecification.addInputRef(DataRef)"})
   public void testAddInputRef() {
     // Arrange
     IOSpecification ioSpecification = new IOSpecification();
@@ -249,6 +268,8 @@ public class IOSpecificationDiffblueTest {
    * Method under test: {@link IOSpecification#addOutputRef(DataRef)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IOSpecification.addOutputRef(DataRef)"})
   public void testAddOutputRef() {
     // Arrange
     IOSpecification ioSpecification = new IOSpecification();
@@ -272,6 +293,8 @@ public class IOSpecificationDiffblueTest {
    * Method under test: {@link IOSpecification#getFirstDataInputName()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String IOSpecification.getFirstDataInputName()"})
   public void testGetFirstDataInputName_thenReturnName() {
     // Arrange
     IOSpecification ioSpecification = new IOSpecification();
@@ -291,6 +314,8 @@ public class IOSpecificationDiffblueTest {
    * Method under test: {@link IOSpecification#getFirstDataOutputName()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String IOSpecification.getFirstDataOutputName()"})
   public void testGetFirstDataOutputName_givenIOSpecification_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new IOSpecification()).getFirstDataOutputName());
@@ -305,6 +330,8 @@ public class IOSpecificationDiffblueTest {
    * Method under test: {@link IOSpecification#getFirstDataOutputName()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String IOSpecification.getFirstDataOutputName()"})
   public void testGetFirstDataOutputName_thenReturnName() {
     // Arrange
     IOSpecification ioSpecification = new IOSpecification();

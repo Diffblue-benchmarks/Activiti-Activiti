@@ -17,8 +17,11 @@ package org.activiti.engine.impl.transformer;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class IdentityDiffblueTest {
   /**
@@ -27,6 +30,8 @@ public class IdentityDiffblueTest {
    * Method under test: {@link Identity#getInstance()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Identity Identity.getInstance()"})
   public void testGetInstance() throws Exception {
     // Arrange and Act
     Identity actualInstance = Identity.getInstance();
@@ -44,6 +49,8 @@ public class IdentityDiffblueTest {
    * Method under test: {@link Identity#primTransform(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object Identity.primTransform(Object)"})
   public void testPrimTransform() throws Exception {
     // Arrange
     Object object = JSONObject.NULL;

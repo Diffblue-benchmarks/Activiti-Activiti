@@ -17,9 +17,11 @@ package org.activiti.core.common.model.connector;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ActionDefinitionDiffblueTest {
@@ -30,6 +32,8 @@ class ActionDefinitionDiffblueTest {
    */
   @Test
   @DisplayName("Test getInputs()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List ActionDefinition.getInputs()"})
   void testGetInputs() {
     // Arrange
     ActionDefinition actionDefinition = new ActionDefinition();
@@ -53,6 +57,8 @@ class ActionDefinitionDiffblueTest {
    */
   @Test
   @DisplayName("Test getInputs(); given ActionDefinition (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List ActionDefinition.getInputs()"})
   void testGetInputs_givenActionDefinition() {
     // Arrange, Act and Assert
     assertTrue((new ActionDefinition()).getInputs().isEmpty());
@@ -65,6 +71,8 @@ class ActionDefinitionDiffblueTest {
    */
   @Test
   @DisplayName("Test getOutputs()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List ActionDefinition.getOutputs()"})
   void testGetOutputs() {
     // Arrange
     ActionDefinition actionDefinition = new ActionDefinition();
@@ -88,6 +96,8 @@ class ActionDefinitionDiffblueTest {
    */
   @Test
   @DisplayName("Test getOutputs(); given ActionDefinition (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List ActionDefinition.getOutputs()"})
   void testGetOutputs_givenActionDefinition() {
     // Arrange, Act and Assert
     assertTrue((new ActionDefinition()).getOutputs().isEmpty());
@@ -111,6 +121,12 @@ class ActionDefinitionDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ActionDefinition.<init>()", "String ActionDefinition.getDescription()",
+      "String ActionDefinition.getId()", "String ActionDefinition.getName()",
+      "void ActionDefinition.setDescription(String)", "void ActionDefinition.setId(String)",
+      "void ActionDefinition.setInputs(List)", "void ActionDefinition.setName(String)",
+      "void ActionDefinition.setOutputs(List)"})
   void testGettersAndSetters() {
     // Arrange and Act
     ActionDefinition actualActionDefinition = new ActionDefinition();
@@ -122,7 +138,7 @@ class ActionDefinitionDiffblueTest {
     String actualDescription = actualActionDefinition.getDescription();
     String actualId = actualActionDefinition.getId();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualId);
     assertEquals("Name", actualActionDefinition.getName());
     assertEquals("The characteristics of someone or something", actualDescription);

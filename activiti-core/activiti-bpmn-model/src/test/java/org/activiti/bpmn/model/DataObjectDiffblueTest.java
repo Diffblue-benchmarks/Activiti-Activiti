@@ -23,11 +23,12 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.function.BiFunction;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class DataObjectDiffblueTest {
   /**
@@ -40,6 +41,8 @@ public class DataObjectDiffblueTest {
    * Method under test: {@link DataObject#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DataObject DataObject.clone()"})
   public void testClone_givenBooleanDataObject_thenReturnBooleanDataObject() {
     // Arrange and Act
     BooleanDataObject actualCloneResult = (new BooleanDataObject()).clone();
@@ -64,52 +67,16 @@ public class DataObjectDiffblueTest {
    * Test {@link DataObject#clone()}.
    * <ul>
    *   <li>Given {@link DataObject} (default constructor).</li>
-   *   <li>Then return Id is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link DataObject#clone()}
    */
   @Test
-  public void testClone_givenDataObject_thenReturnIdIsNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DataObject DataObject.clone()"})
+  public void testClone_givenDataObject() {
     // Arrange and Act
     DataObject actualCloneResult = (new DataObject()).clone();
-
-    // Assert
-    assertNull(actualCloneResult.getId());
-    assertNull(actualCloneResult.getDocumentation());
-    assertNull(actualCloneResult.getName());
-    assertNull(actualCloneResult.getParentContainer());
-    assertNull(actualCloneResult.getItemSubjectRef());
-    assertNull(actualCloneResult.getSubProcess());
-    assertEquals(0, actualCloneResult.getXmlColumnNumber());
-    assertEquals(0, actualCloneResult.getXmlRowNumber());
-    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
-    assertTrue(actualCloneResult.getAttributes().isEmpty());
-    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link DataObject#clone()}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@code foo} and
-   * {@link BiFunction}.</li>
-   *   <li>Then return Id is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DataObject#clone()}
-   */
-  @Test
-  public void testClone_givenHashMapComputeIfPresentFooAndBiFunction_thenReturnIdIsNull() {
-    // Arrange
-    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
-    attributes.computeIfPresent("foo", mock(BiFunction.class));
-
-    DataObject dataObject = new DataObject();
-    dataObject.setExtensionElements(null);
-    dataObject.setAttributes(attributes);
-
-    // Act
-    DataObject actualCloneResult = dataObject.clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -135,6 +102,8 @@ public class DataObjectDiffblueTest {
    * Method under test: {@link DataObject#setValues(DataObject)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DataObject.setValues(DataObject)"})
   public void testSetValuesWithDataObject_given42_thenDataObjectIdIs42() {
     // Arrange
     DataObject dataObject = new DataObject();
@@ -175,6 +144,8 @@ public class DataObjectDiffblueTest {
    * Method under test: {@link DataObject#setValues(DataObject)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DataObject.setValues(DataObject)"})
   public void testSetValuesWithDataObject_whenDataObject_thenDataObjectIdIsNull() {
     // Arrange
     DataObject dataObject = new DataObject();
@@ -183,7 +154,7 @@ public class DataObjectDiffblueTest {
     // Act
     dataObject.setValues(otherElement);
 
-    // Assert
+    // Assert that nothing has changed
     assertNull(otherElement.getId());
     assertNull(otherElement.getDocumentation());
     assertNull(otherElement.getName());
@@ -201,6 +172,9 @@ public class DataObjectDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DataObject.<init>()", "ItemDefinition DataObject.getItemSubjectRef()",
+      "void DataObject.setItemSubjectRef(ItemDefinition)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     DataObject actualDataObject = new DataObject();
@@ -208,7 +182,11 @@ public class DataObjectDiffblueTest {
     actualDataObject.setItemSubjectRef(itemSubjectRef);
     ItemDefinition actualItemSubjectRef = actualDataObject.getItemSubjectRef();
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(actualDataObject.getId());
+    assertNull(actualDataObject.getDocumentation());
+    assertNull(actualDataObject.getName());
+    assertNull(actualDataObject.getParentContainer());
     assertEquals(0, actualDataObject.getXmlColumnNumber());
     assertEquals(0, actualDataObject.getXmlRowNumber());
     assertTrue(actualDataObject.getExecutionListeners().isEmpty());

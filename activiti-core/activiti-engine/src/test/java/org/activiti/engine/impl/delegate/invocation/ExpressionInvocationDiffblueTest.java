@@ -17,11 +17,14 @@ package org.activiti.engine.impl.delegate.invocation;
 
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.core.el.juel.ObjectValueExpression;
 import org.activiti.core.el.juel.misc.TypeConverter;
 import org.activiti.engine.impl.el.ParsingElContext;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ExpressionInvocationDiffblueTest {
   /**
@@ -30,6 +33,8 @@ public class ExpressionInvocationDiffblueTest {
    * Method under test: {@link ExpressionInvocation#getTarget()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object ExpressionInvocation.getTarget()"})
   public void testGetTarget() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);

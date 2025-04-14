@@ -20,6 +20,8 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
 import org.activiti.engine.delegate.DelegateExecution;
@@ -27,6 +29,7 @@ import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.persistence.entity.VariableScopeImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class VariablesPropagatorDiffblueTest {
@@ -36,10 +39,11 @@ public class VariablesPropagatorDiffblueTest {
    *   <li>Then calls {@link ExecutionEntityImpl#getProcessInstanceId()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariablesPropagator#propagate(DelegateExecution, Map)}
+   * Method under test: {@link VariablesPropagator#propagate(DelegateExecution, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariablesPropagator.propagate(DelegateExecution, Map)"})
   public void testPropagate_thenCallsGetProcessInstanceId() {
     // Arrange
     VariablesPropagator variablesPropagator = new VariablesPropagator(new CopyVariablesCalculator());
@@ -55,7 +59,7 @@ public class VariablesPropagatorDiffblueTest {
     // Act
     variablesPropagator.propagate(execution, availableVariables);
 
-    // Assert that nothing has changed
+    // Assert
     verify(execution).getParent();
     verify(execution).getProcessInstanceId();
     verify(executionEntityImpl).isMultiInstanceRoot();
@@ -67,10 +71,11 @@ public class VariablesPropagatorDiffblueTest {
    *   <li>Then calls {@link VariableScopeImpl#setVariablesLocal(Map)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariablesPropagator#propagate(DelegateExecution, Map)}
+   * Method under test: {@link VariablesPropagator#propagate(DelegateExecution, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariablesPropagator.propagate(DelegateExecution, Map)"})
   public void testPropagate_thenCallsSetVariablesLocal() {
     // Arrange
     VariablesPropagator variablesPropagator = new VariablesPropagator(new CopyVariablesCalculator());
@@ -86,7 +91,7 @@ public class VariablesPropagatorDiffblueTest {
     // Act
     variablesPropagator.propagate(execution, availableVariables);
 
-    // Assert that nothing has changed
+    // Assert
     verify(execution).getParent();
     verify(executionEntityImpl).isMultiInstanceRoot();
     verify(execution).setVariablesLocal(isA(Map.class));

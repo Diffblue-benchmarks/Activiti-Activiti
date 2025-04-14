@@ -15,32 +15,36 @@
  */
 package org.activiti.engine.impl.bpmn.behavior;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.Activity;
 import org.activiti.bpmn.model.AdhocSubProcess;
-import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.delegate.DelegateExecution;
-import org.activiti.engine.impl.bpmn.parser.factory.DefaultMessageExecutionContext;
-import org.activiti.engine.impl.delegate.MessagePayloadMappingProvider;
-import org.activiti.engine.impl.el.ExpressionManager;
 import org.activiti.engine.impl.el.FixedValue;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ParallelMultiInstanceBehaviorDiffblueTest {
   /**
-   * Test
-   * {@link ParallelMultiInstanceBehavior#ParallelMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}.
+   * Test {@link ParallelMultiInstanceBehavior#ParallelMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}.
+   * <ul>
+   *   <li>Then {@link MultiInstanceActivityBehavior#activity} return {@link AdhocSubProcess}.</li>
+   * </ul>
    * <p>
-   * Method under test:
-   * {@link ParallelMultiInstanceBehavior#ParallelMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}
+   * Method under test: {@link ParallelMultiInstanceBehavior#ParallelMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}
    */
   @Test
-  public void testNewParallelMultiInstanceBehavior() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ParallelMultiInstanceBehavior.<init>(Activity, AbstractBpmnActivityBehavior)"})
+  public void testNewParallelMultiInstanceBehavior_thenActivityReturnAdhocSubProcess() {
     // Arrange
     AdhocSubProcess activity = new AdhocSubProcess();
     AbstractBpmnActivityBehavior originalActivityBehavior = new AbstractBpmnActivityBehavior();
@@ -51,46 +55,33 @@ public class ParallelMultiInstanceBehaviorDiffblueTest {
 
     // Assert
     assertTrue(actualParallelMultiInstanceBehavior.activity instanceof AdhocSubProcess);
+    assertEquals("loopCounter", actualParallelMultiInstanceBehavior.getCollectionElementIndexVariable());
+    assertNull(actualParallelMultiInstanceBehavior.getCollectionElementVariable());
+    assertNull(actualParallelMultiInstanceBehavior.getCollectionVariable());
+    assertNull(actualParallelMultiInstanceBehavior.getLoopDataOutputRef());
+    assertNull(actualParallelMultiInstanceBehavior.getOutputDataItem());
+    assertNull(actualParallelMultiInstanceBehavior.getCollectionExpression());
+    assertNull(actualParallelMultiInstanceBehavior.getCompletionConditionExpression());
+    assertNull(actualParallelMultiInstanceBehavior.getLoopCardinalityExpression());
+    assertNull(actualParallelMultiInstanceBehavior.getCommandContext());
+    assertFalse(actualParallelMultiInstanceBehavior.hasLoopDataOutputRef());
+    assertFalse(actualParallelMultiInstanceBehavior.hasOutputDataItem());
+    assertTrue(originalActivityBehavior.hasLoopCharacteristics());
+    assertTrue(originalActivityBehavior.hasMultiInstanceCharacteristics());
     assertSame(originalActivityBehavior, actualParallelMultiInstanceBehavior.getInnerActivityBehavior());
   }
 
   /**
-   * Test
-   * {@link ParallelMultiInstanceBehavior#ParallelMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}.
-   * <p>
-   * Method under test:
-   * {@link ParallelMultiInstanceBehavior#ParallelMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}
-   */
-  @Test
-  public void testNewParallelMultiInstanceBehavior2() {
-    // Arrange
-    AdhocSubProcess activity = new AdhocSubProcess();
-    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
-    MessageEventDefinition messageEventDefinition2 = new MessageEventDefinition();
-    EventSubProcessMessageStartEventActivityBehavior originalActivityBehavior = new EventSubProcessMessageStartEventActivityBehavior(
-        messageEventDefinition, new DefaultMessageExecutionContext(messageEventDefinition2, new ExpressionManager(),
-            mock(MessagePayloadMappingProvider.class)));
-
-    // Act
-    ParallelMultiInstanceBehavior actualParallelMultiInstanceBehavior = new ParallelMultiInstanceBehavior(activity,
-        originalActivityBehavior);
-
-    // Assert
-    assertTrue(actualParallelMultiInstanceBehavior.activity instanceof AdhocSubProcess);
-    assertSame(originalActivityBehavior, actualParallelMultiInstanceBehavior.getInnerActivityBehavior());
-  }
-
-  /**
-   * Test
-   * {@link ParallelMultiInstanceBehavior#createInstances(DelegateExecution)}.
+   * Test {@link ParallelMultiInstanceBehavior#createInstances(DelegateExecution)}.
    * <ul>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ParallelMultiInstanceBehavior#createInstances(DelegateExecution)}
+   * Method under test: {@link ParallelMultiInstanceBehavior#createInstances(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int ParallelMultiInstanceBehavior.createInstances(DelegateExecution)"})
   public void testCreateInstances_thenThrowActivitiIllegalArgumentException() {
     // Arrange
     AdhocSubProcess activity = new AdhocSubProcess();

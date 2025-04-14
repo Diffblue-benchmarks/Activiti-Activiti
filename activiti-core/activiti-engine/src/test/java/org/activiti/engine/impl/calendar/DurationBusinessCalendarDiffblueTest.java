@@ -19,12 +19,15 @@ import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.GregorianCalendar;
 import java.util.SimpleTimeZone;
 import java.util.TimeZone;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.runtime.ClockReader;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -39,13 +42,13 @@ public class DurationBusinessCalendarDiffblueTest {
   private DurationBusinessCalendar durationBusinessCalendar;
 
   /**
-   * Test {@link DurationBusinessCalendar#resolveDuedate(String, int)} with
-   * {@code duedate}, {@code maxIterations}.
+   * Test {@link DurationBusinessCalendar#resolveDuedate(String, int)} with {@code duedate}, {@code maxIterations}.
    * <p>
-   * Method under test:
-   * {@link DurationBusinessCalendar#resolveDuedate(String, int)}
+   * Method under test: {@link DurationBusinessCalendar#resolveDuedate(String, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Date DurationBusinessCalendar.resolveDuedate(String, int)"})
   public void testResolveDuedateWithDuedateMaxIterations() {
     // Arrange
     when(clockReader.getCurrentTimeZone()).thenReturn(new SimpleTimeZone(-1, "/"));
@@ -56,13 +59,13 @@ public class DurationBusinessCalendarDiffblueTest {
   }
 
   /**
-   * Test {@link DurationBusinessCalendar#resolveDuedate(String, int)} with
-   * {@code duedate}, {@code maxIterations}.
+   * Test {@link DurationBusinessCalendar#resolveDuedate(String, int)} with {@code duedate}, {@code maxIterations}.
    * <p>
-   * Method under test:
-   * {@link DurationBusinessCalendar#resolveDuedate(String, int)}
+   * Method under test: {@link DurationBusinessCalendar#resolveDuedate(String, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Date DurationBusinessCalendar.resolveDuedate(String, int)"})
   public void testResolveDuedateWithDuedateMaxIterations2() {
     // Arrange
     when(clockReader.getCurrentCalendar()).thenThrow(new ActivitiException("An error occurred"));
@@ -75,16 +78,50 @@ public class DurationBusinessCalendarDiffblueTest {
   }
 
   /**
-   * Test {@link DurationBusinessCalendar#resolveDuedate(String, int)} with
-   * {@code duedate}, {@code maxIterations}.
+   * Test {@link DurationBusinessCalendar#resolveDuedate(String, int)} with {@code duedate}, {@code maxIterations}.
+   * <ul>
+   *   <li>Given {@link ClockReader}.</li>
+   *   <li>When {@code P}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DurationBusinessCalendar#resolveDuedate(String, int)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Date DurationBusinessCalendar.resolveDuedate(String, int)"})
+  public void testResolveDuedateWithDuedateMaxIterations_givenClockReader_whenP() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiException.class, () -> durationBusinessCalendar.resolveDuedate("P", 3));
+  }
+
+  /**
+   * Test {@link DurationBusinessCalendar#resolveDuedate(String, int)} with {@code duedate}, {@code maxIterations}.
+   * <ul>
+   *   <li>Given {@link ClockReader}.</li>
+   *   <li>When {@code /}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DurationBusinessCalendar#resolveDuedate(String, int)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Date DurationBusinessCalendar.resolveDuedate(String, int)"})
+  public void testResolveDuedateWithDuedateMaxIterations_givenClockReader_whenSlash() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiException.class, () -> durationBusinessCalendar.resolveDuedate("/", 3));
+  }
+
+  /**
+   * Test {@link DurationBusinessCalendar#resolveDuedate(String, int)} with {@code duedate}, {@code maxIterations}.
    * <ul>
    *   <li>Then calls {@link ClockReader#getCurrentCalendar()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DurationBusinessCalendar#resolveDuedate(String, int)}
+   * Method under test: {@link DurationBusinessCalendar#resolveDuedate(String, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Date DurationBusinessCalendar.resolveDuedate(String, int)"})
   public void testResolveDuedateWithDuedateMaxIterations_thenCallsGetCurrentCalendar() {
     // Arrange
     when(clockReader.getCurrentCalendar()).thenReturn(new GregorianCalendar(1, 1, 1));
@@ -99,16 +136,16 @@ public class DurationBusinessCalendarDiffblueTest {
   }
 
   /**
-   * Test {@link DurationBusinessCalendar#resolveDuedate(String, int)} with
-   * {@code duedate}, {@code maxIterations}.
+   * Test {@link DurationBusinessCalendar#resolveDuedate(String, int)} with {@code duedate}, {@code maxIterations}.
    * <ul>
    *   <li>When {@code Duedate}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DurationBusinessCalendar#resolveDuedate(String, int)}
+   * Method under test: {@link DurationBusinessCalendar#resolveDuedate(String, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Date DurationBusinessCalendar.resolveDuedate(String, int)"})
   public void testResolveDuedateWithDuedateMaxIterations_whenDuedate() {
     // Arrange
     when(clockReader.getCurrentTimeZone()).thenReturn(TimeZone.getTimeZone("America/Los_Angeles"));
@@ -116,39 +153,5 @@ public class DurationBusinessCalendarDiffblueTest {
     // Act and Assert
     assertThrows(ActivitiException.class, () -> durationBusinessCalendar.resolveDuedate("Duedate", 3));
     verify(clockReader).getCurrentTimeZone();
-  }
-
-  /**
-   * Test {@link DurationBusinessCalendar#resolveDuedate(String, int)} with
-   * {@code duedate}, {@code maxIterations}.
-   * <ul>
-   *   <li>When {@code P}.</li>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link DurationBusinessCalendar#resolveDuedate(String, int)}
-   */
-  @Test
-  public void testResolveDuedateWithDuedateMaxIterations_whenP_thenThrowActivitiException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiException.class, () -> durationBusinessCalendar.resolveDuedate("P", 3));
-  }
-
-  /**
-   * Test {@link DurationBusinessCalendar#resolveDuedate(String, int)} with
-   * {@code duedate}, {@code maxIterations}.
-   * <ul>
-   *   <li>When {@code /}.</li>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link DurationBusinessCalendar#resolveDuedate(String, int)}
-   */
-  @Test
-  public void testResolveDuedateWithDuedateMaxIterations_whenSlash_thenThrowActivitiException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiException.class, () -> durationBusinessCalendar.resolveDuedate("/", 3));
   }
 }

@@ -17,14 +17,25 @@ package org.activiti.api.task.model.builders;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
 import org.activiti.api.task.model.payloads.UpdateTaskPayload;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+@ContextConfiguration(classes = {UpdateTaskPayloadBuilder.class})
+@ExtendWith(SpringExtension.class)
 class UpdateTaskPayloadBuilderDiffblueTest {
+  @Autowired
+  private UpdateTaskPayloadBuilder updateTaskPayloadBuilder;
+
   /**
    * Test {@link UpdateTaskPayloadBuilder#build()}.
    * <p>
@@ -44,6 +55,16 @@ class UpdateTaskPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test build()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UpdateTaskPayloadBuilder.<init>()", "UpdateTaskPayload UpdateTaskPayloadBuilder.build()",
+      "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.parentTaskId(String)",
+      "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.withAssignee(String)",
+      "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.withDescription(String)",
+      "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.withDueDate(Date)",
+      "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.withFormKey(String)",
+      "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.withName(String)",
+      "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.withPriority(Integer)",
+      "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.withTaskId(String)"})
   void testBuild() {
     // Arrange
     UpdateTaskPayloadBuilder withDescriptionResult = (new UpdateTaskPayloadBuilder()).parentTaskId("42")

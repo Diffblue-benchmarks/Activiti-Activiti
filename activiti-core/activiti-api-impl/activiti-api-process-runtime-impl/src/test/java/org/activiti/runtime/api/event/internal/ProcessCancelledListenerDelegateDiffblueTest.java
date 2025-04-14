@@ -22,6 +22,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.runtime.api.event.impl.ToProcessCancelledConverter;
 import org.activiti.runtime.api.model.impl.APIProcessInstanceConverter;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -46,13 +48,15 @@ class ProcessCancelledListenerDelegateDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link ProcessCancelledListenerDelegate#ProcessCancelledListenerDelegate(List, ToProcessCancelledConverter)}
+   *   <li>{@link ProcessCancelledListenerDelegate#ProcessCancelledListenerDelegate(List, ToProcessCancelledConverter)}
    *   <li>{@link ProcessCancelledListenerDelegate#isFailOnException()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessCancelledListenerDelegate.<init>(List, ToProcessCancelledConverter)",
+      "boolean ProcessCancelledListenerDelegate.isFailOnException()"})
   void testGettersAndSetters() {
     // Arrange
     ArrayList<ProcessRuntimeEventListener<ProcessCancelledEvent>> listeners = new ArrayList<>();
@@ -65,11 +69,12 @@ class ProcessCancelledListenerDelegateDiffblueTest {
   /**
    * Test {@link ProcessCancelledListenerDelegate#onEvent(ActivitiEvent)}.
    * <p>
-   * Method under test:
-   * {@link ProcessCancelledListenerDelegate#onEvent(ActivitiEvent)}
+   * Method under test: {@link ProcessCancelledListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
   @DisplayName("Test onEvent(ActivitiEvent)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessCancelledListenerDelegate.onEvent(ActivitiEvent)"})
   void testOnEvent() {
     // Arrange
     ProcessRuntimeEventListener<ProcessCancelledEvent> processRuntimeEventListener = mock(
@@ -95,11 +100,12 @@ class ProcessCancelledListenerDelegateDiffblueTest {
    *   <li>Given {@code Cause}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessCancelledListenerDelegate#onEvent(ActivitiEvent)}
+   * Method under test: {@link ProcessCancelledListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
   @DisplayName("Test onEvent(ActivitiEvent); given 'Cause'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessCancelledListenerDelegate.onEvent(ActivitiEvent)"})
   void testOnEvent_givenCause() {
     // Arrange
     ProcessRuntimeEventListener<ProcessCancelledEvent> processRuntimeEventListener = mock(
@@ -151,16 +157,16 @@ class ProcessCancelledListenerDelegateDiffblueTest {
    * Test {@link ProcessCancelledListenerDelegate#onEvent(ActivitiEvent)}.
    * <ul>
    *   <li>Given {@code false}.</li>
-   *   <li>When {@link ProcessInstance} {@link Execution#isEnded()} return
-   * {@code false}.</li>
+   *   <li>When {@link ProcessInstance} {@link Execution#isEnded()} return {@code false}.</li>
    *   <li>Then calls {@link Execution#isEnded()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessCancelledListenerDelegate#onEvent(ActivitiEvent)}
+   * Method under test: {@link ProcessCancelledListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
   @DisplayName("Test onEvent(ActivitiEvent); given 'false'; when ProcessInstance isEnded() return 'false'; then calls isEnded()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessCancelledListenerDelegate.onEvent(ActivitiEvent)"})
   void testOnEvent_givenFalse_whenProcessInstanceIsEndedReturnFalse_thenCallsIsEnded() {
     // Arrange
     ProcessRuntimeEventListener<ProcessCancelledEvent> processRuntimeEventListener = mock(
@@ -211,16 +217,16 @@ class ProcessCancelledListenerDelegateDiffblueTest {
    * Test {@link ProcessCancelledListenerDelegate#onEvent(ActivitiEvent)}.
    * <ul>
    *   <li>Given {@code false}.</li>
-   *   <li>When {@link ProcessInstance} {@link Execution#isEnded()} return
-   * {@code true}.</li>
+   *   <li>When {@link ProcessInstance} {@link Execution#isEnded()} return {@code true}.</li>
    *   <li>Then calls {@link Execution#isEnded()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessCancelledListenerDelegate#onEvent(ActivitiEvent)}
+   * Method under test: {@link ProcessCancelledListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
   @DisplayName("Test onEvent(ActivitiEvent); given 'false'; when ProcessInstance isEnded() return 'true'; then calls isEnded()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessCancelledListenerDelegate.onEvent(ActivitiEvent)"})
   void testOnEvent_givenFalse_whenProcessInstanceIsEndedReturnTrue_thenCallsIsEnded() {
     // Arrange
     ProcessRuntimeEventListener<ProcessCancelledEvent> processRuntimeEventListener = mock(
@@ -271,16 +277,16 @@ class ProcessCancelledListenerDelegateDiffblueTest {
    * Test {@link ProcessCancelledListenerDelegate#onEvent(ActivitiEvent)}.
    * <ul>
    *   <li>Given {@code true}.</li>
-   *   <li>When {@link ProcessInstance} {@link ProcessInstance#isSuspended()} return
-   * {@code true}.</li>
+   *   <li>When {@link ProcessInstance} {@link ProcessInstance#isSuspended()} return {@code true}.</li>
    *   <li>Then calls {@link Execution#getId()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessCancelledListenerDelegate#onEvent(ActivitiEvent)}
+   * Method under test: {@link ProcessCancelledListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
   @DisplayName("Test onEvent(ActivitiEvent); given 'true'; when ProcessInstance isSuspended() return 'true'; then calls getId()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessCancelledListenerDelegate.onEvent(ActivitiEvent)"})
   void testOnEvent_givenTrue_whenProcessInstanceIsSuspendedReturnTrue_thenCallsGetId() {
     // Arrange
     ProcessRuntimeEventListener<ProcessCancelledEvent> processRuntimeEventListener = mock(

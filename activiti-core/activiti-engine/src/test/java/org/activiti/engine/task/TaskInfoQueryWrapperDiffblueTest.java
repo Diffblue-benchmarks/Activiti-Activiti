@@ -16,8 +16,11 @@
 package org.activiti.engine.task;
 
 import static org.junit.Assert.assertSame;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.HistoricTaskInstanceQueryImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class TaskInfoQueryWrapperDiffblueTest {
   /**
@@ -31,13 +34,17 @@ public class TaskInfoQueryWrapperDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TaskInfoQueryWrapper.<init>(TaskInfoQuery)",
+      "TaskInfoQuery TaskInfoQueryWrapper.getTaskInfoQuery()",
+      "void TaskInfoQueryWrapper.setTaskInfoQuery(TaskInfoQuery)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     TaskInfoQueryWrapper actualTaskInfoQueryWrapper = new TaskInfoQueryWrapper(new HistoricTaskInstanceQueryImpl());
     HistoricTaskInstanceQueryImpl taskInfoQuery = new HistoricTaskInstanceQueryImpl();
     actualTaskInfoQueryWrapper.setTaskInfoQuery(taskInfoQuery);
 
-    // Assert that nothing has changed
+    // Assert
     assertSame(taskInfoQuery, actualTaskInfoQueryWrapper.getTaskInfoQuery());
   }
 }

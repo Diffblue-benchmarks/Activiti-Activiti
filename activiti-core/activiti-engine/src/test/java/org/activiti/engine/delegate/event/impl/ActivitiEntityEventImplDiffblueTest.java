@@ -19,23 +19,26 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ActivitiEntityEventImplDiffblueTest {
   /**
-   * Test
-   * {@link ActivitiEntityEventImpl#ActivitiEntityEventImpl(Object, ActivitiEventType)}.
+   * Test {@link ActivitiEntityEventImpl#ActivitiEntityEventImpl(Object, ActivitiEventType)}.
    * <ul>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiEntityEventImpl#ActivitiEntityEventImpl(Object, ActivitiEventType)}
+   * Method under test: {@link ActivitiEntityEventImpl#ActivitiEntityEventImpl(Object, ActivitiEventType)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiEntityEventImpl.<init>(Object, ActivitiEventType)"})
   public void testNewActivitiEntityEventImpl_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
@@ -44,17 +47,17 @@ public class ActivitiEntityEventImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEntityEventImpl#ActivitiEntityEventImpl(Object, ActivitiEventType)}.
+   * Test {@link ActivitiEntityEventImpl#ActivitiEntityEventImpl(Object, ActivitiEventType)}.
    * <ul>
    *   <li>When {@link JSONObject#NULL}.</li>
    *   <li>Then return ExecutionId is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiEntityEventImpl#ActivitiEntityEventImpl(Object, ActivitiEventType)}
+   * Method under test: {@link ActivitiEntityEventImpl#ActivitiEntityEventImpl(Object, ActivitiEventType)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiEntityEventImpl.<init>(Object, ActivitiEventType)"})
   public void testNewActivitiEntityEventImpl_whenNull_thenReturnExecutionIdIsNull() {
     // Arrange
     Object object = JSONObject.NULL;
@@ -78,6 +81,8 @@ public class ActivitiEntityEventImplDiffblueTest {
    * Method under test: {@link ActivitiEntityEventImpl#getEntity()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object ActivitiEntityEventImpl.getEntity()"})
   public void testGetEntity() {
     // Arrange
     ActivitiEntityEventImpl activitiEntityEventImpl = new ActivitiEntityEventImpl(JSONObject.NULL,

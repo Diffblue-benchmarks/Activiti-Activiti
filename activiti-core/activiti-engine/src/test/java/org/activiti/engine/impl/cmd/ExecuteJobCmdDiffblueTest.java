@@ -16,7 +16,10 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ExecuteJobCmdDiffblueTest {
   /**
@@ -29,6 +32,8 @@ public class ExecuteJobCmdDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecuteJobCmd.<init>(String)", "String ExecuteJobCmd.getJobId()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("42", (new ExecuteJobCmd("42")).getJobId());

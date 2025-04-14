@@ -19,64 +19,22 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import java.util.HashMap;
-import java.util.List;
-import java.util.function.BiFunction;
-import org.activiti.bpmn.model.ExtensionElement;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.TimerEventDefinition;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class IntermediateCatchTimerEventActivityBehaviorDiffblueTest {
   /**
-   * Test
-   * {@link IntermediateCatchTimerEventActivityBehavior#IntermediateCatchTimerEventActivityBehavior(TimerEventDefinition)}.
+   * Test {@link IntermediateCatchTimerEventActivityBehavior#IntermediateCatchTimerEventActivityBehavior(TimerEventDefinition)}.
    * <p>
-   * Method under test:
-   * {@link IntermediateCatchTimerEventActivityBehavior#IntermediateCatchTimerEventActivityBehavior(TimerEventDefinition)}
+   * Method under test: {@link IntermediateCatchTimerEventActivityBehavior#IntermediateCatchTimerEventActivityBehavior(TimerEventDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IntermediateCatchTimerEventActivityBehavior.<init>(TimerEventDefinition)"})
   public void testNewIntermediateCatchTimerEventActivityBehavior() {
-    // Arrange
-    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
-    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
-
-    TimerEventDefinition timerEventDefinition = new TimerEventDefinition();
-    timerEventDefinition.setExtensionElements(extensionElements);
-
-    // Act
-    IntermediateCatchTimerEventActivityBehavior actualIntermediateCatchTimerEventActivityBehavior = new IntermediateCatchTimerEventActivityBehavior(
-        timerEventDefinition);
-
-    // Assert
-    TimerEventDefinition timerEventDefinition2 = actualIntermediateCatchTimerEventActivityBehavior.timerEventDefinition;
-    assertNull(timerEventDefinition2.getId());
-    assertNull(timerEventDefinition2.getCalendarName());
-    assertNull(timerEventDefinition2.getEndDate());
-    assertNull(timerEventDefinition2.getTimeCycle());
-    assertNull(timerEventDefinition2.getTimeDate());
-    assertNull(timerEventDefinition2.getTimeDuration());
-    assertNull(actualIntermediateCatchTimerEventActivityBehavior.getMultiInstanceActivityBehavior());
-    assertEquals(0, timerEventDefinition2.getXmlColumnNumber());
-    assertEquals(0, timerEventDefinition2.getXmlRowNumber());
-    assertFalse(actualIntermediateCatchTimerEventActivityBehavior.hasLoopCharacteristics());
-    assertFalse(actualIntermediateCatchTimerEventActivityBehavior.hasMultiInstanceCharacteristics());
-    assertTrue(timerEventDefinition2.getAttributes().isEmpty());
-    assertTrue(timerEventDefinition2.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test
-   * {@link IntermediateCatchTimerEventActivityBehavior#IntermediateCatchTimerEventActivityBehavior(TimerEventDefinition)}.
-   * <ul>
-   *   <li>When {@link TimerEventDefinition} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link IntermediateCatchTimerEventActivityBehavior#IntermediateCatchTimerEventActivityBehavior(TimerEventDefinition)}
-   */
-  @Test
-  public void testNewIntermediateCatchTimerEventActivityBehavior_whenTimerEventDefinition() {
     // Arrange and Act
     IntermediateCatchTimerEventActivityBehavior actualIntermediateCatchTimerEventActivityBehavior = new IntermediateCatchTimerEventActivityBehavior(
         new TimerEventDefinition());

@@ -15,17 +15,15 @@
  */
 package org.activiti.runtime.api.model.impl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.ProcessCandidateStarterUser;
 import org.activiti.api.runtime.model.impl.ProcessCandidateStarterUserImpl;
 import org.activiti.engine.impl.persistence.entity.IdentityLinkEntityImpl;
 import org.activiti.engine.task.IdentityLink;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,48 +37,18 @@ class APIProcessCandidateStarterUserConverterDiffblueTest {
   private APIProcessCandidateStarterUserConverter aPIProcessCandidateStarterUserConverter;
 
   /**
-   * Test {@link APIProcessCandidateStarterUserConverter#from(IdentityLink)} with
-   * {@code IdentityLink}.
+   * Test {@link APIProcessCandidateStarterUserConverter#from(IdentityLink)} with {@code IdentityLink}.
    * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>Then return ProcessDefinitionId is {@code 42}.</li>
+   *   <li>Then return {@link ProcessCandidateStarterUserImpl}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link APIProcessCandidateStarterUserConverter#from(IdentityLink)}
+   * Method under test: {@link APIProcessCandidateStarterUserConverter#from(IdentityLink)}
    */
   @Test
-  @DisplayName("Test from(IdentityLink) with 'IdentityLink'; given '42'; then return ProcessDefinitionId is '42'")
-  void testFromWithIdentityLink_given42_thenReturnProcessDefinitionIdIs42() {
-    // Arrange
-    IdentityLinkEntityImpl identityLink = mock(IdentityLinkEntityImpl.class);
-    when(identityLink.getProcessDefinitionId()).thenReturn("42");
-    when(identityLink.getUserId()).thenReturn("42");
-
-    // Act
-    ProcessCandidateStarterUser actualFromResult = aPIProcessCandidateStarterUserConverter.from(identityLink);
-
-    // Assert
-    verify(identityLink).getProcessDefinitionId();
-    verify(identityLink).getUserId();
-    assertTrue(actualFromResult instanceof ProcessCandidateStarterUserImpl);
-    assertEquals("42", actualFromResult.getProcessDefinitionId());
-    assertEquals("42", actualFromResult.getUserId());
-  }
-
-  /**
-   * Test {@link APIProcessCandidateStarterUserConverter#from(IdentityLink)} with
-   * {@code IdentityLink}.
-   * <ul>
-   *   <li>Then return ProcessDefinitionId is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link APIProcessCandidateStarterUserConverter#from(IdentityLink)}
-   */
-  @Test
-  @DisplayName("Test from(IdentityLink) with 'IdentityLink'; then return ProcessDefinitionId is 'null'")
-  void testFromWithIdentityLink_thenReturnProcessDefinitionIdIsNull() {
+  @DisplayName("Test from(IdentityLink) with 'IdentityLink'; then return ProcessCandidateStarterUserImpl")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ProcessCandidateStarterUser APIProcessCandidateStarterUserConverter.from(IdentityLink)"})
+  void testFromWithIdentityLink_thenReturnProcessCandidateStarterUserImpl() {
     // Arrange and Act
     ProcessCandidateStarterUser actualFromResult = aPIProcessCandidateStarterUserConverter
         .from(new IdentityLinkEntityImpl());

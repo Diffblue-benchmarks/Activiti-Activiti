@@ -24,6 +24,8 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.CompositeELResolver;
 import jakarta.el.ELContext;
 import jakarta.el.ELResolver;
@@ -32,7 +34,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiFunction;
 import org.activiti.core.el.ActivitiElContext;
 import org.activiti.core.el.ActivitiFunctionMapper;
 import org.activiti.core.el.ActivitiVariablesMapper;
@@ -41,25 +42,20 @@ import org.activiti.core.el.juel.ExpressionFactoryImpl;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.VariableScope;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
-import org.activiti.engine.impl.util.json.JSONObject;
 import org.activiti.engine.test.mock.MockExpressionManager;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ExpressionManagerDiffblueTest {
-  @InjectMocks
-  private ExpressionManager expressionManager;
-
   /**
    * Test {@link ExpressionManager#ExpressionManager()}.
    * <p>
    * Method under test: {@link ExpressionManager#ExpressionManager()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExpressionManager.<init>()"})
   public void testNewExpressionManager() {
     // Arrange and Act
     ExpressionManager actualExpressionManager = new ExpressionManager();
@@ -75,22 +71,15 @@ public class ExpressionManagerDiffblueTest {
 
   /**
    * Test {@link ExpressionManager#ExpressionManager(Map)}.
-   * <ul>
-   *   <li>Given {@link JSONObject#NULL}.</li>
-   *   <li>When {@link HashMap#HashMap()} computeIfPresent {@link JSONObject#NULL}
-   * and {@link BiFunction}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link ExpressionManager#ExpressionManager(Map)}
    */
   @Test
-  public void testNewExpressionManager_givenNull_whenHashMapComputeIfPresentNullAndBiFunction() {
-    // Arrange
-    HashMap<Object, Object> beans = new HashMap<>();
-    beans.computeIfPresent(JSONObject.NULL, mock(BiFunction.class));
-
-    // Act
-    ExpressionManager actualExpressionManager = new ExpressionManager(beans);
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExpressionManager.<init>(Map)"})
+  public void testNewExpressionManager2() {
+    // Arrange and Act
+    ExpressionManager actualExpressionManager = new ExpressionManager(new HashMap<>());
 
     // Assert
     ExpressionFactory expressionFactory = actualExpressionManager.expressionFactory;
@@ -104,41 +93,14 @@ public class ExpressionManagerDiffblueTest {
   /**
    * Test {@link ExpressionManager#ExpressionManager(Map, boolean)}.
    * <ul>
-   *   <li>Given {@link JSONObject#NULL}.</li>
-   *   <li>When {@link HashMap#HashMap()} computeIfPresent {@link JSONObject#NULL}
-   * and {@link BiFunction}.</li>
+   *   <li>Then {@link ExpressionManager#expressionFactory} return {@link ExpressionFactoryImpl}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ExpressionManager#ExpressionManager(Map, boolean)}
    */
   @Test
-  public void testNewExpressionManager_givenNull_whenHashMapComputeIfPresentNullAndBiFunction2() {
-    // Arrange
-    HashMap<Object, Object> beans = new HashMap<>();
-    beans.computeIfPresent(JSONObject.NULL, mock(BiFunction.class));
-
-    // Act
-    ExpressionManager actualExpressionManager = new ExpressionManager(beans, true);
-
-    // Assert
-    ExpressionFactory expressionFactory = actualExpressionManager.expressionFactory;
-    assertTrue(expressionFactory instanceof ExpressionFactoryImpl);
-    assertNull(expressionFactory.getStreamELResolver());
-    assertNull(actualExpressionManager.getCustomFunctionProviders());
-    assertNull(expressionFactory.getInitFunctionMap());
-    assertTrue(actualExpressionManager.getBeans().isEmpty());
-  }
-
-  /**
-   * Test {@link ExpressionManager#ExpressionManager(Map, boolean)}.
-   * <ul>
-   *   <li>Then {@link ExpressionManager#expressionFactory} return
-   * {@link ExpressionFactoryImpl}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExpressionManager#ExpressionManager(Map, boolean)}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExpressionManager.<init>(Map, boolean)"})
   public void testNewExpressionManager_thenExpressionFactoryReturnExpressionFactoryImpl() {
     // Arrange and Act
     ExpressionManager actualExpressionManager = new ExpressionManager(new HashMap<>(), true);
@@ -155,13 +117,14 @@ public class ExpressionManagerDiffblueTest {
   /**
    * Test {@link ExpressionManager#ExpressionManager(boolean)}.
    * <ul>
-   *   <li>Then {@link ExpressionManager#expressionFactory} return
-   * {@link ExpressionFactoryImpl}.</li>
+   *   <li>Then {@link ExpressionManager#expressionFactory} return {@link ExpressionFactoryImpl}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ExpressionManager#ExpressionManager(boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExpressionManager.<init>(boolean)"})
   public void testNewExpressionManager_thenExpressionFactoryReturnExpressionFactoryImpl2() {
     // Arrange and Act
     ExpressionManager actualExpressionManager = new ExpressionManager(true);
@@ -179,13 +142,14 @@ public class ExpressionManagerDiffblueTest {
    * Test {@link ExpressionManager#ExpressionManager(Map, boolean)}.
    * <ul>
    *   <li>When {@code false}.</li>
-   *   <li>Then return {@link ExpressionManager#expressionFactory} is
-   * {@code null}.</li>
+   *   <li>Then return {@link ExpressionManager#expressionFactory} is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ExpressionManager#ExpressionManager(Map, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExpressionManager.<init>(Map, boolean)"})
   public void testNewExpressionManager_whenFalse_thenReturnExpressionFactoryIsNull() {
     // Arrange and Act
     ExpressionManager actualExpressionManager = new ExpressionManager(new HashMap<>(), false);
@@ -200,13 +164,14 @@ public class ExpressionManagerDiffblueTest {
    * Test {@link ExpressionManager#ExpressionManager(boolean)}.
    * <ul>
    *   <li>When {@code false}.</li>
-   *   <li>Then return {@link ExpressionManager#expressionFactory} is
-   * {@code null}.</li>
+   *   <li>Then return {@link ExpressionManager#expressionFactory} is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ExpressionManager#ExpressionManager(boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExpressionManager.<init>(boolean)"})
   public void testNewExpressionManager_whenFalse_thenReturnExpressionFactoryIsNull2() {
     // Arrange and Act
     ExpressionManager actualExpressionManager = new ExpressionManager(false);
@@ -218,35 +183,22 @@ public class ExpressionManagerDiffblueTest {
   }
 
   /**
-   * Test {@link ExpressionManager#ExpressionManager(Map)}.
-   * <ul>
-   *   <li>When {@link HashMap#HashMap()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExpressionManager#ExpressionManager(Map)}
-   */
-  @Test
-  public void testNewExpressionManager_whenHashMap() {
-    // Arrange and Act
-    ExpressionManager actualExpressionManager = new ExpressionManager(new HashMap<>());
-
-    // Assert
-    ExpressionFactory expressionFactory = actualExpressionManager.expressionFactory;
-    assertTrue(expressionFactory instanceof ExpressionFactoryImpl);
-    assertNull(expressionFactory.getStreamELResolver());
-    assertNull(actualExpressionManager.getCustomFunctionProviders());
-    assertNull(expressionFactory.getInitFunctionMap());
-    assertTrue(actualExpressionManager.getBeans().isEmpty());
-  }
-
-  /**
    * Test {@link ExpressionManager#createExpression(String)}.
+   * <ul>
+   *   <li>Given {@link ExpressionManager#ExpressionManager()} CustomFunctionProviders is {@link ArrayList#ArrayList()}.</li>
+   * </ul>
    * <p>
    * Method under test: {@link ExpressionManager#createExpression(String)}
    */
   @Test
-  public void testCreateExpression() {
-    // Arrange and Act
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Expression ExpressionManager.createExpression(String)"})
+  public void testCreateExpression_givenExpressionManagerCustomFunctionProvidersIsArrayList() {
+    // Arrange
+    ExpressionManager expressionManager = new ExpressionManager();
+    expressionManager.setCustomFunctionProviders(new ArrayList<>());
+
+    // Act
     Expression actualCreateExpressionResult = expressionManager.createExpression("Expression");
 
     // Assert
@@ -255,12 +207,100 @@ public class ExpressionManagerDiffblueTest {
   }
 
   /**
-   * Test {@link ExpressionManager#getElContext(Map)} with
-   * {@code availableVariables}.
+   * Test {@link ExpressionManager#createExpression(String)}.
+   * <ul>
+   *   <li>Given {@link ExpressionManager#ExpressionManager()}.</li>
+   *   <li>Then return {@link JuelExpression}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ExpressionManager#createExpression(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Expression ExpressionManager.createExpression(String)"})
+  public void testCreateExpression_givenExpressionManager_thenReturnJuelExpression() {
+    // Arrange and Act
+    Expression actualCreateExpressionResult = (new ExpressionManager()).createExpression("Expression");
+
+    // Assert
+    assertTrue(actualCreateExpressionResult instanceof JuelExpression);
+    assertEquals("Expression", actualCreateExpressionResult.getExpressionText());
+  }
+
+  /**
+   * Test {@link ExpressionManager#createExpression(String)}.
+   * <ul>
+   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ExpressionManager#createExpression(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Expression ExpressionManager.createExpression(String)"})
+  public void testCreateExpression_thenCallsAddCustomFunctions() {
+    // Arrange
+    CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
+    doNothing().when(customFunctionProvider).addCustomFunctions(Mockito.<ActivitiElContext>any());
+
+    ArrayList<CustomFunctionProvider> customFunctionProviders = new ArrayList<>();
+    customFunctionProviders.add(customFunctionProvider);
+
+    ExpressionManager expressionManager = new ExpressionManager();
+    expressionManager.setCustomFunctionProviders(customFunctionProviders);
+
+    // Act
+    Expression actualCreateExpressionResult = expressionManager.createExpression("Expression");
+
+    // Assert
+    verify(customFunctionProvider).addCustomFunctions(isA(ActivitiElContext.class));
+    assertTrue(actualCreateExpressionResult instanceof JuelExpression);
+    assertEquals("Expression", actualCreateExpressionResult.getExpressionText());
+  }
+
+  /**
+   * Test {@link ExpressionManager#createExpression(String)}.
+   * <ul>
+   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ExpressionManager#createExpression(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Expression ExpressionManager.createExpression(String)"})
+  public void testCreateExpression_thenCallsAddCustomFunctions2() {
+    // Arrange
+    CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
+    doNothing().when(customFunctionProvider).addCustomFunctions(Mockito.<ActivitiElContext>any());
+    CustomFunctionProvider customFunctionProvider2 = mock(CustomFunctionProvider.class);
+    doNothing().when(customFunctionProvider2).addCustomFunctions(Mockito.<ActivitiElContext>any());
+
+    ArrayList<CustomFunctionProvider> customFunctionProviders = new ArrayList<>();
+    customFunctionProviders.add(customFunctionProvider2);
+    customFunctionProviders.add(customFunctionProvider);
+
+    ExpressionManager expressionManager = new ExpressionManager();
+    expressionManager.setCustomFunctionProviders(customFunctionProviders);
+
+    // Act
+    Expression actualCreateExpressionResult = expressionManager.createExpression("Expression");
+
+    // Assert
+    verify(customFunctionProvider2).addCustomFunctions(isA(ActivitiElContext.class));
+    verify(customFunctionProvider).addCustomFunctions(isA(ActivitiElContext.class));
+    assertTrue(actualCreateExpressionResult instanceof JuelExpression);
+    assertEquals("Expression", actualCreateExpressionResult.getExpressionText());
+  }
+
+  /**
+   * Test {@link ExpressionManager#getElContext(Map)} with {@code availableVariables}.
    * <p>
    * Method under test: {@link ExpressionManager#getElContext(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ELContext ExpressionManager.getElContext(Map)"})
   public void testGetElContextWithAvailableVariables() {
     // Arrange
     ExpressionManager expressionManager = new ExpressionManager();
@@ -280,17 +320,17 @@ public class ExpressionManagerDiffblueTest {
   }
 
   /**
-   * Test {@link ExpressionManager#getElContext(Map)} with
-   * {@code availableVariables}.
+   * Test {@link ExpressionManager#getElContext(Map)} with {@code availableVariables}.
    * <ul>
    *   <li>Given {@link ExpressionManager#ExpressionManager()}.</li>
-   *   <li>When {@link HashMap#HashMap()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ExpressionManager#getElContext(Map)}
    */
   @Test
-  public void testGetElContextWithAvailableVariables_givenExpressionManager_whenHashMap() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ELContext ExpressionManager.getElContext(Map)"})
+  public void testGetElContextWithAvailableVariables_givenExpressionManager() {
     // Arrange
     ExpressionManager expressionManager = new ExpressionManager();
 
@@ -308,46 +348,16 @@ public class ExpressionManagerDiffblueTest {
   }
 
   /**
-   * Test {@link ExpressionManager#getElContext(Map)} with
-   * {@code availableVariables}.
+   * Test {@link ExpressionManager#getElContext(Map)} with {@code availableVariables}.
    * <ul>
-   *   <li>Given {@code getFieldValue}.</li>
+   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ExpressionManager#getElContext(Map)}
    */
   @Test
-  public void testGetElContextWithAvailableVariables_givenGetFieldValue() {
-    // Arrange
-    ExpressionManager expressionManager = new ExpressionManager();
-
-    HashMap<String, Object> availableVariables = new HashMap<>();
-    availableVariables.computeIfPresent("getFieldValue", mock(BiFunction.class));
-
-    // Act
-    ELContext actualElContext = expressionManager.getElContext(availableVariables);
-
-    // Assert
-    assertTrue(actualElContext.getELResolver() instanceof CompositeELResolver);
-    assertTrue(actualElContext instanceof ActivitiElContext);
-    assertTrue(actualElContext.getFunctionMapper() instanceof ActivitiFunctionMapper);
-    assertTrue(actualElContext.getVariableMapper() instanceof ActivitiVariablesMapper);
-    assertNull(actualElContext.getEvaluationListeners());
-    assertNull(actualElContext.getLocale());
-    assertFalse(actualElContext.isPropertyResolved());
-  }
-
-  /**
-   * Test {@link ExpressionManager#getElContext(Map)} with
-   * {@code availableVariables}.
-   * <ul>
-   *   <li>Then calls
-   * {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExpressionManager#getElContext(Map)}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ELContext ExpressionManager.getElContext(Map)"})
   public void testGetElContextWithAvailableVariables_thenCallsAddCustomFunctions() {
     // Arrange
     CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
@@ -374,16 +384,16 @@ public class ExpressionManagerDiffblueTest {
   }
 
   /**
-   * Test {@link ExpressionManager#getElContext(Map)} with
-   * {@code availableVariables}.
+   * Test {@link ExpressionManager#getElContext(Map)} with {@code availableVariables}.
    * <ul>
-   *   <li>Then calls
-   * {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
+   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ExpressionManager#getElContext(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ELContext ExpressionManager.getElContext(Map)"})
   public void testGetElContextWithAvailableVariables_thenCallsAddCustomFunctions2() {
     // Arrange
     CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
@@ -414,12 +424,13 @@ public class ExpressionManagerDiffblueTest {
   }
 
   /**
-   * Test {@link ExpressionManager#getElContext(VariableScope)} with
-   * {@code variableScope}.
+   * Test {@link ExpressionManager#getElContext(VariableScope)} with {@code variableScope}.
    * <p>
    * Method under test: {@link ExpressionManager#getElContext(VariableScope)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ELContext ExpressionManager.getElContext(VariableScope)"})
   public void testGetElContextWithVariableScope() {
     // Arrange
     ExpressionManager expressionManager = new ExpressionManager();
@@ -439,12 +450,13 @@ public class ExpressionManagerDiffblueTest {
   }
 
   /**
-   * Test {@link ExpressionManager#getElContext(VariableScope)} with
-   * {@code variableScope}.
+   * Test {@link ExpressionManager#getElContext(VariableScope)} with {@code variableScope}.
    * <p>
    * Method under test: {@link ExpressionManager#getElContext(VariableScope)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ELContext ExpressionManager.getElContext(VariableScope)"})
   public void testGetElContextWithVariableScope2() {
     // Arrange
     ExpressionManager expressionManager = new ExpressionManager();
@@ -464,12 +476,13 @@ public class ExpressionManagerDiffblueTest {
   }
 
   /**
-   * Test {@link ExpressionManager#getElContext(VariableScope)} with
-   * {@code variableScope}.
+   * Test {@link ExpressionManager#getElContext(VariableScope)} with {@code variableScope}.
    * <p>
    * Method under test: {@link ExpressionManager#getElContext(VariableScope)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ELContext ExpressionManager.getElContext(VariableScope)"})
   public void testGetElContextWithVariableScope3() {
     // Arrange
     CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
@@ -501,16 +514,16 @@ public class ExpressionManagerDiffblueTest {
   }
 
   /**
-   * Test {@link ExpressionManager#getElContext(VariableScope)} with
-   * {@code variableScope}.
+   * Test {@link ExpressionManager#getElContext(VariableScope)} with {@code variableScope}.
    * <ul>
-   *   <li>Given {@link ExpressionManager#ExpressionManager()} Beans is
-   * {@link HashMap#HashMap()}.</li>
+   *   <li>Given {@link ExpressionManager#ExpressionManager()} Beans is {@link HashMap#HashMap()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ExpressionManager#getElContext(VariableScope)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ELContext ExpressionManager.getElContext(VariableScope)"})
   public void testGetElContextWithVariableScope_givenExpressionManagerBeansIsHashMap() {
     // Arrange
     ExpressionManager expressionManager = new ExpressionManager();
@@ -530,8 +543,7 @@ public class ExpressionManagerDiffblueTest {
   }
 
   /**
-   * Test {@link ExpressionManager#getElContext(VariableScope)} with
-   * {@code variableScope}.
+   * Test {@link ExpressionManager#getElContext(VariableScope)} with {@code variableScope}.
    * <ul>
    *   <li>Given {@link ExpressionManager#ExpressionManager()}.</li>
    *   <li>When SharedInstance.</li>
@@ -540,6 +552,8 @@ public class ExpressionManagerDiffblueTest {
    * Method under test: {@link ExpressionManager#getElContext(VariableScope)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ELContext ExpressionManager.getElContext(VariableScope)"})
   public void testGetElContextWithVariableScope_givenExpressionManager_whenSharedInstance() {
     // Arrange
     ExpressionManager expressionManager = new ExpressionManager();
@@ -555,16 +569,16 @@ public class ExpressionManagerDiffblueTest {
   }
 
   /**
-   * Test {@link ExpressionManager#getElContext(VariableScope)} with
-   * {@code variableScope}.
+   * Test {@link ExpressionManager#getElContext(VariableScope)} with {@code variableScope}.
    * <ul>
-   *   <li>Then calls
-   * {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
+   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ExpressionManager#getElContext(VariableScope)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ELContext ExpressionManager.getElContext(VariableScope)"})
   public void testGetElContextWithVariableScope_thenCallsAddCustomFunctions() {
     // Arrange
     CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
@@ -591,16 +605,16 @@ public class ExpressionManagerDiffblueTest {
   }
 
   /**
-   * Test {@link ExpressionManager#getElContext(VariableScope)} with
-   * {@code variableScope}.
+   * Test {@link ExpressionManager#getElContext(VariableScope)} with {@code variableScope}.
    * <ul>
-   *   <li>Then calls
-   * {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
+   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ExpressionManager#getElContext(VariableScope)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ELContext ExpressionManager.getElContext(VariableScope)"})
   public void testGetElContextWithVariableScope_thenCallsAddCustomFunctions2() {
     // Arrange
     CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
@@ -631,8 +645,7 @@ public class ExpressionManagerDiffblueTest {
   }
 
   /**
-   * Test {@link ExpressionManager#getElContext(VariableScope)} with
-   * {@code variableScope}.
+   * Test {@link ExpressionManager#getElContext(VariableScope)} with {@code variableScope}.
    * <ul>
    *   <li>Then return {@link ParsingElContext} (default constructor).</li>
    * </ul>
@@ -640,6 +653,8 @@ public class ExpressionManagerDiffblueTest {
    * Method under test: {@link ExpressionManager#getElContext(VariableScope)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ELContext ExpressionManager.getElContext(VariableScope)"})
   public void testGetElContextWithVariableScope_thenReturnParsingElContext() {
     // Arrange
     ExpressionManager expressionManager = new ExpressionManager();
@@ -659,6 +674,8 @@ public class ExpressionManagerDiffblueTest {
    * Method under test: {@link ExpressionManager#createElContext(VariableScope)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ActivitiElContext ExpressionManager.createElContext(VariableScope)"})
   public void testCreateElContext() {
     // Arrange
     CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
@@ -672,8 +689,8 @@ public class ExpressionManagerDiffblueTest {
 
     MockExpressionManager mockExpressionManager = new MockExpressionManager();
     mockExpressionManager.addBeansResolver(new CompositeELResolver());
-    mockExpressionManager.setBeans(null);
     mockExpressionManager.setCustomFunctionProviders(customFunctionProviders);
+    mockExpressionManager.setBeans(null);
 
     // Act
     ActivitiElContext actualCreateElContextResult = mockExpressionManager
@@ -699,6 +716,8 @@ public class ExpressionManagerDiffblueTest {
    * Method under test: {@link ExpressionManager#createElContext(VariableScope)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ActivitiElContext ExpressionManager.createElContext(VariableScope)"})
   public void testCreateElContext_givenExpressionManager() {
     // Arrange
     ExpressionManager expressionManager = new ExpressionManager();
@@ -719,47 +738,19 @@ public class ExpressionManagerDiffblueTest {
   /**
    * Test {@link ExpressionManager#createElContext(VariableScope)}.
    * <ul>
-   *   <li>Given {@link ExpressionManager#ExpressionManager()} Beans is
-   * {@link HashMap#HashMap()}.</li>
+   *   <li>Given {@link ExpressionManager#ExpressionManager()} CustomFunctionProviders is {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ExpressionManager#createElContext(VariableScope)}
    */
   @Test
-  public void testCreateElContext_givenExpressionManagerBeansIsHashMap() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ActivitiElContext ExpressionManager.createElContext(VariableScope)"})
+  public void testCreateElContext_givenExpressionManagerCustomFunctionProvidersIsArrayList() {
     // Arrange
     ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setBeans(new HashMap<>());
-    expressionManager.setCustomFunctionProviders(null);
-
-    // Act
-    ActivitiElContext actualCreateElContextResult = expressionManager
-        .createElContext(NoExecutionVariableScope.getSharedInstance());
-
-    // Assert
-    assertTrue(actualCreateElContextResult.getELResolver() instanceof CompositeELResolver);
-    assertTrue(actualCreateElContextResult.getFunctionMapper() instanceof ActivitiFunctionMapper);
-    assertTrue(actualCreateElContextResult.getVariableMapper() instanceof ActivitiVariablesMapper);
-    assertNull(actualCreateElContextResult.getEvaluationListeners());
-    assertNull(actualCreateElContextResult.getLocale());
-    assertFalse(actualCreateElContextResult.isPropertyResolved());
-  }
-
-  /**
-   * Test {@link ExpressionManager#createElContext(VariableScope)}.
-   * <ul>
-   *   <li>Given {@link ExpressionManager#ExpressionManager()} Beans is
-   * {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExpressionManager#createElContext(VariableScope)}
-   */
-  @Test
-  public void testCreateElContext_givenExpressionManagerBeansIsNull() {
-    // Arrange
-    ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setBeans(null);
     expressionManager.setCustomFunctionProviders(new ArrayList<>());
+    expressionManager.setBeans(null);
 
     // Act
     ActivitiElContext actualCreateElContextResult = expressionManager
@@ -777,13 +768,44 @@ public class ExpressionManagerDiffblueTest {
   /**
    * Test {@link ExpressionManager#createElContext(VariableScope)}.
    * <ul>
-   *   <li>Then calls
-   * {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
+   *   <li>Given {@link ExpressionManager#ExpressionManager()} CustomFunctionProviders is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ExpressionManager#createElContext(VariableScope)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ActivitiElContext ExpressionManager.createElContext(VariableScope)"})
+  public void testCreateElContext_givenExpressionManagerCustomFunctionProvidersIsNull() {
+    // Arrange
+    ExpressionManager expressionManager = new ExpressionManager();
+    expressionManager.setCustomFunctionProviders(null);
+    expressionManager.setBeans(new HashMap<>());
+
+    // Act
+    ActivitiElContext actualCreateElContextResult = expressionManager
+        .createElContext(NoExecutionVariableScope.getSharedInstance());
+
+    // Assert
+    assertTrue(actualCreateElContextResult.getELResolver() instanceof CompositeELResolver);
+    assertTrue(actualCreateElContextResult.getFunctionMapper() instanceof ActivitiFunctionMapper);
+    assertTrue(actualCreateElContextResult.getVariableMapper() instanceof ActivitiVariablesMapper);
+    assertNull(actualCreateElContextResult.getEvaluationListeners());
+    assertNull(actualCreateElContextResult.getLocale());
+    assertFalse(actualCreateElContextResult.isPropertyResolved());
+  }
+
+  /**
+   * Test {@link ExpressionManager#createElContext(VariableScope)}.
+   * <ul>
+   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ExpressionManager#createElContext(VariableScope)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ActivitiElContext ExpressionManager.createElContext(VariableScope)"})
   public void testCreateElContext_thenCallsAddCustomFunctions() {
     // Arrange
     CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
@@ -793,8 +815,8 @@ public class ExpressionManagerDiffblueTest {
     customFunctionProviders.add(customFunctionProvider);
 
     ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setBeans(null);
     expressionManager.setCustomFunctionProviders(customFunctionProviders);
+    expressionManager.setBeans(null);
 
     // Act
     ActivitiElContext actualCreateElContextResult = expressionManager
@@ -813,13 +835,14 @@ public class ExpressionManagerDiffblueTest {
   /**
    * Test {@link ExpressionManager#createElContext(VariableScope)}.
    * <ul>
-   *   <li>Then calls
-   * {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
+   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ExpressionManager#createElContext(VariableScope)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ActivitiElContext ExpressionManager.createElContext(VariableScope)"})
   public void testCreateElContext_thenCallsAddCustomFunctions2() {
     // Arrange
     CustomFunctionProvider customFunctionProvider = mock(CustomFunctionProvider.class);
@@ -832,8 +855,8 @@ public class ExpressionManagerDiffblueTest {
     customFunctionProviders.add(customFunctionProvider);
 
     ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setBeans(null);
     expressionManager.setCustomFunctionProviders(customFunctionProviders);
+    expressionManager.setBeans(null);
 
     // Act
     ActivitiElContext actualCreateElContextResult = expressionManager
@@ -859,6 +882,8 @@ public class ExpressionManagerDiffblueTest {
    * Method under test: {@link ExpressionManager#createElResolver(VariableScope)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ELResolver ExpressionManager.createElResolver(VariableScope)"})
   public void testCreateElResolver_givenExpressionManager() {
     // Arrange
     ExpressionManager expressionManager = new ExpressionManager();
@@ -877,46 +902,18 @@ public class ExpressionManagerDiffblueTest {
   /**
    * Test {@link ExpressionManager#createElResolver(VariableScope)}.
    * <ul>
-   *   <li>Given {@link ExpressionManager#ExpressionManager()} Beans is
-   * {@link HashMap#HashMap()}.</li>
+   *   <li>Given {@link ExpressionManager#ExpressionManager()} Beans is {@link HashMap#HashMap()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ExpressionManager#createElResolver(VariableScope)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ELResolver ExpressionManager.createElResolver(VariableScope)"})
   public void testCreateElResolver_givenExpressionManagerBeansIsHashMap() {
     // Arrange
     ExpressionManager expressionManager = new ExpressionManager();
     expressionManager.setBeans(new HashMap<>());
-
-    // Act
-    ELResolver actualCreateElResolverResult = expressionManager
-        .createElResolver(NoExecutionVariableScope.getSharedInstance());
-
-    // Assert
-    assertTrue(actualCreateElResolverResult instanceof CompositeELResolver);
-    assertFalse(actualCreateElResolverResult.getFeatureDescriptors(null, null).hasNext());
-    Class<Object> expectedCommonPropertyType = Object.class;
-    assertEquals(expectedCommonPropertyType, actualCreateElResolverResult.getCommonPropertyType(null, null));
-  }
-
-  /**
-   * Test {@link ExpressionManager#createElResolver(VariableScope)}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@link JSONObject#NULL}
-   * and {@link BiFunction}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExpressionManager#createElResolver(VariableScope)}
-   */
-  @Test
-  public void testCreateElResolver_givenHashMapComputeIfPresentNullAndBiFunction() {
-    // Arrange
-    HashMap<Object, Object> beans = new HashMap<>();
-    beans.computeIfPresent(JSONObject.NULL, mock(BiFunction.class));
-
-    ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setBeans(beans);
 
     // Act
     ELResolver actualCreateElResolverResult = expressionManager
@@ -938,6 +935,8 @@ public class ExpressionManagerDiffblueTest {
    * Method under test: {@link ExpressionManager#createElResolver(VariableScope)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ELResolver ExpressionManager.createElResolver(VariableScope)"})
   public void testCreateElResolver_givenMockExpressionManager() {
     // Arrange and Act
     ELResolver actualCreateElResolverResult = ((ExpressionManager) new MockExpressionManager())
@@ -953,42 +952,14 @@ public class ExpressionManagerDiffblueTest {
   /**
    * Test {@link ExpressionManager#addBeansResolver(CompositeELResolver)}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@link JSONObject#NULL}
-   * and {@link BiFunction}.</li>
+   *   <li>Then {@link CompositeELResolver} (default constructor) CommonPropertyType {@code null} is {@code null} is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExpressionManager#addBeansResolver(CompositeELResolver)}
+   * Method under test: {@link ExpressionManager#addBeansResolver(CompositeELResolver)}
    */
   @Test
-  public void testAddBeansResolver_givenHashMapComputeIfPresentNullAndBiFunction() {
-    // Arrange
-    HashMap<Object, Object> beans = new HashMap<>();
-    beans.computeIfPresent(JSONObject.NULL, mock(BiFunction.class));
-
-    ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setBeans(beans);
-    CompositeELResolver elResolver = new CompositeELResolver();
-
-    // Act
-    expressionManager.addBeansResolver(elResolver);
-
-    // Assert
-    Class<Object> expectedCommonPropertyType = Object.class;
-    assertEquals(expectedCommonPropertyType, elResolver.getCommonPropertyType(null, null));
-  }
-
-  /**
-   * Test {@link ExpressionManager#addBeansResolver(CompositeELResolver)}.
-   * <ul>
-   *   <li>Then {@link CompositeELResolver} (default constructor) CommonPropertyType
-   * {@code null} is {@code null} is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ExpressionManager#addBeansResolver(CompositeELResolver)}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExpressionManager.addBeansResolver(CompositeELResolver)"})
   public void testAddBeansResolver_thenCompositeELResolverCommonPropertyTypeNullIsNullIsNull() {
     // Arrange
     ExpressionManager expressionManager = new ExpressionManager();
@@ -1004,14 +975,14 @@ public class ExpressionManagerDiffblueTest {
   /**
    * Test {@link ExpressionManager#addBeansResolver(CompositeELResolver)}.
    * <ul>
-   *   <li>Then {@link CompositeELResolver} (default constructor) CommonPropertyType
-   * {@code null} is {@code null} is {@link Object}.</li>
+   *   <li>Then {@link CompositeELResolver} (default constructor) CommonPropertyType {@code null} is {@code null} is {@link Object}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExpressionManager#addBeansResolver(CompositeELResolver)}
+   * Method under test: {@link ExpressionManager#addBeansResolver(CompositeELResolver)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExpressionManager.addBeansResolver(CompositeELResolver)"})
   public void testAddBeansResolver_thenCompositeELResolverCommonPropertyTypeNullIsNullIsObject() {
     // Arrange
     ExpressionManager expressionManager = new ExpressionManager();
@@ -1039,6 +1010,10 @@ public class ExpressionManagerDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map ExpressionManager.getBeans()", "List ExpressionManager.getCustomFunctionProviders()",
+      "void ExpressionManager.setBeans(Map)", "void ExpressionManager.setCustomFunctionProviders(List)",
+      "void ExpressionManager.setExpressionFactory(ExpressionFactory)"})
   public void testGettersAndSetters() {
     // Arrange
     ExpressionManager expressionManager = new ExpressionManager();
@@ -1052,7 +1027,7 @@ public class ExpressionManagerDiffblueTest {
     Map<Object, Object> actualBeans = expressionManager.getBeans();
     List<CustomFunctionProvider> actualCustomFunctionProviders = expressionManager.getCustomFunctionProviders();
 
-    // Assert that nothing has changed
+    // Assert
     assertTrue(actualCustomFunctionProviders.isEmpty());
     assertTrue(actualBeans.isEmpty());
     assertSame(customFunctionProviders, actualCustomFunctionProviders);

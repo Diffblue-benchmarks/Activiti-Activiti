@@ -18,24 +18,27 @@ package org.activiti.engine.impl.cfg.jta;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.transaction.TransactionManager;
 import org.activiti.engine.impl.cfg.TransactionContext;
 import org.activiti.engine.impl.interceptor.CommandContext;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class JtaTransactionContextFactoryDiffblueTest {
   /**
-   * Test
-   * {@link JtaTransactionContextFactory#openTransactionContext(CommandContext)}.
+   * Test {@link JtaTransactionContextFactory#openTransactionContext(CommandContext)}.
    * <ul>
    *   <li>When {@code null}.</li>
    *   <li>Then return {@link JtaTransactionContext}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JtaTransactionContextFactory#openTransactionContext(CommandContext)}
+   * Method under test: {@link JtaTransactionContextFactory#openTransactionContext(CommandContext)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TransactionContext JtaTransactionContextFactory.openTransactionContext(CommandContext)"})
   public void testOpenTransactionContext_whenNull_thenReturnJtaTransactionContext() {
     // Arrange and Act
     TransactionContext actualOpenTransactionContextResult = (new JtaTransactionContextFactory(

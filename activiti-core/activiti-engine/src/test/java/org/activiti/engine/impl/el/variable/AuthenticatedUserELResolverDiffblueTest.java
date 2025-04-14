@@ -18,20 +18,14 @@ package org.activiti.engine.impl.el.variable;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.VariableScope;
 import org.activiti.engine.impl.el.NoExecutionVariableScope;
-import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class AuthenticatedUserELResolverDiffblueTest {
-  @InjectMocks
-  private AuthenticatedUserELResolver authenticatedUserELResolver;
-
   /**
    * Test {@link AuthenticatedUserELResolver#canResolve(String, VariableScope)}.
    * <ul>
@@ -39,30 +33,18 @@ public class AuthenticatedUserELResolverDiffblueTest {
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AuthenticatedUserELResolver#canResolve(String, VariableScope)}
+   * Method under test: {@link AuthenticatedUserELResolver#canResolve(String, VariableScope)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean AuthenticatedUserELResolver.canResolve(String, VariableScope)"})
   public void testCanResolve_whenAuthenticatedUserId_thenReturnTrue() {
-    // Arrange, Act and Assert
+    // Arrange
+    AuthenticatedUserELResolver authenticatedUserELResolver = new AuthenticatedUserELResolver();
+
+    // Act and Assert
     assertTrue(
         authenticatedUserELResolver.canResolve("authenticatedUserId", NoExecutionVariableScope.getSharedInstance()));
-  }
-
-  /**
-   * Test {@link AuthenticatedUserELResolver#canResolve(String, VariableScope)}.
-   * <ul>
-   *   <li>When {@link ExecutionEntityImpl}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link AuthenticatedUserELResolver#canResolve(String, VariableScope)}
-   */
-  @Test
-  public void testCanResolve_whenExecutionEntityImpl_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(authenticatedUserELResolver.canResolve("Property", mock(ExecutionEntityImpl.class)));
   }
 
   /**
@@ -72,42 +54,32 @@ public class AuthenticatedUserELResolverDiffblueTest {
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AuthenticatedUserELResolver#canResolve(String, VariableScope)}
+   * Method under test: {@link AuthenticatedUserELResolver#canResolve(String, VariableScope)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean AuthenticatedUserELResolver.canResolve(String, VariableScope)"})
   public void testCanResolve_whenProperty_thenReturnFalse() {
-    // Arrange, Act and Assert
+    // Arrange
+    AuthenticatedUserELResolver authenticatedUserELResolver = new AuthenticatedUserELResolver();
+
+    // Act and Assert
     assertFalse(authenticatedUserELResolver.canResolve("Property", NoExecutionVariableScope.getSharedInstance()));
   }
 
   /**
    * Test {@link AuthenticatedUserELResolver#resolve(String, VariableScope)}.
-   * <ul>
-   *   <li>When SharedInstance.</li>
-   * </ul>
    * <p>
-   * Method under test:
-   * {@link AuthenticatedUserELResolver#resolve(String, VariableScope)}
+   * Method under test: {@link AuthenticatedUserELResolver#resolve(String, VariableScope)}
    */
   @Test
-  public void testResolve_whenSharedInstance() {
-    // Arrange, Act and Assert
-    assertNull(authenticatedUserELResolver.resolve("Property", NoExecutionVariableScope.getSharedInstance()));
-  }
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Object AuthenticatedUserELResolver.resolve(String, VariableScope)"})
+  public void testResolve() {
+    // Arrange
+    AuthenticatedUserELResolver authenticatedUserELResolver = new AuthenticatedUserELResolver();
 
-  /**
-   * Test {@link AuthenticatedUserELResolver#resolve(String, VariableScope)}.
-   * <ul>
-   *   <li>When {@link VariableScope}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link AuthenticatedUserELResolver#resolve(String, VariableScope)}
-   */
-  @Test
-  public void testResolve_whenVariableScope() {
-    // Arrange, Act and Assert
-    assertNull(authenticatedUserELResolver.resolve("Property", mock(VariableScope.class)));
+    // Act and Assert
+    assertNull(authenticatedUserELResolver.resolve("Property", NoExecutionVariableScope.getSharedInstance()));
   }
 }

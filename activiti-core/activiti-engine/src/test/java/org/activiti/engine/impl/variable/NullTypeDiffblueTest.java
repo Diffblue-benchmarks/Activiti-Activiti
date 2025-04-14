@@ -19,42 +19,28 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.persistence.entity.HistoricDetailVariableInstanceUpdateEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class NullTypeDiffblueTest {
   /**
    * Test {@link NullType#getValue(ValueFields)}.
-   * <ul>
-   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default
-   * constructor).</li>
-   * </ul>
    * <p>
    * Method under test: {@link NullType#getValue(ValueFields)}
    */
   @Test
-  public void testGetValue_whenHistoricDetailVariableInstanceUpdateEntityImpl() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object NullType.getValue(ValueFields)"})
+  public void testGetValue() {
     // Arrange
     NullType nullType = new NullType();
 
     // Act and Assert
     assertNull(nullType.getValue(new HistoricDetailVariableInstanceUpdateEntityImpl()));
-  }
-
-  /**
-   * Test {@link NullType#getValue(ValueFields)}.
-   * <ul>
-   *   <li>When {@link ValueFields}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link NullType#getValue(ValueFields)}
-   */
-  @Test
-  public void testGetValue_whenValueFields() {
-    // Arrange, Act and Assert
-    assertNull((new NullType()).getValue(mock(ValueFields.class)));
   }
 
   /**
@@ -67,6 +53,8 @@ public class NullTypeDiffblueTest {
    * Method under test: {@link NullType#isAbleToStore(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean NullType.isAbleToStore(Object)"})
   public void testIsAbleToStore_whenNull_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new NullType()).isAbleToStore(JSONObject.NULL));
@@ -82,6 +70,8 @@ public class NullTypeDiffblueTest {
    * Method under test: {@link NullType#isAbleToStore(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean NullType.isAbleToStore(Object)"})
   public void testIsAbleToStore_whenNull_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue((new NullType()).isAbleToStore(null));
@@ -99,13 +89,16 @@ public class NullTypeDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void NullType.<init>()", "String NullType.getTypeName()", "boolean NullType.isCachable()",
+      "void NullType.setValue(Object, ValueFields)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     NullType actualNullType = new NullType();
     actualNullType.setValue(JSONObject.NULL, new HistoricDetailVariableInstanceUpdateEntityImpl());
     String actualTypeName = actualNullType.getTypeName();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("null", actualTypeName);
     assertTrue(actualNullType.isCachable());
   }

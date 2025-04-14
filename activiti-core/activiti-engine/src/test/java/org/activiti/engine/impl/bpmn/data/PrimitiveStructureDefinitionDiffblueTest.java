@@ -19,7 +19,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class PrimitiveStructureDefinitionDiffblueTest {
   /**
@@ -27,13 +30,15 @@ public class PrimitiveStructureDefinitionDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link PrimitiveStructureDefinition#PrimitiveStructureDefinition(String, Class)}
+   *   <li>{@link PrimitiveStructureDefinition#PrimitiveStructureDefinition(String, Class)}
    *   <li>{@link PrimitiveStructureDefinition#getId()}
    *   <li>{@link PrimitiveStructureDefinition#getPrimitiveClass()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void PrimitiveStructureDefinition.<init>(String, Class)",
+      "String PrimitiveStructureDefinition.getId()", "Class PrimitiveStructureDefinition.getPrimitiveClass()"})
   public void testGettersAndSetters() {
     // Arrange
     Class<Object> primitiveClass = Object.class;
@@ -57,6 +62,8 @@ public class PrimitiveStructureDefinitionDiffblueTest {
    * Method under test: {@link PrimitiveStructureDefinition#createInstance()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"StructureInstance PrimitiveStructureDefinition.createInstance()"})
   public void testCreateInstance() {
     // Arrange
     Class<Object> primitiveClass = Object.class;

@@ -17,22 +17,25 @@ package org.activiti.engine.delegate.event.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ActivitiMembershipEventImplDiffblueTest {
   /**
-   * Test
-   * {@link ActivitiMembershipEventImpl#ActivitiMembershipEventImpl(ActivitiEventType)}.
+   * Test {@link ActivitiMembershipEventImpl#ActivitiMembershipEventImpl(ActivitiEventType)}.
    * <ul>
    *   <li>When {@code ENTITY_CREATED}.</li>
    *   <li>Then return ExecutionId is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiMembershipEventImpl#ActivitiMembershipEventImpl(ActivitiEventType)}
+   * Method under test: {@link ActivitiMembershipEventImpl#ActivitiMembershipEventImpl(ActivitiEventType)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiMembershipEventImpl.<init>(ActivitiEventType)"})
   public void testNewActivitiMembershipEventImpl_whenEntityCreated_thenReturnExecutionIdIsNull() {
     // Arrange and Act
     ActivitiMembershipEventImpl actualActivitiMembershipEventImpl = new ActivitiMembershipEventImpl(
@@ -60,6 +63,10 @@ public class ActivitiMembershipEventImplDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ActivitiMembershipEventImpl.getGroupId()",
+      "String ActivitiMembershipEventImpl.getUserId()", "void ActivitiMembershipEventImpl.setGroupId(String)",
+      "void ActivitiMembershipEventImpl.setUserId(String)"})
   public void testGettersAndSetters() {
     // Arrange
     ActivitiMembershipEventImpl activitiMembershipEventImpl = new ActivitiMembershipEventImpl(
@@ -70,7 +77,7 @@ public class ActivitiMembershipEventImplDiffblueTest {
     activitiMembershipEventImpl.setUserId("42");
     String actualGroupId = activitiMembershipEventImpl.getGroupId();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualGroupId);
     assertEquals("42", activitiMembershipEventImpl.getUserId());
   }

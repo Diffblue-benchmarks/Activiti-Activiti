@@ -20,14 +20,16 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class CallActivityDiffblueTest {
   /**
@@ -40,6 +42,8 @@ public class CallActivityDiffblueTest {
    * Method under test: {@link CallActivity#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CallActivity CallActivity.clone()"})
   public void testClone_givenCallActivity_thenReturnIoSpecificationIsNull() {
     // Arrange and Act
     CallActivity actualCloneResult = (new CallActivity()).clone();
@@ -57,13 +61,14 @@ public class CallActivityDiffblueTest {
   /**
    * Test {@link CallActivity#clone()}.
    * <ul>
-   *   <li>Given {@link IOSpecification} (default constructor) DataOutputs is
-   * {@code null}.</li>
+   *   <li>Given {@link IOSpecification} (default constructor) DataOutputs is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link CallActivity#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CallActivity CallActivity.clone()"})
   public void testClone_givenIOSpecificationDataOutputsIsNull() {
     // Arrange
     IOSpecification ioSpecification = new IOSpecification();
@@ -102,6 +107,8 @@ public class CallActivityDiffblueTest {
    * Method under test: {@link CallActivity#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CallActivity CallActivity.clone()"})
   public void testClone_thenReturnAttributesSizeIsOne() {
     // Arrange
     CallActivity callActivity = new CallActivity();
@@ -125,6 +132,8 @@ public class CallActivityDiffblueTest {
    * Method under test: {@link CallActivity#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CallActivity CallActivity.clone()"})
   public void testClone_thenReturnAttributesSizeIsTwo() {
     // Arrange
     CallActivity callActivity = new CallActivity();
@@ -144,16 +153,19 @@ public class CallActivityDiffblueTest {
   /**
    * Test {@link CallActivity#clone()}.
    * <ul>
-   *   <li>Then return BoundaryEvents is {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return BoundaryEvents size is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link CallActivity#clone()}
    */
   @Test
-  public void testClone_thenReturnBoundaryEventsIsArrayList() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CallActivity CallActivity.clone()"})
+  public void testClone_thenReturnBoundaryEventsSizeIsOne() {
     // Arrange
     ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
-    boundaryEvents.add(new BoundaryEvent());
+    BoundaryEvent boundaryEvent = new BoundaryEvent();
+    boundaryEvents.add(boundaryEvent);
 
     CallActivity callActivity = new CallActivity();
     callActivity.setLoopCharacteristics(null);
@@ -163,7 +175,9 @@ public class CallActivityDiffblueTest {
     callActivity.setBoundaryEvents(boundaryEvents);
 
     // Act and Assert
-    assertEquals(boundaryEvents, callActivity.clone().getBoundaryEvents());
+    List<BoundaryEvent> boundaryEvents2 = callActivity.clone().getBoundaryEvents();
+    assertEquals(1, boundaryEvents2.size());
+    assertSame(boundaryEvent, boundaryEvents2.get(0));
   }
 
   /**
@@ -175,6 +189,8 @@ public class CallActivityDiffblueTest {
    * Method under test: {@link CallActivity#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CallActivity CallActivity.clone()"})
   public void testClone_thenReturnDataInputAssociationsSizeIsOne() {
     // Arrange
     ArrayList<DataAssociation> dataInputAssociations = new ArrayList<>();
@@ -214,6 +230,8 @@ public class CallActivityDiffblueTest {
    * Method under test: {@link CallActivity#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CallActivity CallActivity.clone()"})
   public void testClone_thenReturnDataOutputAssociationsSizeIsOne() {
     // Arrange
     ArrayList<DataAssociation> dataOutputAssociations = new ArrayList<>();
@@ -253,6 +271,8 @@ public class CallActivityDiffblueTest {
    * Method under test: {@link CallActivity#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CallActivity CallActivity.clone()"})
   public void testClone_thenReturnIoSpecificationDataOutputsSizeIsOne() {
     // Arrange
     ArrayList<DataSpec> dataOutputs = new ArrayList<>();
@@ -295,6 +315,8 @@ public class CallActivityDiffblueTest {
    * Method under test: {@link CallActivity#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CallActivity CallActivity.clone()"})
   public void testClone_thenReturnIoSpecificationIdIsNull() {
     // Arrange
     ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
@@ -329,6 +351,8 @@ public class CallActivityDiffblueTest {
    * Method under test: {@link CallActivity#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CallActivity CallActivity.clone()"})
   public void testClone_thenReturnLoopCharacteristicsIdIsNull() {
     // Arrange
     CallActivity callActivity = new CallActivity();
@@ -365,21 +389,17 @@ public class CallActivityDiffblueTest {
    * Method under test: {@link CallActivity#setValues(CallActivity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CallActivity.setValues(CallActivity)"})
   public void testSetValuesWithCallActivity_thenCallsClone() {
     // Arrange
     CallActivity callActivity = new CallActivity();
     MultiInstanceLoopCharacteristics loopCharacteristics = mock(MultiInstanceLoopCharacteristics.class);
     when(loopCharacteristics.clone()).thenReturn(new MultiInstanceLoopCharacteristics());
 
-    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
-    boundaryEvents.add(new BoundaryEvent());
-
     CallActivity otherElement = new CallActivity();
     otherElement.setLoopCharacteristics(loopCharacteristics);
-    otherElement.setIoSpecification(null);
-    otherElement.setDataInputAssociations(null);
-    otherElement.setDataOutputAssociations(null);
-    otherElement.setBoundaryEvents(boundaryEvents);
+    otherElement.addAttribute(new ExtensionAttribute("Name"));
 
     // Act
     callActivity.setValues(otherElement);
@@ -397,11 +417,11 @@ public class CallActivityDiffblueTest {
    * Method under test: {@link CallActivity#setValues(CallActivity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CallActivity.setValues(CallActivity)"})
   public void testSetValuesWithCallActivity_thenCallsClone2() {
     // Arrange
     CallActivity callActivity = new CallActivity();
-    MultiInstanceLoopCharacteristics loopCharacteristics = mock(MultiInstanceLoopCharacteristics.class);
-    when(loopCharacteristics.clone()).thenReturn(new MultiInstanceLoopCharacteristics());
     IOSpecification ioSpecification = mock(IOSpecification.class);
     when(ioSpecification.clone()).thenReturn(new IOSpecification());
 
@@ -409,7 +429,7 @@ public class CallActivityDiffblueTest {
     boundaryEvents.add(new BoundaryEvent());
 
     CallActivity otherElement = new CallActivity();
-    otherElement.setLoopCharacteristics(loopCharacteristics);
+    otherElement.setLoopCharacteristics(null);
     otherElement.setIoSpecification(ioSpecification);
     otherElement.setDataInputAssociations(null);
     otherElement.setDataOutputAssociations(null);
@@ -420,7 +440,6 @@ public class CallActivityDiffblueTest {
 
     // Assert
     verify(ioSpecification).clone();
-    verify(loopCharacteristics).clone();
   }
 
   /**
@@ -432,6 +451,8 @@ public class CallActivityDiffblueTest {
    * Method under test: {@link CallActivity#setValues(CallActivity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CallActivity.setValues(CallActivity)"})
   public void testSetValuesWithCallActivity_thenCallsClone3() {
     // Arrange
     CallActivity callActivity = new CallActivity();
@@ -467,6 +488,8 @@ public class CallActivityDiffblueTest {
    * Method under test: {@link CallActivity#setValues(CallActivity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CallActivity.setValues(CallActivity)"})
   public void testSetValuesWithCallActivity_thenCallsClone4() {
     // Arrange
     CallActivity callActivity = new CallActivity();
@@ -494,31 +517,6 @@ public class CallActivityDiffblueTest {
   }
 
   /**
-   * Test {@link CallActivity#setValues(CallActivity)} with {@code CallActivity}.
-   * <ul>
-   *   <li>Then calls {@link ExtensionAttribute#getName()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CallActivity#setValues(CallActivity)}
-   */
-  @Test
-  public void testSetValuesWithCallActivity_thenCallsGetName() {
-    // Arrange
-    CallActivity callActivity = new CallActivity();
-    ExtensionAttribute attribute = mock(ExtensionAttribute.class);
-    when(attribute.getName()).thenReturn("Name");
-
-    CallActivity otherElement = new CallActivity();
-    otherElement.addAttribute(attribute);
-
-    // Act
-    callActivity.setValues(otherElement);
-
-    // Assert
-    verify(attribute, atLeast(1)).getName();
-  }
-
-  /**
    * Test getters and setters.
    * <p>
    * Methods under test:
@@ -539,6 +537,14 @@ public class CallActivityDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CallActivity.<init>()", "String CallActivity.getBusinessKey()",
+      "String CallActivity.getCalledElement()", "List CallActivity.getInParameters()",
+      "List CallActivity.getOutParameters()", "boolean CallActivity.isInheritBusinessKey()",
+      "boolean CallActivity.isInheritVariables()", "void CallActivity.setBusinessKey(String)",
+      "void CallActivity.setCalledElement(String)", "void CallActivity.setInParameters(List)",
+      "void CallActivity.setInheritBusinessKey(boolean)", "void CallActivity.setInheritVariables(boolean)",
+      "void CallActivity.setOutParameters(List)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     CallActivity actualCallActivity = new CallActivity();
@@ -557,9 +563,18 @@ public class CallActivityDiffblueTest {
     boolean actualIsInheritBusinessKeyResult = actualCallActivity.isInheritBusinessKey();
     boolean actualIsInheritVariablesResult = actualCallActivity.isInheritVariables();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Business Key", actualBusinessKey);
     assertEquals("Called Element", actualCalledElement);
+    assertNull(actualCallActivity.getBehavior());
+    assertNull(actualCallActivity.getDefaultFlow());
+    assertNull(actualCallActivity.getFailedJobRetryTimeCycleValue());
+    assertNull(actualCallActivity.getId());
+    assertNull(actualCallActivity.getDocumentation());
+    assertNull(actualCallActivity.getName());
+    assertNull(actualCallActivity.getParentContainer());
+    assertNull(actualCallActivity.getIoSpecification());
+    assertNull(actualCallActivity.getLoopCharacteristics());
     assertEquals(0, actualCallActivity.getXmlColumnNumber());
     assertEquals(0, actualCallActivity.getXmlRowNumber());
     assertFalse(actualCallActivity.isForCompensation());

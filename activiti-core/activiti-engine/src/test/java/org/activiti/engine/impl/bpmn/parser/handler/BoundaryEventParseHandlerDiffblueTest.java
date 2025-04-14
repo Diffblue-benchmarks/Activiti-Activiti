@@ -22,6 +22,8 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.BaseElement;
@@ -39,17 +41,18 @@ import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultListenerFactory;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class BoundaryEventParseHandlerDiffblueTest {
   /**
-   * Test {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)}
-   * with {@code BpmnParse}, {@code BoundaryEvent}.
+   * Test {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)} with {@code BpmnParse}, {@code BoundaryEvent}.
    * <p>
-   * Method under test:
-   * {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)}
+   * Method under test: {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BoundaryEventParseHandler.executeParse(BpmnParse, BoundaryEvent)"})
   public void testExecuteParseWithBpmnParseBoundaryEvent() {
     // Arrange
     BoundaryEventParseHandler boundaryEventParseHandler = new BoundaryEventParseHandler();
@@ -70,7 +73,7 @@ public class BoundaryEventParseHandlerDiffblueTest {
     // Act
     boundaryEventParseHandler.executeParse(bpmnParse, boundaryEvent);
 
-    // Assert that nothing has changed
+    // Assert
     verify(boundaryEvent).getAttachedToRef();
     verify(boundaryEvent, atLeast(1)).getEventDefinitions();
     verify(bpmnParseHandlers).parseElement(isA(BpmnParse.class), isA(BaseElement.class));
@@ -80,13 +83,13 @@ public class BoundaryEventParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)}
-   * with {@code BpmnParse}, {@code BoundaryEvent}.
+   * Test {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)} with {@code BpmnParse}, {@code BoundaryEvent}.
    * <p>
-   * Method under test:
-   * {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)}
+   * Method under test: {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BoundaryEventParseHandler.executeParse(BpmnParse, BoundaryEvent)"})
   public void testExecuteParseWithBpmnParseBoundaryEvent2() {
     // Arrange
     BoundaryEventParseHandler boundaryEventParseHandler = new BoundaryEventParseHandler();
@@ -107,7 +110,7 @@ public class BoundaryEventParseHandlerDiffblueTest {
     // Act
     boundaryEventParseHandler.executeParse(bpmnParse, boundaryEvent);
 
-    // Assert that nothing has changed
+    // Assert
     verify(boundaryEvent).getAttachedToRef();
     verify(boundaryEvent, atLeast(1)).getEventDefinitions();
     verify(bpmnParseHandlers).parseElement(isA(BpmnParse.class), isA(BaseElement.class));
@@ -117,13 +120,13 @@ public class BoundaryEventParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)}
-   * with {@code BpmnParse}, {@code BoundaryEvent}.
+   * Test {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)} with {@code BpmnParse}, {@code BoundaryEvent}.
    * <p>
-   * Method under test:
-   * {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)}
+   * Method under test: {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BoundaryEventParseHandler.executeParse(BpmnParse, BoundaryEvent)"})
   public void testExecuteParseWithBpmnParseBoundaryEvent3() {
     // Arrange
     BoundaryEventParseHandler boundaryEventParseHandler = new BoundaryEventParseHandler();
@@ -144,7 +147,7 @@ public class BoundaryEventParseHandlerDiffblueTest {
     // Act
     boundaryEventParseHandler.executeParse(bpmnParse, boundaryEvent);
 
-    // Assert that nothing has changed
+    // Assert
     verify(boundaryEvent).getAttachedToRef();
     verify(boundaryEvent, atLeast(1)).getEventDefinitions();
     verify(bpmnParseHandlers).parseElement(isA(BpmnParse.class), isA(BaseElement.class));
@@ -154,13 +157,13 @@ public class BoundaryEventParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)}
-   * with {@code BpmnParse}, {@code BoundaryEvent}.
+   * Test {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)} with {@code BpmnParse}, {@code BoundaryEvent}.
    * <p>
-   * Method under test:
-   * {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)}
+   * Method under test: {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BoundaryEventParseHandler.executeParse(BpmnParse, BoundaryEvent)"})
   public void testExecuteParseWithBpmnParseBoundaryEvent4() {
     // Arrange
     BoundaryEventParseHandler boundaryEventParseHandler = new BoundaryEventParseHandler();
@@ -181,7 +184,7 @@ public class BoundaryEventParseHandlerDiffblueTest {
     // Act
     boundaryEventParseHandler.executeParse(bpmnParse, boundaryEvent);
 
-    // Assert that nothing has changed
+    // Assert
     verify(boundaryEvent).getAttachedToRef();
     verify(boundaryEvent, atLeast(1)).getEventDefinitions();
     verify(bpmnParseHandlers).parseElement(isA(BpmnParse.class), isA(BaseElement.class));
@@ -191,17 +194,16 @@ public class BoundaryEventParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)}
-   * with {@code BpmnParse}, {@code BoundaryEvent}.
+   * Test {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)} with {@code BpmnParse}, {@code BoundaryEvent}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link ErrorEventDefinition}
-   * (default constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link ErrorEventDefinition} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)}
+   * Method under test: {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BoundaryEventParseHandler.executeParse(BpmnParse, BoundaryEvent)"})
   public void testExecuteParseWithBpmnParseBoundaryEvent_givenArrayListAddErrorEventDefinition() {
     // Arrange
     BoundaryEventParseHandler boundaryEventParseHandler = new BoundaryEventParseHandler();
@@ -222,7 +224,7 @@ public class BoundaryEventParseHandlerDiffblueTest {
     // Act
     boundaryEventParseHandler.executeParse(bpmnParse, boundaryEvent);
 
-    // Assert that nothing has changed
+    // Assert
     verify(boundaryEvent).getAttachedToRef();
     verify(boundaryEvent, atLeast(1)).getEventDefinitions();
     verify(bpmnParseHandlers).parseElement(isA(BpmnParse.class), isA(BaseElement.class));
@@ -232,17 +234,16 @@ public class BoundaryEventParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)}
-   * with {@code BpmnParse}, {@code BoundaryEvent}.
+   * Test {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)} with {@code BpmnParse}, {@code BoundaryEvent}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link TimerEventDefinition}
-   * (default constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link TimerEventDefinition} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)}
+   * Method under test: {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BoundaryEventParseHandler.executeParse(BpmnParse, BoundaryEvent)"})
   public void testExecuteParseWithBpmnParseBoundaryEvent_givenArrayListAddTimerEventDefinition() {
     // Arrange
     BoundaryEventParseHandler boundaryEventParseHandler = new BoundaryEventParseHandler();
@@ -263,7 +264,7 @@ public class BoundaryEventParseHandlerDiffblueTest {
     // Act
     boundaryEventParseHandler.executeParse(bpmnParse, boundaryEvent);
 
-    // Assert that nothing has changed
+    // Assert
     verify(boundaryEvent).getAttachedToRef();
     verify(boundaryEvent, atLeast(1)).getEventDefinitions();
     verify(bpmnParseHandlers).parseElement(isA(BpmnParse.class), isA(BaseElement.class));
@@ -273,25 +274,21 @@ public class BoundaryEventParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)}
-   * with {@code BpmnParse}, {@code BoundaryEvent}.
+   * Test {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)} with {@code BpmnParse}, {@code BoundaryEvent}.
    * <ul>
    *   <li>Given {@link ArrayList#ArrayList()}.</li>
    *   <li>Then calls {@link BaseElement#getId()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)}
+   * Method under test: {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BoundaryEventParseHandler.executeParse(BpmnParse, BoundaryEvent)"})
   public void testExecuteParseWithBpmnParseBoundaryEvent_givenArrayList_thenCallsGetId() {
     // Arrange
     BoundaryEventParseHandler boundaryEventParseHandler = new BoundaryEventParseHandler();
-    BpmnParser parser = mock(BpmnParser.class);
-    when(parser.getBpmnParserHandlers()).thenReturn(new BpmnParseHandlers());
-    when(parser.getActivityBehaviorFactory()).thenReturn(new DefaultActivityBehaviorFactory());
-    when(parser.getListenerFactory()).thenReturn(new DefaultListenerFactory());
-    BpmnParse bpmnParse = new BpmnParse(parser);
+    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
     BoundaryEvent boundaryEvent = mock(BoundaryEvent.class);
     when(boundaryEvent.getEventDefinitions()).thenReturn(new ArrayList<>());
     when(boundaryEvent.getId()).thenReturn("42");
@@ -300,26 +297,23 @@ public class BoundaryEventParseHandlerDiffblueTest {
     // Act
     boundaryEventParseHandler.executeParse(bpmnParse, boundaryEvent);
 
-    // Assert that nothing has changed
+    // Assert
     verify(boundaryEvent).getId();
     verify(boundaryEvent).getAttachedToRef();
     verify(boundaryEvent).getEventDefinitions();
-    verify(parser).getActivityBehaviorFactory();
-    verify(parser).getBpmnParserHandlers();
-    verify(parser).getListenerFactory();
   }
 
   /**
-   * Test {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)}
-   * with {@code BpmnParse}, {@code BoundaryEvent}.
+   * Test {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)} with {@code BpmnParse}, {@code BoundaryEvent}.
    * <ul>
    *   <li>Given {@link BpmnParseHandlers} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)}
+   * Method under test: {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BoundaryEventParseHandler.executeParse(BpmnParse, BoundaryEvent)"})
   public void testExecuteParseWithBpmnParseBoundaryEvent_givenBpmnParseHandlers() {
     // Arrange
     BoundaryEventParseHandler boundaryEventParseHandler = new BoundaryEventParseHandler();
@@ -338,38 +332,9 @@ public class BoundaryEventParseHandlerDiffblueTest {
     // Act
     boundaryEventParseHandler.executeParse(bpmnParse, boundaryEvent);
 
-    // Assert that nothing has changed
+    // Assert
     verify(boundaryEvent).getAttachedToRef();
     verify(boundaryEvent, atLeast(1)).getEventDefinitions();
-    verify(parser).getActivityBehaviorFactory();
-    verify(parser).getBpmnParserHandlers();
-    verify(parser).getListenerFactory();
-  }
-
-  /**
-   * Test {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)}
-   * with {@code BpmnParse}, {@code BoundaryEvent}.
-   * <ul>
-   *   <li>When {@link BoundaryEvent} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link BoundaryEventParseHandler#executeParse(BpmnParse, BoundaryEvent)}
-   */
-  @Test
-  public void testExecuteParseWithBpmnParseBoundaryEvent_whenBoundaryEvent() {
-    // Arrange
-    BoundaryEventParseHandler boundaryEventParseHandler = new BoundaryEventParseHandler();
-    BpmnParser parser = mock(BpmnParser.class);
-    when(parser.getBpmnParserHandlers()).thenReturn(new BpmnParseHandlers());
-    when(parser.getActivityBehaviorFactory()).thenReturn(new DefaultActivityBehaviorFactory());
-    when(parser.getListenerFactory()).thenReturn(new DefaultListenerFactory());
-    BpmnParse bpmnParse = new BpmnParse(parser);
-
-    // Act
-    boundaryEventParseHandler.executeParse(bpmnParse, new BoundaryEvent());
-
-    // Assert that nothing has changed
     verify(parser).getActivityBehaviorFactory();
     verify(parser).getBpmnParserHandlers();
     verify(parser).getListenerFactory();
@@ -385,6 +350,8 @@ public class BoundaryEventParseHandlerDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BoundaryEventParseHandler.<init>()", "Class BoundaryEventParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends BaseElement> actualHandledType = (new BoundaryEventParseHandler()).getHandledType();

@@ -17,21 +17,23 @@ package org.activiti.engine.impl.persistence.entity.data.impl.cachematcher;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ProcessInstancesByProcessDefinitionMatcherDiffblueTest {
   /**
-   * Test
-   * {@link ProcessInstancesByProcessDefinitionMatcher#isRetained(ExecutionEntity, Object)}
-   * with {@code ExecutionEntity}, {@code Object}.
+   * Test {@link ProcessInstancesByProcessDefinitionMatcher#isRetained(ExecutionEntity, Object)} with {@code ExecutionEntity}, {@code Object}.
    * <p>
-   * Method under test:
-   * {@link ProcessInstancesByProcessDefinitionMatcher#isRetained(ExecutionEntity, Object)}
+   * Method under test: {@link ProcessInstancesByProcessDefinitionMatcher#isRetained(ExecutionEntity, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ProcessInstancesByProcessDefinitionMatcher.isRetained(ExecutionEntity, Object)"})
   public void testIsRetainedWithExecutionEntityObject() {
     // Arrange
     ProcessInstancesByProcessDefinitionMatcher processInstancesByProcessDefinitionMatcher = new ProcessInstancesByProcessDefinitionMatcher();
@@ -42,14 +44,13 @@ public class ProcessInstancesByProcessDefinitionMatcherDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessInstancesByProcessDefinitionMatcher#isRetained(ExecutionEntity, Object)}
-   * with {@code ExecutionEntity}, {@code Object}.
+   * Test {@link ProcessInstancesByProcessDefinitionMatcher#isRetained(ExecutionEntity, Object)} with {@code ExecutionEntity}, {@code Object}.
    * <p>
-   * Method under test:
-   * {@link ProcessInstancesByProcessDefinitionMatcher#isRetained(ExecutionEntity, Object)}
+   * Method under test: {@link ProcessInstancesByProcessDefinitionMatcher#isRetained(ExecutionEntity, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ProcessInstancesByProcessDefinitionMatcher.isRetained(ExecutionEntity, Object)"})
   public void testIsRetainedWithExecutionEntityObject2() {
     // Arrange
     ProcessInstancesByProcessDefinitionMatcher processInstancesByProcessDefinitionMatcher = new ProcessInstancesByProcessDefinitionMatcher();
@@ -61,14 +62,13 @@ public class ProcessInstancesByProcessDefinitionMatcherDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessInstancesByProcessDefinitionMatcher#isRetained(ExecutionEntity, Object)}
-   * with {@code ExecutionEntity}, {@code Object}.
+   * Test {@link ProcessInstancesByProcessDefinitionMatcher#isRetained(ExecutionEntity, Object)} with {@code ExecutionEntity}, {@code Object}.
    * <p>
-   * Method under test:
-   * {@link ProcessInstancesByProcessDefinitionMatcher#isRetained(ExecutionEntity, Object)}
+   * Method under test: {@link ProcessInstancesByProcessDefinitionMatcher#isRetained(ExecutionEntity, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ProcessInstancesByProcessDefinitionMatcher.isRetained(ExecutionEntity, Object)"})
   public void testIsRetainedWithExecutionEntityObject3() {
     // Arrange
     ProcessInstancesByProcessDefinitionMatcher processInstancesByProcessDefinitionMatcher = new ProcessInstancesByProcessDefinitionMatcher();
@@ -80,19 +80,18 @@ public class ProcessInstancesByProcessDefinitionMatcherDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessInstancesByProcessDefinitionMatcher#isRetained(ExecutionEntity, Object)}
-   * with {@code ExecutionEntity}, {@code Object}.
+   * Test {@link ProcessInstancesByProcessDefinitionMatcher#isRetained(ExecutionEntity, Object)} with {@code ExecutionEntity}, {@code Object}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    *   <li>When {@code 42}.</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessInstancesByProcessDefinitionMatcher#isRetained(ExecutionEntity, Object)}
+   * Method under test: {@link ProcessInstancesByProcessDefinitionMatcher#isRetained(ExecutionEntity, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ProcessInstancesByProcessDefinitionMatcher.isRetained(ExecutionEntity, Object)"})
   public void testIsRetainedWithExecutionEntityObject_given42_when42_thenReturnTrue() {
     // Arrange
     ProcessInstancesByProcessDefinitionMatcher processInstancesByProcessDefinitionMatcher = new ProcessInstancesByProcessDefinitionMatcher();

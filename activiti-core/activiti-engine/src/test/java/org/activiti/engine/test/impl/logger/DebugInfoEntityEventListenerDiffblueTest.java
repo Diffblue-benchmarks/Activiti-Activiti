@@ -16,7 +16,6 @@
 package org.activiti.engine.test.impl.logger;
 
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.atLeast;
@@ -24,7 +23,10 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.AdhocSubProcess;
+import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventType;
@@ -34,17 +36,18 @@ import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class DebugInfoEntityEventListenerDiffblueTest {
   /**
-   * Test
-   * {@link DebugInfoEntityEventListener#DebugInfoEntityEventListener(ProcessExecutionLogger)}.
+   * Test {@link DebugInfoEntityEventListener#DebugInfoEntityEventListener(ProcessExecutionLogger)}.
    * <p>
-   * Method under test:
-   * {@link DebugInfoEntityEventListener#DebugInfoEntityEventListener(ProcessExecutionLogger)}
+   * Method under test: {@link DebugInfoEntityEventListener#DebugInfoEntityEventListener(ProcessExecutionLogger)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DebugInfoEntityEventListener.<init>(ProcessExecutionLogger)"})
   public void testNewDebugInfoEntityEventListener() {
     // Arrange and Act
     DebugInfoEntityEventListener actualDebugInfoEntityEventListener = new DebugInfoEntityEventListener(
@@ -61,10 +64,11 @@ public class DebugInfoEntityEventListenerDiffblueTest {
   /**
    * Test {@link DebugInfoEntityEventListener#onCreate(ActivitiEvent)}.
    * <p>
-   * Method under test:
-   * {@link DebugInfoEntityEventListener#onCreate(ActivitiEvent)}
+   * Method under test: {@link DebugInfoEntityEventListener#onCreate(ActivitiEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DebugInfoEntityEventListener.onCreate(ActivitiEvent)"})
   public void testOnCreate() {
     // Arrange
     FlowElement flowElement = mock(FlowElement.class);
@@ -97,10 +101,11 @@ public class DebugInfoEntityEventListenerDiffblueTest {
    *   <li>Then calls {@link ExecutionEntityImpl#getCurrentFlowElement()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DebugInfoEntityEventListener#onCreate(ActivitiEvent)}
+   * Method under test: {@link DebugInfoEntityEventListener#onCreate(ActivitiEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DebugInfoEntityEventListener.onCreate(ActivitiEvent)"})
   public void testOnCreate_givenAdhocSubProcess_thenCallsGetCurrentFlowElement() {
     // Arrange
     FlowElement flowElement = mock(FlowElement.class);
@@ -129,53 +134,17 @@ public class DebugInfoEntityEventListenerDiffblueTest {
   }
 
   /**
-   * Test {@link DebugInfoEntityEventListener#onCreate(ActivitiEvent)}.
-   * <ul>
-   *   <li>When
-   * {@link ActivitiEntityEventImpl#ActivitiEntityEventImpl(Object, ActivitiEventType)}
-   * with entity is {@link JSONObject#NULL} and type is
-   * {@code ENTITY_CREATED}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link DebugInfoEntityEventListener#onCreate(ActivitiEvent)}
-   */
-  @Test
-  public void testOnCreate_whenActivitiEntityEventImplWithEntityIsNullAndTypeIsEntityCreated() {
-    // Arrange
-    FlowElement flowElement = mock(FlowElement.class);
-    when(flowElement.getId()).thenReturn("42");
-    ExecutionEntity executionEntity = mock(ExecutionEntity.class);
-    when(executionEntity.getCurrentFlowElement()).thenReturn(flowElement);
-    DebugInfoExecutionCreated debugInfo = new DebugInfoExecutionCreated(executionEntity);
-    ProcessExecutionLogger processExecutionLogger = mock(ProcessExecutionLogger.class);
-    doNothing().when(processExecutionLogger).addDebugInfo(Mockito.<AbstractDebugInfo>any());
-    processExecutionLogger.addDebugInfo(debugInfo);
-    DebugInfoEntityEventListener debugInfoEntityEventListener = new DebugInfoEntityEventListener(
-        processExecutionLogger);
-
-    // Act
-    debugInfoEntityEventListener
-        .onCreate(new ActivitiEntityEventImpl(JSONObject.NULL, ActivitiEventType.ENTITY_CREATED));
-
-    // Assert that nothing has changed
-    verify(flowElement).getId();
-    verify(executionEntity, atLeast(1)).getCurrentFlowElement();
-    verify(processExecutionLogger).addDebugInfo(isA(AbstractDebugInfo.class));
-  }
-
-  /**
    * Test {@link DebugInfoEntityEventListener#onDelete(ActivitiEvent)}.
    * <ul>
-   *   <li>Then calls
-   * {@link ProcessExecutionLogger#executionDeleted(ExecutionEntity)}.</li>
+   *   <li>Then calls {@link BaseElement#getId()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DebugInfoEntityEventListener#onDelete(ActivitiEvent)}
+   * Method under test: {@link DebugInfoEntityEventListener#onDelete(ActivitiEvent)}
    */
   @Test
-  public void testOnDelete_thenCallsExecutionDeleted() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DebugInfoEntityEventListener.onDelete(ActivitiEvent)"})
+  public void testOnDelete_thenCallsGetId() {
     // Arrange
     FlowElement flowElement = mock(FlowElement.class);
     when(flowElement.getId()).thenReturn("42");
@@ -201,107 +170,20 @@ public class DebugInfoEntityEventListenerDiffblueTest {
   }
 
   /**
-   * Test {@link DebugInfoEntityEventListener#onDelete(ActivitiEvent)}.
-   * <ul>
-   *   <li>When
-   * {@link ActivitiEntityEventImpl#ActivitiEntityEventImpl(Object, ActivitiEventType)}
-   * with entity is {@link JSONObject#NULL} and type is
-   * {@code ENTITY_CREATED}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link DebugInfoEntityEventListener#onDelete(ActivitiEvent)}
-   */
-  @Test
-  public void testOnDelete_whenActivitiEntityEventImplWithEntityIsNullAndTypeIsEntityCreated() {
-    // Arrange
-    FlowElement flowElement = mock(FlowElement.class);
-    when(flowElement.getId()).thenReturn("42");
-    ExecutionEntity executionEntity = mock(ExecutionEntity.class);
-    when(executionEntity.getCurrentFlowElement()).thenReturn(flowElement);
-    DebugInfoExecutionCreated debugInfo = new DebugInfoExecutionCreated(executionEntity);
-    ProcessExecutionLogger processExecutionLogger = mock(ProcessExecutionLogger.class);
-    doNothing().when(processExecutionLogger).addDebugInfo(Mockito.<AbstractDebugInfo>any());
-    processExecutionLogger.addDebugInfo(debugInfo);
-    DebugInfoEntityEventListener debugInfoEntityEventListener = new DebugInfoEntityEventListener(
-        processExecutionLogger);
-
-    // Act
-    debugInfoEntityEventListener
-        .onDelete(new ActivitiEntityEventImpl(JSONObject.NULL, ActivitiEventType.ENTITY_CREATED));
-
-    // Assert that nothing has changed
-    verify(flowElement).getId();
-    verify(executionEntity, atLeast(1)).getCurrentFlowElement();
-    verify(processExecutionLogger).addDebugInfo(isA(AbstractDebugInfo.class));
-  }
-
-  /**
    * Test {@link DebugInfoEntityEventListener#getExecutionEntity(ActivitiEvent)}.
-   * <ul>
-   *   <li>Then return createWithEmptyRelationshipCollections.</li>
-   * </ul>
    * <p>
-   * Method under test:
-   * {@link DebugInfoEntityEventListener#getExecutionEntity(ActivitiEvent)}
+   * Method under test: {@link DebugInfoEntityEventListener#getExecutionEntity(ActivitiEvent)}
    */
   @Test
-  public void testGetExecutionEntity_thenReturnCreateWithEmptyRelationshipCollections() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ExecutionEntity DebugInfoEntityEventListener.getExecutionEntity(ActivitiEvent)"})
+  public void testGetExecutionEntity() {
     // Arrange
-    FlowElement flowElement = mock(FlowElement.class);
-    when(flowElement.getId()).thenReturn("42");
-    ExecutionEntity executionEntity = mock(ExecutionEntity.class);
-    when(executionEntity.getCurrentFlowElement()).thenReturn(flowElement);
-    DebugInfoExecutionCreated debugInfo = new DebugInfoExecutionCreated(executionEntity);
-    ProcessExecutionLogger processExecutionLogger = mock(ProcessExecutionLogger.class);
-    doNothing().when(processExecutionLogger).addDebugInfo(Mockito.<AbstractDebugInfo>any());
-    processExecutionLogger.addDebugInfo(debugInfo);
     DebugInfoEntityEventListener debugInfoEntityEventListener = new DebugInfoEntityEventListener(
-        processExecutionLogger);
-    ExecutionEntityImpl processInstance = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+        new ProcessExecutionLogger());
 
-    // Act
-    ExecutionEntity actualExecutionEntity = debugInfoEntityEventListener
-        .getExecutionEntity(new ActivitiProcessCancelledEventImpl(processInstance));
-
-    // Assert
-    verify(flowElement).getId();
-    verify(executionEntity, atLeast(1)).getCurrentFlowElement();
-    verify(processExecutionLogger).addDebugInfo(isA(AbstractDebugInfo.class));
-    assertSame(processInstance, actualExecutionEntity);
-  }
-
-  /**
-   * Test {@link DebugInfoEntityEventListener#getExecutionEntity(ActivitiEvent)}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link DebugInfoEntityEventListener#getExecutionEntity(ActivitiEvent)}
-   */
-  @Test
-  public void testGetExecutionEntity_thenReturnNull() {
-    // Arrange
-    FlowElement flowElement = mock(FlowElement.class);
-    when(flowElement.getId()).thenReturn("42");
-    ExecutionEntity executionEntity = mock(ExecutionEntity.class);
-    when(executionEntity.getCurrentFlowElement()).thenReturn(flowElement);
-    DebugInfoExecutionCreated debugInfo = new DebugInfoExecutionCreated(executionEntity);
-    ProcessExecutionLogger processExecutionLogger = mock(ProcessExecutionLogger.class);
-    doNothing().when(processExecutionLogger).addDebugInfo(Mockito.<AbstractDebugInfo>any());
-    processExecutionLogger.addDebugInfo(debugInfo);
-    DebugInfoEntityEventListener debugInfoEntityEventListener = new DebugInfoEntityEventListener(
-        processExecutionLogger);
-
-    // Act
-    ExecutionEntity actualExecutionEntity = debugInfoEntityEventListener
-        .getExecutionEntity(new ActivitiEntityEventImpl(JSONObject.NULL, ActivitiEventType.ENTITY_CREATED));
-
-    // Assert
-    verify(flowElement).getId();
-    verify(executionEntity, atLeast(1)).getCurrentFlowElement();
-    verify(processExecutionLogger).addDebugInfo(isA(AbstractDebugInfo.class));
-    assertNull(actualExecutionEntity);
+    // Act and Assert
+    assertNull(debugInfoEntityEventListener
+        .getExecutionEntity(new ActivitiEntityEventImpl(JSONObject.NULL, ActivitiEventType.ENTITY_CREATED)));
   }
 }

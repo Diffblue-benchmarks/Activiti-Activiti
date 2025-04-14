@@ -21,21 +21,23 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.persistence.entity.HistoricIdentityLinkEntity;
 import org.activiti.engine.impl.persistence.entity.HistoricIdentityLinkEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class HistoricIdentityLinksByProcInstMatcherDiffblueTest {
   /**
-   * Test
-   * {@link HistoricIdentityLinksByProcInstMatcher#isRetained(HistoricIdentityLinkEntity, Object)}
-   * with {@code HistoricIdentityLinkEntity}, {@code Object}.
+   * Test {@link HistoricIdentityLinksByProcInstMatcher#isRetained(HistoricIdentityLinkEntity, Object)} with {@code HistoricIdentityLinkEntity}, {@code Object}.
    * <p>
-   * Method under test:
-   * {@link HistoricIdentityLinksByProcInstMatcher#isRetained(HistoricIdentityLinkEntity, Object)}
+   * Method under test: {@link HistoricIdentityLinksByProcInstMatcher#isRetained(HistoricIdentityLinkEntity, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean HistoricIdentityLinksByProcInstMatcher.isRetained(HistoricIdentityLinkEntity, Object)"})
   public void testIsRetainedWithHistoricIdentityLinkEntityObject() {
     // Arrange
     HistoricIdentityLinksByProcInstMatcher historicIdentityLinksByProcInstMatcher = new HistoricIdentityLinksByProcInstMatcher();
@@ -46,19 +48,18 @@ public class HistoricIdentityLinksByProcInstMatcherDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link HistoricIdentityLinksByProcInstMatcher#isRetained(HistoricIdentityLinkEntity, Object)}
-   * with {@code HistoricIdentityLinkEntity}, {@code Object}.
+   * Test {@link HistoricIdentityLinksByProcInstMatcher#isRetained(HistoricIdentityLinkEntity, Object)} with {@code HistoricIdentityLinkEntity}, {@code Object}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    *   <li>When {@code 42}.</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricIdentityLinksByProcInstMatcher#isRetained(HistoricIdentityLinkEntity, Object)}
+   * Method under test: {@link HistoricIdentityLinksByProcInstMatcher#isRetained(HistoricIdentityLinkEntity, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean HistoricIdentityLinksByProcInstMatcher.isRetained(HistoricIdentityLinkEntity, Object)"})
   public void testIsRetainedWithHistoricIdentityLinkEntityObject_given42_when42_thenReturnTrue() {
     // Arrange
     HistoricIdentityLinksByProcInstMatcher historicIdentityLinksByProcInstMatcher = new HistoricIdentityLinksByProcInstMatcher();
@@ -75,18 +76,17 @@ public class HistoricIdentityLinksByProcInstMatcherDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link HistoricIdentityLinksByProcInstMatcher#isRetained(HistoricIdentityLinkEntity, Object)}
-   * with {@code HistoricIdentityLinkEntity}, {@code Object}.
+   * Test {@link HistoricIdentityLinksByProcInstMatcher#isRetained(HistoricIdentityLinkEntity, Object)} with {@code HistoricIdentityLinkEntity}, {@code Object}.
    * <ul>
    *   <li>When {@code Parameter}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricIdentityLinksByProcInstMatcher#isRetained(HistoricIdentityLinkEntity, Object)}
+   * Method under test: {@link HistoricIdentityLinksByProcInstMatcher#isRetained(HistoricIdentityLinkEntity, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean HistoricIdentityLinksByProcInstMatcher.isRetained(HistoricIdentityLinkEntity, Object)"})
   public void testIsRetainedWithHistoricIdentityLinkEntityObject_whenParameter_thenReturnFalse() {
     // Arrange
     HistoricIdentityLinksByProcInstMatcher historicIdentityLinksByProcInstMatcher = new HistoricIdentityLinksByProcInstMatcher();

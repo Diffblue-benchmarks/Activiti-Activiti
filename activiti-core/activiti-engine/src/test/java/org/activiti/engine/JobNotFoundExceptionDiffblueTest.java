@@ -17,26 +17,21 @@ package org.activiti.engine;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.runtime.Job;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class JobNotFoundExceptionDiffblueTest {
-  @InjectMocks
-  private JobNotFoundException jobNotFoundException;
-
-  @InjectMocks
-  private String string;
-
   /**
    * Test {@link JobNotFoundException#JobNotFoundException(String)}.
    * <p>
    * Method under test: {@link JobNotFoundException#JobNotFoundException(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobNotFoundException.<init>(String)"})
   public void testNewJobNotFoundException() {
     // Arrange and Act
     JobNotFoundException actualJobNotFoundException = new JobNotFoundException("42");
@@ -57,6 +52,8 @@ public class JobNotFoundExceptionDiffblueTest {
    * Method under test: {@link JobNotFoundException#getJobId()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JobNotFoundException.getJobId()"})
   public void testGetJobId() {
     // Arrange, Act and Assert
     assertEquals("42", (new JobNotFoundException("42")).getJobId());

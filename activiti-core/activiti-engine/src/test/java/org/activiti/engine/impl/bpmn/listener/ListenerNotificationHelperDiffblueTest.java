@@ -23,66 +23,34 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import java.util.ArrayList;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
 import org.activiti.bpmn.model.ActivitiListener;
-import org.activiti.bpmn.model.AdhocSubProcess;
-import org.activiti.bpmn.model.FlowElement;
-import org.activiti.bpmn.model.HasExecutionListeners;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.delegate.CustomPropertiesResolver;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.impl.cfg.TransactionListener;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ListenerNotificationHelperDiffblueTest {
-  @InjectMocks
-  private ListenerNotificationHelper listenerNotificationHelper;
-
   /**
-   * Test
-   * {@link ListenerNotificationHelper#executeExecutionListeners(HasExecutionListeners, DelegateExecution, String)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then calls {@link FlowElement#getExecutionListeners()}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ListenerNotificationHelper#executeExecutionListeners(HasExecutionListeners, DelegateExecution, String)}
-   */
-  @Test
-  public void testExecuteExecutionListeners_givenArrayList_thenCallsGetExecutionListeners() {
-    // Arrange
-    AdhocSubProcess elementWithExecutionListeners = mock(AdhocSubProcess.class);
-    when(elementWithExecutionListeners.getExecutionListeners()).thenReturn(new ArrayList<>());
-
-    // Act
-    listenerNotificationHelper.executeExecutionListeners(elementWithExecutionListeners,
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections(), "Event Type");
-
-    // Assert that nothing has changed
-    verify(elementWithExecutionListeners).getExecutionListeners();
-  }
-
-  /**
-   * Test
-   * {@link ListenerNotificationHelper#invokeCustomPropertiesResolver(DelegateExecution, CustomPropertiesResolver)}.
+   * Test {@link ListenerNotificationHelper#invokeCustomPropertiesResolver(DelegateExecution, CustomPropertiesResolver)}.
    * <ul>
    *   <li>Given {@link HashMap#HashMap()}.</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ListenerNotificationHelper#invokeCustomPropertiesResolver(DelegateExecution, CustomPropertiesResolver)}
+   * Method under test: {@link ListenerNotificationHelper#invokeCustomPropertiesResolver(DelegateExecution, CustomPropertiesResolver)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "Map ListenerNotificationHelper.invokeCustomPropertiesResolver(DelegateExecution, CustomPropertiesResolver)"})
   public void testInvokeCustomPropertiesResolver_givenHashMap_thenReturnEmpty() {
     // Arrange
     ListenerNotificationHelper listenerNotificationHelper = new ListenerNotificationHelper();
@@ -100,16 +68,17 @@ public class ListenerNotificationHelperDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ListenerNotificationHelper#invokeCustomPropertiesResolver(DelegateExecution, CustomPropertiesResolver)}.
+   * Test {@link ListenerNotificationHelper#invokeCustomPropertiesResolver(DelegateExecution, CustomPropertiesResolver)}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ListenerNotificationHelper#invokeCustomPropertiesResolver(DelegateExecution, CustomPropertiesResolver)}
+   * Method under test: {@link ListenerNotificationHelper#invokeCustomPropertiesResolver(DelegateExecution, CustomPropertiesResolver)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "Map ListenerNotificationHelper.invokeCustomPropertiesResolver(DelegateExecution, CustomPropertiesResolver)"})
   public void testInvokeCustomPropertiesResolver_thenThrowActivitiException() {
     // Arrange
     ListenerNotificationHelper listenerNotificationHelper = new ListenerNotificationHelper();
@@ -125,17 +94,18 @@ public class ListenerNotificationHelperDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ListenerNotificationHelper#invokeCustomPropertiesResolver(DelegateExecution, CustomPropertiesResolver)}.
+   * Test {@link ListenerNotificationHelper#invokeCustomPropertiesResolver(DelegateExecution, CustomPropertiesResolver)}.
    * <ul>
    *   <li>When {@code null}.</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ListenerNotificationHelper#invokeCustomPropertiesResolver(DelegateExecution, CustomPropertiesResolver)}
+   * Method under test: {@link ListenerNotificationHelper#invokeCustomPropertiesResolver(DelegateExecution, CustomPropertiesResolver)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "Map ListenerNotificationHelper.invokeCustomPropertiesResolver(DelegateExecution, CustomPropertiesResolver)"})
   public void testInvokeCustomPropertiesResolver_whenNull_thenReturnNull() {
     // Arrange
     ListenerNotificationHelper listenerNotificationHelper = new ListenerNotificationHelper();
@@ -146,17 +116,17 @@ public class ListenerNotificationHelperDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ListenerNotificationHelper#addTransactionListener(ActivitiListener, TransactionListener)}.
+   * Test {@link ListenerNotificationHelper#addTransactionListener(ActivitiListener, TransactionListener)}.
    * <ul>
    *   <li>Given {@code On Transaction}.</li>
    *   <li>Then calls {@link ActivitiListener#getOnTransaction()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ListenerNotificationHelper#addTransactionListener(ActivitiListener, TransactionListener)}
+   * Method under test: {@link ListenerNotificationHelper#addTransactionListener(ActivitiListener, TransactionListener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ListenerNotificationHelper.addTransactionListener(ActivitiListener, TransactionListener)"})
   public void testAddTransactionListener_givenOnTransaction_thenCallsGetOnTransaction() {
     // Arrange
     ListenerNotificationHelper listenerNotificationHelper = new ListenerNotificationHelper();

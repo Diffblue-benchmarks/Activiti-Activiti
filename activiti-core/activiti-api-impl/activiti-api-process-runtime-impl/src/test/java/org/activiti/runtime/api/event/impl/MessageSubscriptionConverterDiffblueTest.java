@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
@@ -27,6 +28,7 @@ import org.activiti.api.runtime.model.impl.MessageSubscriptionImpl;
 import org.activiti.engine.impl.persistence.entity.MessageEventSubscriptionEntity;
 import org.activiti.engine.impl.persistence.entity.MessageEventSubscriptionEntityImpl;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,18 +42,19 @@ class MessageSubscriptionConverterDiffblueTest {
   private MessageSubscriptionConverter messageSubscriptionConverter;
 
   /**
-   * Test
-   * {@link MessageSubscriptionConverter#convertToMessageSubscription(MessageEventSubscriptionEntity)}.
+   * Test {@link MessageSubscriptionConverter#convertToMessageSubscription(MessageEventSubscriptionEntity)}.
    * <ul>
    *   <li>Given {@code null}.</li>
    *   <li>Then return ActivityId is {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link MessageSubscriptionConverter#convertToMessageSubscription(MessageEventSubscriptionEntity)}
+   * Method under test: {@link MessageSubscriptionConverter#convertToMessageSubscription(MessageEventSubscriptionEntity)}
    */
   @Test
   @DisplayName("Test convertToMessageSubscription(MessageEventSubscriptionEntity); given 'null'; then return ActivityId is '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "MessageSubscriptionImpl MessageSubscriptionConverter.convertToMessageSubscription(MessageEventSubscriptionEntity)"})
   void testConvertToMessageSubscription_givenNull_thenReturnActivityIdIs42() {
     // Arrange
     MessageEventSubscriptionEntityImpl messageEventSubscriptionEntity = mock(MessageEventSubscriptionEntityImpl.class);

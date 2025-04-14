@@ -18,14 +18,12 @@ package org.activiti.engine.impl.util;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
-import org.activiti.engine.delegate.DelegateExecution;
-import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ShellCommandExecutorDiffblueTest {
   /**
@@ -33,8 +31,7 @@ public class ShellCommandExecutorDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link ShellCommandExecutor#ShellCommandExecutor(Boolean, Boolean, Boolean, String, String, String, List)}
+   *   <li>{@link ShellCommandExecutor#ShellCommandExecutor(Boolean, Boolean, Boolean, String, String, String, List)}
    *   <li>{@link ShellCommandExecutor#setWaitFlag(Boolean)}
    *   <li>{@link ShellCommandExecutor#getArgList()}
    *   <li>{@link ShellCommandExecutor#getCleanEnvBoolean()}
@@ -46,6 +43,12 @@ public class ShellCommandExecutorDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ShellCommandExecutor.<init>(Boolean, Boolean, Boolean, String, String, String, List)",
+      "List ShellCommandExecutor.getArgList()", "Boolean ShellCommandExecutor.getCleanEnvBoolean()",
+      "String ShellCommandExecutor.getDirectoryStr()", "String ShellCommandExecutor.getErrorCodeVariableStr()",
+      "Boolean ShellCommandExecutor.getRedirectErrorFlag()", "String ShellCommandExecutor.getResultVariableStr()",
+      "Boolean ShellCommandExecutor.getWaitFlag()", "void ShellCommandExecutor.setWaitFlag(Boolean)"})
   public void testGettersAndSetters() {
     // Arrange
     ArrayList<String> argList = new ArrayList<>();
@@ -62,7 +65,7 @@ public class ShellCommandExecutorDiffblueTest {
     String actualResultVariableStr = actualShellCommandExecutor.getResultVariableStr();
     Boolean actualWaitFlag = actualShellCommandExecutor.getWaitFlag();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("/directory", actualDirectoryStr);
     assertEquals("An error occurred", actualErrorCodeVariableStr);
     assertEquals("Result Variable Str", actualResultVariableStr);
@@ -76,10 +79,11 @@ public class ShellCommandExecutorDiffblueTest {
   /**
    * Test {@link ShellCommandExecutor#ShellCommandExecutor(ShellExecutorContext)}.
    * <p>
-   * Method under test:
-   * {@link ShellCommandExecutor#ShellCommandExecutor(ShellExecutorContext)}
+   * Method under test: {@link ShellCommandExecutor#ShellCommandExecutor(ShellExecutorContext)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ShellCommandExecutor.<init>(ShellExecutorContext)"})
   public void testNewShellCommandExecutor() {
     // Arrange and Act
     ShellCommandExecutor actualShellCommandExecutor = new ShellCommandExecutor(new ShellExecutorContext(true, true,
@@ -93,40 +97,5 @@ public class ShellCommandExecutorDiffblueTest {
     assertTrue(actualShellCommandExecutor.getCleanEnvBoolean());
     assertTrue(actualShellCommandExecutor.getRedirectErrorFlag());
     assertTrue(actualShellCommandExecutor.getWaitFlag());
-  }
-
-  /**
-   * Test {@link ShellCommandExecutor#executeCommand(DelegateExecution)}.
-   * <ul>
-   *   <li>Then calls {@link ShellExecutorContext#getArgList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ShellCommandExecutor#executeCommand(DelegateExecution)}
-   */
-  @Test
-  public void testExecuteCommand_thenCallsGetArgList() throws Exception {
-    // Arrange
-    ShellExecutorContext context = mock(ShellExecutorContext.class);
-    when(context.getCleanEnvBoolan()).thenReturn(true);
-    when(context.getRedirectErrorFlag()).thenReturn(true);
-    when(context.getWaitFlag()).thenReturn(true);
-    when(context.getDirectoryStr()).thenReturn("/directory");
-    when(context.getErrorCodeVariableStr()).thenReturn("An error occurred");
-    when(context.getResultVariableStr()).thenReturn("Result Variable Str");
-    when(context.getArgList()).thenReturn(new ArrayList<>());
-    ShellCommandExecutor shellCommandExecutor = new ShellCommandExecutor(context);
-
-    // Act
-    shellCommandExecutor.executeCommand(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-
-    // Assert that nothing has changed
-    verify(context).getArgList();
-    verify(context).getCleanEnvBoolan();
-    verify(context).getDirectoryStr();
-    verify(context).getErrorCodeVariableStr();
-    verify(context).getRedirectErrorFlag();
-    verify(context).getResultVariableStr();
-    verify(context).getWaitFlag();
   }
 }

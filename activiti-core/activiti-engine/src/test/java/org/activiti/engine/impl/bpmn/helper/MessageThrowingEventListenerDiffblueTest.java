@@ -17,10 +17,13 @@ package org.activiti.engine.impl.bpmn.helper;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.impl.ActivitiActivityCancelledEventImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class MessageThrowingEventListenerDiffblueTest {
   /**
@@ -29,10 +32,11 @@ public class MessageThrowingEventListenerDiffblueTest {
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link MessageThrowingEventListener#onEvent(ActivitiEvent)}
+   * Method under test: {@link MessageThrowingEventListener#onEvent(ActivitiEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MessageThrowingEventListener.onEvent(ActivitiEvent)"})
   public void testOnEvent_thenThrowActivitiIllegalArgumentException() {
     // Arrange
     MessageThrowingEventListener messageThrowingEventListener = new MessageThrowingEventListener();
@@ -47,19 +51,22 @@ public class MessageThrowingEventListenerDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of
-   * {@link MessageThrowingEventListener}
+   *   <li>default or parameterless constructor of {@link MessageThrowingEventListener}
    *   <li>{@link MessageThrowingEventListener#setMessageName(String)}
    *   <li>{@link MessageThrowingEventListener#isFailOnException()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MessageThrowingEventListener.<init>()",
+      "boolean MessageThrowingEventListener.isFailOnException()",
+      "void MessageThrowingEventListener.setMessageName(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     MessageThrowingEventListener actualMessageThrowingEventListener = new MessageThrowingEventListener();
     actualMessageThrowingEventListener.setMessageName("Message Name");
 
-    // Assert that nothing has changed
+    // Assert
     assertTrue(actualMessageThrowingEventListener.isFailOnException());
   }
 }

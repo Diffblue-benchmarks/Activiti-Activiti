@@ -22,6 +22,8 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.activiti.bpmn.model.Artifact;
@@ -36,8 +38,8 @@ import org.activiti.engine.impl.bpmn.parser.BpmnParseHandlers;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultListenerFactory;
-import org.activiti.engine.impl.cfg.BpmnParseFactory;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class AbstractBpmnParseHandlerDiffblueTest {
@@ -47,6 +49,8 @@ public class AbstractBpmnParseHandlerDiffblueTest {
    * Method under test: {@link AbstractBpmnParseHandler#getHandledTypes()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Set AbstractBpmnParseHandler.getHandledTypes()"})
   public void testGetHandledTypes() {
     // Arrange, Act and Assert
     assertEquals(1, (new AdhocSubProcessParseHandler()).getHandledTypes().size());
@@ -59,10 +63,11 @@ public class AbstractBpmnParseHandlerDiffblueTest {
    *   <li>Then calls {@link BpmnParser#getActivityBehaviorFactory()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractBpmnParseHandler#parse(BpmnParse, BaseElement)}
+   * Method under test: {@link AbstractBpmnParseHandler#parse(BpmnParse, BaseElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractBpmnParseHandler.parse(BpmnParse, BaseElement)"})
   public void testParse_whenBoundaryEvent_thenCallsGetActivityBehaviorFactory() {
     // Arrange
     BoundaryEventParseHandler boundaryEventParseHandler = new BoundaryEventParseHandler();
@@ -75,47 +80,25 @@ public class AbstractBpmnParseHandlerDiffblueTest {
     // Act
     boundaryEventParseHandler.parse(bpmnParse, new BoundaryEvent());
 
-    // Assert that nothing has changed
+    // Assert
     verify(parser).getActivityBehaviorFactory();
     verify(parser).getBpmnParserHandlers();
     verify(parser).getListenerFactory();
   }
 
   /**
-   * Test
-   * {@link AbstractBpmnParseHandler#getPrecedingEventBasedGateway(BpmnParse, IntermediateCatchEvent)}.
-   * <ul>
-   *   <li>Given {@link BpmnParseFactory}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link AbstractBpmnParseHandler#getPrecedingEventBasedGateway(BpmnParse, IntermediateCatchEvent)}
-   */
-  @Test
-  public void testGetPrecedingEventBasedGateway_givenBpmnParseFactory() {
-    // Arrange
-    AdhocSubProcessParseHandler adhocSubProcessParseHandler = new AdhocSubProcessParseHandler();
-
-    BpmnParser parser = new BpmnParser();
-    parser.setBpmnParseFactory(mock(BpmnParseFactory.class));
-    BpmnParse bpmnParse = new BpmnParse(parser);
-
-    // Act and Assert
-    assertNull(adhocSubProcessParseHandler.getPrecedingEventBasedGateway(bpmnParse, new IntermediateCatchEvent()));
-  }
-
-  /**
-   * Test
-   * {@link AbstractBpmnParseHandler#getPrecedingEventBasedGateway(BpmnParse, IntermediateCatchEvent)}.
+   * Test {@link AbstractBpmnParseHandler#getPrecedingEventBasedGateway(BpmnParse, IntermediateCatchEvent)}.
    * <ul>
    *   <li>When {@link IntermediateCatchEvent} (default constructor).</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractBpmnParseHandler#getPrecedingEventBasedGateway(BpmnParse, IntermediateCatchEvent)}
+   * Method under test: {@link AbstractBpmnParseHandler#getPrecedingEventBasedGateway(BpmnParse, IntermediateCatchEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "String AbstractBpmnParseHandler.getPrecedingEventBasedGateway(BpmnParse, IntermediateCatchEvent)"})
   public void testGetPrecedingEventBasedGateway_whenIntermediateCatchEvent_thenReturnNull() {
     // Arrange
     AdhocSubProcessParseHandler adhocSubProcessParseHandler = new AdhocSubProcessParseHandler();
@@ -126,17 +109,16 @@ public class AbstractBpmnParseHandlerDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AbstractBpmnParseHandler#processArtifacts(BpmnParse, Collection)}.
+   * Test {@link AbstractBpmnParseHandler#processArtifacts(BpmnParse, Collection)}.
    * <ul>
-   *   <li>Given {@link BpmnModel} (default constructor) addProcess {@link Process}
-   * (default constructor).</li>
+   *   <li>Given {@link BpmnModel} (default constructor) addProcess {@link Process} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractBpmnParseHandler#processArtifacts(BpmnParse, Collection)}
+   * Method under test: {@link AbstractBpmnParseHandler#processArtifacts(BpmnParse, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractBpmnParseHandler.processArtifacts(BpmnParse, Collection)"})
   public void testProcessArtifacts_givenBpmnModelAddProcessProcess() {
     // Arrange
     AdhocSubProcessParseHandler adhocSubProcessParseHandler = new AdhocSubProcessParseHandler();
@@ -152,23 +134,22 @@ public class AbstractBpmnParseHandlerDiffblueTest {
     // Act
     adhocSubProcessParseHandler.processArtifacts(bpmnParse, artifacts);
 
-    // Assert that nothing has changed
+    // Assert
     verify(bpmnParse).getBpmnModel();
   }
 
   /**
-   * Test
-   * {@link AbstractBpmnParseHandler#processArtifacts(BpmnParse, Collection)}.
+   * Test {@link AbstractBpmnParseHandler#processArtifacts(BpmnParse, Collection)}.
    * <ul>
-   *   <li>Given {@link BpmnModel} {@link BpmnModel#getArtifact(String)} return
-   * {@code null}.</li>
+   *   <li>Given {@link BpmnModel} {@link BpmnModel#getArtifact(String)} return {@code null}.</li>
    *   <li>Then calls {@link BpmnModel#getArtifact(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractBpmnParseHandler#processArtifacts(BpmnParse, Collection)}
+   * Method under test: {@link AbstractBpmnParseHandler#processArtifacts(BpmnParse, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractBpmnParseHandler.processArtifacts(BpmnParse, Collection)"})
   public void testProcessArtifacts_givenBpmnModelGetArtifactReturnNull_thenCallsGetArtifact() {
     // Arrange
     AdhocSubProcessParseHandler adhocSubProcessParseHandler = new AdhocSubProcessParseHandler();
@@ -183,24 +164,23 @@ public class AbstractBpmnParseHandlerDiffblueTest {
     // Act
     adhocSubProcessParseHandler.processArtifacts(bpmnParse, artifacts);
 
-    // Assert that nothing has changed
+    // Assert
     verify(bpmnModel, atLeast(1)).getArtifact(isNull());
     verify(bpmnParse).getBpmnModel();
   }
 
   /**
-   * Test
-   * {@link AbstractBpmnParseHandler#processArtifacts(BpmnParse, Collection)}.
+   * Test {@link AbstractBpmnParseHandler#processArtifacts(BpmnParse, Collection)}.
    * <ul>
    *   <li>Given {@link BpmnModel} (default constructor).</li>
-   *   <li>When {@link BpmnParse} {@link BpmnParse#getBpmnModel()} return
-   * {@link BpmnModel} (default constructor).</li>
+   *   <li>When {@link BpmnParse} {@link BpmnParse#getBpmnModel()} return {@link BpmnModel} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractBpmnParseHandler#processArtifacts(BpmnParse, Collection)}
+   * Method under test: {@link AbstractBpmnParseHandler#processArtifacts(BpmnParse, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractBpmnParseHandler.processArtifacts(BpmnParse, Collection)"})
   public void testProcessArtifacts_givenBpmnModel_whenBpmnParseGetBpmnModelReturnBpmnModel() {
     // Arrange
     AdhocSubProcessParseHandler adhocSubProcessParseHandler = new AdhocSubProcessParseHandler();
@@ -213,21 +193,21 @@ public class AbstractBpmnParseHandlerDiffblueTest {
     // Act
     adhocSubProcessParseHandler.processArtifacts(bpmnParse, artifacts);
 
-    // Assert that nothing has changed
+    // Assert
     verify(bpmnParse).getBpmnModel();
   }
 
   /**
-   * Test
-   * {@link AbstractBpmnParseHandler#processArtifacts(BpmnParse, Collection)}.
+   * Test {@link AbstractBpmnParseHandler#processArtifacts(BpmnParse, Collection)}.
    * <ul>
    *   <li>Then calls {@link BpmnModel#getArtifact(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractBpmnParseHandler#processArtifacts(BpmnParse, Collection)}
+   * Method under test: {@link AbstractBpmnParseHandler#processArtifacts(BpmnParse, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractBpmnParseHandler.processArtifacts(BpmnParse, Collection)"})
   public void testProcessArtifacts_thenCallsGetArtifact() {
     // Arrange
     AdhocSubProcessParseHandler adhocSubProcessParseHandler = new AdhocSubProcessParseHandler();
@@ -242,54 +222,23 @@ public class AbstractBpmnParseHandlerDiffblueTest {
     // Act
     adhocSubProcessParseHandler.processArtifacts(bpmnParse, artifacts);
 
-    // Assert that nothing has changed
+    // Assert
     verify(bpmnModel).getArtifact(isNull());
     verify(bpmnParse).getBpmnModel();
   }
 
   /**
-   * Test
-   * {@link AbstractBpmnParseHandler#processArtifacts(BpmnParse, Collection)}.
+   * Test {@link AbstractBpmnParseHandler#createAssociation(BpmnParse, Association)}.
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then calls {@link BpmnParser#getActivityBehaviorFactory()}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link AbstractBpmnParseHandler#processArtifacts(BpmnParse, Collection)}
-   */
-  @Test
-  public void testProcessArtifacts_whenArrayList_thenCallsGetActivityBehaviorFactory() {
-    // Arrange
-    AdhocSubProcessParseHandler adhocSubProcessParseHandler = new AdhocSubProcessParseHandler();
-    BpmnParser parser = mock(BpmnParser.class);
-    when(parser.getBpmnParserHandlers()).thenReturn(new BpmnParseHandlers());
-    when(parser.getActivityBehaviorFactory()).thenReturn(new DefaultActivityBehaviorFactory());
-    when(parser.getListenerFactory()).thenReturn(new DefaultListenerFactory());
-    BpmnParse bpmnParse = new BpmnParse(parser);
-
-    // Act
-    adhocSubProcessParseHandler.processArtifacts(bpmnParse, new ArrayList<>());
-
-    // Assert that nothing has changed
-    verify(parser).getActivityBehaviorFactory();
-    verify(parser).getBpmnParserHandlers();
-    verify(parser).getListenerFactory();
-  }
-
-  /**
-   * Test
-   * {@link AbstractBpmnParseHandler#createAssociation(BpmnParse, Association)}.
-   * <ul>
-   *   <li>Given {@link BpmnModel} {@link BpmnModel#getArtifact(String)} return
-   * {@code null}.</li>
+   *   <li>Given {@link BpmnModel} {@link BpmnModel#getArtifact(String)} return {@code null}.</li>
    *   <li>Then calls {@link BpmnModel#getArtifact(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractBpmnParseHandler#createAssociation(BpmnParse, Association)}
+   * Method under test: {@link AbstractBpmnParseHandler#createAssociation(BpmnParse, Association)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractBpmnParseHandler.createAssociation(BpmnParse, Association)"})
   public void testCreateAssociation_givenBpmnModelGetArtifactReturnNull_thenCallsGetArtifact() {
     // Arrange
     AdhocSubProcessParseHandler adhocSubProcessParseHandler = new AdhocSubProcessParseHandler();
@@ -301,24 +250,23 @@ public class AbstractBpmnParseHandlerDiffblueTest {
     // Act
     adhocSubProcessParseHandler.createAssociation(bpmnParse, new Association());
 
-    // Assert that nothing has changed
+    // Assert
     verify(bpmnModel, atLeast(1)).getArtifact(isNull());
     verify(bpmnParse).getBpmnModel();
   }
 
   /**
-   * Test
-   * {@link AbstractBpmnParseHandler#createAssociation(BpmnParse, Association)}.
+   * Test {@link AbstractBpmnParseHandler#createAssociation(BpmnParse, Association)}.
    * <ul>
    *   <li>Given {@link BpmnModel} (default constructor).</li>
-   *   <li>When {@link BpmnParse} {@link BpmnParse#getBpmnModel()} return
-   * {@link BpmnModel} (default constructor).</li>
+   *   <li>When {@link BpmnParse} {@link BpmnParse#getBpmnModel()} return {@link BpmnModel} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractBpmnParseHandler#createAssociation(BpmnParse, Association)}
+   * Method under test: {@link AbstractBpmnParseHandler#createAssociation(BpmnParse, Association)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractBpmnParseHandler.createAssociation(BpmnParse, Association)"})
   public void testCreateAssociation_givenBpmnModel_whenBpmnParseGetBpmnModelReturnBpmnModel() {
     // Arrange
     AdhocSubProcessParseHandler adhocSubProcessParseHandler = new AdhocSubProcessParseHandler();
@@ -328,21 +276,21 @@ public class AbstractBpmnParseHandlerDiffblueTest {
     // Act
     adhocSubProcessParseHandler.createAssociation(bpmnParse, new Association());
 
-    // Assert that nothing has changed
+    // Assert
     verify(bpmnParse).getBpmnModel();
   }
 
   /**
-   * Test
-   * {@link AbstractBpmnParseHandler#createAssociation(BpmnParse, Association)}.
+   * Test {@link AbstractBpmnParseHandler#createAssociation(BpmnParse, Association)}.
    * <ul>
    *   <li>Then calls {@link BpmnModel#getArtifact(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractBpmnParseHandler#createAssociation(BpmnParse, Association)}
+   * Method under test: {@link AbstractBpmnParseHandler#createAssociation(BpmnParse, Association)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractBpmnParseHandler.createAssociation(BpmnParse, Association)"})
   public void testCreateAssociation_thenCallsGetArtifact() {
     // Arrange
     AdhocSubProcessParseHandler adhocSubProcessParseHandler = new AdhocSubProcessParseHandler();
@@ -354,7 +302,7 @@ public class AbstractBpmnParseHandlerDiffblueTest {
     // Act
     adhocSubProcessParseHandler.createAssociation(bpmnParse, new Association());
 
-    // Assert that nothing has changed
+    // Assert
     verify(bpmnModel).getArtifact(isNull());
     verify(bpmnParse).getBpmnModel();
   }

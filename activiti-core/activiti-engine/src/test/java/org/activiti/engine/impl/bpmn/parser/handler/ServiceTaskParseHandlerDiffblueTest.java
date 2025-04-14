@@ -23,6 +23,8 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.ServiceTask;
@@ -33,26 +35,24 @@ import org.activiti.engine.impl.bpmn.behavior.ShellActivityBehavior;
 import org.activiti.engine.impl.bpmn.behavior.WebServiceActivityBehavior;
 import org.activiti.engine.impl.bpmn.helper.ClassDelegate;
 import org.activiti.engine.impl.bpmn.parser.BpmnParse;
-import org.activiti.engine.impl.bpmn.parser.BpmnParseHandlers;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
-import org.activiti.engine.impl.bpmn.parser.factory.DefaultListenerFactory;
 import org.activiti.engine.impl.delegate.ActivityBehavior;
-import org.activiti.engine.impl.el.ExpressionManager;
 import org.activiti.engine.impl.el.FixedValue;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class ServiceTaskParseHandlerDiffblueTest {
   /**
-   * Test {@link ServiceTaskParseHandler#executeParse(BpmnParse, ServiceTask)}
-   * with {@code BpmnParse}, {@code ServiceTask}.
+   * Test {@link ServiceTaskParseHandler#executeParse(BpmnParse, ServiceTask)} with {@code BpmnParse}, {@code ServiceTask}.
    * <p>
-   * Method under test:
-   * {@link ServiceTaskParseHandler#executeParse(BpmnParse, ServiceTask)}
+   * Method under test: {@link ServiceTaskParseHandler#executeParse(BpmnParse, ServiceTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTaskParseHandler.executeParse(BpmnParse, ServiceTask)"})
   public void testExecuteParseWithBpmnParseServiceTask() {
     // Arrange
     ServiceTaskParseHandler serviceTaskParseHandler = new ServiceTaskParseHandler();
@@ -63,7 +63,7 @@ public class ServiceTaskParseHandlerDiffblueTest {
 
     ServiceTask serviceTask = new ServiceTask();
     serviceTask.setType(ServiceTask.MAIL_TASK);
-    serviceTask.setOperationRef(null);
+    serviceTask.setOperationRef("not empty");
 
     // Act
     serviceTaskParseHandler.executeParse(bpmnParse, serviceTask);
@@ -75,46 +75,14 @@ public class ServiceTaskParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link ServiceTaskParseHandler#executeParse(BpmnParse, ServiceTask)}
-   * with {@code BpmnParse}, {@code ServiceTask}.
+   * Test {@link ServiceTaskParseHandler#executeParse(BpmnParse, ServiceTask)} with {@code BpmnParse}, {@code ServiceTask}.
    * <p>
-   * Method under test:
-   * {@link ServiceTaskParseHandler#executeParse(BpmnParse, ServiceTask)}
+   * Method under test: {@link ServiceTaskParseHandler#executeParse(BpmnParse, ServiceTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTaskParseHandler.executeParse(BpmnParse, ServiceTask)"})
   public void testExecuteParseWithBpmnParseServiceTask2() {
-    // Arrange
-    ServiceTaskParseHandler serviceTaskParseHandler = new ServiceTaskParseHandler();
-
-    DefaultActivityBehaviorFactory activityBehaviorFactory = new DefaultActivityBehaviorFactory();
-    activityBehaviorFactory.setExpressionManager(new ExpressionManager());
-
-    BpmnParser parser = new BpmnParser();
-    parser.setActivityBehaviorFactory(activityBehaviorFactory);
-    BpmnParse bpmnParse = new BpmnParse(parser);
-
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setType("");
-    serviceTask.setOperationRef(null);
-
-    // Act
-    serviceTaskParseHandler.executeParse(bpmnParse, serviceTask);
-
-    // Assert
-    Object behavior = serviceTask.getBehavior();
-    assertTrue(behavior instanceof ServiceTaskDelegateExpressionActivityBehavior);
-    assertNull(((ServiceTaskDelegateExpressionActivityBehavior) behavior).getMultiInstanceActivityBehavior());
-  }
-
-  /**
-   * Test {@link ServiceTaskParseHandler#executeParse(BpmnParse, ServiceTask)}
-   * with {@code BpmnParse}, {@code ServiceTask}.
-   * <p>
-   * Method under test:
-   * {@link ServiceTaskParseHandler#executeParse(BpmnParse, ServiceTask)}
-   */
-  @Test
-  public void testExecuteParseWithBpmnParseServiceTask3() {
     // Arrange
     ServiceTaskParseHandler serviceTaskParseHandler = new ServiceTaskParseHandler();
 
@@ -124,7 +92,7 @@ public class ServiceTaskParseHandlerDiffblueTest {
 
     ServiceTask serviceTask = new ServiceTask();
     serviceTask.setType("shell");
-    serviceTask.setOperationRef(null);
+    serviceTask.setOperationRef("not empty");
 
     // Act
     serviceTaskParseHandler.executeParse(bpmnParse, serviceTask);
@@ -136,25 +104,24 @@ public class ServiceTaskParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link ServiceTaskParseHandler#executeParse(BpmnParse, ServiceTask)}
-   * with {@code BpmnParse}, {@code ServiceTask}.
+   * Test {@link ServiceTaskParseHandler#executeParse(BpmnParse, ServiceTask)} with {@code BpmnParse}, {@code ServiceTask}.
    * <ul>
-   *   <li>Then {@link ServiceTask} (default constructor) Behavior is
-   * {@code null}.</li>
+   *   <li>Then {@link ServiceTask} (default constructor) Behavior is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskParseHandler#executeParse(BpmnParse, ServiceTask)}
+   * Method under test: {@link ServiceTaskParseHandler#executeParse(BpmnParse, ServiceTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTaskParseHandler.executeParse(BpmnParse, ServiceTask)"})
   public void testExecuteParseWithBpmnParseServiceTask_thenServiceTaskBehaviorIsNull() {
     // Arrange
     ServiceTaskParseHandler serviceTaskParseHandler = new ServiceTaskParseHandler();
     BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
 
     ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setType("Service Task");
-    serviceTask.setOperationRef(null);
+    serviceTask.setType("not empty");
+    serviceTask.setOperationRef("not empty");
 
     // Act
     serviceTaskParseHandler.executeParse(bpmnParse, serviceTask);
@@ -164,13 +131,13 @@ public class ServiceTaskParseHandlerDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskParseHandler#createActivityBehaviorForServiceTaskType(BpmnParse, ServiceTask)}.
+   * Test {@link ServiceTaskParseHandler#createActivityBehaviorForServiceTaskType(BpmnParse, ServiceTask)}.
    * <p>
-   * Method under test:
-   * {@link ServiceTaskParseHandler#createActivityBehaviorForServiceTaskType(BpmnParse, ServiceTask)}
+   * Method under test: {@link ServiceTaskParseHandler#createActivityBehaviorForServiceTaskType(BpmnParse, ServiceTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTaskParseHandler.createActivityBehaviorForServiceTaskType(BpmnParse, ServiceTask)"})
   public void testCreateActivityBehaviorForServiceTaskType() {
     // Arrange
     ServiceTaskParseHandler serviceTaskParseHandler = new ServiceTaskParseHandler();
@@ -192,13 +159,13 @@ public class ServiceTaskParseHandlerDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskParseHandler#createActivityBehaviorForServiceTaskType(BpmnParse, ServiceTask)}.
+   * Test {@link ServiceTaskParseHandler#createActivityBehaviorForServiceTaskType(BpmnParse, ServiceTask)}.
    * <p>
-   * Method under test:
-   * {@link ServiceTaskParseHandler#createActivityBehaviorForServiceTaskType(BpmnParse, ServiceTask)}
+   * Method under test: {@link ServiceTaskParseHandler#createActivityBehaviorForServiceTaskType(BpmnParse, ServiceTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTaskParseHandler.createActivityBehaviorForServiceTaskType(BpmnParse, ServiceTask)"})
   public void testCreateActivityBehaviorForServiceTaskType2() {
     // Arrange
     ServiceTaskParseHandler serviceTaskParseHandler = new ServiceTaskParseHandler();
@@ -220,17 +187,16 @@ public class ServiceTaskParseHandlerDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskParseHandler#createActivityBehaviorForServiceTaskType(BpmnParse, ServiceTask)}.
+   * Test {@link ServiceTaskParseHandler#createActivityBehaviorForServiceTaskType(BpmnParse, ServiceTask)}.
    * <ul>
-   *   <li>Then {@link ServiceTask} (default constructor) Behavior is
-   * {@code null}.</li>
+   *   <li>Then {@link ServiceTask} (default constructor) Behavior is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskParseHandler#createActivityBehaviorForServiceTaskType(BpmnParse, ServiceTask)}
+   * Method under test: {@link ServiceTaskParseHandler#createActivityBehaviorForServiceTaskType(BpmnParse, ServiceTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTaskParseHandler.createActivityBehaviorForServiceTaskType(BpmnParse, ServiceTask)"})
   public void testCreateActivityBehaviorForServiceTaskType_thenServiceTaskBehaviorIsNull() {
     // Arrange
     ServiceTaskParseHandler serviceTaskParseHandler = new ServiceTaskParseHandler();
@@ -250,17 +216,16 @@ public class ServiceTaskParseHandlerDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskParseHandler#createMailActivityBehavior(BpmnParse, ServiceTask)}.
+   * Test {@link ServiceTaskParseHandler#createMailActivityBehavior(BpmnParse, ServiceTask)}.
    * <ul>
-   *   <li>Then {@link ServiceTask} (default constructor) Behavior
-   * {@link MailActivityBehavior}.</li>
+   *   <li>Then {@link ServiceTask} (default constructor) Behavior {@link MailActivityBehavior}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskParseHandler#createMailActivityBehavior(BpmnParse, ServiceTask)}
+   * Method under test: {@link ServiceTaskParseHandler#createMailActivityBehavior(BpmnParse, ServiceTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTaskParseHandler.createMailActivityBehavior(BpmnParse, ServiceTask)"})
   public void testCreateMailActivityBehavior_thenServiceTaskBehaviorMailActivityBehavior() {
     // Arrange
     ServiceTaskParseHandler serviceTaskParseHandler = new ServiceTaskParseHandler();
@@ -280,83 +245,74 @@ public class ServiceTaskParseHandlerDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskParseHandler#createMuleActivityBehavior(BpmnParse, ServiceTask)}.
+   * Test {@link ServiceTaskParseHandler#createMuleActivityBehavior(BpmnParse, ServiceTask)}.
    * <ul>
-   *   <li>Then calls {@link BpmnParser#getActivityBehaviorFactory()}.</li>
+   *   <li>Then calls {@link DefaultActivityBehaviorFactory#createMuleActivityBehavior(ServiceTask)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskParseHandler#createMuleActivityBehavior(BpmnParse, ServiceTask)}
+   * Method under test: {@link ServiceTaskParseHandler#createMuleActivityBehavior(BpmnParse, ServiceTask)}
    */
   @Test
-  public void testCreateMuleActivityBehavior_thenCallsGetActivityBehaviorFactory() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTaskParseHandler.createMuleActivityBehavior(BpmnParse, ServiceTask)"})
+  public void testCreateMuleActivityBehavior_thenCallsCreateMuleActivityBehavior() {
     // Arrange
     ServiceTaskParseHandler serviceTaskParseHandler = new ServiceTaskParseHandler();
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = mock(DefaultActivityBehaviorFactory.class);
-    when(defaultActivityBehaviorFactory.createMuleActivityBehavior(Mockito.<ServiceTask>any()))
+    DefaultActivityBehaviorFactory activityBehaviorFactory = mock(DefaultActivityBehaviorFactory.class);
+    when(activityBehaviorFactory.createMuleActivityBehavior(Mockito.<ServiceTask>any()))
         .thenReturn(mock(ActivityBehavior.class));
-    BpmnParser parser = mock(BpmnParser.class);
-    when(parser.getBpmnParserHandlers()).thenReturn(new BpmnParseHandlers());
-    when(parser.getActivityBehaviorFactory()).thenReturn(defaultActivityBehaviorFactory);
-    when(parser.getListenerFactory()).thenReturn(new DefaultListenerFactory());
+
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(activityBehaviorFactory);
     BpmnParse bpmnParse = new BpmnParse(parser);
 
     // Act
     serviceTaskParseHandler.createMuleActivityBehavior(bpmnParse, new ServiceTask());
 
     // Assert
-    verify(parser).getActivityBehaviorFactory();
-    verify(parser).getBpmnParserHandlers();
-    verify(parser).getListenerFactory();
-    verify(defaultActivityBehaviorFactory).createMuleActivityBehavior(isA(ServiceTask.class));
+    verify(activityBehaviorFactory).createMuleActivityBehavior(isA(ServiceTask.class));
   }
 
   /**
-   * Test
-   * {@link ServiceTaskParseHandler#createCamelActivityBehavior(BpmnParse, ServiceTask)}.
+   * Test {@link ServiceTaskParseHandler#createCamelActivityBehavior(BpmnParse, ServiceTask)}.
    * <ul>
-   *   <li>Then calls {@link BpmnParser#getActivityBehaviorFactory()}.</li>
+   *   <li>Then calls {@link DefaultActivityBehaviorFactory#createCamelActivityBehavior(ServiceTask)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskParseHandler#createCamelActivityBehavior(BpmnParse, ServiceTask)}
+   * Method under test: {@link ServiceTaskParseHandler#createCamelActivityBehavior(BpmnParse, ServiceTask)}
    */
   @Test
-  public void testCreateCamelActivityBehavior_thenCallsGetActivityBehaviorFactory() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTaskParseHandler.createCamelActivityBehavior(BpmnParse, ServiceTask)"})
+  public void testCreateCamelActivityBehavior_thenCallsCreateCamelActivityBehavior() {
     // Arrange
     ServiceTaskParseHandler serviceTaskParseHandler = new ServiceTaskParseHandler();
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = mock(DefaultActivityBehaviorFactory.class);
-    when(defaultActivityBehaviorFactory.createCamelActivityBehavior(Mockito.<ServiceTask>any()))
+    DefaultActivityBehaviorFactory activityBehaviorFactory = mock(DefaultActivityBehaviorFactory.class);
+    when(activityBehaviorFactory.createCamelActivityBehavior(Mockito.<ServiceTask>any()))
         .thenReturn(mock(ActivityBehavior.class));
-    BpmnParser parser = mock(BpmnParser.class);
-    when(parser.getBpmnParserHandlers()).thenReturn(new BpmnParseHandlers());
-    when(parser.getActivityBehaviorFactory()).thenReturn(defaultActivityBehaviorFactory);
-    when(parser.getListenerFactory()).thenReturn(new DefaultListenerFactory());
+
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(activityBehaviorFactory);
     BpmnParse bpmnParse = new BpmnParse(parser);
 
     // Act
     serviceTaskParseHandler.createCamelActivityBehavior(bpmnParse, new ServiceTask());
 
     // Assert
-    verify(parser).getActivityBehaviorFactory();
-    verify(parser).getBpmnParserHandlers();
-    verify(parser).getListenerFactory();
-    verify(defaultActivityBehaviorFactory).createCamelActivityBehavior(isA(ServiceTask.class));
+    verify(activityBehaviorFactory).createCamelActivityBehavior(isA(ServiceTask.class));
   }
 
   /**
-   * Test
-   * {@link ServiceTaskParseHandler#createShellActivityBehavior(BpmnParse, ServiceTask)}.
+   * Test {@link ServiceTaskParseHandler#createShellActivityBehavior(BpmnParse, ServiceTask)}.
    * <ul>
-   *   <li>Then {@link ServiceTask} (default constructor) Behavior
-   * {@link ShellActivityBehavior}.</li>
+   *   <li>Then {@link ServiceTask} (default constructor) Behavior {@link ShellActivityBehavior}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskParseHandler#createShellActivityBehavior(BpmnParse, ServiceTask)}
+   * Method under test: {@link ServiceTaskParseHandler#createShellActivityBehavior(BpmnParse, ServiceTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTaskParseHandler.createShellActivityBehavior(BpmnParse, ServiceTask)"})
   public void testCreateShellActivityBehavior_thenServiceTaskBehaviorShellActivityBehavior() {
     // Arrange
     ServiceTaskParseHandler serviceTaskParseHandler = new ServiceTaskParseHandler();
@@ -376,43 +332,16 @@ public class ServiceTaskParseHandlerDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskParseHandler#createActivityBehaviorForCustomServiceTaskType(BpmnParse, ServiceTask)}.
-   * <p>
-   * Method under test:
-   * {@link ServiceTaskParseHandler#createActivityBehaviorForCustomServiceTaskType(BpmnParse, ServiceTask)}
-   */
-  @Test
-  public void testCreateActivityBehaviorForCustomServiceTaskType() {
-    // Arrange
-    ServiceTaskParseHandler serviceTaskParseHandler = new ServiceTaskParseHandler();
-    BpmnParser parser = mock(BpmnParser.class);
-    when(parser.getBpmnParserHandlers()).thenReturn(new BpmnParseHandlers());
-    when(parser.getActivityBehaviorFactory()).thenReturn(new DefaultActivityBehaviorFactory());
-    when(parser.getListenerFactory()).thenReturn(new DefaultListenerFactory());
-    BpmnParse bpmnParse = new BpmnParse(parser);
-
-    // Act
-    serviceTaskParseHandler.createActivityBehaviorForCustomServiceTaskType(bpmnParse, new ServiceTask());
-
-    // Assert that nothing has changed
-    verify(parser).getActivityBehaviorFactory();
-    verify(parser).getBpmnParserHandlers();
-    verify(parser).getListenerFactory();
-  }
-
-  /**
-   * Test
-   * {@link ServiceTaskParseHandler#createClassDelegateServiceTask(BpmnParse, ServiceTask)}.
+   * Test {@link ServiceTaskParseHandler#createClassDelegateServiceTask(BpmnParse, ServiceTask)}.
    * <ul>
-   *   <li>Then {@link ServiceTask} (default constructor) Behavior
-   * {@link ClassDelegate}.</li>
+   *   <li>Then {@link ServiceTask} (default constructor) Behavior {@link ClassDelegate}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskParseHandler#createClassDelegateServiceTask(BpmnParse, ServiceTask)}
+   * Method under test: {@link ServiceTaskParseHandler#createClassDelegateServiceTask(BpmnParse, ServiceTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTaskParseHandler.createClassDelegateServiceTask(BpmnParse, ServiceTask)"})
   public void testCreateClassDelegateServiceTask_thenServiceTaskBehaviorClassDelegate() {
     // Arrange
     ServiceTaskParseHandler serviceTaskParseHandler = new ServiceTaskParseHandler();
@@ -433,28 +362,28 @@ public class ServiceTaskParseHandlerDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskParseHandler#createServiceTaskDelegateExpressionActivityBehavior(BpmnParse, ServiceTask)}.
+   * Test {@link ServiceTaskParseHandler#createServiceTaskDelegateExpressionActivityBehavior(BpmnParse, ServiceTask)}.
    * <p>
-   * Method under test:
-   * {@link ServiceTaskParseHandler#createServiceTaskDelegateExpressionActivityBehavior(BpmnParse, ServiceTask)}
+   * Method under test: {@link ServiceTaskParseHandler#createServiceTaskDelegateExpressionActivityBehavior(BpmnParse, ServiceTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "void ServiceTaskParseHandler.createServiceTaskDelegateExpressionActivityBehavior(BpmnParse, ServiceTask)"})
   public void testCreateServiceTaskDelegateExpressionActivityBehavior() {
     // Arrange
     ServiceTaskParseHandler serviceTaskParseHandler = new ServiceTaskParseHandler();
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = mock(DefaultActivityBehaviorFactory.class);
+    DefaultActivityBehaviorFactory activityBehaviorFactory = mock(DefaultActivityBehaviorFactory.class);
     FixedValue expression = new FixedValue(JSONObject.NULL);
     FixedValue skipExpression = new FixedValue(JSONObject.NULL);
     ServiceTaskDelegateExpressionActivityBehavior serviceTaskDelegateExpressionActivityBehavior = new ServiceTaskDelegateExpressionActivityBehavior(
         "42", expression, skipExpression, new ArrayList<>());
 
-    when(defaultActivityBehaviorFactory.createServiceTaskDelegateExpressionActivityBehavior(Mockito.<ServiceTask>any()))
+    when(activityBehaviorFactory.createServiceTaskDelegateExpressionActivityBehavior(Mockito.<ServiceTask>any()))
         .thenReturn(serviceTaskDelegateExpressionActivityBehavior);
-    BpmnParser parser = mock(BpmnParser.class);
-    when(parser.getBpmnParserHandlers()).thenReturn(new BpmnParseHandlers());
-    when(parser.getActivityBehaviorFactory()).thenReturn(defaultActivityBehaviorFactory);
-    when(parser.getListenerFactory()).thenReturn(new DefaultListenerFactory());
+
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(activityBehaviorFactory);
     BpmnParse bpmnParse = new BpmnParse(parser);
     ServiceTask serviceTask = new ServiceTask();
 
@@ -462,10 +391,7 @@ public class ServiceTaskParseHandlerDiffblueTest {
     serviceTaskParseHandler.createServiceTaskDelegateExpressionActivityBehavior(bpmnParse, serviceTask);
 
     // Assert
-    verify(parser).getActivityBehaviorFactory();
-    verify(parser).getBpmnParserHandlers();
-    verify(parser).getListenerFactory();
-    verify(defaultActivityBehaviorFactory).createServiceTaskDelegateExpressionActivityBehavior(isA(ServiceTask.class));
+    verify(activityBehaviorFactory).createServiceTaskDelegateExpressionActivityBehavior(isA(ServiceTask.class));
     Object behavior = serviceTask.getBehavior();
     assertTrue(behavior instanceof ServiceTaskDelegateExpressionActivityBehavior);
     assertNull(((ServiceTaskDelegateExpressionActivityBehavior) behavior).getMultiInstanceActivityBehavior());
@@ -473,27 +399,27 @@ public class ServiceTaskParseHandlerDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskParseHandler#createServiceTaskExpressionActivityBehavior(BpmnParse, ServiceTask)}.
+   * Test {@link ServiceTaskParseHandler#createServiceTaskExpressionActivityBehavior(BpmnParse, ServiceTask)}.
    * <p>
-   * Method under test:
-   * {@link ServiceTaskParseHandler#createServiceTaskExpressionActivityBehavior(BpmnParse, ServiceTask)}
+   * Method under test: {@link ServiceTaskParseHandler#createServiceTaskExpressionActivityBehavior(BpmnParse, ServiceTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "void ServiceTaskParseHandler.createServiceTaskExpressionActivityBehavior(BpmnParse, ServiceTask)"})
   public void testCreateServiceTaskExpressionActivityBehavior() {
     // Arrange
     ServiceTaskParseHandler serviceTaskParseHandler = new ServiceTaskParseHandler();
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = mock(DefaultActivityBehaviorFactory.class);
+    DefaultActivityBehaviorFactory activityBehaviorFactory = mock(DefaultActivityBehaviorFactory.class);
     FixedValue expression = new FixedValue(JSONObject.NULL);
     ServiceTaskExpressionActivityBehavior serviceTaskExpressionActivityBehavior = new ServiceTaskExpressionActivityBehavior(
         "42", expression, new FixedValue(JSONObject.NULL), "Result Variable");
 
-    when(defaultActivityBehaviorFactory.createServiceTaskExpressionActivityBehavior(Mockito.<ServiceTask>any()))
+    when(activityBehaviorFactory.createServiceTaskExpressionActivityBehavior(Mockito.<ServiceTask>any()))
         .thenReturn(serviceTaskExpressionActivityBehavior);
-    BpmnParser parser = mock(BpmnParser.class);
-    when(parser.getBpmnParserHandlers()).thenReturn(new BpmnParseHandlers());
-    when(parser.getActivityBehaviorFactory()).thenReturn(defaultActivityBehaviorFactory);
-    when(parser.getListenerFactory()).thenReturn(new DefaultListenerFactory());
+
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(activityBehaviorFactory);
     BpmnParse bpmnParse = new BpmnParse(parser);
     ServiceTask serviceTask = new ServiceTask();
 
@@ -501,10 +427,7 @@ public class ServiceTaskParseHandlerDiffblueTest {
     serviceTaskParseHandler.createServiceTaskExpressionActivityBehavior(bpmnParse, serviceTask);
 
     // Assert
-    verify(parser).getActivityBehaviorFactory();
-    verify(parser).getBpmnParserHandlers();
-    verify(parser).getListenerFactory();
-    verify(defaultActivityBehaviorFactory).createServiceTaskExpressionActivityBehavior(isA(ServiceTask.class));
+    verify(activityBehaviorFactory).createServiceTaskExpressionActivityBehavior(isA(ServiceTask.class));
     Object behavior = serviceTask.getBehavior();
     assertTrue(behavior instanceof ServiceTaskExpressionActivityBehavior);
     assertNull(((ServiceTaskExpressionActivityBehavior) behavior).getMultiInstanceActivityBehavior());
@@ -512,13 +435,13 @@ public class ServiceTaskParseHandlerDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskParseHandler#createWebServiceActivityBehavior(BpmnParse, ServiceTask)}.
+   * Test {@link ServiceTaskParseHandler#createWebServiceActivityBehavior(BpmnParse, ServiceTask)}.
    * <p>
-   * Method under test:
-   * {@link ServiceTaskParseHandler#createWebServiceActivityBehavior(BpmnParse, ServiceTask)}
+   * Method under test: {@link ServiceTaskParseHandler#createWebServiceActivityBehavior(BpmnParse, ServiceTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTaskParseHandler.createWebServiceActivityBehavior(BpmnParse, ServiceTask)"})
   public void testCreateWebServiceActivityBehavior() {
     // Arrange
     ServiceTaskParseHandler serviceTaskParseHandler = new ServiceTaskParseHandler();
@@ -538,36 +461,29 @@ public class ServiceTaskParseHandlerDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskParseHandler#createDefaultServiceTaskActivityBehavior(BpmnParse, ServiceTask)}.
-   * <ul>
-   *   <li>Then calls {@link BpmnParser#getActivityBehaviorFactory()}.</li>
-   * </ul>
+   * Test {@link ServiceTaskParseHandler#createDefaultServiceTaskActivityBehavior(BpmnParse, ServiceTask)}.
    * <p>
-   * Method under test:
-   * {@link ServiceTaskParseHandler#createDefaultServiceTaskActivityBehavior(BpmnParse, ServiceTask)}
+   * Method under test: {@link ServiceTaskParseHandler#createDefaultServiceTaskActivityBehavior(BpmnParse, ServiceTask)}
    */
   @Test
-  public void testCreateDefaultServiceTaskActivityBehavior_thenCallsGetActivityBehaviorFactory() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTaskParseHandler.createDefaultServiceTaskActivityBehavior(BpmnParse, ServiceTask)"})
+  public void testCreateDefaultServiceTaskActivityBehavior() {
     // Arrange
     ServiceTaskParseHandler serviceTaskParseHandler = new ServiceTaskParseHandler();
-    DefaultActivityBehaviorFactory defaultActivityBehaviorFactory = mock(DefaultActivityBehaviorFactory.class);
-    when(defaultActivityBehaviorFactory.createDefaultServiceTaskBehavior(Mockito.<ServiceTask>any()))
+    DefaultActivityBehaviorFactory activityBehaviorFactory = mock(DefaultActivityBehaviorFactory.class);
+    when(activityBehaviorFactory.createDefaultServiceTaskBehavior(Mockito.<ServiceTask>any()))
         .thenReturn(mock(ActivityBehavior.class));
-    BpmnParser parser = mock(BpmnParser.class);
-    when(parser.getBpmnParserHandlers()).thenReturn(new BpmnParseHandlers());
-    when(parser.getActivityBehaviorFactory()).thenReturn(defaultActivityBehaviorFactory);
-    when(parser.getListenerFactory()).thenReturn(new DefaultListenerFactory());
+
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(activityBehaviorFactory);
     BpmnParse bpmnParse = new BpmnParse(parser);
 
     // Act
     serviceTaskParseHandler.createDefaultServiceTaskActivityBehavior(bpmnParse, new ServiceTask());
 
     // Assert
-    verify(parser).getActivityBehaviorFactory();
-    verify(parser).getBpmnParserHandlers();
-    verify(parser).getListenerFactory();
-    verify(defaultActivityBehaviorFactory).createDefaultServiceTaskBehavior(isA(ServiceTask.class));
+    verify(activityBehaviorFactory).createDefaultServiceTaskBehavior(isA(ServiceTask.class));
   }
 
   /**
@@ -580,6 +496,8 @@ public class ServiceTaskParseHandlerDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTaskParseHandler.<init>()", "Class ServiceTaskParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends BaseElement> actualHandledType = (new ServiceTaskParseHandler()).getHandledType();

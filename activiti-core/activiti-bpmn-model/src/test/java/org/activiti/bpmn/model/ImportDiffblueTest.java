@@ -19,26 +19,26 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import java.util.Map;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ImportDiffblueTest {
   /**
    * Test {@link Import#clone()}.
    * <ul>
-   *   <li>Given {@link Import} (default constructor) ExtensionElements is
-   * {@code null}.</li>
+   *   <li>Given {@link Import} (default constructor) ExtensionElements is {@code null}.</li>
    *   <li>Then return Id is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Import#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Import Import.clone()"})
   public void testClone_givenImportExtensionElementsIsNull_thenReturnIdIsNull() {
     // Arrange
     Import resultImport = new Import();
@@ -69,6 +69,8 @@ public class ImportDiffblueTest {
    * Method under test: {@link Import#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Import Import.clone()"})
   public void testClone_givenImport_thenReturnIdIsNull() {
     // Arrange and Act
     Import actualCloneResult = (new Import()).clone();
@@ -93,6 +95,8 @@ public class ImportDiffblueTest {
    * Method under test: {@link Import#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Import Import.clone()"})
   public void testClone_thenReturnAttributesSizeIsOne() {
     // Arrange
     Import resultImport = new Import();
@@ -116,6 +120,8 @@ public class ImportDiffblueTest {
    * Method under test: {@link Import#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Import Import.clone()"})
   public void testClone_thenReturnAttributesSizeIsTwo() {
     // Arrange
     Import resultImport = new Import();
@@ -133,31 +139,6 @@ public class ImportDiffblueTest {
   }
 
   /**
-   * Test {@link Import#setValues(Import)} with {@code Import}.
-   * <ul>
-   *   <li>Then calls {@link ExtensionAttribute#getName()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Import#setValues(Import)}
-   */
-  @Test
-  public void testSetValuesWithImport_thenCallsGetName() {
-    // Arrange
-    Import resultImport = new Import();
-    ExtensionAttribute attribute = mock(ExtensionAttribute.class);
-    when(attribute.getName()).thenReturn("Name");
-
-    Import otherElement = new Import();
-    otherElement.addAttribute(attribute);
-
-    // Act
-    resultImport.setValues(otherElement);
-
-    // Assert
-    verify(attribute, atLeast(1)).getName();
-  }
-
-  /**
    * Test getters and setters.
    * <p>
    * Methods under test:
@@ -172,6 +153,10 @@ public class ImportDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Import.<init>()", "String Import.getImportType()", "String Import.getLocation()",
+      "String Import.getNamespace()", "void Import.setImportType(String)", "void Import.setLocation(String)",
+      "void Import.setNamespace(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Import actualResultImport = new Import();
@@ -181,10 +166,11 @@ public class ImportDiffblueTest {
     String actualImportType = actualResultImport.getImportType();
     String actualLocation = actualResultImport.getLocation();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Import Type", actualImportType);
     assertEquals("Location", actualLocation);
     assertEquals("Namespace", actualResultImport.getNamespace());
+    assertNull(actualResultImport.getId());
     assertEquals(0, actualResultImport.getXmlColumnNumber());
     assertEquals(0, actualResultImport.getXmlRowNumber());
     assertTrue(actualResultImport.getAttributes().isEmpty());

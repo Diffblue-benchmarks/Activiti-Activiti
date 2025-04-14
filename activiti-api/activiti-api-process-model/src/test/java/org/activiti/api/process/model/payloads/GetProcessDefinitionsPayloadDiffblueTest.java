@@ -20,20 +20,23 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class GetProcessDefinitionsPayloadDiffblueTest {
   /**
    * Test {@link GetProcessDefinitionsPayload#GetProcessDefinitionsPayload()}.
    * <p>
-   * Method under test:
-   * {@link GetProcessDefinitionsPayload#GetProcessDefinitionsPayload()}
+   * Method under test: {@link GetProcessDefinitionsPayload#GetProcessDefinitionsPayload()}
    */
   @Test
   @DisplayName("Test new GetProcessDefinitionsPayload()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void GetProcessDefinitionsPayload.<init>()"})
   void testNewGetProcessDefinitionsPayload() {
     // Arrange and Act
     GetProcessDefinitionsPayload actualGetProcessDefinitionsPayload = new GetProcessDefinitionsPayload();
@@ -45,18 +48,18 @@ class GetProcessDefinitionsPayloadDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link GetProcessDefinitionsPayload#GetProcessDefinitionsPayload(String, Set)}.
+   * Test {@link GetProcessDefinitionsPayload#GetProcessDefinitionsPayload(String, Set)}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    *   <li>When {@link HashSet#HashSet()} add {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link GetProcessDefinitionsPayload#GetProcessDefinitionsPayload(String, Set)}
+   * Method under test: {@link GetProcessDefinitionsPayload#GetProcessDefinitionsPayload(String, Set)}
    */
   @Test
   @DisplayName("Test new GetProcessDefinitionsPayload(String, Set); given '42'; when HashSet() add '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void GetProcessDefinitionsPayload.<init>(String, Set)"})
   void testNewGetProcessDefinitionsPayload_given42_whenHashSetAdd42() {
     // Arrange
     HashSet<String> processDefinitionKeys = new HashSet<>();
@@ -74,18 +77,18 @@ class GetProcessDefinitionsPayloadDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link GetProcessDefinitionsPayload#GetProcessDefinitionsPayload(String, Set)}.
+   * Test {@link GetProcessDefinitionsPayload#GetProcessDefinitionsPayload(String, Set)}.
    * <ul>
    *   <li>Given {@code foo}.</li>
    *   <li>Then return hasDefinitionKeys.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link GetProcessDefinitionsPayload#GetProcessDefinitionsPayload(String, Set)}
+   * Method under test: {@link GetProcessDefinitionsPayload#GetProcessDefinitionsPayload(String, Set)}
    */
   @Test
   @DisplayName("Test new GetProcessDefinitionsPayload(String, Set); given 'foo'; then return hasDefinitionKeys")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void GetProcessDefinitionsPayload.<init>(String, Set)"})
   void testNewGetProcessDefinitionsPayload_givenFoo_thenReturnHasDefinitionKeys() {
     // Arrange
     HashSet<String> processDefinitionKeys = new HashSet<>();
@@ -102,18 +105,18 @@ class GetProcessDefinitionsPayloadDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link GetProcessDefinitionsPayload#GetProcessDefinitionsPayload(String, Set)}.
+   * Test {@link GetProcessDefinitionsPayload#GetProcessDefinitionsPayload(String, Set)}.
    * <ul>
    *   <li>When {@link HashSet#HashSet()}.</li>
    *   <li>Then return not hasDefinitionKeys.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link GetProcessDefinitionsPayload#GetProcessDefinitionsPayload(String, Set)}
+   * Method under test: {@link GetProcessDefinitionsPayload#GetProcessDefinitionsPayload(String, Set)}
    */
   @Test
   @DisplayName("Test new GetProcessDefinitionsPayload(String, Set); when HashSet(); then return not hasDefinitionKeys")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void GetProcessDefinitionsPayload.<init>(String, Set)"})
   void testNewGetProcessDefinitionsPayload_whenHashSet_thenReturnNotHasDefinitionKeys() {
     // Arrange and Act
     GetProcessDefinitionsPayload actualGetProcessDefinitionsPayload = new GetProcessDefinitionsPayload("42",
@@ -138,6 +141,11 @@ class GetProcessDefinitionsPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String GetProcessDefinitionsPayload.getId()",
+      "String GetProcessDefinitionsPayload.getProcessDefinitionId()",
+      "Set GetProcessDefinitionsPayload.getProcessDefinitionKeys()",
+      "void GetProcessDefinitionsPayload.setProcessDefinitionKeys(Set)"})
   void testGettersAndSetters() {
     // Arrange
     GetProcessDefinitionsPayload getProcessDefinitionsPayload = new GetProcessDefinitionsPayload();
@@ -146,10 +154,11 @@ class GetProcessDefinitionsPayloadDiffblueTest {
     // Act
     getProcessDefinitionsPayload.setProcessDefinitionKeys(processDefinitionKeys);
     getProcessDefinitionsPayload.getId();
-    getProcessDefinitionsPayload.getProcessDefinitionId();
+    String actualProcessDefinitionId = getProcessDefinitionsPayload.getProcessDefinitionId();
     Set<String> actualProcessDefinitionKeys = getProcessDefinitionsPayload.getProcessDefinitionKeys();
 
-    // Assert that nothing has changed
+    // Assert
+    assertNull(actualProcessDefinitionId);
     assertTrue(actualProcessDefinitionKeys.isEmpty());
     assertSame(processDefinitionKeys, actualProcessDefinitionKeys);
   }
@@ -157,8 +166,7 @@ class GetProcessDefinitionsPayloadDiffblueTest {
   /**
    * Test {@link GetProcessDefinitionsPayload#hasDefinitionKeys()}.
    * <ul>
-   *   <li>Given
-   * {@link GetProcessDefinitionsPayload#GetProcessDefinitionsPayload()}.</li>
+   *   <li>Given {@link GetProcessDefinitionsPayload#GetProcessDefinitionsPayload()}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
@@ -166,6 +174,8 @@ class GetProcessDefinitionsPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test hasDefinitionKeys(); given GetProcessDefinitionsPayload(); then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean GetProcessDefinitionsPayload.hasDefinitionKeys()"})
   void testHasDefinitionKeys_givenGetProcessDefinitionsPayload_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new GetProcessDefinitionsPayload()).hasDefinitionKeys());
@@ -182,6 +192,8 @@ class GetProcessDefinitionsPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test hasDefinitionKeys(); given HashSet() add 'foo'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean GetProcessDefinitionsPayload.hasDefinitionKeys()"})
   void testHasDefinitionKeys_givenHashSetAddFoo_thenReturnTrue() {
     // Arrange
     HashSet<String> processDefinitionKeys = new HashSet<>();
@@ -204,6 +216,8 @@ class GetProcessDefinitionsPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test hasDefinitionKeys(); then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean GetProcessDefinitionsPayload.hasDefinitionKeys()"})
   void testHasDefinitionKeys_thenReturnFalse() {
     // Arrange
     GetProcessDefinitionsPayload getProcessDefinitionsPayload = new GetProcessDefinitionsPayload();

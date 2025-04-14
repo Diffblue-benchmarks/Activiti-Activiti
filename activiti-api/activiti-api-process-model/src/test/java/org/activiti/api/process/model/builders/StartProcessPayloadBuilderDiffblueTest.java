@@ -18,10 +18,12 @@ package org.activiti.api.process.model.builders;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
 import org.activiti.api.process.model.payloads.StartProcessPayload;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class StartProcessPayloadBuilderDiffblueTest {
@@ -31,11 +33,12 @@ class StartProcessPayloadBuilderDiffblueTest {
    *   <li>Given start.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link StartProcessPayloadBuilder#withVariable(String, Object)}
+   * Method under test: {@link StartProcessPayloadBuilder#withVariable(String, Object)}
    */
   @Test
   @DisplayName("Test withVariable(String, Object); given start")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"StartProcessPayloadBuilder StartProcessPayloadBuilder.withVariable(String, Object)"})
   void testWithVariable_givenStart() {
     // Arrange
     StartProcessPayloadBuilder startResult = ProcessPayloadBuilder.start();
@@ -50,11 +53,12 @@ class StartProcessPayloadBuilderDiffblueTest {
    *   <li>Given start withVariables {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link StartProcessPayloadBuilder#withVariable(String, Object)}
+   * Method under test: {@link StartProcessPayloadBuilder#withVariable(String, Object)}
    */
   @Test
   @DisplayName("Test withVariable(String, Object); given start withVariables 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"StartProcessPayloadBuilder StartProcessPayloadBuilder.withVariable(String, Object)"})
   void testWithVariable_givenStartWithVariablesNull() {
     // Arrange
     StartProcessPayloadBuilder startResult = ProcessPayloadBuilder.start();
@@ -70,8 +74,7 @@ class StartProcessPayloadBuilderDiffblueTest {
    * Methods under test:
    * <ul>
    *   <li>{@link StartProcessPayloadBuilder#build()}
-   *   <li>default or parameterless constructor of
-   * {@link StartProcessPayloadBuilder}
+   *   <li>default or parameterless constructor of {@link StartProcessPayloadBuilder}
    *   <li>{@link StartProcessPayloadBuilder#withBusinessKey(String)}
    *   <li>{@link StartProcessPayloadBuilder#withName(String)}
    *   <li>{@link StartProcessPayloadBuilder#withProcessDefinitionId(String)}
@@ -81,6 +84,14 @@ class StartProcessPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test build()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void StartProcessPayloadBuilder.<init>()",
+      "StartProcessPayload StartProcessPayloadBuilder.build()",
+      "StartProcessPayloadBuilder StartProcessPayloadBuilder.withBusinessKey(String)",
+      "StartProcessPayloadBuilder StartProcessPayloadBuilder.withName(String)",
+      "StartProcessPayloadBuilder StartProcessPayloadBuilder.withProcessDefinitionId(String)",
+      "StartProcessPayloadBuilder StartProcessPayloadBuilder.withProcessDefinitionKey(String)",
+      "StartProcessPayloadBuilder StartProcessPayloadBuilder.withVariables(Map)"})
   void testBuild() {
     // Arrange
     StartProcessPayloadBuilder withVariableResult = (new StartProcessPayloadBuilder()).withBusinessKey("Business Key")

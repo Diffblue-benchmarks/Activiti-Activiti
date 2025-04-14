@@ -27,6 +27,7 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import jakarta.el.ELException;
 import jakarta.el.FunctionMapper;
@@ -50,23 +51,25 @@ import org.activiti.core.el.juel.tree.impl.ast.AstIdentifier;
 import org.activiti.core.el.juel.tree.impl.ast.AstNull;
 import org.activiti.core.el.juel.util.SimpleContext;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class TreeValueExpressionDiffblueTest {
   /**
-   * Test
-   * {@link TreeValueExpression#TreeValueExpression(TreeStore, FunctionMapper, VariableMapper, TypeConverter, String, Class)}.
+   * Test {@link TreeValueExpression#TreeValueExpression(TreeStore, FunctionMapper, VariableMapper, TypeConverter, String, Class)}.
    * <ul>
    *   <li>When {@link FunctionMapper}.</li>
    *   <li>Then return ExpressionString is {@code Expr}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TreeValueExpression#TreeValueExpression(TreeStore, FunctionMapper, VariableMapper, TypeConverter, String, Class)}
+   * Method under test: {@link TreeValueExpression#TreeValueExpression(TreeStore, FunctionMapper, VariableMapper, TypeConverter, String, Class)}
    */
   @Test
   @DisplayName("Test new TreeValueExpression(TreeStore, FunctionMapper, VariableMapper, TypeConverter, String, Class); when FunctionMapper; then return ExpressionString is 'Expr'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void TreeValueExpression.<init>(TreeStore, FunctionMapper, VariableMapper, TypeConverter, String, Class)"})
   void testNewTreeValueExpression_whenFunctionMapper_thenReturnExpressionStringIsExpr() throws TreeBuilderException {
     // Arrange
     TreeBuilder builder = mock(TreeBuilder.class);
@@ -104,6 +107,8 @@ class TreeValueExpressionDiffblueTest {
    */
   @Test
   @DisplayName("Test getType(ELContext); then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Class TreeValueExpression.getType(ELContext)"})
   void testGetType_thenReturnNull() throws ELException {
     // Arrange
     TreeBuilder builder = mock(TreeBuilder.class);
@@ -134,6 +139,8 @@ class TreeValueExpressionDiffblueTest {
    */
   @Test
   @DisplayName("Test getValue(ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object TreeValueExpression.getValue(ELContext)"})
   void testGetValue() throws ELException {
     // Arrange
     ArrayList<IdentifierNode> identifiers = new ArrayList<>();
@@ -179,6 +186,8 @@ class TreeValueExpressionDiffblueTest {
    */
   @Test
   @DisplayName("Test getValue(ELContext); then return 'Convert'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object TreeValueExpression.getValue(ELContext)"})
   void testGetValue_thenReturnConvert() throws ELException {
     // Arrange
     TreeBuilder builder = mock(TreeBuilder.class);
@@ -214,6 +223,8 @@ class TreeValueExpressionDiffblueTest {
    */
   @Test
   @DisplayName("Test isReadOnly(ELContext); then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TreeValueExpression.isReadOnly(ELContext)"})
   void testIsReadOnly_thenReturnTrue() throws ELException {
     // Arrange
     TreeBuilder builder = mock(TreeBuilder.class);
@@ -247,6 +258,8 @@ class TreeValueExpressionDiffblueTest {
    */
   @Test
   @DisplayName("Test setValue(ELContext, Object); then SimpleContext() PropertyResolved")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TreeValueExpression.setValue(ELContext, Object)"})
   void testSetValue_thenSimpleContextPropertyResolved() throws ELException {
     // Arrange
     ArrayList<IdentifierNode> identifiers = new ArrayList<>();
@@ -291,6 +304,8 @@ class TreeValueExpressionDiffblueTest {
    */
   @Test
   @DisplayName("Test isLiteralText(); then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TreeValueExpression.isLiteralText()"})
   void testIsLiteralText_thenReturnFalse() throws TreeBuilderException {
     // Arrange
     TreeBuilder builder = mock(TreeBuilder.class);
@@ -323,6 +338,8 @@ class TreeValueExpressionDiffblueTest {
    */
   @Test
   @DisplayName("Test getValueReference(ELContext); then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ValueReference TreeValueExpression.getValueReference(ELContext)"})
   void testGetValueReference_thenReturnNull() throws TreeBuilderException {
     // Arrange
     TreeBuilder builder = mock(TreeBuilder.class);
@@ -356,6 +373,8 @@ class TreeValueExpressionDiffblueTest {
    */
   @Test
   @DisplayName("Test isLeftValue(); then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TreeValueExpression.isLeftValue()"})
   void testIsLeftValue_thenReturnFalse() throws TreeBuilderException {
     // Arrange
     TreeBuilder builder = mock(TreeBuilder.class);
@@ -388,6 +407,8 @@ class TreeValueExpressionDiffblueTest {
    */
   @Test
   @DisplayName("Test isLeftValue(); then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TreeValueExpression.isLeftValue()"})
   void testIsLeftValue_thenReturnTrue() throws TreeBuilderException {
     // Arrange
     TreeBuilder builder = mock(TreeBuilder.class);
@@ -423,6 +444,8 @@ class TreeValueExpressionDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TreeValueExpression.equals(Object)", "int TreeValueExpression.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() throws TreeBuilderException {
     // Arrange
     TreeBuilder builder = mock(TreeBuilder.class);
@@ -458,6 +481,8 @@ class TreeValueExpressionDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TreeValueExpression.equals(Object)", "int TreeValueExpression.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() throws TreeBuilderException {
     // Arrange
     TreeBuilder builder = mock(TreeBuilder.class);
@@ -484,6 +509,8 @@ class TreeValueExpressionDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TreeValueExpression.equals(Object)", "int TreeValueExpression.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual3() throws TreeBuilderException {
     // Arrange
     TreeBuilder builder = mock(TreeBuilder.class);
@@ -506,6 +533,8 @@ class TreeValueExpressionDiffblueTest {
    */
   @Test
   @DisplayName("Test dump(PrintWriter)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TreeValueExpression.dump(PrintWriter)"})
   void testDump() throws TreeBuilderException {
     // Arrange
     TreeBuilder builder = mock(TreeBuilder.class);
@@ -531,20 +560,20 @@ class TreeValueExpressionDiffblueTest {
   /**
    * Test {@link TreeValueExpression#dump(PrintWriter)}.
    * <ul>
-   *   <li>Given {@link AstBinary#AstBinary(AstNode, AstNode, Operator)} with left
-   * is {@link AstNull} (default constructor) and right is {@link AstNull}
-   * (default constructor) and {@link Operator}.</li>
+   *   <li>Given {@link AstBinary#AstBinary(AstNode, AstNode, Operator)} with left is {@link AstNull} (default constructor) and right is {@link AstNull} (default constructor) and {@link Operator}.</li>
    * </ul>
    * <p>
    * Method under test: {@link TreeValueExpression#dump(PrintWriter)}
    */
   @Test
   @DisplayName("Test dump(PrintWriter); given AstBinary(AstNode, AstNode, Operator) with left is AstNull (default constructor) and right is AstNull (default constructor) and Operator")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TreeValueExpression.dump(PrintWriter)"})
   void testDump_givenAstBinaryWithLeftIsAstNullAndRightIsAstNullAndOperator() throws TreeBuilderException {
     // Arrange
     TreeBuilder builder = mock(TreeBuilder.class);
     AstNull left = new AstNull();
-    AstBinary root = new AstBinary(left, new AstNull(), mock(AstBinary.Operator.class));
+    AstBinary root = new AstBinary(left, new AstNull(), mock(Operator.class));
 
     ArrayList<FunctionNode> functions = new ArrayList<>();
     when(builder.build(Mockito.<String>any())).thenReturn(new Tree(root, functions, new ArrayList<>(), true));

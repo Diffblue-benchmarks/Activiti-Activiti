@@ -24,23 +24,27 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class DataGridDiffblueTest {
   /**
    * Test {@link DataGrid#clone()}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link DataGridField} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link DataGridField} (default constructor).</li>
    *   <li>Then return Rows first Fields size is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link DataGrid#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DataGrid DataGrid.clone()"})
   public void testClone_givenArrayListAddDataGridField_thenReturnRowsFirstFieldsSizeIsOne() {
     // Arrange
     ArrayList<DataGridField> fields = new ArrayList<>();
@@ -73,14 +77,15 @@ public class DataGridDiffblueTest {
   /**
    * Test {@link DataGrid#clone()}.
    * <ul>
-   *   <li>Given {@link DataGridRow} (default constructor) Fields is
-   * {@link ArrayList#ArrayList()}.</li>
+   *   <li>Given {@link DataGridRow} (default constructor) Fields is {@link ArrayList#ArrayList()}.</li>
    *   <li>Then return Rows first Index is zero.</li>
    * </ul>
    * <p>
    * Method under test: {@link DataGrid#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DataGrid DataGrid.clone()"})
   public void testClone_givenDataGridRowFieldsIsArrayList_thenReturnRowsFirstIndexIsZero() {
     // Arrange
     DataGridRow dataGridRow = new DataGridRow();
@@ -103,14 +108,15 @@ public class DataGridDiffblueTest {
   /**
    * Test {@link DataGrid#clone()}.
    * <ul>
-   *   <li>Given {@link DataGridRow} (default constructor) Fields is
-   * {@code null}.</li>
+   *   <li>Given {@link DataGridRow} (default constructor) Fields is {@code null}.</li>
    *   <li>Then return Rows first Index is zero.</li>
    * </ul>
    * <p>
    * Method under test: {@link DataGrid#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DataGrid DataGrid.clone()"})
   public void testClone_givenDataGridRowFieldsIsNull_thenReturnRowsFirstIndexIsZero() {
     // Arrange
     DataGridRow dataGridRow = new DataGridRow();
@@ -140,6 +146,8 @@ public class DataGridDiffblueTest {
    * Method under test: {@link DataGrid#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DataGrid DataGrid.clone()"})
   public void testClone_givenDataGridRowsIsNull_thenReturnRowsEmpty() {
     // Arrange
     DataGrid dataGrid = new DataGrid();
@@ -159,6 +167,8 @@ public class DataGridDiffblueTest {
    * Method under test: {@link DataGrid#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DataGrid DataGrid.clone()"})
   public void testClone_givenDataGrid_thenReturnRowsEmpty() {
     // Arrange, Act and Assert
     assertTrue((new DataGrid()).clone().getRows().isEmpty());
@@ -167,14 +177,15 @@ public class DataGridDiffblueTest {
   /**
    * Test {@link DataGrid#setValues(DataGrid)}.
    * <ul>
-   *   <li>Given {@link DataGridField} {@link DataGridField#clone()} return
-   * {@link DataGridField} (default constructor).</li>
+   *   <li>Given {@link DataGridField} {@link DataGridField#clone()} return {@link DataGridField} (default constructor).</li>
    *   <li>Then calls {@link DataGridField#clone()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link DataGrid#setValues(DataGrid)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DataGrid.setValues(DataGrid)"})
   public void testSetValues_givenDataGridFieldCloneReturnDataGridField_thenCallsClone() {
     // Arrange
     DataGrid dataGrid = new DataGrid();
@@ -203,14 +214,15 @@ public class DataGridDiffblueTest {
   /**
    * Test {@link DataGrid#setValues(DataGrid)}.
    * <ul>
-   *   <li>Given {@link DataGridRow} {@link DataGridRow#clone()} return
-   * {@link DataGridRow} (default constructor).</li>
+   *   <li>Given {@link DataGridRow} {@link DataGridRow#clone()} return {@link DataGridRow} (default constructor).</li>
    *   <li>Then calls {@link DataGridRow#clone()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link DataGrid#setValues(DataGrid)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DataGrid.setValues(DataGrid)"})
   public void testSetValues_givenDataGridRowCloneReturnDataGridRow_thenCallsClone() {
     // Arrange
     DataGrid dataGrid = new DataGrid();
@@ -244,6 +256,8 @@ public class DataGridDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DataGrid.<init>()", "List DataGrid.getRows()", "void DataGrid.setRows(List)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     DataGrid actualDataGrid = new DataGrid();
@@ -251,7 +265,7 @@ public class DataGridDiffblueTest {
     actualDataGrid.setRows(rows);
     List<DataGridRow> actualRows = actualDataGrid.getRows();
 
-    // Assert that nothing has changed
+    // Assert
     assertTrue(actualRows.isEmpty());
     assertSame(rows, actualRows);
   }

@@ -25,6 +25,8 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -42,17 +44,19 @@ import org.activiti.engine.impl.runtime.ProcessInstanceBuilderImpl;
 import org.activiti.engine.impl.util.ProcessInstanceHelper;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class StartProcessInstanceCmdDiffblueTest {
   /**
-   * Test
-   * {@link StartProcessInstanceCmd#StartProcessInstanceCmd(String, String, String, Map)}.
+   * Test {@link StartProcessInstanceCmd#StartProcessInstanceCmd(String, String, String, Map)}.
    * <p>
-   * Method under test:
-   * {@link StartProcessInstanceCmd#StartProcessInstanceCmd(String, String, String, Map)}
+   * Method under test: {@link StartProcessInstanceCmd#StartProcessInstanceCmd(String, String, String, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void StartProcessInstanceCmd.<init>(String, String, String, Map)",
+      "void StartProcessInstanceCmd.<init>(String, String, String, Map, String)"})
   public void testNewStartProcessInstanceCmd() {
     // Arrange and Act
     StartProcessInstanceCmd<Object> actualStartProcessInstanceCmd = new StartProcessInstanceCmd<>(
@@ -63,13 +67,14 @@ public class StartProcessInstanceCmdDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link StartProcessInstanceCmd#StartProcessInstanceCmd(String, String, String, Map, String)}.
+   * Test {@link StartProcessInstanceCmd#StartProcessInstanceCmd(String, String, String, Map, String)}.
    * <p>
-   * Method under test:
-   * {@link StartProcessInstanceCmd#StartProcessInstanceCmd(String, String, String, Map, String)}
+   * Method under test: {@link StartProcessInstanceCmd#StartProcessInstanceCmd(String, String, String, Map, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void StartProcessInstanceCmd.<init>(String, String, String, Map)",
+      "void StartProcessInstanceCmd.<init>(String, String, String, Map, String)"})
   public void testNewStartProcessInstanceCmd2() {
     // Arrange and Act
     StartProcessInstanceCmd<Object> actualStartProcessInstanceCmd = new StartProcessInstanceCmd<>(
@@ -80,18 +85,17 @@ public class StartProcessInstanceCmdDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link StartProcessInstanceCmd#StartProcessInstanceCmd(ProcessInstanceBuilderImpl)}.
+   * Test {@link StartProcessInstanceCmd#StartProcessInstanceCmd(ProcessInstanceBuilderImpl)}.
    * <ul>
    *   <li>Given empty string.</li>
-   *   <li>Then return {@link StartProcessInstanceCmd#tenantId} is empty
-   * string.</li>
+   *   <li>Then return {@link StartProcessInstanceCmd#tenantId} is empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link StartProcessInstanceCmd#StartProcessInstanceCmd(ProcessInstanceBuilderImpl)}
+   * Method under test: {@link StartProcessInstanceCmd#StartProcessInstanceCmd(ProcessInstanceBuilderImpl)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void StartProcessInstanceCmd.<init>(ProcessInstanceBuilderImpl)"})
   public void testNewStartProcessInstanceCmd_givenEmptyString_thenReturnTenantIdIsEmptyString() {
     // Arrange
     ProcessInstanceBuilderImpl processInstanceBuilder = mock(ProcessInstanceBuilderImpl.class);
@@ -149,17 +153,16 @@ public class StartProcessInstanceCmdDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link StartProcessInstanceCmd#StartProcessInstanceCmd(ProcessInstanceBuilderImpl)}.
+   * Test {@link StartProcessInstanceCmd#StartProcessInstanceCmd(ProcessInstanceBuilderImpl)}.
    * <ul>
-   *   <li>Then return {@link StartProcessInstanceCmd#businessKey} is
-   * {@code null}.</li>
+   *   <li>Then return {@link StartProcessInstanceCmd#businessKey} is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link StartProcessInstanceCmd#StartProcessInstanceCmd(ProcessInstanceBuilderImpl)}
+   * Method under test: {@link StartProcessInstanceCmd#StartProcessInstanceCmd(ProcessInstanceBuilderImpl)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void StartProcessInstanceCmd.<init>(ProcessInstanceBuilderImpl)"})
   public void testNewStartProcessInstanceCmd_thenReturnBusinessKeyIsNull() {
     // Arrange
     ProcessInstanceBuilderImpl processInstanceBuilder = new ProcessInstanceBuilderImpl(new RuntimeServiceImpl());
@@ -198,16 +201,16 @@ public class StartProcessInstanceCmdDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link StartProcessInstanceCmd#StartProcessInstanceCmd(ProcessInstanceBuilderImpl)}.
+   * Test {@link StartProcessInstanceCmd#StartProcessInstanceCmd(ProcessInstanceBuilderImpl)}.
    * <ul>
    *   <li>Then return {@link StartProcessInstanceCmd#tenantId} is {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link StartProcessInstanceCmd#StartProcessInstanceCmd(ProcessInstanceBuilderImpl)}
+   * Method under test: {@link StartProcessInstanceCmd#StartProcessInstanceCmd(ProcessInstanceBuilderImpl)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void StartProcessInstanceCmd.<init>(ProcessInstanceBuilderImpl)"})
   public void testNewStartProcessInstanceCmd_thenReturnTenantIdIs42() {
     // Arrange
     ProcessInstanceBuilderImpl processInstanceBuilder = mock(ProcessInstanceBuilderImpl.class);
@@ -272,10 +275,11 @@ public class StartProcessInstanceCmdDiffblueTest {
    *   <li>Then return size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link StartProcessInstanceCmd#processDataObjects(Collection)}
+   * Method under test: {@link StartProcessInstanceCmd#processDataObjects(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map StartProcessInstanceCmd.processDataObjects(Collection)"})
   public void testProcessDataObjects_givenBooleanDataObject_thenReturnSizeIsOne() {
     // Arrange
     StartProcessInstanceCmd<Object> startProcessInstanceCmd = new StartProcessInstanceCmd<>(
@@ -299,10 +303,11 @@ public class StartProcessInstanceCmdDiffblueTest {
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link StartProcessInstanceCmd#processDataObjects(Collection)}
+   * Method under test: {@link StartProcessInstanceCmd#processDataObjects(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map StartProcessInstanceCmd.processDataObjects(Collection)"})
   public void testProcessDataObjects_whenArrayList_thenReturnEmpty() {
     // Arrange
     StartProcessInstanceCmd<Object> startProcessInstanceCmd = new StartProcessInstanceCmd<>(
@@ -319,10 +324,11 @@ public class StartProcessInstanceCmdDiffblueTest {
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link StartProcessInstanceCmd#processDataObjects(Collection)}
+   * Method under test: {@link StartProcessInstanceCmd#processDataObjects(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map StartProcessInstanceCmd.processDataObjects(Collection)"})
   public void testProcessDataObjects_whenNull_thenReturnEmpty() {
     // Arrange
     StartProcessInstanceCmd<Object> startProcessInstanceCmd = new StartProcessInstanceCmd<>(

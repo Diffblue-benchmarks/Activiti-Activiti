@@ -16,8 +16,10 @@
 package org.activiti.api.process.model.builders;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.payloads.CreateProcessInstancePayload;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class CreateProcessPayloadBuilderDiffblueTest {
@@ -27,8 +29,7 @@ class CreateProcessPayloadBuilderDiffblueTest {
    * Methods under test:
    * <ul>
    *   <li>{@link CreateProcessPayloadBuilder#build()}
-   *   <li>default or parameterless constructor of
-   * {@link CreateProcessPayloadBuilder}
+   *   <li>default or parameterless constructor of {@link CreateProcessPayloadBuilder}
    *   <li>{@link CreateProcessPayloadBuilder#withBusinessKey(String)}
    *   <li>{@link CreateProcessPayloadBuilder#withName(String)}
    *   <li>{@link CreateProcessPayloadBuilder#withProcessDefinitionId(String)}
@@ -37,6 +38,13 @@ class CreateProcessPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test build()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void CreateProcessPayloadBuilder.<init>()",
+      "CreateProcessInstancePayload CreateProcessPayloadBuilder.build()",
+      "CreateProcessPayloadBuilder CreateProcessPayloadBuilder.withBusinessKey(String)",
+      "CreateProcessPayloadBuilder CreateProcessPayloadBuilder.withName(String)",
+      "CreateProcessPayloadBuilder CreateProcessPayloadBuilder.withProcessDefinitionId(String)",
+      "CreateProcessPayloadBuilder CreateProcessPayloadBuilder.withProcessDefinitionKey(String)"})
   void testBuild() {
     // Arrange and Act
     CreateProcessInstancePayload actualBuildResult = (new CreateProcessPayloadBuilder()).withBusinessKey("Business Key")

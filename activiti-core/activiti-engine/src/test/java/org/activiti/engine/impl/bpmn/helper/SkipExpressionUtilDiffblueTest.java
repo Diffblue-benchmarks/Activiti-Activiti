@@ -22,35 +22,27 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import org.activiti.core.el.juel.ObjectValueExpression;
-import org.activiti.core.el.juel.misc.TypeConverter;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.impl.el.FixedValue;
-import org.activiti.engine.impl.el.JuelExpression;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class)
 public class SkipExpressionUtilDiffblueTest {
-  @InjectMocks
-  private SkipExpressionUtil skipExpressionUtil;
-
   /**
-   * Test
-   * {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, Expression)}
-   * with {@code DelegateExecution}, {@code Expression}.
+   * Test {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, Expression)} with {@code DelegateExecution}, {@code Expression}.
    * <p>
-   * Method under test:
-   * {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, Expression)}
+   * Method under test: {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, Expression)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean SkipExpressionUtil.isSkipExpressionEnabled(DelegateExecution, Expression)"})
   public void testIsSkipExpressionEnabledWithDelegateExecutionExpression() {
     // Arrange
     ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
@@ -62,17 +54,16 @@ public class SkipExpressionUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, Expression)}
-   * with {@code DelegateExecution}, {@code Expression}.
+   * Test {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, Expression)} with {@code DelegateExecution}, {@code Expression}.
    * <ul>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, Expression)}
+   * Method under test: {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, Expression)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean SkipExpressionUtil.isSkipExpressionEnabled(DelegateExecution, Expression)"})
   public void testIsSkipExpressionEnabledWithDelegateExecutionExpression_thenReturnFalse() {
     // Arrange
     ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
@@ -82,17 +73,33 @@ public class SkipExpressionUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, Expression)}
-   * with {@code DelegateExecution}, {@code Expression}.
+   * Test {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, Expression)} with {@code DelegateExecution}, {@code Expression}.
+   * <ul>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, Expression)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean SkipExpressionUtil.isSkipExpressionEnabled(DelegateExecution, Expression)"})
+  public void testIsSkipExpressionEnabledWithDelegateExecutionExpression_thenReturnFalse2() {
+    // Arrange, Act and Assert
+    assertFalse(SkipExpressionUtil.isSkipExpressionEnabled(ExecutionEntityImpl.createWithEmptyRelationshipCollections(),
+        (Expression) null));
+  }
+
+  /**
+   * Test {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, Expression)} with {@code DelegateExecution}, {@code Expression}.
    * <ul>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, Expression)}
+   * Method under test: {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, Expression)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean SkipExpressionUtil.isSkipExpressionEnabled(DelegateExecution, Expression)"})
   public void testIsSkipExpressionEnabledWithDelegateExecutionExpression_thenReturnTrue() {
     // Arrange
     ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
@@ -103,71 +110,14 @@ public class SkipExpressionUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, Expression)}
-   * with {@code DelegateExecution}, {@code Expression}.
-   * <ul>
-   *   <li>When {@code java.lang.Object}.</li>
-   * </ul>
+   * Test {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, String)} with {@code DelegateExecution}, {@code String}.
    * <p>
-   * Method under test:
-   * {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, Expression)}
+   * Method under test: {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, String)}
    */
   @Test
-  public void testIsSkipExpressionEnabledWithDelegateExecutionExpression_whenJavaLangObject() {
-    // Arrange
-    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-
-    // Act and Assert
-    assertFalse(SkipExpressionUtil.isSkipExpressionEnabled(execution, new JuelExpression(
-        new ObjectValueExpression(converter, JSONObject.NULL, type), "_ACTIVITI_SKIP_EXPRESSION_ENABLED")));
-  }
-
-  /**
-   * Test
-   * {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, Expression)}
-   * with {@code DelegateExecution}, {@code Expression}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, Expression)}
-   */
-  @Test
-  public void testIsSkipExpressionEnabledWithDelegateExecutionExpression_whenNull() {
-    // Arrange, Act and Assert
-    assertFalse(SkipExpressionUtil.isSkipExpressionEnabled(ExecutionEntityImpl.createWithEmptyRelationshipCollections(),
-        (Expression) null));
-  }
-
-  /**
-   * Test
-   * {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, String)}
-   * with {@code DelegateExecution}, {@code String}.
-   * <p>
-   * Method under test:
-   * {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, String)}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean SkipExpressionUtil.isSkipExpressionEnabled(DelegateExecution, String)"})
   public void testIsSkipExpressionEnabledWithDelegateExecutionString() {
-    // Arrange, Act and Assert
-    assertFalse(SkipExpressionUtil.isSkipExpressionEnabled(ExecutionEntityImpl.createWithEmptyRelationshipCollections(),
-        "Skip Expression"));
-  }
-
-  /**
-   * Test
-   * {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, String)}
-   * with {@code DelegateExecution}, {@code String}.
-   * <p>
-   * Method under test:
-   * {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, String)}
-   */
-  @Test
-  public void testIsSkipExpressionEnabledWithDelegateExecutionString2() {
     // Arrange
     DelegateExecution execution = mock(DelegateExecution.class);
     when(execution.getVariable(Mockito.<String>any())).thenReturn(JSONObject.NULL);
@@ -179,18 +129,17 @@ public class SkipExpressionUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, String)}
-   * with {@code DelegateExecution}, {@code String}.
+   * Test {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, String)} with {@code DelegateExecution}, {@code String}.
    * <ul>
    *   <li>Given {@code true}.</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, String)}
+   * Method under test: {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean SkipExpressionUtil.isSkipExpressionEnabled(DelegateExecution, String)"})
   public void testIsSkipExpressionEnabledWithDelegateExecutionString_givenTrue_thenReturnTrue() {
     // Arrange
     DelegateExecution execution = mock(DelegateExecution.class);
@@ -206,31 +155,47 @@ public class SkipExpressionUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, String)}
-   * with {@code DelegateExecution}, {@code String}.
+   * Test {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, String)} with {@code DelegateExecution}, {@code String}.
    * <ul>
-   *   <li>When {@link DelegateExecution}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, String)}
+   * Method under test: {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, String)}
    */
   @Test
-  public void testIsSkipExpressionEnabledWithDelegateExecutionString_whenDelegateExecution() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean SkipExpressionUtil.isSkipExpressionEnabled(DelegateExecution, String)"})
+  public void testIsSkipExpressionEnabledWithDelegateExecutionString_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(SkipExpressionUtil.isSkipExpressionEnabled(mock(DelegateExecution.class), (String) null));
+    assertFalse(SkipExpressionUtil.isSkipExpressionEnabled(ExecutionEntityImpl.createWithEmptyRelationshipCollections(),
+        "Skip Expression"));
   }
 
   /**
-   * Test
-   * {@link SkipExpressionUtil#shouldSkipFlowElement(DelegateExecution, Expression)}
-   * with {@code execution}, {@code skipExpression}.
+   * Test {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, String)} with {@code DelegateExecution}, {@code String}.
+   * <ul>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
    * <p>
-   * Method under test:
-   * {@link SkipExpressionUtil#shouldSkipFlowElement(DelegateExecution, Expression)}
+   * Method under test: {@link SkipExpressionUtil#isSkipExpressionEnabled(DelegateExecution, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean SkipExpressionUtil.isSkipExpressionEnabled(DelegateExecution, String)"})
+  public void testIsSkipExpressionEnabledWithDelegateExecutionString_thenReturnFalse2() {
+    // Arrange, Act and Assert
+    assertFalse(SkipExpressionUtil.isSkipExpressionEnabled(ExecutionEntityImpl.createWithEmptyRelationshipCollections(),
+        (String) null));
+  }
+
+  /**
+   * Test {@link SkipExpressionUtil#shouldSkipFlowElement(DelegateExecution, Expression)} with {@code execution}, {@code skipExpression}.
+   * <p>
+   * Method under test: {@link SkipExpressionUtil#shouldSkipFlowElement(DelegateExecution, Expression)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean SkipExpressionUtil.shouldSkipFlowElement(DelegateExecution, Expression)"})
   public void testShouldSkipFlowElementWithExecutionSkipExpression() {
     // Arrange
     ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
@@ -241,17 +206,16 @@ public class SkipExpressionUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link SkipExpressionUtil#shouldSkipFlowElement(DelegateExecution, Expression)}
-   * with {@code execution}, {@code skipExpression}.
+   * Test {@link SkipExpressionUtil#shouldSkipFlowElement(DelegateExecution, Expression)} with {@code execution}, {@code skipExpression}.
    * <ul>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SkipExpressionUtil#shouldSkipFlowElement(DelegateExecution, Expression)}
+   * Method under test: {@link SkipExpressionUtil#shouldSkipFlowElement(DelegateExecution, Expression)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean SkipExpressionUtil.shouldSkipFlowElement(DelegateExecution, Expression)"})
   public void testShouldSkipFlowElementWithExecutionSkipExpression_thenReturnFalse() {
     // Arrange
     ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
@@ -261,17 +225,16 @@ public class SkipExpressionUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link SkipExpressionUtil#shouldSkipFlowElement(DelegateExecution, Expression)}
-   * with {@code execution}, {@code skipExpression}.
+   * Test {@link SkipExpressionUtil#shouldSkipFlowElement(DelegateExecution, Expression)} with {@code execution}, {@code skipExpression}.
    * <ul>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SkipExpressionUtil#shouldSkipFlowElement(DelegateExecution, Expression)}
+   * Method under test: {@link SkipExpressionUtil#shouldSkipFlowElement(DelegateExecution, Expression)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean SkipExpressionUtil.shouldSkipFlowElement(DelegateExecution, Expression)"})
   public void testShouldSkipFlowElementWithExecutionSkipExpression_thenReturnTrue() {
     // Arrange
     ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();

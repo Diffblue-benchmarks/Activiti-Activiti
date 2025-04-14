@@ -21,7 +21,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import org.activiti.api.process.model.payloads.GetProcessDefinitionsPayload;
 import org.activiti.api.process.model.payloads.GetProcessInstancesPayload;
@@ -33,6 +35,7 @@ import org.activiti.core.common.spring.security.AuthenticationPrincipalIdentityP
 import org.activiti.core.common.spring.security.LocalSpringSecurityManager;
 import org.activiti.core.common.spring.security.policies.conf.SecurityPoliciesProperties;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,14 +64,15 @@ class ProcessSecurityPoliciesManagerImplDiffblueTest {
   private SecurityPoliciesRestrictionApplier<GetProcessInstancesPayload> securityPoliciesRestrictionApplier2;
 
   /**
-   * Test
-   * {@link ProcessSecurityPoliciesManagerImpl#ProcessSecurityPoliciesManagerImpl(SecurityManager, SecurityPoliciesProperties, SecurityPoliciesRestrictionApplier, SecurityPoliciesRestrictionApplier)}.
+   * Test {@link ProcessSecurityPoliciesManagerImpl#ProcessSecurityPoliciesManagerImpl(SecurityManager, SecurityPoliciesProperties, SecurityPoliciesRestrictionApplier, SecurityPoliciesRestrictionApplier)}.
    * <p>
-   * Method under test:
-   * {@link ProcessSecurityPoliciesManagerImpl#ProcessSecurityPoliciesManagerImpl(SecurityManager, SecurityPoliciesProperties, SecurityPoliciesRestrictionApplier, SecurityPoliciesRestrictionApplier)}
+   * Method under test: {@link ProcessSecurityPoliciesManagerImpl#ProcessSecurityPoliciesManagerImpl(SecurityManager, SecurityPoliciesProperties, SecurityPoliciesRestrictionApplier, SecurityPoliciesRestrictionApplier)}
    */
   @Test
   @DisplayName("Test new ProcessSecurityPoliciesManagerImpl(SecurityManager, SecurityPoliciesProperties, SecurityPoliciesRestrictionApplier, SecurityPoliciesRestrictionApplier)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void ProcessSecurityPoliciesManagerImpl.<init>(SecurityManager, SecurityPoliciesProperties, SecurityPoliciesRestrictionApplier, SecurityPoliciesRestrictionApplier)"})
   void testNewProcessSecurityPoliciesManagerImpl() {
     // Arrange
     SecurityContextPrincipalProvider securityContextPrincipalProvider = mock(SecurityContextPrincipalProvider.class);
@@ -87,14 +91,15 @@ class ProcessSecurityPoliciesManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessSecurityPoliciesManagerImpl#restrictProcessDefQuery(SecurityPolicyAccess)}.
+   * Test {@link ProcessSecurityPoliciesManagerImpl#restrictProcessDefQuery(SecurityPolicyAccess)}.
    * <p>
-   * Method under test:
-   * {@link ProcessSecurityPoliciesManagerImpl#restrictProcessDefQuery(SecurityPolicyAccess)}
+   * Method under test: {@link ProcessSecurityPoliciesManagerImpl#restrictProcessDefQuery(SecurityPolicyAccess)}
    */
   @Test
   @DisplayName("Test restrictProcessDefQuery(SecurityPolicyAccess)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "GetProcessDefinitionsPayload ProcessSecurityPoliciesManagerImpl.restrictProcessDefQuery(SecurityPolicyAccess)"})
   void testRestrictProcessDefQuery() {
     // Arrange
     GetProcessDefinitionsPayload getProcessDefinitionsPayload = new GetProcessDefinitionsPayload();
@@ -110,14 +115,15 @@ class ProcessSecurityPoliciesManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessSecurityPoliciesManagerImpl#restrictProcessInstQuery(SecurityPolicyAccess)}.
+   * Test {@link ProcessSecurityPoliciesManagerImpl#restrictProcessInstQuery(SecurityPolicyAccess)}.
    * <p>
-   * Method under test:
-   * {@link ProcessSecurityPoliciesManagerImpl#restrictProcessInstQuery(SecurityPolicyAccess)}
+   * Method under test: {@link ProcessSecurityPoliciesManagerImpl#restrictProcessInstQuery(SecurityPolicyAccess)}
    */
   @Test
   @DisplayName("Test restrictProcessInstQuery(SecurityPolicyAccess)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "GetProcessInstancesPayload ProcessSecurityPoliciesManagerImpl.restrictProcessInstQuery(SecurityPolicyAccess)"})
   void testRestrictProcessInstQuery() {
     // Arrange
     GetProcessInstancesPayload getProcessInstancesPayload = new GetProcessInstancesPayload();
@@ -138,46 +144,47 @@ class ProcessSecurityPoliciesManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessSecurityPoliciesManagerImpl#canWrite(String)} with
-   * {@code processDefinitionKey}.
+   * Test {@link ProcessSecurityPoliciesManagerImpl#canWrite(String)} with {@code processDefinitionKey}.
    * <p>
-   * Method under test:
-   * {@link ProcessSecurityPoliciesManagerImpl#canWrite(String)}
+   * Method under test: {@link ProcessSecurityPoliciesManagerImpl#canWrite(String)}
    */
   @Test
   @DisplayName("Test canWrite(String) with 'processDefinitionKey'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessSecurityPoliciesManagerImpl.canWrite(String)"})
   void testCanWriteWithProcessDefinitionKey() {
     // Arrange, Act and Assert
     assertTrue(processSecurityPoliciesManagerImpl.canWrite("Process Definition Key"));
   }
 
   /**
-   * Test {@link ProcessSecurityPoliciesManagerImpl#canRead(String)} with
-   * {@code processDefinitionKey}.
+   * Test {@link ProcessSecurityPoliciesManagerImpl#canRead(String)} with {@code processDefinitionKey}.
    * <p>
    * Method under test: {@link ProcessSecurityPoliciesManagerImpl#canRead(String)}
    */
   @Test
   @DisplayName("Test canRead(String) with 'processDefinitionKey'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessSecurityPoliciesManagerImpl.canRead(String)"})
   void testCanReadWithProcessDefinitionKey() {
     // Arrange, Act and Assert
     assertTrue(processSecurityPoliciesManagerImpl.canRead("Process Definition Key"));
   }
 
   /**
-   * Test
-   * {@link ProcessSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}.
+   * Test {@link ProcessSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    *   <li>When {@code 42}.</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}
+   * Method under test: {@link ProcessSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}
    */
   @Test
   @DisplayName("Test anEntryInSetStartsKey(Set, String); given '42'; when '42'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessSecurityPoliciesManagerImpl.anEntryInSetStartsKey(Set, String)"})
   void testAnEntryInSetStartsKey_given42_when42_thenReturnTrue() {
     // Arrange
     HashSet<String> keys = new HashSet<>();
@@ -189,19 +196,19 @@ class ProcessSecurityPoliciesManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}.
+   * Test {@link ProcessSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    *   <li>When {@link HashSet#HashSet()} add {@code 42}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}
+   * Method under test: {@link ProcessSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}
    */
   @Test
   @DisplayName("Test anEntryInSetStartsKey(Set, String); given '42'; when HashSet() add '42'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessSecurityPoliciesManagerImpl.anEntryInSetStartsKey(Set, String)"})
   void testAnEntryInSetStartsKey_given42_whenHashSetAdd42_thenReturnFalse() {
     // Arrange
     HashSet<String> keys = new HashSet<>();
@@ -213,41 +220,41 @@ class ProcessSecurityPoliciesManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}.
+   * Test {@link ProcessSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}.
    * <ul>
-   *   <li>Given {@code foo}.</li>
-   *   <li>When {@link HashSet#HashSet()} add {@code foo}.</li>
+   *   <li>Given {@code Keys}.</li>
+   *   <li>When {@link LinkedHashSet#LinkedHashSet()} add {@code Keys}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}
+   * Method under test: {@link ProcessSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}
    */
   @Test
-  @DisplayName("Test anEntryInSetStartsKey(Set, String); given 'foo'; when HashSet() add 'foo'; then return 'false'")
-  void testAnEntryInSetStartsKey_givenFoo_whenHashSetAddFoo_thenReturnFalse() {
+  @DisplayName("Test anEntryInSetStartsKey(Set, String); given 'Keys'; when LinkedHashSet() add 'Keys'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessSecurityPoliciesManagerImpl.anEntryInSetStartsKey(Set, String)"})
+  void testAnEntryInSetStartsKey_givenKeys_whenLinkedHashSetAddKeys_thenReturnFalse() {
     // Arrange
-    HashSet<String> keys = new HashSet<>();
-    keys.add("foo");
+    LinkedHashSet<String> keys = new LinkedHashSet<>();
+    keys.add("Keys");
 
     // Act and Assert
     assertFalse(processSecurityPoliciesManagerImpl.anEntryInSetStartsKey(keys, "Process Definition Key"));
   }
 
   /**
-   * Test
-   * {@link ProcessSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}.
+   * Test {@link ProcessSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}.
    * <ul>
    *   <li>When {@link HashSet#HashSet()}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}
+   * Method under test: {@link ProcessSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}
    */
   @Test
   @DisplayName("Test anEntryInSetStartsKey(Set, String); when HashSet(); then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessSecurityPoliciesManagerImpl.anEntryInSetStartsKey(Set, String)"})
   void testAnEntryInSetStartsKey_whenHashSet_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(processSecurityPoliciesManagerImpl.anEntryInSetStartsKey(new HashSet<>(), "Process Definition Key"));

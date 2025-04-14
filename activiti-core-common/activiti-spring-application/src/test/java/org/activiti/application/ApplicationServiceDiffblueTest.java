@@ -22,10 +22,12 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWebApplicationContext;
@@ -42,6 +44,8 @@ class ApplicationServiceDiffblueTest {
    */
   @Test
   @DisplayName("Test loadApplications()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List ApplicationService.loadApplications()"})
   void testLoadApplications() throws IOException {
     // Arrange
     PathMatchingResourcePatternResolver resourceLoader = mock(PathMatchingResourcePatternResolver.class);
@@ -66,6 +70,8 @@ class ApplicationServiceDiffblueTest {
    */
   @Test
   @DisplayName("Test loadApplications()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List ApplicationService.loadApplications()"})
   void testLoadApplications2() throws IOException {
     // Arrange
     PathMatchingResourcePatternResolver resourceLoader = mock(PathMatchingResourcePatternResolver.class);
@@ -92,6 +98,8 @@ class ApplicationServiceDiffblueTest {
    */
   @Test
   @DisplayName("Test loadApplications(); then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List ApplicationService.loadApplications()"})
   void testLoadApplications_thenReturnEmpty() {
     // Arrange
     ApplicationDiscovery applicationDiscovery = new ApplicationDiscovery(
@@ -113,6 +121,8 @@ class ApplicationServiceDiffblueTest {
    */
   @Test
   @DisplayName("Test loadApplications(); then return size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List ApplicationService.loadApplications()"})
   void testLoadApplications_thenReturnSizeIsOne() throws IOException {
     // Arrange
     PathMatchingResourcePatternResolver resourceLoader = mock(PathMatchingResourcePatternResolver.class);

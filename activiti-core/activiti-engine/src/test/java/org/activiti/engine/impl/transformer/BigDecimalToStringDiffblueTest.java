@@ -18,12 +18,15 @@ package org.activiti.engine.impl.transformer;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Currency;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class BigDecimalToStringDiffblueTest {
   /**
@@ -36,6 +39,8 @@ public class BigDecimalToStringDiffblueTest {
    * Method under test: {@link BigDecimalToString#primTransform(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object BigDecimalToString.primTransform(Object)"})
   public void testPrimTransform_whenBigDecimalWith23_thenReturn23() throws Exception {
     // Arrange
     BigDecimalToString bigDecimalToString = new BigDecimalToString();
@@ -47,10 +52,11 @@ public class BigDecimalToStringDiffblueTest {
   /**
    * Test new {@link BigDecimalToString} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link BigDecimalToString}
+   * Method under test: default or parameterless constructor of {@link BigDecimalToString}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BigDecimalToString.<init>()"})
   public void testNewBigDecimalToString() {
     // Arrange, Act and Assert
     DecimalFormat decimalFormat = (new BigDecimalToString()).format;

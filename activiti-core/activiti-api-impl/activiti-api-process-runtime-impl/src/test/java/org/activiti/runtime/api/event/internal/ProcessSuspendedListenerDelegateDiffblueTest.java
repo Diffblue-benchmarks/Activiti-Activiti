@@ -21,6 +21,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +35,7 @@ import org.activiti.runtime.api.event.impl.ProcessSuspendedEventImpl;
 import org.activiti.runtime.api.event.impl.ToProcessSuspendedConverter;
 import org.activiti.runtime.api.model.impl.APIProcessInstanceConverter;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -43,13 +45,15 @@ class ProcessSuspendedListenerDelegateDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link ProcessSuspendedListenerDelegate#ProcessSuspendedListenerDelegate(List, ToProcessSuspendedConverter)}
+   *   <li>{@link ProcessSuspendedListenerDelegate#ProcessSuspendedListenerDelegate(List, ToProcessSuspendedConverter)}
    *   <li>{@link ProcessSuspendedListenerDelegate#isFailOnException()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessSuspendedListenerDelegate.<init>(List, ToProcessSuspendedConverter)",
+      "boolean ProcessSuspendedListenerDelegate.isFailOnException()"})
   void testGettersAndSetters() {
     // Arrange
     ArrayList<ProcessRuntimeEventListener<ProcessSuspendedEvent>> listeners = new ArrayList<>();
@@ -62,17 +66,16 @@ class ProcessSuspendedListenerDelegateDiffblueTest {
   /**
    * Test {@link ProcessSuspendedListenerDelegate#onEvent(ActivitiEvent)}.
    * <ul>
-   *   <li>Given {@link ProcessRuntimeEventListener}
-   * {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)} does nothing.</li>
-   *   <li>Then calls
-   * {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)}.</li>
+   *   <li>Given {@link ProcessRuntimeEventListener} {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)} does nothing.</li>
+   *   <li>Then calls {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessSuspendedListenerDelegate#onEvent(ActivitiEvent)}
+   * Method under test: {@link ProcessSuspendedListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
   @DisplayName("Test onEvent(ActivitiEvent); given ProcessRuntimeEventListener onEvent(RuntimeEvent) does nothing; then calls onEvent(RuntimeEvent)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessSuspendedListenerDelegate.onEvent(ActivitiEvent)"})
   void testOnEvent_givenProcessRuntimeEventListenerOnEventDoesNothing_thenCallsOnEvent() {
     // Arrange
     ProcessRuntimeEventListener<ProcessSuspendedEvent> processRuntimeEventListener = mock(
@@ -97,15 +100,15 @@ class ProcessSuspendedListenerDelegateDiffblueTest {
   /**
    * Test {@link ProcessSuspendedListenerDelegate#onEvent(ActivitiEvent)}.
    * <ul>
-   *   <li>Then calls
-   * {@link ToProcessSuspendedConverter#from(ActivitiEntityEvent)}.</li>
+   *   <li>Then calls {@link ToProcessSuspendedConverter#from(ActivitiEntityEvent)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessSuspendedListenerDelegate#onEvent(ActivitiEvent)}
+   * Method under test: {@link ProcessSuspendedListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
   @DisplayName("Test onEvent(ActivitiEvent); then calls from(ActivitiEntityEvent)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessSuspendedListenerDelegate.onEvent(ActivitiEvent)"})
   void testOnEvent_thenCallsFrom() {
     // Arrange
     ToProcessSuspendedConverter processSuspendedConverter = mock(ToProcessSuspendedConverter.class);
@@ -116,7 +119,7 @@ class ProcessSuspendedListenerDelegateDiffblueTest {
     (new ProcessSuspendedListenerDelegate(new ArrayList<>(), processSuspendedConverter))
         .onEvent(mock(ActivitiEntityEventImpl.class));
 
-    // Assert that nothing has changed
+    // Assert
     verify(processSuspendedConverter).from(isA(ActivitiEntityEvent.class));
   }
 }

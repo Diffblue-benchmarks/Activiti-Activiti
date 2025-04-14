@@ -17,8 +17,11 @@ package org.activiti.engine.impl.util.io;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class BytesStreamSourceDiffblueTest {
   /**
@@ -27,6 +30,8 @@ public class BytesStreamSourceDiffblueTest {
    * Method under test: {@link BytesStreamSource#BytesStreamSource(byte[])}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BytesStreamSource.<init>(byte[])"})
   public void testNewBytesStreamSource() throws IOException {
     // Arrange and Act
     BytesStreamSource actualBytesStreamSource = new BytesStreamSource("AXAXAXAX".getBytes("UTF-8"));
@@ -42,6 +47,8 @@ public class BytesStreamSourceDiffblueTest {
    * Method under test: {@link BytesStreamSource#getInputStream()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.io.InputStream BytesStreamSource.getInputStream()"})
   public void testGetInputStream() throws IOException {
     // Arrange, Act and Assert
     byte[] byteArray = new byte[8];

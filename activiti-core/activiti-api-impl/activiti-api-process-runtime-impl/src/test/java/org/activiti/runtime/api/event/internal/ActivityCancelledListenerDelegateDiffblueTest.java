@@ -20,16 +20,19 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.api.process.model.events.BPMNActivityCancelledEvent;
 import org.activiti.api.process.runtime.events.listener.BPMNElementEventListener;
 import org.activiti.api.process.runtime.events.listener.ProcessRuntimeEventListener;
 import org.activiti.engine.delegate.event.ActivitiEvent;
+import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.delegate.event.impl.ActivitiActivityCancelledEventImpl;
 import org.activiti.runtime.api.event.impl.ToActivityCancelledConverter;
 import org.activiti.runtime.api.model.impl.ToActivityConverter;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -39,13 +42,15 @@ class ActivityCancelledListenerDelegateDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link ActivityCancelledListenerDelegate#ActivityCancelledListenerDelegate(List, ToActivityCancelledConverter)}
+   *   <li>{@link ActivityCancelledListenerDelegate#ActivityCancelledListenerDelegate(List, ToActivityCancelledConverter)}
    *   <li>{@link ActivityCancelledListenerDelegate#isFailOnException()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ActivityCancelledListenerDelegate.<init>(List, ToActivityCancelledConverter)",
+      "boolean ActivityCancelledListenerDelegate.isFailOnException()"})
   void testGettersAndSetters() {
     // Arrange
     ArrayList<BPMNElementEventListener<BPMNActivityCancelledEvent>> processRuntimeEventListeners = new ArrayList<>();
@@ -58,17 +63,16 @@ class ActivityCancelledListenerDelegateDiffblueTest {
   /**
    * Test {@link ActivityCancelledListenerDelegate#onEvent(ActivitiEvent)}.
    * <ul>
-   *   <li>Given {@link BPMNElementEventListener}
-   * {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)} does nothing.</li>
-   *   <li>Then calls
-   * {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)}.</li>
+   *   <li>Given {@link BPMNElementEventListener} {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)} does nothing.</li>
+   *   <li>Then calls {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivityCancelledListenerDelegate#onEvent(ActivitiEvent)}
+   * Method under test: {@link ActivityCancelledListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
   @DisplayName("Test onEvent(ActivitiEvent); given BPMNElementEventListener onEvent(RuntimeEvent) does nothing; then calls onEvent(RuntimeEvent)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ActivityCancelledListenerDelegate.onEvent(ActivitiEvent)"})
   void testOnEvent_givenBPMNElementEventListenerOnEventDoesNothing_thenCallsOnEvent() {
     // Arrange
     BPMNElementEventListener<BPMNActivityCancelledEvent> bpmnElementEventListener = mock(
@@ -81,7 +85,16 @@ class ActivityCancelledListenerDelegateDiffblueTest {
         processRuntimeEventListeners, new ToActivityCancelledConverter(new ToActivityConverter()));
 
     ActivitiActivityCancelledEventImpl event = new ActivitiActivityCancelledEventImpl();
-    event.setActivityId("42");
+    event.setActivityName("Activity Name");
+    event.setActivityType("Activity Type");
+    event.setBehaviorClass("Behavior Class");
+    event.setCause("Cause");
+    event.setExecutionId("42");
+    event.setProcessDefinitionId("42");
+    event.setProcessInstanceId("42");
+    event.setReason("Just cause");
+    event.setType(ActivitiEventType.ENTITY_CREATED);
+    event.setActivityId("Event");
 
     // Act
     activityCancelledListenerDelegate.onEvent(event);

@@ -25,6 +25,8 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.engine.ActivitiException;
@@ -36,6 +38,7 @@ import org.activiti.engine.impl.el.FixedValue;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -53,20 +56,17 @@ public class ServiceTaskDelegateExpressionActivityBehaviorDiffblueTest {
   @InjectMocks
   private ServiceTaskDelegateExpressionActivityBehavior serviceTaskDelegateExpressionActivityBehavior;
 
-  @InjectMocks
-  private String string;
-
   /**
-   * Test
-   * {@link ServiceTaskDelegateExpressionActivityBehavior#ServiceTaskDelegateExpressionActivityBehavior(String, Expression, Expression, List)}.
+   * Test {@link ServiceTaskDelegateExpressionActivityBehavior#ServiceTaskDelegateExpressionActivityBehavior(String, Expression, Expression, List)}.
    * <ul>
    *   <li>Given {@link FieldDeclaration#FieldDeclaration()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskDelegateExpressionActivityBehavior#ServiceTaskDelegateExpressionActivityBehavior(String, Expression, Expression, List)}
+   * Method under test: {@link ServiceTaskDelegateExpressionActivityBehavior#ServiceTaskDelegateExpressionActivityBehavior(String, Expression, Expression, List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTaskDelegateExpressionActivityBehavior.<init>(String, Expression, Expression, List)"})
   public void testNewServiceTaskDelegateExpressionActivityBehavior_givenFieldDeclaration() {
     // Arrange
     ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
@@ -84,16 +84,16 @@ public class ServiceTaskDelegateExpressionActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskDelegateExpressionActivityBehavior#ServiceTaskDelegateExpressionActivityBehavior(String, Expression, Expression, List)}.
+   * Test {@link ServiceTaskDelegateExpressionActivityBehavior#ServiceTaskDelegateExpressionActivityBehavior(String, Expression, Expression, List)}.
    * <ul>
    *   <li>Given {@link FieldDeclaration#FieldDeclaration()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskDelegateExpressionActivityBehavior#ServiceTaskDelegateExpressionActivityBehavior(String, Expression, Expression, List)}
+   * Method under test: {@link ServiceTaskDelegateExpressionActivityBehavior#ServiceTaskDelegateExpressionActivityBehavior(String, Expression, Expression, List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTaskDelegateExpressionActivityBehavior.<init>(String, Expression, Expression, List)"})
   public void testNewServiceTaskDelegateExpressionActivityBehavior_givenFieldDeclaration2() {
     // Arrange
     ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
@@ -112,43 +112,16 @@ public class ServiceTaskDelegateExpressionActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskDelegateExpressionActivityBehavior#ServiceTaskDelegateExpressionActivityBehavior(String, Expression, Expression, List)}.
-   * <ul>
-   *   <li>Given {@link FieldDeclaration}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ServiceTaskDelegateExpressionActivityBehavior#ServiceTaskDelegateExpressionActivityBehavior(String, Expression, Expression, List)}
-   */
-  @Test
-  public void testNewServiceTaskDelegateExpressionActivityBehavior_givenFieldDeclaration3() {
-    // Arrange
-    ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
-    fieldDeclarations.add(mock(FieldDeclaration.class));
-
-    // Act
-    ServiceTaskDelegateExpressionActivityBehavior actualServiceTaskDelegateExpressionActivityBehavior = new ServiceTaskDelegateExpressionActivityBehavior(
-        "42", expression, expression, fieldDeclarations);
-
-    // Assert
-    assertEquals("42", actualServiceTaskDelegateExpressionActivityBehavior.serviceTaskId);
-    assertNull(actualServiceTaskDelegateExpressionActivityBehavior.getMultiInstanceActivityBehavior());
-    assertFalse(actualServiceTaskDelegateExpressionActivityBehavior.hasLoopCharacteristics());
-    assertFalse(actualServiceTaskDelegateExpressionActivityBehavior.hasMultiInstanceCharacteristics());
-  }
-
-  /**
-   * Test
-   * {@link ServiceTaskDelegateExpressionActivityBehavior#ServiceTaskDelegateExpressionActivityBehavior(String, Expression, Expression, List)}.
+   * Test {@link ServiceTaskDelegateExpressionActivityBehavior#ServiceTaskDelegateExpressionActivityBehavior(String, Expression, Expression, List)}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskDelegateExpressionActivityBehavior#ServiceTaskDelegateExpressionActivityBehavior(String, Expression, Expression, List)}
+   * Method under test: {@link ServiceTaskDelegateExpressionActivityBehavior#ServiceTaskDelegateExpressionActivityBehavior(String, Expression, Expression, List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTaskDelegateExpressionActivityBehavior.<init>(String, Expression, Expression, List)"})
   public void testNewServiceTaskDelegateExpressionActivityBehavior_whenArrayList() {
     // Arrange and Act
     ServiceTaskDelegateExpressionActivityBehavior actualServiceTaskDelegateExpressionActivityBehavior = new ServiceTaskDelegateExpressionActivityBehavior(
@@ -162,20 +135,17 @@ public class ServiceTaskDelegateExpressionActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskDelegateExpressionActivityBehavior#trigger(DelegateExecution, String, Object)}.
+   * Test {@link ServiceTaskDelegateExpressionActivityBehavior#trigger(DelegateExecution, String, Object)}.
    * <ul>
-   *   <li>Given {@link AbstractBpmnActivityBehavior}
-   * {@link FlowNodeActivityBehavior#trigger(DelegateExecution, String, Object)}
-   * does nothing.</li>
-   *   <li>Then calls
-   * {@link FlowNodeActivityBehavior#trigger(DelegateExecution, String, Object)}.</li>
+   *   <li>Given {@link AbstractBpmnActivityBehavior} {@link FlowNodeActivityBehavior#trigger(DelegateExecution, String, Object)} does nothing.</li>
+   *   <li>Then calls {@link FlowNodeActivityBehavior#trigger(DelegateExecution, String, Object)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskDelegateExpressionActivityBehavior#trigger(DelegateExecution, String, Object)}
+   * Method under test: {@link ServiceTaskDelegateExpressionActivityBehavior#trigger(DelegateExecution, String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTaskDelegateExpressionActivityBehavior.trigger(DelegateExecution, String, Object)"})
   public void testTrigger_givenAbstractBpmnActivityBehaviorTriggerDoesNothing_thenCallsTrigger() {
     // Arrange
     AbstractBpmnActivityBehavior abstractBpmnActivityBehavior = mock(AbstractBpmnActivityBehavior.class);
@@ -195,18 +165,17 @@ public class ServiceTaskDelegateExpressionActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskDelegateExpressionActivityBehavior#trigger(DelegateExecution, String, Object)}.
+   * Test {@link ServiceTaskDelegateExpressionActivityBehavior#trigger(DelegateExecution, String, Object)}.
    * <ul>
-   *   <li>Given {@link Expression} {@link Expression#getValue(VariableScope)}
-   * return {@link JSONObject#NULL}.</li>
+   *   <li>Given {@link Expression} {@link Expression#getValue(VariableScope)} return {@link JSONObject#NULL}.</li>
    *   <li>Then calls {@link List#size()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskDelegateExpressionActivityBehavior#trigger(DelegateExecution, String, Object)}
+   * Method under test: {@link ServiceTaskDelegateExpressionActivityBehavior#trigger(DelegateExecution, String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTaskDelegateExpressionActivityBehavior.trigger(DelegateExecution, String, Object)"})
   public void testTrigger_givenExpressionGetValueReturnNull_thenCallsSize() {
     // Arrange
     when(expression.getValue(Mockito.<VariableScope>any())).thenReturn(JSONObject.NULL);
@@ -222,16 +191,16 @@ public class ServiceTaskDelegateExpressionActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}.
+   * Test {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}
+   * Method under test: {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTaskDelegateExpressionActivityBehavior.execute(DelegateExecution)"})
   public void testExecute_given42() {
     // Arrange
     FixedValue expression = new FixedValue(JSONObject.NULL);
@@ -247,18 +216,17 @@ public class ServiceTaskDelegateExpressionActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}.
+   * Test {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}.
    * <ul>
-   *   <li>Given {@link FixedValue#FixedValue(Object)} with value is
-   * {@code true}.</li>
+   *   <li>Given {@link FixedValue#FixedValue(Object)} with value is {@code true}.</li>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}
+   * Method under test: {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTaskDelegateExpressionActivityBehavior.execute(DelegateExecution)"})
   public void testExecute_givenFixedValueWithValueIsTrue_thenThrowActivitiException() {
     // Arrange
     FixedValue expression = new FixedValue(JSONObject.NULL);
@@ -273,16 +241,16 @@ public class ServiceTaskDelegateExpressionActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}.
+   * Test {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}.
    * <ul>
    *   <li>Given {@link JSONObject#NULL}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}
+   * Method under test: {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTaskDelegateExpressionActivityBehavior.execute(DelegateExecution)"})
   public void testExecute_givenNull() {
     // Arrange
     FixedValue expression = new FixedValue(JSONObject.NULL);
@@ -297,17 +265,17 @@ public class ServiceTaskDelegateExpressionActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}.
+   * Test {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}.
    * <ul>
    *   <li>Given {@code true}.</li>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}
+   * Method under test: {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTaskDelegateExpressionActivityBehavior.execute(DelegateExecution)"})
   public void testExecute_givenTrue_thenThrowActivitiException() {
     // Arrange
     FixedValue expression = new FixedValue(JSONObject.NULL);
@@ -322,17 +290,17 @@ public class ServiceTaskDelegateExpressionActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}.
+   * Test {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}.
    * <ul>
    *   <li>When {@link ExecutionEntityImpl} (default constructor).</li>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}
+   * Method under test: {@link ServiceTaskDelegateExpressionActivityBehavior#execute(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTaskDelegateExpressionActivityBehavior.execute(DelegateExecution)"})
   public void testExecute_whenExecutionEntityImpl_thenThrowActivitiException() {
     // Arrange
     FixedValue expression = new FixedValue(JSONObject.NULL);

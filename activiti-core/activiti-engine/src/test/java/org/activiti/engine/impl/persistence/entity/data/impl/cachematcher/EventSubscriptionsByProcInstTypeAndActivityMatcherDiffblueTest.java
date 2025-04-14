@@ -20,23 +20,26 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import org.activiti.engine.impl.persistence.entity.EventSubscriptionEntity;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class EventSubscriptionsByProcInstTypeAndActivityMatcherDiffblueTest {
   /**
-   * Test
-   * {@link EventSubscriptionsByProcInstTypeAndActivityMatcher#isRetained(EventSubscriptionEntity, Object)}
-   * with {@code EventSubscriptionEntity}, {@code Object}.
+   * Test {@link EventSubscriptionsByProcInstTypeAndActivityMatcher#isRetained(EventSubscriptionEntity, Object)} with {@code EventSubscriptionEntity}, {@code Object}.
    * <ul>
    *   <li>Given {@code Event Type}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionsByProcInstTypeAndActivityMatcher#isRetained(EventSubscriptionEntity, Object)}
+   * Method under test: {@link EventSubscriptionsByProcInstTypeAndActivityMatcher#isRetained(EventSubscriptionEntity, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "boolean EventSubscriptionsByProcInstTypeAndActivityMatcher.isRetained(EventSubscriptionEntity, Object)"})
   public void testIsRetainedWithEventSubscriptionEntityObject_givenEventType() {
     // Arrange
     EventSubscriptionsByProcInstTypeAndActivityMatcher eventSubscriptionsByProcInstTypeAndActivityMatcher = new EventSubscriptionsByProcInstTypeAndActivityMatcher();
@@ -53,17 +56,17 @@ public class EventSubscriptionsByProcInstTypeAndActivityMatcherDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubscriptionsByProcInstTypeAndActivityMatcher#isRetained(EventSubscriptionEntity, Object)}
-   * with {@code EventSubscriptionEntity}, {@code Object}.
+   * Test {@link EventSubscriptionsByProcInstTypeAndActivityMatcher#isRetained(EventSubscriptionEntity, Object)} with {@code EventSubscriptionEntity}, {@code Object}.
    * <ul>
    *   <li>Given {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionsByProcInstTypeAndActivityMatcher#isRetained(EventSubscriptionEntity, Object)}
+   * Method under test: {@link EventSubscriptionsByProcInstTypeAndActivityMatcher#isRetained(EventSubscriptionEntity, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "boolean EventSubscriptionsByProcInstTypeAndActivityMatcher.isRetained(EventSubscriptionEntity, Object)"})
   public void testIsRetainedWithEventSubscriptionEntityObject_givenNull() {
     // Arrange
     EventSubscriptionsByProcInstTypeAndActivityMatcher eventSubscriptionsByProcInstTypeAndActivityMatcher = new EventSubscriptionsByProcInstTypeAndActivityMatcher();

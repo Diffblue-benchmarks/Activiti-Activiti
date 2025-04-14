@@ -23,10 +23,13 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELException;
+import java.lang.Character.UnicodeScript;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -35,16 +38,16 @@ class BooleanOperationsDiffblueTest {
    * Test {@link BooleanOperations#lt(TypeConverter, Object, Object)}.
    * <ul>
    *   <li>Given {@code Convert}.</li>
-   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)}
-   * return {@code Convert}.</li>
+   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)} return {@code Convert}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BooleanOperations#lt(TypeConverter, Object, Object)}
+   * Method under test: {@link BooleanOperations#lt(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test lt(TypeConverter, Object, Object); given 'Convert'; when TypeConverter convert(Object, Class) return 'Convert'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.lt(TypeConverter, Object, Object)"})
   void testLt_givenConvert_whenTypeConverterConvertReturnConvert_thenReturnFalse() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -61,16 +64,16 @@ class BooleanOperationsDiffblueTest {
   /**
    * Test {@link BooleanOperations#lt(TypeConverter, Object, Object)}.
    * <ul>
-   *   <li>Given {@link ELException#ELException(String)} with pMessage is
-   * {@code An error occurred}.</li>
+   *   <li>Given {@link ELException#ELException(String)} with pMessage is {@code An error occurred}.</li>
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BooleanOperations#lt(TypeConverter, Object, Object)}
+   * Method under test: {@link BooleanOperations#lt(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test lt(TypeConverter, Object, Object); given ELException(String) with pMessage is 'An error occurred'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.lt(TypeConverter, Object, Object)"})
   void testLt_givenELExceptionWithPMessageIsAnErrorOccurred_thenThrowELException() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -85,16 +88,16 @@ class BooleanOperationsDiffblueTest {
   /**
    * Test {@link BooleanOperations#lt(TypeConverter, Object, Object)}.
    * <ul>
-   *   <li>Given {@link ELException#ELException(String)} with pMessage is
-   * {@code An error occurred}.</li>
+   *   <li>Given {@link ELException#ELException(String)} with pMessage is {@code An error occurred}.</li>
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BooleanOperations#lt(TypeConverter, Object, Object)}
+   * Method under test: {@link BooleanOperations#lt(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test lt(TypeConverter, Object, Object); given ELException(String) with pMessage is 'An error occurred'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.lt(TypeConverter, Object, Object)"})
   void testLt_givenELExceptionWithPMessageIsAnErrorOccurred_thenThrowELException2() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -109,16 +112,16 @@ class BooleanOperationsDiffblueTest {
   /**
    * Test {@link BooleanOperations#lt(TypeConverter, Object, Object)}.
    * <ul>
-   *   <li>Given {@link ELException#ELException(String)} with pMessage is
-   * {@code An error occurred}.</li>
+   *   <li>Given {@link ELException#ELException(String)} with pMessage is {@code An error occurred}.</li>
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BooleanOperations#lt(TypeConverter, Object, Object)}
+   * Method under test: {@link BooleanOperations#lt(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test lt(TypeConverter, Object, Object); given ELException(String) with pMessage is 'An error occurred'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.lt(TypeConverter, Object, Object)"})
   void testLt_givenELExceptionWithPMessageIsAnErrorOccurred_thenThrowELException3() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -134,16 +137,16 @@ class BooleanOperationsDiffblueTest {
    * Test {@link BooleanOperations#lt(TypeConverter, Object, Object)}.
    * <ul>
    *   <li>Given one.</li>
-   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)}
-   * return one.</li>
+   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)} return one.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BooleanOperations#lt(TypeConverter, Object, Object)}
+   * Method under test: {@link BooleanOperations#lt(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test lt(TypeConverter, Object, Object); given one; when TypeConverter convert(Object, Class) return one; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.lt(TypeConverter, Object, Object)"})
   void testLt_givenOne_whenTypeConverterConvertReturnOne_thenReturnFalse() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -164,15 +167,50 @@ class BooleanOperationsDiffblueTest {
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BooleanOperations#lt(TypeConverter, Object, Object)}
+   * Method under test: {@link BooleanOperations#lt(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test lt(TypeConverter, Object, Object); when TypeConverter; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.lt(TypeConverter, Object, Object)"})
   void testLt_whenTypeConverter_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(BooleanOperations.lt(mock(TypeConverter.class), null, null));
+  }
+
+  /**
+   * Test {@link BooleanOperations#lt(TypeConverter, Object, Object)}.
+   * <ul>
+   *   <li>When {@link TypeConverter}.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BooleanOperations#lt(TypeConverter, Object, Object)}
+   */
+  @Test
+  @DisplayName("Test lt(TypeConverter, Object, Object); when TypeConverter; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.lt(TypeConverter, Object, Object)"})
+  void testLt_whenTypeConverter_thenReturnFalse2() {
+    // Arrange, Act and Assert
     assertFalse(BooleanOperations.lt(mock(TypeConverter.class), null, "O2"));
+  }
+
+  /**
+   * Test {@link BooleanOperations#lt(TypeConverter, Object, Object)}.
+   * <ul>
+   *   <li>When {@link TypeConverter}.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BooleanOperations#lt(TypeConverter, Object, Object)}
+   */
+  @Test
+  @DisplayName("Test lt(TypeConverter, Object, Object); when TypeConverter; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.lt(TypeConverter, Object, Object)"})
+  void testLt_whenTypeConverter_thenReturnFalse3() {
+    // Arrange, Act and Assert
     assertFalse(BooleanOperations.lt(mock(TypeConverter.class), "O1", null));
   }
 
@@ -180,16 +218,16 @@ class BooleanOperationsDiffblueTest {
    * Test {@link BooleanOperations#gt(TypeConverter, Object, Object)}.
    * <ul>
    *   <li>Given {@code Convert}.</li>
-   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)}
-   * return {@code Convert}.</li>
+   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)} return {@code Convert}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BooleanOperations#gt(TypeConverter, Object, Object)}
+   * Method under test: {@link BooleanOperations#gt(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test gt(TypeConverter, Object, Object); given 'Convert'; when TypeConverter convert(Object, Class) return 'Convert'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.gt(TypeConverter, Object, Object)"})
   void testGt_givenConvert_whenTypeConverterConvertReturnConvert_thenReturnFalse() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -206,16 +244,16 @@ class BooleanOperationsDiffblueTest {
   /**
    * Test {@link BooleanOperations#gt(TypeConverter, Object, Object)}.
    * <ul>
-   *   <li>Given {@link ELException#ELException(String)} with pMessage is
-   * {@code An error occurred}.</li>
+   *   <li>Given {@link ELException#ELException(String)} with pMessage is {@code An error occurred}.</li>
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BooleanOperations#gt(TypeConverter, Object, Object)}
+   * Method under test: {@link BooleanOperations#gt(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test gt(TypeConverter, Object, Object); given ELException(String) with pMessage is 'An error occurred'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.gt(TypeConverter, Object, Object)"})
   void testGt_givenELExceptionWithPMessageIsAnErrorOccurred_thenThrowELException() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -230,16 +268,16 @@ class BooleanOperationsDiffblueTest {
   /**
    * Test {@link BooleanOperations#gt(TypeConverter, Object, Object)}.
    * <ul>
-   *   <li>Given {@link ELException#ELException(String)} with pMessage is
-   * {@code An error occurred}.</li>
+   *   <li>Given {@link ELException#ELException(String)} with pMessage is {@code An error occurred}.</li>
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BooleanOperations#gt(TypeConverter, Object, Object)}
+   * Method under test: {@link BooleanOperations#gt(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test gt(TypeConverter, Object, Object); given ELException(String) with pMessage is 'An error occurred'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.gt(TypeConverter, Object, Object)"})
   void testGt_givenELExceptionWithPMessageIsAnErrorOccurred_thenThrowELException2() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -254,16 +292,16 @@ class BooleanOperationsDiffblueTest {
   /**
    * Test {@link BooleanOperations#gt(TypeConverter, Object, Object)}.
    * <ul>
-   *   <li>Given {@link ELException#ELException(String)} with pMessage is
-   * {@code An error occurred}.</li>
+   *   <li>Given {@link ELException#ELException(String)} with pMessage is {@code An error occurred}.</li>
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BooleanOperations#gt(TypeConverter, Object, Object)}
+   * Method under test: {@link BooleanOperations#gt(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test gt(TypeConverter, Object, Object); given ELException(String) with pMessage is 'An error occurred'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.gt(TypeConverter, Object, Object)"})
   void testGt_givenELExceptionWithPMessageIsAnErrorOccurred_thenThrowELException3() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -279,16 +317,16 @@ class BooleanOperationsDiffblueTest {
    * Test {@link BooleanOperations#gt(TypeConverter, Object, Object)}.
    * <ul>
    *   <li>Given one.</li>
-   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)}
-   * return one.</li>
+   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)} return one.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BooleanOperations#gt(TypeConverter, Object, Object)}
+   * Method under test: {@link BooleanOperations#gt(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test gt(TypeConverter, Object, Object); given one; when TypeConverter convert(Object, Class) return one; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.gt(TypeConverter, Object, Object)"})
   void testGt_givenOne_whenTypeConverterConvertReturnOne_thenReturnFalse() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -309,15 +347,50 @@ class BooleanOperationsDiffblueTest {
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BooleanOperations#gt(TypeConverter, Object, Object)}
+   * Method under test: {@link BooleanOperations#gt(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test gt(TypeConverter, Object, Object); when TypeConverter; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.gt(TypeConverter, Object, Object)"})
   void testGt_whenTypeConverter_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(BooleanOperations.gt(mock(TypeConverter.class), null, null));
+  }
+
+  /**
+   * Test {@link BooleanOperations#gt(TypeConverter, Object, Object)}.
+   * <ul>
+   *   <li>When {@link TypeConverter}.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BooleanOperations#gt(TypeConverter, Object, Object)}
+   */
+  @Test
+  @DisplayName("Test gt(TypeConverter, Object, Object); when TypeConverter; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.gt(TypeConverter, Object, Object)"})
+  void testGt_whenTypeConverter_thenReturnFalse2() {
+    // Arrange, Act and Assert
     assertFalse(BooleanOperations.gt(mock(TypeConverter.class), null, "O2"));
+  }
+
+  /**
+   * Test {@link BooleanOperations#gt(TypeConverter, Object, Object)}.
+   * <ul>
+   *   <li>When {@link TypeConverter}.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BooleanOperations#gt(TypeConverter, Object, Object)}
+   */
+  @Test
+  @DisplayName("Test gt(TypeConverter, Object, Object); when TypeConverter; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.gt(TypeConverter, Object, Object)"})
+  void testGt_whenTypeConverter_thenReturnFalse3() {
+    // Arrange, Act and Assert
     assertFalse(BooleanOperations.gt(mock(TypeConverter.class), "O1", null));
   }
 
@@ -325,16 +398,16 @@ class BooleanOperationsDiffblueTest {
    * Test {@link BooleanOperations#ge(TypeConverter, Object, Object)}.
    * <ul>
    *   <li>Given {@code Convert}.</li>
-   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)}
-   * return {@code Convert}.</li>
+   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)} return {@code Convert}.</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BooleanOperations#ge(TypeConverter, Object, Object)}
+   * Method under test: {@link BooleanOperations#ge(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test ge(TypeConverter, Object, Object); given 'Convert'; when TypeConverter convert(Object, Class) return 'Convert'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.ge(TypeConverter, Object, Object)"})
   void testGe_givenConvert_whenTypeConverterConvertReturnConvert_thenReturnTrue() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -351,16 +424,16 @@ class BooleanOperationsDiffblueTest {
   /**
    * Test {@link BooleanOperations#ge(TypeConverter, Object, Object)}.
    * <ul>
-   *   <li>Given {@link ELException#ELException(String)} with pMessage is
-   * {@code An error occurred}.</li>
+   *   <li>Given {@link ELException#ELException(String)} with pMessage is {@code An error occurred}.</li>
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BooleanOperations#ge(TypeConverter, Object, Object)}
+   * Method under test: {@link BooleanOperations#ge(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test ge(TypeConverter, Object, Object); given ELException(String) with pMessage is 'An error occurred'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.ge(TypeConverter, Object, Object)"})
   void testGe_givenELExceptionWithPMessageIsAnErrorOccurred_thenThrowELException() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -375,16 +448,16 @@ class BooleanOperationsDiffblueTest {
   /**
    * Test {@link BooleanOperations#ge(TypeConverter, Object, Object)}.
    * <ul>
-   *   <li>Given {@link ELException#ELException(String)} with pMessage is
-   * {@code An error occurred}.</li>
+   *   <li>Given {@link ELException#ELException(String)} with pMessage is {@code An error occurred}.</li>
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BooleanOperations#ge(TypeConverter, Object, Object)}
+   * Method under test: {@link BooleanOperations#ge(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test ge(TypeConverter, Object, Object); given ELException(String) with pMessage is 'An error occurred'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.ge(TypeConverter, Object, Object)"})
   void testGe_givenELExceptionWithPMessageIsAnErrorOccurred_thenThrowELException2() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -399,16 +472,16 @@ class BooleanOperationsDiffblueTest {
   /**
    * Test {@link BooleanOperations#ge(TypeConverter, Object, Object)}.
    * <ul>
-   *   <li>Given {@link ELException#ELException(String)} with pMessage is
-   * {@code An error occurred}.</li>
+   *   <li>Given {@link ELException#ELException(String)} with pMessage is {@code An error occurred}.</li>
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BooleanOperations#ge(TypeConverter, Object, Object)}
+   * Method under test: {@link BooleanOperations#ge(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test ge(TypeConverter, Object, Object); given ELException(String) with pMessage is 'An error occurred'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.ge(TypeConverter, Object, Object)"})
   void testGe_givenELExceptionWithPMessageIsAnErrorOccurred_thenThrowELException3() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -424,16 +497,16 @@ class BooleanOperationsDiffblueTest {
    * Test {@link BooleanOperations#ge(TypeConverter, Object, Object)}.
    * <ul>
    *   <li>Given one.</li>
-   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)}
-   * return one.</li>
+   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)} return one.</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BooleanOperations#ge(TypeConverter, Object, Object)}
+   * Method under test: {@link BooleanOperations#ge(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test ge(TypeConverter, Object, Object); given one; when TypeConverter convert(Object, Class) return one; then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.ge(TypeConverter, Object, Object)"})
   void testGe_givenOne_whenTypeConverterConvertReturnOne_thenReturnTrue() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -454,14 +527,32 @@ class BooleanOperationsDiffblueTest {
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BooleanOperations#ge(TypeConverter, Object, Object)}
+   * Method under test: {@link BooleanOperations#ge(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test ge(TypeConverter, Object, Object); when TypeConverter; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.ge(TypeConverter, Object, Object)"})
   void testGe_whenTypeConverter_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(BooleanOperations.ge(mock(TypeConverter.class), null, "O2"));
+  }
+
+  /**
+   * Test {@link BooleanOperations#ge(TypeConverter, Object, Object)}.
+   * <ul>
+   *   <li>When {@link TypeConverter}.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BooleanOperations#ge(TypeConverter, Object, Object)}
+   */
+  @Test
+  @DisplayName("Test ge(TypeConverter, Object, Object); when TypeConverter; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.ge(TypeConverter, Object, Object)"})
+  void testGe_whenTypeConverter_thenReturnFalse2() {
+    // Arrange, Act and Assert
     assertFalse(BooleanOperations.ge(mock(TypeConverter.class), "O1", null));
   }
 
@@ -472,11 +563,12 @@ class BooleanOperationsDiffblueTest {
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BooleanOperations#ge(TypeConverter, Object, Object)}
+   * Method under test: {@link BooleanOperations#ge(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test ge(TypeConverter, Object, Object); when TypeConverter; then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.ge(TypeConverter, Object, Object)"})
   void testGe_whenTypeConverter_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(BooleanOperations.ge(mock(TypeConverter.class), null, null));
@@ -486,16 +578,16 @@ class BooleanOperationsDiffblueTest {
    * Test {@link BooleanOperations#le(TypeConverter, Object, Object)}.
    * <ul>
    *   <li>Given {@code Convert}.</li>
-   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)}
-   * return {@code Convert}.</li>
+   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)} return {@code Convert}.</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BooleanOperations#le(TypeConverter, Object, Object)}
+   * Method under test: {@link BooleanOperations#le(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test le(TypeConverter, Object, Object); given 'Convert'; when TypeConverter convert(Object, Class) return 'Convert'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.le(TypeConverter, Object, Object)"})
   void testLe_givenConvert_whenTypeConverterConvertReturnConvert_thenReturnTrue() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -512,16 +604,16 @@ class BooleanOperationsDiffblueTest {
   /**
    * Test {@link BooleanOperations#le(TypeConverter, Object, Object)}.
    * <ul>
-   *   <li>Given {@link ELException#ELException(String)} with pMessage is
-   * {@code An error occurred}.</li>
+   *   <li>Given {@link ELException#ELException(String)} with pMessage is {@code An error occurred}.</li>
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BooleanOperations#le(TypeConverter, Object, Object)}
+   * Method under test: {@link BooleanOperations#le(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test le(TypeConverter, Object, Object); given ELException(String) with pMessage is 'An error occurred'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.le(TypeConverter, Object, Object)"})
   void testLe_givenELExceptionWithPMessageIsAnErrorOccurred_thenThrowELException() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -536,16 +628,16 @@ class BooleanOperationsDiffblueTest {
   /**
    * Test {@link BooleanOperations#le(TypeConverter, Object, Object)}.
    * <ul>
-   *   <li>Given {@link ELException#ELException(String)} with pMessage is
-   * {@code An error occurred}.</li>
+   *   <li>Given {@link ELException#ELException(String)} with pMessage is {@code An error occurred}.</li>
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BooleanOperations#le(TypeConverter, Object, Object)}
+   * Method under test: {@link BooleanOperations#le(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test le(TypeConverter, Object, Object); given ELException(String) with pMessage is 'An error occurred'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.le(TypeConverter, Object, Object)"})
   void testLe_givenELExceptionWithPMessageIsAnErrorOccurred_thenThrowELException2() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -560,16 +652,16 @@ class BooleanOperationsDiffblueTest {
   /**
    * Test {@link BooleanOperations#le(TypeConverter, Object, Object)}.
    * <ul>
-   *   <li>Given {@link ELException#ELException(String)} with pMessage is
-   * {@code An error occurred}.</li>
+   *   <li>Given {@link ELException#ELException(String)} with pMessage is {@code An error occurred}.</li>
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BooleanOperations#le(TypeConverter, Object, Object)}
+   * Method under test: {@link BooleanOperations#le(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test le(TypeConverter, Object, Object); given ELException(String) with pMessage is 'An error occurred'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.le(TypeConverter, Object, Object)"})
   void testLe_givenELExceptionWithPMessageIsAnErrorOccurred_thenThrowELException3() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -585,16 +677,16 @@ class BooleanOperationsDiffblueTest {
    * Test {@link BooleanOperations#le(TypeConverter, Object, Object)}.
    * <ul>
    *   <li>Given one.</li>
-   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)}
-   * return one.</li>
+   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)} return one.</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BooleanOperations#le(TypeConverter, Object, Object)}
+   * Method under test: {@link BooleanOperations#le(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test le(TypeConverter, Object, Object); given one; when TypeConverter convert(Object, Class) return one; then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.le(TypeConverter, Object, Object)"})
   void testLe_givenOne_whenTypeConverterConvertReturnOne_thenReturnTrue() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -615,14 +707,32 @@ class BooleanOperationsDiffblueTest {
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BooleanOperations#le(TypeConverter, Object, Object)}
+   * Method under test: {@link BooleanOperations#le(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test le(TypeConverter, Object, Object); when TypeConverter; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.le(TypeConverter, Object, Object)"})
   void testLe_whenTypeConverter_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(BooleanOperations.le(mock(TypeConverter.class), null, "O2"));
+  }
+
+  /**
+   * Test {@link BooleanOperations#le(TypeConverter, Object, Object)}.
+   * <ul>
+   *   <li>When {@link TypeConverter}.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BooleanOperations#le(TypeConverter, Object, Object)}
+   */
+  @Test
+  @DisplayName("Test le(TypeConverter, Object, Object); when TypeConverter; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.le(TypeConverter, Object, Object)"})
+  void testLe_whenTypeConverter_thenReturnFalse2() {
+    // Arrange, Act and Assert
     assertFalse(BooleanOperations.le(mock(TypeConverter.class), "O1", null));
   }
 
@@ -633,11 +743,12 @@ class BooleanOperationsDiffblueTest {
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BooleanOperations#le(TypeConverter, Object, Object)}
+   * Method under test: {@link BooleanOperations#le(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test le(TypeConverter, Object, Object); when TypeConverter; then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.le(TypeConverter, Object, Object)"})
   void testLe_whenTypeConverter_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(BooleanOperations.le(mock(TypeConverter.class), null, null));
@@ -651,18 +762,19 @@ class BooleanOperationsDiffblueTest {
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BooleanOperations#eq(TypeConverter, Object, Object)}
+   * Method under test: {@link BooleanOperations#eq(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test eq(TypeConverter, Object, Object); given 'Convert'; when 'COMMON'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.eq(TypeConverter, Object, Object)"})
   void testEq_givenConvert_whenCommon_thenReturnFalse() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     when(converter.convert(Mockito.<Object>any(), Mockito.<Class<String>>any())).thenReturn("Convert");
 
     // Act
-    boolean actualEqResult = BooleanOperations.eq(converter, Character.UnicodeScript.COMMON, "O2");
+    boolean actualEqResult = BooleanOperations.eq(converter, UnicodeScript.COMMON, "O2");
 
     // Assert
     verify(converter).convert(isA(Object.class), isA(Class.class));
@@ -677,11 +789,12 @@ class BooleanOperationsDiffblueTest {
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BooleanOperations#eq(TypeConverter, Object, Object)}
+   * Method under test: {@link BooleanOperations#eq(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test eq(TypeConverter, Object, Object); given 'Convert'; when 'O1'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.eq(TypeConverter, Object, Object)"})
   void testEq_givenConvert_whenO1_thenReturnTrue() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -703,18 +816,19 @@ class BooleanOperationsDiffblueTest {
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BooleanOperations#ne(TypeConverter, Object, Object)}
+   * Method under test: {@link BooleanOperations#ne(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test ne(TypeConverter, Object, Object); given 'Convert'; when 'COMMON'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.ne(TypeConverter, Object, Object)"})
   void testNe_givenConvert_whenCommon_thenReturnTrue() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     when(converter.convert(Mockito.<Object>any(), Mockito.<Class<String>>any())).thenReturn("Convert");
 
     // Act
-    boolean actualNeResult = BooleanOperations.ne(converter, Character.UnicodeScript.COMMON, "O2");
+    boolean actualNeResult = BooleanOperations.ne(converter, UnicodeScript.COMMON, "O2");
 
     // Assert
     verify(converter).convert(isA(Object.class), isA(Class.class));
@@ -729,11 +843,12 @@ class BooleanOperationsDiffblueTest {
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BooleanOperations#ne(TypeConverter, Object, Object)}
+   * Method under test: {@link BooleanOperations#ne(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test ne(TypeConverter, Object, Object); given 'Convert'; when 'O1'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.ne(TypeConverter, Object, Object)"})
   void testNe_givenConvert_whenO1_thenReturnFalse() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -758,6 +873,8 @@ class BooleanOperationsDiffblueTest {
    */
   @Test
   @DisplayName("Test empty(TypeConverter, Object); when '42'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.empty(TypeConverter, Object)"})
   void testEmpty_when42_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(BooleanOperations.empty(mock(TypeConverter.class), "42"));
@@ -774,6 +891,8 @@ class BooleanOperationsDiffblueTest {
    */
   @Test
   @DisplayName("Test empty(TypeConverter, Object); when ArrayList(); then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.empty(TypeConverter, Object)"})
   void testEmpty_whenArrayList_thenReturnTrue() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -793,6 +912,8 @@ class BooleanOperationsDiffblueTest {
    */
   @Test
   @DisplayName("Test empty(TypeConverter, Object); when empty string; then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.empty(TypeConverter, Object)"})
   void testEmpty_whenEmptyString_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(BooleanOperations.empty(mock(TypeConverter.class), ""));
@@ -809,6 +930,8 @@ class BooleanOperationsDiffblueTest {
    */
   @Test
   @DisplayName("Test empty(TypeConverter, Object); when HashMap(); then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.empty(TypeConverter, Object)"})
   void testEmpty_whenHashMap_thenReturnTrue() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -828,6 +951,8 @@ class BooleanOperationsDiffblueTest {
    */
   @Test
   @DisplayName("Test empty(TypeConverter, Object); when 'null'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BooleanOperations.empty(TypeConverter, Object)"})
   void testEmpty_whenNull_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(BooleanOperations.empty(mock(TypeConverter.class), null));

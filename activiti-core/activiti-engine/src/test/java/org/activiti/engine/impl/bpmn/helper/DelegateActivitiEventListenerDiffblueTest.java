@@ -22,20 +22,23 @@ import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.impl.ActivitiEntityEventImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class DelegateActivitiEventListenerDiffblueTest {
   /**
-   * Test
-   * {@link DelegateActivitiEventListener#DelegateActivitiEventListener(String, Class)}.
+   * Test {@link DelegateActivitiEventListener#DelegateActivitiEventListener(String, Class)}.
    * <p>
-   * Method under test:
-   * {@link DelegateActivitiEventListener#DelegateActivitiEventListener(String, Class)}
+   * Method under test: {@link DelegateActivitiEventListener#DelegateActivitiEventListener(String, Class)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DelegateActivitiEventListener.<init>(String, Class)"})
   public void testNewDelegateActivitiEventListener() {
     // Arrange
     Class<Object> entityClass = Object.class;
@@ -56,14 +59,16 @@ public class DelegateActivitiEventListenerDiffblueTest {
   /**
    * Test {@link DelegateActivitiEventListener#onEvent(ActivitiEvent)}.
    * <ul>
+   *   <li>Given {@code Object}.</li>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DelegateActivitiEventListener#onEvent(ActivitiEvent)}
+   * Method under test: {@link DelegateActivitiEventListener#onEvent(ActivitiEvent)}
    */
   @Test
-  public void testOnEvent_thenThrowActivitiIllegalArgumentException() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DelegateActivitiEventListener.onEvent(ActivitiEvent)"})
+  public void testOnEvent_givenJavaLangObject_thenThrowActivitiIllegalArgumentException() {
     // Arrange
     Class<Object> entityClass = Object.class;
     DelegateActivitiEventListener delegateActivitiEventListener = new DelegateActivitiEventListener("Class Name",
@@ -82,6 +87,8 @@ public class DelegateActivitiEventListenerDiffblueTest {
    * Method under test: {@link DelegateActivitiEventListener#isFailOnException()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean DelegateActivitiEventListener.isFailOnException()"})
   public void testIsFailOnException() {
     // Arrange
     Class<Object> entityClass = Object.class;

@@ -20,29 +20,28 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiFunction;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class PoolDiffblueTest {
   /**
    * Test {@link Pool#clone()}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code 42} is
-   * {@link ArrayList#ArrayList()}.</li>
+   *   <li>Given {@link HashMap#HashMap()} {@code 42} is {@link ArrayList#ArrayList()}.</li>
    *   <li>Then return Id is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Pool#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Pool Pool.clone()"})
   public void testClone_givenHashMap42IsArrayList_thenReturnIdIsNull() {
     // Arrange
     HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
@@ -70,49 +69,15 @@ public class PoolDiffblueTest {
   /**
    * Test {@link Pool#clone()}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@code foo} and
-   * {@link BiFunction}.</li>
+   *   <li>Given {@link Pool} (default constructor) Attributes is {@link HashMap#HashMap()}.</li>
    *   <li>Then return Id is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Pool#clone()}
    */
   @Test
-  public void testClone_givenHashMapComputeIfPresentFooAndBiFunction_thenReturnIdIsNull() {
-    // Arrange
-    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
-    attributes.computeIfPresent("foo", mock(BiFunction.class));
-    attributes.put("foo", new ArrayList<>());
-
-    Pool pool = new Pool();
-    pool.setExtensionElements(null);
-    pool.setAttributes(attributes);
-
-    // Act
-    Pool actualCloneResult = pool.clone();
-
-    // Assert
-    assertNull(actualCloneResult.getId());
-    assertNull(actualCloneResult.getName());
-    assertNull(actualCloneResult.getProcessRef());
-    assertEquals(0, actualCloneResult.getXmlColumnNumber());
-    assertEquals(0, actualCloneResult.getXmlRowNumber());
-    assertTrue(actualCloneResult.getAttributes().isEmpty());
-    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-    assertTrue(actualCloneResult.isExecutable());
-  }
-
-  /**
-   * Test {@link Pool#clone()}.
-   * <ul>
-   *   <li>Given {@link Pool} (default constructor) Attributes is
-   * {@link HashMap#HashMap()}.</li>
-   *   <li>Then return Id is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Pool#clone()}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Pool Pool.clone()"})
   public void testClone_givenPoolAttributesIsHashMap_thenReturnIdIsNull() {
     // Arrange
     HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
@@ -139,14 +104,15 @@ public class PoolDiffblueTest {
   /**
    * Test {@link Pool#clone()}.
    * <ul>
-   *   <li>Given {@link Pool} (default constructor) Executable is
-   * {@code false}.</li>
+   *   <li>Given {@link Pool} (default constructor) Executable is {@code false}.</li>
    *   <li>Then return not Executable.</li>
    * </ul>
    * <p>
    * Method under test: {@link Pool#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Pool Pool.clone()"})
   public void testClone_givenPoolExecutableIsFalse_thenReturnNotExecutable() {
     // Arrange
     Pool pool = new Pool();
@@ -169,14 +135,15 @@ public class PoolDiffblueTest {
   /**
    * Test {@link Pool#clone()}.
    * <ul>
-   *   <li>Given {@link Pool} (default constructor) ExtensionElements is
-   * {@link HashMap#HashMap()}.</li>
+   *   <li>Given {@link Pool} (default constructor) ExtensionElements is {@link HashMap#HashMap()}.</li>
    *   <li>Then return Id is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Pool#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Pool Pool.clone()"})
   public void testClone_givenPoolExtensionElementsIsHashMap_thenReturnIdIsNull() {
     // Arrange
     HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
@@ -203,14 +170,15 @@ public class PoolDiffblueTest {
   /**
    * Test {@link Pool#clone()}.
    * <ul>
-   *   <li>Given {@link Pool} (default constructor) ExtensionElements is
-   * {@code null}.</li>
+   *   <li>Given {@link Pool} (default constructor) ExtensionElements is {@code null}.</li>
    *   <li>Then return Id is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Pool#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Pool Pool.clone()"})
   public void testClone_givenPoolExtensionElementsIsNull_thenReturnIdIsNull() {
     // Arrange
     Pool pool = new Pool();
@@ -241,6 +209,8 @@ public class PoolDiffblueTest {
    * Method under test: {@link Pool#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Pool Pool.clone()"})
   public void testClone_givenPool_thenReturnIdIsNull() {
     // Arrange and Act
     Pool actualCloneResult = (new Pool()).clone();
@@ -265,6 +235,8 @@ public class PoolDiffblueTest {
    * Method under test: {@link Pool#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Pool Pool.clone()"})
   public void testClone_thenReturnAttributesSizeIsOne() {
     // Arrange
     Pool pool = new Pool();
@@ -288,6 +260,8 @@ public class PoolDiffblueTest {
    * Method under test: {@link Pool#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Pool Pool.clone()"})
   public void testClone_thenReturnAttributesSizeIsTwo() {
     // Arrange
     Pool pool = new Pool();
@@ -305,33 +279,6 @@ public class PoolDiffblueTest {
   }
 
   /**
-   * Test {@link Pool#setValues(Pool)} with {@code Pool}.
-   * <ul>
-   *   <li>Given {@link ExtensionAttribute} {@link ExtensionAttribute#getName()}
-   * return {@code Name}.</li>
-   *   <li>Then calls {@link ExtensionAttribute#getName()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Pool#setValues(Pool)}
-   */
-  @Test
-  public void testSetValuesWithPool_givenExtensionAttributeGetNameReturnName_thenCallsGetName() {
-    // Arrange
-    Pool pool = new Pool();
-    ExtensionAttribute attribute = mock(ExtensionAttribute.class);
-    when(attribute.getName()).thenReturn("Name");
-
-    Pool otherElement = new Pool();
-    otherElement.addAttribute(attribute);
-
-    // Act
-    pool.setValues(otherElement);
-
-    // Assert
-    verify(attribute, atLeast(1)).getName();
-  }
-
-  /**
    * Test getters and setters.
    * <p>
    * Methods under test:
@@ -346,6 +293,10 @@ public class PoolDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Pool.<init>()", "String Pool.getName()", "String Pool.getProcessRef()",
+      "boolean Pool.isExecutable()", "void Pool.setExecutable(boolean)", "void Pool.setName(String)",
+      "void Pool.setProcessRef(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Pool actualPool = new Pool();
@@ -356,9 +307,10 @@ public class PoolDiffblueTest {
     String actualProcessRef = actualPool.getProcessRef();
     boolean actualIsExecutableResult = actualPool.isExecutable();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Name", actualName);
     assertEquals("Process Ref", actualProcessRef);
+    assertNull(actualPool.getId());
     assertEquals(0, actualPool.getXmlColumnNumber());
     assertEquals(0, actualPool.getXmlRowNumber());
     assertTrue(actualPool.getAttributes().isEmpty());

@@ -16,7 +16,10 @@
 package org.activiti.engine.impl.event;
 
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class CompensationEventHandlerDiffblueTest {
   /**
@@ -29,6 +32,9 @@ public class CompensationEventHandlerDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CompensationEventHandler.<init>()",
+      "java.lang.String CompensationEventHandler.getEventHandlerType()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("compensate", (new CompensationEventHandler()).getEventHandlerType());

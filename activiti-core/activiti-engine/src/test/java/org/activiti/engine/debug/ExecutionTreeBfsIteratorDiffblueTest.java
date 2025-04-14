@@ -22,19 +22,23 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ExecutionTreeBfsIteratorDiffblueTest {
   /**
-   * Test
-   * {@link ExecutionTreeBfsIterator#ExecutionTreeBfsIterator(ExecutionTreeNode)}.
+   * Test {@link ExecutionTreeBfsIterator#ExecutionTreeBfsIterator(ExecutionTreeNode)}.
    * <p>
-   * Method under test:
-   * {@link ExecutionTreeBfsIterator#ExecutionTreeBfsIterator(ExecutionTreeNode)}
+   * Method under test: {@link ExecutionTreeBfsIterator#ExecutionTreeBfsIterator(ExecutionTreeNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionTreeBfsIterator.<init>(ExecutionTreeNode)",
+      "void ExecutionTreeBfsIterator.<init>(ExecutionTreeNode, boolean)"})
   public void testNewExecutionTreeBfsIterator() {
     // Arrange and Act
     ExecutionTreeBfsIterator actualExecutionTreeBfsIterator = new ExecutionTreeBfsIterator(
@@ -48,16 +52,17 @@ public class ExecutionTreeBfsIteratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExecutionTreeBfsIterator#ExecutionTreeBfsIterator(ExecutionTreeNode, boolean)}.
+   * Test {@link ExecutionTreeBfsIterator#ExecutionTreeBfsIterator(ExecutionTreeNode, boolean)}.
    * <ul>
    *   <li>When {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExecutionTreeBfsIterator#ExecutionTreeBfsIterator(ExecutionTreeNode, boolean)}
+   * Method under test: {@link ExecutionTreeBfsIterator#ExecutionTreeBfsIterator(ExecutionTreeNode, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionTreeBfsIterator.<init>(ExecutionTreeNode)",
+      "void ExecutionTreeBfsIterator.<init>(ExecutionTreeNode, boolean)"})
   public void testNewExecutionTreeBfsIterator_whenTrue() {
     // Arrange and Act
     ExecutionTreeBfsIterator actualExecutionTreeBfsIterator = new ExecutionTreeBfsIterator(
@@ -76,6 +81,8 @@ public class ExecutionTreeBfsIteratorDiffblueTest {
    * Method under test: {@link ExecutionTreeBfsIterator#flattenTree()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionTreeBfsIterator.flattenTree()"})
   public void testFlattenTree() {
     // Arrange
     ArrayList<ExecutionTreeNode> executionTreeNodeList = new ArrayList<>();
@@ -99,6 +106,8 @@ public class ExecutionTreeBfsIteratorDiffblueTest {
    * Method under test: {@link ExecutionTreeBfsIterator#flattenTree()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionTreeBfsIterator.flattenTree()"})
   public void testFlattenTree_thenCallsGetChildren() {
     // Arrange
     ExecutionTreeNode executionTree = mock(ExecutionTreeNode.class);
@@ -117,10 +126,24 @@ public class ExecutionTreeBfsIteratorDiffblueTest {
    * Method under test: {@link ExecutionTreeBfsIterator#hasNext()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ExecutionTreeBfsIterator.hasNext()"})
   public void testHasNext() {
     // Arrange, Act and Assert
     assertTrue((new ExecutionTreeBfsIterator(
         new ExecutionTreeNode(ExecutionEntityImpl.createWithEmptyRelationshipCollections()))).hasNext());
+  }
+
+  /**
+   * Test {@link ExecutionTreeBfsIterator#hasNext()}.
+   * <p>
+   * Method under test: {@link ExecutionTreeBfsIterator#hasNext()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ExecutionTreeBfsIterator.hasNext()"})
+  public void testHasNext2() {
+    // Arrange, Act and Assert
     assertTrue((new ExecutionTreeBfsIterator(
         new ExecutionTreeNode(ExecutionEntityImpl.createWithEmptyRelationshipCollections()), true)).hasNext());
   }
@@ -131,7 +154,9 @@ public class ExecutionTreeBfsIteratorDiffblueTest {
    * Method under test: {@link ExecutionTreeBfsIterator#hasNext()}
    */
   @Test
-  public void testHasNext2() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ExecutionTreeBfsIterator.hasNext()"})
+  public void testHasNext3() {
     // Arrange
     ExecutionTreeNode executionTree = new ExecutionTreeNode(
         ExecutionEntityImpl.createWithEmptyRelationshipCollections());
@@ -147,7 +172,9 @@ public class ExecutionTreeBfsIteratorDiffblueTest {
    * Method under test: {@link ExecutionTreeBfsIterator#hasNext()}
    */
   @Test
-  public void testHasNext3() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ExecutionTreeBfsIterator.hasNext()"})
+  public void testHasNext4() {
     // Arrange
     ArrayList<ExecutionTreeNode> children = new ArrayList<>();
     children.add(new ExecutionTreeNode(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
@@ -166,6 +193,8 @@ public class ExecutionTreeBfsIteratorDiffblueTest {
    * Method under test: {@link ExecutionTreeBfsIterator#next()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ExecutionTreeNode ExecutionTreeBfsIterator.next()"})
   public void testNext() {
     // Arrange
     ExecutionTreeBfsIterator executionTreeBfsIterator = new ExecutionTreeBfsIterator(
@@ -185,6 +214,8 @@ public class ExecutionTreeBfsIteratorDiffblueTest {
    * Method under test: {@link ExecutionTreeBfsIterator#next()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ExecutionTreeNode ExecutionTreeBfsIterator.next()"})
   public void testNext2() {
     // Arrange
     ExecutionTreeBfsIterator executionTreeBfsIterator = new ExecutionTreeBfsIterator(
@@ -200,6 +231,8 @@ public class ExecutionTreeBfsIteratorDiffblueTest {
    * Method under test: {@link ExecutionTreeBfsIterator#next()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ExecutionTreeNode ExecutionTreeBfsIterator.next()"})
   public void testNext3() {
     // Arrange
     ExecutionTreeNode executionTree = new ExecutionTreeNode(

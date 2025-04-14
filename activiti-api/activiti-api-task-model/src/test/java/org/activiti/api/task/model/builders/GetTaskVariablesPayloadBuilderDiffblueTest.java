@@ -16,23 +16,37 @@
 package org.activiti.api.task.model.builders;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+@ContextConfiguration(classes = {GetTaskVariablesPayloadBuilder.class})
+@ExtendWith(SpringExtension.class)
 class GetTaskVariablesPayloadBuilderDiffblueTest {
+  @Autowired
+  private GetTaskVariablesPayloadBuilder getTaskVariablesPayloadBuilder;
+
   /**
    * Test {@link GetTaskVariablesPayloadBuilder#build()}.
    * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link GetTaskVariablesPayloadBuilder#build()}
-   *   <li>default or parameterless constructor of
-   * {@link GetTaskVariablesPayloadBuilder}
+   *   <li>default or parameterless constructor of {@link GetTaskVariablesPayloadBuilder}
    *   <li>{@link GetTaskVariablesPayloadBuilder#withTaskId(String)}
    * </ul>
    */
   @Test
   @DisplayName("Test build()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void GetTaskVariablesPayloadBuilder.<init>()",
+      "org.activiti.api.task.model.payloads.GetTaskVariablesPayload GetTaskVariablesPayloadBuilder.build()",
+      "GetTaskVariablesPayloadBuilder GetTaskVariablesPayloadBuilder.withTaskId(String)"})
   void testBuild() {
     // Arrange, Act and Assert
     assertEquals("42", (new GetTaskVariablesPayloadBuilder()).withTaskId("42").build().getTaskId());

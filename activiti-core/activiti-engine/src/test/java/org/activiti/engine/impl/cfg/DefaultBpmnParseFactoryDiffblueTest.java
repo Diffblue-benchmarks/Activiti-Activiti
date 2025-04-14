@@ -17,49 +17,14 @@ package org.activiti.engine.impl.cfg;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class DefaultBpmnParseFactoryDiffblueTest {
-  /**
-   * Test {@link DefaultBpmnParseFactory#createBpmnParse(BpmnParser)}.
-   * <ul>
-   *   <li>Given {@link BpmnParseFactory}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link DefaultBpmnParseFactory#createBpmnParse(BpmnParser)}
-   */
-  @Test
-  public void testCreateBpmnParse_givenBpmnParseFactory() {
-    // Arrange
-    DefaultBpmnParseFactory defaultBpmnParseFactory = new DefaultBpmnParseFactory();
-
-    BpmnParser bpmnParser = new BpmnParser();
-    bpmnParser.setBpmnParseFactory(mock(BpmnParseFactory.class));
-
-    // Act
-    BpmnParse actualCreateBpmnParseResult = defaultBpmnParseFactory.createBpmnParse(bpmnParser);
-
-    // Assert
-    assertNull(actualCreateBpmnParseResult.getTargetNamespace());
-    assertNull(actualCreateBpmnParseResult.getSequenceFlows());
-    assertNull(actualCreateBpmnParseResult.getBpmnModel());
-    assertNull(actualCreateBpmnParseResult.getCurrentFlowElement());
-    assertNull(actualCreateBpmnParseResult.getCurrentProcess());
-    assertNull(actualCreateBpmnParseResult.getCurrentSubProcess());
-    assertNull(actualCreateBpmnParseResult.getBpmnParserHandlers());
-    assertNull(actualCreateBpmnParseResult.getActivityBehaviorFactory());
-    assertNull(actualCreateBpmnParseResult.getListenerFactory());
-    assertNull(actualCreateBpmnParseResult.getDeployment());
-    assertNull(actualCreateBpmnParseResult.getCurrentProcessDefinition());
-    assertTrue(actualCreateBpmnParseResult.getProcessDefinitions().isEmpty());
-    assertTrue(actualCreateBpmnParseResult.isValidateProcess());
-    assertTrue(actualCreateBpmnParseResult.isValidateSchema());
-  }
-
   /**
    * Test {@link DefaultBpmnParseFactory#createBpmnParse(BpmnParser)}.
    * <ul>
@@ -67,10 +32,11 @@ public class DefaultBpmnParseFactoryDiffblueTest {
    *   <li>Then return TargetNamespace is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultBpmnParseFactory#createBpmnParse(BpmnParser)}
+   * Method under test: {@link DefaultBpmnParseFactory#createBpmnParse(BpmnParser)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"BpmnParse DefaultBpmnParseFactory.createBpmnParse(BpmnParser)"})
   public void testCreateBpmnParse_whenBpmnParser_thenReturnTargetNamespaceIsNull() {
     // Arrange
     DefaultBpmnParseFactory defaultBpmnParseFactory = new DefaultBpmnParseFactory();

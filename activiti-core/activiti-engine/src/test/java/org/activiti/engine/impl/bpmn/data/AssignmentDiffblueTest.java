@@ -21,6 +21,8 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.VariableScope;
@@ -28,6 +30,7 @@ import org.activiti.engine.impl.el.FixedValue;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class AssignmentDiffblueTest {
@@ -37,6 +40,8 @@ public class AssignmentDiffblueTest {
    * Method under test: {@link Assignment#Assignment(Expression, Expression)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Assignment.<init>(Expression, Expression)"})
   public void testNewAssignment() {
     // Arrange
     FixedValue fromExpression = new FixedValue(JSONObject.NULL);
@@ -56,14 +61,15 @@ public class AssignmentDiffblueTest {
   /**
    * Test {@link Assignment#evaluate(DelegateExecution)}.
    * <ul>
-   *   <li>Given {@link FixedValue}
-   * {@link FixedValue#setValue(Object, VariableScope)} does nothing.</li>
+   *   <li>Given {@link FixedValue} {@link FixedValue#setValue(Object, VariableScope)} does nothing.</li>
    *   <li>Then calls {@link FixedValue#setValue(Object, VariableScope)}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Assignment#evaluate(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Assignment.evaluate(DelegateExecution)"})
   public void testEvaluate_givenFixedValueSetValueDoesNothing_thenCallsSetValue() {
     // Arrange
     FixedValue toExpression = mock(FixedValue.class);
@@ -73,7 +79,7 @@ public class AssignmentDiffblueTest {
     // Act
     assignment.evaluate(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
-    // Assert that nothing has changed
+    // Assert
     verify(toExpression).setValue(isA(Object.class), isA(VariableScope.class));
   }
 }

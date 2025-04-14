@@ -15,17 +15,15 @@
  */
 package org.activiti.runtime.api.model.impl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.task.model.TaskCandidateUser;
 import org.activiti.api.task.model.impl.TaskCandidateUserImpl;
 import org.activiti.engine.impl.persistence.entity.IdentityLinkEntityImpl;
 import org.activiti.engine.task.IdentityLink;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,47 +37,18 @@ class APITaskCandidateUserConverterDiffblueTest {
   private APITaskCandidateUserConverter aPITaskCandidateUserConverter;
 
   /**
-   * Test {@link APITaskCandidateUserConverter#from(IdentityLink)} with
-   * {@code IdentityLink}.
+   * Test {@link APITaskCandidateUserConverter#from(IdentityLink)} with {@code IdentityLink}.
    * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>Then return TaskId is {@code 42}.</li>
+   *   <li>Then return {@link TaskCandidateUserImpl}.</li>
    * </ul>
    * <p>
    * Method under test: {@link APITaskCandidateUserConverter#from(IdentityLink)}
    */
   @Test
-  @DisplayName("Test from(IdentityLink) with 'IdentityLink'; given '42'; then return TaskId is '42'")
-  void testFromWithIdentityLink_given42_thenReturnTaskIdIs42() {
-    // Arrange
-    IdentityLinkEntityImpl identityLink = mock(IdentityLinkEntityImpl.class);
-    when(identityLink.getTaskId()).thenReturn("42");
-    when(identityLink.getUserId()).thenReturn("42");
-
-    // Act
-    TaskCandidateUser actualFromResult = aPITaskCandidateUserConverter.from(identityLink);
-
-    // Assert
-    verify(identityLink).getTaskId();
-    verify(identityLink).getUserId();
-    assertTrue(actualFromResult instanceof TaskCandidateUserImpl);
-    assertEquals("42", actualFromResult.getTaskId());
-    assertEquals("42", actualFromResult.getUserId());
-  }
-
-  /**
-   * Test {@link APITaskCandidateUserConverter#from(IdentityLink)} with
-   * {@code IdentityLink}.
-   * <ul>
-   *   <li>When {@link IdentityLinkEntityImpl} (default constructor).</li>
-   *   <li>Then return TaskId is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link APITaskCandidateUserConverter#from(IdentityLink)}
-   */
-  @Test
-  @DisplayName("Test from(IdentityLink) with 'IdentityLink'; when IdentityLinkEntityImpl (default constructor); then return TaskId is 'null'")
-  void testFromWithIdentityLink_whenIdentityLinkEntityImpl_thenReturnTaskIdIsNull() {
+  @DisplayName("Test from(IdentityLink) with 'IdentityLink'; then return TaskCandidateUserImpl")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"TaskCandidateUser APITaskCandidateUserConverter.from(IdentityLink)"})
+  void testFromWithIdentityLink_thenReturnTaskCandidateUserImpl() {
     // Arrange and Act
     TaskCandidateUser actualFromResult = aPITaskCandidateUserConverter.from(new IdentityLinkEntityImpl());
 

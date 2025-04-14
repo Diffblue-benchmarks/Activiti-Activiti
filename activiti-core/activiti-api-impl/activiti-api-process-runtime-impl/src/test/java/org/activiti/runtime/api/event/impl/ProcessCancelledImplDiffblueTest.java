@@ -18,62 +18,27 @@ package org.activiti.runtime.api.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.mockito.Mockito.mock;
-import java.sql.Date;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.events.ProcessRuntimeEvent;
+import org.activiti.api.process.model.events.ProcessRuntimeEvent.ProcessEvents;
 import org.activiti.api.runtime.model.impl.ProcessInstanceImpl;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ProcessCancelledImplDiffblueTest {
   /**
-   * Test
-   * {@link ProcessCancelledImpl#ProcessCancelledImpl(ProcessInstance, String)}.
-   * <ul>
-   *   <li>Given {@link Date}.</li>
-   *   <li>When {@link ProcessInstanceImpl} (default constructor) StartDate is
-   * {@link Date}.</li>
-   * </ul>
+   * Test {@link ProcessCancelledImpl#ProcessCancelledImpl(ProcessInstance, String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessCancelledImpl#ProcessCancelledImpl(ProcessInstance, String)}
+   * Method under test: {@link ProcessCancelledImpl#ProcessCancelledImpl(ProcessInstance, String)}
    */
   @Test
-  @DisplayName("Test new ProcessCancelledImpl(ProcessInstance, String); given Date; when ProcessInstanceImpl (default constructor) StartDate is Date")
-  void testNewProcessCancelledImpl_givenDate_whenProcessInstanceImplStartDateIsDate() {
-    // Arrange
-    ProcessInstanceImpl entity = new ProcessInstanceImpl();
-    entity.setStartDate(mock(Date.class));
-
-    // Act
-    ProcessCancelledImpl actualProcessCancelledImpl = new ProcessCancelledImpl(entity, "Cause");
-
-    // Assert
-    assertEquals("Cause", actualProcessCancelledImpl.getCause());
-    assertNull(actualProcessCancelledImpl.getProcessDefinitionVersion());
-    assertNull(actualProcessCancelledImpl.getBusinessKey());
-    assertNull(actualProcessCancelledImpl.getParentProcessInstanceId());
-    assertNull(actualProcessCancelledImpl.getProcessDefinitionId());
-    assertNull(actualProcessCancelledImpl.getProcessDefinitionKey());
-    assertNull(actualProcessCancelledImpl.getProcessInstanceId());
-    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_CANCELLED, actualProcessCancelledImpl.getEventType());
-    assertSame(entity, actualProcessCancelledImpl.getEntity());
-  }
-
-  /**
-   * Test
-   * {@link ProcessCancelledImpl#ProcessCancelledImpl(ProcessInstance, String)}.
-   * <ul>
-   *   <li>When {@link ProcessInstanceImpl} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessCancelledImpl#ProcessCancelledImpl(ProcessInstance, String)}
-   */
-  @Test
-  @DisplayName("Test new ProcessCancelledImpl(ProcessInstance, String); when ProcessInstanceImpl (default constructor)")
-  void testNewProcessCancelledImpl_whenProcessInstanceImpl() {
+  @DisplayName("Test new ProcessCancelledImpl(ProcessInstance, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessCancelledImpl.<init>(ProcessInstance, String)"})
+  void testNewProcessCancelledImpl() {
     // Arrange
     ProcessInstanceImpl entity = new ProcessInstanceImpl();
 
@@ -81,6 +46,8 @@ class ProcessCancelledImplDiffblueTest {
     ProcessCancelledImpl actualProcessCancelledImpl = new ProcessCancelledImpl(entity, "Cause");
 
     // Assert
+    ProcessInstance entity2 = actualProcessCancelledImpl.getEntity();
+    assertTrue(entity2 instanceof ProcessInstanceImpl);
     assertEquals("Cause", actualProcessCancelledImpl.getCause());
     assertNull(actualProcessCancelledImpl.getProcessDefinitionVersion());
     assertNull(actualProcessCancelledImpl.getBusinessKey());
@@ -88,8 +55,8 @@ class ProcessCancelledImplDiffblueTest {
     assertNull(actualProcessCancelledImpl.getProcessDefinitionId());
     assertNull(actualProcessCancelledImpl.getProcessDefinitionKey());
     assertNull(actualProcessCancelledImpl.getProcessInstanceId());
-    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_CANCELLED, actualProcessCancelledImpl.getEventType());
-    assertSame(entity, actualProcessCancelledImpl.getEntity());
+    assertEquals(ProcessEvents.PROCESS_CANCELLED, actualProcessCancelledImpl.getEventType());
+    assertSame(entity, entity2);
   }
 
   /**
@@ -99,31 +66,12 @@ class ProcessCancelledImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getEventType()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ProcessRuntimeEvent.ProcessEvents ProcessCancelledImpl.getEventType()"})
   void testGetEventType() {
     // Arrange, Act and Assert
-    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_CANCELLED,
+    assertEquals(ProcessEvents.PROCESS_CANCELLED,
         (new ProcessCancelledImpl(new ProcessInstanceImpl(), "Cause")).getEventType());
-  }
-
-  /**
-   * Test {@link ProcessCancelledImpl#getEventType()}.
-   * <ul>
-   *   <li>Given {@link ProcessInstanceImpl} (default constructor) StartDate is
-   * {@link Date}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessCancelledImpl#getEventType()}
-   */
-  @Test
-  @DisplayName("Test getEventType(); given ProcessInstanceImpl (default constructor) StartDate is Date")
-  void testGetEventType_givenProcessInstanceImplStartDateIsDate() {
-    // Arrange
-    ProcessInstanceImpl entity = new ProcessInstanceImpl();
-    entity.setStartDate(mock(Date.class));
-
-    // Act and Assert
-    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_CANCELLED,
-        (new ProcessCancelledImpl(entity, "Cause")).getEventType());
   }
 
   /**
@@ -133,6 +81,8 @@ class ProcessCancelledImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getCause()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String ProcessCancelledImpl.getCause()"})
   void testGetCause() {
     // Arrange, Act and Assert
     assertEquals("Cause", (new ProcessCancelledImpl(new ProcessInstanceImpl(), "Cause")).getCause());

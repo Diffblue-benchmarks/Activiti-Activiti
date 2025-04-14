@@ -21,27 +21,25 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class CollectionUtilDiffblueTest {
-  @InjectMocks
-  private CollectionUtil collectionUtil;
-
   /**
    * Test {@link CollectionUtil#singletonMap(String, Object)}.
    * <p>
    * Method under test: {@link CollectionUtil#singletonMap(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map CollectionUtil.singletonMap(String, Object)"})
   public void testSingletonMap() {
     // Arrange
     Object object = JSONObject.NULL;
@@ -63,6 +61,8 @@ public class CollectionUtilDiffblueTest {
    * Method under test: {@link CollectionUtil#map(Object[])}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map CollectionUtil.map(Object[])"})
   public void testMap_thenReturnEmpty() {
     // Arrange and Act
     Map<String, Object> actualMapResult = CollectionUtil.map();
@@ -81,6 +81,8 @@ public class CollectionUtilDiffblueTest {
    * Method under test: {@link CollectionUtil#map(Object[])}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map CollectionUtil.map(Object[])"})
   public void testMap_whenNullAndNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> CollectionUtil.map(JSONObject.NULL, JSONObject.NULL));
@@ -96,6 +98,8 @@ public class CollectionUtilDiffblueTest {
    * Method under test: {@link CollectionUtil#map(Object[])}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map CollectionUtil.map(Object[])"})
   public void testMap_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> CollectionUtil.map(JSONObject.NULL));
@@ -111,6 +115,8 @@ public class CollectionUtilDiffblueTest {
    * Method under test: {@link CollectionUtil#map(Object[])}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map CollectionUtil.map(Object[])"})
   public void testMap_whenObjectsAndNull_thenReturnContainsKeyObjects() {
     // Arrange and Act
     Map<String, Object> actualMapResult = CollectionUtil.map("Objects", JSONObject.NULL);
@@ -130,6 +136,8 @@ public class CollectionUtilDiffblueTest {
    * Method under test: {@link CollectionUtil#map(Object[])}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map CollectionUtil.map(Object[])"})
   public void testMap_whenObjectsAndNull_thenReturnObjectsIsNull() {
     // Arrange and Act
     Map<String, Object> actualMapResult = CollectionUtil.map("Objects", null);
@@ -142,13 +150,15 @@ public class CollectionUtilDiffblueTest {
   /**
    * Test {@link CollectionUtil#mapOfClass(Class, Object[])}.
    * <ul>
-   *   <li>When {@code java.lang.Object}.</li>
+   *   <li>When {@code Object}.</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
    * Method under test: {@link CollectionUtil#mapOfClass(Class, Object[])}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map CollectionUtil.mapOfClass(Class, Object[])"})
   public void testMapOfClass_whenJavaLangObject_thenReturnEmpty() {
     // Arrange
     Class<Object> clazz = Object.class;
@@ -163,13 +173,15 @@ public class CollectionUtilDiffblueTest {
   /**
    * Test {@link CollectionUtil#mapOfClass(Class, Object[])}.
    * <ul>
-   *   <li>When {@code java.lang.String}.</li>
+   *   <li>When {@code String}.</li>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
    * Method under test: {@link CollectionUtil#mapOfClass(Class, Object[])}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map CollectionUtil.mapOfClass(Class, Object[])"})
   public void testMapOfClass_whenJavaLangString_thenThrowActivitiIllegalArgumentException() {
     // Arrange
     Class<String> clazz = String.class;
@@ -189,6 +201,8 @@ public class CollectionUtilDiffblueTest {
    * Method under test: {@link CollectionUtil#mapOfClass(Class, Object[])}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map CollectionUtil.mapOfClass(Class, Object[])"})
   public void testMapOfClass_whenNullAndNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange
     Class<Object> clazz = Object.class;
@@ -208,6 +222,8 @@ public class CollectionUtilDiffblueTest {
    * Method under test: {@link CollectionUtil#mapOfClass(Class, Object[])}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map CollectionUtil.mapOfClass(Class, Object[])"})
   public void testMapOfClass_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange
     Class<Object> clazz = Object.class;
@@ -226,6 +242,8 @@ public class CollectionUtilDiffblueTest {
    * Method under test: {@link CollectionUtil#mapOfClass(Class, Object[])}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map CollectionUtil.mapOfClass(Class, Object[])"})
   public void testMapOfClass_whenObjectsAndNull_thenReturnContainsKeyObjects() {
     // Arrange
     Class<Object> clazz = Object.class;
@@ -248,6 +266,8 @@ public class CollectionUtilDiffblueTest {
    * Method under test: {@link CollectionUtil#mapOfClass(Class, Object[])}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map CollectionUtil.mapOfClass(Class, Object[])"})
   public void testMapOfClass_whenObjectsAndNull_thenReturnObjectsIsNull() {
     // Arrange
     Class<Object> clazz = Object.class;
@@ -271,6 +291,8 @@ public class CollectionUtilDiffblueTest {
    * Method under test: {@link CollectionUtil#isEmpty(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean CollectionUtil.isEmpty(Collection)"})
   public void testIsEmpty_givenNull_whenArrayListAddNull_thenReturnFalse() {
     // Arrange
     ArrayList<Object> collection = new ArrayList<>();
@@ -291,6 +313,8 @@ public class CollectionUtilDiffblueTest {
    * Method under test: {@link CollectionUtil#isEmpty(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean CollectionUtil.isEmpty(Collection)"})
   public void testIsEmpty_givenNull_whenArrayListAddNull_thenReturnFalse2() {
     // Arrange
     ArrayList<Object> collection = new ArrayList<>();
@@ -311,6 +335,8 @@ public class CollectionUtilDiffblueTest {
    * Method under test: {@link CollectionUtil#isEmpty(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean CollectionUtil.isEmpty(Collection)"})
   public void testIsEmpty_whenArrayList_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(CollectionUtil.isEmpty(new ArrayList<>()));
@@ -326,6 +352,8 @@ public class CollectionUtilDiffblueTest {
    * Method under test: {@link CollectionUtil#isEmpty(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean CollectionUtil.isEmpty(Collection)"})
   public void testIsEmpty_whenNull_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(CollectionUtil.isEmpty(null));
@@ -342,6 +370,8 @@ public class CollectionUtilDiffblueTest {
    * Method under test: {@link CollectionUtil#isNotEmpty(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean CollectionUtil.isNotEmpty(Collection)"})
   public void testIsNotEmpty_givenNull_whenArrayListAddNull_thenReturnTrue() {
     // Arrange
     ArrayList<Object> collection = new ArrayList<>();
@@ -362,6 +392,8 @@ public class CollectionUtilDiffblueTest {
    * Method under test: {@link CollectionUtil#isNotEmpty(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean CollectionUtil.isNotEmpty(Collection)"})
   public void testIsNotEmpty_givenNull_whenArrayListAddNull_thenReturnTrue2() {
     // Arrange
     ArrayList<Object> collection = new ArrayList<>();
@@ -382,6 +414,8 @@ public class CollectionUtilDiffblueTest {
    * Method under test: {@link CollectionUtil#isNotEmpty(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean CollectionUtil.isNotEmpty(Collection)"})
   public void testIsNotEmpty_whenArrayList_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(CollectionUtil.isNotEmpty(new ArrayList<>()));
@@ -397,6 +431,8 @@ public class CollectionUtilDiffblueTest {
    * Method under test: {@link CollectionUtil#isNotEmpty(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean CollectionUtil.isNotEmpty(Collection)"})
   public void testIsNotEmpty_whenNull_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(CollectionUtil.isNotEmpty(null));

@@ -17,18 +17,21 @@ package org.activiti.api.task.model.payloads;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class CreateTaskVariablePayloadDiffblueTest {
   /**
    * Test {@link CreateTaskVariablePayload#CreateTaskVariablePayload()}.
    * <p>
-   * Method under test:
-   * {@link CreateTaskVariablePayload#CreateTaskVariablePayload()}
+   * Method under test: {@link CreateTaskVariablePayload#CreateTaskVariablePayload()}
    */
   @Test
   @DisplayName("Test new CreateTaskVariablePayload()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void CreateTaskVariablePayload.<init>()"})
   void testNewCreateTaskVariablePayload() {
     // Arrange and Act
     CreateTaskVariablePayload actualCreateTaskVariablePayload = new CreateTaskVariablePayload();
@@ -40,14 +43,14 @@ class CreateTaskVariablePayloadDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link CreateTaskVariablePayload#CreateTaskVariablePayload(String, String, Object)}.
+   * Test {@link CreateTaskVariablePayload#CreateTaskVariablePayload(String, String, Object)}.
    * <p>
-   * Method under test:
-   * {@link CreateTaskVariablePayload#CreateTaskVariablePayload(String, String, Object)}
+   * Method under test: {@link CreateTaskVariablePayload#CreateTaskVariablePayload(String, String, Object)}
    */
   @Test
   @DisplayName("Test new CreateTaskVariablePayload(String, String, Object)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void CreateTaskVariablePayload.<init>(String, String, Object)"})
   void testNewCreateTaskVariablePayload2() {
     // Arrange and Act
     CreateTaskVariablePayload actualCreateTaskVariablePayload = new CreateTaskVariablePayload("42", "Name", "Value");
@@ -74,6 +77,11 @@ class CreateTaskVariablePayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String CreateTaskVariablePayload.getId()", "String CreateTaskVariablePayload.getName()",
+      "String CreateTaskVariablePayload.getTaskId()", "Object CreateTaskVariablePayload.getValue()",
+      "void CreateTaskVariablePayload.setName(String)", "void CreateTaskVariablePayload.setTaskId(String)",
+      "void CreateTaskVariablePayload.setValue(Object)"})
   void testGettersAndSetters() {
     // Arrange
     CreateTaskVariablePayload createTaskVariablePayload = new CreateTaskVariablePayload();
@@ -86,7 +94,7 @@ class CreateTaskVariablePayloadDiffblueTest {
     String actualName = createTaskVariablePayload.getName();
     String actualTaskId = createTaskVariablePayload.getTaskId();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualTaskId);
     assertEquals("Name", actualName);
     assertEquals("Value", createTaskVariablePayload.getValue());

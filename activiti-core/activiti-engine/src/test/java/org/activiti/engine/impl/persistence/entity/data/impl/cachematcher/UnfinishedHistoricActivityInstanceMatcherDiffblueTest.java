@@ -16,24 +16,27 @@
 package org.activiti.engine.impl.persistence.entity.data.impl.cachematcher;
 
 import static org.junit.Assert.assertFalse;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import org.activiti.engine.impl.persistence.entity.HistoricActivityInstanceEntity;
 import org.activiti.engine.impl.persistence.entity.HistoricActivityInstanceEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class UnfinishedHistoricActivityInstanceMatcherDiffblueTest {
   /**
-   * Test
-   * {@link UnfinishedHistoricActivityInstanceMatcher#isRetained(HistoricActivityInstanceEntity, Object)}
-   * with {@code HistoricActivityInstanceEntity}, {@code Object}.
+   * Test {@link UnfinishedHistoricActivityInstanceMatcher#isRetained(HistoricActivityInstanceEntity, Object)} with {@code HistoricActivityInstanceEntity}, {@code Object}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link UnfinishedHistoricActivityInstanceMatcher#isRetained(HistoricActivityInstanceEntity, Object)}
+   * Method under test: {@link UnfinishedHistoricActivityInstanceMatcher#isRetained(HistoricActivityInstanceEntity, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "boolean UnfinishedHistoricActivityInstanceMatcher.isRetained(HistoricActivityInstanceEntity, Object)"})
   public void testIsRetainedWithHistoricActivityInstanceEntityObject_given42() {
     // Arrange
     UnfinishedHistoricActivityInstanceMatcher unfinishedHistoricActivityInstanceMatcher = new UnfinishedHistoricActivityInstanceMatcher();
@@ -46,17 +49,17 @@ public class UnfinishedHistoricActivityInstanceMatcherDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link UnfinishedHistoricActivityInstanceMatcher#isRetained(HistoricActivityInstanceEntity, Object)}
-   * with {@code HistoricActivityInstanceEntity}, {@code Object}.
+   * Test {@link UnfinishedHistoricActivityInstanceMatcher#isRetained(HistoricActivityInstanceEntity, Object)} with {@code HistoricActivityInstanceEntity}, {@code Object}.
    * <ul>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link UnfinishedHistoricActivityInstanceMatcher#isRetained(HistoricActivityInstanceEntity, Object)}
+   * Method under test: {@link UnfinishedHistoricActivityInstanceMatcher#isRetained(HistoricActivityInstanceEntity, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "boolean UnfinishedHistoricActivityInstanceMatcher.isRetained(HistoricActivityInstanceEntity, Object)"})
   public void testIsRetainedWithHistoricActivityInstanceEntityObject_thenReturnFalse() {
     // Arrange
     UnfinishedHistoricActivityInstanceMatcher unfinishedHistoricActivityInstanceMatcher = new UnfinishedHistoricActivityInstanceMatcher();

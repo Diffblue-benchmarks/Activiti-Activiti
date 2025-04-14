@@ -16,7 +16,10 @@
 package org.activiti.engine.impl.event;
 
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class SignalEventHandlerDiffblueTest {
   /**
@@ -29,6 +32,8 @@ public class SignalEventHandlerDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SignalEventHandler.<init>()", "java.lang.String SignalEventHandler.getEventHandlerType()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals(SignalEventHandler.EVENT_HANDLER_TYPE, (new SignalEventHandler()).getEventHandlerType());

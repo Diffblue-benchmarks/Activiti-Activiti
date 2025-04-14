@@ -16,29 +16,37 @@
 package org.activiti.engine.impl.agenda;
 
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiEngineAgendaFactory;
+import org.activiti.engine.Agenda;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class DestroyScopeOperationDiffblueTest {
   /**
-   * Test
-   * {@link DestroyScopeOperation#DestroyScopeOperation(CommandContext, ExecutionEntity)}.
+   * Test {@link DestroyScopeOperation#DestroyScopeOperation(CommandContext, ExecutionEntity)}.
+   * <ul>
+   *   <li>Then Agenda return {@link DefaultActivitiEngineAgenda}.</li>
+   * </ul>
    * <p>
-   * Method under test:
-   * {@link DestroyScopeOperation#DestroyScopeOperation(CommandContext, ExecutionEntity)}
+   * Method under test: {@link DestroyScopeOperation#DestroyScopeOperation(CommandContext, ExecutionEntity)}
    */
   @Test
-  public void testNewDestroyScopeOperation() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DestroyScopeOperation.<init>(CommandContext, ExecutionEntity)"})
+  public void testNewDestroyScopeOperation_thenAgendaReturnDefaultActivitiEngineAgenda() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
     DefaultActivitiEngineAgenda defaultActivitiEngineAgenda = new DefaultActivitiEngineAgenda(null);
@@ -55,8 +63,12 @@ public class DestroyScopeOperationDiffblueTest {
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
-    assertSame(defaultActivitiEngineAgenda, actualDestroyScopeOperation.getAgenda());
+    Agenda agenda = actualDestroyScopeOperation.getAgenda();
+    assertTrue(agenda instanceof DefaultActivitiEngineAgenda);
+    ExecutionEntity execution2 = actualDestroyScopeOperation.getExecution();
+    assertTrue(execution2 instanceof ExecutionEntityImpl);
+    assertSame(defaultActivitiEngineAgenda, agenda);
     assertSame(commandContext, actualDestroyScopeOperation.getCommandContext());
-    assertSame(execution, actualDestroyScopeOperation.getExecution());
+    assertSame(execution, execution2);
   }
 }

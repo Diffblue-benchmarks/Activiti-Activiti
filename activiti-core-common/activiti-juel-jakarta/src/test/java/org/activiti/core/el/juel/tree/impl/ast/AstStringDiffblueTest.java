@@ -17,6 +17,7 @@ package org.activiti.core.el.juel.tree.impl.ast;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import jakarta.el.ValueExpression;
 import java.lang.reflect.Method;
@@ -25,6 +26,7 @@ import org.activiti.core.el.juel.misc.TypeConverter;
 import org.activiti.core.el.juel.tree.Bindings;
 import org.activiti.core.el.juel.util.SimpleContext;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class AstStringDiffblueTest {
@@ -39,6 +41,8 @@ class AstStringDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstString.<init>(String)", "String AstString.toString()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("\"42\"", (new AstString("42")).toString());
@@ -51,6 +55,8 @@ class AstStringDiffblueTest {
    */
   @Test
   @DisplayName("Test eval(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object AstString.eval(Bindings, ELContext)"})
   void testEval() {
     // Arrange
     AstString astString = new AstString("42");
@@ -66,14 +72,15 @@ class AstStringDiffblueTest {
   /**
    * Test {@link AstString#appendStructure(StringBuilder, Bindings)}.
    * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo}
-   * toString is {@code foo'\''}.</li>
+   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foo'\''}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstString#appendStructure(StringBuilder, Bindings)}
    */
   @Test
   @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foo'\\'''")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstString.appendStructure(StringBuilder, Bindings)"})
   void testAppendStructure_thenStringBuilderWithFooToStringIsFoo() {
     // Arrange
     AstString astString = new AstString("'");
@@ -92,14 +99,15 @@ class AstStringDiffblueTest {
   /**
    * Test {@link AstString#appendStructure(StringBuilder, Bindings)}.
    * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo}
-   * toString is {@code foo'42'}.</li>
+   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foo'42'}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstString#appendStructure(StringBuilder, Bindings)}
    */
   @Test
   @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foo'42''")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstString.appendStructure(StringBuilder, Bindings)"})
   void testAppendStructure_thenStringBuilderWithFooToStringIsFoo42() {
     // Arrange
     AstString astString = new AstString("42");

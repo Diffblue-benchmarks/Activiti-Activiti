@@ -18,19 +18,31 @@ package org.activiti.api.task.model.builders;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.task.model.payloads.UpdateTaskVariablePayload;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+@ContextConfiguration(classes = {UpdateTaskVariablePayloadBuilder.class})
+@ExtendWith(SpringExtension.class)
 class UpdateTaskVariablePayloadBuilderDiffblueTest {
+  @Autowired
+  private UpdateTaskVariablePayloadBuilder updateTaskVariablePayloadBuilder;
+
   /**
    * Test {@link UpdateTaskVariablePayloadBuilder#withVariable(String, Object)}.
    * <p>
-   * Method under test:
-   * {@link UpdateTaskVariablePayloadBuilder#withVariable(String, Object)}
+   * Method under test: {@link UpdateTaskVariablePayloadBuilder#withVariable(String, Object)}
    */
   @Test
   @DisplayName("Test withVariable(String, Object)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"UpdateTaskVariablePayloadBuilder UpdateTaskVariablePayloadBuilder.withVariable(String, Object)"})
   void testWithVariable() {
     // Arrange
     UpdateTaskVariablePayloadBuilder updateVariableResult = TaskPayloadBuilder.updateVariable();
@@ -51,13 +63,16 @@ class UpdateTaskVariablePayloadBuilderDiffblueTest {
    * Methods under test:
    * <ul>
    *   <li>{@link UpdateTaskVariablePayloadBuilder#build()}
-   *   <li>default or parameterless constructor of
-   * {@link UpdateTaskVariablePayloadBuilder}
+   *   <li>default or parameterless constructor of {@link UpdateTaskVariablePayloadBuilder}
    *   <li>{@link UpdateTaskVariablePayloadBuilder#withTaskId(String)}
    * </ul>
    */
   @Test
   @DisplayName("Test build()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UpdateTaskVariablePayloadBuilder.<init>()",
+      "UpdateTaskVariablePayload UpdateTaskVariablePayloadBuilder.build()",
+      "UpdateTaskVariablePayloadBuilder UpdateTaskVariablePayloadBuilder.withTaskId(String)"})
   void testBuild() {
     // Arrange and Act
     UpdateTaskVariablePayload actualBuildResult = (new UpdateTaskVariablePayloadBuilder()).withTaskId("42").build();

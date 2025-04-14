@@ -20,64 +20,28 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiFunction;
+import org.activiti.bpmn.model.Message.Builder;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#getDefinitionsAttributeValue(String, String)}.
    * <p>
-   * Method under test:
-   * {@link BpmnModel#getDefinitionsAttributeValue(String, String)}
+   * Method under test: {@link BpmnModel#getDefinitionsAttributeValue(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String BpmnModel.getDefinitionsAttributeValue(String, String)"})
   public void testGetDefinitionsAttributeValue() {
-    // Arrange
-    ExtensionAttribute attribute = new ExtensionAttribute("Name");
-    attribute.setNamespace("Namespace");
-
-    BpmnModel bpmnModel = new BpmnModel();
-    bpmnModel.addDefinitionsAttribute(attribute);
-
-    // Act and Assert
-    assertNull(bpmnModel.getDefinitionsAttributeValue("Namespace", "Name"));
-  }
-
-  /**
-   * Test {@link BpmnModel#getDefinitionsAttributeValue(String, String)}.
-   * <ul>
-   *   <li>Given {@link BpmnModel} (default constructor).</li>
-   *   <li>When {@code Namespace}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link BpmnModel#getDefinitionsAttributeValue(String, String)}
-   */
-  @Test
-  public void testGetDefinitionsAttributeValue_givenBpmnModel_whenNamespace_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new BpmnModel()).getDefinitionsAttributeValue("Namespace", "Name"));
-  }
-
-  /**
-   * Test {@link BpmnModel#getDefinitionsAttributeValue(String, String)}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link BpmnModel#getDefinitionsAttributeValue(String, String)}
-   */
-  @Test
-  public void testGetDefinitionsAttributeValue_thenReturnNull() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
     bpmnModel.addDefinitionsAttribute(new ExtensionAttribute("Name"));
@@ -87,16 +51,32 @@ public class BpmnModelDiffblueTest {
   }
 
   /**
-   * Test {@link BpmnModel#addDefinitionsAttribute(ExtensionAttribute)}.
+   * Test {@link BpmnModel#getDefinitionsAttributeValue(String, String)}.
    * <ul>
-   *   <li>Then {@link BpmnModel} (default constructor) DefinitionsAttributes
-   * {@code Name} size is one.</li>
+   *   <li>Given {@link BpmnModel} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnModel#addDefinitionsAttribute(ExtensionAttribute)}
+   * Method under test: {@link BpmnModel#getDefinitionsAttributeValue(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String BpmnModel.getDefinitionsAttributeValue(String, String)"})
+  public void testGetDefinitionsAttributeValue_givenBpmnModel() {
+    // Arrange, Act and Assert
+    assertNull((new BpmnModel()).getDefinitionsAttributeValue("Namespace", "Name"));
+  }
+
+  /**
+   * Test {@link BpmnModel#addDefinitionsAttribute(ExtensionAttribute)}.
+   * <ul>
+   *   <li>Then {@link BpmnModel} (default constructor) DefinitionsAttributes {@code Name} size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnModel#addDefinitionsAttribute(ExtensionAttribute)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addDefinitionsAttribute(ExtensionAttribute)"})
   public void testAddDefinitionsAttribute_thenBpmnModelDefinitionsAttributesNameSizeIsOne() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -116,14 +96,14 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#addDefinitionsAttribute(ExtensionAttribute)}.
    * <ul>
-   *   <li>Then {@link BpmnModel} (default constructor) DefinitionsAttributes
-   * {@code Name} size is two.</li>
+   *   <li>Then {@link BpmnModel} (default constructor) DefinitionsAttributes {@code Name} size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnModel#addDefinitionsAttribute(ExtensionAttribute)}
+   * Method under test: {@link BpmnModel#addDefinitionsAttribute(ExtensionAttribute)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addDefinitionsAttribute(ExtensionAttribute)"})
   public void testAddDefinitionsAttribute_thenBpmnModelDefinitionsAttributesNameSizeIsTwo() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -146,14 +126,14 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#addDefinitionsAttribute(ExtensionAttribute)}.
    * <ul>
-   *   <li>When {@link ExtensionAttribute#ExtensionAttribute(String)} with name is
-   * empty string.</li>
+   *   <li>When {@link ExtensionAttribute#ExtensionAttribute(String)} with name is empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnModel#addDefinitionsAttribute(ExtensionAttribute)}
+   * Method under test: {@link BpmnModel#addDefinitionsAttribute(ExtensionAttribute)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addDefinitionsAttribute(ExtensionAttribute)"})
   public void testAddDefinitionsAttribute_whenExtensionAttributeWithNameIsEmptyString() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -168,14 +148,14 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#addDefinitionsAttribute(ExtensionAttribute)}.
    * <ul>
-   *   <li>When {@link ExtensionAttribute#ExtensionAttribute(String)} with name is
-   * {@code null}.</li>
+   *   <li>When {@link ExtensionAttribute#ExtensionAttribute(String)} with name is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnModel#addDefinitionsAttribute(ExtensionAttribute)}
+   * Method under test: {@link BpmnModel#addDefinitionsAttribute(ExtensionAttribute)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addDefinitionsAttribute(ExtensionAttribute)"})
   public void testAddDefinitionsAttribute_whenExtensionAttributeWithNameIsNull() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -191,14 +171,14 @@ public class BpmnModelDiffblueTest {
    * Test {@link BpmnModel#addDefinitionsAttribute(ExtensionAttribute)}.
    * <ul>
    *   <li>When {@code null}.</li>
-   *   <li>Then {@link BpmnModel} (default constructor) DefinitionsAttributes
-   * Empty.</li>
+   *   <li>Then {@link BpmnModel} (default constructor) DefinitionsAttributes Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnModel#addDefinitionsAttribute(ExtensionAttribute)}
+   * Method under test: {@link BpmnModel#addDefinitionsAttribute(ExtensionAttribute)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addDefinitionsAttribute(ExtensionAttribute)"})
   public void testAddDefinitionsAttribute_whenNull_thenBpmnModelDefinitionsAttributesEmpty() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -213,14 +193,15 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#getMainProcess()}.
    * <ul>
-   *   <li>Given {@link BpmnModel} (default constructor) addProcess {@link Process}
-   * (default constructor).</li>
+   *   <li>Given {@link BpmnModel} (default constructor) addProcess {@link Process} (default constructor).</li>
    *   <li>Then return {@link Process} (default constructor).</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#getMainProcess()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Process BpmnModel.getMainProcess()"})
   public void testGetMainProcess_givenBpmnModelAddProcessProcess_thenReturnProcess() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -241,6 +222,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#getMainProcess()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Process BpmnModel.getMainProcess()"})
   public void testGetMainProcess_givenBpmnModel_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new BpmnModel()).getMainProcess());
@@ -249,60 +232,37 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#getProcess(String)}.
    * <ul>
-   *   <li>Given {@link BpmnModel} (default constructor) addProcess {@link Process}
-   * (default constructor).</li>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return {@link Process} (default constructor).</li>
+   *   <li>Given {@link BpmnModel} (default constructor).</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#getProcess(String)}
    */
   @Test
-  public void testGetProcess_givenBpmnModelAddProcessProcess_whenNull_thenReturnProcess() {
-    // Arrange
-    BpmnModel bpmnModel = new BpmnModel();
-    Process process = new Process();
-    bpmnModel.addProcess(process);
-
-    // Act and Assert
-    assertSame(process, bpmnModel.getProcess(null));
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Process BpmnModel.getProcess(String)"})
+  public void testGetProcess_givenBpmnModel() {
+    // Arrange, Act and Assert
+    assertNull((new BpmnModel()).getProcess("Pool Ref"));
   }
 
   /**
    * Test {@link BpmnModel#getProcess(String)}.
    * <ul>
-   *   <li>Given {@link BpmnModel} (default constructor) addProcess {@link Process}
-   * (default constructor).</li>
-   *   <li>When {@code Pool Ref}.</li>
-   *   <li>Then return {@code null}.</li>
+   *   <li>Given {@link BpmnModel} (default constructor) addProcess {@link Process} (default constructor).</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#getProcess(String)}
    */
   @Test
-  public void testGetProcess_givenBpmnModelAddProcessProcess_whenPoolRef_thenReturnNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Process BpmnModel.getProcess(String)"})
+  public void testGetProcess_givenBpmnModelAddProcessProcess() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
     bpmnModel.addProcess(new Process());
 
     // Act and Assert
     assertNull(bpmnModel.getProcess("Pool Ref"));
-  }
-
-  /**
-   * Test {@link BpmnModel#getProcess(String)}.
-   * <ul>
-   *   <li>Given {@link BpmnModel} (default constructor).</li>
-   *   <li>When {@code Pool Ref}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BpmnModel#getProcess(String)}
-   */
-  @Test
-  public void testGetProcess_givenBpmnModel_whenPoolRef_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new BpmnModel()).getProcess("Pool Ref"));
   }
 
   /**
@@ -315,6 +275,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#getProcessById(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Process BpmnModel.getProcessById(String)"})
   public void testGetProcessById_givenBpmnModel_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new BpmnModel()).getProcessById("42"));
@@ -330,6 +292,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#getProcessById(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Process BpmnModel.getProcessById(String)"})
   public void testGetProcessById_givenProcessIdIs42_thenReturnProcess() {
     // Arrange
     Process process = new Process();
@@ -352,6 +316,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#getProcessById(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Process BpmnModel.getProcessById(String)"})
   public void testGetProcessById_givenProcessIdIsId_thenReturnNull() {
     // Arrange
     Process process = new Process();
@@ -370,6 +336,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#addProcess(Process)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addProcess(Process)"})
   public void testAddProcess() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -394,6 +362,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#getPool(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Pool BpmnModel.getPool(String)"})
   public void testGetPool_when42() {
     // Arrange, Act and Assert
     assertNull((new BpmnModel()).getPool("42"));
@@ -408,6 +378,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#getPool(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Pool BpmnModel.getPool(String)"})
   public void testGetPool_whenEmptyString() {
     // Arrange, Act and Assert
     assertNull((new BpmnModel()).getPool(""));
@@ -416,8 +388,7 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#getLane(String)}.
    * <ul>
-   *   <li>Given {@link BpmnModel} (default constructor) addProcess {@link Process}
-   * (default constructor).</li>
+   *   <li>Given {@link BpmnModel} (default constructor) addProcess {@link Process} (default constructor).</li>
    *   <li>When {@code 42}.</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
@@ -425,6 +396,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#getLane(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.bpmn.model.Lane BpmnModel.getLane(String)"})
   public void testGetLane_givenBpmnModelAddProcessProcess_when42_thenReturnNull() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -437,8 +410,7 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#getLane(String)}.
    * <ul>
-   *   <li>Given {@link BpmnModel} (default constructor) addProcess {@link Process}
-   * (default constructor).</li>
+   *   <li>Given {@link BpmnModel} (default constructor) addProcess {@link Process} (default constructor).</li>
    *   <li>When {@code null}.</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
@@ -446,6 +418,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#getLane(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.bpmn.model.Lane BpmnModel.getLane(String)"})
   public void testGetLane_givenBpmnModelAddProcessProcess_whenNull_thenReturnNull() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -466,6 +440,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#getLane(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.bpmn.model.Lane BpmnModel.getLane(String)"})
   public void testGetLane_givenBpmnModel_when42_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new BpmnModel()).getLane("42"));
@@ -482,6 +458,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#getLane(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.bpmn.model.Lane BpmnModel.getLane(String)"})
   public void testGetLane_givenBpmnModel_whenEmptyString_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new BpmnModel()).getLane(""));
@@ -490,13 +468,14 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#getFlowElement(String)}.
    * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor) addFlowElement
-   * {@link AdhocSubProcess} (default constructor).</li>
+   *   <li>Given {@link AdhocSubProcess} (default constructor) addFlowElement {@link AdhocSubProcess} (default constructor).</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#getFlowElement(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.bpmn.model.FlowElement BpmnModel.getFlowElement(String)"})
   public void testGetFlowElement_givenAdhocSubProcessAddFlowElementAdhocSubProcess() {
     // Arrange
     AdhocSubProcess element = new AdhocSubProcess();
@@ -515,8 +494,7 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#getFlowElement(String)}.
    * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor) Id is
-   * {@code 42}.</li>
+   *   <li>Given {@link AdhocSubProcess} (default constructor) Id is {@code 42}.</li>
    *   <li>When {@code 42}.</li>
    *   <li>Then return {@link AdhocSubProcess} (default constructor).</li>
    * </ul>
@@ -524,6 +502,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#getFlowElement(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.bpmn.model.FlowElement BpmnModel.getFlowElement(String)"})
   public void testGetFlowElement_givenAdhocSubProcessIdIs42_when42_thenReturnAdhocSubProcess() {
     // Arrange
     AdhocSubProcess element = new AdhocSubProcess();
@@ -543,8 +523,7 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#getFlowElement(String)}.
    * <ul>
-   *   <li>Given {@link BpmnModel} (default constructor) addProcess {@link Process}
-   * (default constructor).</li>
+   *   <li>Given {@link BpmnModel} (default constructor) addProcess {@link Process} (default constructor).</li>
    *   <li>When {@code 42}.</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
@@ -552,6 +531,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#getFlowElement(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.bpmn.model.FlowElement BpmnModel.getFlowElement(String)"})
   public void testGetFlowElement_givenBpmnModelAddProcessProcess_when42_thenReturnNull() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -572,6 +553,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#getFlowElement(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.bpmn.model.FlowElement BpmnModel.getFlowElement(String)"})
   public void testGetFlowElement_givenBpmnModel_when42_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new BpmnModel()).getFlowElement("42"));
@@ -580,14 +563,15 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#getFlowElement(String)}.
    * <ul>
-   *   <li>Given {@link Process} (default constructor) addFlowElement
-   * {@link AdhocSubProcess} (default constructor).</li>
+   *   <li>Given {@link Process} (default constructor) addFlowElement {@link AdhocSubProcess} (default constructor).</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#getFlowElement(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.bpmn.model.FlowElement BpmnModel.getFlowElement(String)"})
   public void testGetFlowElement_givenProcessAddFlowElementAdhocSubProcess_thenReturnNull() {
     // Arrange
     Process process = new Process();
@@ -603,14 +587,15 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#getFlowElement(String)}.
    * <ul>
-   *   <li>Given {@link Process} (default constructor) addFlowElement
-   * {@link AdhocSubProcess} (default constructor).</li>
+   *   <li>Given {@link Process} (default constructor) addFlowElement {@link AdhocSubProcess} (default constructor).</li>
    *   <li>When empty string.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#getFlowElement(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.bpmn.model.FlowElement BpmnModel.getFlowElement(String)"})
   public void testGetFlowElement_givenProcessAddFlowElementAdhocSubProcess_whenEmptyString() {
     // Arrange
     Process process = new Process();
@@ -626,14 +611,15 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#getFlowElement(String)}.
    * <ul>
-   *   <li>Given {@link Process} (default constructor) addFlowElement
-   * {@link AdhocSubProcess} (default constructor).</li>
+   *   <li>Given {@link Process} (default constructor) addFlowElement {@link AdhocSubProcess} (default constructor).</li>
    *   <li>When {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#getFlowElement(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.bpmn.model.FlowElement BpmnModel.getFlowElement(String)"})
   public void testGetFlowElement_givenProcessAddFlowElementAdhocSubProcess_whenNull() {
     // Arrange
     Process process = new Process();
@@ -649,14 +635,15 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#getFlowElement(String)}.
    * <ul>
-   *   <li>Given {@link Process} (default constructor) addFlowElement
-   * {@link BooleanDataObject} (default constructor).</li>
+   *   <li>Given {@link Process} (default constructor) addFlowElement {@link BooleanDataObject} (default constructor).</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#getFlowElement(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.bpmn.model.FlowElement BpmnModel.getFlowElement(String)"})
   public void testGetFlowElement_givenProcessAddFlowElementBooleanDataObject_thenReturnNull() {
     // Arrange
     Process process = new Process();
@@ -675,10 +662,11 @@ public class BpmnModelDiffblueTest {
    *   <li>Given {@link AdhocSubProcess} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnModel#getFlowElementInSubProcess(String, SubProcess)}
+   * Method under test: {@link BpmnModel#getFlowElementInSubProcess(String, SubProcess)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.bpmn.model.FlowElement BpmnModel.getFlowElementInSubProcess(String, SubProcess)"})
   public void testGetFlowElementInSubProcess_givenAdhocSubProcess() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -697,10 +685,11 @@ public class BpmnModelDiffblueTest {
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnModel#getFlowElementInSubProcess(String, SubProcess)}
+   * Method under test: {@link BpmnModel#getFlowElementInSubProcess(String, SubProcess)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.bpmn.model.FlowElement BpmnModel.getFlowElementInSubProcess(String, SubProcess)"})
   public void testGetFlowElementInSubProcess_when42_thenReturnNull() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -716,10 +705,11 @@ public class BpmnModelDiffblueTest {
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnModel#getFlowElementInSubProcess(String, SubProcess)}
+   * Method under test: {@link BpmnModel#getFlowElementInSubProcess(String, SubProcess)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.bpmn.model.FlowElement BpmnModel.getFlowElementInSubProcess(String, SubProcess)"})
   public void testGetFlowElementInSubProcess_whenEmptyString_thenReturnNull() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -735,10 +725,11 @@ public class BpmnModelDiffblueTest {
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnModel#getFlowElementInSubProcess(String, SubProcess)}
+   * Method under test: {@link BpmnModel#getFlowElementInSubProcess(String, SubProcess)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.bpmn.model.FlowElement BpmnModel.getFlowElementInSubProcess(String, SubProcess)"})
   public void testGetFlowElementInSubProcess_whenNull_thenReturnNull() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -750,14 +741,15 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#getArtifact(String)}.
    * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor) addArtifact
-   * {@link Association} (default constructor).</li>
+   *   <li>Given {@link AdhocSubProcess} (default constructor) addArtifact {@link Association} (default constructor).</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#getArtifact(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Artifact BpmnModel.getArtifact(String)"})
   public void testGetArtifact_givenAdhocSubProcessAddArtifactAssociation_thenReturnNull() {
     // Arrange
     AdhocSubProcess element = new AdhocSubProcess();
@@ -777,14 +769,15 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#getArtifact(String)}.
    * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor) addFlowElement
-   * {@link AdhocSubProcess} (default constructor).</li>
+   *   <li>Given {@link AdhocSubProcess} (default constructor) addFlowElement {@link AdhocSubProcess} (default constructor).</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#getArtifact(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Artifact BpmnModel.getArtifact(String)"})
   public void testGetArtifact_givenAdhocSubProcessAddFlowElementAdhocSubProcess_thenReturnNull() {
     // Arrange
     AdhocSubProcess element = new AdhocSubProcess();
@@ -803,14 +796,15 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#getArtifact(String)}.
    * <ul>
-   *   <li>Given {@link BpmnModel} (default constructor) addProcess {@link Process}
-   * (default constructor).</li>
+   *   <li>Given {@link BpmnModel} (default constructor) addProcess {@link Process} (default constructor).</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#getArtifact(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Artifact BpmnModel.getArtifact(String)"})
   public void testGetArtifact_givenBpmnModelAddProcessProcess_thenReturnNull() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -830,6 +824,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#getArtifact(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Artifact BpmnModel.getArtifact(String)"})
   public void testGetArtifact_givenBpmnModel_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new BpmnModel()).getArtifact("42"));
@@ -838,14 +834,15 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#getArtifact(String)}.
    * <ul>
-   *   <li>Given {@link Process} (default constructor) addArtifact
-   * {@link Association} (default constructor).</li>
+   *   <li>Given {@link Process} (default constructor) addArtifact {@link Association} (default constructor).</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#getArtifact(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Artifact BpmnModel.getArtifact(String)"})
   public void testGetArtifact_givenProcessAddArtifactAssociation_thenReturnNull() {
     // Arrange
     Process process = new Process();
@@ -862,14 +859,15 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#getArtifact(String)}.
    * <ul>
-   *   <li>Given {@link Process} (default constructor) addFlowElement
-   * {@link AdhocSubProcess} (default constructor).</li>
+   *   <li>Given {@link Process} (default constructor) addFlowElement {@link AdhocSubProcess} (default constructor).</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#getArtifact(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Artifact BpmnModel.getArtifact(String)"})
   public void testGetArtifact_givenProcessAddFlowElementAdhocSubProcess_thenReturnNull() {
     // Arrange
     Process process = new Process();
@@ -885,14 +883,15 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#getArtifact(String)}.
    * <ul>
-   *   <li>Given {@link Process} (default constructor) addFlowElement
-   * {@link BooleanDataObject} (default constructor).</li>
+   *   <li>Given {@link Process} (default constructor) addFlowElement {@link BooleanDataObject} (default constructor).</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#getArtifact(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Artifact BpmnModel.getArtifact(String)"})
   public void testGetArtifact_givenProcessAddFlowElementBooleanDataObject_thenReturnNull() {
     // Arrange
     Process process = new Process();
@@ -912,10 +911,11 @@ public class BpmnModelDiffblueTest {
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnModel#getArtifactInSubProcess(String, SubProcess)}
+   * Method under test: {@link BpmnModel#getArtifactInSubProcess(String, SubProcess)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Artifact BpmnModel.getArtifactInSubProcess(String, SubProcess)"})
   public void testGetArtifactInSubProcess_givenAdhocSubProcess_thenReturnNull() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -933,10 +933,11 @@ public class BpmnModelDiffblueTest {
    *   <li>Given {@link Association} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnModel#getArtifactInSubProcess(String, SubProcess)}
+   * Method under test: {@link BpmnModel#getArtifactInSubProcess(String, SubProcess)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Artifact BpmnModel.getArtifactInSubProcess(String, SubProcess)"})
   public void testGetArtifactInSubProcess_givenAssociation() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -955,10 +956,11 @@ public class BpmnModelDiffblueTest {
    *   <li>Given {@link BooleanDataObject} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnModel#getArtifactInSubProcess(String, SubProcess)}
+   * Method under test: {@link BpmnModel#getArtifactInSubProcess(String, SubProcess)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Artifact BpmnModel.getArtifactInSubProcess(String, SubProcess)"})
   public void testGetArtifactInSubProcess_givenBooleanDataObject() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -977,10 +979,11 @@ public class BpmnModelDiffblueTest {
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnModel#getArtifactInSubProcess(String, SubProcess)}
+   * Method under test: {@link BpmnModel#getArtifactInSubProcess(String, SubProcess)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Artifact BpmnModel.getArtifactInSubProcess(String, SubProcess)"})
   public void testGetArtifactInSubProcess_whenSubProcess_thenReturnNull() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -995,6 +998,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#addGraphicInfo(String, GraphicInfo)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addGraphicInfo(String, GraphicInfo)"})
   public void testAddGraphicInfo() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -1025,6 +1030,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#getGraphicInfo(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"GraphicInfo BpmnModel.getGraphicInfo(String)"})
   public void testGetGraphicInfo() {
     // Arrange, Act and Assert
     assertNull((new BpmnModel()).getGraphicInfo("Key"));
@@ -1036,6 +1043,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#getFlowLocationGraphicInfo(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List BpmnModel.getFlowLocationGraphicInfo(String)"})
   public void testGetFlowLocationGraphicInfo() {
     // Arrange, Act and Assert
     assertNull((new BpmnModel()).getFlowLocationGraphicInfo("Key"));
@@ -1051,6 +1060,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#hasDiagramInterchangeInfo()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean BpmnModel.hasDiagramInterchangeInfo()"})
   public void testHasDiagramInterchangeInfo_givenBpmnModel_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new BpmnModel()).hasDiagramInterchangeInfo());
@@ -1065,6 +1076,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#hasDiagramInterchangeInfo()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean BpmnModel.hasDiagramInterchangeInfo()"})
   public void testHasDiagramInterchangeInfo_thenReturnTrue() {
     // Arrange
     GraphicInfo graphicInfo = new GraphicInfo();
@@ -1090,6 +1103,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#getLabelGraphicInfo(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"GraphicInfo BpmnModel.getLabelGraphicInfo(String)"})
   public void testGetLabelGraphicInfo() {
     // Arrange, Act and Assert
     assertNull((new BpmnModel()).getLabelGraphicInfo("Key"));
@@ -1101,6 +1116,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#addLabelGraphicInfo(String, GraphicInfo)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addLabelGraphicInfo(String, GraphicInfo)"})
   public void testAddLabelGraphicInfo() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -1127,13 +1144,14 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#addFlowGraphicInfoList(String, List)}.
    * <ul>
-   *   <li>Given {@link GraphicInfo} (default constructor) Element is
-   * {@link ActivitiListener} (default constructor).</li>
+   *   <li>Given {@link GraphicInfo} (default constructor) Element is {@link ActivitiListener} (default constructor).</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#addFlowGraphicInfoList(String, List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addFlowGraphicInfoList(String, List)"})
   public void testAddFlowGraphicInfoList_givenGraphicInfoElementIsActivitiListener() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -1163,13 +1181,14 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#addFlowGraphicInfoList(String, List)}.
    * <ul>
-   *   <li>Given {@link GraphicInfo} (default constructor) Expanded is
-   * {@code false}.</li>
+   *   <li>Given {@link GraphicInfo} (default constructor) Expanded is {@code false}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#addFlowGraphicInfoList(String, List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addFlowGraphicInfoList(String, List)"})
   public void testAddFlowGraphicInfoList_givenGraphicInfoExpandedIsFalse() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -1216,6 +1235,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#addFlowGraphicInfoList(String, List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addFlowGraphicInfoList(String, List)"})
   public void testAddFlowGraphicInfoList_whenArrayList() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -1233,18 +1254,20 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#setResources(Collection)}.
    * <ul>
-   *   <li>Given {@link Resource#Resource(String, String)} with resourceId is
-   * {@code 42} and {@code Resource Name}.</li>
+   *   <li>Then {@link BpmnModel} (default constructor) Resources is {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#setResources(Collection)}
    */
   @Test
-  public void testSetResources_givenResourceWithResourceIdIs42AndResourceName() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.setResources(Collection)"})
+  public void testSetResources_thenBpmnModelResourcesIsArrayList() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
 
     ArrayList<Resource> resourceList = new ArrayList<>();
+    resourceList.add(new Resource("42", "Resource Name"));
     resourceList.add(new Resource("42", "Resource Name"));
 
     // Act
@@ -1257,39 +1280,45 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#setResources(Collection)}.
    * <ul>
-   *   <li>Given {@link Resource#Resource(String, String)} with resourceId is
-   * {@code 42} and {@code Resource Name}.</li>
+   *   <li>Then {@link BpmnModel} (default constructor) Resources size is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#setResources(Collection)}
    */
   @Test
-  public void testSetResources_givenResourceWithResourceIdIs42AndResourceName2() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.setResources(Collection)"})
+  public void testSetResources_thenBpmnModelResourcesSizeIsOne() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
 
     ArrayList<Resource> resourceList = new ArrayList<>();
-    resourceList.add(new Resource("42", "Resource Name"));
-    resourceList.add(new Resource("42", "Resource Name"));
+    Resource resource = new Resource("42", "Resource Name");
+
+    resourceList.add(resource);
 
     // Act
     bpmnModel.setResources(resourceList);
 
     // Assert
-    assertEquals(resourceList, bpmnModel.getResources());
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertEquals(1, resources.size());
+    assertTrue(resources instanceof List);
+    assertSame(resource, ((List<Resource>) resources).get(0));
   }
 
   /**
    * Test {@link BpmnModel#setResources(Collection)}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then {@link BpmnModel} (default constructor) Resources is
-   * {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then {@link BpmnModel} (default constructor) Resources is {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#setResources(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.setResources(Collection)"})
   public void testSetResources_whenArrayList_thenBpmnModelResourcesIsArrayList() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -1298,7 +1327,7 @@ public class BpmnModelDiffblueTest {
     // Act
     bpmnModel.setResources(resourceList);
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals(resourceList, bpmnModel.getResources());
   }
 
@@ -1306,13 +1335,15 @@ public class BpmnModelDiffblueTest {
    * Test {@link BpmnModel#setResources(Collection)}.
    * <ul>
    *   <li>When {@code null}.</li>
-   *   <li>Then {@link BpmnModel} (default constructor) Resources {@link List}.</li>
+   *   <li>Then {@link BpmnModel} (default constructor) Resources Empty.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#setResources(Collection)}
    */
   @Test
-  public void testSetResources_whenNull_thenBpmnModelResourcesList() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.setResources(Collection)"})
+  public void testSetResources_whenNull_thenBpmnModelResourcesEmpty() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
 
@@ -1334,6 +1365,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#addResource(Resource)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addResource(Resource)"})
   public void testAddResource_thenBpmnModelResourcesSizeIsOne() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -1359,6 +1392,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#addResource(Resource)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addResource(Resource)"})
   public void testAddResource_whenNull_thenBpmnModelResourcesEmpty() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -1378,6 +1413,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#containsResourceId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean BpmnModel.containsResourceId(String)"})
   public void testContainsResourceId() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -1398,6 +1435,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#containsResourceId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean BpmnModel.containsResourceId(String)"})
   public void testContainsResourceId_givenBpmnModel_when42_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new BpmnModel()).containsResourceId("42"));
@@ -1412,6 +1451,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#containsResourceId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean BpmnModel.containsResourceId(String)"})
   public void testContainsResourceId_thenReturnTrue() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -1424,14 +1465,14 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#getResource(String)}.
    * <ul>
-   *   <li>Given {@link BpmnModel} (default constructor) addResource
-   * {@link Resource#Resource(String, String)} with {@code Resource Id} and
-   * {@code Resource Name}.</li>
+   *   <li>Given {@link BpmnModel} (default constructor) addResource {@link Resource#Resource(String, String)} with {@code Resource Id} and {@code Resource Name}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#getResource(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Resource BpmnModel.getResource(String)"})
   public void testGetResource_givenBpmnModelAddResourceResourceWithResourceIdAndResourceName() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -1451,6 +1492,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#getResource(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Resource BpmnModel.getResource(String)"})
   public void testGetResource_givenBpmnModel_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new BpmnModel()).getResource("42"));
@@ -1459,13 +1502,14 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#getResource(String)}.
    * <ul>
-   *   <li>Then return {@link Resource#Resource(String, String)} with resourceId is
-   * {@code 42} and {@code Resource Name}.</li>
+   *   <li>Then return {@link Resource#Resource(String, String)} with resourceId is {@code 42} and {@code Resource Name}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#getResource(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Resource BpmnModel.getResource(String)"})
   public void testGetResource_thenReturnResourceWithResourceIdIs42AndResourceName() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -1480,18 +1524,21 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#setSignals(Collection)}.
    * <ul>
-   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and
-   * {@code Name}.</li>
+   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and {@code Name}.</li>
+   *   <li>Then {@link BpmnModel} (default constructor) Signals is {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#setSignals(Collection)}
    */
   @Test
-  public void testSetSignals_givenSignalWithIdIs42AndName() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.setSignals(Collection)"})
+  public void testSetSignals_givenSignalWithIdIs42AndName_thenBpmnModelSignalsIsArrayList() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
 
     ArrayList<Signal> signalList = new ArrayList<>();
+    signalList.add(new Signal("42", "Name"));
     signalList.add(new Signal("42", "Name"));
 
     // Act
@@ -1504,39 +1551,46 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#setSignals(Collection)}.
    * <ul>
-   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and
-   * {@code Name}.</li>
+   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and {@code Name}.</li>
+   *   <li>Then {@link BpmnModel} (default constructor) Signals size is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#setSignals(Collection)}
    */
   @Test
-  public void testSetSignals_givenSignalWithIdIs42AndName2() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.setSignals(Collection)"})
+  public void testSetSignals_givenSignalWithIdIs42AndName_thenBpmnModelSignalsSizeIsOne() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
 
     ArrayList<Signal> signalList = new ArrayList<>();
-    signalList.add(new Signal("42", "Name"));
-    signalList.add(new Signal("42", "Name"));
+    Signal signal = new Signal("42", "Name");
+
+    signalList.add(signal);
 
     // Act
     bpmnModel.setSignals(signalList);
 
     // Assert
-    assertEquals(signalList, bpmnModel.getSignals());
+    Collection<Signal> signals = bpmnModel.getSignals();
+    assertEquals(1, signals.size());
+    assertTrue(signals instanceof List);
+    assertSame(signal, ((List<Signal>) signals).get(0));
   }
 
   /**
    * Test {@link BpmnModel#setSignals(Collection)}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then {@link BpmnModel} (default constructor) Signals is
-   * {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then {@link BpmnModel} (default constructor) Signals is {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#setSignals(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.setSignals(Collection)"})
   public void testSetSignals_whenArrayList_thenBpmnModelSignalsIsArrayList() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -1545,7 +1599,7 @@ public class BpmnModelDiffblueTest {
     // Act
     bpmnModel.setSignals(signalList);
 
-    // Assert
+    // Assert that nothing has changed
     assertEquals(signalList, bpmnModel.getSignals());
   }
 
@@ -1553,13 +1607,15 @@ public class BpmnModelDiffblueTest {
    * Test {@link BpmnModel#setSignals(Collection)}.
    * <ul>
    *   <li>When {@code null}.</li>
-   *   <li>Then {@link BpmnModel} (default constructor) Signals {@link List}.</li>
+   *   <li>Then {@link BpmnModel} (default constructor) Signals Empty.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#setSignals(Collection)}
    */
   @Test
-  public void testSetSignals_whenNull_thenBpmnModelSignalsList() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.setSignals(Collection)"})
+  public void testSetSignals_whenNull_thenBpmnModelSignalsEmpty() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
 
@@ -1582,6 +1638,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#addSignal(Signal)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addSignal(Signal)"})
   public void testAddSignal_whenNull_thenBpmnModelSignalsEmpty() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -1598,14 +1656,15 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#addSignal(Signal)}.
    * <ul>
-   *   <li>When {@link Signal#Signal(String, String)} with id is {@code 42} and
-   * {@code Name}.</li>
+   *   <li>When {@link Signal#Signal(String, String)} with id is {@code 42} and {@code Name}.</li>
    *   <li>Then {@link BpmnModel} (default constructor) Signals size is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#addSignal(Signal)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addSignal(Signal)"})
   public void testAddSignal_whenSignalWithIdIs42AndName_thenBpmnModelSignalsSizeIsOne() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -1624,14 +1683,15 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#containsSignalId(String)}.
    * <ul>
-   *   <li>Given {@link BpmnModel} (default constructor) addSignal
-   * {@link Signal#Signal(String, String)} with {@code Id} and {@code Name}.</li>
+   *   <li>Given {@link BpmnModel} (default constructor) addSignal {@link Signal#Signal(String, String)} with {@code Id} and {@code Name}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#containsSignalId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean BpmnModel.containsSignalId(String)"})
   public void testContainsSignalId_givenBpmnModelAddSignalSignalWithIdAndName_thenReturnFalse() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -1652,6 +1712,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#containsSignalId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean BpmnModel.containsSignalId(String)"})
   public void testContainsSignalId_givenBpmnModel_when42_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new BpmnModel()).containsSignalId("42"));
@@ -1666,6 +1728,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#containsSignalId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean BpmnModel.containsSignalId(String)"})
   public void testContainsSignalId_thenReturnTrue() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -1678,14 +1742,15 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#getSignal(String)}.
    * <ul>
-   *   <li>Given {@link BpmnModel} (default constructor) addSignal
-   * {@link Signal#Signal(String, String)} with {@code Id} and {@code Name}.</li>
+   *   <li>Given {@link BpmnModel} (default constructor) addSignal {@link Signal#Signal(String, String)} with {@code Id} and {@code Name}.</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#getSignal(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Signal BpmnModel.getSignal(String)"})
   public void testGetSignal_givenBpmnModelAddSignalSignalWithIdAndName_thenReturnNull() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -1705,6 +1770,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#getSignal(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Signal BpmnModel.getSignal(String)"})
   public void testGetSignal_givenBpmnModel_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new BpmnModel()).getSignal("42"));
@@ -1713,13 +1780,14 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#getSignal(String)}.
    * <ul>
-   *   <li>Then return {@link Signal#Signal(String, String)} with id is {@code 42}
-   * and {@code Name}.</li>
+   *   <li>Then return {@link Signal#Signal(String, String)} with id is {@code 42} and {@code Name}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#getSignal(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Signal BpmnModel.getSignal(String)"})
   public void testGetSignal_thenReturnSignalWithIdIs42AndName() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -1734,20 +1802,46 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#addMessageFlow(MessageFlow)}.
    * <ul>
-   *   <li>Given {@code Message Flow}.</li>
-   *   <li>Then {@link BpmnModel} (default constructor) MessageFlows size is
-   * one.</li>
+   *   <li>Given empty string.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#addMessageFlow(MessageFlow)}
    */
   @Test
-  public void testAddMessageFlow_givenMessageFlow_thenBpmnModelMessageFlowsSizeIsOne() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addMessageFlow(MessageFlow)"})
+  public void testAddMessageFlow_givenEmptyString() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
 
     MessageFlow messageFlow = new MessageFlow("Source Ref", "Target Ref");
-    messageFlow.setId("Message Flow");
+    messageFlow.setId("");
+
+    // Act
+    bpmnModel.addMessageFlow(messageFlow);
+
+    // Assert that nothing has changed
+    assertTrue(bpmnModel.getMessageFlows().isEmpty());
+  }
+
+  /**
+   * Test {@link BpmnModel#addMessageFlow(MessageFlow)}.
+   * <ul>
+   *   <li>Given {@code not empty}.</li>
+   *   <li>Then {@link BpmnModel} (default constructor) MessageFlows size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnModel#addMessageFlow(MessageFlow)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addMessageFlow(MessageFlow)"})
+  public void testAddMessageFlow_givenNotEmpty_thenBpmnModelMessageFlowsSizeIsOne() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    MessageFlow messageFlow = new MessageFlow("Source Ref", "Target Ref");
+    messageFlow.setId("not empty");
 
     // Act
     bpmnModel.addMessageFlow(messageFlow);
@@ -1755,19 +1849,20 @@ public class BpmnModelDiffblueTest {
     // Assert
     Map<String, MessageFlow> messageFlows = bpmnModel.getMessageFlows();
     assertEquals(1, messageFlows.size());
-    assertSame(messageFlow, messageFlows.get("Message Flow"));
+    assertSame(messageFlow, messageFlows.get("not empty"));
   }
 
   /**
    * Test {@link BpmnModel#addMessageFlow(MessageFlow)}.
    * <ul>
-   *   <li>When {@link MessageFlow#MessageFlow(String, String)} with
-   * {@code Source Ref} and {@code Target Ref}.</li>
+   *   <li>When {@link MessageFlow#MessageFlow(String, String)} with {@code Source Ref} and {@code Target Ref}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#addMessageFlow(MessageFlow)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addMessageFlow(MessageFlow)"})
   public void testAddMessageFlow_whenMessageFlowWithSourceRefAndTargetRef() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -1789,6 +1884,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#addMessageFlow(MessageFlow)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addMessageFlow(MessageFlow)"})
   public void testAddMessageFlow_whenNull_thenBpmnModelMessageFlowsEmpty() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -1806,6 +1903,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#getMessageFlow(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"MessageFlow BpmnModel.getMessageFlow(String)"})
   public void testGetMessageFlow() {
     // Arrange, Act and Assert
     assertNull((new BpmnModel()).getMessageFlow("42"));
@@ -1817,6 +1916,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#containsMessageFlowId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean BpmnModel.containsMessageFlowId(String)"})
   public void testContainsMessageFlowId() {
     // Arrange, Act and Assert
     assertFalse((new BpmnModel()).containsMessageFlowId("42"));
@@ -1828,6 +1929,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#getMessages()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Collection BpmnModel.getMessages()"})
   public void testGetMessages() {
     // Arrange, Act and Assert
     assertTrue((new BpmnModel()).getMessages().isEmpty());
@@ -1836,27 +1939,51 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#setMessages(Collection)}.
    * <ul>
-   *   <li>Given {@link Message#Message(String, String, String)} with id is
-   * {@code 42} and {@code Name} and {@code Item Ref} Id is {@code null}.</li>
+   *   <li>Given {@link Message#Message(String, String, String)} with id is empty string and {@code Name} and {@code Item Ref}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#setMessages(Collection)}
    */
   @Test
-  public void testSetMessages_givenMessageWithIdIs42AndNameAndItemRefIdIsNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.setMessages(Collection)"})
+  public void testSetMessages_givenMessageWithIdIsEmptyStringAndNameAndItemRef() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
 
-    Message message = new Message("42", "Name", "Item Ref");
-    message.setId(null);
-
     LinkedHashSet<Message> messageList = new LinkedHashSet<>();
-    messageList.add(message);
+    messageList.add(new Message("", "Name", "Item Ref"));
 
     // Act
     bpmnModel.setMessages(messageList);
 
-    // Assert
+    // Assert that nothing has changed
+    assertTrue(bpmnModel.getMessages().isEmpty());
+    assertTrue(bpmnModel.messageMap.isEmpty());
+  }
+
+  /**
+   * Test {@link BpmnModel#setMessages(Collection)}.
+   * <ul>
+   *   <li>Given {@link Message#Message(String, String, String)} with id is {@code null} and {@code Name} and {@code Item Ref}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnModel#setMessages(Collection)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.setMessages(Collection)"})
+  public void testSetMessages_givenMessageWithIdIsNullAndNameAndItemRef() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    LinkedHashSet<Message> messageList = new LinkedHashSet<>();
+    messageList.add(new Message(null, "Name", "Item Ref"));
+
+    // Act
+    bpmnModel.setMessages(messageList);
+
+    // Assert that nothing has changed
     assertTrue(bpmnModel.getMessages().isEmpty());
     assertTrue(bpmnModel.messageMap.isEmpty());
   }
@@ -1872,6 +1999,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#setMessages(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.setMessages(Collection)"})
   public void testSetMessages_givenNull_whenLinkedHashSetAddNull_thenBpmnModelMessagesEmpty() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -1882,7 +2011,7 @@ public class BpmnModelDiffblueTest {
     // Act
     bpmnModel.setMessages(messageList);
 
-    // Assert
+    // Assert that nothing has changed
     assertTrue(bpmnModel.getMessages().isEmpty());
     assertTrue(bpmnModel.messageMap.isEmpty());
   }
@@ -1896,14 +2025,15 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#setMessages(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.setMessages(Collection)"})
   public void testSetMessages_thenBpmnModelMessagesSizeIsOne() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
 
-    Message message = new Message("42", "Name", "Item Ref");
-    message.setId("Message List");
-
     LinkedHashSet<Message> messageList = new LinkedHashSet<>();
+    Message message = new Message("not empty", "Name", "Item Ref");
+
     messageList.add(message);
 
     // Act
@@ -1913,7 +2043,7 @@ public class BpmnModelDiffblueTest {
     assertEquals(1, bpmnModel.getMessages().size());
     Map<String, Message> stringMessageMap = bpmnModel.messageMap;
     assertEquals(1, stringMessageMap.size());
-    assertSame(message, stringMessageMap.get("Message List"));
+    assertSame(message, stringMessageMap.get("not empty"));
   }
 
   /**
@@ -1926,6 +2056,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#setMessages(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.setMessages(Collection)"})
   public void testSetMessages_whenArrayList_thenBpmnModelMessagesEmpty() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -1933,7 +2065,7 @@ public class BpmnModelDiffblueTest {
     // Act
     bpmnModel.setMessages(new ArrayList<>());
 
-    // Assert
+    // Assert that nothing has changed
     assertTrue(bpmnModel.getMessages().isEmpty());
     assertTrue(bpmnModel.messageMap.isEmpty());
   }
@@ -1948,6 +2080,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#setMessages(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.setMessages(Collection)"})
   public void testSetMessages_whenNull_thenBpmnModelMessagesEmpty() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -1963,38 +2097,14 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#addMessage(Message)}.
    * <ul>
-   *   <li>Given {@code null}.</li>
-   *   <li>When {@link Message#Message(String, String, String)} with id is
-   * {@code 42} and {@code Name} and {@code Item Ref} Id is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BpmnModel#addMessage(Message)}
-   */
-  @Test
-  public void testAddMessage_givenNull_whenMessageWithIdIs42AndNameAndItemRefIdIsNull() {
-    // Arrange
-    BpmnModel bpmnModel = new BpmnModel();
-
-    Message message = new Message("42", "Name", "Item Ref");
-    message.setId(null);
-
-    // Act
-    bpmnModel.addMessage(message);
-
-    // Assert that nothing has changed
-    assertTrue(bpmnModel.getMessages().isEmpty());
-    assertTrue(bpmnModel.messageMap.isEmpty());
-  }
-
-  /**
-   * Test {@link BpmnModel#addMessage(Message)}.
-   * <ul>
    *   <li>Then {@link BpmnModel} (default constructor) Messages size is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#addMessage(Message)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addMessage(Message)"})
   public void testAddMessage_thenBpmnModelMessagesSizeIsOne() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -2013,6 +2123,52 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#addMessage(Message)}.
    * <ul>
+   *   <li>When {@link Message#Message(String, String, String)} with id is empty string and {@code Name} and {@code Item Ref}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnModel#addMessage(Message)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addMessage(Message)"})
+  public void testAddMessage_whenMessageWithIdIsEmptyStringAndNameAndItemRef() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    // Act
+    bpmnModel.addMessage(new Message("", "Name", "Item Ref"));
+
+    // Assert that nothing has changed
+    assertTrue(bpmnModel.getMessages().isEmpty());
+    assertTrue(bpmnModel.messageMap.isEmpty());
+  }
+
+  /**
+   * Test {@link BpmnModel#addMessage(Message)}.
+   * <ul>
+   *   <li>When {@link Message#Message(String, String, String)} with id is {@code null} and {@code Name} and {@code Item Ref}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnModel#addMessage(Message)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addMessage(Message)"})
+  public void testAddMessage_whenMessageWithIdIsNullAndNameAndItemRef() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    // Act
+    bpmnModel.addMessage(new Message(null, "Name", "Item Ref"));
+
+    // Assert that nothing has changed
+    assertTrue(bpmnModel.getMessages().isEmpty());
+    assertTrue(bpmnModel.messageMap.isEmpty());
+  }
+
+  /**
+   * Test {@link BpmnModel#addMessage(Message)}.
+   * <ul>
    *   <li>When {@code null}.</li>
    *   <li>Then {@link BpmnModel} (default constructor) Messages Empty.</li>
    * </ul>
@@ -2020,6 +2176,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#addMessage(Message)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addMessage(Message)"})
   public void testAddMessage_whenNull_thenBpmnModelMessagesEmpty() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -2043,6 +2201,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#getMessage(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Message BpmnModel.getMessage(String)"})
   public void testGetMessage_givenBpmnModel_when42_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new BpmnModel()).getMessage("42"));
@@ -2051,57 +2211,19 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#getMessage(String)}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@code foo} and
-   * {@link BiFunction}.</li>
    *   <li>Then return Id is {@code 42}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#getMessage(String)}
    */
   @Test
-  public void testGetMessage_givenHashMapComputeIfPresentFooAndBiFunction_thenReturnIdIs42() {
-    // Arrange
-    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
-    attributes.computeIfPresent("foo", mock(BiFunction.class));
-    Message.Builder attributesResult = Message.builder().attributes(attributes);
-    Message message = attributesResult.extensionElements(new HashMap<>())
-        .id("42")
-        .itemRef("Item Ref")
-        .name("Name")
-        .xmlColumnNumber(10)
-        .xmlRowNumber(10)
-        .build();
-
-    BpmnModel bpmnModel = new BpmnModel();
-    bpmnModel.addMessage(message);
-
-    // Act
-    Message actualMessage = bpmnModel.getMessage("42");
-
-    // Assert
-    assertEquals("42", actualMessage.getId());
-    assertEquals("Item Ref", actualMessage.getItemRef());
-    assertEquals("Name", actualMessage.getName());
-    assertEquals(10, actualMessage.getXmlColumnNumber());
-    assertEquals(10, actualMessage.getXmlRowNumber());
-    assertTrue(actualMessage.getAttributes().isEmpty());
-    assertTrue(actualMessage.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link BpmnModel#getMessage(String)}.
-   * <ul>
-   *   <li>Then return Id is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BpmnModel#getMessage(String)}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Message BpmnModel.getMessage(String)"})
   public void testGetMessage_thenReturnIdIs42() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
-    Message.Builder builderResult = Message.builder();
-    Message.Builder attributesResult = builderResult.attributes(new HashMap<>());
+    Builder builderResult = Message.builder();
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
     Message message = attributesResult.extensionElements(new HashMap<>())
         .id("42")
         .itemRef("Item Ref")
@@ -2134,6 +2256,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#containsMessageId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean BpmnModel.containsMessageId(String)"})
   public void testContainsMessageId_givenBpmnModel_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new BpmnModel()).containsMessageId("42"));
@@ -2148,11 +2272,13 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#containsMessageId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean BpmnModel.containsMessageId(String)"})
   public void testContainsMessageId_thenReturnTrue() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
-    Message.Builder builderResult = Message.builder();
-    Message.Builder attributesResult = builderResult.attributes(new HashMap<>());
+    Builder builderResult = Message.builder();
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
     Message message = attributesResult.extensionElements(new HashMap<>())
         .id("42")
         .itemRef("Item Ref")
@@ -2176,6 +2302,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#addError(String, String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addError(String, String, String)"})
   public void testAddError_whenAnErrorOccurred_thenBpmnModelErrorsSizeIsOne() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -2202,6 +2330,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#addError(String, String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addError(String, String, String)"})
   public void testAddError_whenEmptyString_thenBpmnModelErrorsEmpty() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -2223,6 +2353,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#addError(String, String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addError(String, String, String)"})
   public void testAddError_whenNull_thenBpmnModelErrorsEmpty() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -2243,6 +2375,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#containsErrorRef(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean BpmnModel.containsErrorRef(String)"})
   public void testContainsErrorRef_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new BpmnModel()).containsErrorRef("An error occurred"));
@@ -2257,6 +2391,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#containsErrorRef(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean BpmnModel.containsErrorRef(String)"})
   public void testContainsErrorRef_thenReturnTrue() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -2270,14 +2406,14 @@ public class BpmnModelDiffblueTest {
    * Test {@link BpmnModel#addItemDefinition(String, ItemDefinition)}.
    * <ul>
    *   <li>When {@code 42}.</li>
-   *   <li>Then {@link BpmnModel} (default constructor) ItemDefinitions size is
-   * one.</li>
+   *   <li>Then {@link BpmnModel} (default constructor) ItemDefinitions size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnModel#addItemDefinition(String, ItemDefinition)}
+   * Method under test: {@link BpmnModel#addItemDefinition(String, ItemDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addItemDefinition(String, ItemDefinition)"})
   public void testAddItemDefinition_when42_thenBpmnModelItemDefinitionsSizeIsOne() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -2299,10 +2435,11 @@ public class BpmnModelDiffblueTest {
    *   <li>Then {@link BpmnModel} (default constructor) ItemDefinitions Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnModel#addItemDefinition(String, ItemDefinition)}
+   * Method under test: {@link BpmnModel#addItemDefinition(String, ItemDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addItemDefinition(String, ItemDefinition)"})
   public void testAddItemDefinition_whenEmptyString_thenBpmnModelItemDefinitionsEmpty() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -2321,10 +2458,11 @@ public class BpmnModelDiffblueTest {
    *   <li>Then {@link BpmnModel} (default constructor) ItemDefinitions Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnModel#addItemDefinition(String, ItemDefinition)}
+   * Method under test: {@link BpmnModel#addItemDefinition(String, ItemDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addItemDefinition(String, ItemDefinition)"})
   public void testAddItemDefinition_whenNull_thenBpmnModelItemDefinitionsEmpty() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -2346,6 +2484,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#containsItemDefinitionId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean BpmnModel.containsItemDefinitionId(String)"})
   public void testContainsItemDefinitionId_givenBpmnModel_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new BpmnModel()).containsItemDefinitionId("42"));
@@ -2360,6 +2500,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#containsItemDefinitionId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean BpmnModel.containsItemDefinitionId(String)"})
   public void testContainsItemDefinitionId_thenReturnTrue() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -2372,14 +2514,15 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#getDataStore(String)}.
    * <ul>
-   *   <li>Given {@link BpmnModel} (default constructor) addDataStore {@code 42} and
-   * {@link DataStore} (default constructor).</li>
+   *   <li>Given {@link BpmnModel} (default constructor) addDataStore {@code 42} and {@link DataStore} (default constructor).</li>
    *   <li>Then return {@link DataStore} (default constructor).</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#getDataStore(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DataStore BpmnModel.getDataStore(String)"})
   public void testGetDataStore_givenBpmnModelAddDataStore42AndDataStore_thenReturnDataStore() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -2400,6 +2543,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#getDataStore(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DataStore BpmnModel.getDataStore(String)"})
   public void testGetDataStore_givenBpmnModel_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new BpmnModel()).getDataStore("42"));
@@ -2415,6 +2560,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#addDataStore(String, DataStore)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addDataStore(String, DataStore)"})
   public void testAddDataStore_when42_thenBpmnModelDataStoresSizeIsOne() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -2439,6 +2586,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#addDataStore(String, DataStore)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addDataStore(String, DataStore)"})
   public void testAddDataStore_whenEmptyString_thenBpmnModelDataStoresEmpty() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -2460,6 +2609,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#addDataStore(String, DataStore)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addDataStore(String, DataStore)"})
   public void testAddDataStore_whenNull_thenBpmnModelDataStoresEmpty() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -2474,14 +2625,15 @@ public class BpmnModelDiffblueTest {
   /**
    * Test {@link BpmnModel#containsDataStore(String)}.
    * <ul>
-   *   <li>Given {@link BpmnModel} (default constructor) addDataStore {@code 42} and
-   * {@link DataStore} (default constructor).</li>
+   *   <li>Given {@link BpmnModel} (default constructor) addDataStore {@code 42} and {@link DataStore} (default constructor).</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnModel#containsDataStore(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean BpmnModel.containsDataStore(String)"})
   public void testContainsDataStore_givenBpmnModelAddDataStore42AndDataStore_thenReturnTrue() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -2501,6 +2653,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#containsDataStore(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean BpmnModel.containsDataStore(String)"})
   public void testContainsDataStore_givenBpmnModel_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new BpmnModel()).containsDataStore("42"));
@@ -2512,6 +2666,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#addNamespace(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.addNamespace(String, String)"})
   public void testAddNamespace() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -2535,6 +2691,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#containsNamespacePrefix(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean BpmnModel.containsNamespacePrefix(String)"})
   public void testContainsNamespacePrefix_givenBpmnModel_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new BpmnModel()).containsNamespacePrefix("Prefix"));
@@ -2549,6 +2707,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#containsNamespacePrefix(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean BpmnModel.containsNamespacePrefix(String)"})
   public void testContainsNamespacePrefix_thenReturnTrue() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -2564,6 +2724,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#getNamespace(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String BpmnModel.getNamespace(String)"})
   public void testGetNamespace() {
     // Arrange, Act and Assert
     assertNull((new BpmnModel()).getNamespace("Prefix"));
@@ -2579,6 +2741,8 @@ public class BpmnModelDiffblueTest {
    * Method under test: {@link BpmnModel#getStartFormKey(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String BpmnModel.getStartFormKey(String)"})
   public void testGetStartFormKey_givenProcessIdIs42_thenReturnNull() {
     // Arrange
     Process process = new Process();
@@ -2635,6 +2799,22 @@ public class BpmnModelDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnModel.<init>()", "Map BpmnModel.getDataStores()",
+      "Map BpmnModel.getDefinitionsAttributes()", "Map BpmnModel.getErrors()", "Object BpmnModel.getEventSupport()",
+      "Map BpmnModel.getFlowLocationMap()", "List BpmnModel.getGlobalArtifacts()", "List BpmnModel.getImports()",
+      "List BpmnModel.getInterfaces()", "Map BpmnModel.getItemDefinitions()", "Map BpmnModel.getLabelLocationMap()",
+      "Map BpmnModel.getLocationMap()", "Map BpmnModel.getMessageFlows()", "Map BpmnModel.getNamespaces()",
+      "List BpmnModel.getPools()", "List BpmnModel.getProcesses()", "Collection BpmnModel.getResources()",
+      "Collection BpmnModel.getSignals()", "String BpmnModel.getSourceSystemId()",
+      "List BpmnModel.getStartEventFormTypes()", "String BpmnModel.getTargetNamespace()",
+      "List BpmnModel.getUserTaskFormTypes()", "void BpmnModel.setDataStores(Map)",
+      "void BpmnModel.setDefinitionsAttributes(Map)", "void BpmnModel.setErrors(Map)",
+      "void BpmnModel.setEventSupport(Object)", "void BpmnModel.setGlobalArtifacts(List)",
+      "void BpmnModel.setImports(List)", "void BpmnModel.setInterfaces(List)", "void BpmnModel.setItemDefinitions(Map)",
+      "void BpmnModel.setMessageFlows(Map)", "void BpmnModel.setPools(List)",
+      "void BpmnModel.setSourceSystemId(String)", "void BpmnModel.setStartEventFormTypes(List)",
+      "void BpmnModel.setTargetNamespace(String)", "void BpmnModel.setUserTaskFormTypes(List)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     BpmnModel actualBpmnModel = new BpmnModel();
@@ -2685,7 +2865,7 @@ public class BpmnModelDiffblueTest {
     String actualTargetNamespace = actualBpmnModel.getTargetNamespace();
     List<String> actualUserTaskFormTypes = actualBpmnModel.getUserTaskFormTypes();
 
-    // Assert that nothing has changed
+    // Assert
     assertTrue(actualResources instanceof List);
     assertTrue(actualSignals instanceof List);
     assertEquals("42", actualSourceSystemId);

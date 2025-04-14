@@ -16,8 +16,11 @@
 package org.activiti.engine.impl.util;
 
 import static org.junit.Assert.assertThrows;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiException;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ProcessDefinitionUtilDiffblueTest {
   /**
@@ -26,8 +29,37 @@ public class ProcessDefinitionUtilDiffblueTest {
    * Method under test: {@link ProcessDefinitionUtil#getProcessDefinitionHelper()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.ProcessDefinitionHelper ProcessDefinitionUtil.getProcessDefinitionHelper()"})
   public void testGetProcessDefinitionHelper() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> ProcessDefinitionUtil.getProcessDefinitionHelper());
+  }
+
+  /**
+   * Test {@link ProcessDefinitionUtil#getProcess(String)}.
+   * <p>
+   * Method under test: {@link ProcessDefinitionUtil#getProcess(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.bpmn.model.Process ProcessDefinitionUtil.getProcess(String)"})
+  public void testGetProcess() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiException.class, () -> ProcessDefinitionUtil.getProcess("42"));
+  }
+
+  /**
+   * Test {@link ProcessDefinitionUtil#getBpmnModel(String)}.
+   * <p>
+   * Method under test: {@link ProcessDefinitionUtil#getBpmnModel(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.bpmn.model.BpmnModel ProcessDefinitionUtil.getBpmnModel(String)"})
+  public void testGetBpmnModel() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiException.class, () -> ProcessDefinitionUtil.getBpmnModel("42"));
   }
 }

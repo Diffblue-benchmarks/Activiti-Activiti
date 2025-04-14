@@ -24,9 +24,12 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class CustomPropertyDiffblueTest {
@@ -40,6 +43,8 @@ public class CustomPropertyDiffblueTest {
    * Method under test: {@link CustomProperty#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CustomProperty CustomProperty.clone()"})
   public void testClone_givenCustomProperty_thenReturnComplexValueIsNull() {
     // Arrange and Act
     CustomProperty actualCloneResult = (new CustomProperty()).clone();
@@ -58,13 +63,14 @@ public class CustomPropertyDiffblueTest {
   /**
    * Test {@link CustomProperty#clone()}.
    * <ul>
-   *   <li>Given {@link DataGridRow} (default constructor) Fields is
-   * {@code null}.</li>
+   *   <li>Given {@link DataGridRow} (default constructor) Fields is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link CustomProperty#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CustomProperty CustomProperty.clone()"})
   public void testClone_givenDataGridRowFieldsIsNull() {
     // Arrange
     DataGridRow dataGridRow = new DataGridRow();
@@ -92,41 +98,6 @@ public class CustomPropertyDiffblueTest {
   /**
    * Test {@link CustomProperty#clone()}.
    * <ul>
-   *   <li>Given {@link DataGrid} (default constructor) Rows is
-   * {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return ComplexValue Rows Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CustomProperty#clone()}
-   */
-  @Test
-  public void testClone_givenDataGridRowsIsArrayList_thenReturnComplexValueRowsEmpty() {
-    // Arrange
-    DataGrid complexValue = new DataGrid();
-    complexValue.setRows(new ArrayList<>());
-
-    CustomProperty customProperty = new CustomProperty();
-    customProperty.setComplexValue(complexValue);
-
-    // Act
-    CustomProperty actualCloneResult = customProperty.clone();
-
-    // Assert
-    ComplexDataType complexValue2 = actualCloneResult.getComplexValue();
-    assertTrue(complexValue2 instanceof DataGrid);
-    assertNull(actualCloneResult.getId());
-    assertNull(actualCloneResult.getName());
-    assertNull(actualCloneResult.getSimpleValue());
-    assertEquals(0, actualCloneResult.getXmlColumnNumber());
-    assertEquals(0, actualCloneResult.getXmlRowNumber());
-    assertTrue(((DataGrid) complexValue2).getRows().isEmpty());
-    assertTrue(actualCloneResult.getAttributes().isEmpty());
-    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link CustomProperty#clone()}.
-   * <ul>
    *   <li>Given {@link DataGrid} (default constructor) Rows is {@code null}.</li>
    *   <li>Then return ComplexValue Rows Empty.</li>
    * </ul>
@@ -134,6 +105,8 @@ public class CustomPropertyDiffblueTest {
    * Method under test: {@link CustomProperty#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CustomProperty CustomProperty.clone()"})
   public void testClone_givenDataGridRowsIsNull_thenReturnComplexValueRowsEmpty() {
     // Arrange
     DataGrid complexValue = new DataGrid();
@@ -161,12 +134,46 @@ public class CustomPropertyDiffblueTest {
   /**
    * Test {@link CustomProperty#clone()}.
    * <ul>
+   *   <li>Then return ComplexValue Rows Empty.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link CustomProperty#clone()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CustomProperty CustomProperty.clone()"})
+  public void testClone_thenReturnComplexValueRowsEmpty() {
+    // Arrange
+    CustomProperty customProperty = new CustomProperty();
+    customProperty.setComplexValue(new DataGrid());
+
+    // Act
+    CustomProperty actualCloneResult = customProperty.clone();
+
+    // Assert
+    ComplexDataType complexValue = actualCloneResult.getComplexValue();
+    assertTrue(complexValue instanceof DataGrid);
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getSimpleValue());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertTrue(((DataGrid) complexValue).getRows().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link CustomProperty#clone()}.
+   * <ul>
    *   <li>Then return ComplexValue Rows first Fields size is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link CustomProperty#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CustomProperty CustomProperty.clone()"})
   public void testClone_thenReturnComplexValueRowsFirstFieldsSizeIsOne() {
     // Arrange
     ArrayList<DataGridField> fields = new ArrayList<>();
@@ -210,6 +217,8 @@ public class CustomPropertyDiffblueTest {
    * Method under test: {@link CustomProperty#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CustomProperty CustomProperty.clone()"})
   public void testClone_thenReturnComplexValueRowsFirstIndexIsZero() {
     // Arrange
     DataGridRow dataGridRow = new DataGridRow();
@@ -235,17 +244,17 @@ public class CustomPropertyDiffblueTest {
   }
 
   /**
-   * Test {@link CustomProperty#setValues(CustomProperty)} with
-   * {@code otherProperty}.
+   * Test {@link CustomProperty#setValues(CustomProperty)} with {@code otherProperty}.
    * <ul>
-   *   <li>Given {@link DataGrid} {@link DataGrid#clone()} return {@link DataGrid}
-   * (default constructor).</li>
+   *   <li>Given {@link DataGrid} {@link DataGrid#clone()} return {@link DataGrid} (default constructor).</li>
    *   <li>Then calls {@link DataGrid#clone()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link CustomProperty#setValues(CustomProperty)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CustomProperty.setValues(CustomProperty)"})
   public void testSetValuesWithOtherProperty_givenDataGridCloneReturnDataGrid_thenCallsClone() {
     // Arrange
     CustomProperty customProperty = new CustomProperty();
@@ -263,8 +272,7 @@ public class CustomPropertyDiffblueTest {
   }
 
   /**
-   * Test {@link CustomProperty#setValues(CustomProperty)} with
-   * {@code otherProperty}.
+   * Test {@link CustomProperty#setValues(CustomProperty)} with {@code otherProperty}.
    * <ul>
    *   <li>Then calls {@link DataGridRow#clone()}.</li>
    * </ul>
@@ -272,6 +280,8 @@ public class CustomPropertyDiffblueTest {
    * Method under test: {@link CustomProperty#setValues(CustomProperty)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CustomProperty.setValues(CustomProperty)"})
   public void testSetValuesWithOtherProperty_thenCallsClone() {
     // Arrange
     CustomProperty customProperty = new CustomProperty();
@@ -312,6 +322,11 @@ public class CustomPropertyDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CustomProperty.<init>()", "ComplexDataType CustomProperty.getComplexValue()",
+      "String CustomProperty.getName()", "String CustomProperty.getSimpleValue()",
+      "void CustomProperty.setComplexValue(ComplexDataType)", "void CustomProperty.setName(String)",
+      "void CustomProperty.setSimpleValue(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     CustomProperty actualCustomProperty = new CustomProperty();
@@ -322,10 +337,11 @@ public class CustomPropertyDiffblueTest {
     ComplexDataType actualComplexValue = actualCustomProperty.getComplexValue();
     String actualName = actualCustomProperty.getName();
 
-    // Assert that nothing has changed
+    // Assert
     assertTrue(actualComplexValue instanceof DataGrid);
     assertEquals("42", actualCustomProperty.getSimpleValue());
     assertEquals("Name", actualName);
+    assertNull(actualCustomProperty.getId());
     assertEquals(0, actualCustomProperty.getXmlColumnNumber());
     assertEquals(0, actualCustomProperty.getXmlRowNumber());
     assertTrue(actualCustomProperty.getAttributes().isEmpty());

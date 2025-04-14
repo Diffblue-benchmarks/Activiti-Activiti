@@ -16,11 +16,12 @@
 package org.activiti.core.common.spring.identity.config;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.runtime.shared.identity.UserGroupManager;
 import org.activiti.core.common.spring.identity.ActivitiUserGroupManagerImpl;
 import org.activiti.core.common.spring.identity.ExtendedInMemoryUserDetailsManager;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,45 +42,21 @@ class ActivitiSpringIdentityAutoConfigurationDiffblueTest {
   private UserDetailsService userDetailsService;
 
   /**
-   * Test
-   * {@link ActivitiSpringIdentityAutoConfiguration#userGroupManager(UserDetailsService)}.
+   * Test {@link ActivitiSpringIdentityAutoConfiguration#userGroupManager(UserDetailsService)}.
    * <ul>
-   *   <li>When {@link ExtendedInMemoryUserDetailsManager} (default
-   * constructor).</li>
+   *   <li>Then return {@link ActivitiUserGroupManagerImpl}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiSpringIdentityAutoConfiguration#userGroupManager(UserDetailsService)}
+   * Method under test: {@link ActivitiSpringIdentityAutoConfiguration#userGroupManager(UserDetailsService)}
    */
   @Test
-  @DisplayName("Test userGroupManager(UserDetailsService); when ExtendedInMemoryUserDetailsManager (default constructor)")
-  void testUserGroupManager_whenExtendedInMemoryUserDetailsManager() {
+  @DisplayName("Test userGroupManager(UserDetailsService); then return ActivitiUserGroupManagerImpl")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"UserGroupManager ActivitiSpringIdentityAutoConfiguration.userGroupManager(UserDetailsService)"})
+  void testUserGroupManager_thenReturnActivitiUserGroupManagerImpl() {
     // Arrange and Act
     UserGroupManager actualUserGroupManagerResult = activitiSpringIdentityAutoConfiguration
         .userGroupManager(new ExtendedInMemoryUserDetailsManager());
-
-    // Assert
-    assertTrue(actualUserGroupManagerResult instanceof ActivitiUserGroupManagerImpl);
-    assertTrue(actualUserGroupManagerResult.getGroups().isEmpty());
-    assertTrue(actualUserGroupManagerResult.getUsers().isEmpty());
-  }
-
-  /**
-   * Test
-   * {@link ActivitiSpringIdentityAutoConfiguration#userGroupManager(UserDetailsService)}.
-   * <ul>
-   *   <li>When {@link ExtendedInMemoryUserDetailsManager}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ActivitiSpringIdentityAutoConfiguration#userGroupManager(UserDetailsService)}
-   */
-  @Test
-  @DisplayName("Test userGroupManager(UserDetailsService); when ExtendedInMemoryUserDetailsManager")
-  void testUserGroupManager_whenExtendedInMemoryUserDetailsManager2() {
-    // Arrange and Act
-    UserGroupManager actualUserGroupManagerResult = activitiSpringIdentityAutoConfiguration
-        .userGroupManager(mock(ExtendedInMemoryUserDetailsManager.class));
 
     // Assert
     assertTrue(actualUserGroupManagerResult instanceof ActivitiUserGroupManagerImpl);

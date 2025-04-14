@@ -16,7 +16,10 @@
 package org.activiti.engine.impl.db;
 
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class IdBlockDiffblueTest {
   /**
@@ -25,6 +28,8 @@ public class IdBlockDiffblueTest {
    * Method under test: {@link IdBlock#IdBlock(long, long)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IdBlock.<init>(long, long)"})
   public void testNewIdBlock() {
     // Arrange and Act
     IdBlock actualIdBlock = new IdBlock(1L, 1L);
@@ -44,6 +49,8 @@ public class IdBlockDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long IdBlock.getLastId()", "long IdBlock.getNextId()"})
   public void testGettersAndSetters() {
     // Arrange
     IdBlock idBlock = new IdBlock(1L, 1L);

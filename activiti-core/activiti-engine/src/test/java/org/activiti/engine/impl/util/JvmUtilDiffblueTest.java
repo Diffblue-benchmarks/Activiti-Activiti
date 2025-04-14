@@ -17,7 +17,10 @@ package org.activiti.engine.impl.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class JvmUtilDiffblueTest {
   /**
@@ -26,6 +29,8 @@ public class JvmUtilDiffblueTest {
    * Method under test: {@link JvmUtil#getJavaVersion()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.String JvmUtil.getJavaVersion()"})
   public void testGetJavaVersion() {
     // Arrange, Act and Assert
     assertEquals(System.getProperty("java.version"), JvmUtil.getJavaVersion());
@@ -37,6 +42,8 @@ public class JvmUtilDiffblueTest {
    * Method under test: {@link JvmUtil#isJDK8()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JvmUtil.isJDK8()"})
   public void testIsJDK8() {
     // Arrange, Act and Assert
     assertFalse(JvmUtil.isJDK8());
@@ -48,6 +55,8 @@ public class JvmUtilDiffblueTest {
    * Method under test: {@link JvmUtil#isJDK7()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JvmUtil.isJDK7()"})
   public void testIsJDK7() {
     // Arrange, Act and Assert
     assertFalse(JvmUtil.isJDK7());
@@ -59,6 +68,8 @@ public class JvmUtilDiffblueTest {
    * Method under test: {@link JvmUtil#isAtLeastJDK7()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JvmUtil.isAtLeastJDK7()"})
   public void testIsAtLeastJDK7() {
     // Arrange, Act and Assert
     assertFalse(JvmUtil.isAtLeastJDK7());

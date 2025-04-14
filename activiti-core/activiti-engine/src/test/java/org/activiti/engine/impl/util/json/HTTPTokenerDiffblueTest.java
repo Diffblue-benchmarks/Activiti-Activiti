@@ -18,7 +18,10 @@ package org.activiti.engine.impl.util.json;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class HTTPTokenerDiffblueTest {
   /**
@@ -27,6 +30,8 @@ public class HTTPTokenerDiffblueTest {
    * Method under test: {@link HTTPTokener#HTTPTokener(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HTTPTokener.<init>(String)"})
   public void testNewHTTPTokener() throws JSONException {
     // Arrange and Act
     HTTPTokener actualHttpTokener = new HTTPTokener("https://example.org/example");
@@ -43,6 +48,8 @@ public class HTTPTokenerDiffblueTest {
    * Method under test: {@link HTTPTokener#nextToken()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String HTTPTokener.nextToken()"})
   public void testNextToken() throws JSONException {
     // Arrange
     HTTPTokener httpTokener = new HTTPTokener("https://example.org/example");

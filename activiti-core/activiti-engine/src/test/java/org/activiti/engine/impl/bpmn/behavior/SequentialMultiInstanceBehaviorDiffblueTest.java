@@ -16,33 +16,36 @@
 package org.activiti.engine.impl.bpmn.behavior;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import org.activiti.bpmn.model.Activity;
 import org.activiti.bpmn.model.AdhocSubProcess;
-import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.delegate.DelegateExecution;
-import org.activiti.engine.impl.bpmn.parser.factory.DefaultMessageExecutionContext;
-import org.activiti.engine.impl.delegate.MessagePayloadMappingProvider;
-import org.activiti.engine.impl.el.ExpressionManager;
 import org.activiti.engine.impl.el.FixedValue;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class SequentialMultiInstanceBehaviorDiffblueTest {
   /**
-   * Test
-   * {@link SequentialMultiInstanceBehavior#SequentialMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}.
+   * Test {@link SequentialMultiInstanceBehavior#SequentialMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}.
+   * <ul>
+   *   <li>Then {@link MultiInstanceActivityBehavior#activity} return {@link AdhocSubProcess}.</li>
+   * </ul>
    * <p>
-   * Method under test:
-   * {@link SequentialMultiInstanceBehavior#SequentialMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}
+   * Method under test: {@link SequentialMultiInstanceBehavior#SequentialMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}
    */
   @Test
-  public void testNewSequentialMultiInstanceBehavior() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SequentialMultiInstanceBehavior.<init>(Activity, AbstractBpmnActivityBehavior)"})
+  public void testNewSequentialMultiInstanceBehavior_thenActivityReturnAdhocSubProcess() {
     // Arrange
     AdhocSubProcess activity = new AdhocSubProcess();
     AbstractBpmnActivityBehavior innerActivityBehavior = new AbstractBpmnActivityBehavior();
@@ -53,43 +56,30 @@ public class SequentialMultiInstanceBehaviorDiffblueTest {
 
     // Assert
     assertTrue(actualSequentialMultiInstanceBehavior.activity instanceof AdhocSubProcess);
+    assertEquals("loopCounter", actualSequentialMultiInstanceBehavior.getCollectionElementIndexVariable());
+    assertNull(actualSequentialMultiInstanceBehavior.getCollectionElementVariable());
+    assertNull(actualSequentialMultiInstanceBehavior.getCollectionVariable());
+    assertNull(actualSequentialMultiInstanceBehavior.getLoopDataOutputRef());
+    assertNull(actualSequentialMultiInstanceBehavior.getOutputDataItem());
+    assertNull(actualSequentialMultiInstanceBehavior.getCollectionExpression());
+    assertNull(actualSequentialMultiInstanceBehavior.getCompletionConditionExpression());
+    assertNull(actualSequentialMultiInstanceBehavior.getLoopCardinalityExpression());
+    assertNull(actualSequentialMultiInstanceBehavior.getCommandContext());
+    assertFalse(actualSequentialMultiInstanceBehavior.hasLoopDataOutputRef());
+    assertFalse(actualSequentialMultiInstanceBehavior.hasOutputDataItem());
+    assertTrue(innerActivityBehavior.hasLoopCharacteristics());
+    assertTrue(innerActivityBehavior.hasMultiInstanceCharacteristics());
     assertSame(innerActivityBehavior, actualSequentialMultiInstanceBehavior.getInnerActivityBehavior());
   }
 
   /**
-   * Test
-   * {@link SequentialMultiInstanceBehavior#SequentialMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}.
+   * Test {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}.
    * <p>
-   * Method under test:
-   * {@link SequentialMultiInstanceBehavior#SequentialMultiInstanceBehavior(Activity, AbstractBpmnActivityBehavior)}
+   * Method under test: {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}
    */
   @Test
-  public void testNewSequentialMultiInstanceBehavior2() {
-    // Arrange
-    AdhocSubProcess activity = new AdhocSubProcess();
-    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
-    MessageEventDefinition messageEventDefinition2 = new MessageEventDefinition();
-    EventSubProcessMessageStartEventActivityBehavior innerActivityBehavior = new EventSubProcessMessageStartEventActivityBehavior(
-        messageEventDefinition, new DefaultMessageExecutionContext(messageEventDefinition2, new ExpressionManager(),
-            mock(MessagePayloadMappingProvider.class)));
-
-    // Act
-    SequentialMultiInstanceBehavior actualSequentialMultiInstanceBehavior = new SequentialMultiInstanceBehavior(
-        activity, innerActivityBehavior);
-
-    // Assert
-    assertTrue(actualSequentialMultiInstanceBehavior.activity instanceof AdhocSubProcess);
-    assertSame(innerActivityBehavior, actualSequentialMultiInstanceBehavior.getInnerActivityBehavior());
-  }
-
-  /**
-   * Test
-   * {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}.
-   * <p>
-   * Method under test:
-   * {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int SequentialMultiInstanceBehavior.createInstances(DelegateExecution)"})
   public void testCreateInstances() {
     // Arrange
     AdhocSubProcess activity = new AdhocSubProcess();
@@ -104,13 +94,13 @@ public class SequentialMultiInstanceBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}.
+   * Test {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}.
    * <p>
-   * Method under test:
-   * {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}
+   * Method under test: {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int SequentialMultiInstanceBehavior.createInstances(DelegateExecution)"})
   public void testCreateInstances2() {
     // Arrange
     AdhocSubProcess activity = new AdhocSubProcess();
@@ -125,16 +115,16 @@ public class SequentialMultiInstanceBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}.
+   * Test {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}.
    * <ul>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}
+   * Method under test: {@link SequentialMultiInstanceBehavior#createInstances(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int SequentialMultiInstanceBehavior.createInstances(DelegateExecution)"})
   public void testCreateInstances_thenThrowActivitiIllegalArgumentException() {
     // Arrange
     AdhocSubProcess activity = new AdhocSubProcess();

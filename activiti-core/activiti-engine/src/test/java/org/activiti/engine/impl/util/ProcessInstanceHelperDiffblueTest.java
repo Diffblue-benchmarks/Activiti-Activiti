@@ -25,6 +25,8 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -45,29 +47,24 @@ import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ProcessInstanceHelperDiffblueTest {
-  @InjectMocks
-  private ProcessInstanceHelper processInstanceHelper;
-
   /**
    * Test {@link ProcessInstanceHelper#getInitialFlowElement(Process, String)}.
    * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor).</li>
-   *   <li>Then return {@link AdhocSubProcess} (default constructor).</li>
+   *   <li>Then calls {@link Process#getInitialFlowElement()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessInstanceHelper#getInitialFlowElement(Process, String)}
+   * Method under test: {@link ProcessInstanceHelper#getInitialFlowElement(Process, String)}
    */
   @Test
-  public void testGetInitialFlowElement_givenAdhocSubProcess_thenReturnAdhocSubProcess() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElement ProcessInstanceHelper.getInitialFlowElement(Process, String)"})
+  public void testGetInitialFlowElement_thenCallsGetInitialFlowElement() {
     // Arrange
+    ProcessInstanceHelper processInstanceHelper = new ProcessInstanceHelper();
     Process process = mock(Process.class);
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
     when(process.getInitialFlowElement()).thenReturn(adhocSubProcess);
@@ -84,16 +81,43 @@ public class ProcessInstanceHelperDiffblueTest {
   /**
    * Test {@link ProcessInstanceHelper#getInitialFlowElement(Process, String)}.
    * <ul>
+   *   <li>When {@link Process} (default constructor) InitialFlowElement is {@link AdhocSubProcess} (default constructor).</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ProcessInstanceHelper#getInitialFlowElement(Process, String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElement ProcessInstanceHelper.getInitialFlowElement(Process, String)"})
+  public void testGetInitialFlowElement_whenProcessInitialFlowElementIsAdhocSubProcess() {
+    // Arrange
+    ProcessInstanceHelper processInstanceHelper = new ProcessInstanceHelper();
+
+    Process process = new Process();
+    AdhocSubProcess initialFlowElement = new AdhocSubProcess();
+    process.setInitialFlowElement(initialFlowElement);
+
+    // Act and Assert
+    assertSame(initialFlowElement, processInstanceHelper.getInitialFlowElement(process, "Process Definition ID"));
+  }
+
+  /**
+   * Test {@link ProcessInstanceHelper#getInitialFlowElement(Process, String)}.
+   * <ul>
    *   <li>When {@link Process} (default constructor).</li>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessInstanceHelper#getInitialFlowElement(Process, String)}
+   * Method under test: {@link ProcessInstanceHelper#getInitialFlowElement(Process, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElement ProcessInstanceHelper.getInitialFlowElement(Process, String)"})
   public void testGetInitialFlowElement_whenProcess_thenThrowActivitiException() {
-    // Arrange, Act and Assert
+    // Arrange
+    ProcessInstanceHelper processInstanceHelper = new ProcessInstanceHelper();
+
+    // Act and Assert
     assertThrows(ActivitiException.class,
         () -> processInstanceHelper.getInitialFlowElement(new Process(), "Process Definition ID"));
   }
@@ -101,15 +125,15 @@ public class ProcessInstanceHelperDiffblueTest {
   /**
    * Test {@link ProcessInstanceHelper#processDataObjects(Collection)}.
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()} add {@link BooleanDataObject} (default
-   * constructor).</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link BooleanDataObject} (default constructor).</li>
    *   <li>Then return size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessInstanceHelper#processDataObjects(Collection)}
+   * Method under test: {@link ProcessInstanceHelper#processDataObjects(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map ProcessInstanceHelper.processDataObjects(Collection)"})
   public void testProcessDataObjects_whenArrayListAddBooleanDataObject_thenReturnSizeIsOne() {
     // Arrange
     ProcessInstanceHelper processInstanceHelper = new ProcessInstanceHelper();
@@ -133,10 +157,11 @@ public class ProcessInstanceHelperDiffblueTest {
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessInstanceHelper#processDataObjects(Collection)}
+   * Method under test: {@link ProcessInstanceHelper#processDataObjects(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map ProcessInstanceHelper.processDataObjects(Collection)"})
   public void testProcessDataObjects_whenArrayList_thenReturnEmpty() {
     // Arrange
     ProcessInstanceHelper processInstanceHelper = new ProcessInstanceHelper();
@@ -148,15 +173,15 @@ public class ProcessInstanceHelperDiffblueTest {
   /**
    * Test {@link ProcessInstanceHelper#processDataObjects(Collection)}.
    * <ul>
-   *   <li>When {@link LinkedHashSet#LinkedHashSet()} add {@link BooleanDataObject}
-   * (default constructor).</li>
+   *   <li>When {@link LinkedHashSet#LinkedHashSet()} add {@link BooleanDataObject} (default constructor).</li>
    *   <li>Then return size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessInstanceHelper#processDataObjects(Collection)}
+   * Method under test: {@link ProcessInstanceHelper#processDataObjects(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map ProcessInstanceHelper.processDataObjects(Collection)"})
   public void testProcessDataObjects_whenLinkedHashSetAddBooleanDataObject_thenReturnSizeIsOne() {
     // Arrange
     ProcessInstanceHelper processInstanceHelper = new ProcessInstanceHelper();
@@ -179,26 +204,28 @@ public class ProcessInstanceHelperDiffblueTest {
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessInstanceHelper#processDataObjects(Collection)}
+   * Method under test: {@link ProcessInstanceHelper#processDataObjects(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map ProcessInstanceHelper.processDataObjects(Collection)"})
   public void testProcessDataObjects_whenNull_thenReturnEmpty() {
     // Arrange, Act and Assert
     assertTrue((new ProcessInstanceHelper()).processDataObjects(null).isEmpty());
   }
 
   /**
-   * Test
-   * {@link ProcessInstanceHelper#getCorrelationKey(CommandContext, MessageEventDefinition, DelegateExecution)}.
+   * Test {@link ProcessInstanceHelper#getCorrelationKey(CommandContext, MessageEventDefinition, DelegateExecution)}.
    * <ul>
    *   <li>Then return not Present.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessInstanceHelper#getCorrelationKey(CommandContext, MessageEventDefinition, DelegateExecution)}
+   * Method under test: {@link ProcessInstanceHelper#getCorrelationKey(CommandContext, MessageEventDefinition, DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "Optional ProcessInstanceHelper.getCorrelationKey(CommandContext, MessageEventDefinition, DelegateExecution)"})
   public void testGetCorrelationKey_thenReturnNotPresent() {
     // Arrange
     ProcessInstanceHelper processInstanceHelper = new ProcessInstanceHelper();

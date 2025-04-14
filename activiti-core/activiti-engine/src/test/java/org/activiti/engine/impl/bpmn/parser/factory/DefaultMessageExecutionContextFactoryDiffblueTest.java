@@ -18,20 +18,24 @@ package org.activiti.engine.impl.bpmn.parser.factory;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.engine.impl.delegate.MessagePayloadMappingProvider;
 import org.activiti.engine.impl.el.ExpressionManager;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class DefaultMessageExecutionContextFactoryDiffblueTest {
   /**
-   * Test
-   * {@link DefaultMessageExecutionContextFactory#create(MessageEventDefinition, MessagePayloadMappingProvider, ExpressionManager)}.
+   * Test {@link DefaultMessageExecutionContextFactory#create(MessageEventDefinition, MessagePayloadMappingProvider, ExpressionManager)}.
    * <p>
-   * Method under test:
-   * {@link DefaultMessageExecutionContextFactory#create(MessageEventDefinition, MessagePayloadMappingProvider, ExpressionManager)}
+   * Method under test: {@link DefaultMessageExecutionContextFactory#create(MessageEventDefinition, MessagePayloadMappingProvider, ExpressionManager)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "MessageExecutionContext DefaultMessageExecutionContextFactory.create(MessageEventDefinition, MessagePayloadMappingProvider, ExpressionManager)"})
   public void testCreate() {
     // Arrange
     DefaultMessageExecutionContextFactory defaultMessageExecutionContextFactory = new DefaultMessageExecutionContextFactory();

@@ -16,7 +16,9 @@
 package org.activiti.bpmn.converter.child;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class DataInputAssociationParserDiffblueTest {
@@ -25,13 +27,15 @@ class DataInputAssociationParserDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of
-   * {@link DataInputAssociationParser}
+   *   <li>default or parameterless constructor of {@link DataInputAssociationParser}
    *   <li>{@link DataInputAssociationParser#getElementName()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DataInputAssociationParser.<init>()",
+      "java.lang.String DataInputAssociationParser.getElementName()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("dataInputAssociation", (new DataInputAssociationParser()).getElementName());

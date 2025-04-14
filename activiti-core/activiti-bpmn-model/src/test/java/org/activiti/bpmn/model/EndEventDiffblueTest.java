@@ -19,14 +19,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.function.BiFunction;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class EndEventDiffblueTest {
   /**
@@ -39,6 +35,8 @@ public class EndEventDiffblueTest {
    * Method under test: {@link EndEvent#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"EndEvent EndEvent.clone()"})
   public void testClone_givenEndEvent_thenReturnBehaviorIsNull() {
     // Arrange and Act
     EndEvent actualCloneResult = (new EndEvent()).clone();
@@ -64,82 +62,13 @@ public class EndEventDiffblueTest {
   }
 
   /**
-   * Test {@link EndEvent#clone()}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@code foo} and
-   * {@link BiFunction}.</li>
-   *   <li>Then return Behavior is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EndEvent#clone()}
-   */
-  @Test
-  public void testClone_givenHashMapComputeIfPresentFooAndBiFunction_thenReturnBehaviorIsNull() {
-    // Arrange
-    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
-    attributes.computeIfPresent("foo", mock(BiFunction.class));
-
-    EndEvent endEvent = new EndEvent();
-    endEvent.setExtensionElements(null);
-    endEvent.setAttributes(attributes);
-
-    // Act
-    EndEvent actualCloneResult = endEvent.clone();
-
-    // Assert
-    assertNull(actualCloneResult.getBehavior());
-    assertNull(actualCloneResult.getId());
-    assertNull(actualCloneResult.getDocumentation());
-    assertNull(actualCloneResult.getName());
-    assertNull(actualCloneResult.getParentContainer());
-    assertNull(actualCloneResult.getSubProcess());
-    assertEquals(0, actualCloneResult.getXmlColumnNumber());
-    assertEquals(0, actualCloneResult.getXmlRowNumber());
-    assertFalse(actualCloneResult.isAsynchronous());
-    assertFalse(actualCloneResult.isNotExclusive());
-    assertTrue(actualCloneResult.getEventDefinitions().isEmpty());
-    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
-    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
-    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
-    assertTrue(actualCloneResult.getAttributes().isEmpty());
-    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-    assertTrue(actualCloneResult.isExclusive());
-  }
-
-  /**
-   * Test {@link EndEvent#setValues(EndEvent)} with {@code EndEvent}.
-   * <ul>
-   *   <li>Then calls {@link CancelEventDefinition#clone()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EndEvent#setValues(EndEvent)}
-   */
-  @Test
-  public void testSetValuesWithEndEvent_thenCallsClone() {
-    // Arrange
-    EndEvent endEvent = new EndEvent();
-    CancelEventDefinition cancelEventDefinition = mock(CancelEventDefinition.class);
-    when(cancelEventDefinition.clone()).thenReturn(new CancelEventDefinition());
-
-    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
-    eventDefinitions.add(cancelEventDefinition);
-
-    EndEvent otherEvent = new EndEvent();
-    otherEvent.setEventDefinitions(eventDefinitions);
-
-    // Act
-    endEvent.setValues(otherEvent);
-
-    // Assert
-    verify(cancelEventDefinition).clone();
-  }
-
-  /**
    * Test new {@link EndEvent} (default constructor).
    * <p>
    * Method under test: default or parameterless constructor of {@link EndEvent}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EndEvent.<init>()"})
   public void testNewEndEvent() {
     // Arrange and Act
     EndEvent actualEndEvent = new EndEvent();

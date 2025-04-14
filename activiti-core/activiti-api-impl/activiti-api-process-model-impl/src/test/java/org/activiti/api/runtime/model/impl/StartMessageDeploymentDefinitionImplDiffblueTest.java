@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
@@ -27,29 +27,40 @@ import org.activiti.api.process.model.ProcessDefinition;
 import org.activiti.api.process.model.StartMessageSubscription;
 import org.activiti.api.runtime.model.impl.StartMessageDeploymentDefinitionImpl.Builder;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+@ContextConfiguration(classes = {Builder.class})
+@ExtendWith(SpringExtension.class)
 class StartMessageDeploymentDefinitionImplDiffblueTest {
+  @Autowired
+  private Builder builder;
+
   /**
    * Test Builder {@link Builder#build()}.
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>{@link StartMessageDeploymentDefinitionImpl.Builder#build()}
-   *   <li>
-   * {@link StartMessageDeploymentDefinitionImpl.Builder#withMessageSubscription(StartMessageSubscription)}
-   *   <li>
-   * {@link StartMessageDeploymentDefinitionImpl.Builder#withProcessDefinition(ProcessDefinition)}
+   *   <li>{@link Builder#build()}
+   *   <li>{@link Builder#withMessageSubscription(StartMessageSubscription)}
+   *   <li>{@link Builder#withProcessDefinition(ProcessDefinition)}
    * </ul>
    */
   @Test
   @DisplayName("Test Builder build()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void Builder.<init>()", "StartMessageDeploymentDefinitionImpl Builder.build()",
+      "Builder Builder.withMessageSubscription(StartMessageSubscription)",
+      "Builder Builder.withProcessDefinition(ProcessDefinition)"})
   void testBuilderBuild() {
     // Arrange
-    StartMessageDeploymentDefinitionImpl.Builder builderResult = StartMessageDeploymentDefinitionImpl.builder();
+    Builder builderResult = StartMessageDeploymentDefinitionImpl.builder();
     StartMessageSubscriptionImpl messageEventSubscription = new StartMessageSubscriptionImpl();
-    StartMessageDeploymentDefinitionImpl.Builder withMessageSubscriptionResult = builderResult
-        .withMessageSubscription(messageEventSubscription);
+    Builder withMessageSubscriptionResult = builderResult.withMessageSubscription(messageEventSubscription);
     ProcessDefinitionImpl processDefinition = new ProcessDefinitionImpl();
 
     // Act
@@ -67,10 +78,8 @@ class StartMessageDeploymentDefinitionImplDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link StartMessageDeploymentDefinitionImpl#StartMessageDeploymentDefinitionImpl()}
-   *   <li>
-   * {@link StartMessageDeploymentDefinitionImpl#builderFrom(StartMessageDeploymentDefinitionImpl)}
+   *   <li>{@link StartMessageDeploymentDefinitionImpl#StartMessageDeploymentDefinitionImpl()}
+   *   <li>{@link StartMessageDeploymentDefinitionImpl#builderFrom(StartMessageDeploymentDefinitionImpl)}
    *   <li>{@link StartMessageDeploymentDefinitionImpl#toString()}
    *   <li>{@link StartMessageDeploymentDefinitionImpl#getMessageSubscription()}
    *   <li>{@link StartMessageDeploymentDefinitionImpl#getProcessDefinition()}
@@ -78,12 +87,17 @@ class StartMessageDeploymentDefinitionImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void StartMessageDeploymentDefinitionImpl.<init>()",
+      "Builder StartMessageDeploymentDefinitionImpl.builderFrom(StartMessageDeploymentDefinitionImpl)",
+      "StartMessageSubscription StartMessageDeploymentDefinitionImpl.getMessageSubscription()",
+      "ProcessDefinition StartMessageDeploymentDefinitionImpl.getProcessDefinition()",
+      "String StartMessageDeploymentDefinitionImpl.toString()"})
   void testGettersAndSetters() {
     // Arrange and Act
     StartMessageDeploymentDefinitionImpl actualStartMessageDeploymentDefinitionImpl = new StartMessageDeploymentDefinitionImpl();
-    StartMessageDeploymentDefinitionImpl.Builder builderResult = StartMessageDeploymentDefinitionImpl.builder();
-    StartMessageDeploymentDefinitionImpl.Builder withMessageSubscriptionResult = builderResult
-        .withMessageSubscription(new StartMessageSubscriptionImpl());
+    Builder builderResult = StartMessageDeploymentDefinitionImpl.builder();
+    Builder withMessageSubscriptionResult = builderResult.withMessageSubscription(new StartMessageSubscriptionImpl());
     StartMessageDeploymentDefinitionImpl startMessageEventSubscriptionImpl = withMessageSubscriptionResult
         .withProcessDefinition(new ProcessDefinitionImpl())
         .build();
@@ -100,8 +114,7 @@ class StartMessageDeploymentDefinitionImplDiffblueTest {
   }
 
   /**
-   * Test {@link StartMessageDeploymentDefinitionImpl#equals(Object)}, and
-   * {@link StartMessageDeploymentDefinitionImpl#hashCode()}.
+   * Test {@link StartMessageDeploymentDefinitionImpl#equals(Object)}, and {@link StartMessageDeploymentDefinitionImpl#hashCode()}.
    * <ul>
    *   <li>When other is equal.</li>
    *   <li>Then return equal.</li>
@@ -115,17 +128,18 @@ class StartMessageDeploymentDefinitionImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is equal; then return equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean StartMessageDeploymentDefinitionImpl.equals(Object)",
+      "int StartMessageDeploymentDefinitionImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
     // Arrange
-    StartMessageDeploymentDefinitionImpl.Builder builderResult = StartMessageDeploymentDefinitionImpl.builder();
-    StartMessageDeploymentDefinitionImpl.Builder withMessageSubscriptionResult = builderResult
-        .withMessageSubscription(new StartMessageSubscriptionImpl());
+    Builder builderResult = StartMessageDeploymentDefinitionImpl.builder();
+    Builder withMessageSubscriptionResult = builderResult.withMessageSubscription(new StartMessageSubscriptionImpl());
     StartMessageDeploymentDefinitionImpl buildResult = withMessageSubscriptionResult
         .withProcessDefinition(new ProcessDefinitionImpl())
         .build();
-    StartMessageDeploymentDefinitionImpl.Builder builderResult2 = StartMessageDeploymentDefinitionImpl.builder();
-    StartMessageDeploymentDefinitionImpl.Builder withMessageSubscriptionResult2 = builderResult2
-        .withMessageSubscription(new StartMessageSubscriptionImpl());
+    Builder builderResult2 = StartMessageDeploymentDefinitionImpl.builder();
+    Builder withMessageSubscriptionResult2 = builderResult2.withMessageSubscription(new StartMessageSubscriptionImpl());
     StartMessageDeploymentDefinitionImpl buildResult2 = withMessageSubscriptionResult2
         .withProcessDefinition(new ProcessDefinitionImpl())
         .build();
@@ -137,8 +151,7 @@ class StartMessageDeploymentDefinitionImplDiffblueTest {
   }
 
   /**
-   * Test {@link StartMessageDeploymentDefinitionImpl#equals(Object)}, and
-   * {@link StartMessageDeploymentDefinitionImpl#hashCode()}.
+   * Test {@link StartMessageDeploymentDefinitionImpl#equals(Object)}, and {@link StartMessageDeploymentDefinitionImpl#hashCode()}.
    * <ul>
    *   <li>When other is same.</li>
    *   <li>Then return equal.</li>
@@ -152,11 +165,13 @@ class StartMessageDeploymentDefinitionImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean StartMessageDeploymentDefinitionImpl.equals(Object)",
+      "int StartMessageDeploymentDefinitionImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
-    StartMessageDeploymentDefinitionImpl.Builder builderResult = StartMessageDeploymentDefinitionImpl.builder();
-    StartMessageDeploymentDefinitionImpl.Builder withMessageSubscriptionResult = builderResult
-        .withMessageSubscription(new StartMessageSubscriptionImpl());
+    Builder builderResult = StartMessageDeploymentDefinitionImpl.builder();
+    Builder withMessageSubscriptionResult = builderResult.withMessageSubscription(new StartMessageSubscriptionImpl());
     StartMessageDeploymentDefinitionImpl buildResult = withMessageSubscriptionResult
         .withProcessDefinition(new ProcessDefinitionImpl())
         .build();
@@ -174,14 +189,16 @@ class StartMessageDeploymentDefinitionImplDiffblueTest {
    *   <li>Then return not equal.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link StartMessageDeploymentDefinitionImpl#equals(Object)}
+   * Method under test: {@link StartMessageDeploymentDefinitionImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean StartMessageDeploymentDefinitionImpl.equals(Object)",
+      "int StartMessageDeploymentDefinitionImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
-    StartMessageDeploymentDefinitionImpl.Builder builderResult = StartMessageDeploymentDefinitionImpl.builder();
+    Builder builderResult = StartMessageDeploymentDefinitionImpl.builder();
     StartMessageSubscriptionImpl.Builder withConfigurationResult = StartMessageSubscriptionImpl.builder()
         .withActivityId("42")
         .withConfiguration("Configuration");
@@ -191,14 +208,12 @@ class StartMessageDeploymentDefinitionImplDiffblueTest {
         .withId("42")
         .withProcessDefinitionId("42")
         .build();
-    StartMessageDeploymentDefinitionImpl.Builder withMessageSubscriptionResult = builderResult
-        .withMessageSubscription(messageEventSubscription);
+    Builder withMessageSubscriptionResult = builderResult.withMessageSubscription(messageEventSubscription);
     StartMessageDeploymentDefinitionImpl buildResult = withMessageSubscriptionResult
         .withProcessDefinition(new ProcessDefinitionImpl())
         .build();
-    StartMessageDeploymentDefinitionImpl.Builder builderResult2 = StartMessageDeploymentDefinitionImpl.builder();
-    StartMessageDeploymentDefinitionImpl.Builder withMessageSubscriptionResult2 = builderResult2
-        .withMessageSubscription(new StartMessageSubscriptionImpl());
+    Builder builderResult2 = StartMessageDeploymentDefinitionImpl.builder();
+    Builder withMessageSubscriptionResult2 = builderResult2.withMessageSubscription(new StartMessageSubscriptionImpl());
     StartMessageDeploymentDefinitionImpl buildResult2 = withMessageSubscriptionResult2
         .withProcessDefinition(new ProcessDefinitionImpl())
         .build();
@@ -214,52 +229,22 @@ class StartMessageDeploymentDefinitionImplDiffblueTest {
    *   <li>Then return not equal.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link StartMessageDeploymentDefinitionImpl#equals(Object)}
+   * Method under test: {@link StartMessageDeploymentDefinitionImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean StartMessageDeploymentDefinitionImpl.equals(Object)",
+      "int StartMessageDeploymentDefinitionImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
     // Arrange
-    StartMessageDeploymentDefinitionImpl.Builder withMessageSubscriptionResult = StartMessageDeploymentDefinitionImpl
-        .builder()
-        .withMessageSubscription(mock(StartMessageSubscriptionImpl.class));
-    StartMessageDeploymentDefinitionImpl buildResult = withMessageSubscriptionResult
-        .withProcessDefinition(new ProcessDefinitionImpl())
-        .build();
-    StartMessageDeploymentDefinitionImpl.Builder builderResult = StartMessageDeploymentDefinitionImpl.builder();
-    StartMessageDeploymentDefinitionImpl.Builder withMessageSubscriptionResult2 = builderResult
-        .withMessageSubscription(new StartMessageSubscriptionImpl());
-    StartMessageDeploymentDefinitionImpl buildResult2 = withMessageSubscriptionResult2
-        .withProcessDefinition(new ProcessDefinitionImpl())
-        .build();
-
-    // Act and Assert
-    assertNotEquals(buildResult, buildResult2);
-  }
-
-  /**
-   * Test {@link StartMessageDeploymentDefinitionImpl#equals(Object)}.
-   * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link StartMessageDeploymentDefinitionImpl#equals(Object)}
-   */
-  @Test
-  @DisplayName("Test equals(Object); when other is different; then return not equal")
-  void testEquals_whenOtherIsDifferent_thenReturnNotEqual3() {
-    // Arrange
-    StartMessageDeploymentDefinitionImpl.Builder builderResult = StartMessageDeploymentDefinitionImpl.builder();
+    Builder builderResult = StartMessageDeploymentDefinitionImpl.builder();
     StartMessageDeploymentDefinitionImpl buildResult = builderResult
         .withMessageSubscription(new StartMessageSubscriptionImpl())
         .withProcessDefinition(null)
         .build();
-    StartMessageDeploymentDefinitionImpl.Builder builderResult2 = StartMessageDeploymentDefinitionImpl.builder();
-    StartMessageDeploymentDefinitionImpl.Builder withMessageSubscriptionResult = builderResult2
-        .withMessageSubscription(new StartMessageSubscriptionImpl());
+    Builder builderResult2 = StartMessageDeploymentDefinitionImpl.builder();
+    Builder withMessageSubscriptionResult = builderResult2.withMessageSubscription(new StartMessageSubscriptionImpl());
     StartMessageDeploymentDefinitionImpl buildResult2 = withMessageSubscriptionResult
         .withProcessDefinition(new ProcessDefinitionImpl())
         .build();
@@ -275,16 +260,17 @@ class StartMessageDeploymentDefinitionImplDiffblueTest {
    *   <li>Then return not equal.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link StartMessageDeploymentDefinitionImpl#equals(Object)}
+   * Method under test: {@link StartMessageDeploymentDefinitionImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean StartMessageDeploymentDefinitionImpl.equals(Object)",
+      "int StartMessageDeploymentDefinitionImpl.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange
-    StartMessageDeploymentDefinitionImpl.Builder builderResult = StartMessageDeploymentDefinitionImpl.builder();
-    StartMessageDeploymentDefinitionImpl.Builder withMessageSubscriptionResult = builderResult
-        .withMessageSubscription(new StartMessageSubscriptionImpl());
+    Builder builderResult = StartMessageDeploymentDefinitionImpl.builder();
+    Builder withMessageSubscriptionResult = builderResult.withMessageSubscription(new StartMessageSubscriptionImpl());
     StartMessageDeploymentDefinitionImpl buildResult = withMessageSubscriptionResult
         .withProcessDefinition(new ProcessDefinitionImpl())
         .build();
@@ -300,16 +286,17 @@ class StartMessageDeploymentDefinitionImplDiffblueTest {
    *   <li>Then return not equal.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link StartMessageDeploymentDefinitionImpl#equals(Object)}
+   * Method under test: {@link StartMessageDeploymentDefinitionImpl#equals(Object)}
    */
   @Test
   @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean StartMessageDeploymentDefinitionImpl.equals(Object)",
+      "int StartMessageDeploymentDefinitionImpl.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange
-    StartMessageDeploymentDefinitionImpl.Builder builderResult = StartMessageDeploymentDefinitionImpl.builder();
-    StartMessageDeploymentDefinitionImpl.Builder withMessageSubscriptionResult = builderResult
-        .withMessageSubscription(new StartMessageSubscriptionImpl());
+    Builder builderResult = StartMessageDeploymentDefinitionImpl.builder();
+    Builder withMessageSubscriptionResult = builderResult.withMessageSubscription(new StartMessageSubscriptionImpl());
     StartMessageDeploymentDefinitionImpl buildResult = withMessageSubscriptionResult
         .withProcessDefinition(new ProcessDefinitionImpl())
         .build();

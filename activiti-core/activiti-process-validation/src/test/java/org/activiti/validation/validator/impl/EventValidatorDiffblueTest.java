@@ -27,6 +27,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -48,6 +49,7 @@ import org.activiti.bpmn.model.SignalEventDefinition;
 import org.activiti.bpmn.model.TimerEventDefinition;
 import org.activiti.validation.ValidationError;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -55,11 +57,12 @@ class EventValidatorDiffblueTest {
   /**
    * Test {@link EventValidator#executeValidation(BpmnModel, Process, List)}.
    * <p>
-   * Method under test:
-   * {@link EventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -108,11 +111,12 @@ class EventValidatorDiffblueTest {
   /**
    * Test {@link EventValidator#executeValidation(BpmnModel, Process, List)}.
    * <p>
-   * Method under test:
-   * {@link EventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation2() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -144,11 +148,12 @@ class EventValidatorDiffblueTest {
   /**
    * Test {@link EventValidator#executeValidation(BpmnModel, Process, List)}.
    * <p>
-   * Method under test:
-   * {@link EventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation3() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -200,17 +205,17 @@ class EventValidatorDiffblueTest {
   /**
    * Test {@link EventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link BoundaryEvent} (default
-   * constructor).</li>
-   *   <li>Then {@link BpmnModel} (default constructor) Resources {@link List}.</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link BoundaryEvent} (default constructor).</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList() add BoundaryEvent (default constructor); then BpmnModel (default constructor) Resources List")
-  void testExecuteValidation_givenArrayListAddBoundaryEvent_thenBpmnModelResourcesList() {
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList() add BoundaryEvent (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventValidator.executeValidation(BpmnModel, Process, List)"})
+  void testExecuteValidation_givenArrayListAddBoundaryEvent_thenArrayListEmpty() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -240,15 +245,16 @@ class EventValidatorDiffblueTest {
    * <ul>
    *   <li>Given {@link ArrayList#ArrayList()}.</li>
    *   <li>When {@link BpmnModel} (default constructor).</li>
-   *   <li>Then {@link BpmnModel} (default constructor) Resources {@link List}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList(); when BpmnModel (default constructor); then BpmnModel (default constructor) Resources List")
-  void testExecuteValidation_givenArrayList_whenBpmnModel_thenBpmnModelResourcesList() {
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList(); when BpmnModel (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventValidator.executeValidation(BpmnModel, Process, List)"})
+  void testExecuteValidation_givenArrayList_whenBpmnModel_thenArrayListEmpty() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -273,15 +279,15 @@ class EventValidatorDiffblueTest {
   /**
    * Test {@link EventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link BoundaryEvent} (default constructor) addEventDefinition
-   * {@link CancelEventDefinition} (default constructor).</li>
+   *   <li>Given {@link BoundaryEvent} (default constructor) addEventDefinition {@link CancelEventDefinition} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given BoundaryEvent (default constructor) addEventDefinition CancelEventDefinition (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenBoundaryEventAddEventDefinitionCancelEventDefinition() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -313,15 +319,15 @@ class EventValidatorDiffblueTest {
   /**
    * Test {@link EventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link MessageEventDefinition}
-   * {@link MessageEventDefinition#getMessageRef()} return empty string.</li>
+   *   <li>Given {@link MessageEventDefinition} {@link MessageEventDefinition#getMessageRef()} return empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given MessageEventDefinition getMessageRef() return empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenMessageEventDefinitionGetMessageRefReturnEmptyString() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -352,15 +358,15 @@ class EventValidatorDiffblueTest {
   /**
    * Test {@link EventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link MessageEventDefinition}
-   * {@link MessageEventDefinition#getMessageRef()} return {@code null}.</li>
+   *   <li>Given {@link MessageEventDefinition} {@link MessageEventDefinition#getMessageRef()} return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given MessageEventDefinition getMessageRef() return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenMessageEventDefinitionGetMessageRefReturnNull() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -395,11 +401,12 @@ class EventValidatorDiffblueTest {
    *   <li>Then calls {@link BpmnModel#containsMessageId(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given 'true'; then calls containsMessageId(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenTrue_thenCallsContainsMessageId() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -433,11 +440,12 @@ class EventValidatorDiffblueTest {
    *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityId is '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListFirstActivityIdIs42() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -495,11 +503,12 @@ class EventValidatorDiffblueTest {
    *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListSizeIsTwo() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -573,38 +582,13 @@ class EventValidatorDiffblueTest {
    *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); when Process (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_whenProcess_thenArrayListEmpty() {
-    // Arrange
-    EventValidator eventValidator = new EventValidator();
-    BpmnModel bpmnModel = mock(BpmnModel.class);
-    Process process = new Process();
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    eventValidator.executeValidation(bpmnModel, process, errors);
-
-    // Assert that nothing has changed
-    assertTrue(errors.isEmpty());
-  }
-
-  /**
-   * Test {@link EventValidator#executeValidation(BpmnModel, Process, List)}.
-   * <ul>
-   *   <li>When {@link Process} (default constructor).</li>
-   *   <li>Then {@link BpmnModel} (default constructor) Resources {@link List}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link EventValidator#executeValidation(BpmnModel, Process, List)}
-   */
-  @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); when Process (default constructor); then BpmnModel (default constructor) Resources List")
-  void testExecuteValidation_whenProcess_thenBpmnModelResourcesList() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -625,14 +609,15 @@ class EventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventValidator#handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
+   * Test {@link EventValidator#handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
    * <p>
-   * Method under test:
-   * {@link EventValidator#handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
+   * Method under test: {@link EventValidator#handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
    */
   @Test
   @DisplayName("Test handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void EventValidator.handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)"})
   void testHandleMessageEventDefinition() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -660,14 +645,15 @@ class EventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventValidator#handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
+   * Test {@link EventValidator#handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
    * <p>
-   * Method under test:
-   * {@link EventValidator#handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
+   * Method under test: {@link EventValidator#handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
    */
   @Test
   @DisplayName("Test handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void EventValidator.handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)"})
   void testHandleMessageEventDefinition2() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -699,17 +685,18 @@ class EventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventValidator#handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
+   * Test {@link EventValidator#handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
    * <ul>
    *   <li>Given {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventValidator#handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
+   * Method under test: {@link EventValidator#handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
    */
   @Test
   @DisplayName("Test handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List); given 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void EventValidator.handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)"})
   void testHandleMessageEventDefinition_givenTrue() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -737,17 +724,18 @@ class EventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventValidator#handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
+   * Test {@link EventValidator#handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventValidator#handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
+   * Method under test: {@link EventValidator#handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
    */
   @Test
   @DisplayName("Test handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List); then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void EventValidator.handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)"})
   void testHandleMessageEventDefinition_thenArrayListSizeIsTwo() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -801,17 +789,18 @@ class EventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventValidator#handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
+   * Test {@link EventValidator#handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
    * <ul>
    *   <li>Then calls {@link MessageEventDefinition#getMessageExpression()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventValidator#handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
+   * Method under test: {@link EventValidator#handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
    */
   @Test
   @DisplayName("Test handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List); then calls getMessageExpression()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void EventValidator.handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)"})
   void testHandleMessageEventDefinition_thenCallsGetMessageExpression() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -839,18 +828,19 @@ class EventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventValidator#handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
+   * Test {@link EventValidator#handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
    * <ul>
    *   <li>When {@code null}.</li>
    *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventValidator#handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
+   * Method under test: {@link EventValidator#handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
    */
   @Test
   @DisplayName("Test handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List); when 'null'; then ArrayList() first ActivityId is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void EventValidator.handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)"})
   void testHandleMessageEventDefinition_whenNull_thenArrayListFirstActivityIdIsNull() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -872,9 +862,6 @@ class EventValidatorDiffblueTest {
     verify(eventDefinition, atLeast(1)).getMessageRef();
     assertEquals(1, errors.size());
     ValidationError getResult = errors.get(0);
-    assertEquals("MESSAGE_EVENT_INVALID_MESSAGE_REF", getResult.getDefaultDescription());
-    assertEquals("MESSAGE_EVENT_INVALID_MESSAGE_REF", getResult.getKey());
-    assertEquals("MESSAGE_EVENT_INVALID_MESSAGE_REF", getResult.getProblem());
     assertNull(getResult.getActivityId());
     assertNull(getResult.getActivityName());
     assertNull(getResult.getProcessDefinitionId());
@@ -887,18 +874,19 @@ class EventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventValidator#handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
+   * Test {@link EventValidator#handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
    * <ul>
    *   <li>When {@code null}.</li>
    *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventValidator#handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
+   * Method under test: {@link EventValidator#handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
    */
   @Test
   @DisplayName("Test handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List); when 'null'; then ArrayList() first ActivityId is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void EventValidator.handleMessageEventDefinition(BpmnModel, Process, Event, EventDefinition, List)"})
   void testHandleMessageEventDefinition_whenNull_thenArrayListFirstActivityIdIsNull2() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -919,9 +907,6 @@ class EventValidatorDiffblueTest {
     verify(eventDefinition, atLeast(1)).getMessageRef();
     assertEquals(1, errors.size());
     ValidationError getResult = errors.get(0);
-    assertEquals("MESSAGE_EVENT_INVALID_MESSAGE_REF", getResult.getDefaultDescription());
-    assertEquals("MESSAGE_EVENT_INVALID_MESSAGE_REF", getResult.getKey());
-    assertEquals("MESSAGE_EVENT_INVALID_MESSAGE_REF", getResult.getProblem());
     assertNull(getResult.getActivityId());
     assertNull(getResult.getActivityName());
     assertNull(getResult.getProcessDefinitionId());
@@ -934,14 +919,15 @@ class EventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventValidator#handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
+   * Test {@link EventValidator#handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
    * <p>
-   * Method under test:
-   * {@link EventValidator#handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
+   * Method under test: {@link EventValidator#handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
    */
   @Test
   @DisplayName("Test handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void EventValidator.handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)"})
   void testHandleSignalEventDefinition() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -969,14 +955,15 @@ class EventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventValidator#handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
+   * Test {@link EventValidator#handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
    * <p>
-   * Method under test:
-   * {@link EventValidator#handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
+   * Method under test: {@link EventValidator#handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
    */
   @Test
   @DisplayName("Test handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void EventValidator.handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)"})
   void testHandleSignalEventDefinition2() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -1008,17 +995,18 @@ class EventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventValidator#handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
+   * Test {@link EventValidator#handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
    * <ul>
    *   <li>Given {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventValidator#handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
+   * Method under test: {@link EventValidator#handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
    */
   @Test
   @DisplayName("Test handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List); given 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void EventValidator.handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)"})
   void testHandleSignalEventDefinition_givenTrue() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -1046,17 +1034,18 @@ class EventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventValidator#handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
+   * Test {@link EventValidator#handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventValidator#handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
+   * Method under test: {@link EventValidator#handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
    */
   @Test
   @DisplayName("Test handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List); then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void EventValidator.handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)"})
   void testHandleSignalEventDefinition_thenArrayListSizeIsTwo() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -1110,17 +1099,18 @@ class EventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventValidator#handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
+   * Test {@link EventValidator#handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
    * <ul>
    *   <li>Then calls {@link SignalEventDefinition#getSignalExpression()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventValidator#handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
+   * Method under test: {@link EventValidator#handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
    */
   @Test
   @DisplayName("Test handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List); then calls getSignalExpression()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void EventValidator.handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)"})
   void testHandleSignalEventDefinition_thenCallsGetSignalExpression() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -1148,18 +1138,19 @@ class EventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventValidator#handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
+   * Test {@link EventValidator#handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
    * <ul>
    *   <li>When {@code null}.</li>
    *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventValidator#handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
+   * Method under test: {@link EventValidator#handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
    */
   @Test
   @DisplayName("Test handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List); when 'null'; then ArrayList() first ActivityId is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void EventValidator.handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)"})
   void testHandleSignalEventDefinition_whenNull_thenArrayListFirstActivityIdIsNull() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -1181,9 +1172,6 @@ class EventValidatorDiffblueTest {
     verify(eventDefinition, atLeast(1)).getSignalRef();
     assertEquals(1, errors.size());
     ValidationError getResult = errors.get(0);
-    assertEquals("SIGNAL_EVENT_INVALID_SIGNAL_REF", getResult.getDefaultDescription());
-    assertEquals("SIGNAL_EVENT_INVALID_SIGNAL_REF", getResult.getKey());
-    assertEquals("SIGNAL_EVENT_INVALID_SIGNAL_REF", getResult.getProblem());
     assertNull(getResult.getActivityId());
     assertNull(getResult.getActivityName());
     assertNull(getResult.getProcessDefinitionId());
@@ -1196,18 +1184,19 @@ class EventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventValidator#handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
+   * Test {@link EventValidator#handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
    * <ul>
    *   <li>When {@code null}.</li>
    *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventValidator#handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
+   * Method under test: {@link EventValidator#handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
    */
   @Test
   @DisplayName("Test handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List); when 'null'; then ArrayList() first ActivityId is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void EventValidator.handleSignalEventDefinition(BpmnModel, Process, Event, EventDefinition, List)"})
   void testHandleSignalEventDefinition_whenNull_thenArrayListFirstActivityIdIsNull2() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -1228,9 +1217,6 @@ class EventValidatorDiffblueTest {
     verify(eventDefinition, atLeast(1)).getSignalRef();
     assertEquals(1, errors.size());
     ValidationError getResult = errors.get(0);
-    assertEquals("SIGNAL_EVENT_INVALID_SIGNAL_REF", getResult.getDefaultDescription());
-    assertEquals("SIGNAL_EVENT_INVALID_SIGNAL_REF", getResult.getKey());
-    assertEquals("SIGNAL_EVENT_INVALID_SIGNAL_REF", getResult.getProblem());
     assertNull(getResult.getActivityId());
     assertNull(getResult.getActivityName());
     assertNull(getResult.getProcessDefinitionId());
@@ -1243,14 +1229,14 @@ class EventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventValidator#handleTimerEventDefinition(Process, Event, EventDefinition, List)}.
+   * Test {@link EventValidator#handleTimerEventDefinition(Process, Event, EventDefinition, List)}.
    * <p>
-   * Method under test:
-   * {@link EventValidator#handleTimerEventDefinition(Process, Event, EventDefinition, List)}
+   * Method under test: {@link EventValidator#handleTimerEventDefinition(Process, Event, EventDefinition, List)}
    */
   @Test
   @DisplayName("Test handleTimerEventDefinition(Process, Event, EventDefinition, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventValidator.handleTimerEventDefinition(Process, Event, EventDefinition, List)"})
   void testHandleTimerEventDefinition() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -1258,8 +1244,8 @@ class EventValidatorDiffblueTest {
     BoundaryEvent event = new BoundaryEvent();
 
     TimerEventDefinition eventDefinition = new TimerEventDefinition();
-    eventDefinition.setTimeCycle(null);
-    eventDefinition.setTimeDate(null);
+    eventDefinition.setTimeDate("");
+    eventDefinition.setTimeCycle("");
     eventDefinition.setTimeDuration("Event Definition");
     ArrayList<ValidationError> errors = new ArrayList<>();
 
@@ -1274,14 +1260,14 @@ class EventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventValidator#handleTimerEventDefinition(Process, Event, EventDefinition, List)}.
+   * Test {@link EventValidator#handleTimerEventDefinition(Process, Event, EventDefinition, List)}.
    * <p>
-   * Method under test:
-   * {@link EventValidator#handleTimerEventDefinition(Process, Event, EventDefinition, List)}
+   * Method under test: {@link EventValidator#handleTimerEventDefinition(Process, Event, EventDefinition, List)}
    */
   @Test
   @DisplayName("Test handleTimerEventDefinition(Process, Event, EventDefinition, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventValidator.handleTimerEventDefinition(Process, Event, EventDefinition, List)"})
   void testHandleTimerEventDefinition2() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -1289,9 +1275,9 @@ class EventValidatorDiffblueTest {
     BoundaryEvent event = new BoundaryEvent();
 
     TimerEventDefinition eventDefinition = new TimerEventDefinition();
+    eventDefinition.setTimeDate("");
     eventDefinition.setTimeCycle("Event Definition");
-    eventDefinition.setTimeDate(null);
-    eventDefinition.setTimeDuration(null);
+    eventDefinition.setTimeDuration("");
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
@@ -1305,26 +1291,26 @@ class EventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventValidator#handleTimerEventDefinition(Process, Event, EventDefinition, List)}.
+   * Test {@link EventValidator#handleTimerEventDefinition(Process, Event, EventDefinition, List)}.
    * <ul>
-   *   <li>Given empty string.</li>
+   *   <li>Given {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventValidator#handleTimerEventDefinition(Process, Event, EventDefinition, List)}
+   * Method under test: {@link EventValidator#handleTimerEventDefinition(Process, Event, EventDefinition, List)}
    */
   @Test
-  @DisplayName("Test handleTimerEventDefinition(Process, Event, EventDefinition, List); given empty string")
-  void testHandleTimerEventDefinition_givenEmptyString() {
+  @DisplayName("Test handleTimerEventDefinition(Process, Event, EventDefinition, List); given 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventValidator.handleTimerEventDefinition(Process, Event, EventDefinition, List)"})
+  void testHandleTimerEventDefinition_givenNull() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
     Process process = new Process();
     BoundaryEvent event = new BoundaryEvent();
 
     TimerEventDefinition eventDefinition = new TimerEventDefinition();
+    eventDefinition.setTimeDate("");
     eventDefinition.setTimeCycle("");
-    eventDefinition.setTimeDate(null);
     eventDefinition.setTimeDuration(null);
     ArrayList<ValidationError> errors = new ArrayList<>();
 
@@ -1352,17 +1338,17 @@ class EventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventValidator#handleTimerEventDefinition(Process, Event, EventDefinition, List)}.
+   * Test {@link EventValidator#handleTimerEventDefinition(Process, Event, EventDefinition, List)}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventValidator#handleTimerEventDefinition(Process, Event, EventDefinition, List)}
+   * Method under test: {@link EventValidator#handleTimerEventDefinition(Process, Event, EventDefinition, List)}
    */
   @Test
   @DisplayName("Test handleTimerEventDefinition(Process, Event, EventDefinition, List); then ArrayList() size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventValidator.handleTimerEventDefinition(Process, Event, EventDefinition, List)"})
   void testHandleTimerEventDefinition_thenArrayListSizeIsOne() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -1370,9 +1356,9 @@ class EventValidatorDiffblueTest {
     BoundaryEvent event = new BoundaryEvent();
 
     TimerEventDefinition eventDefinition = new TimerEventDefinition();
-    eventDefinition.setTimeCycle(null);
-    eventDefinition.setTimeDate(null);
-    eventDefinition.setTimeDuration(null);
+    eventDefinition.setTimeDate("");
+    eventDefinition.setTimeCycle("");
+    eventDefinition.setTimeDuration("");
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
@@ -1399,18 +1385,17 @@ class EventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventValidator#handleTimerEventDefinition(Process, Event, EventDefinition, List)}.
+   * Test {@link EventValidator#handleTimerEventDefinition(Process, Event, EventDefinition, List)}.
    * <ul>
-   *   <li>When {@link TimerEventDefinition} (default constructor) TimeDate is
-   * {@code Event Definition}.</li>
+   *   <li>When {@link TimerEventDefinition} (default constructor) TimeDate is {@code Event Definition}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventValidator#handleTimerEventDefinition(Process, Event, EventDefinition, List)}
+   * Method under test: {@link EventValidator#handleTimerEventDefinition(Process, Event, EventDefinition, List)}
    */
   @Test
   @DisplayName("Test handleTimerEventDefinition(Process, Event, EventDefinition, List); when TimerEventDefinition (default constructor) TimeDate is 'Event Definition'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventValidator.handleTimerEventDefinition(Process, Event, EventDefinition, List)"})
   void testHandleTimerEventDefinition_whenTimerEventDefinitionTimeDateIsEventDefinition() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -1418,9 +1403,9 @@ class EventValidatorDiffblueTest {
     BoundaryEvent event = new BoundaryEvent();
 
     TimerEventDefinition eventDefinition = new TimerEventDefinition();
-    eventDefinition.setTimeCycle(null);
     eventDefinition.setTimeDate("Event Definition");
-    eventDefinition.setTimeDuration(null);
+    eventDefinition.setTimeCycle("");
+    eventDefinition.setTimeDuration("");
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
@@ -1434,14 +1419,15 @@ class EventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventValidator#handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
+   * Test {@link EventValidator#handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
    * <p>
-   * Method under test:
-   * {@link EventValidator#handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
+   * Method under test: {@link EventValidator#handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
    */
   @Test
   @DisplayName("Test handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void EventValidator.handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)"})
   void testHandleCompensationEventDefinition() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -1470,17 +1456,18 @@ class EventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventValidator#handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
+   * Test {@link EventValidator#handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
    * <ul>
    *   <li>Given {@link AdhocSubProcess} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventValidator#handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
+   * Method under test: {@link EventValidator#handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
    */
   @Test
   @DisplayName("Test handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List); given AdhocSubProcess (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void EventValidator.handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)"})
   void testHandleCompensationEventDefinition_givenAdhocSubProcess() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -1505,18 +1492,19 @@ class EventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventValidator#handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
+   * Test {@link EventValidator#handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
    * <ul>
    *   <li>Given empty string.</li>
    *   <li>When {@link Process}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventValidator#handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
+   * Method under test: {@link EventValidator#handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
    */
   @Test
   @DisplayName("Test handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List); given empty string; when Process")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void EventValidator.handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)"})
   void testHandleCompensationEventDefinition_givenEmptyString_whenProcess() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -1539,18 +1527,18 @@ class EventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventValidator#handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
+   * Test {@link EventValidator#handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} first ProcessDefinitionId is
-   * {@code 42}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} first ProcessDefinitionId is {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventValidator#handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
+   * Method under test: {@link EventValidator#handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
    */
   @Test
   @DisplayName("Test handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List); then ArrayList() first ProcessDefinitionId is '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void EventValidator.handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)"})
   void testHandleCompensationEventDefinition_thenArrayListFirstProcessDefinitionIdIs42() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -1592,18 +1580,18 @@ class EventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventValidator#handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
+   * Test {@link EventValidator#handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} first ProcessDefinitionId is
-   * {@code 42}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} first ProcessDefinitionId is {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventValidator#handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
+   * Method under test: {@link EventValidator#handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
    */
   @Test
   @DisplayName("Test handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List); then ArrayList() first ProcessDefinitionId is '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void EventValidator.handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)"})
   void testHandleCompensationEventDefinition_thenArrayListFirstProcessDefinitionIdIs422() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -1644,17 +1632,18 @@ class EventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventValidator#handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
+   * Test {@link EventValidator#handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventValidator#handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
+   * Method under test: {@link EventValidator#handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
    */
   @Test
   @DisplayName("Test handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List); then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void EventValidator.handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)"})
   void testHandleCompensationEventDefinition_thenArrayListSizeIsTwo() {
     // Arrange
     EventValidator eventValidator = new EventValidator();
@@ -1712,17 +1701,18 @@ class EventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventValidator#handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
+   * Test {@link EventValidator#handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}.
    * <ul>
    *   <li>When {@link CompensateEventDefinition} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventValidator#handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
+   * Method under test: {@link EventValidator#handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)}
    */
   @Test
   @DisplayName("Test handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List); when CompensateEventDefinition (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void EventValidator.handleCompensationEventDefinition(BpmnModel, Process, Event, EventDefinition, List)"})
   void testHandleCompensationEventDefinition_whenCompensateEventDefinition() {
     // Arrange
     EventValidator eventValidator = new EventValidator();

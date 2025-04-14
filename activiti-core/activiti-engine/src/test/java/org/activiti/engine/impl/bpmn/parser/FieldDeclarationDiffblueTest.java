@@ -17,8 +17,11 @@ package org.activiti.engine.impl.bpmn.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class FieldDeclarationDiffblueTest {
   /**
@@ -36,6 +39,11 @@ public class FieldDeclarationDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FieldDeclaration.<init>()", "void FieldDeclaration.<init>(String, String, Object)",
+      "String FieldDeclaration.getName()", "String FieldDeclaration.getType()", "Object FieldDeclaration.getValue()",
+      "void FieldDeclaration.setName(String)", "void FieldDeclaration.setType(String)",
+      "void FieldDeclaration.setValue(Object)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     FieldDeclaration actualFieldDeclaration = new FieldDeclaration();
@@ -46,7 +54,7 @@ public class FieldDeclarationDiffblueTest {
     String actualName = actualFieldDeclaration.getName();
     String actualType = actualFieldDeclaration.getType();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Name", actualName);
     assertEquals("Type", actualType);
     assertSame(object, actualFieldDeclaration.getValue());
@@ -70,6 +78,11 @@ public class FieldDeclarationDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FieldDeclaration.<init>()", "void FieldDeclaration.<init>(String, String, Object)",
+      "String FieldDeclaration.getName()", "String FieldDeclaration.getType()", "Object FieldDeclaration.getValue()",
+      "void FieldDeclaration.setName(String)", "void FieldDeclaration.setType(String)",
+      "void FieldDeclaration.setValue(Object)"})
   public void testGettersAndSetters_whenName() {
     // Arrange and Act
     FieldDeclaration actualFieldDeclaration = new FieldDeclaration("Name", "Type", JSONObject.NULL);
@@ -80,7 +93,7 @@ public class FieldDeclarationDiffblueTest {
     String actualName = actualFieldDeclaration.getName();
     String actualType = actualFieldDeclaration.getType();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Name", actualName);
     assertEquals("Type", actualType);
     assertSame(object, actualFieldDeclaration.getValue());

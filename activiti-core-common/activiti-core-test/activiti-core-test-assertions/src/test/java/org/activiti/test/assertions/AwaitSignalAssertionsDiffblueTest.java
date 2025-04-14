@@ -22,22 +22,25 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.test.matchers.OperationScopeMatcher;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class AwaitSignalAssertionsDiffblueTest {
   /**
-   * Test
-   * {@link AwaitSignalAssertions#expectEventsOnProcessInstance(ProcessInstance, OperationScopeMatcher[])}.
+   * Test {@link AwaitSignalAssertions#expectEventsOnProcessInstance(ProcessInstance, OperationScopeMatcher[])}.
    * <p>
-   * Method under test:
-   * {@link AwaitSignalAssertions#expectEventsOnProcessInstance(ProcessInstance, OperationScopeMatcher[])}
+   * Method under test: {@link AwaitSignalAssertions#expectEventsOnProcessInstance(ProcessInstance, OperationScopeMatcher[])}
    */
   @Test
   @DisplayName("Test expectEventsOnProcessInstance(ProcessInstance, OperationScopeMatcher[])")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "SignalAssertions AwaitSignalAssertions.expectEventsOnProcessInstance(ProcessInstance, OperationScopeMatcher[])"})
   void testExpectEventsOnProcessInstance() {
     // Arrange
     SignalAssertions signalAssertions = mock(SignalAssertions.class);

@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import jakarta.el.ELException;
 import jakarta.el.ValueExpression;
@@ -29,6 +30,7 @@ import org.activiti.core.el.juel.misc.TypeConverter;
 import org.activiti.core.el.juel.tree.Bindings;
 import org.activiti.core.el.juel.util.SimpleContext;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class AstDotDiffblueTest {
@@ -44,6 +46,10 @@ class AstDotDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstDot.<init>(AstNode, String, boolean)",
+      "void AstDot.<init>(AstNode, String, boolean, boolean)", "int AstDot.getCardinality()",
+      "String AstDot.toString()"})
   void testGettersAndSetters() {
     // Arrange
     AstNull base = new AstNull();
@@ -71,6 +77,10 @@ class AstDotDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstDot.<init>(AstNode, String, boolean)",
+      "void AstDot.<init>(AstNode, String, boolean, boolean)", "int AstDot.getCardinality()",
+      "String AstDot.toString()"})
   void testGettersAndSetters2() {
     // Arrange
     AstNull base = new AstNull();
@@ -93,6 +103,8 @@ class AstDotDiffblueTest {
    */
   @Test
   @DisplayName("Test getProperty(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String AstDot.getProperty(Bindings, ELContext)"})
   void testGetProperty() throws ELException {
     // Arrange
     AstDot astDot = new AstDot(new AstNull(), "Property", true);
@@ -108,14 +120,15 @@ class AstDotDiffblueTest {
   /**
    * Test {@link AstDot#appendStructure(StringBuilder, Bindings)}.
    * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo}
-   * toString is {@code foonull.null.Property}.</li>
+   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foonull.null.Property}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstDot#appendStructure(StringBuilder, Bindings)}
    */
   @Test
   @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foonull.null.Property'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstDot.appendStructure(StringBuilder, Bindings)"})
   void testAppendStructure_thenStringBuilderWithFooToStringIsFoonullNullProperty() {
     // Arrange
     AstDot astDot = new AstDot(new AstDot(new AstNull(), "null", true), "Property", true);
@@ -134,14 +147,15 @@ class AstDotDiffblueTest {
   /**
    * Test {@link AstDot#appendStructure(StringBuilder, Bindings)}.
    * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo}
-   * toString is {@code foonull.Property}.</li>
+   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foonull.Property}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstDot#appendStructure(StringBuilder, Bindings)}
    */
   @Test
   @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foonull.Property'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstDot.appendStructure(StringBuilder, Bindings)"})
   void testAppendStructure_thenStringBuilderWithFooToStringIsFoonullProperty() {
     // Arrange
     AstDot astDot = new AstDot(new AstNull(), "Property", true);
@@ -160,14 +174,15 @@ class AstDotDiffblueTest {
   /**
    * Test {@link AstDot#appendStructure(StringBuilder, Bindings)}.
    * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo}
-   * toString is {@code foonull().Property}.</li>
+   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foonull().Property}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstDot#appendStructure(StringBuilder, Bindings)}
    */
   @Test
   @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foonull().Property'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstDot.appendStructure(StringBuilder, Bindings)"})
   void testAppendStructure_thenStringBuilderWithFooToStringIsFoonullProperty2() {
     // Arrange
     AstDot astDot = new AstDot(new AstFunction("null", 1, new AstParameters(new ArrayList<>())), "Property", true);

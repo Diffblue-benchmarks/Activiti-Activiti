@@ -20,17 +20,20 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class LoggingCommandInvokerDiffblueTest {
   /**
-   * Test
-   * {@link LoggingCommandInvoker#LoggingCommandInvoker(ProcessExecutionLogger)}.
+   * Test {@link LoggingCommandInvoker#LoggingCommandInvoker(ProcessExecutionLogger)}.
    * <p>
-   * Method under test:
-   * {@link LoggingCommandInvoker#LoggingCommandInvoker(ProcessExecutionLogger)}
+   * Method under test: {@link LoggingCommandInvoker#LoggingCommandInvoker(ProcessExecutionLogger)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void LoggingCommandInvoker.<init>(ProcessExecutionLogger)"})
   public void testNewLoggingCommandInvoker() {
     // Arrange and Act
     LoggingCommandInvoker actualLoggingCommandInvoker = new LoggingCommandInvoker(new ProcessExecutionLogger());
@@ -49,6 +52,8 @@ public class LoggingCommandInvokerDiffblueTest {
    * Method under test: {@link LoggingCommandInvoker#executeOperation(Runnable)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void LoggingCommandInvoker.executeOperation(Runnable)"})
   public void testExecuteOperation() {
     // Arrange
     LoggingCommandInvoker loggingCommandInvoker = new LoggingCommandInvoker(new ProcessExecutionLogger());
@@ -58,7 +63,7 @@ public class LoggingCommandInvokerDiffblueTest {
     // Act
     loggingCommandInvoker.executeOperation(runnable);
 
-    // Assert that nothing has changed
+    // Assert
     verify(runnable).run();
   }
 }

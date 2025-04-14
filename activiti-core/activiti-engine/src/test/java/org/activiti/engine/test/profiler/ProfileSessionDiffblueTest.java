@@ -19,9 +19,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
@@ -29,18 +28,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ProfileSessionDiffblueTest {
-  @InjectMocks
-  private ProfileSession profileSession;
-
-  @InjectMocks
-  private String string;
-
   /**
    * Test getters and setters.
    * <p>
@@ -59,6 +49,12 @@ public class ProfileSessionDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ProfileSession.<init>(String)", "Map ProfileSession.getCommandExecutions()",
+      "Date ProfileSession.getEndTime()", "String ProfileSession.getName()", "Date ProfileSession.getStartTime()",
+      "long ProfileSession.getTotalTime()", "void ProfileSession.setCommandExecutions(Map)",
+      "void ProfileSession.setName(String)", "void ProfileSession.setStartTime(Date)",
+      "void ProfileSession.setTotalTime(long)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ProfileSession actualProfileSession = new ProfileSession("Name");
@@ -69,13 +65,16 @@ public class ProfileSessionDiffblueTest {
     actualProfileSession.setStartTime(startTime);
     actualProfileSession.setTotalTime(1L);
     Map<String, List<CommandExecutionResult>> actualCommandExecutions = actualProfileSession.getCommandExecutions();
-    actualProfileSession.getEndTime();
+    Date actualEndTime = actualProfileSession.getEndTime();
     String actualName = actualProfileSession.getName();
     Date actualStartTime = actualProfileSession.getStartTime();
+    long actualTotalTime = actualProfileSession.getTotalTime();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Name", actualName);
-    assertEquals(1L, actualProfileSession.getTotalTime());
+    assertNull(actualEndTime);
+    assertNull(actualProfileSession.currentCommandExecution.get());
+    assertEquals(1L, actualTotalTime);
     assertTrue(actualCommandExecutions.isEmpty());
     assertSame(commandExecutionResults, actualCommandExecutions);
     assertSame(startTime, actualStartTime);
@@ -87,59 +86,75 @@ public class ProfileSessionDiffblueTest {
    * Method under test: {@link ProfileSession#getCurrentCommandExecution()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CommandExecutionResult ProfileSession.getCurrentCommandExecution()"})
   public void testGetCurrentCommandExecution() {
     // Arrange, Act and Assert
     assertNull((new ProfileSession("Name")).getCurrentCommandExecution());
   }
 
   /**
-   * Test
-   * {@link ProfileSession#addCommandExecution(String, CommandExecutionResult)}.
-   * <ul>
-   *   <li>When {@link CommandExecutionResult} (default constructor).</li>
-   * </ul>
+   * Test {@link ProfileSession#addCommandExecution(String, CommandExecutionResult)}.
    * <p>
-   * Method under test:
-   * {@link ProfileSession#addCommandExecution(String, CommandExecutionResult)}
+   * Method under test: {@link ProfileSession#addCommandExecution(String, CommandExecutionResult)}
    */
   @Test
-  public void testAddCommandExecution_whenCommandExecutionResult() {
-    // Arrange and Act
-    profileSession.addCommandExecution("Class Fqn", new CommandExecutionResult());
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ProfileSession.addCommandExecution(String, CommandExecutionResult)"})
+  public void testAddCommandExecution() {
+    // Arrange
+    ProfileSession profileSession = new ProfileSession("Name");
+    CommandExecutionResult commandExecutionResult = new CommandExecutionResult();
+
+    // Act
+    profileSession.addCommandExecution("Class Fqn", commandExecutionResult);
 
     // Assert
-    assertEquals(1, profileSession.getCommandExecutions().size());
+    Map<String, List<CommandExecutionResult>> commandExecutions = profileSession.getCommandExecutions();
+    assertEquals(1, commandExecutions.size());
+    List<CommandExecutionResult> getResult = commandExecutions.get("Class Fqn");
+    assertEquals(1, getResult.size());
+    assertSame(commandExecutionResult, getResult.get(0));
   }
 
   /**
-   * Test
-   * {@link ProfileSession#addCommandExecution(String, CommandExecutionResult)}.
-   * <ul>
-   *   <li>When {@link CommandExecutionResult}.</li>
-   * </ul>
+   * Test {@link ProfileSession#addCommandExecution(String, CommandExecutionResult)}.
    * <p>
-   * Method under test:
-   * {@link ProfileSession#addCommandExecution(String, CommandExecutionResult)}
+   * Method under test: {@link ProfileSession#addCommandExecution(String, CommandExecutionResult)}
    */
   @Test
-  public void testAddCommandExecution_whenCommandExecutionResult2() {
-    // Arrange and Act
-    profileSession.addCommandExecution("Class Fqn", mock(CommandExecutionResult.class));
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ProfileSession.addCommandExecution(String, CommandExecutionResult)"})
+  public void testAddCommandExecution2() {
+    // Arrange
+    ProfileSession profileSession = new ProfileSession("Name");
+    CommandExecutionResult commandExecutionResult = new CommandExecutionResult();
+    profileSession.addCommandExecution("Class Fqn", commandExecutionResult);
+    CommandExecutionResult commandExecutionResult2 = new CommandExecutionResult();
+
+    // Act
+    profileSession.addCommandExecution("Class Fqn", commandExecutionResult2);
 
     // Assert
-    assertEquals(1, profileSession.getCommandExecutions().size());
+    Map<String, List<CommandExecutionResult>> commandExecutions = profileSession.getCommandExecutions();
+    assertEquals(1, commandExecutions.size());
+    List<CommandExecutionResult> getResult = commandExecutions.get("Class Fqn");
+    assertEquals(2, getResult.size());
+    assertSame(commandExecutionResult, getResult.get(0));
+    assertSame(commandExecutionResult2, getResult.get(1));
   }
 
   /**
    * Test {@link ProfileSession#setEndTime(Date)}.
    * <ul>
-   *   <li>Given {@link ProfileSession#ProfileSession(String)} with
-   * {@code Name}.</li>
+   *   <li>Given {@link ProfileSession#ProfileSession(String)} with {@code Name}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ProfileSession#setEndTime(Date)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ProfileSession.setEndTime(Date)"})
   public void testSetEndTime_givenProfileSessionWithName() {
     // Arrange
     ProfileSession profileSession = new ProfileSession("Name");
@@ -155,43 +170,15 @@ public class ProfileSessionDiffblueTest {
   /**
    * Test {@link ProfileSession#setEndTime(Date)}.
    * <ul>
-   *   <li>Then {@link ProfileSession#ProfileSession(String)} with {@code Name}
-   * TotalTime is minus ten.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProfileSession#setEndTime(java.util.Date)}
-   */
-  @Test
-  public void testSetEndTime_thenProfileSessionWithNameTotalTimeIsMinusTen() {
-    // Arrange
-    java.sql.Date startTime = mock(java.sql.Date.class);
-    when(startTime.getTime()).thenReturn(10L);
-
-    ProfileSession profileSession = new ProfileSession("Name");
-    profileSession.setStartTime(startTime);
-    java.util.Date endTimeStamp = java.util.Date
-        .from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
-
-    // Act
-    profileSession.setEndTime(endTimeStamp);
-
-    // Assert
-    verify(startTime).getTime();
-    assertEquals(-10L, profileSession.getTotalTime());
-    assertSame(endTimeStamp, profileSession.getEndTime());
-  }
-
-  /**
-   * Test {@link ProfileSession#setEndTime(Date)}.
-   * <ul>
-   *   <li>Then {@link ProfileSession#ProfileSession(String)} with {@code Name}
-   * TotalTime is zero.</li>
+   *   <li>Given {@link ProfileSession#ProfileSession(String)} with {@code Name} StartTime is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ProfileSession#setEndTime(Date)}
    */
   @Test
-  public void testSetEndTime_thenProfileSessionWithNameTotalTimeIsZero() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ProfileSession.setEndTime(Date)"})
+  public void testSetEndTime_givenProfileSessionWithNameStartTimeIsNull() {
     // Arrange
     ProfileSession profileSession = new ProfileSession("Name");
     profileSession.setStartTime(null);
@@ -201,21 +188,21 @@ public class ProfileSessionDiffblueTest {
     profileSession.setEndTime(endTimeStamp);
 
     // Assert
-    assertEquals(0L, profileSession.getTotalTime());
     assertSame(endTimeStamp, profileSession.getEndTime());
   }
 
   /**
    * Test {@link ProfileSession#calculateSummaryStatistics()}.
    * <ul>
-   *   <li>Given {@link ProfileSession#ProfileSession(String)} with
-   * {@code Name}.</li>
+   *   <li>Given {@link ProfileSession#ProfileSession(String)} with {@code Name}.</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
    * Method under test: {@link ProfileSession#calculateSummaryStatistics()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map ProfileSession.calculateSummaryStatistics()"})
   public void testCalculateSummaryStatistics_givenProfileSessionWithName_thenReturnEmpty() {
     // Arrange, Act and Assert
     assertTrue((new ProfileSession("Name")).calculateSummaryStatistics().isEmpty());
@@ -230,6 +217,8 @@ public class ProfileSessionDiffblueTest {
    * Method under test: {@link ProfileSession#calculateSummaryStatistics()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map ProfileSession.calculateSummaryStatistics()"})
   public void testCalculateSummaryStatistics_thenReturnClassFqnDbSelectsEmpty() {
     // Arrange
     ProfileSession profileSession = new ProfileSession("Name");
@@ -244,10 +233,9 @@ public class ProfileSessionDiffblueTest {
     assertEquals(0.0d, getResult.getAverageDatabaseExecutionTime(), 0.0);
     assertEquals(0.0d, getResult.getAverageDatabaseExecutionTimePercentage(), 0.0);
     assertEquals(0.0d, getResult.getAverageExecutionTime(), 0.0);
+    assertEquals(0L, getResult.getGetTotalCommandTime());
     List<Long> resultLongList = getResult.commandExecutionTimings;
     assertEquals(1, resultLongList.size());
-    assertEquals(0L, resultLongList.get(0).longValue());
-    assertEquals(0L, getResult.getGetTotalCommandTime());
     assertEquals(1L, getResult.getCount());
     assertTrue(getResult.getDbDeletes().isEmpty());
     assertTrue(getResult.getDbInserts().isEmpty());
@@ -265,6 +253,8 @@ public class ProfileSessionDiffblueTest {
    * Method under test: {@link ProfileSession#calculateSummaryStatistics()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map ProfileSession.calculateSummaryStatistics()"})
   public void testCalculateSummaryStatistics_thenReturnClassFqnDbSelectsSizeIsOne() {
     // Arrange
     CommandExecutionResult commandExecutionResult = new CommandExecutionResult();
@@ -282,14 +272,13 @@ public class ProfileSessionDiffblueTest {
     assertEquals(0.0d, getResult.getAverageDatabaseExecutionTime(), 0.0);
     assertEquals(0.0d, getResult.getAverageDatabaseExecutionTimePercentage(), 0.0);
     assertEquals(0.0d, getResult.getAverageExecutionTime(), 0.0);
+    assertEquals(0L, getResult.getGetTotalCommandTime());
     List<Long> resultLongList = getResult.commandExecutionTimings;
     assertEquals(1, resultLongList.size());
-    assertEquals(0L, resultLongList.get(0).longValue());
-    assertEquals(0L, getResult.getGetTotalCommandTime());
     Map<String, Long> dbSelects = getResult.getDbSelects();
     assertEquals(1, dbSelects.size());
-    assertEquals(1L, dbSelects.get("Select").longValue());
     assertEquals(1L, getResult.getCount());
+    assertTrue(dbSelects.containsKey("Select"));
     assertTrue(getResult.getDbDeletes().isEmpty());
     assertTrue(getResult.getDbInserts().isEmpty());
     assertTrue(getResult.getDbUpdates().isEmpty());

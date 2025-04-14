@@ -18,7 +18,9 @@ package org.activiti.api.runtime.model.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class BPMNSequenceFlowImplDiffblueTest {
@@ -43,6 +45,14 @@ class BPMNSequenceFlowImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNSequenceFlowImpl.<init>()", "String BPMNSequenceFlowImpl.getSourceActivityElementId()",
+      "String BPMNSequenceFlowImpl.getSourceActivityName()", "String BPMNSequenceFlowImpl.getSourceActivityType()",
+      "String BPMNSequenceFlowImpl.getTargetActivityElementId()", "String BPMNSequenceFlowImpl.getTargetActivityName()",
+      "String BPMNSequenceFlowImpl.getTargetActivityType()", "void BPMNSequenceFlowImpl.setSourceActivityName(String)",
+      "void BPMNSequenceFlowImpl.setSourceActivityType(String)",
+      "void BPMNSequenceFlowImpl.setTargetActivityName(String)",
+      "void BPMNSequenceFlowImpl.setTargetActivityType(String)", "String BPMNSequenceFlowImpl.toString()"})
   void testGettersAndSetters() {
     // Arrange and Act
     BPMNSequenceFlowImpl actualBpmnSequenceFlowImpl = new BPMNSequenceFlowImpl();
@@ -51,13 +61,13 @@ class BPMNSequenceFlowImplDiffblueTest {
     actualBpmnSequenceFlowImpl.setTargetActivityName("Target Activity Name");
     actualBpmnSequenceFlowImpl.setTargetActivityType("Target Activity Type");
     String actualToStringResult = actualBpmnSequenceFlowImpl.toString();
-    actualBpmnSequenceFlowImpl.getSourceActivityElementId();
+    String actualSourceActivityElementId = actualBpmnSequenceFlowImpl.getSourceActivityElementId();
     String actualSourceActivityName = actualBpmnSequenceFlowImpl.getSourceActivityName();
     String actualSourceActivityType = actualBpmnSequenceFlowImpl.getSourceActivityType();
-    actualBpmnSequenceFlowImpl.getTargetActivityElementId();
+    String actualTargetActivityElementId = actualBpmnSequenceFlowImpl.getTargetActivityElementId();
     String actualTargetActivityName = actualBpmnSequenceFlowImpl.getTargetActivityName();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("SequenceFlowImpl{sourceActivityElementId='null', sourceActivityName='Source Activity Name',"
         + " sourceActivityType='Source Activity Type', targetActivityElementId='null', targetActivityName='Target"
         + " Activity Name', targetActivityType='Target Activity Type'}", actualToStringResult);
@@ -65,17 +75,22 @@ class BPMNSequenceFlowImplDiffblueTest {
     assertEquals("Source Activity Type", actualSourceActivityType);
     assertEquals("Target Activity Name", actualTargetActivityName);
     assertEquals("Target Activity Type", actualBpmnSequenceFlowImpl.getTargetActivityType());
+    assertNull(actualBpmnSequenceFlowImpl.getElementId());
+    assertNull(actualBpmnSequenceFlowImpl.getProcessDefinitionId());
+    assertNull(actualBpmnSequenceFlowImpl.getProcessInstanceId());
+    assertNull(actualSourceActivityElementId);
+    assertNull(actualTargetActivityElementId);
   }
 
   /**
-   * Test
-   * {@link BPMNSequenceFlowImpl#BPMNSequenceFlowImpl(String, String, String)}.
+   * Test {@link BPMNSequenceFlowImpl#BPMNSequenceFlowImpl(String, String, String)}.
    * <p>
-   * Method under test:
-   * {@link BPMNSequenceFlowImpl#BPMNSequenceFlowImpl(String, String, String)}
+   * Method under test: {@link BPMNSequenceFlowImpl#BPMNSequenceFlowImpl(String, String, String)}
    */
   @Test
   @DisplayName("Test new BPMNSequenceFlowImpl(String, String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNSequenceFlowImpl.<init>(String, String, String)"})
   void testNewBPMNSequenceFlowImpl() {
     // Arrange and Act
     BPMNSequenceFlowImpl actualBpmnSequenceFlowImpl = new BPMNSequenceFlowImpl("42", "42", "42");
@@ -93,8 +108,7 @@ class BPMNSequenceFlowImplDiffblueTest {
   }
 
   /**
-   * Test {@link BPMNSequenceFlowImpl#equals(Object)}, and
-   * {@link BPMNSequenceFlowImpl#hashCode()}.
+   * Test {@link BPMNSequenceFlowImpl#equals(Object)}, and {@link BPMNSequenceFlowImpl#hashCode()}.
    * <ul>
    *   <li>When other is equal.</li>
    *   <li>Then return equal.</li>
@@ -108,6 +122,8 @@ class BPMNSequenceFlowImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is equal; then return equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BPMNSequenceFlowImpl.equals(Object)", "int BPMNSequenceFlowImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
     // Arrange
     BPMNSequenceFlowImpl bpmnSequenceFlowImpl = new BPMNSequenceFlowImpl("42", "42", "42");
@@ -120,8 +136,7 @@ class BPMNSequenceFlowImplDiffblueTest {
   }
 
   /**
-   * Test {@link BPMNSequenceFlowImpl#equals(Object)}, and
-   * {@link BPMNSequenceFlowImpl#hashCode()}.
+   * Test {@link BPMNSequenceFlowImpl#equals(Object)}, and {@link BPMNSequenceFlowImpl#hashCode()}.
    * <ul>
    *   <li>When other is same.</li>
    *   <li>Then return equal.</li>
@@ -135,6 +150,8 @@ class BPMNSequenceFlowImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BPMNSequenceFlowImpl.equals(Object)", "int BPMNSequenceFlowImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
     BPMNSequenceFlowImpl bpmnSequenceFlowImpl = new BPMNSequenceFlowImpl("42", "42", "42");
@@ -156,6 +173,8 @@ class BPMNSequenceFlowImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BPMNSequenceFlowImpl.equals(Object)", "int BPMNSequenceFlowImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
     BPMNSequenceFlowImpl bpmnSequenceFlowImpl = new BPMNSequenceFlowImpl("Element Id", "42", "42");
@@ -175,6 +194,8 @@ class BPMNSequenceFlowImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BPMNSequenceFlowImpl.equals(Object)", "int BPMNSequenceFlowImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
     // Arrange
     BPMNSequenceFlowImpl bpmnSequenceFlowImpl = new BPMNSequenceFlowImpl("42", "Source Activity Element Id", "42");
@@ -194,6 +215,8 @@ class BPMNSequenceFlowImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BPMNSequenceFlowImpl.equals(Object)", "int BPMNSequenceFlowImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual3() {
     // Arrange
     BPMNSequenceFlowImpl bpmnSequenceFlowImpl = new BPMNSequenceFlowImpl("42", "42", "Target Activity Element Id");
@@ -213,6 +236,8 @@ class BPMNSequenceFlowImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BPMNSequenceFlowImpl.equals(Object)", "int BPMNSequenceFlowImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual4() {
     // Arrange
     BPMNSequenceFlowImpl bpmnSequenceFlowImpl = new BPMNSequenceFlowImpl("42", "42", "42");
@@ -233,6 +258,8 @@ class BPMNSequenceFlowImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BPMNSequenceFlowImpl.equals(Object)", "int BPMNSequenceFlowImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual5() {
     // Arrange
     BPMNSequenceFlowImpl bpmnSequenceFlowImpl = new BPMNSequenceFlowImpl("42", "42", "42");
@@ -253,6 +280,8 @@ class BPMNSequenceFlowImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BPMNSequenceFlowImpl.equals(Object)", "int BPMNSequenceFlowImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual6() {
     // Arrange
     BPMNSequenceFlowImpl bpmnSequenceFlowImpl = new BPMNSequenceFlowImpl("42", "42", "42");
@@ -273,6 +302,8 @@ class BPMNSequenceFlowImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BPMNSequenceFlowImpl.equals(Object)", "int BPMNSequenceFlowImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual7() {
     // Arrange
     BPMNSequenceFlowImpl bpmnSequenceFlowImpl = new BPMNSequenceFlowImpl("42", "42", "42");
@@ -293,6 +324,8 @@ class BPMNSequenceFlowImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BPMNSequenceFlowImpl.equals(Object)", "int BPMNSequenceFlowImpl.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new BPMNSequenceFlowImpl("42", "42", "42"), null);
@@ -309,6 +342,8 @@ class BPMNSequenceFlowImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BPMNSequenceFlowImpl.equals(Object)", "int BPMNSequenceFlowImpl.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new BPMNSequenceFlowImpl("42", "42", "42"), "Different type to BPMNSequenceFlowImpl");

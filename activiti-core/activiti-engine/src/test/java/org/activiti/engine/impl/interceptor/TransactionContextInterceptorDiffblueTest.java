@@ -15,10 +15,14 @@
  */
 package org.activiti.engine.impl.interceptor;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.cfg.TransactionContextFactory;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class TransactionContextInterceptorDiffblueTest {
   /**
@@ -27,20 +31,27 @@ public class TransactionContextInterceptorDiffblueTest {
    * Methods under test:
    * <ul>
    *   <li>{@link TransactionContextInterceptor#TransactionContextInterceptor()}
-   *   <li>
-   * {@link TransactionContextInterceptor#setTransactionContextFactory(TransactionContextFactory)}
+   *   <li>{@link TransactionContextInterceptor#setTransactionContextFactory(TransactionContextFactory)}
    *   <li>{@link TransactionContextInterceptor#getTransactionContextFactory()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TransactionContextInterceptor.<init>()",
+      "void TransactionContextInterceptor.<init>(TransactionContextFactory)",
+      "TransactionContextFactory TransactionContextInterceptor.getTransactionContextFactory()",
+      "void TransactionContextInterceptor.setTransactionContextFactory(TransactionContextFactory)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     TransactionContextInterceptor actualTransactionContextInterceptor = new TransactionContextInterceptor();
     TransactionContextFactory transactionContextFactory = mock(TransactionContextFactory.class);
     actualTransactionContextInterceptor.setTransactionContextFactory(transactionContextFactory);
+    TransactionContextFactory actualTransactionContextFactory = actualTransactionContextInterceptor
+        .getTransactionContextFactory();
 
-    // Assert that nothing has changed
-    assertSame(transactionContextFactory, actualTransactionContextInterceptor.getTransactionContextFactory());
+    // Assert
+    assertNull(actualTransactionContextInterceptor.getNext());
+    assertSame(transactionContextFactory, actualTransactionContextFactory);
   }
 
   /**
@@ -51,22 +62,28 @@ public class TransactionContextInterceptorDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link TransactionContextInterceptor#TransactionContextInterceptor(TransactionContextFactory)}
-   *   <li>
-   * {@link TransactionContextInterceptor#setTransactionContextFactory(TransactionContextFactory)}
+   *   <li>{@link TransactionContextInterceptor#TransactionContextInterceptor(TransactionContextFactory)}
+   *   <li>{@link TransactionContextInterceptor#setTransactionContextFactory(TransactionContextFactory)}
    *   <li>{@link TransactionContextInterceptor#getTransactionContextFactory()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TransactionContextInterceptor.<init>()",
+      "void TransactionContextInterceptor.<init>(TransactionContextFactory)",
+      "TransactionContextFactory TransactionContextInterceptor.getTransactionContextFactory()",
+      "void TransactionContextInterceptor.setTransactionContextFactory(TransactionContextFactory)"})
   public void testGettersAndSetters_whenTransactionContextFactory() {
     // Arrange and Act
     TransactionContextInterceptor actualTransactionContextInterceptor = new TransactionContextInterceptor(
         mock(TransactionContextFactory.class));
     TransactionContextFactory transactionContextFactory = mock(TransactionContextFactory.class);
     actualTransactionContextInterceptor.setTransactionContextFactory(transactionContextFactory);
+    TransactionContextFactory actualTransactionContextFactory = actualTransactionContextInterceptor
+        .getTransactionContextFactory();
 
-    // Assert that nothing has changed
-    assertSame(transactionContextFactory, actualTransactionContextInterceptor.getTransactionContextFactory());
+    // Assert
+    assertNull(actualTransactionContextInterceptor.getNext());
+    assertSame(transactionContextFactory, actualTransactionContextFactory);
   }
 }

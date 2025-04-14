@@ -15,11 +15,16 @@
  */
 package org.activiti.engine.impl.persistence.entity;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ByteArrayEntityImplDiffblueTest {
   /**
@@ -37,6 +42,11 @@ public class ByteArrayEntityImplDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ByteArrayEntityImpl.<init>()", "byte[] ByteArrayEntityImpl.getBytes()",
+      "String ByteArrayEntityImpl.getDeploymentId()", "String ByteArrayEntityImpl.getName()",
+      "void ByteArrayEntityImpl.setBytes(byte[])", "void ByteArrayEntityImpl.setDeploymentId(String)",
+      "void ByteArrayEntityImpl.setName(String)"})
   public void testGettersAndSetters() throws UnsupportedEncodingException {
     // Arrange and Act
     ByteArrayEntityImpl actualByteArrayEntityImpl = new ByteArrayEntityImpl();
@@ -47,14 +57,16 @@ public class ByteArrayEntityImplDiffblueTest {
     byte[] actualBytes = actualByteArrayEntityImpl.getBytes();
     String actualDeploymentId = actualByteArrayEntityImpl.getDeploymentId();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualDeploymentId);
     assertEquals("Name", actualByteArrayEntityImpl.getName());
+    assertNull(actualByteArrayEntityImpl.getId());
     assertEquals(1, actualByteArrayEntityImpl.getRevision());
     assertFalse(actualByteArrayEntityImpl.isDeleted());
     assertFalse(actualByteArrayEntityImpl.isInserted());
     assertFalse(actualByteArrayEntityImpl.isUpdated());
     assertSame(bytes, actualBytes);
+    assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), actualBytes);
   }
 
   /**
@@ -66,6 +78,8 @@ public class ByteArrayEntityImplDiffblueTest {
    * Method under test: {@link ByteArrayEntityImpl#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ByteArrayEntityImpl.toString()"})
   public void testToString_thenReturnByteArrayEntityId42NameNameSize8() throws UnsupportedEncodingException {
     // Arrange
     ByteArrayEntityImpl byteArrayEntityImpl = new ByteArrayEntityImpl();
@@ -91,6 +105,8 @@ public class ByteArrayEntityImplDiffblueTest {
    * Method under test: {@link ByteArrayEntityImpl#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ByteArrayEntityImpl.toString()"})
   public void testToString_thenReturnByteArrayEntityIdNullNameNullSize0() {
     // Arrange, Act and Assert
     assertEquals("ByteArrayEntity[id=null, name=null, size=0]", (new ByteArrayEntityImpl()).toString());

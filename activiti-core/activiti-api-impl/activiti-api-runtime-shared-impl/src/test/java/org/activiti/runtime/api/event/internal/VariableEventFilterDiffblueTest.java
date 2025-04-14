@@ -20,10 +20,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.event.ActivitiVariableEvent;
 import org.activiti.engine.delegate.event.impl.ActivitiEventImpl;
 import org.activiti.engine.delegate.event.impl.ActivitiVariableEventImpl;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,11 +45,12 @@ class VariableEventFilterDiffblueTest {
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableEventFilter#shouldEmmitEvent(ActivitiVariableEvent)}
+   * Method under test: {@link VariableEventFilter#shouldEmmitEvent(ActivitiVariableEvent)}
    */
   @Test
   @DisplayName("Test shouldEmmitEvent(ActivitiVariableEvent); given 'foo'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean VariableEventFilter.shouldEmmitEvent(ActivitiVariableEvent)"})
   void testShouldEmmitEvent_givenFoo_thenReturnFalse() {
     // Arrange
     ActivitiVariableEventImpl event = mock(ActivitiVariableEventImpl.class);
@@ -68,15 +71,15 @@ class VariableEventFilterDiffblueTest {
   /**
    * Test {@link VariableEventFilter#shouldEmmitEvent(ActivitiVariableEvent)}.
    * <ul>
-   *   <li>When {@link ActivitiVariableEventImpl}
-   * {@link ActivitiEventImpl#getExecutionId()} return {@code 42}.</li>
+   *   <li>When {@link ActivitiVariableEventImpl} {@link ActivitiEventImpl#getExecutionId()} return {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableEventFilter#shouldEmmitEvent(ActivitiVariableEvent)}
+   * Method under test: {@link VariableEventFilter#shouldEmmitEvent(ActivitiVariableEvent)}
    */
   @Test
   @DisplayName("Test shouldEmmitEvent(ActivitiVariableEvent); when ActivitiVariableEventImpl getExecutionId() return '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean VariableEventFilter.shouldEmmitEvent(ActivitiVariableEvent)"})
   void testShouldEmmitEvent_whenActivitiVariableEventImplGetExecutionIdReturn42() {
     // Arrange
     ActivitiVariableEventImpl event = mock(ActivitiVariableEventImpl.class);
@@ -97,15 +100,15 @@ class VariableEventFilterDiffblueTest {
   /**
    * Test {@link VariableEventFilter#shouldEmmitEvent(ActivitiVariableEvent)}.
    * <ul>
-   *   <li>When {@link ActivitiVariableEventImpl}
-   * {@link ActivitiVariableEventImpl#getTaskId()} return {@code 42}.</li>
+   *   <li>When {@link ActivitiVariableEventImpl} {@link ActivitiVariableEventImpl#getTaskId()} return {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableEventFilter#shouldEmmitEvent(ActivitiVariableEvent)}
+   * Method under test: {@link VariableEventFilter#shouldEmmitEvent(ActivitiVariableEvent)}
    */
   @Test
   @DisplayName("Test shouldEmmitEvent(ActivitiVariableEvent); when ActivitiVariableEventImpl getTaskId() return '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean VariableEventFilter.shouldEmmitEvent(ActivitiVariableEvent)"})
   void testShouldEmmitEvent_whenActivitiVariableEventImplGetTaskIdReturn42() {
     // Arrange
     ActivitiVariableEventImpl event = mock(ActivitiVariableEventImpl.class);

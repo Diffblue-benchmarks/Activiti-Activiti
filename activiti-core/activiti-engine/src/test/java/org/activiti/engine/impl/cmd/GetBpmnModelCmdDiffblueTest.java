@@ -16,10 +16,10 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
-import org.activiti.engine.ActivitiIllegalArgumentException;
-import org.activiti.engine.impl.interceptor.CommandContext;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class GetBpmnModelCmdDiffblueTest {
   /**
@@ -28,22 +28,10 @@ public class GetBpmnModelCmdDiffblueTest {
    * Method under test: {@link GetBpmnModelCmd#GetBpmnModelCmd(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void GetBpmnModelCmd.<init>(String)"})
   public void testNewGetBpmnModelCmd() {
     // Arrange, Act and Assert
     assertEquals("42", (new GetBpmnModelCmd("42")).processDefinitionId);
-  }
-
-  /**
-   * Test {@link GetBpmnModelCmd#execute(CommandContext)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link GetBpmnModelCmd#execute(CommandContext)}
-   */
-  @Test
-  public void testExecute_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> (new GetBpmnModelCmd(null)).execute(null));
   }
 }

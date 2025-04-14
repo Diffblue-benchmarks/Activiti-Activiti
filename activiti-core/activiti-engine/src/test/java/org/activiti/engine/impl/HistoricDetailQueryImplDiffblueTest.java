@@ -20,22 +20,20 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class HistoricDetailQueryImplDiffblueTest {
-  @InjectMocks
-  private HistoricDetailQueryImpl historicDetailQueryImpl;
-
   /**
    * Test {@link HistoricDetailQueryImpl#HistoricDetailQueryImpl()}.
    * <p>
    * Method under test: {@link HistoricDetailQueryImpl#HistoricDetailQueryImpl()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HistoricDetailQueryImpl.<init>()"})
   public void testNewHistoricDetailQueryImpl() {
     // Arrange and Act
     HistoricDetailQueryImpl actualHistoricDetailQueryImpl = new HistoricDetailQueryImpl();
@@ -71,8 +69,13 @@ public class HistoricDetailQueryImplDiffblueTest {
    * Method under test: {@link HistoricDetailQueryImpl#id(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricDetailQueryImpl HistoricDetailQueryImpl.id(String)"})
   public void testId() {
-    // Arrange and Act
+    // Arrange
+    HistoricDetailQueryImpl historicDetailQueryImpl = new HistoricDetailQueryImpl();
+
+    // Act
     HistoricDetailQueryImpl actualIdResult = historicDetailQueryImpl.id("42");
 
     // Assert
@@ -86,8 +89,13 @@ public class HistoricDetailQueryImplDiffblueTest {
    * Method under test: {@link HistoricDetailQueryImpl#processInstanceId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricDetailQueryImpl HistoricDetailQueryImpl.processInstanceId(String)"})
   public void testProcessInstanceId() {
-    // Arrange and Act
+    // Arrange
+    HistoricDetailQueryImpl historicDetailQueryImpl = new HistoricDetailQueryImpl();
+
+    // Act
     HistoricDetailQueryImpl actualProcessInstanceIdResult = historicDetailQueryImpl.processInstanceId("42");
 
     // Assert
@@ -101,8 +109,13 @@ public class HistoricDetailQueryImplDiffblueTest {
    * Method under test: {@link HistoricDetailQueryImpl#executionId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricDetailQueryImpl HistoricDetailQueryImpl.executionId(String)"})
   public void testExecutionId() {
-    // Arrange and Act
+    // Arrange
+    HistoricDetailQueryImpl historicDetailQueryImpl = new HistoricDetailQueryImpl();
+
+    // Act
     HistoricDetailQueryImpl actualExecutionIdResult = historicDetailQueryImpl.executionId("42");
 
     // Assert
@@ -116,8 +129,13 @@ public class HistoricDetailQueryImplDiffblueTest {
    * Method under test: {@link HistoricDetailQueryImpl#activityInstanceId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricDetailQueryImpl HistoricDetailQueryImpl.activityInstanceId(String)"})
   public void testActivityInstanceId() {
-    // Arrange and Act
+    // Arrange
+    HistoricDetailQueryImpl historicDetailQueryImpl = new HistoricDetailQueryImpl();
+
+    // Act
     HistoricDetailQueryImpl actualActivityInstanceIdResult = historicDetailQueryImpl.activityInstanceId("42");
 
     // Assert
@@ -131,8 +149,13 @@ public class HistoricDetailQueryImplDiffblueTest {
    * Method under test: {@link HistoricDetailQueryImpl#taskId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricDetailQueryImpl HistoricDetailQueryImpl.taskId(String)"})
   public void testTaskId() {
-    // Arrange and Act
+    // Arrange
+    HistoricDetailQueryImpl historicDetailQueryImpl = new HistoricDetailQueryImpl();
+
+    // Act
     HistoricDetailQueryImpl actualTaskIdResult = historicDetailQueryImpl.taskId("42");
 
     // Assert
@@ -146,6 +169,8 @@ public class HistoricDetailQueryImplDiffblueTest {
    * Method under test: {@link HistoricDetailQueryImpl#variableUpdates()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricDetailQueryImpl HistoricDetailQueryImpl.variableUpdates()"})
   public void testVariableUpdates() {
     // Arrange
     HistoricDetailQueryImpl historicDetailQueryImpl = new HistoricDetailQueryImpl();
@@ -164,6 +189,8 @@ public class HistoricDetailQueryImplDiffblueTest {
    * Method under test: {@link HistoricDetailQueryImpl#excludeTaskDetails()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricDetailQueryImpl HistoricDetailQueryImpl.excludeTaskDetails()"})
   public void testExcludeTaskDetails() {
     // Arrange
     HistoricDetailQueryImpl historicDetailQueryImpl = new HistoricDetailQueryImpl();

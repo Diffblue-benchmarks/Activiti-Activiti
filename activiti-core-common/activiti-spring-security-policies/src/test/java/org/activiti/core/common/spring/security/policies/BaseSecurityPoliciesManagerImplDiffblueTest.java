@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -36,6 +37,7 @@ import org.activiti.core.common.spring.security.AuthenticationPrincipalIdentityP
 import org.activiti.core.common.spring.security.LocalSpringSecurityManager;
 import org.activiti.core.common.spring.security.policies.conf.SecurityPoliciesProperties;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,29 +68,29 @@ class BaseSecurityPoliciesManagerImplDiffblueTest {
   /**
    * Test {@link BaseSecurityPoliciesManagerImpl#arePoliciesDefined()}.
    * <p>
-   * Method under test:
-   * {@link BaseSecurityPoliciesManagerImpl#arePoliciesDefined()}
+   * Method under test: {@link BaseSecurityPoliciesManagerImpl#arePoliciesDefined()}
    */
   @Test
   @DisplayName("Test arePoliciesDefined()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BaseSecurityPoliciesManagerImpl.arePoliciesDefined()"})
   void testArePoliciesDefined() {
     // Arrange, Act and Assert
     assertFalse(baseSecurityPoliciesManagerImpl.arePoliciesDefined());
   }
 
   /**
-   * Test
-   * {@link BaseSecurityPoliciesManagerImpl#getAllowedKeys(SecurityPolicyAccess[])}.
+   * Test {@link BaseSecurityPoliciesManagerImpl#getAllowedKeys(SecurityPolicyAccess[])}.
    * <ul>
-   *   <li>Given {@link SecurityManager}
-   * {@link SecurityManager#getAuthenticatedUserId()} return {@code null}.</li>
+   *   <li>Given {@link SecurityManager} {@link SecurityManager#getAuthenticatedUserId()} return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseSecurityPoliciesManagerImpl#getAllowedKeys(SecurityPolicyAccess[])}
+   * Method under test: {@link BaseSecurityPoliciesManagerImpl#getAllowedKeys(SecurityPolicyAccess[])}
    */
   @Test
   @DisplayName("Test getAllowedKeys(SecurityPolicyAccess[]); given SecurityManager getAuthenticatedUserId() return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map BaseSecurityPoliciesManagerImpl.getAllowedKeys(SecurityPolicyAccess[])"})
   void testGetAllowedKeys_givenSecurityManagerGetAuthenticatedUserIdReturnNull() {
     // Arrange
     when(securityManager.getAuthenticatedUserId()).thenReturn(null);
@@ -103,17 +105,17 @@ class BaseSecurityPoliciesManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseSecurityPoliciesManagerImpl#getAllowedKeys(SecurityPolicyAccess[])}.
+   * Test {@link BaseSecurityPoliciesManagerImpl#getAllowedKeys(SecurityPolicyAccess[])}.
    * <ul>
    *   <li>Then calls {@link SecurityManager#getAuthenticatedUserGroups()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseSecurityPoliciesManagerImpl#getAllowedKeys(SecurityPolicyAccess[])}
+   * Method under test: {@link BaseSecurityPoliciesManagerImpl#getAllowedKeys(SecurityPolicyAccess[])}
    */
   @Test
   @DisplayName("Test getAllowedKeys(SecurityPolicyAccess[]); then calls getAuthenticatedUserGroups()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map BaseSecurityPoliciesManagerImpl.getAllowedKeys(SecurityPolicyAccess[])"})
   void testGetAllowedKeys_thenCallsGetAuthenticatedUserGroups() throws SecurityException {
     // Arrange
     when(securityManager.getAuthenticatedUserGroups()).thenReturn(new ArrayList<>());
@@ -130,42 +132,42 @@ class BaseSecurityPoliciesManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link BaseSecurityPoliciesManagerImpl#canRead(String, String)} with
-   * {@code processDefinitionKey}, {@code appName}.
+   * Test {@link BaseSecurityPoliciesManagerImpl#canRead(String, String)} with {@code processDefinitionKey}, {@code appName}.
    * <p>
-   * Method under test:
-   * {@link BaseSecurityPoliciesManagerImpl#canRead(String, String)}
+   * Method under test: {@link BaseSecurityPoliciesManagerImpl#canRead(String, String)}
    */
   @Test
   @DisplayName("Test canRead(String, String) with 'processDefinitionKey', 'appName'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BaseSecurityPoliciesManagerImpl.canRead(String, String)"})
   void testCanReadWithProcessDefinitionKeyAppName() {
     // Arrange, Act and Assert
     assertTrue(baseSecurityPoliciesManagerImpl.canRead("Process Definition Key", "App Name"));
   }
 
   /**
-   * Test {@link BaseSecurityPoliciesManagerImpl#canWrite(String, String)} with
-   * {@code processDefinitionKey}, {@code appName}.
+   * Test {@link BaseSecurityPoliciesManagerImpl#canWrite(String, String)} with {@code processDefinitionKey}, {@code appName}.
    * <p>
-   * Method under test:
-   * {@link BaseSecurityPoliciesManagerImpl#canWrite(String, String)}
+   * Method under test: {@link BaseSecurityPoliciesManagerImpl#canWrite(String, String)}
    */
   @Test
   @DisplayName("Test canWrite(String, String) with 'processDefinitionKey', 'appName'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BaseSecurityPoliciesManagerImpl.canWrite(String, String)"})
   void testCanWriteWithProcessDefinitionKeyAppName() {
     // Arrange, Act and Assert
     assertTrue(baseSecurityPoliciesManagerImpl.canWrite("Process Definition Key", "App Name"));
   }
 
   /**
-   * Test
-   * {@link BaseSecurityPoliciesManagerImpl#hasPermission(String, SecurityPolicyAccess, String)}.
+   * Test {@link BaseSecurityPoliciesManagerImpl#hasPermission(String, SecurityPolicyAccess, String)}.
    * <p>
-   * Method under test:
-   * {@link BaseSecurityPoliciesManagerImpl#hasPermission(String, SecurityPolicyAccess, String)}
+   * Method under test: {@link BaseSecurityPoliciesManagerImpl#hasPermission(String, SecurityPolicyAccess, String)}
    */
   @Test
   @DisplayName("Test hasPermission(String, SecurityPolicyAccess, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BaseSecurityPoliciesManagerImpl.hasPermission(String, SecurityPolicyAccess, String)"})
   void testHasPermission() {
     // Arrange, Act and Assert
     assertTrue(
@@ -173,19 +175,19 @@ class BaseSecurityPoliciesManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}.
+   * Test {@link BaseSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    *   <li>When {@code 42}.</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}
+   * Method under test: {@link BaseSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}
    */
   @Test
   @DisplayName("Test anEntryInSetStartsKey(Set, String); given '42'; when '42'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BaseSecurityPoliciesManagerImpl.anEntryInSetStartsKey(Set, String)"})
   void testAnEntryInSetStartsKey_given42_when42_thenReturnTrue() {
     // Arrange
     SecurityContextPrincipalProvider securityContextPrincipalProvider = mock(SecurityContextPrincipalProvider.class);
@@ -208,19 +210,19 @@ class BaseSecurityPoliciesManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}.
+   * Test {@link BaseSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    *   <li>When {@link HashSet#HashSet()} add {@code 42}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}
+   * Method under test: {@link BaseSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}
    */
   @Test
   @DisplayName("Test anEntryInSetStartsKey(Set, String); given '42'; when HashSet() add '42'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BaseSecurityPoliciesManagerImpl.anEntryInSetStartsKey(Set, String)"})
   void testAnEntryInSetStartsKey_given42_whenHashSetAdd42_thenReturnFalse() {
     // Arrange
     SecurityContextPrincipalProvider securityContextPrincipalProvider = mock(SecurityContextPrincipalProvider.class);
@@ -243,19 +245,19 @@ class BaseSecurityPoliciesManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}.
+   * Test {@link BaseSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}.
    * <ul>
    *   <li>Given {@code Keys}.</li>
    *   <li>When {@link LinkedHashSet#LinkedHashSet()} add {@code Keys}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}
+   * Method under test: {@link BaseSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}
    */
   @Test
   @DisplayName("Test anEntryInSetStartsKey(Set, String); given 'Keys'; when LinkedHashSet() add 'Keys'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BaseSecurityPoliciesManagerImpl.anEntryInSetStartsKey(Set, String)"})
   void testAnEntryInSetStartsKey_givenKeys_whenLinkedHashSetAddKeys_thenReturnFalse() {
     // Arrange
     SecurityContextPrincipalProvider securityContextPrincipalProvider = mock(SecurityContextPrincipalProvider.class);
@@ -277,18 +279,18 @@ class BaseSecurityPoliciesManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}.
+   * Test {@link BaseSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}.
    * <ul>
    *   <li>When {@link HashSet#HashSet()}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}
+   * Method under test: {@link BaseSecurityPoliciesManagerImpl#anEntryInSetStartsKey(Set, String)}
    */
   @Test
   @DisplayName("Test anEntryInSetStartsKey(Set, String); when HashSet(); then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BaseSecurityPoliciesManagerImpl.anEntryInSetStartsKey(Set, String)"})
   void testAnEntryInSetStartsKey_whenHashSet_thenReturnFalse() {
     // Arrange
     SecurityContextPrincipalProvider securityContextPrincipalProvider = mock(SecurityContextPrincipalProvider.class);
@@ -309,11 +311,12 @@ class BaseSecurityPoliciesManagerImplDiffblueTest {
   /**
    * Test {@link BaseSecurityPoliciesManagerImpl#getSecurityPoliciesProperties()}.
    * <p>
-   * Method under test:
-   * {@link BaseSecurityPoliciesManagerImpl#getSecurityPoliciesProperties()}
+   * Method under test: {@link BaseSecurityPoliciesManagerImpl#getSecurityPoliciesProperties()}
    */
   @Test
   @DisplayName("Test getSecurityPoliciesProperties()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"SecurityPoliciesProperties BaseSecurityPoliciesManagerImpl.getSecurityPoliciesProperties()"})
   void testGetSecurityPoliciesProperties() {
     // Arrange, Act and Assert
     assertSame(baseSecurityPoliciesManagerImpl.securityPoliciesProperties,

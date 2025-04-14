@@ -18,6 +18,8 @@ package org.activiti.engine.impl.bpmn.parser.handler;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BoundaryEvent;
 import org.activiti.bpmn.model.CancelEventDefinition;
@@ -27,17 +29,17 @@ import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class CancelEventDefinitionParseHandlerDiffblueTest {
   /**
-   * Test
-   * {@link CancelEventDefinitionParseHandler#executeParse(BpmnParse, CancelEventDefinition)}
-   * with {@code BpmnParse}, {@code CancelEventDefinition}.
+   * Test {@link CancelEventDefinitionParseHandler#executeParse(BpmnParse, CancelEventDefinition)} with {@code BpmnParse}, {@code CancelEventDefinition}.
    * <p>
-   * Method under test:
-   * {@link CancelEventDefinitionParseHandler#executeParse(BpmnParse, CancelEventDefinition)}
+   * Method under test: {@link CancelEventDefinitionParseHandler#executeParse(BpmnParse, CancelEventDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CancelEventDefinitionParseHandler.executeParse(BpmnParse, CancelEventDefinition)"})
   public void testExecuteParseWithBpmnParseCancelEventDefinition() {
     // Arrange
     CancelEventDefinitionParseHandler cancelEventDefinitionParseHandler = new CancelEventDefinitionParseHandler();
@@ -64,12 +66,14 @@ public class CancelEventDefinitionParseHandlerDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of
-   * {@link CancelEventDefinitionParseHandler}
+   *   <li>default or parameterless constructor of {@link CancelEventDefinitionParseHandler}
    *   <li>{@link CancelEventDefinitionParseHandler#getHandledType()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CancelEventDefinitionParseHandler.<init>()",
+      "Class CancelEventDefinitionParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends BaseElement> actualHandledType = (new CancelEventDefinitionParseHandler()).getHandledType();

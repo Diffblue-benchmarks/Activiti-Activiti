@@ -16,12 +16,14 @@
 package org.activiti.bpmn.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import javax.xml.stream.XMLStreamWriter;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.ParallelGateway;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ParallelGatewayXMLConverterDiffblueTest {
@@ -30,18 +32,21 @@ class ParallelGatewayXMLConverterDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of
-   * {@link ParallelGatewayXMLConverter}
-   *   <li>
-   * {@link ParallelGatewayXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
-   *   <li>
-   * {@link ParallelGatewayXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
+   *   <li>default or parameterless constructor of {@link ParallelGatewayXMLConverter}
+   *   <li>{@link ParallelGatewayXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
+   *   <li>{@link ParallelGatewayXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
    *   <li>{@link ParallelGatewayXMLConverter#getBpmnElementType()}
    *   <li>{@link ParallelGatewayXMLConverter#getXMLElementName()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ParallelGatewayXMLConverter.<init>()",
+      "Class ParallelGatewayXMLConverter.getBpmnElementType()",
+      "java.lang.String ParallelGatewayXMLConverter.getXMLElementName()",
+      "void ParallelGatewayXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)",
+      "void ParallelGatewayXMLConverter.writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)"})
   void testGettersAndSetters() throws Exception {
     // Arrange and Act
     ParallelGatewayXMLConverter actualParallelGatewayXMLConverter = new ParallelGatewayXMLConverter();
@@ -54,7 +59,7 @@ class ParallelGatewayXMLConverterDiffblueTest {
         new IndentingXMLStreamWriter(null));
     Class<? extends BaseElement> actualBpmnElementType = actualParallelGatewayXMLConverter.getBpmnElementType();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("parallelGateway", actualParallelGatewayXMLConverter.getXMLElementName());
     Class<ParallelGateway> expectedBpmnElementType = ParallelGateway.class;
     assertEquals(expectedBpmnElementType, actualBpmnElementType);

@@ -20,22 +20,27 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.transaction.SystemException;
 import jakarta.transaction.Transaction;
 import jakarta.transaction.TransactionManager;
 import org.activiti.engine.impl.cfg.TransactionContext;
 import org.activiti.engine.impl.cfg.jta.JtaTransactionContext;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class TransactionCommandContextCloseListenerDiffblueTest {
   /**
-   * Test
-   * {@link TransactionCommandContextCloseListener#TransactionCommandContextCloseListener(TransactionContext)}.
+   * Test {@link TransactionCommandContextCloseListener#TransactionCommandContextCloseListener(TransactionContext)}.
    * <p>
-   * Method under test:
-   * {@link TransactionCommandContextCloseListener#TransactionCommandContextCloseListener(TransactionContext)}
+   * Method under test: {@link TransactionCommandContextCloseListener#TransactionCommandContextCloseListener(TransactionContext)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TransactionCommandContextCloseListener.<init>(TransactionContext)",
+      "void TransactionCommandContextCloseListener.closed(CommandContext)",
+      "void TransactionCommandContextCloseListener.closing(CommandContext)"})
   public void testNewTransactionCommandContextCloseListener() {
     // Arrange, Act and Assert
     assertTrue((new TransactionCommandContextCloseListener(new JtaTransactionContext(
@@ -43,19 +48,18 @@ public class TransactionCommandContextCloseListenerDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TransactionCommandContextCloseListener#closeFailure(CommandContext)}.
+   * Test {@link TransactionCommandContextCloseListener#closeFailure(CommandContext)}.
    * <ul>
-   *   <li>Given {@link Transaction} {@link Transaction#getStatus()} return
-   * one.</li>
+   *   <li>Given {@link Transaction} {@link Transaction#getStatus()} return one.</li>
    *   <li>When {@code null}.</li>
    *   <li>Then calls {@link Transaction#getStatus()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TransactionCommandContextCloseListener#closeFailure(CommandContext)}
+   * Method under test: {@link TransactionCommandContextCloseListener#closeFailure(CommandContext)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TransactionCommandContextCloseListener.closeFailure(CommandContext)"})
   public void testCloseFailure_givenTransactionGetStatusReturnOne_whenNull_thenCallsGetStatus()
       throws SystemException, IllegalStateException {
     // Arrange
@@ -68,7 +72,7 @@ public class TransactionCommandContextCloseListenerDiffblueTest {
     // Act
     (new TransactionCommandContextCloseListener(new JtaTransactionContext(transactionManager))).closeFailure(null);
 
-    // Assert that nothing has changed
+    // Assert
     verify(transaction).getStatus();
     verify(transaction).setRollbackOnly();
     verify(transactionManager).getTransaction();

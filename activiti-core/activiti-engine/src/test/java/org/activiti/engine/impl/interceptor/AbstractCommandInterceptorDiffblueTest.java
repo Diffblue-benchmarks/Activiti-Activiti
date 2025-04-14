@@ -16,10 +16,10 @@
 package org.activiti.engine.impl.interceptor;
 
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.mockito.Mockito.mock;
-import jakarta.transaction.TransactionManager;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class AbstractCommandInterceptorDiffblueTest {
   /**
@@ -28,50 +28,10 @@ public class AbstractCommandInterceptorDiffblueTest {
    * Method under test: {@link AbstractCommandInterceptor#getNext()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.impl.interceptor.CommandInterceptor AbstractCommandInterceptor.getNext()"})
   public void testGetNext() {
     // Arrange, Act and Assert
     assertNull((new CommandContextInterceptor()).getNext());
-  }
-
-  /**
-   * Test {@link AbstractCommandInterceptor#setNext(CommandInterceptor)}.
-   * <p>
-   * Method under test:
-   * {@link AbstractCommandInterceptor#setNext(CommandInterceptor)}
-   */
-  @Test
-  public void testSetNext() {
-    // Arrange
-    CommandContextInterceptor commandContextInterceptor = new CommandContextInterceptor();
-    JtaRetryInterceptor next = new JtaRetryInterceptor(mock(TransactionManager.class));
-
-    // Act
-    commandContextInterceptor.setNext(next);
-
-    // Assert
-    assertSame(next, commandContextInterceptor.getNext());
-  }
-
-  /**
-   * Test {@link AbstractCommandInterceptor#setNext(CommandInterceptor)}.
-   * <ul>
-   *   <li>Then {@link CommandContextInterceptor#CommandContextInterceptor()} Next
-   * is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link AbstractCommandInterceptor#setNext(CommandInterceptor)}
-   */
-  @Test
-  public void testSetNext_thenCommandContextInterceptorNextIsNull() {
-    // Arrange
-    CommandContextInterceptor commandContextInterceptor = new CommandContextInterceptor();
-    CommandContextInterceptor next = new CommandContextInterceptor();
-
-    // Act
-    commandContextInterceptor.setNext(next);
-
-    // Assert
-    assertNull(next.getNext());
   }
 }

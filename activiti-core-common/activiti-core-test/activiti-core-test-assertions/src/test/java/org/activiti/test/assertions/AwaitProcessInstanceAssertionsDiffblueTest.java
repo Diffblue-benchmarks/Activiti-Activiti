@@ -23,6 +23,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.api.model.shared.event.RuntimeEvent;
@@ -32,19 +33,20 @@ import org.activiti.test.TaskSource;
 import org.activiti.test.matchers.ProcessResultMatcher;
 import org.activiti.test.matchers.ProcessTaskMatcher;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class AwaitProcessInstanceAssertionsDiffblueTest {
   /**
-   * Test
-   * {@link AwaitProcessInstanceAssertions#expectFields(ProcessResultMatcher[])}.
+   * Test {@link AwaitProcessInstanceAssertions#expectFields(ProcessResultMatcher[])}.
    * <p>
-   * Method under test:
-   * {@link AwaitProcessInstanceAssertions#expectFields(ProcessResultMatcher[])}
+   * Method under test: {@link AwaitProcessInstanceAssertions#expectFields(ProcessResultMatcher[])}
    */
   @Test
   @DisplayName("Test expectFields(ProcessResultMatcher[])")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ProcessInstanceAssertions AwaitProcessInstanceAssertions.expectFields(ProcessResultMatcher[])"})
   void testExpectFields() {
     // Arrange
     EventSource eventSource = mock(EventSource.class);
@@ -66,14 +68,14 @@ class AwaitProcessInstanceAssertionsDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AwaitProcessInstanceAssertions#expectFields(ProcessResultMatcher[])}.
+   * Test {@link AwaitProcessInstanceAssertions#expectFields(ProcessResultMatcher[])}.
    * <p>
-   * Method under test:
-   * {@link AwaitProcessInstanceAssertions#expectFields(ProcessResultMatcher[])}
+   * Method under test: {@link AwaitProcessInstanceAssertions#expectFields(ProcessResultMatcher[])}
    */
   @Test
   @DisplayName("Test expectFields(ProcessResultMatcher[])")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ProcessInstanceAssertions AwaitProcessInstanceAssertions.expectFields(ProcessResultMatcher[])"})
   void testExpectFields2() {
     // Arrange
     EventSource eventSource = mock(EventSource.class);
@@ -98,11 +100,12 @@ class AwaitProcessInstanceAssertionsDiffblueTest {
   /**
    * Test {@link AwaitProcessInstanceAssertions#expect(ProcessTaskMatcher[])}.
    * <p>
-   * Method under test:
-   * {@link AwaitProcessInstanceAssertions#expect(ProcessTaskMatcher[])}
+   * Method under test: {@link AwaitProcessInstanceAssertions#expect(ProcessTaskMatcher[])}
    */
   @Test
   @DisplayName("Test expect(ProcessTaskMatcher[])")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ProcessInstanceAssertions AwaitProcessInstanceAssertions.expect(ProcessTaskMatcher[])"})
   void testExpect() {
     // Arrange
     ProcessInstance processInstance = mock(ProcessInstance.class);
@@ -126,11 +129,12 @@ class AwaitProcessInstanceAssertionsDiffblueTest {
   /**
    * Test {@link AwaitProcessInstanceAssertions#expect(ProcessTaskMatcher[])}.
    * <p>
-   * Method under test:
-   * {@link AwaitProcessInstanceAssertions#expect(ProcessTaskMatcher[])}
+   * Method under test: {@link AwaitProcessInstanceAssertions#expect(ProcessTaskMatcher[])}
    */
   @Test
   @DisplayName("Test expect(ProcessTaskMatcher[])")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ProcessInstanceAssertions AwaitProcessInstanceAssertions.expect(ProcessTaskMatcher[])"})
   void testExpect2() {
     // Arrange
     ProcessInstance processInstance = mock(ProcessInstance.class);

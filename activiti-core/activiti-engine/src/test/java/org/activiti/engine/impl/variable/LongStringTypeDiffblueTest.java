@@ -18,8 +18,11 @@ package org.activiti.engine.impl.variable;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class LongStringTypeDiffblueTest {
   /**
@@ -32,6 +35,8 @@ public class LongStringTypeDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void LongStringType.<init>(int)", "java.lang.String LongStringType.getTypeName()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("longString", (new LongStringType(3)).getTypeName());
@@ -47,6 +52,8 @@ public class LongStringTypeDiffblueTest {
    * Method under test: {@link LongStringType#isAbleToStore(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean LongStringType.isAbleToStore(Object)"})
   public void testIsAbleToStore_when42_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new LongStringType(3)).isAbleToStore("42"));
@@ -62,9 +69,27 @@ public class LongStringTypeDiffblueTest {
    * Method under test: {@link LongStringType#isAbleToStore(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean LongStringType.isAbleToStore(Object)"})
   public void testIsAbleToStore_whenNull_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new LongStringType(3)).isAbleToStore(JSONObject.NULL));
+  }
+
+  /**
+   * Test {@link LongStringType#isAbleToStore(Object)}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link LongStringType#isAbleToStore(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean LongStringType.isAbleToStore(Object)"})
+  public void testIsAbleToStore_whenNull_thenReturnFalse2() {
+    // Arrange, Act and Assert
     assertFalse((new LongStringType(3)).isAbleToStore(null));
   }
 
@@ -78,6 +103,8 @@ public class LongStringTypeDiffblueTest {
    * Method under test: {@link LongStringType#isAbleToStore(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean LongStringType.isAbleToStore(Object)"})
   public void testIsAbleToStore_whenValue_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue((new LongStringType(3)).isAbleToStore("Value"));

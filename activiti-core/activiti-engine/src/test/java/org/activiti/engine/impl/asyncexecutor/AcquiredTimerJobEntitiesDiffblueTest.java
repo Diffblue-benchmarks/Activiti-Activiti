@@ -19,66 +19,28 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import java.util.Collection;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.impl.persistence.entity.TimerJobEntity;
 import org.activiti.engine.impl.persistence.entity.TimerJobEntityImpl;
-import org.activiti.engine.runtime.Job;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class AcquiredTimerJobEntitiesDiffblueTest {
-  @InjectMocks
-  private AcquiredTimerJobEntities acquiredTimerJobEntities;
-
   /**
    * Test {@link AcquiredTimerJobEntities#addJob(TimerJobEntity)}.
    * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>Then {@link AcquiredTimerJobEntities} (default constructor)
-   * {@link AcquiredTimerJobEntities#acquiredJobs} {@code 42} is
-   * {@link TimerJobEntity}.</li>
+   *   <li>When {@link TimerJobEntityImpl} (default constructor).</li>
+   *   <li>Then {@link AcquiredTimerJobEntities} (default constructor) Jobs size is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link AcquiredTimerJobEntities#addJob(TimerJobEntity)}
    */
   @Test
-  public void testAddJob_given42_thenAcquiredTimerJobEntitiesAcquiredJobs42IsTimerJobEntity() {
-    // Arrange
-    AcquiredTimerJobEntities acquiredTimerJobEntities = new AcquiredTimerJobEntities();
-    TimerJobEntity job = mock(TimerJobEntity.class);
-    when(job.getId()).thenReturn("42");
-
-    // Act
-    acquiredTimerJobEntities.addJob(job);
-
-    // Assert
-    verify(job).getId();
-    assertEquals(1, acquiredTimerJobEntities.getJobs().size());
-    Map<String, TimerJobEntity> stringTimerJobEntityMap = acquiredTimerJobEntities.acquiredJobs;
-    assertEquals(1, stringTimerJobEntityMap.size());
-    assertEquals(1, acquiredTimerJobEntities.size());
-    assertSame(job, stringTimerJobEntityMap.get("42"));
-  }
-
-  /**
-   * Test {@link AcquiredTimerJobEntities#addJob(TimerJobEntity)}.
-   * <ul>
-   *   <li>Then {@link AcquiredTimerJobEntities} (default constructor)
-   * {@link AcquiredTimerJobEntities#acquiredJobs} {@code null} is
-   * {@link TimerJobEntityImpl} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AcquiredTimerJobEntities#addJob(TimerJobEntity)}
-   */
-  @Test
-  public void testAddJob_thenAcquiredTimerJobEntitiesAcquiredJobsNullIsTimerJobEntityImpl() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AcquiredTimerJobEntities.addJob(TimerJobEntity)"})
+  public void testAddJob_whenTimerJobEntityImpl_thenAcquiredTimerJobEntitiesJobsSizeIsOne() {
     // Arrange
     AcquiredTimerJobEntities acquiredTimerJobEntities = new AcquiredTimerJobEntities();
     TimerJobEntityImpl job = new TimerJobEntityImpl();
@@ -96,104 +58,79 @@ public class AcquiredTimerJobEntitiesDiffblueTest {
 
   /**
    * Test {@link AcquiredTimerJobEntities#getJobs()}.
-   * <ul>
-   *   <li>Given {@link AcquiredTimerJobEntities} (default constructor).</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
    * <p>
    * Method under test: {@link AcquiredTimerJobEntities#getJobs()}
    */
   @Test
-  public void testGetJobs_givenAcquiredTimerJobEntities_thenReturnEmpty() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Collection AcquiredTimerJobEntities.getJobs()"})
+  public void testGetJobs() {
     // Arrange, Act and Assert
     assertTrue((new AcquiredTimerJobEntities()).getJobs().isEmpty());
   }
 
   /**
-   * Test {@link AcquiredTimerJobEntities#getJobs()}.
-   * <ul>
-   *   <li>Given {@link TimerJobEntity} {@link Job#getId()} return {@code 42}.</li>
-   *   <li>Then return size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AcquiredTimerJobEntities#getJobs()}
-   */
-  @Test
-  public void testGetJobs_givenTimerJobEntityGetIdReturn42_thenReturnSizeIsOne() {
-    // Arrange
-    TimerJobEntity job = mock(TimerJobEntity.class);
-    when(job.getId()).thenReturn("42");
-
-    AcquiredTimerJobEntities acquiredTimerJobEntities = new AcquiredTimerJobEntities();
-    acquiredTimerJobEntities.addJob(job);
-
-    // Act
-    Collection<TimerJobEntity> actualJobs = acquiredTimerJobEntities.getJobs();
-
-    // Assert
-    verify(job).getId();
-    assertEquals(1, actualJobs.size());
-  }
-
-  /**
    * Test {@link AcquiredTimerJobEntities#contains(String)}.
+   * <ul>
+   *   <li>Given {@link AcquiredTimerJobEntities} (default constructor).</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
    * <p>
    * Method under test: {@link AcquiredTimerJobEntities#contains(String)}
    */
   @Test
-  public void testContains() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean AcquiredTimerJobEntities.contains(String)"})
+  public void testContains_givenAcquiredTimerJobEntities_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(acquiredTimerJobEntities.contains("42"));
+    assertFalse((new AcquiredTimerJobEntities()).contains("42"));
+  }
+
+  /**
+   * Test {@link AcquiredTimerJobEntities#contains(String)}.
+   * <ul>
+   *   <li>Given {@link TimerJobEntityImpl} (default constructor) Id is {@code 42}.</li>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AcquiredTimerJobEntities#contains(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean AcquiredTimerJobEntities.contains(String)"})
+  public void testContains_givenTimerJobEntityImplIdIs42_thenReturnTrue() {
+    // Arrange
+    TimerJobEntityImpl job = new TimerJobEntityImpl();
+    job.setId("42");
+
+    AcquiredTimerJobEntities acquiredTimerJobEntities = new AcquiredTimerJobEntities();
+    acquiredTimerJobEntities.addJob(job);
+
+    // Act and Assert
+    assertTrue(acquiredTimerJobEntities.contains("42"));
   }
 
   /**
    * Test {@link AcquiredTimerJobEntities#size()}.
-   * <ul>
-   *   <li>Given {@link AcquiredTimerJobEntities} (default constructor).</li>
-   *   <li>Then return zero.</li>
-   * </ul>
    * <p>
    * Method under test: {@link AcquiredTimerJobEntities#size()}
    */
   @Test
-  public void testSize_givenAcquiredTimerJobEntities_thenReturnZero() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int AcquiredTimerJobEntities.size()"})
+  public void testSize() {
     // Arrange, Act and Assert
     assertEquals(0, (new AcquiredTimerJobEntities()).size());
   }
 
   /**
-   * Test {@link AcquiredTimerJobEntities#size()}.
-   * <ul>
-   *   <li>Given {@link TimerJobEntity} {@link Job#getId()} return {@code 42}.</li>
-   *   <li>Then return one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AcquiredTimerJobEntities#size()}
-   */
-  @Test
-  public void testSize_givenTimerJobEntityGetIdReturn42_thenReturnOne() {
-    // Arrange
-    TimerJobEntity job = mock(TimerJobEntity.class);
-    when(job.getId()).thenReturn("42");
-
-    AcquiredTimerJobEntities acquiredTimerJobEntities = new AcquiredTimerJobEntities();
-    acquiredTimerJobEntities.addJob(job);
-
-    // Act
-    int actualSizeResult = acquiredTimerJobEntities.size();
-
-    // Assert
-    verify(job).getId();
-    assertEquals(1, actualSizeResult);
-  }
-
-  /**
    * Test new {@link AcquiredTimerJobEntities} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link AcquiredTimerJobEntities}
+   * Method under test: default or parameterless constructor of {@link AcquiredTimerJobEntities}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AcquiredTimerJobEntities.<init>()"})
   public void testNewAcquiredTimerJobEntities() {
     // Arrange, Act and Assert
     assertTrue((new AcquiredTimerJobEntities()).acquiredJobs.isEmpty());

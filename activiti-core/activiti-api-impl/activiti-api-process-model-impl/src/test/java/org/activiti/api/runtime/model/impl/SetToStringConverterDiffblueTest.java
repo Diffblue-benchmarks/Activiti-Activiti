@@ -18,13 +18,25 @@ package org.activiti.api.runtime.model.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper.DefaultTypeResolverBuilder;
+import com.fasterxml.jackson.databind.ObjectMapper.DefaultTyping;
+import com.fasterxml.jackson.databind.SerializationConfig;
+import com.fasterxml.jackson.databind.cfg.CacheProvider;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper.Builder;
+import com.fasterxml.jackson.databind.util.LRUMap;
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -46,17 +58,127 @@ class SetToStringConverterDiffblueTest {
 
   /**
    * Test {@link SetToStringConverter#convert(Set)} with {@code Set}.
+   * <p>
+   * Method under test: {@link SetToStringConverter#convert(Set)}
+   */
+  @Test
+  @DisplayName("Test convert(Set) with 'Set'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String SetToStringConverter.convert(Set)"})
+  void testConvertWithSet() throws JsonProcessingException {
+    // Arrange
+    when(objectMapper.writeValueAsString(Mockito.<Object>any())).thenThrow(new RuntimeException("foo"));
+
+    // Act and Assert
+    assertThrows(RuntimeException.class, () -> setToStringConverter.convert(new HashSet<>()));
+    verify(objectMapper).writeValueAsString(isA(Object.class));
+  }
+
+  /**
+   * Test {@link SetToStringConverter#convert(Set)} with {@code Set}.
+   * <p>
+   * Method under test: {@link SetToStringConverter#convert(Set)}
+   */
+  @Test
+  @DisplayName("Test convert(Set) with 'Set'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String SetToStringConverter.convert(Set)"})
+  void testConvertWithSet2() {
+    // Arrange
+    CacheProvider cacheProvider = mock(CacheProvider.class);
+    when(cacheProvider.forDeserializerCache(Mockito.<DeserializationConfig>any())).thenReturn(new LRUMap<>(1, 3));
+    when(cacheProvider.forSerializerCache(Mockito.<SerializationConfig>any())).thenReturn(new LRUMap<>(1, 3));
+    when(cacheProvider.forTypeFactory()).thenReturn(new LRUMap<>(1, 3));
+    Builder builderResult = JsonMapper.builder();
+    builderResult.setDefaultTyping(new DefaultTypeResolverBuilder(DefaultTyping.JAVA_LANG_OBJECT));
+    builderResult.cacheProvider(cacheProvider);
+    Class<Object> target = Object.class;
+    Class<Object> mixinSource = Object.class;
+    builderResult.addMixIn(target, mixinSource);
+    SetToStringConverter setToStringConverter = new SetToStringConverter(builderResult.findAndAddModules().build());
+
+    // Act and Assert
+    assertThrows(RuntimeException.class, () -> setToStringConverter.convert(new HashSet<>()));
+    verify(cacheProvider).forDeserializerCache(isNull());
+    verify(cacheProvider).forSerializerCache(isNull());
+    verify(cacheProvider).forTypeFactory();
+  }
+
+  /**
+   * Test {@link SetToStringConverter#convert(Set)} with {@code Set}.
    * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link HashSet#HashSet()} add {@code 42}.</li>
+   *   <li>Given builder defaultLeniency {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SetToStringConverter#convert(Set)}
+   */
+  @Test
+  @DisplayName("Test convert(Set) with 'Set'; given builder defaultLeniency 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String SetToStringConverter.convert(Set)"})
+  void testConvertWithSet_givenBuilderDefaultLeniencyTrue() {
+    // Arrange
+    CacheProvider cacheProvider = mock(CacheProvider.class);
+    when(cacheProvider.forDeserializerCache(Mockito.<DeserializationConfig>any())).thenReturn(new LRUMap<>(1, 3));
+    when(cacheProvider.forSerializerCache(Mockito.<SerializationConfig>any())).thenReturn(new LRUMap<>(1, 3));
+    when(cacheProvider.forTypeFactory()).thenReturn(new LRUMap<>(1, 3));
+    Builder builderResult = JsonMapper.builder();
+    builderResult.defaultLeniency(true);
+    builderResult.cacheProvider(cacheProvider);
+    Class<Object> target = Object.class;
+    Class<Object> mixinSource = Object.class;
+    builderResult.addMixIn(target, mixinSource);
+    SetToStringConverter setToStringConverter = new SetToStringConverter(builderResult.findAndAddModules().build());
+
+    // Act
+    String actualConvertResult = setToStringConverter.convert(new HashSet<>());
+
+    // Assert
+    verify(cacheProvider).forDeserializerCache(isNull());
+    verify(cacheProvider).forSerializerCache(isNull());
+    verify(cacheProvider).forTypeFactory();
+    assertEquals("[]", actualConvertResult);
+  }
+
+  /**
+   * Test {@link SetToStringConverter#convert(Set)} with {@code Set}.
+   * <ul>
+   *   <li>Given {@link ObjectMapper} {@link ObjectMapper#writeValueAsString(Object)} return {@code 42}.</li>
    *   <li>Then return {@code 42}.</li>
    * </ul>
    * <p>
    * Method under test: {@link SetToStringConverter#convert(Set)}
    */
   @Test
-  @DisplayName("Test convert(Set) with 'Set'; given '42'; when HashSet() add '42'; then return '42'")
-  void testConvertWithSet_given42_whenHashSetAdd42_thenReturn42() throws JsonProcessingException {
+  @DisplayName("Test convert(Set) with 'Set'; given ObjectMapper writeValueAsString(Object) return '42'; then return '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String SetToStringConverter.convert(Set)"})
+  void testConvertWithSet_givenObjectMapperWriteValueAsStringReturn42_thenReturn42() throws JsonProcessingException {
+    // Arrange
+    when(objectMapper.writeValueAsString(Mockito.<Object>any())).thenReturn("42");
+
+    // Act
+    String actualConvertResult = setToStringConverter.convert(new HashSet<>());
+
+    // Assert
+    verify(objectMapper).writeValueAsString(isA(Object.class));
+    assertEquals("42", actualConvertResult);
+  }
+
+  /**
+   * Test {@link SetToStringConverter#convert(Set)} with {@code Set}.
+   * <ul>
+   *   <li>Given {@link ObjectMapper} {@link ObjectMapper#writeValueAsString(Object)} return {@code 42}.</li>
+   *   <li>Then return {@code 42}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SetToStringConverter#convert(Set)}
+   */
+  @Test
+  @DisplayName("Test convert(Set) with 'Set'; given ObjectMapper writeValueAsString(Object) return '42'; then return '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String SetToStringConverter.convert(Set)"})
+  void testConvertWithSet_givenObjectMapperWriteValueAsStringReturn42_thenReturn422() throws JsonProcessingException {
     // Arrange
     when(objectMapper.writeValueAsString(Mockito.<Object>any())).thenReturn("42");
 
@@ -83,6 +205,8 @@ class SetToStringConverterDiffblueTest {
    */
   @Test
   @DisplayName("Test convert(Set) with 'Set'; given two; when HashSet() add two; then return '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String SetToStringConverter.convert(Set)"})
   void testConvertWithSet_givenTwo_whenHashSetAddTwo_thenReturn42() throws JsonProcessingException {
     // Arrange
     when(objectMapper.writeValueAsString(Mockito.<Object>any())).thenReturn("42");
@@ -102,42 +226,83 @@ class SetToStringConverterDiffblueTest {
   /**
    * Test {@link SetToStringConverter#convert(Set)} with {@code Set}.
    * <ul>
-   *   <li>Then throw {@link RuntimeException}.</li>
+   *   <li>Then return {@code ["42"]}.</li>
    * </ul>
    * <p>
    * Method under test: {@link SetToStringConverter#convert(Set)}
    */
   @Test
-  @DisplayName("Test convert(Set) with 'Set'; then throw RuntimeException")
-  void testConvertWithSet_thenThrowRuntimeException() throws JsonProcessingException {
+  @DisplayName("Test convert(Set) with 'Set'; then return '[\"42\"]'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String SetToStringConverter.convert(Set)"})
+  void testConvertWithSet_thenReturn42() {
     // Arrange
-    when(objectMapper.writeValueAsString(Mockito.<Object>any())).thenThrow(new RuntimeException("foo"));
+    CacheProvider cacheProvider = mock(CacheProvider.class);
+    when(cacheProvider.forDeserializerCache(Mockito.<DeserializationConfig>any())).thenReturn(new LRUMap<>(1, 3));
+    when(cacheProvider.forSerializerCache(Mockito.<SerializationConfig>any())).thenReturn(new LRUMap<>(1, 3));
+    when(cacheProvider.forTypeFactory()).thenReturn(new LRUMap<>(1, 3));
+    Builder builderResult = JsonMapper.builder();
+    builderResult.cacheProvider(cacheProvider);
+    Class<Object> target = Object.class;
+    Class<Object> mixinSource = Object.class;
+    builderResult.addMixIn(target, mixinSource);
+    SetToStringConverter setToStringConverter = new SetToStringConverter(builderResult.findAndAddModules().build());
 
-    // Act and Assert
-    assertThrows(RuntimeException.class, () -> setToStringConverter.convert(new HashSet<>()));
-    verify(objectMapper).writeValueAsString(isA(Object.class));
+    HashSet<Object> source = new HashSet<>();
+    source.add("42");
+
+    // Act
+    String actualConvertResult = setToStringConverter.convert(source);
+
+    // Assert
+    verify(cacheProvider).forDeserializerCache(isNull());
+    verify(cacheProvider).forSerializerCache(isNull());
+    verify(cacheProvider).forTypeFactory();
+    assertEquals("[\"42\"]", actualConvertResult);
   }
 
   /**
    * Test {@link SetToStringConverter#convert(Set)} with {@code Set}.
    * <ul>
-   *   <li>When {@link HashSet#HashSet()}.</li>
-   *   <li>Then return {@code 42}.</li>
+   *   <li>Then return {@code []}.</li>
    * </ul>
    * <p>
    * Method under test: {@link SetToStringConverter#convert(Set)}
    */
   @Test
-  @DisplayName("Test convert(Set) with 'Set'; when HashSet(); then return '42'")
-  void testConvertWithSet_whenHashSet_thenReturn42() throws JsonProcessingException {
+  @DisplayName("Test convert(Set) with 'Set'; then return '[]'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String SetToStringConverter.convert(Set)"})
+  void testConvertWithSet_thenReturnLeftSquareBracketRightSquareBracket() {
     // Arrange
-    when(objectMapper.writeValueAsString(Mockito.<Object>any())).thenReturn("42");
+    SetToStringConverter setToStringConverter = new SetToStringConverter(
+        JsonMapper.builder().findAndAddModules().build());
 
-    // Act
-    String actualConvertResult = setToStringConverter.convert(new HashSet<>());
+    // Act and Assert
+    assertEquals("[]", setToStringConverter.convert(new HashSet<>()));
+  }
 
-    // Assert
-    verify(objectMapper).writeValueAsString(isA(Object.class));
-    assertEquals("42", actualConvertResult);
+  /**
+   * Test {@link SetToStringConverter#convert(Set)} with {@code Set}.
+   * <ul>
+   *   <li>Then return {@code []}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SetToStringConverter#convert(Set)}
+   */
+  @Test
+  @DisplayName("Test convert(Set) with 'Set'; then return '[]'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String SetToStringConverter.convert(Set)"})
+  void testConvertWithSet_thenReturnLeftSquareBracketRightSquareBracket2() {
+    // Arrange
+    Builder builderResult = JsonMapper.builder();
+    Class<Object> target = Object.class;
+    Class<Object> mixinSource = Object.class;
+    builderResult.addMixIn(target, mixinSource);
+    SetToStringConverter setToStringConverter = new SetToStringConverter(builderResult.findAndAddModules().build());
+
+    // Act and Assert
+    assertEquals("[]", setToStringConverter.convert(new HashSet<>()));
   }
 }

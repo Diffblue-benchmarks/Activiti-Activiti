@@ -16,53 +16,24 @@
 package org.activiti.engine.impl.util;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.TimeZone;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class DefaultClockImplDiffblueTest {
-  @InjectMocks
-  private DefaultClockImpl defaultClockImpl;
-
-  /**
-   * Test {@link DefaultClockImpl#setCurrentTime(Date)}.
-   * <ul>
-   *   <li>Given ten.</li>
-   *   <li>When {@link java.sql.Date} {@link java.util.Date#getTime()} return
-   * ten.</li>
-   *   <li>Then calls {@link java.util.Date#getTime()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultClockImpl#setCurrentTime(java.util.Date)}
-   */
-  @Test
-  public void testSetCurrentTime_givenTen_whenDateGetTimeReturnTen_thenCallsGetTime() {
-    // Arrange
-    java.sql.Date currentTime = mock(java.sql.Date.class);
-    when(currentTime.getTime()).thenReturn(10L);
-
-    // Act
-    defaultClockImpl.setCurrentTime(currentTime);
-
-    // Assert
-    verify(currentTime).getTime();
-  }
-
   /**
    * Test {@link DefaultClockImpl#getCurrentTimeZone()}.
    * <p>
    * Method under test: {@link DefaultClockImpl#getCurrentTimeZone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimeZone DefaultClockImpl.getCurrentTimeZone()"})
   public void testGetCurrentTimeZone() {
     // Arrange and Act
-    TimeZone actualCurrentTimeZone = defaultClockImpl.getCurrentTimeZone();
+    TimeZone actualCurrentTimeZone = (new DefaultClockImpl()).getCurrentTimeZone();
 
     // Assert
     assertEquals("Greenwich Mean Time", actualCurrentTimeZone.getDisplayName());

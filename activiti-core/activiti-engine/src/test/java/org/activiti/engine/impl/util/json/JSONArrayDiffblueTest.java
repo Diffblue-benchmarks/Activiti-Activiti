@@ -21,7 +21,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.AbstractMap;
@@ -30,8 +31,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiFunction;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class JSONArrayDiffblueTest {
   /**
@@ -44,6 +45,8 @@ public class JSONArrayDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONArray.<init>()", "String JSONArray.toString()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("[]", (new JSONArray()).toString());
@@ -55,6 +58,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#JSONArray(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONArray.<init>(Object)"})
   public void testNewJSONArray() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> new JSONArray(JSONObject.NULL));
@@ -71,6 +76,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#JSONArray(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONArray.<init>(Collection)"})
   public void testNewJSONArray_givenA_whenArrayListAddA_thenReturnLengthIsOne() {
     // Arrange
     ArrayList<Object> collection = new ArrayList<>();
@@ -84,14 +91,15 @@ public class JSONArrayDiffblueTest {
    * Test {@link JSONArray#JSONArray(Collection)}.
    * <ul>
    *   <li>Given {@link JSONArray#JSONArray()}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add
-   * {@link JSONArray#JSONArray()}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link JSONArray#JSONArray()}.</li>
    *   <li>Then return length is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONArray#JSONArray(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONArray.<init>(Collection)"})
   public void testNewJSONArray_givenJSONArray_whenArrayListAddJSONArray_thenReturnLengthIsOne() {
     // Arrange
     ArrayList<Object> collection = new ArrayList<>();
@@ -105,13 +113,14 @@ public class JSONArrayDiffblueTest {
    * Test {@link JSONArray#JSONArray(Collection)}.
    * <ul>
    *   <li>Given {@link JSONObject#JSONObject()}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add
-   * {@link JSONObject#JSONObject()}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link JSONObject#JSONObject()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONArray#JSONArray(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONArray.<init>(Collection)"})
   public void testNewJSONArray_givenJSONObject_whenArrayListAddJSONObject() {
     // Arrange
     ArrayList<Object> collection = new ArrayList<>();
@@ -132,6 +141,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#JSONArray(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONArray.<init>(Collection)"})
   public void testNewJSONArray_givenNull_whenArrayListAddNull_thenReturnLengthIsOne() {
     // Arrange
     ArrayList<Object> collection = new ArrayList<>();
@@ -152,6 +163,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#JSONArray(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONArray.<init>(Collection)"})
   public void testNewJSONArray_givenNull_whenArrayListAddNull_thenReturnLengthIsOne2() {
     // Arrange
     ArrayList<Object> collection = new ArrayList<>();
@@ -172,6 +185,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#JSONArray(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONArray.<init>(Collection)"})
   public void testNewJSONArray_givenNull_whenArrayListAddNull_thenReturnLengthIsTwo() {
     // Arrange
     ArrayList<Object> collection = new ArrayList<>();
@@ -193,6 +208,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#JSONArray(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONArray.<init>(Collection)"})
   public void testNewJSONArray_givenOne_whenArrayListAddOne_thenReturnLengthIsOne() {
     // Arrange
     ArrayList<Object> collection = new ArrayList<>();
@@ -213,6 +230,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#JSONArray(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONArray.<init>(Collection)"})
   public void testNewJSONArray_givenOne_whenArrayListAddOne_thenReturnLengthIsOne2() {
     // Arrange
     ArrayList<Object> collection = new ArrayList<>();
@@ -232,6 +251,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#JSONArray(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONArray.<init>(Collection)"})
   public void testNewJSONArray_givenStartOfHeading_whenArrayListAddStartOfHeading() {
     // Arrange
     ArrayList<Object> collection = new ArrayList<>();
@@ -252,6 +273,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#JSONArray(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONArray.<init>(Collection)"})
   public void testNewJSONArray_givenTen_whenArrayListAddTen_thenReturnLengthIsOne() {
     // Arrange
     ArrayList<Object> collection = new ArrayList<>();
@@ -272,6 +295,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#JSONArray(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONArray.<init>(Collection)"})
   public void testNewJSONArray_givenTen_whenArrayListAddTen_thenReturnLengthIsOne2() {
     // Arrange
     ArrayList<Object> collection = new ArrayList<>();
@@ -292,6 +317,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#JSONArray(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONArray.<init>(Collection)"})
   public void testNewJSONArray_givenTrue_whenArrayListAddTrue_thenReturnLengthIsOne() {
     // Arrange
     ArrayList<Object> collection = new ArrayList<>();
@@ -312,6 +339,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#JSONArray(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONArray.<init>(Collection)"})
   public void testNewJSONArray_givenTwo_whenArrayListAddTwo_thenReturnLengthIsOne() {
     // Arrange
     ArrayList<Object> collection = new ArrayList<>();
@@ -331,6 +360,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#JSONArray(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONArray.<init>(Collection)"})
   public void testNewJSONArray_whenArrayList_thenReturnLengthIsZero() {
     // Arrange, Act and Assert
     assertEquals(0, (new JSONArray((Collection) new ArrayList<>())).length());
@@ -346,9 +377,51 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#JSONArray(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONArray.<init>(String)"})
   public void testNewJSONArray_whenLeftSquareBracketRightSquareBracket_thenReturnLengthIsZero() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(0, (new JSONArray("[]")).length());
+  }
+
+  /**
+   * Test {@link JSONArray#get(int)}.
+   * <ul>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONArray#get(int)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONArray.get(int)"})
+  public void testGet_thenReturnFalse() throws JSONException {
+    // Arrange
+    JSONArray jsonArray = new JSONArray("[]");
+    jsonArray.put(1, false);
+
+    // Act and Assert
+    assertFalse((Boolean) jsonArray.get(1));
+  }
+
+  /**
+   * Test {@link JSONArray#get(int)}.
+   * <ul>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONArray#get(int)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONArray.get(int)"})
+  public void testGet_thenReturnTrue() throws JSONException {
+    // Arrange
+    JSONArray jsonArray = new JSONArray("[]");
+    jsonArray.put(1, true);
+
+    // Act and Assert
+    assertTrue((Boolean) jsonArray.get(1));
   }
 
   /**
@@ -360,6 +433,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#get(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONArray.get(int)"})
   public void testGet_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONArray("[]")).get(1));
@@ -375,6 +450,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#get(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONArray.get(int)"})
   public void testGet_whenMinusOne_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONArray("[]")).get(-1));
@@ -386,6 +463,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getBoolean(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONArray.getBoolean(int)"})
   public void testGetBoolean() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -404,6 +483,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getBoolean(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONArray.getBoolean(int)"})
   public void testGetBoolean_givenJSONArrayWithSourceIsLeftSquareBracketRightSquareBracket() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONArray("[]")).getBoolean(1));
@@ -418,6 +499,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getBoolean(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONArray.getBoolean(int)"})
   public void testGetBoolean_thenReturnFalse() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -436,6 +519,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getBoolean(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONArray.getBoolean(int)"})
   public void testGetBoolean_thenReturnTrue() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -454,6 +539,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getBoolean(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONArray.getBoolean(int)"})
   public void testGetBoolean_whenMinusOne() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONArray("[]")).getBoolean(-1));
@@ -465,6 +552,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getDouble(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double JSONArray.getDouble(int)"})
   public void testGetDouble() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -483,6 +572,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getDouble(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double JSONArray.getDouble(int)"})
   public void testGetDouble_givenJSONArrayWithSourceIsLeftSquareBracketRightSquareBracket() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONArray("[]")).getDouble(1));
@@ -497,6 +588,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getDouble(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double JSONArray.getDouble(int)"})
   public void testGetDouble_thenReturn05() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -515,6 +608,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getDouble(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double JSONArray.getDouble(int)"})
   public void testGetDouble_whenMinusOne() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONArray("[]")).getDouble(-1));
@@ -526,6 +621,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getInt(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONArray.getInt(int)"})
   public void testGetInt() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -544,6 +641,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getInt(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONArray.getInt(int)"})
   public void testGetInt_givenJSONArrayWithSourceIsLeftSquareBracketRightSquareBracket() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONArray("[]")).getInt(1));
@@ -558,6 +657,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getInt(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONArray.getInt(int)"})
   public void testGetInt_thenReturnZero() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -576,6 +677,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getInt(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONArray.getInt(int)"})
   public void testGetInt_whenMinusOne() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONArray("[]")).getInt(-1));
@@ -587,6 +690,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getJSONArray(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.getJSONArray(int)"})
   public void testGetJSONArray() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -605,6 +710,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getJSONArray(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.getJSONArray(int)"})
   public void testGetJSONArray_givenJSONArrayWithSourceIsLeftSquareBracketRightSquareBracket() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONArray("[]")).getJSONArray(1));
@@ -619,6 +726,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getJSONArray(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.getJSONArray(int)"})
   public void testGetJSONArray_thenReturnLengthIsZero() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -637,6 +746,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getJSONArray(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.getJSONArray(int)"})
   public void testGetJSONArray_whenMinusOne() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONArray("[]")).getJSONArray(-1));
@@ -648,6 +759,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getJSONObject(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONArray.getJSONObject(int)"})
   public void testGetJSONObject() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -660,34 +773,14 @@ public class JSONArrayDiffblueTest {
   /**
    * Test {@link JSONArray#getJSONObject(int)}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@link JSONObject#NULL}
-   * and {@link BiFunction}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JSONArray#getJSONObject(int)}
-   */
-  @Test
-  public void testGetJSONObject_givenHashMapComputeIfPresentNullAndBiFunction() throws JSONException {
-    // Arrange
-    HashMap<Object, Object> value = new HashMap<>();
-    value.computeIfPresent(JSONObject.NULL, mock(BiFunction.class));
-
-    JSONArray jsonArray = new JSONArray("[]");
-    jsonArray.put(1, (Map) value);
-
-    // Act and Assert
-    assertEquals(0, jsonArray.getJSONObject(1).length());
-  }
-
-  /**
-   * Test {@link JSONArray#getJSONObject(int)}.
-   * <ul>
    *   <li>Given {@link JSONArray#JSONArray(String)} with source is {@code []}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONArray#getJSONObject(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONArray.getJSONObject(int)"})
   public void testGetJSONObject_givenJSONArrayWithSourceIsLeftSquareBracketRightSquareBracket() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONArray("[]")).getJSONObject(1));
@@ -702,6 +795,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getJSONObject(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONArray.getJSONObject(int)"})
   public void testGetJSONObject_thenReturnLengthIsZero() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -720,6 +815,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getJSONObject(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONArray.getJSONObject(int)"})
   public void testGetJSONObject_whenMinusOne() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONArray("[]")).getJSONObject(-1));
@@ -731,6 +828,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getLong(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long JSONArray.getLong(int)"})
   public void testGetLong() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -749,6 +848,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getLong(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long JSONArray.getLong(int)"})
   public void testGetLong_givenJSONArrayWithSourceIsLeftSquareBracketRightSquareBracket() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONArray("[]")).getLong(1));
@@ -763,6 +864,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getLong(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long JSONArray.getLong(int)"})
   public void testGetLong_thenReturnZero() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -781,6 +884,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getLong(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long JSONArray.getLong(int)"})
   public void testGetLong_whenMinusOne() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONArray("[]")).getLong(-1));
@@ -792,6 +897,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.getString(int)"})
   public void testGetString() throws JSONException {
     // Arrange
     ArrayList<Object> value = new ArrayList<>();
@@ -810,6 +917,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.getString(int)"})
   public void testGetString2() throws JSONException {
     // Arrange
     ArrayList<Object> value = new ArrayList<>();
@@ -833,6 +942,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.getString(int)"})
   public void testGetString_givenArrayListAddNull_whenOne_thenReturnNull() throws JSONException {
     // Arrange
     ArrayList<Object> value = new ArrayList<>();
@@ -856,6 +967,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.getString(int)"})
   public void testGetString_givenArrayListAddNull_whenOne_thenReturnNullNull() throws JSONException {
     // Arrange
     ArrayList<Object> value = new ArrayList<>();
@@ -880,6 +993,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.getString(int)"})
   public void testGetString_givenArrayListAddTwo_whenOne_thenReturn2() throws JSONException {
     // Arrange
     ArrayList<Object> value = new ArrayList<>();
@@ -895,32 +1010,7 @@ public class JSONArrayDiffblueTest {
   /**
    * Test {@link JSONArray#getString(int)}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@link JSONObject#NULL}
-   * and {@link BiFunction}.</li>
-   *   <li>Then return {@code {"null":null}}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JSONArray#getString(int)}
-   */
-  @Test
-  public void testGetString_givenHashMapComputeIfPresentNullAndBiFunction_thenReturnNullNull() throws JSONException {
-    // Arrange
-    HashMap<Object, Object> value = new HashMap<>();
-    value.computeIfPresent(JSONObject.NULL, mock(BiFunction.class));
-    value.put(JSONObject.NULL, JSONObject.NULL);
-
-    JSONArray jsonArray = new JSONArray("[]");
-    jsonArray.put(1, (Map) value);
-
-    // Act and Assert
-    assertEquals("{\"null\":null}", jsonArray.getString(1));
-  }
-
-  /**
-   * Test {@link JSONArray#getString(int)}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@link JSONObject#NULL} is
-   * {@link JSONObject#NULL}.</li>
+   *   <li>Given {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@link JSONObject#NULL}.</li>
    *   <li>When one.</li>
    *   <li>Then return {@code {"null":null}}.</li>
    * </ul>
@@ -928,6 +1018,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.getString(int)"})
   public void testGetString_givenHashMapNullIsNull_whenOne_thenReturnNullNull() throws JSONException {
     // Arrange
     HashMap<Object, Object> value = new HashMap<>();
@@ -949,6 +1041,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.getString(int)"})
   public void testGetString_thenReturnFalseToString() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -970,6 +1064,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.getString(int)"})
   public void testGetString_thenReturnLeftCurlyBracketRightCurlyBracket() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -988,6 +1084,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.getString(int)"})
   public void testGetString_thenReturnLeftSquareBracketRightSquareBracket() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1006,6 +1104,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.getString(int)"})
   public void testGetString_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONArray("[]")).getString(1));
@@ -1021,6 +1121,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#getString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.getString(int)"})
   public void testGetString_whenMinusOne_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONArray("[]")).getString(-1));
@@ -1032,6 +1134,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#isNull(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONArray.isNull(int)"})
   public void testIsNull() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1050,6 +1154,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#isNull(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONArray.isNull(int)"})
   public void testIsNull_givenJSONArrayWithSourceIsLeftSquareBracketRightSquareBracket() throws JSONException {
     // Arrange, Act and Assert
     assertTrue((new JSONArray("[]")).isNull(1));
@@ -1064,6 +1170,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#isNull(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONArray.isNull(int)"})
   public void testIsNull_thenReturnFalse() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1082,9 +1190,80 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#isNull(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONArray.isNull(int)"})
   public void testIsNull_whenMinusOne() throws JSONException {
     // Arrange, Act and Assert
     assertTrue((new JSONArray("[]")).isNull(-1));
+  }
+
+  /**
+   * Test {@link JSONArray#join(String)}.
+   * <ul>
+   *   <li>Given {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@link JSONObject#NULL}.</li>
+   *   <li>Then return {@code {"null":null}Separatortrue}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONArray#join(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.join(String)"})
+  public void testJoin_givenHashMapNullIsNull_thenReturnNullNullSeparatortrue() throws JSONException {
+    // Arrange
+    HashMap<Object, Object> value = new HashMap<>();
+    value.put(JSONObject.NULL, JSONObject.NULL);
+
+    JSONArray jsonArray = new JSONArray();
+    jsonArray.put((Map) value);
+    jsonArray.put(true);
+
+    // Act and Assert
+    assertEquals("{\"null\":null}Separatortrue", jsonArray.join("Separator"));
+  }
+
+  /**
+   * Test {@link JSONArray#join(String)}.
+   * <ul>
+   *   <li>Given {@link JSONArray#JSONArray()} {@code 42}.</li>
+   *   <li>Then return {@code "42"Separatortrue}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONArray#join(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.join(String)"})
+  public void testJoin_givenJSONArray42_thenReturn42Separatortrue() throws JSONException {
+    // Arrange
+    JSONArray jsonArray = new JSONArray();
+    jsonArray.put("42");
+    jsonArray.put(true);
+
+    // Act and Assert
+    assertEquals("\"42\"Separatortrue", jsonArray.join("Separator"));
+  }
+
+  /**
+   * Test {@link JSONArray#join(String)}.
+   * <ul>
+   *   <li>Given {@link JSONArray#JSONArray()} ten.</li>
+   *   <li>Then return {@code 10Separatortrue}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONArray#join(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.join(String)"})
+  public void testJoin_givenJSONArrayTen_thenReturn10Separatortrue() throws JSONException {
+    // Arrange
+    JSONArray jsonArray = new JSONArray();
+    jsonArray.put(10.0f);
+    jsonArray.put(true);
+
+    // Act and Assert
+    assertEquals("10Separatortrue", jsonArray.join("Separator"));
   }
 
   /**
@@ -1096,6 +1275,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#join(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.join(String)"})
   public void testJoin_thenReturn1() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1114,6 +1295,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#join(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.join(String)"})
   public void testJoin_thenReturn05() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1132,6 +1315,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#join(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.join(String)"})
   public void testJoin_thenReturn10Separator() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1151,6 +1336,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#join(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.join(String)"})
   public void testJoin_thenReturnEmptyString() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("", (new JSONArray("[]")).join("Separator"));
@@ -1165,6 +1352,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#join(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.join(String)"})
   public void testJoin_thenReturnFalseToString() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1186,6 +1375,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#join(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.join(String)"})
   public void testJoin_thenReturnLeftCurlyBracketRightCurlyBracket() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1204,6 +1395,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#join(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.join(String)"})
   public void testJoin_thenReturnLeftSquareBracketRightSquareBracket() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1222,6 +1415,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#join(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.join(String)"})
   public void testJoin_thenReturnNull() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1240,6 +1435,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#join(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.join(String)"})
   public void testJoin_thenReturnSeparatorfalse() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1259,9 +1456,31 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#length()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONArray.length()"})
   public void testLength_thenReturnZero() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(0, (new JSONArray("[]")).length());
+  }
+
+  /**
+   * Test {@link JSONArray#opt(int)}.
+   * <ul>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONArray#opt(int)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONArray.opt(int)"})
+  public void testOpt_thenReturnFalse() throws JSONException {
+    // Arrange
+    JSONArray jsonArray = new JSONArray("[]");
+    jsonArray.put(1, false);
+
+    // Act and Assert
+    assertFalse((Boolean) jsonArray.opt(1));
   }
 
   /**
@@ -1273,10 +1492,47 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#opt(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONArray.opt(int)"})
   public void testOpt_thenReturnNull() throws JSONException {
     // Arrange, Act and Assert
     assertNull((new JSONArray("[]")).opt(1));
+  }
+
+  /**
+   * Test {@link JSONArray#opt(int)}.
+   * <ul>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONArray#opt(int)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONArray.opt(int)"})
+  public void testOpt_thenReturnNull2() throws JSONException {
+    // Arrange, Act and Assert
     assertNull((new JSONArray("[]")).opt(-1));
+  }
+
+  /**
+   * Test {@link JSONArray#opt(int)}.
+   * <ul>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONArray#opt(int)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONArray.opt(int)"})
+  public void testOpt_thenReturnTrue() throws JSONException {
+    // Arrange
+    JSONArray jsonArray = new JSONArray("[]");
+    jsonArray.put(1, true);
+
+    // Act and Assert
+    assertTrue((Boolean) jsonArray.opt(1));
   }
 
   /**
@@ -1285,6 +1541,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optBoolean(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONArray.optBoolean(int)"})
   public void testOptBooleanWithIndex() throws JSONException {
     // Arrange, Act and Assert
     assertFalse((new JSONArray("[]")).optBoolean(1));
@@ -1296,6 +1554,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optBoolean(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONArray.optBoolean(int)"})
   public void testOptBooleanWithIndex2() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1311,6 +1571,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optBoolean(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONArray.optBoolean(int)"})
   public void testOptBooleanWithIndex3() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1321,24 +1583,26 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#optBoolean(int, boolean)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optBoolean(int, boolean)} with {@code index}, {@code defaultValue}.
    * <p>
    * Method under test: {@link JSONArray#optBoolean(int, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONArray.optBoolean(int, boolean)"})
   public void testOptBooleanWithIndexDefaultValue() throws JSONException {
     // Arrange, Act and Assert
     assertTrue((new JSONArray("[]")).optBoolean(1, true));
   }
 
   /**
-   * Test {@link JSONArray#optBoolean(int, boolean)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optBoolean(int, boolean)} with {@code index}, {@code defaultValue}.
    * <p>
    * Method under test: {@link JSONArray#optBoolean(int, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONArray.optBoolean(int, boolean)"})
   public void testOptBooleanWithIndexDefaultValue2() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1349,12 +1613,13 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#optBoolean(int, boolean)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optBoolean(int, boolean)} with {@code index}, {@code defaultValue}.
    * <p>
    * Method under test: {@link JSONArray#optBoolean(int, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONArray.optBoolean(int, boolean)"})
   public void testOptBooleanWithIndexDefaultValue3() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1366,8 +1631,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#optBoolean(int, boolean)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optBoolean(int, boolean)} with {@code index}, {@code defaultValue}.
    * <ul>
    *   <li>Then return {@code false}.</li>
    * </ul>
@@ -1375,6 +1639,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optBoolean(int, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONArray.optBoolean(int, boolean)"})
   public void testOptBooleanWithIndexDefaultValue_thenReturnFalse() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1385,8 +1651,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#optBoolean(int, boolean)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optBoolean(int, boolean)} with {@code index}, {@code defaultValue}.
    * <ul>
    *   <li>When minus one.</li>
    * </ul>
@@ -1394,6 +1659,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optBoolean(int, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONArray.optBoolean(int, boolean)"})
   public void testOptBooleanWithIndexDefaultValue_whenMinusOne() throws JSONException {
     // Arrange, Act and Assert
     assertTrue((new JSONArray("[]")).optBoolean(-1, true));
@@ -1408,6 +1675,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optBoolean(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONArray.optBoolean(int)"})
   public void testOptBooleanWithIndex_thenReturnTrue() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1427,6 +1696,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optBoolean(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONArray.optBoolean(int)"})
   public void testOptBooleanWithIndex_whenMinusOne() throws JSONException {
     // Arrange, Act and Assert
     assertFalse((new JSONArray("[]")).optBoolean(-1));
@@ -1438,6 +1709,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optDouble(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double JSONArray.optDouble(int)"})
   public void testOptDoubleWithIndex() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(Double.NaN, (new JSONArray("[]")).optDouble(1), 0.0);
@@ -1449,6 +1722,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optDouble(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double JSONArray.optDouble(int)"})
   public void testOptDoubleWithIndex2() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1459,24 +1734,26 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#optDouble(int, double)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optDouble(int, double)} with {@code index}, {@code defaultValue}.
    * <p>
    * Method under test: {@link JSONArray#optDouble(int, double)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double JSONArray.optDouble(int, double)"})
   public void testOptDoubleWithIndexDefaultValue() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(10.0d, (new JSONArray("[]")).optDouble(1, 10.0d), 0.0);
   }
 
   /**
-   * Test {@link JSONArray#optDouble(int, double)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optDouble(int, double)} with {@code index}, {@code defaultValue}.
    * <p>
    * Method under test: {@link JSONArray#optDouble(int, double)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double JSONArray.optDouble(int, double)"})
   public void testOptDoubleWithIndexDefaultValue2() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1487,8 +1764,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#optDouble(int, double)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optDouble(int, double)} with {@code index}, {@code defaultValue}.
    * <ul>
    *   <li>Then return {@code 0.5}.</li>
    * </ul>
@@ -1496,6 +1772,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optDouble(int, double)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double JSONArray.optDouble(int, double)"})
   public void testOptDoubleWithIndexDefaultValue_thenReturn05() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1506,8 +1784,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#optDouble(int, double)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optDouble(int, double)} with {@code index}, {@code defaultValue}.
    * <ul>
    *   <li>When minus one.</li>
    * </ul>
@@ -1515,14 +1792,15 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optDouble(int, double)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double JSONArray.optDouble(int, double)"})
   public void testOptDoubleWithIndexDefaultValue_whenMinusOne() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(10.0d, (new JSONArray("[]")).optDouble(-1, 10.0d), 0.0);
   }
 
   /**
-   * Test {@link JSONArray#optDouble(int, double)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optDouble(int, double)} with {@code index}, {@code defaultValue}.
    * <ul>
    *   <li>When three.</li>
    * </ul>
@@ -1530,14 +1808,15 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optDouble(int, double)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double JSONArray.optDouble(int, double)"})
   public void testOptDoubleWithIndexDefaultValue_whenThree() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(10.0d, (new JSONArray("[]")).optDouble(3, 10.0d), 0.0);
   }
 
   /**
-   * Test {@link JSONArray#optDouble(int, double)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optDouble(int, double)} with {@code index}, {@code defaultValue}.
    * <ul>
    *   <li>When zero.</li>
    * </ul>
@@ -1545,6 +1824,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optDouble(int, double)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double JSONArray.optDouble(int, double)"})
   public void testOptDoubleWithIndexDefaultValue_whenZero() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(10.0d, (new JSONArray("[]")).optDouble(0, 10.0d), 0.0);
@@ -1559,6 +1840,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optDouble(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double JSONArray.optDouble(int)"})
   public void testOptDoubleWithIndex_thenReturnTen() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1577,6 +1860,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optDouble(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double JSONArray.optDouble(int)"})
   public void testOptDoubleWithIndex_whenMinusOne() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(Double.NaN, (new JSONArray("[]")).optDouble(-1), 0.0);
@@ -1588,6 +1873,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optInt(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONArray.optInt(int)"})
   public void testOptIntWithIndex() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(0, (new JSONArray("[]")).optInt(1));
@@ -1599,6 +1886,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optInt(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONArray.optInt(int)"})
   public void testOptIntWithIndex2() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1614,6 +1903,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optInt(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONArray.optInt(int)"})
   public void testOptIntWithIndex3() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1624,24 +1915,26 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#optInt(int, int)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optInt(int, int)} with {@code index}, {@code defaultValue}.
    * <p>
    * Method under test: {@link JSONArray#optInt(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONArray.optInt(int, int)"})
   public void testOptIntWithIndexDefaultValue() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(42, (new JSONArray("[]")).optInt(1, 42));
   }
 
   /**
-   * Test {@link JSONArray#optInt(int, int)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optInt(int, int)} with {@code index}, {@code defaultValue}.
    * <p>
    * Method under test: {@link JSONArray#optInt(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONArray.optInt(int, int)"})
   public void testOptIntWithIndexDefaultValue2() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1652,8 +1945,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#optInt(int, int)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optInt(int, int)} with {@code index}, {@code defaultValue}.
    * <ul>
    *   <li>Then return zero.</li>
    * </ul>
@@ -1661,6 +1953,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optInt(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONArray.optInt(int, int)"})
   public void testOptIntWithIndexDefaultValue_thenReturnZero() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1671,8 +1965,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#optInt(int, int)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optInt(int, int)} with {@code index}, {@code defaultValue}.
    * <ul>
    *   <li>When minus one.</li>
    * </ul>
@@ -1680,14 +1973,15 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optInt(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONArray.optInt(int, int)"})
   public void testOptIntWithIndexDefaultValue_whenMinusOne() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(42, (new JSONArray("[]")).optInt(-1, 42));
   }
 
   /**
-   * Test {@link JSONArray#optInt(int, int)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optInt(int, int)} with {@code index}, {@code defaultValue}.
    * <ul>
    *   <li>When three.</li>
    * </ul>
@@ -1695,14 +1989,15 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optInt(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONArray.optInt(int, int)"})
   public void testOptIntWithIndexDefaultValue_whenThree() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(42, (new JSONArray("[]")).optInt(3, 42));
   }
 
   /**
-   * Test {@link JSONArray#optInt(int, int)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optInt(int, int)} with {@code index}, {@code defaultValue}.
    * <ul>
    *   <li>When zero.</li>
    * </ul>
@@ -1710,6 +2005,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optInt(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONArray.optInt(int, int)"})
   public void testOptIntWithIndexDefaultValue_whenZero() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(42, (new JSONArray("[]")).optInt(0, 42));
@@ -1724,6 +2021,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optInt(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONArray.optInt(int)"})
   public void testOptIntWithIndex_whenMinusOne() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(0, (new JSONArray("[]")).optInt(-1));
@@ -1735,6 +2034,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optJSONArray(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.optJSONArray(int)"})
   public void testOptJSONArray() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1753,6 +2054,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optJSONArray(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.optJSONArray(int)"})
   public void testOptJSONArray_givenJSONArrayWithSourceIsLeftSquareBracketRightSquareBracket() throws JSONException {
     // Arrange, Act and Assert
     assertNull((new JSONArray("[]")).optJSONArray(1));
@@ -1767,6 +2070,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optJSONArray(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.optJSONArray(int)"})
   public void testOptJSONArray_thenReturnLengthIsZero() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1785,6 +2090,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optJSONArray(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.optJSONArray(int)"})
   public void testOptJSONArray_whenMinusOne() throws JSONException {
     // Arrange, Act and Assert
     assertNull((new JSONArray("[]")).optJSONArray(-1));
@@ -1796,6 +2103,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optJSONObject(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONArray.optJSONObject(int)"})
   public void testOptJSONObject() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1808,34 +2117,14 @@ public class JSONArrayDiffblueTest {
   /**
    * Test {@link JSONArray#optJSONObject(int)}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@link JSONObject#NULL}
-   * and {@link BiFunction}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JSONArray#optJSONObject(int)}
-   */
-  @Test
-  public void testOptJSONObject_givenHashMapComputeIfPresentNullAndBiFunction() throws JSONException {
-    // Arrange
-    HashMap<Object, Object> value = new HashMap<>();
-    value.computeIfPresent(JSONObject.NULL, mock(BiFunction.class));
-
-    JSONArray jsonArray = new JSONArray("[]");
-    jsonArray.put(1, (Map) value);
-
-    // Act and Assert
-    assertEquals(0, jsonArray.optJSONObject(1).length());
-  }
-
-  /**
-   * Test {@link JSONArray#optJSONObject(int)}.
-   * <ul>
    *   <li>Given {@link JSONArray#JSONArray(String)} with source is {@code []}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONArray#optJSONObject(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONArray.optJSONObject(int)"})
   public void testOptJSONObject_givenJSONArrayWithSourceIsLeftSquareBracketRightSquareBracket() throws JSONException {
     // Arrange, Act and Assert
     assertNull((new JSONArray("[]")).optJSONObject(1));
@@ -1850,6 +2139,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optJSONObject(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONArray.optJSONObject(int)"})
   public void testOptJSONObject_thenReturnLengthIsZero() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1868,6 +2159,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optJSONObject(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONArray.optJSONObject(int)"})
   public void testOptJSONObject_whenMinusOne() throws JSONException {
     // Arrange, Act and Assert
     assertNull((new JSONArray("[]")).optJSONObject(-1));
@@ -1879,6 +2172,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optLong(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long JSONArray.optLong(int)"})
   public void testOptLongWithIndex() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(0L, (new JSONArray("[]")).optLong(1));
@@ -1890,6 +2185,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optLong(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long JSONArray.optLong(int)"})
   public void testOptLongWithIndex2() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1905,6 +2202,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optLong(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long JSONArray.optLong(int)"})
   public void testOptLongWithIndex3() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1915,24 +2214,26 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#optLong(int, long)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optLong(int, long)} with {@code index}, {@code defaultValue}.
    * <p>
    * Method under test: {@link JSONArray#optLong(int, long)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long JSONArray.optLong(int, long)"})
   public void testOptLongWithIndexDefaultValue() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(42L, (new JSONArray("[]")).optLong(1, 42L));
   }
 
   /**
-   * Test {@link JSONArray#optLong(int, long)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optLong(int, long)} with {@code index}, {@code defaultValue}.
    * <p>
    * Method under test: {@link JSONArray#optLong(int, long)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long JSONArray.optLong(int, long)"})
   public void testOptLongWithIndexDefaultValue2() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1943,8 +2244,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#optLong(int, long)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optLong(int, long)} with {@code index}, {@code defaultValue}.
    * <ul>
    *   <li>Then return zero.</li>
    * </ul>
@@ -1952,6 +2252,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optLong(int, long)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long JSONArray.optLong(int, long)"})
   public void testOptLongWithIndexDefaultValue_thenReturnZero() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -1962,8 +2264,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#optLong(int, long)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optLong(int, long)} with {@code index}, {@code defaultValue}.
    * <ul>
    *   <li>When minus one.</li>
    * </ul>
@@ -1971,14 +2272,15 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optLong(int, long)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long JSONArray.optLong(int, long)"})
   public void testOptLongWithIndexDefaultValue_whenMinusOne() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(42L, (new JSONArray("[]")).optLong(-1, 42L));
   }
 
   /**
-   * Test {@link JSONArray#optLong(int, long)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optLong(int, long)} with {@code index}, {@code defaultValue}.
    * <ul>
    *   <li>When three.</li>
    * </ul>
@@ -1986,14 +2288,15 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optLong(int, long)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long JSONArray.optLong(int, long)"})
   public void testOptLongWithIndexDefaultValue_whenThree() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(42L, (new JSONArray("[]")).optLong(3, 42L));
   }
 
   /**
-   * Test {@link JSONArray#optLong(int, long)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optLong(int, long)} with {@code index}, {@code defaultValue}.
    * <ul>
    *   <li>When zero.</li>
    * </ul>
@@ -2001,6 +2304,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optLong(int, long)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long JSONArray.optLong(int, long)"})
   public void testOptLongWithIndexDefaultValue_whenZero() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(42L, (new JSONArray("[]")).optLong(0, 42L));
@@ -2015,6 +2320,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optLong(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long JSONArray.optLong(int)"})
   public void testOptLongWithIndex_whenMinusOne() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(0L, (new JSONArray("[]")).optLong(-1));
@@ -2026,6 +2333,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.optString(int)"})
   public void testOptStringWithIndex() throws JSONException {
     // Arrange
     ArrayList<Object> value = new ArrayList<>();
@@ -2039,12 +2348,13 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#optString(int, String)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optString(int, String)} with {@code index}, {@code defaultValue}.
    * <p>
    * Method under test: {@link JSONArray#optString(int, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.optString(int, String)"})
   public void testOptStringWithIndexDefaultValue() throws JSONException {
     // Arrange
     ArrayList<Object> value = new ArrayList<>();
@@ -2058,12 +2368,13 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#optString(int, String)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optString(int, String)} with {@code index}, {@code defaultValue}.
    * <p>
    * Method under test: {@link JSONArray#optString(int, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.optString(int, String)"})
   public void testOptStringWithIndexDefaultValue2() throws JSONException {
     // Arrange
     ArrayList<Object> value = new ArrayList<>();
@@ -2077,8 +2388,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#optString(int, String)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optString(int, String)} with {@code index}, {@code defaultValue}.
    * <ul>
    *   <li>Given {@link ArrayList#ArrayList()} add {@link JSONObject#NULL}.</li>
    *   <li>Then return {@code [null,null]}.</li>
@@ -2087,6 +2397,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optString(int, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.optString(int, String)"})
   public void testOptStringWithIndexDefaultValue_givenArrayListAddNull_thenReturnNullNull() throws JSONException {
     // Arrange
     ArrayList<Object> value = new ArrayList<>();
@@ -2101,8 +2413,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#optString(int, String)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optString(int, String)} with {@code index}, {@code defaultValue}.
    * <ul>
    *   <li>Given {@link ArrayList#ArrayList()} add {@link JSONObject#NULL}.</li>
    *   <li>When one.</li>
@@ -2112,6 +2423,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optString(int, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.optString(int, String)"})
   public void testOptStringWithIndexDefaultValue_givenArrayListAddNull_whenOne_thenReturnNull() throws JSONException {
     // Arrange
     ArrayList<Object> value = new ArrayList<>();
@@ -2125,8 +2438,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#optString(int, String)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optString(int, String)} with {@code index}, {@code defaultValue}.
    * <ul>
    *   <li>Given {@link ArrayList#ArrayList()} add two.</li>
    *   <li>When one.</li>
@@ -2136,6 +2448,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optString(int, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.optString(int, String)"})
   public void testOptStringWithIndexDefaultValue_givenArrayListAddTwo_whenOne_thenReturn2() throws JSONException {
     // Arrange
     ArrayList<Object> value = new ArrayList<>();
@@ -2149,41 +2463,17 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#optString(int, String)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optString(int, String)} with {@code index}, {@code defaultValue}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@link JSONObject#NULL}
-   * and {@link BiFunction}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JSONArray#optString(int, String)}
-   */
-  @Test
-  public void testOptStringWithIndexDefaultValue_givenHashMapComputeIfPresentNullAndBiFunction() throws JSONException {
-    // Arrange
-    HashMap<Object, Object> value = new HashMap<>();
-    value.computeIfPresent(JSONObject.NULL, mock(BiFunction.class));
-    value.put(JSONObject.NULL, JSONObject.NULL);
-
-    JSONArray jsonArray = new JSONArray("[]");
-    jsonArray.put(1, (Map) value);
-
-    // Act and Assert
-    assertEquals("{\"null\":null}", jsonArray.optString(1, "42"));
-  }
-
-  /**
-   * Test {@link JSONArray#optString(int, String)} with {@code index},
-   * {@code defaultValue}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@link JSONObject#NULL} is
-   * {@link JSONObject#NULL}.</li>
+   *   <li>Given {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@link JSONObject#NULL}.</li>
    *   <li>Then return {@code {"null":null}}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONArray#optString(int, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.optString(int, String)"})
   public void testOptStringWithIndexDefaultValue_givenHashMapNullIsNull_thenReturnNullNull() throws JSONException {
     // Arrange
     HashMap<Object, Object> value = new HashMap<>();
@@ -2197,8 +2487,32 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#optString(int, String)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optString(int, String)} with {@code index}, {@code defaultValue}.
+   * <ul>
+   *   <li>Given {@link HashMap#HashMap()} {@code null} is {@link JSONObject#NULL}.</li>
+   *   <li>When one.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONArray#optString(int, String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.optString(int, String)"})
+  public void testOptStringWithIndexDefaultValue_givenHashMapNullIsNull_whenOne_thenReturnNull() throws JSONException {
+    // Arrange
+    HashMap<Object, Object> value = new HashMap<>();
+    value.put(null, JSONObject.NULL);
+
+    JSONArray jsonArray = new JSONArray("[]");
+    jsonArray.put(1, (Map) value);
+
+    // Act and Assert
+    assertNull(jsonArray.optString(1, "42"));
+  }
+
+  /**
+   * Test {@link JSONArray#optString(int, String)} with {@code index}, {@code defaultValue}.
    * <ul>
    *   <li>Then return {@code 42}.</li>
    * </ul>
@@ -2206,14 +2520,15 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optString(int, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.optString(int, String)"})
   public void testOptStringWithIndexDefaultValue_thenReturn42() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("42", (new JSONArray("[]")).optString(1, "42"));
   }
 
   /**
-   * Test {@link JSONArray#optString(int, String)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optString(int, String)} with {@code index}, {@code defaultValue}.
    * <ul>
    *   <li>Then return {@link Boolean#FALSE} toString.</li>
    * </ul>
@@ -2221,6 +2536,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optString(int, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.optString(int, String)"})
   public void testOptStringWithIndexDefaultValue_thenReturnFalseToString() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -2234,8 +2551,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#optString(int, String)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optString(int, String)} with {@code index}, {@code defaultValue}.
    * <ul>
    *   <li>Then return {@code {}}.</li>
    * </ul>
@@ -2243,6 +2559,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optString(int, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.optString(int, String)"})
   public void testOptStringWithIndexDefaultValue_thenReturnLeftCurlyBracketRightCurlyBracket() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -2253,8 +2571,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#optString(int, String)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optString(int, String)} with {@code index}, {@code defaultValue}.
    * <ul>
    *   <li>Then return {@code []}.</li>
    * </ul>
@@ -2262,6 +2579,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optString(int, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.optString(int, String)"})
   public void testOptStringWithIndexDefaultValue_thenReturnLeftSquareBracketRightSquareBracket() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -2272,8 +2591,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#optString(int, String)} with {@code index},
-   * {@code defaultValue}.
+   * Test {@link JSONArray#optString(int, String)} with {@code index}, {@code defaultValue}.
    * <ul>
    *   <li>When minus one.</li>
    *   <li>Then return {@code 42}.</li>
@@ -2282,6 +2600,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optString(int, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.optString(int, String)"})
   public void testOptStringWithIndexDefaultValue_whenMinusOne_thenReturn42() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("42", (new JSONArray("[]")).optString(-1, "42"));
@@ -2298,6 +2618,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.optString(int)"})
   public void testOptStringWithIndex_givenArrayListAdd42_whenOne_thenReturn42() throws JSONException {
     // Arrange
     ArrayList<Object> value = new ArrayList<>();
@@ -2321,6 +2643,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.optString(int)"})
   public void testOptStringWithIndex_givenArrayListAddNull_whenOne_thenReturnNull() throws JSONException {
     // Arrange
     ArrayList<Object> value = new ArrayList<>();
@@ -2344,6 +2668,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.optString(int)"})
   public void testOptStringWithIndex_givenArrayListAddNull_whenOne_thenReturnNullNull() throws JSONException {
     // Arrange
     ArrayList<Object> value = new ArrayList<>();
@@ -2368,6 +2694,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.optString(int)"})
   public void testOptStringWithIndex_givenArrayListAddTwo_whenOne_thenReturn2() throws JSONException {
     // Arrange
     ArrayList<Object> value = new ArrayList<>();
@@ -2383,31 +2711,7 @@ public class JSONArrayDiffblueTest {
   /**
    * Test {@link JSONArray#optString(int)} with {@code index}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@link JSONObject#NULL}
-   * and {@link BiFunction}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JSONArray#optString(int)}
-   */
-  @Test
-  public void testOptStringWithIndex_givenHashMapComputeIfPresentNullAndBiFunction() throws JSONException {
-    // Arrange
-    HashMap<Object, Object> value = new HashMap<>();
-    value.computeIfPresent(JSONObject.NULL, mock(BiFunction.class));
-    value.put(JSONObject.NULL, JSONObject.NULL);
-
-    JSONArray jsonArray = new JSONArray("[]");
-    jsonArray.put(1, (Map) value);
-
-    // Act and Assert
-    assertEquals("{\"null\":null}", jsonArray.optString(1));
-  }
-
-  /**
-   * Test {@link JSONArray#optString(int)} with {@code index}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@link JSONObject#NULL} is
-   * {@link JSONObject#NULL}.</li>
+   *   <li>Given {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@link JSONObject#NULL}.</li>
    *   <li>When one.</li>
    *   <li>Then return {@code {"null":null}}.</li>
    * </ul>
@@ -2415,6 +2719,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.optString(int)"})
   public void testOptStringWithIndex_givenHashMapNullIsNull_whenOne_thenReturnNullNull() throws JSONException {
     // Arrange
     HashMap<Object, Object> value = new HashMap<>();
@@ -2436,6 +2742,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.optString(int)"})
   public void testOptStringWithIndex_thenReturnEmptyString() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("", (new JSONArray("[]")).optString(1));
@@ -2450,6 +2758,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.optString(int)"})
   public void testOptStringWithIndex_thenReturnFalseToString() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -2471,6 +2781,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.optString(int)"})
   public void testOptStringWithIndex_thenReturnLeftCurlyBracketRightCurlyBracket() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -2489,6 +2801,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.optString(int)"})
   public void testOptStringWithIndex_thenReturnLeftSquareBracketRightSquareBracket() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -2508,6 +2822,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#optString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.optString(int)"})
   public void testOptStringWithIndex_whenMinusOne_thenReturnEmptyString() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("", (new JSONArray("[]")).optString(-1));
@@ -2519,6 +2835,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(boolean)"})
   public void testPutWithBoolean() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -2537,6 +2855,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(boolean)"})
   public void testPutWithBoolean2() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -2559,6 +2879,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(Collection)"})
   public void testPutWithCollection_givenA_whenArrayListAddA() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -2578,13 +2900,14 @@ public class JSONArrayDiffblueTest {
    * Test {@link JSONArray#put(Collection)} with {@code Collection}.
    * <ul>
    *   <li>Given {@link JSONArray#JSONArray()}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add
-   * {@link JSONArray#JSONArray()}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link JSONArray#JSONArray()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONArray#put(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(Collection)"})
   public void testPutWithCollection_givenJSONArray_whenArrayListAddJSONArray() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -2604,13 +2927,14 @@ public class JSONArrayDiffblueTest {
    * Test {@link JSONArray#put(Collection)} with {@code Collection}.
    * <ul>
    *   <li>Given {@link JSONObject#JSONObject()}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add
-   * {@link JSONObject#JSONObject()}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link JSONObject#JSONObject()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONArray#put(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(Collection)"})
   public void testPutWithCollection_givenJSONObject_whenArrayListAddJSONObject() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -2636,6 +2960,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(Collection)"})
   public void testPutWithCollection_givenNull_whenArrayListAddNull() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -2661,6 +2987,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(Collection)"})
   public void testPutWithCollection_givenNull_whenArrayListAddNull2() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -2687,6 +3015,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(Collection)"})
   public void testPutWithCollection_givenNull_whenArrayListAddNull3() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -2712,6 +3042,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(Collection)"})
   public void testPutWithCollection_givenOne_whenArrayListAddOne() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -2737,6 +3069,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(Collection)"})
   public void testPutWithCollection_givenOne_whenArrayListAddOne2() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -2762,6 +3096,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(Collection)"})
   public void testPutWithCollection_givenStartOfHeading_whenArrayListAddStartOfHeading() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -2787,6 +3123,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(Collection)"})
   public void testPutWithCollection_givenTen_whenArrayListAddTen() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -2812,6 +3150,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(Collection)"})
   public void testPutWithCollection_givenTen_whenArrayListAddTen2() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -2837,6 +3177,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(Collection)"})
   public void testPutWithCollection_givenTrue_whenArrayListAddTrue() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -2862,6 +3204,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(Collection)"})
   public void testPutWithCollection_givenTwo_whenArrayListAddTwo() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -2886,6 +3230,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(Collection)"})
   public void testPutWithCollection_whenArrayList() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -2904,6 +3250,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(double)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(double)"})
   public void testPutWithDouble() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -2922,6 +3270,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int)"})
   public void testPutWithInt() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -2940,6 +3290,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, boolean)"})
   public void testPutWithIntBoolean() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -2958,6 +3310,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, boolean)"})
   public void testPutWithIntBoolean2() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -2977,6 +3331,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, boolean)"})
   public void testPutWithIntBoolean3() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -2999,18 +3355,21 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, boolean)"})
   public void testPutWithIntBoolean_whenMinusOne_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONArray("[]")).put(-1, true));
   }
 
   /**
-   * Test {@link JSONArray#put(int, Collection)} with {@code int},
-   * {@code Collection}.
+   * Test {@link JSONArray#put(int, Collection)} with {@code int}, {@code Collection}.
    * <p>
    * Method under test: {@link JSONArray#put(int, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Collection)"})
   public void testPutWithIntCollection() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3025,8 +3384,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#put(int, Collection)} with {@code int},
-   * {@code Collection}.
+   * Test {@link JSONArray#put(int, Collection)} with {@code int}, {@code Collection}.
    * <ul>
    *   <li>Given {@code A}.</li>
    *   <li>When {@link ArrayList#ArrayList()} add {@code A}.</li>
@@ -3035,6 +3393,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Collection)"})
   public void testPutWithIntCollection_givenA_whenArrayListAddA() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3051,17 +3411,17 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#put(int, Collection)} with {@code int},
-   * {@code Collection}.
+   * Test {@link JSONArray#put(int, Collection)} with {@code int}, {@code Collection}.
    * <ul>
    *   <li>Given {@link JSONArray#JSONArray()}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add
-   * {@link JSONArray#JSONArray()}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link JSONArray#JSONArray()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONArray#put(int, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Collection)"})
   public void testPutWithIntCollection_givenJSONArray_whenArrayListAddJSONArray() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3078,17 +3438,17 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#put(int, Collection)} with {@code int},
-   * {@code Collection}.
+   * Test {@link JSONArray#put(int, Collection)} with {@code int}, {@code Collection}.
    * <ul>
    *   <li>Given {@link JSONObject#JSONObject()}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add
-   * {@link JSONObject#JSONObject()}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link JSONObject#JSONObject()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONArray#put(int, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Collection)"})
   public void testPutWithIntCollection_givenJSONObject_whenArrayListAddJSONObject() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3105,8 +3465,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#put(int, Collection)} with {@code int},
-   * {@code Collection}.
+   * Test {@link JSONArray#put(int, Collection)} with {@code int}, {@code Collection}.
    * <ul>
    *   <li>Given {@link JSONObject#NULL}.</li>
    *   <li>When {@link ArrayList#ArrayList()} add {@link JSONObject#NULL}.</li>
@@ -3115,6 +3474,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Collection)"})
   public void testPutWithIntCollection_givenNull_whenArrayListAddNull() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3131,8 +3492,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#put(int, Collection)} with {@code int},
-   * {@code Collection}.
+   * Test {@link JSONArray#put(int, Collection)} with {@code int}, {@code Collection}.
    * <ul>
    *   <li>Given {@link JSONObject#NULL}.</li>
    *   <li>When {@link ArrayList#ArrayList()} add {@link JSONObject#NULL}.</li>
@@ -3141,6 +3501,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Collection)"})
   public void testPutWithIntCollection_givenNull_whenArrayListAddNull2() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3158,8 +3520,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#put(int, Collection)} with {@code int},
-   * {@code Collection}.
+   * Test {@link JSONArray#put(int, Collection)} with {@code int}, {@code Collection}.
    * <ul>
    *   <li>Given {@code null}.</li>
    *   <li>When {@link ArrayList#ArrayList()} add {@code null}.</li>
@@ -3168,6 +3529,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Collection)"})
   public void testPutWithIntCollection_givenNull_whenArrayListAddNull3() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3184,8 +3547,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#put(int, Collection)} with {@code int},
-   * {@code Collection}.
+   * Test {@link JSONArray#put(int, Collection)} with {@code int}, {@code Collection}.
    * <ul>
    *   <li>Given one.</li>
    *   <li>When {@link ArrayList#ArrayList()} add one.</li>
@@ -3194,6 +3556,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Collection)"})
   public void testPutWithIntCollection_givenOne_whenArrayListAddOne() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3210,8 +3574,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#put(int, Collection)} with {@code int},
-   * {@code Collection}.
+   * Test {@link JSONArray#put(int, Collection)} with {@code int}, {@code Collection}.
    * <ul>
    *   <li>Given one.</li>
    *   <li>When {@link ArrayList#ArrayList()} add one.</li>
@@ -3220,6 +3583,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Collection)"})
   public void testPutWithIntCollection_givenOne_whenArrayListAddOne2() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3236,8 +3601,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#put(int, Collection)} with {@code int},
-   * {@code Collection}.
+   * Test {@link JSONArray#put(int, Collection)} with {@code int}, {@code Collection}.
    * <ul>
    *   <li>Given start of heading.</li>
    *   <li>When {@link ArrayList#ArrayList()} add start of heading.</li>
@@ -3246,6 +3610,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Collection)"})
   public void testPutWithIntCollection_givenStartOfHeading_whenArrayListAddStartOfHeading() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3262,8 +3628,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#put(int, Collection)} with {@code int},
-   * {@code Collection}.
+   * Test {@link JSONArray#put(int, Collection)} with {@code int}, {@code Collection}.
    * <ul>
    *   <li>Given ten.</li>
    *   <li>When {@link ArrayList#ArrayList()} add ten.</li>
@@ -3272,6 +3637,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Collection)"})
   public void testPutWithIntCollection_givenTen_whenArrayListAddTen() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3288,8 +3655,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#put(int, Collection)} with {@code int},
-   * {@code Collection}.
+   * Test {@link JSONArray#put(int, Collection)} with {@code int}, {@code Collection}.
    * <ul>
    *   <li>Given ten.</li>
    *   <li>When {@link ArrayList#ArrayList()} add ten.</li>
@@ -3298,6 +3664,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Collection)"})
   public void testPutWithIntCollection_givenTen_whenArrayListAddTen2() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3314,8 +3682,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#put(int, Collection)} with {@code int},
-   * {@code Collection}.
+   * Test {@link JSONArray#put(int, Collection)} with {@code int}, {@code Collection}.
    * <ul>
    *   <li>Given {@code true}.</li>
    *   <li>When {@link ArrayList#ArrayList()} add {@code true}.</li>
@@ -3324,6 +3691,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Collection)"})
   public void testPutWithIntCollection_givenTrue_whenArrayListAddTrue() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3340,8 +3709,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#put(int, Collection)} with {@code int},
-   * {@code Collection}.
+   * Test {@link JSONArray#put(int, Collection)} with {@code int}, {@code Collection}.
    * <ul>
    *   <li>Given two.</li>
    *   <li>When {@link ArrayList#ArrayList()} add two.</li>
@@ -3350,6 +3718,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Collection)"})
   public void testPutWithIntCollection_givenTwo_whenArrayListAddTwo() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3366,8 +3736,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#put(int, Collection)} with {@code int},
-   * {@code Collection}.
+   * Test {@link JSONArray#put(int, Collection)} with {@code int}, {@code Collection}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
@@ -3375,6 +3744,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Collection)"})
   public void testPutWithIntCollection_whenArrayList() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3388,8 +3759,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#put(int, Collection)} with {@code int},
-   * {@code Collection}.
+   * Test {@link JSONArray#put(int, Collection)} with {@code int}, {@code Collection}.
    * <ul>
    *   <li>When minus one.</li>
    *   <li>Then throw {@link JSONException}.</li>
@@ -3398,6 +3768,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Collection)"})
   public void testPutWithIntCollection_whenMinusOne_thenThrowJSONException() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3412,6 +3784,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, double)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, double)"})
   public void testPutWithIntDouble() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3430,6 +3804,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, double)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, double)"})
   public void testPutWithIntDouble2() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3453,6 +3829,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, double)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, double)"})
   public void testPutWithIntDouble_whenMinusOne_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONArray("[]")).put(-1, 10.0d));
@@ -3464,6 +3842,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, int)"})
   public void testPutWithIntInt() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3482,6 +3862,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, int)"})
   public void testPutWithIntInt2() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3504,6 +3886,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, int)"})
   public void testPutWithIntInt_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONArray("[]")).put(-1, 42));
@@ -3515,6 +3899,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, long)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, long)"})
   public void testPutWithIntLong() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3533,6 +3919,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, long)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, long)"})
   public void testPutWithIntLong2() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3555,6 +3943,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, long)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, long)"})
   public void testPutWithIntLong_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONArray("[]")).put(-1, 42L));
@@ -3566,6 +3956,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Map)"})
   public void testPutWithIntMap() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3589,6 +3981,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Map)"})
   public void testPutWithIntMap_givenA_whenHashMapNullIsA() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3607,41 +4001,15 @@ public class JSONArrayDiffblueTest {
   /**
    * Test {@link JSONArray#put(int, Map)} with {@code int}, {@code Map}.
    * <ul>
-   *   <li>Given {@link BiFunction}.</li>
-   *   <li>When {@link HashMap#HashMap()} computeIfPresent {@link JSONObject#NULL}
-   * and {@link BiFunction}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JSONArray#put(int, Map)}
-   */
-  @Test
-  public void testPutWithIntMap_givenBiFunction_whenHashMapComputeIfPresentNullAndBiFunction() throws JSONException {
-    // Arrange
-    JSONArray jsonArray = new JSONArray("[]");
-
-    HashMap<Object, Object> value = new HashMap<>();
-    value.computeIfPresent(JSONObject.NULL, mock(BiFunction.class));
-    value.put(JSONObject.NULL, JSONObject.NULL);
-
-    // Act
-    JSONArray actualPutResult = jsonArray.put(1, (Map) value);
-
-    // Assert
-    assertEquals(2, jsonArray.length());
-    assertSame(jsonArray, actualPutResult);
-  }
-
-  /**
-   * Test {@link JSONArray#put(int, Map)} with {@code int}, {@code Map}.
-   * <ul>
    *   <li>Given {@link JSONArray#JSONArray()}.</li>
-   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is
-   * {@link JSONArray#JSONArray()}.</li>
+   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@link JSONArray#JSONArray()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONArray#put(int, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Map)"})
   public void testPutWithIntMap_givenJSONArray_whenHashMapNullIsJSONArray() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3661,13 +4029,14 @@ public class JSONArrayDiffblueTest {
    * Test {@link JSONArray#put(int, Map)} with {@code int}, {@code Map}.
    * <ul>
    *   <li>Given {@link JSONObject#JSONObject()}.</li>
-   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is
-   * {@link JSONObject#JSONObject()}.</li>
+   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@link JSONObject#JSONObject()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONArray#put(int, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Map)"})
   public void testPutWithIntMap_givenJSONObject_whenHashMapNullIsJSONObject() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3687,13 +4056,14 @@ public class JSONArrayDiffblueTest {
    * Test {@link JSONArray#put(int, Map)} with {@code int}, {@code Map}.
    * <ul>
    *   <li>Given {@link JSONObject#NULL}.</li>
-   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is
-   * {@link JSONObject#NULL}.</li>
+   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@link JSONObject#NULL}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONArray#put(int, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Map)"})
   public void testPutWithIntMap_givenNull_whenHashMapNullIsNull() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3713,13 +4083,14 @@ public class JSONArrayDiffblueTest {
    * Test {@link JSONArray#put(int, Map)} with {@code int}, {@code Map}.
    * <ul>
    *   <li>Given {@code null}.</li>
-   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is
-   * {@code null}.</li>
+   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONArray#put(int, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Map)"})
   public void testPutWithIntMap_givenNull_whenHashMapNullIsNull2() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3745,6 +4116,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Map)"})
   public void testPutWithIntMap_givenOne_whenHashMapNullIsOne() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3770,6 +4143,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Map)"})
   public void testPutWithIntMap_givenOne_whenHashMapNullIsOne2() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3795,6 +4170,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Map)"})
   public void testPutWithIntMap_givenOne_whenHashMapNullIsOne3() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3813,19 +4190,20 @@ public class JSONArrayDiffblueTest {
   /**
    * Test {@link JSONArray#put(int, Map)} with {@code int}, {@code Map}.
    * <ul>
-   *   <li>Given {@link SimpleEntry#SimpleEntry(Object, Object)} with
-   * {@link JSONObject#NULL} and {@link JSONObject#NULL}.</li>
+   *   <li>Given {@link SimpleEntry#SimpleEntry(Object, Object)} with {@link JSONObject#NULL} and {@link JSONObject#NULL}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONArray#put(int, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Map)"})
   public void testPutWithIntMap_givenSimpleEntryWithNullAndNull() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
 
     HashMap<Object, Object> value = new HashMap<>();
-    value.put(JSONObject.NULL, new AbstractMap.SimpleEntry<>(JSONObject.NULL, JSONObject.NULL));
+    value.put(JSONObject.NULL, new SimpleEntry<>(JSONObject.NULL, JSONObject.NULL));
 
     // Act
     JSONArray actualPutResult = jsonArray.put(1, (Map) value);
@@ -3839,13 +4217,14 @@ public class JSONArrayDiffblueTest {
    * Test {@link JSONArray#put(int, Map)} with {@code int}, {@code Map}.
    * <ul>
    *   <li>Given start of heading.</li>
-   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is start of
-   * heading.</li>
+   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is start of heading.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONArray#put(int, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Map)"})
   public void testPutWithIntMap_givenStartOfHeading_whenHashMapNullIsStartOfHeading() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3871,6 +4250,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Map)"})
   public void testPutWithIntMap_givenTen_whenHashMapNullIsTen() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3890,13 +4271,14 @@ public class JSONArrayDiffblueTest {
    * Test {@link JSONArray#put(int, Map)} with {@code int}, {@code Map}.
    * <ul>
    *   <li>Given {@code true}.</li>
-   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is
-   * {@code true}.</li>
+   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONArray#put(int, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Map)"})
   public void testPutWithIntMap_givenTrue_whenHashMapNullIsTrue() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3921,6 +4303,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Map)"})
   public void testPutWithIntMap_whenHashMap() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3943,6 +4327,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Map)"})
   public void testPutWithIntMap_whenMinusOne_thenThrowJSONException() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3957,6 +4343,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Object)"})
   public void testPutWithIntObject() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3975,6 +4363,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Object)"})
   public void testPutWithIntObject2() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -3994,6 +4384,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Object)"})
   public void testPutWithIntObject3() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4016,6 +4408,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Object)"})
   public void testPutWithIntObject_whenMinusOne_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONArray("[]")).put(-1, JSONObject.NULL));
@@ -4030,6 +4424,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Object)"})
   public void testPutWithIntObject_whenTen() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4051,6 +4447,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(int, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(int, Object)"})
   public void testPutWithIntObject_whenTen2() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4069,6 +4467,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(long)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(long)"})
   public void testPutWithLong() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4091,6 +4491,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(Map)"})
   public void testPutWithMap_givenA_whenHashMapNullIsA() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4109,41 +4511,15 @@ public class JSONArrayDiffblueTest {
   /**
    * Test {@link JSONArray#put(Map)} with {@code Map}.
    * <ul>
-   *   <li>Given {@link BiFunction}.</li>
-   *   <li>When {@link HashMap#HashMap()} computeIfPresent {@link JSONObject#NULL}
-   * and {@link BiFunction}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JSONArray#put(Map)}
-   */
-  @Test
-  public void testPutWithMap_givenBiFunction_whenHashMapComputeIfPresentNullAndBiFunction() throws JSONException {
-    // Arrange
-    JSONArray jsonArray = new JSONArray("[]");
-
-    HashMap<Object, Object> value = new HashMap<>();
-    value.computeIfPresent(JSONObject.NULL, mock(BiFunction.class));
-    value.put(JSONObject.NULL, JSONObject.NULL);
-
-    // Act
-    JSONArray actualPutResult = jsonArray.put((Map) value);
-
-    // Assert
-    assertEquals(1, jsonArray.length());
-    assertSame(jsonArray, actualPutResult);
-  }
-
-  /**
-   * Test {@link JSONArray#put(Map)} with {@code Map}.
-   * <ul>
    *   <li>Given {@link JSONArray#JSONArray()}.</li>
-   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is
-   * {@link JSONArray#JSONArray()}.</li>
+   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@link JSONArray#JSONArray()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONArray#put(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(Map)"})
   public void testPutWithMap_givenJSONArray_whenHashMapNullIsJSONArray() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4163,13 +4539,14 @@ public class JSONArrayDiffblueTest {
    * Test {@link JSONArray#put(Map)} with {@code Map}.
    * <ul>
    *   <li>Given {@link JSONObject#JSONObject()}.</li>
-   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is
-   * {@link JSONObject#JSONObject()}.</li>
+   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@link JSONObject#JSONObject()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONArray#put(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(Map)"})
   public void testPutWithMap_givenJSONObject_whenHashMapNullIsJSONObject() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4189,13 +4566,14 @@ public class JSONArrayDiffblueTest {
    * Test {@link JSONArray#put(Map)} with {@code Map}.
    * <ul>
    *   <li>Given {@link JSONObject#NULL}.</li>
-   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is
-   * {@link JSONObject#NULL}.</li>
+   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@link JSONObject#NULL}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONArray#put(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(Map)"})
   public void testPutWithMap_givenNull_whenHashMapNullIsNull() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4215,13 +4593,14 @@ public class JSONArrayDiffblueTest {
    * Test {@link JSONArray#put(Map)} with {@code Map}.
    * <ul>
    *   <li>Given {@code null}.</li>
-   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is
-   * {@code null}.</li>
+   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONArray#put(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(Map)"})
   public void testPutWithMap_givenNull_whenHashMapNullIsNull2() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4247,6 +4626,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(Map)"})
   public void testPutWithMap_givenOne_whenHashMapNullIsOne() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4272,6 +4653,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(Map)"})
   public void testPutWithMap_givenOne_whenHashMapNullIsOne2() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4297,6 +4680,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(Map)"})
   public void testPutWithMap_givenOne_whenHashMapNullIsOne3() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4315,19 +4700,20 @@ public class JSONArrayDiffblueTest {
   /**
    * Test {@link JSONArray#put(Map)} with {@code Map}.
    * <ul>
-   *   <li>Given {@link SimpleEntry#SimpleEntry(Object, Object)} with
-   * {@link JSONObject#NULL} and {@link JSONObject#NULL}.</li>
+   *   <li>Given {@link SimpleEntry#SimpleEntry(Object, Object)} with {@link JSONObject#NULL} and {@link JSONObject#NULL}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONArray#put(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(Map)"})
   public void testPutWithMap_givenSimpleEntryWithNullAndNull() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
 
     HashMap<Object, Object> value = new HashMap<>();
-    value.put(JSONObject.NULL, new AbstractMap.SimpleEntry<>(JSONObject.NULL, JSONObject.NULL));
+    value.put(JSONObject.NULL, new SimpleEntry<>(JSONObject.NULL, JSONObject.NULL));
 
     // Act
     JSONArray actualPutResult = jsonArray.put((Map) value);
@@ -4341,13 +4727,14 @@ public class JSONArrayDiffblueTest {
    * Test {@link JSONArray#put(Map)} with {@code Map}.
    * <ul>
    *   <li>Given start of heading.</li>
-   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is start of
-   * heading.</li>
+   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is start of heading.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONArray#put(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(Map)"})
   public void testPutWithMap_givenStartOfHeading_whenHashMapNullIsStartOfHeading() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4373,6 +4760,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(Map)"})
   public void testPutWithMap_givenTen_whenHashMapNullIsTen() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4392,13 +4781,14 @@ public class JSONArrayDiffblueTest {
    * Test {@link JSONArray#put(Map)} with {@code Map}.
    * <ul>
    *   <li>Given {@code true}.</li>
-   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is
-   * {@code true}.</li>
+   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONArray#put(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(Map)"})
   public void testPutWithMap_givenTrue_whenHashMapNullIsTrue() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4423,6 +4813,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(Map)"})
   public void testPutWithMap_whenHashMap() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4441,6 +4833,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#put(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONArray.put(Object)"})
   public void testPutWithObject() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4455,38 +4849,50 @@ public class JSONArrayDiffblueTest {
 
   /**
    * Test {@link JSONArray#remove(int)}.
+   * <ul>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
    * <p>
    * Method under test: {@link JSONArray#remove(int)}
    */
   @Test
-  public void testRemove() throws JSONException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONArray.remove(int)"})
+  public void testRemove_thenReturnFalse() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
     jsonArray.put(1, false);
 
     // Act
-    jsonArray.remove(1);
+    Object actualRemoveResult = jsonArray.remove(1);
 
     // Assert
     assertEquals(1, jsonArray.length());
+    assertFalse((Boolean) actualRemoveResult);
   }
 
   /**
    * Test {@link JSONArray#remove(int)}.
+   * <ul>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
    * <p>
    * Method under test: {@link JSONArray#remove(int)}
    */
   @Test
-  public void testRemove2() throws JSONException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONArray.remove(int)"})
+  public void testRemove_thenReturnTrue() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
     jsonArray.put(1, true);
 
     // Act
-    jsonArray.remove(1);
+    Object actualRemoveResult = jsonArray.remove(1);
 
     // Assert
     assertEquals(1, jsonArray.length());
+    assertTrue((Boolean) actualRemoveResult);
   }
 
   /**
@@ -4495,6 +4901,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#toString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.toString(int)"})
   public void testToStringWithIndentFactor() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4510,6 +4918,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#toString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.toString(int)"})
   public void testToStringWithIndentFactor2() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4520,12 +4930,13 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#toString(int, int)} with {@code indentFactor},
-   * {@code indent}.
+   * Test {@link JSONArray#toString(int, int)} with {@code indentFactor}, {@code indent}.
    * <p>
    * Method under test: {@link JSONArray#toString(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.toString(int, int)"})
   public void testToStringWithIndentFactorIndent() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4536,12 +4947,13 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#toString(int, int)} with {@code indentFactor},
-   * {@code indent}.
+   * Test {@link JSONArray#toString(int, int)} with {@code indentFactor}, {@code indent}.
    * <p>
    * Method under test: {@link JSONArray#toString(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.toString(int, int)"})
   public void testToStringWithIndentFactorIndent2() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4552,8 +4964,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#toString(int, int)} with {@code indentFactor},
-   * {@code indent}.
+   * Test {@link JSONArray#toString(int, int)} with {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>Then return {@code [1]}.</li>
    * </ul>
@@ -4561,6 +4972,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#toString(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.toString(int, int)"})
   public void testToStringWithIndentFactorIndent_thenReturn1() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4571,8 +4984,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#toString(int, int)} with {@code indentFactor},
-   * {@code indent}.
+   * Test {@link JSONArray#toString(int, int)} with {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>Then return {@code [0.5]}.</li>
    * </ul>
@@ -4580,6 +4992,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#toString(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.toString(int, int)"})
   public void testToStringWithIndentFactorIndent_thenReturn05() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4590,8 +5004,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#toString(int, int)} with {@code indentFactor},
-   * {@code indent}.
+   * Test {@link JSONArray#toString(int, int)} with {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>Then return {@code [ 10, [] ]}.</li>
    * </ul>
@@ -4599,6 +5012,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#toString(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.toString(int, int)"})
   public void testToStringWithIndentFactorIndent_thenReturn10() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4610,8 +5025,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#toString(int, int)} with {@code indentFactor},
-   * {@code indent}.
+   * Test {@link JSONArray#toString(int, int)} with {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>Then return {@code [false]}.</li>
    * </ul>
@@ -4619,6 +5033,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#toString(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.toString(int, int)"})
   public void testToStringWithIndentFactorIndent_thenReturnFalse() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4629,8 +5045,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#toString(int, int)} with {@code indentFactor},
-   * {@code indent}.
+   * Test {@link JSONArray#toString(int, int)} with {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>Then return {@code [ [], false ]}.</li>
    * </ul>
@@ -4638,6 +5053,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#toString(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.toString(int, int)"})
   public void testToStringWithIndentFactorIndent_thenReturnFalse2() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4649,8 +5066,7 @@ public class JSONArrayDiffblueTest {
   }
 
   /**
-   * Test {@link JSONArray#toString(int, int)} with {@code indentFactor},
-   * {@code indent}.
+   * Test {@link JSONArray#toString(int, int)} with {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>Then return {@code []}.</li>
    * </ul>
@@ -4658,14 +5074,15 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#toString(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.toString(int, int)"})
   public void testToStringWithIndentFactorIndent_thenReturnLeftSquareBracketRightSquareBracket() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("[]", (new JSONArray("[]")).toString(3, 1));
   }
 
   /**
-   * Test {@link JSONArray#toString(int, int)} with {@code indentFactor},
-   * {@code indent}.
+   * Test {@link JSONArray#toString(int, int)} with {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>Then return {@code [null]}.</li>
    * </ul>
@@ -4673,6 +5090,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#toString(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.toString(int, int)"})
   public void testToStringWithIndentFactorIndent_thenReturnNull() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4691,6 +5110,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#toString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.toString(int)"})
   public void testToStringWithIndentFactor_thenReturn1() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4709,6 +5130,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#toString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.toString(int)"})
   public void testToStringWithIndentFactor_thenReturn05() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4727,6 +5150,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#toString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.toString(int)"})
   public void testToStringWithIndentFactor_thenReturn10() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4746,6 +5171,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#toString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.toString(int)"})
   public void testToStringWithIndentFactor_thenReturnFalse() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4764,6 +5191,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#toString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.toString(int)"})
   public void testToStringWithIndentFactor_thenReturnFalse2() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4783,6 +5212,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#toString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.toString(int)"})
   public void testToStringWithIndentFactor_thenReturnLeftSquareBracketRightSquareBracket() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("[]", (new JSONArray("[]")).toString(3));
@@ -4797,6 +5228,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#toString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONArray.toString(int)"})
   public void testToStringWithIndentFactor_thenReturnNull() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4812,6 +5245,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#write(Writer)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Writer JSONArray.write(Writer)"})
   public void testWrite() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4832,6 +5267,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#write(Writer)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Writer JSONArray.write(Writer)"})
   public void testWrite2() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4855,6 +5292,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#write(Writer)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Writer JSONArray.write(Writer)"})
   public void testWrite_thenStringWriterToStringIs05() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4872,13 +5311,14 @@ public class JSONArrayDiffblueTest {
   /**
    * Test {@link JSONArray#write(Writer)}.
    * <ul>
-   *   <li>Then {@link StringWriter#StringWriter()} toString is
-   * {@code [10,[]]}.</li>
+   *   <li>Then {@link StringWriter#StringWriter()} toString is {@code [10,[]]}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONArray#write(Writer)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Writer JSONArray.write(Writer)"})
   public void testWrite_thenStringWriterToStringIs10() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4903,6 +5343,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#write(Writer)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Writer JSONArray.write(Writer)"})
   public void testWrite_thenStringWriterToStringIs91() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4926,6 +5368,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#write(Writer)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Writer JSONArray.write(Writer)"})
   public void testWrite_thenStringWriterToStringIsAString() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4947,13 +5391,14 @@ public class JSONArrayDiffblueTest {
   /**
    * Test {@link JSONArray#write(Writer)}.
    * <ul>
-   *   <li>Then {@link StringWriter#StringWriter()} toString is
-   * {@code [false]}.</li>
+   *   <li>Then {@link StringWriter#StringWriter()} toString is {@code [false]}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONArray#write(Writer)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Writer JSONArray.write(Writer)"})
   public void testWrite_thenStringWriterToStringIsFalse() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4977,6 +5422,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#write(Writer)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Writer JSONArray.write(Writer)"})
   public void testWrite_thenStringWriterToStringIsLeftSquareBracketRightSquareBracket() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");
@@ -4999,6 +5446,8 @@ public class JSONArrayDiffblueTest {
    * Method under test: {@link JSONArray#write(Writer)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Writer JSONArray.write(Writer)"})
   public void testWrite_thenStringWriterToStringIsNull() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray("[]");

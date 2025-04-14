@@ -17,33 +17,44 @@ package org.activiti.runtime.api.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
-import java.util.HashMap;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.Map;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.impl.el.ExpressionManager;
 import org.activiti.engine.impl.el.FixedValue;
 import org.activiti.engine.impl.interceptor.DelegateInterceptor;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 class SimpleMapExpressionEvaluatorDiffblueTest {
+  @Mock
+  private Map<String, Object> map;
+
+  @InjectMocks
+  private SimpleMapExpressionEvaluator simpleMapExpressionEvaluator;
+
   /**
-   * Test
-   * {@link SimpleMapExpressionEvaluator#evaluate(Expression, ExpressionManager, DelegateInterceptor)}.
+   * Test {@link SimpleMapExpressionEvaluator#evaluate(Expression, ExpressionManager, DelegateInterceptor)}.
    * <ul>
    *   <li>When {@link FixedValue#FixedValue(Object)} with {@code Value}.</li>
    *   <li>Then return {@code Value}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SimpleMapExpressionEvaluator#evaluate(Expression, ExpressionManager, DelegateInterceptor)}
+   * Method under test: {@link SimpleMapExpressionEvaluator#evaluate(Expression, ExpressionManager, DelegateInterceptor)}
    */
   @Test
   @DisplayName("Test evaluate(Expression, ExpressionManager, DelegateInterceptor); when FixedValue(Object) with 'Value'; then return 'Value'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "Object SimpleMapExpressionEvaluator.evaluate(Expression, ExpressionManager, DelegateInterceptor)"})
   void testEvaluate_whenFixedValueWithValue_thenReturnValue() {
-    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
-
     // Arrange
-    SimpleMapExpressionEvaluator simpleMapExpressionEvaluator = new SimpleMapExpressionEvaluator(new HashMap<>());
     FixedValue expression = new FixedValue("Value");
 
     // Act and Assert

@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import jakarta.el.ELException;
 import jakarta.el.ValueExpression;
@@ -30,6 +31,7 @@ import org.activiti.core.el.juel.misc.TypeConverter;
 import org.activiti.core.el.juel.tree.Bindings;
 import org.activiti.core.el.juel.util.SimpleContext;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class AstTextDiffblueTest {
@@ -48,6 +50,9 @@ class AstTextDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstText.<init>(String)", "int AstText.getCardinality()", "boolean AstText.isLeftValue()",
+      "boolean AstText.isLiteralText()", "boolean AstText.isMethodInvocation()", "String AstText.toString()"})
   void testGettersAndSetters() {
     // Arrange and Act
     AstText actualAstText = new AstText("42");
@@ -71,6 +76,8 @@ class AstTextDiffblueTest {
    */
   @Test
   @DisplayName("Test getType(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Class AstText.getType(Bindings, ELContext)"})
   void testGetType() {
     // Arrange
     AstText astText = new AstText("42");
@@ -90,6 +97,8 @@ class AstTextDiffblueTest {
    */
   @Test
   @DisplayName("Test isReadOnly(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean AstText.isReadOnly(Bindings, ELContext)"})
   void testIsReadOnly() {
     // Arrange
     AstText astText = new AstText("42");
@@ -112,6 +121,8 @@ class AstTextDiffblueTest {
    */
   @Test
   @DisplayName("Test setValue(Bindings, ELContext, Object); given AstText(String) with value is '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstText.setValue(Bindings, ELContext, Object)"})
   void testSetValue_givenAstTextWithValueIs42() {
     // Arrange
     AstText astText = new AstText("42");
@@ -134,6 +145,8 @@ class AstTextDiffblueTest {
    */
   @Test
   @DisplayName("Test setValue(Bindings, ELContext, Object); given AstText(String) with value is empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstText.setValue(Bindings, ELContext, Object)"})
   void testSetValue_givenAstTextWithValueIsEmptyString() {
     // Arrange
     AstText astText = new AstText("");
@@ -153,6 +166,8 @@ class AstTextDiffblueTest {
    */
   @Test
   @DisplayName("Test getValueReference(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"jakarta.el.ValueReference AstText.getValueReference(Bindings, ELContext)"})
   void testGetValueReference() {
     // Arrange
     AstText astText = new AstText("42");
@@ -172,6 +187,8 @@ class AstTextDiffblueTest {
    */
   @Test
   @DisplayName("Test eval(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object AstText.eval(Bindings, ELContext)"})
   void testEval() {
     // Arrange
     AstText astText = new AstText("42");
@@ -187,11 +204,12 @@ class AstTextDiffblueTest {
   /**
    * Test {@link AstText#getMethodInfo(Bindings, ELContext, Class, Class[])}.
    * <p>
-   * Method under test:
-   * {@link AstText#getMethodInfo(Bindings, ELContext, Class, Class[])}
+   * Method under test: {@link AstText#getMethodInfo(Bindings, ELContext, Class, Class[])}
    */
   @Test
   @DisplayName("Test getMethodInfo(Bindings, ELContext, Class, Class[])")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"jakarta.el.MethodInfo AstText.getMethodInfo(Bindings, ELContext, Class, Class[])"})
   void testGetMethodInfo() {
     // Arrange
     AstText astText = new AstText("42");
@@ -218,11 +236,12 @@ class AstTextDiffblueTest {
    *   <li>Then return {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstText#invoke(Bindings, ELContext, Class, Class[], Object[])}
+   * Method under test: {@link AstText#invoke(Bindings, ELContext, Class, Class[], Object[])}
    */
   @Test
   @DisplayName("Test invoke(Bindings, ELContext, Class, Class[], Object[]); then return '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object AstText.invoke(Bindings, ELContext, Class, Class[], Object[])"})
   void testInvoke_thenReturn42() {
     // Arrange
     AstText astText = new AstText("42");
@@ -249,11 +268,12 @@ class AstTextDiffblueTest {
    *   <li>Then return {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstText#invoke(Bindings, ELContext, Class, Class[], Object[])}
+   * Method under test: {@link AstText#invoke(Bindings, ELContext, Class, Class[], Object[])}
    */
   @Test
   @DisplayName("Test invoke(Bindings, ELContext, Class, Class[], Object[]); then return '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object AstText.invoke(Bindings, ELContext, Class, Class[], Object[])"})
   void testInvoke_thenReturn422() {
     // Arrange
     AstText astText = new AstText("42");
@@ -276,14 +296,15 @@ class AstTextDiffblueTest {
   /**
    * Test {@link AstText#appendStructure(StringBuilder, Bindings)}.
    * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo}
-   * toString is {@code foo}.</li>
+   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foo}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstText#appendStructure(StringBuilder, Bindings)}
    */
   @Test
   @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foo'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstText.appendStructure(StringBuilder, Bindings)"})
   void testAppendStructure_thenStringBuilderWithFooToStringIsFoo() {
     // Arrange
     AstText astText = new AstText("");
@@ -302,14 +323,15 @@ class AstTextDiffblueTest {
   /**
    * Test {@link AstText#appendStructure(StringBuilder, Bindings)}.
    * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo}
-   * toString is {@code foo42}.</li>
+   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foo42}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstText#appendStructure(StringBuilder, Bindings)}
    */
   @Test
   @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foo42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstText.appendStructure(StringBuilder, Bindings)"})
   void testAppendStructure_thenStringBuilderWithFooToStringIsFoo42() {
     // Arrange
     AstText astText = new AstText("42");
@@ -327,39 +349,15 @@ class AstTextDiffblueTest {
 
   /**
    * Test {@link AstText#getChild(int)}.
-   * <ul>
-   *   <li>Given {@link AstText#AstText(String)} with value is {@code 42}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link AstText#getChild(int)}
    */
   @Test
-  @DisplayName("Test getChild(int); given AstText(String) with value is '42'")
-  void testGetChild_givenAstTextWithValueIs42() {
+  @DisplayName("Test getChild(int)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.core.el.juel.tree.impl.ast.AstNode AstText.getChild(int)"})
+  void testGetChild() {
     // Arrange, Act and Assert
     assertNull((new AstText("42")).getChild(1));
-  }
-
-  /**
-   * Test {@link AstText#getChild(int)}.
-   * <ul>
-   *   <li>Given {@code java.lang.Object}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstText#getChild(int)}
-   */
-  @Test
-  @DisplayName("Test getChild(int); given 'java.lang.Object'")
-  void testGetChild_givenJavaLangObject() {
-    // Arrange
-    AstText astText = new AstText("42");
-    StringBuilder b = new StringBuilder("foo");
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-    astText.appendStructure(b,
-        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
-
-    // Act and Assert
-    assertNull(astText.getChild(1));
   }
 }

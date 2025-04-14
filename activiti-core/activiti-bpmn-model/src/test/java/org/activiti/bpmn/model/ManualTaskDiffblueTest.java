@@ -18,29 +18,28 @@ package org.activiti.bpmn.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.isNull;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
-import org.mockito.Mockito;
+import org.junit.experimental.categories.Category;
 
 public class ManualTaskDiffblueTest {
   /**
    * Test {@link ManualTask#clone()}.
    * <ul>
-   *   <li>Given {@link ManualTask} (default constructor) ForCompensation is
-   * {@code true}.</li>
+   *   <li>Given {@link ManualTask} (default constructor) ForCompensation is {@code true}.</li>
    *   <li>Then return ForCompensation.</li>
    * </ul>
    * <p>
    * Method under test: {@link ManualTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ManualTask ManualTask.clone()"})
   public void testClone_givenManualTaskForCompensationIsTrue_thenReturnForCompensation() {
     // Arrange
     ManualTask manualTask = new ManualTask();
@@ -69,6 +68,8 @@ public class ManualTaskDiffblueTest {
    * Method under test: {@link ManualTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ManualTask ManualTask.clone()"})
   public void testClone_givenManualTask_thenReturnNotForCompensation() {
     // Arrange and Act
     ManualTask actualCloneResult = (new ManualTask()).clone();
@@ -86,16 +87,19 @@ public class ManualTaskDiffblueTest {
   /**
    * Test {@link ManualTask#clone()}.
    * <ul>
-   *   <li>Then return BoundaryEvents is {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return BoundaryEvents size is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link ManualTask#clone()}
    */
   @Test
-  public void testClone_thenReturnBoundaryEventsIsArrayList() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ManualTask ManualTask.clone()"})
+  public void testClone_thenReturnBoundaryEventsSizeIsOne() {
     // Arrange
     ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
-    boundaryEvents.add(new BoundaryEvent());
+    BoundaryEvent boundaryEvent = new BoundaryEvent();
+    boundaryEvents.add(boundaryEvent);
 
     ManualTask manualTask = new ManualTask();
     manualTask.setLoopCharacteristics(null);
@@ -105,7 +109,9 @@ public class ManualTaskDiffblueTest {
     manualTask.setBoundaryEvents(boundaryEvents);
 
     // Act and Assert
-    assertEquals(boundaryEvents, manualTask.clone().getBoundaryEvents());
+    List<BoundaryEvent> boundaryEvents2 = manualTask.clone().getBoundaryEvents();
+    assertEquals(1, boundaryEvents2.size());
+    assertSame(boundaryEvent, boundaryEvents2.get(0));
   }
 
   /**
@@ -117,6 +123,8 @@ public class ManualTaskDiffblueTest {
    * Method under test: {@link ManualTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ManualTask ManualTask.clone()"})
   public void testClone_thenReturnDataInputAssociationsSizeIsOne() {
     // Arrange
     ArrayList<DataAssociation> dataInputAssociations = new ArrayList<>();
@@ -156,6 +164,8 @@ public class ManualTaskDiffblueTest {
    * Method under test: {@link ManualTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ManualTask ManualTask.clone()"})
   public void testClone_thenReturnDataOutputAssociationsSizeIsOne() {
     // Arrange
     ArrayList<DataAssociation> dataOutputAssociations = new ArrayList<>();
@@ -195,6 +205,8 @@ public class ManualTaskDiffblueTest {
    * Method under test: {@link ManualTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ManualTask ManualTask.clone()"})
   public void testClone_thenReturnIoSpecificationIdIsNull() {
     // Arrange
     ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
@@ -229,6 +241,8 @@ public class ManualTaskDiffblueTest {
    * Method under test: {@link ManualTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ManualTask ManualTask.clone()"})
   public void testClone_thenReturnLoopCharacteristicsIdIsNull() {
     // Arrange
     ManualTask manualTask = new ManualTask();
@@ -256,49 +270,13 @@ public class ManualTaskDiffblueTest {
   }
 
   /**
-   * Test {@link ManualTask#setValues(ManualTask)} with {@code ManualTask}.
-   * <ul>
-   *   <li>Then calls {@link IOSpecification#clone()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ManualTask#setValues(ManualTask)}
-   */
-  @Test
-  public void testSetValuesWithManualTask_thenCallsClone() {
-    // Arrange
-    ManualTask manualTask = new ManualTask();
-    IOSpecification ioSpecification = mock(IOSpecification.class);
-    when(ioSpecification.clone()).thenReturn(new IOSpecification());
-    doNothing().when(ioSpecification).setDataInputs(Mockito.<List<DataSpec>>any());
-    doNothing().when(ioSpecification).setDataOutputs(Mockito.<List<DataSpec>>any());
-    ioSpecification.setDataInputs(null);
-    ioSpecification.setDataOutputs(null);
-
-    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
-    boundaryEvents.add(new BoundaryEvent());
-
-    ManualTask otherElement = new ManualTask();
-    otherElement.setIoSpecification(ioSpecification);
-    otherElement.setLoopCharacteristics(null);
-    otherElement.setDataInputAssociations(null);
-    otherElement.setDataOutputAssociations(null);
-    otherElement.setBoundaryEvents(boundaryEvents);
-
-    // Act
-    manualTask.setValues(otherElement);
-
-    // Assert
-    verify(ioSpecification).clone();
-    verify(ioSpecification).setDataInputs(isNull());
-    verify(ioSpecification).setDataOutputs(isNull());
-  }
-
-  /**
    * Test new {@link ManualTask} (default constructor).
    * <p>
    * Method under test: default or parameterless constructor of {@link ManualTask}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ManualTask.<init>()"})
   public void testNewManualTask() {
     // Arrange and Act
     ManualTask actualManualTask = new ManualTask();

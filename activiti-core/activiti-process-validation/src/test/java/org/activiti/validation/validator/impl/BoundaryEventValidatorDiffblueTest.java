@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -33,18 +34,19 @@ import org.activiti.bpmn.model.Resource;
 import org.activiti.bpmn.model.Signal;
 import org.activiti.validation.ValidationError;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class BoundaryEventValidatorDiffblueTest {
   /**
-   * Test
-   * {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <p>
-   * Method under test:
-   * {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BoundaryEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation() {
     // Arrange
     BoundaryEventValidator boundaryEventValidator = new BoundaryEventValidator();
@@ -84,17 +86,17 @@ class BoundaryEventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
    *   <li>Given {@link AdhocSubProcess} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given AdhocSubProcess (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BoundaryEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenAdhocSubProcess() {
     // Arrange
     BoundaryEventValidator boundaryEventValidator = new BoundaryEventValidator();
@@ -107,7 +109,7 @@ class BoundaryEventValidatorDiffblueTest {
     // Act
     boundaryEventValidator.executeValidation(bpmnModel, process, errors);
 
-    // Assert
+    // Assert that nothing has changed
     Collection<Resource> resources = bpmnModel.getResources();
     assertTrue(resources instanceof List);
     Collection<Signal> signals = bpmnModel.getSignals();
@@ -121,18 +123,17 @@ class BoundaryEventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor) addFlowElement
-   * {@link AdhocSubProcess} (default constructor).</li>
+   *   <li>Given {@link AdhocSubProcess} (default constructor) addFlowElement {@link AdhocSubProcess} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given AdhocSubProcess (default constructor) addFlowElement AdhocSubProcess (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BoundaryEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenAdhocSubProcessAddFlowElementAdhocSubProcess() {
     // Arrange
     BoundaryEventValidator boundaryEventValidator = new BoundaryEventValidator();
@@ -148,7 +149,7 @@ class BoundaryEventValidatorDiffblueTest {
     // Act
     boundaryEventValidator.executeValidation(bpmnModel, process, errors);
 
-    // Assert
+    // Assert that nothing has changed
     Collection<Resource> resources = bpmnModel.getResources();
     assertTrue(resources instanceof List);
     Collection<Signal> signals = bpmnModel.getSignals();
@@ -162,17 +163,17 @@ class BoundaryEventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
    *   <li>Given {@link BooleanDataObject} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given BooleanDataObject (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BoundaryEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenBooleanDataObject() {
     // Arrange
     BoundaryEventValidator boundaryEventValidator = new BoundaryEventValidator();
@@ -199,17 +200,17 @@ class BoundaryEventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityId is '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BoundaryEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListFirstActivityIdIs42() {
     // Arrange
     BoundaryEventValidator boundaryEventValidator = new BoundaryEventValidator();
@@ -263,17 +264,17 @@ class BoundaryEventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BoundaryEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListSizeIsTwo() {
     // Arrange
     BoundaryEventValidator boundaryEventValidator = new BoundaryEventValidator();
@@ -342,18 +343,18 @@ class BoundaryEventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
    *   <li>When {@link Process} (default constructor).</li>
    *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link BoundaryEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); when Process (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BoundaryEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_whenProcess_thenArrayListEmpty() {
     // Arrange
     BoundaryEventValidator boundaryEventValidator = new BoundaryEventValidator();

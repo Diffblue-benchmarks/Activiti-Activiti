@@ -20,30 +20,31 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.core.el.CustomFunctionProvider;
 import org.activiti.engine.impl.el.ExpressionManager;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ConnectorsAutoConfigurationDiffblueTest {
   /**
    * Test {@link ConnectorsAutoConfiguration#expressionManager(List)}.
    * <ul>
-   *   <li>Then return CustomFunctionProviders is
-   * {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return CustomFunctionProviders is {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ConnectorsAutoConfiguration#expressionManager(List)}
+   * Method under test: {@link ConnectorsAutoConfiguration#expressionManager(List)}
    */
   @Test
   @DisplayName("Test expressionManager(List); then return CustomFunctionProviders is ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ExpressionManager ConnectorsAutoConfiguration.expressionManager(List)"})
   void testExpressionManager_thenReturnCustomFunctionProvidersIsArrayList() {
-    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
-
     // Arrange
     ConnectorsAutoConfiguration connectorsAutoConfiguration = new ConnectorsAutoConfiguration();
 
@@ -62,18 +63,16 @@ class ConnectorsAutoConfigurationDiffblueTest {
   /**
    * Test {@link ConnectorsAutoConfiguration#expressionManager(List)}.
    * <ul>
-   *   <li>Then return CustomFunctionProviders is
-   * {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return CustomFunctionProviders is {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ConnectorsAutoConfiguration#expressionManager(List)}
+   * Method under test: {@link ConnectorsAutoConfiguration#expressionManager(List)}
    */
   @Test
   @DisplayName("Test expressionManager(List); then return CustomFunctionProviders is ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ExpressionManager ConnectorsAutoConfiguration.expressionManager(List)"})
   void testExpressionManager_thenReturnCustomFunctionProvidersIsArrayList2() {
-    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
-
     // Arrange
     ConnectorsAutoConfiguration connectorsAutoConfiguration = new ConnectorsAutoConfiguration();
 
@@ -97,14 +96,13 @@ class ConnectorsAutoConfigurationDiffblueTest {
    *   <li>Then return CustomFunctionProviders Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ConnectorsAutoConfiguration#expressionManager(List)}
+   * Method under test: {@link ConnectorsAutoConfiguration#expressionManager(List)}
    */
   @Test
   @DisplayName("Test expressionManager(List); when ArrayList(); then return CustomFunctionProviders Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ExpressionManager ConnectorsAutoConfiguration.expressionManager(List)"})
   void testExpressionManager_whenArrayList_thenReturnCustomFunctionProvidersEmpty() {
-    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
-
     // Arrange
     ConnectorsAutoConfiguration connectorsAutoConfiguration = new ConnectorsAutoConfiguration();
 
@@ -117,50 +115,27 @@ class ConnectorsAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ConnectorsAutoConfiguration#expressionResolver(ExpressionManager, ObjectMapper)}.
-   * <ul>
-   *   <li>When {@link ExpressionManager#ExpressionManager()}.</li>
-   * </ul>
+   * Test {@link ConnectorsAutoConfiguration#expressionResolver(ExpressionManager, ObjectMapper)}.
    * <p>
-   * Method under test:
-   * {@link ConnectorsAutoConfiguration#expressionResolver(ExpressionManager, ObjectMapper)}
+   * Method under test: {@link ConnectorsAutoConfiguration#expressionResolver(ExpressionManager, ObjectMapper)}
    */
   @Test
-  @DisplayName("Test expressionResolver(ExpressionManager, ObjectMapper); when ExpressionManager()")
-  void testExpressionResolver_whenExpressionManager() {
+  @DisplayName("Test expressionResolver(ExpressionManager, ObjectMapper)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.runtime.api.impl.ExpressionResolver ConnectorsAutoConfiguration.expressionResolver(ExpressionManager, ObjectMapper)"})
+  void testExpressionResolver() {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
 
     // Arrange
     ConnectorsAutoConfiguration connectorsAutoConfiguration = new ConnectorsAutoConfiguration();
     ExpressionManager expressionManager = new ExpressionManager();
 
     // Act and Assert
-    assertFalse(connectorsAutoConfiguration.expressionResolver(expressionManager, new ObjectMapper())
-        .containsExpression("Source"));
-  }
-
-  /**
-   * Test
-   * {@link ConnectorsAutoConfiguration#expressionResolver(ExpressionManager, ObjectMapper)}.
-   * <ul>
-   *   <li>When {@link ExpressionManager}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ConnectorsAutoConfiguration#expressionResolver(ExpressionManager, ObjectMapper)}
-   */
-  @Test
-  @DisplayName("Test expressionResolver(ExpressionManager, ObjectMapper); when ExpressionManager")
-  void testExpressionResolver_whenExpressionManager2() {
-    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
-
-    // Arrange
-    ConnectorsAutoConfiguration connectorsAutoConfiguration = new ConnectorsAutoConfiguration();
-    ExpressionManager expressionManager = mock(ExpressionManager.class);
-
-    // Act and Assert
-    assertFalse(connectorsAutoConfiguration.expressionResolver(expressionManager, new ObjectMapper())
+    assertFalse(connectorsAutoConfiguration
+        .expressionResolver(expressionManager, JsonMapper.builder().findAndAddModules().build())
         .containsExpression("Source"));
   }
 }

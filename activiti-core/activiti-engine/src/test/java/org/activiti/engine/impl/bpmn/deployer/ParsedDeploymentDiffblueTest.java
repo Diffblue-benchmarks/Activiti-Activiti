@@ -18,18 +18,19 @@ package org.activiti.engine.impl.bpmn.deployer;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiFunction;
 import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.persistence.entity.DeploymentEntity;
 import org.activiti.engine.impl.persistence.entity.DeploymentEntityImpl;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ParsedDeploymentDiffblueTest {
   /**
@@ -37,13 +38,15 @@ public class ParsedDeploymentDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link ParsedDeployment#ParsedDeployment(DeploymentEntity, List, Map, Map)}
+   *   <li>{@link ParsedDeployment#ParsedDeployment(DeploymentEntity, List, Map, Map)}
    *   <li>{@link ParsedDeployment#getAllProcessDefinitions()}
    *   <li>{@link ParsedDeployment#getDeployment()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ParsedDeployment.<init>(DeploymentEntity, List, Map, Map)",
+      "List ParsedDeployment.getAllProcessDefinitions()", "DeploymentEntity ParsedDeployment.getDeployment()"})
   public void testGettersAndSetters() {
     // Arrange
     DeploymentEntityImpl entity = new DeploymentEntityImpl();
@@ -65,13 +68,14 @@ public class ParsedDeploymentDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ParsedDeployment#getResourceForProcessDefinition(ProcessDefinitionEntity)}.
+   * Test {@link ParsedDeployment#getResourceForProcessDefinition(ProcessDefinitionEntity)}.
    * <p>
-   * Method under test:
-   * {@link ParsedDeployment#getResourceForProcessDefinition(ProcessDefinitionEntity)}
+   * Method under test: {@link ParsedDeployment#getResourceForProcessDefinition(ProcessDefinitionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.persistence.entity.ResourceEntity ParsedDeployment.getResourceForProcessDefinition(ProcessDefinitionEntity)"})
   public void testGetResourceForProcessDefinition() {
     // Arrange
     DeploymentEntityImpl entity = new DeploymentEntityImpl();
@@ -85,34 +89,13 @@ public class ParsedDeploymentDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ParsedDeployment#getResourceForProcessDefinition(ProcessDefinitionEntity)}.
+   * Test {@link ParsedDeployment#getBpmnParseForProcessDefinition(ProcessDefinitionEntity)}.
    * <p>
-   * Method under test:
-   * {@link ParsedDeployment#getResourceForProcessDefinition(ProcessDefinitionEntity)}
+   * Method under test: {@link ParsedDeployment#getBpmnParseForProcessDefinition(ProcessDefinitionEntity)}
    */
   @Test
-  public void testGetResourceForProcessDefinition2() {
-    // Arrange
-    HashMap<ProcessDefinitionEntity, BpmnParse> mapProcessDefinitionsToParses = new HashMap<>();
-    mapProcessDefinitionsToParses.computeIfPresent(new ProcessDefinitionEntityImpl(), mock(BiFunction.class));
-    DeploymentEntityImpl entity = new DeploymentEntityImpl();
-    ArrayList<ProcessDefinitionEntity> processDefinitions = new ArrayList<>();
-    ParsedDeployment parsedDeployment = new ParsedDeployment(entity, processDefinitions, mapProcessDefinitionsToParses,
-        new HashMap<>());
-
-    // Act and Assert
-    assertNull(parsedDeployment.getResourceForProcessDefinition(new ProcessDefinitionEntityImpl()));
-  }
-
-  /**
-   * Test
-   * {@link ParsedDeployment#getBpmnParseForProcessDefinition(ProcessDefinitionEntity)}.
-   * <p>
-   * Method under test:
-   * {@link ParsedDeployment#getBpmnParseForProcessDefinition(ProcessDefinitionEntity)}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"BpmnParse ParsedDeployment.getBpmnParseForProcessDefinition(ProcessDefinitionEntity)"})
   public void testGetBpmnParseForProcessDefinition() {
     // Arrange
     DeploymentEntityImpl entity = new DeploymentEntityImpl();
@@ -126,34 +109,14 @@ public class ParsedDeploymentDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ParsedDeployment#getBpmnParseForProcessDefinition(ProcessDefinitionEntity)}.
+   * Test {@link ParsedDeployment#getBpmnModelForProcessDefinition(ProcessDefinitionEntity)}.
    * <p>
-   * Method under test:
-   * {@link ParsedDeployment#getBpmnParseForProcessDefinition(ProcessDefinitionEntity)}
+   * Method under test: {@link ParsedDeployment#getBpmnModelForProcessDefinition(ProcessDefinitionEntity)}
    */
   @Test
-  public void testGetBpmnParseForProcessDefinition2() {
-    // Arrange
-    HashMap<ProcessDefinitionEntity, BpmnParse> mapProcessDefinitionsToParses = new HashMap<>();
-    mapProcessDefinitionsToParses.computeIfPresent(new ProcessDefinitionEntityImpl(), mock(BiFunction.class));
-    DeploymentEntityImpl entity = new DeploymentEntityImpl();
-    ArrayList<ProcessDefinitionEntity> processDefinitions = new ArrayList<>();
-    ParsedDeployment parsedDeployment = new ParsedDeployment(entity, processDefinitions, mapProcessDefinitionsToParses,
-        new HashMap<>());
-
-    // Act and Assert
-    assertNull(parsedDeployment.getBpmnParseForProcessDefinition(new ProcessDefinitionEntityImpl()));
-  }
-
-  /**
-   * Test
-   * {@link ParsedDeployment#getBpmnModelForProcessDefinition(ProcessDefinitionEntity)}.
-   * <p>
-   * Method under test:
-   * {@link ParsedDeployment#getBpmnModelForProcessDefinition(ProcessDefinitionEntity)}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.bpmn.model.BpmnModel ParsedDeployment.getBpmnModelForProcessDefinition(ProcessDefinitionEntity)"})
   public void testGetBpmnModelForProcessDefinition() {
     // Arrange
     DeploymentEntityImpl entity = new DeploymentEntityImpl();
@@ -167,60 +130,19 @@ public class ParsedDeploymentDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ParsedDeployment#getBpmnModelForProcessDefinition(ProcessDefinitionEntity)}.
+   * Test {@link ParsedDeployment#getProcessModelForProcessDefinition(ProcessDefinitionEntity)}.
    * <p>
-   * Method under test:
-   * {@link ParsedDeployment#getBpmnModelForProcessDefinition(ProcessDefinitionEntity)}
+   * Method under test: {@link ParsedDeployment#getProcessModelForProcessDefinition(ProcessDefinitionEntity)}
    */
   @Test
-  public void testGetBpmnModelForProcessDefinition2() {
-    // Arrange
-    HashMap<ProcessDefinitionEntity, BpmnParse> mapProcessDefinitionsToParses = new HashMap<>();
-    mapProcessDefinitionsToParses.computeIfPresent(new ProcessDefinitionEntityImpl(), mock(BiFunction.class));
-    DeploymentEntityImpl entity = new DeploymentEntityImpl();
-    ArrayList<ProcessDefinitionEntity> processDefinitions = new ArrayList<>();
-    ParsedDeployment parsedDeployment = new ParsedDeployment(entity, processDefinitions, mapProcessDefinitionsToParses,
-        new HashMap<>());
-
-    // Act and Assert
-    assertNull(parsedDeployment.getBpmnModelForProcessDefinition(new ProcessDefinitionEntityImpl()));
-  }
-
-  /**
-   * Test
-   * {@link ParsedDeployment#getProcessModelForProcessDefinition(ProcessDefinitionEntity)}.
-   * <p>
-   * Method under test:
-   * {@link ParsedDeployment#getProcessModelForProcessDefinition(ProcessDefinitionEntity)}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.bpmn.model.Process ParsedDeployment.getProcessModelForProcessDefinition(ProcessDefinitionEntity)"})
   public void testGetProcessModelForProcessDefinition() {
     // Arrange
     DeploymentEntityImpl entity = new DeploymentEntityImpl();
     ArrayList<ProcessDefinitionEntity> processDefinitions = new ArrayList<>();
     HashMap<ProcessDefinitionEntity, BpmnParse> mapProcessDefinitionsToParses = new HashMap<>();
-    ParsedDeployment parsedDeployment = new ParsedDeployment(entity, processDefinitions, mapProcessDefinitionsToParses,
-        new HashMap<>());
-
-    // Act and Assert
-    assertNull(parsedDeployment.getProcessModelForProcessDefinition(new ProcessDefinitionEntityImpl()));
-  }
-
-  /**
-   * Test
-   * {@link ParsedDeployment#getProcessModelForProcessDefinition(ProcessDefinitionEntity)}.
-   * <p>
-   * Method under test:
-   * {@link ParsedDeployment#getProcessModelForProcessDefinition(ProcessDefinitionEntity)}
-   */
-  @Test
-  public void testGetProcessModelForProcessDefinition2() {
-    // Arrange
-    HashMap<ProcessDefinitionEntity, BpmnParse> mapProcessDefinitionsToParses = new HashMap<>();
-    mapProcessDefinitionsToParses.computeIfPresent(new ProcessDefinitionEntityImpl(), mock(BiFunction.class));
-    DeploymentEntityImpl entity = new DeploymentEntityImpl();
-    ArrayList<ProcessDefinitionEntity> processDefinitions = new ArrayList<>();
     ParsedDeployment parsedDeployment = new ParsedDeployment(entity, processDefinitions, mapProcessDefinitionsToParses,
         new HashMap<>());
 

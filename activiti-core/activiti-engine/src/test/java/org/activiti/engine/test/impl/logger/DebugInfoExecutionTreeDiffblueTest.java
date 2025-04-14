@@ -18,39 +18,26 @@ package org.activiti.engine.test.impl.logger;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.engine.test.impl.logger.DebugInfoExecutionTree.DebugInfoExecutionTreeNode;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.slf4j.Logger;
-import org.slf4j.event.EventRecordingLogger;
-import org.slf4j.helpers.AbstractLogger;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class DebugInfoExecutionTreeDiffblueTest {
-  @InjectMocks
-  private DebugInfoExecutionTree.DebugInfoExecutionTreeNode debugInfoExecutionTreeNode;
-
   /**
-   * Test DebugInfoExecutionTreeNode
-   * {@link DebugInfoExecutionTreeNode#getCurrentFlowElementInfo()}.
+   * Test DebugInfoExecutionTreeNode {@link DebugInfoExecutionTreeNode#getCurrentFlowElementInfo()}.
    * <p>
-   * Method under test:
-   * {@link DebugInfoExecutionTree.DebugInfoExecutionTreeNode#getCurrentFlowElementInfo()}
+   * Method under test: {@link DebugInfoExecutionTreeNode#getCurrentFlowElementInfo()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String DebugInfoExecutionTreeNode.getCurrentFlowElementInfo()"})
   public void testDebugInfoExecutionTreeNodeGetCurrentFlowElementInfo() {
     // Arrange
-    DebugInfoExecutionTree.DebugInfoExecutionTreeNode debugInfoExecutionTreeNode = new DebugInfoExecutionTree.DebugInfoExecutionTreeNode();
+    DebugInfoExecutionTreeNode debugInfoExecutionTreeNode = new DebugInfoExecutionTreeNode();
     debugInfoExecutionTreeNode.setActivityId(null);
     debugInfoExecutionTreeNode.setActivityName("foo");
 
@@ -59,16 +46,16 @@ public class DebugInfoExecutionTreeDiffblueTest {
   }
 
   /**
-   * Test DebugInfoExecutionTreeNode
-   * {@link DebugInfoExecutionTreeNode#getCurrentFlowElementInfo()}.
+   * Test DebugInfoExecutionTreeNode {@link DebugInfoExecutionTreeNode#getCurrentFlowElementInfo()}.
    * <p>
-   * Method under test:
-   * {@link DebugInfoExecutionTree.DebugInfoExecutionTreeNode#getCurrentFlowElementInfo()}
+   * Method under test: {@link DebugInfoExecutionTreeNode#getCurrentFlowElementInfo()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String DebugInfoExecutionTreeNode.getCurrentFlowElementInfo()"})
   public void testDebugInfoExecutionTreeNodeGetCurrentFlowElementInfo2() {
     // Arrange
-    DebugInfoExecutionTree.DebugInfoExecutionTreeNode debugInfoExecutionTreeNode = new DebugInfoExecutionTree.DebugInfoExecutionTreeNode();
+    DebugInfoExecutionTreeNode debugInfoExecutionTreeNode = new DebugInfoExecutionTreeNode();
     debugInfoExecutionTreeNode.setActivityId("foo");
     debugInfoExecutionTreeNode.setActivityName(null);
 
@@ -77,19 +64,19 @@ public class DebugInfoExecutionTreeDiffblueTest {
   }
 
   /**
-   * Test DebugInfoExecutionTreeNode
-   * {@link DebugInfoExecutionTreeNode#getCurrentFlowElementInfo()}.
+   * Test DebugInfoExecutionTreeNode {@link DebugInfoExecutionTreeNode#getCurrentFlowElementInfo()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DebugInfoExecutionTree.DebugInfoExecutionTreeNode#getCurrentFlowElementInfo()}
+   * Method under test: {@link DebugInfoExecutionTreeNode#getCurrentFlowElementInfo()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String DebugInfoExecutionTreeNode.getCurrentFlowElementInfo()"})
   public void testDebugInfoExecutionTreeNodeGetCurrentFlowElementInfo_thenReturnNull() {
     // Arrange, Act and Assert
-    assertEquals("null", (new DebugInfoExecutionTree.DebugInfoExecutionTreeNode()).getCurrentFlowElementInfo());
+    assertEquals("null", (new DebugInfoExecutionTreeNode()).getCurrentFlowElementInfo());
   }
 
   /**
@@ -97,50 +84,51 @@ public class DebugInfoExecutionTreeDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of
-   * {@link DebugInfoExecutionTree.DebugInfoExecutionTreeNode}
-   *   <li>
-   * {@link DebugInfoExecutionTree.DebugInfoExecutionTreeNode#setActivityId(String)}
-   *   <li>
-   * {@link DebugInfoExecutionTree.DebugInfoExecutionTreeNode#setActivityName(String)}
-   *   <li>
-   * {@link DebugInfoExecutionTree.DebugInfoExecutionTreeNode#setChildNodes(List)}
-   *   <li>{@link DebugInfoExecutionTree.DebugInfoExecutionTreeNode#setId(String)}
-   *   <li>
-   * {@link DebugInfoExecutionTree.DebugInfoExecutionTreeNode#setParentNode(DebugInfoExecutionTree.DebugInfoExecutionTreeNode)}
-   *   <li>
-   * {@link DebugInfoExecutionTree.DebugInfoExecutionTreeNode#setProcessDefinitionId(String)}
-   *   <li>{@link DebugInfoExecutionTree.DebugInfoExecutionTreeNode#getActivityId()}
-   *   <li>
-   * {@link DebugInfoExecutionTree.DebugInfoExecutionTreeNode#getActivityName()}
-   *   <li>{@link DebugInfoExecutionTree.DebugInfoExecutionTreeNode#getChildNodes()}
-   *   <li>{@link DebugInfoExecutionTree.DebugInfoExecutionTreeNode#getId()}
-   *   <li>{@link DebugInfoExecutionTree.DebugInfoExecutionTreeNode#getParentNode()}
-   *   <li>
-   * {@link DebugInfoExecutionTree.DebugInfoExecutionTreeNode#getProcessDefinitionId()}
+   *   <li>default or parameterless constructor of {@link DebugInfoExecutionTreeNode}
+   *   <li>{@link DebugInfoExecutionTreeNode#setActivityId(String)}
+   *   <li>{@link DebugInfoExecutionTreeNode#setActivityName(String)}
+   *   <li>{@link DebugInfoExecutionTreeNode#setChildNodes(List)}
+   *   <li>{@link DebugInfoExecutionTreeNode#setId(String)}
+   *   <li>{@link DebugInfoExecutionTreeNode#setParentNode(DebugInfoExecutionTreeNode)}
+   *   <li>{@link DebugInfoExecutionTreeNode#setProcessDefinitionId(String)}
+   *   <li>{@link DebugInfoExecutionTreeNode#getActivityId()}
+   *   <li>{@link DebugInfoExecutionTreeNode#getActivityName()}
+   *   <li>{@link DebugInfoExecutionTreeNode#getChildNodes()}
+   *   <li>{@link DebugInfoExecutionTreeNode#getId()}
+   *   <li>{@link DebugInfoExecutionTreeNode#getParentNode()}
+   *   <li>{@link DebugInfoExecutionTreeNode#getProcessDefinitionId()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DebugInfoExecutionTreeNode.<init>()", "String DebugInfoExecutionTreeNode.getActivityId()",
+      "String DebugInfoExecutionTreeNode.getActivityName()", "List DebugInfoExecutionTreeNode.getChildNodes()",
+      "String DebugInfoExecutionTreeNode.getId()",
+      "DebugInfoExecutionTreeNode DebugInfoExecutionTreeNode.getParentNode()",
+      "String DebugInfoExecutionTreeNode.getProcessDefinitionId()",
+      "void DebugInfoExecutionTreeNode.setActivityId(String)",
+      "void DebugInfoExecutionTreeNode.setActivityName(String)", "void DebugInfoExecutionTreeNode.setChildNodes(List)",
+      "void DebugInfoExecutionTreeNode.setId(String)",
+      "void DebugInfoExecutionTreeNode.setParentNode(DebugInfoExecutionTreeNode)",
+      "void DebugInfoExecutionTreeNode.setProcessDefinitionId(String)"})
   public void testDebugInfoExecutionTreeNodeGettersAndSetters() {
     // Arrange and Act
-    DebugInfoExecutionTree.DebugInfoExecutionTreeNode actualDebugInfoExecutionTreeNode = new DebugInfoExecutionTree.DebugInfoExecutionTreeNode();
+    DebugInfoExecutionTreeNode actualDebugInfoExecutionTreeNode = new DebugInfoExecutionTreeNode();
     actualDebugInfoExecutionTreeNode.setActivityId("42");
     actualDebugInfoExecutionTreeNode.setActivityName("Activity Name");
-    ArrayList<DebugInfoExecutionTree.DebugInfoExecutionTreeNode> childNodes = new ArrayList<>();
+    ArrayList<DebugInfoExecutionTreeNode> childNodes = new ArrayList<>();
     actualDebugInfoExecutionTreeNode.setChildNodes(childNodes);
     actualDebugInfoExecutionTreeNode.setId("42");
-    DebugInfoExecutionTree.DebugInfoExecutionTreeNode parentNode = new DebugInfoExecutionTree.DebugInfoExecutionTreeNode();
+    DebugInfoExecutionTreeNode parentNode = new DebugInfoExecutionTreeNode();
     actualDebugInfoExecutionTreeNode.setParentNode(parentNode);
     actualDebugInfoExecutionTreeNode.setProcessDefinitionId("42");
     String actualActivityId = actualDebugInfoExecutionTreeNode.getActivityId();
     String actualActivityName = actualDebugInfoExecutionTreeNode.getActivityName();
-    List<DebugInfoExecutionTree.DebugInfoExecutionTreeNode> actualChildNodes = actualDebugInfoExecutionTreeNode
-        .getChildNodes();
+    List<DebugInfoExecutionTreeNode> actualChildNodes = actualDebugInfoExecutionTreeNode.getChildNodes();
     String actualId = actualDebugInfoExecutionTreeNode.getId();
-    DebugInfoExecutionTree.DebugInfoExecutionTreeNode actualParentNode = actualDebugInfoExecutionTreeNode
-        .getParentNode();
+    DebugInfoExecutionTreeNode actualParentNode = actualDebugInfoExecutionTreeNode.getParentNode();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualActivityId);
     assertEquals("42", actualId);
     assertEquals("42", actualDebugInfoExecutionTreeNode.getProcessDefinitionId());
@@ -152,121 +140,27 @@ public class DebugInfoExecutionTreeDiffblueTest {
   }
 
   /**
-   * Test DebugInfoExecutionTreeNode
-   * {@link DebugInfoExecutionTreeNode#print(Logger)} with {@code logger}.
-   * <p>
-   * Method under test:
-   * {@link DebugInfoExecutionTree.DebugInfoExecutionTreeNode#print(Logger)}
-   */
-  @Test
-  public void testDebugInfoExecutionTreeNodePrintWithLogger() {
-    // Arrange
-    ArrayList<DebugInfoExecutionTree.DebugInfoExecutionTreeNode> childNodes = new ArrayList<>();
-    childNodes.add(new DebugInfoExecutionTree.DebugInfoExecutionTreeNode());
-
-    DebugInfoExecutionTree.DebugInfoExecutionTreeNode debugInfoExecutionTreeNode = new DebugInfoExecutionTree.DebugInfoExecutionTreeNode();
-    debugInfoExecutionTreeNode.setChildNodes(childNodes);
-    EventRecordingLogger logger = mock(EventRecordingLogger.class);
-    doNothing().when(logger).info(Mockito.<String>any());
-
-    // Act
-    debugInfoExecutionTreeNode.print(logger);
-
-    // Assert
-    verify(logger, atLeast(1)).info(Mockito.<String>any());
-  }
-
-  /**
-   * Test DebugInfoExecutionTreeNode
-   * {@link DebugInfoExecutionTreeNode#print(Logger, String, boolean)} with
-   * {@code logger}, {@code prefix}, {@code isTail}.
-   * <ul>
-   *   <li>Then calls {@link AbstractLogger#info(String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link DebugInfoExecutionTree.DebugInfoExecutionTreeNode#print(Logger, String, boolean)}
-   */
-  @Test
-  public void testDebugInfoExecutionTreeNodePrintWithLoggerPrefixIsTail_thenCallsInfo() {
-    // Arrange
-    EventRecordingLogger logger = mock(EventRecordingLogger.class);
-    doNothing().when(logger).info(Mockito.<String>any());
-
-    // Act
-    debugInfoExecutionTreeNode.print(logger, "Prefix", true);
-
-    // Assert
-    verify(logger).info(eq("Prefix└── null"));
-  }
-
-  /**
-   * Test DebugInfoExecutionTreeNode
-   * {@link DebugInfoExecutionTreeNode#print(Logger, String, boolean)} with
-   * {@code logger}, {@code prefix}, {@code isTail}.
-   * <ul>
-   *   <li>When {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link DebugInfoExecutionTree.DebugInfoExecutionTreeNode#print(Logger, String, boolean)}
-   */
-  @Test
-  public void testDebugInfoExecutionTreeNodePrintWithLoggerPrefixIsTail_whenFalse() {
-    // Arrange
-    EventRecordingLogger logger = mock(EventRecordingLogger.class);
-    doNothing().when(logger).info(Mockito.<String>any());
-
-    // Act
-    debugInfoExecutionTreeNode.print(logger, "Prefix", false);
-
-    // Assert
-    verify(logger).info(eq("Prefix├── null"));
-  }
-
-  /**
-   * Test DebugInfoExecutionTreeNode
-   * {@link DebugInfoExecutionTreeNode#print(Logger)} with {@code logger}.
-   * <ul>
-   *   <li>Then calls {@link AbstractLogger#info(String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link DebugInfoExecutionTree.DebugInfoExecutionTreeNode#print(Logger)}
-   */
-  @Test
-  public void testDebugInfoExecutionTreeNodePrintWithLogger_thenCallsInfo() {
-    // Arrange
-    DebugInfoExecutionTree.DebugInfoExecutionTreeNode debugInfoExecutionTreeNode = new DebugInfoExecutionTree.DebugInfoExecutionTreeNode();
-    EventRecordingLogger logger = mock(EventRecordingLogger.class);
-    doNothing().when(logger).info(Mockito.<String>any());
-
-    // Act
-    debugInfoExecutionTreeNode.print(logger);
-
-    // Assert that nothing has changed
-    verify(logger, atLeast(1)).info(Mockito.<String>any());
-  }
-
-  /**
    * Test getters and setters.
    * <p>
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link DebugInfoExecutionTree}
-   *   <li>
-   * {@link DebugInfoExecutionTree#setProcessInstance(DebugInfoExecutionTree.DebugInfoExecutionTreeNode)}
+   *   <li>{@link DebugInfoExecutionTree#setProcessInstance(DebugInfoExecutionTreeNode)}
    *   <li>{@link DebugInfoExecutionTree#getProcessInstance()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DebugInfoExecutionTree.<init>()",
+      "DebugInfoExecutionTreeNode DebugInfoExecutionTree.getProcessInstance()",
+      "void DebugInfoExecutionTree.setProcessInstance(DebugInfoExecutionTreeNode)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     DebugInfoExecutionTree actualDebugInfoExecutionTree = new DebugInfoExecutionTree();
-    DebugInfoExecutionTree.DebugInfoExecutionTreeNode processInstance = new DebugInfoExecutionTree.DebugInfoExecutionTreeNode();
+    DebugInfoExecutionTreeNode processInstance = new DebugInfoExecutionTreeNode();
     actualDebugInfoExecutionTree.setProcessInstance(processInstance);
 
-    // Assert that nothing has changed
+    // Assert
     assertSame(processInstance, actualDebugInfoExecutionTree.getProcessInstance());
   }
 }

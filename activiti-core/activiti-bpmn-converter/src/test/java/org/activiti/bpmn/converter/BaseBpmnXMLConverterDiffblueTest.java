@@ -19,12 +19,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.anyBoolean;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import ch.qos.logback.core.util.COWArrayList;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +40,7 @@ import org.activiti.bpmn.model.CancelEventDefinition;
 import org.activiti.bpmn.model.CompensateEventDefinition;
 import org.activiti.bpmn.model.ErrorEventDefinition;
 import org.activiti.bpmn.model.Event;
+import org.activiti.bpmn.model.EventDefinition;
 import org.activiti.bpmn.model.ExtensionAttribute;
 import org.activiti.bpmn.model.ExtensionElement;
 import org.activiti.bpmn.model.FlowElement;
@@ -52,24 +54,24 @@ import org.activiti.bpmn.model.ThrowEvent;
 import org.activiti.bpmn.model.TimerEventDefinition;
 import org.activiti.bpmn.model.UserTask;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class BaseBpmnXMLConverterDiffblueTest {
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#convertToXML(XMLStreamWriter, BaseElement, BpmnModel)}.
+   * Test {@link BaseBpmnXMLConverter#convertToXML(XMLStreamWriter, BaseElement, BpmnModel)}.
    * <ul>
    *   <li>When {@link Association} (default constructor).</li>
-   *   <li>Then calls
-   * {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}.</li>
+   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#convertToXML(XMLStreamWriter, BaseElement, BpmnModel)}
+   * Method under test: {@link BaseBpmnXMLConverter#convertToXML(XMLStreamWriter, BaseElement, BpmnModel)}
    */
   @Test
   @DisplayName("Test convertToXML(XMLStreamWriter, BaseElement, BpmnModel); when Association (default constructor); then calls writeAttribute(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.convertToXML(XMLStreamWriter, BaseElement, BpmnModel)"})
   void testConvertToXML_whenAssociation_thenCallsWriteAttribute() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -82,25 +84,25 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.convertToXML(xtw, baseElement, new BpmnModel());
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("associationDirection"), eq("None"));
     verify(xtw).writeEndElement();
     verify(xtw).writeStartElement(eq("bpmn2"), eq("association"), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}.
    * <ul>
    *   <li>When {@code false}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter); when 'false'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BaseBpmnXMLConverter.writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)"})
   void testWriteExtensionChildElements_whenFalse_thenReturnFalse() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -112,18 +114,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}.
    * <ul>
    *   <li>When {@code true}.</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter); when 'true'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BaseBpmnXMLConverter.writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)"})
   void testWriteExtensionChildElements_whenTrue_thenReturnTrue() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -144,6 +146,8 @@ class BaseBpmnXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName("Test parseDelimitedList(String); when empty string; then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List BaseBpmnXMLConverter.parseDelimitedList(String)"})
   void testParseDelimitedList_whenEmptyString_thenReturnEmpty() {
     // Arrange, Act and Assert
     assertTrue((new AssociationXMLConverter()).parseDelimitedList("").isEmpty());
@@ -160,6 +164,8 @@ class BaseBpmnXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName("Test parseDelimitedList(String); when 'Expression'; then return size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List BaseBpmnXMLConverter.parseDelimitedList(String)"})
   void testParseDelimitedList_whenExpression_thenReturnSizeIsOne() {
     // Arrange and Act
     List<String> actualParseDelimitedListResult = (new AssociationXMLConverter()).parseDelimitedList("Expression");
@@ -180,6 +186,8 @@ class BaseBpmnXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName("Test parseDelimitedList(String); when 'null'; then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List BaseBpmnXMLConverter.parseDelimitedList(String)"})
   void testParseDelimitedList_whenNull_thenReturnEmpty() {
     // Arrange, Act and Assert
     assertTrue((new AssociationXMLConverter()).parseDelimitedList(null).isEmpty());
@@ -193,11 +201,12 @@ class BaseBpmnXMLConverterDiffblueTest {
    *   <li>Then return {@code 42,foo}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#convertToDelimitedString(List)}
+   * Method under test: {@link BaseBpmnXMLConverter#convertToDelimitedString(List)}
    */
   @Test
   @DisplayName("Test convertToDelimitedString(List); given '42'; when ArrayList() add '42'; then return '42,foo'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String BaseBpmnXMLConverter.convertToDelimitedString(List)"})
   void testConvertToDelimitedString_given42_whenArrayListAdd42_thenReturn42Foo() {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -213,73 +222,16 @@ class BaseBpmnXMLConverterDiffblueTest {
   /**
    * Test {@link BaseBpmnXMLConverter#convertToDelimitedString(List)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@code 42}.</li>
-   *   <li>Then return {@code 42,foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#convertToDelimitedString(List)}
-   */
-  @Test
-  @DisplayName("Test convertToDelimitedString(List); given ArrayList() add '42'; then return '42,foo'")
-  void testConvertToDelimitedString_givenArrayListAdd42_thenReturn42Foo() {
-    // Arrange
-    AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
-
-    ArrayList<String> stringList = new ArrayList<>();
-    stringList.add("42");
-    stringList.add("foo");
-    COWArrayList<String> stringList2 = mock(COWArrayList.class);
-    when(stringList2.iterator()).thenReturn(stringList.iterator());
-
-    // Act
-    String actualConvertToDelimitedStringResult = associationXMLConverter.convertToDelimitedString(stringList2);
-
-    // Assert
-    verify(stringList2).iterator();
-    assertEquals("42,foo", actualConvertToDelimitedStringResult);
-  }
-
-  /**
-   * Test {@link BaseBpmnXMLConverter#convertToDelimitedString(List)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} iterator.</li>
-   *   <li>Then calls {@link COWArrayList#iterator()}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#convertToDelimitedString(List)}
-   */
-  @Test
-  @DisplayName("Test convertToDelimitedString(List); given ArrayList() iterator; then calls iterator()")
-  void testConvertToDelimitedString_givenArrayListIterator_thenCallsIterator() {
-    // Arrange
-    AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
-    COWArrayList<String> stringList = mock(COWArrayList.class);
-
-    ArrayList<String> stringList2 = new ArrayList<>();
-    when(stringList.iterator()).thenReturn(stringList2.iterator());
-
-    // Act
-    String actualConvertToDelimitedStringResult = associationXMLConverter.convertToDelimitedString(stringList);
-
-    // Assert
-    verify(stringList).iterator();
-    assertEquals("", actualConvertToDelimitedStringResult);
-  }
-
-  /**
-   * Test {@link BaseBpmnXMLConverter#convertToDelimitedString(List)}.
-   * <ul>
    *   <li>Given {@code String List}.</li>
    *   <li>Then return {@code String List}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#convertToDelimitedString(List)}
+   * Method under test: {@link BaseBpmnXMLConverter#convertToDelimitedString(List)}
    */
   @Test
   @DisplayName("Test convertToDelimitedString(List); given 'String List'; then return 'String List'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String BaseBpmnXMLConverter.convertToDelimitedString(List)"})
   void testConvertToDelimitedString_givenStringList_thenReturnStringList() {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -298,11 +250,12 @@ class BaseBpmnXMLConverterDiffblueTest {
    *   <li>Then return empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#convertToDelimitedString(List)}
+   * Method under test: {@link BaseBpmnXMLConverter#convertToDelimitedString(List)}
    */
   @Test
   @DisplayName("Test convertToDelimitedString(List); when ArrayList(); then return empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String BaseBpmnXMLConverter.convertToDelimitedString(List)"})
   void testConvertToDelimitedString_whenArrayList_thenReturnEmptyString() {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -318,38 +271,67 @@ class BaseBpmnXMLConverterDiffblueTest {
    *   <li>Then return empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#convertToDelimitedString(List)}
+   * Method under test: {@link BaseBpmnXMLConverter#convertToDelimitedString(List)}
    */
   @Test
   @DisplayName("Test convertToDelimitedString(List); when 'null'; then return empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String BaseBpmnXMLConverter.convertToDelimitedString(List)"})
   void testConvertToDelimitedString_whenNull_thenReturnEmptyString() {
     // Arrange, Act and Assert
     assertEquals("", (new AssociationXMLConverter()).convertToDelimitedString(null));
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeFormProperties(FlowElement, boolean, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeFormProperties(FlowElement, boolean, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FormValue} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()}.</li>
+   *   <li>When {@code false}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeFormProperties(FlowElement, boolean, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeFormProperties(FlowElement, boolean, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeFormProperties(FlowElement, boolean, XMLStreamWriter); given ArrayList() add FormValue (default constructor); then return 'false'")
-  void testWriteFormProperties_givenArrayListAddFormValue_thenReturnFalse() throws Exception {
+  @DisplayName("Test writeFormProperties(FlowElement, boolean, XMLStreamWriter); given ArrayList(); when 'false'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BaseBpmnXMLConverter.writeFormProperties(FlowElement, boolean, XMLStreamWriter)"})
+  void testWriteFormProperties_givenArrayList_whenFalse_thenReturnFalse() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
 
+    UserTask flowElement = new UserTask();
+    flowElement.setFormProperties(new ArrayList<>());
+
+    // Act and Assert
+    assertFalse(associationXMLConverter.writeFormProperties(flowElement, false, new IndentingXMLStreamWriter(null)));
+  }
+
+  /**
+   * Test {@link BaseBpmnXMLConverter#writeFormProperties(FlowElement, boolean, XMLStreamWriter)}.
+   * <ul>
+   *   <li>Given {@link FormProperty} (default constructor) Id is empty string.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnXMLConverter#writeFormProperties(FlowElement, boolean, XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName("Test writeFormProperties(FlowElement, boolean, XMLStreamWriter); given FormProperty (default constructor) Id is empty string; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BaseBpmnXMLConverter.writeFormProperties(FlowElement, boolean, XMLStreamWriter)"})
+  void testWriteFormProperties_givenFormPropertyIdIsEmptyString_thenReturnFalse() throws Exception {
+    // Arrange
+    AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
+
+    FormValue formValue = new FormValue();
+    formValue.setId("not empty");
+
     ArrayList<FormValue> formValues = new ArrayList<>();
-    formValues.add(new FormValue());
+    formValues.add(formValue);
 
     FormProperty formProperty = new FormProperty();
+    formProperty.setId("");
     formProperty.setReadable(false);
     formProperty.setWriteable(false);
     formProperty.setRequired(false);
@@ -366,43 +348,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeFormProperties(FlowElement, boolean, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeFormProperties(FlowElement, boolean, XMLStreamWriter)}
-   */
-  @Test
-  @DisplayName("Test writeFormProperties(FlowElement, boolean, XMLStreamWriter); given ArrayList(); then return 'false'")
-  void testWriteFormProperties_givenArrayList_thenReturnFalse() throws Exception {
-    // Arrange
-    AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
-
-    UserTask flowElement = new UserTask();
-    flowElement.setFormProperties(new ArrayList<>());
-
-    // Act and Assert
-    assertFalse(associationXMLConverter.writeFormProperties(flowElement, false, new IndentingXMLStreamWriter(null)));
-  }
-
-  /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeFormProperties(FlowElement, boolean, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeFormProperties(FlowElement, boolean, XMLStreamWriter)}.
    * <ul>
    *   <li>Given {@code null}.</li>
-   *   <li>When {@link StartEvent} (default constructor) FormProperties is
-   * {@code null}.</li>
+   *   <li>When {@link StartEvent} (default constructor) FormProperties is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeFormProperties(FlowElement, boolean, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeFormProperties(FlowElement, boolean, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeFormProperties(FlowElement, boolean, XMLStreamWriter); given 'null'; when StartEvent (default constructor) FormProperties is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BaseBpmnXMLConverter.writeFormProperties(FlowElement, boolean, XMLStreamWriter)"})
   void testWriteFormProperties_givenNull_whenStartEventFormPropertiesIsNull() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -415,19 +372,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeFormProperties(FlowElement, boolean, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeFormProperties(FlowElement, boolean, XMLStreamWriter)}.
    * <ul>
    *   <li>Given {@code null}.</li>
-   *   <li>When {@link UserTask} (default constructor) FormProperties is
-   * {@code null}.</li>
+   *   <li>When {@link UserTask} (default constructor) FormProperties is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeFormProperties(FlowElement, boolean, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeFormProperties(FlowElement, boolean, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeFormProperties(FlowElement, boolean, XMLStreamWriter); given 'null'; when UserTask (default constructor) FormProperties is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BaseBpmnXMLConverter.writeFormProperties(FlowElement, boolean, XMLStreamWriter)"})
   void testWriteFormProperties_givenNull_whenUserTaskFormPropertiesIsNull() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -440,18 +396,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeFormProperties(FlowElement, boolean, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeFormProperties(FlowElement, boolean, XMLStreamWriter)}.
    * <ul>
    *   <li>When {@link AdhocSubProcess} (default constructor).</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeFormProperties(FlowElement, boolean, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeFormProperties(FlowElement, boolean, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeFormProperties(FlowElement, boolean, XMLStreamWriter); when AdhocSubProcess (default constructor); then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BaseBpmnXMLConverter.writeFormProperties(FlowElement, boolean, XMLStreamWriter)"})
   void testWriteFormProperties_whenAdhocSubProcess_thenReturnTrue() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -462,18 +418,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeListeners(BaseElement, boolean, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeListeners(BaseElement, boolean, XMLStreamWriter)}.
    * <ul>
    *   <li>When {@link ActivitiListener} (default constructor).</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeListeners(BaseElement, boolean, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeListeners(BaseElement, boolean, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeListeners(BaseElement, boolean, XMLStreamWriter); when ActivitiListener (default constructor); then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BaseBpmnXMLConverter.writeListeners(BaseElement, boolean, XMLStreamWriter)"})
   void testWriteListeners_whenActivitiListener_thenReturnTrue() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -484,18 +440,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeListeners(BaseElement, boolean, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeListeners(BaseElement, boolean, XMLStreamWriter)}.
    * <ul>
    *   <li>When {@link AdhocSubProcess} (default constructor).</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeListeners(BaseElement, boolean, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeListeners(BaseElement, boolean, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeListeners(BaseElement, boolean, XMLStreamWriter); when AdhocSubProcess (default constructor); then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BaseBpmnXMLConverter.writeListeners(BaseElement, boolean, XMLStreamWriter)"})
   void testWriteListeners_whenAdhocSubProcess_thenReturnTrue() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -506,18 +462,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeListeners(BaseElement, boolean, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeListeners(BaseElement, boolean, XMLStreamWriter)}.
    * <ul>
    *   <li>When {@code false}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeListeners(BaseElement, boolean, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeListeners(BaseElement, boolean, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeListeners(BaseElement, boolean, XMLStreamWriter); when 'false'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BaseBpmnXMLConverter.writeListeners(BaseElement, boolean, XMLStreamWriter)"})
   void testWriteListeners_whenFalse_thenReturnFalse() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -528,14 +484,877 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)}.
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName("Test writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)"})
+  void testWriteEventDefinitions() throws Exception {
+    // Arrange
+    AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
+    ThrowEvent parentEvent = new ThrowEvent();
+    TerminateEventDefinition terminateEventDefinition = mock(TerminateEventDefinition.class);
+    when(terminateEventDefinition.isTerminateAll()).thenReturn(true);
+    when(terminateEventDefinition.isTerminateMultiInstance()).thenReturn(false);
+    when(terminateEventDefinition.getExtensionElements()).thenReturn(new HashMap<>());
+    doNothing().when(terminateEventDefinition).setTerminateAll(anyBoolean());
+    doNothing().when(terminateEventDefinition).setTerminateMultiInstance(anyBoolean());
+    terminateEventDefinition.setTerminateAll(false);
+    terminateEventDefinition.setTerminateMultiInstance(false);
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(terminateEventDefinition);
+    BpmnModel model = new BpmnModel();
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer)
+        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+
+    // Act
+    associationXMLConverter.writeEventDefinitions(parentEvent, eventDefinitions, model,
+        new IndentingXMLStreamWriter(writer));
+
+    // Assert
+    verify(writer).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("terminateAll"), eq("true"));
+    verify(writer).writeEndElement();
+    verify(writer).writeStartElement(eq("terminateEventDefinition"));
+    verify(terminateEventDefinition).getExtensionElements();
+    verify(terminateEventDefinition).isTerminateAll();
+    verify(terminateEventDefinition).isTerminateMultiInstance();
+    verify(terminateEventDefinition).setTerminateAll(eq(false));
+    verify(terminateEventDefinition).setTerminateMultiInstance(eq(false));
+  }
+
+  /**
+   * Test {@link BaseBpmnXMLConverter#writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)}.
+   * <p>
+   * Method under test: {@link BaseBpmnXMLConverter#writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName("Test writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)"})
+  void testWriteEventDefinitions2() throws Exception {
+    // Arrange
+    AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
+    ThrowEvent parentEvent = new ThrowEvent();
+
+    ArrayList<ExtensionAttribute> extensionAttributeList = new ArrayList<>();
+    extensionAttributeList.add(new ExtensionAttribute("terminateEventDefinition"));
+
+    HashMap<String, List<ExtensionAttribute>> stringListMap = new HashMap<>();
+    stringListMap.put("terminateEventDefinition", extensionAttributeList);
+    ExtensionElement extensionElement = mock(ExtensionElement.class);
+    when(extensionElement.getNamespacePrefix()).thenReturn("");
+    when(extensionElement.getElementText()).thenReturn("Element Text");
+    when(extensionElement.getNamespace()).thenReturn("Namespace");
+    when(extensionElement.getAttributes()).thenReturn(stringListMap);
+    when(extensionElement.getName()).thenReturn("Name");
+
+    ArrayList<ExtensionElement> extensionElementList = new ArrayList<>();
+    extensionElementList.add(extensionElement);
+
+    HashMap<String, List<ExtensionElement>> stringListMap2 = new HashMap<>();
+    stringListMap2.put("terminateEventDefinition", extensionElementList);
+    TerminateEventDefinition terminateEventDefinition = mock(TerminateEventDefinition.class);
+    when(terminateEventDefinition.isTerminateAll()).thenReturn(true);
+    when(terminateEventDefinition.isTerminateMultiInstance()).thenReturn(true);
+    when(terminateEventDefinition.getExtensionElements()).thenReturn(stringListMap2);
+    doNothing().when(terminateEventDefinition).setTerminateAll(anyBoolean());
+    doNothing().when(terminateEventDefinition).setTerminateMultiInstance(anyBoolean());
+    terminateEventDefinition.setTerminateAll(false);
+    terminateEventDefinition.setTerminateMultiInstance(false);
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(terminateEventDefinition);
+    BpmnModel model = new BpmnModel();
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer).writeStartElement(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeCData(Mockito.<String>any());
+    doNothing().when(writer).writeCharacters(Mockito.<String>any());
+    doNothing().when(writer)
+        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+
+    // Act
+    associationXMLConverter.writeEventDefinitions(parentEvent, eventDefinitions, model,
+        new IndentingXMLStreamWriter(writer));
+
+    // Assert
+    verify(writer, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
+        eq("true"));
+    verify(writer).writeCData(eq("Element Text"));
+    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(writer, atLeast(1)).writeEndElement();
+    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(writer).writeStartElement(eq("Namespace"), eq("Name"));
+    verify(extensionElement).getAttributes();
+    verify(terminateEventDefinition, atLeast(1)).getExtensionElements();
+    verify(extensionElement, atLeast(1)).getElementText();
+    verify(extensionElement, atLeast(1)).getName();
+    verify(extensionElement, atLeast(1)).getNamespace();
+    verify(extensionElement).getNamespacePrefix();
+    verify(terminateEventDefinition).isTerminateAll();
+    verify(terminateEventDefinition).isTerminateMultiInstance();
+    verify(terminateEventDefinition).setTerminateAll(eq(false));
+    verify(terminateEventDefinition).setTerminateMultiInstance(eq(false));
+  }
+
+  /**
+   * Test {@link BaseBpmnXMLConverter#writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)}.
+   * <p>
+   * Method under test: {@link BaseBpmnXMLConverter#writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName("Test writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)"})
+  void testWriteEventDefinitions3() throws Exception {
+    // Arrange
+    AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
+    ThrowEvent parentEvent = new ThrowEvent();
+    SignalEventDefinition signalEventDefinition = mock(SignalEventDefinition.class);
+    when(signalEventDefinition.isAsync()).thenReturn(true);
+    when(signalEventDefinition.getSignalRef()).thenReturn("");
+    when(signalEventDefinition.getExtensionElements()).thenReturn(new HashMap<>());
+    doNothing().when(signalEventDefinition).setAsync(anyBoolean());
+    signalEventDefinition.setAsync(false);
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(signalEventDefinition);
+    BpmnModel model = new BpmnModel();
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer)
+        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+
+    // Act
+    associationXMLConverter.writeEventDefinitions(parentEvent, eventDefinitions, model,
+        new IndentingXMLStreamWriter(writer));
+
+    // Assert
+    verify(writer).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("async"), eq("true"));
+    verify(writer).writeEndElement();
+    verify(writer).writeStartElement(eq("signalEventDefinition"));
+    verify(signalEventDefinition).getExtensionElements();
+    verify(signalEventDefinition).getSignalRef();
+    verify(signalEventDefinition).isAsync();
+    verify(signalEventDefinition).setAsync(eq(false));
+  }
+
+  /**
+   * Test {@link BaseBpmnXMLConverter#writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)}.
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link ExtensionElement} (default constructor).</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnXMLConverter#writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName("Test writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter); given ArrayList() add ExtensionElement (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)"})
+  void testWriteEventDefinitions_givenArrayListAddExtensionElement() throws Exception {
+    // Arrange
+    AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
+    ThrowEvent parentEvent = new ThrowEvent();
+
+    ArrayList<ExtensionElement> extensionElementList = new ArrayList<>();
+    extensionElementList.add(new ExtensionElement());
+
+    HashMap<String, List<ExtensionElement>> stringListMap = new HashMap<>();
+    stringListMap.put("terminateEventDefinition", extensionElementList);
+    TerminateEventDefinition terminateEventDefinition = mock(TerminateEventDefinition.class);
+    when(terminateEventDefinition.isTerminateAll()).thenReturn(true);
+    when(terminateEventDefinition.isTerminateMultiInstance()).thenReturn(true);
+    when(terminateEventDefinition.getExtensionElements()).thenReturn(stringListMap);
+    doNothing().when(terminateEventDefinition).setTerminateAll(anyBoolean());
+    doNothing().when(terminateEventDefinition).setTerminateMultiInstance(anyBoolean());
+    terminateEventDefinition.setTerminateAll(false);
+    terminateEventDefinition.setTerminateMultiInstance(false);
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(terminateEventDefinition);
+    BpmnModel model = new BpmnModel();
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer).writeCharacters(Mockito.<String>any());
+    doNothing().when(writer)
+        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+
+    // Act
+    associationXMLConverter.writeEventDefinitions(parentEvent, eventDefinitions, model,
+        new IndentingXMLStreamWriter(writer));
+
+    // Assert
+    verify(writer, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
+        eq("true"));
+    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(writer, atLeast(1)).writeEndElement();
+    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(terminateEventDefinition, atLeast(1)).getExtensionElements();
+    verify(terminateEventDefinition).isTerminateAll();
+    verify(terminateEventDefinition).isTerminateMultiInstance();
+    verify(terminateEventDefinition).setTerminateAll(eq(false));
+    verify(terminateEventDefinition).setTerminateMultiInstance(eq(false));
+  }
+
+  /**
+   * Test {@link BaseBpmnXMLConverter#writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)}.
+   * <ul>
+   *   <li>Given {@link ExtensionElement} {@link ExtensionElement#getNamespace()} return empty string.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnXMLConverter#writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName("Test writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter); given ExtensionElement getNamespace() return empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)"})
+  void testWriteEventDefinitions_givenExtensionElementGetNamespaceReturnEmptyString() throws Exception {
+    // Arrange
+    AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
+    ThrowEvent parentEvent = new ThrowEvent();
+    ExtensionElement extensionElement = mock(ExtensionElement.class);
+    when(extensionElement.getElementText()).thenReturn("Element Text");
+    when(extensionElement.getNamespace()).thenReturn("");
+    when(extensionElement.getAttributes()).thenReturn(new HashMap<>());
+    when(extensionElement.getName()).thenReturn("Name");
+
+    ArrayList<ExtensionElement> extensionElementList = new ArrayList<>();
+    extensionElementList.add(extensionElement);
+
+    HashMap<String, List<ExtensionElement>> stringListMap = new HashMap<>();
+    stringListMap.put("terminateEventDefinition", extensionElementList);
+    TerminateEventDefinition terminateEventDefinition = mock(TerminateEventDefinition.class);
+    when(terminateEventDefinition.isTerminateAll()).thenReturn(true);
+    when(terminateEventDefinition.isTerminateMultiInstance()).thenReturn(true);
+    when(terminateEventDefinition.getExtensionElements()).thenReturn(stringListMap);
+    doNothing().when(terminateEventDefinition).setTerminateAll(anyBoolean());
+    doNothing().when(terminateEventDefinition).setTerminateMultiInstance(anyBoolean());
+    terminateEventDefinition.setTerminateAll(false);
+    terminateEventDefinition.setTerminateMultiInstance(false);
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(terminateEventDefinition);
+    BpmnModel model = new BpmnModel();
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer).writeCData(Mockito.<String>any());
+    doNothing().when(writer).writeCharacters(Mockito.<String>any());
+    doNothing().when(writer)
+        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+
+    // Act
+    associationXMLConverter.writeEventDefinitions(parentEvent, eventDefinitions, model,
+        new IndentingXMLStreamWriter(writer));
+
+    // Assert
+    verify(writer, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
+        eq("true"));
+    verify(writer).writeCData(eq("Element Text"));
+    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(writer, atLeast(1)).writeEndElement();
+    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(extensionElement).getAttributes();
+    verify(terminateEventDefinition, atLeast(1)).getExtensionElements();
+    verify(extensionElement, atLeast(1)).getElementText();
+    verify(extensionElement, atLeast(1)).getName();
+    verify(extensionElement).getNamespace();
+    verify(terminateEventDefinition).isTerminateAll();
+    verify(terminateEventDefinition).isTerminateMultiInstance();
+    verify(terminateEventDefinition).setTerminateAll(eq(false));
+    verify(terminateEventDefinition).setTerminateMultiInstance(eq(false));
+  }
+
+  /**
+   * Test {@link BaseBpmnXMLConverter#writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)}.
+   * <ul>
+   *   <li>Given {@link HashMap#HashMap()} {@code signalEventDefinition} is {@link ArrayList#ArrayList()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnXMLConverter#writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName("Test writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter); given HashMap() 'signalEventDefinition' is ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)"})
+  void testWriteEventDefinitions_givenHashMapSignalEventDefinitionIsArrayList() throws Exception {
+    // Arrange
+    AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
+    ThrowEvent parentEvent = new ThrowEvent();
+
+    HashMap<String, List<ExtensionElement>> stringListMap = new HashMap<>();
+    stringListMap.put("signalEventDefinition", new ArrayList<>());
+    SignalEventDefinition signalEventDefinition = mock(SignalEventDefinition.class);
+    when(signalEventDefinition.isAsync()).thenReturn(true);
+    when(signalEventDefinition.getSignalRef()).thenReturn("Signal Ref");
+    when(signalEventDefinition.getExtensionElements()).thenReturn(stringListMap);
+    doNothing().when(signalEventDefinition).setAsync(anyBoolean());
+    signalEventDefinition.setAsync(false);
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(signalEventDefinition);
+    BpmnModel model = new BpmnModel();
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer).writeCharacters(Mockito.<String>any());
+    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer)
+        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+
+    // Act
+    associationXMLConverter.writeEventDefinitions(parentEvent, eventDefinitions, model,
+        new IndentingXMLStreamWriter(writer));
+
+    // Assert
+    verify(writer).writeAttribute(eq("signalRef"), eq("Signal Ref"));
+    verify(writer).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("async"), eq("true"));
+    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(writer, atLeast(1)).writeEndElement();
+    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(signalEventDefinition, atLeast(1)).getExtensionElements();
+    verify(signalEventDefinition).getSignalRef();
+    verify(signalEventDefinition).isAsync();
+    verify(signalEventDefinition).setAsync(eq(false));
+  }
+
+  /**
+   * Test {@link BaseBpmnXMLConverter#writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)}.
+   * <ul>
+   *   <li>Given {@link SignalEventDefinition} {@link SignalEventDefinition#getSignalRef()} return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnXMLConverter#writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName("Test writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter); given SignalEventDefinition getSignalRef() return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)"})
+  void testWriteEventDefinitions_givenSignalEventDefinitionGetSignalRefReturnNull() throws Exception {
+    // Arrange
+    AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
+    ThrowEvent parentEvent = new ThrowEvent();
+    SignalEventDefinition signalEventDefinition = mock(SignalEventDefinition.class);
+    when(signalEventDefinition.isAsync()).thenReturn(true);
+    when(signalEventDefinition.getSignalRef()).thenReturn("null");
+    when(signalEventDefinition.getExtensionElements()).thenReturn(new HashMap<>());
+    doNothing().when(signalEventDefinition).setAsync(anyBoolean());
+    signalEventDefinition.setAsync(false);
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(signalEventDefinition);
+    BpmnModel model = new BpmnModel();
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer)
+        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+
+    // Act
+    associationXMLConverter.writeEventDefinitions(parentEvent, eventDefinitions, model,
+        new IndentingXMLStreamWriter(writer));
+
+    // Assert
+    verify(writer).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("async"), eq("true"));
+    verify(writer).writeEndElement();
+    verify(writer).writeStartElement(eq("signalEventDefinition"));
+    verify(signalEventDefinition).getExtensionElements();
+    verify(signalEventDefinition).getSignalRef();
+    verify(signalEventDefinition).isAsync();
+    verify(signalEventDefinition).setAsync(eq(false));
+  }
+
+  /**
+   * Test {@link BaseBpmnXMLConverter#writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)}.
+   * <ul>
+   *   <li>Given {@link SignalEventDefinition} {@link SignalEventDefinition#isAsync()} return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnXMLConverter#writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName("Test writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter); given SignalEventDefinition isAsync() return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)"})
+  void testWriteEventDefinitions_givenSignalEventDefinitionIsAsyncReturnFalse() throws Exception {
+    // Arrange
+    AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
+    ThrowEvent parentEvent = new ThrowEvent();
+    SignalEventDefinition signalEventDefinition = mock(SignalEventDefinition.class);
+    when(signalEventDefinition.isAsync()).thenReturn(false);
+    when(signalEventDefinition.getSignalRef()).thenReturn("Signal Ref");
+    when(signalEventDefinition.getExtensionElements()).thenReturn(new HashMap<>());
+    doNothing().when(signalEventDefinition).setAsync(anyBoolean());
+    signalEventDefinition.setAsync(false);
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(signalEventDefinition);
+    BpmnModel model = new BpmnModel();
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+
+    // Act
+    associationXMLConverter.writeEventDefinitions(parentEvent, eventDefinitions, model,
+        new IndentingXMLStreamWriter(writer));
+
+    // Assert
+    verify(writer).writeAttribute(eq("signalRef"), eq("Signal Ref"));
+    verify(writer).writeEndElement();
+    verify(writer).writeStartElement(eq("signalEventDefinition"));
+    verify(signalEventDefinition).getExtensionElements();
+    verify(signalEventDefinition).getSignalRef();
+    verify(signalEventDefinition).isAsync();
+    verify(signalEventDefinition).setAsync(eq(false));
+  }
+
+  /**
+   * Test {@link BaseBpmnXMLConverter#writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)}.
+   * <ul>
+   *   <li>Given {@link TerminateEventDefinition} {@link TerminateEventDefinition#isTerminateAll()} return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnXMLConverter#writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName("Test writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter); given TerminateEventDefinition isTerminateAll() return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)"})
+  void testWriteEventDefinitions_givenTerminateEventDefinitionIsTerminateAllReturnFalse() throws Exception {
+    // Arrange
+    AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
+    ThrowEvent parentEvent = new ThrowEvent();
+    TerminateEventDefinition terminateEventDefinition = mock(TerminateEventDefinition.class);
+    when(terminateEventDefinition.isTerminateAll()).thenReturn(false);
+    when(terminateEventDefinition.isTerminateMultiInstance()).thenReturn(true);
+    when(terminateEventDefinition.getExtensionElements()).thenReturn(new HashMap<>());
+    doNothing().when(terminateEventDefinition).setTerminateAll(anyBoolean());
+    doNothing().when(terminateEventDefinition).setTerminateMultiInstance(anyBoolean());
+    terminateEventDefinition.setTerminateAll(false);
+    terminateEventDefinition.setTerminateMultiInstance(false);
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(terminateEventDefinition);
+    BpmnModel model = new BpmnModel();
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer)
+        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+
+    // Act
+    associationXMLConverter.writeEventDefinitions(parentEvent, eventDefinitions, model,
+        new IndentingXMLStreamWriter(writer));
+
+    // Assert
+    verify(writer).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("terminateMultiInstance"),
+        eq("true"));
+    verify(writer).writeEndElement();
+    verify(writer).writeStartElement(eq("terminateEventDefinition"));
+    verify(terminateEventDefinition).getExtensionElements();
+    verify(terminateEventDefinition).isTerminateAll();
+    verify(terminateEventDefinition).isTerminateMultiInstance();
+    verify(terminateEventDefinition).setTerminateAll(eq(false));
+    verify(terminateEventDefinition).setTerminateMultiInstance(eq(false));
+  }
+
+  /**
+   * Test {@link BaseBpmnXMLConverter#writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)}.
+   * <ul>
+   *   <li>Then calls {@link TerminateEventDefinition#isTerminateAll()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnXMLConverter#writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName("Test writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter); then calls isTerminateAll()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)"})
+  void testWriteEventDefinitions_thenCallsIsTerminateAll() throws Exception {
+    // Arrange
+    AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
+    ThrowEvent parentEvent = new ThrowEvent();
+    TerminateEventDefinition terminateEventDefinition = mock(TerminateEventDefinition.class);
+    when(terminateEventDefinition.isTerminateAll()).thenReturn(true);
+    when(terminateEventDefinition.isTerminateMultiInstance()).thenReturn(true);
+    when(terminateEventDefinition.getExtensionElements()).thenReturn(new HashMap<>());
+    doNothing().when(terminateEventDefinition).setTerminateAll(anyBoolean());
+    doNothing().when(terminateEventDefinition).setTerminateMultiInstance(anyBoolean());
+    terminateEventDefinition.setTerminateAll(false);
+    terminateEventDefinition.setTerminateMultiInstance(false);
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(terminateEventDefinition);
+    BpmnModel model = new BpmnModel();
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer)
+        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+
+    // Act
+    associationXMLConverter.writeEventDefinitions(parentEvent, eventDefinitions, model,
+        new IndentingXMLStreamWriter(writer));
+
+    // Assert
+    verify(writer, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
+        eq("true"));
+    verify(writer).writeEndElement();
+    verify(writer).writeStartElement(eq("terminateEventDefinition"));
+    verify(terminateEventDefinition).getExtensionElements();
+    verify(terminateEventDefinition).isTerminateAll();
+    verify(terminateEventDefinition).isTerminateMultiInstance();
+    verify(terminateEventDefinition).setTerminateAll(eq(false));
+    verify(terminateEventDefinition).setTerminateMultiInstance(eq(false));
+  }
+
+  /**
+   * Test {@link BaseBpmnXMLConverter#writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)}.
+   * <ul>
+   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnXMLConverter#writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName("Test writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter); then calls writeAttribute(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)"})
+  void testWriteEventDefinitions_thenCallsWriteAttribute() throws Exception {
+    // Arrange
+    AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
+    ThrowEvent parentEvent = new ThrowEvent();
+    SignalEventDefinition signalEventDefinition = mock(SignalEventDefinition.class);
+    when(signalEventDefinition.isAsync()).thenReturn(true);
+    when(signalEventDefinition.getSignalRef()).thenReturn("Signal Ref");
+    when(signalEventDefinition.getExtensionElements()).thenReturn(new HashMap<>());
+    doNothing().when(signalEventDefinition).setAsync(anyBoolean());
+    signalEventDefinition.setAsync(false);
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(signalEventDefinition);
+    BpmnModel model = new BpmnModel();
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer)
+        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+
+    // Act
+    associationXMLConverter.writeEventDefinitions(parentEvent, eventDefinitions, model,
+        new IndentingXMLStreamWriter(writer));
+
+    // Assert
+    verify(writer).writeAttribute(eq("signalRef"), eq("Signal Ref"));
+    verify(writer).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("async"), eq("true"));
+    verify(writer).writeEndElement();
+    verify(writer).writeStartElement(eq("signalEventDefinition"));
+    verify(signalEventDefinition).getExtensionElements();
+    verify(signalEventDefinition).getSignalRef();
+    verify(signalEventDefinition).isAsync();
+    verify(signalEventDefinition).setAsync(eq(false));
+  }
+
+  /**
+   * Test {@link BaseBpmnXMLConverter#writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)}.
+   * <ul>
+   *   <li>Then calls {@link IndentingXMLStreamWriter#writeCharacters(String)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnXMLConverter#writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName("Test writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter); then calls writeCharacters(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)"})
+  void testWriteEventDefinitions_thenCallsWriteCharacters() throws Exception {
+    // Arrange
+    AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
+    ThrowEvent parentEvent = new ThrowEvent();
+
+    HashMap<String, List<ExtensionElement>> stringListMap = new HashMap<>();
+    stringListMap.put("terminateEventDefinition", new ArrayList<>());
+    TerminateEventDefinition terminateEventDefinition = mock(TerminateEventDefinition.class);
+    when(terminateEventDefinition.isTerminateAll()).thenReturn(true);
+    when(terminateEventDefinition.isTerminateMultiInstance()).thenReturn(true);
+    when(terminateEventDefinition.getExtensionElements()).thenReturn(stringListMap);
+    doNothing().when(terminateEventDefinition).setTerminateAll(anyBoolean());
+    doNothing().when(terminateEventDefinition).setTerminateMultiInstance(anyBoolean());
+    terminateEventDefinition.setTerminateAll(false);
+    terminateEventDefinition.setTerminateMultiInstance(false);
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(terminateEventDefinition);
+    BpmnModel model = new BpmnModel();
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer).writeCharacters(Mockito.<String>any());
+    doNothing().when(writer)
+        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+
+    // Act
+    associationXMLConverter.writeEventDefinitions(parentEvent, eventDefinitions, model,
+        new IndentingXMLStreamWriter(writer));
+
+    // Assert
+    verify(writer, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
+        eq("true"));
+    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(writer, atLeast(1)).writeEndElement();
+    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(terminateEventDefinition, atLeast(1)).getExtensionElements();
+    verify(terminateEventDefinition).isTerminateAll();
+    verify(terminateEventDefinition).isTerminateMultiInstance();
+    verify(terminateEventDefinition).setTerminateAll(eq(false));
+    verify(terminateEventDefinition).setTerminateMultiInstance(eq(false));
+  }
+
+  /**
+   * Test {@link BaseBpmnXMLConverter#writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)}.
+   * <ul>
+   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeNamespace(String, String)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnXMLConverter#writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName("Test writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter); then calls writeNamespace(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)"})
+  void testWriteEventDefinitions_thenCallsWriteNamespace() throws Exception {
+    // Arrange
+    AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
+    ThrowEvent parentEvent = new ThrowEvent();
+    ExtensionElement extensionElement = mock(ExtensionElement.class);
+    when(extensionElement.getNamespacePrefix()).thenReturn("Namespace Prefix");
+    when(extensionElement.getElementText()).thenReturn("Element Text");
+    when(extensionElement.getNamespace()).thenReturn("Namespace");
+    when(extensionElement.getAttributes()).thenReturn(new HashMap<>());
+    when(extensionElement.getName()).thenReturn("Name");
+
+    ArrayList<ExtensionElement> extensionElementList = new ArrayList<>();
+    extensionElementList.add(extensionElement);
+
+    HashMap<String, List<ExtensionElement>> stringListMap = new HashMap<>();
+    stringListMap.put("terminateEventDefinition", extensionElementList);
+    TerminateEventDefinition terminateEventDefinition = mock(TerminateEventDefinition.class);
+    when(terminateEventDefinition.isTerminateAll()).thenReturn(true);
+    when(terminateEventDefinition.isTerminateMultiInstance()).thenReturn(true);
+    when(terminateEventDefinition.getExtensionElements()).thenReturn(stringListMap);
+    doNothing().when(terminateEventDefinition).setTerminateAll(anyBoolean());
+    doNothing().when(terminateEventDefinition).setTerminateMultiInstance(anyBoolean());
+    terminateEventDefinition.setTerminateAll(false);
+    terminateEventDefinition.setTerminateMultiInstance(false);
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(terminateEventDefinition);
+    BpmnModel model = new BpmnModel();
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeCData(Mockito.<String>any());
+    doNothing().when(writer).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeCharacters(Mockito.<String>any());
+    doNothing().when(writer)
+        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+
+    // Act
+    associationXMLConverter.writeEventDefinitions(parentEvent, eventDefinitions, model,
+        new IndentingXMLStreamWriter(writer));
+
+    // Assert
+    verify(writer, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
+        eq("true"));
+    verify(writer).writeNamespace(eq("Namespace Prefix"), eq("Namespace"));
+    verify(writer).writeCData(eq("Element Text"));
+    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(writer, atLeast(1)).writeEndElement();
+    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(writer).writeStartElement(eq("Namespace Prefix"), eq("Name"), eq("Namespace"));
+    verify(extensionElement).getAttributes();
+    verify(terminateEventDefinition, atLeast(1)).getExtensionElements();
+    verify(extensionElement, atLeast(1)).getElementText();
+    verify(extensionElement, atLeast(1)).getName();
+    verify(extensionElement, atLeast(1)).getNamespace();
+    verify(extensionElement, atLeast(1)).getNamespacePrefix();
+    verify(terminateEventDefinition).isTerminateAll();
+    verify(terminateEventDefinition).isTerminateMultiInstance();
+    verify(terminateEventDefinition).setTerminateAll(eq(false));
+    verify(terminateEventDefinition).setTerminateMultiInstance(eq(false));
+  }
+
+  /**
+   * Test {@link BaseBpmnXMLConverter#writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)}.
+   * <ul>
+   *   <li>Then calls {@link IndentingXMLStreamWriter#writeStartElement(String, String)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnXMLConverter#writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName("Test writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter); then calls writeStartElement(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)"})
+  void testWriteEventDefinitions_thenCallsWriteStartElement() throws Exception {
+    // Arrange
+    AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
+    ThrowEvent parentEvent = new ThrowEvent();
+    ExtensionElement extensionElement = mock(ExtensionElement.class);
+    when(extensionElement.getNamespacePrefix()).thenReturn("");
+    when(extensionElement.getElementText()).thenReturn("Element Text");
+    when(extensionElement.getNamespace()).thenReturn("Namespace");
+    when(extensionElement.getAttributes()).thenReturn(new HashMap<>());
+    when(extensionElement.getName()).thenReturn("Name");
+
+    ArrayList<ExtensionElement> extensionElementList = new ArrayList<>();
+    extensionElementList.add(extensionElement);
+
+    HashMap<String, List<ExtensionElement>> stringListMap = new HashMap<>();
+    stringListMap.put("terminateEventDefinition", extensionElementList);
+    TerminateEventDefinition terminateEventDefinition = mock(TerminateEventDefinition.class);
+    when(terminateEventDefinition.isTerminateAll()).thenReturn(true);
+    when(terminateEventDefinition.isTerminateMultiInstance()).thenReturn(true);
+    when(terminateEventDefinition.getExtensionElements()).thenReturn(stringListMap);
+    doNothing().when(terminateEventDefinition).setTerminateAll(anyBoolean());
+    doNothing().when(terminateEventDefinition).setTerminateMultiInstance(anyBoolean());
+    terminateEventDefinition.setTerminateAll(false);
+    terminateEventDefinition.setTerminateMultiInstance(false);
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(terminateEventDefinition);
+    BpmnModel model = new BpmnModel();
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer).writeStartElement(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeCData(Mockito.<String>any());
+    doNothing().when(writer).writeCharacters(Mockito.<String>any());
+    doNothing().when(writer)
+        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+
+    // Act
+    associationXMLConverter.writeEventDefinitions(parentEvent, eventDefinitions, model,
+        new IndentingXMLStreamWriter(writer));
+
+    // Assert
+    verify(writer, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
+        eq("true"));
+    verify(writer).writeCData(eq("Element Text"));
+    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(writer, atLeast(1)).writeEndElement();
+    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(writer).writeStartElement(eq("Namespace"), eq("Name"));
+    verify(extensionElement).getAttributes();
+    verify(terminateEventDefinition, atLeast(1)).getExtensionElements();
+    verify(extensionElement, atLeast(1)).getElementText();
+    verify(extensionElement, atLeast(1)).getName();
+    verify(extensionElement, atLeast(1)).getNamespace();
+    verify(extensionElement).getNamespacePrefix();
+    verify(terminateEventDefinition).isTerminateAll();
+    verify(terminateEventDefinition).isTerminateMultiInstance();
+    verify(terminateEventDefinition).setTerminateAll(eq(false));
+    verify(terminateEventDefinition).setTerminateMultiInstance(eq(false));
+  }
+
+  /**
+   * Test {@link BaseBpmnXMLConverter#writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)}.
+   * <ul>
+   *   <li>Then calls {@link IndentingXMLStreamWriter#writeStartElement(String, String)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseBpmnXMLConverter#writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName("Test writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter); then calls writeStartElement(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeEventDefinitions(Event, List, BpmnModel, XMLStreamWriter)"})
+  void testWriteEventDefinitions_thenCallsWriteStartElement2() throws Exception {
+    // Arrange
+    AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
+    ThrowEvent parentEvent = new ThrowEvent();
+
+    HashMap<String, List<ExtensionAttribute>> stringListMap = new HashMap<>();
+    stringListMap.put("terminateEventDefinition", new ArrayList<>());
+    ExtensionElement extensionElement = mock(ExtensionElement.class);
+    when(extensionElement.getNamespacePrefix()).thenReturn("");
+    when(extensionElement.getElementText()).thenReturn("Element Text");
+    when(extensionElement.getNamespace()).thenReturn("Namespace");
+    when(extensionElement.getAttributes()).thenReturn(stringListMap);
+    when(extensionElement.getName()).thenReturn("Name");
+
+    ArrayList<ExtensionElement> extensionElementList = new ArrayList<>();
+    extensionElementList.add(extensionElement);
+
+    HashMap<String, List<ExtensionElement>> stringListMap2 = new HashMap<>();
+    stringListMap2.put("terminateEventDefinition", extensionElementList);
+    TerminateEventDefinition terminateEventDefinition = mock(TerminateEventDefinition.class);
+    when(terminateEventDefinition.isTerminateAll()).thenReturn(true);
+    when(terminateEventDefinition.isTerminateMultiInstance()).thenReturn(true);
+    when(terminateEventDefinition.getExtensionElements()).thenReturn(stringListMap2);
+    doNothing().when(terminateEventDefinition).setTerminateAll(anyBoolean());
+    doNothing().when(terminateEventDefinition).setTerminateMultiInstance(anyBoolean());
+    terminateEventDefinition.setTerminateAll(false);
+    terminateEventDefinition.setTerminateMultiInstance(false);
+
+    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
+    eventDefinitions.add(terminateEventDefinition);
+    BpmnModel model = new BpmnModel();
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer).writeStartElement(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeCData(Mockito.<String>any());
+    doNothing().when(writer).writeCharacters(Mockito.<String>any());
+    doNothing().when(writer)
+        .writeAttribute(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+
+    // Act
+    associationXMLConverter.writeEventDefinitions(parentEvent, eventDefinitions, model,
+        new IndentingXMLStreamWriter(writer));
+
+    // Assert
+    verify(writer, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
+        eq("true"));
+    verify(writer).writeCData(eq("Element Text"));
+    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(writer, atLeast(1)).writeEndElement();
+    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(writer).writeStartElement(eq("Namespace"), eq("Name"));
+    verify(extensionElement).getAttributes();
+    verify(terminateEventDefinition, atLeast(1)).getExtensionElements();
+    verify(extensionElement, atLeast(1)).getElementText();
+    verify(extensionElement, atLeast(1)).getName();
+    verify(extensionElement, atLeast(1)).getNamespace();
+    verify(extensionElement).getNamespacePrefix();
+    verify(terminateEventDefinition).isTerminateAll();
+    verify(terminateEventDefinition).isTerminateMultiInstance();
+    verify(terminateEventDefinition).setTerminateAll(eq(false));
+    verify(terminateEventDefinition).setTerminateMultiInstance(eq(false));
+  }
+
+  /**
+   * Test {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}.
+   * <p>
+   * Method under test: {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)"})
   void testWriteTimerDefinition() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -552,7 +1371,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeTimerDefinition(parentEvent, timerDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeCharacters(eq("2020-03-01"));
     verify(xtw, atLeast(1)).writeEndElement();
     verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any());
@@ -562,19 +1381,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link ExtensionElement} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link ExtensionElement} (default constructor).</li>
    *   <li>Then calls {@link TimerEventDefinition#getEndDate()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter); given ArrayList() add ExtensionElement (default constructor); then calls getEndDate()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)"})
   void testWriteTimerDefinition_givenArrayListAddExtensionElement_thenCallsGetEndDate() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -601,7 +1419,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeTimerDefinition(parentEvent, timerDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
         Mockito.<String>any());
     verify(xtw).writeCharacters(eq("Time Cycle"));
@@ -615,18 +1433,17 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link ExtensionElement} {@link ExtensionElement#getNamespace()}
-   * return empty string.</li>
+   *   <li>Given {@link ExtensionElement} {@link ExtensionElement#getNamespace()} return empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter); given ExtensionElement getNamespace() return empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)"})
   void testWriteTimerDefinition_givenExtensionElementGetNamespaceReturnEmptyString() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -659,7 +1476,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeTimerDefinition(parentEvent, timerDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
         Mockito.<String>any());
     verify(xtw).writeCData(eq("Element Text"));
@@ -678,18 +1495,17 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code timerEventDefinition} is
-   * {@link ArrayList#ArrayList()}.</li>
+   *   <li>Given {@link HashMap#HashMap()} {@code timerEventDefinition} is {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter); given HashMap() 'timerEventDefinition' is ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)"})
   void testWriteTimerDefinition_givenHashMapTimerEventDefinitionIsArrayList() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -713,7 +1529,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeTimerDefinition(parentEvent, timerDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
         Mockito.<String>any());
     verify(xtw).writeCharacters(eq("Time Cycle"));
@@ -727,18 +1543,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}.
    * <ul>
    *   <li>Given {@link HashMap#HashMap()}.</li>
    *   <li>Then calls {@link TimerEventDefinition#getEndDate()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter); given HashMap(); then calls getEndDate()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)"})
   void testWriteTimerDefinition_givenHashMap_thenCallsGetEndDate() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -759,7 +1575,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeTimerDefinition(parentEvent, timerDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
         Mockito.<String>any());
     verify(xtw).writeCharacters(eq("Time Cycle"));
@@ -773,17 +1589,17 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}.
    * <ul>
    *   <li>Then calls {@link TimerEventDefinition#getTimeDuration()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter); then calls getTimeDuration()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)"})
   void testWriteTimerDefinition_thenCallsGetTimeDuration() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -804,7 +1620,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeTimerDefinition(parentEvent, timerDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("businessCalendarName"),
         eq("Calendar Name"));
     verify(xtw).writeCharacters(eq("Time Duration"));
@@ -818,18 +1634,17 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Then calls
-   * {@link DelegatingXMLStreamWriter#writeNamespace(String, String)}.</li>
+   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeNamespace(String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter); then calls writeNamespace(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)"})
   void testWriteTimerDefinition_thenCallsWriteNamespace() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -887,18 +1702,17 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Then calls
-   * {@link IndentingXMLStreamWriter#writeStartElement(String, String)}.</li>
+   *   <li>Then calls {@link IndentingXMLStreamWriter#writeStartElement(String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter); then calls writeStartElement(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)"})
   void testWriteTimerDefinition_thenCallsWriteStartElement() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -933,7 +1747,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeTimerDefinition(parentEvent, timerDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
         Mockito.<String>any());
     verify(xtw).writeCData(eq("Element Text"));
@@ -954,18 +1768,17 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Then calls
-   * {@link IndentingXMLStreamWriter#writeStartElement(String, String)}.</li>
+   *   <li>Then calls {@link IndentingXMLStreamWriter#writeStartElement(String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter); then calls writeStartElement(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)"})
   void testWriteTimerDefinition_thenCallsWriteStartElement2() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -1003,7 +1816,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeTimerDefinition(parentEvent, timerDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
         Mockito.<String>any());
     verify(xtw).writeCData(eq("Element Text"));
@@ -1024,18 +1837,17 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>When {@link TimerEventDefinition}
-   * {@link TimerEventDefinition#getEndDate()} return empty string.</li>
+   *   <li>When {@link TimerEventDefinition} {@link TimerEventDefinition#getEndDate()} return empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter); when TimerEventDefinition getEndDate() return empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)"})
   void testWriteTimerDefinition_whenTimerEventDefinitionGetEndDateReturnEmptyString() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -1056,7 +1868,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeTimerDefinition(parentEvent, timerDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("businessCalendarName"),
         eq("Calendar Name"));
     verify(xtw).writeCharacters(eq("Time Cycle"));
@@ -1070,18 +1882,17 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>When {@link TimerEventDefinition}
-   * {@link TimerEventDefinition#getTimeDate()} return {@code 2020-03-01}.</li>
+   *   <li>When {@link TimerEventDefinition} {@link TimerEventDefinition#getTimeDate()} return {@code 2020-03-01}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter); when TimerEventDefinition getTimeDate() return '2020-03-01'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)"})
   void testWriteTimerDefinition_whenTimerEventDefinitionGetTimeDateReturn20200301() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -1100,7 +1911,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeTimerDefinition(parentEvent, timerDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("businessCalendarName"),
         eq("Calendar Name"));
     verify(xtw).writeCharacters(eq("2020-03-01"));
@@ -1112,18 +1923,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}.
    * <ul>
    *   <li>When {@link TimerEventDefinition} (default constructor).</li>
    *   <li>Then calls {@link IndentingXMLStreamWriter#writeEndElement()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter); when TimerEventDefinition (default constructor); then calls writeEndElement()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeTimerDefinition(Event, TimerEventDefinition, XMLStreamWriter)"})
   void testWriteTimerDefinition_whenTimerEventDefinition_thenCallsWriteEndElement() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -1136,20 +1947,20 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeTimerDefinition(parentEvent, timerDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeEndElement();
     verify(xtw).writeStartElement(eq("timerEventDefinition"));
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}.
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)"})
   void testWriteSignalDefinition() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -1188,7 +1999,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeSignalDefinition(parentEvent, signalDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("signalRef"), eq("Signal Ref"));
     verify(xtw).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("async"), eq("true"));
     verify(xtw).writeCData(eq("Element Text"));
@@ -1206,18 +2017,17 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add
-   * {@link ExtensionAttribute#ExtensionAttribute()}.</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link ExtensionAttribute#ExtensionAttribute()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter); given ArrayList() add ExtensionAttribute()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)"})
   void testWriteSignalDefinition_givenArrayListAddExtensionAttribute() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -1256,7 +2066,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeSignalDefinition(parentEvent, signalDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("signalRef"), eq("Signal Ref"));
     verify(xtw).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("async"), eq("true"));
     verify(xtw).writeCData(eq("Element Text"));
@@ -1274,18 +2084,17 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link ExtensionElement} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link ExtensionElement} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter); given ArrayList() add ExtensionElement (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)"})
   void testWriteSignalDefinition_givenArrayListAddExtensionElement() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -1310,7 +2119,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeSignalDefinition(parentEvent, signalDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("signalRef"), eq("Signal Ref"));
     verify(xtw).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("async"), eq("true"));
     verify(xtw, atLeast(1)).writeEndElement();
@@ -1321,17 +2130,17 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}.
    * <ul>
    *   <li>Given empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter); given empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)"})
   void testWriteSignalDefinition_givenEmptyString() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -1349,7 +2158,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeSignalDefinition(parentEvent, signalDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("async"), eq("true"));
     verify(xtw).writeEndElement();
     verify(xtw).writeStartElement(eq("signalEventDefinition"));
@@ -1359,18 +2168,17 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link ExtensionElement} {@link ExtensionElement#getNamespace()}
-   * return empty string.</li>
+   *   <li>Given {@link ExtensionElement} {@link ExtensionElement#getNamespace()} return empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter); given ExtensionElement getNamespace() return empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)"})
   void testWriteSignalDefinition_givenExtensionElementGetNamespaceReturnEmptyString() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -1401,7 +2209,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeSignalDefinition(parentEvent, signalDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("signalRef"), eq("Signal Ref"));
     verify(xtw).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("async"), eq("true"));
     verify(xtw).writeCData(eq("Element Text"));
@@ -1417,19 +2225,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}.
    * <ul>
    *   <li>Given {@link HashMap#HashMap()}.</li>
-   *   <li>Then calls
-   * {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}.</li>
+   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter); given HashMap(); then calls writeAttribute(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)"})
   void testWriteSignalDefinition_givenHashMap_thenCallsWriteAttribute() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -1448,7 +2255,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeSignalDefinition(parentEvent, signalDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("signalRef"), eq("Signal Ref"));
     verify(xtw).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("async"), eq("true"));
     verify(xtw).writeEndElement();
@@ -1459,20 +2266,19 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}.
    * <ul>
    *   <li>Given {@link HashMap#HashMap()}.</li>
    *   <li>When {@link BoundaryEvent} (default constructor).</li>
-   *   <li>Then calls
-   * {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}.</li>
+   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter); given HashMap(); when BoundaryEvent (default constructor); then calls writeAttribute(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)"})
   void testWriteSignalDefinition_givenHashMap_whenBoundaryEvent_thenCallsWriteAttribute() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -1488,7 +2294,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeSignalDefinition(parentEvent, signalDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("signalRef"), eq("Signal Ref"));
     verify(xtw).writeEndElement();
     verify(xtw).writeStartElement(eq("signalEventDefinition"));
@@ -1497,17 +2303,17 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}.
    * <ul>
    *   <li>Given {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter); given 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)"})
   void testWriteSignalDefinition_givenNull() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -1525,7 +2331,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeSignalDefinition(parentEvent, signalDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("async"), eq("true"));
     verify(xtw).writeEndElement();
     verify(xtw).writeStartElement(eq("signalEventDefinition"));
@@ -1535,18 +2341,17 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Then calls
-   * {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}.</li>
+   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter); then calls writeAttribute(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)"})
   void testWriteSignalDefinition_thenCallsWriteAttribute() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -1568,7 +2373,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeSignalDefinition(parentEvent, signalDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("signalRef"), eq("Signal Ref"));
     verify(xtw).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("async"), eq("true"));
     verify(xtw, atLeast(1)).writeEndElement();
@@ -1579,18 +2384,17 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Then calls
-   * {@link DelegatingXMLStreamWriter#writeNamespace(String, String)}.</li>
+   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeNamespace(String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter); then calls writeNamespace(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)"})
   void testWriteSignalDefinition_thenCallsWriteNamespace() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -1643,18 +2447,17 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Then calls
-   * {@link IndentingXMLStreamWriter#writeStartElement(String, String)}.</li>
+   *   <li>Then calls {@link IndentingXMLStreamWriter#writeStartElement(String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter); then calls writeStartElement(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)"})
   void testWriteSignalDefinition_thenCallsWriteStartElement() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -1687,7 +2490,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeSignalDefinition(parentEvent, signalDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("signalRef"), eq("Signal Ref"));
     verify(xtw).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("async"), eq("true"));
     verify(xtw).writeCData(eq("Element Text"));
@@ -1705,18 +2508,17 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Then calls
-   * {@link IndentingXMLStreamWriter#writeStartElement(String, String)}.</li>
+   *   <li>Then calls {@link IndentingXMLStreamWriter#writeStartElement(String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter); then calls writeStartElement(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)"})
   void testWriteSignalDefinition_thenCallsWriteStartElement2() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -1752,7 +2554,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeSignalDefinition(parentEvent, signalDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("signalRef"), eq("Signal Ref"));
     verify(xtw).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("async"), eq("true"));
     verify(xtw).writeCData(eq("Element Text"));
@@ -1770,19 +2572,19 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>When {@link BoundaryEvent} (default constructor).</li>
+   *   <li>When {@link SignalEventDefinition} (default constructor).</li>
    *   <li>Then calls {@link IndentingXMLStreamWriter#writeEndElement()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter); when BoundaryEvent (default constructor); then calls writeEndElement()")
-  void testWriteSignalDefinition_whenBoundaryEvent_thenCallsWriteEndElement() throws Exception {
+  @DisplayName("Test writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter); when SignalEventDefinition (default constructor); then calls writeEndElement()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)"})
+  void testWriteSignalDefinition_whenSignalEventDefinition_thenCallsWriteEndElement() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
     BoundaryEvent parentEvent = new BoundaryEvent();
@@ -1794,25 +2596,25 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeSignalDefinition(parentEvent, signalDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeEndElement();
     verify(xtw).writeStartElement(eq("signalEventDefinition"));
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}.
    * <ul>
    *   <li>When {@link SignalEventDefinition} (default constructor).</li>
    *   <li>Then calls {@link IndentingXMLStreamWriter#writeEndElement()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter); when SignalEventDefinition (default constructor); then calls writeEndElement()")
-  void testWriteSignalDefinition_whenSignalEventDefinition_thenCallsWriteEndElement() throws Exception {
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeSignalDefinition(Event, SignalEventDefinition, XMLStreamWriter)"})
+  void testWriteSignalDefinition_whenSignalEventDefinition_thenCallsWriteEndElement2() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
     ThrowEvent parentEvent = new ThrowEvent();
@@ -1824,24 +2626,25 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeSignalDefinition(parentEvent, signalDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeEndElement();
     verify(xtw).writeStartElement(eq("signalEventDefinition"));
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeCancelDefinition(Event, CancelEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeCancelDefinition(Event, CancelEventDefinition, XMLStreamWriter)}.
    * <ul>
+   *   <li>When {@link CancelEventDefinition} (default constructor).</li>
    *   <li>Then calls {@link IndentingXMLStreamWriter#writeEndElement()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeCancelDefinition(Event, CancelEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeCancelDefinition(Event, CancelEventDefinition, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeCancelDefinition(Event, CancelEventDefinition, XMLStreamWriter); then calls writeEndElement()")
-  void testWriteCancelDefinition_thenCallsWriteEndElement() throws Exception {
+  @DisplayName("Test writeCancelDefinition(Event, CancelEventDefinition, XMLStreamWriter); when CancelEventDefinition (default constructor); then calls writeEndElement()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeCancelDefinition(Event, CancelEventDefinition, XMLStreamWriter)"})
+  void testWriteCancelDefinition_whenCancelEventDefinition_thenCallsWriteEndElement() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
     BoundaryEvent parentEvent = new BoundaryEvent();
@@ -1853,20 +2656,21 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeCancelDefinition(parentEvent, cancelEventDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeEndElement();
     verify(xtw).writeStartElement(eq("cancelEventDefinition"));
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}.
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)"})
   void testWriteCompensateDefinition() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -1902,7 +2706,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeCompensateDefinition(parentEvent, compensateEventDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("activityRef"), eq("Activity Ref"));
     verify(xtw).writeCData(eq("Element Text"));
     verify(xtw, atLeast(1)).writeEndElement();
@@ -1918,14 +2722,15 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}.
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)"})
   void testWriteCompensateDefinition2() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -1964,7 +2769,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeCompensateDefinition(parentEvent, compensateEventDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
     verify(xtw).writeCData(eq("Element Text"));
     verify(xtw, atLeast(1)).writeEndElement();
@@ -1980,18 +2785,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add
-   * {@link ExtensionAttribute#ExtensionAttribute()}.</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link ExtensionAttribute#ExtensionAttribute()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter); given ArrayList() add ExtensionAttribute()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)"})
   void testWriteCompensateDefinition_givenArrayListAddExtensionAttribute() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -2027,7 +2832,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeCompensateDefinition(parentEvent, compensateEventDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("activityRef"), eq("Activity Ref"));
     verify(xtw).writeCData(eq("Element Text"));
     verify(xtw, atLeast(1)).writeEndElement();
@@ -2043,18 +2848,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link ExtensionElement} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link ExtensionElement} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter); given ArrayList() add ExtensionElement (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)"})
   void testWriteCompensateDefinition_givenArrayListAddExtensionElement() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -2076,7 +2881,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeCompensateDefinition(parentEvent, compensateEventDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("activityRef"), eq("Activity Ref"));
     verify(xtw, atLeast(1)).writeEndElement();
     verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any());
@@ -2085,17 +2890,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}.
    * <ul>
    *   <li>Given empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter); given empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)"})
   void testWriteCompensateDefinition_givenEmptyString() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -2110,7 +2916,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeCompensateDefinition(parentEvent, compensateEventDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeEndElement();
     verify(xtw).writeStartElement(eq("compensateEventDefinition"));
     verify(compensateEventDefinition).getExtensionElements();
@@ -2118,18 +2924,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link ExtensionElement} {@link ExtensionElement#getNamespace()}
-   * return empty string.</li>
+   *   <li>Given {@link ExtensionElement} {@link ExtensionElement#getNamespace()} return empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter); given ExtensionElement getNamespace() return empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)"})
   void testWriteCompensateDefinition_givenExtensionElementGetNamespaceReturnEmptyString() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -2157,7 +2963,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeCompensateDefinition(parentEvent, compensateEventDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("activityRef"), eq("Activity Ref"));
     verify(xtw).writeCData(eq("Element Text"));
     verify(xtw, atLeast(1)).writeEndElement();
@@ -2171,19 +2977,19 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}.
    * <ul>
    *   <li>Given {@link HashMap#HashMap()}.</li>
-   *   <li>Then calls
-   * {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}.</li>
+   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter); given HashMap(); then calls writeAttribute(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)"})
   void testWriteCompensateDefinition_givenHashMap_thenCallsWriteAttribute() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -2199,7 +3005,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeCompensateDefinition(parentEvent, compensateEventDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("activityRef"), eq("Activity Ref"));
     verify(xtw).writeEndElement();
     verify(xtw).writeStartElement(eq("compensateEventDefinition"));
@@ -2208,17 +3014,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}.
    * <ul>
    *   <li>Given {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter); given 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)"})
   void testWriteCompensateDefinition_givenNull() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -2233,7 +3040,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeCompensateDefinition(parentEvent, compensateEventDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeEndElement();
     verify(xtw).writeStartElement(eq("compensateEventDefinition"));
     verify(compensateEventDefinition).getExtensionElements();
@@ -2241,18 +3048,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Then calls
-   * {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}.</li>
+   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter); then calls writeAttribute(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)"})
   void testWriteCompensateDefinition_thenCallsWriteAttribute() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -2271,7 +3078,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeCompensateDefinition(parentEvent, compensateEventDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("activityRef"), eq("Activity Ref"));
     verify(xtw, atLeast(1)).writeEndElement();
     verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any());
@@ -2280,18 +3087,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Then calls
-   * {@link DelegatingXMLStreamWriter#writeNamespace(String, String)}.</li>
+   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeNamespace(String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter); then calls writeNamespace(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)"})
   void testWriteCompensateDefinition_thenCallsWriteNamespace() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -2339,18 +3146,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Then calls
-   * {@link IndentingXMLStreamWriter#writeStartElement(String, String)}.</li>
+   *   <li>Then calls {@link IndentingXMLStreamWriter#writeStartElement(String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter); then calls writeStartElement(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)"})
   void testWriteCompensateDefinition_thenCallsWriteStartElement() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -2380,7 +3187,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeCompensateDefinition(parentEvent, compensateEventDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("activityRef"), eq("Activity Ref"));
     verify(xtw).writeCData(eq("Element Text"));
     verify(xtw, atLeast(1)).writeEndElement();
@@ -2396,18 +3203,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Then calls
-   * {@link IndentingXMLStreamWriter#writeStartElement(String, String)}.</li>
+   *   <li>Then calls {@link IndentingXMLStreamWriter#writeStartElement(String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter); then calls writeStartElement(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)"})
   void testWriteCompensateDefinition_thenCallsWriteStartElement2() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -2440,7 +3247,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeCompensateDefinition(parentEvent, compensateEventDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("activityRef"), eq("Activity Ref"));
     verify(xtw).writeCData(eq("Element Text"));
     verify(xtw, atLeast(1)).writeEndElement();
@@ -2456,17 +3263,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}.
    * <ul>
    *   <li>When {@link CompensateEventDefinition} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter); when CompensateEventDefinition (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeCompensateDefinition(Event, CompensateEventDefinition, XMLStreamWriter)"})
   void testWriteCompensateDefinition_whenCompensateEventDefinition() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -2479,20 +3287,21 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeCompensateDefinition(parentEvent, compensateEventDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeEndElement();
     verify(xtw).writeStartElement(eq("compensateEventDefinition"));
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}.
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)"})
   void testWriteMessageDefinition() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -2515,7 +3324,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeMessageDefinition(parentEvent, messageDefinition, model, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("messageRef"), eq("Message Ref"));
     verify(xtw).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("messageExpression"),
         eq("Message Expression"));
@@ -2528,14 +3337,15 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}.
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)"})
   void testWriteMessageDefinition2() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -2557,7 +3367,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeMessageDefinition(parentEvent, messageDefinition, model, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
         Mockito.<String>any());
     verify(xtw).writeEndElement();
@@ -2569,17 +3379,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}.
    * <ul>
    *   <li>Given {@code :}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter); given ':'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)"})
   void testWriteMessageDefinition_givenColon() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -2602,7 +3413,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeMessageDefinition(parentEvent, messageDefinition, model, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
         Mockito.<String>any());
     verify(xtw).writeEndElement();
@@ -2616,18 +3427,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code messageRef} is
-   * {@link ArrayList#ArrayList()}.</li>
+   *   <li>Given {@link HashMap#HashMap()} {@code messageRef} is {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter); given HashMap() 'messageRef' is ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)"})
   void testWriteMessageDefinition_givenHashMapMessageRefIsArrayList() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -2653,7 +3464,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeMessageDefinition(parentEvent, messageDefinition, model, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("messageRef"), eq("Message Ref"));
     verify(xtw, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
         Mockito.<String>any());
@@ -2666,17 +3477,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}.
    * <ul>
    *   <li>Given {@code http://activiti.org/bpmn}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter); given 'http://activiti.org/bpmn'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)"})
   void testWriteMessageDefinition_givenHttpActivitiOrgBpmn() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -2700,7 +3512,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeMessageDefinition(parentEvent, messageDefinition, model, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("messageRef"), eq("http//activiti.org/bpmn"));
     verify(xtw, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
         Mockito.<String>any());
@@ -2715,17 +3527,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}.
    * <ul>
    *   <li>Given {@code Namespace}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter); given 'Namespace'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)"})
   void testWriteMessageDefinition_givenNamespace() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -2754,7 +3567,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeMessageDefinition(parentEvent, messageDefinition, model, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("messageRef"), eq("Message Ref"));
     verify(xtw, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
         Mockito.<String>any());
@@ -2771,17 +3584,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}.
    * <ul>
    *   <li>Given {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter); given 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)"})
   void testWriteMessageDefinition_givenNull() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -2803,7 +3617,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeMessageDefinition(parentEvent, messageDefinition, model, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
         Mockito.<String>any());
     verify(xtw).writeEndElement();
@@ -2815,18 +3629,19 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}.
    * <ul>
    *   <li>Given {@code Target Namespace}.</li>
    *   <li>Then calls {@link BpmnModel#getNamespaces()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter); given 'Target Namespace'; then calls getNamespaces()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)"})
   void testWriteMessageDefinition_givenTargetNamespace_thenCallsGetNamespaces() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -2851,7 +3666,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeMessageDefinition(parentEvent, messageDefinition, model, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("messageRef"), eq("Message Ref"));
     verify(xtw, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
         Mockito.<String>any());
@@ -2867,18 +3682,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}.
    * <ul>
-   *   <li>When {@link BpmnModel} {@link BpmnModel#getNamespace(String)} return
-   * empty string.</li>
+   *   <li>When {@link BpmnModel} {@link BpmnModel#getNamespace(String)} return empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter); when BpmnModel getNamespace(String) return empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)"})
   void testWriteMessageDefinition_whenBpmnModelGetNamespaceReturnEmptyString() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -2907,7 +3722,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeMessageDefinition(parentEvent, messageDefinition, model, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("messageRef"), eq("messageEventDefinitionMessage Ref"));
     verify(xtw, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
         Mockito.<String>any());
@@ -2924,18 +3739,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}.
    * <ul>
-   *   <li>When {@link BpmnModel} {@link BpmnModel#getTargetNamespace()} return
-   * empty string.</li>
+   *   <li>When {@link BpmnModel} {@link BpmnModel#getTargetNamespace()} return empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter); when BpmnModel getTargetNamespace() return empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)"})
   void testWriteMessageDefinition_whenBpmnModelGetTargetNamespaceReturnEmptyString() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -2959,7 +3774,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeMessageDefinition(parentEvent, messageDefinition, model, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("messageRef"), eq("Message Ref"));
     verify(xtw, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
         Mockito.<String>any());
@@ -2974,18 +3789,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}.
    * <ul>
-   *   <li>When {@link BpmnModel} (default constructor) TargetNamespace is
-   * {@code messageEventDefinition}.</li>
+   *   <li>When {@link BpmnModel} (default constructor) TargetNamespace is {@code messageEventDefinition}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter); when BpmnModel (default constructor) TargetNamespace is 'messageEventDefinition'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)"})
   void testWriteMessageDefinition_whenBpmnModelTargetNamespaceIsMessageEventDefinition() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -3008,7 +3823,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeMessageDefinition(parentEvent, messageDefinition, model, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("messageRef"), eq("Message Ref"));
     verify(xtw, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
         Mockito.<String>any());
@@ -3021,18 +3836,19 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}.
    * <ul>
    *   <li>When {@link MessageEventDefinition} (default constructor).</li>
    *   <li>Then calls {@link IndentingXMLStreamWriter#writeEndElement()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter); when MessageEventDefinition (default constructor); then calls writeEndElement()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeMessageDefinition(Event, MessageEventDefinition, BpmnModel, XMLStreamWriter)"})
   void testWriteMessageDefinition_whenMessageEventDefinition_thenCallsWriteEndElement() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -3046,20 +3862,20 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeMessageDefinition(parentEvent, messageDefinition, model, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeEndElement();
     verify(xtw).writeStartElement(eq("messageEventDefinition"));
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}.
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)"})
   void testWriteErrorDefinition() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -3095,7 +3911,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeErrorDefinition(parentEvent, errorDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("errorRef"), eq("An error occurred"));
     verify(xtw).writeCData(eq("Element Text"));
     verify(xtw, atLeast(1)).writeEndElement();
@@ -3111,14 +3927,14 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}.
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)"})
   void testWriteErrorDefinition2() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -3157,7 +3973,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeErrorDefinition(parentEvent, errorDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
     verify(xtw).writeCData(eq("Element Text"));
     verify(xtw, atLeast(1)).writeEndElement();
@@ -3173,18 +3989,17 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add
-   * {@link ExtensionAttribute#ExtensionAttribute()}.</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link ExtensionAttribute#ExtensionAttribute()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter); given ArrayList() add ExtensionAttribute()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)"})
   void testWriteErrorDefinition_givenArrayListAddExtensionAttribute() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -3220,7 +4035,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeErrorDefinition(parentEvent, errorDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("errorRef"), eq("An error occurred"));
     verify(xtw).writeCData(eq("Element Text"));
     verify(xtw, atLeast(1)).writeEndElement();
@@ -3236,18 +4051,17 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link ExtensionElement} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link ExtensionElement} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter); given ArrayList() add ExtensionElement (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)"})
   void testWriteErrorDefinition_givenArrayListAddExtensionElement() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -3269,7 +4083,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeErrorDefinition(parentEvent, errorDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("errorRef"), eq("An error occurred"));
     verify(xtw, atLeast(1)).writeEndElement();
     verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any());
@@ -3278,17 +4092,17 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}.
    * <ul>
    *   <li>Given empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter); given empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)"})
   void testWriteErrorDefinition_givenEmptyString() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -3303,7 +4117,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeErrorDefinition(parentEvent, errorDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeEndElement();
     verify(xtw).writeStartElement(eq("errorEventDefinition"));
     verify(errorDefinition).getExtensionElements();
@@ -3311,18 +4125,17 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link ExtensionElement} {@link ExtensionElement#getNamespace()}
-   * return empty string.</li>
+   *   <li>Given {@link ExtensionElement} {@link ExtensionElement#getNamespace()} return empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter); given ExtensionElement getNamespace() return empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)"})
   void testWriteErrorDefinition_givenExtensionElementGetNamespaceReturnEmptyString() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -3350,7 +4163,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeErrorDefinition(parentEvent, errorDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("errorRef"), eq("An error occurred"));
     verify(xtw).writeCData(eq("Element Text"));
     verify(xtw, atLeast(1)).writeEndElement();
@@ -3364,19 +4177,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}.
    * <ul>
    *   <li>Given {@link HashMap#HashMap()}.</li>
-   *   <li>Then calls
-   * {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}.</li>
+   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter); given HashMap(); then calls writeAttribute(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)"})
   void testWriteErrorDefinition_givenHashMap_thenCallsWriteAttribute() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -3392,7 +4204,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeErrorDefinition(parentEvent, errorDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("errorRef"), eq("An error occurred"));
     verify(xtw).writeEndElement();
     verify(xtw).writeStartElement(eq("errorEventDefinition"));
@@ -3401,19 +4213,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}.
    * <ul>
    *   <li>Given {@code null}.</li>
-   *   <li>When {@link ErrorEventDefinition}
-   * {@link ErrorEventDefinition#getErrorRef()} return {@code null}.</li>
+   *   <li>When {@link ErrorEventDefinition} {@link ErrorEventDefinition#getErrorRef()} return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter); given 'null'; when ErrorEventDefinition getErrorRef() return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)"})
   void testWriteErrorDefinition_givenNull_whenErrorEventDefinitionGetErrorRefReturnNull() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -3428,7 +4239,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeErrorDefinition(parentEvent, errorDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeEndElement();
     verify(xtw).writeStartElement(eq("errorEventDefinition"));
     verify(errorDefinition).getExtensionElements();
@@ -3436,18 +4247,17 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Then calls
-   * {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}.</li>
+   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter); then calls writeAttribute(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)"})
   void testWriteErrorDefinition_thenCallsWriteAttribute() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -3466,7 +4276,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeErrorDefinition(parentEvent, errorDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("errorRef"), eq("An error occurred"));
     verify(xtw, atLeast(1)).writeEndElement();
     verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any());
@@ -3475,18 +4285,17 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Then calls
-   * {@link DelegatingXMLStreamWriter#writeNamespace(String, String)}.</li>
+   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeNamespace(String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter); then calls writeNamespace(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)"})
   void testWriteErrorDefinition_thenCallsWriteNamespace() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -3534,18 +4343,17 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Then calls
-   * {@link IndentingXMLStreamWriter#writeStartElement(String, String)}.</li>
+   *   <li>Then calls {@link IndentingXMLStreamWriter#writeStartElement(String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter); then calls writeStartElement(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)"})
   void testWriteErrorDefinition_thenCallsWriteStartElement() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -3575,7 +4383,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeErrorDefinition(parentEvent, errorDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("errorRef"), eq("An error occurred"));
     verify(xtw).writeCData(eq("Element Text"));
     verify(xtw, atLeast(1)).writeEndElement();
@@ -3591,18 +4399,17 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Then calls
-   * {@link IndentingXMLStreamWriter#writeStartElement(String, String)}.</li>
+   *   <li>Then calls {@link IndentingXMLStreamWriter#writeStartElement(String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter); then calls writeStartElement(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)"})
   void testWriteErrorDefinition_thenCallsWriteStartElement2() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -3635,7 +4442,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeErrorDefinition(parentEvent, errorDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("errorRef"), eq("An error occurred"));
     verify(xtw).writeCData(eq("Element Text"));
     verify(xtw, atLeast(1)).writeEndElement();
@@ -3651,18 +4458,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}.
    * <ul>
    *   <li>When {@link ErrorEventDefinition} (default constructor).</li>
    *   <li>Then calls {@link IndentingXMLStreamWriter#writeEndElement()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter); when ErrorEventDefinition (default constructor); then calls writeEndElement()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)"})
   void testWriteErrorDefinition_whenErrorEventDefinition_thenCallsWriteEndElement() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -3675,20 +4482,21 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeErrorDefinition(parentEvent, errorDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeEndElement();
     verify(xtw).writeStartElement(eq("errorEventDefinition"));
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}.
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)"})
   void testWriteTerminateDefinition() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -3726,7 +4534,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeTerminateDefinition(parentEvent, terminateDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
         eq("true"));
     verify(xtw).writeCData(eq("Element Text"));
@@ -3744,18 +4552,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add
-   * {@link ExtensionAttribute#ExtensionAttribute()}.</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link ExtensionAttribute#ExtensionAttribute()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter); given ArrayList() add ExtensionAttribute()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)"})
   void testWriteTerminateDefinition_givenArrayListAddExtensionAttribute() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -3793,7 +4601,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeTerminateDefinition(parentEvent, terminateDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
         eq("true"));
     verify(xtw).writeCData(eq("Element Text"));
@@ -3811,18 +4619,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link ExtensionElement} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link ExtensionElement} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter); given ArrayList() add ExtensionElement (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)"})
   void testWriteTerminateDefinition_givenArrayListAddExtensionElement() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -3846,7 +4654,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeTerminateDefinition(parentEvent, terminateDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
         eq("true"));
     verify(xtw, atLeast(1)).writeEndElement();
@@ -3857,18 +4665,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link ExtensionElement} {@link ExtensionElement#getNamespace()}
-   * return empty string.</li>
+   *   <li>Given {@link ExtensionElement} {@link ExtensionElement#getNamespace()} return empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter); given ExtensionElement getNamespace() return empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)"})
   void testWriteTerminateDefinition_givenExtensionElementGetNamespaceReturnEmptyString() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -3898,7 +4706,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeTerminateDefinition(parentEvent, terminateDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
         eq("true"));
     verify(xtw).writeCData(eq("Element Text"));
@@ -3914,19 +4722,19 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}.
    * <ul>
    *   <li>Given {@link HashMap#HashMap()}.</li>
-   *   <li>Then calls
-   * {@link DelegatingXMLStreamWriter#writeAttribute(String, String, String, String)}.</li>
+   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeAttribute(String, String, String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter); given HashMap(); then calls writeAttribute(String, String, String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)"})
   void testWriteTerminateDefinition_givenHashMap_thenCallsWriteAttribute() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -3944,7 +4752,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeTerminateDefinition(parentEvent, terminateDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
         eq("true"));
     verify(xtw).writeEndElement();
@@ -3955,18 +4763,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Then calls
-   * {@link DelegatingXMLStreamWriter#writeAttribute(String, String, String, String)}.</li>
+   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeAttribute(String, String, String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter); then calls writeAttribute(String, String, String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)"})
   void testWriteTerminateDefinition_thenCallsWriteAttribute() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -3987,7 +4795,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeTerminateDefinition(parentEvent, terminateDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
         eq("true"));
     verify(xtw, atLeast(1)).writeEndElement();
@@ -3998,18 +4806,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Then calls
-   * {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}.</li>
+   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter); then calls writeAttribute(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)"})
   void testWriteTerminateDefinition_thenCallsWriteAttribute2() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -4051,7 +4859,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeTerminateDefinition(parentEvent, terminateDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("terminateEventDefinition"), eq("42"));
     verify(xtw, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
         eq("true"));
@@ -4070,18 +4878,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Then calls
-   * {@link DelegatingXMLStreamWriter#writeAttribute(String, String, String)}.</li>
+   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeAttribute(String, String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter); then calls writeAttribute(String, String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)"})
   void testWriteTerminateDefinition_thenCallsWriteAttribute3() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -4124,7 +4932,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeTerminateDefinition(parentEvent, terminateDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("terminateEventDefinition"), eq("terminateEventDefinition"), eq("42"));
     verify(xtw, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
         eq("true"));
@@ -4143,18 +4951,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Then calls
-   * {@link DelegatingXMLStreamWriter#writeNamespace(String, String)}.</li>
+   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeNamespace(String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter); then calls writeNamespace(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)"})
   void testWriteTerminateDefinition_thenCallsWriteNamespace() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -4206,18 +5014,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Then calls
-   * {@link IndentingXMLStreamWriter#writeStartElement(String, String)}.</li>
+   *   <li>Then calls {@link IndentingXMLStreamWriter#writeStartElement(String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter); then calls writeStartElement(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)"})
   void testWriteTerminateDefinition_thenCallsWriteStartElement() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -4249,7 +5057,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeTerminateDefinition(parentEvent, terminateDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
         eq("true"));
     verify(xtw).writeCData(eq("Element Text"));
@@ -4267,18 +5075,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}.
    * <ul>
-   *   <li>Then calls
-   * {@link IndentingXMLStreamWriter#writeStartElement(String, String)}.</li>
+   *   <li>Then calls {@link IndentingXMLStreamWriter#writeStartElement(String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter); then calls writeStartElement(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)"})
   void testWriteTerminateDefinition_thenCallsWriteStartElement2() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -4313,7 +5121,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeTerminateDefinition(parentEvent, terminateDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw, atLeast(1)).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), Mockito.<String>any(),
         eq("true"));
     verify(xtw).writeCData(eq("Element Text"));
@@ -4331,17 +5139,18 @@ class BaseBpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}.
    * <ul>
    *   <li>When {@link TerminateEventDefinition} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter); when TerminateEventDefinition (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void BaseBpmnXMLConverter.writeTerminateDefinition(Event, TerminateEventDefinition, XMLStreamWriter)"})
   void testWriteTerminateDefinition_whenTerminateEventDefinition() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -4354,25 +5163,24 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeTerminateDefinition(parentEvent, terminateDefinition, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeEndElement();
     verify(xtw).writeStartElement(eq("terminateEventDefinition"));
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeDefaultAttribute(String, String, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeDefaultAttribute(String, String, XMLStreamWriter)}.
    * <ul>
    *   <li>When {@code 42}.</li>
-   *   <li>Then calls
-   * {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}.</li>
+   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeDefaultAttribute(String, String, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeDefaultAttribute(String, String, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeDefaultAttribute(String, String, XMLStreamWriter); when '42'; then calls writeAttribute(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeDefaultAttribute(String, String, XMLStreamWriter)"})
   void testWriteDefaultAttribute_when42_thenCallsWriteAttribute() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
@@ -4382,25 +5190,23 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeDefaultAttribute("Attribute Name", "42", xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("Attribute Name"), eq("42"));
   }
 
   /**
-   * Test
-   * {@link BaseBpmnXMLConverter#writeQualifiedAttribute(String, String, XMLStreamWriter)}.
+   * Test {@link BaseBpmnXMLConverter#writeQualifiedAttribute(String, String, XMLStreamWriter)}.
    * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then calls
-   * {@link DelegatingXMLStreamWriter#writeAttribute(String, String, String, String)}.</li>
+   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeAttribute(String, String, String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseBpmnXMLConverter#writeQualifiedAttribute(String, String, XMLStreamWriter)}
+   * Method under test: {@link BaseBpmnXMLConverter#writeQualifiedAttribute(String, String, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeQualifiedAttribute(String, String, XMLStreamWriter); when '42'; then calls writeAttribute(String, String, String, String)")
-  void testWriteQualifiedAttribute_when42_thenCallsWriteAttribute() throws Exception {
+  @DisplayName("Test writeQualifiedAttribute(String, String, XMLStreamWriter); then calls writeAttribute(String, String, String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BaseBpmnXMLConverter.writeQualifiedAttribute(String, String, XMLStreamWriter)"})
+  void testWriteQualifiedAttribute_thenCallsWriteAttribute() throws Exception {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
     IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
@@ -4410,7 +5216,7 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Act
     associationXMLConverter.writeQualifiedAttribute("Attribute Name", "42", xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeAttribute(eq("activiti"), eq("http://activiti.org/bpmn"), eq("Attribute Name"), eq("42"));
   }
 }

@@ -16,7 +16,10 @@
 package org.activiti.engine.impl.jobexecutor;
 
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class AsyncContinuationJobHandlerDiffblueTest {
   /**
@@ -24,12 +27,14 @@ public class AsyncContinuationJobHandlerDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of
-   * {@link AsyncContinuationJobHandler}
+   *   <li>default or parameterless constructor of {@link AsyncContinuationJobHandler}
    *   <li>{@link AsyncContinuationJobHandler#getType()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AsyncContinuationJobHandler.<init>()",
+      "java.lang.String AsyncContinuationJobHandler.getType()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals(AsyncContinuationJobHandler.TYPE, (new AsyncContinuationJobHandler()).getType());

@@ -19,20 +19,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class RemoveProcessVariablesPayloadDiffblueTest {
   /**
    * Test {@link RemoveProcessVariablesPayload#RemoveProcessVariablesPayload()}.
    * <p>
-   * Method under test:
-   * {@link RemoveProcessVariablesPayload#RemoveProcessVariablesPayload()}
+   * Method under test: {@link RemoveProcessVariablesPayload#RemoveProcessVariablesPayload()}
    */
   @Test
   @DisplayName("Test new RemoveProcessVariablesPayload()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void RemoveProcessVariablesPayload.<init>()"})
   void testNewRemoveProcessVariablesPayload() {
     // Arrange and Act
     RemoveProcessVariablesPayload actualRemoveProcessVariablesPayload = new RemoveProcessVariablesPayload();
@@ -43,18 +46,18 @@ class RemoveProcessVariablesPayloadDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link RemoveProcessVariablesPayload#RemoveProcessVariablesPayload(String, List)}.
+   * Test {@link RemoveProcessVariablesPayload#RemoveProcessVariablesPayload(String, List)}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link RemoveProcessVariablesPayload#RemoveProcessVariablesPayload(String, List)}
+   * Method under test: {@link RemoveProcessVariablesPayload#RemoveProcessVariablesPayload(String, List)}
    */
   @Test
   @DisplayName("Test new RemoveProcessVariablesPayload(String, List); given '42'; when ArrayList() add '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void RemoveProcessVariablesPayload.<init>(String, List)"})
   void testNewRemoveProcessVariablesPayload_given42_whenArrayListAdd42() {
     // Arrange
     ArrayList<String> variableNames = new ArrayList<>();
@@ -71,18 +74,18 @@ class RemoveProcessVariablesPayloadDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link RemoveProcessVariablesPayload#RemoveProcessVariablesPayload(String, List)}.
+   * Test {@link RemoveProcessVariablesPayload#RemoveProcessVariablesPayload(String, List)}.
    * <ul>
    *   <li>Given {@code foo}.</li>
    *   <li>Then return VariableNames is {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link RemoveProcessVariablesPayload#RemoveProcessVariablesPayload(String, List)}
+   * Method under test: {@link RemoveProcessVariablesPayload#RemoveProcessVariablesPayload(String, List)}
    */
   @Test
   @DisplayName("Test new RemoveProcessVariablesPayload(String, List); given 'foo'; then return VariableNames is ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void RemoveProcessVariablesPayload.<init>(String, List)"})
   void testNewRemoveProcessVariablesPayload_givenFoo_thenReturnVariableNamesIsArrayList() {
     // Arrange
     ArrayList<String> variableNames = new ArrayList<>();
@@ -98,18 +101,18 @@ class RemoveProcessVariablesPayloadDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link RemoveProcessVariablesPayload#RemoveProcessVariablesPayload(String, List)}.
+   * Test {@link RemoveProcessVariablesPayload#RemoveProcessVariablesPayload(String, List)}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    *   <li>Then return VariableNames Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link RemoveProcessVariablesPayload#RemoveProcessVariablesPayload(String, List)}
+   * Method under test: {@link RemoveProcessVariablesPayload#RemoveProcessVariablesPayload(String, List)}
    */
   @Test
   @DisplayName("Test new RemoveProcessVariablesPayload(String, List); when ArrayList(); then return VariableNames Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void RemoveProcessVariablesPayload.<init>(String, List)"})
   void testNewRemoveProcessVariablesPayload_whenArrayList_thenReturnVariableNamesEmpty() {
     // Arrange and Act
     RemoveProcessVariablesPayload actualRemoveProcessVariablesPayload = new RemoveProcessVariablesPayload("42",
@@ -134,6 +137,12 @@ class RemoveProcessVariablesPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String RemoveProcessVariablesPayload.getId()",
+      "String RemoveProcessVariablesPayload.getProcessInstanceId()",
+      "List RemoveProcessVariablesPayload.getVariableNames()",
+      "void RemoveProcessVariablesPayload.setProcessInstanceId(String)",
+      "void RemoveProcessVariablesPayload.setVariableNames(List)"})
   void testGettersAndSetters() {
     // Arrange
     RemoveProcessVariablesPayload removeProcessVariablesPayload = new RemoveProcessVariablesPayload();
@@ -146,7 +155,7 @@ class RemoveProcessVariablesPayloadDiffblueTest {
     String actualProcessInstanceId = removeProcessVariablesPayload.getProcessInstanceId();
     List<String> actualVariableNames = removeProcessVariablesPayload.getVariableNames();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualProcessInstanceId);
     assertTrue(actualVariableNames.isEmpty());
     assertSame(variableNames, actualVariableNames);

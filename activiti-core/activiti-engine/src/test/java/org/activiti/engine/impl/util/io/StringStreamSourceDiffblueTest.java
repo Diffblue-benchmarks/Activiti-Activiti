@@ -18,9 +18,12 @@ package org.activiti.engine.impl.util.io;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.IOException;
 import org.activiti.engine.ActivitiException;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class StringStreamSourceDiffblueTest {
   /**
@@ -36,6 +39,9 @@ public class StringStreamSourceDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void StringStreamSource.<init>(String)", "void StringStreamSource.<init>(String, String)",
+      "String StringStreamSource.toString()"})
   public void testGettersAndSetters_whenString() {
     // Arrange, Act and Assert
     assertEquals("String", (new StringStreamSource("String")).toString());
@@ -54,6 +60,9 @@ public class StringStreamSourceDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void StringStreamSource.<init>(String)", "void StringStreamSource.<init>(String, String)",
+      "String StringStreamSource.toString()"})
   public void testGettersAndSetters_whenUtf8() {
     // Arrange, Act and Assert
     assertEquals("String", (new StringStreamSource("String", "UTF-8")).toString());
@@ -62,14 +71,15 @@ public class StringStreamSourceDiffblueTest {
   /**
    * Test {@link StringStreamSource#getInputStream()}.
    * <ul>
-   *   <li>Given {@link StringStreamSource#StringStreamSource(String)} with
-   * {@code String}.</li>
+   *   <li>Given {@link StringStreamSource#StringStreamSource(String)} with {@code String}.</li>
    *   <li>Then return read is six.</li>
    * </ul>
    * <p>
    * Method under test: {@link StringStreamSource#getInputStream()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.io.InputStream StringStreamSource.getInputStream()"})
   public void testGetInputStream_givenStringStreamSourceWithString_thenReturnReadIsSix() throws IOException {
     // Arrange, Act and Assert
     byte[] byteArray = new byte[6];
@@ -86,6 +96,8 @@ public class StringStreamSourceDiffblueTest {
    * Method under test: {@link StringStreamSource#getInputStream()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.io.InputStream StringStreamSource.getInputStream()"})
   public void testGetInputStream_thenThrowActivitiException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class,

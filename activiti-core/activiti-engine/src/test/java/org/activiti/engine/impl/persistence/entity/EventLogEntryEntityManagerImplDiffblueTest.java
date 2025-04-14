@@ -23,6 +23,8 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.engine.event.EventLogEntry;
@@ -32,6 +34,7 @@ import org.activiti.engine.impl.persistence.entity.data.DataManager;
 import org.activiti.engine.impl.persistence.entity.data.EventLogEntryDataManager;
 import org.activiti.engine.impl.persistence.entity.data.impl.MybatisEventLogEntryDataManager;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -54,15 +57,19 @@ public class EventLogEntryEntityManagerImplDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link EventLogEntryEntityManagerImpl#EventLogEntryEntityManagerImpl(ProcessEngineConfigurationImpl, EventLogEntryDataManager)}
-   *   <li>
-   * {@link EventLogEntryEntityManagerImpl#setEventLogEntryDataManager(EventLogEntryDataManager)}
+   *   <li>{@link EventLogEntryEntityManagerImpl#EventLogEntryEntityManagerImpl(ProcessEngineConfigurationImpl, EventLogEntryDataManager)}
+   *   <li>{@link EventLogEntryEntityManagerImpl#setEventLogEntryDataManager(EventLogEntryDataManager)}
    *   <li>{@link EventLogEntryEntityManagerImpl#getDataManager()}
    *   <li>{@link EventLogEntryEntityManagerImpl#getEventLogEntryDataManager()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "void EventLogEntryEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, EventLogEntryDataManager)",
+      "DataManager EventLogEntryEntityManagerImpl.getDataManager()",
+      "EventLogEntryDataManager EventLogEntryEntityManagerImpl.getEventLogEntryDataManager()",
+      "void EventLogEntryEntityManagerImpl.setEventLogEntryDataManager(EventLogEntryDataManager)"})
   public void testGettersAndSetters() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
@@ -75,7 +82,7 @@ public class EventLogEntryEntityManagerImplDiffblueTest {
     actualEventLogEntryEntityManagerImpl.setEventLogEntryDataManager(eventLogEntryDataManager);
     DataManager<EventLogEntryEntity> actualDataManager = actualEventLogEntryEntityManagerImpl.getDataManager();
 
-    // Assert that nothing has changed
+    // Assert
     assertSame(eventLogEntryDataManager, actualDataManager);
     assertSame(eventLogEntryDataManager, actualEventLogEntryEntityManagerImpl.getEventLogEntryDataManager());
   }
@@ -86,10 +93,11 @@ public class EventLogEntryEntityManagerImplDiffblueTest {
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventLogEntryEntityManagerImpl#findAllEventLogEntries()}
+   * Method under test: {@link EventLogEntryEntityManagerImpl#findAllEventLogEntries()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List EventLogEntryEntityManagerImpl.findAllEventLogEntries()"})
   public void testFindAllEventLogEntries_thenReturnEmpty() {
     // Arrange
     EventLogEntryDataManager eventLogEntryDataManager = mock(EventLogEntryDataManager.class);
@@ -110,10 +118,11 @@ public class EventLogEntryEntityManagerImplDiffblueTest {
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventLogEntryEntityManagerImpl#findEventLogEntries(long, long)}
+   * Method under test: {@link EventLogEntryEntityManagerImpl#findEventLogEntries(long, long)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List EventLogEntryEntityManagerImpl.findEventLogEntries(long, long)"})
   public void testFindEventLogEntries_thenReturnEmpty() {
     // Arrange
     EventLogEntryDataManager eventLogEntryDataManager = mock(EventLogEntryDataManager.class);
@@ -129,13 +138,13 @@ public class EventLogEntryEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventLogEntryEntityManagerImpl#findEventLogEntriesByProcessInstanceId(String)}.
+   * Test {@link EventLogEntryEntityManagerImpl#findEventLogEntriesByProcessInstanceId(String)}.
    * <p>
-   * Method under test:
-   * {@link EventLogEntryEntityManagerImpl#findEventLogEntriesByProcessInstanceId(String)}
+   * Method under test: {@link EventLogEntryEntityManagerImpl#findEventLogEntriesByProcessInstanceId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List EventLogEntryEntityManagerImpl.findEventLogEntriesByProcessInstanceId(String)"})
   public void testFindEventLogEntriesByProcessInstanceId() {
     // Arrange
     when(eventLogEntryDataManager.findEventLogEntriesByProcessInstanceId(Mockito.<String>any()))
@@ -153,14 +162,14 @@ public class EventLogEntryEntityManagerImplDiffblueTest {
   /**
    * Test {@link EventLogEntryEntityManagerImpl#deleteEventLogEntry(long)}.
    * <ul>
-   *   <li>Then calls
-   * {@link EventLogEntryDataManager#deleteEventLogEntry(long)}.</li>
+   *   <li>Then calls {@link EventLogEntryDataManager#deleteEventLogEntry(long)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventLogEntryEntityManagerImpl#deleteEventLogEntry(long)}
+   * Method under test: {@link EventLogEntryEntityManagerImpl#deleteEventLogEntry(long)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventLogEntryEntityManagerImpl.deleteEventLogEntry(long)"})
   public void testDeleteEventLogEntry_thenCallsDeleteEventLogEntry() {
     // Arrange
     EventLogEntryDataManager eventLogEntryDataManager = mock(EventLogEntryDataManager.class);

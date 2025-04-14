@@ -19,18 +19,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.function.BiFunction;
-import org.activiti.bpmn.model.CancelEventDefinition;
-import org.activiti.bpmn.model.EventDefinition;
-import org.activiti.bpmn.model.ExtensionElement;
-import org.activiti.bpmn.model.FormProperty;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class AlfrescoStartEventDiffblueTest {
   /**
@@ -43,6 +35,8 @@ public class AlfrescoStartEventDiffblueTest {
    * Method under test: {@link AlfrescoStartEvent#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"AlfrescoStartEvent AlfrescoStartEvent.clone()"})
   public void testClone_givenAlfrescoStartEvent_thenReturnBehaviorIsNull() {
     // Arrange and Act
     AlfrescoStartEvent actualCloneResult = (new AlfrescoStartEvent()).clone();
@@ -74,79 +68,6 @@ public class AlfrescoStartEventDiffblueTest {
   }
 
   /**
-   * Test {@link AlfrescoStartEvent#clone()}.
-   * <ul>
-   *   <li>Then return FormProperties size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AlfrescoStartEvent#clone()}
-   */
-  @Test
-  public void testClone_thenReturnFormPropertiesSizeIsOne() {
-    // Arrange
-    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
-    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
-
-    FormProperty formProperty = new FormProperty();
-    formProperty.setExtensionElements(extensionElements);
-
-    ArrayList<FormProperty> formProperties = new ArrayList<>();
-    formProperties.add(formProperty);
-
-    AlfrescoStartEvent alfrescoStartEvent = new AlfrescoStartEvent();
-    alfrescoStartEvent.setFormProperties(formProperties);
-
-    // Act and Assert
-    List<FormProperty> formProperties2 = alfrescoStartEvent.clone().getFormProperties();
-    assertEquals(1, formProperties2.size());
-    FormProperty getResult = formProperties2.get(0);
-    assertNull(getResult.getId());
-    assertNull(getResult.getDatePattern());
-    assertNull(getResult.getDefaultExpression());
-    assertNull(getResult.getExpression());
-    assertNull(getResult.getName());
-    assertNull(getResult.getType());
-    assertNull(getResult.getVariable());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertFalse(getResult.isRequired());
-    assertTrue(getResult.getFormValues().isEmpty());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
-    assertTrue(getResult.isReadable());
-    assertTrue(getResult.isWriteable());
-  }
-
-  /**
-   * Test {@link AlfrescoStartEvent#setValues(AlfrescoStartEvent)} with
-   * {@code AlfrescoStartEvent}.
-   * <ul>
-   *   <li>Then calls {@link CancelEventDefinition#clone()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AlfrescoStartEvent#setValues(AlfrescoStartEvent)}
-   */
-  @Test
-  public void testSetValuesWithAlfrescoStartEvent_thenCallsClone() {
-    // Arrange
-    AlfrescoStartEvent alfrescoStartEvent = new AlfrescoStartEvent();
-    CancelEventDefinition cancelEventDefinition = mock(CancelEventDefinition.class);
-    when(cancelEventDefinition.clone()).thenReturn(new CancelEventDefinition());
-
-    ArrayList<EventDefinition> eventDefinitions = new ArrayList<>();
-    eventDefinitions.add(cancelEventDefinition);
-
-    AlfrescoStartEvent otherElement = new AlfrescoStartEvent();
-    otherElement.setEventDefinitions(eventDefinitions);
-
-    // Act
-    alfrescoStartEvent.setValues(otherElement);
-
-    // Assert
-    verify(cancelEventDefinition).clone();
-  }
-
-  /**
    * Test getters and setters.
    * <p>
    * Methods under test:
@@ -159,6 +80,10 @@ public class AlfrescoStartEventDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AlfrescoStartEvent.<init>()", "String AlfrescoStartEvent.getRunAs()",
+      "String AlfrescoStartEvent.getScriptProcessor()", "void AlfrescoStartEvent.setRunAs(String)",
+      "void AlfrescoStartEvent.setScriptProcessor(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     AlfrescoStartEvent actualAlfrescoStartEvent = new AlfrescoStartEvent();
@@ -166,9 +91,16 @@ public class AlfrescoStartEventDiffblueTest {
     actualAlfrescoStartEvent.setScriptProcessor("Script Processor");
     String actualRunAs = actualAlfrescoStartEvent.getRunAs();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Run As", actualRunAs);
     assertEquals("Script Processor", actualAlfrescoStartEvent.getScriptProcessor());
+    assertNull(actualAlfrescoStartEvent.getBehavior());
+    assertNull(actualAlfrescoStartEvent.getId());
+    assertNull(actualAlfrescoStartEvent.getDocumentation());
+    assertNull(actualAlfrescoStartEvent.getName());
+    assertNull(actualAlfrescoStartEvent.getFormKey());
+    assertNull(actualAlfrescoStartEvent.getInitiator());
+    assertNull(actualAlfrescoStartEvent.getParentContainer());
     assertEquals(0, actualAlfrescoStartEvent.getXmlColumnNumber());
     assertEquals(0, actualAlfrescoStartEvent.getXmlRowNumber());
     assertFalse(actualAlfrescoStartEvent.isAsynchronous());

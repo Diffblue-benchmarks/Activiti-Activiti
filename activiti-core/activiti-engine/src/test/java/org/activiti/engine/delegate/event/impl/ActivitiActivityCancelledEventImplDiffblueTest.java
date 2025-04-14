@@ -18,18 +18,22 @@ package org.activiti.engine.delegate.event.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ActivitiActivityCancelledEventImplDiffblueTest {
   /**
    * Test new {@link ActivitiActivityCancelledEventImpl} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link ActivitiActivityCancelledEventImpl}
+   * Method under test: default or parameterless constructor of {@link ActivitiActivityCancelledEventImpl}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiActivityCancelledEventImpl.<init>()"})
   public void testNewActivitiActivityCancelledEventImpl() {
     // Arrange and Act
     ActivitiActivityCancelledEventImpl actualActivitiActivityCancelledEventImpl = new ActivitiActivityCancelledEventImpl();
@@ -57,6 +61,9 @@ public class ActivitiActivityCancelledEventImplDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object ActivitiActivityCancelledEventImpl.getCause()",
+      "void ActivitiActivityCancelledEventImpl.setCause(Object)"})
   public void testGettersAndSetters() {
     // Arrange
     ActivitiActivityCancelledEventImpl activitiActivityCancelledEventImpl = new ActivitiActivityCancelledEventImpl();
@@ -65,7 +72,7 @@ public class ActivitiActivityCancelledEventImplDiffblueTest {
     // Act
     activitiActivityCancelledEventImpl.setCause(object);
 
-    // Assert that nothing has changed
+    // Assert
     assertSame(object, activitiActivityCancelledEventImpl.getCause());
   }
 }

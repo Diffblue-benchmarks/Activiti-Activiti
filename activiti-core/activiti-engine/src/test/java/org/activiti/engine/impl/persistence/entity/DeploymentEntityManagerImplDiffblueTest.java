@@ -16,19 +16,19 @@
 package org.activiti.engine.impl.persistence.entity;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.ArgumentMatchers.isNull;
-import static org.mockito.Mockito.anyBoolean;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +37,7 @@ import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.EventDefinition;
 import org.activiti.bpmn.model.Message;
+import org.activiti.bpmn.model.Message.Builder;
 import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.bpmn.model.Signal;
 import org.activiti.bpmn.model.SignalEventDefinition;
@@ -64,6 +65,7 @@ import org.activiti.engine.impl.persistence.entity.data.impl.MybatisDeploymentDa
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -86,15 +88,18 @@ public class DeploymentEntityManagerImplDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link DeploymentEntityManagerImpl#DeploymentEntityManagerImpl(ProcessEngineConfigurationImpl, DeploymentDataManager)}
-   *   <li>
-   * {@link DeploymentEntityManagerImpl#setDeploymentDataManager(DeploymentDataManager)}
+   *   <li>{@link DeploymentEntityManagerImpl#DeploymentEntityManagerImpl(ProcessEngineConfigurationImpl, DeploymentDataManager)}
+   *   <li>{@link DeploymentEntityManagerImpl#setDeploymentDataManager(DeploymentDataManager)}
    *   <li>{@link DeploymentEntityManagerImpl#getDataManager()}
    *   <li>{@link DeploymentEntityManagerImpl#getDeploymentDataManager()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeploymentEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, DeploymentDataManager)",
+      "DataManager DeploymentEntityManagerImpl.getDataManager()",
+      "DeploymentDataManager DeploymentEntityManagerImpl.getDeploymentDataManager()",
+      "void DeploymentEntityManagerImpl.setDeploymentDataManager(DeploymentDataManager)"})
   public void testGettersAndSetters() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
@@ -107,23 +112,23 @@ public class DeploymentEntityManagerImplDiffblueTest {
     actualDeploymentEntityManagerImpl.setDeploymentDataManager(deploymentDataManager);
     DataManager<DeploymentEntity> actualDataManager = actualDeploymentEntityManagerImpl.getDataManager();
 
-    // Assert that nothing has changed
+    // Assert
     assertSame(deploymentDataManager, actualDataManager);
     assertSame(deploymentDataManager, actualDeploymentEntityManagerImpl.getDeploymentDataManager());
   }
 
   /**
-   * Test {@link DeploymentEntityManagerImpl#insert(DeploymentEntity)} with
-   * {@code DeploymentEntity}.
+   * Test {@link DeploymentEntityManagerImpl#insert(DeploymentEntity)} with {@code DeploymentEntity}.
    * <ul>
    *   <li>Given {@link HashMap#HashMap()}.</li>
    *   <li>Then calls {@link DeploymentEntityImpl#getResources()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#insert(DeploymentEntity)}
+   * Method under test: {@link DeploymentEntityManagerImpl#insert(DeploymentEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeploymentEntityManagerImpl.insert(DeploymentEntity)"})
   public void testInsertWithDeploymentEntity_givenHashMap_thenCallsGetResources() {
     // Arrange
     DeploymentDataManager deploymentDataManager = mock(DeploymentDataManager.class);
@@ -142,17 +147,16 @@ public class DeploymentEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link DeploymentEntityManagerImpl#insert(DeploymentEntity)} with
-   * {@code DeploymentEntity}.
+   * Test {@link DeploymentEntityManagerImpl#insert(DeploymentEntity)} with {@code DeploymentEntity}.
    * <ul>
-   *   <li>Then calls
-   * {@link ProcessEngineConfigurationImpl#getEventDispatcher()}.</li>
+   *   <li>Then calls {@link ProcessEngineConfigurationImpl#getEventDispatcher()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#insert(DeploymentEntity)}
+   * Method under test: {@link DeploymentEntityManagerImpl#insert(DeploymentEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeploymentEntityManagerImpl.insert(DeploymentEntity)"})
   public void testInsertWithDeploymentEntity_thenCallsGetEventDispatcher() {
     // Arrange
     ResourceEntityManager resourceEntityManager = mock(ResourceEntityManager.class);
@@ -184,25 +188,22 @@ public class DeploymentEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DeploymentEntityManagerImpl#deleteProcessDefinitionIdentityLinks(String)}.
+   * Test {@link DeploymentEntityManagerImpl#deleteProcessDefinitionIdentityLinks(String)}.
    * <ul>
-   *   <li>Then calls
-   * {@link ProcessEngineConfigurationImpl#getIdentityLinkEntityManager()}.</li>
+   *   <li>Then calls {@link ProcessEngineConfigurationImpl#getIdentityLinkEntityManager()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#deleteProcessDefinitionIdentityLinks(String)}
+   * Method under test: {@link DeploymentEntityManagerImpl#deleteProcessDefinitionIdentityLinks(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeploymentEntityManagerImpl.deleteProcessDefinitionIdentityLinks(String)"})
   public void testDeleteProcessDefinitionIdentityLinks_thenCallsGetIdentityLinkEntityManager() {
     // Arrange
     IdentityLinkDataManager identityLinkDataManager = mock(IdentityLinkDataManager.class);
     doNothing().when(identityLinkDataManager).deleteIdentityLinksByProcDef(Mockito.<String>any());
-    IdentityLinkEntityManagerImpl identityLinkEntityManagerImpl = new IdentityLinkEntityManagerImpl(
-        processEngineConfigurationImpl, identityLinkDataManager);
-
-    when(processEngineConfigurationImpl.getIdentityLinkEntityManager()).thenReturn(identityLinkEntityManagerImpl);
+    when(processEngineConfigurationImpl.getIdentityLinkEntityManager())
+        .thenReturn(new IdentityLinkEntityManagerImpl(new JtaProcessEngineConfiguration(), identityLinkDataManager));
 
     // Act
     deploymentEntityManagerImpl.deleteProcessDefinitionIdentityLinks("42");
@@ -215,23 +216,20 @@ public class DeploymentEntityManagerImplDiffblueTest {
   /**
    * Test {@link DeploymentEntityManagerImpl#deleteEventSubscriptions(String)}.
    * <ul>
-   *   <li>Then calls
-   * {@link ProcessEngineConfigurationImpl#getEventSubscriptionEntityManager()}.</li>
+   *   <li>Then calls {@link ProcessEngineConfigurationImpl#getEventSubscriptionEntityManager()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#deleteEventSubscriptions(String)}
+   * Method under test: {@link DeploymentEntityManagerImpl#deleteEventSubscriptions(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeploymentEntityManagerImpl.deleteEventSubscriptions(String)"})
   public void testDeleteEventSubscriptions_thenCallsGetEventSubscriptionEntityManager() {
     // Arrange
     EventSubscriptionDataManager eventSubscriptionDataManager = mock(EventSubscriptionDataManager.class);
     doNothing().when(eventSubscriptionDataManager).deleteEventSubscriptionsForProcessDefinition(Mockito.<String>any());
-    EventSubscriptionEntityManagerImpl eventSubscriptionEntityManagerImpl = new EventSubscriptionEntityManagerImpl(
-        processEngineConfigurationImpl, eventSubscriptionDataManager);
-
-    when(processEngineConfigurationImpl.getEventSubscriptionEntityManager())
-        .thenReturn(eventSubscriptionEntityManagerImpl);
+    when(processEngineConfigurationImpl.getEventSubscriptionEntityManager()).thenReturn(
+        new EventSubscriptionEntityManagerImpl(new JtaProcessEngineConfiguration(), eventSubscriptionDataManager));
 
     // Act
     deploymentEntityManagerImpl.deleteEventSubscriptions("42");
@@ -244,86 +242,73 @@ public class DeploymentEntityManagerImplDiffblueTest {
   /**
    * Test {@link DeploymentEntityManagerImpl#deleteProcessDefinitionInfo(String)}.
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#deleteProcessDefinitionInfo(String)}
+   * Method under test: {@link DeploymentEntityManagerImpl#deleteProcessDefinitionInfo(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeploymentEntityManagerImpl.deleteProcessDefinitionInfo(String)"})
   public void testDeleteProcessDefinitionInfo() {
     // Arrange
     ProcessDefinitionInfoDataManager processDefinitionInfoDataManager = mock(ProcessDefinitionInfoDataManager.class);
-    doNothing().when(processDefinitionInfoDataManager).delete(Mockito.<ProcessDefinitionInfoEntity>any());
     when(processDefinitionInfoDataManager.findProcessDefinitionInfoByProcessDefinitionId(Mockito.<String>any()))
-        .thenReturn(new ProcessDefinitionInfoEntityImpl());
-    ProcessDefinitionInfoEntityManagerImpl processDefinitionInfoEntityManagerImpl = new ProcessDefinitionInfoEntityManagerImpl(
-        processEngineConfigurationImpl, processDefinitionInfoDataManager);
-
-    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
+        .thenReturn(null);
     when(processEngineConfigurationImpl.getProcessDefinitionInfoEntityManager())
-        .thenReturn(processDefinitionInfoEntityManagerImpl);
+        .thenReturn(new ProcessDefinitionInfoEntityManagerImpl(new JtaProcessEngineConfiguration(),
+            processDefinitionInfoDataManager));
 
     // Act
     deploymentEntityManagerImpl.deleteProcessDefinitionInfo("42");
 
     // Assert
-    verify(processEngineConfigurationImpl, atLeast(1)).getEventDispatcher();
     verify(processEngineConfigurationImpl).getProcessDefinitionInfoEntityManager();
-    verify(processDefinitionInfoDataManager).delete(isA(ProcessDefinitionInfoEntity.class));
     verify(processDefinitionInfoDataManager).findProcessDefinitionInfoByProcessDefinitionId(eq("42"));
   }
 
   /**
    * Test {@link DeploymentEntityManagerImpl#deleteProcessDefinitionInfo(String)}.
    * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#isEnabled()}.</li>
+   *   <li>Then calls {@link DataManager#delete(Entity)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#deleteProcessDefinitionInfo(String)}
+   * Method under test: {@link DeploymentEntityManagerImpl#deleteProcessDefinitionInfo(String)}
    */
   @Test
-  public void testDeleteProcessDefinitionInfo_thenCallsIsEnabled() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeploymentEntityManagerImpl.deleteProcessDefinitionInfo(String)"})
+  public void testDeleteProcessDefinitionInfo_thenCallsDelete() {
     // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.setEventDispatcher(new ActivitiEventDispatcherImpl());
     ProcessDefinitionInfoDataManager processDefinitionInfoDataManager = mock(ProcessDefinitionInfoDataManager.class);
     doNothing().when(processDefinitionInfoDataManager).delete(Mockito.<ProcessDefinitionInfoEntity>any());
     when(processDefinitionInfoDataManager.findProcessDefinitionInfoByProcessDefinitionId(Mockito.<String>any()))
         .thenReturn(new ProcessDefinitionInfoEntityImpl());
-    ProcessDefinitionInfoEntityManagerImpl processDefinitionInfoEntityManagerImpl = new ProcessDefinitionInfoEntityManagerImpl(
-        processEngineConfigurationImpl, processDefinitionInfoDataManager);
-
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
-    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfigurationImpl.getProcessDefinitionInfoEntityManager())
-        .thenReturn(processDefinitionInfoEntityManagerImpl);
+    when(processEngineConfigurationImpl.getProcessDefinitionInfoEntityManager()).thenReturn(
+        new ProcessDefinitionInfoEntityManagerImpl(processEngineConfiguration, processDefinitionInfoDataManager));
 
     // Act
     deploymentEntityManagerImpl.deleteProcessDefinitionInfo("42");
 
     // Assert
-    verify(activitiEventDispatcher).isEnabled();
-    verify(processEngineConfigurationImpl).getEventDispatcher();
     verify(processEngineConfigurationImpl).getProcessDefinitionInfoEntityManager();
     verify(processDefinitionInfoDataManager).delete(isA(ProcessDefinitionInfoEntity.class));
     verify(processDefinitionInfoDataManager).findProcessDefinitionInfoByProcessDefinitionId(eq("42"));
   }
 
   /**
-   * Test
-   * {@link DeploymentEntityManagerImpl#deleteProcessDefinitionForDeployment(String)}.
+   * Test {@link DeploymentEntityManagerImpl#deleteProcessDefinitionForDeployment(String)}.
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#deleteProcessDefinitionForDeployment(String)}
+   * Method under test: {@link DeploymentEntityManagerImpl#deleteProcessDefinitionForDeployment(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeploymentEntityManagerImpl.deleteProcessDefinitionForDeployment(String)"})
   public void testDeleteProcessDefinitionForDeployment() {
     // Arrange
     ProcessDefinitionDataManager processDefinitionDataManager = mock(ProcessDefinitionDataManager.class);
     doNothing().when(processDefinitionDataManager).deleteProcessDefinitionsByDeploymentId(Mockito.<String>any());
-    ProcessDefinitionEntityManagerImpl processDefinitionEntityManagerImpl = new ProcessDefinitionEntityManagerImpl(
-        processEngineConfigurationImpl, processDefinitionDataManager);
-
-    when(processEngineConfigurationImpl.getProcessDefinitionEntityManager())
-        .thenReturn(processDefinitionEntityManagerImpl);
+    when(processEngineConfigurationImpl.getProcessDefinitionEntityManager()).thenReturn(
+        new ProcessDefinitionEntityManagerImpl(new JtaProcessEngineConfiguration(), processDefinitionDataManager));
 
     // Act
     deploymentEntityManagerImpl.deleteProcessDefinitionForDeployment("42");
@@ -334,74 +319,13 @@ public class DeploymentEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DeploymentEntityManagerImpl#deleteProcessInstancesForProcessDefinitions(List)}.
+   * Test {@link DeploymentEntityManagerImpl#removeRelatedJobs(ProcessDefinition)}.
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#deleteProcessInstancesForProcessDefinitions(List)}
+   * Method under test: {@link DeploymentEntityManagerImpl#removeRelatedJobs(ProcessDefinition)}
    */
   @Test
-  public void testDeleteProcessInstancesForProcessDefinitions() {
-    // Arrange
-    ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
-    doNothing().when(executionEntityManager)
-        .deleteProcessInstancesByProcessDefinition(Mockito.<String>any(), Mockito.<String>any(), anyBoolean());
-    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManager);
-    DeploymentEntityManagerImpl deploymentEntityManagerImpl = new DeploymentEntityManagerImpl(
-        processEngineConfiguration, new MybatisDeploymentDataManager(new JtaProcessEngineConfiguration()));
-
-    ArrayList<ProcessDefinition> processDefinitions = new ArrayList<>();
-    processDefinitions.add(new ProcessDefinitionEntityImpl());
-
-    // Act
-    deploymentEntityManagerImpl.deleteProcessInstancesForProcessDefinitions(processDefinitions);
-
-    // Assert
-    verify(processEngineConfiguration).getExecutionEntityManager();
-    verify(executionEntityManager).deleteProcessInstancesByProcessDefinition(isNull(), eq("deleted deployment"),
-        eq(true));
-  }
-
-  /**
-   * Test
-   * {@link DeploymentEntityManagerImpl#deleteProcessInstancesForProcessDefinitions(List)}.
-   * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#deleteProcessInstancesForProcessDefinitions(List)}
-   */
-  @Test
-  public void testDeleteProcessInstancesForProcessDefinitions2() {
-    // Arrange
-    ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
-    doNothing().when(executionEntityManager)
-        .deleteProcessInstancesByProcessDefinition(Mockito.<String>any(), Mockito.<String>any(), anyBoolean());
-    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManager);
-    DeploymentEntityManagerImpl deploymentEntityManagerImpl = new DeploymentEntityManagerImpl(
-        processEngineConfiguration, new MybatisDeploymentDataManager(new JtaProcessEngineConfiguration()));
-
-    ArrayList<ProcessDefinition> processDefinitions = new ArrayList<>();
-    processDefinitions.add(new ProcessDefinitionEntityImpl());
-    processDefinitions.add(new ProcessDefinitionEntityImpl());
-
-    // Act
-    deploymentEntityManagerImpl.deleteProcessInstancesForProcessDefinitions(processDefinitions);
-
-    // Assert
-    verify(processEngineConfiguration, atLeast(1)).getExecutionEntityManager();
-    verify(executionEntityManager, atLeast(1)).deleteProcessInstancesByProcessDefinition(isNull(),
-        eq("deleted deployment"), eq(true));
-  }
-
-  /**
-   * Test
-   * {@link DeploymentEntityManagerImpl#removeRelatedJobs(ProcessDefinition)}.
-   * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#removeRelatedJobs(ProcessDefinition)}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeploymentEntityManagerImpl.removeRelatedJobs(ProcessDefinition)"})
   public void testRemoveRelatedJobs() {
     // Arrange
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
@@ -435,17 +359,16 @@ public class DeploymentEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DeploymentEntityManagerImpl#removeRelatedJobs(ProcessDefinition)}.
+   * Test {@link DeploymentEntityManagerImpl#removeRelatedJobs(ProcessDefinition)}.
    * <ul>
-   *   <li>Then calls
-   * {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#removeRelatedJobs(ProcessDefinition)}
+   * Method under test: {@link DeploymentEntityManagerImpl#removeRelatedJobs(ProcessDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeploymentEntityManagerImpl.removeRelatedJobs(ProcessDefinition)"})
   public void testRemoveRelatedJobs_thenCallsDispatchEvent() {
     // Arrange
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
@@ -481,17 +404,16 @@ public class DeploymentEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DeploymentEntityManagerImpl#removeRelatedJobs(ProcessDefinition)}.
+   * Test {@link DeploymentEntityManagerImpl#removeRelatedJobs(ProcessDefinition)}.
    * <ul>
-   *   <li>Then calls
-   * {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#removeRelatedJobs(ProcessDefinition)}
+   * Method under test: {@link DeploymentEntityManagerImpl#removeRelatedJobs(ProcessDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeploymentEntityManagerImpl.removeRelatedJobs(ProcessDefinition)"})
   public void testRemoveRelatedJobs_thenCallsDispatchEvent2() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -530,17 +452,16 @@ public class DeploymentEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DeploymentEntityManagerImpl#removeRelatedJobs(ProcessDefinition)}.
+   * Test {@link DeploymentEntityManagerImpl#removeRelatedJobs(ProcessDefinition)}.
    * <ul>
-   *   <li>Then calls
-   * {@link ProcessEngineConfigurationImpl#getJobEntityManager()}.</li>
+   *   <li>Then calls {@link ProcessEngineConfigurationImpl#getJobEntityManager()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#removeRelatedJobs(ProcessDefinition)}
+   * Method under test: {@link DeploymentEntityManagerImpl#removeRelatedJobs(ProcessDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeploymentEntityManagerImpl.removeRelatedJobs(ProcessDefinition)"})
   public void testRemoveRelatedJobs_thenCallsGetJobEntityManager() {
     // Arrange
     JobDataManager jobDataManager = mock(JobDataManager.class);
@@ -560,13 +481,13 @@ public class DeploymentEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DeploymentEntityManagerImpl#removeTimerSuspendProcesDefJobs(ProcessDefinition)}.
+   * Test {@link DeploymentEntityManagerImpl#removeTimerSuspendProcesDefJobs(ProcessDefinition)}.
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#removeTimerSuspendProcesDefJobs(ProcessDefinition)}
+   * Method under test: {@link DeploymentEntityManagerImpl#removeTimerSuspendProcesDefJobs(ProcessDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeploymentEntityManagerImpl.removeTimerSuspendProcesDefJobs(ProcessDefinition)"})
   public void testRemoveTimerSuspendProcesDefJobs() {
     // Arrange
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
@@ -601,17 +522,16 @@ public class DeploymentEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DeploymentEntityManagerImpl#removeTimerSuspendProcesDefJobs(ProcessDefinition)}.
+   * Test {@link DeploymentEntityManagerImpl#removeTimerSuspendProcesDefJobs(ProcessDefinition)}.
    * <ul>
-   *   <li>Then calls
-   * {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#removeTimerSuspendProcesDefJobs(ProcessDefinition)}
+   * Method under test: {@link DeploymentEntityManagerImpl#removeTimerSuspendProcesDefJobs(ProcessDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeploymentEntityManagerImpl.removeTimerSuspendProcesDefJobs(ProcessDefinition)"})
   public void testRemoveTimerSuspendProcesDefJobs_thenCallsDispatchEvent() {
     // Arrange
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
@@ -648,17 +568,16 @@ public class DeploymentEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DeploymentEntityManagerImpl#removeTimerSuspendProcesDefJobs(ProcessDefinition)}.
+   * Test {@link DeploymentEntityManagerImpl#removeTimerSuspendProcesDefJobs(ProcessDefinition)}.
    * <ul>
-   *   <li>Then calls
-   * {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#removeTimerSuspendProcesDefJobs(ProcessDefinition)}
+   * Method under test: {@link DeploymentEntityManagerImpl#removeTimerSuspendProcesDefJobs(ProcessDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeploymentEntityManagerImpl.removeTimerSuspendProcesDefJobs(ProcessDefinition)"})
   public void testRemoveTimerSuspendProcesDefJobs_thenCallsDispatchEvent2() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -698,17 +617,16 @@ public class DeploymentEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DeploymentEntityManagerImpl#removeTimerSuspendProcesDefJobs(ProcessDefinition)}.
+   * Test {@link DeploymentEntityManagerImpl#removeTimerSuspendProcesDefJobs(ProcessDefinition)}.
    * <ul>
-   *   <li>Then calls
-   * {@link ProcessEngineConfigurationImpl#getJobEntityManager()}.</li>
+   *   <li>Then calls {@link ProcessEngineConfigurationImpl#getJobEntityManager()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#removeTimerSuspendProcesDefJobs(ProcessDefinition)}
+   * Method under test: {@link DeploymentEntityManagerImpl#removeTimerSuspendProcesDefJobs(ProcessDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeploymentEntityManagerImpl.removeTimerSuspendProcesDefJobs(ProcessDefinition)"})
   public void testRemoveTimerSuspendProcesDefJobs_thenCallsGetJobEntityManager() {
     // Arrange
     JobDataManager jobDataManager = mock(JobDataManager.class);
@@ -731,29 +649,61 @@ public class DeploymentEntityManagerImplDiffblueTest {
   /**
    * Test {@link DeploymentEntityManagerImpl#removeTimerStartJobs(String)}.
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#removeTimerStartJobs(String)}
+   * Method under test: {@link DeploymentEntityManagerImpl#removeTimerStartJobs(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeploymentEntityManagerImpl.removeTimerStartJobs(String)"})
   public void testRemoveTimerStartJobs() {
     // Arrange
+    TimerJobDataManager jobDataManager = mock(TimerJobDataManager.class);
+    when(jobDataManager.findJobsByTypeAndProcessDefinitionId(Mockito.<String>any(), Mockito.<String>any()))
+        .thenReturn(new ArrayList<>());
+    when(processEngineConfigurationImpl.getTimerJobEntityManager())
+        .thenReturn(new TimerJobEntityManagerImpl(new JtaProcessEngineConfiguration(), jobDataManager));
+
+    // Act
+    deploymentEntityManagerImpl.removeTimerStartJobs("42");
+
+    // Assert
+    verify(processEngineConfigurationImpl).getTimerJobEntityManager();
+    verify(jobDataManager).findJobsByTypeAndProcessDefinitionId(eq("timer-start-event"), eq("42"));
+  }
+
+  /**
+   * Test {@link DeploymentEntityManagerImpl#removeTimerStartJobs(String)}.
+   * <p>
+   * Method under test: {@link DeploymentEntityManagerImpl#removeTimerStartJobs(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeploymentEntityManagerImpl.removeTimerStartJobs(String)"})
+  public void testRemoveTimerStartJobs2() {
+    // Arrange
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
+
     ArrayList<TimerJobEntity> timerJobEntityList = new ArrayList<>();
     timerJobEntityList.add(new TimerJobEntityImpl());
     TimerJobDataManager jobDataManager = mock(TimerJobDataManager.class);
     doNothing().when(jobDataManager).delete(Mockito.<TimerJobEntity>any());
     when(jobDataManager.findJobsByTypeAndProcessDefinitionId(Mockito.<String>any(), Mockito.<String>any()))
         .thenReturn(timerJobEntityList);
-    TimerJobEntityManagerImpl timerJobEntityManagerImpl = new TimerJobEntityManagerImpl(processEngineConfigurationImpl,
+    TimerJobEntityManagerImpl timerJobEntityManagerImpl = new TimerJobEntityManagerImpl(processEngineConfiguration,
         jobDataManager);
 
-    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
+    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     when(processEngineConfigurationImpl.getTimerJobEntityManager()).thenReturn(timerJobEntityManagerImpl);
 
     // Act
     deploymentEntityManagerImpl.removeTimerStartJobs("42");
 
     // Assert
-    verify(processEngineConfigurationImpl, atLeast(1)).getEventDispatcher();
+    verify(activitiEventDispatcher).isEnabled();
+    verify(processEngineConfigurationImpl).getEventDispatcher();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
     verify(processEngineConfigurationImpl, atLeast(1)).getTimerJobEntityManager();
     verify(jobDataManager).delete(isA(TimerJobEntity.class));
     verify(jobDataManager).findJobsByTypeAndProcessDefinitionId(eq("timer-start-event"), eq("42"));
@@ -762,14 +712,14 @@ public class DeploymentEntityManagerImplDiffblueTest {
   /**
    * Test {@link DeploymentEntityManagerImpl#removeTimerStartJobs(String)}.
    * <ul>
-   *   <li>Then calls
-   * {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#removeTimerStartJobs(String)}
+   * Method under test: {@link DeploymentEntityManagerImpl#removeTimerStartJobs(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeploymentEntityManagerImpl.removeTimerStartJobs(String)"})
   public void testRemoveTimerStartJobs_thenCallsDispatchEvent() {
     // Arrange
     ArrayList<TimerJobEntity> timerJobEntityList = new ArrayList<>();
@@ -802,55 +752,31 @@ public class DeploymentEntityManagerImplDiffblueTest {
   /**
    * Test {@link DeploymentEntityManagerImpl#removeTimerStartJobs(String)}.
    * <ul>
-   *   <li>Then calls
-   * {@link ProcessEngineConfigurationImpl#getTimerJobEntityManager()}.</li>
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#removeTimerStartJobs(String)}
+   * Method under test: {@link DeploymentEntityManagerImpl#removeTimerStartJobs(String)}
    */
   @Test
-  public void testRemoveTimerStartJobs_thenCallsGetTimerJobEntityManager() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeploymentEntityManagerImpl.removeTimerStartJobs(String)"})
+  public void testRemoveTimerStartJobs_thenCallsDispatchEvent2() {
     // Arrange
-    TimerJobDataManager jobDataManager = mock(TimerJobDataManager.class);
-    when(jobDataManager.findJobsByTypeAndProcessDefinitionId(Mockito.<String>any(), Mockito.<String>any()))
-        .thenReturn(new ArrayList<>());
-    TimerJobEntityManagerImpl timerJobEntityManagerImpl = new TimerJobEntityManagerImpl(processEngineConfigurationImpl,
-        jobDataManager);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
 
-    when(processEngineConfigurationImpl.getTimerJobEntityManager()).thenReturn(timerJobEntityManagerImpl);
-
-    // Act
-    deploymentEntityManagerImpl.removeTimerStartJobs("42");
-
-    // Assert
-    verify(processEngineConfigurationImpl).getTimerJobEntityManager();
-    verify(jobDataManager).findJobsByTypeAndProcessDefinitionId(eq("timer-start-event"), eq("42"));
-  }
-
-  /**
-   * Test {@link DeploymentEntityManagerImpl#removeTimerStartJobs(String)}.
-   * <ul>
-   *   <li>Then calls {@link ActivitiEventDispatcher#isEnabled()}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#removeTimerStartJobs(String)}
-   */
-  @Test
-  public void testRemoveTimerStartJobs_thenCallsIsEnabled() {
-    // Arrange
     ArrayList<TimerJobEntity> timerJobEntityList = new ArrayList<>();
     timerJobEntityList.add(new TimerJobEntityImpl());
     TimerJobDataManager jobDataManager = mock(TimerJobDataManager.class);
     doNothing().when(jobDataManager).delete(Mockito.<TimerJobEntity>any());
     when(jobDataManager.findJobsByTypeAndProcessDefinitionId(Mockito.<String>any(), Mockito.<String>any()))
         .thenReturn(timerJobEntityList);
-    TimerJobEntityManagerImpl timerJobEntityManagerImpl = new TimerJobEntityManagerImpl(processEngineConfigurationImpl,
+    TimerJobEntityManagerImpl timerJobEntityManagerImpl = new TimerJobEntityManagerImpl(processEngineConfiguration,
         jobDataManager);
 
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
     when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     when(processEngineConfigurationImpl.getTimerJobEntityManager()).thenReturn(timerJobEntityManagerImpl);
 
@@ -858,21 +784,70 @@ public class DeploymentEntityManagerImplDiffblueTest {
     deploymentEntityManagerImpl.removeTimerStartJobs("42");
 
     // Assert
-    verify(activitiEventDispatcher, atLeast(1)).isEnabled();
+    verify(activitiEventDispatcher).dispatchEvent(isA(ActivitiEvent.class));
+    verify(activitiEventDispatcher).isEnabled();
     verify(processEngineConfigurationImpl, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
     verify(processEngineConfigurationImpl, atLeast(1)).getTimerJobEntityManager();
     verify(jobDataManager).delete(isA(TimerJobEntity.class));
     verify(jobDataManager).findJobsByTypeAndProcessDefinitionId(eq("timer-start-event"), eq("42"));
   }
 
   /**
-   * Test
-   * {@link DeploymentEntityManagerImpl#restorePreviousStartEventsIfNeeded(ProcessDefinition)}.
+   * Test {@link DeploymentEntityManagerImpl#removeTimerStartJobs(String)}.
+   * <ul>
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
+   * </ul>
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#restorePreviousStartEventsIfNeeded(ProcessDefinition)}
+   * Method under test: {@link DeploymentEntityManagerImpl#removeTimerStartJobs(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeploymentEntityManagerImpl.removeTimerStartJobs(String)"})
+  public void testRemoveTimerStartJobs_thenCallsDispatchEvent3() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+
+    ArrayList<TimerJobEntity> timerJobEntityList = new ArrayList<>();
+    timerJobEntityList.add(new TimerJobEntityImpl());
+    TimerJobDataManager jobDataManager = mock(TimerJobDataManager.class);
+    doNothing().when(jobDataManager).delete(Mockito.<TimerJobEntity>any());
+    when(jobDataManager.findJobsByTypeAndProcessDefinitionId(Mockito.<String>any(), Mockito.<String>any()))
+        .thenReturn(timerJobEntityList);
+    TimerJobEntityManagerImpl timerJobEntityManagerImpl = new TimerJobEntityManagerImpl(processEngineConfiguration,
+        jobDataManager);
+
+    ActivitiEventDispatcher activitiEventDispatcher2 = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher2).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher2.isEnabled()).thenReturn(true);
+    when(processEngineConfigurationImpl.getEventDispatcher()).thenReturn(activitiEventDispatcher2);
+    when(processEngineConfigurationImpl.getTimerJobEntityManager()).thenReturn(timerJobEntityManagerImpl);
+
+    // Act
+    deploymentEntityManagerImpl.removeTimerStartJobs("42");
+
+    // Assert
+    verify(activitiEventDispatcher2).dispatchEvent(isA(ActivitiEvent.class));
+    verify(activitiEventDispatcher2).isEnabled();
+    verify(activitiEventDispatcher, atLeast(1)).isEnabled();
+    verify(processEngineConfigurationImpl, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfigurationImpl, atLeast(1)).getTimerJobEntityManager();
+    verify(jobDataManager).delete(isA(TimerJobEntity.class));
+    verify(jobDataManager).findJobsByTypeAndProcessDefinitionId(eq("timer-start-event"), eq("42"));
+  }
+
+  /**
+   * Test {@link DeploymentEntityManagerImpl#restorePreviousStartEventsIfNeeded(ProcessDefinition)}.
+   * <p>
+   * Method under test: {@link DeploymentEntityManagerImpl#restorePreviousStartEventsIfNeeded(ProcessDefinition)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeploymentEntityManagerImpl.restorePreviousStartEventsIfNeeded(ProcessDefinition)"})
   public void testRestorePreviousStartEventsIfNeeded() {
     // Arrange
     ProcessDefinitionDataManager processDefinitionDataManager = mock(ProcessDefinitionDataManager.class);
@@ -900,17 +875,16 @@ public class DeploymentEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DeploymentEntityManagerImpl#restorePreviousStartEventsIfNeeded(ProcessDefinition)}.
+   * Test {@link DeploymentEntityManagerImpl#restorePreviousStartEventsIfNeeded(ProcessDefinition)}.
    * <ul>
-   *   <li>Then calls
-   * {@link ProcessDefinitionDataManager#findLatestProcessDefinitionByKey(String)}.</li>
+   *   <li>Then calls {@link ProcessDefinitionDataManager#findLatestProcessDefinitionByKey(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#restorePreviousStartEventsIfNeeded(ProcessDefinition)}
+   * Method under test: {@link DeploymentEntityManagerImpl#restorePreviousStartEventsIfNeeded(ProcessDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeploymentEntityManagerImpl.restorePreviousStartEventsIfNeeded(ProcessDefinition)"})
   public void testRestorePreviousStartEventsIfNeeded_thenCallsFindLatestProcessDefinitionByKey() {
     // Arrange
     ProcessDefinitionDataManager processDefinitionDataManager = mock(ProcessDefinitionDataManager.class);
@@ -938,16 +912,16 @@ public class DeploymentEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DeploymentEntityManagerImpl#restorePreviousStartEventsIfNeeded(ProcessDefinition)}.
+   * Test {@link DeploymentEntityManagerImpl#restorePreviousStartEventsIfNeeded(ProcessDefinition)}.
    * <ul>
    *   <li>Then calls {@link ProcessDefinitionEntityImpl#getVersion()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#restorePreviousStartEventsIfNeeded(ProcessDefinition)}
+   * Method under test: {@link DeploymentEntityManagerImpl#restorePreviousStartEventsIfNeeded(ProcessDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeploymentEntityManagerImpl.restorePreviousStartEventsIfNeeded(ProcessDefinition)"})
   public void testRestorePreviousStartEventsIfNeeded_thenCallsGetVersion() {
     // Arrange
     ProcessDefinitionEntityImpl processDefinitionEntityImpl = mock(ProcessDefinitionEntityImpl.class);
@@ -984,13 +958,14 @@ public class DeploymentEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DeploymentEntityManagerImpl#restoreSignalStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}.
+   * Test {@link DeploymentEntityManagerImpl#restoreSignalStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}.
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#restoreSignalStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}
+   * Method under test: {@link DeploymentEntityManagerImpl#restoreSignalStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "void DeploymentEntityManagerImpl.restoreSignalStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)"})
   public void testRestoreSignalStartEvent() {
     // Arrange
     PerformanceSettings performanceSettings = new PerformanceSettings();
@@ -1043,17 +1018,17 @@ public class DeploymentEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DeploymentEntityManagerImpl#restoreSignalStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}.
+   * Test {@link DeploymentEntityManagerImpl#restoreSignalStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}.
    * <ul>
-   *   <li>Given {@link ActivitiEventDispatcher}
-   * {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
+   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#restoreSignalStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}
+   * Method under test: {@link DeploymentEntityManagerImpl#restoreSignalStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "void DeploymentEntityManagerImpl.restoreSignalStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)"})
   public void testRestoreSignalStartEvent_givenActivitiEventDispatcherIsEnabledReturnFalse() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -1110,16 +1085,17 @@ public class DeploymentEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DeploymentEntityManagerImpl#restoreSignalStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}.
+   * Test {@link DeploymentEntityManagerImpl#restoreSignalStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}.
    * <ul>
    *   <li>Then calls {@link BpmnModel#getSignal(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#restoreSignalStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}
+   * Method under test: {@link DeploymentEntityManagerImpl#restoreSignalStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "void DeploymentEntityManagerImpl.restoreSignalStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)"})
   public void testRestoreSignalStartEvent_thenCallsGetSignal() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -1184,13 +1160,14 @@ public class DeploymentEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DeploymentEntityManagerImpl#restoreMessageStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}.
+   * Test {@link DeploymentEntityManagerImpl#restoreMessageStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}.
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#restoreMessageStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}
+   * Method under test: {@link DeploymentEntityManagerImpl#restoreMessageStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "void DeploymentEntityManagerImpl.restoreMessageStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)"})
   public void testRestoreMessageStartEvent() {
     // Arrange
     PerformanceSettings performanceSettings = new PerformanceSettings();
@@ -1224,13 +1201,12 @@ public class DeploymentEntityManagerImplDiffblueTest {
     ProcessDefinitionEntityImpl previousProcessDefinition = new ProcessDefinitionEntityImpl();
     BpmnModel bpmnModel = new BpmnModel();
     StartEvent startEvent = new StartEvent();
-    MessageEventDefinition eventDefinition = new MessageEventDefinition();
 
     // Act
     deploymentEntityManagerImpl.restoreMessageStartEvent(previousProcessDefinition, bpmnModel, startEvent,
-        eventDefinition);
+        new MessageEventDefinition());
 
-    // Assert
+    // Assert that nothing has changed
     verify(processEngineConfiguration2).addSessionFactory(isA(SessionFactory.class));
     verify(processEngineConfiguration).getEventDispatcher();
     verify(processEngineConfiguration2, atLeast(1)).getEventSubscriptionEntityManager();
@@ -1244,21 +1220,20 @@ public class DeploymentEntityManagerImplDiffblueTest {
     verify(messageEventSubscriptionEntityImpl).setTenantId(eq(""));
     verify(eventSubscriptionDataManager).insert(isA(EventSubscriptionEntity.class));
     verify(eventSubscriptionDataManager).createMessageEventSubscription();
-    assertNull(eventDefinition.getMessageRef());
   }
 
   /**
-   * Test
-   * {@link DeploymentEntityManagerImpl#restoreMessageStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}.
+   * Test {@link DeploymentEntityManagerImpl#restoreMessageStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}.
    * <ul>
-   *   <li>Given {@link ActivitiEventDispatcher}
-   * {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
+   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#restoreMessageStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}
+   * Method under test: {@link DeploymentEntityManagerImpl#restoreMessageStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "void DeploymentEntityManagerImpl.restoreMessageStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)"})
   public void testRestoreMessageStartEvent_givenActivitiEventDispatcherIsEnabledReturnFalse() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -1295,13 +1270,12 @@ public class DeploymentEntityManagerImplDiffblueTest {
     ProcessDefinitionEntityImpl previousProcessDefinition = new ProcessDefinitionEntityImpl();
     BpmnModel bpmnModel = new BpmnModel();
     StartEvent startEvent = new StartEvent();
-    MessageEventDefinition eventDefinition = new MessageEventDefinition();
 
     // Act
     deploymentEntityManagerImpl.restoreMessageStartEvent(previousProcessDefinition, bpmnModel, startEvent,
-        eventDefinition);
+        new MessageEventDefinition());
 
-    // Assert
+    // Assert that nothing has changed
     verify(activitiEventDispatcher).isEnabled();
     verify(processEngineConfiguration2).addSessionFactory(isA(SessionFactory.class));
     verify(processEngineConfiguration).getEventDispatcher();
@@ -1316,20 +1290,20 @@ public class DeploymentEntityManagerImplDiffblueTest {
     verify(messageEventSubscriptionEntityImpl).setTenantId(eq(""));
     verify(eventSubscriptionDataManager).insert(isA(EventSubscriptionEntity.class));
     verify(eventSubscriptionDataManager).createMessageEventSubscription();
-    assertNull(eventDefinition.getMessageRef());
   }
 
   /**
-   * Test
-   * {@link DeploymentEntityManagerImpl#restoreMessageStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}.
+   * Test {@link DeploymentEntityManagerImpl#restoreMessageStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}.
    * <ul>
    *   <li>Given {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#restoreMessageStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}
+   * Method under test: {@link DeploymentEntityManagerImpl#restoreMessageStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "void DeploymentEntityManagerImpl.restoreMessageStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)"})
   public void testRestoreMessageStartEvent_givenNull() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -1367,8 +1341,8 @@ public class DeploymentEntityManagerImplDiffblueTest {
     when(previousProcessDefinition.getId()).thenReturn("42");
     when(previousProcessDefinition.getTenantId()).thenReturn(null);
     BpmnModel bpmnModel = mock(BpmnModel.class);
-    Message.Builder builderResult = Message.builder();
-    Message.Builder attributesResult = builderResult.attributes(new HashMap<>());
+    Builder builderResult = Message.builder();
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
     Message buildResult = attributesResult.extensionElements(new HashMap<>())
         .id("42")
         .itemRef("Item Ref")
@@ -1408,17 +1382,17 @@ public class DeploymentEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DeploymentEntityManagerImpl#restoreMessageStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}.
+   * Test {@link DeploymentEntityManagerImpl#restoreMessageStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}.
    * <ul>
-   *   <li>Then {@link MessageEventDefinition} (default constructor) MessageRef is
-   * {@code Name}.</li>
+   *   <li>Then {@link MessageEventDefinition} (default constructor) MessageRef is {@code Name}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#restoreMessageStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}
+   * Method under test: {@link DeploymentEntityManagerImpl#restoreMessageStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "void DeploymentEntityManagerImpl.restoreMessageStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)"})
   public void testRestoreMessageStartEvent_thenMessageEventDefinitionMessageRefIsName() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -1457,8 +1431,8 @@ public class DeploymentEntityManagerImplDiffblueTest {
     when(previousProcessDefinition.getId()).thenReturn("42");
     when(previousProcessDefinition.getTenantId()).thenReturn("42");
     BpmnModel bpmnModel = mock(BpmnModel.class);
-    Message.Builder builderResult = Message.builder();
-    Message.Builder attributesResult = builderResult.attributes(new HashMap<>());
+    Builder builderResult = Message.builder();
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
     Message buildResult = attributesResult.extensionElements(new HashMap<>())
         .id("42")
         .itemRef("Item Ref")
@@ -1499,18 +1473,18 @@ public class DeploymentEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DeploymentEntityManagerImpl#restoreMessageStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}.
+   * Test {@link DeploymentEntityManagerImpl#restoreMessageStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}.
    * <ul>
-   *   <li>When {@link StartEvent} {@link BaseElement#getId()} return
-   * {@code 42}.</li>
+   *   <li>When {@link StartEvent} {@link BaseElement#getId()} return {@code 42}.</li>
    *   <li>Then calls {@link BaseElement#getId()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#restoreMessageStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}
+   * Method under test: {@link DeploymentEntityManagerImpl#restoreMessageStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "void DeploymentEntityManagerImpl.restoreMessageStartEvent(ProcessDefinition, BpmnModel, StartEvent, EventDefinition)"})
   public void testRestoreMessageStartEvent_whenStartEventGetIdReturn42_thenCallsGetId() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -1549,8 +1523,8 @@ public class DeploymentEntityManagerImplDiffblueTest {
     when(previousProcessDefinition.getId()).thenReturn("42");
     when(previousProcessDefinition.getTenantId()).thenReturn("42");
     BpmnModel bpmnModel = mock(BpmnModel.class);
-    Message.Builder builderResult = Message.builder();
-    Message.Builder attributesResult = builderResult.attributes(new HashMap<>());
+    Builder builderResult = Message.builder();
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
     Message buildResult = attributesResult.extensionElements(new HashMap<>())
         .id("42")
         .itemRef("Item Ref")
@@ -1593,17 +1567,17 @@ public class DeploymentEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DeploymentEntityManagerImpl#findLatestProcessDefinition(ProcessDefinition)}.
+   * Test {@link DeploymentEntityManagerImpl#findLatestProcessDefinition(ProcessDefinition)}.
    * <ul>
-   *   <li>Then calls
-   * {@link ProcessDefinitionDataManager#findLatestProcessDefinitionByKey(String)}.</li>
+   *   <li>Then calls {@link ProcessDefinitionDataManager#findLatestProcessDefinitionByKey(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#findLatestProcessDefinition(ProcessDefinition)}
+   * Method under test: {@link DeploymentEntityManagerImpl#findLatestProcessDefinition(ProcessDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ProcessDefinitionEntity DeploymentEntityManagerImpl.findLatestProcessDefinition(ProcessDefinition)"})
   public void testFindLatestProcessDefinition_thenCallsFindLatestProcessDefinitionByKey() {
     // Arrange
     ProcessDefinitionDataManager processDefinitionDataManager = mock(ProcessDefinitionDataManager.class);
@@ -1627,16 +1601,17 @@ public class DeploymentEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DeploymentEntityManagerImpl#findLatestProcessDefinition(ProcessDefinition)}.
+   * Test {@link DeploymentEntityManagerImpl#findLatestProcessDefinition(ProcessDefinition)}.
    * <ul>
    *   <li>Then calls {@link ProcessDefinitionEntityImpl#getKey()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#findLatestProcessDefinition(ProcessDefinition)}
+   * Method under test: {@link DeploymentEntityManagerImpl#findLatestProcessDefinition(ProcessDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ProcessDefinitionEntity DeploymentEntityManagerImpl.findLatestProcessDefinition(ProcessDefinition)"})
   public void testFindLatestProcessDefinition_thenCallsGetKey() {
     // Arrange
     ProcessDefinitionDataManager processDefinitionDataManager = mock(ProcessDefinitionDataManager.class);
@@ -1667,10 +1642,11 @@ public class DeploymentEntityManagerImplDiffblueTest {
   /**
    * Test {@link DeploymentEntityManagerImpl#findLatestDeploymentByName(String)}.
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#findLatestDeploymentByName(String)}
+   * Method under test: {@link DeploymentEntityManagerImpl#findLatestDeploymentByName(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DeploymentEntity DeploymentEntityManagerImpl.findLatestDeploymentByName(String)"})
   public void testFindLatestDeploymentByName() {
     // Arrange
     DeploymentEntityImpl deploymentEntityImpl = new DeploymentEntityImpl();
@@ -1691,10 +1667,11 @@ public class DeploymentEntityManagerImplDiffblueTest {
    *   <li>Then return {@link DeploymentEntityImpl} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#findDeploymentByVersion(Integer)}
+   * Method under test: {@link DeploymentEntityManagerImpl#findDeploymentByVersion(Integer)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DeploymentEntity DeploymentEntityManagerImpl.findDeploymentByVersion(Integer)"})
   public void testFindDeploymentByVersion_thenReturnDeploymentEntityImpl() {
     // Arrange
     DeploymentDataManager deploymentDataManager = mock(DeploymentDataManager.class);
@@ -1711,16 +1688,16 @@ public class DeploymentEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DeploymentEntityManagerImpl#findDeploymentCountByQueryCriteria(DeploymentQueryImpl)}.
+   * Test {@link DeploymentEntityManagerImpl#findDeploymentCountByQueryCriteria(DeploymentQueryImpl)}.
    * <ul>
    *   <li>Then return three.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#findDeploymentCountByQueryCriteria(DeploymentQueryImpl)}
+   * Method under test: {@link DeploymentEntityManagerImpl#findDeploymentCountByQueryCriteria(DeploymentQueryImpl)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long DeploymentEntityManagerImpl.findDeploymentCountByQueryCriteria(DeploymentQueryImpl)"})
   public void testFindDeploymentCountByQueryCriteria_thenReturnThree() {
     // Arrange
     DeploymentDataManager deploymentDataManager = mock(DeploymentDataManager.class);
@@ -1738,16 +1715,16 @@ public class DeploymentEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DeploymentEntityManagerImpl#findDeploymentsByQueryCriteria(DeploymentQueryImpl, Page)}.
+   * Test {@link DeploymentEntityManagerImpl#findDeploymentsByQueryCriteria(DeploymentQueryImpl, Page)}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#findDeploymentsByQueryCriteria(DeploymentQueryImpl, Page)}
+   * Method under test: {@link DeploymentEntityManagerImpl#findDeploymentsByQueryCriteria(DeploymentQueryImpl, Page)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List DeploymentEntityManagerImpl.findDeploymentsByQueryCriteria(DeploymentQueryImpl, Page)"})
   public void testFindDeploymentsByQueryCriteria_thenReturnEmpty() {
     // Arrange
     DeploymentDataManager deploymentDataManager = mock(DeploymentDataManager.class);
@@ -1769,10 +1746,11 @@ public class DeploymentEntityManagerImplDiffblueTest {
   /**
    * Test {@link DeploymentEntityManagerImpl#getDeploymentResourceNames(String)}.
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#getDeploymentResourceNames(String)}
+   * Method under test: {@link DeploymentEntityManagerImpl#getDeploymentResourceNames(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List DeploymentEntityManagerImpl.getDeploymentResourceNames(String)"})
   public void testGetDeploymentResourceNames() {
     // Arrange
     when(deploymentDataManager.getDeploymentResourceNames(Mockito.<String>any())).thenReturn(new ArrayList<>());
@@ -1786,16 +1764,16 @@ public class DeploymentEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DeploymentEntityManagerImpl#findDeploymentsByNativeQuery(Map, int, int)}.
+   * Test {@link DeploymentEntityManagerImpl#findDeploymentsByNativeQuery(Map, int, int)}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#findDeploymentsByNativeQuery(Map, int, int)}
+   * Method under test: {@link DeploymentEntityManagerImpl#findDeploymentsByNativeQuery(Map, int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List DeploymentEntityManagerImpl.findDeploymentsByNativeQuery(Map, int, int)"})
   public void testFindDeploymentsByNativeQuery_thenReturnEmpty() {
     // Arrange
     DeploymentDataManager deploymentDataManager = mock(DeploymentDataManager.class);
@@ -1814,16 +1792,16 @@ public class DeploymentEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DeploymentEntityManagerImpl#findDeploymentCountByNativeQuery(Map)}.
+   * Test {@link DeploymentEntityManagerImpl#findDeploymentCountByNativeQuery(Map)}.
    * <ul>
    *   <li>Then return three.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DeploymentEntityManagerImpl#findDeploymentCountByNativeQuery(Map)}
+   * Method under test: {@link DeploymentEntityManagerImpl#findDeploymentCountByNativeQuery(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long DeploymentEntityManagerImpl.findDeploymentCountByNativeQuery(Map)"})
   public void testFindDeploymentCountByNativeQuery_thenReturnThree() {
     // Arrange
     DeploymentDataManager deploymentDataManager = mock(DeploymentDataManager.class);

@@ -21,25 +21,29 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.bpmn.parser.factory.ActivityBehaviorFactory;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultListenerFactory;
 import org.activiti.engine.impl.bpmn.parser.factory.ListenerFactory;
 import org.activiti.engine.impl.cfg.BpmnParseFactory;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class BpmnParserDiffblueTest {
   /**
    * Test {@link BpmnParser#createParse()}.
    * <ul>
-   *   <li>Then return {@link BpmnParse#BpmnParse(BpmnParser)} with parser is
-   * {@link BpmnParser} (default constructor).</li>
+   *   <li>Then return {@link BpmnParse#BpmnParse(BpmnParser)} with parser is {@link BpmnParser} (default constructor).</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnParser#createParse()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"BpmnParse BpmnParser.createParse()"})
   public void testCreateParse_thenReturnBpmnParseWithParserIsBpmnParser() {
     // Arrange
     BpmnParseFactory bpmnParseFactory = mock(BpmnParseFactory.class);
@@ -74,6 +78,14 @@ public class BpmnParserDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnParser.<init>()", "ActivityBehaviorFactory BpmnParser.getActivityBehaviorFactory()",
+      "BpmnParseFactory BpmnParser.getBpmnParseFactory()", "BpmnParseHandlers BpmnParser.getBpmnParserHandlers()",
+      "ListenerFactory BpmnParser.getListenerFactory()",
+      "void BpmnParser.setActivityBehaviorFactory(ActivityBehaviorFactory)",
+      "void BpmnParser.setBpmnParseFactory(BpmnParseFactory)",
+      "void BpmnParser.setBpmnParserHandlers(BpmnParseHandlers)",
+      "void BpmnParser.setListenerFactory(ListenerFactory)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     BpmnParser actualBpmnParser = new BpmnParser();
@@ -90,7 +102,7 @@ public class BpmnParserDiffblueTest {
     BpmnParseHandlers actualBpmnParserHandlers = actualBpmnParser.getBpmnParserHandlers();
     ListenerFactory actualListenerFactory = actualBpmnParser.getListenerFactory();
 
-    // Assert that nothing has changed
+    // Assert
     assertTrue(actualBpmnParserHandlers.parseHandlers.isEmpty());
     assertSame(bpmnParserHandlers, actualBpmnParserHandlers);
     assertSame(activityBehaviorFactory, actualActivityBehaviorFactory);

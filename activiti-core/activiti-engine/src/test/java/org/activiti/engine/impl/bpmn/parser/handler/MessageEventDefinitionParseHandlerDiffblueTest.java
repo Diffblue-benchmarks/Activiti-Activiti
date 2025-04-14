@@ -16,34 +16,38 @@
 package org.activiti.engine.impl.bpmn.parser.handler;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BoundaryEvent;
 import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.bpmn.model.CancelEventDefinition;
+import org.activiti.bpmn.model.IntermediateCatchEvent;
 import org.activiti.bpmn.model.Message;
+import org.activiti.bpmn.model.Message.Builder;
 import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class MessageEventDefinitionParseHandlerDiffblueTest {
   /**
-   * Test
-   * {@link MessageEventDefinitionParseHandler#executeParse(BpmnParse, MessageEventDefinition)}
-   * with {@code BpmnParse}, {@code MessageEventDefinition}.
+   * Test {@link MessageEventDefinitionParseHandler#executeParse(BpmnParse, MessageEventDefinition)} with {@code BpmnParse}, {@code MessageEventDefinition}.
    * <p>
-   * Method under test:
-   * {@link MessageEventDefinitionParseHandler#executeParse(BpmnParse, MessageEventDefinition)}
+   * Method under test: {@link MessageEventDefinitionParseHandler#executeParse(BpmnParse, MessageEventDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MessageEventDefinitionParseHandler.executeParse(BpmnParse, MessageEventDefinition)"})
   public void testExecuteParseWithBpmnParseMessageEventDefinition() {
     // Arrange
     MessageEventDefinitionParseHandler messageEventDefinitionParseHandler = new MessageEventDefinitionParseHandler();
@@ -51,33 +55,30 @@ public class MessageEventDefinitionParseHandlerDiffblueTest {
     when(bpmnParse.getActivityBehaviorFactory()).thenReturn(new DefaultActivityBehaviorFactory());
     when(bpmnParse.getCurrentFlowElement()).thenReturn(new BoundaryEvent());
     when(bpmnParse.getBpmnModel()).thenReturn(new BpmnModel());
-    MessageEventDefinition messageDefinition = new MessageEventDefinition();
 
     // Act
-    messageEventDefinitionParseHandler.executeParse(bpmnParse, messageDefinition);
+    messageEventDefinitionParseHandler.executeParse(bpmnParse, new MessageEventDefinition());
 
-    // Assert
+    // Assert that nothing has changed
     verify(bpmnParse).getActivityBehaviorFactory();
     verify(bpmnParse).getBpmnModel();
     verify(bpmnParse, atLeast(1)).getCurrentFlowElement();
-    assertNull(messageDefinition.getMessageRef());
   }
 
   /**
-   * Test
-   * {@link MessageEventDefinitionParseHandler#executeParse(BpmnParse, MessageEventDefinition)}
-   * with {@code BpmnParse}, {@code MessageEventDefinition}.
+   * Test {@link MessageEventDefinitionParseHandler#executeParse(BpmnParse, MessageEventDefinition)} with {@code BpmnParse}, {@code MessageEventDefinition}.
    * <p>
-   * Method under test:
-   * {@link MessageEventDefinitionParseHandler#executeParse(BpmnParse, MessageEventDefinition)}
+   * Method under test: {@link MessageEventDefinitionParseHandler#executeParse(BpmnParse, MessageEventDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MessageEventDefinitionParseHandler.executeParse(BpmnParse, MessageEventDefinition)"})
   public void testExecuteParseWithBpmnParseMessageEventDefinition2() {
     // Arrange
     MessageEventDefinitionParseHandler messageEventDefinitionParseHandler = new MessageEventDefinitionParseHandler();
     BpmnModel bpmnModel = mock(BpmnModel.class);
-    Message.Builder builderResult = Message.builder();
-    Message.Builder attributesResult = builderResult.attributes(new HashMap<>());
+    Builder builderResult = Message.builder();
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
     Message buildResult = attributesResult.extensionElements(new HashMap<>())
         .id("42")
         .itemRef("Item Ref")
@@ -106,17 +107,60 @@ public class MessageEventDefinitionParseHandlerDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link MessageEventDefinitionParseHandler#executeParse(BpmnParse, MessageEventDefinition)}
-   * with {@code BpmnParse}, {@code MessageEventDefinition}.
+   * Test {@link MessageEventDefinitionParseHandler#executeParse(BpmnParse, MessageEventDefinition)} with {@code BpmnParse}, {@code MessageEventDefinition}.
+   * <p>
+   * Method under test: {@link MessageEventDefinitionParseHandler#executeParse(BpmnParse, MessageEventDefinition)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MessageEventDefinitionParseHandler.executeParse(BpmnParse, MessageEventDefinition)"})
+  public void testExecuteParseWithBpmnParseMessageEventDefinition3() {
+    // Arrange
+    MessageEventDefinitionParseHandler messageEventDefinitionParseHandler = new MessageEventDefinitionParseHandler();
+    BpmnModel bpmnModel = mock(BpmnModel.class);
+    Builder builderResult = Message.builder();
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
+    Message buildResult = attributesResult.extensionElements(new HashMap<>())
+        .id("42")
+        .itemRef("Item Ref")
+        .name("Name")
+        .xmlColumnNumber(10)
+        .xmlRowNumber(10)
+        .build();
+    when(bpmnModel.getMessage(Mockito.<String>any())).thenReturn(buildResult);
+    when(bpmnModel.containsMessageId(Mockito.<String>any())).thenReturn(true);
+
+    IntermediateCatchEvent intermediateCatchEvent = new IntermediateCatchEvent();
+    intermediateCatchEvent.addEventDefinition(new CancelEventDefinition());
+    BpmnParse bpmnParse = mock(BpmnParse.class);
+    when(bpmnParse.getActivityBehaviorFactory()).thenReturn(new DefaultActivityBehaviorFactory());
+    when(bpmnParse.getCurrentFlowElement()).thenReturn(intermediateCatchEvent);
+    when(bpmnParse.getBpmnModel()).thenReturn(bpmnModel);
+    MessageEventDefinition messageDefinition = new MessageEventDefinition();
+
+    // Act
+    messageEventDefinitionParseHandler.executeParse(bpmnParse, messageDefinition);
+
+    // Assert
+    verify(bpmnModel).containsMessageId(isNull());
+    verify(bpmnModel).getMessage(isNull());
+    verify(bpmnParse).getActivityBehaviorFactory();
+    verify(bpmnParse).getBpmnModel();
+    verify(bpmnParse, atLeast(1)).getCurrentFlowElement();
+    assertEquals("Name", messageDefinition.getMessageRef());
+  }
+
+  /**
+   * Test {@link MessageEventDefinitionParseHandler#executeParse(BpmnParse, MessageEventDefinition)} with {@code BpmnParse}, {@code MessageEventDefinition}.
    * <ul>
    *   <li>Given {@link AdhocSubProcess} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link MessageEventDefinitionParseHandler#executeParse(BpmnParse, MessageEventDefinition)}
+   * Method under test: {@link MessageEventDefinitionParseHandler#executeParse(BpmnParse, MessageEventDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MessageEventDefinitionParseHandler.executeParse(BpmnParse, MessageEventDefinition)"})
   public void testExecuteParseWithBpmnParseMessageEventDefinition_givenAdhocSubProcess() {
     // Arrange
     MessageEventDefinitionParseHandler messageEventDefinitionParseHandler = new MessageEventDefinitionParseHandler();
@@ -137,12 +181,14 @@ public class MessageEventDefinitionParseHandlerDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of
-   * {@link MessageEventDefinitionParseHandler}
+   *   <li>default or parameterless constructor of {@link MessageEventDefinitionParseHandler}
    *   <li>{@link MessageEventDefinitionParseHandler#getHandledType()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MessageEventDefinitionParseHandler.<init>()",
+      "Class MessageEventDefinitionParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends BaseElement> actualHandledType = (new MessageEventDefinitionParseHandler()).getHandledType();

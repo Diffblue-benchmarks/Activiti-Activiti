@@ -18,9 +18,11 @@ package org.activiti.core.common.model.connector;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ConnectorDefinitionDiffblueTest {
@@ -42,6 +44,12 @@ class ConnectorDefinitionDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ConnectorDefinition.<init>()", "Map ConnectorDefinition.getActions()",
+      "String ConnectorDefinition.getDescription()", "String ConnectorDefinition.getId()",
+      "String ConnectorDefinition.getName()", "void ConnectorDefinition.setActions(Map)",
+      "void ConnectorDefinition.setDescription(String)", "void ConnectorDefinition.setId(String)",
+      "void ConnectorDefinition.setName(String)"})
   void testGettersAndSetters() {
     // Arrange and Act
     ConnectorDefinition actualConnectorDefinition = new ConnectorDefinition();
@@ -54,7 +62,7 @@ class ConnectorDefinitionDiffblueTest {
     String actualDescription = actualConnectorDefinition.getDescription();
     String actualId = actualConnectorDefinition.getId();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualId);
     assertEquals("Name", actualConnectorDefinition.getName());
     assertEquals("The characteristics of someone or something", actualDescription);

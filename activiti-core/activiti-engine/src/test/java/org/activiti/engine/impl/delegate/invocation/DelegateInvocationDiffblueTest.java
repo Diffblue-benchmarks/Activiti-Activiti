@@ -20,11 +20,14 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.impl.delegate.ActivityBehavior;
 import org.activiti.engine.impl.delegate.ActivityBehaviorInvocation;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class DelegateInvocationDiffblueTest {
@@ -34,6 +37,8 @@ public class DelegateInvocationDiffblueTest {
    * Method under test: {@link DelegateInvocation#proceed()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DelegateInvocation.proceed()"})
   public void testProceed() {
     // Arrange
     ActivityBehavior behaviorInstance = mock(ActivityBehavior.class);
@@ -53,6 +58,8 @@ public class DelegateInvocationDiffblueTest {
    * Method under test: {@link DelegateInvocation#getInvocationResult()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Object DelegateInvocation.getInvocationResult()"})
   public void testGetInvocationResult() {
     // Arrange
     ActivityBehavior behaviorInstance = mock(ActivityBehavior.class);
@@ -69,6 +76,8 @@ public class DelegateInvocationDiffblueTest {
    * Method under test: {@link DelegateInvocation#getInvocationParameters()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Object[] DelegateInvocation.getInvocationParameters()"})
   public void testGetInvocationParameters() {
     // Arrange
     ActivityBehavior behaviorInstance = mock(ActivityBehavior.class);

@@ -25,6 +25,8 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.net.URL;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -39,6 +41,7 @@ import org.activiti.engine.impl.bpmn.webservice.MessageInstance;
 import org.activiti.engine.impl.bpmn.webservice.Operation;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class WSOperationDiffblueTest {
@@ -54,6 +57,9 @@ public class WSOperationDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void WSOperation.<init>(String, String, WSService)", "String WSOperation.getId()",
+      "String WSOperation.getName()", "WSService WSOperation.getService()"})
   public void testGettersAndSetters() {
     // Arrange
     WSService service = new WSService("Name", "Location", "Wsdl Location");
@@ -72,17 +78,16 @@ public class WSOperationDiffblueTest {
   /**
    * Test {@link WSOperation#sendFor(MessageInstance, Operation, ConcurrentMap)}.
    * <ul>
-   *   <li>Given {@link SyncWebServiceClient}
-   * {@link SyncWebServiceClient#send(String, Object[], ConcurrentMap)} return
-   * {@code null}.</li>
+   *   <li>Given {@link SyncWebServiceClient} {@link SyncWebServiceClient#send(String, Object[], ConcurrentMap)} return {@code null}.</li>
    *   <li>When {@link Operation#Operation()}.</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link WSOperation#sendFor(MessageInstance, Operation, ConcurrentMap)}
+   * Method under test: {@link WSOperation#sendFor(MessageInstance, Operation, ConcurrentMap)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"MessageInstance WSOperation.sendFor(MessageInstance, Operation, ConcurrentMap)"})
   public void testSendFor_givenSyncWebServiceClientSendReturnNull_whenOperation_thenReturnNull() throws Exception {
     // Arrange
     SyncWebServiceClient client = mock(SyncWebServiceClient.class);
@@ -113,10 +118,11 @@ public class WSOperationDiffblueTest {
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link WSOperation#sendFor(MessageInstance, Operation, ConcurrentMap)}
+   * Method under test: {@link WSOperation#sendFor(MessageInstance, Operation, ConcurrentMap)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"MessageInstance WSOperation.sendFor(MessageInstance, Operation, ConcurrentMap)"})
   public void testSendFor_thenReturnNull() throws Exception {
     // Arrange
     SyncWebServiceClient client = mock(SyncWebServiceClient.class);
@@ -147,10 +153,11 @@ public class WSOperationDiffblueTest {
    *   <li>Then StructureInstance return {@link FieldBaseStructureInstance}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link WSOperation#sendFor(MessageInstance, Operation, ConcurrentMap)}
+   * Method under test: {@link WSOperation#sendFor(MessageInstance, Operation, ConcurrentMap)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"MessageInstance WSOperation.sendFor(MessageInstance, Operation, ConcurrentMap)"})
   public void testSendFor_thenStructureInstanceReturnFieldBaseStructureInstance() throws Exception {
     // Arrange
     SyncWebServiceClient client = mock(SyncWebServiceClient.class);
@@ -189,10 +196,11 @@ public class WSOperationDiffblueTest {
    *   <li>Then throw {@link Exception}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link WSOperation#sendFor(MessageInstance, Operation, ConcurrentMap)}
+   * Method under test: {@link WSOperation#sendFor(MessageInstance, Operation, ConcurrentMap)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"MessageInstance WSOperation.sendFor(MessageInstance, Operation, ConcurrentMap)"})
   public void testSendFor_thenThrowException() throws Exception {
     // Arrange
     SyncWebServiceClient client = mock(SyncWebServiceClient.class);

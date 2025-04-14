@@ -23,6 +23,8 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.transaction.InvalidTransactionException;
 import jakarta.transaction.NotSupportedException;
 import jakarta.transaction.SystemException;
@@ -30,17 +32,18 @@ import jakarta.transaction.Transaction;
 import jakarta.transaction.TransactionManager;
 import org.activiti.engine.impl.cfg.TransactionPropagation;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class JtaTransactionInterceptorDiffblueTest {
   /**
-   * Test
-   * {@link JtaTransactionInterceptor#JtaTransactionInterceptor(TransactionManager)}.
+   * Test {@link JtaTransactionInterceptor#JtaTransactionInterceptor(TransactionManager)}.
    * <p>
-   * Method under test:
-   * {@link JtaTransactionInterceptor#JtaTransactionInterceptor(TransactionManager)}
+   * Method under test: {@link JtaTransactionInterceptor#JtaTransactionInterceptor(TransactionManager)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JtaTransactionInterceptor.<init>(TransactionManager)"})
   public void testNewJtaTransactionInterceptor() {
     // Arrange, Act and Assert
     assertNull((new JtaTransactionInterceptor(mock(TransactionManager.class))).getNext());
@@ -49,10 +52,11 @@ public class JtaTransactionInterceptorDiffblueTest {
   /**
    * Test {@link JtaTransactionInterceptor#execute(CommandConfig, Command)}.
    * <p>
-   * Method under test:
-   * {@link JtaTransactionInterceptor#execute(CommandConfig, Command)}
+   * Method under test: {@link JtaTransactionInterceptor#execute(CommandConfig, Command)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JtaTransactionInterceptor.execute(CommandConfig, Command)"})
   public void testExecute() throws InvalidTransactionException, NotSupportedException, SystemException,
       IllegalStateException, SecurityException {
     // Arrange
@@ -91,22 +95,19 @@ public class JtaTransactionInterceptorDiffblueTest {
    *   <li>Then throw {@link RuntimeException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JtaTransactionInterceptor#execute(CommandConfig, Command)}
+   * Method under test: {@link JtaTransactionInterceptor#execute(CommandConfig, Command)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JtaTransactionInterceptor.execute(CommandConfig, Command)"})
   public void testExecute_thenThrowRuntimeException() throws SystemException {
     // Arrange
     TransactionManager transactionManager = mock(TransactionManager.class);
     when(transactionManager.suspend()).thenThrow(new RuntimeException("Running command with propagation {}"));
     when(transactionManager.getStatus()).thenReturn(1);
-    TransactionManager transactionManager2 = mock(TransactionManager.class);
-    when(transactionManager2.suspend()).thenReturn(mock(Transaction.class));
-    when(transactionManager2.getStatus()).thenReturn(1);
-    JtaTransactionInterceptor next = new JtaTransactionInterceptor(transactionManager2);
 
     JtaTransactionInterceptor jtaTransactionInterceptor = new JtaTransactionInterceptor(transactionManager);
-    jtaTransactionInterceptor.setNext(next);
+    jtaTransactionInterceptor.setNext(new JtaTransactionInterceptor(mock(TransactionManager.class)));
 
     // Act and Assert
     assertThrows(RuntimeException.class, () -> jtaTransactionInterceptor

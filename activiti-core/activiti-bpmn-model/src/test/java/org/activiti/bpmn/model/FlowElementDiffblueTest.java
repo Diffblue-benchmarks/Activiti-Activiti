@@ -23,10 +23,13 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class FlowElementDiffblueTest {
   /**
@@ -35,6 +38,8 @@ public class FlowElementDiffblueTest {
    * Method under test: {@link FlowElement#getName()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String FlowElement.getName()"})
   public void testGetName() {
     // Arrange, Act and Assert
     assertNull((new AdhocSubProcess()).getName());
@@ -46,6 +51,8 @@ public class FlowElementDiffblueTest {
    * Method under test: {@link FlowElement#setName(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FlowElement.setName(String)"})
   public void testSetName() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -63,6 +70,8 @@ public class FlowElementDiffblueTest {
    * Method under test: {@link FlowElement#getDocumentation()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String FlowElement.getDocumentation()"})
   public void testGetDocumentation() {
     // Arrange, Act and Assert
     assertNull((new AdhocSubProcess()).getDocumentation());
@@ -74,6 +83,8 @@ public class FlowElementDiffblueTest {
    * Method under test: {@link FlowElement#setDocumentation(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FlowElement.setDocumentation(String)"})
   public void testSetDocumentation() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -91,6 +102,8 @@ public class FlowElementDiffblueTest {
    * Method under test: {@link FlowElement#getExecutionListeners()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List FlowElement.getExecutionListeners()"})
   public void testGetExecutionListeners() {
     // Arrange, Act and Assert
     assertTrue((new AdhocSubProcess()).getExecutionListeners().isEmpty());
@@ -100,13 +113,14 @@ public class FlowElementDiffblueTest {
    * Test {@link FlowElement#setExecutionListeners(List)}.
    * <ul>
    *   <li>Given {@link ActivitiListener} (default constructor).</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@link ActivitiListener} (default
-   * constructor).</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link ActivitiListener} (default constructor).</li>
    * </ul>
    * <p>
    * Method under test: {@link FlowElement#setExecutionListeners(List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FlowElement.setExecutionListeners(List)"})
   public void testSetExecutionListeners_givenActivitiListener_whenArrayListAddActivitiListener() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -125,13 +139,14 @@ public class FlowElementDiffblueTest {
    * Test {@link FlowElement#setExecutionListeners(List)}.
    * <ul>
    *   <li>Given {@link ActivitiListener} (default constructor).</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@link ActivitiListener} (default
-   * constructor).</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link ActivitiListener} (default constructor).</li>
    * </ul>
    * <p>
    * Method under test: {@link FlowElement#setExecutionListeners(List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FlowElement.setExecutionListeners(List)"})
   public void testSetExecutionListeners_givenActivitiListener_whenArrayListAddActivitiListener2() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -156,6 +171,8 @@ public class FlowElementDiffblueTest {
    * Method under test: {@link FlowElement#setExecutionListeners(List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FlowElement.setExecutionListeners(List)"})
   public void testSetExecutionListeners_whenArrayList() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -174,6 +191,8 @@ public class FlowElementDiffblueTest {
    * Method under test: {@link FlowElement#getParentContainer()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElementsContainer FlowElement.getParentContainer()"})
   public void testGetParentContainer() {
     // Arrange, Act and Assert
     assertNull((new AdhocSubProcess()).getParentContainer());
@@ -189,6 +208,8 @@ public class FlowElementDiffblueTest {
    * Method under test: {@link FlowElement#getSubProcess()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"SubProcess FlowElement.getSubProcess()"})
   public void testGetSubProcess_givenAdhocSubProcess_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new AdhocSubProcess()).getSubProcess());
@@ -203,6 +224,8 @@ public class FlowElementDiffblueTest {
    * Method under test: {@link FlowElement#getSubProcess()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"SubProcess FlowElement.getSubProcess()"})
   public void testGetSubProcess_thenReturnSubProcess() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -214,59 +237,13 @@ public class FlowElementDiffblueTest {
   }
 
   /**
-   * Test {@link FlowElement#setParentContainer(FlowElementsContainer)}.
-   * <ul>
-   *   <li>Then {@link AdhocSubProcess} (default constructor) ParentContainer is
-   * {@link EventSubProcess}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link FlowElement#setParentContainer(FlowElementsContainer)}
-   */
-  @Test
-  public void testSetParentContainer_thenAdhocSubProcessParentContainerIsEventSubProcess() {
-    // Arrange
-    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
-    EventSubProcess parentContainer = mock(EventSubProcess.class);
-
-    // Act
-    adhocSubProcess.setParentContainer(parentContainer);
-
-    // Assert
-    assertSame(parentContainer, adhocSubProcess.getParentContainer());
-    assertSame(parentContainer, adhocSubProcess.getSubProcess());
-  }
-
-  /**
-   * Test {@link FlowElement#setParentContainer(FlowElementsContainer)}.
-   * <ul>
-   *   <li>Then {@link AdhocSubProcess} (default constructor) ParentContainer is
-   * {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link FlowElement#setParentContainer(FlowElementsContainer)}
-   */
-  @Test
-  public void testSetParentContainer_thenAdhocSubProcessParentContainerIsNull() {
-    // Arrange
-    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
-    AdhocSubProcess parentContainer = new AdhocSubProcess();
-
-    // Act
-    adhocSubProcess.setParentContainer(parentContainer);
-
-    // Assert
-    assertNull(parentContainer.getParentContainer());
-    assertNull(parentContainer.getSubProcess());
-  }
-
-  /**
    * Test {@link FlowElement#setValues(FlowElement)} with {@code FlowElement}.
    * <p>
    * Method under test: {@link FlowElement#setValues(FlowElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FlowElement.setValues(FlowElement)"})
   public void testSetValuesWithFlowElement() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -315,6 +292,8 @@ public class FlowElementDiffblueTest {
    * Method under test: {@link FlowElement#setValues(FlowElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FlowElement.setValues(FlowElement)"})
   public void testSetValuesWithFlowElement2() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -351,13 +330,14 @@ public class FlowElementDiffblueTest {
   /**
    * Test {@link FlowElement#setValues(FlowElement)} with {@code FlowElement}.
    * <ul>
-   *   <li>Given {@link ActivitiListener} (default constructor) FieldExtensions is
-   * {@link ArrayList#ArrayList()}.</li>
+   *   <li>Given {@link ActivitiListener} (default constructor) FieldExtensions is {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link FlowElement#setValues(FlowElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FlowElement.setValues(FlowElement)"})
   public void testSetValuesWithFlowElement_givenActivitiListenerFieldExtensionsIsArrayList() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -374,23 +354,21 @@ public class FlowElementDiffblueTest {
     // Act
     adhocSubProcess.setValues((FlowElement) otherElement);
 
-    // Assert
-    assertNull(otherElement.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
+    // Assert that nothing has changed
     assertSame(executionListeners, otherElement.getExecutionListeners());
   }
 
   /**
    * Test {@link FlowElement#setValues(FlowElement)} with {@code FlowElement}.
    * <ul>
-   *   <li>Given {@link ActivitiListener} (default constructor) FieldExtensions is
-   * {@code null}.</li>
+   *   <li>Given {@link ActivitiListener} (default constructor) FieldExtensions is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link FlowElement#setValues(FlowElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FlowElement.setValues(FlowElement)"})
   public void testSetValuesWithFlowElement_givenActivitiListenerFieldExtensionsIsNull() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -407,23 +385,21 @@ public class FlowElementDiffblueTest {
     // Act
     adhocSubProcess.setValues((FlowElement) otherElement);
 
-    // Assert
-    assertNull(otherElement.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
+    // Assert that nothing has changed
     assertSame(executionListeners, otherElement.getExecutionListeners());
   }
 
   /**
    * Test {@link FlowElement#setValues(FlowElement)} with {@code FlowElement}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default constructor).</li>
    * </ul>
    * <p>
    * Method under test: {@link FlowElement#setValues(FlowElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FlowElement.setValues(FlowElement)"})
   public void testSetValuesWithFlowElement_givenArrayListAddFieldExtension() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -443,10 +419,7 @@ public class FlowElementDiffblueTest {
     // Act
     adhocSubProcess.setValues((FlowElement) otherElement);
 
-    // Assert
-    assertNull(otherElement.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
+    // Assert that nothing has changed
     assertSame(executionListeners, otherElement.getExecutionListeners());
   }
 
@@ -460,6 +433,8 @@ public class FlowElementDiffblueTest {
    * Method under test: {@link FlowElement#setValues(FlowElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FlowElement.setValues(FlowElement)"})
   public void testSetValuesWithFlowElement_givenArrayList_thenAdhocSubProcessIdIs42() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -490,14 +465,15 @@ public class FlowElementDiffblueTest {
   /**
    * Test {@link FlowElement#setValues(FlowElement)} with {@code FlowElement}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code 42} is
-   * {@link ArrayList#ArrayList()}.</li>
+   *   <li>Given {@link HashMap#HashMap()} {@code 42} is {@link ArrayList#ArrayList()}.</li>
    *   <li>Then {@link AdhocSubProcess} (default constructor) Id is {@code 42}.</li>
    * </ul>
    * <p>
    * Method under test: {@link FlowElement#setValues(FlowElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FlowElement.setValues(FlowElement)"})
   public void testSetValuesWithFlowElement_givenHashMap42IsArrayList_thenAdhocSubProcessIdIs42() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -532,14 +508,15 @@ public class FlowElementDiffblueTest {
   /**
    * Test {@link FlowElement#setValues(FlowElement)} with {@code FlowElement}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code 42} is
-   * {@link ArrayList#ArrayList()}.</li>
+   *   <li>Given {@link HashMap#HashMap()} {@code 42} is {@link ArrayList#ArrayList()}.</li>
    *   <li>Then {@link AdhocSubProcess} (default constructor) Id is {@code 42}.</li>
    * </ul>
    * <p>
    * Method under test: {@link FlowElement#setValues(FlowElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FlowElement.setValues(FlowElement)"})
   public void testSetValuesWithFlowElement_givenHashMap42IsArrayList_thenAdhocSubProcessIdIs422() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -574,13 +551,14 @@ public class FlowElementDiffblueTest {
   /**
    * Test {@link FlowElement#setValues(FlowElement)} with {@code FlowElement}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is
-   * {@link ArrayList#ArrayList()}.</li>
+   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link FlowElement#setValues(FlowElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FlowElement.setValues(FlowElement)"})
   public void testSetValuesWithFlowElement_givenHashMapFooIsArrayList() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -614,13 +592,14 @@ public class FlowElementDiffblueTest {
   /**
    * Test {@link FlowElement#setValues(FlowElement)} with {@code FlowElement}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code foo} is
-   * {@link ArrayList#ArrayList()}.</li>
+   *   <li>Given {@link HashMap#HashMap()} {@code foo} is {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link FlowElement#setValues(FlowElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FlowElement.setValues(FlowElement)"})
   public void testSetValuesWithFlowElement_givenHashMapFooIsArrayList2() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -654,14 +633,15 @@ public class FlowElementDiffblueTest {
   /**
    * Test {@link FlowElement#setValues(FlowElement)} with {@code FlowElement}.
    * <ul>
-   *   <li>Then {@link AdhocSubProcess} (default constructor) ExecutionListeners is
-   * {@code null}.</li>
+   *   <li>Then {@link AdhocSubProcess} (default constructor) Id is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link FlowElement#setValues(FlowElement)}
    */
   @Test
-  public void testSetValuesWithFlowElement_thenAdhocSubProcessExecutionListenersIsNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FlowElement.setValues(FlowElement)"})
+  public void testSetValuesWithFlowElement_thenAdhocSubProcessIdIsNull() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
 
@@ -671,7 +651,7 @@ public class FlowElementDiffblueTest {
     // Act
     adhocSubProcess.setValues((FlowElement) otherElement);
 
-    // Assert
+    // Assert that nothing has changed
     assertNull(otherElement.getId());
     assertNull(otherElement.getDocumentation());
     assertNull(otherElement.getName());
@@ -681,13 +661,37 @@ public class FlowElementDiffblueTest {
   /**
    * Test {@link FlowElement#setValues(FlowElement)} with {@code FlowElement}.
    * <ul>
-   *   <li>When {@link AdhocSubProcess} (default constructor) ExtensionElements is
-   * {@code null}.</li>
+   *   <li>When {@link AdhocSubProcess} (default constructor).</li>
    * </ul>
    * <p>
    * Method under test: {@link FlowElement#setValues(FlowElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FlowElement.setValues(FlowElement)"})
+  public void testSetValuesWithFlowElement_whenAdhocSubProcess() {
+    // Arrange
+    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
+    AdhocSubProcess otherElement = new AdhocSubProcess();
+
+    // Act
+    adhocSubProcess.setValues((FlowElement) otherElement);
+
+    // Assert that nothing has changed
+    assertTrue(otherElement.getExecutionListeners().isEmpty());
+  }
+
+  /**
+   * Test {@link FlowElement#setValues(FlowElement)} with {@code FlowElement}.
+   * <ul>
+   *   <li>When {@link AdhocSubProcess} (default constructor) ExtensionElements is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link FlowElement#setValues(FlowElement)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FlowElement.setValues(FlowElement)"})
   public void testSetValuesWithFlowElement_whenAdhocSubProcessExtensionElementsIsNull() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -699,36 +703,7 @@ public class FlowElementDiffblueTest {
     // Act
     adhocSubProcess.setValues((FlowElement) otherElement);
 
-    // Assert
-    assertNull(otherElement.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
-    assertTrue(otherElement.getExecutionListeners().isEmpty());
-  }
-
-  /**
-   * Test {@link FlowElement#setValues(FlowElement)} with {@code FlowElement}.
-   * <ul>
-   *   <li>When {@link AdhocSubProcess} (default constructor).</li>
-   *   <li>Then {@link AdhocSubProcess} (default constructor) Id is
-   * {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FlowElement#setValues(FlowElement)}
-   */
-  @Test
-  public void testSetValuesWithFlowElement_whenAdhocSubProcess_thenAdhocSubProcessIdIsNull() {
-    // Arrange
-    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
-    AdhocSubProcess otherElement = new AdhocSubProcess();
-
-    // Act
-    adhocSubProcess.setValues((FlowElement) otherElement);
-
-    // Assert
-    assertNull(otherElement.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
+    // Assert that nothing has changed
     assertTrue(otherElement.getExecutionListeners().isEmpty());
   }
 }

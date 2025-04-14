@@ -16,8 +16,11 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertThrows;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class SetTimerJobRetriesCmdDiffblueTest {
   /**
@@ -26,10 +29,11 @@ public class SetTimerJobRetriesCmdDiffblueTest {
    *   <li>When empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SetTimerJobRetriesCmd#SetTimerJobRetriesCmd(String, int)}
+   * Method under test: {@link SetTimerJobRetriesCmd#SetTimerJobRetriesCmd(String, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SetTimerJobRetriesCmd.<init>(String, int)"})
   public void testNewSetTimerJobRetriesCmd_whenEmptyString() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> new SetTimerJobRetriesCmd("", 1));
@@ -42,10 +46,11 @@ public class SetTimerJobRetriesCmdDiffblueTest {
    *   <li>When minus one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SetTimerJobRetriesCmd#SetTimerJobRetriesCmd(String, int)}
+   * Method under test: {@link SetTimerJobRetriesCmd#SetTimerJobRetriesCmd(String, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SetTimerJobRetriesCmd.<init>(String, int)"})
   public void testNewSetTimerJobRetriesCmd_whenMinusOne() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> new SetTimerJobRetriesCmd("42", -1));
@@ -59,13 +64,14 @@ public class SetTimerJobRetriesCmdDiffblueTest {
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SetTimerJobRetriesCmd#SetTimerJobRetriesCmd(String, int)}
+   * Method under test: {@link SetTimerJobRetriesCmd#SetTimerJobRetriesCmd(String, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SetTimerJobRetriesCmd.<init>(String, int)"})
   public void testNewSetTimerJobRetriesCmd_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> new SetTimerJobRetriesCmd(null, 1));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> new SetTimerJobRetriesCmd(null, 0));
 
   }
 }

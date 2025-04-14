@@ -16,34 +16,31 @@
 package org.activiti.engine.impl.calendar;
 
 import static org.junit.Assert.assertThrows;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.TimeZone;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.impl.util.DefaultClockImpl;
 import org.activiti.engine.runtime.ClockReader;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class AdvancedSchedulerResolverWithTimeZoneDiffblueTest {
-  @InjectMocks
-  private AdvancedSchedulerResolverWithTimeZone advancedSchedulerResolverWithTimeZone;
-
   /**
-   * Test
-   * {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}.
+   * Test {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}.
    * <ul>
    *   <li>When {@code 42}.</li>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}
+   * Method under test: {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Date AdvancedSchedulerResolverWithTimeZone.resolve(String, ClockReader, TimeZone)"})
   public void testResolve_when42_thenThrowActivitiException() {
     // Arrange
+    AdvancedSchedulerResolverWithTimeZone advancedSchedulerResolverWithTimeZone = new AdvancedSchedulerResolverWithTimeZone();
     DefaultClockImpl clockReader = new DefaultClockImpl();
 
     // Act and Assert
@@ -52,19 +49,20 @@ public class AdvancedSchedulerResolverWithTimeZoneDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}.
+   * Test {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}.
    * <ul>
    *   <li>When {@code 2020-03-01}.</li>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}
+   * Method under test: {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Date AdvancedSchedulerResolverWithTimeZone.resolve(String, ClockReader, TimeZone)"})
   public void testResolve_when20200301_thenThrowActivitiException() {
     // Arrange
+    AdvancedSchedulerResolverWithTimeZone advancedSchedulerResolverWithTimeZone = new AdvancedSchedulerResolverWithTimeZone();
     DefaultClockImpl clockReader = new DefaultClockImpl();
 
     // Act and Assert
@@ -73,19 +71,20 @@ public class AdvancedSchedulerResolverWithTimeZoneDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}.
+   * Test {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}.
    * <ul>
    *   <li>When {@code 2020/03/01}.</li>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}
+   * Method under test: {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Date AdvancedSchedulerResolverWithTimeZone.resolve(String, ClockReader, TimeZone)"})
   public void testResolve_when20200301_thenThrowActivitiException2() {
     // Arrange
+    AdvancedSchedulerResolverWithTimeZone advancedSchedulerResolverWithTimeZone = new AdvancedSchedulerResolverWithTimeZone();
     DefaultClockImpl clockReader = new DefaultClockImpl();
 
     // Act and Assert
@@ -94,19 +93,20 @@ public class AdvancedSchedulerResolverWithTimeZoneDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}.
+   * Test {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}.
    * <ul>
    *   <li>When {@code 20200301}.</li>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}
+   * Method under test: {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Date AdvancedSchedulerResolverWithTimeZone.resolve(String, ClockReader, TimeZone)"})
   public void testResolve_when20200301_thenThrowActivitiException3() {
     // Arrange
+    AdvancedSchedulerResolverWithTimeZone advancedSchedulerResolverWithTimeZone = new AdvancedSchedulerResolverWithTimeZone();
     DefaultClockImpl clockReader = new DefaultClockImpl();
 
     // Act and Assert
@@ -115,19 +115,20 @@ public class AdvancedSchedulerResolverWithTimeZoneDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}.
+   * Test {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}.
    * <ul>
    *   <li>When {@code ,}.</li>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}
+   * Method under test: {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Date AdvancedSchedulerResolverWithTimeZone.resolve(String, ClockReader, TimeZone)"})
   public void testResolve_whenComma_thenThrowActivitiException() {
     // Arrange
+    AdvancedSchedulerResolverWithTimeZone advancedSchedulerResolverWithTimeZone = new AdvancedSchedulerResolverWithTimeZone();
     DefaultClockImpl clockReader = new DefaultClockImpl();
 
     // Act and Assert
@@ -136,18 +137,19 @@ public class AdvancedSchedulerResolverWithTimeZoneDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}.
+   * Test {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}.
    * <ul>
    *   <li>When {@code Minute and Second values must be between 0 and 59}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}
+   * Method under test: {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Date AdvancedSchedulerResolverWithTimeZone.resolve(String, ClockReader, TimeZone)"})
   public void testResolve_whenMinuteAndSecondValuesMustBeBetween0And59() {
     // Arrange
+    AdvancedSchedulerResolverWithTimeZone advancedSchedulerResolverWithTimeZone = new AdvancedSchedulerResolverWithTimeZone();
     DefaultClockImpl clockReader = new DefaultClockImpl();
 
     // Act and Assert
@@ -157,19 +159,20 @@ public class AdvancedSchedulerResolverWithTimeZoneDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}.
+   * Test {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}.
    * <ul>
    *   <li>When {@code /}.</li>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}
+   * Method under test: {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Date AdvancedSchedulerResolverWithTimeZone.resolve(String, ClockReader, TimeZone)"})
   public void testResolve_whenSlash_thenThrowActivitiException() {
     // Arrange
+    AdvancedSchedulerResolverWithTimeZone advancedSchedulerResolverWithTimeZone = new AdvancedSchedulerResolverWithTimeZone();
     DefaultClockImpl clockReader = new DefaultClockImpl();
 
     // Act and Assert
@@ -178,19 +181,20 @@ public class AdvancedSchedulerResolverWithTimeZoneDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}.
+   * Test {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}.
    * <ul>
    *   <li>When space tab.</li>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}
+   * Method under test: {@link AdvancedSchedulerResolverWithTimeZone#resolve(String, ClockReader, TimeZone)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Date AdvancedSchedulerResolverWithTimeZone.resolve(String, ClockReader, TimeZone)"})
   public void testResolve_whenSpaceTab_thenThrowActivitiException() {
     // Arrange
+    AdvancedSchedulerResolverWithTimeZone advancedSchedulerResolverWithTimeZone = new AdvancedSchedulerResolverWithTimeZone();
     DefaultClockImpl clockReader = new DefaultClockImpl();
 
     // Act and Assert

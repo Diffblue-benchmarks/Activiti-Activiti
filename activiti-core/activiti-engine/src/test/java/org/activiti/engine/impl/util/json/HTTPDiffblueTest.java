@@ -17,18 +17,14 @@ package org.activiti.engine.impl.util.json;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class HTTPDiffblueTest {
-  @InjectMocks
-  private HTTP hTTP;
-
   /**
    * Test {@link HTTP#toJSONObject(String)}.
    * <ul>
@@ -38,6 +34,8 @@ public class HTTPDiffblueTest {
    * Method under test: {@link HTTP#toJSONObject(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject HTTP.toJSONObject(String)"})
   public void testToJSONObject_whenHttpsExampleOrgExample() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(3, HTTP.toJSONObject("https://example.org/example").length());
@@ -52,6 +50,8 @@ public class HTTPDiffblueTest {
    * Method under test: {@link HTTP#toJSONObject(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject HTTP.toJSONObject(String)"})
   public void testToJSONObject_whenStatusCode() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(3, HTTP.toJSONObject("Status-Code").length());
@@ -63,6 +63,8 @@ public class HTTPDiffblueTest {
    * Method under test: {@link HTTP#toString(JSONObject)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String HTTP.toString(JSONObject)"})
   public void testToStringWithJSONObject() throws JSONException {
     // Arrange
     JSONObject o = HTTP.toJSONObject("https://example.org/example");
@@ -78,6 +80,8 @@ public class HTTPDiffblueTest {
    * Method under test: {@link HTTP#toString(JSONObject)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String HTTP.toString(JSONObject)"})
   public void testToStringWithJSONObject2() throws JSONException {
     // Arrange
     JSONObject o = HTTP.toJSONObject("https://example.org/example");
@@ -98,6 +102,8 @@ public class HTTPDiffblueTest {
    * Method under test: {@link HTTP#toString(JSONObject)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String HTTP.toString(JSONObject)"})
   public void testToStringWithJSONObject_givenHttpVersion_thenReturnNullNullNameValue() throws JSONException {
     // Arrange
     JSONObject o = Cookie.toJSONObject("=;");
@@ -118,6 +124,8 @@ public class HTTPDiffblueTest {
    * Method under test: {@link HTTP#toString(JSONObject)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String HTTP.toString(JSONObject)"})
   public void testToStringWithJSONObject_givenKey() throws JSONException {
     // Arrange
     JSONObject o = HTTP.toJSONObject("https://example.org/example");
@@ -136,6 +144,8 @@ public class HTTPDiffblueTest {
    * Method under test: {@link HTTP#toString(JSONObject)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String HTTP.toString(JSONObject)"})
   public void testToStringWithJSONObject_givenStatusCode() throws JSONException {
     // Arrange
     JSONObject o = Cookie.toJSONObject("=;");
@@ -154,6 +164,8 @@ public class HTTPDiffblueTest {
    * Method under test: {@link HTTP#toString(JSONObject)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String HTTP.toString(JSONObject)"})
   public void testToStringWithJSONObject_thenThrowJSONException() throws JSONException {
     // Arrange
     JSONObject o = Cookie.toJSONObject("=;");
@@ -172,6 +184,8 @@ public class HTTPDiffblueTest {
    * Method under test: {@link HTTP#toString(JSONObject)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String HTTP.toString(JSONObject)"})
   public void testToStringWithJSONObject_whenToJSONObjectEqualsSignSemicolon() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> HTTP.toString(Cookie.toJSONObject("=;")));
@@ -186,6 +200,8 @@ public class HTTPDiffblueTest {
    * Method under test: {@link HTTP#toString(JSONObject)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String HTTP.toString(JSONObject)"})
   public void testToStringWithJSONObject_whenToJSONObjectHttpsExampleOrgExample() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("https://example.org/example  \r\n\r\n",

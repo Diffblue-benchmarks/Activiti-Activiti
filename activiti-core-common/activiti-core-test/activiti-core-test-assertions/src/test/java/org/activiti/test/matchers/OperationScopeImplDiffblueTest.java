@@ -18,7 +18,9 @@ package org.activiti.test.matchers;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class OperationScopeImplDiffblueTest {
@@ -36,6 +38,10 @@ class OperationScopeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void OperationScopeImpl.<init>(String, String)",
+      "String OperationScopeImpl.getProcessInstanceId()", "String OperationScopeImpl.getTaskId()",
+      "void OperationScopeImpl.setProcessInstanceId(String)", "void OperationScopeImpl.setTaskId(String)"})
   void testGettersAndSetters() {
     // Arrange and Act
     OperationScopeImpl actualOperationScopeImpl = new OperationScopeImpl("42", "42");
@@ -43,7 +49,7 @@ class OperationScopeImplDiffblueTest {
     actualOperationScopeImpl.setTaskId("42");
     String actualProcessInstanceId = actualOperationScopeImpl.getProcessInstanceId();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualProcessInstanceId);
     assertEquals("42", actualOperationScopeImpl.getTaskId());
   }
@@ -55,6 +61,8 @@ class OperationScopeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test processInstanceScope(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"OperationScope OperationScopeImpl.processInstanceScope(String)"})
   void testProcessInstanceScope() {
     // Arrange and Act
     OperationScope actualProcessInstanceScopeResult = OperationScopeImpl.processInstanceScope("42");
@@ -72,6 +80,8 @@ class OperationScopeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test taskScope(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"OperationScope OperationScopeImpl.taskScope(String)"})
   void testTaskScope() {
     // Arrange and Act
     OperationScope actualTaskScopeResult = OperationScopeImpl.taskScope("42");
@@ -89,6 +99,8 @@ class OperationScopeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test scope(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"OperationScope OperationScopeImpl.scope(String, String)"})
   void testScope() {
     // Arrange and Act
     OperationScope actualScopeResult = OperationScopeImpl.scope("42", "42");

@@ -19,7 +19,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class XMLTokenerDiffblueTest {
   /**
@@ -28,6 +31,8 @@ public class XMLTokenerDiffblueTest {
    * Method under test: {@link XMLTokener#XMLTokener(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void XMLTokener.<init>(String)"})
   public void testNewXMLTokener() {
     // Arrange, Act and Assert
     assertFalse((new XMLTokener("foo")).end());
@@ -43,6 +48,8 @@ public class XMLTokenerDiffblueTest {
    * Method under test: {@link XMLTokener#nextContent()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Object XMLTokener.nextContent()"})
   public void testNextContent_givenXMLTokenerWithSIsEmptyString_thenReturnNull() throws JSONException {
     // Arrange
     XMLTokener xmlTokener = new XMLTokener("");
@@ -62,6 +69,8 @@ public class XMLTokenerDiffblueTest {
    * Method under test: {@link XMLTokener#nextContent()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Object XMLTokener.nextContent()"})
   public void testNextContent_givenXMLTokenerWithSIsFoo_thenReturnFoo() throws JSONException {
     // Arrange
     XMLTokener xmlTokener = new XMLTokener("foo");
@@ -69,6 +78,23 @@ public class XMLTokenerDiffblueTest {
     // Act and Assert
     assertEquals("foo", xmlTokener.nextContent());
     assertFalse(xmlTokener.end());
+  }
+
+  /**
+   * Test {@link XMLTokener#nextMeta()}.
+   * <ul>
+   *   <li>Given {@link XMLTokener#XMLTokener(String)} with s is {@code foo}.</li>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link XMLTokener#nextMeta()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Object XMLTokener.nextMeta()"})
+  public void testNextMeta_givenXMLTokenerWithSIsFoo_thenReturnTrue() throws JSONException {
+    // Arrange, Act and Assert
+    assertTrue((Boolean) (new XMLTokener("foo")).nextMeta());
   }
 
   /**
@@ -81,6 +107,8 @@ public class XMLTokenerDiffblueTest {
    * Method under test: {@link XMLTokener#nextToken()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Object XMLTokener.nextToken()"})
   public void testNextToken_givenXMLTokenerWithSIsFoo_thenReturnFoo() throws JSONException {
     // Arrange
     XMLTokener xmlTokener = new XMLTokener("foo");
@@ -101,6 +129,8 @@ public class XMLTokenerDiffblueTest {
    * Method under test: {@link XMLTokener#skipPast(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean XMLTokener.skipPast(String)"})
   public void testSkipPast_givenXMLTokenerWithSIsFoo_whenEmptyString_thenReturnTrue() throws JSONException {
     // Arrange, Act and Assert
     assertTrue((new XMLTokener("foo")).skipPast(""));
@@ -117,6 +147,8 @@ public class XMLTokenerDiffblueTest {
    * Method under test: {@link XMLTokener#skipPast(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean XMLTokener.skipPast(String)"})
   public void testSkipPast_givenXMLTokenerWithSIsFoo_whenTo_thenReturnFalse() throws JSONException {
     // Arrange, Act and Assert
     assertFalse((new XMLTokener("foo")).skipPast("To"));
@@ -133,6 +165,8 @@ public class XMLTokenerDiffblueTest {
    * Method under test: {@link XMLTokener#skipPast(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean XMLTokener.skipPast(String)"})
   public void testSkipPast_givenXMLTokenerWithSIsQuot_whenQuot_thenReturnTrue() throws JSONException {
     // Arrange, Act and Assert
     assertTrue((new XMLTokener("quot")).skipPast("quot"));
@@ -149,6 +183,8 @@ public class XMLTokenerDiffblueTest {
    * Method under test: {@link XMLTokener#skipPast(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean XMLTokener.skipPast(String)"})
   public void testSkipPast_givenXMLTokenerWithSIsQuot_whenTo_thenReturnFalse() throws JSONException {
     // Arrange, Act and Assert
     assertFalse((new XMLTokener("quot")).skipPast("To"));
@@ -164,6 +200,8 @@ public class XMLTokenerDiffblueTest {
    * Method under test: {@link XMLTokener#skipPast(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean XMLTokener.skipPast(String)"})
   public void testSkipPast_whenAliceLiddellExampleOrg_thenReturnFalse() throws JSONException {
     // Arrange, Act and Assert
     assertFalse((new XMLTokener("foo")).skipPast("alice.liddell@example.org"));

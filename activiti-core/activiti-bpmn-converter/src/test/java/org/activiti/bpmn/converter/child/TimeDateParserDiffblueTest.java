@@ -16,7 +16,9 @@
 package org.activiti.bpmn.converter.child;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class TimeDateParserDiffblueTest {
@@ -31,6 +33,8 @@ class TimeDateParserDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TimeDateParser.<init>()", "java.lang.String TimeDateParser.getElementName()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("timeDate", (new TimeDateParser()).getElementName());

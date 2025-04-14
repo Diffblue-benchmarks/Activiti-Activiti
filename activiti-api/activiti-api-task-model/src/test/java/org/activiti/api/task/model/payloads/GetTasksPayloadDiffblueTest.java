@@ -20,9 +20,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class GetTasksPayloadDiffblueTest {
@@ -33,6 +35,8 @@ class GetTasksPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test new GetTasksPayload()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void GetTasksPayload.<init>()"})
   void testNewGetTasksPayload() {
     // Arrange and Act
     GetTasksPayload actualGetTasksPayload = new GetTasksPayload();
@@ -53,11 +57,12 @@ class GetTasksPayloadDiffblueTest {
    *   <li>Then return Groups is {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link GetTasksPayload#GetTasksPayload(String, List, String, String)}
+   * Method under test: {@link GetTasksPayload#GetTasksPayload(String, List, String, String)}
    */
   @Test
   @DisplayName("Test new GetTasksPayload(String, List, String, String); given '42'; when ArrayList() add '42'; then return Groups is ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void GetTasksPayload.<init>(String, List, String, String)"})
   void testNewGetTasksPayload_given42_whenArrayListAdd42_thenReturnGroupsIsArrayList() {
     // Arrange
     ArrayList<String> groups = new ArrayList<>();
@@ -83,11 +88,12 @@ class GetTasksPayloadDiffblueTest {
    *   <li>Then return Groups is {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link GetTasksPayload#GetTasksPayload(String, List, String, String)}
+   * Method under test: {@link GetTasksPayload#GetTasksPayload(String, List, String, String)}
    */
   @Test
   @DisplayName("Test new GetTasksPayload(String, List, String, String); given 'foo'; when ArrayList() add 'foo'; then return Groups is ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void GetTasksPayload.<init>(String, List, String, String)"})
   void testNewGetTasksPayload_givenFoo_whenArrayListAddFoo_thenReturnGroupsIsArrayList() {
     // Arrange
     ArrayList<String> groups = new ArrayList<>();
@@ -111,11 +117,12 @@ class GetTasksPayloadDiffblueTest {
    *   <li>Then return Groups Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link GetTasksPayload#GetTasksPayload(String, List, String, String)}
+   * Method under test: {@link GetTasksPayload#GetTasksPayload(String, List, String, String)}
    */
   @Test
   @DisplayName("Test new GetTasksPayload(String, List, String, String); when ArrayList(); then return Groups Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void GetTasksPayload.<init>(String, List, String, String)"})
   void testNewGetTasksPayload_whenArrayList_thenReturnGroupsEmpty() {
     // Arrange and Act
     GetTasksPayload actualGetTasksPayload = new GetTasksPayload("42", new ArrayList<>(), "42", "42");
@@ -146,6 +153,12 @@ class GetTasksPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String GetTasksPayload.getAssigneeId()", "List GetTasksPayload.getGroups()",
+      "String GetTasksPayload.getId()", "String GetTasksPayload.getParentTaskId()",
+      "String GetTasksPayload.getProcessInstanceId()", "void GetTasksPayload.setAssigneeId(String)",
+      "void GetTasksPayload.setGroups(List)", "void GetTasksPayload.setParentTaskId(String)",
+      "void GetTasksPayload.setProcessInstanceId(String)"})
   void testGettersAndSetters() {
     // Arrange
     GetTasksPayload getTasksPayload = new GetTasksPayload();
@@ -161,7 +174,7 @@ class GetTasksPayloadDiffblueTest {
     getTasksPayload.getId();
     String actualParentTaskId = getTasksPayload.getParentTaskId();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualAssigneeId);
     assertEquals("42", actualParentTaskId);
     assertEquals("42", getTasksPayload.getProcessInstanceId());
@@ -172,8 +185,7 @@ class GetTasksPayloadDiffblueTest {
   /**
    * Test {@link GetTasksPayload#isStandalone()}.
    * <ul>
-   *   <li>Given {@link GetTasksPayload#GetTasksPayload()} ProcessInstanceId is
-   * {@code foo}.</li>
+   *   <li>Given {@link GetTasksPayload#GetTasksPayload()} ProcessInstanceId is {@code foo}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
@@ -181,6 +193,8 @@ class GetTasksPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test isStandalone(); given GetTasksPayload() ProcessInstanceId is 'foo'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean GetTasksPayload.isStandalone()"})
   void testIsStandalone_givenGetTasksPayloadProcessInstanceIdIsFoo_thenReturnFalse() {
     // Arrange
     GetTasksPayload getTasksPayload = new GetTasksPayload();
@@ -201,6 +215,8 @@ class GetTasksPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test isStandalone(); given GetTasksPayload(); then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean GetTasksPayload.isStandalone()"})
   void testIsStandalone_givenGetTasksPayload_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue((new GetTasksPayload()).isStandalone());

@@ -17,7 +17,10 @@ package org.activiti.bpmn.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ExtensionAttributeDiffblueTest {
   /**
@@ -37,6 +40,13 @@ public class ExtensionAttributeDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExtensionAttribute.<init>()", "void ExtensionAttribute.<init>(String)",
+      "void ExtensionAttribute.<init>(String, String)", "String ExtensionAttribute.getName()",
+      "String ExtensionAttribute.getNamespace()", "String ExtensionAttribute.getNamespacePrefix()",
+      "String ExtensionAttribute.getValue()", "void ExtensionAttribute.setName(String)",
+      "void ExtensionAttribute.setNamespace(String)", "void ExtensionAttribute.setNamespacePrefix(String)",
+      "void ExtensionAttribute.setValue(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ExtensionAttribute actualExtensionAttribute = new ExtensionAttribute();
@@ -48,7 +58,7 @@ public class ExtensionAttributeDiffblueTest {
     String actualNamespace = actualExtensionAttribute.getNamespace();
     String actualNamespacePrefix = actualExtensionAttribute.getNamespacePrefix();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualExtensionAttribute.getValue());
     assertEquals("Name", actualName);
     assertEquals("Namespace Prefix", actualNamespacePrefix);
@@ -75,6 +85,13 @@ public class ExtensionAttributeDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExtensionAttribute.<init>()", "void ExtensionAttribute.<init>(String)",
+      "void ExtensionAttribute.<init>(String, String)", "String ExtensionAttribute.getName()",
+      "String ExtensionAttribute.getNamespace()", "String ExtensionAttribute.getNamespacePrefix()",
+      "String ExtensionAttribute.getValue()", "void ExtensionAttribute.setName(String)",
+      "void ExtensionAttribute.setNamespace(String)", "void ExtensionAttribute.setNamespacePrefix(String)",
+      "void ExtensionAttribute.setValue(String)"})
   public void testGettersAndSetters_whenName() {
     // Arrange and Act
     ExtensionAttribute actualExtensionAttribute = new ExtensionAttribute("Name");
@@ -86,7 +103,7 @@ public class ExtensionAttributeDiffblueTest {
     String actualNamespace = actualExtensionAttribute.getNamespace();
     String actualNamespacePrefix = actualExtensionAttribute.getNamespacePrefix();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualExtensionAttribute.getValue());
     assertEquals("Name", actualName);
     assertEquals("Namespace Prefix", actualNamespacePrefix);
@@ -113,6 +130,13 @@ public class ExtensionAttributeDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExtensionAttribute.<init>()", "void ExtensionAttribute.<init>(String)",
+      "void ExtensionAttribute.<init>(String, String)", "String ExtensionAttribute.getName()",
+      "String ExtensionAttribute.getNamespace()", "String ExtensionAttribute.getNamespacePrefix()",
+      "String ExtensionAttribute.getValue()", "void ExtensionAttribute.setName(String)",
+      "void ExtensionAttribute.setNamespace(String)", "void ExtensionAttribute.setNamespacePrefix(String)",
+      "void ExtensionAttribute.setValue(String)"})
   public void testGettersAndSetters_whenNamespace() {
     // Arrange and Act
     ExtensionAttribute actualExtensionAttribute = new ExtensionAttribute("Namespace", "Name");
@@ -124,7 +148,7 @@ public class ExtensionAttributeDiffblueTest {
     String actualNamespace = actualExtensionAttribute.getNamespace();
     String actualNamespacePrefix = actualExtensionAttribute.getNamespacePrefix();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualExtensionAttribute.getValue());
     assertEquals("Name", actualName);
     assertEquals("Namespace Prefix", actualNamespacePrefix);
@@ -134,41 +158,35 @@ public class ExtensionAttributeDiffblueTest {
   /**
    * Test {@link ExtensionAttribute#toString()}.
    * <ul>
-   *   <li>Given {@link ExtensionAttribute#ExtensionAttribute(String)} with
-   * {@code Name} Name is {@code foo}.</li>
-   *   <li>Then return {@code foo:foo}.</li>
+   *   <li>Given {@link ExtensionAttribute#ExtensionAttribute(String)} with {@code Name}.</li>
+   *   <li>Then return {@code Name}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ExtensionAttribute#toString()}
    */
   @Test
-  public void testToString_givenExtensionAttributeWithNameNameIsFoo_thenReturnFooFoo() {
-    // Arrange
-    ExtensionAttribute extensionAttribute = new ExtensionAttribute("Name");
-    extensionAttribute.setNamespacePrefix("foo");
-    extensionAttribute.setName("foo");
-    extensionAttribute.setValue(null);
-
-    // Act and Assert
-    assertEquals("foo:foo", extensionAttribute.toString());
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExtensionAttribute.toString()"})
+  public void testToString_givenExtensionAttributeWithName_thenReturnName() {
+    // Arrange, Act and Assert
+    assertEquals("Name", (new ExtensionAttribute("Name")).toString());
   }
 
   /**
    * Test {@link ExtensionAttribute#toString()}.
    * <ul>
-   *   <li>Given {@link ExtensionAttribute#ExtensionAttribute(String)} with
-   * {@code Name} NamespacePrefix is {@code foo}.</li>
    *   <li>Then return {@code foo}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ExtensionAttribute#toString()}
    */
   @Test
-  public void testToString_givenExtensionAttributeWithNameNamespacePrefixIsFoo_thenReturnFoo() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExtensionAttribute.toString()"})
+  public void testToString_thenReturnFoo() {
     // Arrange
-    ExtensionAttribute extensionAttribute = new ExtensionAttribute("Name");
+    ExtensionAttribute extensionAttribute = new ExtensionAttribute(null);
     extensionAttribute.setNamespacePrefix("foo");
-    extensionAttribute.setName(null);
     extensionAttribute.setValue(null);
 
     // Act and Assert
@@ -178,17 +196,22 @@ public class ExtensionAttributeDiffblueTest {
   /**
    * Test {@link ExtensionAttribute#toString()}.
    * <ul>
-   *   <li>Given {@link ExtensionAttribute#ExtensionAttribute(String)} with
-   * {@code Name}.</li>
-   *   <li>Then return {@code Name}.</li>
+   *   <li>Then return {@code foo:Name}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ExtensionAttribute#toString()}
    */
   @Test
-  public void testToString_givenExtensionAttributeWithName_thenReturnName() {
-    // Arrange, Act and Assert
-    assertEquals("Name", (new ExtensionAttribute("Name")).toString());
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExtensionAttribute.toString()"})
+  public void testToString_thenReturnFooName() {
+    // Arrange
+    ExtensionAttribute extensionAttribute = new ExtensionAttribute("Name");
+    extensionAttribute.setNamespacePrefix("foo");
+    extensionAttribute.setValue(null);
+
+    // Act and Assert
+    assertEquals("foo:Name", extensionAttribute.toString());
   }
 
   /**
@@ -200,11 +223,12 @@ public class ExtensionAttributeDiffblueTest {
    * Method under test: {@link ExtensionAttribute#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExtensionAttribute.toString()"})
   public void testToString_thenReturnNullFoo() {
     // Arrange
-    ExtensionAttribute extensionAttribute = new ExtensionAttribute("Name");
+    ExtensionAttribute extensionAttribute = new ExtensionAttribute(null);
     extensionAttribute.setNamespacePrefix(null);
-    extensionAttribute.setName(null);
     extensionAttribute.setValue("foo");
 
     // Act and Assert
@@ -217,6 +241,8 @@ public class ExtensionAttributeDiffblueTest {
    * Method under test: {@link ExtensionAttribute#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ExtensionAttribute ExtensionAttribute.clone()"})
   public void testClone() {
     // Arrange and Act
     ExtensionAttribute actualCloneResult = (new ExtensionAttribute("Name")).clone();

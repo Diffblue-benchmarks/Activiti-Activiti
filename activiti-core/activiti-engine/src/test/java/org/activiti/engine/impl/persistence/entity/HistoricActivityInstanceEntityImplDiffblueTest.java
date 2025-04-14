@@ -19,8 +19,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class HistoricActivityInstanceEntityImplDiffblueTest {
   /**
@@ -28,14 +31,12 @@ public class HistoricActivityInstanceEntityImplDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of
-   * {@link HistoricActivityInstanceEntityImpl}
+   *   <li>default or parameterless constructor of {@link HistoricActivityInstanceEntityImpl}
    *   <li>{@link HistoricActivityInstanceEntityImpl#setActivityId(String)}
    *   <li>{@link HistoricActivityInstanceEntityImpl#setActivityName(String)}
    *   <li>{@link HistoricActivityInstanceEntityImpl#setActivityType(String)}
    *   <li>{@link HistoricActivityInstanceEntityImpl#setAssignee(String)}
-   *   <li>
-   * {@link HistoricActivityInstanceEntityImpl#setCalledProcessInstanceId(String)}
+   *   <li>{@link HistoricActivityInstanceEntityImpl#setCalledProcessInstanceId(String)}
    *   <li>{@link HistoricActivityInstanceEntityImpl#setExecutionId(String)}
    *   <li>{@link HistoricActivityInstanceEntityImpl#setTaskId(String)}
    *   <li>{@link HistoricActivityInstanceEntityImpl#setTenantId(String)}
@@ -51,6 +52,25 @@ public class HistoricActivityInstanceEntityImplDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HistoricActivityInstanceEntityImpl.<init>()",
+      "String HistoricActivityInstanceEntityImpl.getActivityId()",
+      "String HistoricActivityInstanceEntityImpl.getActivityName()",
+      "String HistoricActivityInstanceEntityImpl.getActivityType()",
+      "String HistoricActivityInstanceEntityImpl.getAssignee()",
+      "String HistoricActivityInstanceEntityImpl.getCalledProcessInstanceId()",
+      "String HistoricActivityInstanceEntityImpl.getExecutionId()",
+      "String HistoricActivityInstanceEntityImpl.getTaskId()",
+      "String HistoricActivityInstanceEntityImpl.getTenantId()",
+      "void HistoricActivityInstanceEntityImpl.setActivityId(String)",
+      "void HistoricActivityInstanceEntityImpl.setActivityName(String)",
+      "void HistoricActivityInstanceEntityImpl.setActivityType(String)",
+      "void HistoricActivityInstanceEntityImpl.setAssignee(String)",
+      "void HistoricActivityInstanceEntityImpl.setCalledProcessInstanceId(String)",
+      "void HistoricActivityInstanceEntityImpl.setExecutionId(String)",
+      "void HistoricActivityInstanceEntityImpl.setTaskId(String)",
+      "void HistoricActivityInstanceEntityImpl.setTenantId(String)",
+      "String HistoricActivityInstanceEntityImpl.toString()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     HistoricActivityInstanceEntityImpl actualHistoricActivityInstanceEntityImpl = new HistoricActivityInstanceEntityImpl();
@@ -71,7 +91,7 @@ public class HistoricActivityInstanceEntityImplDiffblueTest {
     String actualExecutionId = actualHistoricActivityInstanceEntityImpl.getExecutionId();
     String actualTaskId = actualHistoricActivityInstanceEntityImpl.getTaskId();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualActivityId);
     assertEquals("42", actualCalledProcessInstanceId);
     assertEquals("42", actualExecutionId);
@@ -82,6 +102,13 @@ public class HistoricActivityInstanceEntityImplDiffblueTest {
     assertEquals("Assignee", actualAssignee);
     assertEquals("HistoricActivityInstanceEntity[id=null, activityId=42, activityName=Activity Name]",
         actualToStringResult);
+    assertNull(actualHistoricActivityInstanceEntityImpl.getDurationInMillis());
+    assertNull(actualHistoricActivityInstanceEntityImpl.getId());
+    assertNull(actualHistoricActivityInstanceEntityImpl.getDeleteReason());
+    assertNull(actualHistoricActivityInstanceEntityImpl.getProcessDefinitionId());
+    assertNull(actualHistoricActivityInstanceEntityImpl.getProcessInstanceId());
+    assertNull(actualHistoricActivityInstanceEntityImpl.getEndTime());
+    assertNull(actualHistoricActivityInstanceEntityImpl.getStartTime());
     assertFalse(actualHistoricActivityInstanceEntityImpl.isDeleted());
     assertFalse(actualHistoricActivityInstanceEntityImpl.isInserted());
     assertFalse(actualHistoricActivityInstanceEntityImpl.isUpdated());
@@ -89,15 +116,13 @@ public class HistoricActivityInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link HistoricActivityInstanceEntityImpl#getPersistentState()}.
-   * <ul>
-   *   <li>Then return {@code endTime} is {@code null}.</li>
-   * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricActivityInstanceEntityImpl#getPersistentState()}
+   * Method under test: {@link HistoricActivityInstanceEntityImpl#getPersistentState()}
    */
   @Test
-  public void testGetPersistentState_thenReturnEndTimeIsNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object HistoricActivityInstanceEntityImpl.getPersistentState()"})
+  public void testGetPersistentState() {
     // Arrange and Act
     Object actualPersistentState = (new HistoricActivityInstanceEntityImpl()).getPersistentState();
 
@@ -113,16 +138,13 @@ public class HistoricActivityInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link HistoricActivityInstanceEntityImpl#getTime()}.
-   * <ul>
-   *   <li>Given {@link HistoricActivityInstanceEntityImpl} (default
-   * constructor).</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link HistoricActivityInstanceEntityImpl#getTime()}
    */
   @Test
-  public void testGetTime_givenHistoricActivityInstanceEntityImpl_thenReturnNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Date HistoricActivityInstanceEntityImpl.getTime()"})
+  public void testGetTime() {
     // Arrange, Act and Assert
     assertNull((new HistoricActivityInstanceEntityImpl()).getTime());
   }

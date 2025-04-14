@@ -17,22 +17,25 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class RemoveExecutionVariablesCmdDiffblueTest {
   /**
-   * Test
-   * {@link RemoveExecutionVariablesCmd#RemoveExecutionVariablesCmd(String, Collection, boolean)}.
+   * Test {@link RemoveExecutionVariablesCmd#RemoveExecutionVariablesCmd(String, Collection, boolean)}.
    * <p>
-   * Method under test:
-   * {@link RemoveExecutionVariablesCmd#RemoveExecutionVariablesCmd(String, Collection, boolean)}
+   * Method under test: {@link RemoveExecutionVariablesCmd#RemoveExecutionVariablesCmd(String, Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void RemoveExecutionVariablesCmd.<init>(String, Collection, boolean)"})
   public void testNewRemoveExecutionVariablesCmd() {
     // Arrange and Act
     RemoveExecutionVariablesCmd actualRemoveExecutionVariablesCmd = new RemoveExecutionVariablesCmd("42",
@@ -45,17 +48,16 @@ public class RemoveExecutionVariablesCmdDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link RemoveExecutionVariablesCmd#execute(CommandContext, ExecutionEntity)}
-   * with {@code commandContext}, {@code execution}.
+   * Test {@link RemoveExecutionVariablesCmd#execute(CommandContext, ExecutionEntity)} with {@code commandContext}, {@code execution}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link RemoveExecutionVariablesCmd#execute(CommandContext, ExecutionEntity)}
+   * Method under test: {@link RemoveExecutionVariablesCmd#execute(CommandContext, ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Void RemoveExecutionVariablesCmd.execute(CommandContext, ExecutionEntity)"})
   public void testExecuteWithCommandContextExecution_thenReturnNull() {
     // Arrange
     RemoveExecutionVariablesCmd removeExecutionVariablesCmd = new RemoveExecutionVariablesCmd("42", new ArrayList<>(),
@@ -66,17 +68,16 @@ public class RemoveExecutionVariablesCmdDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link RemoveExecutionVariablesCmd#execute(CommandContext, ExecutionEntity)}
-   * with {@code commandContext}, {@code execution}.
+   * Test {@link RemoveExecutionVariablesCmd#execute(CommandContext, ExecutionEntity)} with {@code commandContext}, {@code execution}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link RemoveExecutionVariablesCmd#execute(CommandContext, ExecutionEntity)}
+   * Method under test: {@link RemoveExecutionVariablesCmd#execute(CommandContext, ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Void RemoveExecutionVariablesCmd.execute(CommandContext, ExecutionEntity)"})
   public void testExecuteWithCommandContextExecution_thenReturnNull2() {
     // Arrange
     RemoveExecutionVariablesCmd removeExecutionVariablesCmd = new RemoveExecutionVariablesCmd("42", new ArrayList<>(),
@@ -89,10 +90,11 @@ public class RemoveExecutionVariablesCmdDiffblueTest {
   /**
    * Test {@link RemoveExecutionVariablesCmd#getSuspendedExceptionMessage()}.
    * <p>
-   * Method under test:
-   * {@link RemoveExecutionVariablesCmd#getSuspendedExceptionMessage()}
+   * Method under test: {@link RemoveExecutionVariablesCmd#getSuspendedExceptionMessage()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String RemoveExecutionVariablesCmd.getSuspendedExceptionMessage()"})
   public void testGetSuspendedExceptionMessage() {
     // Arrange, Act and Assert
     assertEquals("Cannot remove variables because execution '42' is suspended",

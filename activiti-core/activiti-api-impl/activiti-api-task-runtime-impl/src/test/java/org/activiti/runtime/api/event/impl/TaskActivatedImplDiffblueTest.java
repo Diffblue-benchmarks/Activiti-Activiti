@@ -18,12 +18,15 @@ package org.activiti.runtime.api.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.mockito.Mockito.mock;
-import java.sql.Date;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.task.model.Task;
+import org.activiti.api.task.model.Task.TaskStatus;
 import org.activiti.api.task.model.events.TaskRuntimeEvent;
+import org.activiti.api.task.model.events.TaskRuntimeEvent.TaskEvents;
 import org.activiti.api.task.model.impl.TaskImpl;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class TaskActivatedImplDiffblueTest {
@@ -34,6 +37,8 @@ class TaskActivatedImplDiffblueTest {
    */
   @Test
   @DisplayName("Test new TaskActivatedImpl()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskActivatedImpl.<init>()"})
   void testNewTaskActivatedImpl() {
     // Arrange and Act
     TaskActivatedImpl actualTaskActivatedImpl = new TaskActivatedImpl();
@@ -46,65 +51,36 @@ class TaskActivatedImplDiffblueTest {
     assertNull(actualTaskActivatedImpl.getProcessDefinitionKey());
     assertNull(actualTaskActivatedImpl.getProcessInstanceId());
     assertNull(actualTaskActivatedImpl.getEntity());
-    assertEquals(TaskRuntimeEvent.TaskEvents.TASK_ACTIVATED, actualTaskActivatedImpl.getEventType());
+    assertEquals(TaskEvents.TASK_ACTIVATED, actualTaskActivatedImpl.getEventType());
   }
 
   /**
    * Test {@link TaskActivatedImpl#TaskActivatedImpl(Task)}.
-   * <ul>
-   *   <li>Given {@link Date}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link TaskActivatedImpl#TaskActivatedImpl(Task)}
    */
   @Test
-  @DisplayName("Test new TaskActivatedImpl(Task); given Date")
-  void testNewTaskActivatedImpl_givenDate() {
+  @DisplayName("Test new TaskActivatedImpl(Task)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskActivatedImpl.<init>(Task)"})
+  void testNewTaskActivatedImpl2() {
     // Arrange
-    TaskImpl entity = new TaskImpl("42", "Name", Task.TaskStatus.CREATED);
-    entity.setCreatedDate(mock(Date.class));
+    TaskImpl entity = new TaskImpl("42", "Name", TaskStatus.CREATED);
 
     // Act
     TaskActivatedImpl actualTaskActivatedImpl = new TaskActivatedImpl(entity);
 
     // Assert
+    Task entity2 = actualTaskActivatedImpl.getEntity();
+    assertTrue(entity2 instanceof TaskImpl);
     assertNull(actualTaskActivatedImpl.getProcessDefinitionVersion());
     assertNull(actualTaskActivatedImpl.getBusinessKey());
     assertNull(actualTaskActivatedImpl.getParentProcessInstanceId());
     assertNull(actualTaskActivatedImpl.getProcessDefinitionId());
     assertNull(actualTaskActivatedImpl.getProcessDefinitionKey());
     assertNull(actualTaskActivatedImpl.getProcessInstanceId());
-    assertEquals(TaskRuntimeEvent.TaskEvents.TASK_ACTIVATED, actualTaskActivatedImpl.getEventType());
-    assertSame(entity, actualTaskActivatedImpl.getEntity());
-  }
-
-  /**
-   * Test {@link TaskActivatedImpl#TaskActivatedImpl(Task)}.
-   * <ul>
-   *   <li>When {@link TaskImpl#TaskImpl(String, String, TaskStatus)} with id is
-   * {@code 42} and {@code Name} and status is {@code CREATED}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TaskActivatedImpl#TaskActivatedImpl(Task)}
-   */
-  @Test
-  @DisplayName("Test new TaskActivatedImpl(Task); when TaskImpl(String, String, TaskStatus) with id is '42' and 'Name' and status is 'CREATED'")
-  void testNewTaskActivatedImpl_whenTaskImplWithIdIs42AndNameAndStatusIsCreated() {
-    // Arrange
-    TaskImpl entity = new TaskImpl("42", "Name", Task.TaskStatus.CREATED);
-
-    // Act
-    TaskActivatedImpl actualTaskActivatedImpl = new TaskActivatedImpl(entity);
-
-    // Assert
-    assertNull(actualTaskActivatedImpl.getProcessDefinitionVersion());
-    assertNull(actualTaskActivatedImpl.getBusinessKey());
-    assertNull(actualTaskActivatedImpl.getParentProcessInstanceId());
-    assertNull(actualTaskActivatedImpl.getProcessDefinitionId());
-    assertNull(actualTaskActivatedImpl.getProcessDefinitionKey());
-    assertNull(actualTaskActivatedImpl.getProcessInstanceId());
-    assertEquals(TaskRuntimeEvent.TaskEvents.TASK_ACTIVATED, actualTaskActivatedImpl.getEventType());
-    assertSame(entity, actualTaskActivatedImpl.getEntity());
+    assertEquals(TaskEvents.TASK_ACTIVATED, actualTaskActivatedImpl.getEventType());
+    assertSame(entity, entity2);
   }
 
   /**
@@ -114,8 +90,10 @@ class TaskActivatedImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getEventType()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"TaskRuntimeEvent.TaskEvents TaskActivatedImpl.getEventType()"})
   void testGetEventType() {
     // Arrange, Act and Assert
-    assertEquals(TaskRuntimeEvent.TaskEvents.TASK_ACTIVATED, (new TaskActivatedImpl()).getEventType());
+    assertEquals(TaskEvents.TASK_ACTIVATED, (new TaskActivatedImpl()).getEventType());
   }
 }

@@ -19,53 +19,26 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.persistence.entity.HistoricDetailVariableInstanceUpdateEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.mockito.Mockito;
+import org.junit.experimental.categories.Category;
 
 public class BigDecimalTypeDiffblueTest {
   /**
    * Test {@link BigDecimalType#getValue(ValueFields)}.
    * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link ValueFields} {@link ValueFields#getTextValue()} return
-   * {@code 42}.</li>
-   *   <li>Then calls {@link ValueFields#getTextValue()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BigDecimalType#getValue(ValueFields)}
-   */
-  @Test
-  public void testGetValue_given42_whenValueFieldsGetTextValueReturn42_thenCallsGetTextValue() {
-    // Arrange
-    BigDecimalType bigDecimalType = new BigDecimalType();
-    ValueFields valueFields = mock(ValueFields.class);
-    when(valueFields.getTextValue()).thenReturn("42");
-
-    // Act
-    bigDecimalType.getValue(valueFields);
-
-    // Assert
-    verify(valueFields).getTextValue();
-  }
-
-  /**
-   * Test {@link BigDecimalType#getValue(ValueFields)}.
-   * <ul>
-   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default
-   * constructor).</li>
+   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor).</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BigDecimalType#getValue(ValueFields)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object BigDecimalType.getValue(ValueFields)"})
   public void testGetValue_whenHistoricDetailVariableInstanceUpdateEntityImpl_thenReturnNull() {
     // Arrange
     BigDecimalType bigDecimalType = new BigDecimalType();
@@ -77,13 +50,14 @@ public class BigDecimalTypeDiffblueTest {
   /**
    * Test {@link BigDecimalType#setValue(Object, ValueFields)}.
    * <ul>
-   *   <li>Then {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default
-   * constructor) TextValue is {@code null}.</li>
+   *   <li>Then {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor) TextValue is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BigDecimalType#setValue(Object, ValueFields)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BigDecimalType.setValue(Object, ValueFields)"})
   public void testSetValue_thenHistoricDetailVariableInstanceUpdateEntityImplTextValueIsNull() {
     // Arrange
     BigDecimalType bigDecimalType = new BigDecimalType();
@@ -97,35 +71,13 @@ public class BigDecimalTypeDiffblueTest {
   }
 
   /**
-   * Test {@link BigDecimalType#setValue(Object, ValueFields)}.
-   * <ul>
-   *   <li>When {@link ValueFields} {@link ValueFields#setTextValue(String)} does
-   * nothing.</li>
-   *   <li>Then calls {@link ValueFields#setTextValue(String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BigDecimalType#setValue(Object, ValueFields)}
-   */
-  @Test
-  public void testSetValue_whenValueFieldsSetTextValueDoesNothing_thenCallsSetTextValue() {
-    // Arrange
-    BigDecimalType bigDecimalType = new BigDecimalType();
-    ValueFields valueFields = mock(ValueFields.class);
-    doNothing().when(valueFields).setTextValue(Mockito.<String>any());
-
-    // Act
-    bigDecimalType.setValue(JSONObject.NULL, valueFields);
-
-    // Assert
-    verify(valueFields).setTextValue(eq("null"));
-  }
-
-  /**
    * Test {@link BigDecimalType#isAbleToStore(Object)}.
    * <p>
    * Method under test: {@link BigDecimalType#isAbleToStore(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean BigDecimalType.isAbleToStore(Object)"})
   public void testIsAbleToStore() {
     // Arrange, Act and Assert
     assertFalse((new BigDecimalType()).isAbleToStore(JSONObject.NULL));
@@ -142,6 +94,9 @@ public class BigDecimalTypeDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BigDecimalType.<init>()", "String BigDecimalType.getTypeName()",
+      "boolean BigDecimalType.isCachable()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     BigDecimalType actualBigDecimalType = new BigDecimalType();

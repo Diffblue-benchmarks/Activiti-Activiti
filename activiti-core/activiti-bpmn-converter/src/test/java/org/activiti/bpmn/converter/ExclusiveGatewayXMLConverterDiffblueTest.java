@@ -16,12 +16,14 @@
 package org.activiti.bpmn.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import javax.xml.stream.XMLStreamWriter;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.ExclusiveGateway;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ExclusiveGatewayXMLConverterDiffblueTest {
@@ -30,18 +32,21 @@ class ExclusiveGatewayXMLConverterDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of
-   * {@link ExclusiveGatewayXMLConverter}
-   *   <li>
-   * {@link ExclusiveGatewayXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
-   *   <li>
-   * {@link ExclusiveGatewayXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
+   *   <li>default or parameterless constructor of {@link ExclusiveGatewayXMLConverter}
+   *   <li>{@link ExclusiveGatewayXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
+   *   <li>{@link ExclusiveGatewayXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
    *   <li>{@link ExclusiveGatewayXMLConverter#getBpmnElementType()}
    *   <li>{@link ExclusiveGatewayXMLConverter#getXMLElementName()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ExclusiveGatewayXMLConverter.<init>()",
+      "Class ExclusiveGatewayXMLConverter.getBpmnElementType()",
+      "java.lang.String ExclusiveGatewayXMLConverter.getXMLElementName()",
+      "void ExclusiveGatewayXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)",
+      "void ExclusiveGatewayXMLConverter.writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)"})
   void testGettersAndSetters() throws Exception {
     // Arrange and Act
     ExclusiveGatewayXMLConverter actualExclusiveGatewayXMLConverter = new ExclusiveGatewayXMLConverter();
@@ -54,7 +59,7 @@ class ExclusiveGatewayXMLConverterDiffblueTest {
         new IndentingXMLStreamWriter(null));
     Class<? extends BaseElement> actualBpmnElementType = actualExclusiveGatewayXMLConverter.getBpmnElementType();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("exclusiveGateway", actualExclusiveGatewayXMLConverter.getXMLElementName());
     Class<ExclusiveGateway> expectedBpmnElementType = ExclusiveGateway.class;
     assertEquals(expectedBpmnElementType, actualBpmnElementType);

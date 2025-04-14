@@ -16,7 +16,9 @@
 package org.activiti.test.matchers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ExclusiveGatewayMatchersDiffblueTest {
@@ -27,6 +29,8 @@ class ExclusiveGatewayMatchersDiffblueTest {
    */
   @Test
   @DisplayName("Test getActivityType()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String ExclusiveGatewayMatchers.getActivityType()"})
   void testGetActivityType() {
     // Arrange, Act and Assert
     assertEquals("exclusiveGateway", ExclusiveGatewayMatchers.exclusiveGateway("Definition Key").getActivityType());
@@ -39,6 +43,8 @@ class ExclusiveGatewayMatchersDiffblueTest {
    */
   @Test
   @DisplayName("Test exclusiveGateway(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ExclusiveGatewayMatchers ExclusiveGatewayMatchers.exclusiveGateway(String)"})
   void testExclusiveGateway() {
     // Arrange, Act and Assert
     assertEquals("exclusiveGateway", ExclusiveGatewayMatchers.exclusiveGateway("Definition Key").getActivityType());

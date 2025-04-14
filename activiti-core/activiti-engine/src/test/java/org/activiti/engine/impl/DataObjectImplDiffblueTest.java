@@ -17,8 +17,11 @@ package org.activiti.engine.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class DataObjectImplDiffblueTest {
   /**
@@ -26,8 +29,7 @@ public class DataObjectImplDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link DataObjectImpl#DataObjectImpl(String, Object, String, String, String, String, String)}
+   *   <li>{@link DataObjectImpl#DataObjectImpl(String, Object, String, String, String, String, String)}
    *   <li>{@link DataObjectImpl#setDataObjectDefinitionKey(String)}
    *   <li>{@link DataObjectImpl#setDescription(String)}
    *   <li>{@link DataObjectImpl#setLocalizedName(String)}
@@ -41,6 +43,13 @@ public class DataObjectImplDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DataObjectImpl.<init>(String, Object, String, String, String, String, String)",
+      "String DataObjectImpl.getDataObjectDefinitionKey()", "String DataObjectImpl.getName()",
+      "String DataObjectImpl.getType()", "Object DataObjectImpl.getValue()",
+      "void DataObjectImpl.setDataObjectDefinitionKey(String)", "void DataObjectImpl.setDescription(String)",
+      "void DataObjectImpl.setLocalizedName(String)", "void DataObjectImpl.setName(String)",
+      "void DataObjectImpl.setType(String)", "void DataObjectImpl.setValue(Object)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     DataObjectImpl actualDataObjectImpl = new DataObjectImpl("Name", JSONObject.NULL,
@@ -57,7 +66,7 @@ public class DataObjectImplDiffblueTest {
     String actualName = actualDataObjectImpl.getName();
     String actualType = actualDataObjectImpl.getType();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Data Object Definition Key", actualDataObjectDefinitionKey);
     assertEquals("Name", actualName);
     assertEquals("Type", actualType);
@@ -70,15 +79,12 @@ public class DataObjectImplDiffblueTest {
    * Method under test: {@link DataObjectImpl#getLocalizedName()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String DataObjectImpl.getLocalizedName()"})
   public void testGetLocalizedName() {
-    // Arrange
-    DataObjectImpl dataObjectImpl = new DataObjectImpl("Name", JSONObject.NULL,
-        "The characteristics of someone or something", "Type", "Localized Name", "Localized Description",
-        "Data Object Definition Key");
-    dataObjectImpl.setLocalizedName(null);
-
-    // Act and Assert
-    assertEquals("Name", dataObjectImpl.getLocalizedName());
+    // Arrange, Act and Assert
+    assertEquals("Name", (new DataObjectImpl("Name", JSONObject.NULL, "The characteristics of someone or something",
+        "Type", null, "Localized Description", "Data Object Definition Key")).getLocalizedName());
   }
 
   /**
@@ -87,6 +93,8 @@ public class DataObjectImplDiffblueTest {
    * Method under test: {@link DataObjectImpl#getLocalizedName()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String DataObjectImpl.getLocalizedName()"})
   public void testGetLocalizedName2() {
     // Arrange, Act and Assert
     assertEquals("Name", (new DataObjectImpl("Name", JSONObject.NULL, "The characteristics of someone or something",
@@ -102,6 +110,8 @@ public class DataObjectImplDiffblueTest {
    * Method under test: {@link DataObjectImpl#getLocalizedName()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String DataObjectImpl.getLocalizedName()"})
   public void testGetLocalizedName_thenReturnLocalizedName() {
     // Arrange, Act and Assert
     assertEquals("Localized Name",
@@ -115,11 +125,25 @@ public class DataObjectImplDiffblueTest {
    * Method under test: {@link DataObjectImpl#getDescription()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String DataObjectImpl.getDescription()"})
   public void testGetDescription() {
     // Arrange, Act and Assert
     assertEquals("The characteristics of someone or something",
         (new DataObjectImpl("Name", JSONObject.NULL, "The characteristics of someone or something", "Type",
             "Localized Name", null, "Data Object Definition Key")).getDescription());
+  }
+
+  /**
+   * Test {@link DataObjectImpl#getDescription()}.
+   * <p>
+   * Method under test: {@link DataObjectImpl#getDescription()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String DataObjectImpl.getDescription()"})
+  public void testGetDescription2() {
+    // Arrange, Act and Assert
     assertEquals("The characteristics of someone or something",
         (new DataObjectImpl("Name", JSONObject.NULL, "The characteristics of someone or something", "Type",
             "Localized Name", "", "Data Object Definition Key")).getDescription());
@@ -134,6 +158,8 @@ public class DataObjectImplDiffblueTest {
    * Method under test: {@link DataObjectImpl#getDescription()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String DataObjectImpl.getDescription()"})
   public void testGetDescription_thenReturnLocalizedDescription() {
     // Arrange, Act and Assert
     assertEquals("Localized Description",

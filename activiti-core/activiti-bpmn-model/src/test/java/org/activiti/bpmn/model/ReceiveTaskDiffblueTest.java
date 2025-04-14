@@ -18,23 +18,28 @@ package org.activiti.bpmn.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ReceiveTaskDiffblueTest {
   /**
    * Test {@link ReceiveTask#clone()}.
    * <ul>
-   *   <li>Given {@link ReceiveTask} (default constructor) ForCompensation is
-   * {@code true}.</li>
+   *   <li>Given {@link ReceiveTask} (default constructor) ForCompensation is {@code true}.</li>
    *   <li>Then return ForCompensation.</li>
    * </ul>
    * <p>
    * Method under test: {@link ReceiveTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ReceiveTask ReceiveTask.clone()"})
   public void testClone_givenReceiveTaskForCompensationIsTrue_thenReturnForCompensation() {
     // Arrange
     ReceiveTask receiveTask = new ReceiveTask();
@@ -60,6 +65,8 @@ public class ReceiveTaskDiffblueTest {
    * Method under test: {@link ReceiveTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ReceiveTask ReceiveTask.clone()"})
   public void testClone_givenReceiveTask_thenReturnNotForCompensation() {
     // Arrange and Act
     ReceiveTask actualCloneResult = (new ReceiveTask()).clone();
@@ -80,6 +87,8 @@ public class ReceiveTaskDiffblueTest {
    * Method under test: {@link ReceiveTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ReceiveTask ReceiveTask.clone()"})
   public void testClone_thenReturnIoSpecificationIdIsNull() {
     // Arrange
     ReceiveTask receiveTask = new ReceiveTask();
@@ -107,6 +116,8 @@ public class ReceiveTaskDiffblueTest {
    * Method under test: {@link ReceiveTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ReceiveTask ReceiveTask.clone()"})
   public void testClone_thenReturnLoopCharacteristicsIdIsNull() {
     // Arrange
     ReceiveTask receiveTask = new ReceiveTask();
@@ -143,6 +154,8 @@ public class ReceiveTaskDiffblueTest {
    * Method under test: {@link ReceiveTask#setValues(ManualTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ReceiveTask.setValues(ManualTask)"})
   public void testSetValuesWithManualTask_givenTrue_thenReceiveTaskForCompensation() {
     // Arrange
     ReceiveTask receiveTask = new ReceiveTask();
@@ -164,13 +177,14 @@ public class ReceiveTaskDiffblueTest {
   /**
    * Test {@link ReceiveTask#setValues(ManualTask)} with {@code ManualTask}.
    * <ul>
-   *   <li>Then {@link ReceiveTask} (default constructor) DataInputAssociations size
-   * is one.</li>
+   *   <li>Then {@link ReceiveTask} (default constructor) DataInputAssociations size is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link ReceiveTask#setValues(ManualTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ReceiveTask.setValues(ManualTask)"})
   public void testSetValuesWithManualTask_thenReceiveTaskDataInputAssociationsSizeIsOne() {
     // Arrange
     ReceiveTask receiveTask = new ReceiveTask();
@@ -213,13 +227,14 @@ public class ReceiveTaskDiffblueTest {
   /**
    * Test {@link ReceiveTask#setValues(ManualTask)} with {@code ManualTask}.
    * <ul>
-   *   <li>Then {@link ReceiveTask} (default constructor) DataOutputAssociations
-   * size is one.</li>
+   *   <li>Then {@link ReceiveTask} (default constructor) DataOutputAssociations size is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link ReceiveTask#setValues(ManualTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ReceiveTask.setValues(ManualTask)"})
   public void testSetValuesWithManualTask_thenReceiveTaskDataOutputAssociationsSizeIsOne() {
     // Arrange
     ReceiveTask receiveTask = new ReceiveTask();
@@ -262,13 +277,14 @@ public class ReceiveTaskDiffblueTest {
   /**
    * Test {@link ReceiveTask#setValues(ManualTask)} with {@code ManualTask}.
    * <ul>
-   *   <li>Then {@link ReceiveTask} (default constructor) IoSpecification Id is
-   * {@code null}.</li>
+   *   <li>Then {@link ReceiveTask} (default constructor) IoSpecification Id is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ReceiveTask#setValues(ManualTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ReceiveTask.setValues(ManualTask)"})
   public void testSetValuesWithManualTask_thenReceiveTaskIoSpecificationIdIsNull() {
     // Arrange
     ReceiveTask receiveTask = new ReceiveTask();
@@ -278,7 +294,8 @@ public class ReceiveTaskDiffblueTest {
     ioSpecification.setDataOutputs(null);
 
     ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
-    boundaryEvents.add(new BoundaryEvent());
+    BoundaryEvent boundaryEvent = new BoundaryEvent();
+    boundaryEvents.add(boundaryEvent);
 
     ManualTask otherElement = new ManualTask();
     otherElement.setIoSpecification(ioSpecification);
@@ -295,25 +312,28 @@ public class ReceiveTaskDiffblueTest {
     assertNull(ioSpecification2.getId());
     assertEquals(0, ioSpecification2.getXmlColumnNumber());
     assertEquals(0, ioSpecification2.getXmlRowNumber());
+    List<BoundaryEvent> boundaryEvents2 = receiveTask.getBoundaryEvents();
+    assertEquals(1, boundaryEvents2.size());
     assertTrue(ioSpecification2.getDataInputRefs().isEmpty());
     assertTrue(ioSpecification2.getDataInputs().isEmpty());
     assertTrue(ioSpecification2.getDataOutputRefs().isEmpty());
     assertTrue(ioSpecification2.getDataOutputs().isEmpty());
     assertTrue(ioSpecification2.getAttributes().isEmpty());
     assertTrue(ioSpecification2.getExtensionElements().isEmpty());
-    assertEquals(boundaryEvents, receiveTask.getBoundaryEvents());
+    assertSame(boundaryEvent, boundaryEvents2.get(0));
   }
 
   /**
    * Test {@link ReceiveTask#setValues(ManualTask)} with {@code ManualTask}.
    * <ul>
-   *   <li>Then {@link ReceiveTask} (default constructor) LoopCharacteristics Id is
-   * {@code null}.</li>
+   *   <li>Then {@link ReceiveTask} (default constructor) LoopCharacteristics Id is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ReceiveTask#setValues(ManualTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ReceiveTask.setValues(ManualTask)"})
   public void testSetValuesWithManualTask_thenReceiveTaskLoopCharacteristicsIdIsNull() {
     // Arrange
     ReceiveTask receiveTask = new ReceiveTask();
@@ -363,6 +383,8 @@ public class ReceiveTaskDiffblueTest {
    * Method under test: {@link ReceiveTask#setValues(ManualTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ReceiveTask.setValues(ManualTask)"})
   public void testSetValuesWithManualTask_whenManualTask_thenNotReceiveTaskForCompensation() {
     // Arrange
     ReceiveTask receiveTask = new ReceiveTask();
@@ -370,7 +392,7 @@ public class ReceiveTaskDiffblueTest {
     // Act
     receiveTask.setValues(new ManualTask());
 
-    // Assert
+    // Assert that nothing has changed
     assertFalse(receiveTask.hasMultiInstanceLoopCharacteristics());
     assertFalse(receiveTask.isForCompensation());
     assertTrue(receiveTask.getBoundaryEvents().isEmpty());
@@ -381,10 +403,11 @@ public class ReceiveTaskDiffblueTest {
   /**
    * Test new {@link ReceiveTask} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link ReceiveTask}
+   * Method under test: default or parameterless constructor of {@link ReceiveTask}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ReceiveTask.<init>()"})
   public void testNewReceiveTask() {
     // Arrange and Act
     ReceiveTask actualReceiveTask = new ReceiveTask();

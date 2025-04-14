@@ -17,26 +17,20 @@ package org.activiti.engine.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class HistoricDetailQueryPropertyDiffblueTest {
-  @InjectMocks
-  private HistoricDetailQueryProperty historicDetailQueryProperty;
-
-  @InjectMocks
-  private String string;
-
   /**
    * Test {@link HistoricDetailQueryProperty#HistoricDetailQueryProperty(String)}.
    * <p>
-   * Method under test:
-   * {@link HistoricDetailQueryProperty#HistoricDetailQueryProperty(String)}
+   * Method under test: {@link HistoricDetailQueryProperty#HistoricDetailQueryProperty(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HistoricDetailQueryProperty.<init>(String)"})
   public void testNewHistoricDetailQueryProperty() {
     // Arrange, Act and Assert
     assertEquals("Name", (new HistoricDetailQueryProperty("Name")).getName());
@@ -48,6 +42,8 @@ public class HistoricDetailQueryPropertyDiffblueTest {
    * Method under test: {@link HistoricDetailQueryProperty#getName()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String HistoricDetailQueryProperty.getName()"})
   public void testGetName() {
     // Arrange, Act and Assert
     assertEquals("Name", (new HistoricDetailQueryProperty("Name")).getName());
@@ -59,6 +55,8 @@ public class HistoricDetailQueryPropertyDiffblueTest {
    * Method under test: {@link HistoricDetailQueryProperty#findByName(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricDetailQueryProperty HistoricDetailQueryProperty.findByName(String)"})
   public void testFindByName() {
     // Arrange, Act and Assert
     assertNull(HistoricDetailQueryProperty.findByName("Property Name"));

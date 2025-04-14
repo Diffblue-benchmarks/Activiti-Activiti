@@ -18,71 +18,45 @@ package org.activiti.runtime.api.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.mockito.Mockito.mock;
-import java.sql.Date;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.task.model.Task;
+import org.activiti.api.task.model.Task.TaskStatus;
 import org.activiti.api.task.model.events.TaskRuntimeEvent;
+import org.activiti.api.task.model.events.TaskRuntimeEvent.TaskEvents;
 import org.activiti.api.task.model.impl.TaskImpl;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class TaskUpdatedEventImplDiffblueTest {
   /**
    * Test {@link TaskUpdatedEventImpl#TaskUpdatedEventImpl(Task)}.
-   * <ul>
-   *   <li>Given {@link Date}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link TaskUpdatedEventImpl#TaskUpdatedEventImpl(Task)}
    */
   @Test
-  @DisplayName("Test new TaskUpdatedEventImpl(Task); given Date")
-  void testNewTaskUpdatedEventImpl_givenDate() {
+  @DisplayName("Test new TaskUpdatedEventImpl(Task)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskUpdatedEventImpl.<init>(Task)"})
+  void testNewTaskUpdatedEventImpl() {
     // Arrange
-    TaskImpl entity = new TaskImpl("42", "Name", Task.TaskStatus.CREATED);
-    entity.setCreatedDate(mock(Date.class));
+    TaskImpl entity = new TaskImpl("42", "Name", TaskStatus.CREATED);
 
     // Act
     TaskUpdatedEventImpl actualTaskUpdatedEventImpl = new TaskUpdatedEventImpl(entity);
 
     // Assert
+    Task entity2 = actualTaskUpdatedEventImpl.getEntity();
+    assertTrue(entity2 instanceof TaskImpl);
     assertNull(actualTaskUpdatedEventImpl.getProcessDefinitionVersion());
     assertNull(actualTaskUpdatedEventImpl.getBusinessKey());
     assertNull(actualTaskUpdatedEventImpl.getParentProcessInstanceId());
     assertNull(actualTaskUpdatedEventImpl.getProcessDefinitionId());
     assertNull(actualTaskUpdatedEventImpl.getProcessDefinitionKey());
     assertNull(actualTaskUpdatedEventImpl.getProcessInstanceId());
-    assertEquals(TaskRuntimeEvent.TaskEvents.TASK_UPDATED, actualTaskUpdatedEventImpl.getEventType());
-    assertSame(entity, actualTaskUpdatedEventImpl.getEntity());
-  }
-
-  /**
-   * Test {@link TaskUpdatedEventImpl#TaskUpdatedEventImpl(Task)}.
-   * <ul>
-   *   <li>When {@link TaskImpl#TaskImpl(String, String, TaskStatus)} with id is
-   * {@code 42} and {@code Name} and status is {@code CREATED}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TaskUpdatedEventImpl#TaskUpdatedEventImpl(Task)}
-   */
-  @Test
-  @DisplayName("Test new TaskUpdatedEventImpl(Task); when TaskImpl(String, String, TaskStatus) with id is '42' and 'Name' and status is 'CREATED'")
-  void testNewTaskUpdatedEventImpl_whenTaskImplWithIdIs42AndNameAndStatusIsCreated() {
-    // Arrange
-    TaskImpl entity = new TaskImpl("42", "Name", Task.TaskStatus.CREATED);
-
-    // Act
-    TaskUpdatedEventImpl actualTaskUpdatedEventImpl = new TaskUpdatedEventImpl(entity);
-
-    // Assert
-    assertNull(actualTaskUpdatedEventImpl.getProcessDefinitionVersion());
-    assertNull(actualTaskUpdatedEventImpl.getBusinessKey());
-    assertNull(actualTaskUpdatedEventImpl.getParentProcessInstanceId());
-    assertNull(actualTaskUpdatedEventImpl.getProcessDefinitionId());
-    assertNull(actualTaskUpdatedEventImpl.getProcessDefinitionKey());
-    assertNull(actualTaskUpdatedEventImpl.getProcessInstanceId());
-    assertEquals(TaskRuntimeEvent.TaskEvents.TASK_UPDATED, actualTaskUpdatedEventImpl.getEventType());
-    assertSame(entity, actualTaskUpdatedEventImpl.getEntity());
+    assertEquals(TaskEvents.TASK_UPDATED, actualTaskUpdatedEventImpl.getEventType());
+    assertSame(entity, entity2);
   }
 
   /**
@@ -92,29 +66,11 @@ class TaskUpdatedEventImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getEventType()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"TaskRuntimeEvent.TaskEvents TaskUpdatedEventImpl.getEventType()"})
   void testGetEventType() {
-    // Arrange
-    TaskImpl entity = new TaskImpl("42", "Name", Task.TaskStatus.CREATED);
-    entity.setCreatedDate(mock(Date.class));
-
-    // Act and Assert
-    assertEquals(TaskRuntimeEvent.TaskEvents.TASK_UPDATED, (new TaskUpdatedEventImpl(entity)).getEventType());
-  }
-
-  /**
-   * Test {@link TaskUpdatedEventImpl#getEventType()}.
-   * <ul>
-   *   <li>Given {@link TaskImpl#TaskImpl(String, String, TaskStatus)} with id is
-   * {@code 42} and {@code Name} and status is {@code CREATED}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TaskUpdatedEventImpl#getEventType()}
-   */
-  @Test
-  @DisplayName("Test getEventType(); given TaskImpl(String, String, TaskStatus) with id is '42' and 'Name' and status is 'CREATED'")
-  void testGetEventType_givenTaskImplWithIdIs42AndNameAndStatusIsCreated() {
     // Arrange, Act and Assert
-    assertEquals(TaskRuntimeEvent.TaskEvents.TASK_UPDATED,
-        (new TaskUpdatedEventImpl(new TaskImpl("42", "Name", Task.TaskStatus.CREATED))).getEventType());
+    assertEquals(TaskEvents.TASK_UPDATED,
+        (new TaskUpdatedEventImpl(new TaskImpl("42", "Name", TaskStatus.CREATED))).getEventType());
   }
 }

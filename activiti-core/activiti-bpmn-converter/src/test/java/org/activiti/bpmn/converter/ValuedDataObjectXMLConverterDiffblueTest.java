@@ -22,6 +22,7 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import javax.xml.stream.XMLStreamWriter;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.BaseElement;
@@ -31,6 +32,7 @@ import org.activiti.bpmn.model.DataObject;
 import org.activiti.bpmn.model.ItemDefinition;
 import org.activiti.bpmn.model.ValuedDataObject;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ValuedDataObjectXMLConverterDiffblueTest {
@@ -39,14 +41,17 @@ class ValuedDataObjectXMLConverterDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link ValuedDataObjectXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
+   *   <li>{@link ValuedDataObjectXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
    *   <li>{@link ValuedDataObjectXMLConverter#getBpmnElementType()}
    *   <li>{@link ValuedDataObjectXMLConverter#getXMLElementName()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Class ValuedDataObjectXMLConverter.getBpmnElementType()",
+      "java.lang.String ValuedDataObjectXMLConverter.getXMLElementName()",
+      "void ValuedDataObjectXMLConverter.writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)"})
   void testGettersAndSetters() throws Exception {
     // Arrange
     ValuedDataObjectXMLConverter valuedDataObjectXMLConverter = new ValuedDataObjectXMLConverter();
@@ -57,24 +62,25 @@ class ValuedDataObjectXMLConverterDiffblueTest {
     valuedDataObjectXMLConverter.writeAdditionalChildElements(element, model, new IndentingXMLStreamWriter(null));
     Class<? extends BaseElement> actualBpmnElementType = valuedDataObjectXMLConverter.getBpmnElementType();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("dataObject", valuedDataObjectXMLConverter.getXMLElementName());
     Class<ValuedDataObject> expectedBpmnElementType = ValuedDataObject.class;
     assertEquals(expectedBpmnElementType, actualBpmnElementType);
   }
 
   /**
-   * Test
-   * {@link ValuedDataObjectXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}.
+   * Test {@link ValuedDataObjectXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}.
    * <ul>
    *   <li>Then calls {@link DataObject#getItemSubjectRef()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ValuedDataObjectXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
+   * Method under test: {@link ValuedDataObjectXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter); then calls getItemSubjectRef()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void ValuedDataObjectXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)"})
   void testWriteAdditionalAttributes_thenCallsGetItemSubjectRef() throws Exception {
     // Arrange
     ValuedDataObjectXMLConverter valuedDataObjectXMLConverter = new ValuedDataObjectXMLConverter();
@@ -85,48 +91,23 @@ class ValuedDataObjectXMLConverterDiffblueTest {
     // Act
     valuedDataObjectXMLConverter.writeAdditionalAttributes(element, model, new IndentingXMLStreamWriter(null));
 
-    // Assert that nothing has changed
+    // Assert
     verify(element, atLeast(1)).getItemSubjectRef();
   }
 
   /**
-   * Test
-   * {@link ValuedDataObjectXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Given {@code Element}.</li>
-   *   <li>When {@link BooleanDataObject} (default constructor) Id is
-   * {@code Element}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ValuedDataObjectXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}
-   */
-  @Test
-  @DisplayName("Test writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter); given 'Element'; when BooleanDataObject (default constructor) Id is 'Element'")
-  void testWriteExtensionChildElements_givenElement_whenBooleanDataObjectIdIsElement() throws Exception {
-    // Arrange
-    ValuedDataObjectXMLConverter valuedDataObjectXMLConverter = new ValuedDataObjectXMLConverter();
-
-    BooleanDataObject element = new BooleanDataObject();
-    element.setId("Element");
-
-    // Act and Assert
-    assertFalse(
-        valuedDataObjectXMLConverter.writeExtensionChildElements(element, false, new IndentingXMLStreamWriter(null)));
-  }
-
-  /**
-   * Test
-   * {@link ValuedDataObjectXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}.
+   * Test {@link ValuedDataObjectXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}.
    * <ul>
    *   <li>Given empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ValuedDataObjectXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}
+   * Method under test: {@link ValuedDataObjectXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter); given empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "boolean ValuedDataObjectXMLConverter.writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)"})
   void testWriteExtensionChildElements_givenEmptyString() throws Exception {
     // Arrange
     ValuedDataObjectXMLConverter valuedDataObjectXMLConverter = new ValuedDataObjectXMLConverter();
@@ -140,19 +121,45 @@ class ValuedDataObjectXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ValuedDataObjectXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}.
+   * Test {@link ValuedDataObjectXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@code null}.</li>
-   *   <li>When {@link BooleanDataObject} (default constructor) Id is
-   * {@code null}.</li>
+   *   <li>Given {@code not empty}.</li>
+   *   <li>When {@link BooleanDataObject} (default constructor) Id is {@code not empty}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ValuedDataObjectXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}
+   * Method under test: {@link ValuedDataObjectXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName("Test writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter); given 'not empty'; when BooleanDataObject (default constructor) Id is 'not empty'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "boolean ValuedDataObjectXMLConverter.writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)"})
+  void testWriteExtensionChildElements_givenNotEmpty_whenBooleanDataObjectIdIsNotEmpty() throws Exception {
+    // Arrange
+    ValuedDataObjectXMLConverter valuedDataObjectXMLConverter = new ValuedDataObjectXMLConverter();
+
+    BooleanDataObject element = new BooleanDataObject();
+    element.setId("not empty");
+
+    // Act and Assert
+    assertFalse(
+        valuedDataObjectXMLConverter.writeExtensionChildElements(element, false, new IndentingXMLStreamWriter(null)));
+  }
+
+  /**
+   * Test {@link ValuedDataObjectXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}.
+   * <ul>
+   *   <li>Given {@code null}.</li>
+   *   <li>When {@link BooleanDataObject} (default constructor) Id is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ValuedDataObjectXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter); given 'null'; when BooleanDataObject (default constructor) Id is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "boolean ValuedDataObjectXMLConverter.writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)"})
   void testWriteExtensionChildElements_givenNull_whenBooleanDataObjectIdIsNull() throws Exception {
     // Arrange
     ValuedDataObjectXMLConverter valuedDataObjectXMLConverter = new ValuedDataObjectXMLConverter();
@@ -166,18 +173,19 @@ class ValuedDataObjectXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ValuedDataObjectXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}.
+   * Test {@link ValuedDataObjectXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}.
    * <ul>
    *   <li>When {@link BooleanDataObject} (default constructor).</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ValuedDataObjectXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}
+   * Method under test: {@link ValuedDataObjectXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter); when BooleanDataObject (default constructor); then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "boolean ValuedDataObjectXMLConverter.writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)"})
   void testWriteExtensionChildElements_whenBooleanDataObject_thenReturnTrue() throws Exception {
     // Arrange
     ValuedDataObjectXMLConverter valuedDataObjectXMLConverter = new ValuedDataObjectXMLConverter();
@@ -191,11 +199,12 @@ class ValuedDataObjectXMLConverterDiffblueTest {
   /**
    * Test new {@link ValuedDataObjectXMLConverter} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link ValuedDataObjectXMLConverter}
+   * Method under test: default or parameterless constructor of {@link ValuedDataObjectXMLConverter}
    */
   @Test
   @DisplayName("Test new ValuedDataObjectXMLConverter (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValuedDataObjectXMLConverter.<init>()"})
   void testNewValuedDataObjectXMLConverter() {
     // Arrange and Act
     ValuedDataObjectXMLConverter actualValuedDataObjectXMLConverter = new ValuedDataObjectXMLConverter();

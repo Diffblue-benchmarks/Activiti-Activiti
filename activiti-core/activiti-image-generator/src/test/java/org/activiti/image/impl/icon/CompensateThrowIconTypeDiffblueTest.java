@@ -16,7 +16,9 @@
 package org.activiti.image.impl.icon;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class CompensateThrowIconTypeDiffblueTest {
@@ -27,6 +29,8 @@ class CompensateThrowIconTypeDiffblueTest {
    */
   @Test
   @DisplayName("Test getWidth()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.lang.Integer CompensateThrowIconType.getWidth()"})
   void testGetWidth() {
     // Arrange, Act and Assert
     assertEquals(15, (new CompensateThrowIconType()).getWidth().intValue());
@@ -39,6 +43,8 @@ class CompensateThrowIconTypeDiffblueTest {
    */
   @Test
   @DisplayName("Test getHeight()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.lang.Integer CompensateThrowIconType.getHeight()"})
   void testGetHeight() {
     // Arrange, Act and Assert
     assertEquals(Short.SIZE, (new CompensateThrowIconType()).getHeight().intValue());
@@ -55,6 +61,9 @@ class CompensateThrowIconTypeDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void CompensateThrowIconType.<init>()",
+      "java.lang.String CompensateThrowIconType.getFillValue()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("#585858", (new CompensateThrowIconType()).getFillValue());

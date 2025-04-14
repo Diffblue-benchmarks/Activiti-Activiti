@@ -19,15 +19,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.persistence.entity.HistoricDetailVariableInstanceUpdateEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.mockito.Mockito;
+import org.junit.experimental.categories.Category;
 
 public class StringTypeDiffblueTest {
   /**
@@ -41,6 +38,9 @@ public class StringTypeDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void StringType.<init>(int)", "String StringType.getTypeName()",
+      "boolean StringType.isCachable()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     StringType actualStringType = new StringType(3);
@@ -54,40 +54,15 @@ public class StringTypeDiffblueTest {
   /**
    * Test {@link StringType#getValue(ValueFields)}.
    * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>When {@link ValueFields} {@link ValueFields#getTextValue()} return
-   * {@code 42}.</li>
-   *   <li>Then return {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StringType#getValue(ValueFields)}
-   */
-  @Test
-  public void testGetValue_given42_whenValueFieldsGetTextValueReturn42_thenReturn42() {
-    // Arrange
-    StringType stringType = new StringType(3);
-    ValueFields valueFields = mock(ValueFields.class);
-    when(valueFields.getTextValue()).thenReturn("42");
-
-    // Act
-    Object actualValue = stringType.getValue(valueFields);
-
-    // Assert
-    verify(valueFields).getTextValue();
-    assertEquals("42", actualValue);
-  }
-
-  /**
-   * Test {@link StringType#getValue(ValueFields)}.
-   * <ul>
-   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default
-   * constructor).</li>
+   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor).</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link StringType#getValue(ValueFields)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object StringType.getValue(ValueFields)"})
   public void testGetValue_whenHistoricDetailVariableInstanceUpdateEntityImpl_thenReturnNull() {
     // Arrange
     StringType stringType = new StringType(3);
@@ -98,15 +73,13 @@ public class StringTypeDiffblueTest {
 
   /**
    * Test {@link StringType#setValue(Object, ValueFields)}.
-   * <ul>
-   *   <li>Then {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default
-   * constructor) TextValue is {@code 42}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link StringType#setValue(Object, ValueFields)}
    */
   @Test
-  public void testSetValue_thenHistoricDetailVariableInstanceUpdateEntityImplTextValueIs42() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void StringType.setValue(Object, ValueFields)"})
+  public void testSetValue() {
     // Arrange
     StringType stringType = new StringType(3);
     HistoricDetailVariableInstanceUpdateEntityImpl valueFields = new HistoricDetailVariableInstanceUpdateEntityImpl();
@@ -119,30 +92,6 @@ public class StringTypeDiffblueTest {
   }
 
   /**
-   * Test {@link StringType#setValue(Object, ValueFields)}.
-   * <ul>
-   *   <li>When {@link ValueFields} {@link ValueFields#setTextValue(String)} does
-   * nothing.</li>
-   *   <li>Then calls {@link ValueFields#setTextValue(String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StringType#setValue(Object, ValueFields)}
-   */
-  @Test
-  public void testSetValue_whenValueFieldsSetTextValueDoesNothing_thenCallsSetTextValue() {
-    // Arrange
-    StringType stringType = new StringType(3);
-    ValueFields valueFields = mock(ValueFields.class);
-    doNothing().when(valueFields).setTextValue(Mockito.<String>any());
-
-    // Act
-    stringType.setValue("42", valueFields);
-
-    // Assert
-    verify(valueFields).setTextValue(eq("42"));
-  }
-
-  /**
    * Test {@link StringType#isAbleToStore(Object)}.
    * <ul>
    *   <li>When {@code 42}.</li>
@@ -152,6 +101,8 @@ public class StringTypeDiffblueTest {
    * Method under test: {@link StringType#isAbleToStore(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean StringType.isAbleToStore(Object)"})
   public void testIsAbleToStore_when42_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue((new StringType(3)).isAbleToStore("42"));
@@ -167,6 +118,8 @@ public class StringTypeDiffblueTest {
    * Method under test: {@link StringType#isAbleToStore(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean StringType.isAbleToStore(Object)"})
   public void testIsAbleToStore_whenNull_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new StringType(3)).isAbleToStore(JSONObject.NULL));
@@ -182,6 +135,8 @@ public class StringTypeDiffblueTest {
    * Method under test: {@link StringType#isAbleToStore(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean StringType.isAbleToStore(Object)"})
   public void testIsAbleToStore_whenNull_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue((new StringType(3)).isAbleToStore(null));
@@ -197,6 +152,8 @@ public class StringTypeDiffblueTest {
    * Method under test: {@link StringType#isAbleToStore(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean StringType.isAbleToStore(Object)"})
   public void testIsAbleToStore_whenValue_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new StringType(3)).isAbleToStore("Value"));

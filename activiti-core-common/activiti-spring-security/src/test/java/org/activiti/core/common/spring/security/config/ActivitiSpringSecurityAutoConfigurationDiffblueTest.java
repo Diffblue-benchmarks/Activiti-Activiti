@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -37,6 +38,7 @@ import org.activiti.core.common.spring.security.LocalSpringSecurityManager;
 import org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesGroupsMapper;
 import org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesRolesMapper;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,14 +52,15 @@ class ActivitiSpringSecurityAutoConfigurationDiffblueTest {
   private ActivitiSpringSecurityAutoConfiguration activitiSpringSecurityAutoConfiguration;
 
   /**
-   * Test
-   * {@link ActivitiSpringSecurityAutoConfiguration#grantedAuthoritiesGroupsMapper()}.
+   * Test {@link ActivitiSpringSecurityAutoConfiguration#grantedAuthoritiesGroupsMapper()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiSpringSecurityAutoConfiguration#grantedAuthoritiesGroupsMapper()}
+   * Method under test: {@link ActivitiSpringSecurityAutoConfiguration#grantedAuthoritiesGroupsMapper()}
    */
   @Test
   @DisplayName("Test grantedAuthoritiesGroupsMapper()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "GrantedAuthoritiesGroupsMapper ActivitiSpringSecurityAutoConfiguration.grantedAuthoritiesGroupsMapper()"})
   void testGrantedAuthoritiesGroupsMapper() {
     // Arrange and Act
     GrantedAuthoritiesGroupsMapper actualGrantedAuthoritiesGroupsMapperResult = (new ActivitiSpringSecurityAutoConfiguration())
@@ -69,14 +72,15 @@ class ActivitiSpringSecurityAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiSpringSecurityAutoConfiguration#grantedAuthoritiesRolesMapper()}.
+   * Test {@link ActivitiSpringSecurityAutoConfiguration#grantedAuthoritiesRolesMapper()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiSpringSecurityAutoConfiguration#grantedAuthoritiesRolesMapper()}
+   * Method under test: {@link ActivitiSpringSecurityAutoConfiguration#grantedAuthoritiesRolesMapper()}
    */
   @Test
   @DisplayName("Test grantedAuthoritiesRolesMapper()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "GrantedAuthoritiesRolesMapper ActivitiSpringSecurityAutoConfiguration.grantedAuthoritiesRolesMapper()"})
   void testGrantedAuthoritiesRolesMapper() {
     // Arrange and Act
     GrantedAuthoritiesRolesMapper actualGrantedAuthoritiesRolesMapperResult = (new ActivitiSpringSecurityAutoConfiguration())
@@ -88,14 +92,15 @@ class ActivitiSpringSecurityAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiSpringSecurityAutoConfiguration#securityContextPrincipalProvider()}.
+   * Test {@link ActivitiSpringSecurityAutoConfiguration#securityContextPrincipalProvider()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiSpringSecurityAutoConfiguration#securityContextPrincipalProvider()}
+   * Method under test: {@link ActivitiSpringSecurityAutoConfiguration#securityContextPrincipalProvider()}
    */
   @Test
   @DisplayName("Test securityContextPrincipalProvider()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "SecurityContextPrincipalProvider ActivitiSpringSecurityAutoConfiguration.securityContextPrincipalProvider()"})
   void testSecurityContextPrincipalProvider() {
     // Arrange and Act
     SecurityContextPrincipalProvider actualSecurityContextPrincipalProviderResult = (new ActivitiSpringSecurityAutoConfiguration())
@@ -110,14 +115,14 @@ class ActivitiSpringSecurityAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiSpringSecurityAutoConfiguration#principalIdentityProvider()}.
+   * Test {@link ActivitiSpringSecurityAutoConfiguration#principalIdentityProvider()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiSpringSecurityAutoConfiguration#principalIdentityProvider()}
+   * Method under test: {@link ActivitiSpringSecurityAutoConfiguration#principalIdentityProvider()}
    */
   @Test
   @DisplayName("Test principalIdentityProvider()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"PrincipalIdentityProvider ActivitiSpringSecurityAutoConfiguration.principalIdentityProvider()"})
   void testPrincipalIdentityProvider() {
     // Arrange, Act and Assert
     assertTrue((new ActivitiSpringSecurityAutoConfiguration())
@@ -125,14 +130,15 @@ class ActivitiSpringSecurityAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiSpringSecurityAutoConfiguration#principalGroupsProvider(GrantedAuthoritiesResolver, GrantedAuthoritiesGroupsMapper)}.
+   * Test {@link ActivitiSpringSecurityAutoConfiguration#principalGroupsProvider(GrantedAuthoritiesResolver, GrantedAuthoritiesGroupsMapper)}.
    * <p>
-   * Method under test:
-   * {@link ActivitiSpringSecurityAutoConfiguration#principalGroupsProvider(GrantedAuthoritiesResolver, GrantedAuthoritiesGroupsMapper)}
+   * Method under test: {@link ActivitiSpringSecurityAutoConfiguration#principalGroupsProvider(GrantedAuthoritiesResolver, GrantedAuthoritiesGroupsMapper)}
    */
   @Test
   @DisplayName("Test principalGroupsProvider(GrantedAuthoritiesResolver, GrantedAuthoritiesGroupsMapper)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "PrincipalGroupsProvider ActivitiSpringSecurityAutoConfiguration.principalGroupsProvider(GrantedAuthoritiesResolver, GrantedAuthoritiesGroupsMapper)"})
   void testPrincipalGroupsProvider() {
     // Arrange, Act and Assert
     assertTrue(activitiSpringSecurityAutoConfiguration.principalGroupsProvider(mock(GrantedAuthoritiesResolver.class),
@@ -140,14 +146,15 @@ class ActivitiSpringSecurityAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiSpringSecurityAutoConfiguration#principalRolessProvider(GrantedAuthoritiesResolver, GrantedAuthoritiesRolesMapper)}.
+   * Test {@link ActivitiSpringSecurityAutoConfiguration#principalRolessProvider(GrantedAuthoritiesResolver, GrantedAuthoritiesRolesMapper)}.
    * <p>
-   * Method under test:
-   * {@link ActivitiSpringSecurityAutoConfiguration#principalRolessProvider(GrantedAuthoritiesResolver, GrantedAuthoritiesRolesMapper)}
+   * Method under test: {@link ActivitiSpringSecurityAutoConfiguration#principalRolessProvider(GrantedAuthoritiesResolver, GrantedAuthoritiesRolesMapper)}
    */
   @Test
   @DisplayName("Test principalRolessProvider(GrantedAuthoritiesResolver, GrantedAuthoritiesRolesMapper)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "PrincipalRolesProvider ActivitiSpringSecurityAutoConfiguration.principalRolessProvider(GrantedAuthoritiesResolver, GrantedAuthoritiesRolesMapper)"})
   void testPrincipalRolessProvider() {
     // Arrange, Act and Assert
     assertTrue(activitiSpringSecurityAutoConfiguration.principalRolessProvider(mock(GrantedAuthoritiesResolver.class),
@@ -155,14 +162,15 @@ class ActivitiSpringSecurityAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiSpringSecurityAutoConfiguration#securityManager(SecurityContextPrincipalProvider, PrincipalIdentityProvider, PrincipalGroupsProvider, PrincipalRolesProvider)}.
+   * Test {@link ActivitiSpringSecurityAutoConfiguration#securityManager(SecurityContextPrincipalProvider, PrincipalIdentityProvider, PrincipalGroupsProvider, PrincipalRolesProvider)}.
    * <p>
-   * Method under test:
-   * {@link ActivitiSpringSecurityAutoConfiguration#securityManager(SecurityContextPrincipalProvider, PrincipalIdentityProvider, PrincipalGroupsProvider, PrincipalRolesProvider)}
+   * Method under test: {@link ActivitiSpringSecurityAutoConfiguration#securityManager(SecurityContextPrincipalProvider, PrincipalIdentityProvider, PrincipalGroupsProvider, PrincipalRolesProvider)}
    */
   @Test
   @DisplayName("Test securityManager(SecurityContextPrincipalProvider, PrincipalIdentityProvider, PrincipalGroupsProvider, PrincipalRolesProvider)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.runtime.shared.security.SecurityManager ActivitiSpringSecurityAutoConfiguration.securityManager(SecurityContextPrincipalProvider, PrincipalIdentityProvider, PrincipalGroupsProvider, PrincipalRolesProvider)"})
   void testSecurityManager() {
     // Arrange
     SecurityContextPrincipalProvider securityContextPrincipalProvider = mock(SecurityContextPrincipalProvider.class);

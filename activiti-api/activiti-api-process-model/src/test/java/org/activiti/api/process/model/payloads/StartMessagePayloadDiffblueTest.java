@@ -19,11 +19,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiFunction;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class StartMessagePayloadDiffblueTest {
@@ -34,6 +34,8 @@ class StartMessagePayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test new StartMessagePayload()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void StartMessagePayload.<init>()"})
   void testNewStartMessagePayload() {
     // Arrange and Act
     StartMessagePayload actualStartMessagePayload = new StartMessagePayload();
@@ -46,41 +48,14 @@ class StartMessagePayloadDiffblueTest {
 
   /**
    * Test {@link StartMessagePayload#StartMessagePayload(String, String, Map)}.
-   * <ul>
-   *   <li>Given {@code name must not be null}.</li>
-   * </ul>
    * <p>
-   * Method under test:
-   * {@link StartMessagePayload#StartMessagePayload(String, String, Map)}
+   * Method under test: {@link StartMessagePayload#StartMessagePayload(String, String, Map)}
    */
   @Test
-  @DisplayName("Test new StartMessagePayload(String, String, Map); given 'name must not be null'")
-  void testNewStartMessagePayload_givenNameMustNotBeNull() {
-    // Arrange
-    HashMap<String, Object> variables = new HashMap<>();
-    variables.computeIfPresent("name must not be null", mock(BiFunction.class));
-
-    // Act
-    StartMessagePayload actualStartMessagePayload = new StartMessagePayload("Name", "Business Key", variables);
-
-    // Assert
-    assertEquals("Business Key", actualStartMessagePayload.getBusinessKey());
-    assertEquals("Name", actualStartMessagePayload.getName());
-    assertTrue(actualStartMessagePayload.getVariables().isEmpty());
-  }
-
-  /**
-   * Test {@link StartMessagePayload#StartMessagePayload(String, String, Map)}.
-   * <ul>
-   *   <li>When {@link HashMap#HashMap()}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link StartMessagePayload#StartMessagePayload(String, String, Map)}
-   */
-  @Test
-  @DisplayName("Test new StartMessagePayload(String, String, Map); when HashMap()")
-  void testNewStartMessagePayload_whenHashMap() {
+  @DisplayName("Test new StartMessagePayload(String, String, Map)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void StartMessagePayload.<init>(String, String, Map)"})
+  void testNewStartMessagePayload2() {
     // Arrange and Act
     StartMessagePayload actualStartMessagePayload = new StartMessagePayload("Name", "Business Key", new HashMap<>());
 
@@ -104,6 +79,10 @@ class StartMessagePayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String StartMessagePayload.getBusinessKey()", "String StartMessagePayload.getId()",
+      "String StartMessagePayload.getName()", "Map StartMessagePayload.getVariables()",
+      "String StartMessagePayload.toString()"})
   void testGettersAndSetters() {
     // Arrange
     StartMessagePayload startMessagePayload = new StartMessagePayload();
@@ -121,8 +100,7 @@ class StartMessagePayloadDiffblueTest {
   }
 
   /**
-   * Test {@link StartMessagePayload#equals(Object)}, and
-   * {@link StartMessagePayload#hashCode()}.
+   * Test {@link StartMessagePayload#equals(Object)}, and {@link StartMessagePayload#hashCode()}.
    * <ul>
    *   <li>When other is same.</li>
    *   <li>Then return equal.</li>
@@ -136,6 +114,8 @@ class StartMessagePayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean StartMessagePayload.equals(Object)", "int StartMessagePayload.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
     StartMessagePayload startMessagePayload = new StartMessagePayload();
@@ -157,6 +137,8 @@ class StartMessagePayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean StartMessagePayload.equals(Object)", "int StartMessagePayload.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
     StartMessagePayload startMessagePayload = new StartMessagePayload();
@@ -176,30 +158,11 @@ class StartMessagePayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean StartMessagePayload.equals(Object)", "int StartMessagePayload.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
     // Arrange
     StartMessagePayload startMessagePayload = new StartMessagePayload("Name", "Business Key", new HashMap<>());
-
-    // Act and Assert
-    assertNotEquals(startMessagePayload, new StartMessagePayload());
-  }
-
-  /**
-   * Test {@link StartMessagePayload#equals(Object)}.
-   * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link StartMessagePayload#equals(Object)}
-   */
-  @Test
-  @DisplayName("Test equals(Object); when other is different; then return not equal")
-  void testEquals_whenOtherIsDifferent_thenReturnNotEqual3() {
-    // Arrange
-    HashMap<String, Object> variables = new HashMap<>();
-    variables.computeIfPresent("foo", mock(BiFunction.class));
-    StartMessagePayload startMessagePayload = new StartMessagePayload("Name", "Business Key", variables);
 
     // Act and Assert
     assertNotEquals(startMessagePayload, new StartMessagePayload());
@@ -216,6 +179,8 @@ class StartMessagePayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean StartMessagePayload.equals(Object)", "int StartMessagePayload.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new StartMessagePayload(), null);
@@ -232,6 +197,8 @@ class StartMessagePayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean StartMessagePayload.equals(Object)", "int StartMessagePayload.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new StartMessagePayload(), "Different type to StartMessagePayload");

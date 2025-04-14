@@ -16,12 +16,14 @@
 package org.activiti.bpmn.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import javax.xml.stream.XMLStreamWriter;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.ReceiveTask;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ReceiveTaskXMLConverterDiffblueTest {
@@ -31,16 +33,19 @@ class ReceiveTaskXMLConverterDiffblueTest {
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ReceiveTaskXMLConverter}
-   *   <li>
-   * {@link ReceiveTaskXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
-   *   <li>
-   * {@link ReceiveTaskXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
+   *   <li>{@link ReceiveTaskXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
+   *   <li>{@link ReceiveTaskXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
    *   <li>{@link ReceiveTaskXMLConverter#getBpmnElementType()}
    *   <li>{@link ReceiveTaskXMLConverter#getXMLElementName()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ReceiveTaskXMLConverter.<init>()", "Class ReceiveTaskXMLConverter.getBpmnElementType()",
+      "java.lang.String ReceiveTaskXMLConverter.getXMLElementName()",
+      "void ReceiveTaskXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)",
+      "void ReceiveTaskXMLConverter.writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)"})
   void testGettersAndSetters() throws Exception {
     // Arrange and Act
     ReceiveTaskXMLConverter actualReceiveTaskXMLConverter = new ReceiveTaskXMLConverter();
@@ -52,7 +57,7 @@ class ReceiveTaskXMLConverterDiffblueTest {
     actualReceiveTaskXMLConverter.writeAdditionalChildElements(element2, model2, new IndentingXMLStreamWriter(null));
     Class<? extends BaseElement> actualBpmnElementType = actualReceiveTaskXMLConverter.getBpmnElementType();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("receiveTask", actualReceiveTaskXMLConverter.getXMLElementName());
     Class<ReceiveTask> expectedBpmnElementType = ReceiveTask.class;
     assertEquals(expectedBpmnElementType, actualBpmnElementType);

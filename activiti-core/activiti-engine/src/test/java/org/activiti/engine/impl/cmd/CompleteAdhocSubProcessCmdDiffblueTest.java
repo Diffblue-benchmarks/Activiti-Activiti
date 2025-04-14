@@ -16,16 +16,20 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class CompleteAdhocSubProcessCmdDiffblueTest {
   /**
    * Test {@link CompleteAdhocSubProcessCmd#CompleteAdhocSubProcessCmd(String)}.
    * <p>
-   * Method under test:
-   * {@link CompleteAdhocSubProcessCmd#CompleteAdhocSubProcessCmd(String)}
+   * Method under test: {@link CompleteAdhocSubProcessCmd#CompleteAdhocSubProcessCmd(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CompleteAdhocSubProcessCmd.<init>(String)"})
   public void testNewCompleteAdhocSubProcessCmd() {
     // Arrange, Act and Assert
     assertEquals("42", (new CompleteAdhocSubProcessCmd("42")).executionId);

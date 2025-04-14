@@ -19,34 +19,49 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
 import org.activiti.api.runtime.model.impl.StartMessageSubscriptionImpl.Builder;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+@ContextConfiguration(classes = {Builder.class})
+@ExtendWith(SpringExtension.class)
 class StartMessageSubscriptionImplDiffblueTest {
+  @Autowired
+  private Builder builder;
+
   /**
    * Test Builder {@link Builder#build()}.
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>{@link StartMessageSubscriptionImpl.Builder#build()}
-   *   <li>{@link StartMessageSubscriptionImpl.Builder#withActivityId(String)}
-   *   <li>{@link StartMessageSubscriptionImpl.Builder#withConfiguration(String)}
-   *   <li>{@link StartMessageSubscriptionImpl.Builder#withCreated(Date)}
-   *   <li>{@link StartMessageSubscriptionImpl.Builder#withEventName(String)}
-   *   <li>{@link StartMessageSubscriptionImpl.Builder#withId(String)}
-   *   <li>
-   * {@link StartMessageSubscriptionImpl.Builder#withProcessDefinitionId(String)}
+   *   <li>{@link Builder#build()}
+   *   <li>{@link Builder#withActivityId(String)}
+   *   <li>{@link Builder#withConfiguration(String)}
+   *   <li>{@link Builder#withCreated(Date)}
+   *   <li>{@link Builder#withEventName(String)}
+   *   <li>{@link Builder#withId(String)}
+   *   <li>{@link Builder#withProcessDefinitionId(String)}
    * </ul>
    */
   @Test
   @DisplayName("Test Builder build()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void Builder.<init>()", "StartMessageSubscriptionImpl Builder.build()",
+      "Builder Builder.withActivityId(String)", "Builder Builder.withConfiguration(String)",
+      "Builder Builder.withCreated(Date)", "Builder Builder.withEventName(String)", "Builder Builder.withId(String)",
+      "Builder Builder.withProcessDefinitionId(String)"})
   void testBuilderBuild() {
     // Arrange
-    StartMessageSubscriptionImpl.Builder withConfigurationResult = StartMessageSubscriptionImpl.builder()
+    Builder withConfigurationResult = StartMessageSubscriptionImpl.builder()
         .withActivityId("42")
         .withConfiguration("Configuration");
     Date created = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
@@ -73,8 +88,7 @@ class StartMessageSubscriptionImplDiffblueTest {
    * Methods under test:
    * <ul>
    *   <li>{@link StartMessageSubscriptionImpl#StartMessageSubscriptionImpl()}
-   *   <li>
-   * {@link StartMessageSubscriptionImpl#builderFrom(StartMessageSubscriptionImpl)}
+   *   <li>{@link StartMessageSubscriptionImpl#builderFrom(StartMessageSubscriptionImpl)}
    *   <li>{@link StartMessageSubscriptionImpl#toString()}
    *   <li>{@link StartMessageSubscriptionImpl#getActivityId()}
    *   <li>{@link StartMessageSubscriptionImpl#getConfiguration()}
@@ -86,10 +100,17 @@ class StartMessageSubscriptionImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void StartMessageSubscriptionImpl.<init>()",
+      "Builder StartMessageSubscriptionImpl.builderFrom(StartMessageSubscriptionImpl)",
+      "String StartMessageSubscriptionImpl.getActivityId()", "String StartMessageSubscriptionImpl.getConfiguration()",
+      "Date StartMessageSubscriptionImpl.getCreated()", "String StartMessageSubscriptionImpl.getEventName()",
+      "String StartMessageSubscriptionImpl.getId()", "String StartMessageSubscriptionImpl.getProcessDefinitionId()",
+      "String StartMessageSubscriptionImpl.toString()"})
   void testGettersAndSetters() {
     // Arrange and Act
     StartMessageSubscriptionImpl actualStartMessageSubscriptionImpl = new StartMessageSubscriptionImpl();
-    StartMessageSubscriptionImpl.Builder withConfigurationResult = StartMessageSubscriptionImpl.builder()
+    Builder withConfigurationResult = StartMessageSubscriptionImpl.builder()
         .withActivityId("42")
         .withConfiguration("Configuration");
     StartMessageSubscriptionImpl startMessageSubscriptionImpl = withConfigurationResult
@@ -118,8 +139,7 @@ class StartMessageSubscriptionImplDiffblueTest {
   }
 
   /**
-   * Test {@link StartMessageSubscriptionImpl#equals(Object)}, and
-   * {@link StartMessageSubscriptionImpl#hashCode()}.
+   * Test {@link StartMessageSubscriptionImpl#equals(Object)}, and {@link StartMessageSubscriptionImpl#hashCode()}.
    * <ul>
    *   <li>When other is equal.</li>
    *   <li>Then return equal.</li>
@@ -133,9 +153,12 @@ class StartMessageSubscriptionImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is equal; then return equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean StartMessageSubscriptionImpl.equals(Object)",
+      "int StartMessageSubscriptionImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
     // Arrange
-    StartMessageSubscriptionImpl.Builder withConfigurationResult = StartMessageSubscriptionImpl.builder()
+    Builder withConfigurationResult = StartMessageSubscriptionImpl.builder()
         .withActivityId("42")
         .withConfiguration("Configuration");
     StartMessageSubscriptionImpl buildResult = withConfigurationResult
@@ -144,7 +167,7 @@ class StartMessageSubscriptionImplDiffblueTest {
         .withId("42")
         .withProcessDefinitionId("42")
         .build();
-    StartMessageSubscriptionImpl.Builder withConfigurationResult2 = StartMessageSubscriptionImpl.builder()
+    Builder withConfigurationResult2 = StartMessageSubscriptionImpl.builder()
         .withActivityId("42")
         .withConfiguration("Configuration");
     StartMessageSubscriptionImpl buildResult2 = withConfigurationResult2
@@ -161,8 +184,7 @@ class StartMessageSubscriptionImplDiffblueTest {
   }
 
   /**
-   * Test {@link StartMessageSubscriptionImpl#equals(Object)}, and
-   * {@link StartMessageSubscriptionImpl#hashCode()}.
+   * Test {@link StartMessageSubscriptionImpl#equals(Object)}, and {@link StartMessageSubscriptionImpl#hashCode()}.
    * <ul>
    *   <li>When other is same.</li>
    *   <li>Then return equal.</li>
@@ -176,9 +198,12 @@ class StartMessageSubscriptionImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean StartMessageSubscriptionImpl.equals(Object)",
+      "int StartMessageSubscriptionImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
-    StartMessageSubscriptionImpl.Builder withConfigurationResult = StartMessageSubscriptionImpl.builder()
+    Builder withConfigurationResult = StartMessageSubscriptionImpl.builder()
         .withActivityId("42")
         .withConfiguration("Configuration");
     StartMessageSubscriptionImpl buildResult = withConfigurationResult
@@ -205,9 +230,12 @@ class StartMessageSubscriptionImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean StartMessageSubscriptionImpl.equals(Object)",
+      "int StartMessageSubscriptionImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
-    StartMessageSubscriptionImpl.Builder withConfigurationResult = StartMessageSubscriptionImpl.builder()
+    Builder withConfigurationResult = StartMessageSubscriptionImpl.builder()
         .withActivityId("Activity Id")
         .withConfiguration("Configuration");
     StartMessageSubscriptionImpl buildResult = withConfigurationResult
@@ -216,7 +244,7 @@ class StartMessageSubscriptionImplDiffblueTest {
         .withId("42")
         .withProcessDefinitionId("42")
         .build();
-    StartMessageSubscriptionImpl.Builder withConfigurationResult2 = StartMessageSubscriptionImpl.builder()
+    Builder withConfigurationResult2 = StartMessageSubscriptionImpl.builder()
         .withActivityId("42")
         .withConfiguration("Configuration");
     StartMessageSubscriptionImpl buildResult2 = withConfigurationResult2
@@ -241,9 +269,12 @@ class StartMessageSubscriptionImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean StartMessageSubscriptionImpl.equals(Object)",
+      "int StartMessageSubscriptionImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
     // Arrange
-    StartMessageSubscriptionImpl.Builder withConfigurationResult = StartMessageSubscriptionImpl.builder()
+    Builder withConfigurationResult = StartMessageSubscriptionImpl.builder()
         .withActivityId("42")
         .withConfiguration(null);
     StartMessageSubscriptionImpl buildResult = withConfigurationResult
@@ -252,7 +283,7 @@ class StartMessageSubscriptionImplDiffblueTest {
         .withId("42")
         .withProcessDefinitionId("42")
         .build();
-    StartMessageSubscriptionImpl.Builder withConfigurationResult2 = StartMessageSubscriptionImpl.builder()
+    Builder withConfigurationResult2 = StartMessageSubscriptionImpl.builder()
         .withActivityId("42")
         .withConfiguration("Configuration");
     StartMessageSubscriptionImpl buildResult2 = withConfigurationResult2
@@ -277,9 +308,12 @@ class StartMessageSubscriptionImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean StartMessageSubscriptionImpl.equals(Object)",
+      "int StartMessageSubscriptionImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual3() {
     // Arrange
-    StartMessageSubscriptionImpl.Builder withConfigurationResult = StartMessageSubscriptionImpl.builder()
+    Builder withConfigurationResult = StartMessageSubscriptionImpl.builder()
         .withActivityId("42")
         .withConfiguration("Configuration");
     StartMessageSubscriptionImpl buildResult = withConfigurationResult
@@ -288,7 +322,7 @@ class StartMessageSubscriptionImplDiffblueTest {
         .withId("42")
         .withProcessDefinitionId("42")
         .build();
-    StartMessageSubscriptionImpl.Builder withConfigurationResult2 = StartMessageSubscriptionImpl.builder()
+    Builder withConfigurationResult2 = StartMessageSubscriptionImpl.builder()
         .withActivityId("42")
         .withConfiguration("Configuration");
     StartMessageSubscriptionImpl buildResult2 = withConfigurationResult2
@@ -313,9 +347,12 @@ class StartMessageSubscriptionImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean StartMessageSubscriptionImpl.equals(Object)",
+      "int StartMessageSubscriptionImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual4() {
     // Arrange
-    StartMessageSubscriptionImpl.Builder withConfigurationResult = StartMessageSubscriptionImpl.builder()
+    Builder withConfigurationResult = StartMessageSubscriptionImpl.builder()
         .withActivityId("42")
         .withConfiguration("Configuration");
     StartMessageSubscriptionImpl buildResult = withConfigurationResult
@@ -324,7 +361,7 @@ class StartMessageSubscriptionImplDiffblueTest {
         .withId("42")
         .withProcessDefinitionId("42")
         .build();
-    StartMessageSubscriptionImpl.Builder withConfigurationResult2 = StartMessageSubscriptionImpl.builder()
+    Builder withConfigurationResult2 = StartMessageSubscriptionImpl.builder()
         .withActivityId("42")
         .withConfiguration("Configuration");
     StartMessageSubscriptionImpl buildResult2 = withConfigurationResult2
@@ -349,9 +386,12 @@ class StartMessageSubscriptionImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean StartMessageSubscriptionImpl.equals(Object)",
+      "int StartMessageSubscriptionImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual5() {
     // Arrange
-    StartMessageSubscriptionImpl.Builder withConfigurationResult = StartMessageSubscriptionImpl.builder()
+    Builder withConfigurationResult = StartMessageSubscriptionImpl.builder()
         .withActivityId("42")
         .withConfiguration("Configuration");
     StartMessageSubscriptionImpl buildResult = withConfigurationResult
@@ -360,7 +400,7 @@ class StartMessageSubscriptionImplDiffblueTest {
         .withId("Id")
         .withProcessDefinitionId("42")
         .build();
-    StartMessageSubscriptionImpl.Builder withConfigurationResult2 = StartMessageSubscriptionImpl.builder()
+    Builder withConfigurationResult2 = StartMessageSubscriptionImpl.builder()
         .withActivityId("42")
         .withConfiguration("Configuration");
     StartMessageSubscriptionImpl buildResult2 = withConfigurationResult2
@@ -385,9 +425,12 @@ class StartMessageSubscriptionImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean StartMessageSubscriptionImpl.equals(Object)",
+      "int StartMessageSubscriptionImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual6() {
     // Arrange
-    StartMessageSubscriptionImpl.Builder withConfigurationResult = StartMessageSubscriptionImpl.builder()
+    Builder withConfigurationResult = StartMessageSubscriptionImpl.builder()
         .withActivityId("42")
         .withConfiguration("Configuration");
     StartMessageSubscriptionImpl buildResult = withConfigurationResult
@@ -396,7 +439,7 @@ class StartMessageSubscriptionImplDiffblueTest {
         .withId("42")
         .withProcessDefinitionId("Process Definition Id")
         .build();
-    StartMessageSubscriptionImpl.Builder withConfigurationResult2 = StartMessageSubscriptionImpl.builder()
+    Builder withConfigurationResult2 = StartMessageSubscriptionImpl.builder()
         .withActivityId("42")
         .withConfiguration("Configuration");
     StartMessageSubscriptionImpl buildResult2 = withConfigurationResult2
@@ -421,9 +464,12 @@ class StartMessageSubscriptionImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean StartMessageSubscriptionImpl.equals(Object)",
+      "int StartMessageSubscriptionImpl.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange
-    StartMessageSubscriptionImpl.Builder withConfigurationResult = StartMessageSubscriptionImpl.builder()
+    Builder withConfigurationResult = StartMessageSubscriptionImpl.builder()
         .withActivityId("42")
         .withConfiguration("Configuration");
     StartMessageSubscriptionImpl buildResult = withConfigurationResult
@@ -448,9 +494,12 @@ class StartMessageSubscriptionImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean StartMessageSubscriptionImpl.equals(Object)",
+      "int StartMessageSubscriptionImpl.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange
-    StartMessageSubscriptionImpl.Builder withConfigurationResult = StartMessageSubscriptionImpl.builder()
+    Builder withConfigurationResult = StartMessageSubscriptionImpl.builder()
         .withActivityId("42")
         .withConfiguration("Configuration");
     StartMessageSubscriptionImpl buildResult = withConfigurationResult

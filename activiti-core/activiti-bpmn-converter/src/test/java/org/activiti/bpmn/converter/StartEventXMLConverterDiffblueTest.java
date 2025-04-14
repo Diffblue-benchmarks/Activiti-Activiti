@@ -21,6 +21,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import javax.xml.stream.XMLStreamWriter;
 import org.activiti.bpmn.model.BaseElement;
@@ -29,23 +30,23 @@ import org.activiti.bpmn.model.CancelEventDefinition;
 import org.activiti.bpmn.model.EventDefinition;
 import org.activiti.bpmn.model.StartEvent;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class StartEventXMLConverterDiffblueTest {
   /**
-   * Test
-   * {@link StartEventXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}.
+   * Test {@link StartEventXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}.
    * <ul>
-   *   <li>Then calls
-   * {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}.</li>
+   *   <li>Then calls {@link DelegatingXMLStreamWriter#writeAttribute(String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link StartEventXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
+   * Method under test: {@link StartEventXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter); then calls writeAttribute(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void StartEventXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)"})
   void testWriteAdditionalAttributes_thenCallsWriteAttribute() throws Exception {
     // Arrange
     StartEventXMLConverter startEventXMLConverter = new StartEventXMLConverter();
@@ -63,19 +64,20 @@ class StartEventXMLConverterDiffblueTest {
     // Act
     startEventXMLConverter.writeAdditionalAttributes(element, model, new IndentingXMLStreamWriter(writer));
 
-    // Assert that nothing has changed
+    // Assert
     verify(writer).writeAttribute(eq("isInterrupting"), eq("false"));
   }
 
   /**
-   * Test
-   * {@link StartEventXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}.
+   * Test {@link StartEventXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}.
    * <p>
-   * Method under test:
-   * {@link StartEventXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}
+   * Method under test: {@link StartEventXMLConverter#writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "boolean StartEventXMLConverter.writeExtensionChildElements(BaseElement, boolean, XMLStreamWriter)"})
   void testWriteExtensionChildElements() throws Exception {
     // Arrange
     StartEventXMLConverter startEventXMLConverter = new StartEventXMLConverter();
@@ -97,6 +99,9 @@ class StartEventXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void StartEventXMLConverter.<init>()", "Class StartEventXMLConverter.getBpmnElementType()",
+      "String StartEventXMLConverter.getXMLElementName()"})
   void testGettersAndSetters() {
     // Arrange and Act
     StartEventXMLConverter actualStartEventXMLConverter = new StartEventXMLConverter();

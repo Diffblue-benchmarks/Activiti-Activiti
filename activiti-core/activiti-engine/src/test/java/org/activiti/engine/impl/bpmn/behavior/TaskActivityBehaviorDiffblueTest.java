@@ -24,41 +24,37 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.BigIntegerNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.MissingNode;
-import com.fasterxml.jackson.databind.node.NullNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class)
 public class TaskActivityBehaviorDiffblueTest {
-  @InjectMocks
-  private TaskActivityBehavior taskActivityBehavior;
-
   /**
    * Test {@link TaskActivityBehavior#getActiveValue(String, String, ObjectNode)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link JsonNode#isNull()} return
-   * {@code true}.</li>
-   *   <li>Then calls {@link JsonNode#isNull()}.</li>
+   *   <li>Given {@link ArrayNode} {@link JsonNode#isNull()} return {@code true}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskActivityBehavior#getActiveValue(String, String, ObjectNode)}
+   * Method under test: {@link TaskActivityBehavior#getActiveValue(String, String, ObjectNode)}
    */
   @Test
-  public void testGetActiveValue_givenArrayNodeIsNullReturnTrue_thenCallsIsNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String TaskActivityBehavior.getActiveValue(String, String, ObjectNode)"})
+  public void testGetActiveValue_givenArrayNodeIsNullReturnTrue_thenReturnNull() {
     // Arrange
+    TaskActivityBehavior taskActivityBehavior = new TaskActivityBehavior();
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.isNull()).thenReturn(true);
     ObjectNode taskElementProperties = mock(ObjectNode.class);
@@ -76,16 +72,17 @@ public class TaskActivityBehaviorDiffblueTest {
   /**
    * Test {@link TaskActivityBehavior#getActiveValue(String, String, ObjectNode)}.
    * <ul>
-   *   <li>Given {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is
-   * withExactBigDecimals {@code true}.</li>
+   *   <li>Given {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskActivityBehavior#getActiveValue(String, String, ObjectNode)}
+   * Method under test: {@link TaskActivityBehavior#getActiveValue(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String TaskActivityBehavior.getActiveValue(String, String, ObjectNode)"})
   public void testGetActiveValue_givenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
     // Arrange
+    TaskActivityBehavior taskActivityBehavior = new TaskActivityBehavior();
     ObjectNode taskElementProperties = mock(ObjectNode.class);
     when(taskElementProperties.get(Mockito.<String>any()))
         .thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
@@ -101,17 +98,18 @@ public class TaskActivityBehaviorDiffblueTest {
   /**
    * Test {@link TaskActivityBehavior#getActiveValue(String, String, ObjectNode)}.
    * <ul>
-   *   <li>Given {@link BigIntegerNode#BigIntegerNode(BigInteger)} with v is valueOf
-   * one.</li>
+   *   <li>Given {@link BigIntegerNode#BigIntegerNode(BigInteger)} with v is valueOf one.</li>
    *   <li>Then return {@code 1}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskActivityBehavior#getActiveValue(String, String, ObjectNode)}
+   * Method under test: {@link TaskActivityBehavior#getActiveValue(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String TaskActivityBehavior.getActiveValue(String, String, ObjectNode)"})
   public void testGetActiveValue_givenBigIntegerNodeWithVIsValueOfOne_thenReturn1() {
     // Arrange
+    TaskActivityBehavior taskActivityBehavior = new TaskActivityBehavior();
     ObjectNode taskElementProperties = mock(ObjectNode.class);
     when(taskElementProperties.get(Mockito.<String>any())).thenReturn(new BigIntegerNode(BigInteger.valueOf(1L)));
 
@@ -127,15 +125,17 @@ public class TaskActivityBehaviorDiffblueTest {
    * Test {@link TaskActivityBehavior#getActiveValue(String, String, ObjectNode)}.
    * <ul>
    *   <li>Given Instance.</li>
-   *   <li>Then return empty string.</li>
+   *   <li>When {@link ObjectNode} {@link ObjectNode#get(String)} return Instance.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskActivityBehavior#getActiveValue(String, String, ObjectNode)}
+   * Method under test: {@link TaskActivityBehavior#getActiveValue(String, String, ObjectNode)}
    */
   @Test
-  public void testGetActiveValue_givenInstance_thenReturnEmptyString() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String TaskActivityBehavior.getActiveValue(String, String, ObjectNode)"})
+  public void testGetActiveValue_givenInstance_whenObjectNodeGetReturnInstance() {
     // Arrange
+    TaskActivityBehavior taskActivityBehavior = new TaskActivityBehavior();
     ObjectNode taskElementProperties = mock(ObjectNode.class);
     when(taskElementProperties.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
 
@@ -150,91 +150,52 @@ public class TaskActivityBehaviorDiffblueTest {
   /**
    * Test {@link TaskActivityBehavior#getActiveValue(String, String, ObjectNode)}.
    * <ul>
-   *   <li>Given Instance.</li>
-   *   <li>When {@link ObjectNode} {@link ObjectNode#get(String)} return
-   * Instance.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link TaskActivityBehavior#getActiveValue(String, String, ObjectNode)}
-   */
-  @Test
-  public void testGetActiveValue_givenInstance_whenObjectNodeGetReturnInstance_thenReturnNull() {
-    // Arrange
-    ObjectNode taskElementProperties = mock(ObjectNode.class);
-    when(taskElementProperties.get(Mockito.<String>any())).thenReturn(NullNode.getInstance());
-
-    // Act
-    String actualActiveValue = taskActivityBehavior.getActiveValue("42", "Property Name", taskElementProperties);
-
-    // Assert
-    verify(taskElementProperties).get(eq("Property Name"));
-    assertNull(actualActiveValue);
-  }
-
-  /**
-   * Test {@link TaskActivityBehavior#getActiveValue(String, String, ObjectNode)}.
-   * <ul>
    *   <li>When {@code null}.</li>
    *   <li>Then return {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskActivityBehavior#getActiveValue(String, String, ObjectNode)}
+   * Method under test: {@link TaskActivityBehavior#getActiveValue(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String TaskActivityBehavior.getActiveValue(String, String, ObjectNode)"})
   public void testGetActiveValue_whenNull_thenReturn42() {
     // Arrange, Act and Assert
-    assertEquals("42", taskActivityBehavior.getActiveValue("42", "Property Name", null));
+    assertEquals("42", (new TaskActivityBehavior()).getActiveValue("42", "Property Name", null));
   }
 
   /**
    * Test {@link TaskActivityBehavior#getActiveValue(String, String, ObjectNode)}.
    * <ul>
-   *   <li>When {@link ObjectNode#ObjectNode(JsonNodeFactory)} with nc is
-   * {@link JsonNodeFactory}.</li>
+   *   <li>When {@link ObjectNode#ObjectNode(JsonNodeFactory)} with nc is withExactBigDecimals {@code true}.</li>
    *   <li>Then return {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskActivityBehavior#getActiveValue(String, String, ObjectNode)}
+   * Method under test: {@link TaskActivityBehavior#getActiveValue(String, String, ObjectNode)}
    */
   @Test
-  public void testGetActiveValue_whenObjectNodeWithNcIsJsonNodeFactory_thenReturn42() {
-    // Arrange, Act and Assert
-    assertEquals("42",
-        taskActivityBehavior.getActiveValue("42", "Property Name", new ObjectNode(mock(JsonNodeFactory.class))));
-  }
-
-  /**
-   * Test {@link TaskActivityBehavior#getActiveValue(String, String, ObjectNode)}.
-   * <ul>
-   *   <li>When {@link ObjectNode#ObjectNode(JsonNodeFactory)} with nc is
-   * withExactBigDecimals {@code true}.</li>
-   *   <li>Then return {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link TaskActivityBehavior#getActiveValue(String, String, ObjectNode)}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String TaskActivityBehavior.getActiveValue(String, String, ObjectNode)"})
   public void testGetActiveValue_whenObjectNodeWithNcIsWithExactBigDecimalsTrue_thenReturn42() {
-    // Arrange, Act and Assert
+    // Arrange
+    TaskActivityBehavior taskActivityBehavior = new TaskActivityBehavior();
+
+    // Act and Assert
     assertEquals("42", taskActivityBehavior.getActiveValue("42", "Property Name",
         new ObjectNode(JsonNodeFactory.withExactBigDecimals(true))));
   }
 
   /**
-   * Test
-   * {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}.
+   * Test {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}.
    * <p>
-   * Method under test:
-   * {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}
+   * Method under test: {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List TaskActivityBehavior.getActiveValueList(List, String, ObjectNode)"})
   public void testGetActiveValueList() {
     // Arrange
+    TaskActivityBehavior taskActivityBehavior = new TaskActivityBehavior();
     ArrayList<String> originalValues = new ArrayList<>();
 
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
@@ -262,20 +223,22 @@ public class TaskActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}.
+   * Test {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
    *   <li>Then return {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}
+   * Method under test: {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List TaskActivityBehavior.getActiveValueList(List, String, ObjectNode)"})
   public void testGetActiveValueList_given42_whenArrayListAdd42_thenReturnArrayList() {
     // Arrange
+    TaskActivityBehavior taskActivityBehavior = new TaskActivityBehavior();
+
     ArrayList<String> originalValues = new ArrayList<>();
     originalValues.add("42");
     originalValues.add("foo");
@@ -286,19 +249,20 @@ public class TaskActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}.
+   * Test {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}.
    * <ul>
    *   <li>Given {@link ArrayList#ArrayList()} add Instance.</li>
    *   <li>Then return size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}
+   * Method under test: {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List TaskActivityBehavior.getActiveValueList(List, String, ObjectNode)"})
   public void testGetActiveValueList_givenArrayListAddInstance_thenReturnSizeIsOne() {
     // Arrange
+    TaskActivityBehavior taskActivityBehavior = new TaskActivityBehavior();
     ArrayList<String> originalValues = new ArrayList<>();
 
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
@@ -326,20 +290,20 @@ public class TaskActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}.
+   * Test {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link JsonNode#isNull()} return
-   * {@code true}.</li>
+   *   <li>Given {@link ArrayNode} {@link JsonNode#isNull()} return {@code true}.</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}
+   * Method under test: {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List TaskActivityBehavior.getActiveValueList(List, String, ObjectNode)"})
   public void testGetActiveValueList_givenArrayNodeIsNullReturnTrue_thenReturnNull() {
     // Arrange
+    TaskActivityBehavior taskActivityBehavior = new TaskActivityBehavior();
     ArrayList<String> originalValues = new ArrayList<>();
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.isNull()).thenReturn(true);
@@ -357,19 +321,19 @@ public class TaskActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}.
+   * Test {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}.
    * <ul>
-   *   <li>Given {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is
-   * withExactBigDecimals {@code true}.</li>
+   *   <li>Given {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}
+   * Method under test: {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List TaskActivityBehavior.getActiveValueList(List, String, ObjectNode)"})
   public void testGetActiveValueList_givenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
     // Arrange
+    TaskActivityBehavior taskActivityBehavior = new TaskActivityBehavior();
     ArrayList<String> originalValues = new ArrayList<>();
     ObjectNode taskElementProperties = mock(ObjectNode.class);
     when(taskElementProperties.get(Mockito.<String>any()))
@@ -385,19 +349,19 @@ public class TaskActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}.
+   * Test {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}.
    * <ul>
-   *   <li>Given {@link BigIntegerNode#BigIntegerNode(BigInteger)} with v is valueOf
-   * one.</li>
+   *   <li>Given {@link BigIntegerNode#BigIntegerNode(BigInteger)} with v is valueOf one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}
+   * Method under test: {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List TaskActivityBehavior.getActiveValueList(List, String, ObjectNode)"})
   public void testGetActiveValueList_givenBigIntegerNodeWithVIsValueOfOne() {
     // Arrange
+    TaskActivityBehavior taskActivityBehavior = new TaskActivityBehavior();
     ArrayList<String> originalValues = new ArrayList<>();
     ObjectNode taskElementProperties = mock(ObjectNode.class);
     when(taskElementProperties.get(Mockito.<String>any())).thenReturn(new BigIntegerNode(BigInteger.valueOf(1L)));
@@ -412,20 +376,22 @@ public class TaskActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}.
+   * Test {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}.
    * <ul>
    *   <li>Given {@code foo}.</li>
    *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
    *   <li>Then return {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}
+   * Method under test: {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List TaskActivityBehavior.getActiveValueList(List, String, ObjectNode)"})
   public void testGetActiveValueList_givenFoo_whenArrayListAddFoo_thenReturnArrayList() {
     // Arrange
+    TaskActivityBehavior taskActivityBehavior = new TaskActivityBehavior();
+
     ArrayList<String> originalValues = new ArrayList<>();
     originalValues.add("foo");
 
@@ -435,20 +401,20 @@ public class TaskActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}.
+   * Test {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}.
    * <ul>
    *   <li>Given Instance.</li>
-   *   <li>When {@link ObjectNode} {@link ObjectNode#get(String)} return
-   * Instance.</li>
+   *   <li>When {@link ObjectNode} {@link ObjectNode#get(String)} return Instance.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}
+   * Method under test: {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List TaskActivityBehavior.getActiveValueList(List, String, ObjectNode)"})
   public void testGetActiveValueList_givenInstance_whenObjectNodeGetReturnInstance() {
     // Arrange
+    TaskActivityBehavior taskActivityBehavior = new TaskActivityBehavior();
     ArrayList<String> originalValues = new ArrayList<>();
     ObjectNode taskElementProperties = mock(ObjectNode.class);
     when(taskElementProperties.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
@@ -463,18 +429,41 @@ public class TaskActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}.
+   * Test {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}.
    * <ul>
-   *   <li>Then calls {@link JsonNode#iterator()}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}
+   * Method under test: {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}
    */
   @Test
-  public void testGetActiveValueList_thenCallsIterator() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List TaskActivityBehavior.getActiveValueList(List, String, ObjectNode)"})
+  public void testGetActiveValueList_thenReturnEmpty() {
     // Arrange
+    TaskActivityBehavior taskActivityBehavior = new TaskActivityBehavior();
+    ArrayList<String> originalValues = new ArrayList<>();
+
+    // Act and Assert
+    assertTrue(taskActivityBehavior
+        .getActiveValueList(originalValues, "Property Name", new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)))
+        .isEmpty());
+  }
+
+  /**
+   * Test {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}.
+   * <ul>
+   *   <li>Then return Empty.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List TaskActivityBehavior.getActiveValueList(List, String, ObjectNode)"})
+  public void testGetActiveValueList_thenReturnEmpty2() {
+    // Arrange
+    TaskActivityBehavior taskActivityBehavior = new TaskActivityBehavior();
     ArrayList<String> originalValues = new ArrayList<>();
     ArrayNode arrayNode = mock(ArrayNode.class);
 
@@ -500,74 +489,33 @@ public class TaskActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}.
+   * Test {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}.
    * <ul>
    *   <li>When {@code null}.</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}
+   * Method under test: {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List TaskActivityBehavior.getActiveValueList(List, String, ObjectNode)"})
   public void testGetActiveValueList_whenNull_thenReturnEmpty() {
-    // Arrange, Act and Assert
+    // Arrange
+    TaskActivityBehavior taskActivityBehavior = new TaskActivityBehavior();
+
+    // Act and Assert
     assertTrue(taskActivityBehavior.getActiveValueList(new ArrayList<>(), "Property Name", null).isEmpty());
-  }
-
-  /**
-   * Test
-   * {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}.
-   * <ul>
-   *   <li>When {@link ObjectNode#ObjectNode(JsonNodeFactory)} with nc is
-   * {@link JsonNodeFactory}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}
-   */
-  @Test
-  public void testGetActiveValueList_whenObjectNodeWithNcIsJsonNodeFactory_thenReturnEmpty() {
-    // Arrange
-    ArrayList<String> originalValues = new ArrayList<>();
-
-    // Act and Assert
-    assertTrue(taskActivityBehavior
-        .getActiveValueList(originalValues, "Property Name", new ObjectNode(mock(JsonNodeFactory.class)))
-        .isEmpty());
-  }
-
-  /**
-   * Test
-   * {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}.
-   * <ul>
-   *   <li>When {@link ObjectNode#ObjectNode(JsonNodeFactory)} with nc is
-   * withExactBigDecimals {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link TaskActivityBehavior#getActiveValueList(List, String, ObjectNode)}
-   */
-  @Test
-  public void testGetActiveValueList_whenObjectNodeWithNcIsWithExactBigDecimalsTrue() {
-    // Arrange
-    ArrayList<String> originalValues = new ArrayList<>();
-
-    // Act and Assert
-    assertTrue(taskActivityBehavior
-        .getActiveValueList(originalValues, "Property Name", new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)))
-        .isEmpty());
   }
 
   /**
    * Test new {@link TaskActivityBehavior} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link TaskActivityBehavior}
+   * Method under test: default or parameterless constructor of {@link TaskActivityBehavior}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TaskActivityBehavior.<init>()"})
   public void testNewTaskActivityBehavior() {
     // Arrange and Act
     TaskActivityBehavior actualTaskActivityBehavior = new TaskActivityBehavior();

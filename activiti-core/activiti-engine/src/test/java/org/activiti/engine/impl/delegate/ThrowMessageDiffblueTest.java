@@ -20,9 +20,15 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import java.util.Optional;
+import org.activiti.engine.impl.delegate.ThrowMessage.IBuildStage;
+import org.activiti.engine.impl.delegate.ThrowMessage.INameStage;
+import org.activiti.engine.impl.delegate.ThrowMessage.ThrowMessagBuilder;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ThrowMessageDiffblueTest {
   /**
@@ -31,6 +37,8 @@ public class ThrowMessageDiffblueTest {
    * Method under test: {@link ThrowMessage#ThrowMessage()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ThrowMessage.<init>()"})
   public void testNewThrowMessage() {
     // Arrange and Act
     ThrowMessage actualThrowMessage = new ThrowMessage();
@@ -49,6 +57,8 @@ public class ThrowMessageDiffblueTest {
    * Method under test: {@link ThrowMessage#ThrowMessage(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ThrowMessage.<init>(String)"})
   public void testNewThrowMessage2() {
     // Arrange and Act
     ThrowMessage actualThrowMessage = new ThrowMessage("Name");
@@ -73,6 +83,9 @@ public class ThrowMessageDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Optional ThrowMessage.getBusinessKey()", "Optional ThrowMessage.getCorrelationKey()",
+      "String ThrowMessage.getName()", "Optional ThrowMessage.getPayload()"})
   public void testGettersAndSetters() {
     // Arrange
     ThrowMessage throwMessage = new ThrowMessage();
@@ -96,14 +109,16 @@ public class ThrowMessageDiffblueTest {
    * Method under test: {@link ThrowMessage#builder()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"INameStage ThrowMessage.builder()"})
   public void testBuilder() {
     // Arrange and Act
-    ThrowMessage.INameStage actualBuilderResult = ThrowMessage.builder();
-    ThrowMessage.IBuildStage actualNameResult = actualBuilderResult.name("Name");
+    INameStage actualBuilderResult = ThrowMessage.builder();
+    IBuildStage actualNameResult = actualBuilderResult.name("Name");
 
     // Assert
-    assertTrue(actualBuilderResult instanceof ThrowMessage.ThrowMessagBuilder);
-    ThrowMessage buildResult = ((ThrowMessage.ThrowMessagBuilder) actualBuilderResult).build();
+    assertTrue(actualBuilderResult instanceof ThrowMessagBuilder);
+    ThrowMessage buildResult = ((ThrowMessagBuilder) actualBuilderResult).build();
     assertEquals("Name", buildResult.getName());
     Optional<String> businessKey = buildResult.getBusinessKey();
     assertFalse(businessKey.isPresent());

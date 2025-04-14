@@ -18,7 +18,10 @@ package org.activiti.bpmn.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class StringDataObjectDiffblueTest {
   /**
@@ -27,6 +30,8 @@ public class StringDataObjectDiffblueTest {
    * Method under test: {@link StringDataObject#setValue(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void StringDataObject.setValue(Object)"})
   public void testSetValue() {
     // Arrange
     StringDataObject stringDataObject = new StringDataObject();
@@ -41,14 +46,15 @@ public class StringDataObjectDiffblueTest {
   /**
    * Test {@link StringDataObject#clone()}.
    * <ul>
-   *   <li>Given {@link StringDataObject} (default constructor) Value is
-   * {@code Value}.</li>
+   *   <li>Given {@link StringDataObject} (default constructor) Value is {@code Value}.</li>
    *   <li>Then return {@code Value}.</li>
    * </ul>
    * <p>
    * Method under test: {@link StringDataObject#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"StringDataObject StringDataObject.clone()"})
   public void testClone_givenStringDataObjectValueIsValue_thenReturnValue() {
     // Arrange
     StringDataObject stringDataObject = new StringDataObject();
@@ -82,6 +88,8 @@ public class StringDataObjectDiffblueTest {
    * Method under test: {@link StringDataObject#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"StringDataObject StringDataObject.clone()"})
   public void testClone_givenStringDataObject_thenReturnValueIsNull() {
     // Arrange and Act
     StringDataObject actualCloneResult = (new StringDataObject()).clone();
@@ -104,10 +112,11 @@ public class StringDataObjectDiffblueTest {
   /**
    * Test new {@link StringDataObject} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link StringDataObject}
+   * Method under test: default or parameterless constructor of {@link StringDataObject}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void StringDataObject.<init>()"})
   public void testNewStringDataObject() {
     // Arrange and Act
     StringDataObject actualStringDataObject = new StringDataObject();

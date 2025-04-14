@@ -17,6 +17,7 @@ package org.activiti.bpmn.converter.export;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.stream.XMLStreamWriter;
@@ -26,19 +27,19 @@ import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.EventListener;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ActivitiListenerExportDiffblueTest {
   /**
-   * Test
-   * {@link ActivitiListenerExport#writeListeners(BaseElement, boolean, XMLStreamWriter)}
-   * with {@code element}, {@code didWriteExtensionStartElement}, {@code xtw}.
+   * Test {@link ActivitiListenerExport#writeListeners(BaseElement, boolean, XMLStreamWriter)} with {@code element}, {@code didWriteExtensionStartElement}, {@code xtw}.
    * <p>
-   * Method under test:
-   * {@link ActivitiListenerExport#writeListeners(BaseElement, boolean, XMLStreamWriter)}
+   * Method under test: {@link ActivitiListenerExport#writeListeners(BaseElement, boolean, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeListeners(BaseElement, boolean, XMLStreamWriter) with 'element', 'didWriteExtensionStartElement', 'xtw'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ActivitiListenerExport.writeListeners(BaseElement, boolean, XMLStreamWriter)"})
   void testWriteListenersWithElementDidWriteExtensionStartElementXtw() throws Exception {
     // Arrange
     AdhocSubProcess element = new AdhocSubProcess();
@@ -48,18 +49,17 @@ class ActivitiListenerExportDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiListenerExport#writeListeners(BaseElement, boolean, XMLStreamWriter)}
-   * with {@code element}, {@code didWriteExtensionStartElement}, {@code xtw}.
+   * Test {@link ActivitiListenerExport#writeListeners(BaseElement, boolean, XMLStreamWriter)} with {@code element}, {@code didWriteExtensionStartElement}, {@code xtw}.
    * <ul>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiListenerExport#writeListeners(BaseElement, boolean, XMLStreamWriter)}
+   * Method under test: {@link ActivitiListenerExport#writeListeners(BaseElement, boolean, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeListeners(BaseElement, boolean, XMLStreamWriter) with 'element', 'didWriteExtensionStartElement', 'xtw'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ActivitiListenerExport.writeListeners(BaseElement, boolean, XMLStreamWriter)"})
   void testWriteListenersWithElementDidWriteExtensionStartElementXtw_thenReturnFalse() throws Exception {
     // Arrange
     ActivitiListener element = new ActivitiListener();
@@ -69,18 +69,17 @@ class ActivitiListenerExportDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiListenerExport#writeListeners(BaseElement, boolean, XMLStreamWriter)}
-   * with {@code element}, {@code didWriteExtensionStartElement}, {@code xtw}.
+   * Test {@link ActivitiListenerExport#writeListeners(BaseElement, boolean, XMLStreamWriter)} with {@code element}, {@code didWriteExtensionStartElement}, {@code xtw}.
    * <ul>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiListenerExport#writeListeners(BaseElement, boolean, XMLStreamWriter)}
+   * Method under test: {@link ActivitiListenerExport#writeListeners(BaseElement, boolean, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeListeners(BaseElement, boolean, XMLStreamWriter) with 'element', 'didWriteExtensionStartElement', 'xtw'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ActivitiListenerExport.writeListeners(BaseElement, boolean, XMLStreamWriter)"})
   void testWriteListenersWithElementDidWriteExtensionStartElementXtw_thenReturnTrue() throws Exception {
     // Arrange
     ActivitiListener element = new ActivitiListener();
@@ -90,18 +89,18 @@ class ActivitiListenerExportDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiListenerExport#writeEventListeners(List, boolean, XMLStreamWriter)}.
+   * Test {@link ActivitiListenerExport#writeEventListeners(List, boolean, XMLStreamWriter)}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiListenerExport#writeEventListeners(List, boolean, XMLStreamWriter)}
+   * Method under test: {@link ActivitiListenerExport#writeEventListeners(List, boolean, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeEventListeners(List, boolean, XMLStreamWriter); when ArrayList(); then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ActivitiListenerExport.writeEventListeners(List, boolean, XMLStreamWriter)"})
   void testWriteEventListeners_whenArrayList_thenReturnFalse() throws Exception {
     // Arrange
     ArrayList<EventListener> eventListeners = new ArrayList<>();
@@ -111,18 +110,18 @@ class ActivitiListenerExportDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiListenerExport#writeEventListeners(List, boolean, XMLStreamWriter)}.
+   * Test {@link ActivitiListenerExport#writeEventListeners(List, boolean, XMLStreamWriter)}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiListenerExport#writeEventListeners(List, boolean, XMLStreamWriter)}
+   * Method under test: {@link ActivitiListenerExport#writeEventListeners(List, boolean, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeEventListeners(List, boolean, XMLStreamWriter); when ArrayList(); then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ActivitiListenerExport.writeEventListeners(List, boolean, XMLStreamWriter)"})
   void testWriteEventListeners_whenArrayList_thenReturnTrue() throws Exception {
     // Arrange
     ArrayList<EventListener> eventListeners = new ArrayList<>();

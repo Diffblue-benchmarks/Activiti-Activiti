@@ -18,57 +18,46 @@ package org.activiti.engine.delegate.event.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import static org.mockito.Mockito.mock;
+import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ActivitiProcessCancelledEventImplDiffblueTest {
   /**
-   * Test
-   * {@link ActivitiProcessCancelledEventImpl#ActivitiProcessCancelledEventImpl(ProcessInstance)}.
-   * <p>
-   * Method under test:
-   * {@link ActivitiProcessCancelledEventImpl#ActivitiProcessCancelledEventImpl(ProcessInstance)}
-   */
-  @Test
-  public void testNewActivitiProcessCancelledEventImpl() {
-    // Arrange
-    ExecutionEntityImpl processInstance = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-
-    // Act and Assert
-    assertSame(processInstance, (new ActivitiProcessCancelledEventImpl(processInstance)).getEntity());
-  }
-
-  /**
-   * Test
-   * {@link ActivitiProcessCancelledEventImpl#ActivitiProcessCancelledEventImpl(ProcessInstance)}.
+   * Test {@link ActivitiProcessCancelledEventImpl#ActivitiProcessCancelledEventImpl(ProcessInstance)}.
    * <ul>
-   *   <li>Then return Cause is {@code null}.</li>
+   *   <li>Then Entity return {@link ExecutionEntityImpl}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiProcessCancelledEventImpl#ActivitiProcessCancelledEventImpl(ProcessInstance)}
+   * Method under test: {@link ActivitiProcessCancelledEventImpl#ActivitiProcessCancelledEventImpl(ProcessInstance)}
    */
   @Test
-  public void testNewActivitiProcessCancelledEventImpl_thenReturnCauseIsNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiProcessCancelledEventImpl.<init>(ProcessInstance)"})
+  public void testNewActivitiProcessCancelledEventImpl_thenEntityReturnExecutionEntityImpl() {
     // Arrange
-    ProcessInstance processInstance = mock(ProcessInstance.class);
+    ExecutionEntityImpl processInstance = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
 
     // Act
     ActivitiProcessCancelledEventImpl actualActivitiProcessCancelledEventImpl = new ActivitiProcessCancelledEventImpl(
         processInstance);
 
     // Assert
+    Object entity = actualActivitiProcessCancelledEventImpl.getEntity();
+    assertTrue(entity instanceof ExecutionEntityImpl);
     assertNull(actualActivitiProcessCancelledEventImpl.getCause());
     assertNull(actualActivitiProcessCancelledEventImpl.getExecutionId());
     assertNull(actualActivitiProcessCancelledEventImpl.getProcessDefinitionId());
     assertNull(actualActivitiProcessCancelledEventImpl.getProcessInstanceId());
     assertNull(actualActivitiProcessCancelledEventImpl.getReason());
     assertEquals(ActivitiEventType.PROCESS_CANCELLED, actualActivitiProcessCancelledEventImpl.getType());
-    assertSame(processInstance, actualActivitiProcessCancelledEventImpl.getEntity());
+    assertSame(processInstance, entity);
   }
 
   /**
@@ -81,6 +70,9 @@ public class ActivitiProcessCancelledEventImplDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object ActivitiProcessCancelledEventImpl.getCause()",
+      "void ActivitiProcessCancelledEventImpl.setCause(Object)"})
   public void testGettersAndSetters() {
     // Arrange
     ActivitiProcessCancelledEventImpl activitiProcessCancelledEventImpl = new ActivitiProcessCancelledEventImpl(
@@ -90,7 +82,7 @@ public class ActivitiProcessCancelledEventImplDiffblueTest {
     // Act
     activitiProcessCancelledEventImpl.setCause(object);
 
-    // Assert that nothing has changed
+    // Assert
     assertSame(object, activitiProcessCancelledEventImpl.getCause());
   }
 }

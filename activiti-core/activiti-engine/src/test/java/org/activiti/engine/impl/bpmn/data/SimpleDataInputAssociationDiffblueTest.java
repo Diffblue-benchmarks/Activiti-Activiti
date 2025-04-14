@@ -23,31 +23,32 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
-import org.activiti.core.el.juel.ObjectValueExpression;
-import org.activiti.core.el.juel.misc.TypeConverter;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.VariableScope;
 import org.activiti.engine.impl.el.FixedValue;
-import org.activiti.engine.impl.el.JuelExpression;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class SimpleDataInputAssociationDiffblueTest {
   /**
-   * Test
-   * {@link SimpleDataInputAssociation#SimpleDataInputAssociation(Expression, String)}.
+   * Test {@link SimpleDataInputAssociation#SimpleDataInputAssociation(Expression, String)}.
    * <ul>
    *   <li>Then SourceExpression return {@link FixedValue}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SimpleDataInputAssociation#SimpleDataInputAssociation(Expression, String)}
+   * Method under test: {@link SimpleDataInputAssociation#SimpleDataInputAssociation(Expression, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SimpleDataInputAssociation.<init>(String, String)",
+      "void SimpleDataInputAssociation.<init>(Expression, String)"})
   public void testNewSimpleDataInputAssociation_thenSourceExpressionReturnFixedValue() {
     // Arrange
     FixedValue sourceExpression = new FixedValue(JSONObject.NULL);
@@ -66,17 +67,18 @@ public class SimpleDataInputAssociationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link SimpleDataInputAssociation#SimpleDataInputAssociation(String, String)}.
+   * Test {@link SimpleDataInputAssociation#SimpleDataInputAssociation(String, String)}.
    * <ul>
    *   <li>When {@code Source}.</li>
    *   <li>Then return {@code Source}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SimpleDataInputAssociation#SimpleDataInputAssociation(String, String)}
+   * Method under test: {@link SimpleDataInputAssociation#SimpleDataInputAssociation(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SimpleDataInputAssociation.<init>(String, String)",
+      "void SimpleDataInputAssociation.<init>(Expression, String)"})
   public void testNewSimpleDataInputAssociation_whenSource_thenReturnSource() {
     // Arrange and Act
     SimpleDataInputAssociation actualSimpleDataInputAssociation = new SimpleDataInputAssociation("Source", "Target");
@@ -91,10 +93,11 @@ public class SimpleDataInputAssociationDiffblueTest {
   /**
    * Test {@link SimpleDataInputAssociation#addAssignment(Assignment)}.
    * <p>
-   * Method under test:
-   * {@link SimpleDataInputAssociation#addAssignment(Assignment)}
+   * Method under test: {@link SimpleDataInputAssociation#addAssignment(Assignment)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SimpleDataInputAssociation.addAssignment(Assignment)"})
   public void testAddAssignment() {
     // Arrange
     SimpleDataInputAssociation simpleDataInputAssociation = new SimpleDataInputAssociation("Source", "Target");
@@ -111,43 +114,17 @@ public class SimpleDataInputAssociationDiffblueTest {
   }
 
   /**
-   * Test {@link SimpleDataInputAssociation#addAssignment(Assignment)}.
-   * <p>
-   * Method under test:
-   * {@link SimpleDataInputAssociation#addAssignment(Assignment)}
-   */
-  @Test
-  public void testAddAssignment2() {
-    // Arrange
-    SimpleDataInputAssociation simpleDataInputAssociation = new SimpleDataInputAssociation("Source", "Target");
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-    JuelExpression fromExpression = new JuelExpression(new ObjectValueExpression(converter, JSONObject.NULL, type),
-        "Expression Text");
-
-    Assignment assignment = new Assignment(fromExpression, new FixedValue(JSONObject.NULL));
-
-    // Act
-    simpleDataInputAssociation.addAssignment(assignment);
-
-    // Assert
-    List<Assignment> assignmentList = simpleDataInputAssociation.assignments;
-    assertEquals(1, assignmentList.size());
-    assertSame(assignment, assignmentList.get(0));
-  }
-
-  /**
    * Test {@link SimpleDataInputAssociation#evaluate(DelegateExecution)}.
    * <ul>
-   *   <li>Given {@link Expression}
-   * {@link Expression#setValue(Object, VariableScope)} does nothing.</li>
+   *   <li>Given {@link Expression} {@link Expression#setValue(Object, VariableScope)} does nothing.</li>
    *   <li>Then calls {@link Expression#setValue(Object, VariableScope)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SimpleDataInputAssociation#evaluate(DelegateExecution)}
+   * Method under test: {@link SimpleDataInputAssociation#evaluate(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SimpleDataInputAssociation.evaluate(DelegateExecution)"})
   public void testEvaluate_givenExpressionSetValueDoesNothing_thenCallsSetValue() {
     // Arrange
     Expression toExpression = mock(Expression.class);

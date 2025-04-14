@@ -20,31 +20,35 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import org.activiti.bpmn.model.alfresco.AlfrescoMailTask;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class ServiceTaskDiffblueTest {
   /**
    * Test {@link ServiceTask#isExtended()}.
    * <ul>
-   *   <li>Given {@link ServiceTask} (default constructor) ExtensionId is empty
-   * string.</li>
+   *   <li>Given {@link ServiceTask} (default constructor) ExtensionId is empty string.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ServiceTask#isExtended()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ServiceTask.isExtended()"})
   public void testIsExtended_givenServiceTaskExtensionIdIsEmptyString_thenReturnFalse() {
     // Arrange
     ServiceTask serviceTask = new ServiceTask();
@@ -57,14 +61,15 @@ public class ServiceTaskDiffblueTest {
   /**
    * Test {@link ServiceTask#isExtended()}.
    * <ul>
-   *   <li>Given {@link ServiceTask} (default constructor) ExtensionId is
-   * {@code foo}.</li>
+   *   <li>Given {@link ServiceTask} (default constructor) ExtensionId is {@code foo}.</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ServiceTask#isExtended()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ServiceTask.isExtended()"})
   public void testIsExtended_givenServiceTaskExtensionIdIsFoo_thenReturnTrue() {
     // Arrange
     ServiceTask serviceTask = new ServiceTask();
@@ -84,6 +89,8 @@ public class ServiceTaskDiffblueTest {
    * Method under test: {@link ServiceTask#isExtended()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ServiceTask.isExtended()"})
   public void testIsExtended_givenServiceTask_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new ServiceTask()).isExtended());
@@ -95,6 +102,8 @@ public class ServiceTaskDiffblueTest {
    * Method under test: {@link ServiceTask#hasBoundaryErrorEvents()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ServiceTask.hasBoundaryErrorEvents()"})
   public void testHasBoundaryErrorEvents() {
     // Arrange
     BoundaryEvent boundaryEvent = new BoundaryEvent();
@@ -120,6 +129,8 @@ public class ServiceTaskDiffblueTest {
    * Method under test: {@link ServiceTask#hasBoundaryErrorEvents()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ServiceTask.hasBoundaryErrorEvents()"})
   public void testHasBoundaryErrorEvents2() {
     // Arrange
     BoundaryEvent boundaryEvent = new BoundaryEvent();
@@ -143,13 +154,14 @@ public class ServiceTaskDiffblueTest {
   /**
    * Test {@link ServiceTask#hasBoundaryErrorEvents()}.
    * <ul>
-   *   <li>Given {@link BoundaryEvent} (default constructor) EventDefinitions is
-   * {@link ArrayList#ArrayList()}.</li>
+   *   <li>Given {@link BoundaryEvent} (default constructor) EventDefinitions is {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ServiceTask#hasBoundaryErrorEvents()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ServiceTask.hasBoundaryErrorEvents()"})
   public void testHasBoundaryErrorEvents_givenBoundaryEventEventDefinitionsIsArrayList() {
     // Arrange
     BoundaryEvent boundaryEvent = new BoundaryEvent();
@@ -168,13 +180,14 @@ public class ServiceTaskDiffblueTest {
   /**
    * Test {@link ServiceTask#hasBoundaryErrorEvents()}.
    * <ul>
-   *   <li>Given {@link BoundaryEvent} (default constructor) EventDefinitions is
-   * {@code null}.</li>
+   *   <li>Given {@link BoundaryEvent} (default constructor) EventDefinitions is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ServiceTask#hasBoundaryErrorEvents()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ServiceTask.hasBoundaryErrorEvents()"})
   public void testHasBoundaryErrorEvents_givenBoundaryEventEventDefinitionsIsNull() {
     // Arrange
     BoundaryEvent boundaryEvent = new BoundaryEvent();
@@ -193,13 +206,14 @@ public class ServiceTaskDiffblueTest {
   /**
    * Test {@link ServiceTask#hasBoundaryErrorEvents()}.
    * <ul>
-   *   <li>Given {@link BoundaryEvent} (default constructor) EventDefinitions is
-   * {@code null}.</li>
+   *   <li>Given {@link BoundaryEvent} (default constructor) EventDefinitions is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ServiceTask#hasBoundaryErrorEvents()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ServiceTask.hasBoundaryErrorEvents()"})
   public void testHasBoundaryErrorEvents_givenBoundaryEventEventDefinitionsIsNull2() {
     // Arrange
     BoundaryEvent boundaryEvent = new BoundaryEvent();
@@ -219,14 +233,15 @@ public class ServiceTaskDiffblueTest {
   /**
    * Test {@link ServiceTask#hasBoundaryErrorEvents()}.
    * <ul>
-   *   <li>Given {@link ServiceTask} (default constructor) BoundaryEvents is
-   * {@code null}.</li>
+   *   <li>Given {@link ServiceTask} (default constructor) BoundaryEvents is {@code null}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ServiceTask#hasBoundaryErrorEvents()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ServiceTask.hasBoundaryErrorEvents()"})
   public void testHasBoundaryErrorEvents_givenServiceTaskBoundaryEventsIsNull_thenReturnFalse() {
     // Arrange
     ServiceTask serviceTask = new ServiceTask();
@@ -246,6 +261,8 @@ public class ServiceTaskDiffblueTest {
    * Method under test: {@link ServiceTask#hasBoundaryErrorEvents()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ServiceTask.hasBoundaryErrorEvents()"})
   public void testHasBoundaryErrorEvents_givenServiceTask_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new ServiceTask()).hasBoundaryErrorEvents());
@@ -260,6 +277,8 @@ public class ServiceTaskDiffblueTest {
    * Method under test: {@link ServiceTask#hasBoundaryErrorEvents()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ServiceTask.hasBoundaryErrorEvents()"})
   public void testHasBoundaryErrorEvents_thenReturnTrue() {
     // Arrange
     BoundaryEvent boundaryEvent = new BoundaryEvent();
@@ -289,6 +308,8 @@ public class ServiceTaskDiffblueTest {
    * Method under test: {@link ServiceTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ServiceTask ServiceTask.clone()"})
   public void testClone_givenAlfrescoMailTask_thenReturnAlfrescoMailTask() {
     // Arrange and Act
     AlfrescoMailTask actualCloneResult = (new AlfrescoMailTask()).clone();
@@ -336,24 +357,19 @@ public class ServiceTaskDiffblueTest {
   /**
    * Test {@link ServiceTask#clone()}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default constructor).</li>
    *   <li>Then return FieldExtensions size is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link ServiceTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ServiceTask ServiceTask.clone()"})
   public void testClone_givenArrayListAddFieldExtension_thenReturnFieldExtensionsSizeIsOne() {
     // Arrange
-    DataGridRow dataGridRow = new DataGridRow();
-    dataGridRow.setFields(null);
-
-    ArrayList<DataGridRow> rows = new ArrayList<>();
-    rows.add(dataGridRow);
-
     DataGrid complexValue = new DataGrid();
-    complexValue.setRows(rows);
+    complexValue.setRows(null);
 
     CustomProperty customProperty = new CustomProperty();
     customProperty.setComplexValue(complexValue);
@@ -385,54 +401,15 @@ public class ServiceTaskDiffblueTest {
   /**
    * Test {@link ServiceTask#clone()}.
    * <ul>
-   *   <li>Given {@link DataGrid} (default constructor) Rows is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ServiceTask#clone()}
-   */
-  @Test
-  public void testClone_givenDataGridRowsIsNull() {
-    // Arrange
-    DataGrid complexValue = new DataGrid();
-    complexValue.setRows(null);
-
-    CustomProperty customProperty = new CustomProperty();
-    customProperty.setComplexValue(complexValue);
-
-    ArrayList<CustomProperty> customProperties = new ArrayList<>();
-    customProperties.add(customProperty);
-
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setCustomProperties(customProperties);
-    serviceTask.setFieldExtensions(null);
-
-    // Act and Assert
-    List<CustomProperty> customProperties2 = serviceTask.clone().getCustomProperties();
-    assertEquals(1, customProperties2.size());
-    CustomProperty getResult = customProperties2.get(0);
-    ComplexDataType complexValue2 = getResult.getComplexValue();
-    assertTrue(complexValue2 instanceof DataGrid);
-    assertNull(getResult.getId());
-    assertNull(getResult.getName());
-    assertNull(getResult.getSimpleValue());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlRowNumber());
-    assertTrue(((DataGrid) complexValue2).getRows().isEmpty());
-    assertTrue(getResult.getAttributes().isEmpty());
-    assertTrue(getResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link ServiceTask#clone()}.
-   * <ul>
-   *   <li>Given {@link ServiceTask} (default constructor) CustomProperties is
-   * {@code null}.</li>
+   *   <li>Given {@link ServiceTask} (default constructor) CustomProperties is {@code null}.</li>
    *   <li>Then return Behavior is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ServiceTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ServiceTask ServiceTask.clone()"})
   public void testClone_givenServiceTaskCustomPropertiesIsNull_thenReturnBehaviorIsNull() {
     // Arrange
     ServiceTask serviceTask = new ServiceTask();
@@ -491,6 +468,8 @@ public class ServiceTaskDiffblueTest {
    * Method under test: {@link ServiceTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ServiceTask ServiceTask.clone()"})
   public void testClone_givenServiceTask_thenReturnBehaviorIsNull() {
     // Arrange and Act
     ServiceTask actualCloneResult = (new ServiceTask()).clone();
@@ -543,6 +522,8 @@ public class ServiceTaskDiffblueTest {
    * Method under test: {@link ServiceTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ServiceTask ServiceTask.clone()"})
   public void testClone_thenReturnCustomPropertiesFirstComplexValueIsNull() {
     // Arrange
     CustomProperty customProperty = new CustomProperty();
@@ -578,7 +559,51 @@ public class ServiceTaskDiffblueTest {
    * Method under test: {@link ServiceTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ServiceTask ServiceTask.clone()"})
   public void testClone_thenReturnCustomPropertiesFirstComplexValueRowsEmpty() {
+    // Arrange
+    DataGrid complexValue = new DataGrid();
+    complexValue.setRows(null);
+
+    CustomProperty customProperty = new CustomProperty();
+    customProperty.setComplexValue(complexValue);
+
+    ArrayList<CustomProperty> customProperties = new ArrayList<>();
+    customProperties.add(customProperty);
+
+    ServiceTask serviceTask = new ServiceTask();
+    serviceTask.setCustomProperties(customProperties);
+    serviceTask.setFieldExtensions(null);
+
+    // Act and Assert
+    List<CustomProperty> customProperties2 = serviceTask.clone().getCustomProperties();
+    assertEquals(1, customProperties2.size());
+    CustomProperty getResult = customProperties2.get(0);
+    ComplexDataType complexValue2 = getResult.getComplexValue();
+    assertTrue(complexValue2 instanceof DataGrid);
+    assertNull(getResult.getId());
+    assertNull(getResult.getName());
+    assertNull(getResult.getSimpleValue());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlRowNumber());
+    assertTrue(((DataGrid) complexValue2).getRows().isEmpty());
+    assertTrue(getResult.getAttributes().isEmpty());
+    assertTrue(getResult.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link ServiceTask#clone()}.
+   * <ul>
+   *   <li>Then return CustomProperties first ComplexValue Rows Empty.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ServiceTask#clone()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ServiceTask ServiceTask.clone()"})
+  public void testClone_thenReturnCustomPropertiesFirstComplexValueRowsEmpty2() {
     // Arrange
     DataGrid complexValue = new DataGrid();
     complexValue.setRows(new ArrayList<>());
@@ -618,6 +643,8 @@ public class ServiceTaskDiffblueTest {
    * Method under test: {@link ServiceTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ServiceTask ServiceTask.clone()"})
   public void testClone_thenReturnCustomPropertiesFirstComplexValueRowsSizeIsOne() {
     // Arrange
     DataGridRow dataGridRow = new DataGridRow();
@@ -654,13 +681,14 @@ public class ServiceTaskDiffblueTest {
   /**
    * Test {@link ServiceTask#setValues(ServiceTask)} with {@code ServiceTask}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default constructor).</li>
    * </ul>
    * <p>
    * Method under test: {@link ServiceTask#setValues(ServiceTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTask.setValues(ServiceTask)"})
   public void testSetValuesWithServiceTask_givenArrayListAddFieldExtension() {
     // Arrange
     ServiceTask serviceTask = new ServiceTask();
@@ -675,19 +703,7 @@ public class ServiceTaskDiffblueTest {
     // Act
     serviceTask.setValues(otherElement);
 
-    // Assert
-    assertNull(otherElement.getDefaultFlow());
-    assertNull(otherElement.getFailedJobRetryTimeCycleValue());
-    assertNull(otherElement.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
-    assertNull(otherElement.getExtensionId());
-    assertNull(otherElement.getImplementation());
-    assertNull(otherElement.getImplementationType());
-    assertNull(otherElement.getOperationRef());
-    assertNull(otherElement.getResultVariableName());
-    assertNull(otherElement.getSkipExpression());
-    assertNull(otherElement.getType());
+    // Assert that nothing has changed
     assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherElement.isForCompensation());
     assertFalse(otherElement.isAsynchronous());
@@ -699,19 +715,20 @@ public class ServiceTaskDiffblueTest {
   /**
    * Test {@link ServiceTask#setValues(ServiceTask)} with {@code ServiceTask}.
    * <ul>
-   *   <li>Given {@link CustomProperty} (default constructor) ComplexValue is
-   * {@link DataGrid} (default constructor).</li>
+   *   <li>Given {@link CustomProperty} (default constructor) ComplexValue is {@link ComplexDataType}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ServiceTask#setValues(ServiceTask)}
    */
   @Test
-  public void testSetValuesWithServiceTask_givenCustomPropertyComplexValueIsDataGrid() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTask.setValues(ServiceTask)"})
+  public void testSetValuesWithServiceTask_givenCustomPropertyComplexValueIsComplexDataType() {
     // Arrange
     ServiceTask serviceTask = new ServiceTask();
 
     CustomProperty customProperty = new CustomProperty();
-    customProperty.setComplexValue(new DataGrid());
+    customProperty.setComplexValue(mock(ComplexDataType.class));
 
     ArrayList<CustomProperty> customProperties = new ArrayList<>();
     customProperties.add(customProperty);
@@ -723,19 +740,7 @@ public class ServiceTaskDiffblueTest {
     // Act
     serviceTask.setValues(otherElement);
 
-    // Assert
-    assertNull(otherElement.getDefaultFlow());
-    assertNull(otherElement.getFailedJobRetryTimeCycleValue());
-    assertNull(otherElement.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
-    assertNull(otherElement.getExtensionId());
-    assertNull(otherElement.getImplementation());
-    assertNull(otherElement.getImplementationType());
-    assertNull(otherElement.getOperationRef());
-    assertNull(otherElement.getResultVariableName());
-    assertNull(otherElement.getSkipExpression());
-    assertNull(otherElement.getType());
+    // Assert that nothing has changed
     assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherElement.isForCompensation());
     assertFalse(otherElement.isAsynchronous());
@@ -747,13 +752,14 @@ public class ServiceTaskDiffblueTest {
   /**
    * Test {@link ServiceTask#setValues(ServiceTask)} with {@code ServiceTask}.
    * <ul>
-   *   <li>Given {@link CustomProperty} (default constructor) ComplexValue is
-   * {@code null}.</li>
+   *   <li>Given {@link CustomProperty} (default constructor) ComplexValue is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ServiceTask#setValues(ServiceTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTask.setValues(ServiceTask)"})
   public void testSetValuesWithServiceTask_givenCustomPropertyComplexValueIsNull() {
     // Arrange
     ServiceTask serviceTask = new ServiceTask();
@@ -771,19 +777,7 @@ public class ServiceTaskDiffblueTest {
     // Act
     serviceTask.setValues(otherElement);
 
-    // Assert
-    assertNull(otherElement.getDefaultFlow());
-    assertNull(otherElement.getFailedJobRetryTimeCycleValue());
-    assertNull(otherElement.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
-    assertNull(otherElement.getExtensionId());
-    assertNull(otherElement.getImplementation());
-    assertNull(otherElement.getImplementationType());
-    assertNull(otherElement.getOperationRef());
-    assertNull(otherElement.getResultVariableName());
-    assertNull(otherElement.getSkipExpression());
-    assertNull(otherElement.getType());
+    // Assert that nothing has changed
     assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherElement.isForCompensation());
     assertFalse(otherElement.isAsynchronous());
@@ -795,19 +789,22 @@ public class ServiceTaskDiffblueTest {
   /**
    * Test {@link ServiceTask#setValues(ServiceTask)} with {@code ServiceTask}.
    * <ul>
-   *   <li>Given {@link DataGrid} {@link DataGrid#clone()} return {@link DataGrid}
-   * (default constructor).</li>
+   *   <li>Given {@link DataGrid} {@link DataGrid#clone()} return {@link DataGrid} (default constructor).</li>
    *   <li>Then calls {@link DataGrid#clone()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ServiceTask#setValues(ServiceTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTask.setValues(ServiceTask)"})
   public void testSetValuesWithServiceTask_givenDataGridCloneReturnDataGrid_thenCallsClone() {
     // Arrange
     ServiceTask serviceTask = new ServiceTask();
     DataGrid complexValue = mock(DataGrid.class);
     when(complexValue.clone()).thenReturn(new DataGrid());
+    doNothing().when(complexValue).setRows(Mockito.<List<DataGridRow>>any());
+    complexValue.setRows(new ArrayList<>());
 
     CustomProperty customProperty = new CustomProperty();
     customProperty.setComplexValue(complexValue);
@@ -822,20 +819,9 @@ public class ServiceTaskDiffblueTest {
     // Act
     serviceTask.setValues(otherElement);
 
-    // Assert
+    // Assert that nothing has changed
     verify(complexValue).clone();
-    assertNull(otherElement.getDefaultFlow());
-    assertNull(otherElement.getFailedJobRetryTimeCycleValue());
-    assertNull(otherElement.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
-    assertNull(otherElement.getExtensionId());
-    assertNull(otherElement.getImplementation());
-    assertNull(otherElement.getImplementationType());
-    assertNull(otherElement.getOperationRef());
-    assertNull(otherElement.getResultVariableName());
-    assertNull(otherElement.getSkipExpression());
-    assertNull(otherElement.getType());
+    verify(complexValue).setRows(isA(List.class));
     assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherElement.isForCompensation());
     assertFalse(otherElement.isAsynchronous());
@@ -847,13 +833,14 @@ public class ServiceTaskDiffblueTest {
   /**
    * Test {@link ServiceTask#setValues(ServiceTask)} with {@code ServiceTask}.
    * <ul>
-   *   <li>Given {@link DataGridRow} (default constructor) Fields is
-   * {@code null}.</li>
+   *   <li>Given {@link DataGridRow} (default constructor) Fields is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ServiceTask#setValues(ServiceTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTask.setValues(ServiceTask)"})
   public void testSetValuesWithServiceTask_givenDataGridRowFieldsIsNull() {
     // Arrange
     ServiceTask serviceTask = new ServiceTask();
@@ -880,19 +867,47 @@ public class ServiceTaskDiffblueTest {
     // Act
     serviceTask.setValues(otherElement);
 
-    // Assert
-    assertNull(otherElement.getDefaultFlow());
-    assertNull(otherElement.getFailedJobRetryTimeCycleValue());
-    assertNull(otherElement.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
-    assertNull(otherElement.getExtensionId());
-    assertNull(otherElement.getImplementation());
-    assertNull(otherElement.getImplementationType());
-    assertNull(otherElement.getOperationRef());
-    assertNull(otherElement.getResultVariableName());
-    assertNull(otherElement.getSkipExpression());
-    assertNull(otherElement.getType());
+    // Assert that nothing has changed
+    assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
+    assertFalse(otherElement.isForCompensation());
+    assertFalse(otherElement.isAsynchronous());
+    assertFalse(otherElement.isNotExclusive());
+    assertFalse(otherElement.isExtended());
+    assertTrue(otherElement.isExclusive());
+  }
+
+  /**
+   * Test {@link ServiceTask#setValues(ServiceTask)} with {@code ServiceTask}.
+   * <ul>
+   *   <li>Given {@link DataGrid} (default constructor) Rows is {@link ArrayList#ArrayList()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ServiceTask#setValues(ServiceTask)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTask.setValues(ServiceTask)"})
+  public void testSetValuesWithServiceTask_givenDataGridRowsIsArrayList() {
+    // Arrange
+    ServiceTask serviceTask = new ServiceTask();
+
+    DataGrid complexValue = new DataGrid();
+    complexValue.setRows(new ArrayList<>());
+
+    CustomProperty customProperty = new CustomProperty();
+    customProperty.setComplexValue(complexValue);
+
+    ArrayList<CustomProperty> customProperties = new ArrayList<>();
+    customProperties.add(customProperty);
+
+    ServiceTask otherElement = new ServiceTask();
+    otherElement.setFieldExtensions(null);
+    otherElement.setCustomProperties(customProperties);
+
+    // Act
+    serviceTask.setValues(otherElement);
+
+    // Assert that nothing has changed
     assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherElement.isForCompensation());
     assertFalse(otherElement.isAsynchronous());
@@ -910,6 +925,8 @@ public class ServiceTaskDiffblueTest {
    * Method under test: {@link ServiceTask#setValues(ServiceTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTask.setValues(ServiceTask)"})
   public void testSetValuesWithServiceTask_givenDataGridRowsIsNull() {
     // Arrange
     ServiceTask serviceTask = new ServiceTask();
@@ -930,19 +947,7 @@ public class ServiceTaskDiffblueTest {
     // Act
     serviceTask.setValues(otherElement);
 
-    // Assert
-    assertNull(otherElement.getDefaultFlow());
-    assertNull(otherElement.getFailedJobRetryTimeCycleValue());
-    assertNull(otherElement.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
-    assertNull(otherElement.getExtensionId());
-    assertNull(otherElement.getImplementation());
-    assertNull(otherElement.getImplementationType());
-    assertNull(otherElement.getOperationRef());
-    assertNull(otherElement.getResultVariableName());
-    assertNull(otherElement.getSkipExpression());
-    assertNull(otherElement.getType());
+    // Assert that nothing has changed
     assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherElement.isForCompensation());
     assertFalse(otherElement.isAsynchronous());
@@ -955,13 +960,14 @@ public class ServiceTaskDiffblueTest {
    * Test {@link ServiceTask#setValues(ServiceTask)} with {@code ServiceTask}.
    * <ul>
    *   <li>Given {@code true}.</li>
-   *   <li>Then {@link ServiceTask} (default constructor) CustomProperties size is
-   * one.</li>
+   *   <li>Then {@link ServiceTask} (default constructor) CustomProperties size is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link ServiceTask#setValues(ServiceTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTask.setValues(ServiceTask)"})
   public void testSetValuesWithServiceTask_givenTrue_thenServiceTaskCustomPropertiesSizeIsOne() {
     // Arrange
     ServiceTask serviceTask = new ServiceTask();
@@ -1046,13 +1052,18 @@ public class ServiceTaskDiffblueTest {
    * Method under test: {@link ServiceTask#setValues(ServiceTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTask.setValues(ServiceTask)"})
   public void testSetValuesWithServiceTask_thenCallsClone() {
     // Arrange
     ServiceTask serviceTask = new ServiceTask();
+
+    DataGrid complexValue = new DataGrid();
+    complexValue.setRows(null);
     CustomProperty customProperty = mock(CustomProperty.class);
     when(customProperty.clone()).thenReturn(new CustomProperty());
     doNothing().when(customProperty).setComplexValue(Mockito.<ComplexDataType>any());
-    customProperty.setComplexValue(null);
+    customProperty.setComplexValue(complexValue);
 
     ArrayList<CustomProperty> customProperties = new ArrayList<>();
     customProperties.add(customProperty);
@@ -1064,21 +1075,9 @@ public class ServiceTaskDiffblueTest {
     // Act
     serviceTask.setValues(otherElement);
 
-    // Assert
+    // Assert that nothing has changed
     verify(customProperty).clone();
-    verify(customProperty).setComplexValue(isNull());
-    assertNull(otherElement.getDefaultFlow());
-    assertNull(otherElement.getFailedJobRetryTimeCycleValue());
-    assertNull(otherElement.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
-    assertNull(otherElement.getExtensionId());
-    assertNull(otherElement.getImplementation());
-    assertNull(otherElement.getImplementationType());
-    assertNull(otherElement.getOperationRef());
-    assertNull(otherElement.getResultVariableName());
-    assertNull(otherElement.getSkipExpression());
-    assertNull(otherElement.getType());
+    verify(customProperty).setComplexValue(isA(ComplexDataType.class));
     assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherElement.isForCompensation());
     assertFalse(otherElement.isAsynchronous());
@@ -1096,6 +1095,8 @@ public class ServiceTaskDiffblueTest {
    * Method under test: {@link ServiceTask#setValues(ServiceTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTask.setValues(ServiceTask)"})
   public void testSetValuesWithServiceTask_thenCallsClone2() {
     // Arrange
     ServiceTask serviceTask = new ServiceTask();
@@ -1112,20 +1113,8 @@ public class ServiceTaskDiffblueTest {
     // Act
     serviceTask.setValues(otherElement);
 
-    // Assert
+    // Assert that nothing has changed
     verify(fieldExtension).clone();
-    assertNull(otherElement.getDefaultFlow());
-    assertNull(otherElement.getFailedJobRetryTimeCycleValue());
-    assertNull(otherElement.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
-    assertNull(otherElement.getExtensionId());
-    assertNull(otherElement.getImplementation());
-    assertNull(otherElement.getImplementationType());
-    assertNull(otherElement.getOperationRef());
-    assertNull(otherElement.getResultVariableName());
-    assertNull(otherElement.getSkipExpression());
-    assertNull(otherElement.getType());
     assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherElement.isForCompensation());
     assertFalse(otherElement.isAsynchronous());
@@ -1137,13 +1126,14 @@ public class ServiceTaskDiffblueTest {
   /**
    * Test {@link ServiceTask#setValues(ServiceTask)} with {@code ServiceTask}.
    * <ul>
-   *   <li>Then {@link ServiceTask} (default constructor)
-   * FailedJobRetryTimeCycleValue is {@code 42}.</li>
+   *   <li>Then {@link ServiceTask} (default constructor) FailedJobRetryTimeCycleValue is {@code 42}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ServiceTask#setValues(ServiceTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTask.setValues(ServiceTask)"})
   public void testSetValuesWithServiceTask_thenServiceTaskFailedJobRetryTimeCycleValueIs42() {
     // Arrange
     ServiceTask serviceTask = new ServiceTask();
@@ -1215,31 +1205,7 @@ public class ServiceTaskDiffblueTest {
     assertEquals("Result Variable Name", serviceTask.getResultVariableName());
     assertEquals("Skip Expression", serviceTask.getSkipExpression());
     assertEquals("Type", serviceTask.getType());
-    IOSpecification ioSpecification = serviceTask.getIoSpecification();
-    assertNull(ioSpecification.getId());
-    MultiInstanceLoopCharacteristics loopCharacteristics = serviceTask.getLoopCharacteristics();
-    assertNull(loopCharacteristics.getId());
-    assertNull(loopCharacteristics.getCompletionCondition());
-    assertNull(loopCharacteristics.getElementIndexVariable());
-    assertNull(loopCharacteristics.getElementVariable());
-    assertNull(loopCharacteristics.getInputDataItem());
-    assertNull(loopCharacteristics.getLoopCardinality());
-    assertNull(loopCharacteristics.getLoopDataOutputRef());
-    assertNull(loopCharacteristics.getOutputDataItem());
-    assertEquals(0, ioSpecification.getXmlColumnNumber());
-    assertEquals(0, loopCharacteristics.getXmlColumnNumber());
-    assertEquals(0, ioSpecification.getXmlRowNumber());
-    assertEquals(0, loopCharacteristics.getXmlRowNumber());
     assertFalse(serviceTask.isExclusive());
-    assertFalse(loopCharacteristics.isSequential());
-    assertTrue(ioSpecification.getDataInputRefs().isEmpty());
-    assertTrue(ioSpecification.getDataInputs().isEmpty());
-    assertTrue(ioSpecification.getDataOutputRefs().isEmpty());
-    assertTrue(ioSpecification.getDataOutputs().isEmpty());
-    assertTrue(ioSpecification.getAttributes().isEmpty());
-    assertTrue(loopCharacteristics.getAttributes().isEmpty());
-    assertTrue(ioSpecification.getExtensionElements().isEmpty());
-    assertTrue(loopCharacteristics.getExtensionElements().isEmpty());
     assertTrue(serviceTask.hasMultiInstanceLoopCharacteristics());
     assertTrue(serviceTask.isForCompensation());
     assertTrue(serviceTask.isAsynchronous());
@@ -1250,37 +1216,23 @@ public class ServiceTaskDiffblueTest {
   /**
    * Test {@link ServiceTask#setValues(ServiceTask)} with {@code ServiceTask}.
    * <ul>
-   *   <li>When {@link ServiceTask} (default constructor) CustomProperties is
-   * {@code null}.</li>
+   *   <li>When {@link ServiceTask} (default constructor).</li>
    * </ul>
    * <p>
    * Method under test: {@link ServiceTask#setValues(ServiceTask)}
    */
   @Test
-  public void testSetValuesWithServiceTask_whenServiceTaskCustomPropertiesIsNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTask.setValues(ServiceTask)"})
+  public void testSetValuesWithServiceTask_whenServiceTask() {
     // Arrange
     ServiceTask serviceTask = new ServiceTask();
-
     ServiceTask otherElement = new ServiceTask();
-    otherElement.setFieldExtensions(null);
-    otherElement.setCustomProperties(null);
 
     // Act
     serviceTask.setValues(otherElement);
 
-    // Assert
-    assertNull(otherElement.getDefaultFlow());
-    assertNull(otherElement.getFailedJobRetryTimeCycleValue());
-    assertNull(otherElement.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
-    assertNull(otherElement.getExtensionId());
-    assertNull(otherElement.getImplementation());
-    assertNull(otherElement.getImplementationType());
-    assertNull(otherElement.getOperationRef());
-    assertNull(otherElement.getResultVariableName());
-    assertNull(otherElement.getSkipExpression());
-    assertNull(otherElement.getType());
+    // Assert that nothing has changed
     assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherElement.isForCompensation());
     assertFalse(otherElement.isAsynchronous());
@@ -1292,35 +1244,26 @@ public class ServiceTaskDiffblueTest {
   /**
    * Test {@link ServiceTask#setValues(ServiceTask)} with {@code ServiceTask}.
    * <ul>
-   *   <li>When {@link ServiceTask} (default constructor).</li>
-   *   <li>Then {@link ServiceTask} (default constructor) DefaultFlow is
-   * {@code null}.</li>
+   *   <li>When {@link ServiceTask} (default constructor) CustomProperties is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ServiceTask#setValues(ServiceTask)}
    */
   @Test
-  public void testSetValuesWithServiceTask_whenServiceTask_thenServiceTaskDefaultFlowIsNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTask.setValues(ServiceTask)"})
+  public void testSetValuesWithServiceTask_whenServiceTaskCustomPropertiesIsNull() {
     // Arrange
     ServiceTask serviceTask = new ServiceTask();
+
     ServiceTask otherElement = new ServiceTask();
+    otherElement.setFieldExtensions(null);
+    otherElement.setCustomProperties(null);
 
     // Act
     serviceTask.setValues(otherElement);
 
-    // Assert
-    assertNull(otherElement.getDefaultFlow());
-    assertNull(otherElement.getFailedJobRetryTimeCycleValue());
-    assertNull(otherElement.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
-    assertNull(otherElement.getExtensionId());
-    assertNull(otherElement.getImplementation());
-    assertNull(otherElement.getImplementationType());
-    assertNull(otherElement.getOperationRef());
-    assertNull(otherElement.getResultVariableName());
-    assertNull(otherElement.getSkipExpression());
-    assertNull(otherElement.getType());
+    // Assert that nothing has changed
     assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherElement.isForCompensation());
     assertFalse(otherElement.isAsynchronous());
@@ -1354,6 +1297,16 @@ public class ServiceTaskDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceTask.<init>()", "List ServiceTask.getCustomProperties()",
+      "String ServiceTask.getExtensionId()", "String ServiceTask.getImplementation()",
+      "String ServiceTask.getImplementationType()", "String ServiceTask.getOperationRef()",
+      "String ServiceTask.getResultVariableName()", "String ServiceTask.getSkipExpression()",
+      "String ServiceTask.getType()", "void ServiceTask.setCustomProperties(List)",
+      "void ServiceTask.setExtensionId(String)", "void ServiceTask.setImplementation(String)",
+      "void ServiceTask.setImplementationType(String)", "void ServiceTask.setOperationRef(String)",
+      "void ServiceTask.setResultVariableName(String)", "void ServiceTask.setSkipExpression(String)",
+      "void ServiceTask.setType(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ServiceTask actualServiceTask = new ServiceTask();
@@ -1374,7 +1327,7 @@ public class ServiceTaskDiffblueTest {
     String actualResultVariableName = actualServiceTask.getResultVariableName();
     String actualSkipExpression = actualServiceTask.getSkipExpression();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualExtensionId);
     assertEquals("Implementation Type", actualImplementationType);
     assertEquals("Implementation", actualImplementation);
@@ -1382,6 +1335,15 @@ public class ServiceTaskDiffblueTest {
     assertEquals("Result Variable Name", actualResultVariableName);
     assertEquals("Skip Expression", actualSkipExpression);
     assertEquals("Type", actualServiceTask.getType());
+    assertNull(actualServiceTask.getBehavior());
+    assertNull(actualServiceTask.getDefaultFlow());
+    assertNull(actualServiceTask.getFailedJobRetryTimeCycleValue());
+    assertNull(actualServiceTask.getId());
+    assertNull(actualServiceTask.getDocumentation());
+    assertNull(actualServiceTask.getName());
+    assertNull(actualServiceTask.getParentContainer());
+    assertNull(actualServiceTask.getIoSpecification());
+    assertNull(actualServiceTask.getLoopCharacteristics());
     assertEquals(0, actualServiceTask.getXmlColumnNumber());
     assertEquals(0, actualServiceTask.getXmlRowNumber());
     assertFalse(actualServiceTask.isForCompensation());

@@ -19,52 +19,26 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.persistence.entity.HistoricDetailVariableInstanceUpdateEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.mockito.Mockito;
+import org.junit.experimental.categories.Category;
 
 public class DoubleTypeDiffblueTest {
   /**
    * Test {@link DoubleType#getValue(ValueFields)}.
    * <ul>
-   *   <li>Given ten.</li>
-   *   <li>Then return doubleValue is ten.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DoubleType#getValue(ValueFields)}
-   */
-  @Test
-  public void testGetValue_givenTen_thenReturnDoubleValueIsTen() {
-    // Arrange
-    DoubleType doubleType = new DoubleType();
-    ValueFields valueFields = mock(ValueFields.class);
-    when(valueFields.getDoubleValue()).thenReturn(10.0d);
-
-    // Act
-    Object actualValue = doubleType.getValue(valueFields);
-
-    // Assert
-    verify(valueFields).getDoubleValue();
-    assertEquals(10.0d, ((Double) actualValue).doubleValue(), 0.0);
-  }
-
-  /**
-   * Test {@link DoubleType#getValue(ValueFields)}.
-   * <ul>
-   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default
-   * constructor).</li>
+   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor).</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link DoubleType#getValue(ValueFields)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object DoubleType.getValue(ValueFields)"})
   public void testGetValue_whenHistoricDetailVariableInstanceUpdateEntityImpl_thenReturnNull() {
     // Arrange
     DoubleType doubleType = new DoubleType();
@@ -79,6 +53,8 @@ public class DoubleTypeDiffblueTest {
    * Method under test: {@link DoubleType#setValue(Object, ValueFields)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DoubleType.setValue(Object, ValueFields)"})
   public void testSetValue() {
     // Arrange
     DoubleType doubleType = new DoubleType();
@@ -92,30 +68,6 @@ public class DoubleTypeDiffblueTest {
   }
 
   /**
-   * Test {@link DoubleType#setValue(Object, ValueFields)}.
-   * <ul>
-   *   <li>When {@link ValueFields} {@link ValueFields#setDoubleValue(Double)} does
-   * nothing.</li>
-   *   <li>Then calls {@link ValueFields#setDoubleValue(Double)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DoubleType#setValue(Object, ValueFields)}
-   */
-  @Test
-  public void testSetValue_whenValueFieldsSetDoubleValueDoesNothing_thenCallsSetDoubleValue() {
-    // Arrange
-    DoubleType doubleType = new DoubleType();
-    ValueFields valueFields = mock(ValueFields.class);
-    doNothing().when(valueFields).setDoubleValue(Mockito.<Double>any());
-
-    // Act
-    doubleType.setValue(10.0d, valueFields);
-
-    // Assert
-    verify(valueFields).setDoubleValue(eq(10.0d));
-  }
-
-  /**
    * Test {@link DoubleType#isAbleToStore(Object)}.
    * <ul>
    *   <li>When {@link JSONObject#NULL}.</li>
@@ -125,6 +77,8 @@ public class DoubleTypeDiffblueTest {
    * Method under test: {@link DoubleType#isAbleToStore(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean DoubleType.isAbleToStore(Object)"})
   public void testIsAbleToStore_whenNull_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new DoubleType()).isAbleToStore(JSONObject.NULL));
@@ -140,6 +94,8 @@ public class DoubleTypeDiffblueTest {
    * Method under test: {@link DoubleType#isAbleToStore(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean DoubleType.isAbleToStore(Object)"})
   public void testIsAbleToStore_whenNull_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue((new DoubleType()).isAbleToStore(null));
@@ -156,6 +112,8 @@ public class DoubleTypeDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DoubleType.<init>()", "String DoubleType.getTypeName()", "boolean DoubleType.isCachable()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     DoubleType actualDoubleType = new DoubleType();

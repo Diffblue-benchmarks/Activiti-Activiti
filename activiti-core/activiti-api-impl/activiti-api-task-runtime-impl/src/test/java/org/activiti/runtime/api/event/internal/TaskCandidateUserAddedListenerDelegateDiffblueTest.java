@@ -20,20 +20,19 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import org.activiti.api.task.runtime.events.TaskCandidateUserAddedEvent;
 import org.activiti.api.task.runtime.events.listener.TaskRuntimeEventListener;
-import org.activiti.engine.delegate.event.ActivitiEntityEvent;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.delegate.event.impl.ActivitiEntityEventImpl;
-import org.activiti.runtime.api.event.impl.TaskCandidateUserAddedEventImpl;
+import org.activiti.engine.impl.persistence.entity.IdentityLinkEntityImpl;
 import org.activiti.runtime.api.event.impl.ToAPITaskCandidateUserAddedEventConverter;
 import org.activiti.runtime.api.model.impl.APITaskCandidateUserConverter;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -43,13 +42,16 @@ class TaskCandidateUserAddedListenerDelegateDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link TaskCandidateUserAddedListenerDelegate#TaskCandidateUserAddedListenerDelegate(List, ToAPITaskCandidateUserAddedEventConverter)}
+   *   <li>{@link TaskCandidateUserAddedListenerDelegate#TaskCandidateUserAddedListenerDelegate(List, ToAPITaskCandidateUserAddedEventConverter)}
    *   <li>{@link TaskCandidateUserAddedListenerDelegate#isFailOnException()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void TaskCandidateUserAddedListenerDelegate.<init>(List, ToAPITaskCandidateUserAddedEventConverter)",
+      "boolean TaskCandidateUserAddedListenerDelegate.isFailOnException()"})
   void testGettersAndSetters() {
     // Arrange
     ArrayList<TaskRuntimeEventListener<TaskCandidateUserAddedEvent>> listeners = new ArrayList<>();
@@ -62,16 +64,16 @@ class TaskCandidateUserAddedListenerDelegateDiffblueTest {
   /**
    * Test {@link TaskCandidateUserAddedListenerDelegate#onEvent(ActivitiEvent)}.
    * <ul>
-   *   <li>Given {@link TaskRuntimeEventListener}
-   * {@link TaskRuntimeEventListener#onEvent(RuntimeEvent)} does nothing.</li>
+   *   <li>Given {@link TaskRuntimeEventListener} {@link TaskRuntimeEventListener#onEvent(RuntimeEvent)} does nothing.</li>
    *   <li>Then calls {@link TaskRuntimeEventListener#onEvent(RuntimeEvent)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskCandidateUserAddedListenerDelegate#onEvent(ActivitiEvent)}
+   * Method under test: {@link TaskCandidateUserAddedListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
   @DisplayName("Test onEvent(ActivitiEvent); given TaskRuntimeEventListener onEvent(RuntimeEvent) does nothing; then calls onEvent(RuntimeEvent)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskCandidateUserAddedListenerDelegate.onEvent(ActivitiEvent)"})
   void testOnEvent_givenTaskRuntimeEventListenerOnEventDoesNothing_thenCallsOnEvent() {
     // Arrange
     TaskRuntimeEventListener<TaskCandidateUserAddedEvent> taskRuntimeEventListener = mock(
@@ -80,46 +82,19 @@ class TaskCandidateUserAddedListenerDelegateDiffblueTest {
 
     ArrayList<TaskRuntimeEventListener<TaskCandidateUserAddedEvent>> listeners = new ArrayList<>();
     listeners.add(taskRuntimeEventListener);
-    ToAPITaskCandidateUserAddedEventConverter converter = mock(ToAPITaskCandidateUserAddedEventConverter.class);
-    Optional<TaskCandidateUserAddedEvent> ofResult = Optional.of(new TaskCandidateUserAddedEventImpl());
-    when(converter.from(Mockito.<ActivitiEntityEvent>any())).thenReturn(ofResult);
     TaskCandidateUserAddedListenerDelegate taskCandidateUserAddedListenerDelegate = new TaskCandidateUserAddedListenerDelegate(
-        listeners, converter);
+        listeners, new ToAPITaskCandidateUserAddedEventConverter(new APITaskCandidateUserConverter()));
+
+    IdentityLinkEntityImpl identityLinkEntityImpl = new IdentityLinkEntityImpl();
+    identityLinkEntityImpl.setType("candidate");
+    identityLinkEntityImpl.setTaskId("Entity");
+    identityLinkEntityImpl.setUserId("42");
 
     // Act
     taskCandidateUserAddedListenerDelegate
-        .onEvent(new ActivitiEntityEventImpl("Entity", ActivitiEventType.ENTITY_CREATED));
+        .onEvent(new ActivitiEntityEventImpl(identityLinkEntityImpl, ActivitiEventType.ENTITY_CREATED));
 
     // Assert
     verify(taskRuntimeEventListener).onEvent(isA(TaskCandidateUserAddedEvent.class));
-    verify(converter).from(isA(ActivitiEntityEvent.class));
-  }
-
-  /**
-   * Test {@link TaskCandidateUserAddedListenerDelegate#onEvent(ActivitiEvent)}.
-   * <ul>
-   *   <li>Then calls
-   * {@link ToAPITaskCandidateUserAddedEventConverter#from(ActivitiEntityEvent)}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link TaskCandidateUserAddedListenerDelegate#onEvent(ActivitiEvent)}
-   */
-  @Test
-  @DisplayName("Test onEvent(ActivitiEvent); then calls from(ActivitiEntityEvent)")
-  void testOnEvent_thenCallsFrom() {
-    // Arrange
-    ToAPITaskCandidateUserAddedEventConverter converter = mock(ToAPITaskCandidateUserAddedEventConverter.class);
-    Optional<TaskCandidateUserAddedEvent> ofResult = Optional.of(new TaskCandidateUserAddedEventImpl());
-    when(converter.from(Mockito.<ActivitiEntityEvent>any())).thenReturn(ofResult);
-    TaskCandidateUserAddedListenerDelegate taskCandidateUserAddedListenerDelegate = new TaskCandidateUserAddedListenerDelegate(
-        new ArrayList<>(), converter);
-
-    // Act
-    taskCandidateUserAddedListenerDelegate
-        .onEvent(new ActivitiEntityEventImpl("Entity", ActivitiEventType.ENTITY_CREATED));
-
-    // Assert that nothing has changed
-    verify(converter).from(isA(ActivitiEntityEvent.class));
   }
 }

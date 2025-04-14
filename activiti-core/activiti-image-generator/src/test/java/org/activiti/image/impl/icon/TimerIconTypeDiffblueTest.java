@@ -17,7 +17,9 @@ package org.activiti.image.impl.icon;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class TimerIconTypeDiffblueTest {
@@ -28,6 +30,8 @@ class TimerIconTypeDiffblueTest {
    */
   @Test
   @DisplayName("Test getWidth()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.lang.Integer TimerIconType.getWidth()"})
   void testGetWidth() {
     // Arrange, Act and Assert
     assertEquals(20, (new TimerIconType()).getWidth().intValue());
@@ -40,6 +44,8 @@ class TimerIconTypeDiffblueTest {
    */
   @Test
   @DisplayName("Test getHeight()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.lang.Integer TimerIconType.getHeight()"})
   void testGetHeight() {
     // Arrange, Act and Assert
     assertEquals(20, (new TimerIconType()).getHeight().intValue());
@@ -61,6 +67,11 @@ class TimerIconTypeDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TimerIconType.<init>()", "String TimerIconType.getAnchorValue()",
+      "String TimerIconType.getDValue()", "String TimerIconType.getFillValue()",
+      "String TimerIconType.getStrokeValue()", "String TimerIconType.getStrokeWidth()",
+      "String TimerIconType.getStyleValue()"})
   void testGettersAndSetters() {
     // Arrange and Act
     TimerIconType actualTimerIconType = new TimerIconType();

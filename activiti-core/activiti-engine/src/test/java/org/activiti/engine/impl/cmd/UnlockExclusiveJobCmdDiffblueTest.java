@@ -20,12 +20,15 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.impl.persistence.entity.DeadLetterJobEntityImpl;
 import org.activiti.engine.runtime.Job;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class UnlockExclusiveJobCmdDiffblueTest {
   /**
@@ -34,6 +37,8 @@ public class UnlockExclusiveJobCmdDiffblueTest {
    * Method under test: {@link UnlockExclusiveJobCmd#UnlockExclusiveJobCmd(Job)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UnlockExclusiveJobCmd.<init>(Job)"})
   public void testNewUnlockExclusiveJobCmd() {
     // Arrange, Act and Assert
     Job job = (new UnlockExclusiveJobCmd(new DeadLetterJobEntityImpl())).job;
@@ -71,28 +76,33 @@ public class UnlockExclusiveJobCmdDiffblueTest {
   /**
    * Test {@link UnlockExclusiveJobCmd#execute(CommandContext)}.
    * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link UnlockExclusiveJobCmd#execute(CommandContext)}
-   */
-  @Test
-  public void testExecute_thenReturnNull() {
-    // Arrange, Act and Assert
-    assertNull((new UnlockExclusiveJobCmd(new DeadLetterJobEntityImpl())).execute(null));
-  }
-
-  /**
-   * Test {@link UnlockExclusiveJobCmd#execute(CommandContext)}.
-   * <ul>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
    * Method under test: {@link UnlockExclusiveJobCmd#execute(CommandContext)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object UnlockExclusiveJobCmd.execute(CommandContext)"})
   public void testExecute_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> (new UnlockExclusiveJobCmd(null)).execute(null));
+  }
+
+  /**
+   * Test {@link UnlockExclusiveJobCmd#execute(CommandContext)}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link UnlockExclusiveJobCmd#execute(CommandContext)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object UnlockExclusiveJobCmd.execute(CommandContext)"})
+  public void testExecute_whenNull_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull((new UnlockExclusiveJobCmd(new DeadLetterJobEntityImpl())).execute(null));
   }
 }

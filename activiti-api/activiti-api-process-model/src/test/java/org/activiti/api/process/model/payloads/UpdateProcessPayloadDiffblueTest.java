@@ -17,7 +17,9 @@ package org.activiti.api.process.model.payloads;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class UpdateProcessPayloadDiffblueTest {
@@ -28,6 +30,8 @@ class UpdateProcessPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test new UpdateProcessPayload()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UpdateProcessPayload.<init>()"})
   void testNewUpdateProcessPayload() {
     // Arrange and Act
     UpdateProcessPayload actualUpdateProcessPayload = new UpdateProcessPayload();
@@ -40,14 +44,14 @@ class UpdateProcessPayloadDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link UpdateProcessPayload#UpdateProcessPayload(String, String, String, String)}.
+   * Test {@link UpdateProcessPayload#UpdateProcessPayload(String, String, String, String)}.
    * <p>
-   * Method under test:
-   * {@link UpdateProcessPayload#UpdateProcessPayload(String, String, String, String)}
+   * Method under test: {@link UpdateProcessPayload#UpdateProcessPayload(String, String, String, String)}
    */
   @Test
   @DisplayName("Test new UpdateProcessPayload(String, String, String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UpdateProcessPayload.<init>(String, String, String, String)"})
   void testNewUpdateProcessPayload2() {
     // Arrange and Act
     UpdateProcessPayload actualUpdateProcessPayload = new UpdateProcessPayload("42", "Name",
@@ -78,6 +82,12 @@ class UpdateProcessPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String UpdateProcessPayload.getBusinessKey()", "String UpdateProcessPayload.getDescription()",
+      "String UpdateProcessPayload.getId()", "String UpdateProcessPayload.getName()",
+      "String UpdateProcessPayload.getProcessInstanceId()", "void UpdateProcessPayload.setBusinessKey(String)",
+      "void UpdateProcessPayload.setDescription(String)", "void UpdateProcessPayload.setName(String)",
+      "void UpdateProcessPayload.setProcessInstanceId(String)"})
   void testGettersAndSetters() {
     // Arrange
     UpdateProcessPayload updateProcessPayload = new UpdateProcessPayload();
@@ -92,7 +102,7 @@ class UpdateProcessPayloadDiffblueTest {
     updateProcessPayload.getId();
     String actualName = updateProcessPayload.getName();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", updateProcessPayload.getProcessInstanceId());
     assertEquals("Business Key", actualBusinessKey);
     assertEquals("Name", actualName);

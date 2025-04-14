@@ -18,21 +18,25 @@ package org.activiti.api.runtime.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.BPMNMessage;
 import org.activiti.api.process.model.events.BPMNMessageEvent;
+import org.activiti.api.process.model.events.BPMNMessageEvent.MessageEvents;
 import org.activiti.api.runtime.model.impl.BPMNMessageImpl;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class BPMNMessageWaitingEventImplDiffblueTest {
   /**
    * Test {@link BPMNMessageWaitingEventImpl#BPMNMessageWaitingEventImpl()}.
    * <p>
-   * Method under test:
-   * {@link BPMNMessageWaitingEventImpl#BPMNMessageWaitingEventImpl()}
+   * Method under test: {@link BPMNMessageWaitingEventImpl#BPMNMessageWaitingEventImpl()}
    */
   @Test
   @DisplayName("Test new BPMNMessageWaitingEventImpl()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNMessageWaitingEventImpl.<init>()"})
   void testNewBPMNMessageWaitingEventImpl() {
     // Arrange and Act
     BPMNMessageWaitingEventImpl actualBpmnMessageWaitingEventImpl = new BPMNMessageWaitingEventImpl();
@@ -45,18 +49,18 @@ class BPMNMessageWaitingEventImplDiffblueTest {
     assertNull(actualBpmnMessageWaitingEventImpl.getProcessDefinitionKey());
     assertNull(actualBpmnMessageWaitingEventImpl.getProcessInstanceId());
     assertNull(actualBpmnMessageWaitingEventImpl.getEntity());
-    assertEquals(BPMNMessageEvent.MessageEvents.MESSAGE_WAITING, actualBpmnMessageWaitingEventImpl.getEventType());
+    assertEquals(MessageEvents.MESSAGE_WAITING, actualBpmnMessageWaitingEventImpl.getEventType());
   }
 
   /**
-   * Test
-   * {@link BPMNMessageWaitingEventImpl#BPMNMessageWaitingEventImpl(BPMNMessage)}.
+   * Test {@link BPMNMessageWaitingEventImpl#BPMNMessageWaitingEventImpl(BPMNMessage)}.
    * <p>
-   * Method under test:
-   * {@link BPMNMessageWaitingEventImpl#BPMNMessageWaitingEventImpl(BPMNMessage)}
+   * Method under test: {@link BPMNMessageWaitingEventImpl#BPMNMessageWaitingEventImpl(BPMNMessage)}
    */
   @Test
   @DisplayName("Test new BPMNMessageWaitingEventImpl(BPMNMessage)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNMessageWaitingEventImpl.<init>(BPMNMessage)"})
   void testNewBPMNMessageWaitingEventImpl2() {
     // Arrange
     BPMNMessageImpl entity = new BPMNMessageImpl("42");
@@ -71,7 +75,7 @@ class BPMNMessageWaitingEventImplDiffblueTest {
     assertNull(actualBpmnMessageWaitingEventImpl.getProcessDefinitionId());
     assertNull(actualBpmnMessageWaitingEventImpl.getProcessDefinitionKey());
     assertNull(actualBpmnMessageWaitingEventImpl.getProcessInstanceId());
-    assertEquals(BPMNMessageEvent.MessageEvents.MESSAGE_WAITING, actualBpmnMessageWaitingEventImpl.getEventType());
+    assertEquals(MessageEvents.MESSAGE_WAITING, actualBpmnMessageWaitingEventImpl.getEventType());
     assertSame(entity, actualBpmnMessageWaitingEventImpl.getEntity());
   }
 
@@ -82,8 +86,10 @@ class BPMNMessageWaitingEventImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getEventType()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BPMNMessageEvent.MessageEvents BPMNMessageWaitingEventImpl.getEventType()"})
   void testGetEventType() {
     // Arrange, Act and Assert
-    assertEquals(BPMNMessageEvent.MessageEvents.MESSAGE_WAITING, (new BPMNMessageWaitingEventImpl()).getEventType());
+    assertEquals(MessageEvents.MESSAGE_WAITING, (new BPMNMessageWaitingEventImpl()).getEventType());
   }
 }

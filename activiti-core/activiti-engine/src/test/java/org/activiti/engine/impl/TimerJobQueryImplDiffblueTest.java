@@ -21,26 +21,24 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class TimerJobQueryImplDiffblueTest {
-  @InjectMocks
-  private TimerJobQueryImpl timerJobQueryImpl;
-
   /**
    * Test {@link TimerJobQueryImpl#TimerJobQueryImpl()}.
    * <p>
    * Method under test: {@link TimerJobQueryImpl#TimerJobQueryImpl()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobQueryImpl.<init>()"})
   public void testNewTimerJobQueryImpl() {
     // Arrange and Act
     TimerJobQueryImpl actualTimerJobQueryImpl = new TimerJobQueryImpl();
@@ -84,14 +82,19 @@ public class TimerJobQueryImplDiffblueTest {
    * Test {@link TimerJobQueryImpl#jobId(String)}.
    * <ul>
    *   <li>When {@code 42}.</li>
-   *   <li>Then {@link TimerJobQueryImpl} Id is {@code 42}.</li>
+   *   <li>Then {@link TimerJobQueryImpl#TimerJobQueryImpl()} Id is {@code 42}.</li>
    * </ul>
    * <p>
    * Method under test: {@link TimerJobQueryImpl#jobId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.jobId(String)"})
   public void testJobId_when42_thenTimerJobQueryImplIdIs42() {
-    // Arrange and Act
+    // Arrange
+    TimerJobQueryImpl timerJobQueryImpl = new TimerJobQueryImpl();
+
+    // Act
     TimerJobQueryImpl actualJobIdResult = timerJobQueryImpl.jobId("42");
 
     // Assert
@@ -109,23 +112,30 @@ public class TimerJobQueryImplDiffblueTest {
    * Method under test: {@link TimerJobQueryImpl#jobId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.jobId(String)"})
   public void testJobId_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> timerJobQueryImpl.jobId(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new TimerJobQueryImpl()).jobId(null));
   }
 
   /**
    * Test {@link TimerJobQueryImpl#processInstanceId(String)}.
    * <ul>
    *   <li>When {@code 42}.</li>
-   *   <li>Then {@link TimerJobQueryImpl} ProcessInstanceId is {@code 42}.</li>
+   *   <li>Then {@link TimerJobQueryImpl#TimerJobQueryImpl()} ProcessInstanceId is {@code 42}.</li>
    * </ul>
    * <p>
    * Method under test: {@link TimerJobQueryImpl#processInstanceId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.processInstanceId(String)"})
   public void testProcessInstanceId_when42_thenTimerJobQueryImplProcessInstanceIdIs42() {
-    // Arrange and Act
+    // Arrange
+    TimerJobQueryImpl timerJobQueryImpl = new TimerJobQueryImpl();
+
+    // Act
     TimerJobQueryImpl actualProcessInstanceIdResult = timerJobQueryImpl.processInstanceId("42");
 
     // Assert
@@ -143,23 +153,30 @@ public class TimerJobQueryImplDiffblueTest {
    * Method under test: {@link TimerJobQueryImpl#processInstanceId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.processInstanceId(String)"})
   public void testProcessInstanceId_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> timerJobQueryImpl.processInstanceId(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new TimerJobQueryImpl()).processInstanceId(null));
   }
 
   /**
    * Test {@link TimerJobQueryImpl#processDefinitionId(String)}.
    * <ul>
    *   <li>When {@code 42}.</li>
-   *   <li>Then {@link TimerJobQueryImpl} ProcessDefinitionId is {@code 42}.</li>
+   *   <li>Then {@link TimerJobQueryImpl#TimerJobQueryImpl()} ProcessDefinitionId is {@code 42}.</li>
    * </ul>
    * <p>
    * Method under test: {@link TimerJobQueryImpl#processDefinitionId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.processDefinitionId(String)"})
   public void testProcessDefinitionId_when42_thenTimerJobQueryImplProcessDefinitionIdIs42() {
-    // Arrange and Act
+    // Arrange
+    TimerJobQueryImpl timerJobQueryImpl = new TimerJobQueryImpl();
+
+    // Act
     TimerJobQueryImpl actualProcessDefinitionIdResult = timerJobQueryImpl.processDefinitionId("42");
 
     // Assert
@@ -177,23 +194,30 @@ public class TimerJobQueryImplDiffblueTest {
    * Method under test: {@link TimerJobQueryImpl#processDefinitionId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.processDefinitionId(String)"})
   public void testProcessDefinitionId_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> timerJobQueryImpl.processDefinitionId(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new TimerJobQueryImpl()).processDefinitionId(null));
   }
 
   /**
    * Test {@link TimerJobQueryImpl#executionId(String)}.
    * <ul>
    *   <li>When {@code 42}.</li>
-   *   <li>Then {@link TimerJobQueryImpl} ExecutionId is {@code 42}.</li>
+   *   <li>Then {@link TimerJobQueryImpl#TimerJobQueryImpl()} ExecutionId is {@code 42}.</li>
    * </ul>
    * <p>
    * Method under test: {@link TimerJobQueryImpl#executionId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.executionId(String)"})
   public void testExecutionId_when42_thenTimerJobQueryImplExecutionIdIs42() {
-    // Arrange and Act
+    // Arrange
+    TimerJobQueryImpl timerJobQueryImpl = new TimerJobQueryImpl();
+
+    // Act
     TimerJobQueryImpl actualExecutionIdResult = timerJobQueryImpl.executionId("42");
 
     // Assert
@@ -211,9 +235,11 @@ public class TimerJobQueryImplDiffblueTest {
    * Method under test: {@link TimerJobQueryImpl#executionId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.executionId(String)"})
   public void testExecutionId_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> timerJobQueryImpl.executionId(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new TimerJobQueryImpl()).executionId(null));
   }
 
   /**
@@ -222,6 +248,8 @@ public class TimerJobQueryImplDiffblueTest {
    * Method under test: {@link TimerJobQueryImpl#executable()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.executable()"})
   public void testExecutable() {
     // Arrange
     TimerJobQueryImpl timerJobQueryImpl = new TimerJobQueryImpl();
@@ -240,6 +268,8 @@ public class TimerJobQueryImplDiffblueTest {
    * Method under test: {@link TimerJobQueryImpl#timers()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.timers()"})
   public void testTimers() {
     // Arrange
     TimerJobQueryImpl timerJobQueryImpl = new TimerJobQueryImpl();
@@ -258,6 +288,8 @@ public class TimerJobQueryImplDiffblueTest {
    * Method under test: {@link TimerJobQueryImpl#messages()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.messages()"})
   public void testMessages() {
     // Arrange
     TimerJobQueryImpl timerJobQueryImpl = new TimerJobQueryImpl();
@@ -279,6 +311,8 @@ public class TimerJobQueryImplDiffblueTest {
    * Method under test: {@link TimerJobQueryImpl#duedateHigherThan(Date)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.duedateHigherThan(Date)"})
   public void testDuedateHigherThan_thenReturnTimerJobQueryImpl() {
     // Arrange
     TimerJobQueryImpl timerJobQueryImpl = new TimerJobQueryImpl();
@@ -299,6 +333,8 @@ public class TimerJobQueryImplDiffblueTest {
    * Method under test: {@link TimerJobQueryImpl#duedateHigherThan(Date)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.duedateHigherThan(Date)"})
   public void testDuedateHigherThan_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> (new TimerJobQueryImpl()).duedateHigherThan(null));
@@ -313,6 +349,8 @@ public class TimerJobQueryImplDiffblueTest {
    * Method under test: {@link TimerJobQueryImpl#duedateLowerThan(Date)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.duedateLowerThan(Date)"})
   public void testDuedateLowerThan_thenReturnTimerJobQueryImpl() {
     // Arrange
     TimerJobQueryImpl timerJobQueryImpl = new TimerJobQueryImpl();
@@ -333,6 +371,8 @@ public class TimerJobQueryImplDiffblueTest {
    * Method under test: {@link TimerJobQueryImpl#duedateLowerThan(Date)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.duedateLowerThan(Date)"})
   public void testDuedateLowerThan_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> (new TimerJobQueryImpl()).duedateLowerThan(null));
@@ -347,6 +387,8 @@ public class TimerJobQueryImplDiffblueTest {
    * Method under test: {@link TimerJobQueryImpl#duedateHigherThen(Date)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.duedateHigherThen(Date)"})
   public void testDuedateHigherThen_thenReturnTimerJobQueryImpl() {
     // Arrange
     TimerJobQueryImpl timerJobQueryImpl = new TimerJobQueryImpl();
@@ -367,6 +409,8 @@ public class TimerJobQueryImplDiffblueTest {
    * Method under test: {@link TimerJobQueryImpl#duedateHigherThen(Date)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.duedateHigherThen(Date)"})
   public void testDuedateHigherThen_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> (new TimerJobQueryImpl()).duedateHigherThen(null));
@@ -381,6 +425,8 @@ public class TimerJobQueryImplDiffblueTest {
    * Method under test: {@link TimerJobQueryImpl#duedateHigherThenOrEquals(Date)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.duedateHigherThenOrEquals(Date)"})
   public void testDuedateHigherThenOrEquals_thenReturnTimerJobQueryImpl() {
     // Arrange
     TimerJobQueryImpl timerJobQueryImpl = new TimerJobQueryImpl();
@@ -401,6 +447,8 @@ public class TimerJobQueryImplDiffblueTest {
    * Method under test: {@link TimerJobQueryImpl#duedateHigherThenOrEquals(Date)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.duedateHigherThenOrEquals(Date)"})
   public void testDuedateHigherThenOrEquals_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
@@ -416,6 +464,8 @@ public class TimerJobQueryImplDiffblueTest {
    * Method under test: {@link TimerJobQueryImpl#duedateLowerThen(Date)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.duedateLowerThen(Date)"})
   public void testDuedateLowerThen_thenReturnTimerJobQueryImpl() {
     // Arrange
     TimerJobQueryImpl timerJobQueryImpl = new TimerJobQueryImpl();
@@ -436,6 +486,8 @@ public class TimerJobQueryImplDiffblueTest {
    * Method under test: {@link TimerJobQueryImpl#duedateLowerThen(Date)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.duedateLowerThen(Date)"})
   public void testDuedateLowerThen_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> (new TimerJobQueryImpl()).duedateLowerThen(null));
@@ -450,6 +502,8 @@ public class TimerJobQueryImplDiffblueTest {
    * Method under test: {@link TimerJobQueryImpl#duedateLowerThenOrEquals(Date)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.duedateLowerThenOrEquals(Date)"})
   public void testDuedateLowerThenOrEquals_thenReturnTimerJobQueryImpl() {
     // Arrange
     TimerJobQueryImpl timerJobQueryImpl = new TimerJobQueryImpl();
@@ -470,6 +524,8 @@ public class TimerJobQueryImplDiffblueTest {
    * Method under test: {@link TimerJobQueryImpl#duedateLowerThenOrEquals(Date)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.duedateLowerThenOrEquals(Date)"})
   public void testDuedateLowerThenOrEquals_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
@@ -482,6 +538,8 @@ public class TimerJobQueryImplDiffblueTest {
    * Method under test: {@link TimerJobQueryImpl#withException()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.withException()"})
   public void testWithException() {
     // Arrange
     TimerJobQueryImpl timerJobQueryImpl = new TimerJobQueryImpl();
@@ -497,15 +555,19 @@ public class TimerJobQueryImplDiffblueTest {
   /**
    * Test {@link TimerJobQueryImpl#exceptionMessage(String)}.
    * <ul>
-   *   <li>Then {@link TimerJobQueryImpl} ExceptionMessage is
-   * {@code Exception Message}.</li>
+   *   <li>Then {@link TimerJobQueryImpl#TimerJobQueryImpl()} ExceptionMessage is {@code Exception Message}.</li>
    * </ul>
    * <p>
    * Method under test: {@link TimerJobQueryImpl#exceptionMessage(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.exceptionMessage(String)"})
   public void testExceptionMessage_thenTimerJobQueryImplExceptionMessageIsExceptionMessage() {
-    // Arrange and Act
+    // Arrange
+    TimerJobQueryImpl timerJobQueryImpl = new TimerJobQueryImpl();
+
+    // Act
     TimerJobQueryImpl actualExceptionMessageResult = timerJobQueryImpl.exceptionMessage("Exception Message");
 
     // Assert
@@ -523,23 +585,30 @@ public class TimerJobQueryImplDiffblueTest {
    * Method under test: {@link TimerJobQueryImpl#exceptionMessage(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.exceptionMessage(String)"})
   public void testExceptionMessage_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> timerJobQueryImpl.exceptionMessage(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new TimerJobQueryImpl()).exceptionMessage(null));
   }
 
   /**
    * Test {@link TimerJobQueryImpl#jobTenantId(String)}.
    * <ul>
    *   <li>When {@code 42}.</li>
-   *   <li>Then {@link TimerJobQueryImpl} TenantId is {@code 42}.</li>
+   *   <li>Then {@link TimerJobQueryImpl#TimerJobQueryImpl()} TenantId is {@code 42}.</li>
    * </ul>
    * <p>
    * Method under test: {@link TimerJobQueryImpl#jobTenantId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.jobTenantId(String)"})
   public void testJobTenantId_when42_thenTimerJobQueryImplTenantIdIs42() {
-    // Arrange and Act
+    // Arrange
+    TimerJobQueryImpl timerJobQueryImpl = new TimerJobQueryImpl();
+
+    // Act
     TimerJobQueryImpl actualJobTenantIdResult = timerJobQueryImpl.jobTenantId("42");
 
     // Assert
@@ -557,23 +626,29 @@ public class TimerJobQueryImplDiffblueTest {
    * Method under test: {@link TimerJobQueryImpl#jobTenantId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.jobTenantId(String)"})
   public void testJobTenantId_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> timerJobQueryImpl.jobTenantId(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new TimerJobQueryImpl()).jobTenantId(null));
   }
 
   /**
    * Test {@link TimerJobQueryImpl#jobTenantIdLike(String)}.
    * <ul>
-   *   <li>Then {@link TimerJobQueryImpl} TenantIdLike is
-   * {@code Tenant Id Like}.</li>
+   *   <li>Then {@link TimerJobQueryImpl#TimerJobQueryImpl()} TenantIdLike is {@code Tenant Id Like}.</li>
    * </ul>
    * <p>
    * Method under test: {@link TimerJobQueryImpl#jobTenantIdLike(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.jobTenantIdLike(String)"})
   public void testJobTenantIdLike_thenTimerJobQueryImplTenantIdLikeIsTenantIdLike() {
-    // Arrange and Act
+    // Arrange
+    TimerJobQueryImpl timerJobQueryImpl = new TimerJobQueryImpl();
+
+    // Act
     TimerJobQueryImpl actualJobTenantIdLikeResult = timerJobQueryImpl.jobTenantIdLike("Tenant Id Like");
 
     // Assert
@@ -591,9 +666,11 @@ public class TimerJobQueryImplDiffblueTest {
    * Method under test: {@link TimerJobQueryImpl#jobTenantIdLike(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.jobTenantIdLike(String)"})
   public void testJobTenantIdLike_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> timerJobQueryImpl.jobTenantIdLike(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new TimerJobQueryImpl()).jobTenantIdLike(null));
   }
 
   /**
@@ -602,6 +679,8 @@ public class TimerJobQueryImplDiffblueTest {
    * Method under test: {@link TimerJobQueryImpl#jobWithoutTenantId()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobQueryImpl TimerJobQueryImpl.jobWithoutTenantId()"})
   public void testJobWithoutTenantId() {
     // Arrange
     TimerJobQueryImpl timerJobQueryImpl = new TimerJobQueryImpl();

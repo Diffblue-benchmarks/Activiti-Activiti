@@ -23,6 +23,7 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -38,6 +39,7 @@ import org.activiti.bpmn.model.Signal;
 import org.activiti.bpmn.model.Transaction;
 import org.activiti.validation.ValidationError;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -45,11 +47,12 @@ class EndEventValidatorDiffblueTest {
   /**
    * Test {@link EndEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <p>
-   * Method under test:
-   * {@link EndEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EndEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EndEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation() {
     // Arrange
     EndEventValidator endEventValidator = new EndEventValidator();
@@ -100,16 +103,16 @@ class EndEventValidatorDiffblueTest {
   /**
    * Test {@link EndEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link EndEvent} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link EndEvent} (default constructor).</li>
    *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EndEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EndEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList() add EndEvent (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EndEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenArrayListAddEndEvent_thenArrayListEmpty() {
     // Arrange
     EndEventValidator endEventValidator = new EndEventValidator();
@@ -142,11 +145,12 @@ class EndEventValidatorDiffblueTest {
    *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EndEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EndEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList(); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EndEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenArrayList_thenArrayListEmpty() {
     // Arrange
     EndEventValidator endEventValidator = new EndEventValidator();
@@ -172,16 +176,16 @@ class EndEventValidatorDiffblueTest {
   /**
    * Test {@link EndEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link EndEvent} (default constructor) addEventDefinition
-   * {@code null}.</li>
+   *   <li>Given {@link EndEvent} (default constructor) addEventDefinition {@code null}.</li>
    *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EndEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EndEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given EndEvent (default constructor) addEventDefinition 'null'; then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EndEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenEndEventAddEventDefinitionNull_thenArrayListEmpty() {
     // Arrange
     EndEventValidator endEventValidator = new EndEventValidator();
@@ -214,15 +218,15 @@ class EndEventValidatorDiffblueTest {
    * Test {@link EndEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
    *   <li>Given {@link Transaction} (default constructor).</li>
-   *   <li>When {@link Process} {@link Process#findParent(FlowElement)} return
-   * {@link Transaction} (default constructor).</li>
+   *   <li>When {@link Process} {@link Process#findParent(FlowElement)} return {@link Transaction} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EndEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EndEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given Transaction (default constructor); when Process findParent(FlowElement) return Transaction (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EndEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenTransaction_whenProcessFindParentReturnTransaction() {
     // Arrange
     EndEventValidator endEventValidator = new EndEventValidator();
@@ -259,11 +263,12 @@ class EndEventValidatorDiffblueTest {
    *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EndEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EndEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityId is '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EndEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListFirstActivityIdIs42() {
     // Arrange
     EndEventValidator endEventValidator = new EndEventValidator();
@@ -321,11 +326,12 @@ class EndEventValidatorDiffblueTest {
    *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EndEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EndEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EndEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListSizeIsTwo() {
     // Arrange
     EndEventValidator endEventValidator = new EndEventValidator();
@@ -395,41 +401,16 @@ class EndEventValidatorDiffblueTest {
   /**
    * Test {@link EndEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>When {@link BpmnModel}.</li>
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link EndEventValidator#executeValidation(BpmnModel, Process, List)}
-   */
-  @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); when BpmnModel; then ArrayList() Empty")
-  void testExecuteValidation_whenBpmnModel_thenArrayListEmpty() {
-    // Arrange
-    EndEventValidator endEventValidator = new EndEventValidator();
-    BpmnModel bpmnModel = mock(BpmnModel.class);
-    Process process = new Process();
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    endEventValidator.executeValidation(bpmnModel, process, errors);
-
-    // Assert that nothing has changed
-    assertTrue(errors.isEmpty());
-  }
-
-  /**
-   * Test {@link EndEventValidator#executeValidation(BpmnModel, Process, List)}.
-   * <ul>
    *   <li>When {@link Process} (default constructor).</li>
    *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EndEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EndEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); when Process (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EndEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_whenProcess_thenArrayListEmpty() {
     // Arrange
     EndEventValidator endEventValidator = new EndEventValidator();

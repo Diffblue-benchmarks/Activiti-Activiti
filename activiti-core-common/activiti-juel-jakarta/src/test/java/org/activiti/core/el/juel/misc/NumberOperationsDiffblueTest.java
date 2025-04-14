@@ -22,10 +22,12 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -35,24 +37,26 @@ class NumberOperationsDiffblueTest {
    * <ul>
    *   <li>Given one.</li>
    *   <li>When {@code null}.</li>
-   *   <li>Then calls {@link TypeConverter#convert(Object, Class)}.</li>
+   *   <li>Then return longValue is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#add(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#add(TypeConverter, Object, Object)}
    */
   @Test
-  @DisplayName("Test add(TypeConverter, Object, Object); given one; when 'null'; then calls convert(Object, Class)")
-  void testAdd_givenOne_whenNull_thenCallsConvert() throws ELException {
+  @DisplayName("Test add(TypeConverter, Object, Object); given one; when 'null'; then return longValue is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.add(TypeConverter, Object, Object)"})
+  void testAdd_givenOne_whenNull_thenReturnLongValueIsTwo() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     when(converter.convert(Mockito.<Object>any(), Mockito.<Class<Long>>any())).thenReturn(1L);
 
     // Act
-    NumberOperations.add(converter, null, "O2");
+    Number actualAddResult = NumberOperations.add(converter, null, "O2");
 
     // Assert
     verify(converter, atLeast(1)).convert(Mockito.<Object>any(), isA(Class.class));
+    assertEquals(2L, actualAddResult.longValue());
   }
 
   /**
@@ -60,50 +64,53 @@ class NumberOperationsDiffblueTest {
    * <ul>
    *   <li>Given one.</li>
    *   <li>When one.</li>
-   *   <li>Then calls {@link TypeConverter#convert(Object, Class)}.</li>
+   *   <li>Then return longValue is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#add(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#add(TypeConverter, Object, Object)}
    */
   @Test
-  @DisplayName("Test add(TypeConverter, Object, Object); given one; when one; then calls convert(Object, Class)")
-  void testAdd_givenOne_whenOne_thenCallsConvert() throws ELException {
+  @DisplayName("Test add(TypeConverter, Object, Object); given one; when one; then return longValue is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.add(TypeConverter, Object, Object)"})
+  void testAdd_givenOne_whenOne_thenReturnLongValueIsTwo() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     when(converter.convert(Mockito.<Object>any(), Mockito.<Class<Long>>any())).thenReturn(1L);
 
     // Act
-    NumberOperations.add(converter, 1L, "O2");
+    Number actualAddResult = NumberOperations.add(converter, 1L, "O2");
 
     // Assert
     verify(converter, atLeast(1)).convert(Mockito.<Object>any(), isA(Class.class));
+    assertEquals(2L, actualAddResult.longValue());
   }
 
   /**
    * Test {@link NumberOperations#add(TypeConverter, Object, Object)}.
    * <ul>
    *   <li>Given one.</li>
-   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)}
-   * return one.</li>
-   *   <li>Then calls {@link TypeConverter#convert(Object, Class)}.</li>
+   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)} return one.</li>
+   *   <li>Then return longValue is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#add(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#add(TypeConverter, Object, Object)}
    */
   @Test
-  @DisplayName("Test add(TypeConverter, Object, Object); given one; when TypeConverter convert(Object, Class) return one; then calls convert(Object, Class)")
-  void testAdd_givenOne_whenTypeConverterConvertReturnOne_thenCallsConvert() throws ELException {
+  @DisplayName("Test add(TypeConverter, Object, Object); given one; when TypeConverter convert(Object, Class) return one; then return longValue is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.add(TypeConverter, Object, Object)"})
+  void testAdd_givenOne_whenTypeConverterConvertReturnOne_thenReturnLongValueIsTwo() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     when(converter.convert(Mockito.<Object>any(), Mockito.<Class<Long>>any())).thenReturn(1L);
 
     // Act
-    NumberOperations.add(converter, "O1", "O2");
+    Number actualAddResult = NumberOperations.add(converter, "O1", "O2");
 
     // Assert
     verify(converter, atLeast(1)).convert(Mockito.<Object>any(), isA(Class.class));
+    assertEquals(2L, actualAddResult.longValue());
   }
 
   /**
@@ -113,11 +120,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#add(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#add(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test add(TypeConverter, Object, Object); when BigDecimal(String) with '2.3'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.add(TypeConverter, Object, Object)"})
   void testAdd_whenBigDecimalWith23_thenThrowELException() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -136,11 +144,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#add(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#add(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test add(TypeConverter, Object, Object); when BigDecimal(String) with '2.3'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.add(TypeConverter, Object, Object)"})
   void testAdd_whenBigDecimalWith23_thenThrowELException2() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -159,11 +168,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#add(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#add(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test add(TypeConverter, Object, Object); when 'java.lang.Byte'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.add(TypeConverter, Object, Object)"})
   void testAdd_whenJavaLangByte_thenThrowELException() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -182,11 +192,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#add(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#add(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test add(TypeConverter, Object, Object); when 'O1'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.add(TypeConverter, Object, Object)"})
   void testAdd_whenO1_thenThrowELException() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -205,11 +216,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#add(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#add(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test add(TypeConverter, Object, Object); when ten; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.add(TypeConverter, Object, Object)"})
   void testAdd_whenTen_thenThrowELException() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -228,11 +240,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#add(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#add(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test add(TypeConverter, Object, Object); when ten; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.add(TypeConverter, Object, Object)"})
   void testAdd_whenTen_thenThrowELException2() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -251,11 +264,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#add(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#add(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test add(TypeConverter, Object, Object); when ten; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.add(TypeConverter, Object, Object)"})
   void testAdd_whenTen_thenThrowELException3() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -270,15 +284,34 @@ class NumberOperationsDiffblueTest {
   /**
    * Test {@link NumberOperations#add(TypeConverter, Object, Object)}.
    * <ul>
+   *   <li>When {@link TypeConverter}.</li>
+   *   <li>Then return longValue is zero.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link NumberOperations#add(TypeConverter, Object, Object)}
+   */
+  @Test
+  @DisplayName("Test add(TypeConverter, Object, Object); when TypeConverter; then return longValue is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.add(TypeConverter, Object, Object)"})
+  void testAdd_whenTypeConverter_thenReturnLongValueIsZero() {
+    // Arrange, Act and Assert
+    assertEquals(0L, NumberOperations.add(mock(TypeConverter.class), null, null).longValue());
+  }
+
+  /**
+   * Test {@link NumberOperations#add(TypeConverter, Object, Object)}.
+   * <ul>
    *   <li>When valueOf one.</li>
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#add(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#add(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test add(TypeConverter, Object, Object); when valueOf one; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.add(TypeConverter, Object, Object)"})
   void testAdd_whenValueOfOne_thenThrowELException() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -297,11 +330,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#add(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#add(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test add(TypeConverter, Object, Object); when valueOf one; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.add(TypeConverter, Object, Object)"})
   void testAdd_whenValueOfOne_thenThrowELException2() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -318,24 +352,26 @@ class NumberOperationsDiffblueTest {
    * <ul>
    *   <li>Given one.</li>
    *   <li>When {@code null}.</li>
-   *   <li>Then calls {@link TypeConverter#convert(Object, Class)}.</li>
+   *   <li>Then return longValue is zero.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#sub(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#sub(TypeConverter, Object, Object)}
    */
   @Test
-  @DisplayName("Test sub(TypeConverter, Object, Object); given one; when 'null'; then calls convert(Object, Class)")
-  void testSub_givenOne_whenNull_thenCallsConvert() throws ELException {
+  @DisplayName("Test sub(TypeConverter, Object, Object); given one; when 'null'; then return longValue is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.sub(TypeConverter, Object, Object)"})
+  void testSub_givenOne_whenNull_thenReturnLongValueIsZero() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     when(converter.convert(Mockito.<Object>any(), Mockito.<Class<Long>>any())).thenReturn(1L);
 
     // Act
-    NumberOperations.sub(converter, null, "O2");
+    Number actualSubResult = NumberOperations.sub(converter, null, "O2");
 
     // Assert
     verify(converter, atLeast(1)).convert(Mockito.<Object>any(), isA(Class.class));
+    assertEquals(0L, actualSubResult.longValue());
   }
 
   /**
@@ -343,50 +379,53 @@ class NumberOperationsDiffblueTest {
    * <ul>
    *   <li>Given one.</li>
    *   <li>When one.</li>
-   *   <li>Then calls {@link TypeConverter#convert(Object, Class)}.</li>
+   *   <li>Then return longValue is zero.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#sub(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#sub(TypeConverter, Object, Object)}
    */
   @Test
-  @DisplayName("Test sub(TypeConverter, Object, Object); given one; when one; then calls convert(Object, Class)")
-  void testSub_givenOne_whenOne_thenCallsConvert() throws ELException {
+  @DisplayName("Test sub(TypeConverter, Object, Object); given one; when one; then return longValue is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.sub(TypeConverter, Object, Object)"})
+  void testSub_givenOne_whenOne_thenReturnLongValueIsZero() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     when(converter.convert(Mockito.<Object>any(), Mockito.<Class<Long>>any())).thenReturn(1L);
 
     // Act
-    NumberOperations.sub(converter, 1L, "O2");
+    Number actualSubResult = NumberOperations.sub(converter, 1L, "O2");
 
     // Assert
     verify(converter, atLeast(1)).convert(Mockito.<Object>any(), isA(Class.class));
+    assertEquals(0L, actualSubResult.longValue());
   }
 
   /**
    * Test {@link NumberOperations#sub(TypeConverter, Object, Object)}.
    * <ul>
    *   <li>Given one.</li>
-   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)}
-   * return one.</li>
-   *   <li>Then calls {@link TypeConverter#convert(Object, Class)}.</li>
+   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)} return one.</li>
+   *   <li>Then return longValue is zero.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#sub(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#sub(TypeConverter, Object, Object)}
    */
   @Test
-  @DisplayName("Test sub(TypeConverter, Object, Object); given one; when TypeConverter convert(Object, Class) return one; then calls convert(Object, Class)")
-  void testSub_givenOne_whenTypeConverterConvertReturnOne_thenCallsConvert() throws ELException {
+  @DisplayName("Test sub(TypeConverter, Object, Object); given one; when TypeConverter convert(Object, Class) return one; then return longValue is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.sub(TypeConverter, Object, Object)"})
+  void testSub_givenOne_whenTypeConverterConvertReturnOne_thenReturnLongValueIsZero() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     when(converter.convert(Mockito.<Object>any(), Mockito.<Class<Long>>any())).thenReturn(1L);
 
     // Act
-    NumberOperations.sub(converter, "O1", "O2");
+    Number actualSubResult = NumberOperations.sub(converter, "O1", "O2");
 
     // Assert
     verify(converter, atLeast(1)).convert(Mockito.<Object>any(), isA(Class.class));
+    assertEquals(0L, actualSubResult.longValue());
   }
 
   /**
@@ -396,11 +435,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#sub(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#sub(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test sub(TypeConverter, Object, Object); when BigDecimal(String) with '2.3'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.sub(TypeConverter, Object, Object)"})
   void testSub_whenBigDecimalWith23_thenThrowELException() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -419,11 +459,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#sub(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#sub(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test sub(TypeConverter, Object, Object); when BigDecimal(String) with '2.3'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.sub(TypeConverter, Object, Object)"})
   void testSub_whenBigDecimalWith23_thenThrowELException2() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -442,11 +483,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#sub(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#sub(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test sub(TypeConverter, Object, Object); when 'java.lang.Byte'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.sub(TypeConverter, Object, Object)"})
   void testSub_whenJavaLangByte_thenThrowELException() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -465,11 +507,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#sub(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#sub(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test sub(TypeConverter, Object, Object); when 'O1'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.sub(TypeConverter, Object, Object)"})
   void testSub_whenO1_thenThrowELException() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -488,11 +531,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#sub(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#sub(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test sub(TypeConverter, Object, Object); when ten; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.sub(TypeConverter, Object, Object)"})
   void testSub_whenTen_thenThrowELException() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -511,11 +555,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#sub(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#sub(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test sub(TypeConverter, Object, Object); when ten; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.sub(TypeConverter, Object, Object)"})
   void testSub_whenTen_thenThrowELException2() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -534,11 +579,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#sub(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#sub(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test sub(TypeConverter, Object, Object); when ten; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.sub(TypeConverter, Object, Object)"})
   void testSub_whenTen_thenThrowELException3() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -553,15 +599,34 @@ class NumberOperationsDiffblueTest {
   /**
    * Test {@link NumberOperations#sub(TypeConverter, Object, Object)}.
    * <ul>
+   *   <li>When {@link TypeConverter}.</li>
+   *   <li>Then return longValue is zero.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link NumberOperations#sub(TypeConverter, Object, Object)}
+   */
+  @Test
+  @DisplayName("Test sub(TypeConverter, Object, Object); when TypeConverter; then return longValue is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.sub(TypeConverter, Object, Object)"})
+  void testSub_whenTypeConverter_thenReturnLongValueIsZero() {
+    // Arrange, Act and Assert
+    assertEquals(0L, NumberOperations.sub(mock(TypeConverter.class), null, null).longValue());
+  }
+
+  /**
+   * Test {@link NumberOperations#sub(TypeConverter, Object, Object)}.
+   * <ul>
    *   <li>When valueOf one.</li>
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#sub(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#sub(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test sub(TypeConverter, Object, Object); when valueOf one; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.sub(TypeConverter, Object, Object)"})
   void testSub_whenValueOfOne_thenThrowELException() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -580,11 +645,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#sub(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#sub(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test sub(TypeConverter, Object, Object); when valueOf one; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.sub(TypeConverter, Object, Object)"})
   void testSub_whenValueOfOne_thenThrowELException2() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -601,24 +667,26 @@ class NumberOperationsDiffblueTest {
    * <ul>
    *   <li>Given one.</li>
    *   <li>When {@code null}.</li>
-   *   <li>Then calls {@link TypeConverter#convert(Object, Class)}.</li>
+   *   <li>Then return longValue is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#mul(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#mul(TypeConverter, Object, Object)}
    */
   @Test
-  @DisplayName("Test mul(TypeConverter, Object, Object); given one; when 'null'; then calls convert(Object, Class)")
-  void testMul_givenOne_whenNull_thenCallsConvert() throws ELException {
+  @DisplayName("Test mul(TypeConverter, Object, Object); given one; when 'null'; then return longValue is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.mul(TypeConverter, Object, Object)"})
+  void testMul_givenOne_whenNull_thenReturnLongValueIsOne() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     when(converter.convert(Mockito.<Object>any(), Mockito.<Class<Long>>any())).thenReturn(1L);
 
     // Act
-    NumberOperations.mul(converter, null, "O2");
+    Number actualMulResult = NumberOperations.mul(converter, null, "O2");
 
     // Assert
     verify(converter, atLeast(1)).convert(Mockito.<Object>any(), isA(Class.class));
+    assertEquals(1L, actualMulResult.longValue());
   }
 
   /**
@@ -626,50 +694,53 @@ class NumberOperationsDiffblueTest {
    * <ul>
    *   <li>Given one.</li>
    *   <li>When one.</li>
-   *   <li>Then calls {@link TypeConverter#convert(Object, Class)}.</li>
+   *   <li>Then return longValue is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#mul(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#mul(TypeConverter, Object, Object)}
    */
   @Test
-  @DisplayName("Test mul(TypeConverter, Object, Object); given one; when one; then calls convert(Object, Class)")
-  void testMul_givenOne_whenOne_thenCallsConvert() throws ELException {
+  @DisplayName("Test mul(TypeConverter, Object, Object); given one; when one; then return longValue is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.mul(TypeConverter, Object, Object)"})
+  void testMul_givenOne_whenOne_thenReturnLongValueIsOne() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     when(converter.convert(Mockito.<Object>any(), Mockito.<Class<Long>>any())).thenReturn(1L);
 
     // Act
-    NumberOperations.mul(converter, 1L, "O2");
+    Number actualMulResult = NumberOperations.mul(converter, 1L, "O2");
 
     // Assert
     verify(converter, atLeast(1)).convert(Mockito.<Object>any(), isA(Class.class));
+    assertEquals(1L, actualMulResult.longValue());
   }
 
   /**
    * Test {@link NumberOperations#mul(TypeConverter, Object, Object)}.
    * <ul>
    *   <li>Given one.</li>
-   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)}
-   * return one.</li>
-   *   <li>Then calls {@link TypeConverter#convert(Object, Class)}.</li>
+   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)} return one.</li>
+   *   <li>Then return longValue is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#mul(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#mul(TypeConverter, Object, Object)}
    */
   @Test
-  @DisplayName("Test mul(TypeConverter, Object, Object); given one; when TypeConverter convert(Object, Class) return one; then calls convert(Object, Class)")
-  void testMul_givenOne_whenTypeConverterConvertReturnOne_thenCallsConvert() throws ELException {
+  @DisplayName("Test mul(TypeConverter, Object, Object); given one; when TypeConverter convert(Object, Class) return one; then return longValue is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.mul(TypeConverter, Object, Object)"})
+  void testMul_givenOne_whenTypeConverterConvertReturnOne_thenReturnLongValueIsOne() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     when(converter.convert(Mockito.<Object>any(), Mockito.<Class<Long>>any())).thenReturn(1L);
 
     // Act
-    NumberOperations.mul(converter, "O1", "O2");
+    Number actualMulResult = NumberOperations.mul(converter, "O1", "O2");
 
     // Assert
     verify(converter, atLeast(1)).convert(Mockito.<Object>any(), isA(Class.class));
+    assertEquals(1L, actualMulResult.longValue());
   }
 
   /**
@@ -679,11 +750,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#mul(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#mul(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test mul(TypeConverter, Object, Object); when BigDecimal(String) with '2.3'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.mul(TypeConverter, Object, Object)"})
   void testMul_whenBigDecimalWith23_thenThrowELException() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -702,11 +774,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#mul(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#mul(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test mul(TypeConverter, Object, Object); when BigDecimal(String) with '2.3'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.mul(TypeConverter, Object, Object)"})
   void testMul_whenBigDecimalWith23_thenThrowELException2() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -725,11 +798,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#mul(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#mul(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test mul(TypeConverter, Object, Object); when 'java.lang.Byte'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.mul(TypeConverter, Object, Object)"})
   void testMul_whenJavaLangByte_thenThrowELException() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -748,11 +822,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#mul(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#mul(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test mul(TypeConverter, Object, Object); when 'O1'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.mul(TypeConverter, Object, Object)"})
   void testMul_whenO1_thenThrowELException() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -771,11 +846,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#mul(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#mul(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test mul(TypeConverter, Object, Object); when ten; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.mul(TypeConverter, Object, Object)"})
   void testMul_whenTen_thenThrowELException() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -794,11 +870,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#mul(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#mul(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test mul(TypeConverter, Object, Object); when ten; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.mul(TypeConverter, Object, Object)"})
   void testMul_whenTen_thenThrowELException2() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -817,11 +894,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#mul(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#mul(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test mul(TypeConverter, Object, Object); when ten; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.mul(TypeConverter, Object, Object)"})
   void testMul_whenTen_thenThrowELException3() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -836,15 +914,34 @@ class NumberOperationsDiffblueTest {
   /**
    * Test {@link NumberOperations#mul(TypeConverter, Object, Object)}.
    * <ul>
+   *   <li>When {@link TypeConverter}.</li>
+   *   <li>Then return longValue is zero.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link NumberOperations#mul(TypeConverter, Object, Object)}
+   */
+  @Test
+  @DisplayName("Test mul(TypeConverter, Object, Object); when TypeConverter; then return longValue is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.mul(TypeConverter, Object, Object)"})
+  void testMul_whenTypeConverter_thenReturnLongValueIsZero() {
+    // Arrange, Act and Assert
+    assertEquals(0L, NumberOperations.mul(mock(TypeConverter.class), null, null).longValue());
+  }
+
+  /**
+   * Test {@link NumberOperations#mul(TypeConverter, Object, Object)}.
+   * <ul>
    *   <li>When valueOf one.</li>
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#mul(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#mul(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test mul(TypeConverter, Object, Object); when valueOf one; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.mul(TypeConverter, Object, Object)"})
   void testMul_whenValueOfOne_thenThrowELException() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -863,11 +960,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#mul(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#mul(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test mul(TypeConverter, Object, Object); when valueOf one; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.mul(TypeConverter, Object, Object)"})
   void testMul_whenValueOfOne_thenThrowELException2() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -882,16 +980,16 @@ class NumberOperationsDiffblueTest {
   /**
    * Test {@link NumberOperations#div(TypeConverter, Object, Object)}.
    * <ul>
-   *   <li>Given {@link ELException#ELException(String)} with pMessage is
-   * {@code An error occurred}.</li>
+   *   <li>Given {@link ELException#ELException(String)} with pMessage is {@code An error occurred}.</li>
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#div(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#div(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test div(TypeConverter, Object, Object); given ELException(String) with pMessage is 'An error occurred'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.div(TypeConverter, Object, Object)"})
   void testDiv_givenELExceptionWithPMessageIsAnErrorOccurred_thenThrowELException() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -907,16 +1005,16 @@ class NumberOperationsDiffblueTest {
    * Test {@link NumberOperations#div(TypeConverter, Object, Object)}.
    * <ul>
    *   <li>Given ten.</li>
-   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)}
-   * return ten.</li>
+   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)} return ten.</li>
    *   <li>Then return doubleValue is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#div(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#div(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test div(TypeConverter, Object, Object); given ten; when TypeConverter convert(Object, Class) return ten; then return doubleValue is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.div(TypeConverter, Object, Object)"})
   void testDiv_givenTen_whenTypeConverterConvertReturnTen_thenReturnDoubleValueIsOne() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -934,16 +1032,16 @@ class NumberOperationsDiffblueTest {
    * Test {@link NumberOperations#div(TypeConverter, Object, Object)}.
    * <ul>
    *   <li>Given ten.</li>
-   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)}
-   * return ten.</li>
+   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)} return ten.</li>
    *   <li>Then return doubleValue is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#div(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#div(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test div(TypeConverter, Object, Object); given ten; when TypeConverter convert(Object, Class) return ten; then return doubleValue is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.div(TypeConverter, Object, Object)"})
   void testDiv_givenTen_whenTypeConverterConvertReturnTen_thenReturnDoubleValueIsOne2() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -964,11 +1062,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#div(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#div(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test div(TypeConverter, Object, Object); when BigDecimal(String) with '2.3'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.div(TypeConverter, Object, Object)"})
   void testDiv_whenBigDecimalWith23_thenThrowELException() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -987,11 +1086,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#div(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#div(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test div(TypeConverter, Object, Object); when BigDecimal(String) with '2.3'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.div(TypeConverter, Object, Object)"})
   void testDiv_whenBigDecimalWith23_thenThrowELException2() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -1006,15 +1106,34 @@ class NumberOperationsDiffblueTest {
   /**
    * Test {@link NumberOperations#div(TypeConverter, Object, Object)}.
    * <ul>
+   *   <li>When {@link TypeConverter}.</li>
+   *   <li>Then return longValue is zero.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link NumberOperations#div(TypeConverter, Object, Object)}
+   */
+  @Test
+  @DisplayName("Test div(TypeConverter, Object, Object); when TypeConverter; then return longValue is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.div(TypeConverter, Object, Object)"})
+  void testDiv_whenTypeConverter_thenReturnLongValueIsZero() {
+    // Arrange, Act and Assert
+    assertEquals(0L, NumberOperations.div(mock(TypeConverter.class), null, null).longValue());
+  }
+
+  /**
+   * Test {@link NumberOperations#div(TypeConverter, Object, Object)}.
+   * <ul>
    *   <li>When valueOf two.</li>
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#div(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#div(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test div(TypeConverter, Object, Object); when valueOf two; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.div(TypeConverter, Object, Object)"})
   void testDiv_whenValueOfTwo_thenThrowELException() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -1031,24 +1150,26 @@ class NumberOperationsDiffblueTest {
    * <ul>
    *   <li>Given one.</li>
    *   <li>When {@code null}.</li>
-   *   <li>Then calls {@link TypeConverter#convert(Object, Class)}.</li>
+   *   <li>Then return longValue is zero.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#mod(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#mod(TypeConverter, Object, Object)}
    */
   @Test
-  @DisplayName("Test mod(TypeConverter, Object, Object); given one; when 'null'; then calls convert(Object, Class)")
-  void testMod_givenOne_whenNull_thenCallsConvert() throws ELException {
+  @DisplayName("Test mod(TypeConverter, Object, Object); given one; when 'null'; then return longValue is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.mod(TypeConverter, Object, Object)"})
+  void testMod_givenOne_whenNull_thenReturnLongValueIsZero() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     when(converter.convert(Mockito.<Object>any(), Mockito.<Class<Long>>any())).thenReturn(1L);
 
     // Act
-    NumberOperations.mod(converter, null, "O2");
+    Number actualModResult = NumberOperations.mod(converter, null, "O2");
 
     // Assert
     verify(converter, atLeast(1)).convert(Mockito.<Object>any(), isA(Class.class));
+    assertEquals(0L, actualModResult.longValue());
   }
 
   /**
@@ -1056,50 +1177,53 @@ class NumberOperationsDiffblueTest {
    * <ul>
    *   <li>Given one.</li>
    *   <li>When one.</li>
-   *   <li>Then calls {@link TypeConverter#convert(Object, Class)}.</li>
+   *   <li>Then return longValue is zero.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#mod(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#mod(TypeConverter, Object, Object)}
    */
   @Test
-  @DisplayName("Test mod(TypeConverter, Object, Object); given one; when one; then calls convert(Object, Class)")
-  void testMod_givenOne_whenOne_thenCallsConvert() throws ELException {
+  @DisplayName("Test mod(TypeConverter, Object, Object); given one; when one; then return longValue is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.mod(TypeConverter, Object, Object)"})
+  void testMod_givenOne_whenOne_thenReturnLongValueIsZero() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     when(converter.convert(Mockito.<Object>any(), Mockito.<Class<Long>>any())).thenReturn(1L);
 
     // Act
-    NumberOperations.mod(converter, 1L, "O2");
+    Number actualModResult = NumberOperations.mod(converter, 1L, "O2");
 
     // Assert
     verify(converter, atLeast(1)).convert(Mockito.<Object>any(), isA(Class.class));
+    assertEquals(0L, actualModResult.longValue());
   }
 
   /**
    * Test {@link NumberOperations#mod(TypeConverter, Object, Object)}.
    * <ul>
    *   <li>Given one.</li>
-   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)}
-   * return one.</li>
-   *   <li>Then calls {@link TypeConverter#convert(Object, Class)}.</li>
+   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)} return one.</li>
+   *   <li>Then return longValue is zero.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#mod(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#mod(TypeConverter, Object, Object)}
    */
   @Test
-  @DisplayName("Test mod(TypeConverter, Object, Object); given one; when TypeConverter convert(Object, Class) return one; then calls convert(Object, Class)")
-  void testMod_givenOne_whenTypeConverterConvertReturnOne_thenCallsConvert() throws ELException {
+  @DisplayName("Test mod(TypeConverter, Object, Object); given one; when TypeConverter convert(Object, Class) return one; then return longValue is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.mod(TypeConverter, Object, Object)"})
+  void testMod_givenOne_whenTypeConverterConvertReturnOne_thenReturnLongValueIsZero() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
     when(converter.convert(Mockito.<Object>any(), Mockito.<Class<Long>>any())).thenReturn(1L);
 
     // Act
-    NumberOperations.mod(converter, "O1", "O2");
+    Number actualModResult = NumberOperations.mod(converter, "O1", "O2");
 
     // Assert
     verify(converter, atLeast(1)).convert(Mockito.<Object>any(), isA(Class.class));
+    assertEquals(0L, actualModResult.longValue());
   }
 
   /**
@@ -1109,11 +1233,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#mod(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#mod(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test mod(TypeConverter, Object, Object); when BigDecimal(String) with '2.3'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.mod(TypeConverter, Object, Object)"})
   void testMod_whenBigDecimalWith23_thenThrowELException() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -1132,11 +1257,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#mod(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#mod(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test mod(TypeConverter, Object, Object); when BigDecimal(String) with '2.3'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.mod(TypeConverter, Object, Object)"})
   void testMod_whenBigDecimalWith23_thenThrowELException2() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -1155,11 +1281,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#mod(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#mod(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test mod(TypeConverter, Object, Object); when 'java.lang.Byte'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.mod(TypeConverter, Object, Object)"})
   void testMod_whenJavaLangByte_thenThrowELException() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -1178,11 +1305,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#mod(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#mod(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test mod(TypeConverter, Object, Object); when 'O1'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.mod(TypeConverter, Object, Object)"})
   void testMod_whenO1_thenThrowELException() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -1201,11 +1329,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#mod(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#mod(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test mod(TypeConverter, Object, Object); when ten; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.mod(TypeConverter, Object, Object)"})
   void testMod_whenTen_thenThrowELException() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -1224,11 +1353,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#mod(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#mod(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test mod(TypeConverter, Object, Object); when ten; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.mod(TypeConverter, Object, Object)"})
   void testMod_whenTen_thenThrowELException2() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -1243,15 +1373,34 @@ class NumberOperationsDiffblueTest {
   /**
    * Test {@link NumberOperations#mod(TypeConverter, Object, Object)}.
    * <ul>
+   *   <li>When {@link TypeConverter}.</li>
+   *   <li>Then return longValue is zero.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link NumberOperations#mod(TypeConverter, Object, Object)}
+   */
+  @Test
+  @DisplayName("Test mod(TypeConverter, Object, Object); when TypeConverter; then return longValue is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.mod(TypeConverter, Object, Object)"})
+  void testMod_whenTypeConverter_thenReturnLongValueIsZero() {
+    // Arrange, Act and Assert
+    assertEquals(0L, NumberOperations.mod(mock(TypeConverter.class), null, null).longValue());
+  }
+
+  /**
+   * Test {@link NumberOperations#mod(TypeConverter, Object, Object)}.
+   * <ul>
    *   <li>When valueOf one.</li>
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#mod(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#mod(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test mod(TypeConverter, Object, Object); when valueOf one; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.mod(TypeConverter, Object, Object)"})
   void testMod_whenValueOfOne_thenThrowELException() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -1270,11 +1419,12 @@ class NumberOperationsDiffblueTest {
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NumberOperations#mod(TypeConverter, Object, Object)}
+   * Method under test: {@link NumberOperations#mod(TypeConverter, Object, Object)}
    */
   @Test
   @DisplayName("Test mod(TypeConverter, Object, Object); when valueOf one; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.mod(TypeConverter, Object, Object)"})
   void testMod_whenValueOfOne_thenThrowELException2() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -1298,6 +1448,8 @@ class NumberOperationsDiffblueTest {
    */
   @Test
   @DisplayName("Test neg(TypeConverter, Object); given ten; when 'Value'; then return doubleValue is minus ten")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.neg(TypeConverter, Object)"})
   void testNeg_givenTen_whenValue_thenReturnDoubleValueIsMinusTen() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -1309,5 +1461,23 @@ class NumberOperationsDiffblueTest {
     // Assert
     verify(converter).convert(isA(Object.class), isA(Class.class));
     assertEquals(-10.0d, actualNegResult.doubleValue());
+  }
+
+  /**
+   * Test {@link NumberOperations#neg(TypeConverter, Object)}.
+   * <ul>
+   *   <li>When {@link TypeConverter}.</li>
+   *   <li>Then return longValue is zero.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link NumberOperations#neg(TypeConverter, Object)}
+   */
+  @Test
+  @DisplayName("Test neg(TypeConverter, Object); when TypeConverter; then return longValue is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Number NumberOperations.neg(TypeConverter, Object)"})
+  void testNeg_whenTypeConverter_thenReturnLongValueIsZero() {
+    // Arrange, Act and Assert
+    assertEquals(0L, NumberOperations.neg(mock(TypeConverter.class), null).longValue());
   }
 }

@@ -20,22 +20,19 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Map;
-import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.BooleanDataObject;
-import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.bpmn.model.ValuedDataObject;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.delegate.DelegateExecution;
-import org.activiti.engine.impl.bpmn.parser.factory.DefaultMessageExecutionContext;
-import org.activiti.engine.impl.delegate.MessagePayloadMappingProvider;
-import org.activiti.engine.impl.el.ExpressionManager;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class SubProcessActivityBehaviorDiffblueTest {
   /**
@@ -44,10 +41,11 @@ public class SubProcessActivityBehaviorDiffblueTest {
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SubProcessActivityBehavior#execute(DelegateExecution)}
+   * Method under test: {@link SubProcessActivityBehavior#execute(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SubProcessActivityBehavior.execute(DelegateExecution)"})
   public void testExecute_thenThrowActivitiException() {
     // Arrange
     SubProcessActivityBehavior subProcessActivityBehavior = new SubProcessActivityBehavior();
@@ -58,16 +56,17 @@ public class SubProcessActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link SubProcessActivityBehavior#getSubProcessFromExecution(DelegateExecution)}.
+   * Test {@link SubProcessActivityBehavior#getSubProcessFromExecution(DelegateExecution)}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SubProcessActivityBehavior#getSubProcessFromExecution(DelegateExecution)}
+   * Method under test: {@link SubProcessActivityBehavior#getSubProcessFromExecution(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.bpmn.model.SubProcess SubProcessActivityBehavior.getSubProcessFromExecution(DelegateExecution)"})
   public void testGetSubProcessFromExecution_thenThrowActivitiException() {
     // Arrange
     SubProcessActivityBehavior subProcessActivityBehavior = new SubProcessActivityBehavior();
@@ -79,56 +78,16 @@ public class SubProcessActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link SubProcessActivityBehavior#processDataObjects(Collection)}.
-   * <p>
-   * Method under test:
-   * {@link SubProcessActivityBehavior#processDataObjects(Collection)}
-   */
-  @Test
-  public void testProcessDataObjects() {
-    // Arrange
-    SubProcessActivityBehavior subProcessActivityBehavior = new SubProcessActivityBehavior();
-    AdhocSubProcess activity = new AdhocSubProcess();
-    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
-    MessageEventDefinition messageEventDefinition2 = new MessageEventDefinition();
-    subProcessActivityBehavior
-        .setMultiInstanceActivityBehavior(new ParallelMultiInstanceBehavior(activity,
-            new EventSubProcessMessageStartEventActivityBehavior(messageEventDefinition,
-                new DefaultMessageExecutionContext(messageEventDefinition2, new ExpressionManager(),
-                    mock(MessagePayloadMappingProvider.class)))));
-
-    // Act and Assert
-    assertTrue(subProcessActivityBehavior.processDataObjects(new ArrayList<>()).isEmpty());
-  }
-
-  /**
-   * Test {@link SubProcessActivityBehavior#processDataObjects(Collection)}.
    * <ul>
-   *   <li>Given {@link SubProcessActivityBehavior} (default constructor).</li>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link SubProcessActivityBehavior#processDataObjects(Collection)}
-   */
-  @Test
-  public void testProcessDataObjects_givenSubProcessActivityBehavior_whenNull_thenReturnEmpty() {
-    // Arrange, Act and Assert
-    assertTrue((new SubProcessActivityBehavior()).processDataObjects(null).isEmpty());
-  }
-
-  /**
-   * Test {@link SubProcessActivityBehavior#processDataObjects(Collection)}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()} add {@link BooleanDataObject} (default
-   * constructor).</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link BooleanDataObject} (default constructor).</li>
    *   <li>Then return size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SubProcessActivityBehavior#processDataObjects(Collection)}
+   * Method under test: {@link SubProcessActivityBehavior#processDataObjects(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map SubProcessActivityBehavior.processDataObjects(Collection)"})
   public void testProcessDataObjects_whenArrayListAddBooleanDataObject_thenReturnSizeIsOne() {
     // Arrange
     SubProcessActivityBehavior subProcessActivityBehavior = new SubProcessActivityBehavior();
@@ -152,10 +111,11 @@ public class SubProcessActivityBehaviorDiffblueTest {
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SubProcessActivityBehavior#processDataObjects(Collection)}
+   * Method under test: {@link SubProcessActivityBehavior#processDataObjects(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map SubProcessActivityBehavior.processDataObjects(Collection)"})
   public void testProcessDataObjects_whenArrayList_thenReturnEmpty() {
     // Arrange
     SubProcessActivityBehavior subProcessActivityBehavior = new SubProcessActivityBehavior();
@@ -167,15 +127,15 @@ public class SubProcessActivityBehaviorDiffblueTest {
   /**
    * Test {@link SubProcessActivityBehavior#processDataObjects(Collection)}.
    * <ul>
-   *   <li>When {@link LinkedHashSet#LinkedHashSet()} add {@link BooleanDataObject}
-   * (default constructor).</li>
+   *   <li>When {@link LinkedHashSet#LinkedHashSet()} add {@link BooleanDataObject} (default constructor).</li>
    *   <li>Then return size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SubProcessActivityBehavior#processDataObjects(Collection)}
+   * Method under test: {@link SubProcessActivityBehavior#processDataObjects(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map SubProcessActivityBehavior.processDataObjects(Collection)"})
   public void testProcessDataObjects_whenLinkedHashSetAddBooleanDataObject_thenReturnSizeIsOne() {
     // Arrange
     SubProcessActivityBehavior subProcessActivityBehavior = new SubProcessActivityBehavior();
@@ -192,12 +152,30 @@ public class SubProcessActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test new {@link SubProcessActivityBehavior} (default constructor).
+   * Test {@link SubProcessActivityBehavior#processDataObjects(Collection)}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   *   <li>Then return Empty.</li>
+   * </ul>
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link SubProcessActivityBehavior}
+   * Method under test: {@link SubProcessActivityBehavior#processDataObjects(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map SubProcessActivityBehavior.processDataObjects(Collection)"})
+  public void testProcessDataObjects_whenNull_thenReturnEmpty() {
+    // Arrange, Act and Assert
+    assertTrue((new SubProcessActivityBehavior()).processDataObjects(null).isEmpty());
+  }
+
+  /**
+   * Test new {@link SubProcessActivityBehavior} (default constructor).
+   * <p>
+   * Method under test: default or parameterless constructor of {@link SubProcessActivityBehavior}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SubProcessActivityBehavior.<init>()"})
   public void testNewSubProcessActivityBehavior() {
     // Arrange and Act
     SubProcessActivityBehavior actualSubProcessActivityBehavior = new SubProcessActivityBehavior();

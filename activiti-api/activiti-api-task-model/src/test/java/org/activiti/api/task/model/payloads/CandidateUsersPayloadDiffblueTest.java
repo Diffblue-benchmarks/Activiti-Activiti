@@ -19,9 +19,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class CandidateUsersPayloadDiffblueTest {
@@ -32,6 +34,8 @@ class CandidateUsersPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test new CandidateUsersPayload()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void CandidateUsersPayload.<init>()"})
   void testNewCandidateUsersPayload() {
     // Arrange and Act
     CandidateUsersPayload actualCandidateUsersPayload = new CandidateUsersPayload();
@@ -48,11 +52,12 @@ class CandidateUsersPayloadDiffblueTest {
    *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link CandidateUsersPayload#CandidateUsersPayload(String, List)}
+   * Method under test: {@link CandidateUsersPayload#CandidateUsersPayload(String, List)}
    */
   @Test
   @DisplayName("Test new CandidateUsersPayload(String, List); given '42'; when ArrayList() add '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void CandidateUsersPayload.<init>(String, List)"})
   void testNewCandidateUsersPayload_given42_whenArrayListAdd42() {
     // Arrange
     ArrayList<String> candidateUsers = new ArrayList<>();
@@ -74,11 +79,12 @@ class CandidateUsersPayloadDiffblueTest {
    *   <li>Then return CandidateUsers is {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link CandidateUsersPayload#CandidateUsersPayload(String, List)}
+   * Method under test: {@link CandidateUsersPayload#CandidateUsersPayload(String, List)}
    */
   @Test
   @DisplayName("Test new CandidateUsersPayload(String, List); given 'foo'; then return CandidateUsers is ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void CandidateUsersPayload.<init>(String, List)"})
   void testNewCandidateUsersPayload_givenFoo_thenReturnCandidateUsersIsArrayList() {
     // Arrange
     ArrayList<String> candidateUsers = new ArrayList<>();
@@ -99,11 +105,12 @@ class CandidateUsersPayloadDiffblueTest {
    *   <li>Then return CandidateUsers Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link CandidateUsersPayload#CandidateUsersPayload(String, List)}
+   * Method under test: {@link CandidateUsersPayload#CandidateUsersPayload(String, List)}
    */
   @Test
   @DisplayName("Test new CandidateUsersPayload(String, List); when ArrayList(); then return CandidateUsers Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void CandidateUsersPayload.<init>(String, List)"})
   void testNewCandidateUsersPayload_whenArrayList_thenReturnCandidateUsersEmpty() {
     // Arrange and Act
     CandidateUsersPayload actualCandidateUsersPayload = new CandidateUsersPayload("42", new ArrayList<>());
@@ -127,6 +134,10 @@ class CandidateUsersPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List CandidateUsersPayload.getCandidateUsers()", "String CandidateUsersPayload.getId()",
+      "String CandidateUsersPayload.getTaskId()", "void CandidateUsersPayload.setCandidateUsers(List)",
+      "void CandidateUsersPayload.setTaskId(String)"})
   void testGettersAndSetters() {
     // Arrange
     CandidateUsersPayload candidateUsersPayload = new CandidateUsersPayload();
@@ -138,7 +149,7 @@ class CandidateUsersPayloadDiffblueTest {
     List<String> actualCandidateUsers = candidateUsersPayload.getCandidateUsers();
     candidateUsersPayload.getId();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", candidateUsersPayload.getTaskId());
     assertTrue(actualCandidateUsers.isEmpty());
     assertSame(candidateUsers, actualCandidateUsers);

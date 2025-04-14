@@ -18,52 +18,16 @@ package org.activiti.engine.test.profiler;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiFunction;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class CommandStatsDiffblueTest {
-  /**
-   * Test {@link CommandStats#CommandStats(List)}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@code foo} and
-   * {@link BiFunction}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CommandStats#CommandStats(List)}
-   */
-  @Test
-  public void testNewCommandStats_givenHashMapComputeIfPresentFooAndBiFunction() {
-    // Arrange
-    HashMap<String, Long> dbInserts = new HashMap<>();
-    dbInserts.computeIfPresent("foo", mock(BiFunction.class));
-    dbInserts.put("foo", 1L);
-
-    CommandExecutionResult commandExecutionResult = new CommandExecutionResult();
-    commandExecutionResult.setDbInserts(dbInserts);
-    commandExecutionResult.setDbSelects(new HashMap<>());
-    commandExecutionResult.setDbUpdates(new HashMap<>());
-    commandExecutionResult.setDbDeletes(new HashMap<>());
-
-    ArrayList<CommandExecutionResult> executions = new ArrayList<>();
-    executions.add(commandExecutionResult);
-
-    // Act
-    CommandStats actualCommandStats = new CommandStats(executions);
-
-    // Assert
-    assertEquals(1, actualCommandStats.commandExecutionTimings.size());
-    assertEquals(1, actualCommandStats.databaseTimings.size());
-    Map<String, Long> dbInserts2 = actualCommandStats.getDbInserts();
-    assertEquals(1, dbInserts2.size());
-    assertEquals(1L, dbInserts2.get("foo").longValue());
-    assertEquals(1L, actualCommandStats.getCount());
-  }
-
   /**
    * Test {@link CommandStats#CommandStats(List)}.
    * <ul>
@@ -74,6 +38,8 @@ public class CommandStatsDiffblueTest {
    * Method under test: {@link CommandStats#CommandStats(List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CommandStats.<init>(List)"})
   public void testNewCommandStats_givenHashMapFooIsOne_thenReturnDbInsertsSizeIsOne() {
     // Arrange
     HashMap<String, Long> dbInserts = new HashMap<>();
@@ -103,13 +69,50 @@ public class CommandStatsDiffblueTest {
   /**
    * Test {@link CommandStats#CommandStats(List)}.
    * <ul>
-   *   <li>Then return {@link CommandStats#commandExecutionTimings} size is
-   * two.</li>
+   *   <li>Then return {@link CommandStats#commandExecutionTimings} first longValue is zero.</li>
    * </ul>
    * <p>
    * Method under test: {@link CommandStats#CommandStats(List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CommandStats.<init>(List)"})
+  public void testNewCommandStats_thenReturnCommandExecutionTimingsFirstLongValueIsZero() {
+    // Arrange
+    CommandExecutionResult commandExecutionResult = new CommandExecutionResult();
+    commandExecutionResult.setDbInserts(new HashMap<>());
+    commandExecutionResult.setDbSelects(new HashMap<>());
+    commandExecutionResult.setDbUpdates(new HashMap<>());
+    commandExecutionResult.setDbDeletes(new HashMap<>());
+
+    ArrayList<CommandExecutionResult> executions = new ArrayList<>();
+    executions.add(commandExecutionResult);
+
+    // Act
+    CommandStats actualCommandStats = new CommandStats(executions);
+
+    // Assert
+    List<Long> resultLongList = actualCommandStats.commandExecutionTimings;
+    assertEquals(1, resultLongList.size());
+    assertEquals(0L, resultLongList.get(0).longValue());
+    List<Long> resultLongList2 = actualCommandStats.databaseTimings;
+    assertEquals(1, resultLongList2.size());
+    assertEquals(0L, resultLongList2.get(0).longValue());
+    assertEquals(1L, actualCommandStats.getCount());
+    assertTrue(actualCommandStats.getDbInserts().isEmpty());
+  }
+
+  /**
+   * Test {@link CommandStats#CommandStats(List)}.
+   * <ul>
+   *   <li>Then return {@link CommandStats#commandExecutionTimings} size is two.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link CommandStats#CommandStats(List)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CommandStats.<init>(List)"})
   public void testNewCommandStats_thenReturnCommandExecutionTimingsSizeIsTwo() {
     // Arrange
     ArrayList<CommandExecutionResult> executions = new ArrayList<>();
@@ -132,36 +135,6 @@ public class CommandStatsDiffblueTest {
   /**
    * Test {@link CommandStats#CommandStats(List)}.
    * <ul>
-   *   <li>Then return DbInserts Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CommandStats#CommandStats(List)}
-   */
-  @Test
-  public void testNewCommandStats_thenReturnDbInsertsEmpty() {
-    // Arrange
-    CommandExecutionResult commandExecutionResult = new CommandExecutionResult();
-    commandExecutionResult.setDbInserts(new HashMap<>());
-    commandExecutionResult.setDbSelects(new HashMap<>());
-    commandExecutionResult.setDbUpdates(new HashMap<>());
-    commandExecutionResult.setDbDeletes(new HashMap<>());
-
-    ArrayList<CommandExecutionResult> executions = new ArrayList<>();
-    executions.add(commandExecutionResult);
-
-    // Act
-    CommandStats actualCommandStats = new CommandStats(executions);
-
-    // Assert
-    assertEquals(1, actualCommandStats.commandExecutionTimings.size());
-    assertEquals(1, actualCommandStats.databaseTimings.size());
-    assertEquals(1L, actualCommandStats.getCount());
-    assertTrue(actualCommandStats.getDbInserts().isEmpty());
-  }
-
-  /**
-   * Test {@link CommandStats#CommandStats(List)}.
-   * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    *   <li>Then return Count is zero.</li>
    * </ul>
@@ -169,6 +142,8 @@ public class CommandStatsDiffblueTest {
    * Method under test: {@link CommandStats#CommandStats(List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CommandStats.<init>(List)"})
   public void testNewCommandStats_whenArrayList_thenReturnCountIsZero() {
     // Arrange and Act
     CommandStats actualCommandStats = new CommandStats(new ArrayList<>());
@@ -186,6 +161,8 @@ public class CommandStatsDiffblueTest {
    * Method under test: {@link CommandStats#getCount()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long CommandStats.getCount()"})
   public void testGetCount() {
     // Arrange, Act and Assert
     assertEquals(0L, (new CommandStats(new ArrayList<>())).getCount());
@@ -197,6 +174,8 @@ public class CommandStatsDiffblueTest {
    * Method under test: {@link CommandStats#getAverageExecutionTime()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double CommandStats.getAverageExecutionTime()"})
   public void testGetAverageExecutionTime() {
     // Arrange, Act and Assert
     assertEquals(0.0d, (new CommandStats(new ArrayList<>())).getAverageExecutionTime(), 0.0);
@@ -205,13 +184,14 @@ public class CommandStatsDiffblueTest {
   /**
    * Test {@link CommandStats#getAverageExecutionTime()}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link CommandExecutionResult}
-   * (default constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link CommandExecutionResult} (default constructor).</li>
    * </ul>
    * <p>
    * Method under test: {@link CommandStats#getAverageExecutionTime()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double CommandStats.getAverageExecutionTime()"})
   public void testGetAverageExecutionTime_givenArrayListAddCommandExecutionResult() {
     // Arrange
     ArrayList<CommandExecutionResult> executions = new ArrayList<>();
@@ -224,10 +204,11 @@ public class CommandStatsDiffblueTest {
   /**
    * Test {@link CommandStats#getAverageDatabaseExecutionTimePercentage()}.
    * <p>
-   * Method under test:
-   * {@link CommandStats#getAverageDatabaseExecutionTimePercentage()}
+   * Method under test: {@link CommandStats#getAverageDatabaseExecutionTimePercentage()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double CommandStats.getAverageDatabaseExecutionTimePercentage()"})
   public void testGetAverageDatabaseExecutionTimePercentage() {
     // Arrange, Act and Assert
     assertEquals(0.0d, (new CommandStats(new ArrayList<>())).getAverageDatabaseExecutionTimePercentage(), 0.0);
@@ -236,10 +217,11 @@ public class CommandStatsDiffblueTest {
   /**
    * Test {@link CommandStats#getAverageDatabaseExecutionTimePercentage()}.
    * <p>
-   * Method under test:
-   * {@link CommandStats#getAverageDatabaseExecutionTimePercentage()}
+   * Method under test: {@link CommandStats#getAverageDatabaseExecutionTimePercentage()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double CommandStats.getAverageDatabaseExecutionTimePercentage()"})
   public void testGetAverageDatabaseExecutionTimePercentage2() {
     // Arrange
     ArrayList<CommandExecutionResult> executions = new ArrayList<>();
@@ -255,6 +237,8 @@ public class CommandStatsDiffblueTest {
    * Method under test: {@link CommandStats#getAverageDatabaseExecutionTime()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double CommandStats.getAverageDatabaseExecutionTime()"})
   public void testGetAverageDatabaseExecutionTime() {
     // Arrange, Act and Assert
     assertEquals(0.0d, (new CommandStats(new ArrayList<>())).getAverageDatabaseExecutionTime(), 0.0);
@@ -263,13 +247,14 @@ public class CommandStatsDiffblueTest {
   /**
    * Test {@link CommandStats#getAverageDatabaseExecutionTime()}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link CommandExecutionResult}
-   * (default constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link CommandExecutionResult} (default constructor).</li>
    * </ul>
    * <p>
    * Method under test: {@link CommandStats#getAverageDatabaseExecutionTime()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double CommandStats.getAverageDatabaseExecutionTime()"})
   public void testGetAverageDatabaseExecutionTime_givenArrayListAddCommandExecutionResult() {
     // Arrange
     ArrayList<CommandExecutionResult> executions = new ArrayList<>();
@@ -296,6 +281,12 @@ public class CommandStatsDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map CommandStats.getDbDeletes()", "Map CommandStats.getDbInserts()",
+      "Map CommandStats.getDbSelects()", "Map CommandStats.getDbUpdates()",
+      "long CommandStats.getGetTotalCommandTime()", "void CommandStats.setDbDeletes(Map)",
+      "void CommandStats.setDbInserts(Map)", "void CommandStats.setDbSelects(Map)",
+      "void CommandStats.setDbUpdates(Map)"})
   public void testGettersAndSetters() {
     // Arrange
     CommandStats commandStats = new CommandStats(new ArrayList<>());
@@ -314,7 +305,7 @@ public class CommandStatsDiffblueTest {
     Map<String, Long> actualDbSelects = commandStats.getDbSelects();
     Map<String, Long> actualDbUpdates = commandStats.getDbUpdates();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals(0L, commandStats.getGetTotalCommandTime());
     assertTrue(actualDbDeletes.isEmpty());
     assertTrue(actualDbInserts.isEmpty());

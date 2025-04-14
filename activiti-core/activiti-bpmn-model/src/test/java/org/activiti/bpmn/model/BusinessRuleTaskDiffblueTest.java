@@ -20,25 +20,26 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class BusinessRuleTaskDiffblueTest {
   /**
    * Test {@link BusinessRuleTask#clone()}.
    * <ul>
-   *   <li>Given {@link BusinessRuleTask} (default constructor) Exclude is
-   * {@code true}.</li>
+   *   <li>Given {@link BusinessRuleTask} (default constructor) Exclude is {@code true}.</li>
    *   <li>Then return Exclude.</li>
    * </ul>
    * <p>
    * Method under test: {@link BusinessRuleTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"BusinessRuleTask BusinessRuleTask.clone()"})
   public void testClone_givenBusinessRuleTaskExcludeIsTrue_thenReturnExclude() {
     // Arrange
     BusinessRuleTask businessRuleTask = new BusinessRuleTask();
@@ -67,6 +68,8 @@ public class BusinessRuleTaskDiffblueTest {
    * Method under test: {@link BusinessRuleTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"BusinessRuleTask BusinessRuleTask.clone()"})
   public void testClone_givenBusinessRuleTask_thenReturnNotExclude() {
     // Arrange and Act
     BusinessRuleTask actualCloneResult = (new BusinessRuleTask()).clone();
@@ -84,16 +87,19 @@ public class BusinessRuleTaskDiffblueTest {
   /**
    * Test {@link BusinessRuleTask#clone()}.
    * <ul>
-   *   <li>Then return BoundaryEvents is {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return BoundaryEvents size is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link BusinessRuleTask#clone()}
    */
   @Test
-  public void testClone_thenReturnBoundaryEventsIsArrayList() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"BusinessRuleTask BusinessRuleTask.clone()"})
+  public void testClone_thenReturnBoundaryEventsSizeIsOne() {
     // Arrange
     ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
-    boundaryEvents.add(new BoundaryEvent());
+    BoundaryEvent boundaryEvent = new BoundaryEvent();
+    boundaryEvents.add(boundaryEvent);
 
     BusinessRuleTask businessRuleTask = new BusinessRuleTask();
     businessRuleTask.setLoopCharacteristics(null);
@@ -103,7 +109,9 @@ public class BusinessRuleTaskDiffblueTest {
     businessRuleTask.setBoundaryEvents(boundaryEvents);
 
     // Act and Assert
-    assertEquals(boundaryEvents, businessRuleTask.clone().getBoundaryEvents());
+    List<BoundaryEvent> boundaryEvents2 = businessRuleTask.clone().getBoundaryEvents();
+    assertEquals(1, boundaryEvents2.size());
+    assertSame(boundaryEvent, boundaryEvents2.get(0));
   }
 
   /**
@@ -115,6 +123,8 @@ public class BusinessRuleTaskDiffblueTest {
    * Method under test: {@link BusinessRuleTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"BusinessRuleTask BusinessRuleTask.clone()"})
   public void testClone_thenReturnDataInputAssociationsSizeIsOne() {
     // Arrange
     ArrayList<DataAssociation> dataInputAssociations = new ArrayList<>();
@@ -154,6 +164,8 @@ public class BusinessRuleTaskDiffblueTest {
    * Method under test: {@link BusinessRuleTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"BusinessRuleTask BusinessRuleTask.clone()"})
   public void testClone_thenReturnDataOutputAssociationsSizeIsOne() {
     // Arrange
     ArrayList<DataAssociation> dataOutputAssociations = new ArrayList<>();
@@ -193,6 +205,8 @@ public class BusinessRuleTaskDiffblueTest {
    * Method under test: {@link BusinessRuleTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"BusinessRuleTask BusinessRuleTask.clone()"})
   public void testClone_thenReturnIoSpecificationIdIsNull() {
     // Arrange
     ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
@@ -227,6 +241,8 @@ public class BusinessRuleTaskDiffblueTest {
    * Method under test: {@link BusinessRuleTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"BusinessRuleTask BusinessRuleTask.clone()"})
   public void testClone_thenReturnLoopCharacteristicsIdIsNull() {
     // Arrange
     ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
@@ -261,32 +277,6 @@ public class BusinessRuleTaskDiffblueTest {
   }
 
   /**
-   * Test {@link BusinessRuleTask#setValues(BusinessRuleTask)} with
-   * {@code BusinessRuleTask}.
-   * <ul>
-   *   <li>Then calls {@link MultiInstanceLoopCharacteristics#clone()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BusinessRuleTask#setValues(BusinessRuleTask)}
-   */
-  @Test
-  public void testSetValuesWithBusinessRuleTask_thenCallsClone() {
-    // Arrange
-    BusinessRuleTask businessRuleTask = new BusinessRuleTask();
-    MultiInstanceLoopCharacteristics loopCharacteristics = mock(MultiInstanceLoopCharacteristics.class);
-    when(loopCharacteristics.clone()).thenReturn(new MultiInstanceLoopCharacteristics());
-
-    BusinessRuleTask otherElement = new BusinessRuleTask();
-    otherElement.setLoopCharacteristics(loopCharacteristics);
-
-    // Act
-    businessRuleTask.setValues(otherElement);
-
-    // Assert
-    verify(loopCharacteristics).clone();
-  }
-
-  /**
    * Test getters and setters.
    * <p>
    * Methods under test:
@@ -305,6 +295,13 @@ public class BusinessRuleTaskDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BusinessRuleTask.<init>()", "String BusinessRuleTask.getClassName()",
+      "List BusinessRuleTask.getInputVariables()", "String BusinessRuleTask.getResultVariableName()",
+      "List BusinessRuleTask.getRuleNames()", "boolean BusinessRuleTask.isExclude()",
+      "void BusinessRuleTask.setClassName(String)", "void BusinessRuleTask.setExclude(boolean)",
+      "void BusinessRuleTask.setInputVariables(List)", "void BusinessRuleTask.setResultVariableName(String)",
+      "void BusinessRuleTask.setRuleNames(List)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     BusinessRuleTask actualBusinessRuleTask = new BusinessRuleTask();
@@ -321,9 +318,18 @@ public class BusinessRuleTaskDiffblueTest {
     List<String> actualRuleNames = actualBusinessRuleTask.getRuleNames();
     boolean actualIsExcludeResult = actualBusinessRuleTask.isExclude();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Class Name", actualClassName);
     assertEquals("Result Variable Name", actualResultVariableName);
+    assertNull(actualBusinessRuleTask.getBehavior());
+    assertNull(actualBusinessRuleTask.getDefaultFlow());
+    assertNull(actualBusinessRuleTask.getFailedJobRetryTimeCycleValue());
+    assertNull(actualBusinessRuleTask.getId());
+    assertNull(actualBusinessRuleTask.getDocumentation());
+    assertNull(actualBusinessRuleTask.getName());
+    assertNull(actualBusinessRuleTask.getParentContainer());
+    assertNull(actualBusinessRuleTask.getIoSpecification());
+    assertNull(actualBusinessRuleTask.getLoopCharacteristics());
     assertEquals(0, actualBusinessRuleTask.getXmlColumnNumber());
     assertEquals(0, actualBusinessRuleTask.getXmlRowNumber());
     assertFalse(actualBusinessRuleTask.isForCompensation());

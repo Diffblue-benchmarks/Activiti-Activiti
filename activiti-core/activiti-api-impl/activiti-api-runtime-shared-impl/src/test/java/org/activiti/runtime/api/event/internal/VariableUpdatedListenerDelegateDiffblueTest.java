@@ -20,6 +20,7 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.api.model.shared.event.VariableUpdatedEvent;
@@ -29,6 +30,7 @@ import org.activiti.engine.delegate.event.impl.ActivitiVariableUpdatedEventImpl;
 import org.activiti.engine.impl.variable.BigDecimalType;
 import org.activiti.runtime.api.event.impl.ToVariableUpdatedConverter;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -38,13 +40,16 @@ class VariableUpdatedListenerDelegateDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link VariableUpdatedListenerDelegate#VariableUpdatedListenerDelegate(List, ToVariableUpdatedConverter, VariableEventFilter)}
+   *   <li>{@link VariableUpdatedListenerDelegate#VariableUpdatedListenerDelegate(List, ToVariableUpdatedConverter, VariableEventFilter)}
    *   <li>{@link VariableUpdatedListenerDelegate#isFailOnException()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void VariableUpdatedListenerDelegate.<init>(List, ToVariableUpdatedConverter, VariableEventFilter)",
+      "boolean VariableUpdatedListenerDelegate.isFailOnException()"})
   void testGettersAndSetters() {
     // Arrange
     ArrayList<VariableEventListener<VariableUpdatedEvent>> listeners = new ArrayList<>();
@@ -58,16 +63,16 @@ class VariableUpdatedListenerDelegateDiffblueTest {
   /**
    * Test {@link VariableUpdatedListenerDelegate#onEvent(ActivitiEvent)}.
    * <ul>
-   *   <li>Given {@link VariableEventListener}
-   * {@link VariableEventListener#onEvent(RuntimeEvent)} does nothing.</li>
+   *   <li>Given {@link VariableEventListener} {@link VariableEventListener#onEvent(RuntimeEvent)} does nothing.</li>
    *   <li>Then calls {@link VariableEventListener#onEvent(RuntimeEvent)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableUpdatedListenerDelegate#onEvent(ActivitiEvent)}
+   * Method under test: {@link VariableUpdatedListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
   @DisplayName("Test onEvent(ActivitiEvent); given VariableEventListener onEvent(RuntimeEvent) does nothing; then calls onEvent(RuntimeEvent)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void VariableUpdatedListenerDelegate.onEvent(ActivitiEvent)"})
   void testOnEvent_givenVariableEventListenerOnEventDoesNothing_thenCallsOnEvent() {
     // Arrange
     VariableEventListener<VariableUpdatedEvent> variableEventListener = mock(VariableEventListener.class);

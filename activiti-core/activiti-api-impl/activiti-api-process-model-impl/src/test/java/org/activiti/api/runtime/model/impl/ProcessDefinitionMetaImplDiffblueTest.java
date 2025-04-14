@@ -18,9 +18,11 @@ package org.activiti.api.runtime.model.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ProcessDefinitionMetaImplDiffblueTest {
@@ -42,6 +44,13 @@ class ProcessDefinitionMetaImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessDefinitionMetaImpl.<init>()", "void ProcessDefinitionMetaImpl.<init>(String)",
+      "List ProcessDefinitionMetaImpl.getConnectorsIds()", "List ProcessDefinitionMetaImpl.getGroupIds()",
+      "String ProcessDefinitionMetaImpl.getProcessDefinitionKey()", "List ProcessDefinitionMetaImpl.getUsersIds()",
+      "void ProcessDefinitionMetaImpl.setConnectorsIds(List)", "void ProcessDefinitionMetaImpl.setGroupIds(List)",
+      "void ProcessDefinitionMetaImpl.setProcessDefinitionKey(String)",
+      "void ProcessDefinitionMetaImpl.setUsersIds(List)"})
   void testGettersAndSetters() {
     // Arrange and Act
     ProcessDefinitionMetaImpl actualProcessDefinitionMetaImpl = new ProcessDefinitionMetaImpl();
@@ -57,7 +66,7 @@ class ProcessDefinitionMetaImplDiffblueTest {
     String actualProcessDefinitionKey = actualProcessDefinitionMetaImpl.getProcessDefinitionKey();
     List<String> actualUsersIds = actualProcessDefinitionMetaImpl.getUsersIds();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Process Definition Key", actualProcessDefinitionKey);
     assertTrue(actualConnectorsIds.isEmpty());
     assertTrue(actualGroupIds.isEmpty());
@@ -88,6 +97,13 @@ class ProcessDefinitionMetaImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters; when 'Process Definition Key'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessDefinitionMetaImpl.<init>()", "void ProcessDefinitionMetaImpl.<init>(String)",
+      "List ProcessDefinitionMetaImpl.getConnectorsIds()", "List ProcessDefinitionMetaImpl.getGroupIds()",
+      "String ProcessDefinitionMetaImpl.getProcessDefinitionKey()", "List ProcessDefinitionMetaImpl.getUsersIds()",
+      "void ProcessDefinitionMetaImpl.setConnectorsIds(List)", "void ProcessDefinitionMetaImpl.setGroupIds(List)",
+      "void ProcessDefinitionMetaImpl.setProcessDefinitionKey(String)",
+      "void ProcessDefinitionMetaImpl.setUsersIds(List)"})
   void testGettersAndSetters_whenProcessDefinitionKey() {
     // Arrange and Act
     ProcessDefinitionMetaImpl actualProcessDefinitionMetaImpl = new ProcessDefinitionMetaImpl("Process Definition Key");
@@ -103,7 +119,7 @@ class ProcessDefinitionMetaImplDiffblueTest {
     String actualProcessDefinitionKey = actualProcessDefinitionMetaImpl.getProcessDefinitionKey();
     List<String> actualUsersIds = actualProcessDefinitionMetaImpl.getUsersIds();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Process Definition Key", actualProcessDefinitionKey);
     assertTrue(actualConnectorsIds.isEmpty());
     assertTrue(actualGroupIds.isEmpty());

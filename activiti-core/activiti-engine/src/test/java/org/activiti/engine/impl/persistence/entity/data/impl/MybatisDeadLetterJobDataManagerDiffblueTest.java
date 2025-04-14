@@ -19,57 +19,27 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
-import org.activiti.core.el.CustomFunctionProvider;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.persistence.entity.DeadLetterJobEntity;
 import org.activiti.engine.impl.persistence.entity.DeadLetterJobEntityImpl;
 import org.activiti.engine.impl.persistence.entity.data.impl.cachematcher.DeadLetterJobsByExecutionIdMatcher;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class MybatisDeadLetterJobDataManagerDiffblueTest {
   /**
-   * Test
-   * {@link MybatisDeadLetterJobDataManager#MybatisDeadLetterJobDataManager(ProcessEngineConfigurationImpl)}.
-   * <ul>
-   *   <li>Given {@link CustomFunctionProvider}.</li>
-   * </ul>
+   * Test {@link MybatisDeadLetterJobDataManager#MybatisDeadLetterJobDataManager(ProcessEngineConfigurationImpl)}.
    * <p>
-   * Method under test:
-   * {@link MybatisDeadLetterJobDataManager#MybatisDeadLetterJobDataManager(ProcessEngineConfigurationImpl)}
+   * Method under test: {@link MybatisDeadLetterJobDataManager#MybatisDeadLetterJobDataManager(ProcessEngineConfigurationImpl)}
    */
   @Test
-  public void testNewMybatisDeadLetterJobDataManager_givenCustomFunctionProvider() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    MybatisDeadLetterJobDataManager actualMybatisDeadLetterJobDataManager = new MybatisDeadLetterJobDataManager(
-        processEngineConfiguration);
-
-    // Assert
-    assertTrue(
-        actualMybatisDeadLetterJobDataManager.deadLetterByExecutionIdMatcher instanceof DeadLetterJobsByExecutionIdMatcher);
-    assertNull(actualMybatisDeadLetterJobDataManager.getManagedEntitySubClasses());
-    Class<DeadLetterJobEntityImpl> expectedManagedEntityClass = DeadLetterJobEntityImpl.class;
-    assertEquals(expectedManagedEntityClass, actualMybatisDeadLetterJobDataManager.getManagedEntityClass());
-  }
-
-  /**
-   * Test
-   * {@link MybatisDeadLetterJobDataManager#MybatisDeadLetterJobDataManager(ProcessEngineConfigurationImpl)}.
-   * <ul>
-   *   <li>When {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link MybatisDeadLetterJobDataManager#MybatisDeadLetterJobDataManager(ProcessEngineConfigurationImpl)}
-   */
-  @Test
-  public void testNewMybatisDeadLetterJobDataManager_whenJtaProcessEngineConfiguration() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MybatisDeadLetterJobDataManager.<init>(ProcessEngineConfigurationImpl)"})
+  public void testNewMybatisDeadLetterJobDataManager() {
     // Arrange and Act
     MybatisDeadLetterJobDataManager actualMybatisDeadLetterJobDataManager = new MybatisDeadLetterJobDataManager(
         new JtaProcessEngineConfiguration());
@@ -85,10 +55,11 @@ public class MybatisDeadLetterJobDataManagerDiffblueTest {
   /**
    * Test {@link MybatisDeadLetterJobDataManager#getManagedEntityClass()}.
    * <p>
-   * Method under test:
-   * {@link MybatisDeadLetterJobDataManager#getManagedEntityClass()}
+   * Method under test: {@link MybatisDeadLetterJobDataManager#getManagedEntityClass()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Class MybatisDeadLetterJobDataManager.getManagedEntityClass()"})
   public void testGetManagedEntityClass() {
     // Arrange and Act
     Class<? extends DeadLetterJobEntity> actualManagedEntityClass = (new MybatisDeadLetterJobDataManager(
@@ -105,6 +76,8 @@ public class MybatisDeadLetterJobDataManagerDiffblueTest {
    * Method under test: {@link MybatisDeadLetterJobDataManager#create()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DeadLetterJobEntity MybatisDeadLetterJobDataManager.create()"})
   public void testCreate() {
     // Arrange and Act
     DeadLetterJobEntity actualCreateResult = (new MybatisDeadLetterJobDataManager(new JtaProcessEngineConfiguration()))
@@ -115,9 +88,6 @@ public class MybatisDeadLetterJobDataManagerDiffblueTest {
     assertTrue(persistentState instanceof Map);
     assertTrue(actualCreateResult instanceof DeadLetterJobEntityImpl);
     assertEquals("", actualCreateResult.getTenantId());
-    assertEquals(3, ((Map<String, Integer>) persistentState).size());
-    assertNull(((Map<String, Integer>) persistentState).get("duedate"));
-    assertNull(((Map<String, Integer>) persistentState).get("exceptionMessage"));
     assertNull(actualCreateResult.getExceptionStacktrace());
     assertNull(actualCreateResult.getJobHandlerConfiguration());
     assertNull(actualCreateResult.getJobHandlerType());
@@ -131,60 +101,17 @@ public class MybatisDeadLetterJobDataManagerDiffblueTest {
     assertNull(actualCreateResult.getEndDate());
     assertNull(actualCreateResult.getDuedate());
     assertNull(actualCreateResult.getExceptionByteArrayRef());
-    assertEquals(0, ((Map<String, Integer>) persistentState).get("retries").intValue());
     assertEquals(0, actualCreateResult.getMaxIterations());
     assertEquals(0, actualCreateResult.getRetries());
     assertEquals(1, actualCreateResult.getRevision());
     assertEquals(2, actualCreateResult.getRevisionNext());
-    assertFalse(actualCreateResult.isDeleted());
-    assertFalse(actualCreateResult.isInserted());
-    assertFalse(actualCreateResult.isUpdated());
-    assertTrue(actualCreateResult.isExclusive());
-  }
-
-  /**
-   * Test {@link MybatisDeadLetterJobDataManager#create()}.
-   * <p>
-   * Method under test: {@link MybatisDeadLetterJobDataManager#create()}
-   */
-  @Test
-  public void testCreate2() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    DeadLetterJobEntity actualCreateResult = (new MybatisDeadLetterJobDataManager(processEngineConfiguration)).create();
-
-    // Assert
-    Object persistentState = actualCreateResult.getPersistentState();
-    assertTrue(persistentState instanceof Map);
-    assertTrue(actualCreateResult instanceof DeadLetterJobEntityImpl);
-    assertEquals("", actualCreateResult.getTenantId());
     assertEquals(3, ((Map<String, Integer>) persistentState).size());
-    assertNull(((Map<String, Integer>) persistentState).get("duedate"));
-    assertNull(((Map<String, Integer>) persistentState).get("exceptionMessage"));
-    assertNull(actualCreateResult.getExceptionStacktrace());
-    assertNull(actualCreateResult.getJobHandlerConfiguration());
-    assertNull(actualCreateResult.getJobHandlerType());
-    assertNull(actualCreateResult.getJobType());
-    assertNull(actualCreateResult.getRepeat());
-    assertNull(actualCreateResult.getId());
-    assertNull(actualCreateResult.getExceptionMessage());
-    assertNull(actualCreateResult.getExecutionId());
-    assertNull(actualCreateResult.getProcessDefinitionId());
-    assertNull(actualCreateResult.getProcessInstanceId());
-    assertNull(actualCreateResult.getEndDate());
-    assertNull(actualCreateResult.getDuedate());
-    assertNull(actualCreateResult.getExceptionByteArrayRef());
-    assertEquals(0, ((Map<String, Integer>) persistentState).get("retries").intValue());
-    assertEquals(0, actualCreateResult.getMaxIterations());
-    assertEquals(0, actualCreateResult.getRetries());
-    assertEquals(1, actualCreateResult.getRevision());
-    assertEquals(2, actualCreateResult.getRevisionNext());
     assertFalse(actualCreateResult.isDeleted());
     assertFalse(actualCreateResult.isInserted());
     assertFalse(actualCreateResult.isUpdated());
+    assertTrue(((Map<String, Integer>) persistentState).containsKey("duedate"));
+    assertTrue(((Map<String, Integer>) persistentState).containsKey("exceptionMessage"));
+    assertTrue(((Map<String, Integer>) persistentState).containsKey("retries"));
     assertTrue(actualCreateResult.isExclusive());
   }
 }

@@ -17,7 +17,9 @@ package org.activiti.api.process.model.payloads;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class GetVariablesPayloadDiffblueTest {
@@ -28,9 +30,24 @@ class GetVariablesPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test new GetVariablesPayload()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void GetVariablesPayload.<init>()"})
   void testNewGetVariablesPayload() {
     // Arrange, Act and Assert
     assertNull((new GetVariablesPayload()).getProcessInstanceId());
+  }
+
+  /**
+   * Test {@link GetVariablesPayload#GetVariablesPayload(String)}.
+   * <p>
+   * Method under test: {@link GetVariablesPayload#GetVariablesPayload(String)}
+   */
+  @Test
+  @DisplayName("Test new GetVariablesPayload(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void GetVariablesPayload.<init>(String)"})
+  void testNewGetVariablesPayload2() {
+    // Arrange, Act and Assert
     assertEquals("42", (new GetVariablesPayload("42")).getProcessInstanceId());
   }
 
@@ -46,6 +63,9 @@ class GetVariablesPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String GetVariablesPayload.getId()", "String GetVariablesPayload.getProcessInstanceId()",
+      "void GetVariablesPayload.setProcessInstanceId(String)"})
   void testGettersAndSetters() {
     // Arrange
     GetVariablesPayload getVariablesPayload = new GetVariablesPayload();
@@ -54,7 +74,7 @@ class GetVariablesPayloadDiffblueTest {
     getVariablesPayload.setProcessInstanceId("42");
     getVariablesPayload.getId();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", getVariablesPayload.getProcessInstanceId());
   }
 }

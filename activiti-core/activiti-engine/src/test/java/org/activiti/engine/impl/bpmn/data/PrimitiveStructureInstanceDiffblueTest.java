@@ -18,8 +18,11 @@ package org.activiti.engine.impl.bpmn.data;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class PrimitiveStructureInstanceDiffblueTest {
   /**
@@ -30,12 +33,15 @@ public class PrimitiveStructureInstanceDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link PrimitiveStructureInstance#PrimitiveStructureInstance(PrimitiveStructureDefinition)}
+   *   <li>{@link PrimitiveStructureInstance#PrimitiveStructureInstance(PrimitiveStructureDefinition)}
    *   <li>{@link PrimitiveStructureInstance#getPrimitive()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void PrimitiveStructureInstance.<init>(PrimitiveStructureDefinition)",
+      "void PrimitiveStructureInstance.<init>(PrimitiveStructureDefinition, Object)",
+      "Object PrimitiveStructureInstance.getPrimitive()"})
   public void testGettersAndSetters_thenReturnPrimitiveIsNull() {
     // Arrange
     Class<Object> primitiveClass = Object.class;
@@ -64,12 +70,15 @@ public class PrimitiveStructureInstanceDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link PrimitiveStructureInstance#PrimitiveStructureInstance(PrimitiveStructureDefinition, Object)}
+   *   <li>{@link PrimitiveStructureInstance#PrimitiveStructureInstance(PrimitiveStructureDefinition, Object)}
    *   <li>{@link PrimitiveStructureInstance#getPrimitive()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void PrimitiveStructureInstance.<init>(PrimitiveStructureDefinition)",
+      "void PrimitiveStructureInstance.<init>(PrimitiveStructureDefinition, Object)",
+      "Object PrimitiveStructureInstance.getPrimitive()"})
   public void testGettersAndSetters_whenNull_thenReturnPrimitiveIsNull() {
     // Arrange
     Class<Object> primitiveClass = Object.class;
@@ -96,6 +105,8 @@ public class PrimitiveStructureInstanceDiffblueTest {
    * Method under test: {@link PrimitiveStructureInstance#toArray()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object[] PrimitiveStructureInstance.toArray()"})
   public void testToArray() {
     // Arrange
     Class<Object> primitiveClass = Object.class;
@@ -112,7 +123,7 @@ public class PrimitiveStructureInstanceDiffblueTest {
   /**
    * Test {@link PrimitiveStructureInstance#loadFrom(Object[])}.
    * <ul>
-   *   <li>Given {@code java.lang.Object}.</li>
+   *   <li>Given {@code Object}.</li>
    *   <li>When array of {@link Object} with {@link JSONObject#NULL}.</li>
    *   <li>Then array length is one.</li>
    * </ul>
@@ -120,6 +131,8 @@ public class PrimitiveStructureInstanceDiffblueTest {
    * Method under test: {@link PrimitiveStructureInstance#loadFrom(Object[])}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void PrimitiveStructureInstance.loadFrom(Object[])"})
   public void testLoadFrom_givenJavaLangObject_whenArrayOfObjectWithNull_thenArrayLengthIsOne() {
     // Arrange
     Class<Object> primitiveClass = Object.class;
@@ -136,7 +149,7 @@ public class PrimitiveStructureInstanceDiffblueTest {
   /**
    * Test {@link PrimitiveStructureInstance#loadFrom(Object[])}.
    * <ul>
-   *   <li>Given {@code java.lang.Object}.</li>
+   *   <li>Given {@code Object}.</li>
    *   <li>When empty array of {@link Object}.</li>
    *   <li>Then array length is one.</li>
    * </ul>
@@ -144,6 +157,8 @@ public class PrimitiveStructureInstanceDiffblueTest {
    * Method under test: {@link PrimitiveStructureInstance#loadFrom(Object[])}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void PrimitiveStructureInstance.loadFrom(Object[])"})
   public void testLoadFrom_givenJavaLangObject_whenEmptyArrayOfObject_thenArrayLengthIsOne() {
     // Arrange
     Class<Object> primitiveClass = Object.class;

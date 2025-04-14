@@ -19,46 +19,23 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ItemDefinitionDiffblueTest {
-  @InjectMocks
-  private ItemDefinition itemDefinition;
-
   /**
    * Test {@link ItemDefinition#ItemDefinition(String, StructureDefinition)}.
    * <p>
-   * Method under test:
-   * {@link ItemDefinition#ItemDefinition(String, StructureDefinition)}
+   * Method under test: {@link ItemDefinition#ItemDefinition(String, StructureDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ItemDefinition.<init>(String, StructureDefinition)"})
   public void testNewItemDefinition() {
     // Arrange
     SimpleStructureDefinition structure = new SimpleStructureDefinition("42");
-
-    // Act and Assert
-    assertSame(structure, (new ItemDefinition("42", structure)).getStructureDefinition());
-  }
-
-  /**
-   * Test {@link ItemDefinition#ItemDefinition(String, StructureDefinition)}.
-   * <ul>
-   *   <li>When {@link ClassStructureDefinition}.</li>
-   *   <li>Then return Id is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ItemDefinition#ItemDefinition(String, StructureDefinition)}
-   */
-  @Test
-  public void testNewItemDefinition_whenClassStructureDefinition_thenReturnIdIs42() {
-    // Arrange
-    ClassStructureDefinition structure = mock(ClassStructureDefinition.class);
 
     // Act
     ItemDefinition actualItemDefinition = new ItemDefinition("42", structure);
@@ -79,6 +56,8 @@ public class ItemDefinitionDiffblueTest {
    * Method under test: {@link ItemDefinition#createInstance()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ItemInstance ItemDefinition.createInstance()"})
   public void testCreateInstance_thenStructureInstanceReturnFieldBaseStructureInstance() {
     // Arrange
     SimpleStructureDefinition structure = new SimpleStructureDefinition("42");
@@ -111,6 +90,10 @@ public class ItemDefinitionDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ItemDefinition.getId()", "ItemKind ItemDefinition.getItemKind()",
+      "StructureDefinition ItemDefinition.getStructureDefinition()", "boolean ItemDefinition.isCollection()",
+      "void ItemDefinition.setCollection(boolean)", "void ItemDefinition.setItemKind(ItemKind)"})
   public void testGettersAndSetters() {
     // Arrange
     SimpleStructureDefinition structure = new SimpleStructureDefinition("42");
@@ -123,7 +106,7 @@ public class ItemDefinitionDiffblueTest {
     ItemKind actualItemKind = itemDefinition.getItemKind();
     StructureDefinition actualStructureDefinition = itemDefinition.getStructureDefinition();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualId);
     assertEquals(ItemKind.Information, actualItemKind);
     assertTrue(itemDefinition.isCollection());

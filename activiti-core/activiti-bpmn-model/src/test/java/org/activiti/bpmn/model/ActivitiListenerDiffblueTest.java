@@ -22,22 +22,26 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ActivitiListenerDiffblueTest {
   /**
    * Test {@link ActivitiListener#clone()}.
    * <ul>
-   *   <li>Given {@link ActivitiListener} (default constructor) FieldExtensions is
-   * {@code null}.</li>
+   *   <li>Given {@link ActivitiListener} (default constructor) FieldExtensions is {@code null}.</li>
    *   <li>Then return Instance is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ActivitiListener#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ActivitiListener ActivitiListener.clone()"})
   public void testClone_givenActivitiListenerFieldExtensionsIsNull_thenReturnInstanceIsNull() {
     // Arrange
     ActivitiListener activitiListener = new ActivitiListener();
@@ -72,6 +76,8 @@ public class ActivitiListenerDiffblueTest {
    * Method under test: {@link ActivitiListener#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ActivitiListener ActivitiListener.clone()"})
   public void testClone_givenActivitiListener_thenReturnInstanceIsNull() {
     // Arrange and Act
     ActivitiListener actualCloneResult = (new ActivitiListener()).clone();
@@ -95,14 +101,15 @@ public class ActivitiListenerDiffblueTest {
   /**
    * Test {@link ActivitiListener#clone()}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default constructor).</li>
    *   <li>Then return FieldExtensions size is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link ActivitiListener#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ActivitiListener ActivitiListener.clone()"})
   public void testClone_givenArrayListAddFieldExtension_thenReturnFieldExtensionsSizeIsOne() {
     // Arrange
     ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
@@ -126,8 +133,7 @@ public class ActivitiListenerDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiListener#setValues(ActivitiListener)} with
-   * {@code otherListener}.
+   * Test {@link ActivitiListener#setValues(ActivitiListener)} with {@code otherListener}.
    * <ul>
    *   <li>Then calls {@link FieldExtension#clone()}.</li>
    * </ul>
@@ -135,6 +141,8 @@ public class ActivitiListenerDiffblueTest {
    * Method under test: {@link ActivitiListener#setValues(ActivitiListener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiListener.setValues(ActivitiListener)"})
   public void testSetValuesWithOtherListener_thenCallsClone() {
     // Arrange
     ActivitiListener activitiListener = new ActivitiListener();
@@ -160,10 +168,8 @@ public class ActivitiListenerDiffblueTest {
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link ActivitiListener}
-   *   <li>
-   * {@link ActivitiListener#setCustomPropertiesResolverImplementation(String)}
-   *   <li>
-   * {@link ActivitiListener#setCustomPropertiesResolverImplementationType(String)}
+   *   <li>{@link ActivitiListener#setCustomPropertiesResolverImplementation(String)}
+   *   <li>{@link ActivitiListener#setCustomPropertiesResolverImplementationType(String)}
    *   <li>{@link ActivitiListener#setEvent(String)}
    *   <li>{@link ActivitiListener#setFieldExtensions(List)}
    *   <li>{@link ActivitiListener#setImplementation(String)}
@@ -181,6 +187,18 @@ public class ActivitiListenerDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiListener.<init>()",
+      "String ActivitiListener.getCustomPropertiesResolverImplementation()",
+      "String ActivitiListener.getCustomPropertiesResolverImplementationType()", "String ActivitiListener.getEvent()",
+      "List ActivitiListener.getFieldExtensions()", "String ActivitiListener.getImplementation()",
+      "String ActivitiListener.getImplementationType()", "Object ActivitiListener.getInstance()",
+      "String ActivitiListener.getOnTransaction()",
+      "void ActivitiListener.setCustomPropertiesResolverImplementation(String)",
+      "void ActivitiListener.setCustomPropertiesResolverImplementationType(String)",
+      "void ActivitiListener.setEvent(String)", "void ActivitiListener.setFieldExtensions(List)",
+      "void ActivitiListener.setImplementation(String)", "void ActivitiListener.setImplementationType(String)",
+      "void ActivitiListener.setInstance(Object)", "void ActivitiListener.setOnTransaction(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ActivitiListener actualActivitiListener = new ActivitiListener();
@@ -204,7 +222,7 @@ public class ActivitiListenerDiffblueTest {
     String actualImplementationType = actualActivitiListener.getImplementationType();
     Object actualInstance = actualActivitiListener.getInstance();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Custom Properties Resolver Implementation Type", actualCustomPropertiesResolverImplementationType);
     assertEquals("Custom Properties Resolver Implementation", actualCustomPropertiesResolverImplementation);
     assertEquals("Event", actualEvent);
@@ -212,6 +230,7 @@ public class ActivitiListenerDiffblueTest {
     assertEquals("Implementation", actualImplementation);
     assertEquals("Instance", actualInstance);
     assertEquals("On Transaction", actualActivitiListener.getOnTransaction());
+    assertNull(actualActivitiListener.getId());
     assertEquals(0, actualActivitiListener.getXmlColumnNumber());
     assertEquals(0, actualActivitiListener.getXmlRowNumber());
     assertTrue(actualFieldExtensions.isEmpty());

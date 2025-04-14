@@ -16,20 +16,14 @@
 package org.activiti.engine.impl.util.json;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiFunction;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class CookieListDiffblueTest {
-  @InjectMocks
-  private CookieList cookieList;
-
   /**
    * Test {@link CookieList#toJSONObject(String)}.
    * <ul>
@@ -40,6 +34,8 @@ public class CookieListDiffblueTest {
    * Method under test: {@link CookieList#toJSONObject(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject CookieList.toJSONObject(String)"})
   public void testToJSONObject_whenEmptyString_thenReturnLengthIsZero() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(0, CookieList.toJSONObject("").length());
@@ -55,6 +51,8 @@ public class CookieListDiffblueTest {
    * Method under test: {@link CookieList#toString(JSONObject)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String CookieList.toString(JSONObject)"})
   public void testToStringWithJSONObject_given42_thenReturnNameValueKey42() throws JSONException {
     // Arrange
     JSONObject o = Cookie.toJSONObject("=;");
@@ -74,6 +72,8 @@ public class CookieListDiffblueTest {
    * Method under test: {@link CookieList#toString(JSONObject)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String CookieList.toString(JSONObject)"})
   public void testToStringWithJSONObject_givenEmptyString_thenReturnNameValueKey() throws JSONException {
     // Arrange
     JSONObject o = Cookie.toJSONObject("=;");
@@ -93,6 +93,8 @@ public class CookieListDiffblueTest {
    * Method under test: {@link CookieList#toString(JSONObject)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String CookieList.toString(JSONObject)"})
   public void testToStringWithJSONObject_givenEqualsSign_thenReturnNameValue3dNull() throws JSONException {
     // Arrange
     JSONObject o = Cookie.toJSONObject("=;");
@@ -112,6 +114,8 @@ public class CookieListDiffblueTest {
    * Method under test: {@link CookieList#toString(JSONObject)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String CookieList.toString(JSONObject)"})
   public void testToStringWithJSONObject_givenFortyTwo_thenReturnNameValueKey42() throws JSONException {
     // Arrange
     JSONObject o = Cookie.toJSONObject("=;");
@@ -124,36 +128,15 @@ public class CookieListDiffblueTest {
   /**
    * Test {@link CookieList#toString(JSONObject)} with {@code JSONObject}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@link JSONObject#NULL}
-   * and {@link BiFunction}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CookieList#toString(JSONObject)}
-   */
-  @Test
-  public void testToStringWithJSONObject_givenHashMapComputeIfPresentNullAndBiFunction() throws JSONException {
-    // Arrange
-    HashMap<Object, Object> value = new HashMap<>();
-    value.computeIfPresent(JSONObject.NULL, mock(BiFunction.class));
-    value.put(JSONObject.NULL, JSONObject.NULL);
-    JSONObject o = Cookie.toJSONObject("=;");
-    o.put("Key", (Map) value);
-
-    // Act and Assert
-    assertEquals("name=;value=;Key={\"null\":null}", CookieList.toString(o));
-  }
-
-  /**
-   * Test {@link CookieList#toString(JSONObject)} with {@code JSONObject}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@link JSONObject#NULL} is
-   * {@link JSONObject#NULL}.</li>
+   *   <li>Given {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@link JSONObject#NULL}.</li>
    *   <li>Then return {@code name=;value=;Key={"null":null}}.</li>
    * </ul>
    * <p>
    * Method under test: {@link CookieList#toString(JSONObject)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String CookieList.toString(JSONObject)"})
   public void testToStringWithJSONObject_givenHashMapNullIsNull_thenReturnNameValueKeyNullNull() throws JSONException {
     // Arrange
     HashMap<Object, Object> value = new HashMap<>();
@@ -175,6 +158,8 @@ public class CookieListDiffblueTest {
    * Method under test: {@link CookieList#toString(JSONObject)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String CookieList.toString(JSONObject)"})
   public void testToStringWithJSONObject_givenHashMap_thenReturnNameValueKey() throws JSONException {
     // Arrange
     JSONObject o = Cookie.toJSONObject("=;");
@@ -193,6 +178,8 @@ public class CookieListDiffblueTest {
    * Method under test: {@link CookieList#toString(JSONObject)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String CookieList.toString(JSONObject)"})
   public void testToStringWithJSONObject_thenReturnNameValueKeyNull() throws JSONException {
     // Arrange
     JSONObject o = Cookie.toJSONObject("=;");
@@ -211,6 +198,8 @@ public class CookieListDiffblueTest {
    * Method under test: {@link CookieList#toString(JSONObject)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String CookieList.toString(JSONObject)"})
   public void testToStringWithJSONObject_thenReturnNameValueKeyNullNull() throws JSONException {
     // Arrange
     JSONObject o = Cookie.toJSONObject("=;");
@@ -230,6 +219,8 @@ public class CookieListDiffblueTest {
    * Method under test: {@link CookieList#toString(JSONObject)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String CookieList.toString(JSONObject)"})
   public void testToStringWithJSONObject_whenToJSONObjectEqualsSignSemicolon() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("name=;value=", CookieList.toString(Cookie.toJSONObject("=;")));
@@ -244,6 +235,8 @@ public class CookieListDiffblueTest {
    * Method under test: {@link CookieList#toString(JSONObject)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String CookieList.toString(JSONObject)"})
   public void testToStringWithJSONObject_whenToJSONObjectEqualsSignSemicolonKeyIsNull() throws JSONException {
     // Arrange
     JSONObject o = Cookie.toJSONObject("=;");

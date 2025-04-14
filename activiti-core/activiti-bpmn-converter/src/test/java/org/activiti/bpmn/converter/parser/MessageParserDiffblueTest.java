@@ -17,8 +17,10 @@ package org.activiti.bpmn.converter.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BpmnModel;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class MessageParserDiffblueTest {
@@ -33,6 +35,8 @@ class MessageParserDiffblueTest {
    */
   @Test
   @DisplayName("Test parseItemRef(String, BpmnModel); when empty string; then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String MessageParser.parseItemRef(String, BpmnModel)"})
   void testParseItemRef_whenEmptyString_thenReturnNull() {
     // Arrange
     MessageParser messageParser = new MessageParser();
@@ -52,6 +56,8 @@ class MessageParserDiffblueTest {
    */
   @Test
   @DisplayName("Test parseItemRef(String, BpmnModel); when 'Item Ref'; then return 'null:Item Ref'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String MessageParser.parseItemRef(String, BpmnModel)"})
   void testParseItemRef_whenItemRef_thenReturnNullItemRef() {
     // Arrange
     MessageParser messageParser = new MessageParser();

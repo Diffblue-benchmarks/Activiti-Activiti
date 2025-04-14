@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.payloads.GetProcessDefinitionsPayload;
 import org.activiti.api.process.model.payloads.GetProcessInstancesPayload;
 import org.activiti.api.runtime.shared.security.PrincipalGroupsProvider;
@@ -34,6 +35,7 @@ import org.activiti.core.common.spring.security.policies.SecurityPoliciesProcess
 import org.activiti.core.common.spring.security.policies.SecurityPoliciesRestrictionApplier;
 import org.activiti.core.common.spring.security.policies.conf.SecurityPoliciesProperties;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,15 +55,19 @@ class ActivitiSpringSecurityPoliciesAutoConfigurationDiffblueTest {
   private SecurityManager securityManager;
 
   /**
-   * Test
-   * {@link ActivitiSpringSecurityPoliciesAutoConfiguration#processSecurityPoliciesManager(SecurityManager, SecurityPoliciesProperties, SecurityPoliciesRestrictionApplier, SecurityPoliciesRestrictionApplier)}.
+   * Test {@link ActivitiSpringSecurityPoliciesAutoConfiguration#processSecurityPoliciesManager(SecurityManager, SecurityPoliciesProperties, SecurityPoliciesRestrictionApplier, SecurityPoliciesRestrictionApplier)}.
+   * <ul>
+   *   <li>Then return {@link ProcessSecurityPoliciesManagerImpl}.</li>
+   * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiSpringSecurityPoliciesAutoConfiguration#processSecurityPoliciesManager(SecurityManager, SecurityPoliciesProperties, SecurityPoliciesRestrictionApplier, SecurityPoliciesRestrictionApplier)}
+   * Method under test: {@link ActivitiSpringSecurityPoliciesAutoConfiguration#processSecurityPoliciesManager(SecurityManager, SecurityPoliciesProperties, SecurityPoliciesRestrictionApplier, SecurityPoliciesRestrictionApplier)}
    */
   @Test
-  @DisplayName("Test processSecurityPoliciesManager(SecurityManager, SecurityPoliciesProperties, SecurityPoliciesRestrictionApplier, SecurityPoliciesRestrictionApplier)")
-  void testProcessSecurityPoliciesManager() {
+  @DisplayName("Test processSecurityPoliciesManager(SecurityManager, SecurityPoliciesProperties, SecurityPoliciesRestrictionApplier, SecurityPoliciesRestrictionApplier); then return ProcessSecurityPoliciesManagerImpl")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.core.common.spring.security.policies.ProcessSecurityPoliciesManager ActivitiSpringSecurityPoliciesAutoConfiguration.processSecurityPoliciesManager(SecurityManager, SecurityPoliciesProperties, SecurityPoliciesRestrictionApplier, SecurityPoliciesRestrictionApplier)"})
+  void testProcessSecurityPoliciesManager_thenReturnProcessSecurityPoliciesManagerImpl() {
     // Arrange
     SecurityContextPrincipalProvider securityContextPrincipalProvider = mock(SecurityContextPrincipalProvider.class);
     LocalSpringSecurityManager securityManager2 = new LocalSpringSecurityManager(securityContextPrincipalProvider,
@@ -78,14 +84,15 @@ class ActivitiSpringSecurityPoliciesAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiSpringSecurityPoliciesAutoConfiguration#processInstanceRestrictionApplier()}.
+   * Test {@link ActivitiSpringSecurityPoliciesAutoConfiguration#processInstanceRestrictionApplier()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiSpringSecurityPoliciesAutoConfiguration#processInstanceRestrictionApplier()}
+   * Method under test: {@link ActivitiSpringSecurityPoliciesAutoConfiguration#processInstanceRestrictionApplier()}
    */
   @Test
   @DisplayName("Test processInstanceRestrictionApplier()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "SecurityPoliciesRestrictionApplier ActivitiSpringSecurityPoliciesAutoConfiguration.processInstanceRestrictionApplier()"})
   void testProcessInstanceRestrictionApplier() {
     // Arrange and Act
     SecurityPoliciesRestrictionApplier<GetProcessInstancesPayload> actualProcessInstanceRestrictionApplierResult = (new ActivitiSpringSecurityPoliciesAutoConfiguration())
@@ -109,14 +116,15 @@ class ActivitiSpringSecurityPoliciesAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiSpringSecurityPoliciesAutoConfiguration#processDefinitionRestrictionApplier()}.
+   * Test {@link ActivitiSpringSecurityPoliciesAutoConfiguration#processDefinitionRestrictionApplier()}.
    * <p>
-   * Method under test:
-   * {@link ActivitiSpringSecurityPoliciesAutoConfiguration#processDefinitionRestrictionApplier()}
+   * Method under test: {@link ActivitiSpringSecurityPoliciesAutoConfiguration#processDefinitionRestrictionApplier()}
    */
   @Test
   @DisplayName("Test processDefinitionRestrictionApplier()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "SecurityPoliciesRestrictionApplier ActivitiSpringSecurityPoliciesAutoConfiguration.processDefinitionRestrictionApplier()"})
   void testProcessDefinitionRestrictionApplier() {
     // Arrange and Act
     SecurityPoliciesRestrictionApplier<GetProcessDefinitionsPayload> actualProcessDefinitionRestrictionApplierResult = (new ActivitiSpringSecurityPoliciesAutoConfiguration())

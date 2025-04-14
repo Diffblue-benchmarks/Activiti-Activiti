@@ -21,56 +21,73 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import java.util.Collection;
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.net.SimpleSSLSocketServer;
+import ch.qos.logback.classic.net.SimpleSocketServer;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import jakarta.transaction.TransactionManager;
+import java.security.NoSuchAlgorithmException;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
+import org.activiti.engine.impl.asyncexecutor.AcquiredJobEntities;
+import org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor;
 import org.activiti.engine.impl.asyncexecutor.DefaultJobManager;
-import org.activiti.engine.impl.asyncexecutor.ExecuteAsyncRunnableFactory;
+import org.activiti.engine.impl.asyncexecutor.JobManager;
 import org.activiti.engine.impl.cfg.CommandExecutorImpl;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
-import org.activiti.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration;
+import org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration;
+import org.activiti.engine.impl.cfg.TransactionPropagation;
 import org.activiti.engine.impl.cfg.multitenant.TenantInfoHolder;
+import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandConfig;
 import org.activiti.engine.impl.interceptor.CommandContextInterceptor;
+import org.activiti.engine.impl.interceptor.CommandExecutor;
 import org.activiti.engine.impl.interceptor.CommandInterceptor;
-import org.activiti.engine.impl.persistence.entity.TimerJobEntityManagerImpl;
-import org.activiti.engine.impl.persistence.entity.data.impl.MybatisTimerJobDataManager;
+import org.activiti.engine.impl.interceptor.CommandInvoker;
+import org.activiti.engine.impl.interceptor.DebugCommandInvoker;
+import org.activiti.engine.impl.persistence.entity.JobEntity;
+import org.activiti.engine.impl.persistence.entity.JobEntityImpl;
+import org.activiti.engine.impl.util.json.JSONObject;
 import org.activiti.engine.test.cfg.multitenant.DummyTenantInfoHolder;
+import org.activiti.engine.test.impl.logger.ProcessExecutionLoggerConfigurator;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
+import org.apache.ibatis.session.Configuration;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.defaults.DefaultSqlSessionFactory;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class SharedExecutorServiceAsyncExecutorDiffblueTest {
   /**
-   * Test
-   * {@link SharedExecutorServiceAsyncExecutor#SharedExecutorServiceAsyncExecutor(TenantInfoHolder)}.
+   * Test {@link SharedExecutorServiceAsyncExecutor#SharedExecutorServiceAsyncExecutor(TenantInfoHolder)}.
    * <p>
-   * Method under test:
-   * {@link SharedExecutorServiceAsyncExecutor#SharedExecutorServiceAsyncExecutor(TenantInfoHolder)}
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#SharedExecutorServiceAsyncExecutor(TenantInfoHolder)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.<init>(TenantInfoHolder)"})
   public void testNewSharedExecutorServiceAsyncExecutor() {
     // Arrange and Act
     SharedExecutorServiceAsyncExecutor actualSharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
         new DummyTenantInfoHolder());
 
     // Assert
-    TenantInfoHolder tenantInfoHolder = actualSharedExecutorServiceAsyncExecutor.tenantInfoHolder;
-    Collection<String> allTenants = tenantInfoHolder.getAllTenants();
-    assertTrue(allTenants instanceof Set);
-    assertTrue(tenantInfoHolder instanceof DummyTenantInfoHolder);
-    assertNull(tenantInfoHolder.getCurrentTenantId());
-    assertNull(((DummyTenantInfoHolder) tenantInfoHolder).getCurrentUserId());
+    assertTrue(actualSharedExecutorServiceAsyncExecutor.tenantInfoHolder instanceof DummyTenantInfoHolder);
     assertNull(actualSharedExecutorServiceAsyncExecutor.getAsyncJobAcquisitionThread());
     assertNull(actualSharedExecutorServiceAsyncExecutor.getResetExpiredJobThread());
     assertNull(actualSharedExecutorServiceAsyncExecutor.getTimerJobAcquisitionThread());
@@ -95,7 +112,6 @@ public class SharedExecutorServiceAsyncExecutorDiffblueTest {
     assertFalse(actualSharedExecutorServiceAsyncExecutor.isActive());
     assertFalse(actualSharedExecutorServiceAsyncExecutor.isAutoActivate());
     assertFalse(actualSharedExecutorServiceAsyncExecutor.isMessageQueueMode());
-    assertTrue(allTenants.isEmpty());
     assertTrue(actualSharedExecutorServiceAsyncExecutor.asyncJobAcquisitionRunnables.isEmpty());
     assertTrue(actualSharedExecutorServiceAsyncExecutor.asyncJobAcquisitionThreads.isEmpty());
     assertTrue(actualSharedExecutorServiceAsyncExecutor.resetExpiredJobsRunnables.isEmpty());
@@ -111,35 +127,21 @@ public class SharedExecutorServiceAsyncExecutorDiffblueTest {
    * Method under test: {@link SharedExecutorServiceAsyncExecutor#getTenantIds()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Set SharedExecutorServiceAsyncExecutor.getTenantIds()"})
   public void testGetTenantIds() {
     // Arrange, Act and Assert
     assertTrue((new SharedExecutorServiceAsyncExecutor(new DummyTenantInfoHolder())).getTenantIds().isEmpty());
   }
 
   /**
-   * Test {@link SharedExecutorServiceAsyncExecutor#getTenantIds()}.
+   * Test {@link SharedExecutorServiceAsyncExecutor#addTenantAsyncExecutor(String, boolean)}.
    * <p>
-   * Method under test: {@link SharedExecutorServiceAsyncExecutor#getTenantIds()}
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#addTenantAsyncExecutor(String, boolean)}
    */
   @Test
-  public void testGetTenantIds2() {
-    // Arrange
-    SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
-        new DummyTenantInfoHolder());
-    sharedExecutorServiceAsyncExecutor.setExecuteAsyncRunnableFactory(mock(ExecuteAsyncRunnableFactory.class));
-
-    // Act and Assert
-    assertTrue(sharedExecutorServiceAsyncExecutor.getTenantIds().isEmpty());
-  }
-
-  /**
-   * Test
-   * {@link SharedExecutorServiceAsyncExecutor#addTenantAsyncExecutor(String, boolean)}.
-   * <p>
-   * Method under test:
-   * {@link SharedExecutorServiceAsyncExecutor#addTenantAsyncExecutor(String, boolean)}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor(String, boolean)"})
   public void testAddTenantAsyncExecutor() {
     // Arrange
     SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
@@ -154,29 +156,31 @@ public class SharedExecutorServiceAsyncExecutorDiffblueTest {
         sharedExecutorServiceAsyncExecutor.getProcessEngineConfiguration() instanceof JtaProcessEngineConfiguration);
     Map<String, TenantAwareAcquireAsyncJobsDueRunnable> stringTenantAwareAcquireAsyncJobsDueRunnableMap = sharedExecutorServiceAsyncExecutor.asyncJobAcquisitionRunnables;
     assertEquals(1, stringTenantAwareAcquireAsyncJobsDueRunnableMap.size());
-    assertNull(stringTenantAwareAcquireAsyncJobsDueRunnableMap.get("42").tenantInfoHolder);
+    TenantAwareAcquireAsyncJobsDueRunnable getResult = stringTenantAwareAcquireAsyncJobsDueRunnableMap.get("42");
+    assertNull(getResult.tenantInfoHolder);
     Map<String, TenantAwareAcquireTimerJobsRunnable> stringTenantAwareAcquireTimerJobsRunnableMap = sharedExecutorServiceAsyncExecutor.timerJobAcquisitionRunnables;
     assertEquals(1, stringTenantAwareAcquireTimerJobsRunnableMap.size());
-    assertNull(stringTenantAwareAcquireTimerJobsRunnableMap.get("42").tenantInfoHolder);
+    TenantAwareAcquireTimerJobsRunnable getResult2 = stringTenantAwareAcquireTimerJobsRunnableMap.get("42");
+    assertNull(getResult2.tenantInfoHolder);
     Map<String, TenantAwareResetExpiredJobsRunnable> stringTenantAwareResetExpiredJobsRunnableMap = sharedExecutorServiceAsyncExecutor.resetExpiredJobsRunnables;
     assertEquals(1, stringTenantAwareResetExpiredJobsRunnableMap.size());
     assertNull(stringTenantAwareResetExpiredJobsRunnableMap.get("42").tenantInfoHolder);
+    assertEquals(0L, getResult.getMillisToWait());
+    assertEquals(0L, getResult2.getMillisToWait());
   }
 
   /**
-   * Test
-   * {@link SharedExecutorServiceAsyncExecutor#addTenantAsyncExecutor(String, boolean)}.
+   * Test {@link SharedExecutorServiceAsyncExecutor#addTenantAsyncExecutor(String, boolean)}.
    * <p>
-   * Method under test:
-   * {@link SharedExecutorServiceAsyncExecutor#addTenantAsyncExecutor(String, boolean)}
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#addTenantAsyncExecutor(String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor(String, boolean)"})
   public void testAddTenantAsyncExecutor2() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    CommandConfig defaultConfig = new CommandConfig();
-    processEngineConfiguration
-        .setCommandExecutor(new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor()));
+    processEngineConfiguration.setSqlSessionFactory(new DefaultSqlSessionFactory(new Configuration()));
 
     SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
         new DummyTenantInfoHolder());
@@ -186,34 +190,26 @@ public class SharedExecutorServiceAsyncExecutorDiffblueTest {
     sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", true);
 
     // Assert
-    assertTrue(
-        sharedExecutorServiceAsyncExecutor.getProcessEngineConfiguration() instanceof JtaProcessEngineConfiguration);
-    Map<String, TenantAwareAcquireAsyncJobsDueRunnable> stringTenantAwareAcquireAsyncJobsDueRunnableMap = sharedExecutorServiceAsyncExecutor.asyncJobAcquisitionRunnables;
-    assertEquals(1, stringTenantAwareAcquireAsyncJobsDueRunnableMap.size());
-    Map<String, TenantAwareResetExpiredJobsRunnable> stringTenantAwareResetExpiredJobsRunnableMap = sharedExecutorServiceAsyncExecutor.resetExpiredJobsRunnables;
-    assertEquals(1, stringTenantAwareResetExpiredJobsRunnableMap.size());
-    Map<String, TenantAwareAcquireTimerJobsRunnable> stringTenantAwareAcquireTimerJobsRunnableMap = sharedExecutorServiceAsyncExecutor.timerJobAcquisitionRunnables;
-    assertEquals(1, stringTenantAwareAcquireTimerJobsRunnableMap.size());
-    TenantInfoHolder tenantInfoHolder = sharedExecutorServiceAsyncExecutor.tenantInfoHolder;
-    assertSame(tenantInfoHolder, stringTenantAwareAcquireAsyncJobsDueRunnableMap.get("42").tenantInfoHolder);
-    assertSame(tenantInfoHolder, stringTenantAwareAcquireTimerJobsRunnableMap.get("42").tenantInfoHolder);
-    assertSame(tenantInfoHolder, stringTenantAwareResetExpiredJobsRunnableMap.get("42").tenantInfoHolder);
+    ProcessEngineConfigurationImpl processEngineConfiguration2 = sharedExecutorServiceAsyncExecutor
+        .getProcessEngineConfiguration();
+    assertTrue(processEngineConfiguration2 instanceof JtaProcessEngineConfiguration);
+    SqlSessionFactory sqlSessionFactory = processEngineConfiguration2.getSqlSessionFactory();
+    assertTrue(sqlSessionFactory instanceof DefaultSqlSessionFactory);
+    assertTrue(sqlSessionFactory.getConfiguration().getVariables().isEmpty());
   }
 
   /**
-   * Test
-   * {@link SharedExecutorServiceAsyncExecutor#addTenantAsyncExecutor(String, boolean)}.
+   * Test {@link SharedExecutorServiceAsyncExecutor#addTenantAsyncExecutor(String, boolean)}.
    * <p>
-   * Method under test:
-   * {@link SharedExecutorServiceAsyncExecutor#addTenantAsyncExecutor(String, boolean)}
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#addTenantAsyncExecutor(String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor(String, boolean)"})
   public void testAddTenantAsyncExecutor3() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    JtaProcessEngineConfiguration processEngineConfiguration2 = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setTimerJobEntityManager(new TimerJobEntityManagerImpl(processEngineConfiguration2,
-        new MybatisTimerJobDataManager(new JtaProcessEngineConfiguration())));
+    processEngineConfiguration.setEnableEventDispatcher(true);
 
     SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
         new DummyTenantInfoHolder());
@@ -231,58 +227,27 @@ public class SharedExecutorServiceAsyncExecutorDiffblueTest {
     assertEquals(1, stringTenantAwareResetExpiredJobsRunnableMap.size());
     Map<String, TenantAwareAcquireTimerJobsRunnable> stringTenantAwareAcquireTimerJobsRunnableMap = sharedExecutorServiceAsyncExecutor.timerJobAcquisitionRunnables;
     assertEquals(1, stringTenantAwareAcquireTimerJobsRunnableMap.size());
+    TenantAwareAcquireAsyncJobsDueRunnable getResult = stringTenantAwareAcquireAsyncJobsDueRunnableMap.get("42");
+    assertEquals(10000L, getResult.getMillisToWait());
+    TenantAwareAcquireTimerJobsRunnable getResult2 = stringTenantAwareAcquireTimerJobsRunnableMap.get("42");
+    assertEquals(10000L, getResult2.getMillisToWait());
     TenantInfoHolder tenantInfoHolder = sharedExecutorServiceAsyncExecutor.tenantInfoHolder;
-    assertSame(tenantInfoHolder, stringTenantAwareAcquireAsyncJobsDueRunnableMap.get("42").tenantInfoHolder);
-    assertSame(tenantInfoHolder, stringTenantAwareAcquireTimerJobsRunnableMap.get("42").tenantInfoHolder);
+    assertSame(tenantInfoHolder, getResult.tenantInfoHolder);
+    assertSame(tenantInfoHolder, getResult2.tenantInfoHolder);
     assertSame(tenantInfoHolder, stringTenantAwareResetExpiredJobsRunnableMap.get("42").tenantInfoHolder);
   }
 
   /**
-   * Test
-   * {@link SharedExecutorServiceAsyncExecutor#addTenantAsyncExecutor(String, boolean)}.
-   * <p>
-   * Method under test:
-   * {@link SharedExecutorServiceAsyncExecutor#addTenantAsyncExecutor(String, boolean)}
-   */
-  @Test
-  public void testAddTenantAsyncExecutor4() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setAsyncExecutorMaxAsyncJobsDuePerAcquisition(1);
-
-    SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
-        new DummyTenantInfoHolder());
-    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(processEngineConfiguration);
-
-    // Act
-    sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", true);
-
-    // Assert
-    assertTrue(
-        sharedExecutorServiceAsyncExecutor.getProcessEngineConfiguration() instanceof JtaProcessEngineConfiguration);
-    Map<String, TenantAwareAcquireAsyncJobsDueRunnable> stringTenantAwareAcquireAsyncJobsDueRunnableMap = sharedExecutorServiceAsyncExecutor.asyncJobAcquisitionRunnables;
-    assertEquals(1, stringTenantAwareAcquireAsyncJobsDueRunnableMap.size());
-    Map<String, TenantAwareResetExpiredJobsRunnable> stringTenantAwareResetExpiredJobsRunnableMap = sharedExecutorServiceAsyncExecutor.resetExpiredJobsRunnables;
-    assertEquals(1, stringTenantAwareResetExpiredJobsRunnableMap.size());
-    Map<String, TenantAwareAcquireTimerJobsRunnable> stringTenantAwareAcquireTimerJobsRunnableMap = sharedExecutorServiceAsyncExecutor.timerJobAcquisitionRunnables;
-    assertEquals(1, stringTenantAwareAcquireTimerJobsRunnableMap.size());
-    TenantInfoHolder tenantInfoHolder = sharedExecutorServiceAsyncExecutor.tenantInfoHolder;
-    assertSame(tenantInfoHolder, stringTenantAwareAcquireAsyncJobsDueRunnableMap.get("42").tenantInfoHolder);
-    assertSame(tenantInfoHolder, stringTenantAwareAcquireTimerJobsRunnableMap.get("42").tenantInfoHolder);
-    assertSame(tenantInfoHolder, stringTenantAwareResetExpiredJobsRunnableMap.get("42").tenantInfoHolder);
-  }
-
-  /**
-   * Test
-   * {@link SharedExecutorServiceAsyncExecutor#addTenantAsyncExecutor(String, boolean)}.
+   * Test {@link SharedExecutorServiceAsyncExecutor#addTenantAsyncExecutor(String, boolean)}.
    * <ul>
    *   <li>When {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SharedExecutorServiceAsyncExecutor#addTenantAsyncExecutor(String, boolean)}
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#addTenantAsyncExecutor(String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor(String, boolean)"})
   public void testAddTenantAsyncExecutor_whenFalse() {
     // Arrange
     SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
@@ -297,23 +262,27 @@ public class SharedExecutorServiceAsyncExecutorDiffblueTest {
         sharedExecutorServiceAsyncExecutor.getProcessEngineConfiguration() instanceof JtaProcessEngineConfiguration);
     Map<String, TenantAwareAcquireAsyncJobsDueRunnable> stringTenantAwareAcquireAsyncJobsDueRunnableMap = sharedExecutorServiceAsyncExecutor.asyncJobAcquisitionRunnables;
     assertEquals(1, stringTenantAwareAcquireAsyncJobsDueRunnableMap.size());
-    assertNull(stringTenantAwareAcquireAsyncJobsDueRunnableMap.get("42").tenantInfoHolder);
+    TenantAwareAcquireAsyncJobsDueRunnable getResult = stringTenantAwareAcquireAsyncJobsDueRunnableMap.get("42");
+    assertNull(getResult.tenantInfoHolder);
     Map<String, TenantAwareAcquireTimerJobsRunnable> stringTenantAwareAcquireTimerJobsRunnableMap = sharedExecutorServiceAsyncExecutor.timerJobAcquisitionRunnables;
     assertEquals(1, stringTenantAwareAcquireTimerJobsRunnableMap.size());
-    assertNull(stringTenantAwareAcquireTimerJobsRunnableMap.get("42").tenantInfoHolder);
+    TenantAwareAcquireTimerJobsRunnable getResult2 = stringTenantAwareAcquireTimerJobsRunnableMap.get("42");
+    assertNull(getResult2.tenantInfoHolder);
     Map<String, TenantAwareResetExpiredJobsRunnable> stringTenantAwareResetExpiredJobsRunnableMap = sharedExecutorServiceAsyncExecutor.resetExpiredJobsRunnables;
     assertEquals(1, stringTenantAwareResetExpiredJobsRunnableMap.size());
     assertNull(stringTenantAwareResetExpiredJobsRunnableMap.get("42").tenantInfoHolder);
+    assertEquals(0L, getResult.getMillisToWait());
+    assertEquals(0L, getResult2.getMillisToWait());
   }
 
   /**
-   * Test
-   * {@link SharedExecutorServiceAsyncExecutor#removeTenantAsyncExecutor(String)}.
+   * Test {@link SharedExecutorServiceAsyncExecutor#removeTenantAsyncExecutor(String)}.
    * <p>
-   * Method under test:
-   * {@link SharedExecutorServiceAsyncExecutor#removeTenantAsyncExecutor(String)}
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#removeTenantAsyncExecutor(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.removeTenantAsyncExecutor(String)"})
   public void testRemoveTenantAsyncExecutor() {
     // Arrange
     SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
@@ -324,7 +293,7 @@ public class SharedExecutorServiceAsyncExecutorDiffblueTest {
     // Act
     sharedExecutorServiceAsyncExecutor.removeTenantAsyncExecutor("42");
 
-    // Assert
+    // Assert that nothing has changed
     Map<String, TenantAwareAcquireAsyncJobsDueRunnable> stringTenantAwareAcquireAsyncJobsDueRunnableMap = sharedExecutorServiceAsyncExecutor.asyncJobAcquisitionRunnables;
     assertEquals(1, stringTenantAwareAcquireAsyncJobsDueRunnableMap.size());
     assertEquals(0L, stringTenantAwareAcquireAsyncJobsDueRunnableMap.get("42").getMillisToWait());
@@ -334,13 +303,13 @@ public class SharedExecutorServiceAsyncExecutorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link SharedExecutorServiceAsyncExecutor#removeTenantAsyncExecutor(String)}.
+   * Test {@link SharedExecutorServiceAsyncExecutor#removeTenantAsyncExecutor(String)}.
    * <p>
-   * Method under test:
-   * {@link SharedExecutorServiceAsyncExecutor#removeTenantAsyncExecutor(String)}
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#removeTenantAsyncExecutor(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.removeTenantAsyncExecutor(String)"})
   public void testRemoveTenantAsyncExecutor2() {
     // Arrange
     TenantInfoHolder tenantInfoHolder = mock(TenantInfoHolder.class);
@@ -349,16 +318,302 @@ public class SharedExecutorServiceAsyncExecutorDiffblueTest {
 
     SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
         tenantInfoHolder);
-    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(new JtaProcessEngineConfiguration());
+    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(new StandaloneProcessEngineConfiguration());
+    sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", true);
+
+    // Act
+    sharedExecutorServiceAsyncExecutor.removeTenantAsyncExecutor("42");
+
+    // Assert that nothing has changed
+    verify(tenantInfoHolder, atLeast(1)).clearCurrentTenantId();
+    verify(tenantInfoHolder, atLeast(1)).setCurrentTenantId(eq("42"));
+    assertEquals(1, sharedExecutorServiceAsyncExecutor.timerJobAcquisitionRunnables.size());
+  }
+
+  /**
+   * Test {@link SharedExecutorServiceAsyncExecutor#removeTenantAsyncExecutor(String)}.
+   * <p>
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#removeTenantAsyncExecutor(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.removeTenantAsyncExecutor(String)"})
+  public void testRemoveTenantAsyncExecutor3() {
+    // Arrange
+    TenantInfoHolder tenantInfoHolder = mock(TenantInfoHolder.class);
+    doNothing().when(tenantInfoHolder).clearCurrentTenantId();
+    doNothing().when(tenantInfoHolder).setCurrentTenantId(Mockito.<String>any());
+
+    SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
+        tenantInfoHolder);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getJobManager()).thenReturn(mock(JobManager.class));
+    CommandConfig defaultConfig = new CommandConfig();
+    when(processEngineConfiguration.getCommandExecutor())
+        .thenReturn(new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor()));
+    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(processEngineConfiguration);
     sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", true);
 
     // Act
     sharedExecutorServiceAsyncExecutor.removeTenantAsyncExecutor("42");
 
     // Assert
+    verify(processEngineConfiguration, atLeast(1)).getCommandExecutor();
+    verify(processEngineConfiguration).getJobManager();
+    verify(tenantInfoHolder, atLeast(1)).clearCurrentTenantId();
+    verify(tenantInfoHolder, atLeast(1)).setCurrentTenantId(eq("42"));
+  }
+
+  /**
+   * Test {@link SharedExecutorServiceAsyncExecutor#removeTenantAsyncExecutor(String)}.
+   * <p>
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#removeTenantAsyncExecutor(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.removeTenantAsyncExecutor(String)"})
+  public void testRemoveTenantAsyncExecutor4() {
+    // Arrange
+    TenantInfoHolder tenantInfoHolder = mock(TenantInfoHolder.class);
+    doNothing().when(tenantInfoHolder).clearCurrentTenantId();
+    doNothing().when(tenantInfoHolder).setCurrentTenantId(Mockito.<String>any());
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getJobManager()).thenReturn(new DefaultJobManager());
+    CommandConfig defaultConfig = mock(CommandConfig.class);
+    when(processEngineConfiguration.getCommandExecutor())
+        .thenReturn(new CommandExecutorImpl(defaultConfig, new DebugCommandInvoker()));
+
+    SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
+        tenantInfoHolder);
+    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(processEngineConfiguration);
+    sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", true);
+
+    // Act
+    sharedExecutorServiceAsyncExecutor.removeTenantAsyncExecutor("42");
+
+    // Assert
+    verify(processEngineConfiguration, atLeast(1)).getCommandExecutor();
+    verify(processEngineConfiguration).getJobManager();
+    verify(tenantInfoHolder, atLeast(1)).clearCurrentTenantId();
+    verify(tenantInfoHolder, atLeast(1)).setCurrentTenantId(eq("42"));
+    assertEquals(1, sharedExecutorServiceAsyncExecutor.timerJobAcquisitionRunnables.size());
+  }
+
+  /**
+   * Test {@link SharedExecutorServiceAsyncExecutor#removeTenantAsyncExecutor(String)}.
+   * <p>
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#removeTenantAsyncExecutor(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.removeTenantAsyncExecutor(String)"})
+  public void testRemoveTenantAsyncExecutor5() {
+    // Arrange
+    TenantInfoHolder tenantInfoHolder = mock(TenantInfoHolder.class);
+    doNothing().when(tenantInfoHolder).clearCurrentTenantId();
+    doNothing().when(tenantInfoHolder).setCurrentTenantId(Mockito.<String>any());
+    CommandConfig defaultConfig = mock(CommandConfig.class);
+    when(defaultConfig.isContextReusePossible()).thenReturn(true);
+    CommandInvoker first = mock(CommandInvoker.class);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
+        .thenReturn(new SimpleSocketServer(new LoggerContext(), 8080));
+    CommandExecutorImpl commandExecutorImpl = new CommandExecutorImpl(defaultConfig, first);
+
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getJobManager()).thenReturn(new DefaultJobManager());
+    when(processEngineConfiguration.getCommandExecutor()).thenReturn(commandExecutorImpl);
+
+    SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
+        tenantInfoHolder);
+    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(processEngineConfiguration);
+    sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", true);
+
+    // Act
+    sharedExecutorServiceAsyncExecutor.removeTenantAsyncExecutor("42");
+
+    // Assert that nothing has changed
+    verify(processEngineConfiguration, atLeast(1)).getCommandExecutor();
+    verify(processEngineConfiguration).getJobManager();
+    verify(tenantInfoHolder, atLeast(1)).clearCurrentTenantId();
+    verify(tenantInfoHolder, atLeast(1)).setCurrentTenantId(eq("42"));
+    verify(first, atLeast(1)).execute(isA(CommandConfig.class), Mockito.<Command<Object>>any());
+    Map<String, TenantAwareAcquireTimerJobsRunnable> stringTenantAwareAcquireTimerJobsRunnableMap = sharedExecutorServiceAsyncExecutor.timerJobAcquisitionRunnables;
+    assertEquals(1, stringTenantAwareAcquireTimerJobsRunnableMap.size());
+    assertEquals(10000L, stringTenantAwareAcquireTimerJobsRunnableMap.get("42").getMillisToWait());
+  }
+
+  /**
+   * Test {@link SharedExecutorServiceAsyncExecutor#removeTenantAsyncExecutor(String)}.
+   * <p>
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#removeTenantAsyncExecutor(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.removeTenantAsyncExecutor(String)"})
+  public void testRemoveTenantAsyncExecutor6() throws NoSuchAlgorithmException {
+    // Arrange
+    TenantInfoHolder tenantInfoHolder = mock(TenantInfoHolder.class);
+    doNothing().when(tenantInfoHolder).clearCurrentTenantId();
+    doNothing().when(tenantInfoHolder).setCurrentTenantId(Mockito.<String>any());
+    CommandConfig defaultConfig = mock(CommandConfig.class);
+    when(defaultConfig.isContextReusePossible()).thenReturn(false);
+    CommandInvoker first = mock(CommandInvoker.class);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
+        .thenReturn(new SimpleSSLSocketServer(new LoggerContext(), 8080));
+    CommandExecutorImpl commandExecutorImpl = new CommandExecutorImpl(defaultConfig, first);
+
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getJobManager()).thenReturn(new DefaultJobManager());
+    when(processEngineConfiguration.getCommandExecutor()).thenReturn(commandExecutorImpl);
+
+    SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
+        tenantInfoHolder);
+    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(processEngineConfiguration);
+    sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", true);
+
+    // Act
+    sharedExecutorServiceAsyncExecutor.removeTenantAsyncExecutor("42");
+
+    // Assert that nothing has changed
+    verify(processEngineConfiguration, atLeast(1)).getCommandExecutor();
+    verify(processEngineConfiguration).getJobManager();
     verify(tenantInfoHolder, atLeast(1)).clearCurrentTenantId();
     verify(tenantInfoHolder, atLeast(1)).setCurrentTenantId(eq("42"));
     assertEquals(1, sharedExecutorServiceAsyncExecutor.asyncJobAcquisitionRunnables.size());
+  }
+
+  /**
+   * Test {@link SharedExecutorServiceAsyncExecutor#removeTenantAsyncExecutor(String)}.
+   * <p>
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#removeTenantAsyncExecutor(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.removeTenantAsyncExecutor(String)"})
+  public void testRemoveTenantAsyncExecutor7() {
+    // Arrange
+    TenantInfoHolder tenantInfoHolder = mock(TenantInfoHolder.class);
+    doNothing().when(tenantInfoHolder).clearCurrentTenantId();
+    doNothing().when(tenantInfoHolder).setCurrentTenantId(Mockito.<String>any());
+    CommandConfig defaultConfig = mock(CommandConfig.class);
+    when(defaultConfig.isContextReusePossible()).thenReturn(false);
+
+    JobEntityImpl jobEntityImpl = new JobEntityImpl();
+    jobEntityImpl.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+
+    ArrayList<JobEntity> jobEntityList = new ArrayList<>();
+    jobEntityList.add(new JobEntityImpl());
+    jobEntityList.add(jobEntityImpl);
+    AcquiredJobEntities acquiredJobEntities = mock(AcquiredJobEntities.class);
+    when(acquiredJobEntities.size()).thenReturn(3);
+    when(acquiredJobEntities.getJobs()).thenReturn(jobEntityList);
+    CommandInvoker first = mock(CommandInvoker.class);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(acquiredJobEntities);
+    CommandExecutorImpl commandExecutorImpl = new CommandExecutorImpl(defaultConfig, first);
+
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getJobManager()).thenReturn(new DefaultJobManager());
+    when(processEngineConfiguration.getCommandExecutor()).thenReturn(commandExecutorImpl);
+
+    SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
+        tenantInfoHolder);
+    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(processEngineConfiguration);
+    sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", true);
+
+    // Act
+    sharedExecutorServiceAsyncExecutor.removeTenantAsyncExecutor("42");
+
+    // Assert that nothing has changed
+    verify(processEngineConfiguration, atLeast(1)).getCommandExecutor();
+    verify(processEngineConfiguration).getJobManager();
+    verify(tenantInfoHolder, atLeast(1)).clearCurrentTenantId();
+    verify(tenantInfoHolder, atLeast(1)).setCurrentTenantId(eq("42"));
+    Map<String, TenantAwareAcquireAsyncJobsDueRunnable> stringTenantAwareAcquireAsyncJobsDueRunnableMap = sharedExecutorServiceAsyncExecutor.asyncJobAcquisitionRunnables;
+    assertEquals(1, stringTenantAwareAcquireAsyncJobsDueRunnableMap.size());
+    assertEquals(0L, stringTenantAwareAcquireAsyncJobsDueRunnableMap.get("42").getMillisToWait());
+  }
+
+  /**
+   * Test {@link SharedExecutorServiceAsyncExecutor#removeTenantAsyncExecutor(String)}.
+   * <ul>
+   *   <li>Given {@link CommandInvoker} {@link CommandInvoker#execute(CommandConfig, Command)} return {@link ArrayList#ArrayList()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#removeTenantAsyncExecutor(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.removeTenantAsyncExecutor(String)"})
+  public void testRemoveTenantAsyncExecutor_givenCommandInvokerExecuteReturnArrayList() {
+    // Arrange
+    TenantInfoHolder tenantInfoHolder = mock(TenantInfoHolder.class);
+    doNothing().when(tenantInfoHolder).clearCurrentTenantId();
+    doNothing().when(tenantInfoHolder).setCurrentTenantId(Mockito.<String>any());
+    CommandConfig defaultConfig = mock(CommandConfig.class);
+    when(defaultConfig.isContextReusePossible()).thenReturn(true);
+    CommandInvoker first = mock(CommandInvoker.class);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(new ArrayList<>());
+    CommandExecutorImpl commandExecutorImpl = new CommandExecutorImpl(defaultConfig, first);
+
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getJobManager()).thenReturn(null);
+    when(processEngineConfiguration.getCommandExecutor()).thenReturn(commandExecutorImpl);
+
+    SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
+        tenantInfoHolder);
+    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(processEngineConfiguration);
+    sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", true);
+
+    // Act
+    sharedExecutorServiceAsyncExecutor.removeTenantAsyncExecutor("42");
+
+    // Assert
+    verify(processEngineConfiguration, atLeast(1)).getCommandExecutor();
+    verify(processEngineConfiguration).getJobManager();
+    verify(tenantInfoHolder, atLeast(1)).clearCurrentTenantId();
+    verify(tenantInfoHolder, atLeast(1)).setCurrentTenantId(eq("42"));
+    assertEquals(1, sharedExecutorServiceAsyncExecutor.timerJobAcquisitionRunnables.size());
+  }
+
+  /**
+   * Test {@link SharedExecutorServiceAsyncExecutor#removeTenantAsyncExecutor(String)}.
+   * <ul>
+   *   <li>Given {@link CommandInvoker} {@link CommandInvoker#execute(CommandConfig, Command)} return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#removeTenantAsyncExecutor(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.removeTenantAsyncExecutor(String)"})
+  public void testRemoveTenantAsyncExecutor_givenCommandInvokerExecuteReturnNull() {
+    // Arrange
+    TenantInfoHolder tenantInfoHolder = mock(TenantInfoHolder.class);
+    doNothing().when(tenantInfoHolder).clearCurrentTenantId();
+    doNothing().when(tenantInfoHolder).setCurrentTenantId(Mockito.<String>any());
+    CommandConfig defaultConfig = mock(CommandConfig.class);
+    when(defaultConfig.isContextReusePossible()).thenReturn(true);
+    CommandInvoker first = mock(CommandInvoker.class);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(null);
+    CommandExecutorImpl commandExecutorImpl = new CommandExecutorImpl(defaultConfig, first);
+
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getJobManager()).thenReturn(null);
+    when(processEngineConfiguration.getCommandExecutor()).thenReturn(commandExecutorImpl);
+
+    SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
+        tenantInfoHolder);
+    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(processEngineConfiguration);
+    sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", true);
+
+    // Act
+    sharedExecutorServiceAsyncExecutor.removeTenantAsyncExecutor("42");
+
+    // Assert
+    verify(processEngineConfiguration, atLeast(1)).getCommandExecutor();
+    verify(processEngineConfiguration).getJobManager();
+    verify(tenantInfoHolder, atLeast(1)).clearCurrentTenantId();
+    verify(tenantInfoHolder, atLeast(1)).setCurrentTenantId(eq("42"));
     assertEquals(1, sharedExecutorServiceAsyncExecutor.timerJobAcquisitionRunnables.size());
   }
 
@@ -368,6 +623,8 @@ public class SharedExecutorServiceAsyncExecutorDiffblueTest {
    * Method under test: {@link SharedExecutorServiceAsyncExecutor#start()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.start()"})
   public void testStart() {
     // Arrange
     SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
@@ -379,18 +636,12 @@ public class SharedExecutorServiceAsyncExecutorDiffblueTest {
     // Assert
     ExecutorService executorService = sharedExecutorServiceAsyncExecutor.getExecutorService();
     assertTrue(executorService instanceof ThreadPoolExecutor);
-    ThreadFactory threadFactory = ((ThreadPoolExecutor) executorService).getThreadFactory();
-    assertTrue(threadFactory instanceof BasicThreadFactory);
-    assertEquals("activiti-async-job-executor-thread-%d", ((BasicThreadFactory) threadFactory).getNamingPattern());
-    assertNull(((BasicThreadFactory) threadFactory).getDaemonFlag());
-    assertNull(((BasicThreadFactory) threadFactory).getPriority());
-    assertNull(((BasicThreadFactory) threadFactory).getUncaughtExceptionHandler());
+    assertTrue(((ThreadPoolExecutor) executorService).getThreadFactory() instanceof BasicThreadFactory);
     assertEquals(0, ((ThreadPoolExecutor) executorService).getActiveCount());
     assertEquals(0, ((ThreadPoolExecutor) executorService).getLargestPoolSize());
     assertEquals(0, ((ThreadPoolExecutor) executorService).getPoolSize());
     assertEquals(0L, ((ThreadPoolExecutor) executorService).getCompletedTaskCount());
     assertEquals(0L, ((ThreadPoolExecutor) executorService).getTaskCount());
-    assertEquals(0L, ((BasicThreadFactory) threadFactory).getThreadCount());
     assertEquals(10, ((ThreadPoolExecutor) executorService).getMaximumPoolSize());
     assertEquals(2, ((ThreadPoolExecutor) executorService).getCorePoolSize());
   }
@@ -401,6 +652,8 @@ public class SharedExecutorServiceAsyncExecutorDiffblueTest {
    * Method under test: {@link SharedExecutorServiceAsyncExecutor#start()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.start()"})
   public void testStart2() {
     // Arrange
     SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
@@ -420,201 +673,117 @@ public class SharedExecutorServiceAsyncExecutorDiffblueTest {
   }
 
   /**
-   * Test {@link SharedExecutorServiceAsyncExecutor#start()}.
-   * <p>
-   * Method under test: {@link SharedExecutorServiceAsyncExecutor#start()}
-   */
-  @Test
-  public void testStart3() {
-    // Arrange
-    SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
-        new DummyTenantInfoHolder());
-    sharedExecutorServiceAsyncExecutor.setExecuteAsyncRunnableFactory(mock(ExecuteAsyncRunnableFactory.class));
-
-    // Act
-    sharedExecutorServiceAsyncExecutor.start();
-
-    // Assert
-    ExecutorService executorService = sharedExecutorServiceAsyncExecutor.getExecutorService();
-    assertTrue(executorService instanceof ThreadPoolExecutor);
-    ThreadFactory threadFactory = ((ThreadPoolExecutor) executorService).getThreadFactory();
-    assertTrue(threadFactory instanceof BasicThreadFactory);
-    assertEquals("activiti-async-job-executor-thread-%d", ((BasicThreadFactory) threadFactory).getNamingPattern());
-    assertNull(((BasicThreadFactory) threadFactory).getDaemonFlag());
-    assertNull(((BasicThreadFactory) threadFactory).getPriority());
-    assertNull(((BasicThreadFactory) threadFactory).getUncaughtExceptionHandler());
-    assertEquals(0, ((ThreadPoolExecutor) executorService).getActiveCount());
-    assertEquals(0, ((ThreadPoolExecutor) executorService).getLargestPoolSize());
-    assertEquals(0, ((ThreadPoolExecutor) executorService).getPoolSize());
-    assertEquals(0L, ((ThreadPoolExecutor) executorService).getCompletedTaskCount());
-    assertEquals(0L, ((ThreadPoolExecutor) executorService).getTaskCount());
-    assertEquals(0L, ((BasicThreadFactory) threadFactory).getThreadCount());
-    assertEquals(10, ((ThreadPoolExecutor) executorService).getMaximumPoolSize());
-    assertEquals(2, ((ThreadPoolExecutor) executorService).getCorePoolSize());
-  }
-
-  /**
-   * Test
-   * {@link SharedExecutorServiceAsyncExecutor#startAsyncJobAcquisitionForTenant(String)}.
+   * Test {@link SharedExecutorServiceAsyncExecutor#startResetExpiredJobsForTenant(String)}.
    * <ul>
    *   <li>Then calls {@link ProcessEngineConfigurationImpl#getJobManager()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SharedExecutorServiceAsyncExecutor#startAsyncJobAcquisitionForTenant(String)}
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#startResetExpiredJobsForTenant(String)}
    */
   @Test
-  public void testStartAsyncJobAcquisitionForTenant_thenCallsGetJobManager() {
-    // Arrange
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getJobManager()).thenReturn(new DefaultJobManager());
-
-    SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
-        mock(TenantInfoHolder.class));
-    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(processEngineConfiguration);
-    sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", false);
-
-    // Act
-    sharedExecutorServiceAsyncExecutor.startAsyncJobAcquisitionForTenant("42");
-
-    // Assert that nothing has changed
-    verify(processEngineConfiguration).getJobManager();
-  }
-
-  /**
-   * Test
-   * {@link SharedExecutorServiceAsyncExecutor#startResetExpiredJobsForTenant(String)}.
-   * <ul>
-   *   <li>Then calls {@link ProcessEngineConfigurationImpl#getJobManager()}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link SharedExecutorServiceAsyncExecutor#startResetExpiredJobsForTenant(String)}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.startResetExpiredJobsForTenant(String)"})
   public void testStartResetExpiredJobsForTenant_thenCallsGetJobManager() {
     // Arrange
+    TenantInfoHolder tenantInfoHolder = mock(TenantInfoHolder.class);
+    doNothing().when(tenantInfoHolder).setCurrentTenantId(Mockito.<String>any());
+    CommandExecutor commandExecutor = mock(CommandExecutor.class);
+    when(commandExecutor.execute(Mockito.<Command<Object>>any())).thenReturn(JSONObject.NULL);
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
     when(processEngineConfiguration.getJobManager()).thenReturn(new DefaultJobManager());
+    when(processEngineConfiguration.getCommandExecutor()).thenReturn(commandExecutor);
 
     SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
-        mock(TenantInfoHolder.class));
+        tenantInfoHolder);
+    sharedExecutorServiceAsyncExecutor
+        .setTimerJobAcquisitionThread(new Thread("exception during timer job acquisition: {}"));
     sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(processEngineConfiguration);
     sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", false);
 
     // Act
     sharedExecutorServiceAsyncExecutor.startResetExpiredJobsForTenant("42");
 
-    // Assert that nothing has changed
+    // Assert
     verify(processEngineConfiguration).getJobManager();
   }
 
   /**
    * Test {@link SharedExecutorServiceAsyncExecutor#stopJobAcquisitionThread()}.
    * <p>
-   * Method under test:
-   * {@link SharedExecutorServiceAsyncExecutor#stopJobAcquisitionThread()}
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#stopJobAcquisitionThread()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.stopJobAcquisitionThread()"})
   public void testStopJobAcquisitionThread() {
     // Arrange
     SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
-        null);
+        new DummyTenantInfoHolder());
     sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(new JtaProcessEngineConfiguration());
     sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", true);
 
     // Act
     sharedExecutorServiceAsyncExecutor.stopJobAcquisitionThread();
 
-    // Assert
+    // Assert that nothing has changed
     Map<String, TenantAwareAcquireAsyncJobsDueRunnable> stringTenantAwareAcquireAsyncJobsDueRunnableMap = sharedExecutorServiceAsyncExecutor.asyncJobAcquisitionRunnables;
     assertEquals(1, stringTenantAwareAcquireAsyncJobsDueRunnableMap.size());
-    assertEquals(0L, stringTenantAwareAcquireAsyncJobsDueRunnableMap.get("42").getMillisToWait());
     Map<String, TenantAwareAcquireTimerJobsRunnable> stringTenantAwareAcquireTimerJobsRunnableMap = sharedExecutorServiceAsyncExecutor.timerJobAcquisitionRunnables;
     assertEquals(1, stringTenantAwareAcquireTimerJobsRunnableMap.size());
-    assertEquals(0L, stringTenantAwareAcquireTimerJobsRunnableMap.get("42").getMillisToWait());
+    assertEquals(10000L, stringTenantAwareAcquireAsyncJobsDueRunnableMap.get("42").getMillisToWait());
+    assertEquals(10000L, stringTenantAwareAcquireTimerJobsRunnableMap.get("42").getMillisToWait());
   }
 
   /**
    * Test {@link SharedExecutorServiceAsyncExecutor#stopJobAcquisitionThread()}.
    * <p>
-   * Method under test:
-   * {@link SharedExecutorServiceAsyncExecutor#stopJobAcquisitionThread()}
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#stopJobAcquisitionThread()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.stopJobAcquisitionThread()"})
   public void testStopJobAcquisitionThread2() {
     // Arrange
     SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
         null);
-    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(new StandaloneInMemProcessEngineConfiguration());
+    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(new JtaProcessEngineConfiguration());
+    sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", true);
+
+    // Act
+    sharedExecutorServiceAsyncExecutor.stopJobAcquisitionThread();
+
+    // Assert that nothing has changed
+    Map<String, TenantAwareAcquireAsyncJobsDueRunnable> stringTenantAwareAcquireAsyncJobsDueRunnableMap = sharedExecutorServiceAsyncExecutor.asyncJobAcquisitionRunnables;
+    assertEquals(1, stringTenantAwareAcquireAsyncJobsDueRunnableMap.size());
+    assertEquals(0L, stringTenantAwareAcquireAsyncJobsDueRunnableMap.get("42").getMillisToWait());
+    Map<String, TenantAwareAcquireTimerJobsRunnable> stringTenantAwareAcquireTimerJobsRunnableMap = sharedExecutorServiceAsyncExecutor.timerJobAcquisitionRunnables;
+    assertEquals(1, stringTenantAwareAcquireTimerJobsRunnableMap.size());
+    assertEquals(0L, stringTenantAwareAcquireTimerJobsRunnableMap.get("42").getMillisToWait());
+  }
+
+  /**
+   * Test {@link SharedExecutorServiceAsyncExecutor#stopJobAcquisitionThread()}.
+   * <p>
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#stopJobAcquisitionThread()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.stopJobAcquisitionThread()"})
+  public void testStopJobAcquisitionThread3() {
+    // Arrange
+    TenantInfoHolder tenantInfoHolder = mock(TenantInfoHolder.class);
+    doNothing().when(tenantInfoHolder).clearCurrentTenantId();
+    doNothing().when(tenantInfoHolder).setCurrentTenantId(Mockito.<String>any());
+
+    SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
+        tenantInfoHolder);
+    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(new JtaProcessEngineConfiguration());
     sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", true);
 
     // Act
     sharedExecutorServiceAsyncExecutor.stopJobAcquisitionThread();
 
     // Assert
-    Map<String, TenantAwareAcquireAsyncJobsDueRunnable> stringTenantAwareAcquireAsyncJobsDueRunnableMap = sharedExecutorServiceAsyncExecutor.asyncJobAcquisitionRunnables;
-    assertEquals(1, stringTenantAwareAcquireAsyncJobsDueRunnableMap.size());
-    assertEquals(0L, stringTenantAwareAcquireAsyncJobsDueRunnableMap.get("42").getMillisToWait());
-    Map<String, TenantAwareAcquireTimerJobsRunnable> stringTenantAwareAcquireTimerJobsRunnableMap = sharedExecutorServiceAsyncExecutor.timerJobAcquisitionRunnables;
-    assertEquals(1, stringTenantAwareAcquireTimerJobsRunnableMap.size());
-    assertEquals(0L, stringTenantAwareAcquireTimerJobsRunnableMap.get("42").getMillisToWait());
-  }
-
-  /**
-   * Test {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}.
-   * <p>
-   * Method under test:
-   * {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}
-   */
-  @Test
-  public void testStopThreadsForTenant() {
-    // Arrange
-    SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
-        null);
-    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(new JtaProcessEngineConfiguration());
-    sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", true);
-
-    // Act
-    sharedExecutorServiceAsyncExecutor.stopThreadsForTenant("42");
-
-    // Assert
-    Map<String, TenantAwareAcquireAsyncJobsDueRunnable> stringTenantAwareAcquireAsyncJobsDueRunnableMap = sharedExecutorServiceAsyncExecutor.asyncJobAcquisitionRunnables;
-    assertEquals(1, stringTenantAwareAcquireAsyncJobsDueRunnableMap.size());
-    assertEquals(0L, stringTenantAwareAcquireAsyncJobsDueRunnableMap.get("42").getMillisToWait());
-    Map<String, TenantAwareAcquireTimerJobsRunnable> stringTenantAwareAcquireTimerJobsRunnableMap = sharedExecutorServiceAsyncExecutor.timerJobAcquisitionRunnables;
-    assertEquals(1, stringTenantAwareAcquireTimerJobsRunnableMap.size());
-    assertEquals(0L, stringTenantAwareAcquireTimerJobsRunnableMap.get("42").getMillisToWait());
-  }
-
-  /**
-   * Test {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}.
-   * <p>
-   * Method under test:
-   * {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}
-   */
-  @Test
-  public void testStopThreadsForTenant2() {
-    // Arrange
-    TenantInfoHolder tenantInfoHolder = mock(TenantInfoHolder.class);
-    doNothing().when(tenantInfoHolder).clearCurrentTenantId();
-    doNothing().when(tenantInfoHolder).setCurrentTenantId(Mockito.<String>any());
-    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getJobManager()).thenReturn(new DefaultJobManager());
-    when(processEngineConfiguration.getCommandExecutor())
-        .thenReturn(new CommandExecutorImpl(new CommandConfig(), mock(CommandInterceptor.class)));
-
-    SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
-        tenantInfoHolder);
-    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(processEngineConfiguration);
-    sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", true);
-
-    // Act
-    sharedExecutorServiceAsyncExecutor.stopThreadsForTenant("42");
-
-    // Assert
-    verify(processEngineConfiguration, atLeast(1)).getCommandExecutor();
-    verify(processEngineConfiguration).getJobManager();
     verify(tenantInfoHolder, atLeast(1)).clearCurrentTenantId();
     verify(tenantInfoHolder, atLeast(1)).setCurrentTenantId(eq("42"));
     assertEquals(1, sharedExecutorServiceAsyncExecutor.asyncJobAcquisitionRunnables.size());
@@ -622,21 +791,25 @@ public class SharedExecutorServiceAsyncExecutorDiffblueTest {
   }
 
   /**
-   * Test {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}.
+   * Test {@link SharedExecutorServiceAsyncExecutor#stopJobAcquisitionThread()}.
    * <p>
-   * Method under test:
-   * {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#stopJobAcquisitionThread()}
    */
   @Test
-  public void testStopThreadsForTenant3() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.stopJobAcquisitionThread()"})
+  public void testStopJobAcquisitionThread4() {
     // Arrange
     TenantInfoHolder tenantInfoHolder = mock(TenantInfoHolder.class);
     doNothing().when(tenantInfoHolder).clearCurrentTenantId();
     doNothing().when(tenantInfoHolder).setCurrentTenantId(Mockito.<String>any());
+    CommandConfig defaultConfig = mock(CommandConfig.class);
+    when(defaultConfig.isContextReusePossible()).thenReturn(true);
+    CommandExecutorImpl commandExecutorImpl = new CommandExecutorImpl(defaultConfig, new DebugCommandInvoker());
+
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
     when(processEngineConfiguration.getJobManager()).thenReturn(new DefaultJobManager());
-    when(processEngineConfiguration.getCommandExecutor())
-        .thenReturn(new CommandExecutorImpl(new CommandConfig(), mock(CommandInterceptor.class)));
+    when(processEngineConfiguration.getCommandExecutor()).thenReturn(commandExecutorImpl);
 
     SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
         tenantInfoHolder);
@@ -644,11 +817,180 @@ public class SharedExecutorServiceAsyncExecutorDiffblueTest {
     sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", true);
 
     // Act
+    sharedExecutorServiceAsyncExecutor.stopJobAcquisitionThread();
+
+    // Assert that nothing has changed
+    verify(processEngineConfiguration, atLeast(1)).getCommandExecutor();
+    verify(processEngineConfiguration).getJobManager();
+    verify(tenantInfoHolder, atLeast(1)).clearCurrentTenantId();
+    verify(tenantInfoHolder, atLeast(1)).setCurrentTenantId(eq("42"));
+    Map<String, TenantAwareAcquireTimerJobsRunnable> stringTenantAwareAcquireTimerJobsRunnableMap = sharedExecutorServiceAsyncExecutor.timerJobAcquisitionRunnables;
+    assertEquals(1, stringTenantAwareAcquireTimerJobsRunnableMap.size());
+    assertEquals(10000L, stringTenantAwareAcquireTimerJobsRunnableMap.get("42").getMillisToWait());
+  }
+
+  /**
+   * Test {@link SharedExecutorServiceAsyncExecutor#stopJobAcquisitionThread()}.
+   * <p>
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#stopJobAcquisitionThread()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.stopJobAcquisitionThread()"})
+  public void testStopJobAcquisitionThread5() {
+    // Arrange
+    TenantInfoHolder tenantInfoHolder = mock(TenantInfoHolder.class);
+    doNothing().when(tenantInfoHolder).clearCurrentTenantId();
+    doNothing().when(tenantInfoHolder).setCurrentTenantId(Mockito.<String>any());
+    CommandExecutorImpl commandExecutorImpl = mock(CommandExecutorImpl.class);
+    when(commandExecutorImpl.execute(Mockito.<Command<Object>>any())).thenReturn("{} starting to reset expired jobs");
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getJobManager()).thenReturn(new DefaultJobManager());
+    when(processEngineConfiguration.getCommandExecutor()).thenReturn(commandExecutorImpl);
+
+    SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
+        tenantInfoHolder);
+    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(processEngineConfiguration);
+    sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", true);
+
+    // Act
+    sharedExecutorServiceAsyncExecutor.stopJobAcquisitionThread();
+
+    // Assert that nothing has changed
+    verify(commandExecutorImpl, atLeast(1)).execute(Mockito.<Command<Object>>any());
+    verify(processEngineConfiguration, atLeast(1)).getCommandExecutor();
+    verify(processEngineConfiguration).getJobManager();
+    verify(tenantInfoHolder, atLeast(1)).clearCurrentTenantId();
+    verify(tenantInfoHolder, atLeast(1)).setCurrentTenantId(eq("42"));
+    Map<String, TenantAwareAcquireTimerJobsRunnable> stringTenantAwareAcquireTimerJobsRunnableMap = sharedExecutorServiceAsyncExecutor.timerJobAcquisitionRunnables;
+    assertEquals(1, stringTenantAwareAcquireTimerJobsRunnableMap.size());
+    assertEquals(10000L, stringTenantAwareAcquireTimerJobsRunnableMap.get("42").getMillisToWait());
+  }
+
+  /**
+   * Test {@link SharedExecutorServiceAsyncExecutor#stopJobAcquisitionThread()}.
+   * <p>
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#stopJobAcquisitionThread()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.stopJobAcquisitionThread()"})
+  public void testStopJobAcquisitionThread6() {
+    // Arrange
+    TenantInfoHolder tenantInfoHolder = mock(TenantInfoHolder.class);
+    doNothing().when(tenantInfoHolder).clearCurrentTenantId();
+    doNothing().when(tenantInfoHolder).setCurrentTenantId(Mockito.<String>any());
+
+    SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
+        tenantInfoHolder);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+
+    JtaProcessEngineConfiguration processEngineConfiguration2 = new JtaProcessEngineConfiguration();
+    processEngineConfiguration2.setTransactionManager(mock(TransactionManager.class));
+    when(processEngineConfiguration.getJobManager()).thenReturn(new DefaultJobManager(processEngineConfiguration2));
+    CommandExecutorImpl commandExecutorImpl = mock(CommandExecutorImpl.class);
+    AcquiredJobEntities acquiredJobEntities = mock(AcquiredJobEntities.class);
+    when(acquiredJobEntities.size()).thenReturn(3);
+    when(acquiredJobEntities.getJobs()).thenReturn(new ArrayList<>());
+    when(commandExecutorImpl.execute(Mockito.<Command<Object>>any())).thenReturn(acquiredJobEntities);
+    when(processEngineConfiguration.getCommandExecutor()).thenReturn(commandExecutorImpl);
+    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(processEngineConfiguration);
+    sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", true);
+
+    // Act
+    sharedExecutorServiceAsyncExecutor.stopJobAcquisitionThread();
+
+    // Assert that nothing has changed
+    verify(commandExecutorImpl, atLeast(1)).execute(Mockito.<Command<Object>>any());
+    verify(processEngineConfiguration, atLeast(1)).getCommandExecutor();
+    verify(processEngineConfiguration).getJobManager();
+    verify(tenantInfoHolder, atLeast(1)).clearCurrentTenantId();
+    verify(tenantInfoHolder, atLeast(1)).setCurrentTenantId(eq("42"));
+    Map<String, TenantAwareAcquireAsyncJobsDueRunnable> stringTenantAwareAcquireAsyncJobsDueRunnableMap = sharedExecutorServiceAsyncExecutor.asyncJobAcquisitionRunnables;
+    assertEquals(1, stringTenantAwareAcquireAsyncJobsDueRunnableMap.size());
+    assertEquals(0L, stringTenantAwareAcquireAsyncJobsDueRunnableMap.get("42").getMillisToWait());
+    Map<String, TenantAwareAcquireTimerJobsRunnable> stringTenantAwareAcquireTimerJobsRunnableMap = sharedExecutorServiceAsyncExecutor.timerJobAcquisitionRunnables;
+    assertEquals(1, stringTenantAwareAcquireTimerJobsRunnableMap.size());
+    assertEquals(10000L, stringTenantAwareAcquireTimerJobsRunnableMap.get("42").getMillisToWait());
+  }
+
+  /**
+   * Test {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}.
+   * <p>
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.stopThreadsForTenant(String)"})
+  public void testStopThreadsForTenant() {
+    // Arrange
+    SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
+        new DummyTenantInfoHolder());
+    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(new JtaProcessEngineConfiguration());
+    sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", true);
+
+    // Act
     sharedExecutorServiceAsyncExecutor.stopThreadsForTenant("42");
 
     // Assert
-    verify(processEngineConfiguration, atLeast(1)).getCommandExecutor();
-    verify(processEngineConfiguration).getJobManager();
+    Map<String, TenantAwareAcquireAsyncJobsDueRunnable> stringTenantAwareAcquireAsyncJobsDueRunnableMap = sharedExecutorServiceAsyncExecutor.asyncJobAcquisitionRunnables;
+    assertEquals(1, stringTenantAwareAcquireAsyncJobsDueRunnableMap.size());
+    Map<String, TenantAwareAcquireTimerJobsRunnable> stringTenantAwareAcquireTimerJobsRunnableMap = sharedExecutorServiceAsyncExecutor.timerJobAcquisitionRunnables;
+    assertEquals(1, stringTenantAwareAcquireTimerJobsRunnableMap.size());
+    assertEquals(10000L, stringTenantAwareAcquireAsyncJobsDueRunnableMap.get("42").getMillisToWait());
+    assertEquals(10000L, stringTenantAwareAcquireTimerJobsRunnableMap.get("42").getMillisToWait());
+  }
+
+  /**
+   * Test {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}.
+   * <p>
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.stopThreadsForTenant(String)"})
+  public void testStopThreadsForTenant2() {
+    // Arrange
+    SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
+        null);
+    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(new JtaProcessEngineConfiguration());
+    sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", true);
+
+    // Act
+    sharedExecutorServiceAsyncExecutor.stopThreadsForTenant("42");
+
+    // Assert that nothing has changed
+    Map<String, TenantAwareAcquireAsyncJobsDueRunnable> stringTenantAwareAcquireAsyncJobsDueRunnableMap = sharedExecutorServiceAsyncExecutor.asyncJobAcquisitionRunnables;
+    assertEquals(1, stringTenantAwareAcquireAsyncJobsDueRunnableMap.size());
+    assertEquals(0L, stringTenantAwareAcquireAsyncJobsDueRunnableMap.get("42").getMillisToWait());
+    Map<String, TenantAwareAcquireTimerJobsRunnable> stringTenantAwareAcquireTimerJobsRunnableMap = sharedExecutorServiceAsyncExecutor.timerJobAcquisitionRunnables;
+    assertEquals(1, stringTenantAwareAcquireTimerJobsRunnableMap.size());
+    assertEquals(0L, stringTenantAwareAcquireTimerJobsRunnableMap.get("42").getMillisToWait());
+  }
+
+  /**
+   * Test {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}.
+   * <p>
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.stopThreadsForTenant(String)"})
+  public void testStopThreadsForTenant3() {
+    // Arrange
+    TenantInfoHolder tenantInfoHolder = mock(TenantInfoHolder.class);
+    doNothing().when(tenantInfoHolder).clearCurrentTenantId();
+    doNothing().when(tenantInfoHolder).setCurrentTenantId(Mockito.<String>any());
+
+    SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
+        tenantInfoHolder);
+    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(new JtaProcessEngineConfiguration());
+    sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", true);
+
+    // Act
+    sharedExecutorServiceAsyncExecutor.stopThreadsForTenant("42");
+
+    // Assert
     verify(tenantInfoHolder, atLeast(1)).clearCurrentTenantId();
     verify(tenantInfoHolder, atLeast(1)).setCurrentTenantId(eq("42"));
   }
@@ -656,18 +998,22 @@ public class SharedExecutorServiceAsyncExecutorDiffblueTest {
   /**
    * Test {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}.
    * <p>
-   * Method under test:
-   * {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.stopThreadsForTenant(String)"})
   public void testStopThreadsForTenant4() {
     // Arrange
     TenantInfoHolder tenantInfoHolder = mock(TenantInfoHolder.class);
     doNothing().when(tenantInfoHolder).clearCurrentTenantId();
     doNothing().when(tenantInfoHolder).setCurrentTenantId(Mockito.<String>any());
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getJobManager()).thenReturn(null);
-    when(processEngineConfiguration.getCommandExecutor()).thenReturn(null);
+    when(processEngineConfiguration.getJobManager()).thenReturn(new DefaultJobManager());
+    CommandConfig defaultConfig = new CommandConfig(true, TransactionPropagation.REQUIRED);
+
+    when(processEngineConfiguration.getCommandExecutor())
+        .thenReturn(new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor()));
 
     SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
         tenantInfoHolder);
@@ -682,7 +1028,340 @@ public class SharedExecutorServiceAsyncExecutorDiffblueTest {
     verify(processEngineConfiguration).getJobManager();
     verify(tenantInfoHolder, atLeast(1)).clearCurrentTenantId();
     verify(tenantInfoHolder, atLeast(1)).setCurrentTenantId(eq("42"));
+  }
+
+  /**
+   * Test {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}.
+   * <p>
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.stopThreadsForTenant(String)"})
+  public void testStopThreadsForTenant5() {
+    // Arrange
+    TenantInfoHolder tenantInfoHolder = mock(TenantInfoHolder.class);
+    doNothing().when(tenantInfoHolder).clearCurrentTenantId();
+    doNothing().when(tenantInfoHolder).setCurrentTenantId(Mockito.<String>any());
+
+    SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
+        tenantInfoHolder);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getJobManager()).thenReturn(mock(JobManager.class));
+    CommandConfig defaultConfig = mock(CommandConfig.class);
+    when(defaultConfig.isContextReusePossible()).thenReturn(true);
+    CommandInterceptor first = mock(CommandInterceptor.class);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(JSONObject.NULL);
+    when(processEngineConfiguration.getCommandExecutor()).thenReturn(new CommandExecutorImpl(defaultConfig, first));
+    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(processEngineConfiguration);
+    sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", true);
+
+    // Act
+    sharedExecutorServiceAsyncExecutor.stopThreadsForTenant("42");
+
+    // Assert
+    verify(processEngineConfiguration, atLeast(1)).getCommandExecutor();
+    verify(processEngineConfiguration).getJobManager();
+    verify(tenantInfoHolder, atLeast(1)).clearCurrentTenantId();
+    verify(tenantInfoHolder, atLeast(1)).setCurrentTenantId(eq("42"));
+  }
+
+  /**
+   * Test {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}.
+   * <p>
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.stopThreadsForTenant(String)"})
+  public void testStopThreadsForTenant6() {
+    // Arrange
+    TenantInfoHolder tenantInfoHolder = mock(TenantInfoHolder.class);
+    doNothing().when(tenantInfoHolder).clearCurrentTenantId();
+    doNothing().when(tenantInfoHolder).setCurrentTenantId(Mockito.<String>any());
+    CommandExecutor commandExecutor = mock(CommandExecutor.class);
+    DefaultAsyncJobExecutor asyncExecutor = new DefaultAsyncJobExecutor();
+    when(commandExecutor.execute(Mockito.<Command<Object>>any()))
+        .thenReturn(new TenantAwareResetExpiredJobsRunnable(asyncExecutor, new DummyTenantInfoHolder(), "42"));
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getJobManager())
+        .thenReturn(new DefaultJobManager(new JtaProcessEngineConfiguration()));
+    when(processEngineConfiguration.getCommandExecutor()).thenReturn(commandExecutor);
+
+    SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
+        tenantInfoHolder);
+    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(processEngineConfiguration);
+    sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", true);
+
+    // Act
+    sharedExecutorServiceAsyncExecutor.stopThreadsForTenant("42");
+
+    // Assert that nothing has changed
+    verify(processEngineConfiguration, atLeast(1)).getCommandExecutor();
+    verify(processEngineConfiguration).getJobManager();
+    verify(tenantInfoHolder, atLeast(1)).clearCurrentTenantId();
+    verify(tenantInfoHolder, atLeast(1)).setCurrentTenantId(eq("42"));
+    assertEquals(1, sharedExecutorServiceAsyncExecutor.timerJobAcquisitionRunnables.size());
+  }
+
+  /**
+   * Test {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}.
+   * <p>
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.stopThreadsForTenant(String)"})
+  public void testStopThreadsForTenant7() {
+    // Arrange
+    TenantInfoHolder tenantInfoHolder = mock(TenantInfoHolder.class);
+    doNothing().when(tenantInfoHolder).clearCurrentTenantId();
+    doNothing().when(tenantInfoHolder).setCurrentTenantId(Mockito.<String>any());
+
+    SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
+        tenantInfoHolder);
+    sharedExecutorServiceAsyncExecutor.setTimerLockTimeInMillis(1);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getJobManager()).thenReturn(null);
+    CommandExecutor commandExecutor = mock(CommandExecutor.class);
+    AcquiredJobEntities acquiredJobEntities = mock(AcquiredJobEntities.class);
+    when(acquiredJobEntities.size()).thenReturn(3);
+    when(acquiredJobEntities.getJobs()).thenReturn(new ArrayList<>());
+    when(commandExecutor.execute(Mockito.<Command<Object>>any())).thenReturn(acquiredJobEntities);
+    when(processEngineConfiguration.getCommandExecutor()).thenReturn(commandExecutor);
+    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(processEngineConfiguration);
+    sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", true);
+
+    // Act
+    sharedExecutorServiceAsyncExecutor.stopThreadsForTenant("42");
+
+    // Assert
+    verify(acquiredJobEntities, atLeast(1)).getJobs();
+    verify(acquiredJobEntities, atLeast(1)).size();
+    verify(processEngineConfiguration, atLeast(1)).getCommandExecutor();
+    verify(processEngineConfiguration).getJobManager();
+    verify(tenantInfoHolder, atLeast(1)).clearCurrentTenantId();
+    verify(tenantInfoHolder, atLeast(1)).setCurrentTenantId(eq("42"));
+    verify(commandExecutor, atLeast(1)).execute(Mockito.<Command<Object>>any());
+    Map<String, TenantAwareAcquireAsyncJobsDueRunnable> stringTenantAwareAcquireAsyncJobsDueRunnableMap = sharedExecutorServiceAsyncExecutor.asyncJobAcquisitionRunnables;
+    assertEquals(1, stringTenantAwareAcquireAsyncJobsDueRunnableMap.size());
+    assertEquals(0L, stringTenantAwareAcquireAsyncJobsDueRunnableMap.get("42").getMillisToWait());
+    Map<String, TenantAwareAcquireTimerJobsRunnable> stringTenantAwareAcquireTimerJobsRunnableMap = sharedExecutorServiceAsyncExecutor.timerJobAcquisitionRunnables;
+    assertEquals(1, stringTenantAwareAcquireTimerJobsRunnableMap.size());
+    assertEquals(10000L, stringTenantAwareAcquireTimerJobsRunnableMap.get("42").getMillisToWait());
+  }
+
+  /**
+   * Test {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}.
+   * <p>
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.stopThreadsForTenant(String)"})
+  public void testStopThreadsForTenant8() {
+    // Arrange
+    TenantInfoHolder tenantInfoHolder = mock(TenantInfoHolder.class);
+    doNothing().when(tenantInfoHolder).clearCurrentTenantId();
+    doNothing().when(tenantInfoHolder).setCurrentTenantId(Mockito.<String>any());
+
+    SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
+        tenantInfoHolder);
+    sharedExecutorServiceAsyncExecutor.setTimerLockTimeInMillis(1);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+
+    JtaProcessEngineConfiguration processEngineConfiguration2 = new JtaProcessEngineConfiguration();
+    processEngineConfiguration2.addConfigurator(new ProcessExecutionLoggerConfigurator());
+    when(processEngineConfiguration.getJobManager()).thenReturn(new DefaultJobManager(processEngineConfiguration2));
+    CommandExecutor commandExecutor = mock(CommandExecutor.class);
+    AcquiredJobEntities acquiredJobEntities = mock(AcquiredJobEntities.class);
+    when(acquiredJobEntities.size()).thenReturn(3);
+    when(acquiredJobEntities.getJobs()).thenReturn(new ArrayList<>());
+    when(commandExecutor.execute(Mockito.<Command<Object>>any())).thenReturn(acquiredJobEntities);
+    when(processEngineConfiguration.getCommandExecutor()).thenReturn(commandExecutor);
+    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(processEngineConfiguration);
+    sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", true);
+
+    // Act
+    sharedExecutorServiceAsyncExecutor.stopThreadsForTenant("42");
+
+    // Assert
+    verify(processEngineConfiguration, atLeast(1)).getCommandExecutor();
+    verify(processEngineConfiguration).getJobManager();
+    verify(tenantInfoHolder, atLeast(1)).clearCurrentTenantId();
+    verify(tenantInfoHolder, atLeast(1)).setCurrentTenantId(eq("42"));
+    Map<String, TenantAwareAcquireAsyncJobsDueRunnable> stringTenantAwareAcquireAsyncJobsDueRunnableMap = sharedExecutorServiceAsyncExecutor.asyncJobAcquisitionRunnables;
+    assertEquals(1, stringTenantAwareAcquireAsyncJobsDueRunnableMap.size());
+    assertEquals(0L, stringTenantAwareAcquireAsyncJobsDueRunnableMap.get("42").getMillisToWait());
+    assertEquals(1, sharedExecutorServiceAsyncExecutor.timerJobAcquisitionRunnables.size());
+  }
+
+  /**
+   * Test {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}.
+   * <p>
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.stopThreadsForTenant(String)"})
+  public void testStopThreadsForTenant9() {
+    // Arrange
+    TenantInfoHolder tenantInfoHolder = mock(TenantInfoHolder.class);
+    doNothing().when(tenantInfoHolder).clearCurrentTenantId();
+    doNothing().when(tenantInfoHolder).setCurrentTenantId(Mockito.<String>any());
+
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.setResolverFactories(new ArrayList<>());
+    processEngineConfiguration.addConfigurator(new ProcessExecutionLoggerConfigurator());
+    DefaultJobManager defaultJobManager = new DefaultJobManager(processEngineConfiguration);
+    AcquiredJobEntities acquiredJobEntities = mock(AcquiredJobEntities.class);
+    when(acquiredJobEntities.size()).thenReturn(3);
+    when(acquiredJobEntities.getJobs()).thenReturn(new ArrayList<>());
+    CommandExecutor commandExecutor = mock(CommandExecutor.class);
+    when(commandExecutor.execute(Mockito.<Command<Object>>any())).thenReturn(acquiredJobEntities);
+    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration2.getJobManager()).thenReturn(defaultJobManager);
+    when(processEngineConfiguration2.getCommandExecutor()).thenReturn(commandExecutor);
+
+    SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
+        tenantInfoHolder);
+    sharedExecutorServiceAsyncExecutor.setTimerLockTimeInMillis(1);
+    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(processEngineConfiguration2);
+    sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", true);
+
+    // Act
+    sharedExecutorServiceAsyncExecutor.stopThreadsForTenant("42");
+
+    // Assert
+    verify(processEngineConfiguration2, atLeast(1)).getCommandExecutor();
+    verify(processEngineConfiguration2).getJobManager();
+    verify(tenantInfoHolder, atLeast(1)).clearCurrentTenantId();
+    verify(tenantInfoHolder, atLeast(1)).setCurrentTenantId(eq("42"));
+    Map<String, TenantAwareAcquireAsyncJobsDueRunnable> stringTenantAwareAcquireAsyncJobsDueRunnableMap = sharedExecutorServiceAsyncExecutor.asyncJobAcquisitionRunnables;
+    assertEquals(1, stringTenantAwareAcquireAsyncJobsDueRunnableMap.size());
+    assertEquals(0L, stringTenantAwareAcquireAsyncJobsDueRunnableMap.get("42").getMillisToWait());
+  }
+
+  /**
+   * Test {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}.
+   * <ul>
+   *   <li>Given {@link CommandExecutor} {@link CommandExecutor#execute(Command)} return {@code foo}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.stopThreadsForTenant(String)"})
+  public void testStopThreadsForTenant_givenCommandExecutorExecuteReturnFoo() {
+    // Arrange
+    TenantInfoHolder tenantInfoHolder = mock(TenantInfoHolder.class);
+    doNothing().when(tenantInfoHolder).clearCurrentTenantId();
+    doNothing().when(tenantInfoHolder).setCurrentTenantId(Mockito.<String>any());
+
+    SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
+        tenantInfoHolder);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getJobManager()).thenReturn(new DefaultJobManager());
+    CommandExecutor commandExecutor = mock(CommandExecutor.class);
+    when(commandExecutor.execute(Mockito.<Command<Object>>any())).thenReturn("foo");
+    when(processEngineConfiguration.getCommandExecutor()).thenReturn(commandExecutor);
+    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(processEngineConfiguration);
+    sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", true);
+
+    // Act
+    sharedExecutorServiceAsyncExecutor.stopThreadsForTenant("42");
+
+    // Assert
+    verify(processEngineConfiguration, atLeast(1)).getCommandExecutor();
+    verify(processEngineConfiguration).getJobManager();
+    verify(tenantInfoHolder, atLeast(1)).clearCurrentTenantId();
+    verify(tenantInfoHolder, atLeast(1)).setCurrentTenantId(eq("42"));
+    assertEquals(1, sharedExecutorServiceAsyncExecutor.timerJobAcquisitionRunnables.size());
+  }
+
+  /**
+   * Test {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}.
+   * <ul>
+   *   <li>Given {@link CommandExecutor} {@link CommandExecutor#execute(Command)} return {@link JSONObject#NULL}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.stopThreadsForTenant(String)"})
+  public void testStopThreadsForTenant_givenCommandExecutorExecuteReturnNull() {
+    // Arrange
+    TenantInfoHolder tenantInfoHolder = mock(TenantInfoHolder.class);
+    doNothing().when(tenantInfoHolder).clearCurrentTenantId();
+    doNothing().when(tenantInfoHolder).setCurrentTenantId(Mockito.<String>any());
+
+    SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
+        tenantInfoHolder);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getJobManager())
+        .thenReturn(new DefaultJobManager(new JtaProcessEngineConfiguration()));
+    CommandExecutor commandExecutor = mock(CommandExecutor.class);
+    when(commandExecutor.execute(Mockito.<Command<Object>>any())).thenReturn(JSONObject.NULL);
+    when(processEngineConfiguration.getCommandExecutor()).thenReturn(commandExecutor);
+    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(processEngineConfiguration);
+    sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", true);
+
+    // Act
+    sharedExecutorServiceAsyncExecutor.stopThreadsForTenant("42");
+
+    // Assert
+    verify(processEngineConfiguration, atLeast(1)).getCommandExecutor();
+    verify(processEngineConfiguration).getJobManager();
+    verify(tenantInfoHolder, atLeast(1)).clearCurrentTenantId();
+    verify(tenantInfoHolder, atLeast(1)).setCurrentTenantId(eq("42"));
     assertEquals(1, sharedExecutorServiceAsyncExecutor.asyncJobAcquisitionRunnables.size());
     assertEquals(1, sharedExecutorServiceAsyncExecutor.timerJobAcquisitionRunnables.size());
+  }
+
+  /**
+   * Test {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}.
+   * <ul>
+   *   <li>Given {@link CommandInterceptor} {@link CommandInterceptor#execute(CommandConfig, Command)} return {@link JSONObject#NULL}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SharedExecutorServiceAsyncExecutor#stopThreadsForTenant(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SharedExecutorServiceAsyncExecutor.stopThreadsForTenant(String)"})
+  public void testStopThreadsForTenant_givenCommandInterceptorExecuteReturnNull() {
+    // Arrange
+    TenantInfoHolder tenantInfoHolder = mock(TenantInfoHolder.class);
+    doNothing().when(tenantInfoHolder).clearCurrentTenantId();
+    doNothing().when(tenantInfoHolder).setCurrentTenantId(Mockito.<String>any());
+    CommandConfig defaultConfig = mock(CommandConfig.class);
+    when(defaultConfig.isContextReusePossible()).thenReturn(true);
+    CommandInterceptor first = mock(CommandInterceptor.class);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(JSONObject.NULL);
+    CommandExecutorImpl commandExecutorImpl = new CommandExecutorImpl(defaultConfig, first);
+
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getJobManager()).thenReturn(new DefaultJobManager());
+    when(processEngineConfiguration.getCommandExecutor()).thenReturn(commandExecutorImpl);
+
+    SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
+        tenantInfoHolder);
+    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(processEngineConfiguration);
+    sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", true);
+
+    // Act
+    sharedExecutorServiceAsyncExecutor.stopThreadsForTenant("42");
+
+    // Assert that nothing has changed
+    verify(processEngineConfiguration, atLeast(1)).getCommandExecutor();
+    verify(processEngineConfiguration).getJobManager();
+    verify(tenantInfoHolder, atLeast(1)).clearCurrentTenantId();
+    verify(tenantInfoHolder, atLeast(1)).setCurrentTenantId(eq("42"));
+    verify(first).execute(isA(CommandConfig.class), isA(Command.class));
+    Map<String, TenantAwareAcquireTimerJobsRunnable> stringTenantAwareAcquireTimerJobsRunnableMap = sharedExecutorServiceAsyncExecutor.timerJobAcquisitionRunnables;
+    assertEquals(1, stringTenantAwareAcquireTimerJobsRunnableMap.size());
+    assertEquals(10000L, stringTenantAwareAcquireTimerJobsRunnableMap.get("42").getMillisToWait());
   }
 }

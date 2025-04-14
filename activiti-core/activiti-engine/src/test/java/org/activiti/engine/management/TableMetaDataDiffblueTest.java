@@ -18,18 +18,14 @@ package org.activiti.engine.management;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class TableMetaDataDiffblueTest {
-  @InjectMocks
-  private TableMetaData tableMetaData;
-
   /**
    * Test getters and setters.
    * <p>
@@ -45,6 +41,11 @@ public class TableMetaDataDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TableMetaData.<init>()", "void TableMetaData.<init>(String)",
+      "List TableMetaData.getColumnNames()", "List TableMetaData.getColumnTypes()",
+      "String TableMetaData.getTableName()", "void TableMetaData.setColumnNames(List)",
+      "void TableMetaData.setColumnTypes(List)", "void TableMetaData.setTableName(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     TableMetaData actualTableMetaData = new TableMetaData();
@@ -56,7 +57,7 @@ public class TableMetaDataDiffblueTest {
     List<String> actualColumnNames = actualTableMetaData.getColumnNames();
     List<String> actualColumnTypes = actualTableMetaData.getColumnTypes();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Table Name", actualTableMetaData.getTableName());
     assertTrue(actualColumnNames.isEmpty());
     assertTrue(actualColumnTypes.isEmpty());
@@ -82,6 +83,11 @@ public class TableMetaDataDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TableMetaData.<init>()", "void TableMetaData.<init>(String)",
+      "List TableMetaData.getColumnNames()", "List TableMetaData.getColumnTypes()",
+      "String TableMetaData.getTableName()", "void TableMetaData.setColumnNames(List)",
+      "void TableMetaData.setColumnTypes(List)", "void TableMetaData.setTableName(String)"})
   public void testGettersAndSetters_whenTableName() {
     // Arrange and Act
     TableMetaData actualTableMetaData = new TableMetaData("Table Name");
@@ -93,7 +99,7 @@ public class TableMetaDataDiffblueTest {
     List<String> actualColumnNames = actualTableMetaData.getColumnNames();
     List<String> actualColumnTypes = actualTableMetaData.getColumnTypes();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Table Name", actualTableMetaData.getTableName());
     assertTrue(actualColumnNames.isEmpty());
     assertTrue(actualColumnTypes.isEmpty());
@@ -107,12 +113,21 @@ public class TableMetaDataDiffblueTest {
    * Method under test: {@link TableMetaData#addColumnMetaData(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TableMetaData.addColumnMetaData(String, String)"})
   public void testAddColumnMetaData() {
-    // Arrange and Act
+    // Arrange
+    TableMetaData tableMetaData = new TableMetaData("Table Name");
+
+    // Act
     tableMetaData.addColumnMetaData("Column Name", "Column Type");
 
     // Assert
-    assertEquals("Column Name", tableMetaData.getColumnNames().get(0));
-    assertEquals("Column Type", tableMetaData.getColumnTypes().get(0));
+    List<String> columnNames = tableMetaData.getColumnNames();
+    assertEquals(1, columnNames.size());
+    assertEquals("Column Name", columnNames.get(0));
+    List<String> columnTypes = tableMetaData.getColumnTypes();
+    assertEquals(1, columnTypes.size());
+    assertEquals("Column Type", columnTypes.get(0));
   }
 }

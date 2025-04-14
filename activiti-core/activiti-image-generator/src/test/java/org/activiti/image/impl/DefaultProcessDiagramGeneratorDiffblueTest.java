@@ -32,11 +32,9 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.FontMetrics;
-import java.awt.font.FontRenderContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -66,34 +64,27 @@ import org.activiti.bpmn.model.Task;
 import org.activiti.bpmn.model.TextAnnotation;
 import org.activiti.image.exception.ActivitiImageException;
 import org.activiti.image.exception.ActivitiInterchangeInfoNotFoundException;
-import org.apache.batik.dom.GenericComment;
-import org.apache.batik.dom.GenericDocument;
-import org.apache.batik.dom.GenericElementNS;
-import org.apache.batik.ext.awt.g2d.GraphicContext;
+import org.activiti.image.impl.DefaultProcessDiagramCanvas.SHAPE_TYPE;
+import org.activiti.image.impl.DefaultProcessDiagramGenerator.ActivityDrawInstruction;
+import org.activiti.image.impl.DefaultProcessDiagramGenerator.ArtifactDrawInstruction;
 import org.apache.batik.svggen.DOMTreeManager;
 import org.apache.batik.svggen.SVGBufferedImageOp;
-import org.apache.batik.svggen.SVGComposite;
 import org.apache.batik.svggen.SVGGraphicContextConverter;
-import org.apache.batik.svggen.SVGPaint;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 class DefaultProcessDiagramGeneratorDiffblueTest {
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, String, String, String)}
-   * with {@code bpmnModel}, {@code activityFontName}, {@code labelFontName},
-   * {@code annotationFontName}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, String, String, String)} with {@code bpmnModel}, {@code activityFontName}, {@code labelFontName}, {@code annotationFontName}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, String, String, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, String, String, String)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, String, String, String) with 'bpmnModel', 'activityFontName', 'labelFontName', 'annotationFontName'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, String, String, String)"})
   void testGenerateDiagramWithBpmnModelActivityFontNameLabelFontNameAnnotationFontName() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -104,16 +95,14 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, String, String, String)}
-   * with {@code bpmnModel}, {@code activityFontName}, {@code labelFontName},
-   * {@code annotationFontName}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, String, String, String)} with {@code bpmnModel}, {@code activityFontName}, {@code labelFontName}, {@code annotationFontName}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, String, String, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, String, String, String)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, String, String, String) with 'bpmnModel', 'activityFontName', 'labelFontName', 'annotationFontName'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, String, String, String)"})
   void testGenerateDiagramWithBpmnModelActivityFontNameLabelFontNameAnnotationFontName2() throws IOException {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -147,16 +136,14 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, String, String, String)}
-   * with {@code bpmnModel}, {@code activityFontName}, {@code labelFontName},
-   * {@code annotationFontName}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, String, String, String)} with {@code bpmnModel}, {@code activityFontName}, {@code labelFontName}, {@code annotationFontName}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, String, String, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, String, String, String)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, String, String, String) with 'bpmnModel', 'activityFontName', 'labelFontName', 'annotationFontName'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, String, String, String)"})
   void testGenerateDiagramWithBpmnModelActivityFontNameLabelFontNameAnnotationFontName3() throws IOException {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -191,16 +178,14 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, String, String, String)}
-   * with {@code bpmnModel}, {@code activityFontName}, {@code labelFontName},
-   * {@code annotationFontName}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, String, String, String)} with {@code bpmnModel}, {@code activityFontName}, {@code labelFontName}, {@code annotationFontName}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, String, String, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, String, String, String)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, String, String, String) with 'bpmnModel', 'activityFontName', 'labelFontName', 'annotationFontName'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, String, String, String)"})
   void testGenerateDiagramWithBpmnModelActivityFontNameLabelFontNameAnnotationFontName4() throws IOException {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -235,16 +220,14 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, String, String, String)}
-   * with {@code bpmnModel}, {@code activityFontName}, {@code labelFontName},
-   * {@code annotationFontName}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, String, String, String)} with {@code bpmnModel}, {@code activityFontName}, {@code labelFontName}, {@code annotationFontName}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, String, String, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, String, String, String)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, String, String, String) with 'bpmnModel', 'activityFontName', 'labelFontName', 'annotationFontName'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, String, String, String)"})
   void testGenerateDiagramWithBpmnModelActivityFontNameLabelFontNameAnnotationFontName5() throws IOException {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -278,16 +261,14 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, String, String, String)}
-   * with {@code bpmnModel}, {@code activityFontName}, {@code labelFontName},
-   * {@code annotationFontName}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, String, String, String)} with {@code bpmnModel}, {@code activityFontName}, {@code labelFontName}, {@code annotationFontName}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, String, String, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, String, String, String)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, String, String, String) with 'bpmnModel', 'activityFontName', 'labelFontName', 'annotationFontName'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, String, String, String)"})
   void testGenerateDiagramWithBpmnModelActivityFontNameLabelFontNameAnnotationFontName6() throws IOException {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -321,14 +302,14 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List)}
-   * with {@code bpmnModel}, {@code highLightedActivities}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List)} with {@code bpmnModel}, {@code highLightedActivities}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, List) with 'bpmnModel', 'highLightedActivities'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, List)"})
   void testGenerateDiagramWithBpmnModelHighLightedActivities() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -340,14 +321,14 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List)}
-   * with {@code bpmnModel}, {@code highLightedActivities}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List)} with {@code bpmnModel}, {@code highLightedActivities}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, List) with 'bpmnModel', 'highLightedActivities'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, List)"})
   void testGenerateDiagramWithBpmnModelHighLightedActivities2() throws IOException {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -381,14 +362,14 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List)}
-   * with {@code bpmnModel}, {@code highLightedActivities}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List)} with {@code bpmnModel}, {@code highLightedActivities}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, List) with 'bpmnModel', 'highLightedActivities'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, List)"})
   void testGenerateDiagramWithBpmnModelHighLightedActivities3() throws IOException {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -422,14 +403,14 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List)}
-   * with {@code bpmnModel}, {@code highLightedActivities}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List)} with {@code bpmnModel}, {@code highLightedActivities}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, List) with 'bpmnModel', 'highLightedActivities'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, List)"})
   void testGenerateDiagramWithBpmnModelHighLightedActivities4() throws IOException {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -463,16 +444,14 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List)}
-   * with {@code bpmnModel}, {@code highLightedActivities},
-   * {@code highLightedFlows}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List)} with {@code bpmnModel}, {@code highLightedActivities}, {@code highLightedFlows}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, List, List) with 'bpmnModel', 'highLightedActivities', 'highLightedFlows'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, List, List)"})
   void testGenerateDiagramWithBpmnModelHighLightedActivitiesHighLightedFlows() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -485,16 +464,14 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List)}
-   * with {@code bpmnModel}, {@code highLightedActivities},
-   * {@code highLightedFlows}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List)} with {@code bpmnModel}, {@code highLightedActivities}, {@code highLightedFlows}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, List, List) with 'bpmnModel', 'highLightedActivities', 'highLightedFlows'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, List, List)"})
   void testGenerateDiagramWithBpmnModelHighLightedActivitiesHighLightedFlows2() throws IOException {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -529,16 +506,14 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List)}
-   * with {@code bpmnModel}, {@code highLightedActivities},
-   * {@code highLightedFlows}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List)} with {@code bpmnModel}, {@code highLightedActivities}, {@code highLightedFlows}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, List, List) with 'bpmnModel', 'highLightedActivities', 'highLightedFlows'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, List, List)"})
   void testGenerateDiagramWithBpmnModelHighLightedActivitiesHighLightedFlows3() throws IOException {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -574,16 +549,14 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List)}
-   * with {@code bpmnModel}, {@code highLightedActivities},
-   * {@code highLightedFlows}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List)} with {@code bpmnModel}, {@code highLightedActivities}, {@code highLightedFlows}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, List, List) with 'bpmnModel', 'highLightedActivities', 'highLightedFlows'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, List, List)"})
   void testGenerateDiagramWithBpmnModelHighLightedActivitiesHighLightedFlows4() throws IOException {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -619,16 +592,14 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List)}
-   * with {@code bpmnModel}, {@code highLightedActivities},
-   * {@code highLightedFlows}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List)} with {@code bpmnModel}, {@code highLightedActivities}, {@code highLightedFlows}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, List, List) with 'bpmnModel', 'highLightedActivities', 'highLightedFlows'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, List, List)"})
   void testGenerateDiagramWithBpmnModelHighLightedActivitiesHighLightedFlows5() throws IOException {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -663,16 +634,14 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List)}
-   * with {@code bpmnModel}, {@code highLightedActivities},
-   * {@code highLightedFlows}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List)} with {@code bpmnModel}, {@code highLightedActivities}, {@code highLightedFlows}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, List, List) with 'bpmnModel', 'highLightedActivities', 'highLightedFlows'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, List, List)"})
   void testGenerateDiagramWithBpmnModelHighLightedActivitiesHighLightedFlows6() throws IOException {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -707,17 +676,15 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String)}
-   * with {@code bpmnModel}, {@code highLightedActivities},
-   * {@code highLightedFlows}, {@code activityFontName}, {@code labelFontName},
-   * {@code annotationFontName}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String)} with {@code bpmnModel}, {@code highLightedActivities}, {@code highLightedFlows}, {@code activityFontName}, {@code labelFontName}, {@code annotationFontName}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, List, List, String, String, String) with 'bpmnModel', 'highLightedActivities', 'highLightedFlows', 'activityFontName', 'labelFontName', 'annotationFontName'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, List, List, String, String, String)"})
   void testGenerateDiagramWithBpmnModelHighLightedActivitiesHighLightedFlowsActivityFontNameLabelFontNameAnnotationFontName() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -731,17 +698,15 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String)}
-   * with {@code bpmnModel}, {@code highLightedActivities},
-   * {@code highLightedFlows}, {@code activityFontName}, {@code labelFontName},
-   * {@code annotationFontName}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String)} with {@code bpmnModel}, {@code highLightedActivities}, {@code highLightedFlows}, {@code activityFontName}, {@code labelFontName}, {@code annotationFontName}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, List, List, String, String, String) with 'bpmnModel', 'highLightedActivities', 'highLightedFlows', 'activityFontName', 'labelFontName', 'annotationFontName'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, List, List, String, String, String)"})
   void testGenerateDiagramWithBpmnModelHighLightedActivitiesHighLightedFlowsActivityFontNameLabelFontNameAnnotationFontName2()
       throws IOException {
     // Arrange
@@ -777,17 +742,15 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String)}
-   * with {@code bpmnModel}, {@code highLightedActivities},
-   * {@code highLightedFlows}, {@code activityFontName}, {@code labelFontName},
-   * {@code annotationFontName}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String)} with {@code bpmnModel}, {@code highLightedActivities}, {@code highLightedFlows}, {@code activityFontName}, {@code labelFontName}, {@code annotationFontName}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, List, List, String, String, String) with 'bpmnModel', 'highLightedActivities', 'highLightedFlows', 'activityFontName', 'labelFontName', 'annotationFontName'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, List, List, String, String, String)"})
   void testGenerateDiagramWithBpmnModelHighLightedActivitiesHighLightedFlowsActivityFontNameLabelFontNameAnnotationFontName3()
       throws IOException {
     // Arrange
@@ -824,17 +787,15 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String)}
-   * with {@code bpmnModel}, {@code highLightedActivities},
-   * {@code highLightedFlows}, {@code activityFontName}, {@code labelFontName},
-   * {@code annotationFontName}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String)} with {@code bpmnModel}, {@code highLightedActivities}, {@code highLightedFlows}, {@code activityFontName}, {@code labelFontName}, {@code annotationFontName}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, List, List, String, String, String) with 'bpmnModel', 'highLightedActivities', 'highLightedFlows', 'activityFontName', 'labelFontName', 'annotationFontName'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, List, List, String, String, String)"})
   void testGenerateDiagramWithBpmnModelHighLightedActivitiesHighLightedFlowsActivityFontNameLabelFontNameAnnotationFontName4()
       throws IOException {
     // Arrange
@@ -871,17 +832,15 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String)}
-   * with {@code bpmnModel}, {@code highLightedActivities},
-   * {@code highLightedFlows}, {@code activityFontName}, {@code labelFontName},
-   * {@code annotationFontName}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String)} with {@code bpmnModel}, {@code highLightedActivities}, {@code highLightedFlows}, {@code activityFontName}, {@code labelFontName}, {@code annotationFontName}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, List, List, String, String, String) with 'bpmnModel', 'highLightedActivities', 'highLightedFlows', 'activityFontName', 'labelFontName', 'annotationFontName'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, List, List, String, String, String)"})
   void testGenerateDiagramWithBpmnModelHighLightedActivitiesHighLightedFlowsActivityFontNameLabelFontNameAnnotationFontName5()
       throws IOException {
     // Arrange
@@ -917,17 +876,15 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String)}
-   * with {@code bpmnModel}, {@code highLightedActivities},
-   * {@code highLightedFlows}, {@code activityFontName}, {@code labelFontName},
-   * {@code annotationFontName}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String)} with {@code bpmnModel}, {@code highLightedActivities}, {@code highLightedFlows}, {@code activityFontName}, {@code labelFontName}, {@code annotationFontName}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, List, List, String, String, String) with 'bpmnModel', 'highLightedActivities', 'highLightedFlows', 'activityFontName', 'labelFontName', 'annotationFontName'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, List, List, String, String, String)"})
   void testGenerateDiagramWithBpmnModelHighLightedActivitiesHighLightedFlowsActivityFontNameLabelFontNameAnnotationFontName6()
       throws IOException {
     // Arrange
@@ -963,17 +920,15 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String, boolean)}
-   * with {@code bpmnModel}, {@code highLightedActivities},
-   * {@code highLightedFlows}, {@code activityFontName}, {@code labelFontName},
-   * {@code annotationFontName}, {@code generateDefaultDiagram}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String, boolean)} with {@code bpmnModel}, {@code highLightedActivities}, {@code highLightedFlows}, {@code activityFontName}, {@code labelFontName}, {@code annotationFontName}, {@code generateDefaultDiagram}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String, boolean)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String, boolean)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, List, List, String, String, String, boolean) with 'bpmnModel', 'highLightedActivities', 'highLightedFlows', 'activityFontName', 'labelFontName', 'annotationFontName', 'generateDefaultDiagram'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, List, List, String, String, String, boolean)"})
   void testGenerateDiagramWithBpmnModelHighLightedActivitiesHighLightedFlowsActivityFontNameLabelFontNameAnnotationFontNameGenerateDefaultDiagram()
       throws IOException {
     // Arrange
@@ -992,17 +947,15 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String, boolean)}
-   * with {@code bpmnModel}, {@code highLightedActivities},
-   * {@code highLightedFlows}, {@code activityFontName}, {@code labelFontName},
-   * {@code annotationFontName}, {@code generateDefaultDiagram}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String, boolean)} with {@code bpmnModel}, {@code highLightedActivities}, {@code highLightedFlows}, {@code activityFontName}, {@code labelFontName}, {@code annotationFontName}, {@code generateDefaultDiagram}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String, boolean)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String, boolean)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, List, List, String, String, String, boolean) with 'bpmnModel', 'highLightedActivities', 'highLightedFlows', 'activityFontName', 'labelFontName', 'annotationFontName', 'generateDefaultDiagram'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, List, List, String, String, String, boolean)"})
   void testGenerateDiagramWithBpmnModelHighLightedActivitiesHighLightedFlowsActivityFontNameLabelFontNameAnnotationFontNameGenerateDefaultDiagram2()
       throws IOException {
     // Arrange
@@ -1039,17 +992,15 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String, boolean)}
-   * with {@code bpmnModel}, {@code highLightedActivities},
-   * {@code highLightedFlows}, {@code activityFontName}, {@code labelFontName},
-   * {@code annotationFontName}, {@code generateDefaultDiagram}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String, boolean)} with {@code bpmnModel}, {@code highLightedActivities}, {@code highLightedFlows}, {@code activityFontName}, {@code labelFontName}, {@code annotationFontName}, {@code generateDefaultDiagram}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String, boolean)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String, boolean)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, List, List, String, String, String, boolean) with 'bpmnModel', 'highLightedActivities', 'highLightedFlows', 'activityFontName', 'labelFontName', 'annotationFontName', 'generateDefaultDiagram'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, List, List, String, String, String, boolean)"})
   void testGenerateDiagramWithBpmnModelHighLightedActivitiesHighLightedFlowsActivityFontNameLabelFontNameAnnotationFontNameGenerateDefaultDiagram3()
       throws IOException {
     // Arrange
@@ -1087,17 +1038,15 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String, boolean)}
-   * with {@code bpmnModel}, {@code highLightedActivities},
-   * {@code highLightedFlows}, {@code activityFontName}, {@code labelFontName},
-   * {@code annotationFontName}, {@code generateDefaultDiagram}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String, boolean)} with {@code bpmnModel}, {@code highLightedActivities}, {@code highLightedFlows}, {@code activityFontName}, {@code labelFontName}, {@code annotationFontName}, {@code generateDefaultDiagram}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String, boolean)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String, boolean)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, List, List, String, String, String, boolean) with 'bpmnModel', 'highLightedActivities', 'highLightedFlows', 'activityFontName', 'labelFontName', 'annotationFontName', 'generateDefaultDiagram'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, List, List, String, String, String, boolean)"})
   void testGenerateDiagramWithBpmnModelHighLightedActivitiesHighLightedFlowsActivityFontNameLabelFontNameAnnotationFontNameGenerateDefaultDiagram4()
       throws IOException {
     // Arrange
@@ -1135,17 +1084,15 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String, boolean)}
-   * with {@code bpmnModel}, {@code highLightedActivities},
-   * {@code highLightedFlows}, {@code activityFontName}, {@code labelFontName},
-   * {@code annotationFontName}, {@code generateDefaultDiagram}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String, boolean)} with {@code bpmnModel}, {@code highLightedActivities}, {@code highLightedFlows}, {@code activityFontName}, {@code labelFontName}, {@code annotationFontName}, {@code generateDefaultDiagram}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String, boolean)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String, boolean)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, List, List, String, String, String, boolean) with 'bpmnModel', 'highLightedActivities', 'highLightedFlows', 'activityFontName', 'labelFontName', 'annotationFontName', 'generateDefaultDiagram'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, List, List, String, String, String, boolean)"})
   void testGenerateDiagramWithBpmnModelHighLightedActivitiesHighLightedFlowsActivityFontNameLabelFontNameAnnotationFontNameGenerateDefaultDiagram5()
       throws IOException {
     // Arrange
@@ -1182,17 +1129,15 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String, boolean)}
-   * with {@code bpmnModel}, {@code highLightedActivities},
-   * {@code highLightedFlows}, {@code activityFontName}, {@code labelFontName},
-   * {@code annotationFontName}, {@code generateDefaultDiagram}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String, boolean)} with {@code bpmnModel}, {@code highLightedActivities}, {@code highLightedFlows}, {@code activityFontName}, {@code labelFontName}, {@code annotationFontName}, {@code generateDefaultDiagram}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String, boolean)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, String, String, String, boolean)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, List, List, String, String, String, boolean) with 'bpmnModel', 'highLightedActivities', 'highLightedFlows', 'activityFontName', 'labelFontName', 'annotationFontName', 'generateDefaultDiagram'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, List, List, String, String, String, boolean)"})
   void testGenerateDiagramWithBpmnModelHighLightedActivitiesHighLightedFlowsActivityFontNameLabelFontNameAnnotationFontNameGenerateDefaultDiagram6()
       throws IOException {
     // Arrange
@@ -1229,19 +1174,15 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String)}
-   * with {@code bpmnModel}, {@code highLightedActivities},
-   * {@code highLightedFlows}, {@code currentActivities},
-   * {@code erroredActivities}, {@code activityFontName}, {@code labelFontName},
-   * {@code annotationFontName}, {@code generateDefaultDiagram},
-   * {@code defaultDiagramImageFileName}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String)} with {@code bpmnModel}, {@code highLightedActivities}, {@code highLightedFlows}, {@code currentActivities}, {@code erroredActivities}, {@code activityFontName}, {@code labelFontName}, {@code annotationFontName}, {@code generateDefaultDiagram}, {@code defaultDiagramImageFileName}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String) with 'bpmnModel', 'highLightedActivities', 'highLightedFlows', 'currentActivities', 'erroredActivities', 'activityFontName', 'labelFontName', 'annotationFontName', 'generateDefaultDiagram', 'defaultDiagramImageFileName'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String)"})
   void testGenerateDiagramWithBpmnModelHighLightedActivitiesHighLightedFlowsCurrentActivitiesErroredActivitiesActivityFontNameLabelFontNameAnnotationFontNameGenerateDefaultDiagramDefaultDiagramImageFileName() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -1258,19 +1199,15 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String)}
-   * with {@code bpmnModel}, {@code highLightedActivities},
-   * {@code highLightedFlows}, {@code currentActivities},
-   * {@code erroredActivities}, {@code activityFontName}, {@code labelFontName},
-   * {@code annotationFontName}, {@code generateDefaultDiagram},
-   * {@code defaultDiagramImageFileName}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String)} with {@code bpmnModel}, {@code highLightedActivities}, {@code highLightedFlows}, {@code currentActivities}, {@code erroredActivities}, {@code activityFontName}, {@code labelFontName}, {@code annotationFontName}, {@code generateDefaultDiagram}, {@code defaultDiagramImageFileName}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String) with 'bpmnModel', 'highLightedActivities', 'highLightedFlows', 'currentActivities', 'erroredActivities', 'activityFontName', 'labelFontName', 'annotationFontName', 'generateDefaultDiagram', 'defaultDiagramImageFileName'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String)"})
   void testGenerateDiagramWithBpmnModelHighLightedActivitiesHighLightedFlowsCurrentActivitiesErroredActivitiesActivityFontNameLabelFontNameAnnotationFontNameGenerateDefaultDiagramDefaultDiagramImageFileName2()
       throws IOException {
     // Arrange
@@ -1309,19 +1246,15 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String)}
-   * with {@code bpmnModel}, {@code highLightedActivities},
-   * {@code highLightedFlows}, {@code currentActivities},
-   * {@code erroredActivities}, {@code activityFontName}, {@code labelFontName},
-   * {@code annotationFontName}, {@code generateDefaultDiagram},
-   * {@code defaultDiagramImageFileName}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String)} with {@code bpmnModel}, {@code highLightedActivities}, {@code highLightedFlows}, {@code currentActivities}, {@code erroredActivities}, {@code activityFontName}, {@code labelFontName}, {@code annotationFontName}, {@code generateDefaultDiagram}, {@code defaultDiagramImageFileName}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String) with 'bpmnModel', 'highLightedActivities', 'highLightedFlows', 'currentActivities', 'erroredActivities', 'activityFontName', 'labelFontName', 'annotationFontName', 'generateDefaultDiagram', 'defaultDiagramImageFileName'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String)"})
   void testGenerateDiagramWithBpmnModelHighLightedActivitiesHighLightedFlowsCurrentActivitiesErroredActivitiesActivityFontNameLabelFontNameAnnotationFontNameGenerateDefaultDiagramDefaultDiagramImageFileName3()
       throws IOException {
     // Arrange
@@ -1361,19 +1294,15 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String)}
-   * with {@code bpmnModel}, {@code highLightedActivities},
-   * {@code highLightedFlows}, {@code currentActivities},
-   * {@code erroredActivities}, {@code activityFontName}, {@code labelFontName},
-   * {@code annotationFontName}, {@code generateDefaultDiagram},
-   * {@code defaultDiagramImageFileName}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String)} with {@code bpmnModel}, {@code highLightedActivities}, {@code highLightedFlows}, {@code currentActivities}, {@code erroredActivities}, {@code activityFontName}, {@code labelFontName}, {@code annotationFontName}, {@code generateDefaultDiagram}, {@code defaultDiagramImageFileName}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String) with 'bpmnModel', 'highLightedActivities', 'highLightedFlows', 'currentActivities', 'erroredActivities', 'activityFontName', 'labelFontName', 'annotationFontName', 'generateDefaultDiagram', 'defaultDiagramImageFileName'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String)"})
   void testGenerateDiagramWithBpmnModelHighLightedActivitiesHighLightedFlowsCurrentActivitiesErroredActivitiesActivityFontNameLabelFontNameAnnotationFontNameGenerateDefaultDiagramDefaultDiagramImageFileName4()
       throws IOException {
     // Arrange
@@ -1413,19 +1342,15 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String)}
-   * with {@code bpmnModel}, {@code highLightedActivities},
-   * {@code highLightedFlows}, {@code currentActivities},
-   * {@code erroredActivities}, {@code activityFontName}, {@code labelFontName},
-   * {@code annotationFontName}, {@code generateDefaultDiagram},
-   * {@code defaultDiagramImageFileName}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String)} with {@code bpmnModel}, {@code highLightedActivities}, {@code highLightedFlows}, {@code currentActivities}, {@code erroredActivities}, {@code activityFontName}, {@code labelFontName}, {@code annotationFontName}, {@code generateDefaultDiagram}, {@code defaultDiagramImageFileName}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String) with 'bpmnModel', 'highLightedActivities', 'highLightedFlows', 'currentActivities', 'erroredActivities', 'activityFontName', 'labelFontName', 'annotationFontName', 'generateDefaultDiagram', 'defaultDiagramImageFileName'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String)"})
   void testGenerateDiagramWithBpmnModelHighLightedActivitiesHighLightedFlowsCurrentActivitiesErroredActivitiesActivityFontNameLabelFontNameAnnotationFontNameGenerateDefaultDiagramDefaultDiagramImageFileName5()
       throws IOException {
     // Arrange
@@ -1464,19 +1389,15 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String)}
-   * with {@code bpmnModel}, {@code highLightedActivities},
-   * {@code highLightedFlows}, {@code currentActivities},
-   * {@code erroredActivities}, {@code activityFontName}, {@code labelFontName},
-   * {@code annotationFontName}, {@code generateDefaultDiagram},
-   * {@code defaultDiagramImageFileName}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String)} with {@code bpmnModel}, {@code highLightedActivities}, {@code highLightedFlows}, {@code currentActivities}, {@code erroredActivities}, {@code activityFontName}, {@code labelFontName}, {@code annotationFontName}, {@code generateDefaultDiagram}, {@code defaultDiagramImageFileName}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String) with 'bpmnModel', 'highLightedActivities', 'highLightedFlows', 'currentActivities', 'erroredActivities', 'activityFontName', 'labelFontName', 'annotationFontName', 'generateDefaultDiagram', 'defaultDiagramImageFileName'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, List, List, List, List, String, String, String, boolean, String)"})
   void testGenerateDiagramWithBpmnModelHighLightedActivitiesHighLightedFlowsCurrentActivitiesErroredActivitiesActivityFontNameLabelFontNameAnnotationFontNameGenerateDefaultDiagramDefaultDiagramImageFileName6()
       throws IOException {
     // Arrange
@@ -1515,17 +1436,17 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List)}
-   * with {@code bpmnModel}, {@code highLightedActivities}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List)} with {@code bpmnModel}, {@code highLightedActivities}.
    * <ul>
    *   <li>Given {@code http://www.w3.org/2000/svg}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, List) with 'bpmnModel', 'highLightedActivities'; given 'http://www.w3.org/2000/svg'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, List)"})
   void testGenerateDiagramWithBpmnModelHighLightedActivities_givenHttpWwwW3Org2000Svg() throws IOException {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -1560,17 +1481,17 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List)}
-   * with {@code bpmnModel}, {@code highLightedActivities}.
+   * Test {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List)} with {@code bpmnModel}, {@code highLightedActivities}.
    * <ul>
    *   <li>Given {@link Process} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateDiagram(BpmnModel, List)}
    */
   @Test
   @DisplayName("Test generateDiagram(BpmnModel, List) with 'bpmnModel', 'highLightedActivities'; given Process (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"InputStream DefaultProcessDiagramGenerator.generateDiagram(BpmnModel, List)"})
   void testGenerateDiagramWithBpmnModelHighLightedActivities_givenProcess() throws IOException {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -1611,11 +1532,12 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
    *   <li>Then throw {@link ActivitiImageException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#getDefaultDiagram(String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#getDefaultDiagram(String)}
    */
   @Test
   @DisplayName("Test getDefaultDiagram(String); when 'foo.txt'; then throw ActivitiImageException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"InputStream DefaultProcessDiagramGenerator.getDefaultDiagram(String)"})
   void testGetDefaultDiagram_whenFooTxt_thenThrowActivitiImageException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiImageException.class,
@@ -1629,11 +1551,12 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
    *   <li>Then return read is fifty-one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#getDefaultDiagram(String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#getDefaultDiagram(String)}
    */
   @Test
   @DisplayName("Test getDefaultDiagram(String); when 'null'; then return read is fifty-one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"InputStream DefaultProcessDiagramGenerator.getDefaultDiagram(String)"})
   void testGetDefaultDiagram_whenNull_thenReturnReadIsFiftyOne() throws IOException {
     // Arrange, Act and Assert
     byte[] byteArray = new byte[51];
@@ -1642,17 +1565,18 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String)}.
+   * Test {@link DefaultProcessDiagramGenerator#generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String)}.
    * <ul>
    *   <li>Given {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String)}
    */
   @Test
   @DisplayName("Test generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String); given ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "DefaultProcessDiagramCanvas DefaultProcessDiagramGenerator.generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String)"})
   void testGenerateProcessDiagram_givenArrayList() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -1670,19 +1594,11 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
         "Label Font Name", "Annotation Font Name").g;
     DOMTreeManager dOMTreeManager = processDiagramSVGGraphics2D.getDOMTreeManager();
     SVGGraphicContextConverter graphicContextConverter = dOMTreeManager.getGraphicContextConverter();
-    SVGComposite compositeConverter = graphicContextConverter.getCompositeConverter();
-    assertEquals(graphicInfoList, compositeConverter.getAlphaCompositeConverter().getDefinitionSet());
-    assertEquals(graphicInfoList, compositeConverter.getCustomCompositeConverter().getDefinitionSet());
     assertEquals(graphicInfoList, graphicContextConverter.getClipConverter().getDefinitionSet());
     assertEquals(graphicInfoList, graphicContextConverter.getFontConverter().getDefinitionSet());
     assertEquals(graphicInfoList, graphicContextConverter.getHintsConverter().getDefinitionSet());
     assertEquals(graphicInfoList, graphicContextConverter.getStrokeConverter().getDefinitionSet());
     assertEquals(graphicInfoList, graphicContextConverter.getTransformConverter().getDefinitionSet());
-    SVGPaint paintConverter = graphicContextConverter.getPaintConverter();
-    assertEquals(graphicInfoList, paintConverter.getColorConverter().getDefinitionSet());
-    assertEquals(graphicInfoList, paintConverter.getCustomPaintConverter().getDefinitionSet());
-    assertEquals(graphicInfoList, paintConverter.getGradientPaintConverter().getDefinitionSet());
-    assertEquals(graphicInfoList, paintConverter.getTexturePaintConverter().getDefinitionSet());
     SVGBufferedImageOp filterConverter = dOMTreeManager.getFilterConverter();
     assertEquals(graphicInfoList, filterConverter.getConvolveOpConverter().getDefinitionSet());
     assertEquals(graphicInfoList, filterConverter.getCustomBufferedImageOpConverter().getDefinitionSet());
@@ -1690,24 +1606,25 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
     assertEquals(graphicInfoList, filterConverter.getRescaleOpConverter().getDefinitionSet());
     assertEquals(graphicInfoList, dOMTreeManager.getDefinitionSet());
     assertEquals(graphicInfoList, filterConverter.getDefinitionSet());
-    assertEquals(graphicInfoList, compositeConverter.getDefinitionSet());
+    assertEquals(graphicInfoList, graphicContextConverter.getCompositeConverter().getDefinitionSet());
     assertEquals(graphicInfoList, graphicContextConverter.getDefinitionSet());
     assertEquals(graphicInfoList, processDiagramSVGGraphics2D.getDefinitionSet());
-    assertEquals(graphicInfoList, paintConverter.getDefinitionSet());
+    assertEquals(graphicInfoList, graphicContextConverter.getPaintConverter().getDefinitionSet());
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String)}.
+   * Test {@link DefaultProcessDiagramGenerator#generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String)}.
    * <ul>
    *   <li>Given {@link GraphicInfo} (default constructor) X is {@code -0.5}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String)}
    */
   @Test
   @DisplayName("Test generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String); given GraphicInfo (default constructor) X is '-0.5'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "DefaultProcessDiagramCanvas DefaultProcessDiagramGenerator.generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String)"})
   void testGenerateProcessDiagram_givenGraphicInfoXIs05() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -1734,19 +1651,11 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
         "Label Font Name", "Annotation Font Name").g;
     DOMTreeManager dOMTreeManager = processDiagramSVGGraphics2D.getDOMTreeManager();
     SVGGraphicContextConverter graphicContextConverter = dOMTreeManager.getGraphicContextConverter();
-    SVGComposite compositeConverter = graphicContextConverter.getCompositeConverter();
-    assertEquals(highLightedActivities, compositeConverter.getAlphaCompositeConverter().getDefinitionSet());
-    assertEquals(highLightedActivities, compositeConverter.getCustomCompositeConverter().getDefinitionSet());
     assertEquals(highLightedActivities, graphicContextConverter.getClipConverter().getDefinitionSet());
     assertEquals(highLightedActivities, graphicContextConverter.getFontConverter().getDefinitionSet());
     assertEquals(highLightedActivities, graphicContextConverter.getHintsConverter().getDefinitionSet());
     assertEquals(highLightedActivities, graphicContextConverter.getStrokeConverter().getDefinitionSet());
     assertEquals(highLightedActivities, graphicContextConverter.getTransformConverter().getDefinitionSet());
-    SVGPaint paintConverter = graphicContextConverter.getPaintConverter();
-    assertEquals(highLightedActivities, paintConverter.getColorConverter().getDefinitionSet());
-    assertEquals(highLightedActivities, paintConverter.getCustomPaintConverter().getDefinitionSet());
-    assertEquals(highLightedActivities, paintConverter.getGradientPaintConverter().getDefinitionSet());
-    assertEquals(highLightedActivities, paintConverter.getTexturePaintConverter().getDefinitionSet());
     SVGBufferedImageOp filterConverter = dOMTreeManager.getFilterConverter();
     assertEquals(highLightedActivities, filterConverter.getConvolveOpConverter().getDefinitionSet());
     assertEquals(highLightedActivities, filterConverter.getCustomBufferedImageOpConverter().getDefinitionSet());
@@ -1754,24 +1663,25 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
     assertEquals(highLightedActivities, filterConverter.getRescaleOpConverter().getDefinitionSet());
     assertEquals(highLightedActivities, dOMTreeManager.getDefinitionSet());
     assertEquals(highLightedActivities, filterConverter.getDefinitionSet());
-    assertEquals(highLightedActivities, compositeConverter.getDefinitionSet());
+    assertEquals(highLightedActivities, graphicContextConverter.getCompositeConverter().getDefinitionSet());
     assertEquals(highLightedActivities, graphicContextConverter.getDefinitionSet());
     assertEquals(highLightedActivities, processDiagramSVGGraphics2D.getDefinitionSet());
-    assertEquals(highLightedActivities, paintConverter.getDefinitionSet());
+    assertEquals(highLightedActivities, graphicContextConverter.getPaintConverter().getDefinitionSet());
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String)}.
+   * Test {@link DefaultProcessDiagramGenerator#generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String)}.
    * <ul>
    *   <li>Given {@link GraphicInfo} (default constructor) X is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String)}
    */
   @Test
   @DisplayName("Test generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String); given GraphicInfo (default constructor) X is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "DefaultProcessDiagramCanvas DefaultProcessDiagramGenerator.generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String)"})
   void testGenerateProcessDiagram_givenGraphicInfoXIsTwo() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -1798,19 +1708,11 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
         "Label Font Name", "Annotation Font Name").g;
     DOMTreeManager dOMTreeManager = processDiagramSVGGraphics2D.getDOMTreeManager();
     SVGGraphicContextConverter graphicContextConverter = dOMTreeManager.getGraphicContextConverter();
-    SVGComposite compositeConverter = graphicContextConverter.getCompositeConverter();
-    assertEquals(highLightedActivities, compositeConverter.getAlphaCompositeConverter().getDefinitionSet());
-    assertEquals(highLightedActivities, compositeConverter.getCustomCompositeConverter().getDefinitionSet());
     assertEquals(highLightedActivities, graphicContextConverter.getClipConverter().getDefinitionSet());
     assertEquals(highLightedActivities, graphicContextConverter.getFontConverter().getDefinitionSet());
     assertEquals(highLightedActivities, graphicContextConverter.getHintsConverter().getDefinitionSet());
     assertEquals(highLightedActivities, graphicContextConverter.getStrokeConverter().getDefinitionSet());
     assertEquals(highLightedActivities, graphicContextConverter.getTransformConverter().getDefinitionSet());
-    SVGPaint paintConverter = graphicContextConverter.getPaintConverter();
-    assertEquals(highLightedActivities, paintConverter.getColorConverter().getDefinitionSet());
-    assertEquals(highLightedActivities, paintConverter.getCustomPaintConverter().getDefinitionSet());
-    assertEquals(highLightedActivities, paintConverter.getGradientPaintConverter().getDefinitionSet());
-    assertEquals(highLightedActivities, paintConverter.getTexturePaintConverter().getDefinitionSet());
     SVGBufferedImageOp filterConverter = dOMTreeManager.getFilterConverter();
     assertEquals(highLightedActivities, filterConverter.getConvolveOpConverter().getDefinitionSet());
     assertEquals(highLightedActivities, filterConverter.getCustomBufferedImageOpConverter().getDefinitionSet());
@@ -1818,24 +1720,25 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
     assertEquals(highLightedActivities, filterConverter.getRescaleOpConverter().getDefinitionSet());
     assertEquals(highLightedActivities, dOMTreeManager.getDefinitionSet());
     assertEquals(highLightedActivities, filterConverter.getDefinitionSet());
-    assertEquals(highLightedActivities, compositeConverter.getDefinitionSet());
+    assertEquals(highLightedActivities, graphicContextConverter.getCompositeConverter().getDefinitionSet());
     assertEquals(highLightedActivities, graphicContextConverter.getDefinitionSet());
     assertEquals(highLightedActivities, processDiagramSVGGraphics2D.getDefinitionSet());
-    assertEquals(highLightedActivities, paintConverter.getDefinitionSet());
+    assertEquals(highLightedActivities, graphicContextConverter.getPaintConverter().getDefinitionSet());
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String)}.
+   * Test {@link DefaultProcessDiagramGenerator#generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String)}.
    * <ul>
    *   <li>Given {@link GraphicInfo} (default constructor) Y is {@code -0.5}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String)}
    */
   @Test
   @DisplayName("Test generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String); given GraphicInfo (default constructor) Y is '-0.5'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "DefaultProcessDiagramCanvas DefaultProcessDiagramGenerator.generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String)"})
   void testGenerateProcessDiagram_givenGraphicInfoYIs05() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -1862,19 +1765,11 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
         "Label Font Name", "Annotation Font Name").g;
     DOMTreeManager dOMTreeManager = processDiagramSVGGraphics2D.getDOMTreeManager();
     SVGGraphicContextConverter graphicContextConverter = dOMTreeManager.getGraphicContextConverter();
-    SVGComposite compositeConverter = graphicContextConverter.getCompositeConverter();
-    assertEquals(highLightedActivities, compositeConverter.getAlphaCompositeConverter().getDefinitionSet());
-    assertEquals(highLightedActivities, compositeConverter.getCustomCompositeConverter().getDefinitionSet());
     assertEquals(highLightedActivities, graphicContextConverter.getClipConverter().getDefinitionSet());
     assertEquals(highLightedActivities, graphicContextConverter.getFontConverter().getDefinitionSet());
     assertEquals(highLightedActivities, graphicContextConverter.getHintsConverter().getDefinitionSet());
     assertEquals(highLightedActivities, graphicContextConverter.getStrokeConverter().getDefinitionSet());
     assertEquals(highLightedActivities, graphicContextConverter.getTransformConverter().getDefinitionSet());
-    SVGPaint paintConverter = graphicContextConverter.getPaintConverter();
-    assertEquals(highLightedActivities, paintConverter.getColorConverter().getDefinitionSet());
-    assertEquals(highLightedActivities, paintConverter.getCustomPaintConverter().getDefinitionSet());
-    assertEquals(highLightedActivities, paintConverter.getGradientPaintConverter().getDefinitionSet());
-    assertEquals(highLightedActivities, paintConverter.getTexturePaintConverter().getDefinitionSet());
     SVGBufferedImageOp filterConverter = dOMTreeManager.getFilterConverter();
     assertEquals(highLightedActivities, filterConverter.getConvolveOpConverter().getDefinitionSet());
     assertEquals(highLightedActivities, filterConverter.getCustomBufferedImageOpConverter().getDefinitionSet());
@@ -1882,26 +1777,26 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
     assertEquals(highLightedActivities, filterConverter.getRescaleOpConverter().getDefinitionSet());
     assertEquals(highLightedActivities, dOMTreeManager.getDefinitionSet());
     assertEquals(highLightedActivities, filterConverter.getDefinitionSet());
-    assertEquals(highLightedActivities, compositeConverter.getDefinitionSet());
+    assertEquals(highLightedActivities, graphicContextConverter.getCompositeConverter().getDefinitionSet());
     assertEquals(highLightedActivities, graphicContextConverter.getDefinitionSet());
     assertEquals(highLightedActivities, processDiagramSVGGraphics2D.getDefinitionSet());
-    assertEquals(highLightedActivities, paintConverter.getDefinitionSet());
+    assertEquals(highLightedActivities, graphicContextConverter.getPaintConverter().getDefinitionSet());
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String)}.
+   * Test {@link DefaultProcessDiagramGenerator#generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String)}.
    * <ul>
    *   <li>Given {@link Process} (default constructor).</li>
-   *   <li>When {@link BpmnModel} (default constructor) addProcess {@link Process}
-   * (default constructor).</li>
+   *   <li>When {@link BpmnModel} (default constructor) addProcess {@link Process} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String)}
    */
   @Test
   @DisplayName("Test generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String); given Process (default constructor); when BpmnModel (default constructor) addProcess Process (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "DefaultProcessDiagramCanvas DefaultProcessDiagramGenerator.generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String)"})
   void testGenerateProcessDiagram_givenProcess_whenBpmnModelAddProcessProcess() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -1918,19 +1813,11 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
         "Label Font Name", "Annotation Font Name").g;
     DOMTreeManager dOMTreeManager = processDiagramSVGGraphics2D.getDOMTreeManager();
     SVGGraphicContextConverter graphicContextConverter = dOMTreeManager.getGraphicContextConverter();
-    SVGComposite compositeConverter = graphicContextConverter.getCompositeConverter();
-    assertEquals(highLightedActivities, compositeConverter.getAlphaCompositeConverter().getDefinitionSet());
-    assertEquals(highLightedActivities, compositeConverter.getCustomCompositeConverter().getDefinitionSet());
     assertEquals(highLightedActivities, graphicContextConverter.getClipConverter().getDefinitionSet());
     assertEquals(highLightedActivities, graphicContextConverter.getFontConverter().getDefinitionSet());
     assertEquals(highLightedActivities, graphicContextConverter.getHintsConverter().getDefinitionSet());
     assertEquals(highLightedActivities, graphicContextConverter.getStrokeConverter().getDefinitionSet());
     assertEquals(highLightedActivities, graphicContextConverter.getTransformConverter().getDefinitionSet());
-    SVGPaint paintConverter = graphicContextConverter.getPaintConverter();
-    assertEquals(highLightedActivities, paintConverter.getColorConverter().getDefinitionSet());
-    assertEquals(highLightedActivities, paintConverter.getCustomPaintConverter().getDefinitionSet());
-    assertEquals(highLightedActivities, paintConverter.getGradientPaintConverter().getDefinitionSet());
-    assertEquals(highLightedActivities, paintConverter.getTexturePaintConverter().getDefinitionSet());
     SVGBufferedImageOp filterConverter = dOMTreeManager.getFilterConverter();
     assertEquals(highLightedActivities, filterConverter.getConvolveOpConverter().getDefinitionSet());
     assertEquals(highLightedActivities, filterConverter.getCustomBufferedImageOpConverter().getDefinitionSet());
@@ -1938,24 +1825,25 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
     assertEquals(highLightedActivities, filterConverter.getRescaleOpConverter().getDefinitionSet());
     assertEquals(highLightedActivities, dOMTreeManager.getDefinitionSet());
     assertEquals(highLightedActivities, filterConverter.getDefinitionSet());
-    assertEquals(highLightedActivities, compositeConverter.getDefinitionSet());
+    assertEquals(highLightedActivities, graphicContextConverter.getCompositeConverter().getDefinitionSet());
     assertEquals(highLightedActivities, graphicContextConverter.getDefinitionSet());
     assertEquals(highLightedActivities, processDiagramSVGGraphics2D.getDefinitionSet());
-    assertEquals(highLightedActivities, paintConverter.getDefinitionSet());
+    assertEquals(highLightedActivities, graphicContextConverter.getPaintConverter().getDefinitionSet());
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String)}.
+   * Test {@link DefaultProcessDiagramGenerator#generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String)}.
    * <ul>
    *   <li>When {@link BpmnModel} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String)}
    */
   @Test
   @DisplayName("Test generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String); when BpmnModel (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "DefaultProcessDiagramCanvas DefaultProcessDiagramGenerator.generateProcessDiagram(BpmnModel, List, List, List, List, String, String, String)"})
   void testGenerateProcessDiagram_whenBpmnModel() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -1970,19 +1858,11 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
         "Label Font Name", "Annotation Font Name").g;
     DOMTreeManager dOMTreeManager = processDiagramSVGGraphics2D.getDOMTreeManager();
     SVGGraphicContextConverter graphicContextConverter = dOMTreeManager.getGraphicContextConverter();
-    SVGComposite compositeConverter = graphicContextConverter.getCompositeConverter();
-    assertEquals(highLightedActivities, compositeConverter.getAlphaCompositeConverter().getDefinitionSet());
-    assertEquals(highLightedActivities, compositeConverter.getCustomCompositeConverter().getDefinitionSet());
     assertEquals(highLightedActivities, graphicContextConverter.getClipConverter().getDefinitionSet());
     assertEquals(highLightedActivities, graphicContextConverter.getFontConverter().getDefinitionSet());
     assertEquals(highLightedActivities, graphicContextConverter.getHintsConverter().getDefinitionSet());
     assertEquals(highLightedActivities, graphicContextConverter.getStrokeConverter().getDefinitionSet());
     assertEquals(highLightedActivities, graphicContextConverter.getTransformConverter().getDefinitionSet());
-    SVGPaint paintConverter = graphicContextConverter.getPaintConverter();
-    assertEquals(highLightedActivities, paintConverter.getColorConverter().getDefinitionSet());
-    assertEquals(highLightedActivities, paintConverter.getCustomPaintConverter().getDefinitionSet());
-    assertEquals(highLightedActivities, paintConverter.getGradientPaintConverter().getDefinitionSet());
-    assertEquals(highLightedActivities, paintConverter.getTexturePaintConverter().getDefinitionSet());
     SVGBufferedImageOp filterConverter = dOMTreeManager.getFilterConverter();
     assertEquals(highLightedActivities, filterConverter.getConvolveOpConverter().getDefinitionSet());
     assertEquals(highLightedActivities, filterConverter.getCustomBufferedImageOpConverter().getDefinitionSet());
@@ -1990,25 +1870,25 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
     assertEquals(highLightedActivities, filterConverter.getRescaleOpConverter().getDefinitionSet());
     assertEquals(highLightedActivities, dOMTreeManager.getDefinitionSet());
     assertEquals(highLightedActivities, filterConverter.getDefinitionSet());
-    assertEquals(highLightedActivities, compositeConverter.getDefinitionSet());
+    assertEquals(highLightedActivities, graphicContextConverter.getCompositeConverter().getDefinitionSet());
     assertEquals(highLightedActivities, graphicContextConverter.getDefinitionSet());
     assertEquals(highLightedActivities, processDiagramSVGGraphics2D.getDefinitionSet());
-    assertEquals(highLightedActivities, paintConverter.getDefinitionSet());
+    assertEquals(highLightedActivities, graphicContextConverter.getPaintConverter().getDefinitionSet());
   }
 
   /**
    * Test {@link DefaultProcessDiagramGenerator#prepareBpmnModel(BpmnModel)}.
    * <ul>
    *   <li>Given {@link GraphicInfo} (default constructor) X is {@code -0.5}.</li>
-   *   <li>Then {@link BpmnModel} (default constructor) LocationMap {@code Key} X is
-   * zero.</li>
+   *   <li>Then {@link BpmnModel} (default constructor) LocationMap {@code Key} X is zero.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#prepareBpmnModel(BpmnModel)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#prepareBpmnModel(BpmnModel)}
    */
   @Test
   @DisplayName("Test prepareBpmnModel(BpmnModel); given GraphicInfo (default constructor) X is '-0.5'; then BpmnModel (default constructor) LocationMap 'Key' X is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DefaultProcessDiagramGenerator.prepareBpmnModel(BpmnModel)"})
   void testPrepareBpmnModel_givenGraphicInfoXIs05_thenBpmnModelLocationMapKeyXIsZero() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -2041,15 +1921,15 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
    * Test {@link DefaultProcessDiagramGenerator#prepareBpmnModel(BpmnModel)}.
    * <ul>
    *   <li>Given {@link GraphicInfo} (default constructor) X is two.</li>
-   *   <li>Then {@link BpmnModel} (default constructor) LocationMap {@code Key} X is
-   * two.</li>
+   *   <li>Then {@link BpmnModel} (default constructor) LocationMap {@code Key} X is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#prepareBpmnModel(BpmnModel)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#prepareBpmnModel(BpmnModel)}
    */
   @Test
   @DisplayName("Test prepareBpmnModel(BpmnModel); given GraphicInfo (default constructor) X is two; then BpmnModel (default constructor) LocationMap 'Key' X is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DefaultProcessDiagramGenerator.prepareBpmnModel(BpmnModel)"})
   void testPrepareBpmnModel_givenGraphicInfoXIsTwo_thenBpmnModelLocationMapKeyXIsTwo() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -2070,7 +1950,7 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
     // Act
     defaultProcessDiagramGenerator.prepareBpmnModel(bpmnModel);
 
-    // Assert
+    // Assert that nothing has changed
     Map<String, GraphicInfo> locationMap = bpmnModel.getLocationMap();
     assertEquals(1, locationMap.size());
     GraphicInfo getResult = locationMap.get("Key");
@@ -2082,15 +1962,15 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
    * Test {@link DefaultProcessDiagramGenerator#prepareBpmnModel(BpmnModel)}.
    * <ul>
    *   <li>Given {@link GraphicInfo} (default constructor) Y is {@code -0.5}.</li>
-   *   <li>Then {@link BpmnModel} (default constructor) LocationMap {@code Key} Y is
-   * zero.</li>
+   *   <li>Then {@link BpmnModel} (default constructor) LocationMap {@code Key} Y is zero.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#prepareBpmnModel(BpmnModel)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#prepareBpmnModel(BpmnModel)}
    */
   @Test
   @DisplayName("Test prepareBpmnModel(BpmnModel); given GraphicInfo (default constructor) Y is '-0.5'; then BpmnModel (default constructor) LocationMap 'Key' Y is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DefaultProcessDiagramGenerator.prepareBpmnModel(BpmnModel)"})
   void testPrepareBpmnModel_givenGraphicInfoYIs05_thenBpmnModelLocationMapKeyYIsZero() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -2120,17 +2000,18 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}.
+   * Test {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}.
    * <ul>
    *   <li>Given {@link AdhocSubProcess} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}
    */
   @Test
   @DisplayName("Test drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List); given AdhocSubProcess (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void DefaultProcessDiagramGenerator.drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)"})
   void testDrawActivity_givenAdhocSubProcess() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -2154,7 +2035,7 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
     defaultProcessDiagramGenerator.drawActivity(processDiagramCanvas, bpmnModel, flowNode, currentActivities,
         erroredActivities, highLightedActivities, new ArrayList<>());
 
-    // Assert that nothing has changed
+    // Assert
     verify(flowNode).getDefaultFlow();
     verify(bpmnModel, atLeast(1)).getFlowElement(Mockito.<String>any());
     verify(bpmnModel).getFlowLocationGraphicInfo(isNull());
@@ -2163,25 +2044,26 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}.
+   * Test {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}.
    * <ul>
    *   <li>Given {@link AdhocSubProcess} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}
    */
   @Test
   @DisplayName("Test drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List); given AdhocSubProcess (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void DefaultProcessDiagramGenerator.drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)"})
   void testDrawActivity_givenAdhocSubProcess2() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
     DefaultProcessDiagramCanvas processDiagramCanvas = mock(DefaultProcessDiagramCanvas.class);
     doNothing().when(processDiagramCanvas).drawLabel(Mockito.<String>any(), Mockito.<GraphicInfo>any(), anyBoolean());
-    when(processDiagramCanvas.connectionPerfectionizer(Mockito.<DefaultProcessDiagramCanvas.SHAPE_TYPE>any(),
-        Mockito.<DefaultProcessDiagramCanvas.SHAPE_TYPE>any(), Mockito.<GraphicInfo>any(), Mockito.<GraphicInfo>any(),
-        Mockito.<List<GraphicInfo>>any())).thenReturn(new ArrayList<>());
+    when(processDiagramCanvas.connectionPerfectionizer(Mockito.<SHAPE_TYPE>any(), Mockito.<SHAPE_TYPE>any(),
+        Mockito.<GraphicInfo>any(), Mockito.<GraphicInfo>any(), Mockito.<List<GraphicInfo>>any()))
+        .thenReturn(new ArrayList<>());
     doNothing().when(processDiagramCanvas)
         .drawSequenceflow(Mockito.<int[]>any(), Mockito.<int[]>any(), anyBoolean(), anyBoolean(), anyBoolean());
 
@@ -2237,7 +2119,7 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
     defaultProcessDiagramGenerator.drawActivity(processDiagramCanvas, bpmnModel, flowNode, currentActivities,
         erroredActivities, highLightedActivities, new ArrayList<>());
 
-    // Assert that nothing has changed
+    // Assert
     verify(flowNode).getDefaultFlow();
     verify(bpmnModel, atLeast(1)).getFlowElement(Mockito.<String>any());
     verify(bpmnModel).getFlowLocationGraphicInfo(isNull());
@@ -2245,35 +2127,34 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
     verify(bpmnModel).getLabelGraphicInfo(isNull());
     verify(flowNode).getOutgoingFlows();
     verify(flowNode).getFlowElements();
-    verify(processDiagramCanvas).connectionPerfectionizer(eq(DefaultProcessDiagramCanvas.SHAPE_TYPE.Rectangle),
-        eq(DefaultProcessDiagramCanvas.SHAPE_TYPE.Rectangle), isA(GraphicInfo.class), isA(GraphicInfo.class),
-        isA(List.class));
+    verify(processDiagramCanvas).connectionPerfectionizer(eq(SHAPE_TYPE.Rectangle), eq(SHAPE_TYPE.Rectangle),
+        isA(GraphicInfo.class), isA(GraphicInfo.class), isA(List.class));
     verify(processDiagramCanvas).drawLabel(isNull(), isA(GraphicInfo.class), eq(false));
     verify(processDiagramCanvas).drawSequenceflow(isA(int[].class), isA(int[].class), eq(false), eq(false), eq(false));
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}.
+   * Test {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}.
    * <ul>
-   *   <li>Given {@link AdhocSubProcess} {@link BaseElement#getId()} return
-   * {@code 42}.</li>
+   *   <li>Given {@link AdhocSubProcess} {@link BaseElement#getId()} return {@code 42}.</li>
    *   <li>Then calls {@link BaseElement#getId()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}
    */
   @Test
   @DisplayName("Test drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List); given AdhocSubProcess getId() return '42'; then calls getId()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void DefaultProcessDiagramGenerator.drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)"})
   void testDrawActivity_givenAdhocSubProcessGetIdReturn42_thenCallsGetId() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
     DefaultProcessDiagramCanvas processDiagramCanvas = mock(DefaultProcessDiagramCanvas.class);
     doNothing().when(processDiagramCanvas).drawLabel(Mockito.<String>any(), Mockito.<GraphicInfo>any(), anyBoolean());
-    when(processDiagramCanvas.connectionPerfectionizer(Mockito.<DefaultProcessDiagramCanvas.SHAPE_TYPE>any(),
-        Mockito.<DefaultProcessDiagramCanvas.SHAPE_TYPE>any(), Mockito.<GraphicInfo>any(), Mockito.<GraphicInfo>any(),
-        Mockito.<List<GraphicInfo>>any())).thenReturn(new ArrayList<>());
+    when(processDiagramCanvas.connectionPerfectionizer(Mockito.<SHAPE_TYPE>any(), Mockito.<SHAPE_TYPE>any(),
+        Mockito.<GraphicInfo>any(), Mockito.<GraphicInfo>any(), Mockito.<List<GraphicInfo>>any()))
+        .thenReturn(new ArrayList<>());
     doNothing().when(processDiagramCanvas)
         .drawSequenceflow(Mockito.<int[]>any(), Mockito.<int[]>any(), anyBoolean(), anyBoolean(), anyBoolean());
 
@@ -2331,7 +2212,7 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
     defaultProcessDiagramGenerator.drawActivity(processDiagramCanvas, bpmnModel, flowNode, currentActivities,
         erroredActivities, highLightedActivities, new ArrayList<>());
 
-    // Assert that nothing has changed
+    // Assert
     verify(flowNode).getDefaultFlow();
     verify(adhocSubProcess, atLeast(1)).getId();
     verify(bpmnModel, atLeast(1)).getFlowElement(Mockito.<String>any());
@@ -2340,27 +2221,26 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
     verify(bpmnModel).getLabelGraphicInfo(isNull());
     verify(flowNode).getOutgoingFlows();
     verify(flowNode).getFlowElements();
-    verify(processDiagramCanvas).connectionPerfectionizer(eq(DefaultProcessDiagramCanvas.SHAPE_TYPE.Rectangle),
-        eq(DefaultProcessDiagramCanvas.SHAPE_TYPE.Rectangle), isA(GraphicInfo.class), isA(GraphicInfo.class),
-        isA(List.class));
+    verify(processDiagramCanvas).connectionPerfectionizer(eq(SHAPE_TYPE.Rectangle), eq(SHAPE_TYPE.Rectangle),
+        isA(GraphicInfo.class), isA(GraphicInfo.class), isA(List.class));
     verify(processDiagramCanvas).drawLabel(isNull(), isA(GraphicInfo.class), eq(false));
     verify(processDiagramCanvas).drawSequenceflow(isA(int[].class), isA(int[].class), eq(false), eq(false), eq(false));
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}.
+   * Test {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link AdhocSubProcess} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link AdhocSubProcess} (default constructor).</li>
    *   <li>When {@link BpmnModel} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}
    */
   @Test
   @DisplayName("Test drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List); given ArrayList() add AdhocSubProcess (default constructor); when BpmnModel (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void DefaultProcessDiagramGenerator.drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)"})
   void testDrawActivity_givenArrayListAddAdhocSubProcess_whenBpmnModel() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -2381,25 +2261,26 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
     defaultProcessDiagramGenerator.drawActivity(processDiagramCanvas, bpmnModel, flowNode, currentActivities,
         erroredActivities, highLightedActivities, new ArrayList<>());
 
-    // Assert that nothing has changed
+    // Assert
     verify(flowNode).getOutgoingFlows();
     verify(flowNode).getFlowElements();
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}.
+   * Test {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}.
    * <ul>
    *   <li>Given {@link ArrayList#ArrayList()}.</li>
    *   <li>When {@link BpmnModel} (default constructor).</li>
    *   <li>Then calls {@link SubProcess#getFlowElements()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}
    */
   @Test
   @DisplayName("Test drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List); given ArrayList(); when BpmnModel (default constructor); then calls getFlowElements()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void DefaultProcessDiagramGenerator.drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)"})
   void testDrawActivity_givenArrayList_whenBpmnModel_thenCallsGetFlowElements() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -2417,31 +2298,32 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
     defaultProcessDiagramGenerator.drawActivity(processDiagramCanvas, bpmnModel, flowNode, currentActivities,
         erroredActivities, highLightedActivities, new ArrayList<>());
 
-    // Assert that nothing has changed
+    // Assert
     verify(flowNode).getOutgoingFlows();
     verify(flowNode).getFlowElements();
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}.
+   * Test {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}.
    * <ul>
    *   <li>Given {@link BusinessRuleTask} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}
    */
   @Test
   @DisplayName("Test drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List); given BusinessRuleTask (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void DefaultProcessDiagramGenerator.drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)"})
   void testDrawActivity_givenBusinessRuleTask() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
     DefaultProcessDiagramCanvas processDiagramCanvas = mock(DefaultProcessDiagramCanvas.class);
     doNothing().when(processDiagramCanvas).drawLabel(Mockito.<String>any(), Mockito.<GraphicInfo>any(), anyBoolean());
-    when(processDiagramCanvas.connectionPerfectionizer(Mockito.<DefaultProcessDiagramCanvas.SHAPE_TYPE>any(),
-        Mockito.<DefaultProcessDiagramCanvas.SHAPE_TYPE>any(), Mockito.<GraphicInfo>any(), Mockito.<GraphicInfo>any(),
-        Mockito.<List<GraphicInfo>>any())).thenReturn(new ArrayList<>());
+    when(processDiagramCanvas.connectionPerfectionizer(Mockito.<SHAPE_TYPE>any(), Mockito.<SHAPE_TYPE>any(),
+        Mockito.<GraphicInfo>any(), Mockito.<GraphicInfo>any(), Mockito.<List<GraphicInfo>>any()))
+        .thenReturn(new ArrayList<>());
     doNothing().when(processDiagramCanvas)
         .drawSequenceflow(Mockito.<int[]>any(), Mockito.<int[]>any(), anyBoolean(), anyBoolean(), anyBoolean());
 
@@ -2497,7 +2379,7 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
     defaultProcessDiagramGenerator.drawActivity(processDiagramCanvas, bpmnModel, flowNode, currentActivities,
         erroredActivities, highLightedActivities, new ArrayList<>());
 
-    // Assert that nothing has changed
+    // Assert
     verify(flowNode).getDefaultFlow();
     verify(bpmnModel, atLeast(1)).getFlowElement(Mockito.<String>any());
     verify(bpmnModel).getFlowLocationGraphicInfo(isNull());
@@ -2505,35 +2387,34 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
     verify(bpmnModel).getLabelGraphicInfo(isNull());
     verify(flowNode).getOutgoingFlows();
     verify(flowNode).getFlowElements();
-    verify(processDiagramCanvas).connectionPerfectionizer(eq(DefaultProcessDiagramCanvas.SHAPE_TYPE.Rectangle),
-        eq(DefaultProcessDiagramCanvas.SHAPE_TYPE.Rectangle), isA(GraphicInfo.class), isA(GraphicInfo.class),
-        isA(List.class));
+    verify(processDiagramCanvas).connectionPerfectionizer(eq(SHAPE_TYPE.Rectangle), eq(SHAPE_TYPE.Rectangle),
+        isA(GraphicInfo.class), isA(GraphicInfo.class), isA(List.class));
     verify(processDiagramCanvas).drawLabel(isNull(), isA(GraphicInfo.class), eq(false));
     verify(processDiagramCanvas).drawSequenceflow(isA(int[].class), isA(int[].class), eq(false), eq(false), eq(false));
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}.
+   * Test {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}.
    * <ul>
    *   <li>Given {@code null}.</li>
-   *   <li>When {@link AdhocSubProcess} {@link Activity#getDefaultFlow()} return
-   * {@code null}.</li>
+   *   <li>When {@link AdhocSubProcess} {@link Activity#getDefaultFlow()} return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}
    */
   @Test
   @DisplayName("Test drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List); given 'null'; when AdhocSubProcess getDefaultFlow() return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void DefaultProcessDiagramGenerator.drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)"})
   void testDrawActivity_givenNull_whenAdhocSubProcessGetDefaultFlowReturnNull() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
     DefaultProcessDiagramCanvas processDiagramCanvas = mock(DefaultProcessDiagramCanvas.class);
     doNothing().when(processDiagramCanvas).drawLabel(Mockito.<String>any(), Mockito.<GraphicInfo>any(), anyBoolean());
-    when(processDiagramCanvas.connectionPerfectionizer(Mockito.<DefaultProcessDiagramCanvas.SHAPE_TYPE>any(),
-        Mockito.<DefaultProcessDiagramCanvas.SHAPE_TYPE>any(), Mockito.<GraphicInfo>any(), Mockito.<GraphicInfo>any(),
-        Mockito.<List<GraphicInfo>>any())).thenReturn(new ArrayList<>());
+    when(processDiagramCanvas.connectionPerfectionizer(Mockito.<SHAPE_TYPE>any(), Mockito.<SHAPE_TYPE>any(),
+        Mockito.<GraphicInfo>any(), Mockito.<GraphicInfo>any(), Mockito.<List<GraphicInfo>>any()))
+        .thenReturn(new ArrayList<>());
     doNothing().when(processDiagramCanvas)
         .drawSequenceflow(Mockito.<int[]>any(), Mockito.<int[]>any(), anyBoolean(), anyBoolean(), anyBoolean());
 
@@ -2591,7 +2472,7 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
     defaultProcessDiagramGenerator.drawActivity(processDiagramCanvas, bpmnModel, flowNode, currentActivities,
         erroredActivities, highLightedActivities, new ArrayList<>());
 
-    // Assert that nothing has changed
+    // Assert
     verify(flowNode).getDefaultFlow();
     verify(adhocSubProcess, atLeast(1)).getId();
     verify(bpmnModel, atLeast(1)).getFlowElement(Mockito.<String>any());
@@ -2600,27 +2481,26 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
     verify(bpmnModel).getLabelGraphicInfo(isNull());
     verify(flowNode).getOutgoingFlows();
     verify(flowNode).getFlowElements();
-    verify(processDiagramCanvas).connectionPerfectionizer(eq(DefaultProcessDiagramCanvas.SHAPE_TYPE.Rectangle),
-        eq(DefaultProcessDiagramCanvas.SHAPE_TYPE.Rectangle), isA(GraphicInfo.class), isA(GraphicInfo.class),
-        isA(List.class));
+    verify(processDiagramCanvas).connectionPerfectionizer(eq(SHAPE_TYPE.Rectangle), eq(SHAPE_TYPE.Rectangle),
+        isA(GraphicInfo.class), isA(GraphicInfo.class), isA(List.class));
     verify(processDiagramCanvas).drawLabel(isNull(), isA(GraphicInfo.class), eq(false));
     verify(processDiagramCanvas).drawSequenceflow(isA(int[].class), isA(int[].class), eq(false), eq(false), eq(false));
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}.
+   * Test {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}.
    * <ul>
    *   <li>Given {@link Process} (default constructor).</li>
-   *   <li>When {@link BpmnModel} (default constructor) addProcess {@link Process}
-   * (default constructor).</li>
+   *   <li>When {@link BpmnModel} (default constructor) addProcess {@link Process} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}
    */
   @Test
   @DisplayName("Test drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List); given Process (default constructor); when BpmnModel (default constructor) addProcess Process (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void DefaultProcessDiagramGenerator.drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)"})
   void testDrawActivity_givenProcess_whenBpmnModelAddProcessProcess() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -2643,34 +2523,34 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
     defaultProcessDiagramGenerator.drawActivity(processDiagramCanvas, bpmnModel, flowNode, currentActivities,
         erroredActivities, highLightedActivities, new ArrayList<>());
 
-    // Assert that nothing has changed
+    // Assert
     verify(flowNode).getDefaultFlow();
     verify(flowNode).getOutgoingFlows();
     verify(flowNode).getFlowElements();
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}.
+   * Test {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}.
    * <ul>
-   *   <li>Given {@link SequenceFlow} {@link BaseElement#getId()} return
-   * {@code 42}.</li>
+   *   <li>Given {@link SequenceFlow} {@link BaseElement#getId()} return {@code 42}.</li>
    *   <li>Then calls {@link FlowElement#getName()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}
    */
   @Test
   @DisplayName("Test drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List); given SequenceFlow getId() return '42'; then calls getName()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void DefaultProcessDiagramGenerator.drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)"})
   void testDrawActivity_givenSequenceFlowGetIdReturn42_thenCallsGetName() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
     DefaultProcessDiagramCanvas processDiagramCanvas = mock(DefaultProcessDiagramCanvas.class);
     doNothing().when(processDiagramCanvas).drawLabel(Mockito.<String>any(), Mockito.<GraphicInfo>any(), anyBoolean());
-    when(processDiagramCanvas.connectionPerfectionizer(Mockito.<DefaultProcessDiagramCanvas.SHAPE_TYPE>any(),
-        Mockito.<DefaultProcessDiagramCanvas.SHAPE_TYPE>any(), Mockito.<GraphicInfo>any(), Mockito.<GraphicInfo>any(),
-        Mockito.<List<GraphicInfo>>any())).thenReturn(new ArrayList<>());
+    when(processDiagramCanvas.connectionPerfectionizer(Mockito.<SHAPE_TYPE>any(), Mockito.<SHAPE_TYPE>any(),
+        Mockito.<GraphicInfo>any(), Mockito.<GraphicInfo>any(), Mockito.<List<GraphicInfo>>any()))
+        .thenReturn(new ArrayList<>());
     doNothing().when(processDiagramCanvas)
         .drawSequenceflow(Mockito.<int[]>any(), Mockito.<int[]>any(), anyBoolean(), anyBoolean(), anyBoolean());
 
@@ -2734,7 +2614,7 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
     defaultProcessDiagramGenerator.drawActivity(processDiagramCanvas, bpmnModel, flowNode, currentActivities,
         erroredActivities, highLightedActivities, new ArrayList<>());
 
-    // Assert that nothing has changed
+    // Assert
     verify(flowNode).getDefaultFlow();
     verify(adhocSubProcess, atLeast(1)).getId();
     verify(sequenceFlow, atLeast(1)).getId();
@@ -2748,34 +2628,34 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
     verify(sequenceFlow).getSourceRef();
     verify(sequenceFlow).getTargetRef();
     verify(flowNode).getFlowElements();
-    verify(processDiagramCanvas).connectionPerfectionizer(eq(DefaultProcessDiagramCanvas.SHAPE_TYPE.Rectangle),
-        eq(DefaultProcessDiagramCanvas.SHAPE_TYPE.Rectangle), isA(GraphicInfo.class), isA(GraphicInfo.class),
-        isA(List.class));
+    verify(processDiagramCanvas).connectionPerfectionizer(eq(SHAPE_TYPE.Rectangle), eq(SHAPE_TYPE.Rectangle),
+        isA(GraphicInfo.class), isA(GraphicInfo.class), isA(List.class));
     verify(processDiagramCanvas).drawLabel(eq("Name"), isA(GraphicInfo.class), eq(false));
     verify(processDiagramCanvas).drawSequenceflow(isA(int[].class), isA(int[].class), eq(true), eq(false), eq(false));
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}.
+   * Test {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}.
    * <ul>
    *   <li>Then throw {@link ActivitiInterchangeInfoNotFoundException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}
    */
   @Test
   @DisplayName("Test drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List); then throw ActivitiInterchangeInfoNotFoundException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void DefaultProcessDiagramGenerator.drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)"})
   void testDrawActivity_thenThrowActivitiInterchangeInfoNotFoundException() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
     DefaultProcessDiagramCanvas processDiagramCanvas = mock(DefaultProcessDiagramCanvas.class);
     doThrow(new ActivitiInterchangeInfoNotFoundException("An error occurred")).when(processDiagramCanvas)
         .drawLabel(Mockito.<String>any(), Mockito.<GraphicInfo>any(), anyBoolean());
-    when(processDiagramCanvas.connectionPerfectionizer(Mockito.<DefaultProcessDiagramCanvas.SHAPE_TYPE>any(),
-        Mockito.<DefaultProcessDiagramCanvas.SHAPE_TYPE>any(), Mockito.<GraphicInfo>any(), Mockito.<GraphicInfo>any(),
-        Mockito.<List<GraphicInfo>>any())).thenReturn(new ArrayList<>());
+    when(processDiagramCanvas.connectionPerfectionizer(Mockito.<SHAPE_TYPE>any(), Mockito.<SHAPE_TYPE>any(),
+        Mockito.<GraphicInfo>any(), Mockito.<GraphicInfo>any(), Mockito.<List<GraphicInfo>>any()))
+        .thenReturn(new ArrayList<>());
     doNothing().when(processDiagramCanvas)
         .drawSequenceflow(Mockito.<int[]>any(), Mockito.<int[]>any(), anyBoolean(), anyBoolean(), anyBoolean());
 
@@ -2836,26 +2716,26 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
     verify(bpmnModel, atLeast(1)).getGraphicInfo(isNull());
     verify(bpmnModel).getLabelGraphicInfo(isNull());
     verify(flowNode).getOutgoingFlows();
-    verify(processDiagramCanvas).connectionPerfectionizer(eq(DefaultProcessDiagramCanvas.SHAPE_TYPE.Rectangle),
-        eq(DefaultProcessDiagramCanvas.SHAPE_TYPE.Rectangle), isA(GraphicInfo.class), isA(GraphicInfo.class),
-        isA(List.class));
+    verify(processDiagramCanvas).connectionPerfectionizer(eq(SHAPE_TYPE.Rectangle), eq(SHAPE_TYPE.Rectangle),
+        isA(GraphicInfo.class), isA(GraphicInfo.class), isA(List.class));
     verify(processDiagramCanvas).drawLabel(isNull(), isA(GraphicInfo.class), eq(false));
     verify(processDiagramCanvas).drawSequenceflow(isA(int[].class), isA(int[].class), eq(false), eq(false), eq(false));
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}.
+   * Test {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}.
    * <ul>
    *   <li>When {@link BpmnModel} (default constructor).</li>
    *   <li>Then calls {@link Activity#getDefaultFlow()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)}
    */
   @Test
   @DisplayName("Test drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List); when BpmnModel (default constructor); then calls getDefaultFlow()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void DefaultProcessDiagramGenerator.drawActivity(DefaultProcessDiagramCanvas, BpmnModel, FlowNode, List, List, List, List)"})
   void testDrawActivity_whenBpmnModel_thenCallsGetDefaultFlow() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -2877,26 +2757,26 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
     defaultProcessDiagramGenerator.drawActivity(processDiagramCanvas, bpmnModel, flowNode, currentActivities,
         erroredActivities, highLightedActivities, new ArrayList<>());
 
-    // Assert that nothing has changed
+    // Assert
     verify(flowNode).getDefaultFlow();
     verify(flowNode).getOutgoingFlows();
     verify(flowNode).getFlowElements();
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#connectionPerfectionizer(DefaultProcessDiagramCanvas, BpmnModel, BaseElement, BaseElement, List)}.
+   * Test {@link DefaultProcessDiagramGenerator#connectionPerfectionizer(DefaultProcessDiagramCanvas, BpmnModel, BaseElement, BaseElement, List)}.
    * <ul>
-   *   <li>Given {@link GraphicInfo} (default constructor) Expanded is
-   * {@code false}.</li>
+   *   <li>Given {@link GraphicInfo} (default constructor) Expanded is {@code false}.</li>
    *   <li>Then return size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#connectionPerfectionizer(DefaultProcessDiagramCanvas, BpmnModel, BaseElement, BaseElement, List)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#connectionPerfectionizer(DefaultProcessDiagramCanvas, BpmnModel, BaseElement, BaseElement, List)}
    */
   @Test
   @DisplayName("Test connectionPerfectionizer(DefaultProcessDiagramCanvas, BpmnModel, BaseElement, BaseElement, List); given GraphicInfo (default constructor) Expanded is 'false'; then return size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "List DefaultProcessDiagramGenerator.connectionPerfectionizer(DefaultProcessDiagramCanvas, BpmnModel, BaseElement, BaseElement, List)"})
   void testConnectionPerfectionizer_givenGraphicInfoExpandedIsFalse_thenReturnSizeIsTwo() {
     // Arrange
     DefaultProcessDiagramCanvas processDiagramCanvas = new DefaultProcessDiagramCanvas(1, 1, 1, 1);
@@ -2947,17 +2827,18 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#connectionPerfectionizer(DefaultProcessDiagramCanvas, BpmnModel, BaseElement, BaseElement, List)}.
+   * Test {@link DefaultProcessDiagramGenerator#connectionPerfectionizer(DefaultProcessDiagramCanvas, BpmnModel, BaseElement, BaseElement, List)}.
    * <ul>
    *   <li>Then return size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#connectionPerfectionizer(DefaultProcessDiagramCanvas, BpmnModel, BaseElement, BaseElement, List)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#connectionPerfectionizer(DefaultProcessDiagramCanvas, BpmnModel, BaseElement, BaseElement, List)}
    */
   @Test
   @DisplayName("Test connectionPerfectionizer(DefaultProcessDiagramCanvas, BpmnModel, BaseElement, BaseElement, List); then return size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "List DefaultProcessDiagramGenerator.connectionPerfectionizer(DefaultProcessDiagramCanvas, BpmnModel, BaseElement, BaseElement, List)"})
   void testConnectionPerfectionizer_thenReturnSizeIsOne() {
     // Arrange
     DefaultProcessDiagramCanvas processDiagramCanvas = new DefaultProcessDiagramCanvas(1, 1, 1, 1);
@@ -2996,18 +2877,19 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#connectionPerfectionizer(DefaultProcessDiagramCanvas, BpmnModel, BaseElement, BaseElement, List)}.
+   * Test {@link DefaultProcessDiagramGenerator#connectionPerfectionizer(DefaultProcessDiagramCanvas, BpmnModel, BaseElement, BaseElement, List)}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#connectionPerfectionizer(DefaultProcessDiagramCanvas, BpmnModel, BaseElement, BaseElement, List)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#connectionPerfectionizer(DefaultProcessDiagramCanvas, BpmnModel, BaseElement, BaseElement, List)}
    */
   @Test
   @DisplayName("Test connectionPerfectionizer(DefaultProcessDiagramCanvas, BpmnModel, BaseElement, BaseElement, List); when ArrayList(); then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "List DefaultProcessDiagramGenerator.connectionPerfectionizer(DefaultProcessDiagramCanvas, BpmnModel, BaseElement, BaseElement, List)"})
   void testConnectionPerfectionizer_whenArrayList_thenReturnEmpty() {
     // Arrange
     DefaultProcessDiagramCanvas processDiagramCanvas = new DefaultProcessDiagramCanvas(1, 1, 1, 1);
@@ -3031,11 +2913,12 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#getShapeType(BaseElement)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#getShapeType(BaseElement)}
    */
   @Test
   @DisplayName("Test getShapeType(BaseElement); when ActivitiListener (default constructor); then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"SHAPE_TYPE DefaultProcessDiagramGenerator.getShapeType(BaseElement)"})
   void testGetShapeType_whenActivitiListener_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(DefaultProcessDiagramGenerator.getShapeType(new ActivitiListener()));
@@ -3048,15 +2931,15 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
    *   <li>Then return {@code Rectangle}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#getShapeType(BaseElement)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#getShapeType(BaseElement)}
    */
   @Test
   @DisplayName("Test getShapeType(BaseElement); when AdhocSubProcess (default constructor); then return 'Rectangle'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"SHAPE_TYPE DefaultProcessDiagramGenerator.getShapeType(BaseElement)"})
   void testGetShapeType_whenAdhocSubProcess_thenReturnRectangle() {
     // Arrange, Act and Assert
-    assertEquals(DefaultProcessDiagramCanvas.SHAPE_TYPE.Rectangle,
-        DefaultProcessDiagramGenerator.getShapeType(new AdhocSubProcess()));
+    assertEquals(SHAPE_TYPE.Rectangle, DefaultProcessDiagramGenerator.getShapeType(new AdhocSubProcess()));
   }
 
   /**
@@ -3066,15 +2949,15 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
    *   <li>Then return {@code Ellipse}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#getShapeType(BaseElement)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#getShapeType(BaseElement)}
    */
   @Test
   @DisplayName("Test getShapeType(BaseElement); when BoundaryEvent (default constructor); then return 'Ellipse'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"SHAPE_TYPE DefaultProcessDiagramGenerator.getShapeType(BaseElement)"})
   void testGetShapeType_whenBoundaryEvent_thenReturnEllipse() {
     // Arrange, Act and Assert
-    assertEquals(DefaultProcessDiagramCanvas.SHAPE_TYPE.Ellipse,
-        DefaultProcessDiagramGenerator.getShapeType(new BoundaryEvent()));
+    assertEquals(SHAPE_TYPE.Ellipse, DefaultProcessDiagramGenerator.getShapeType(new BoundaryEvent()));
   }
 
   /**
@@ -3084,15 +2967,15 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
    *   <li>Then return {@code Rhombus}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#getShapeType(BaseElement)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#getShapeType(BaseElement)}
    */
   @Test
   @DisplayName("Test getShapeType(BaseElement); when ComplexGateway (default constructor); then return 'Rhombus'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"SHAPE_TYPE DefaultProcessDiagramGenerator.getShapeType(BaseElement)"})
   void testGetShapeType_whenComplexGateway_thenReturnRhombus() {
     // Arrange, Act and Assert
-    assertEquals(DefaultProcessDiagramCanvas.SHAPE_TYPE.Rhombus,
-        DefaultProcessDiagramGenerator.getShapeType(new ComplexGateway()));
+    assertEquals(SHAPE_TYPE.Rhombus, DefaultProcessDiagramGenerator.getShapeType(new ComplexGateway()));
   }
 
   /**
@@ -3102,15 +2985,15 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
    *   <li>Then return {@code Rectangle}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#getShapeType(BaseElement)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#getShapeType(BaseElement)}
    */
   @Test
   @DisplayName("Test getShapeType(BaseElement); when Task (default constructor); then return 'Rectangle'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"SHAPE_TYPE DefaultProcessDiagramGenerator.getShapeType(BaseElement)"})
   void testGetShapeType_whenTask_thenReturnRectangle() {
     // Arrange, Act and Assert
-    assertEquals(DefaultProcessDiagramCanvas.SHAPE_TYPE.Rectangle,
-        DefaultProcessDiagramGenerator.getShapeType(new Task()));
+    assertEquals(SHAPE_TYPE.Rectangle, DefaultProcessDiagramGenerator.getShapeType(new Task()));
   }
 
   /**
@@ -3120,22 +3003,21 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
    *   <li>Then return {@code Rectangle}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#getShapeType(BaseElement)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#getShapeType(BaseElement)}
    */
   @Test
   @DisplayName("Test getShapeType(BaseElement); when TextAnnotation (default constructor); then return 'Rectangle'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"SHAPE_TYPE DefaultProcessDiagramGenerator.getShapeType(BaseElement)"})
   void testGetShapeType_whenTextAnnotation_thenReturnRectangle() {
     // Arrange, Act and Assert
-    assertEquals(DefaultProcessDiagramCanvas.SHAPE_TYPE.Rectangle,
-        DefaultProcessDiagramGenerator.getShapeType(new TextAnnotation()));
+    assertEquals(SHAPE_TYPE.Rectangle, DefaultProcessDiagramGenerator.getShapeType(new TextAnnotation()));
   }
 
   /**
    * Test {@link DefaultProcessDiagramGenerator#getLineCenter(List)}.
    * <ul>
-   *   <li>Given {@link GraphicInfo} (default constructor) Expanded is
-   * {@code false}.</li>
+   *   <li>Given {@link GraphicInfo} (default constructor) Expanded is {@code false}.</li>
    *   <li>Then return Y is {@code 2.5}.</li>
    * </ul>
    * <p>
@@ -3143,6 +3025,8 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
    */
   @Test
   @DisplayName("Test getLineCenter(List); given GraphicInfo (default constructor) Expanded is 'false'; then return Y is '2.5'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"GraphicInfo DefaultProcessDiagramGenerator.getLineCenter(List)"})
   void testGetLineCenter_givenGraphicInfoExpandedIsFalse_thenReturnYIs25() {
     // Arrange
     GraphicInfo graphicInfo = new GraphicInfo();
@@ -3193,6 +3077,8 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
    */
   @Test
   @DisplayName("Test getLineCenter(List); then return Y is '2.3245883961385942'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"GraphicInfo DefaultProcessDiagramGenerator.getLineCenter(List)"})
   void testGetLineCenter_thenReturnYIs23245883961385942() {
     // Arrange
     GraphicInfo graphicInfo = new GraphicInfo();
@@ -3245,14 +3131,15 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}.
+   * Test {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}
    */
   @Test
   @DisplayName("Test drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void DefaultProcessDiagramGenerator.drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)"})
   void testDrawArtifact() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -3273,14 +3160,15 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}.
+   * Test {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}.
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}
    */
   @Test
   @DisplayName("Test drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void DefaultProcessDiagramGenerator.drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)"})
   void testDrawArtifact2() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -3308,17 +3196,18 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}.
+   * Test {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}.
    * <ul>
    *   <li>Given {@link AdhocSubProcess} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}
    */
   @Test
   @DisplayName("Test drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact); given AdhocSubProcess (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void DefaultProcessDiagramGenerator.drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)"})
   void testDrawArtifact_givenAdhocSubProcess() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -3348,26 +3237,26 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}.
+   * Test {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}.
    * <ul>
    *   <li>Given {@link AdhocSubProcess} (default constructor).</li>
-   *   <li>Then calls
-   * {@link DefaultProcessDiagramCanvas#connectionPerfectionizer(SHAPE_TYPE, SHAPE_TYPE, GraphicInfo, GraphicInfo, List)}.</li>
+   *   <li>Then calls {@link DefaultProcessDiagramCanvas#connectionPerfectionizer(SHAPE_TYPE, SHAPE_TYPE, GraphicInfo, GraphicInfo, List)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}
    */
   @Test
   @DisplayName("Test drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact); given AdhocSubProcess (default constructor); then calls connectionPerfectionizer(SHAPE_TYPE, SHAPE_TYPE, GraphicInfo, GraphicInfo, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void DefaultProcessDiagramGenerator.drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)"})
   void testDrawArtifact_givenAdhocSubProcess_thenCallsConnectionPerfectionizer() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
     DefaultProcessDiagramCanvas processDiagramCanvas = mock(DefaultProcessDiagramCanvas.class);
-    when(processDiagramCanvas.connectionPerfectionizer(Mockito.<DefaultProcessDiagramCanvas.SHAPE_TYPE>any(),
-        Mockito.<DefaultProcessDiagramCanvas.SHAPE_TYPE>any(), Mockito.<GraphicInfo>any(), Mockito.<GraphicInfo>any(),
-        Mockito.<List<GraphicInfo>>any())).thenReturn(new ArrayList<>());
+    when(processDiagramCanvas.connectionPerfectionizer(Mockito.<SHAPE_TYPE>any(), Mockito.<SHAPE_TYPE>any(),
+        Mockito.<GraphicInfo>any(), Mockito.<GraphicInfo>any(), Mockito.<List<GraphicInfo>>any()))
+        .thenReturn(new ArrayList<>());
     doNothing().when(processDiagramCanvas)
         .drawAssociation(Mockito.<int[]>any(), Mockito.<int[]>any(), Mockito.<AssociationDirection>any(), anyBoolean());
 
@@ -3388,36 +3277,36 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
     // Act
     defaultProcessDiagramGenerator.drawArtifact(processDiagramCanvas, bpmnModel, new Association());
 
-    // Assert that nothing has changed
+    // Assert
     verify(bpmnModel, atLeast(1)).getFlowElement(isNull());
     verify(bpmnModel).getFlowLocationGraphicInfo(isNull());
     verify(bpmnModel, atLeast(1)).getGraphicInfo(isNull());
-    verify(processDiagramCanvas).connectionPerfectionizer(eq(DefaultProcessDiagramCanvas.SHAPE_TYPE.Rectangle),
-        eq(DefaultProcessDiagramCanvas.SHAPE_TYPE.Rectangle), isA(GraphicInfo.class), isA(GraphicInfo.class),
-        isA(List.class));
+    verify(processDiagramCanvas).connectionPerfectionizer(eq(SHAPE_TYPE.Rectangle), eq(SHAPE_TYPE.Rectangle),
+        isA(GraphicInfo.class), isA(GraphicInfo.class), isA(List.class));
     verify(processDiagramCanvas).drawAssociation(isA(int[].class), isA(int[].class), eq(AssociationDirection.NONE),
         eq(false));
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}.
+   * Test {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}.
    * <ul>
    *   <li>Given {@link BusinessRuleTask} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}
    */
   @Test
   @DisplayName("Test drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact); given BusinessRuleTask (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void DefaultProcessDiagramGenerator.drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)"})
   void testDrawArtifact_givenBusinessRuleTask() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
     DefaultProcessDiagramCanvas processDiagramCanvas = mock(DefaultProcessDiagramCanvas.class);
-    when(processDiagramCanvas.connectionPerfectionizer(Mockito.<DefaultProcessDiagramCanvas.SHAPE_TYPE>any(),
-        Mockito.<DefaultProcessDiagramCanvas.SHAPE_TYPE>any(), Mockito.<GraphicInfo>any(), Mockito.<GraphicInfo>any(),
-        Mockito.<List<GraphicInfo>>any())).thenReturn(new ArrayList<>());
+    when(processDiagramCanvas.connectionPerfectionizer(Mockito.<SHAPE_TYPE>any(), Mockito.<SHAPE_TYPE>any(),
+        Mockito.<GraphicInfo>any(), Mockito.<GraphicInfo>any(), Mockito.<List<GraphicInfo>>any()))
+        .thenReturn(new ArrayList<>());
     doNothing().when(processDiagramCanvas)
         .drawAssociation(Mockito.<int[]>any(), Mockito.<int[]>any(), Mockito.<AssociationDirection>any(), anyBoolean());
 
@@ -3438,38 +3327,37 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
     // Act
     defaultProcessDiagramGenerator.drawArtifact(processDiagramCanvas, bpmnModel, new Association());
 
-    // Assert that nothing has changed
+    // Assert
     verify(bpmnModel, atLeast(1)).getFlowElement(isNull());
     verify(bpmnModel).getFlowLocationGraphicInfo(isNull());
     verify(bpmnModel, atLeast(1)).getGraphicInfo(isNull());
-    verify(processDiagramCanvas).connectionPerfectionizer(eq(DefaultProcessDiagramCanvas.SHAPE_TYPE.Rectangle),
-        eq(DefaultProcessDiagramCanvas.SHAPE_TYPE.Rectangle), isA(GraphicInfo.class), isA(GraphicInfo.class),
-        isA(List.class));
+    verify(processDiagramCanvas).connectionPerfectionizer(eq(SHAPE_TYPE.Rectangle), eq(SHAPE_TYPE.Rectangle),
+        isA(GraphicInfo.class), isA(GraphicInfo.class), isA(List.class));
     verify(processDiagramCanvas).drawAssociation(isA(int[].class), isA(int[].class), eq(AssociationDirection.NONE),
         eq(false));
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}.
+   * Test {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}.
    * <ul>
-   *   <li>Given {@link BusinessRuleTask} {@link BaseElement#getId()} return
-   * {@code 42}.</li>
+   *   <li>Given {@link BusinessRuleTask} {@link BaseElement#getId()} return {@code 42}.</li>
    *   <li>Then calls {@link BaseElement#getId()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}
    */
   @Test
   @DisplayName("Test drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact); given BusinessRuleTask getId() return '42'; then calls getId()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void DefaultProcessDiagramGenerator.drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)"})
   void testDrawArtifact_givenBusinessRuleTaskGetIdReturn42_thenCallsGetId() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
     DefaultProcessDiagramCanvas processDiagramCanvas = mock(DefaultProcessDiagramCanvas.class);
-    when(processDiagramCanvas.connectionPerfectionizer(Mockito.<DefaultProcessDiagramCanvas.SHAPE_TYPE>any(),
-        Mockito.<DefaultProcessDiagramCanvas.SHAPE_TYPE>any(), Mockito.<GraphicInfo>any(), Mockito.<GraphicInfo>any(),
-        Mockito.<List<GraphicInfo>>any())).thenReturn(new ArrayList<>());
+    when(processDiagramCanvas.connectionPerfectionizer(Mockito.<SHAPE_TYPE>any(), Mockito.<SHAPE_TYPE>any(),
+        Mockito.<GraphicInfo>any(), Mockito.<GraphicInfo>any(), Mockito.<List<GraphicInfo>>any()))
+        .thenReturn(new ArrayList<>());
     doNothing().when(processDiagramCanvas)
         .drawAssociation(Mockito.<int[]>any(), Mockito.<int[]>any(), Mockito.<AssociationDirection>any(), anyBoolean());
     BusinessRuleTask businessRuleTask = mock(BusinessRuleTask.class);
@@ -3492,38 +3380,38 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
     // Act
     defaultProcessDiagramGenerator.drawArtifact(processDiagramCanvas, bpmnModel, new Association());
 
-    // Assert that nothing has changed
+    // Assert
     verify(businessRuleTask, atLeast(1)).getId();
     verify(bpmnModel, atLeast(1)).getFlowElement(isNull());
     verify(bpmnModel).getFlowLocationGraphicInfo(isNull());
     verify(bpmnModel, atLeast(1)).getGraphicInfo(eq("42"));
-    verify(processDiagramCanvas).connectionPerfectionizer(eq(DefaultProcessDiagramCanvas.SHAPE_TYPE.Rectangle),
-        eq(DefaultProcessDiagramCanvas.SHAPE_TYPE.Rectangle), isA(GraphicInfo.class), isA(GraphicInfo.class),
-        isA(List.class));
+    verify(processDiagramCanvas).connectionPerfectionizer(eq(SHAPE_TYPE.Rectangle), eq(SHAPE_TYPE.Rectangle),
+        isA(GraphicInfo.class), isA(GraphicInfo.class), isA(List.class));
     verify(processDiagramCanvas).drawAssociation(isA(int[].class), isA(int[].class), eq(AssociationDirection.NONE),
         eq(false));
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}.
+   * Test {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}.
    * <ul>
    *   <li>Given {@code null}.</li>
    *   <li>Then calls {@link BpmnModel#getArtifact(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}
    */
   @Test
   @DisplayName("Test drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact); given 'null'; then calls getArtifact(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void DefaultProcessDiagramGenerator.drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)"})
   void testDrawArtifact_givenNull_thenCallsGetArtifact() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
     DefaultProcessDiagramCanvas processDiagramCanvas = mock(DefaultProcessDiagramCanvas.class);
-    when(processDiagramCanvas.connectionPerfectionizer(Mockito.<DefaultProcessDiagramCanvas.SHAPE_TYPE>any(),
-        Mockito.<DefaultProcessDiagramCanvas.SHAPE_TYPE>any(), Mockito.<GraphicInfo>any(), Mockito.<GraphicInfo>any(),
-        Mockito.<List<GraphicInfo>>any())).thenReturn(new ArrayList<>());
+    when(processDiagramCanvas.connectionPerfectionizer(Mockito.<SHAPE_TYPE>any(), Mockito.<SHAPE_TYPE>any(),
+        Mockito.<GraphicInfo>any(), Mockito.<GraphicInfo>any(), Mockito.<List<GraphicInfo>>any()))
+        .thenReturn(new ArrayList<>());
     doNothing().when(processDiagramCanvas)
         .drawAssociation(Mockito.<int[]>any(), Mockito.<int[]>any(), Mockito.<AssociationDirection>any(), anyBoolean());
 
@@ -3545,7 +3433,7 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
     // Act
     defaultProcessDiagramGenerator.drawArtifact(processDiagramCanvas, bpmnModel, new Association());
 
-    // Assert that nothing has changed
+    // Assert
     verify(bpmnModel, atLeast(1)).getArtifact(isNull());
     verify(bpmnModel, atLeast(1)).getFlowElement(isNull());
     verify(bpmnModel).getFlowLocationGraphicInfo(isNull());
@@ -3557,19 +3445,18 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}.
+   * Test {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}.
    * <ul>
-   *   <li>When {@link DefaultProcessDiagramCanvas}
-   * {@link DefaultProcessDiagramCanvas#drawTextAnnotation(String, String, GraphicInfo)}
-   * does nothing.</li>
+   *   <li>When {@link DefaultProcessDiagramCanvas} {@link DefaultProcessDiagramCanvas#drawTextAnnotation(String, String, GraphicInfo)} does nothing.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)}
    */
   @Test
   @DisplayName("Test drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact); when DefaultProcessDiagramCanvas drawTextAnnotation(String, String, GraphicInfo) does nothing")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void DefaultProcessDiagramGenerator.drawArtifact(DefaultProcessDiagramCanvas, BpmnModel, Artifact)"})
   void testDrawArtifact_whenDefaultProcessDiagramCanvasDrawTextAnnotationDoesNothing() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
@@ -3592,24 +3479,24 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
     // Act
     defaultProcessDiagramGenerator.drawArtifact(processDiagramCanvas, bpmnModel, new TextAnnotation());
 
-    // Assert that nothing has changed
+    // Assert
     verify(bpmnModel).getGraphicInfo(isNull());
     verify(processDiagramCanvas).drawTextAnnotation(isNull(), isNull(), isA(GraphicInfo.class));
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}.
+   * Test {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}.
    * <ul>
-   *   <li>Given {@link Process} (default constructor) addArtifact
-   * {@link Association} (default constructor).</li>
+   *   <li>Given {@link Process} (default constructor) addArtifact {@link Association} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}
    */
   @Test
   @DisplayName("Test initProcessDiagramCanvas(BpmnModel, String, String, String); given Process (default constructor) addArtifact Association (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "DefaultProcessDiagramCanvas DefaultProcessDiagramGenerator.initProcessDiagramCanvas(BpmnModel, String, String, String)"})
   void testInitProcessDiagramCanvas_givenProcessAddArtifactAssociation() {
     // Arrange
     Process process = new Process();
@@ -3624,105 +3511,30 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
         .initProcessDiagramCanvas(bpmnModel, "Activity Font Name", "Label Font Name", "Annotation Font Name");
 
     // Assert
-    ProcessDiagramSVGGraphics2D processDiagramSVGGraphics2D = actualInitProcessDiagramCanvasResult.g;
-    Element root = processDiagramSVGGraphics2D.getRoot();
-    Node firstChild = root.getFirstChild();
-    assertTrue(firstChild instanceof GenericComment);
-    Document dOMFactory = processDiagramSVGGraphics2D.getDOMFactory();
-    assertTrue(dOMFactory instanceof GenericDocument);
-    Element firstElementChild = ((GenericElementNS) root).getFirstElementChild();
-    assertTrue(firstElementChild instanceof GenericElementNS);
-    DOMTreeManager dOMTreeManager = processDiagramSVGGraphics2D.getDOMTreeManager();
-    Element genericDefinitions = dOMTreeManager.getGenericDefinitions();
-    assertTrue(genericDefinitions instanceof GenericElementNS);
-    Element root2 = dOMTreeManager.getRoot();
-    assertTrue(root2 instanceof GenericElementNS);
-    Element topLevelGroup = dOMTreeManager.getTopLevelGroup();
-    assertTrue(topLevelGroup instanceof GenericElementNS);
-    assertTrue(root instanceof GenericElementNS);
-    Element topLevelGroup2 = processDiagramSVGGraphics2D.getTopLevelGroup();
-    assertTrue(topLevelGroup2 instanceof GenericElementNS);
-    Element documentElement = dOMFactory.getDocumentElement();
-    assertTrue(documentElement instanceof GenericElementNS);
-    Node lastChild = root.getLastChild();
-    assertTrue(lastChild instanceof GenericElementNS);
-    Font expectedFont = actualInitProcessDiagramCanvasResult.fontMetrics.getFont();
-    Font font = processDiagramSVGGraphics2D.getFont();
-    assertEquals(expectedFont, font);
-    Color background = processDiagramSVGGraphics2D.getBackground();
-    assertEquals(background, background.darker().brighter().brighter());
-    assertEquals(background, background.brighter());
-    FontRenderContext expectedFontRenderContext = processDiagramSVGGraphics2D.getFontRenderContext();
-    GraphicContext graphicContext = processDiagramSVGGraphics2D.getGraphicContext();
-    assertEquals(expectedFontRenderContext, graphicContext.getFontRenderContext());
-    Dimension sVGCanvasSize = processDiagramSVGGraphics2D.getSVGCanvasSize();
-    assertEquals(sVGCanvasSize, sVGCanvasSize.getSize());
     Color expectedColor = actualInitProcessDiagramCanvasResult.SUBPROCESS_BORDER_COLOR;
+    ProcessDiagramSVGGraphics2D processDiagramSVGGraphics2D = actualInitProcessDiagramCanvasResult.g;
     Color color = processDiagramSVGGraphics2D.getColor();
     assertEquals(expectedColor, color);
     assertEquals(Integer.MAX_VALUE, actualInitProcessDiagramCanvasResult.minX);
     assertEquals(Integer.MAX_VALUE, actualInitProcessDiagramCanvasResult.minY);
-    assertSame(background, graphicContext.getBackground());
     assertSame(color, processDiagramSVGGraphics2D.getPaint());
-    assertSame(color, graphicContext.getColor());
-    assertSame(color, graphicContext.getPaint());
-    assertSame(font, graphicContext.getFont());
     FontMetrics expectedFontMetrics = actualInitProcessDiagramCanvasResult.fontMetrics;
     assertSame(expectedFontMetrics, processDiagramSVGGraphics2D.getFontMetrics());
-    assertSame(firstChild, ((GenericElementNS) root).getXblFirstChild());
-    assertSame(firstChild, ((GenericElementNS) firstElementChild).getXblPreviousSibling());
-    assertSame(firstChild, firstElementChild.getPreviousSibling());
-    assertSame(dOMFactory, ((GenericElementNS) documentElement).getParentNodeEventTarget());
-    assertSame(dOMFactory, ((GenericElementNS) documentElement).getXblParentNode());
-    assertSame(dOMFactory, processDiagramSVGGraphics2D.getGeneratorContext().getDOMFactory());
-    assertSame(dOMFactory, firstElementChild.getOwnerDocument());
-    assertSame(dOMFactory, genericDefinitions.getOwnerDocument());
-    assertSame(dOMFactory, root2.getOwnerDocument());
-    assertSame(dOMFactory, topLevelGroup.getOwnerDocument());
-    assertSame(dOMFactory, root.getOwnerDocument());
-    assertSame(dOMFactory, topLevelGroup2.getOwnerDocument());
-    assertSame(dOMFactory, documentElement.getOwnerDocument());
-    assertSame(dOMFactory, firstChild.getOwnerDocument());
-    assertSame(dOMFactory, lastChild.getOwnerDocument());
-    assertSame(dOMFactory, documentElement.getParentNode());
-    assertSame(firstElementChild, ((GenericElementNS) lastChild).getPreviousElementSibling());
-    assertSame(firstElementChild, ((GenericElementNS) root).getXblFirstElementChild());
-    assertSame(firstElementChild, ((GenericComment) firstChild).getXblNextElementSibling());
-    assertSame(firstElementChild, ((GenericComment) firstChild).getXblNextSibling());
-    assertSame(firstElementChild, ((GenericElementNS) lastChild).getXblPreviousElementSibling());
-    assertSame(firstElementChild, ((GenericElementNS) lastChild).getXblPreviousSibling());
-    assertSame(firstElementChild, firstChild.getNextSibling());
-    assertSame(firstElementChild, lastChild.getPreviousSibling());
-    assertSame(root, ((GenericComment) firstChild).getParentNodeEventTarget());
-    assertSame(root, ((GenericElementNS) firstElementChild).getParentNodeEventTarget());
-    assertSame(root, ((GenericElementNS) lastChild).getParentNodeEventTarget());
-    assertSame(root, ((GenericComment) firstChild).getXblParentNode());
-    assertSame(root, ((GenericElementNS) firstElementChild).getXblParentNode());
-    assertSame(root, ((GenericElementNS) lastChild).getXblParentNode());
-    assertSame(root, firstElementChild.getParentNode());
-    assertSame(root, firstChild.getParentNode());
-    assertSame(root, lastChild.getParentNode());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblFirstChild());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblFirstElementChild());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblLastChild());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblLastElementChild());
-    assertSame(documentElement, dOMFactory.getFirstChild());
-    assertSame(documentElement, dOMFactory.getLastChild());
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}.
+   * Test {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}.
    * <ul>
-   *   <li>Given {@link Process} (default constructor) addFlowElement
-   * {@link BooleanDataObject} (default constructor).</li>
+   *   <li>Given {@link Process} (default constructor) addFlowElement {@link BooleanDataObject} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}
    */
   @Test
   @DisplayName("Test initProcessDiagramCanvas(BpmnModel, String, String, String); given Process (default constructor) addFlowElement BooleanDataObject (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "DefaultProcessDiagramCanvas DefaultProcessDiagramGenerator.initProcessDiagramCanvas(BpmnModel, String, String, String)"})
   void testInitProcessDiagramCanvas_givenProcessAddFlowElementBooleanDataObject() {
     // Arrange
     Process process = new Process();
@@ -3736,105 +3548,31 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
         .initProcessDiagramCanvas(bpmnModel, "Activity Font Name", "Label Font Name", "Annotation Font Name");
 
     // Assert
-    ProcessDiagramSVGGraphics2D processDiagramSVGGraphics2D = actualInitProcessDiagramCanvasResult.g;
-    Element root = processDiagramSVGGraphics2D.getRoot();
-    Node firstChild = root.getFirstChild();
-    assertTrue(firstChild instanceof GenericComment);
-    Document dOMFactory = processDiagramSVGGraphics2D.getDOMFactory();
-    assertTrue(dOMFactory instanceof GenericDocument);
-    Element firstElementChild = ((GenericElementNS) root).getFirstElementChild();
-    assertTrue(firstElementChild instanceof GenericElementNS);
-    DOMTreeManager dOMTreeManager = processDiagramSVGGraphics2D.getDOMTreeManager();
-    Element genericDefinitions = dOMTreeManager.getGenericDefinitions();
-    assertTrue(genericDefinitions instanceof GenericElementNS);
-    Element root2 = dOMTreeManager.getRoot();
-    assertTrue(root2 instanceof GenericElementNS);
-    Element topLevelGroup = dOMTreeManager.getTopLevelGroup();
-    assertTrue(topLevelGroup instanceof GenericElementNS);
-    assertTrue(root instanceof GenericElementNS);
-    Element topLevelGroup2 = processDiagramSVGGraphics2D.getTopLevelGroup();
-    assertTrue(topLevelGroup2 instanceof GenericElementNS);
-    Element documentElement = dOMFactory.getDocumentElement();
-    assertTrue(documentElement instanceof GenericElementNS);
-    Node lastChild = root.getLastChild();
-    assertTrue(lastChild instanceof GenericElementNS);
     assertEquals(0, actualInitProcessDiagramCanvasResult.minX);
     assertEquals(0, actualInitProcessDiagramCanvasResult.minY);
-    Font expectedFont = actualInitProcessDiagramCanvasResult.fontMetrics.getFont();
-    Font font = processDiagramSVGGraphics2D.getFont();
-    assertEquals(expectedFont, font);
-    Color background = processDiagramSVGGraphics2D.getBackground();
-    assertEquals(background, background.darker().brighter().brighter());
-    assertEquals(background, background.brighter());
-    FontRenderContext expectedFontRenderContext = processDiagramSVGGraphics2D.getFontRenderContext();
-    GraphicContext graphicContext = processDiagramSVGGraphics2D.getGraphicContext();
-    assertEquals(expectedFontRenderContext, graphicContext.getFontRenderContext());
-    Dimension sVGCanvasSize = processDiagramSVGGraphics2D.getSVGCanvasSize();
-    assertEquals(sVGCanvasSize, sVGCanvasSize.getSize());
     Color expectedColor = actualInitProcessDiagramCanvasResult.SUBPROCESS_BORDER_COLOR;
+    ProcessDiagramSVGGraphics2D processDiagramSVGGraphics2D = actualInitProcessDiagramCanvasResult.g;
     Color color = processDiagramSVGGraphics2D.getColor();
     assertEquals(expectedColor, color);
-    assertSame(background, graphicContext.getBackground());
     assertSame(color, processDiagramSVGGraphics2D.getPaint());
-    assertSame(color, graphicContext.getColor());
-    assertSame(color, graphicContext.getPaint());
-    assertSame(font, graphicContext.getFont());
     FontMetrics expectedFontMetrics = actualInitProcessDiagramCanvasResult.fontMetrics;
     assertSame(expectedFontMetrics, processDiagramSVGGraphics2D.getFontMetrics());
-    assertSame(firstChild, ((GenericElementNS) root).getXblFirstChild());
-    assertSame(firstChild, ((GenericElementNS) firstElementChild).getXblPreviousSibling());
-    assertSame(firstChild, firstElementChild.getPreviousSibling());
-    assertSame(dOMFactory, ((GenericElementNS) documentElement).getParentNodeEventTarget());
-    assertSame(dOMFactory, ((GenericElementNS) documentElement).getXblParentNode());
-    assertSame(dOMFactory, processDiagramSVGGraphics2D.getGeneratorContext().getDOMFactory());
-    assertSame(dOMFactory, firstElementChild.getOwnerDocument());
-    assertSame(dOMFactory, genericDefinitions.getOwnerDocument());
-    assertSame(dOMFactory, root2.getOwnerDocument());
-    assertSame(dOMFactory, topLevelGroup.getOwnerDocument());
-    assertSame(dOMFactory, root.getOwnerDocument());
-    assertSame(dOMFactory, topLevelGroup2.getOwnerDocument());
-    assertSame(dOMFactory, documentElement.getOwnerDocument());
-    assertSame(dOMFactory, firstChild.getOwnerDocument());
-    assertSame(dOMFactory, lastChild.getOwnerDocument());
-    assertSame(dOMFactory, documentElement.getParentNode());
-    assertSame(firstElementChild, ((GenericElementNS) lastChild).getPreviousElementSibling());
-    assertSame(firstElementChild, ((GenericElementNS) root).getXblFirstElementChild());
-    assertSame(firstElementChild, ((GenericComment) firstChild).getXblNextElementSibling());
-    assertSame(firstElementChild, ((GenericComment) firstChild).getXblNextSibling());
-    assertSame(firstElementChild, ((GenericElementNS) lastChild).getXblPreviousElementSibling());
-    assertSame(firstElementChild, ((GenericElementNS) lastChild).getXblPreviousSibling());
-    assertSame(firstElementChild, firstChild.getNextSibling());
-    assertSame(firstElementChild, lastChild.getPreviousSibling());
-    assertSame(root, ((GenericComment) firstChild).getParentNodeEventTarget());
-    assertSame(root, ((GenericElementNS) firstElementChild).getParentNodeEventTarget());
-    assertSame(root, ((GenericElementNS) lastChild).getParentNodeEventTarget());
-    assertSame(root, ((GenericComment) firstChild).getXblParentNode());
-    assertSame(root, ((GenericElementNS) firstElementChild).getXblParentNode());
-    assertSame(root, ((GenericElementNS) lastChild).getXblParentNode());
-    assertSame(root, firstElementChild.getParentNode());
-    assertSame(root, firstChild.getParentNode());
-    assertSame(root, lastChild.getParentNode());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblFirstChild());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblFirstElementChild());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblLastChild());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblLastElementChild());
-    assertSame(documentElement, dOMFactory.getFirstChild());
-    assertSame(documentElement, dOMFactory.getLastChild());
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}.
+   * Test {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}.
    * <ul>
    *   <li>Given {@link Process} (default constructor).</li>
    *   <li>Then return {@link DefaultProcessDiagramCanvas#minX} is zero.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}
    */
   @Test
   @DisplayName("Test initProcessDiagramCanvas(BpmnModel, String, String, String); given Process (default constructor); then return minX is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "DefaultProcessDiagramCanvas DefaultProcessDiagramGenerator.initProcessDiagramCanvas(BpmnModel, String, String, String)"})
   void testInitProcessDiagramCanvas_givenProcess_thenReturnMinXIsZero() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -3845,105 +3583,30 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
         .initProcessDiagramCanvas(bpmnModel, "Activity Font Name", "Label Font Name", "Annotation Font Name");
 
     // Assert
-    ProcessDiagramSVGGraphics2D processDiagramSVGGraphics2D = actualInitProcessDiagramCanvasResult.g;
-    Element root = processDiagramSVGGraphics2D.getRoot();
-    Node firstChild = root.getFirstChild();
-    assertTrue(firstChild instanceof GenericComment);
-    Document dOMFactory = processDiagramSVGGraphics2D.getDOMFactory();
-    assertTrue(dOMFactory instanceof GenericDocument);
-    Element firstElementChild = ((GenericElementNS) root).getFirstElementChild();
-    assertTrue(firstElementChild instanceof GenericElementNS);
-    DOMTreeManager dOMTreeManager = processDiagramSVGGraphics2D.getDOMTreeManager();
-    Element genericDefinitions = dOMTreeManager.getGenericDefinitions();
-    assertTrue(genericDefinitions instanceof GenericElementNS);
-    Element root2 = dOMTreeManager.getRoot();
-    assertTrue(root2 instanceof GenericElementNS);
-    Element topLevelGroup = dOMTreeManager.getTopLevelGroup();
-    assertTrue(topLevelGroup instanceof GenericElementNS);
-    assertTrue(root instanceof GenericElementNS);
-    Element topLevelGroup2 = processDiagramSVGGraphics2D.getTopLevelGroup();
-    assertTrue(topLevelGroup2 instanceof GenericElementNS);
-    Element documentElement = dOMFactory.getDocumentElement();
-    assertTrue(documentElement instanceof GenericElementNS);
-    Node lastChild = root.getLastChild();
-    assertTrue(lastChild instanceof GenericElementNS);
     assertEquals(0, actualInitProcessDiagramCanvasResult.minX);
     assertEquals(0, actualInitProcessDiagramCanvasResult.minY);
-    Font expectedFont = actualInitProcessDiagramCanvasResult.fontMetrics.getFont();
-    Font font = processDiagramSVGGraphics2D.getFont();
-    assertEquals(expectedFont, font);
-    Color background = processDiagramSVGGraphics2D.getBackground();
-    assertEquals(background, background.darker().brighter().brighter());
-    assertEquals(background, background.brighter());
-    FontRenderContext expectedFontRenderContext = processDiagramSVGGraphics2D.getFontRenderContext();
-    GraphicContext graphicContext = processDiagramSVGGraphics2D.getGraphicContext();
-    assertEquals(expectedFontRenderContext, graphicContext.getFontRenderContext());
-    Dimension sVGCanvasSize = processDiagramSVGGraphics2D.getSVGCanvasSize();
-    assertEquals(sVGCanvasSize, sVGCanvasSize.getSize());
     Color expectedColor = actualInitProcessDiagramCanvasResult.SUBPROCESS_BORDER_COLOR;
+    ProcessDiagramSVGGraphics2D processDiagramSVGGraphics2D = actualInitProcessDiagramCanvasResult.g;
     Color color = processDiagramSVGGraphics2D.getColor();
     assertEquals(expectedColor, color);
-    assertSame(background, graphicContext.getBackground());
     assertSame(color, processDiagramSVGGraphics2D.getPaint());
-    assertSame(color, graphicContext.getColor());
-    assertSame(color, graphicContext.getPaint());
-    assertSame(font, graphicContext.getFont());
     FontMetrics expectedFontMetrics = actualInitProcessDiagramCanvasResult.fontMetrics;
     assertSame(expectedFontMetrics, processDiagramSVGGraphics2D.getFontMetrics());
-    assertSame(firstChild, ((GenericElementNS) root).getXblFirstChild());
-    assertSame(firstChild, ((GenericElementNS) firstElementChild).getXblPreviousSibling());
-    assertSame(firstChild, firstElementChild.getPreviousSibling());
-    assertSame(dOMFactory, ((GenericElementNS) documentElement).getParentNodeEventTarget());
-    assertSame(dOMFactory, ((GenericElementNS) documentElement).getXblParentNode());
-    assertSame(dOMFactory, processDiagramSVGGraphics2D.getGeneratorContext().getDOMFactory());
-    assertSame(dOMFactory, firstElementChild.getOwnerDocument());
-    assertSame(dOMFactory, genericDefinitions.getOwnerDocument());
-    assertSame(dOMFactory, root2.getOwnerDocument());
-    assertSame(dOMFactory, topLevelGroup.getOwnerDocument());
-    assertSame(dOMFactory, root.getOwnerDocument());
-    assertSame(dOMFactory, topLevelGroup2.getOwnerDocument());
-    assertSame(dOMFactory, documentElement.getOwnerDocument());
-    assertSame(dOMFactory, firstChild.getOwnerDocument());
-    assertSame(dOMFactory, lastChild.getOwnerDocument());
-    assertSame(dOMFactory, documentElement.getParentNode());
-    assertSame(firstElementChild, ((GenericElementNS) lastChild).getPreviousElementSibling());
-    assertSame(firstElementChild, ((GenericElementNS) root).getXblFirstElementChild());
-    assertSame(firstElementChild, ((GenericComment) firstChild).getXblNextElementSibling());
-    assertSame(firstElementChild, ((GenericComment) firstChild).getXblNextSibling());
-    assertSame(firstElementChild, ((GenericElementNS) lastChild).getXblPreviousElementSibling());
-    assertSame(firstElementChild, ((GenericElementNS) lastChild).getXblPreviousSibling());
-    assertSame(firstElementChild, firstChild.getNextSibling());
-    assertSame(firstElementChild, lastChild.getPreviousSibling());
-    assertSame(root, ((GenericComment) firstChild).getParentNodeEventTarget());
-    assertSame(root, ((GenericElementNS) firstElementChild).getParentNodeEventTarget());
-    assertSame(root, ((GenericElementNS) lastChild).getParentNodeEventTarget());
-    assertSame(root, ((GenericComment) firstChild).getXblParentNode());
-    assertSame(root, ((GenericElementNS) firstElementChild).getXblParentNode());
-    assertSame(root, ((GenericElementNS) lastChild).getXblParentNode());
-    assertSame(root, firstElementChild.getParentNode());
-    assertSame(root, firstChild.getParentNode());
-    assertSame(root, lastChild.getParentNode());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblFirstChild());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblFirstElementChild());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblLastChild());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblLastElementChild());
-    assertSame(documentElement, dOMFactory.getFirstChild());
-    assertSame(documentElement, dOMFactory.getLastChild());
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}.
+   * Test {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}.
    * <ul>
-   *   <li>Then return {@link DefaultProcessDiagramCanvas#minX} is
-   * {@link Integer#MAX_VALUE}.</li>
+   *   <li>Then return {@link DefaultProcessDiagramCanvas#minX} is {@link Integer#MAX_VALUE}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}
    */
   @Test
   @DisplayName("Test initProcessDiagramCanvas(BpmnModel, String, String, String); then return minX is MAX_VALUE")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "DefaultProcessDiagramCanvas DefaultProcessDiagramGenerator.initProcessDiagramCanvas(BpmnModel, String, String, String)"})
   void testInitProcessDiagramCanvas_thenReturnMinXIsMax_value() {
     // Arrange
     Process process = new Process();
@@ -3957,211 +3620,105 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
         .initProcessDiagramCanvas(bpmnModel, "Activity Font Name", "Label Font Name", "Annotation Font Name");
 
     // Assert
-    ProcessDiagramSVGGraphics2D processDiagramSVGGraphics2D = actualInitProcessDiagramCanvasResult.g;
-    Element root = processDiagramSVGGraphics2D.getRoot();
-    Node firstChild = root.getFirstChild();
-    assertTrue(firstChild instanceof GenericComment);
-    Document dOMFactory = processDiagramSVGGraphics2D.getDOMFactory();
-    assertTrue(dOMFactory instanceof GenericDocument);
-    Element firstElementChild = ((GenericElementNS) root).getFirstElementChild();
-    assertTrue(firstElementChild instanceof GenericElementNS);
-    DOMTreeManager dOMTreeManager = processDiagramSVGGraphics2D.getDOMTreeManager();
-    Element genericDefinitions = dOMTreeManager.getGenericDefinitions();
-    assertTrue(genericDefinitions instanceof GenericElementNS);
-    Element root2 = dOMTreeManager.getRoot();
-    assertTrue(root2 instanceof GenericElementNS);
-    Element topLevelGroup = dOMTreeManager.getTopLevelGroup();
-    assertTrue(topLevelGroup instanceof GenericElementNS);
-    assertTrue(root instanceof GenericElementNS);
-    Element topLevelGroup2 = processDiagramSVGGraphics2D.getTopLevelGroup();
-    assertTrue(topLevelGroup2 instanceof GenericElementNS);
-    Element documentElement = dOMFactory.getDocumentElement();
-    assertTrue(documentElement instanceof GenericElementNS);
-    Node lastChild = root.getLastChild();
-    assertTrue(lastChild instanceof GenericElementNS);
-    Font expectedFont = actualInitProcessDiagramCanvasResult.fontMetrics.getFont();
-    Font font = processDiagramSVGGraphics2D.getFont();
-    assertEquals(expectedFont, font);
-    Color background = processDiagramSVGGraphics2D.getBackground();
-    assertEquals(background, background.darker().brighter().brighter());
-    assertEquals(background, background.brighter());
-    FontRenderContext expectedFontRenderContext = processDiagramSVGGraphics2D.getFontRenderContext();
-    GraphicContext graphicContext = processDiagramSVGGraphics2D.getGraphicContext();
-    assertEquals(expectedFontRenderContext, graphicContext.getFontRenderContext());
-    Dimension sVGCanvasSize = processDiagramSVGGraphics2D.getSVGCanvasSize();
-    assertEquals(sVGCanvasSize, sVGCanvasSize.getSize());
     Color expectedColor = actualInitProcessDiagramCanvasResult.SUBPROCESS_BORDER_COLOR;
+    ProcessDiagramSVGGraphics2D processDiagramSVGGraphics2D = actualInitProcessDiagramCanvasResult.g;
     Color color = processDiagramSVGGraphics2D.getColor();
     assertEquals(expectedColor, color);
     assertEquals(Integer.MAX_VALUE, actualInitProcessDiagramCanvasResult.minX);
     assertEquals(Integer.MAX_VALUE, actualInitProcessDiagramCanvasResult.minY);
-    assertSame(background, graphicContext.getBackground());
     assertSame(color, processDiagramSVGGraphics2D.getPaint());
-    assertSame(color, graphicContext.getColor());
-    assertSame(color, graphicContext.getPaint());
-    assertSame(font, graphicContext.getFont());
     FontMetrics expectedFontMetrics = actualInitProcessDiagramCanvasResult.fontMetrics;
     assertSame(expectedFontMetrics, processDiagramSVGGraphics2D.getFontMetrics());
-    assertSame(firstChild, ((GenericElementNS) root).getXblFirstChild());
-    assertSame(firstChild, ((GenericElementNS) firstElementChild).getXblPreviousSibling());
-    assertSame(firstChild, firstElementChild.getPreviousSibling());
-    assertSame(dOMFactory, ((GenericElementNS) documentElement).getParentNodeEventTarget());
-    assertSame(dOMFactory, ((GenericElementNS) documentElement).getXblParentNode());
-    assertSame(dOMFactory, processDiagramSVGGraphics2D.getGeneratorContext().getDOMFactory());
-    assertSame(dOMFactory, firstElementChild.getOwnerDocument());
-    assertSame(dOMFactory, genericDefinitions.getOwnerDocument());
-    assertSame(dOMFactory, root2.getOwnerDocument());
-    assertSame(dOMFactory, topLevelGroup.getOwnerDocument());
-    assertSame(dOMFactory, root.getOwnerDocument());
-    assertSame(dOMFactory, topLevelGroup2.getOwnerDocument());
-    assertSame(dOMFactory, documentElement.getOwnerDocument());
-    assertSame(dOMFactory, firstChild.getOwnerDocument());
-    assertSame(dOMFactory, lastChild.getOwnerDocument());
-    assertSame(dOMFactory, documentElement.getParentNode());
-    assertSame(firstElementChild, ((GenericElementNS) lastChild).getPreviousElementSibling());
-    assertSame(firstElementChild, ((GenericElementNS) root).getXblFirstElementChild());
-    assertSame(firstElementChild, ((GenericComment) firstChild).getXblNextElementSibling());
-    assertSame(firstElementChild, ((GenericComment) firstChild).getXblNextSibling());
-    assertSame(firstElementChild, ((GenericElementNS) lastChild).getXblPreviousElementSibling());
-    assertSame(firstElementChild, ((GenericElementNS) lastChild).getXblPreviousSibling());
-    assertSame(firstElementChild, firstChild.getNextSibling());
-    assertSame(firstElementChild, lastChild.getPreviousSibling());
-    assertSame(root, ((GenericComment) firstChild).getParentNodeEventTarget());
-    assertSame(root, ((GenericElementNS) firstElementChild).getParentNodeEventTarget());
-    assertSame(root, ((GenericElementNS) lastChild).getParentNodeEventTarget());
-    assertSame(root, ((GenericComment) firstChild).getXblParentNode());
-    assertSame(root, ((GenericElementNS) firstElementChild).getXblParentNode());
-    assertSame(root, ((GenericElementNS) lastChild).getXblParentNode());
-    assertSame(root, firstElementChild.getParentNode());
-    assertSame(root, firstChild.getParentNode());
-    assertSame(root, lastChild.getParentNode());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblFirstChild());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblFirstElementChild());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblLastChild());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblLastElementChild());
-    assertSame(documentElement, dOMFactory.getFirstChild());
-    assertSame(documentElement, dOMFactory.getLastChild());
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}.
+   * Test {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}.
    * <ul>
    *   <li>When {@link BpmnModel} (default constructor).</li>
    *   <li>Then return {@link DefaultProcessDiagramCanvas#minX} is zero.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}
    */
   @Test
   @DisplayName("Test initProcessDiagramCanvas(BpmnModel, String, String, String); when BpmnModel (default constructor); then return minX is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "DefaultProcessDiagramCanvas DefaultProcessDiagramGenerator.initProcessDiagramCanvas(BpmnModel, String, String, String)"})
   void testInitProcessDiagramCanvas_whenBpmnModel_thenReturnMinXIsZero() {
     // Arrange and Act
     DefaultProcessDiagramCanvas actualInitProcessDiagramCanvasResult = DefaultProcessDiagramGenerator
         .initProcessDiagramCanvas(new BpmnModel(), "Activity Font Name", "Label Font Name", "Annotation Font Name");
 
     // Assert
-    ProcessDiagramSVGGraphics2D processDiagramSVGGraphics2D = actualInitProcessDiagramCanvasResult.g;
-    Element root = processDiagramSVGGraphics2D.getRoot();
-    Node firstChild = root.getFirstChild();
-    assertTrue(firstChild instanceof GenericComment);
-    Document dOMFactory = processDiagramSVGGraphics2D.getDOMFactory();
-    assertTrue(dOMFactory instanceof GenericDocument);
-    Element firstElementChild = ((GenericElementNS) root).getFirstElementChild();
-    assertTrue(firstElementChild instanceof GenericElementNS);
-    DOMTreeManager dOMTreeManager = processDiagramSVGGraphics2D.getDOMTreeManager();
-    Element genericDefinitions = dOMTreeManager.getGenericDefinitions();
-    assertTrue(genericDefinitions instanceof GenericElementNS);
-    Element root2 = dOMTreeManager.getRoot();
-    assertTrue(root2 instanceof GenericElementNS);
-    Element topLevelGroup = dOMTreeManager.getTopLevelGroup();
-    assertTrue(topLevelGroup instanceof GenericElementNS);
-    assertTrue(root instanceof GenericElementNS);
-    Element topLevelGroup2 = processDiagramSVGGraphics2D.getTopLevelGroup();
-    assertTrue(topLevelGroup2 instanceof GenericElementNS);
-    Element documentElement = dOMFactory.getDocumentElement();
-    assertTrue(documentElement instanceof GenericElementNS);
-    Node lastChild = root.getLastChild();
-    assertTrue(lastChild instanceof GenericElementNS);
     assertEquals(0, actualInitProcessDiagramCanvasResult.minX);
     assertEquals(0, actualInitProcessDiagramCanvasResult.minY);
-    Font expectedFont = actualInitProcessDiagramCanvasResult.fontMetrics.getFont();
-    Font font = processDiagramSVGGraphics2D.getFont();
-    assertEquals(expectedFont, font);
-    Color background = processDiagramSVGGraphics2D.getBackground();
-    assertEquals(background, background.darker().brighter().brighter());
-    assertEquals(background, background.brighter());
-    FontRenderContext expectedFontRenderContext = processDiagramSVGGraphics2D.getFontRenderContext();
-    GraphicContext graphicContext = processDiagramSVGGraphics2D.getGraphicContext();
-    assertEquals(expectedFontRenderContext, graphicContext.getFontRenderContext());
-    Dimension sVGCanvasSize = processDiagramSVGGraphics2D.getSVGCanvasSize();
-    assertEquals(sVGCanvasSize, sVGCanvasSize.getSize());
     Color expectedColor = actualInitProcessDiagramCanvasResult.SUBPROCESS_BORDER_COLOR;
+    ProcessDiagramSVGGraphics2D processDiagramSVGGraphics2D = actualInitProcessDiagramCanvasResult.g;
     Color color = processDiagramSVGGraphics2D.getColor();
     assertEquals(expectedColor, color);
-    assertSame(background, graphicContext.getBackground());
     assertSame(color, processDiagramSVGGraphics2D.getPaint());
-    assertSame(color, graphicContext.getColor());
-    assertSame(color, graphicContext.getPaint());
-    assertSame(font, graphicContext.getFont());
     FontMetrics expectedFontMetrics = actualInitProcessDiagramCanvasResult.fontMetrics;
     assertSame(expectedFontMetrics, processDiagramSVGGraphics2D.getFontMetrics());
-    assertSame(firstChild, ((GenericElementNS) root).getXblFirstChild());
-    assertSame(firstChild, ((GenericElementNS) firstElementChild).getXblPreviousSibling());
-    assertSame(firstChild, firstElementChild.getPreviousSibling());
-    assertSame(dOMFactory, ((GenericElementNS) documentElement).getParentNodeEventTarget());
-    assertSame(dOMFactory, ((GenericElementNS) documentElement).getXblParentNode());
-    assertSame(dOMFactory, processDiagramSVGGraphics2D.getGeneratorContext().getDOMFactory());
-    assertSame(dOMFactory, firstElementChild.getOwnerDocument());
-    assertSame(dOMFactory, genericDefinitions.getOwnerDocument());
-    assertSame(dOMFactory, root2.getOwnerDocument());
-    assertSame(dOMFactory, topLevelGroup.getOwnerDocument());
-    assertSame(dOMFactory, root.getOwnerDocument());
-    assertSame(dOMFactory, topLevelGroup2.getOwnerDocument());
-    assertSame(dOMFactory, documentElement.getOwnerDocument());
-    assertSame(dOMFactory, firstChild.getOwnerDocument());
-    assertSame(dOMFactory, lastChild.getOwnerDocument());
-    assertSame(dOMFactory, documentElement.getParentNode());
-    assertSame(firstElementChild, ((GenericElementNS) lastChild).getPreviousElementSibling());
-    assertSame(firstElementChild, ((GenericElementNS) root).getXblFirstElementChild());
-    assertSame(firstElementChild, ((GenericComment) firstChild).getXblNextElementSibling());
-    assertSame(firstElementChild, ((GenericComment) firstChild).getXblNextSibling());
-    assertSame(firstElementChild, ((GenericElementNS) lastChild).getXblPreviousElementSibling());
-    assertSame(firstElementChild, ((GenericElementNS) lastChild).getXblPreviousSibling());
-    assertSame(firstElementChild, firstChild.getNextSibling());
-    assertSame(firstElementChild, lastChild.getPreviousSibling());
-    assertSame(root, ((GenericComment) firstChild).getParentNodeEventTarget());
-    assertSame(root, ((GenericElementNS) firstElementChild).getParentNodeEventTarget());
-    assertSame(root, ((GenericElementNS) lastChild).getParentNodeEventTarget());
-    assertSame(root, ((GenericComment) firstChild).getXblParentNode());
-    assertSame(root, ((GenericElementNS) firstElementChild).getXblParentNode());
-    assertSame(root, ((GenericElementNS) lastChild).getXblParentNode());
-    assertSame(root, firstElementChild.getParentNode());
-    assertSame(root, firstChild.getParentNode());
-    assertSame(root, lastChild.getParentNode());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblFirstChild());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblFirstElementChild());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblLastChild());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblLastElementChild());
-    assertSame(documentElement, dOMFactory.getFirstChild());
-    assertSame(documentElement, dOMFactory.getLastChild());
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}.
+   * Test {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}.
    * <ul>
    *   <li>When {@code null}.</li>
-   *   <li>Then return {@link DefaultProcessDiagramCanvas#annotationFontName} is
-   * {@code Arial}.</li>
+   *   <li>Then return {@link DefaultProcessDiagramCanvas#activityFontName} is {@code Arial}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}
+   */
+  @Test
+  @DisplayName("Test initProcessDiagramCanvas(BpmnModel, String, String, String); when 'null'; then return activityFontName is 'Arial'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "DefaultProcessDiagramCanvas DefaultProcessDiagramGenerator.initProcessDiagramCanvas(BpmnModel, String, String, String)"})
+  void testInitProcessDiagramCanvas_whenNull_thenReturnActivityFontNameIsArial() {
+    // Arrange
+    Process process = new Process();
+    process.addFlowElement(new AdhocSubProcess());
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addProcess(process);
+
+    // Act
+    DefaultProcessDiagramCanvas actualInitProcessDiagramCanvasResult = DefaultProcessDiagramGenerator
+        .initProcessDiagramCanvas(bpmnModel, null, "Label Font Name", "Annotation Font Name");
+
+    // Assert
+    assertEquals("Arial", actualInitProcessDiagramCanvasResult.activityFontName);
+    FontMetrics fontMetrics = actualInitProcessDiagramCanvasResult.fontMetrics;
+    assertEquals(10, fontMetrics.getAscent());
+    assertEquals(10, fontMetrics.getMaxAscent());
+    assertEquals(13, fontMetrics.getHeight());
+    assertEquals(22, fontMetrics.getMaxAdvance());
+    assertEquals(256, fontMetrics.getWidths().length);
+    Color expectedColor = actualInitProcessDiagramCanvasResult.SUBPROCESS_BORDER_COLOR;
+    ProcessDiagramSVGGraphics2D processDiagramSVGGraphics2D = actualInitProcessDiagramCanvasResult.g;
+    Color color = processDiagramSVGGraphics2D.getColor();
+    assertEquals(expectedColor, color);
+    assertSame(color, processDiagramSVGGraphics2D.getPaint());
+    FontMetrics expectedFontMetrics = actualInitProcessDiagramCanvasResult.fontMetrics;
+    assertSame(expectedFontMetrics, processDiagramSVGGraphics2D.getFontMetrics());
+  }
+
+  /**
+   * Test {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@link DefaultProcessDiagramCanvas#annotationFontName} is {@code Arial}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}
    */
   @Test
   @DisplayName("Test initProcessDiagramCanvas(BpmnModel, String, String, String); when 'null'; then return annotationFontName is 'Arial'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "DefaultProcessDiagramCanvas DefaultProcessDiagramGenerator.initProcessDiagramCanvas(BpmnModel, String, String, String)"})
   void testInitProcessDiagramCanvas_whenNull_thenReturnAnnotationFontNameIsArial() {
     // Arrange
     Process process = new Process();
@@ -4175,238 +3732,30 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
         .initProcessDiagramCanvas(bpmnModel, "Activity Font Name", "Label Font Name", null);
 
     // Assert
-    ProcessDiagramSVGGraphics2D processDiagramSVGGraphics2D = actualInitProcessDiagramCanvasResult.g;
-    Element root = processDiagramSVGGraphics2D.getRoot();
-    Node firstChild = root.getFirstChild();
-    assertTrue(firstChild instanceof GenericComment);
-    Document dOMFactory = processDiagramSVGGraphics2D.getDOMFactory();
-    assertTrue(dOMFactory instanceof GenericDocument);
-    Element firstElementChild = ((GenericElementNS) root).getFirstElementChild();
-    assertTrue(firstElementChild instanceof GenericElementNS);
-    DOMTreeManager dOMTreeManager = processDiagramSVGGraphics2D.getDOMTreeManager();
-    Element genericDefinitions = dOMTreeManager.getGenericDefinitions();
-    assertTrue(genericDefinitions instanceof GenericElementNS);
-    Element root2 = dOMTreeManager.getRoot();
-    assertTrue(root2 instanceof GenericElementNS);
-    Element topLevelGroup = dOMTreeManager.getTopLevelGroup();
-    assertTrue(topLevelGroup instanceof GenericElementNS);
-    assertTrue(root instanceof GenericElementNS);
-    Element topLevelGroup2 = processDiagramSVGGraphics2D.getTopLevelGroup();
-    assertTrue(topLevelGroup2 instanceof GenericElementNS);
-    Element documentElement = dOMFactory.getDocumentElement();
-    assertTrue(documentElement instanceof GenericElementNS);
-    Node lastChild = root.getLastChild();
-    assertTrue(lastChild instanceof GenericElementNS);
     assertEquals("Arial", actualInitProcessDiagramCanvasResult.annotationFontName);
-    Font expectedFont = actualInitProcessDiagramCanvasResult.fontMetrics.getFont();
-    Font font = processDiagramSVGGraphics2D.getFont();
-    assertEquals(expectedFont, font);
-    Color background = processDiagramSVGGraphics2D.getBackground();
-    assertEquals(background, background.darker().brighter().brighter());
-    assertEquals(background, background.brighter());
-    FontRenderContext expectedFontRenderContext = processDiagramSVGGraphics2D.getFontRenderContext();
-    GraphicContext graphicContext = processDiagramSVGGraphics2D.getGraphicContext();
-    assertEquals(expectedFontRenderContext, graphicContext.getFontRenderContext());
-    Dimension sVGCanvasSize = processDiagramSVGGraphics2D.getSVGCanvasSize();
-    assertEquals(sVGCanvasSize, sVGCanvasSize.getSize());
     Color expectedColor = actualInitProcessDiagramCanvasResult.SUBPROCESS_BORDER_COLOR;
-    Color color = processDiagramSVGGraphics2D.getColor();
-    assertEquals(expectedColor, color);
-    assertSame(background, graphicContext.getBackground());
-    assertSame(color, processDiagramSVGGraphics2D.getPaint());
-    assertSame(color, graphicContext.getColor());
-    assertSame(color, graphicContext.getPaint());
-    assertSame(font, graphicContext.getFont());
-    FontMetrics expectedFontMetrics = actualInitProcessDiagramCanvasResult.fontMetrics;
-    assertSame(expectedFontMetrics, processDiagramSVGGraphics2D.getFontMetrics());
-    assertSame(firstChild, ((GenericElementNS) root).getXblFirstChild());
-    assertSame(firstChild, ((GenericElementNS) firstElementChild).getXblPreviousSibling());
-    assertSame(firstChild, firstElementChild.getPreviousSibling());
-    assertSame(dOMFactory, ((GenericElementNS) documentElement).getParentNodeEventTarget());
-    assertSame(dOMFactory, ((GenericElementNS) documentElement).getXblParentNode());
-    assertSame(dOMFactory, processDiagramSVGGraphics2D.getGeneratorContext().getDOMFactory());
-    assertSame(dOMFactory, firstElementChild.getOwnerDocument());
-    assertSame(dOMFactory, genericDefinitions.getOwnerDocument());
-    assertSame(dOMFactory, root2.getOwnerDocument());
-    assertSame(dOMFactory, topLevelGroup.getOwnerDocument());
-    assertSame(dOMFactory, root.getOwnerDocument());
-    assertSame(dOMFactory, topLevelGroup2.getOwnerDocument());
-    assertSame(dOMFactory, documentElement.getOwnerDocument());
-    assertSame(dOMFactory, firstChild.getOwnerDocument());
-    assertSame(dOMFactory, lastChild.getOwnerDocument());
-    assertSame(dOMFactory, documentElement.getParentNode());
-    assertSame(firstElementChild, ((GenericElementNS) lastChild).getPreviousElementSibling());
-    assertSame(firstElementChild, ((GenericElementNS) root).getXblFirstElementChild());
-    assertSame(firstElementChild, ((GenericComment) firstChild).getXblNextElementSibling());
-    assertSame(firstElementChild, ((GenericComment) firstChild).getXblNextSibling());
-    assertSame(firstElementChild, ((GenericElementNS) lastChild).getXblPreviousElementSibling());
-    assertSame(firstElementChild, ((GenericElementNS) lastChild).getXblPreviousSibling());
-    assertSame(firstElementChild, firstChild.getNextSibling());
-    assertSame(firstElementChild, lastChild.getPreviousSibling());
-    assertSame(root, ((GenericComment) firstChild).getParentNodeEventTarget());
-    assertSame(root, ((GenericElementNS) firstElementChild).getParentNodeEventTarget());
-    assertSame(root, ((GenericElementNS) lastChild).getParentNodeEventTarget());
-    assertSame(root, ((GenericComment) firstChild).getXblParentNode());
-    assertSame(root, ((GenericElementNS) firstElementChild).getXblParentNode());
-    assertSame(root, ((GenericElementNS) lastChild).getXblParentNode());
-    assertSame(root, firstElementChild.getParentNode());
-    assertSame(root, firstChild.getParentNode());
-    assertSame(root, lastChild.getParentNode());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblFirstChild());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblFirstElementChild());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblLastChild());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblLastElementChild());
-    assertSame(documentElement, dOMFactory.getFirstChild());
-    assertSame(documentElement, dOMFactory.getLastChild());
-  }
-
-  /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return {@link DefaultProcessDiagramCanvas#fontMetrics} Font Family
-   * is {@code Arial}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}
-   */
-  @Test
-  @DisplayName("Test initProcessDiagramCanvas(BpmnModel, String, String, String); when 'null'; then return fontMetrics Font Family is 'Arial'")
-  void testInitProcessDiagramCanvas_whenNull_thenReturnFontMetricsFontFamilyIsArial() {
-    // Arrange
-    Process process = new Process();
-    process.addFlowElement(new AdhocSubProcess());
-
-    BpmnModel bpmnModel = new BpmnModel();
-    bpmnModel.addProcess(process);
-
-    // Act
-    DefaultProcessDiagramCanvas actualInitProcessDiagramCanvasResult = DefaultProcessDiagramGenerator
-        .initProcessDiagramCanvas(bpmnModel, null, "Label Font Name", "Annotation Font Name");
-
-    // Assert
     ProcessDiagramSVGGraphics2D processDiagramSVGGraphics2D = actualInitProcessDiagramCanvasResult.g;
-    Element root = processDiagramSVGGraphics2D.getRoot();
-    Node firstChild = root.getFirstChild();
-    assertTrue(firstChild instanceof GenericComment);
-    Document dOMFactory = processDiagramSVGGraphics2D.getDOMFactory();
-    assertTrue(dOMFactory instanceof GenericDocument);
-    Element firstElementChild = ((GenericElementNS) root).getFirstElementChild();
-    assertTrue(firstElementChild instanceof GenericElementNS);
-    DOMTreeManager dOMTreeManager = processDiagramSVGGraphics2D.getDOMTreeManager();
-    Element genericDefinitions = dOMTreeManager.getGenericDefinitions();
-    assertTrue(genericDefinitions instanceof GenericElementNS);
-    Element root2 = dOMTreeManager.getRoot();
-    assertTrue(root2 instanceof GenericElementNS);
-    Element topLevelGroup = dOMTreeManager.getTopLevelGroup();
-    assertTrue(topLevelGroup instanceof GenericElementNS);
-    assertTrue(root instanceof GenericElementNS);
-    Element topLevelGroup2 = processDiagramSVGGraphics2D.getTopLevelGroup();
-    assertTrue(topLevelGroup2 instanceof GenericElementNS);
-    Element documentElement = dOMFactory.getDocumentElement();
-    assertTrue(documentElement instanceof GenericElementNS);
-    Node lastChild = root.getLastChild();
-    assertTrue(lastChild instanceof GenericElementNS);
-    FontMetrics fontMetrics = actualInitProcessDiagramCanvasResult.fontMetrics;
-    Font font = fontMetrics.getFont();
-    assertEquals("Arial", font.getFamily());
-    assertEquals("Arial", font.getName());
-    assertEquals("Arial", actualInitProcessDiagramCanvasResult.activityFontName);
-    assertEquals("Arial-BoldMT", font.getFontName());
-    assertEquals("Arial-BoldMT", font.getPSName());
-    assertEquals(10, fontMetrics.getAscent());
-    assertEquals(10, fontMetrics.getMaxAscent());
-    assertEquals(13, fontMetrics.getHeight());
-    assertEquals(22, fontMetrics.getMaxAdvance());
-    int[] widths = fontMetrics.getWidths();
-    assertEquals(256, widths.length);
-    assertEquals(3, widths[10]);
-    assertEquals(3, widths[13]);
-    assertEquals(3, widths[236]);
-    assertEquals(3, widths[237]);
-    assertEquals(3, widths[238]);
-    assertEquals(3, widths[239]);
-    assertEquals(3, widths[9]);
-    assertEquals(3381, font.getNumGlyphs());
-    assertEquals(6, widths[247]);
-    assertEquals(8, widths[0]);
-    Font font2 = processDiagramSVGGraphics2D.getFont();
-    assertEquals(font, font2);
-    Color background = processDiagramSVGGraphics2D.getBackground();
-    assertEquals(background, background.darker().brighter().brighter());
-    assertEquals(background, background.brighter());
-    FontRenderContext expectedFontRenderContext = processDiagramSVGGraphics2D.getFontRenderContext();
-    GraphicContext graphicContext = processDiagramSVGGraphics2D.getGraphicContext();
-    assertEquals(expectedFontRenderContext, graphicContext.getFontRenderContext());
-    Dimension sVGCanvasSize = processDiagramSVGGraphics2D.getSVGCanvasSize();
-    assertEquals(sVGCanvasSize, sVGCanvasSize.getSize());
-    Color expectedColor = actualInitProcessDiagramCanvasResult.SUBPROCESS_BORDER_COLOR;
     Color color = processDiagramSVGGraphics2D.getColor();
     assertEquals(expectedColor, color);
-    assertSame(background, graphicContext.getBackground());
     assertSame(color, processDiagramSVGGraphics2D.getPaint());
-    assertSame(color, graphicContext.getColor());
-    assertSame(color, graphicContext.getPaint());
-    assertSame(font2, graphicContext.getFont());
     FontMetrics expectedFontMetrics = actualInitProcessDiagramCanvasResult.fontMetrics;
     assertSame(expectedFontMetrics, processDiagramSVGGraphics2D.getFontMetrics());
-    assertSame(firstChild, ((GenericElementNS) root).getXblFirstChild());
-    assertSame(firstChild, ((GenericElementNS) firstElementChild).getXblPreviousSibling());
-    assertSame(firstChild, firstElementChild.getPreviousSibling());
-    assertSame(dOMFactory, ((GenericElementNS) documentElement).getParentNodeEventTarget());
-    assertSame(dOMFactory, ((GenericElementNS) documentElement).getXblParentNode());
-    assertSame(dOMFactory, processDiagramSVGGraphics2D.getGeneratorContext().getDOMFactory());
-    assertSame(dOMFactory, firstElementChild.getOwnerDocument());
-    assertSame(dOMFactory, genericDefinitions.getOwnerDocument());
-    assertSame(dOMFactory, root2.getOwnerDocument());
-    assertSame(dOMFactory, topLevelGroup.getOwnerDocument());
-    assertSame(dOMFactory, root.getOwnerDocument());
-    assertSame(dOMFactory, topLevelGroup2.getOwnerDocument());
-    assertSame(dOMFactory, documentElement.getOwnerDocument());
-    assertSame(dOMFactory, firstChild.getOwnerDocument());
-    assertSame(dOMFactory, lastChild.getOwnerDocument());
-    assertSame(dOMFactory, documentElement.getParentNode());
-    assertSame(firstElementChild, ((GenericElementNS) lastChild).getPreviousElementSibling());
-    assertSame(firstElementChild, ((GenericElementNS) root).getXblFirstElementChild());
-    assertSame(firstElementChild, ((GenericComment) firstChild).getXblNextElementSibling());
-    assertSame(firstElementChild, ((GenericComment) firstChild).getXblNextSibling());
-    assertSame(firstElementChild, ((GenericElementNS) lastChild).getXblPreviousElementSibling());
-    assertSame(firstElementChild, ((GenericElementNS) lastChild).getXblPreviousSibling());
-    assertSame(firstElementChild, firstChild.getNextSibling());
-    assertSame(firstElementChild, lastChild.getPreviousSibling());
-    assertSame(root, ((GenericComment) firstChild).getParentNodeEventTarget());
-    assertSame(root, ((GenericElementNS) firstElementChild).getParentNodeEventTarget());
-    assertSame(root, ((GenericElementNS) lastChild).getParentNodeEventTarget());
-    assertSame(root, ((GenericComment) firstChild).getXblParentNode());
-    assertSame(root, ((GenericElementNS) firstElementChild).getXblParentNode());
-    assertSame(root, ((GenericElementNS) lastChild).getXblParentNode());
-    assertSame(root, firstElementChild.getParentNode());
-    assertSame(root, firstChild.getParentNode());
-    assertSame(root, lastChild.getParentNode());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblFirstChild());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblFirstElementChild());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblLastChild());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblLastElementChild());
-    assertSame(documentElement, dOMFactory.getFirstChild());
-    assertSame(documentElement, dOMFactory.getLastChild());
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}.
+   * Test {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}.
    * <ul>
    *   <li>When {@code null}.</li>
-   *   <li>Then return {@link DefaultProcessDiagramCanvas#labelFontName} is
-   * {@code Arial}.</li>
+   *   <li>Then return {@link DefaultProcessDiagramCanvas#labelFontName} is {@code Arial}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#initProcessDiagramCanvas(BpmnModel, String, String, String)}
    */
   @Test
   @DisplayName("Test initProcessDiagramCanvas(BpmnModel, String, String, String); when 'null'; then return labelFontName is 'Arial'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "DefaultProcessDiagramCanvas DefaultProcessDiagramGenerator.initProcessDiagramCanvas(BpmnModel, String, String, String)"})
   void testInitProcessDiagramCanvas_whenNull_thenReturnLabelFontNameIsArial() {
     // Arrange
     Process process = new Process();
@@ -4420,104 +3769,29 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
         .initProcessDiagramCanvas(bpmnModel, "Activity Font Name", null, "Annotation Font Name");
 
     // Assert
-    ProcessDiagramSVGGraphics2D processDiagramSVGGraphics2D = actualInitProcessDiagramCanvasResult.g;
-    Element root = processDiagramSVGGraphics2D.getRoot();
-    Node firstChild = root.getFirstChild();
-    assertTrue(firstChild instanceof GenericComment);
-    Document dOMFactory = processDiagramSVGGraphics2D.getDOMFactory();
-    assertTrue(dOMFactory instanceof GenericDocument);
-    Element firstElementChild = ((GenericElementNS) root).getFirstElementChild();
-    assertTrue(firstElementChild instanceof GenericElementNS);
-    DOMTreeManager dOMTreeManager = processDiagramSVGGraphics2D.getDOMTreeManager();
-    Element genericDefinitions = dOMTreeManager.getGenericDefinitions();
-    assertTrue(genericDefinitions instanceof GenericElementNS);
-    Element root2 = dOMTreeManager.getRoot();
-    assertTrue(root2 instanceof GenericElementNS);
-    Element topLevelGroup = dOMTreeManager.getTopLevelGroup();
-    assertTrue(topLevelGroup instanceof GenericElementNS);
-    assertTrue(root instanceof GenericElementNS);
-    Element topLevelGroup2 = processDiagramSVGGraphics2D.getTopLevelGroup();
-    assertTrue(topLevelGroup2 instanceof GenericElementNS);
-    Element documentElement = dOMFactory.getDocumentElement();
-    assertTrue(documentElement instanceof GenericElementNS);
-    Node lastChild = root.getLastChild();
-    assertTrue(lastChild instanceof GenericElementNS);
     assertEquals("Arial", actualInitProcessDiagramCanvasResult.labelFontName);
-    Font expectedFont = actualInitProcessDiagramCanvasResult.fontMetrics.getFont();
-    Font font = processDiagramSVGGraphics2D.getFont();
-    assertEquals(expectedFont, font);
-    Color background = processDiagramSVGGraphics2D.getBackground();
-    assertEquals(background, background.darker().brighter().brighter());
-    assertEquals(background, background.brighter());
-    FontRenderContext expectedFontRenderContext = processDiagramSVGGraphics2D.getFontRenderContext();
-    GraphicContext graphicContext = processDiagramSVGGraphics2D.getGraphicContext();
-    assertEquals(expectedFontRenderContext, graphicContext.getFontRenderContext());
-    Dimension sVGCanvasSize = processDiagramSVGGraphics2D.getSVGCanvasSize();
-    assertEquals(sVGCanvasSize, sVGCanvasSize.getSize());
     Color expectedColor = actualInitProcessDiagramCanvasResult.SUBPROCESS_BORDER_COLOR;
+    ProcessDiagramSVGGraphics2D processDiagramSVGGraphics2D = actualInitProcessDiagramCanvasResult.g;
     Color color = processDiagramSVGGraphics2D.getColor();
     assertEquals(expectedColor, color);
-    assertSame(background, graphicContext.getBackground());
     assertSame(color, processDiagramSVGGraphics2D.getPaint());
-    assertSame(color, graphicContext.getColor());
-    assertSame(color, graphicContext.getPaint());
-    assertSame(font, graphicContext.getFont());
     FontMetrics expectedFontMetrics = actualInitProcessDiagramCanvasResult.fontMetrics;
     assertSame(expectedFontMetrics, processDiagramSVGGraphics2D.getFontMetrics());
-    assertSame(firstChild, ((GenericElementNS) root).getXblFirstChild());
-    assertSame(firstChild, ((GenericElementNS) firstElementChild).getXblPreviousSibling());
-    assertSame(firstChild, firstElementChild.getPreviousSibling());
-    assertSame(dOMFactory, ((GenericElementNS) documentElement).getParentNodeEventTarget());
-    assertSame(dOMFactory, ((GenericElementNS) documentElement).getXblParentNode());
-    assertSame(dOMFactory, processDiagramSVGGraphics2D.getGeneratorContext().getDOMFactory());
-    assertSame(dOMFactory, firstElementChild.getOwnerDocument());
-    assertSame(dOMFactory, genericDefinitions.getOwnerDocument());
-    assertSame(dOMFactory, root2.getOwnerDocument());
-    assertSame(dOMFactory, topLevelGroup.getOwnerDocument());
-    assertSame(dOMFactory, root.getOwnerDocument());
-    assertSame(dOMFactory, topLevelGroup2.getOwnerDocument());
-    assertSame(dOMFactory, documentElement.getOwnerDocument());
-    assertSame(dOMFactory, firstChild.getOwnerDocument());
-    assertSame(dOMFactory, lastChild.getOwnerDocument());
-    assertSame(dOMFactory, documentElement.getParentNode());
-    assertSame(firstElementChild, ((GenericElementNS) lastChild).getPreviousElementSibling());
-    assertSame(firstElementChild, ((GenericElementNS) root).getXblFirstElementChild());
-    assertSame(firstElementChild, ((GenericComment) firstChild).getXblNextElementSibling());
-    assertSame(firstElementChild, ((GenericComment) firstChild).getXblNextSibling());
-    assertSame(firstElementChild, ((GenericElementNS) lastChild).getXblPreviousElementSibling());
-    assertSame(firstElementChild, ((GenericElementNS) lastChild).getXblPreviousSibling());
-    assertSame(firstElementChild, firstChild.getNextSibling());
-    assertSame(firstElementChild, lastChild.getPreviousSibling());
-    assertSame(root, ((GenericComment) firstChild).getParentNodeEventTarget());
-    assertSame(root, ((GenericElementNS) firstElementChild).getParentNodeEventTarget());
-    assertSame(root, ((GenericElementNS) lastChild).getParentNodeEventTarget());
-    assertSame(root, ((GenericComment) firstChild).getXblParentNode());
-    assertSame(root, ((GenericElementNS) firstElementChild).getXblParentNode());
-    assertSame(root, ((GenericElementNS) lastChild).getXblParentNode());
-    assertSame(root, firstElementChild.getParentNode());
-    assertSame(root, firstChild.getParentNode());
-    assertSame(root, lastChild.getParentNode());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblFirstChild());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblFirstElementChild());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblLastChild());
-    assertSame(documentElement, ((GenericDocument) dOMFactory).getXblLastElementChild());
-    assertSame(documentElement, dOMFactory.getFirstChild());
-    assertSame(documentElement, dOMFactory.getLastChild());
   }
 
   /**
    * Test {@link DefaultProcessDiagramGenerator#gatherAllArtifacts(BpmnModel)}.
    * <ul>
    *   <li>Given {@link Process} (default constructor).</li>
-   *   <li>When {@link BpmnModel} (default constructor) addProcess {@link Process}
-   * (default constructor).</li>
+   *   <li>When {@link BpmnModel} (default constructor) addProcess {@link Process} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#gatherAllArtifacts(BpmnModel)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#gatherAllArtifacts(BpmnModel)}
    */
   @Test
   @DisplayName("Test gatherAllArtifacts(BpmnModel); given Process (default constructor); when BpmnModel (default constructor) addProcess Process (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List DefaultProcessDiagramGenerator.gatherAllArtifacts(BpmnModel)"})
   void testGatherAllArtifacts_givenProcess_whenBpmnModelAddProcessProcess() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -4537,11 +3811,12 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#gatherAllArtifacts(BpmnModel)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#gatherAllArtifacts(BpmnModel)}
    */
   @Test
   @DisplayName("Test gatherAllArtifacts(BpmnModel); when BpmnModel (default constructor); then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List DefaultProcessDiagramGenerator.gatherAllArtifacts(BpmnModel)"})
   void testGatherAllArtifacts_whenBpmnModel_thenReturnEmpty() {
     // Arrange and Act
     List<Artifact> actualGatherAllArtifactsResult = DefaultProcessDiagramGenerator.gatherAllArtifacts(new BpmnModel());
@@ -4551,18 +3826,17 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(BpmnModel)}
-   * with {@code bpmnModel}.
+   * Test {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(BpmnModel)} with {@code bpmnModel}.
    * <ul>
-   *   <li>Given {@link Process} (default constructor) addFlowElement
-   * {@link BooleanDataObject} (default constructor).</li>
+   *   <li>Given {@link Process} (default constructor) addFlowElement {@link BooleanDataObject} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(BpmnModel)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(BpmnModel)}
    */
   @Test
   @DisplayName("Test gatherAllFlowNodes(BpmnModel) with 'bpmnModel'; given Process (default constructor) addFlowElement BooleanDataObject (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List DefaultProcessDiagramGenerator.gatherAllFlowNodes(BpmnModel)"})
   void testGatherAllFlowNodesWithBpmnModel_givenProcessAddFlowElementBooleanDataObject() {
     // Arrange
     Process process = new Process();
@@ -4579,18 +3853,18 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(BpmnModel)}
-   * with {@code bpmnModel}.
+   * Test {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(BpmnModel)} with {@code bpmnModel}.
    * <ul>
    *   <li>Given {@link Process} (default constructor).</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(BpmnModel)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(BpmnModel)}
    */
   @Test
   @DisplayName("Test gatherAllFlowNodes(BpmnModel) with 'bpmnModel'; given Process (default constructor); then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List DefaultProcessDiagramGenerator.gatherAllFlowNodes(BpmnModel)"})
   void testGatherAllFlowNodesWithBpmnModel_givenProcess_thenReturnEmpty() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -4604,17 +3878,17 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(BpmnModel)}
-   * with {@code bpmnModel}.
+   * Test {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(BpmnModel)} with {@code bpmnModel}.
    * <ul>
    *   <li>Then return size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(BpmnModel)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(BpmnModel)}
    */
   @Test
   @DisplayName("Test gatherAllFlowNodes(BpmnModel) with 'bpmnModel'; then return size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List DefaultProcessDiagramGenerator.gatherAllFlowNodes(BpmnModel)"})
   void testGatherAllFlowNodesWithBpmnModel_thenReturnSizeIsOne() {
     // Arrange
     Process process = new Process();
@@ -4629,22 +3903,24 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
 
     // Assert
     assertEquals(1, actualGatherAllFlowNodesResult.size());
-    assertSame(element, actualGatherAllFlowNodesResult.get(0));
+    FlowNode getResult = actualGatherAllFlowNodesResult.get(0);
+    assertTrue(getResult instanceof AdhocSubProcess);
+    assertSame(element, getResult);
   }
 
   /**
-   * Test {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(BpmnModel)}
-   * with {@code bpmnModel}.
+   * Test {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(BpmnModel)} with {@code bpmnModel}.
    * <ul>
    *   <li>When {@link BpmnModel} (default constructor).</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(BpmnModel)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(BpmnModel)}
    */
   @Test
   @DisplayName("Test gatherAllFlowNodes(BpmnModel) with 'bpmnModel'; when BpmnModel (default constructor); then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List DefaultProcessDiagramGenerator.gatherAllFlowNodes(BpmnModel)"})
   void testGatherAllFlowNodesWithBpmnModel_whenBpmnModel_thenReturnEmpty() {
     // Arrange and Act
     List<FlowNode> actualGatherAllFlowNodesResult = DefaultProcessDiagramGenerator.gatherAllFlowNodes(new BpmnModel());
@@ -4654,18 +3930,17 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(FlowElementsContainer)}
-   * with {@code flowElementsContainer}.
+   * Test {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(FlowElementsContainer)} with {@code flowElementsContainer}.
    * <ul>
    *   <li>Given {@link BooleanDataObject} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(FlowElementsContainer)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(FlowElementsContainer)}
    */
   @Test
   @DisplayName("Test gatherAllFlowNodes(FlowElementsContainer) with 'flowElementsContainer'; given BooleanDataObject (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List DefaultProcessDiagramGenerator.gatherAllFlowNodes(FlowElementsContainer)"})
   void testGatherAllFlowNodesWithFlowElementsContainer_givenBooleanDataObject() {
     // Arrange
     AdhocSubProcess flowElementsContainer = new AdhocSubProcess();
@@ -4680,18 +3955,17 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(FlowElementsContainer)}
-   * with {@code flowElementsContainer}.
+   * Test {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(FlowElementsContainer)} with {@code flowElementsContainer}.
    * <ul>
    *   <li>Then return size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(FlowElementsContainer)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(FlowElementsContainer)}
    */
   @Test
   @DisplayName("Test gatherAllFlowNodes(FlowElementsContainer) with 'flowElementsContainer'; then return size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List DefaultProcessDiagramGenerator.gatherAllFlowNodes(FlowElementsContainer)"})
   void testGatherAllFlowNodesWithFlowElementsContainer_thenReturnSizeIsOne() {
     // Arrange
     AdhocSubProcess flowElementsContainer = new AdhocSubProcess();
@@ -4704,22 +3978,23 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
 
     // Assert
     assertEquals(1, actualGatherAllFlowNodesResult.size());
-    assertSame(element, actualGatherAllFlowNodesResult.get(0));
+    FlowNode getResult = actualGatherAllFlowNodesResult.get(0);
+    assertTrue(getResult instanceof AdhocSubProcess);
+    assertSame(element, getResult);
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(FlowElementsContainer)}
-   * with {@code flowElementsContainer}.
+   * Test {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(FlowElementsContainer)} with {@code flowElementsContainer}.
    * <ul>
    *   <li>When {@link AdhocSubProcess} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(FlowElementsContainer)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(FlowElementsContainer)}
    */
   @Test
   @DisplayName("Test gatherAllFlowNodes(FlowElementsContainer) with 'flowElementsContainer'; when AdhocSubProcess (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List DefaultProcessDiagramGenerator.gatherAllFlowNodes(FlowElementsContainer)"})
   void testGatherAllFlowNodesWithFlowElementsContainer_whenAdhocSubProcess() {
     // Arrange and Act
     List<FlowNode> actualGatherAllFlowNodesResult = DefaultProcessDiagramGenerator
@@ -4730,19 +4005,18 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(FlowElementsContainer)}
-   * with {@code flowElementsContainer}.
+   * Test {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(FlowElementsContainer)} with {@code flowElementsContainer}.
    * <ul>
    *   <li>When {@link Process} (default constructor).</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(FlowElementsContainer)}
+   * Method under test: {@link DefaultProcessDiagramGenerator#gatherAllFlowNodes(FlowElementsContainer)}
    */
   @Test
   @DisplayName("Test gatherAllFlowNodes(FlowElementsContainer) with 'flowElementsContainer'; when Process (default constructor); then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List DefaultProcessDiagramGenerator.gatherAllFlowNodes(FlowElementsContainer)"})
   void testGatherAllFlowNodesWithFlowElementsContainer_whenProcess_thenReturnEmpty() {
     // Arrange and Act
     List<FlowNode> actualGatherAllFlowNodesResult = DefaultProcessDiagramGenerator.gatherAllFlowNodes(new Process());
@@ -4768,24 +4042,33 @@ class DefaultProcessDiagramGeneratorDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map DefaultProcessDiagramGenerator.getActivityDrawInstructions()",
+      "Map DefaultProcessDiagramGenerator.getArtifactDrawInstructions()",
+      "String DefaultProcessDiagramGenerator.getDefaultActivityFontName()",
+      "String DefaultProcessDiagramGenerator.getDefaultAnnotationFontName()",
+      "String DefaultProcessDiagramGenerator.getDefaultDiagramImageFileName()",
+      "String DefaultProcessDiagramGenerator.getDefaultLabelFontName()",
+      "void DefaultProcessDiagramGenerator.setActivityDrawInstructions(Map)",
+      "void DefaultProcessDiagramGenerator.setArtifactDrawInstructions(Map)"})
   void testGettersAndSetters() {
     // Arrange
     DefaultProcessDiagramGenerator defaultProcessDiagramGenerator = new DefaultProcessDiagramGenerator();
-    HashMap<Class<? extends BaseElement>, DefaultProcessDiagramGenerator.ActivityDrawInstruction> activityDrawInstructions = new HashMap<>();
+    HashMap<Class<? extends BaseElement>, ActivityDrawInstruction> activityDrawInstructions = new HashMap<>();
 
     // Act
     defaultProcessDiagramGenerator.setActivityDrawInstructions(activityDrawInstructions);
-    HashMap<Class<? extends BaseElement>, DefaultProcessDiagramGenerator.ArtifactDrawInstruction> artifactDrawInstructions = new HashMap<>();
+    HashMap<Class<? extends BaseElement>, ArtifactDrawInstruction> artifactDrawInstructions = new HashMap<>();
     defaultProcessDiagramGenerator.setArtifactDrawInstructions(artifactDrawInstructions);
-    Map<Class<? extends BaseElement>, DefaultProcessDiagramGenerator.ActivityDrawInstruction> actualActivityDrawInstructions = defaultProcessDiagramGenerator
+    Map<Class<? extends BaseElement>, ActivityDrawInstruction> actualActivityDrawInstructions = defaultProcessDiagramGenerator
         .getActivityDrawInstructions();
-    Map<Class<? extends BaseElement>, DefaultProcessDiagramGenerator.ArtifactDrawInstruction> actualArtifactDrawInstructions = defaultProcessDiagramGenerator
+    Map<Class<? extends BaseElement>, ArtifactDrawInstruction> actualArtifactDrawInstructions = defaultProcessDiagramGenerator
         .getArtifactDrawInstructions();
     String actualDefaultActivityFontName = defaultProcessDiagramGenerator.getDefaultActivityFontName();
     String actualDefaultAnnotationFontName = defaultProcessDiagramGenerator.getDefaultAnnotationFontName();
     String actualDefaultDiagramImageFileName = defaultProcessDiagramGenerator.getDefaultDiagramImageFileName();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("/image/na.svg", actualDefaultDiagramImageFileName);
     assertEquals("Arial", actualDefaultActivityFontName);
     assertEquals("Arial", actualDefaultAnnotationFontName);

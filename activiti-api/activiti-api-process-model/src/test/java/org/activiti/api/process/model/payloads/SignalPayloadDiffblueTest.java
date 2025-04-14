@@ -19,11 +19,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiFunction;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class SignalPayloadDiffblueTest {
@@ -34,6 +34,8 @@ class SignalPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test new SignalPayload()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SignalPayload.<init>()"})
   void testNewSignalPayload() {
     // Arrange and Act
     SignalPayload actualSignalPayload = new SignalPayload();
@@ -45,40 +47,14 @@ class SignalPayloadDiffblueTest {
 
   /**
    * Test {@link SignalPayload#SignalPayload(String, Map)}.
-   * <ul>
-   *   <li>Given {@code foo}.</li>
-   *   <li>When {@link HashMap#HashMap()} computeIfPresent {@code foo} and
-   * {@link BiFunction}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link SignalPayload#SignalPayload(String, Map)}
    */
   @Test
-  @DisplayName("Test new SignalPayload(String, Map); given 'foo'; when HashMap() computeIfPresent 'foo' and BiFunction")
-  void testNewSignalPayload_givenFoo_whenHashMapComputeIfPresentFooAndBiFunction() {
-    // Arrange
-    HashMap<String, Object> variables = new HashMap<>();
-    variables.computeIfPresent("foo", mock(BiFunction.class));
-
-    // Act
-    SignalPayload actualSignalPayload = new SignalPayload("Name", variables);
-
-    // Assert
-    assertEquals("Name", actualSignalPayload.getName());
-    assertTrue(actualSignalPayload.getVariables().isEmpty());
-  }
-
-  /**
-   * Test {@link SignalPayload#SignalPayload(String, Map)}.
-   * <ul>
-   *   <li>When {@link HashMap#HashMap()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SignalPayload#SignalPayload(String, Map)}
-   */
-  @Test
-  @DisplayName("Test new SignalPayload(String, Map); when HashMap()")
-  void testNewSignalPayload_whenHashMap() {
+  @DisplayName("Test new SignalPayload(String, Map)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SignalPayload.<init>(String, Map)"})
+  void testNewSignalPayload2() {
     // Arrange and Act
     SignalPayload actualSignalPayload = new SignalPayload("Name", new HashMap<>());
 
@@ -101,6 +77,9 @@ class SignalPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String SignalPayload.getId()", "String SignalPayload.getName()",
+      "Map SignalPayload.getVariables()", "void SignalPayload.setName(String)", "void SignalPayload.setVariables(Map)"})
   void testGettersAndSetters() {
     // Arrange
     SignalPayload signalPayload = new SignalPayload();
@@ -113,7 +92,7 @@ class SignalPayloadDiffblueTest {
     String actualName = signalPayload.getName();
     Map<String, Object> actualVariables = signalPayload.getVariables();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Name", actualName);
     assertTrue(actualVariables.isEmpty());
     assertSame(variables, actualVariables);

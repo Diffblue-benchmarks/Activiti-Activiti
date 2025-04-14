@@ -18,6 +18,7 @@ package org.activiti.validation.validator.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -32,6 +33,7 @@ import org.activiti.bpmn.model.Resource;
 import org.activiti.bpmn.model.Signal;
 import org.activiti.validation.ValidationError;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class DiagramInterchangeInfoValidatorDiffblueTest {
@@ -39,15 +41,15 @@ class DiagramInterchangeInfoValidatorDiffblueTest {
    * Test {@link DiagramInterchangeInfoValidator#validate(BpmnModel, List)}.
    * <ul>
    *   <li>Given {@link ArrayList#ArrayList()}.</li>
-   *   <li>When {@link BpmnModel} (default constructor) addFlowGraphicInfoList
-   * {@code Key} and {@link ArrayList#ArrayList()}.</li>
+   *   <li>When {@link BpmnModel} (default constructor) addFlowGraphicInfoList {@code Key} and {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DiagramInterchangeInfoValidator#validate(BpmnModel, List)}
+   * Method under test: {@link DiagramInterchangeInfoValidator#validate(BpmnModel, List)}
    */
   @Test
   @DisplayName("Test validate(BpmnModel, List); given ArrayList(); when BpmnModel (default constructor) addFlowGraphicInfoList 'Key' and ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DiagramInterchangeInfoValidator.validate(BpmnModel, List)"})
   void testValidate_givenArrayList_whenBpmnModelAddFlowGraphicInfoListKeyAndArrayList() {
     // Arrange
     DiagramInterchangeInfoValidator diagramInterchangeInfoValidator = new DiagramInterchangeInfoValidator();
@@ -58,7 +60,7 @@ class DiagramInterchangeInfoValidatorDiffblueTest {
     // Act
     diagramInterchangeInfoValidator.validate(bpmnModel, new ArrayList<>());
 
-    // Assert
+    // Assert that nothing has changed
     Collection<Resource> resources = bpmnModel.getResources();
     assertTrue(resources instanceof List);
     Collection<Signal> signals = bpmnModel.getSignals();
@@ -71,15 +73,15 @@ class DiagramInterchangeInfoValidatorDiffblueTest {
    * Test {@link DiagramInterchangeInfoValidator#validate(BpmnModel, List)}.
    * <ul>
    *   <li>Given empty string.</li>
-   *   <li>Then {@link ArrayList#ArrayList()} first Params {@code bpmnReference} is
-   * empty string.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} first Params {@code bpmnReference} is empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DiagramInterchangeInfoValidator#validate(BpmnModel, List)}
+   * Method under test: {@link DiagramInterchangeInfoValidator#validate(BpmnModel, List)}
    */
   @Test
   @DisplayName("Test validate(BpmnModel, List); given empty string; then ArrayList() first Params 'bpmnReference' is empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DiagramInterchangeInfoValidator.validate(BpmnModel, List)"})
   void testValidate_givenEmptyString_thenArrayListFirstParamsBpmnReferenceIsEmptyString() {
     // Arrange
     DiagramInterchangeInfoValidator diagramInterchangeInfoValidator = new DiagramInterchangeInfoValidator();
@@ -117,16 +119,16 @@ class DiagramInterchangeInfoValidatorDiffblueTest {
   /**
    * Test {@link DiagramInterchangeInfoValidator#validate(BpmnModel, List)}.
    * <ul>
-   *   <li>Given {@link GraphicInfo} (default constructor) Expanded is
-   * {@code false}.</li>
+   *   <li>Given {@link GraphicInfo} (default constructor) Expanded is {@code false}.</li>
    *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DiagramInterchangeInfoValidator#validate(BpmnModel, List)}
+   * Method under test: {@link DiagramInterchangeInfoValidator#validate(BpmnModel, List)}
    */
   @Test
   @DisplayName("Test validate(BpmnModel, List); given GraphicInfo (default constructor) Expanded is 'false'; then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DiagramInterchangeInfoValidator.validate(BpmnModel, List)"})
   void testValidate_givenGraphicInfoExpandedIsFalse_thenArrayListSizeIsTwo() {
     // Arrange
     DiagramInterchangeInfoValidator diagramInterchangeInfoValidator = new DiagramInterchangeInfoValidator();
@@ -161,16 +163,10 @@ class DiagramInterchangeInfoValidatorDiffblueTest {
 
     // Assert
     assertEquals(2, errors.size());
-    Map<String, String> params = errors.get(0).getParams();
-    assertEquals(1, params.size());
-    assertEquals("DI_INVALID_REFERENCE", params.get("bpmnReference"));
     ValidationError getResult = errors.get(1);
     assertEquals("DI_INVALID_REFERENCE", getResult.getDefaultDescription());
     assertEquals("DI_INVALID_REFERENCE", getResult.getKey());
     assertEquals("DI_INVALID_REFERENCE", getResult.getProblem());
-    Map<String, String> params2 = getResult.getParams();
-    assertEquals(1, params2.size());
-    assertEquals("Key", params2.get("bpmnReference"));
     assertNull(getResult.getActivityId());
     assertNull(getResult.getActivityName());
     assertNull(getResult.getProcessDefinitionId());
@@ -178,6 +174,9 @@ class DiagramInterchangeInfoValidatorDiffblueTest {
     assertNull(getResult.getValidatorSetName());
     assertEquals(0, getResult.getXmlColumnNumber());
     assertEquals(0, getResult.getXmlLineNumber());
+    Map<String, String> params = getResult.getParams();
+    assertEquals(1, params.size());
+    assertTrue(params.containsKey("bpmnReference"));
     assertTrue(getResult.isWarning());
   }
 
@@ -185,15 +184,15 @@ class DiagramInterchangeInfoValidatorDiffblueTest {
    * Test {@link DiagramInterchangeInfoValidator#validate(BpmnModel, List)}.
    * <ul>
    *   <li>Given {@code null}.</li>
-   *   <li>Then {@link ArrayList#ArrayList()} first Params {@code bpmnReference} is
-   * {@code null}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} first Params {@code bpmnReference} is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DiagramInterchangeInfoValidator#validate(BpmnModel, List)}
+   * Method under test: {@link DiagramInterchangeInfoValidator#validate(BpmnModel, List)}
    */
   @Test
   @DisplayName("Test validate(BpmnModel, List); given 'null'; then ArrayList() first Params 'bpmnReference' is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DiagramInterchangeInfoValidator.validate(BpmnModel, List)"})
   void testValidate_givenNull_thenArrayListFirstParamsBpmnReferenceIsNull() {
     // Arrange
     DiagramInterchangeInfoValidator diagramInterchangeInfoValidator = new DiagramInterchangeInfoValidator();
@@ -232,15 +231,15 @@ class DiagramInterchangeInfoValidatorDiffblueTest {
    * Test {@link DiagramInterchangeInfoValidator#validate(BpmnModel, List)}.
    * <ul>
    *   <li>Given {@link Process} (default constructor).</li>
-   *   <li>Then {@link BpmnModel} (default constructor) MainProcess Artifacts
-   * {@link List}.</li>
+   *   <li>Then {@link BpmnModel} (default constructor) MainProcess Artifacts {@link List}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DiagramInterchangeInfoValidator#validate(BpmnModel, List)}
+   * Method under test: {@link DiagramInterchangeInfoValidator#validate(BpmnModel, List)}
    */
   @Test
   @DisplayName("Test validate(BpmnModel, List); given Process (default constructor); then BpmnModel (default constructor) MainProcess Artifacts List")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DiagramInterchangeInfoValidator.validate(BpmnModel, List)"})
   void testValidate_givenProcess_thenBpmnModelMainProcessArtifactsList() {
     // Arrange
     DiagramInterchangeInfoValidator diagramInterchangeInfoValidator = new DiagramInterchangeInfoValidator();
@@ -275,15 +274,15 @@ class DiagramInterchangeInfoValidatorDiffblueTest {
   /**
    * Test {@link DiagramInterchangeInfoValidator#validate(BpmnModel, List)}.
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} first Params {@code bpmnReference} is
-   * {@code Key}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} first Params {@code bpmnReference} is {@code Key}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DiagramInterchangeInfoValidator#validate(BpmnModel, List)}
+   * Method under test: {@link DiagramInterchangeInfoValidator#validate(BpmnModel, List)}
    */
   @Test
   @DisplayName("Test validate(BpmnModel, List); then ArrayList() first Params 'bpmnReference' is 'Key'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DiagramInterchangeInfoValidator.validate(BpmnModel, List)"})
   void testValidate_thenArrayListFirstParamsBpmnReferenceIsKey() {
     // Arrange
     DiagramInterchangeInfoValidator diagramInterchangeInfoValidator = new DiagramInterchangeInfoValidator();
@@ -325,11 +324,12 @@ class DiagramInterchangeInfoValidatorDiffblueTest {
    *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DiagramInterchangeInfoValidator#validate(BpmnModel, List)}
+   * Method under test: {@link DiagramInterchangeInfoValidator#validate(BpmnModel, List)}
    */
   @Test
   @DisplayName("Test validate(BpmnModel, List); when BpmnModel (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DiagramInterchangeInfoValidator.validate(BpmnModel, List)"})
   void testValidate_whenBpmnModel_thenArrayListEmpty() {
     // Arrange
     DiagramInterchangeInfoValidator diagramInterchangeInfoValidator = new DiagramInterchangeInfoValidator();

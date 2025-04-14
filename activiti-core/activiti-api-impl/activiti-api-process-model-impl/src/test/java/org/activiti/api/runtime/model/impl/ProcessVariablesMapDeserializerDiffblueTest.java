@@ -24,33 +24,36 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.core.StreamReadCapability;
 import com.fasterxml.jackson.core.util.JacksonFeatureSet;
 import com.fasterxml.jackson.core.util.JsonParserSequence;
 import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.cfg.DeserializerFactoryConfig;
 import com.fasterxml.jackson.databind.deser.BeanDeserializerFactory;
 import com.fasterxml.jackson.databind.deser.DefaultDeserializationContext;
+import com.fasterxml.jackson.databind.deser.DefaultDeserializationContext.Impl;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.util.AccessPattern;
 import java.io.IOException;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.convert.ApplicationConversionService;
 import org.springframework.core.convert.ConversionService;
 
 class ProcessVariablesMapDeserializerDiffblueTest {
   /**
-   * Test
-   * {@link ProcessVariablesMapDeserializer#ProcessVariablesMapDeserializer(ConversionService)}.
+   * Test {@link ProcessVariablesMapDeserializer#ProcessVariablesMapDeserializer(ConversionService)}.
    * <p>
-   * Method under test:
-   * {@link ProcessVariablesMapDeserializer#ProcessVariablesMapDeserializer(ConversionService)}
+   * Method under test: {@link ProcessVariablesMapDeserializer#ProcessVariablesMapDeserializer(ConversionService)}
    */
   @Test
   @DisplayName("Test new ProcessVariablesMapDeserializer(ConversionService)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessVariablesMapDeserializer.<init>(ConversionService)"})
   void testNewProcessVariablesMapDeserializer() {
     // Arrange and Act
     ProcessVariablesMapDeserializer actualProcessVariablesMapDeserializer = new ProcessVariablesMapDeserializer(
@@ -68,19 +71,19 @@ class ProcessVariablesMapDeserializerDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessVariablesMapDeserializer#deserialize(JsonParser, DeserializationContext)}
-   * with {@code jp}, {@code ctxt}.
+   * Test {@link ProcessVariablesMapDeserializer#deserialize(JsonParser, DeserializationContext)} with {@code jp}, {@code ctxt}.
    * <ul>
    *   <li>Given {@code END_OBJECT}.</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessVariablesMapDeserializer#deserialize(JsonParser, DeserializationContext)}
+   * Method under test: {@link ProcessVariablesMapDeserializer#deserialize(JsonParser, DeserializationContext)}
    */
   @Test
   @DisplayName("Test deserialize(JsonParser, DeserializationContext) with 'jp', 'ctxt'; given 'END_OBJECT'; then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "ProcessVariablesMap ProcessVariablesMapDeserializer.deserialize(JsonParser, DeserializationContext)"})
   void testDeserializeWithJpCtxt_givenEndObject_thenReturnEmpty() throws IOException {
     // Arrange
     ProcessVariablesMapDeserializer processVariablesMapDeserializer = new ProcessVariablesMapDeserializer(
@@ -90,11 +93,11 @@ class ProcessVariablesMapDeserializerDiffblueTest {
     JacksonFeatureSet<StreamReadCapability> fromBitmaskResult = JacksonFeatureSet.fromBitmask(1);
     when(jp.getReadCapabilities()).thenReturn(fromBitmaskResult);
     when(jp.currentToken()).thenReturn(JsonToken.END_OBJECT);
-    when(jp.getCodec()).thenReturn(new ObjectMapper());
+    when(jp.getCodec()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
     ProcessVariablesMap<String, Object> actualDeserializeResult = processVariablesMapDeserializer.deserialize(jp,
-        new DefaultDeserializationContext.Impl(new BeanDeserializerFactory(new DeserializerFactoryConfig())));
+        new Impl(new BeanDeserializerFactory(new DeserializerFactoryConfig())));
 
     // Assert
     verify(jp).clearCurrentToken();

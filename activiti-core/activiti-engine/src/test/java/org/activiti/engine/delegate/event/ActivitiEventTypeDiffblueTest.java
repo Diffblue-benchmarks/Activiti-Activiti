@@ -18,20 +18,24 @@ package org.activiti.engine.delegate.event;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ActivitiEventTypeDiffblueTest {
   /**
    * Test {@link ActivitiEventType#getTypesFromString(String)}.
    * <ul>
-   *   <li>Then return array of {@link ActivitiEventType} with
-   * {@code ENTITY_CREATED}.</li>
+   *   <li>Then return array of {@link ActivitiEventType} with {@code ENTITY_CREATED}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ActivitiEventType#getTypesFromString(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ActivitiEventType[] ActivitiEventType.getTypesFromString(String)"})
   public void testGetTypesFromString_thenReturnArrayOfActivitiEventTypeWithEntityCreated() {
     // Arrange, Act and Assert
     assertArrayEquals(new ActivitiEventType[]{ActivitiEventType.ENTITY_CREATED},
@@ -48,6 +52,8 @@ public class ActivitiEventTypeDiffblueTest {
    * Method under test: {@link ActivitiEventType#getTypesFromString(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ActivitiEventType[] ActivitiEventType.getTypesFromString(String)"})
   public void testGetTypesFromString_whenComma_thenReturnArrayLengthIsZero() {
     // Arrange, Act and Assert
     assertEquals(0, ActivitiEventType.getTypesFromString(",").length);
@@ -63,6 +69,8 @@ public class ActivitiEventTypeDiffblueTest {
    * Method under test: {@link ActivitiEventType#getTypesFromString(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ActivitiEventType[] ActivitiEventType.getTypesFromString(String)"})
   public void testGetTypesFromString_whenEmptyString_thenReturnArrayLengthIsZero() {
     // Arrange, Act and Assert
     assertEquals(0, ActivitiEventType.getTypesFromString("").length);
@@ -78,6 +86,8 @@ public class ActivitiEventTypeDiffblueTest {
    * Method under test: {@link ActivitiEventType#getTypesFromString(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ActivitiEventType[] ActivitiEventType.getTypesFromString(String)"})
   public void testGetTypesFromString_whenNull_thenReturnArrayLengthIsZero() {
     // Arrange, Act and Assert
     assertEquals(0, ActivitiEventType.getTypesFromString(null).length);
@@ -93,9 +103,27 @@ public class ActivitiEventTypeDiffblueTest {
    * Method under test: {@link ActivitiEventType#getTypesFromString(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ActivitiEventType[] ActivitiEventType.getTypesFromString(String)"})
   public void testGetTypesFromString_whenString_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> ActivitiEventType.getTypesFromString("String"));
+  }
+
+  /**
+   * Test {@link ActivitiEventType#getTypesFromString(String)}.
+   * <ul>
+   *   <li>When {@code String,}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ActivitiEventType#getTypesFromString(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ActivitiEventType[] ActivitiEventType.getTypesFromString(String)"})
+  public void testGetTypesFromString_whenString_thenThrowActivitiIllegalArgumentException2() {
+    // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> ActivitiEventType.getTypesFromString("String,"));
   }
 }

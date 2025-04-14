@@ -17,7 +17,9 @@ package org.activiti.image.impl.icon;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class MessageIconTypeDiffblueTest {
@@ -28,6 +30,8 @@ class MessageIconTypeDiffblueTest {
    */
   @Test
   @DisplayName("Test getWidth()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.lang.Integer MessageIconType.getWidth()"})
   void testGetWidth() {
     // Arrange, Act and Assert
     assertEquals(17, (new MessageIconType()).getWidth().intValue());
@@ -40,6 +44,8 @@ class MessageIconTypeDiffblueTest {
    */
   @Test
   @DisplayName("Test getHeight()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.lang.Integer MessageIconType.getHeight()"})
   void testGetHeight() {
     // Arrange, Act and Assert
     assertEquals(13, (new MessageIconType()).getHeight().intValue());
@@ -61,6 +67,11 @@ class MessageIconTypeDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void MessageIconType.<init>()", "String MessageIconType.getAnchorValue()",
+      "String MessageIconType.getDValue()", "String MessageIconType.getFillValue()",
+      "String MessageIconType.getStrokeValue()", "String MessageIconType.getStrokeWidth()",
+      "String MessageIconType.getStyleValue()"})
   void testGettersAndSetters() {
     // Arrange and Act
     MessageIconType actualMessageIconType = new MessageIconType();

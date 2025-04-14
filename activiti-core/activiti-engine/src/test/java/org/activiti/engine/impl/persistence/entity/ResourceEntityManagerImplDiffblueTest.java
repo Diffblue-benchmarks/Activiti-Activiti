@@ -21,6 +21,8 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
@@ -29,6 +31,7 @@ import org.activiti.engine.impl.persistence.entity.data.DataManager;
 import org.activiti.engine.impl.persistence.entity.data.ResourceDataManager;
 import org.activiti.engine.impl.persistence.entity.data.impl.MybatisResourceDataManager;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -51,15 +54,18 @@ public class ResourceEntityManagerImplDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link ResourceEntityManagerImpl#ResourceEntityManagerImpl(ProcessEngineConfigurationImpl, ResourceDataManager)}
-   *   <li>
-   * {@link ResourceEntityManagerImpl#setResourceDataManager(ResourceDataManager)}
+   *   <li>{@link ResourceEntityManagerImpl#ResourceEntityManagerImpl(ProcessEngineConfigurationImpl, ResourceDataManager)}
+   *   <li>{@link ResourceEntityManagerImpl#setResourceDataManager(ResourceDataManager)}
    *   <li>{@link ResourceEntityManagerImpl#getDataManager()}
    *   <li>{@link ResourceEntityManagerImpl#getResourceDataManager()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ResourceEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, ResourceDataManager)",
+      "DataManager ResourceEntityManagerImpl.getDataManager()",
+      "ResourceDataManager ResourceEntityManagerImpl.getResourceDataManager()",
+      "void ResourceEntityManagerImpl.setResourceDataManager(ResourceDataManager)"})
   public void testGettersAndSetters() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
@@ -72,7 +78,7 @@ public class ResourceEntityManagerImplDiffblueTest {
     actualResourceEntityManagerImpl.setResourceDataManager(resourceDataManager);
     DataManager<ResourceEntity> actualDataManager = actualResourceEntityManagerImpl.getDataManager();
 
-    // Assert that nothing has changed
+    // Assert
     assertSame(resourceDataManager, actualDataManager);
     assertSame(resourceDataManager, actualResourceEntityManagerImpl.getResourceDataManager());
   }
@@ -80,10 +86,11 @@ public class ResourceEntityManagerImplDiffblueTest {
   /**
    * Test {@link ResourceEntityManagerImpl#deleteResourcesByDeploymentId(String)}.
    * <p>
-   * Method under test:
-   * {@link ResourceEntityManagerImpl#deleteResourcesByDeploymentId(String)}
+   * Method under test: {@link ResourceEntityManagerImpl#deleteResourcesByDeploymentId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ResourceEntityManagerImpl.deleteResourcesByDeploymentId(String)"})
   public void testDeleteResourcesByDeploymentId() {
     // Arrange
     doNothing().when(resourceDataManager).deleteResourcesByDeploymentId(Mockito.<String>any());
@@ -96,13 +103,14 @@ public class ResourceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ResourceEntityManagerImpl#findResourceByDeploymentIdAndResourceName(String, String)}.
+   * Test {@link ResourceEntityManagerImpl#findResourceByDeploymentIdAndResourceName(String, String)}.
    * <p>
-   * Method under test:
-   * {@link ResourceEntityManagerImpl#findResourceByDeploymentIdAndResourceName(String, String)}
+   * Method under test: {@link ResourceEntityManagerImpl#findResourceByDeploymentIdAndResourceName(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ResourceEntity ResourceEntityManagerImpl.findResourceByDeploymentIdAndResourceName(String, String)"})
   public void testFindResourceByDeploymentIdAndResourceName() {
     // Arrange
     ResourceEntityImpl resourceEntityImpl = new ResourceEntityImpl();
@@ -121,10 +129,11 @@ public class ResourceEntityManagerImplDiffblueTest {
   /**
    * Test {@link ResourceEntityManagerImpl#findResourcesByDeploymentId(String)}.
    * <p>
-   * Method under test:
-   * {@link ResourceEntityManagerImpl#findResourcesByDeploymentId(String)}
+   * Method under test: {@link ResourceEntityManagerImpl#findResourcesByDeploymentId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List ResourceEntityManagerImpl.findResourcesByDeploymentId(String)"})
   public void testFindResourcesByDeploymentId() {
     // Arrange
     when(resourceDataManager.findResourcesByDeploymentId(Mockito.<String>any())).thenReturn(new ArrayList<>());

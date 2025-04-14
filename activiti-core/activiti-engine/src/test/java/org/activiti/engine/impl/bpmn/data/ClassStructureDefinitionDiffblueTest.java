@@ -18,7 +18,10 @@ package org.activiti.engine.impl.bpmn.data;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ClassStructureDefinitionDiffblueTest {
   /**
@@ -32,6 +35,9 @@ public class ClassStructureDefinitionDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ClassStructureDefinition.<init>(String, Class)",
+      "int ClassStructureDefinition.getFieldSize()", "String ClassStructureDefinition.getId()"})
   public void testGettersAndSetters() {
     // Arrange
     Class<Object> classStructure = Object.class;
@@ -48,10 +54,11 @@ public class ClassStructureDefinitionDiffblueTest {
   /**
    * Test {@link ClassStructureDefinition#ClassStructureDefinition(Class)}.
    * <p>
-   * Method under test:
-   * {@link ClassStructureDefinition#ClassStructureDefinition(Class)}
+   * Method under test: {@link ClassStructureDefinition#ClassStructureDefinition(Class)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ClassStructureDefinition.<init>(Class)"})
   public void testNewClassStructureDefinition() {
     // Arrange
     Class<Object> classStructure = Object.class;
@@ -72,6 +79,8 @@ public class ClassStructureDefinitionDiffblueTest {
    * Method under test: {@link ClassStructureDefinition#getFieldNameAt(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ClassStructureDefinition.getFieldNameAt(int)"})
   public void testGetFieldNameAt() {
     // Arrange
     Class<Object> classStructure = Object.class;
@@ -86,6 +95,8 @@ public class ClassStructureDefinitionDiffblueTest {
    * Method under test: {@link ClassStructureDefinition#getFieldTypeAt(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Class ClassStructureDefinition.getFieldTypeAt(int)"})
   public void testGetFieldTypeAt() {
     // Arrange
     Class<Object> classStructure = Object.class;
@@ -100,6 +111,8 @@ public class ClassStructureDefinitionDiffblueTest {
    * Method under test: {@link ClassStructureDefinition#createInstance()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"StructureInstance ClassStructureDefinition.createInstance()"})
   public void testCreateInstance() {
     // Arrange
     Class<Object> classStructure = Object.class;

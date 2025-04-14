@@ -18,72 +18,208 @@ package org.activiti.engine.test.profiler;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class CommandExecutionResultDiffblueTest {
-  @InjectMocks
-  private CommandExecutionResult commandExecutionResult;
-
   /**
    * Test {@link CommandExecutionResult#addDbSelect(String)}.
+   * <ul>
+   *   <li>Then {@link CommandExecutionResult} (default constructor) DbSelects {@code Select} longValue is one.</li>
+   * </ul>
    * <p>
    * Method under test: {@link CommandExecutionResult#addDbSelect(String)}
    */
   @Test
-  public void testAddDbSelect() {
-    // Arrange and Act
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CommandExecutionResult.addDbSelect(String)"})
+  public void testAddDbSelect_thenCommandExecutionResultDbSelectsSelectLongValueIsOne() {
+    // Arrange
+    CommandExecutionResult commandExecutionResult = new CommandExecutionResult();
+
+    // Act
     commandExecutionResult.addDbSelect("Select");
 
     // Assert
-    assertEquals(1, commandExecutionResult.getDbSelects().size());
+    Map<String, Long> dbSelects = commandExecutionResult.getDbSelects();
+    assertEquals(1, dbSelects.size());
+    assertEquals(1L, dbSelects.get("Select").longValue());
+  }
+
+  /**
+   * Test {@link CommandExecutionResult#addDbSelect(String)}.
+   * <ul>
+   *   <li>Then {@link CommandExecutionResult} (default constructor) DbSelects {@code Select} longValue is two.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link CommandExecutionResult#addDbSelect(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CommandExecutionResult.addDbSelect(String)"})
+  public void testAddDbSelect_thenCommandExecutionResultDbSelectsSelectLongValueIsTwo() {
+    // Arrange
+    CommandExecutionResult commandExecutionResult = new CommandExecutionResult();
+    commandExecutionResult.addDbSelect("Select");
+
+    // Act
+    commandExecutionResult.addDbSelect("Select");
+
+    // Assert
+    Map<String, Long> dbSelects = commandExecutionResult.getDbSelects();
+    assertEquals(1, dbSelects.size());
+    assertEquals(2L, dbSelects.get("Select").longValue());
   }
 
   /**
    * Test {@link CommandExecutionResult#addDbInsert(String)}.
+   * <ul>
+   *   <li>Then {@link CommandExecutionResult} (default constructor) DbInserts {@code Insert} longValue is one.</li>
+   * </ul>
    * <p>
    * Method under test: {@link CommandExecutionResult#addDbInsert(String)}
    */
   @Test
-  public void testAddDbInsert() {
-    // Arrange and Act
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CommandExecutionResult.addDbInsert(String)"})
+  public void testAddDbInsert_thenCommandExecutionResultDbInsertsInsertLongValueIsOne() {
+    // Arrange
+    CommandExecutionResult commandExecutionResult = new CommandExecutionResult();
+
+    // Act
     commandExecutionResult.addDbInsert("Insert");
 
     // Assert
-    assertEquals(1, commandExecutionResult.getDbInserts().size());
+    Map<String, Long> dbInserts = commandExecutionResult.getDbInserts();
+    assertEquals(1, dbInserts.size());
+    assertEquals(1L, dbInserts.get("Insert").longValue());
+  }
+
+  /**
+   * Test {@link CommandExecutionResult#addDbInsert(String)}.
+   * <ul>
+   *   <li>Then {@link CommandExecutionResult} (default constructor) DbInserts {@code Insert} longValue is two.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link CommandExecutionResult#addDbInsert(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CommandExecutionResult.addDbInsert(String)"})
+  public void testAddDbInsert_thenCommandExecutionResultDbInsertsInsertLongValueIsTwo() {
+    // Arrange
+    CommandExecutionResult commandExecutionResult = new CommandExecutionResult();
+    commandExecutionResult.addDbInsert("Insert");
+
+    // Act
+    commandExecutionResult.addDbInsert("Insert");
+
+    // Assert
+    Map<String, Long> dbInserts = commandExecutionResult.getDbInserts();
+    assertEquals(1, dbInserts.size());
+    assertEquals(2L, dbInserts.get("Insert").longValue());
   }
 
   /**
    * Test {@link CommandExecutionResult#addDbUpdate(String)}.
+   * <ul>
+   *   <li>Then {@link CommandExecutionResult} (default constructor) DbUpdates {@code 2020-03-01} longValue is one.</li>
+   * </ul>
    * <p>
    * Method under test: {@link CommandExecutionResult#addDbUpdate(String)}
    */
   @Test
-  public void testAddDbUpdate() {
-    // Arrange and Act
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CommandExecutionResult.addDbUpdate(String)"})
+  public void testAddDbUpdate_thenCommandExecutionResultDbUpdates20200301LongValueIsOne() {
+    // Arrange
+    CommandExecutionResult commandExecutionResult = new CommandExecutionResult();
+
+    // Act
     commandExecutionResult.addDbUpdate("2020-03-01");
 
     // Assert
-    assertEquals(1, commandExecutionResult.getDbUpdates().size());
+    Map<String, Long> dbUpdates = commandExecutionResult.getDbUpdates();
+    assertEquals(1, dbUpdates.size());
+    assertEquals(1L, dbUpdates.get("2020-03-01").longValue());
+  }
+
+  /**
+   * Test {@link CommandExecutionResult#addDbUpdate(String)}.
+   * <ul>
+   *   <li>Then {@link CommandExecutionResult} (default constructor) DbUpdates {@code 2020-03-01} longValue is two.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link CommandExecutionResult#addDbUpdate(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CommandExecutionResult.addDbUpdate(String)"})
+  public void testAddDbUpdate_thenCommandExecutionResultDbUpdates20200301LongValueIsTwo() {
+    // Arrange
+    CommandExecutionResult commandExecutionResult = new CommandExecutionResult();
+    commandExecutionResult.addDbUpdate("2020-03-01");
+
+    // Act
+    commandExecutionResult.addDbUpdate("2020-03-01");
+
+    // Assert
+    Map<String, Long> dbUpdates = commandExecutionResult.getDbUpdates();
+    assertEquals(1, dbUpdates.size());
+    assertEquals(2L, dbUpdates.get("2020-03-01").longValue());
   }
 
   /**
    * Test {@link CommandExecutionResult#addDbDelete(String)}.
+   * <ul>
+   *   <li>Then {@link CommandExecutionResult} (default constructor) DbDeletes {@code Delete} longValue is one.</li>
+   * </ul>
    * <p>
    * Method under test: {@link CommandExecutionResult#addDbDelete(String)}
    */
   @Test
-  public void testAddDbDelete() {
-    // Arrange and Act
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CommandExecutionResult.addDbDelete(String)"})
+  public void testAddDbDelete_thenCommandExecutionResultDbDeletesDeleteLongValueIsOne() {
+    // Arrange
+    CommandExecutionResult commandExecutionResult = new CommandExecutionResult();
+
+    // Act
     commandExecutionResult.addDbDelete("Delete");
 
     // Assert
-    assertEquals(1, commandExecutionResult.getDbDeletes().size());
+    Map<String, Long> dbDeletes = commandExecutionResult.getDbDeletes();
+    assertEquals(1, dbDeletes.size());
+    assertEquals(1L, dbDeletes.get("Delete").longValue());
+  }
+
+  /**
+   * Test {@link CommandExecutionResult#addDbDelete(String)}.
+   * <ul>
+   *   <li>Then {@link CommandExecutionResult} (default constructor) DbDeletes {@code Delete} longValue is two.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link CommandExecutionResult#addDbDelete(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CommandExecutionResult.addDbDelete(String)"})
+  public void testAddDbDelete_thenCommandExecutionResultDbDeletesDeleteLongValueIsTwo() {
+    // Arrange
+    CommandExecutionResult commandExecutionResult = new CommandExecutionResult();
+    commandExecutionResult.addDbDelete("Delete");
+
+    // Act
+    commandExecutionResult.addDbDelete("Delete");
+
+    // Assert
+    Map<String, Long> dbDeletes = commandExecutionResult.getDbDeletes();
+    assertEquals(1, dbDeletes.size());
+    assertEquals(2L, dbDeletes.get("Delete").longValue());
   }
 
   /**
@@ -110,6 +246,15 @@ public class CommandExecutionResultDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CommandExecutionResult.<init>()", "void CommandExecutionResult.addDatabaseTime(long)",
+      "String CommandExecutionResult.getCommandFqn()", "long CommandExecutionResult.getDatabaseTimeInMs()",
+      "Map CommandExecutionResult.getDbDeletes()", "Map CommandExecutionResult.getDbInserts()",
+      "Map CommandExecutionResult.getDbSelects()", "Map CommandExecutionResult.getDbUpdates()",
+      "long CommandExecutionResult.getTotalTimeInMs()", "void CommandExecutionResult.setCommandFqn(String)",
+      "void CommandExecutionResult.setDatabaseTimeInMs(long)", "void CommandExecutionResult.setDbDeletes(Map)",
+      "void CommandExecutionResult.setDbInserts(Map)", "void CommandExecutionResult.setDbSelects(Map)",
+      "void CommandExecutionResult.setDbUpdates(Map)", "void CommandExecutionResult.setTotalTimeInMs(long)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     CommandExecutionResult actualCommandExecutionResult = new CommandExecutionResult();
@@ -132,7 +277,7 @@ public class CommandExecutionResultDiffblueTest {
     Map<String, Long> actualDbSelects = actualCommandExecutionResult.getDbSelects();
     Map<String, Long> actualDbUpdates = actualCommandExecutionResult.getDbUpdates();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Command Fqn", actualCommandFqn);
     assertEquals(11L, actualDatabaseTimeInMs);
     assertEquals(1L, actualCommandExecutionResult.getTotalTimeInMs());

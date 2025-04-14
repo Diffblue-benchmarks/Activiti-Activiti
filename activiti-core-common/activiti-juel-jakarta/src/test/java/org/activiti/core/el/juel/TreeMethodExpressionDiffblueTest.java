@@ -21,6 +21,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELException;
 import jakarta.el.FunctionMapper;
 import jakarta.el.VariableMapper;
@@ -35,26 +36,29 @@ import org.activiti.core.el.juel.tree.TreeBuilderException;
 import org.activiti.core.el.juel.tree.TreeStore;
 import org.activiti.core.el.juel.tree.impl.Cache;
 import org.activiti.core.el.juel.tree.impl.ast.AstBinary;
+import org.activiti.core.el.juel.tree.impl.ast.AstBinary.Operator;
 import org.activiti.core.el.juel.tree.impl.ast.AstBracket;
 import org.activiti.core.el.juel.tree.impl.ast.AstNull;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class TreeMethodExpressionDiffblueTest {
   /**
-   * Test
-   * {@link TreeMethodExpression#TreeMethodExpression(TreeStore, FunctionMapper, VariableMapper, TypeConverter, String, Class, Class[])}.
+   * Test {@link TreeMethodExpression#TreeMethodExpression(TreeStore, FunctionMapper, VariableMapper, TypeConverter, String, Class, Class[])}.
    * <ul>
    *   <li>When {@link FunctionMapper}.</li>
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TreeMethodExpression#TreeMethodExpression(TreeStore, FunctionMapper, VariableMapper, TypeConverter, String, Class, Class[])}
+   * Method under test: {@link TreeMethodExpression#TreeMethodExpression(TreeStore, FunctionMapper, VariableMapper, TypeConverter, String, Class, Class[])}
    */
   @Test
   @DisplayName("Test new TreeMethodExpression(TreeStore, FunctionMapper, VariableMapper, TypeConverter, String, Class, Class[]); when FunctionMapper; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void TreeMethodExpression.<init>(TreeStore, FunctionMapper, VariableMapper, TypeConverter, String, Class, Class[])"})
   void testNewTreeMethodExpression_whenFunctionMapper_thenThrowELException() throws TreeBuilderException {
     // Arrange
     TreeBuilder builder = mock(TreeBuilder.class);
@@ -86,6 +90,8 @@ class TreeMethodExpressionDiffblueTest {
    */
   @Test
   @DisplayName("Test isLiteralText(); then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TreeMethodExpression.isLiteralText()"})
   void testIsLiteralText_thenReturnFalse() throws TreeBuilderException {
     // Arrange
     TreeBuilder builder = mock(TreeBuilder.class);
@@ -121,6 +127,8 @@ class TreeMethodExpressionDiffblueTest {
    */
   @Test
   @DisplayName("Test isParametersProvided(); then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TreeMethodExpression.isParametersProvided()"})
   void testIsParametersProvided_thenReturnFalse() throws TreeBuilderException {
     // Arrange
     TreeBuilder builder = mock(TreeBuilder.class);
@@ -153,6 +161,8 @@ class TreeMethodExpressionDiffblueTest {
    */
   @Test
   @DisplayName("Test dump(PrintWriter)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TreeMethodExpression.dump(PrintWriter)"})
   void testDump() throws TreeBuilderException {
     // Arrange
     TreeBuilder builder = mock(TreeBuilder.class);
@@ -185,11 +195,13 @@ class TreeMethodExpressionDiffblueTest {
    */
   @Test
   @DisplayName("Test dump(PrintWriter)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TreeMethodExpression.dump(PrintWriter)"})
   void testDump2() throws TreeBuilderException {
     // Arrange
     TreeBuilder builder = mock(TreeBuilder.class);
     AstNull left = new AstNull();
-    AstBinary base = new AstBinary(left, new AstNull(), mock(AstBinary.Operator.class));
+    AstBinary base = new AstBinary(left, new AstNull(), mock(Operator.class));
 
     AstBracket root = new AstBracket(base, new AstNull(), true, true);
 
@@ -219,13 +231,14 @@ class TreeMethodExpressionDiffblueTest {
    */
   @Test
   @DisplayName("Test dump(PrintWriter)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TreeMethodExpression.dump(PrintWriter)"})
   void testDump3() throws TreeBuilderException {
     // Arrange
     TreeBuilder builder = mock(TreeBuilder.class);
     AstNull base = new AstNull();
     AstNull left = new AstNull();
-    AstBracket root = new AstBracket(base, new AstBinary(left, new AstNull(), mock(AstBinary.Operator.class)), true,
-        true);
+    AstBracket root = new AstBracket(base, new AstBinary(left, new AstNull(), mock(Operator.class)), true, true);
 
     ArrayList<FunctionNode> functions = new ArrayList<>();
     when(builder.build(Mockito.<String>any())).thenReturn(new Tree(root, functions, new ArrayList<>(), true));

@@ -26,6 +26,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -45,79 +46,28 @@ import org.activiti.bpmn.model.DataObject;
 import org.activiti.bpmn.model.ExtensionAttribute;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.Message;
+import org.activiti.bpmn.model.Message.Builder;
 import org.activiti.bpmn.model.Process;
 import org.activiti.bpmn.model.Signal;
 import org.activiti.bpmn.model.SubProcess;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class BpmnXMLConverterDiffblueTest {
   /**
-   * Test {@link BpmnXMLConverter#addConverter(BaseBpmnXMLConverter, Class)} with
-   * {@code converter}, {@code elementType}.
-   * <ul>
-   *   <li>Then calls {@link AssociationXMLConverter#getXMLElementName()}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link BpmnXMLConverter#addConverter(BaseBpmnXMLConverter, Class)}
-   */
-  @Test
-  @DisplayName("Test addConverter(BaseBpmnXMLConverter, Class) with 'converter', 'elementType'; then calls getXMLElementName()")
-  void testAddConverterWithConverterElementType_thenCallsGetXMLElementName() {
-    // Arrange
-    AssociationXMLConverter converter = mock(AssociationXMLConverter.class);
-    when(converter.getXMLElementName()).thenReturn("Xml Element Name");
-    Class<BaseElement> elementType = BaseElement.class;
-
-    // Act
-    BpmnXMLConverter.addConverter(converter, elementType);
-
-    // Assert
-    verify(converter).getXMLElementName();
-  }
-
-  /**
-   * Test {@link BpmnXMLConverter#addConverter(BaseBpmnXMLConverter)} with
-   * {@code converter}.
-   * <ul>
-   *   <li>Given {@code Xml Element Name}.</li>
-   *   <li>Then calls {@link AssociationXMLConverter#getBpmnElementType()}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link BpmnXMLConverter#addConverter(BaseBpmnXMLConverter)}
-   */
-  @Test
-  @DisplayName("Test addConverter(BaseBpmnXMLConverter) with 'converter'; given 'Xml Element Name'; then calls getBpmnElementType()")
-  void testAddConverterWithConverter_givenXmlElementName_thenCallsGetBpmnElementType() {
-    // Arrange
-    AssociationXMLConverter converter = mock(AssociationXMLConverter.class);
-    when(converter.getXMLElementName()).thenReturn("Xml Element Name");
-    Class<BaseElement> forNameResult = BaseElement.class;
-    Mockito.<Class<? extends BaseElement>>when(converter.getBpmnElementType()).thenReturn(forNameResult);
-
-    // Act
-    BpmnXMLConverter.addConverter(converter);
-
-    // Assert
-    verify(converter).getBpmnElementType();
-    verify(converter).getXMLElementName();
-  }
-
-  /**
-   * Test {@link BpmnXMLConverter#validateModel(InputStreamProvider)} with
-   * {@code inputStreamProvider}.
+   * Test {@link BpmnXMLConverter#validateModel(InputStreamProvider)} with {@code inputStreamProvider}.
    * <ul>
    *   <li>Then throw {@link XMLException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnXMLConverter#validateModel(InputStreamProvider)}
+   * Method under test: {@link BpmnXMLConverter#validateModel(InputStreamProvider)}
    */
   @Test
   @DisplayName("Test validateModel(InputStreamProvider) with 'inputStreamProvider'; then throw XMLException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnXMLConverter.validateModel(InputStreamProvider)"})
   void testValidateModelWithInputStreamProvider_thenThrowXMLException() throws Exception {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
@@ -130,16 +80,14 @@ class BpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean)}
-   * with {@code inputStreamProvider}, {@code validateSchema},
-   * {@code enableSafeBpmnXml}.
+   * Test {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean)} with {@code inputStreamProvider}, {@code validateSchema}, {@code enableSafeBpmnXml}.
    * <p>
-   * Method under test:
-   * {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean)}
+   * Method under test: {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean)}
    */
   @Test
   @DisplayName("Test convertToBpmnModel(InputStreamProvider, boolean, boolean) with 'inputStreamProvider', 'validateSchema', 'enableSafeBpmnXml'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BpmnModel BpmnXMLConverter.convertToBpmnModel(InputStreamProvider, boolean, boolean)"})
   void testConvertToBpmnModelWithInputStreamProviderValidateSchemaEnableSafeBpmnXml()
       throws UnsupportedEncodingException {
     // Arrange
@@ -153,16 +101,14 @@ class BpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean)}
-   * with {@code inputStreamProvider}, {@code validateSchema},
-   * {@code enableSafeBpmnXml}.
+   * Test {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean)} with {@code inputStreamProvider}, {@code validateSchema}, {@code enableSafeBpmnXml}.
    * <p>
-   * Method under test:
-   * {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean)}
+   * Method under test: {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean)}
    */
   @Test
   @DisplayName("Test convertToBpmnModel(InputStreamProvider, boolean, boolean) with 'inputStreamProvider', 'validateSchema', 'enableSafeBpmnXml'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BpmnModel BpmnXMLConverter.convertToBpmnModel(InputStreamProvider, boolean, boolean)"})
   void testConvertToBpmnModelWithInputStreamProviderValidateSchemaEnableSafeBpmnXml2() throws IOException {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
@@ -180,16 +126,14 @@ class BpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean)}
-   * with {@code inputStreamProvider}, {@code validateSchema},
-   * {@code enableSafeBpmnXml}.
+   * Test {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean)} with {@code inputStreamProvider}, {@code validateSchema}, {@code enableSafeBpmnXml}.
    * <p>
-   * Method under test:
-   * {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean)}
+   * Method under test: {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean)}
    */
   @Test
   @DisplayName("Test convertToBpmnModel(InputStreamProvider, boolean, boolean) with 'inputStreamProvider', 'validateSchema', 'enableSafeBpmnXml'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BpmnModel BpmnXMLConverter.convertToBpmnModel(InputStreamProvider, boolean, boolean)"})
   void testConvertToBpmnModelWithInputStreamProviderValidateSchemaEnableSafeBpmnXml3() throws IOException {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
@@ -207,16 +151,14 @@ class BpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean)}
-   * with {@code inputStreamProvider}, {@code validateSchema},
-   * {@code enableSafeBpmnXml}.
+   * Test {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean)} with {@code inputStreamProvider}, {@code validateSchema}, {@code enableSafeBpmnXml}.
    * <p>
-   * Method under test:
-   * {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean)}
+   * Method under test: {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean)}
    */
   @Test
   @DisplayName("Test convertToBpmnModel(InputStreamProvider, boolean, boolean) with 'inputStreamProvider', 'validateSchema', 'enableSafeBpmnXml'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BpmnModel BpmnXMLConverter.convertToBpmnModel(InputStreamProvider, boolean, boolean)"})
   void testConvertToBpmnModelWithInputStreamProviderValidateSchemaEnableSafeBpmnXml4() throws IOException {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
@@ -236,16 +178,14 @@ class BpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean, String)}
-   * with {@code inputStreamProvider}, {@code validateSchema},
-   * {@code enableSafeBpmnXml}, {@code encoding}.
+   * Test {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean, String)} with {@code inputStreamProvider}, {@code validateSchema}, {@code enableSafeBpmnXml}, {@code encoding}.
    * <p>
-   * Method under test:
-   * {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean, String)}
+   * Method under test: {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean, String)}
    */
   @Test
   @DisplayName("Test convertToBpmnModel(InputStreamProvider, boolean, boolean, String) with 'inputStreamProvider', 'validateSchema', 'enableSafeBpmnXml', 'encoding'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BpmnModel BpmnXMLConverter.convertToBpmnModel(InputStreamProvider, boolean, boolean, String)"})
   void testConvertToBpmnModelWithInputStreamProviderValidateSchemaEnableSafeBpmnXmlEncoding()
       throws UnsupportedEncodingException {
     // Arrange
@@ -260,16 +200,14 @@ class BpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean, String)}
-   * with {@code inputStreamProvider}, {@code validateSchema},
-   * {@code enableSafeBpmnXml}, {@code encoding}.
+   * Test {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean, String)} with {@code inputStreamProvider}, {@code validateSchema}, {@code enableSafeBpmnXml}, {@code encoding}.
    * <p>
-   * Method under test:
-   * {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean, String)}
+   * Method under test: {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean, String)}
    */
   @Test
   @DisplayName("Test convertToBpmnModel(InputStreamProvider, boolean, boolean, String) with 'inputStreamProvider', 'validateSchema', 'enableSafeBpmnXml', 'encoding'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BpmnModel BpmnXMLConverter.convertToBpmnModel(InputStreamProvider, boolean, boolean, String)"})
   void testConvertToBpmnModelWithInputStreamProviderValidateSchemaEnableSafeBpmnXmlEncoding2() throws IOException {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
@@ -288,16 +226,14 @@ class BpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean, String)}
-   * with {@code inputStreamProvider}, {@code validateSchema},
-   * {@code enableSafeBpmnXml}, {@code encoding}.
+   * Test {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean, String)} with {@code inputStreamProvider}, {@code validateSchema}, {@code enableSafeBpmnXml}, {@code encoding}.
    * <p>
-   * Method under test:
-   * {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean, String)}
+   * Method under test: {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean, String)}
    */
   @Test
   @DisplayName("Test convertToBpmnModel(InputStreamProvider, boolean, boolean, String) with 'inputStreamProvider', 'validateSchema', 'enableSafeBpmnXml', 'encoding'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BpmnModel BpmnXMLConverter.convertToBpmnModel(InputStreamProvider, boolean, boolean, String)"})
   void testConvertToBpmnModelWithInputStreamProviderValidateSchemaEnableSafeBpmnXmlEncoding3() {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
@@ -311,16 +247,14 @@ class BpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean, String)}
-   * with {@code inputStreamProvider}, {@code validateSchema},
-   * {@code enableSafeBpmnXml}, {@code encoding}.
+   * Test {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean, String)} with {@code inputStreamProvider}, {@code validateSchema}, {@code enableSafeBpmnXml}, {@code encoding}.
    * <p>
-   * Method under test:
-   * {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean, String)}
+   * Method under test: {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean, String)}
    */
   @Test
   @DisplayName("Test convertToBpmnModel(InputStreamProvider, boolean, boolean, String) with 'inputStreamProvider', 'validateSchema', 'enableSafeBpmnXml', 'encoding'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BpmnModel BpmnXMLConverter.convertToBpmnModel(InputStreamProvider, boolean, boolean, String)"})
   void testConvertToBpmnModelWithInputStreamProviderValidateSchemaEnableSafeBpmnXmlEncoding4() throws IOException {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
@@ -339,16 +273,14 @@ class BpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean, String)}
-   * with {@code inputStreamProvider}, {@code validateSchema},
-   * {@code enableSafeBpmnXml}, {@code encoding}.
+   * Test {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean, String)} with {@code inputStreamProvider}, {@code validateSchema}, {@code enableSafeBpmnXml}, {@code encoding}.
    * <p>
-   * Method under test:
-   * {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean, String)}
+   * Method under test: {@link BpmnXMLConverter#convertToBpmnModel(InputStreamProvider, boolean, boolean, String)}
    */
   @Test
   @DisplayName("Test convertToBpmnModel(InputStreamProvider, boolean, boolean, String) with 'inputStreamProvider', 'validateSchema', 'enableSafeBpmnXml', 'encoding'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BpmnModel BpmnXMLConverter.convertToBpmnModel(InputStreamProvider, boolean, boolean, String)"})
   void testConvertToBpmnModelWithInputStreamProviderValidateSchemaEnableSafeBpmnXmlEncoding5() throws IOException {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
@@ -374,11 +306,12 @@ class BpmnXMLConverterDiffblueTest {
    *   <li>Then calls {@link SubProcess#getFlowElements()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnXMLConverter#processFlowElements(Collection, BaseElement)}
+   * Method under test: {@link BpmnXMLConverter#processFlowElements(Collection, BaseElement)}
    */
   @Test
   @DisplayName("Test processFlowElements(Collection, BaseElement); then calls getFlowElements()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnXMLConverter.processFlowElements(Collection, BaseElement)"})
   void testProcessFlowElements_thenCallsGetFlowElements() {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
@@ -391,7 +324,7 @@ class BpmnXMLConverterDiffblueTest {
     // Act
     bpmnXMLConverter.processFlowElements(flowElementList, new ActivitiListener());
 
-    // Assert that nothing has changed
+    // Assert
     verify(adhocSubProcess).getFlowElements();
   }
 
@@ -401,11 +334,12 @@ class BpmnXMLConverterDiffblueTest {
    *   <li>When {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnXMLConverter#getFlowNodeFromScope(String, BaseElement)}
+   * Method under test: {@link BpmnXMLConverter#getFlowNodeFromScope(String, BaseElement)}
    */
   @Test
   @DisplayName("Test getFlowNodeFromScope(String, BaseElement); when '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.bpmn.model.FlowNode BpmnXMLConverter.getFlowNodeFromScope(String, BaseElement)"})
   void testGetFlowNodeFromScope_when42() {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
@@ -420,11 +354,12 @@ class BpmnXMLConverterDiffblueTest {
    *   <li>When {@link AdhocSubProcess} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnXMLConverter#getFlowNodeFromScope(String, BaseElement)}
+   * Method under test: {@link BpmnXMLConverter#getFlowNodeFromScope(String, BaseElement)}
    */
   @Test
   @DisplayName("Test getFlowNodeFromScope(String, BaseElement); when AdhocSubProcess (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.bpmn.model.FlowNode BpmnXMLConverter.getFlowNodeFromScope(String, BaseElement)"})
   void testGetFlowNodeFromScope_whenAdhocSubProcess() {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
@@ -439,11 +374,12 @@ class BpmnXMLConverterDiffblueTest {
    *   <li>When empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnXMLConverter#getFlowNodeFromScope(String, BaseElement)}
+   * Method under test: {@link BpmnXMLConverter#getFlowNodeFromScope(String, BaseElement)}
    */
   @Test
   @DisplayName("Test getFlowNodeFromScope(String, BaseElement); when empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.bpmn.model.FlowNode BpmnXMLConverter.getFlowNodeFromScope(String, BaseElement)"})
   void testGetFlowNodeFromScope_whenEmptyString() {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
@@ -459,6 +395,8 @@ class BpmnXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName("Test convertToXML(BpmnModel) with 'model'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"byte[] BpmnXMLConverter.convertToXML(BpmnModel)"})
   void testConvertToXMLWithModel() {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
@@ -480,6 +418,8 @@ class BpmnXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName("Test convertToXML(BpmnModel) with 'model'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"byte[] BpmnXMLConverter.convertToXML(BpmnModel)"})
   void testConvertToXMLWithModel2() {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
@@ -503,6 +443,8 @@ class BpmnXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName("Test convertToXML(BpmnModel) with 'model'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"byte[] BpmnXMLConverter.convertToXML(BpmnModel)"})
   void testConvertToXMLWithModel3() {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
@@ -520,8 +462,7 @@ class BpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test {@link BpmnXMLConverter#convertToXML(BpmnModel, String)} with
-   * {@code model}, {@code encoding}.
+   * Test {@link BpmnXMLConverter#convertToXML(BpmnModel, String)} with {@code model}, {@code encoding}.
    * <ul>
    *   <li>Given empty string.</li>
    * </ul>
@@ -530,6 +471,8 @@ class BpmnXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName("Test convertToXML(BpmnModel, String) with 'model', 'encoding'; given empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"byte[] BpmnXMLConverter.convertToXML(BpmnModel, String)"})
   void testConvertToXMLWithModelEncoding_givenEmptyString() {
     // Arrange
     SubprocessXMLConverter subprocessXMLConverter = new SubprocessXMLConverter();
@@ -571,8 +514,7 @@ class BpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test {@link BpmnXMLConverter#convertToXML(BpmnModel, String)} with
-   * {@code model}, {@code encoding}.
+   * Test {@link BpmnXMLConverter#convertToXML(BpmnModel, String)} with {@code model}, {@code encoding}.
    * <ul>
    *   <li>Then return array length is six hundred ninety-eight.</li>
    * </ul>
@@ -581,13 +523,15 @@ class BpmnXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName("Test convertToXML(BpmnModel, String) with 'model', 'encoding'; then return array length is six hundred ninety-eight")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"byte[] BpmnXMLConverter.convertToXML(BpmnModel, String)"})
   void testConvertToXMLWithModelEncoding_thenReturnArrayLengthIsSixHundredNinetyEight() {
     // Arrange
     SubprocessXMLConverter subprocessXMLConverter = new SubprocessXMLConverter();
 
     BpmnModel model = new BpmnModel();
-    Message.Builder builderResult = Message.builder();
-    Message.Builder attributesResult = builderResult.attributes(new HashMap<>());
+    Builder builderResult = Message.builder();
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
     Message message = attributesResult.extensionElements(new HashMap<>())
         .id("42")
         .itemRef("Item Ref")
@@ -630,8 +574,7 @@ class BpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test {@link BpmnXMLConverter#convertToXML(BpmnModel, String)} with
-   * {@code model}, {@code encoding}.
+   * Test {@link BpmnXMLConverter#convertToXML(BpmnModel, String)} with {@code model}, {@code encoding}.
    * <ul>
    *   <li>Then return array length is six hundred ninety-one.</li>
    * </ul>
@@ -640,13 +583,15 @@ class BpmnXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName("Test convertToXML(BpmnModel, String) with 'model', 'encoding'; then return array length is six hundred ninety-one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"byte[] BpmnXMLConverter.convertToXML(BpmnModel, String)"})
   void testConvertToXMLWithModelEncoding_thenReturnArrayLengthIsSixHundredNinetyOne() {
     // Arrange
     SubprocessXMLConverter subprocessXMLConverter = new SubprocessXMLConverter();
 
     BpmnModel model = new BpmnModel();
-    Message.Builder builderResult = Message.builder();
-    Message.Builder attributesResult = builderResult.attributes(new HashMap<>());
+    Builder builderResult = Message.builder();
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
     Message message = attributesResult.extensionElements(new HashMap<>())
         .id("42")
         .itemRef("")
@@ -689,8 +634,7 @@ class BpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test {@link BpmnXMLConverter#convertToXML(BpmnModel, String)} with
-   * {@code model}, {@code encoding}.
+   * Test {@link BpmnXMLConverter#convertToXML(BpmnModel, String)} with {@code model}, {@code encoding}.
    * <ul>
    *   <li>Then return array length is six hundred seventy-five.</li>
    * </ul>
@@ -699,6 +643,8 @@ class BpmnXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName("Test convertToXML(BpmnModel, String) with 'model', 'encoding'; then return array length is six hundred seventy-five")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"byte[] BpmnXMLConverter.convertToXML(BpmnModel, String)"})
   void testConvertToXMLWithModelEncoding_thenReturnArrayLengthIsSixHundredSeventyFive() {
     // Arrange
     SubprocessXMLConverter subprocessXMLConverter = new SubprocessXMLConverter();
@@ -740,8 +686,7 @@ class BpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test {@link BpmnXMLConverter#convertToXML(BpmnModel, String)} with
-   * {@code model}, {@code encoding}.
+   * Test {@link BpmnXMLConverter#convertToXML(BpmnModel, String)} with {@code model}, {@code encoding}.
    * <ul>
    *   <li>Then return array length is six hundred thirty-six.</li>
    * </ul>
@@ -750,6 +695,8 @@ class BpmnXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName("Test convertToXML(BpmnModel, String) with 'model', 'encoding'; then return array length is six hundred thirty-six")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"byte[] BpmnXMLConverter.convertToXML(BpmnModel, String)"})
   void testConvertToXMLWithModelEncoding_thenReturnArrayLengthIsSixHundredThirtySix() {
     // Arrange
     SubprocessXMLConverter subprocessXMLConverter = new SubprocessXMLConverter();
@@ -790,8 +737,7 @@ class BpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test {@link BpmnXMLConverter#convertToXML(BpmnModel, String)} with
-   * {@code model}, {@code encoding}.
+   * Test {@link BpmnXMLConverter#convertToXML(BpmnModel, String)} with {@code model}, {@code encoding}.
    * <ul>
    *   <li>Then throw {@link XMLException}.</li>
    * </ul>
@@ -800,6 +746,8 @@ class BpmnXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName("Test convertToXML(BpmnModel, String) with 'model', 'encoding'; then throw XMLException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"byte[] BpmnXMLConverter.convertToXML(BpmnModel, String)"})
   void testConvertToXMLWithModelEncoding_thenThrowXMLException() {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
@@ -815,8 +763,7 @@ class BpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test {@link BpmnXMLConverter#convertToXML(BpmnModel, String)} with
-   * {@code model}, {@code encoding}.
+   * Test {@link BpmnXMLConverter#convertToXML(BpmnModel, String)} with {@code model}, {@code encoding}.
    * <ul>
    *   <li>When space space.</li>
    *   <li>Then throw {@link XMLException}.</li>
@@ -826,6 +773,8 @@ class BpmnXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName("Test convertToXML(BpmnModel, String) with 'model', 'encoding'; when space space; then throw XMLException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"byte[] BpmnXMLConverter.convertToXML(BpmnModel, String)"})
   void testConvertToXMLWithModelEncoding_whenSpaceSpace_thenThrowXMLException() {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
@@ -844,14 +793,15 @@ class BpmnXMLConverterDiffblueTest {
    * Test {@link BpmnXMLConverter#convertToXML(BpmnModel)} with {@code model}.
    * <ul>
    *   <li>Given {@code bpmn2}.</li>
-   *   <li>When {@link BpmnModel} (default constructor) addNamespace {@code bpmn2}
-   * and {@code UTF-8}.</li>
+   *   <li>When {@link BpmnModel} (default constructor) addNamespace {@code bpmn2} and {@code UTF-8}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnXMLConverter#convertToXML(BpmnModel)}
    */
   @Test
   @DisplayName("Test convertToXML(BpmnModel) with 'model'; given 'bpmn2'; when BpmnModel (default constructor) addNamespace 'bpmn2' and 'UTF-8'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"byte[] BpmnXMLConverter.convertToXML(BpmnModel)"})
   void testConvertToXMLWithModel_givenBpmn2_whenBpmnModelAddNamespaceBpmn2AndUtf8() {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
@@ -878,6 +828,8 @@ class BpmnXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName("Test convertToXML(BpmnModel) with 'model'; given empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"byte[] BpmnXMLConverter.convertToXML(BpmnModel)"})
   void testConvertToXMLWithModel_givenEmptyString() {
     // Arrange
     SubprocessXMLConverter subprocessXMLConverter = new SubprocessXMLConverter();
@@ -928,13 +880,15 @@ class BpmnXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName("Test convertToXML(BpmnModel) with 'model'; then return array length is six hundred ninety-eight")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"byte[] BpmnXMLConverter.convertToXML(BpmnModel)"})
   void testConvertToXMLWithModel_thenReturnArrayLengthIsSixHundredNinetyEight() {
     // Arrange
     SubprocessXMLConverter subprocessXMLConverter = new SubprocessXMLConverter();
 
     BpmnModel model = new BpmnModel();
-    Message.Builder builderResult = Message.builder();
-    Message.Builder attributesResult = builderResult.attributes(new HashMap<>());
+    Builder builderResult = Message.builder();
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
     Message message = attributesResult.extensionElements(new HashMap<>())
         .id("42")
         .itemRef("Item Ref")
@@ -986,13 +940,15 @@ class BpmnXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName("Test convertToXML(BpmnModel) with 'model'; then return array length is six hundred ninety-one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"byte[] BpmnXMLConverter.convertToXML(BpmnModel)"})
   void testConvertToXMLWithModel_thenReturnArrayLengthIsSixHundredNinetyOne() {
     // Arrange
     SubprocessXMLConverter subprocessXMLConverter = new SubprocessXMLConverter();
 
     BpmnModel model = new BpmnModel();
-    Message.Builder builderResult = Message.builder();
-    Message.Builder attributesResult = builderResult.attributes(new HashMap<>());
+    Builder builderResult = Message.builder();
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
     Message message = attributesResult.extensionElements(new HashMap<>())
         .id("42")
         .itemRef("")
@@ -1044,6 +1000,8 @@ class BpmnXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName("Test convertToXML(BpmnModel) with 'model'; then return array length is six hundred seventy-eight")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"byte[] BpmnXMLConverter.convertToXML(BpmnModel)"})
   void testConvertToXMLWithModel_thenReturnArrayLengthIsSixHundredSeventyEight() {
     // Arrange
     SubprocessXMLConverter subprocessXMLConverter = new SubprocessXMLConverter();
@@ -1094,6 +1052,8 @@ class BpmnXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName("Test convertToXML(BpmnModel) with 'model'; then return array length is six hundred thirty-six")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"byte[] BpmnXMLConverter.convertToXML(BpmnModel)"})
   void testConvertToXMLWithModel_thenReturnArrayLengthIsSixHundredThirtySix() {
     // Arrange
     SubprocessXMLConverter subprocessXMLConverter = new SubprocessXMLConverter();
@@ -1134,18 +1094,18 @@ class BpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test {@link BpmnXMLConverter#createXML(Artifact, BpmnModel, XMLStreamWriter)}
-   * with {@code artifact}, {@code model}, {@code xtw}.
+   * Test {@link BpmnXMLConverter#createXML(Artifact, BpmnModel, XMLStreamWriter)} with {@code artifact}, {@code model}, {@code xtw}.
    * <ul>
    *   <li>When {@link Artifact}.</li>
    *   <li>Then throw {@link XMLException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnXMLConverter#createXML(Artifact, BpmnModel, XMLStreamWriter)}
+   * Method under test: {@link BpmnXMLConverter#createXML(Artifact, BpmnModel, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test createXML(Artifact, BpmnModel, XMLStreamWriter) with 'artifact', 'model', 'xtw'; when Artifact; then throw XMLException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnXMLConverter.createXML(Artifact, BpmnModel, XMLStreamWriter)"})
   void testCreateXMLWithArtifactModelXtw_whenArtifact_thenThrowXMLException() throws Exception {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
@@ -1158,19 +1118,18 @@ class BpmnXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)}
-   * with {@code flowElement}, {@code model}, {@code xtw}.
+   * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code flowElement}, {@code model}, {@code xtw}.
    * <ul>
    *   <li>When {@link DataObject} (default constructor).</li>
    *   <li>Then throw {@link XMLException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)}
+   * Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; when DataObject (default constructor); then throw XMLException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
   void testCreateXMLWithFlowElementModelXtw_whenDataObject_thenThrowXMLException() throws Exception {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
@@ -1185,11 +1144,12 @@ class BpmnXMLConverterDiffblueTest {
   /**
    * Test new {@link BpmnXMLConverter} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link BpmnXMLConverter}
+   * Method under test: default or parameterless constructor of {@link BpmnXMLConverter}
    */
   @Test
   @DisplayName("Test new BpmnXMLConverter (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnXMLConverter.<init>()"})
   void testNewBpmnXMLConverter() {
     // Arrange and Act
     BpmnXMLConverter actualBpmnXMLConverter = new BpmnXMLConverter();

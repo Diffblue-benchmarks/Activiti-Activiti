@@ -20,6 +20,8 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
@@ -27,6 +29,7 @@ import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.persistence.entity.data.PropertyDataManager;
 import org.activiti.engine.impl.persistence.entity.data.impl.MybatisPropertyDataManager;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class PropertyEntityManagerImplDiffblueTest {
   /**
@@ -34,12 +37,14 @@ public class PropertyEntityManagerImplDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link PropertyEntityManagerImpl#PropertyEntityManagerImpl(ProcessEngineConfigurationImpl, PropertyDataManager)}
+   *   <li>{@link PropertyEntityManagerImpl#PropertyEntityManagerImpl(ProcessEngineConfigurationImpl, PropertyDataManager)}
    *   <li>{@link PropertyEntityManagerImpl#getDataManager()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void PropertyEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, PropertyDataManager)",
+      "org.activiti.engine.impl.persistence.entity.data.DataManager PropertyEntityManagerImpl.getDataManager()"})
   public void testGettersAndSetters() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
@@ -54,14 +59,15 @@ public class PropertyEntityManagerImplDiffblueTest {
   /**
    * Test {@link PropertyEntityManagerImpl#findAll()}.
    * <ul>
-   *   <li>Given {@link PropertyDataManager} {@link PropertyDataManager#findAll()}
-   * return {@link ArrayList#ArrayList()}.</li>
+   *   <li>Given {@link PropertyDataManager} {@link PropertyDataManager#findAll()} return {@link ArrayList#ArrayList()}.</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
    * Method under test: {@link PropertyEntityManagerImpl#findAll()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List PropertyEntityManagerImpl.findAll()"})
   public void testFindAll_givenPropertyDataManagerFindAllReturnArrayList_thenReturnEmpty() {
     // Arrange
     PropertyDataManager propertyDataManager = mock(PropertyDataManager.class);

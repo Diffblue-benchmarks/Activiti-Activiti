@@ -19,16 +19,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.Message;
+import org.activiti.bpmn.model.Message.Builder;
 import org.activiti.bpmn.model.Resource;
 import org.activiti.bpmn.model.Signal;
 import org.activiti.validation.ValidationError;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class MessageValidatorDiffblueTest {
@@ -39,13 +42,15 @@ class MessageValidatorDiffblueTest {
    */
   @Test
   @DisplayName("Test validate(BpmnModel, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void MessageValidator.validate(BpmnModel, List)"})
   void testValidate() {
     // Arrange
     MessageValidator messageValidator = new MessageValidator();
 
     BpmnModel bpmnModel = new BpmnModel();
-    Message.Builder builderResult = Message.builder();
-    Message.Builder attributesResult = builderResult.attributes(new HashMap<>());
+    Builder builderResult = Message.builder();
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
     Message message = attributesResult.extensionElements(new HashMap<>())
         .id("42")
         .itemRef(null)
@@ -76,13 +81,15 @@ class MessageValidatorDiffblueTest {
    */
   @Test
   @DisplayName("Test validate(BpmnModel, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void MessageValidator.validate(BpmnModel, List)"})
   void testValidate2() {
     // Arrange
     MessageValidator messageValidator = new MessageValidator();
 
     BpmnModel bpmnModel = new BpmnModel();
-    Message.Builder builderResult = Message.builder();
-    Message.Builder attributesResult = builderResult.attributes(new HashMap<>());
+    Builder builderResult = Message.builder();
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
     Message message = attributesResult.extensionElements(new HashMap<>())
         .id("42")
         .itemRef("")
@@ -116,13 +123,15 @@ class MessageValidatorDiffblueTest {
    */
   @Test
   @DisplayName("Test validate(BpmnModel, List); then ArrayList() size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void MessageValidator.validate(BpmnModel, List)"})
   void testValidate_thenArrayListSizeIsOne() {
     // Arrange
     MessageValidator messageValidator = new MessageValidator();
 
     BpmnModel bpmnModel = new BpmnModel();
-    Message.Builder builderResult = Message.builder();
-    Message.Builder attributesResult = builderResult.attributes(new HashMap<>());
+    Builder builderResult = Message.builder();
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
     Message message = attributesResult.extensionElements(new HashMap<>())
         .id("42")
         .itemRef("Item Ref")
@@ -169,13 +178,15 @@ class MessageValidatorDiffblueTest {
    */
   @Test
   @DisplayName("Test validate(BpmnModel, List); then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void MessageValidator.validate(BpmnModel, List)"})
   void testValidate_thenArrayListSizeIsTwo() {
     // Arrange
     MessageValidator messageValidator = new MessageValidator();
 
     BpmnModel bpmnModel = new BpmnModel();
-    Message.Builder builderResult = Message.builder();
-    Message.Builder attributesResult = builderResult.attributes(new HashMap<>());
+    Builder builderResult = Message.builder();
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
     Message message = attributesResult.extensionElements(new HashMap<>())
         .id("Id")
         .itemRef("Item Ref")
@@ -184,8 +195,8 @@ class MessageValidatorDiffblueTest {
         .xmlRowNumber(10)
         .build();
     bpmnModel.addMessage(message);
-    Message.Builder builderResult2 = Message.builder();
-    Message.Builder attributesResult2 = builderResult2.attributes(new HashMap<>());
+    Builder builderResult2 = Message.builder();
+    Builder attributesResult2 = builderResult2.attributes(new HashMap<>());
     Message message2 = attributesResult2.extensionElements(new HashMap<>())
         .id("42")
         .itemRef("Item Ref")
@@ -227,6 +238,8 @@ class MessageValidatorDiffblueTest {
    */
   @Test
   @DisplayName("Test validate(BpmnModel, List); when BpmnModel (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void MessageValidator.validate(BpmnModel, List)"})
   void testValidate_whenBpmnModel_thenArrayListEmpty() {
     // Arrange
     MessageValidator messageValidator = new MessageValidator();

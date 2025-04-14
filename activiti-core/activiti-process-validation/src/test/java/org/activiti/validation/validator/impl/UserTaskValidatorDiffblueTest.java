@@ -19,6 +19,7 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +28,7 @@ import org.activiti.bpmn.model.Process;
 import org.activiti.bpmn.model.UserTask;
 import org.activiti.validation.ValidationError;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -34,16 +36,16 @@ class UserTaskValidatorDiffblueTest {
   /**
    * Test {@link UserTaskValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link UserTask} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link UserTask} (default constructor).</li>
    *   <li>Then calls {@link Process#findFlowElementsOfType(Class)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link UserTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link UserTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList() add UserTask (default constructor); then calls findFlowElementsOfType(Class)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenArrayListAddUserTask_thenCallsFindFlowElementsOfType() {
     // Arrange
     UserTaskValidator userTaskValidator = new UserTaskValidator();
@@ -57,7 +59,7 @@ class UserTaskValidatorDiffblueTest {
     // Act
     userTaskValidator.executeValidation(bpmnModel, process, new ArrayList<>());
 
-    // Assert that nothing has changed
+    // Assert
     verify(process).findFlowElementsOfType(isA(Class.class));
   }
 
@@ -68,11 +70,12 @@ class UserTaskValidatorDiffblueTest {
    *   <li>Then calls {@link Process#findFlowElementsOfType(Class)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link UserTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link UserTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList(); then calls findFlowElementsOfType(Class)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenArrayList_thenCallsFindFlowElementsOfType() {
     // Arrange
     UserTaskValidator userTaskValidator = new UserTaskValidator();
@@ -83,22 +86,22 @@ class UserTaskValidatorDiffblueTest {
     // Act
     userTaskValidator.executeValidation(bpmnModel, process, new ArrayList<>());
 
-    // Assert that nothing has changed
+    // Assert
     verify(process).findFlowElementsOfType(isA(Class.class));
   }
 
   /**
    * Test {@link UserTaskValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link ValidationError} (default constructor) ActivityId is
-   * {@code 42}.</li>
+   *   <li>Given {@link ValidationError} (default constructor) ActivityId is {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link UserTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link UserTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given ValidationError (default constructor) ActivityId is '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenValidationErrorActivityIdIs42() {
     // Arrange
     UserTaskValidator userTaskValidator = new UserTaskValidator();
@@ -126,22 +129,22 @@ class UserTaskValidatorDiffblueTest {
     // Act
     userTaskValidator.executeValidation(bpmnModel, process, errors);
 
-    // Assert that nothing has changed
+    // Assert
     verify(process).findFlowElementsOfType(isA(Class.class));
   }
 
   /**
    * Test {@link UserTaskValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link ValidationError} (default constructor) ActivityId is
-   * {@code Activity Id}.</li>
+   *   <li>Given {@link ValidationError} (default constructor) ActivityId is {@code Activity Id}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link UserTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link UserTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given ValidationError (default constructor) ActivityId is 'Activity Id'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void UserTaskValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenValidationErrorActivityIdIsActivityId() {
     // Arrange
     UserTaskValidator userTaskValidator = new UserTaskValidator();
@@ -184,7 +187,7 @@ class UserTaskValidatorDiffblueTest {
     // Act
     userTaskValidator.executeValidation(bpmnModel, process, errors);
 
-    // Assert that nothing has changed
+    // Assert
     verify(process).findFlowElementsOfType(isA(Class.class));
   }
 }

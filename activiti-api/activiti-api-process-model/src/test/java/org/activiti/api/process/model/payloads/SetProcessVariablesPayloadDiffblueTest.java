@@ -19,22 +19,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiFunction;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class SetProcessVariablesPayloadDiffblueTest {
   /**
    * Test {@link SetProcessVariablesPayload#SetProcessVariablesPayload()}.
    * <p>
-   * Method under test:
-   * {@link SetProcessVariablesPayload#SetProcessVariablesPayload()}
+   * Method under test: {@link SetProcessVariablesPayload#SetProcessVariablesPayload()}
    */
   @Test
   @DisplayName("Test new SetProcessVariablesPayload()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SetProcessVariablesPayload.<init>()"})
   void testNewSetProcessVariablesPayload() {
     // Arrange and Act
     SetProcessVariablesPayload actualSetProcessVariablesPayload = new SetProcessVariablesPayload();
@@ -45,43 +46,15 @@ class SetProcessVariablesPayloadDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link SetProcessVariablesPayload#SetProcessVariablesPayload(String, Map)}.
-   * <ul>
-   *   <li>Given {@code foo}.</li>
-   * </ul>
+   * Test {@link SetProcessVariablesPayload#SetProcessVariablesPayload(String, Map)}.
    * <p>
-   * Method under test:
-   * {@link SetProcessVariablesPayload#SetProcessVariablesPayload(String, Map)}
+   * Method under test: {@link SetProcessVariablesPayload#SetProcessVariablesPayload(String, Map)}
    */
   @Test
-  @DisplayName("Test new SetProcessVariablesPayload(String, Map); given 'foo'")
-  void testNewSetProcessVariablesPayload_givenFoo() {
-    // Arrange
-    HashMap<String, Object> variables = new HashMap<>();
-    variables.computeIfPresent("foo", mock(BiFunction.class));
-
-    // Act
-    SetProcessVariablesPayload actualSetProcessVariablesPayload = new SetProcessVariablesPayload("42", variables);
-
-    // Assert
-    assertEquals("42", actualSetProcessVariablesPayload.getProcessInstanceId());
-    assertTrue(actualSetProcessVariablesPayload.getVariables().isEmpty());
-  }
-
-  /**
-   * Test
-   * {@link SetProcessVariablesPayload#SetProcessVariablesPayload(String, Map)}.
-   * <ul>
-   *   <li>When {@link HashMap#HashMap()}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link SetProcessVariablesPayload#SetProcessVariablesPayload(String, Map)}
-   */
-  @Test
-  @DisplayName("Test new SetProcessVariablesPayload(String, Map); when HashMap()")
-  void testNewSetProcessVariablesPayload_whenHashMap() {
+  @DisplayName("Test new SetProcessVariablesPayload(String, Map)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SetProcessVariablesPayload.<init>(String, Map)"})
+  void testNewSetProcessVariablesPayload2() {
     // Arrange and Act
     SetProcessVariablesPayload actualSetProcessVariablesPayload = new SetProcessVariablesPayload("42", new HashMap<>());
 
@@ -104,6 +77,11 @@ class SetProcessVariablesPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String SetProcessVariablesPayload.getId()",
+      "String SetProcessVariablesPayload.getProcessInstanceId()", "Map SetProcessVariablesPayload.getVariables()",
+      "void SetProcessVariablesPayload.setProcessInstanceId(String)",
+      "void SetProcessVariablesPayload.setVariables(Map)"})
   void testGettersAndSetters() {
     // Arrange
     SetProcessVariablesPayload setProcessVariablesPayload = new SetProcessVariablesPayload();
@@ -116,7 +94,7 @@ class SetProcessVariablesPayloadDiffblueTest {
     String actualProcessInstanceId = setProcessVariablesPayload.getProcessInstanceId();
     Map<String, Object> actualVariables = setProcessVariablesPayload.getVariables();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualProcessInstanceId);
     assertTrue(actualVariables.isEmpty());
     assertSame(variables, actualVariables);

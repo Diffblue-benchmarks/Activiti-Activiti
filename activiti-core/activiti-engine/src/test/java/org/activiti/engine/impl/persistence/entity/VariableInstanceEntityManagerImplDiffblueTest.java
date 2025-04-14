@@ -28,7 +28,10 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -36,7 +39,6 @@ import java.util.Map;
 import java.util.Set;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventDispatcher;
-import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.delegate.event.ActivitiVariableEvent;
 import org.activiti.engine.delegate.event.impl.ActivitiEventDispatcherImpl;
 import org.activiti.engine.delegate.event.impl.ActivitiVariableEventImpl;
@@ -50,8 +52,10 @@ import org.activiti.engine.impl.persistence.entity.data.impl.MybatisVariableInst
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.activiti.engine.impl.variable.BigDecimalType;
 import org.activiti.engine.impl.variable.ByteArrayType;
+import org.activiti.engine.impl.variable.CustomObjectType;
 import org.activiti.engine.impl.variable.VariableType;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -74,16 +78,19 @@ public class VariableInstanceEntityManagerImplDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link VariableInstanceEntityManagerImpl#VariableInstanceEntityManagerImpl(ProcessEngineConfigurationImpl, VariableInstanceDataManager)}
-   *   <li>
-   * {@link VariableInstanceEntityManagerImpl#setVariableInstanceDataManager(VariableInstanceDataManager)}
+   *   <li>{@link VariableInstanceEntityManagerImpl#VariableInstanceEntityManagerImpl(ProcessEngineConfigurationImpl, VariableInstanceDataManager)}
+   *   <li>{@link VariableInstanceEntityManagerImpl#setVariableInstanceDataManager(VariableInstanceDataManager)}
    *   <li>{@link VariableInstanceEntityManagerImpl#getDataManager()}
-   *   <li>
-   * {@link VariableInstanceEntityManagerImpl#getVariableInstanceDataManager()}
+   *   <li>{@link VariableInstanceEntityManagerImpl#getVariableInstanceDataManager()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "void VariableInstanceEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, VariableInstanceDataManager)",
+      "DataManager VariableInstanceEntityManagerImpl.getDataManager()",
+      "VariableInstanceDataManager VariableInstanceEntityManagerImpl.getVariableInstanceDataManager()",
+      "void VariableInstanceEntityManagerImpl.setVariableInstanceDataManager(VariableInstanceDataManager)"})
   public void testGettersAndSetters() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
@@ -96,23 +103,22 @@ public class VariableInstanceEntityManagerImplDiffblueTest {
     actualVariableInstanceEntityManagerImpl.setVariableInstanceDataManager(variableInstanceDataManager);
     DataManager<VariableInstanceEntity> actualDataManager = actualVariableInstanceEntityManagerImpl.getDataManager();
 
-    // Assert that nothing has changed
+    // Assert
     assertSame(variableInstanceDataManager, actualDataManager);
     assertSame(variableInstanceDataManager, actualVariableInstanceEntityManagerImpl.getVariableInstanceDataManager());
   }
 
   /**
-   * Test
-   * {@link VariableInstanceEntityManagerImpl#create(String, VariableType, Object)}
-   * with {@code String}, {@code VariableType}, {@code Object}.
+   * Test {@link VariableInstanceEntityManagerImpl#create(String, VariableType, Object)} with {@code String}, {@code VariableType}, {@code Object}.
    * <ul>
    *   <li>Then return TypeName is {@code bytes}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableInstanceEntityManagerImpl#create(String, VariableType, Object)}
+   * Method under test: {@link VariableInstanceEntityManagerImpl#create(String, VariableType, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"VariableInstanceEntity VariableInstanceEntityManagerImpl.create(String, VariableType, Object)"})
   public void testCreateWithStringVariableTypeObject_thenReturnTypeNameIsBytes() {
     // Arrange
     when(variableInstanceDataManager.create()).thenReturn(new VariableInstanceEntityImpl());
@@ -137,14 +143,13 @@ public class VariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)}
-   * with {@code VariableInstanceEntity}, {@code boolean}.
+   * Test {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)} with {@code VariableInstanceEntity}, {@code boolean}.
    * <p>
-   * Method under test:
-   * {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)}
+   * Method under test: {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableInstanceEntityManagerImpl.insert(VariableInstanceEntity, boolean)"})
   public void testInsertWithVariableInstanceEntityBoolean() {
     // Arrange
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
@@ -163,14 +168,13 @@ public class VariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)}
-   * with {@code VariableInstanceEntity}, {@code boolean}.
+   * Test {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)} with {@code VariableInstanceEntity}, {@code boolean}.
    * <p>
-   * Method under test:
-   * {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)}
+   * Method under test: {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableInstanceEntityManagerImpl.insert(VariableInstanceEntity, boolean)"})
   public void testInsertWithVariableInstanceEntityBoolean2() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -192,14 +196,13 @@ public class VariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)}
-   * with {@code VariableInstanceEntity}, {@code boolean}.
+   * Test {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)} with {@code VariableInstanceEntity}, {@code boolean}.
    * <p>
-   * Method under test:
-   * {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)}
+   * Method under test: {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableInstanceEntityManagerImpl.insert(VariableInstanceEntity, boolean)"})
   public void testInsertWithVariableInstanceEntityBoolean3() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -241,14 +244,13 @@ public class VariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)}
-   * with {@code VariableInstanceEntity}, {@code boolean}.
+   * Test {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)} with {@code VariableInstanceEntity}, {@code boolean}.
    * <p>
-   * Method under test:
-   * {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)}
+   * Method under test: {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableInstanceEntityManagerImpl.insert(VariableInstanceEntity, boolean)"})
   public void testInsertWithVariableInstanceEntityBoolean4() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -292,14 +294,13 @@ public class VariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)}
-   * with {@code VariableInstanceEntity}, {@code boolean}.
+   * Test {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)} with {@code VariableInstanceEntity}, {@code boolean}.
    * <p>
-   * Method under test:
-   * {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)}
+   * Method under test: {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableInstanceEntityManagerImpl.insert(VariableInstanceEntity, boolean)"})
   public void testInsertWithVariableInstanceEntityBoolean5() {
     // Arrange
     PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
@@ -344,18 +345,16 @@ public class VariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)}
-   * with {@code VariableInstanceEntity}, {@code boolean}.
+   * Test {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)} with {@code VariableInstanceEntity}, {@code boolean}.
    * <ul>
-   *   <li>Then calls
-   * {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)}
+   * Method under test: {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableInstanceEntityManagerImpl.insert(VariableInstanceEntity, boolean)"})
   public void testInsertWithVariableInstanceEntityBoolean_thenCallsDispatchEvent() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -379,17 +378,16 @@ public class VariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)}
-   * with {@code VariableInstanceEntity}, {@code boolean}.
+   * Test {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)} with {@code VariableInstanceEntity}, {@code boolean}.
    * <ul>
    *   <li>Then calls {@link EntityManager#findById(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)}
+   * Method under test: {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableInstanceEntityManagerImpl.insert(VariableInstanceEntity, boolean)"})
   public void testInsertWithVariableInstanceEntityBoolean_thenCallsFindById() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -430,17 +428,16 @@ public class VariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)}
-   * with {@code VariableInstanceEntity}, {@code boolean}.
+   * Test {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)} with {@code VariableInstanceEntity}, {@code boolean}.
    * <ul>
    *   <li>Then calls {@link ExecutionEntityImpl#getVariableCount()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)}
+   * Method under test: {@link VariableInstanceEntityManagerImpl#insert(VariableInstanceEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableInstanceEntityManagerImpl.insert(VariableInstanceEntity, boolean)"})
   public void testInsertWithVariableInstanceEntityBoolean_thenCallsGetVariableCount() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -488,18 +485,40 @@ public class VariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link VariableInstanceEntityManagerImpl#findVariableInstancesByTaskIds(Set)}.
+   * Test {@link VariableInstanceEntityManagerImpl#findVariableInstancesByTaskId(String)}.
+   * <p>
+   * Method under test: {@link VariableInstanceEntityManagerImpl#findVariableInstancesByTaskId(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List VariableInstanceEntityManagerImpl.findVariableInstancesByTaskId(String)"})
+  public void testFindVariableInstancesByTaskId() {
+    // Arrange
+    when(variableInstanceDataManager.findVariableInstancesByTaskId(Mockito.<String>any()))
+        .thenReturn(new ArrayList<>());
+
+    // Act
+    List<VariableInstanceEntity> actualFindVariableInstancesByTaskIdResult = variableInstanceEntityManagerImpl
+        .findVariableInstancesByTaskId("42");
+
+    // Assert
+    verify(variableInstanceDataManager).findVariableInstancesByTaskId(eq("42"));
+    assertTrue(actualFindVariableInstancesByTaskIdResult.isEmpty());
+  }
+
+  /**
+   * Test {@link VariableInstanceEntityManagerImpl#findVariableInstancesByTaskIds(Set)}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    *   <li>When {@link HashSet#HashSet()} add {@code 42}.</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableInstanceEntityManagerImpl#findVariableInstancesByTaskIds(Set)}
+   * Method under test: {@link VariableInstanceEntityManagerImpl#findVariableInstancesByTaskIds(Set)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List VariableInstanceEntityManagerImpl.findVariableInstancesByTaskIds(Set)"})
   public void testFindVariableInstancesByTaskIds_given42_whenHashSetAdd42_thenReturnEmpty() {
     // Arrange
     VariableInstanceDataManager variableInstanceDataManager = mock(VariableInstanceDataManager.class);
@@ -522,18 +541,18 @@ public class VariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link VariableInstanceEntityManagerImpl#findVariableInstancesByTaskIds(Set)}.
+   * Test {@link VariableInstanceEntityManagerImpl#findVariableInstancesByTaskIds(Set)}.
    * <ul>
    *   <li>Given {@code foo}.</li>
    *   <li>When {@link HashSet#HashSet()} add {@code foo}.</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableInstanceEntityManagerImpl#findVariableInstancesByTaskIds(Set)}
+   * Method under test: {@link VariableInstanceEntityManagerImpl#findVariableInstancesByTaskIds(Set)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List VariableInstanceEntityManagerImpl.findVariableInstancesByTaskIds(Set)"})
   public void testFindVariableInstancesByTaskIds_givenFoo_whenHashSetAddFoo_thenReturnEmpty() {
     // Arrange
     VariableInstanceDataManager variableInstanceDataManager = mock(VariableInstanceDataManager.class);
@@ -555,17 +574,18 @@ public class VariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link VariableInstanceEntityManagerImpl#findVariableInstancesByTaskIds(Set)}.
+   * Test {@link VariableInstanceEntityManagerImpl#findVariableInstancesByTaskIds(Set)}.
    * <ul>
+   *   <li>When {@link HashSet#HashSet()}.</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableInstanceEntityManagerImpl#findVariableInstancesByTaskIds(Set)}
+   * Method under test: {@link VariableInstanceEntityManagerImpl#findVariableInstancesByTaskIds(Set)}
    */
   @Test
-  public void testFindVariableInstancesByTaskIds_thenReturnEmpty() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List VariableInstanceEntityManagerImpl.findVariableInstancesByTaskIds(Set)"})
+  public void testFindVariableInstancesByTaskIds_whenHashSet_thenReturnEmpty() {
     // Arrange
     VariableInstanceDataManager variableInstanceDataManager = mock(VariableInstanceDataManager.class);
     when(variableInstanceDataManager.findVariableInstancesByTaskIds(Mockito.<Set<String>>any()))
@@ -583,18 +603,40 @@ public class VariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link VariableInstanceEntityManagerImpl#findVariableInstancesByExecutionIds(Set)}.
+   * Test {@link VariableInstanceEntityManagerImpl#findVariableInstancesByExecutionId(String)}.
+   * <p>
+   * Method under test: {@link VariableInstanceEntityManagerImpl#findVariableInstancesByExecutionId(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List VariableInstanceEntityManagerImpl.findVariableInstancesByExecutionId(String)"})
+  public void testFindVariableInstancesByExecutionId() {
+    // Arrange
+    when(variableInstanceDataManager.findVariableInstancesByExecutionId(Mockito.<String>any()))
+        .thenReturn(new ArrayList<>());
+
+    // Act
+    List<VariableInstanceEntity> actualFindVariableInstancesByExecutionIdResult = variableInstanceEntityManagerImpl
+        .findVariableInstancesByExecutionId("42");
+
+    // Assert
+    verify(variableInstanceDataManager).findVariableInstancesByExecutionId(eq("42"));
+    assertTrue(actualFindVariableInstancesByExecutionIdResult.isEmpty());
+  }
+
+  /**
+   * Test {@link VariableInstanceEntityManagerImpl#findVariableInstancesByExecutionIds(Set)}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    *   <li>When {@link HashSet#HashSet()} add {@code 42}.</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableInstanceEntityManagerImpl#findVariableInstancesByExecutionIds(Set)}
+   * Method under test: {@link VariableInstanceEntityManagerImpl#findVariableInstancesByExecutionIds(Set)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List VariableInstanceEntityManagerImpl.findVariableInstancesByExecutionIds(Set)"})
   public void testFindVariableInstancesByExecutionIds_given42_whenHashSetAdd42_thenReturnEmpty() {
     // Arrange
     VariableInstanceDataManager variableInstanceDataManager = mock(VariableInstanceDataManager.class);
@@ -617,17 +659,17 @@ public class VariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link VariableInstanceEntityManagerImpl#findVariableInstancesByExecutionIds(Set)}.
+   * Test {@link VariableInstanceEntityManagerImpl#findVariableInstancesByExecutionIds(Set)}.
    * <ul>
    *   <li>Given {@code foo}.</li>
    *   <li>When {@link HashSet#HashSet()} add {@code foo}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableInstanceEntityManagerImpl#findVariableInstancesByExecutionIds(Set)}
+   * Method under test: {@link VariableInstanceEntityManagerImpl#findVariableInstancesByExecutionIds(Set)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List VariableInstanceEntityManagerImpl.findVariableInstancesByExecutionIds(Set)"})
   public void testFindVariableInstancesByExecutionIds_givenFoo_whenHashSetAddFoo() {
     // Arrange
     VariableInstanceDataManager variableInstanceDataManager = mock(VariableInstanceDataManager.class);
@@ -649,17 +691,18 @@ public class VariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link VariableInstanceEntityManagerImpl#findVariableInstancesByExecutionIds(Set)}.
+   * Test {@link VariableInstanceEntityManagerImpl#findVariableInstancesByExecutionIds(Set)}.
    * <ul>
+   *   <li>When {@link HashSet#HashSet()}.</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableInstanceEntityManagerImpl#findVariableInstancesByExecutionIds(Set)}
+   * Method under test: {@link VariableInstanceEntityManagerImpl#findVariableInstancesByExecutionIds(Set)}
    */
   @Test
-  public void testFindVariableInstancesByExecutionIds_thenReturnEmpty() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List VariableInstanceEntityManagerImpl.findVariableInstancesByExecutionIds(Set)"})
+  public void testFindVariableInstancesByExecutionIds_whenHashSet_thenReturnEmpty() {
     // Arrange
     VariableInstanceDataManager variableInstanceDataManager = mock(VariableInstanceDataManager.class);
     when(variableInstanceDataManager.findVariableInstancesByExecutionIds(Mockito.<Set<String>>any()))
@@ -677,13 +720,14 @@ public class VariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link VariableInstanceEntityManagerImpl#findVariableInstanceByExecutionAndName(String, String)}.
+   * Test {@link VariableInstanceEntityManagerImpl#findVariableInstanceByExecutionAndName(String, String)}.
    * <p>
-   * Method under test:
-   * {@link VariableInstanceEntityManagerImpl#findVariableInstanceByExecutionAndName(String, String)}
+   * Method under test: {@link VariableInstanceEntityManagerImpl#findVariableInstanceByExecutionAndName(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "VariableInstanceEntity VariableInstanceEntityManagerImpl.findVariableInstanceByExecutionAndName(String, String)"})
   public void testFindVariableInstanceByExecutionAndName() {
     // Arrange
     VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
@@ -700,14 +744,208 @@ public class VariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link VariableInstanceEntityManagerImpl#delete(VariableInstanceEntity, boolean)}
-   * with {@code VariableInstanceEntity}, {@code boolean}.
+   * Test {@link VariableInstanceEntityManagerImpl#findVariableInstancesByExecutionAndNames(String, Collection)}.
+   * <ul>
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
+   * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableInstanceEntityManagerImpl#delete(VariableInstanceEntity, boolean)}
+   * Method under test: {@link VariableInstanceEntityManagerImpl#findVariableInstancesByExecutionAndNames(String, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List VariableInstanceEntityManagerImpl.findVariableInstancesByExecutionAndNames(String, Collection)"})
+  public void testFindVariableInstancesByExecutionAndNames_given42_whenArrayListAdd42() {
+    // Arrange
+    when(variableInstanceDataManager.findVariableInstancesByExecutionAndNames(Mockito.<String>any(),
+        Mockito.<Collection<String>>any())).thenReturn(new ArrayList<>());
+
+    ArrayList<String> names = new ArrayList<>();
+    names.add("42");
+    names.add("foo");
+
+    // Act
+    List<VariableInstanceEntity> actualFindVariableInstancesByExecutionAndNamesResult = variableInstanceEntityManagerImpl
+        .findVariableInstancesByExecutionAndNames("42", names);
+
+    // Assert
+    verify(variableInstanceDataManager).findVariableInstancesByExecutionAndNames(eq("42"), isA(Collection.class));
+    assertTrue(actualFindVariableInstancesByExecutionAndNamesResult.isEmpty());
+  }
+
+  /**
+   * Test {@link VariableInstanceEntityManagerImpl#findVariableInstancesByExecutionAndNames(String, Collection)}.
+   * <ul>
+   *   <li>Given {@code foo}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableInstanceEntityManagerImpl#findVariableInstancesByExecutionAndNames(String, Collection)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List VariableInstanceEntityManagerImpl.findVariableInstancesByExecutionAndNames(String, Collection)"})
+  public void testFindVariableInstancesByExecutionAndNames_givenFoo_whenArrayListAddFoo() {
+    // Arrange
+    when(variableInstanceDataManager.findVariableInstancesByExecutionAndNames(Mockito.<String>any(),
+        Mockito.<Collection<String>>any())).thenReturn(new ArrayList<>());
+
+    ArrayList<String> names = new ArrayList<>();
+    names.add("foo");
+
+    // Act
+    List<VariableInstanceEntity> actualFindVariableInstancesByExecutionAndNamesResult = variableInstanceEntityManagerImpl
+        .findVariableInstancesByExecutionAndNames("42", names);
+
+    // Assert
+    verify(variableInstanceDataManager).findVariableInstancesByExecutionAndNames(eq("42"), isA(Collection.class));
+    assertTrue(actualFindVariableInstancesByExecutionAndNamesResult.isEmpty());
+  }
+
+  /**
+   * Test {@link VariableInstanceEntityManagerImpl#findVariableInstancesByExecutionAndNames(String, Collection)}.
+   * <ul>
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableInstanceEntityManagerImpl#findVariableInstancesByExecutionAndNames(String, Collection)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List VariableInstanceEntityManagerImpl.findVariableInstancesByExecutionAndNames(String, Collection)"})
+  public void testFindVariableInstancesByExecutionAndNames_whenArrayList() {
+    // Arrange
+    when(variableInstanceDataManager.findVariableInstancesByExecutionAndNames(Mockito.<String>any(),
+        Mockito.<Collection<String>>any())).thenReturn(new ArrayList<>());
+
+    // Act
+    List<VariableInstanceEntity> actualFindVariableInstancesByExecutionAndNamesResult = variableInstanceEntityManagerImpl
+        .findVariableInstancesByExecutionAndNames("42", new ArrayList<>());
+
+    // Assert
+    verify(variableInstanceDataManager).findVariableInstancesByExecutionAndNames(eq("42"), isA(Collection.class));
+    assertTrue(actualFindVariableInstancesByExecutionAndNamesResult.isEmpty());
+  }
+
+  /**
+   * Test {@link VariableInstanceEntityManagerImpl#findVariableInstanceByTaskAndName(String, String)}.
+   * <p>
+   * Method under test: {@link VariableInstanceEntityManagerImpl#findVariableInstanceByTaskAndName(String, String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "VariableInstanceEntity VariableInstanceEntityManagerImpl.findVariableInstanceByTaskAndName(String, String)"})
+  public void testFindVariableInstanceByTaskAndName() {
+    // Arrange
+    VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
+    when(variableInstanceDataManager.findVariableInstanceByTaskAndName(Mockito.<String>any(), Mockito.<String>any()))
+        .thenReturn(variableInstanceEntityImpl);
+
+    // Act
+    VariableInstanceEntity actualFindVariableInstanceByTaskAndNameResult = variableInstanceEntityManagerImpl
+        .findVariableInstanceByTaskAndName("42", "Variable Name");
+
+    // Assert
+    verify(variableInstanceDataManager).findVariableInstanceByTaskAndName(eq("42"), eq("Variable Name"));
+    assertSame(variableInstanceEntityImpl, actualFindVariableInstanceByTaskAndNameResult);
+  }
+
+  /**
+   * Test {@link VariableInstanceEntityManagerImpl#findVariableInstancesByTaskAndNames(String, Collection)}.
+   * <ul>
+   *   <li>Given {@code 42}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableInstanceEntityManagerImpl#findVariableInstancesByTaskAndNames(String, Collection)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List VariableInstanceEntityManagerImpl.findVariableInstancesByTaskAndNames(String, Collection)"})
+  public void testFindVariableInstancesByTaskAndNames_given42_whenArrayListAdd42() {
+    // Arrange
+    when(variableInstanceDataManager.findVariableInstancesByTaskAndNames(Mockito.<String>any(),
+        Mockito.<Collection<String>>any())).thenReturn(new ArrayList<>());
+
+    ArrayList<String> names = new ArrayList<>();
+    names.add("42");
+    names.add("foo");
+
+    // Act
+    List<VariableInstanceEntity> actualFindVariableInstancesByTaskAndNamesResult = variableInstanceEntityManagerImpl
+        .findVariableInstancesByTaskAndNames("42", names);
+
+    // Assert
+    verify(variableInstanceDataManager).findVariableInstancesByTaskAndNames(eq("42"), isA(Collection.class));
+    assertTrue(actualFindVariableInstancesByTaskAndNamesResult.isEmpty());
+  }
+
+  /**
+   * Test {@link VariableInstanceEntityManagerImpl#findVariableInstancesByTaskAndNames(String, Collection)}.
+   * <ul>
+   *   <li>Given {@code foo}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableInstanceEntityManagerImpl#findVariableInstancesByTaskAndNames(String, Collection)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List VariableInstanceEntityManagerImpl.findVariableInstancesByTaskAndNames(String, Collection)"})
+  public void testFindVariableInstancesByTaskAndNames_givenFoo_whenArrayListAddFoo() {
+    // Arrange
+    when(variableInstanceDataManager.findVariableInstancesByTaskAndNames(Mockito.<String>any(),
+        Mockito.<Collection<String>>any())).thenReturn(new ArrayList<>());
+
+    ArrayList<String> names = new ArrayList<>();
+    names.add("foo");
+
+    // Act
+    List<VariableInstanceEntity> actualFindVariableInstancesByTaskAndNamesResult = variableInstanceEntityManagerImpl
+        .findVariableInstancesByTaskAndNames("42", names);
+
+    // Assert
+    verify(variableInstanceDataManager).findVariableInstancesByTaskAndNames(eq("42"), isA(Collection.class));
+    assertTrue(actualFindVariableInstancesByTaskAndNamesResult.isEmpty());
+  }
+
+  /**
+   * Test {@link VariableInstanceEntityManagerImpl#findVariableInstancesByTaskAndNames(String, Collection)}.
+   * <ul>
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableInstanceEntityManagerImpl#findVariableInstancesByTaskAndNames(String, Collection)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List VariableInstanceEntityManagerImpl.findVariableInstancesByTaskAndNames(String, Collection)"})
+  public void testFindVariableInstancesByTaskAndNames_whenArrayList() {
+    // Arrange
+    when(variableInstanceDataManager.findVariableInstancesByTaskAndNames(Mockito.<String>any(),
+        Mockito.<Collection<String>>any())).thenReturn(new ArrayList<>());
+
+    // Act
+    List<VariableInstanceEntity> actualFindVariableInstancesByTaskAndNamesResult = variableInstanceEntityManagerImpl
+        .findVariableInstancesByTaskAndNames("42", new ArrayList<>());
+
+    // Assert
+    verify(variableInstanceDataManager).findVariableInstancesByTaskAndNames(eq("42"), isA(Collection.class));
+    assertTrue(actualFindVariableInstancesByTaskAndNamesResult.isEmpty());
+  }
+
+  /**
+   * Test {@link VariableInstanceEntityManagerImpl#delete(VariableInstanceEntity, boolean)} with {@code VariableInstanceEntity}, {@code boolean}.
+   * <p>
+   * Method under test: {@link VariableInstanceEntityManagerImpl#delete(VariableInstanceEntity, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableInstanceEntityManagerImpl.delete(VariableInstanceEntity, boolean)"})
   public void testDeleteWithVariableInstanceEntityBoolean() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -763,14 +1001,13 @@ public class VariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link VariableInstanceEntityManagerImpl#delete(VariableInstanceEntity, boolean)}
-   * with {@code VariableInstanceEntity}, {@code boolean}.
+   * Test {@link VariableInstanceEntityManagerImpl#delete(VariableInstanceEntity, boolean)} with {@code VariableInstanceEntity}, {@code boolean}.
    * <p>
-   * Method under test:
-   * {@link VariableInstanceEntityManagerImpl#delete(VariableInstanceEntity, boolean)}
+   * Method under test: {@link VariableInstanceEntityManagerImpl#delete(VariableInstanceEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableInstanceEntityManagerImpl.delete(VariableInstanceEntity, boolean)"})
   public void testDeleteWithVariableInstanceEntityBoolean2() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -834,14 +1071,13 @@ public class VariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link VariableInstanceEntityManagerImpl#delete(VariableInstanceEntity, boolean)}
-   * with {@code VariableInstanceEntity}, {@code boolean}.
+   * Test {@link VariableInstanceEntityManagerImpl#delete(VariableInstanceEntity, boolean)} with {@code VariableInstanceEntity}, {@code boolean}.
    * <p>
-   * Method under test:
-   * {@link VariableInstanceEntityManagerImpl#delete(VariableInstanceEntity, boolean)}
+   * Method under test: {@link VariableInstanceEntityManagerImpl#delete(VariableInstanceEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableInstanceEntityManagerImpl.delete(VariableInstanceEntity, boolean)"})
   public void testDeleteWithVariableInstanceEntityBoolean3() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -893,17 +1129,16 @@ public class VariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link VariableInstanceEntityManagerImpl#delete(VariableInstanceEntity, boolean)}
-   * with {@code VariableInstanceEntity}, {@code boolean}.
+   * Test {@link VariableInstanceEntityManagerImpl#delete(VariableInstanceEntity, boolean)} with {@code VariableInstanceEntity}, {@code boolean}.
    * <ul>
    *   <li>Then calls {@link ByteArrayRef#delete()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableInstanceEntityManagerImpl#delete(VariableInstanceEntity, boolean)}
+   * Method under test: {@link VariableInstanceEntityManagerImpl#delete(VariableInstanceEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableInstanceEntityManagerImpl.delete(VariableInstanceEntity, boolean)"})
   public void testDeleteWithVariableInstanceEntityBoolean_thenCallsDelete() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -970,18 +1205,16 @@ public class VariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link VariableInstanceEntityManagerImpl#delete(VariableInstanceEntity, boolean)}
-   * with {@code VariableInstanceEntity}, {@code boolean}.
+   * Test {@link VariableInstanceEntityManagerImpl#delete(VariableInstanceEntity, boolean)} with {@code VariableInstanceEntity}, {@code boolean}.
    * <ul>
-   *   <li>Then calls
-   * {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableInstanceEntityManagerImpl#delete(VariableInstanceEntity, boolean)}
+   * Method under test: {@link VariableInstanceEntityManagerImpl#delete(VariableInstanceEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableInstanceEntityManagerImpl.delete(VariableInstanceEntity, boolean)"})
   public void testDeleteWithVariableInstanceEntityBoolean_thenCallsDispatchEvent() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -1036,17 +1269,16 @@ public class VariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link VariableInstanceEntityManagerImpl#delete(VariableInstanceEntity, boolean)}
-   * with {@code VariableInstanceEntity}, {@code boolean}.
+   * Test {@link VariableInstanceEntityManagerImpl#delete(VariableInstanceEntity, boolean)} with {@code VariableInstanceEntity}, {@code boolean}.
    * <ul>
    *   <li>Then calls {@link ExecutionEntityImpl#getProcessDefinitionId()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableInstanceEntityManagerImpl#delete(VariableInstanceEntity, boolean)}
+   * Method under test: {@link VariableInstanceEntityManagerImpl#delete(VariableInstanceEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableInstanceEntityManagerImpl.delete(VariableInstanceEntity, boolean)"})
   public void testDeleteWithVariableInstanceEntityBoolean_thenCallsGetProcessDefinitionId() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -1110,18 +1342,17 @@ public class VariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link VariableInstanceEntityManagerImpl#delete(VariableInstanceEntity, boolean)}
-   * with {@code VariableInstanceEntity}, {@code boolean}.
+   * Test {@link VariableInstanceEntityManagerImpl#delete(VariableInstanceEntity, boolean)} with {@code VariableInstanceEntity}, {@code boolean}.
    * <ul>
    *   <li>When {@code false}.</li>
    *   <li>Then calls {@link ByteArrayRef#delete()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableInstanceEntityManagerImpl#delete(VariableInstanceEntity, boolean)}
+   * Method under test: {@link VariableInstanceEntityManagerImpl#delete(VariableInstanceEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableInstanceEntityManagerImpl.delete(VariableInstanceEntity, boolean)"})
   public void testDeleteWithVariableInstanceEntityBoolean_whenFalse_thenCallsDelete() {
     // Arrange
     PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
@@ -1173,24 +1404,25 @@ public class VariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link VariableInstanceEntityManagerImpl#createVariableDeleteEvent(VariableInstanceEntity)}.
-   * <ul>
-   *   <li>Then return {@link ActivitiVariableEventImpl}.</li>
-   * </ul>
+   * Test {@link VariableInstanceEntityManagerImpl#createVariableDeleteEvent(VariableInstanceEntity)}.
    * <p>
-   * Method under test:
-   * {@link VariableInstanceEntityManagerImpl#createVariableDeleteEvent(VariableInstanceEntity)}
+   * Method under test: {@link VariableInstanceEntityManagerImpl#createVariableDeleteEvent(VariableInstanceEntity)}
    */
   @Test
-  public void testCreateVariableDeleteEvent_thenReturnActivitiVariableEventImpl() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiVariableEvent VariableInstanceEntityManagerImpl.createVariableDeleteEvent(VariableInstanceEntity)"})
+  public void testCreateVariableDeleteEvent() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     VariableInstanceEntityManagerImpl variableInstanceEntityManagerImpl = new VariableInstanceEntityManagerImpl(
         processEngineConfiguration, new MybatisVariableInstanceDataManager(new JtaProcessEngineConfiguration()));
 
     VariableInstanceEntityImpl variableInstance = new VariableInstanceEntityImpl();
-    BigDecimalType type = new BigDecimalType();
+    variableInstance.setProcessInstanceId(null);
+    Class<Object> theClass = Object.class;
+    CustomObjectType type = new CustomObjectType("jpa-entity", theClass);
+
     variableInstance.setType(type);
 
     // Act
@@ -1199,25 +1431,80 @@ public class VariableInstanceEntityManagerImplDiffblueTest {
 
     // Assert
     assertTrue(actualCreateVariableDeleteEventResult instanceof ActivitiVariableEventImpl);
-    assertNull(actualCreateVariableDeleteEventResult.getVariableValue());
-    assertNull(actualCreateVariableDeleteEventResult.getProcessDefinitionId());
-    assertNull(actualCreateVariableDeleteEventResult.getProcessInstanceId());
-    assertNull(actualCreateVariableDeleteEventResult.getExecutionId());
-    assertNull(actualCreateVariableDeleteEventResult.getTaskId());
-    assertNull(actualCreateVariableDeleteEventResult.getVariableName());
-    assertNull(((ActivitiVariableEventImpl) actualCreateVariableDeleteEventResult).getReason());
-    assertEquals(ActivitiEventType.VARIABLE_DELETED, actualCreateVariableDeleteEventResult.getType());
     assertSame(type, actualCreateVariableDeleteEventResult.getVariableType());
   }
 
   /**
-   * Test
-   * {@link VariableInstanceEntityManagerImpl#deleteVariableInstanceByTask(TaskEntity)}.
+   * Test {@link VariableInstanceEntityManagerImpl#createVariableDeleteEvent(VariableInstanceEntity)}.
    * <p>
-   * Method under test:
-   * {@link VariableInstanceEntityManagerImpl#deleteVariableInstanceByTask(TaskEntity)}
+   * Method under test: {@link VariableInstanceEntityManagerImpl#createVariableDeleteEvent(VariableInstanceEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiVariableEvent VariableInstanceEntityManagerImpl.createVariableDeleteEvent(VariableInstanceEntity)"})
+  public void testCreateVariableDeleteEvent2() {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    VariableInstanceEntityManagerImpl variableInstanceEntityManagerImpl = new VariableInstanceEntityManagerImpl(
+        processEngineConfiguration, new MybatisVariableInstanceDataManager(new JtaProcessEngineConfiguration()));
+
+    VariableInstanceEntityImpl variableInstance = new VariableInstanceEntityImpl();
+    variableInstance.setProcessInstanceId(null);
+    Class<Object> theClass = Object.class;
+    CustomObjectType type = new CustomObjectType("Type Name", theClass);
+
+    variableInstance.setType(type);
+
+    // Act
+    ActivitiVariableEvent actualCreateVariableDeleteEventResult = variableInstanceEntityManagerImpl
+        .createVariableDeleteEvent(variableInstance);
+
+    // Assert
+    assertTrue(actualCreateVariableDeleteEventResult instanceof ActivitiVariableEventImpl);
+    assertSame(type, actualCreateVariableDeleteEventResult.getVariableType());
+  }
+
+  /**
+   * Test {@link VariableInstanceEntityManagerImpl#createVariableDeleteEvent(VariableInstanceEntity)}.
+   * <ul>
+   *   <li>Then return VariableType is {@link ByteArrayType} (default constructor).</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableInstanceEntityManagerImpl#createVariableDeleteEvent(VariableInstanceEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiVariableEvent VariableInstanceEntityManagerImpl.createVariableDeleteEvent(VariableInstanceEntity)"})
+  public void testCreateVariableDeleteEvent_thenReturnVariableTypeIsByteArrayType() {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    VariableInstanceEntityManagerImpl variableInstanceEntityManagerImpl = new VariableInstanceEntityManagerImpl(
+        processEngineConfiguration, new MybatisVariableInstanceDataManager(new JtaProcessEngineConfiguration()));
+
+    VariableInstanceEntityImpl variableInstance = new VariableInstanceEntityImpl();
+    variableInstance.setProcessInstanceId(null);
+    ByteArrayType type = new ByteArrayType();
+    variableInstance.setType(type);
+
+    // Act
+    ActivitiVariableEvent actualCreateVariableDeleteEventResult = variableInstanceEntityManagerImpl
+        .createVariableDeleteEvent(variableInstance);
+
+    // Assert
+    assertTrue(actualCreateVariableDeleteEventResult instanceof ActivitiVariableEventImpl);
+    assertSame(type, actualCreateVariableDeleteEventResult.getVariableType());
+  }
+
+  /**
+   * Test {@link VariableInstanceEntityManagerImpl#deleteVariableInstanceByTask(TaskEntity)}.
+   * <p>
+   * Method under test: {@link VariableInstanceEntityManagerImpl#deleteVariableInstanceByTask(TaskEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableInstanceEntityManagerImpl.deleteVariableInstanceByTask(TaskEntity)"})
   public void testDeleteVariableInstanceByTask() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -1279,16 +1566,156 @@ public class VariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link VariableInstanceEntityManagerImpl#deleteVariableInstanceByTask(TaskEntity)}.
+   * Test {@link VariableInstanceEntityManagerImpl#deleteVariableInstanceByTask(TaskEntity)}.
+   * <p>
+   * Method under test: {@link VariableInstanceEntityManagerImpl#deleteVariableInstanceByTask(TaskEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableInstanceEntityManagerImpl.deleteVariableInstanceByTask(TaskEntity)"})
+  public void testDeleteVariableInstanceByTask2() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
+    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(false);
+    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
+    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
+    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
+    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
+    performanceSettings.setEnableEagerExecutionTreeFetching(true);
+    performanceSettings.setEnableExecutionRelationshipCounts(true);
+    performanceSettings.setEnableLocalization(true);
+    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
+    ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
+    when(executionEntityManager.findById(Mockito.<String>any()))
+        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManager);
+    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    VariableInstanceDataManager variableInstanceDataManager = mock(VariableInstanceDataManager.class);
+    doNothing().when(variableInstanceDataManager).delete(Mockito.<VariableInstanceEntity>any());
+    VariableInstanceEntityManagerImpl variableInstanceEntityManagerImpl = new VariableInstanceEntityManagerImpl(
+        processEngineConfiguration, variableInstanceDataManager);
+    VariableInstanceEntityImpl variableInstanceEntityImpl = mock(VariableInstanceEntityImpl.class);
+    when(variableInstanceEntityImpl.getValue()).thenReturn(JSONObject.NULL);
+    when(variableInstanceEntityImpl.getName()).thenReturn("Name");
+    when(variableInstanceEntityImpl.getTaskId()).thenReturn("42");
+    when(variableInstanceEntityImpl.getExecutionId()).thenReturn("42");
+    when(variableInstanceEntityImpl.getProcessInstanceId()).thenReturn("42");
+    when(variableInstanceEntityImpl.getByteArrayRef()).thenReturn(new ByteArrayRef());
+    when(variableInstanceEntityImpl.getType()).thenReturn(new BigDecimalType());
+    doNothing().when(variableInstanceEntityImpl).setDeleted(anyBoolean());
+
+    HashMap<String, VariableInstanceEntity> stringVariableInstanceEntityMap = new HashMap<>();
+    stringVariableInstanceEntityMap.put("foo", variableInstanceEntityImpl);
+    TaskEntity task = mock(TaskEntity.class);
+    when(task.getVariableInstanceEntities()).thenReturn(stringVariableInstanceEntityMap);
+
+    // Act
+    variableInstanceEntityManagerImpl.deleteVariableInstanceByTask(task);
+
+    // Assert
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher).isEnabled();
+    verify(performanceSettings).isEnableExecutionRelationshipCounts();
+    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
+    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
+    verify(performanceSettings).setEnableLocalization(eq(true));
+    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
+    verify(processEngineConfiguration).getEventDispatcher();
+    verify(processEngineConfiguration).getExecutionEntityManager();
+    verify(processEngineConfiguration).getPerformanceSettings();
+    verify(variableInstanceEntityImpl).setDeleted(eq(true));
+    verify(executionEntityManager).findById(eq("42"));
+    verify(task).getVariableInstanceEntities();
+    verify(variableInstanceEntityImpl).getByteArrayRef();
+    verify(variableInstanceEntityImpl, atLeast(1)).getExecutionId();
+    verify(variableInstanceEntityImpl).getName();
+    verify(variableInstanceEntityImpl, atLeast(1)).getProcessInstanceId();
+    verify(variableInstanceEntityImpl).getTaskId();
+    verify(variableInstanceEntityImpl, atLeast(1)).getType();
+    verify(variableInstanceEntityImpl).getValue();
+    verify(variableInstanceDataManager).delete(isA(VariableInstanceEntity.class));
+  }
+
+  /**
+   * Test {@link VariableInstanceEntityManagerImpl#deleteVariableInstanceByTask(TaskEntity)}.
+   * <p>
+   * Method under test: {@link VariableInstanceEntityManagerImpl#deleteVariableInstanceByTask(TaskEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableInstanceEntityManagerImpl.deleteVariableInstanceByTask(TaskEntity)"})
+  public void testDeleteVariableInstanceByTask3() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
+    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
+    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
+    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
+    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
+    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
+    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
+    performanceSettings.setEnableEagerExecutionTreeFetching(true);
+    performanceSettings.setEnableExecutionRelationshipCounts(true);
+    performanceSettings.setEnableLocalization(true);
+    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
+    ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
+    when(executionEntityManager.findById(Mockito.<String>any()))
+        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManager);
+    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    VariableInstanceDataManager variableInstanceDataManager = mock(VariableInstanceDataManager.class);
+    doNothing().when(variableInstanceDataManager).delete(Mockito.<VariableInstanceEntity>any());
+    VariableInstanceEntityManagerImpl variableInstanceEntityManagerImpl = new VariableInstanceEntityManagerImpl(
+        processEngineConfiguration, variableInstanceDataManager);
+    VariableInstanceEntityImpl variableInstanceEntityImpl = mock(VariableInstanceEntityImpl.class);
+    when(variableInstanceEntityImpl.getExecutionId()).thenReturn("42");
+    when(variableInstanceEntityImpl.getByteArrayRef()).thenReturn(new ByteArrayRef());
+    doNothing().when(variableInstanceEntityImpl).setDeleted(anyBoolean());
+
+    HashMap<String, VariableInstanceEntity> stringVariableInstanceEntityMap = new HashMap<>();
+    stringVariableInstanceEntityMap.put("foo", variableInstanceEntityImpl);
+    TaskEntity task = mock(TaskEntity.class);
+    when(task.getVariableInstanceEntities()).thenReturn(stringVariableInstanceEntityMap);
+
+    // Act
+    variableInstanceEntityManagerImpl.deleteVariableInstanceByTask(task);
+
+    // Assert
+    verify(activitiEventDispatcher).isEnabled();
+    verify(performanceSettings, atLeast(1)).isEnableExecutionRelationshipCounts();
+    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
+    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
+    verify(performanceSettings).setEnableLocalization(eq(true));
+    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
+    verify(processEngineConfiguration).getEventDispatcher();
+    verify(processEngineConfiguration).getExecutionEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
+    verify(variableInstanceEntityImpl).setDeleted(eq(true));
+    verify(executionEntityManager).findById(eq("42"));
+    verify(task).getVariableInstanceEntities();
+    verify(variableInstanceEntityImpl).getByteArrayRef();
+    verify(variableInstanceEntityImpl, atLeast(1)).getExecutionId();
+    verify(variableInstanceDataManager).delete(isA(VariableInstanceEntity.class));
+  }
+
+  /**
+   * Test {@link VariableInstanceEntityManagerImpl#deleteVariableInstanceByTask(TaskEntity)}.
    * <ul>
    *   <li>Given {@link HashMap#HashMap()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableInstanceEntityManagerImpl#deleteVariableInstanceByTask(TaskEntity)}
+   * Method under test: {@link VariableInstanceEntityManagerImpl#deleteVariableInstanceByTask(TaskEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableInstanceEntityManagerImpl.deleteVariableInstanceByTask(TaskEntity)"})
   public void testDeleteVariableInstanceByTask_givenHashMap() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
@@ -1300,21 +1727,103 @@ public class VariableInstanceEntityManagerImplDiffblueTest {
     // Act
     variableInstanceEntityManagerImpl.deleteVariableInstanceByTask(task);
 
-    // Assert that nothing has changed
+    // Assert
     verify(task).getVariableInstanceEntities();
   }
 
   /**
-   * Test
-   * {@link VariableInstanceEntityManagerImpl#deleteVariableInstanceByTask(TaskEntity)}.
+   * Test {@link VariableInstanceEntityManagerImpl#deleteVariableInstanceByTask(TaskEntity)}.
+   * <ul>
+   *   <li>Then calls {@link ByteArrayRef#delete()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableInstanceEntityManagerImpl#deleteVariableInstanceByTask(TaskEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableInstanceEntityManagerImpl.deleteVariableInstanceByTask(TaskEntity)"})
+  public void testDeleteVariableInstanceByTask_thenCallsDelete() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
+    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
+    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
+    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
+    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
+    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
+    performanceSettings.setEnableEagerExecutionTreeFetching(true);
+    performanceSettings.setEnableExecutionRelationshipCounts(true);
+    performanceSettings.setEnableLocalization(true);
+    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
+    ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
+    when(executionEntityManager.findById(Mockito.<String>any()))
+        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManager);
+    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    VariableInstanceDataManager variableInstanceDataManager = mock(VariableInstanceDataManager.class);
+    doNothing().when(variableInstanceDataManager).delete(Mockito.<VariableInstanceEntity>any());
+    VariableInstanceEntityManagerImpl variableInstanceEntityManagerImpl = new VariableInstanceEntityManagerImpl(
+        processEngineConfiguration, variableInstanceDataManager);
+    ByteArrayRef byteArrayRef = mock(ByteArrayRef.class);
+    doNothing().when(byteArrayRef).delete();
+    VariableInstanceEntityImpl variableInstanceEntityImpl = mock(VariableInstanceEntityImpl.class);
+    when(variableInstanceEntityImpl.getValue()).thenReturn(JSONObject.NULL);
+    when(variableInstanceEntityImpl.getName()).thenReturn("Name");
+    when(variableInstanceEntityImpl.getTaskId()).thenReturn("42");
+    when(variableInstanceEntityImpl.getExecutionId()).thenReturn("42");
+    when(variableInstanceEntityImpl.getProcessInstanceId()).thenReturn("42");
+    when(variableInstanceEntityImpl.getByteArrayRef()).thenReturn(byteArrayRef);
+    when(variableInstanceEntityImpl.getType()).thenReturn(new BigDecimalType());
+    doNothing().when(variableInstanceEntityImpl).setDeleted(anyBoolean());
+
+    HashMap<String, VariableInstanceEntity> stringVariableInstanceEntityMap = new HashMap<>();
+    stringVariableInstanceEntityMap.put("foo", variableInstanceEntityImpl);
+    TaskEntity task = mock(TaskEntity.class);
+    when(task.getVariableInstanceEntities()).thenReturn(stringVariableInstanceEntityMap);
+
+    // Act
+    variableInstanceEntityManagerImpl.deleteVariableInstanceByTask(task);
+
+    // Assert
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher).isEnabled();
+    verify(performanceSettings, atLeast(1)).isEnableExecutionRelationshipCounts();
+    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
+    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
+    verify(performanceSettings).setEnableLocalization(eq(true));
+    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
+    verify(processEngineConfiguration).getEventDispatcher();
+    verify(processEngineConfiguration, atLeast(1)).getExecutionEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
+    verify(variableInstanceEntityImpl).setDeleted(eq(true));
+    verify(byteArrayRef).delete();
+    verify(executionEntityManager, atLeast(1)).findById(eq("42"));
+    verify(task).getVariableInstanceEntities();
+    verify(variableInstanceEntityImpl).getByteArrayRef();
+    verify(variableInstanceEntityImpl, atLeast(1)).getExecutionId();
+    verify(variableInstanceEntityImpl).getName();
+    verify(variableInstanceEntityImpl, atLeast(1)).getProcessInstanceId();
+    verify(variableInstanceEntityImpl).getTaskId();
+    verify(variableInstanceEntityImpl, atLeast(1)).getType();
+    verify(variableInstanceEntityImpl).getValue();
+    verify(variableInstanceDataManager).delete(isA(VariableInstanceEntity.class));
+  }
+
+  /**
+   * Test {@link VariableInstanceEntityManagerImpl#deleteVariableInstanceByTask(TaskEntity)}.
    * <ul>
    *   <li>Then calls {@link EntityManager#findById(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableInstanceEntityManagerImpl#deleteVariableInstanceByTask(TaskEntity)}
+   * Method under test: {@link VariableInstanceEntityManagerImpl#deleteVariableInstanceByTask(TaskEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableInstanceEntityManagerImpl.deleteVariableInstanceByTask(TaskEntity)"})
   public void testDeleteVariableInstanceByTask_thenCallsFindById() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -1375,16 +1884,16 @@ public class VariableInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link VariableInstanceEntityManagerImpl#deleteVariableInstanceByTask(TaskEntity)}.
+   * Test {@link VariableInstanceEntityManagerImpl#deleteVariableInstanceByTask(TaskEntity)}.
    * <ul>
    *   <li>Then calls {@link ExecutionEntityImpl#getProcessDefinitionId()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableInstanceEntityManagerImpl#deleteVariableInstanceByTask(TaskEntity)}
+   * Method under test: {@link VariableInstanceEntityManagerImpl#deleteVariableInstanceByTask(TaskEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableInstanceEntityManagerImpl.deleteVariableInstanceByTask(TaskEntity)"})
   public void testDeleteVariableInstanceByTask_thenCallsGetProcessDefinitionId() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);

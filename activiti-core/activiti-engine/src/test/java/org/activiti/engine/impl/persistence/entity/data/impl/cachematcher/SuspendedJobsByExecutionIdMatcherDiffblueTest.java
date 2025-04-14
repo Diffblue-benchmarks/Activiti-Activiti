@@ -21,25 +21,27 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.persistence.entity.SuspendedJobEntity;
 import org.activiti.engine.impl.persistence.entity.SuspendedJobEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class SuspendedJobsByExecutionIdMatcherDiffblueTest {
   /**
-   * Test
-   * {@link SuspendedJobsByExecutionIdMatcher#isRetained(SuspendedJobEntity, Object)}
-   * with {@code SuspendedJobEntity}, {@code Object}.
+   * Test {@link SuspendedJobsByExecutionIdMatcher#isRetained(SuspendedJobEntity, Object)} with {@code SuspendedJobEntity}, {@code Object}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SuspendedJobsByExecutionIdMatcher#isRetained(SuspendedJobEntity, Object)}
+   * Method under test: {@link SuspendedJobsByExecutionIdMatcher#isRetained(SuspendedJobEntity, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean SuspendedJobsByExecutionIdMatcher.isRetained(SuspendedJobEntity, Object)"})
   public void testIsRetainedWithSuspendedJobEntityObject_given42_thenReturnFalse() {
     // Arrange
     SuspendedJobsByExecutionIdMatcher suspendedJobsByExecutionIdMatcher = new SuspendedJobsByExecutionIdMatcher();
@@ -55,19 +57,18 @@ public class SuspendedJobsByExecutionIdMatcherDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link SuspendedJobsByExecutionIdMatcher#isRetained(SuspendedJobEntity, Object)}
-   * with {@code SuspendedJobEntity}, {@code Object}.
+   * Test {@link SuspendedJobsByExecutionIdMatcher#isRetained(SuspendedJobEntity, Object)} with {@code SuspendedJobEntity}, {@code Object}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    *   <li>When {@code 42}.</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SuspendedJobsByExecutionIdMatcher#isRetained(SuspendedJobEntity, Object)}
+   * Method under test: {@link SuspendedJobsByExecutionIdMatcher#isRetained(SuspendedJobEntity, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean SuspendedJobsByExecutionIdMatcher.isRetained(SuspendedJobEntity, Object)"})
   public void testIsRetainedWithSuspendedJobEntityObject_given42_when42_thenReturnTrue() {
     // Arrange
     SuspendedJobsByExecutionIdMatcher suspendedJobsByExecutionIdMatcher = new SuspendedJobsByExecutionIdMatcher();
@@ -83,17 +84,16 @@ public class SuspendedJobsByExecutionIdMatcherDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link SuspendedJobsByExecutionIdMatcher#isRetained(SuspendedJobEntity, Object)}
-   * with {@code SuspendedJobEntity}, {@code Object}.
+   * Test {@link SuspendedJobsByExecutionIdMatcher#isRetained(SuspendedJobEntity, Object)} with {@code SuspendedJobEntity}, {@code Object}.
    * <ul>
    *   <li>When {@link SuspendedJobEntityImpl} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SuspendedJobsByExecutionIdMatcher#isRetained(SuspendedJobEntity, Object)}
+   * Method under test: {@link SuspendedJobsByExecutionIdMatcher#isRetained(SuspendedJobEntity, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean SuspendedJobsByExecutionIdMatcher.isRetained(SuspendedJobEntity, Object)"})
   public void testIsRetainedWithSuspendedJobEntityObject_whenSuspendedJobEntityImpl() {
     // Arrange
     SuspendedJobsByExecutionIdMatcher suspendedJobsByExecutionIdMatcher = new SuspendedJobsByExecutionIdMatcher();

@@ -17,16 +17,20 @@ package org.activiti.engine.impl.bpmn.behavior;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class TransactionActivityBehaviorDiffblueTest {
   /**
    * Test new {@link TransactionActivityBehavior} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link TransactionActivityBehavior}
+   * Method under test: default or parameterless constructor of {@link TransactionActivityBehavior}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TransactionActivityBehavior.<init>()"})
   public void testNewTransactionActivityBehavior() {
     // Arrange and Act
     TransactionActivityBehavior actualTransactionActivityBehavior = new TransactionActivityBehavior();

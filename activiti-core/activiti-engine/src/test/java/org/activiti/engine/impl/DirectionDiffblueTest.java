@@ -17,25 +17,20 @@ package org.activiti.engine.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class DirectionDiffblueTest {
-  @InjectMocks
-  private Direction direction;
-
-  @InjectMocks
-  private String string;
-
   /**
    * Test {@link Direction#Direction(String)}.
    * <p>
    * Method under test: {@link Direction#Direction(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Direction.<init>(String)"})
   public void testNewDirection() {
     // Arrange, Act and Assert
     assertEquals("Name", (new Direction("Name")).getName());
@@ -47,6 +42,8 @@ public class DirectionDiffblueTest {
    * Method under test: {@link Direction#getName()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String Direction.getName()"})
   public void testGetName() {
     // Arrange, Act and Assert
     assertEquals("Name", (new Direction("Name")).getName());
@@ -58,6 +55,8 @@ public class DirectionDiffblueTest {
    * Method under test: {@link Direction#findByName(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Direction Direction.findByName(String)"})
   public void testFindByName() {
     // Arrange, Act and Assert
     assertNull(Direction.findByName("Direction Name"));

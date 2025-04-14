@@ -17,19 +17,22 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class HandleFailedJobCmdDiffblueTest {
   /**
-   * Test
-   * {@link HandleFailedJobCmd#HandleFailedJobCmd(String, ProcessEngineConfigurationImpl, Throwable)}.
+   * Test {@link HandleFailedJobCmd#HandleFailedJobCmd(String, ProcessEngineConfigurationImpl, Throwable)}.
    * <p>
-   * Method under test:
-   * {@link HandleFailedJobCmd#HandleFailedJobCmd(String, ProcessEngineConfigurationImpl, Throwable)}
+   * Method under test: {@link HandleFailedJobCmd#HandleFailedJobCmd(String, ProcessEngineConfigurationImpl, Throwable)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HandleFailedJobCmd.<init>(String, ProcessEngineConfigurationImpl, Throwable)"})
   public void testNewHandleFailedJobCmd() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();

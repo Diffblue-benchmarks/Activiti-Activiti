@@ -17,72 +17,52 @@ package org.activiti.engine.impl.bpmn.behavior;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.FlowNode;
-import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.delegate.DelegateExecution;
-import org.activiti.engine.impl.bpmn.parser.factory.DefaultMessageExecutionContext;
-import org.activiti.engine.impl.delegate.MessagePayloadMappingProvider;
-import org.activiti.engine.impl.el.ExpressionManager;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class FlowNodeActivityBehaviorDiffblueTest {
-  @InjectMocks
-  private AbstractBpmnActivityBehavior abstractBpmnActivityBehavior;
-
   /**
-   * Test
-   * {@link FlowNodeActivityBehavior#trigger(DelegateExecution, String, Object)}.
+   * Test {@link FlowNodeActivityBehavior#trigger(DelegateExecution, String, Object)}.
+   * <ul>
+   *   <li>Given {@link AbstractBpmnActivityBehavior} (default constructor).</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
+   * </ul>
    * <p>
-   * Method under test:
-   * {@link FlowNodeActivityBehavior#trigger(DelegateExecution, String, Object)}
+   * Method under test: {@link FlowNodeActivityBehavior#trigger(DelegateExecution, String, Object)}
    */
   @Test
-  public void testTrigger() {
-    // Arrange, Act and Assert
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FlowNodeActivityBehavior.trigger(DelegateExecution, String, Object)"})
+  public void testTrigger_givenAbstractBpmnActivityBehavior_thenThrowActivitiException() {
+    // Arrange
+    AbstractBpmnActivityBehavior abstractBpmnActivityBehavior = new AbstractBpmnActivityBehavior();
+
+    // Act and Assert
     assertThrows(ActivitiException.class, () -> abstractBpmnActivityBehavior
         .trigger(ExecutionEntityImpl.createWithEmptyRelationshipCollections(), "Signal Name", JSONObject.NULL));
   }
 
   /**
    * Test {@link FlowNodeActivityBehavior#parseActivityType(FlowNode)}.
-   * <p>
-   * Method under test:
-   * {@link FlowNodeActivityBehavior#parseActivityType(FlowNode)}
-   */
-  @Test
-  public void testParseActivityType() {
-    // Arrange
-    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
-    MessageEventDefinition messageEventDefinition2 = new MessageEventDefinition();
-    EventSubProcessMessageStartEventActivityBehavior eventSubProcessMessageStartEventActivityBehavior = new EventSubProcessMessageStartEventActivityBehavior(
-        messageEventDefinition, new DefaultMessageExecutionContext(messageEventDefinition2, new ExpressionManager(),
-            mock(MessagePayloadMappingProvider.class)));
-
-    // Act and Assert
-    assertEquals("adhocSubProcess",
-        eventSubProcessMessageStartEventActivityBehavior.parseActivityType(new AdhocSubProcess()));
-  }
-
-  /**
-   * Test {@link FlowNodeActivityBehavior#parseActivityType(FlowNode)}.
    * <ul>
+   *   <li>When {@link AdhocSubProcess} (default constructor).</li>
    *   <li>Then return {@code adhocSubProcess}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link FlowNodeActivityBehavior#parseActivityType(FlowNode)}
+   * Method under test: {@link FlowNodeActivityBehavior#parseActivityType(FlowNode)}
    */
   @Test
-  public void testParseActivityType_thenReturnAdhocSubProcess() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String FlowNodeActivityBehavior.parseActivityType(FlowNode)"})
+  public void testParseActivityType_whenAdhocSubProcess_thenReturnAdhocSubProcess() {
     // Arrange
     AbstractBpmnActivityBehavior abstractBpmnActivityBehavior = new AbstractBpmnActivityBehavior();
 

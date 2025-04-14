@@ -17,8 +17,11 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class GetTaskEventCmdDiffblueTest {
   /**
@@ -31,6 +34,8 @@ public class GetTaskEventCmdDiffblueTest {
    * Method under test: {@link GetTaskEventCmd#GetTaskEventCmd(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void GetTaskEventCmd.<init>(String)"})
   public void testNewGetTaskEventCmd_when42_thenReturnEventIdIs42() {
     // Arrange, Act and Assert
     assertEquals("42", (new GetTaskEventCmd("42")).eventId);
@@ -46,6 +51,8 @@ public class GetTaskEventCmdDiffblueTest {
    * Method under test: {@link GetTaskEventCmd#GetTaskEventCmd(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void GetTaskEventCmd.<init>(String)"})
   public void testNewGetTaskEventCmd_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> new GetTaskEventCmd(null));

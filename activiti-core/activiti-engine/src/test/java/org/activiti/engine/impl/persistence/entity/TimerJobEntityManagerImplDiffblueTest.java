@@ -29,13 +29,14 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import org.activiti.core.el.CustomFunctionProvider;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.VariableScope;
 import org.activiti.engine.delegate.event.ActivitiEvent;
@@ -55,7 +56,9 @@ import org.activiti.engine.impl.persistence.entity.data.TimerJobDataManager;
 import org.activiti.engine.impl.persistence.entity.data.impl.MybatisTimerJobDataManager;
 import org.activiti.engine.runtime.Job;
 import org.activiti.engine.test.bpmn.event.timer.TimerCustomCalendarTest;
+import org.activiti.engine.test.bpmn.event.timer.TimerCustomCalendarTest.CustomBusinessCalendar;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -78,12 +81,14 @@ public class TimerJobEntityManagerImplDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link TimerJobEntityManagerImpl#TimerJobEntityManagerImpl(ProcessEngineConfigurationImpl, TimerJobDataManager)}
+   *   <li>{@link TimerJobEntityManagerImpl#TimerJobEntityManagerImpl(ProcessEngineConfigurationImpl, TimerJobDataManager)}
    *   <li>{@link TimerJobEntityManagerImpl#setJobDataManager(TimerJobDataManager)}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, TimerJobDataManager)",
+      "void TimerJobEntityManagerImpl.setJobDataManager(TimerJobDataManager)"})
   public void testGettersAndSetters() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
@@ -99,21 +104,20 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TimerJobEntityManagerImpl#createAndCalculateNextTimer(JobEntity, VariableScope)}.
+   * Test {@link TimerJobEntityManagerImpl#createAndCalculateNextTimer(JobEntity, VariableScope)}.
    * <ul>
    *   <li>Then PersistentState return {@link Map}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#createAndCalculateNextTimer(JobEntity, VariableScope)}
+   * Method under test: {@link TimerJobEntityManagerImpl#createAndCalculateNextTimer(JobEntity, VariableScope)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobEntity TimerJobEntityManagerImpl.createAndCalculateNextTimer(JobEntity, VariableScope)"})
   public void testCreateAndCalculateNextTimer_thenPersistentStateReturnMap() {
     // Arrange
     BusinessCalendarManager businessCalendarManager = mock(BusinessCalendarManager.class);
-    when(businessCalendarManager.getBusinessCalendar(Mockito.<String>any()))
-        .thenReturn(new TimerCustomCalendarTest.CustomBusinessCalendar());
+    when(businessCalendarManager.getBusinessCalendar(Mockito.<String>any())).thenReturn(new CustomBusinessCalendar());
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setBusinessCalendarManager(businessCalendarManager);
@@ -161,10 +165,6 @@ public class TimerJobEntityManagerImplDiffblueTest {
     assertEquals("Job Handler Type", actualCreateAndCalculateNextTimerResult.getJobHandlerType());
     assertEquals("Repeat", actualCreateAndCalculateNextTimerResult.getRepeat());
     assertEquals("timer", actualCreateAndCalculateNextTimerResult.getJobType());
-    assertEquals(5, ((Map<String, Object>) persistentState).size());
-    assertNull(((Map<String, Object>) persistentState).get("exceptionMessage"));
-    assertNull(((Map<String, Object>) persistentState).get("lockExpirationTime"));
-    assertNull(((Map<String, Object>) persistentState).get("lockOwner"));
     assertNull(actualCreateAndCalculateNextTimerResult.getExceptionStacktrace());
     assertNull(actualCreateAndCalculateNextTimerResult.getId());
     assertNull(actualCreateAndCalculateNextTimerResult.getLockOwner());
@@ -175,13 +175,16 @@ public class TimerJobEntityManagerImplDiffblueTest {
     assertEquals(1, actualCreateAndCalculateNextTimerResult.getRevision());
     assertEquals(1, actualCreateAndCalculateNextTimerResult.getRetries());
     assertEquals(2, actualCreateAndCalculateNextTimerResult.getRevisionNext());
+    assertEquals(5, ((Map<String, Object>) persistentState).size());
     assertFalse(actualCreateAndCalculateNextTimerResult.isDeleted());
     assertFalse(actualCreateAndCalculateNextTimerResult.isInserted());
     assertFalse(actualCreateAndCalculateNextTimerResult.isUpdated());
+    assertTrue(((Map<String, Object>) persistentState).containsKey("duedate"));
+    assertTrue(((Map<String, Object>) persistentState).containsKey("exceptionMessage"));
+    assertTrue(((Map<String, Object>) persistentState).containsKey("lockExpirationTime"));
+    assertTrue(((Map<String, Object>) persistentState).containsKey("lockOwner"));
     assertTrue(((Map<String, Object>) persistentState).containsKey("retries"));
     assertTrue(actualCreateAndCalculateNextTimerResult.isExclusive());
-    Date expectedGetResult = actualCreateAndCalculateNextTimerResult.getDuedate();
-    assertSame(expectedGetResult, ((Map<String, Object>) persistentState).get("duedate"));
   }
 
   /**
@@ -190,10 +193,11 @@ public class TimerJobEntityManagerImplDiffblueTest {
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#findTimerJobsToExecute(Page)}
+   * Method under test: {@link TimerJobEntityManagerImpl#findTimerJobsToExecute(Page)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List TimerJobEntityManagerImpl.findTimerJobsToExecute(Page)"})
   public void testFindTimerJobsToExecute_thenReturnEmpty() {
     // Arrange
     TimerJobDataManager jobDataManager = mock(TimerJobDataManager.class);
@@ -211,13 +215,13 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TimerJobEntityManagerImpl#findJobsByTypeAndProcessDefinitionId(String, String)}.
+   * Test {@link TimerJobEntityManagerImpl#findJobsByTypeAndProcessDefinitionId(String, String)}.
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#findJobsByTypeAndProcessDefinitionId(String, String)}
+   * Method under test: {@link TimerJobEntityManagerImpl#findJobsByTypeAndProcessDefinitionId(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List TimerJobEntityManagerImpl.findJobsByTypeAndProcessDefinitionId(String, String)"})
   public void testFindJobsByTypeAndProcessDefinitionId() {
     // Arrange
     when(timerJobDataManager.findJobsByTypeAndProcessDefinitionId(Mockito.<String>any(), Mockito.<String>any()))
@@ -233,13 +237,13 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TimerJobEntityManagerImpl#findJobsByTypeAndProcessDefinitionKeyNoTenantId(String, String)}.
+   * Test {@link TimerJobEntityManagerImpl#findJobsByTypeAndProcessDefinitionKeyNoTenantId(String, String)}.
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#findJobsByTypeAndProcessDefinitionKeyNoTenantId(String, String)}
+   * Method under test: {@link TimerJobEntityManagerImpl#findJobsByTypeAndProcessDefinitionKeyNoTenantId(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List TimerJobEntityManagerImpl.findJobsByTypeAndProcessDefinitionKeyNoTenantId(String, String)"})
   public void testFindJobsByTypeAndProcessDefinitionKeyNoTenantId() {
     // Arrange
     when(timerJobDataManager.findJobsByTypeAndProcessDefinitionKeyNoTenantId(Mockito.<String>any(),
@@ -256,13 +260,14 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TimerJobEntityManagerImpl#findJobsByTypeAndProcessDefinitionKeyAndTenantId(String, String, String)}.
+   * Test {@link TimerJobEntityManagerImpl#findJobsByTypeAndProcessDefinitionKeyAndTenantId(String, String, String)}.
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#findJobsByTypeAndProcessDefinitionKeyAndTenantId(String, String, String)}
+   * Method under test: {@link TimerJobEntityManagerImpl#findJobsByTypeAndProcessDefinitionKeyAndTenantId(String, String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List TimerJobEntityManagerImpl.findJobsByTypeAndProcessDefinitionKeyAndTenantId(String, String, String)"})
   public void testFindJobsByTypeAndProcessDefinitionKeyAndTenantId() {
     // Arrange
     when(timerJobDataManager.findJobsByTypeAndProcessDefinitionKeyAndTenantId(Mockito.<String>any(),
@@ -281,10 +286,11 @@ public class TimerJobEntityManagerImplDiffblueTest {
   /**
    * Test {@link TimerJobEntityManagerImpl#findJobsByExecutionId(String)}.
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#findJobsByExecutionId(String)}
+   * Method under test: {@link TimerJobEntityManagerImpl#findJobsByExecutionId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List TimerJobEntityManagerImpl.findJobsByExecutionId(String)"})
   public void testFindJobsByExecutionId() {
     // Arrange
     when(timerJobDataManager.findJobsByExecutionId(Mockito.<String>any())).thenReturn(new ArrayList<>());
@@ -300,10 +306,11 @@ public class TimerJobEntityManagerImplDiffblueTest {
   /**
    * Test {@link TimerJobEntityManagerImpl#findJobsByProcessInstanceId(String)}.
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#findJobsByProcessInstanceId(String)}
+   * Method under test: {@link TimerJobEntityManagerImpl#findJobsByProcessInstanceId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List TimerJobEntityManagerImpl.findJobsByProcessInstanceId(String)"})
   public void testFindJobsByProcessInstanceId() {
     // Arrange
     when(timerJobDataManager.findJobsByProcessInstanceId(Mockito.<String>any())).thenReturn(new ArrayList<>());
@@ -318,16 +325,16 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TimerJobEntityManagerImpl#findJobsByQueryCriteria(TimerJobQueryImpl, Page)}.
+   * Test {@link TimerJobEntityManagerImpl#findJobsByQueryCriteria(TimerJobQueryImpl, Page)}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#findJobsByQueryCriteria(TimerJobQueryImpl, Page)}
+   * Method under test: {@link TimerJobEntityManagerImpl#findJobsByQueryCriteria(TimerJobQueryImpl, Page)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List TimerJobEntityManagerImpl.findJobsByQueryCriteria(TimerJobQueryImpl, Page)"})
   public void testFindJobsByQueryCriteria_thenReturnEmpty() {
     // Arrange
     TimerJobDataManager jobDataManager = mock(TimerJobDataManager.class);
@@ -347,16 +354,16 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TimerJobEntityManagerImpl#findJobCountByQueryCriteria(TimerJobQueryImpl)}.
+   * Test {@link TimerJobEntityManagerImpl#findJobCountByQueryCriteria(TimerJobQueryImpl)}.
    * <ul>
    *   <li>Then return three.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#findJobCountByQueryCriteria(TimerJobQueryImpl)}
+   * Method under test: {@link TimerJobEntityManagerImpl#findJobCountByQueryCriteria(TimerJobQueryImpl)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long TimerJobEntityManagerImpl.findJobCountByQueryCriteria(TimerJobQueryImpl)"})
   public void testFindJobCountByQueryCriteria_thenReturnThree() {
     // Arrange
     TimerJobDataManager jobDataManager = mock(TimerJobDataManager.class);
@@ -374,13 +381,13 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TimerJobEntityManagerImpl#updateJobTenantIdForDeployment(String, String)}.
+   * Test {@link TimerJobEntityManagerImpl#updateJobTenantIdForDeployment(String, String)}.
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#updateJobTenantIdForDeployment(String, String)}
+   * Method under test: {@link TimerJobEntityManagerImpl#updateJobTenantIdForDeployment(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.updateJobTenantIdForDeployment(String, String)"})
   public void testUpdateJobTenantIdForDeployment() {
     // Arrange
     doNothing().when(timerJobDataManager).updateJobTenantIdForDeployment(Mockito.<String>any(), Mockito.<String>any());
@@ -395,10 +402,11 @@ public class TimerJobEntityManagerImplDiffblueTest {
   /**
    * Test {@link TimerJobEntityManagerImpl#insertTimerJobEntity(TimerJobEntity)}.
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#insertTimerJobEntity(TimerJobEntity)}
+   * Method under test: {@link TimerJobEntityManagerImpl#insertTimerJobEntity(TimerJobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean TimerJobEntityManagerImpl.insertTimerJobEntity(TimerJobEntity)"})
   public void testInsertTimerJobEntity() {
     // Arrange
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
@@ -422,10 +430,11 @@ public class TimerJobEntityManagerImplDiffblueTest {
   /**
    * Test {@link TimerJobEntityManagerImpl#insertTimerJobEntity(TimerJobEntity)}.
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#insertTimerJobEntity(TimerJobEntity)}
+   * Method under test: {@link TimerJobEntityManagerImpl#insertTimerJobEntity(TimerJobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean TimerJobEntityManagerImpl.insertTimerJobEntity(TimerJobEntity)"})
   public void testInsertTimerJobEntity2() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -472,10 +481,11 @@ public class TimerJobEntityManagerImplDiffblueTest {
   /**
    * Test {@link TimerJobEntityManagerImpl#insertTimerJobEntity(TimerJobEntity)}.
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#insertTimerJobEntity(TimerJobEntity)}
+   * Method under test: {@link TimerJobEntityManagerImpl#insertTimerJobEntity(TimerJobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean TimerJobEntityManagerImpl.insertTimerJobEntity(TimerJobEntity)"})
   public void testInsertTimerJobEntity3() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -532,10 +542,11 @@ public class TimerJobEntityManagerImplDiffblueTest {
   /**
    * Test {@link TimerJobEntityManagerImpl#insertTimerJobEntity(TimerJobEntity)}.
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#insertTimerJobEntity(TimerJobEntity)}
+   * Method under test: {@link TimerJobEntityManagerImpl#insertTimerJobEntity(TimerJobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean TimerJobEntityManagerImpl.insertTimerJobEntity(TimerJobEntity)"})
   public void testInsertTimerJobEntity4() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -589,14 +600,14 @@ public class TimerJobEntityManagerImplDiffblueTest {
   /**
    * Test {@link TimerJobEntityManagerImpl#insertTimerJobEntity(TimerJobEntity)}.
    * <ul>
-   *   <li>Given {@link ActivitiEventDispatcher}
-   * {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
+   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#insertTimerJobEntity(TimerJobEntity)}
+   * Method under test: {@link TimerJobEntityManagerImpl#insertTimerJobEntity(TimerJobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean TimerJobEntityManagerImpl.insertTimerJobEntity(TimerJobEntity)"})
   public void testInsertTimerJobEntity_givenActivitiEventDispatcherIsEnabledReturnFalse() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -623,14 +634,14 @@ public class TimerJobEntityManagerImplDiffblueTest {
   /**
    * Test {@link TimerJobEntityManagerImpl#insertTimerJobEntity(TimerJobEntity)}.
    * <ul>
-   *   <li>Given {@link ExecutionEntityImpl}
-   * {@link ExecutionEntityImpl#getTenantId()} return {@code 42}.</li>
+   *   <li>Given {@link ExecutionEntityImpl} {@link ExecutionEntityImpl#getTenantId()} return {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#insertTimerJobEntity(TimerJobEntity)}
+   * Method under test: {@link TimerJobEntityManagerImpl#insertTimerJobEntity(TimerJobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean TimerJobEntityManagerImpl.insertTimerJobEntity(TimerJobEntity)"})
   public void testInsertTimerJobEntity_givenExecutionEntityImplGetTenantIdReturn42() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -697,14 +708,14 @@ public class TimerJobEntityManagerImplDiffblueTest {
   /**
    * Test {@link TimerJobEntityManagerImpl#insertTimerJobEntity(TimerJobEntity)}.
    * <ul>
-   *   <li>Given {@link ExecutionEntityImpl}
-   * {@link ExecutionEntityImpl#getTenantId()} return {@code null}.</li>
+   *   <li>Given {@link ExecutionEntityImpl} {@link ExecutionEntityImpl#getTenantId()} return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#insertTimerJobEntity(TimerJobEntity)}
+   * Method under test: {@link TimerJobEntityManagerImpl#insertTimerJobEntity(TimerJobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean TimerJobEntityManagerImpl.insertTimerJobEntity(TimerJobEntity)"})
   public void testInsertTimerJobEntity_givenExecutionEntityImplGetTenantIdReturnNull() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -774,10 +785,11 @@ public class TimerJobEntityManagerImplDiffblueTest {
    *   <li>Then calls {@link DelegateExecution#getTenantId()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#insertTimerJobEntity(TimerJobEntity)}
+   * Method under test: {@link TimerJobEntityManagerImpl#insertTimerJobEntity(TimerJobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean TimerJobEntityManagerImpl.insertTimerJobEntity(TimerJobEntity)"})
   public void testInsertTimerJobEntity_thenCallsGetTenantId() {
     // Arrange
     PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
@@ -834,10 +846,11 @@ public class TimerJobEntityManagerImplDiffblueTest {
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#insertTimerJobEntity(TimerJobEntity)}
+   * Method under test: {@link TimerJobEntityManagerImpl#insertTimerJobEntity(TimerJobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean TimerJobEntityManagerImpl.insertTimerJobEntity(TimerJobEntity)"})
   public void testInsertTimerJobEntity_thenReturnFalse() {
     // Arrange
     PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
@@ -878,14 +891,14 @@ public class TimerJobEntityManagerImplDiffblueTest {
    * Test {@link TimerJobEntityManagerImpl#insertTimerJobEntity(TimerJobEntity)}.
    * <ul>
    *   <li>When {@link TimerJobEntityImpl} (default constructor).</li>
-   *   <li>Then calls
-   * {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#insertTimerJobEntity(TimerJobEntity)}
+   * Method under test: {@link TimerJobEntityManagerImpl#insertTimerJobEntity(TimerJobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean TimerJobEntityManagerImpl.insertTimerJobEntity(TimerJobEntity)"})
   public void testInsertTimerJobEntity_whenTimerJobEntityImpl_thenCallsDispatchEvent() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -912,12 +925,13 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity)} with
-   * {@code TimerJobEntity}.
+   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity)} with {@code TimerJobEntity}.
    * <p>
    * Method under test: {@link TimerJobEntityManagerImpl#insert(TimerJobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.insert(TimerJobEntity)"})
   public void testInsertWithTimerJobEntity() {
     // Arrange
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
@@ -931,19 +945,20 @@ public class TimerJobEntityManagerImplDiffblueTest {
     // Act
     timerJobEntityManagerImpl.insert(jobEntity);
 
-    // Assert
+    // Assert that nothing has changed
     verify(processEngineConfiguration).getEventDispatcher();
     verify(jobDataManager).insert(isA(TimerJobEntity.class));
     assertEquals("", jobEntity.getTenantId());
   }
 
   /**
-   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity)} with
-   * {@code TimerJobEntity}.
+   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity)} with {@code TimerJobEntity}.
    * <p>
    * Method under test: {@link TimerJobEntityManagerImpl#insert(TimerJobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.insert(TimerJobEntity)"})
   public void testInsertWithTimerJobEntity2() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -975,7 +990,7 @@ public class TimerJobEntityManagerImplDiffblueTest {
     // Act
     timerJobEntityManagerImpl.insert(jobEntity);
 
-    // Assert
+    // Assert that nothing has changed
     verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
     verify(activitiEventDispatcher).isEnabled();
     verify(processEngineConfiguration).getEventDispatcher();
@@ -987,12 +1002,13 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity)} with
-   * {@code TimerJobEntity}.
+   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity)} with {@code TimerJobEntity}.
    * <p>
    * Method under test: {@link TimerJobEntityManagerImpl#insert(TimerJobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.insert(TimerJobEntity)"})
   public void testInsertWithTimerJobEntity3() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -1029,7 +1045,7 @@ public class TimerJobEntityManagerImplDiffblueTest {
     // Act
     timerJobEntityManagerImpl.insert(jobEntity);
 
-    // Assert
+    // Assert that nothing has changed
     verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
     verify(activitiEventDispatcher).isEnabled();
     verify(performanceSettings).isEnableExecutionRelationshipCounts();
@@ -1046,12 +1062,13 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity)} with
-   * {@code TimerJobEntity}.
+   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity)} with {@code TimerJobEntity}.
    * <p>
    * Method under test: {@link TimerJobEntityManagerImpl#insert(TimerJobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.insert(TimerJobEntity)"})
   public void testInsertWithTimerJobEntity4() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -1085,7 +1102,7 @@ public class TimerJobEntityManagerImplDiffblueTest {
     // Act
     timerJobEntityManagerImpl.insert(jobEntity);
 
-    // Assert
+    // Assert that nothing has changed
     verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
     verify(activitiEventDispatcher).isEnabled();
     verify(performanceSettings).isEnableExecutionRelationshipCounts();
@@ -1102,13 +1119,13 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)} with
-   * {@code TimerJobEntity}, {@code boolean}.
+   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)} with {@code TimerJobEntity}, {@code boolean}.
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)}
+   * Method under test: {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.insert(TimerJobEntity, boolean)"})
   public void testInsertWithTimerJobEntityBoolean() {
     // Arrange
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
@@ -1122,20 +1139,20 @@ public class TimerJobEntityManagerImplDiffblueTest {
     // Act
     timerJobEntityManagerImpl.insert(jobEntity, true);
 
-    // Assert
+    // Assert that nothing has changed
     verify(processEngineConfiguration).getEventDispatcher();
     verify(jobDataManager).insert(isA(TimerJobEntity.class));
     assertEquals("", jobEntity.getTenantId());
   }
 
   /**
-   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)} with
-   * {@code TimerJobEntity}, {@code boolean}.
+   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)} with {@code TimerJobEntity}, {@code boolean}.
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)}
+   * Method under test: {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.insert(TimerJobEntity, boolean)"})
   public void testInsertWithTimerJobEntityBoolean2() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -1151,7 +1168,7 @@ public class TimerJobEntityManagerImplDiffblueTest {
     // Act
     timerJobEntityManagerImpl.insert(jobEntity, true);
 
-    // Assert
+    // Assert that nothing has changed
     verify(activitiEventDispatcher).isEnabled();
     verify(processEngineConfiguration).getEventDispatcher();
     verify(jobDataManager).insert(isA(TimerJobEntity.class));
@@ -1159,13 +1176,13 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)} with
-   * {@code TimerJobEntity}, {@code boolean}.
+   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)} with {@code TimerJobEntity}, {@code boolean}.
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)}
+   * Method under test: {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.insert(TimerJobEntity, boolean)"})
   public void testInsertWithTimerJobEntityBoolean3() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -1197,7 +1214,7 @@ public class TimerJobEntityManagerImplDiffblueTest {
     // Act
     timerJobEntityManagerImpl.insert(jobEntity, true);
 
-    // Assert
+    // Assert that nothing has changed
     verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
     verify(activitiEventDispatcher).isEnabled();
     verify(processEngineConfiguration).getEventDispatcher();
@@ -1209,13 +1226,13 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)} with
-   * {@code TimerJobEntity}, {@code boolean}.
+   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)} with {@code TimerJobEntity}, {@code boolean}.
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)}
+   * Method under test: {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.insert(TimerJobEntity, boolean)"})
   public void testInsertWithTimerJobEntityBoolean4() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -1252,7 +1269,7 @@ public class TimerJobEntityManagerImplDiffblueTest {
     // Act
     timerJobEntityManagerImpl.insert(jobEntity, true);
 
-    // Assert
+    // Assert that nothing has changed
     verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
     verify(activitiEventDispatcher).isEnabled();
     verify(performanceSettings).isEnableExecutionRelationshipCounts();
@@ -1269,13 +1286,13 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)} with
-   * {@code TimerJobEntity}, {@code boolean}.
+   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)} with {@code TimerJobEntity}, {@code boolean}.
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)}
+   * Method under test: {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.insert(TimerJobEntity, boolean)"})
   public void testInsertWithTimerJobEntityBoolean5() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -1317,7 +1334,7 @@ public class TimerJobEntityManagerImplDiffblueTest {
     // Act
     timerJobEntityManagerImpl.insert(jobEntity, true);
 
-    // Assert
+    // Assert that nothing has changed
     verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
     verify(activitiEventDispatcher).isEnabled();
     verify(performanceSettings).isEnableExecutionRelationshipCounts();
@@ -1339,13 +1356,13 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)} with
-   * {@code TimerJobEntity}, {@code boolean}.
+   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)} with {@code TimerJobEntity}, {@code boolean}.
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)}
+   * Method under test: {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.insert(TimerJobEntity, boolean)"})
   public void testInsertWithTimerJobEntityBoolean6() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -1379,7 +1396,7 @@ public class TimerJobEntityManagerImplDiffblueTest {
     // Act
     timerJobEntityManagerImpl.insert(jobEntity, true);
 
-    // Assert
+    // Assert that nothing has changed
     verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
     verify(activitiEventDispatcher).isEnabled();
     verify(performanceSettings).isEnableExecutionRelationshipCounts();
@@ -1396,17 +1413,16 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)} with
-   * {@code TimerJobEntity}, {@code boolean}.
+   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)} with {@code TimerJobEntity}, {@code boolean}.
    * <ul>
-   *   <li>Given {@link ExecutionDataManager} {@link DataManager#findById(String)}
-   * return {@code null}.</li>
+   *   <li>Given {@link ExecutionDataManager} {@link DataManager#findById(String)} return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)}
+   * Method under test: {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.insert(TimerJobEntity, boolean)"})
   public void testInsertWithTimerJobEntityBoolean_givenExecutionDataManagerFindByIdReturnNull() {
     // Arrange
     PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
@@ -1432,7 +1448,7 @@ public class TimerJobEntityManagerImplDiffblueTest {
     // Act
     timerJobEntityManagerImpl.insert(jobEntity, true);
 
-    // Assert
+    // Assert that nothing has changed
     verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
     verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
     verify(performanceSettings).setEnableLocalization(eq(true));
@@ -1443,17 +1459,16 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)} with
-   * {@code TimerJobEntity}, {@code boolean}.
+   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)} with {@code TimerJobEntity}, {@code boolean}.
    * <ul>
-   *   <li>Given {@link ExecutionEntityImpl}
-   * {@link ExecutionEntityImpl#getTenantId()} return {@code 42}.</li>
+   *   <li>Given {@link ExecutionEntityImpl} {@link ExecutionEntityImpl#getTenantId()} return {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)}
+   * Method under test: {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.insert(TimerJobEntity, boolean)"})
   public void testInsertWithTimerJobEntityBoolean_givenExecutionEntityImplGetTenantIdReturn42() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -1517,17 +1532,16 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)} with
-   * {@code TimerJobEntity}, {@code boolean}.
+   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)} with {@code TimerJobEntity}, {@code boolean}.
    * <ul>
-   *   <li>Then calls
-   * {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)}
+   * Method under test: {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.insert(TimerJobEntity, boolean)"})
   public void testInsertWithTimerJobEntityBoolean_thenCallsDispatchEvent() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -1544,7 +1558,7 @@ public class TimerJobEntityManagerImplDiffblueTest {
     // Act
     timerJobEntityManagerImpl.insert(jobEntity, true);
 
-    // Assert
+    // Assert that nothing has changed
     verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
     verify(activitiEventDispatcher).isEnabled();
     verify(processEngineConfiguration).getEventDispatcher();
@@ -1553,16 +1567,16 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)} with
-   * {@code TimerJobEntity}, {@code boolean}.
+   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)} with {@code TimerJobEntity}, {@code boolean}.
    * <ul>
    *   <li>Then calls {@link DelegateExecution#getTenantId()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)}
+   * Method under test: {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.insert(TimerJobEntity, boolean)"})
   public void testInsertWithTimerJobEntityBoolean_thenCallsGetTenantId() {
     // Arrange
     PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
@@ -1613,16 +1627,16 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)} with
-   * {@code TimerJobEntity}, {@code boolean}.
+   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)} with {@code TimerJobEntity}, {@code boolean}.
    * <ul>
    *   <li>When {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)}
+   * Method under test: {@link TimerJobEntityManagerImpl#insert(TimerJobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.insert(TimerJobEntity, boolean)"})
   public void testInsertWithTimerJobEntityBoolean_whenFalse() {
     // Arrange
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
@@ -1636,23 +1650,23 @@ public class TimerJobEntityManagerImplDiffblueTest {
     // Act
     timerJobEntityManagerImpl.insert(jobEntity, false);
 
-    // Assert
+    // Assert that nothing has changed
     verify(processEngineConfiguration).getEventDispatcher();
     verify(jobDataManager).insert(isA(TimerJobEntity.class));
     assertEquals("", jobEntity.getTenantId());
   }
 
   /**
-   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity)} with
-   * {@code TimerJobEntity}.
+   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity)} with {@code TimerJobEntity}.
    * <ul>
-   *   <li>Given {@link ActivitiEventDispatcher}
-   * {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
+   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
    * </ul>
    * <p>
    * Method under test: {@link TimerJobEntityManagerImpl#insert(TimerJobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.insert(TimerJobEntity)"})
   public void testInsertWithTimerJobEntity_givenActivitiEventDispatcherIsEnabledReturnFalse() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -1668,7 +1682,7 @@ public class TimerJobEntityManagerImplDiffblueTest {
     // Act
     timerJobEntityManagerImpl.insert(jobEntity);
 
-    // Assert
+    // Assert that nothing has changed
     verify(activitiEventDispatcher).isEnabled();
     verify(processEngineConfiguration).getEventDispatcher();
     verify(jobDataManager).insert(isA(TimerJobEntity.class));
@@ -1676,16 +1690,16 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity)} with
-   * {@code TimerJobEntity}.
+   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity)} with {@code TimerJobEntity}.
    * <ul>
-   *   <li>Given {@link ExecutionDataManager} {@link DataManager#findById(String)}
-   * return {@code null}.</li>
+   *   <li>Given {@link ExecutionDataManager} {@link DataManager#findById(String)} return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link TimerJobEntityManagerImpl#insert(TimerJobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.insert(TimerJobEntity)"})
   public void testInsertWithTimerJobEntity_givenExecutionDataManagerFindByIdReturnNull() {
     // Arrange
     PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
@@ -1711,7 +1725,7 @@ public class TimerJobEntityManagerImplDiffblueTest {
     // Act
     timerJobEntityManagerImpl.insert(jobEntity);
 
-    // Assert
+    // Assert that nothing has changed
     verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
     verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
     verify(performanceSettings).setEnableLocalization(eq(true));
@@ -1722,16 +1736,16 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity)} with
-   * {@code TimerJobEntity}.
+   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity)} with {@code TimerJobEntity}.
    * <ul>
-   *   <li>Given {@link ExecutionEntityImpl}
-   * {@link ExecutionEntityImpl#getTenantId()} return {@code 42}.</li>
+   *   <li>Given {@link ExecutionEntityImpl} {@link ExecutionEntityImpl#getTenantId()} return {@code 42}.</li>
    * </ul>
    * <p>
    * Method under test: {@link TimerJobEntityManagerImpl#insert(TimerJobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.insert(TimerJobEntity)"})
   public void testInsertWithTimerJobEntity_givenExecutionEntityImplGetTenantIdReturn42() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -1795,16 +1809,16 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity)} with
-   * {@code TimerJobEntity}.
+   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity)} with {@code TimerJobEntity}.
    * <ul>
-   *   <li>Given {@link ExecutionEntityImpl}
-   * {@link ExecutionEntityImpl#getTenantId()} return {@code null}.</li>
+   *   <li>Given {@link ExecutionEntityImpl} {@link ExecutionEntityImpl#getTenantId()} return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link TimerJobEntityManagerImpl#insert(TimerJobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.insert(TimerJobEntity)"})
   public void testInsertWithTimerJobEntity_givenExecutionEntityImplGetTenantIdReturnNull() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -1846,7 +1860,7 @@ public class TimerJobEntityManagerImplDiffblueTest {
     // Act
     timerJobEntityManagerImpl.insert(jobEntity);
 
-    // Assert
+    // Assert that nothing has changed
     verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
     verify(activitiEventDispatcher).isEnabled();
     verify(performanceSettings).isEnableExecutionRelationshipCounts();
@@ -1868,8 +1882,7 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity)} with
-   * {@code TimerJobEntity}.
+   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity)} with {@code TimerJobEntity}.
    * <ul>
    *   <li>Then calls {@link DelegateExecution#getTenantId()}.</li>
    * </ul>
@@ -1877,6 +1890,8 @@ public class TimerJobEntityManagerImplDiffblueTest {
    * Method under test: {@link TimerJobEntityManagerImpl#insert(TimerJobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.insert(TimerJobEntity)"})
   public void testInsertWithTimerJobEntity_thenCallsGetTenantId() {
     // Arrange
     PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
@@ -1927,17 +1942,17 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity)} with
-   * {@code TimerJobEntity}.
+   * Test {@link TimerJobEntityManagerImpl#insert(TimerJobEntity)} with {@code TimerJobEntity}.
    * <ul>
    *   <li>When {@link TimerJobEntityImpl} (default constructor).</li>
-   *   <li>Then calls
-   * {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
    * </ul>
    * <p>
    * Method under test: {@link TimerJobEntityManagerImpl#insert(TimerJobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.insert(TimerJobEntity)"})
   public void testInsertWithTimerJobEntity_whenTimerJobEntityImpl_thenCallsDispatchEvent() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -1954,7 +1969,7 @@ public class TimerJobEntityManagerImplDiffblueTest {
     // Act
     timerJobEntityManagerImpl.insert(jobEntity);
 
-    // Assert
+    // Assert that nothing has changed
     verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
     verify(activitiEventDispatcher).isEnabled();
     verify(processEngineConfiguration).getEventDispatcher();
@@ -1965,10 +1980,11 @@ public class TimerJobEntityManagerImplDiffblueTest {
   /**
    * Test {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}.
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}
+   * Method under test: {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean TimerJobEntityManagerImpl.doInsert(TimerJobEntity, boolean)"})
   public void testDoInsert() {
     // Arrange
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
@@ -1992,10 +2008,11 @@ public class TimerJobEntityManagerImplDiffblueTest {
   /**
    * Test {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}.
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}
+   * Method under test: {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean TimerJobEntityManagerImpl.doInsert(TimerJobEntity, boolean)"})
   public void testDoInsert2() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -2052,10 +2069,11 @@ public class TimerJobEntityManagerImplDiffblueTest {
   /**
    * Test {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}.
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}
+   * Method under test: {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean TimerJobEntityManagerImpl.doInsert(TimerJobEntity, boolean)"})
   public void testDoInsert3() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -2109,16 +2127,15 @@ public class TimerJobEntityManagerImplDiffblueTest {
   /**
    * Test {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}.
    * <ul>
-   *   <li>Given {@link ActivitiEventDispatcher}
-   * {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
-   *   <li>Then calls {@link ActivitiEventDispatcher#isEnabled()}.</li>
+   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}
+   * Method under test: {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}
    */
   @Test
-  public void testDoInsert_givenActivitiEventDispatcherIsEnabledReturnFalse_thenCallsIsEnabled() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean TimerJobEntityManagerImpl.doInsert(TimerJobEntity, boolean)"})
+  public void testDoInsert_givenActivitiEventDispatcherIsEnabledReturnFalse() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     when(activitiEventDispatcher.isEnabled()).thenReturn(false);
@@ -2144,15 +2161,15 @@ public class TimerJobEntityManagerImplDiffblueTest {
   /**
    * Test {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}.
    * <ul>
-   *   <li>Given {@link ExecutionDataManager} {@link DataManager#findById(String)}
-   * return {@code null}.</li>
+   *   <li>Given {@link ExecutionDataManager} {@link DataManager#findById(String)} return {@code null}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}
+   * Method under test: {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean TimerJobEntityManagerImpl.doInsert(TimerJobEntity, boolean)"})
   public void testDoInsert_givenExecutionDataManagerFindByIdReturnNull_thenReturnFalse() {
     // Arrange
     PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
@@ -2192,15 +2209,15 @@ public class TimerJobEntityManagerImplDiffblueTest {
   /**
    * Test {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}.
    * <ul>
-   *   <li>Given {@link ExecutionEntity} {@link DelegateExecution#getTenantId()}
-   * return {@code 42}.</li>
+   *   <li>Given {@link ExecutionEntity} {@link DelegateExecution#getTenantId()} return {@code 42}.</li>
    *   <li>Then calls {@link DelegateExecution#getTenantId()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}
+   * Method under test: {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean TimerJobEntityManagerImpl.doInsert(TimerJobEntity, boolean)"})
   public void testDoInsert_givenExecutionEntityGetTenantIdReturn42_thenCallsGetTenantId() {
     // Arrange
     PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
@@ -2254,14 +2271,14 @@ public class TimerJobEntityManagerImplDiffblueTest {
   /**
    * Test {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}.
    * <ul>
-   *   <li>Given {@link ExecutionEntityImpl}
-   * {@link ExecutionEntityImpl#getTenantId()} return {@code 42}.</li>
+   *   <li>Given {@link ExecutionEntityImpl} {@link ExecutionEntityImpl#getTenantId()} return {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}
+   * Method under test: {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean TimerJobEntityManagerImpl.doInsert(TimerJobEntity, boolean)"})
   public void testDoInsert_givenExecutionEntityImplGetTenantIdReturn42() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -2328,15 +2345,15 @@ public class TimerJobEntityManagerImplDiffblueTest {
   /**
    * Test {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}.
    * <ul>
-   *   <li>Given {@link ExecutionEntityImpl}
-   * {@link ExecutionEntityImpl#getTenantId()} return {@code null}.</li>
+   *   <li>Given {@link ExecutionEntityImpl} {@link ExecutionEntityImpl#getTenantId()} return {@code null}.</li>
    *   <li>Then calls {@link ExecutionEntityImpl#getTenantId()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}
+   * Method under test: {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean TimerJobEntityManagerImpl.doInsert(TimerJobEntity, boolean)"})
   public void testDoInsert_givenExecutionEntityImplGetTenantIdReturnNull_thenCallsGetTenantId() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -2403,14 +2420,14 @@ public class TimerJobEntityManagerImplDiffblueTest {
   /**
    * Test {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}.
    * <ul>
-   *   <li>Given {@link PerformanceSettings} (default constructor)
-   * EnableEagerExecutionTreeFetching is {@code true}.</li>
+   *   <li>Given {@link PerformanceSettings} (default constructor) EnableEagerExecutionTreeFetching is {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}
+   * Method under test: {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean TimerJobEntityManagerImpl.doInsert(TimerJobEntity, boolean)"})
   public void testDoInsert_givenPerformanceSettingsEnableEagerExecutionTreeFetchingIsTrue() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -2458,14 +2475,14 @@ public class TimerJobEntityManagerImplDiffblueTest {
    * Test {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}.
    * <ul>
    *   <li>When {@code false}.</li>
-   *   <li>Then {@link TimerJobEntityImpl} (default constructor) TenantId is empty
-   * string.</li>
+   *   <li>Then {@link TimerJobEntityImpl} (default constructor) TenantId is empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}
+   * Method under test: {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean TimerJobEntityManagerImpl.doInsert(TimerJobEntity, boolean)"})
   public void testDoInsert_whenFalse_thenTimerJobEntityImplTenantIdIsEmptyString() {
     // Arrange
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
@@ -2490,14 +2507,14 @@ public class TimerJobEntityManagerImplDiffblueTest {
    * Test {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}.
    * <ul>
    *   <li>When {@link TimerJobEntityImpl} (default constructor).</li>
-   *   <li>Then calls
-   * {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}
+   * Method under test: {@link TimerJobEntityManagerImpl#doInsert(TimerJobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean TimerJobEntityManagerImpl.doInsert(TimerJobEntity, boolean)"})
   public void testDoInsert_whenTimerJobEntityImpl_thenCallsDispatchEvent() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -2524,12 +2541,435 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link TimerJobEntityManagerImpl#removeExecutionLink(TimerJobEntity)}.
+   * Test {@link TimerJobEntityManagerImpl#delete(TimerJobEntity)} with {@code TimerJobEntity}.
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#removeExecutionLink(TimerJobEntity)}
+   * Method under test: {@link TimerJobEntityManagerImpl#delete(TimerJobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.delete(TimerJobEntity)"})
+  public void testDeleteWithTimerJobEntity() {
+    // Arrange
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
+    TimerJobDataManager jobDataManager = mock(TimerJobDataManager.class);
+    doNothing().when(jobDataManager).delete(Mockito.<TimerJobEntity>any());
+    TimerJobEntityManagerImpl timerJobEntityManagerImpl = new TimerJobEntityManagerImpl(processEngineConfiguration,
+        jobDataManager);
+
+    // Act
+    timerJobEntityManagerImpl.delete(new TimerJobEntityImpl());
+
+    // Assert
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(jobDataManager).delete(isA(TimerJobEntity.class));
+  }
+
+  /**
+   * Test {@link TimerJobEntityManagerImpl#delete(TimerJobEntity)} with {@code TimerJobEntity}.
+   * <p>
+   * Method under test: {@link TimerJobEntityManagerImpl#delete(TimerJobEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.delete(TimerJobEntity)"})
+  public void testDeleteWithTimerJobEntity2() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
+    when(executionDataManager.findById(Mockito.<String>any()))
+        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    ExecutionEntityManagerImpl executionEntityManagerImpl = new ExecutionEntityManagerImpl(
+        new JtaProcessEngineConfiguration(), executionDataManager);
+
+    PerformanceSettings performanceSettings = new PerformanceSettings();
+    performanceSettings.setEnableEagerExecutionTreeFetching(true);
+    performanceSettings.setEnableExecutionRelationshipCounts(true);
+    performanceSettings.setEnableLocalization(true);
+    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
+    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManagerImpl);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    TimerJobDataManager jobDataManager = mock(TimerJobDataManager.class);
+    doNothing().when(jobDataManager).delete(Mockito.<TimerJobEntity>any());
+    TimerJobEntityManagerImpl timerJobEntityManagerImpl = new TimerJobEntityManagerImpl(processEngineConfiguration,
+        jobDataManager);
+    TimerJobEntityImpl jobEntity = mock(TimerJobEntityImpl.class);
+    when(jobEntity.getExecutionId()).thenReturn("42");
+    when(jobEntity.getProcessDefinitionId()).thenReturn("42");
+    when(jobEntity.getProcessInstanceId()).thenReturn("42");
+    when(jobEntity.getExceptionByteArrayRef()).thenReturn(new ByteArrayRef());
+
+    // Act
+    timerJobEntityManagerImpl.delete(jobEntity);
+
+    // Assert
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher, atLeast(1)).isEnabled();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration, atLeast(1)).getExecutionEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
+    verify(jobEntity).getExceptionByteArrayRef();
+    verify(jobEntity, atLeast(1)).getExecutionId();
+    verify(jobEntity).getProcessDefinitionId();
+    verify(jobEntity).getProcessInstanceId();
+    verify(jobDataManager).delete(isA(TimerJobEntity.class));
+    verify(executionDataManager, atLeast(1)).findById(eq("42"));
+  }
+
+  /**
+   * Test {@link TimerJobEntityManagerImpl#delete(TimerJobEntity)} with {@code TimerJobEntity}.
+   * <p>
+   * Method under test: {@link TimerJobEntityManagerImpl#delete(TimerJobEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.delete(TimerJobEntity)"})
+  public void testDeleteWithTimerJobEntity3() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
+    when(executionDataManager.findById(Mockito.<String>any()))
+        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    ExecutionEntityManagerImpl executionEntityManagerImpl = new ExecutionEntityManagerImpl(
+        new JtaProcessEngineConfiguration(), executionDataManager);
+
+    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
+    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(false);
+    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
+    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
+    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
+    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
+    performanceSettings.setEnableEagerExecutionTreeFetching(true);
+    performanceSettings.setEnableExecutionRelationshipCounts(true);
+    performanceSettings.setEnableLocalization(true);
+    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
+    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManagerImpl);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    TimerJobDataManager jobDataManager = mock(TimerJobDataManager.class);
+    doNothing().when(jobDataManager).delete(Mockito.<TimerJobEntity>any());
+    TimerJobEntityManagerImpl timerJobEntityManagerImpl = new TimerJobEntityManagerImpl(processEngineConfiguration,
+        jobDataManager);
+    TimerJobEntityImpl jobEntity = mock(TimerJobEntityImpl.class);
+    when(jobEntity.getExecutionId()).thenReturn("42");
+    when(jobEntity.getProcessDefinitionId()).thenReturn("42");
+    when(jobEntity.getProcessInstanceId()).thenReturn("42");
+    when(jobEntity.getExceptionByteArrayRef()).thenReturn(new ByteArrayRef());
+
+    // Act
+    timerJobEntityManagerImpl.delete(jobEntity);
+
+    // Assert
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher, atLeast(1)).isEnabled();
+    verify(performanceSettings).isEnableExecutionRelationshipCounts();
+    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
+    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
+    verify(performanceSettings).setEnableLocalization(eq(true));
+    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration).getExecutionEntityManager();
+    verify(processEngineConfiguration).getPerformanceSettings();
+    verify(jobEntity).getExceptionByteArrayRef();
+    verify(jobEntity, atLeast(1)).getExecutionId();
+    verify(jobEntity).getProcessDefinitionId();
+    verify(jobEntity).getProcessInstanceId();
+    verify(jobDataManager).delete(isA(TimerJobEntity.class));
+    verify(executionDataManager).findById(eq("42"));
+  }
+
+  /**
+   * Test {@link TimerJobEntityManagerImpl#delete(TimerJobEntity)} with {@code TimerJobEntity}.
+   * <p>
+   * Method under test: {@link TimerJobEntityManagerImpl#delete(TimerJobEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.delete(TimerJobEntity)"})
+  public void testDeleteWithTimerJobEntity4() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
+    when(executionEntityManager.findById(Mockito.<String>any()))
+        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
+    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
+    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
+    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
+    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
+    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
+    performanceSettings.setEnableEagerExecutionTreeFetching(true);
+    performanceSettings.setEnableExecutionRelationshipCounts(true);
+    performanceSettings.setEnableLocalization(true);
+    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
+    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManager);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    TimerJobDataManager jobDataManager = mock(TimerJobDataManager.class);
+    doNothing().when(jobDataManager).delete(Mockito.<TimerJobEntity>any());
+    TimerJobEntityManagerImpl timerJobEntityManagerImpl = new TimerJobEntityManagerImpl(processEngineConfiguration,
+        jobDataManager);
+    TimerJobEntityImpl jobEntity = mock(TimerJobEntityImpl.class);
+    when(jobEntity.getExecutionId()).thenReturn("42");
+    when(jobEntity.getProcessDefinitionId()).thenReturn("42");
+    when(jobEntity.getProcessInstanceId()).thenReturn("42");
+    when(jobEntity.getExceptionByteArrayRef()).thenReturn(new ByteArrayRef());
+
+    // Act
+    timerJobEntityManagerImpl.delete(jobEntity);
+
+    // Assert
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher, atLeast(1)).isEnabled();
+    verify(performanceSettings, atLeast(1)).isEnableExecutionRelationshipCounts();
+    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
+    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
+    verify(performanceSettings).setEnableLocalization(eq(true));
+    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration, atLeast(1)).getExecutionEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
+    verify(jobEntity).getExceptionByteArrayRef();
+    verify(jobEntity, atLeast(1)).getExecutionId();
+    verify(jobEntity).getProcessDefinitionId();
+    verify(jobEntity).getProcessInstanceId();
+    verify(executionEntityManager, atLeast(1)).findById(eq("42"));
+    verify(jobDataManager).delete(isA(TimerJobEntity.class));
+  }
+
+  /**
+   * Test {@link TimerJobEntityManagerImpl#delete(TimerJobEntity)} with {@code TimerJobEntity}.
+   * <ul>
+   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link TimerJobEntityManagerImpl#delete(TimerJobEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.delete(TimerJobEntity)"})
+  public void testDeleteWithTimerJobEntity_givenActivitiEventDispatcherIsEnabledReturnFalse() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    when(activitiEventDispatcher.isEnabled()).thenReturn(false);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    TimerJobDataManager jobDataManager = mock(TimerJobDataManager.class);
+    doNothing().when(jobDataManager).delete(Mockito.<TimerJobEntity>any());
+    TimerJobEntityManagerImpl timerJobEntityManagerImpl = new TimerJobEntityManagerImpl(processEngineConfiguration,
+        jobDataManager);
+
+    // Act
+    timerJobEntityManagerImpl.delete(new TimerJobEntityImpl());
+
+    // Assert
+    verify(activitiEventDispatcher, atLeast(1)).isEnabled();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(jobDataManager).delete(isA(TimerJobEntity.class));
+  }
+
+  /**
+   * Test {@link TimerJobEntityManagerImpl#delete(TimerJobEntity)} with {@code TimerJobEntity}.
+   * <ul>
+   *   <li>Given {@link ByteArrayRef} {@link ByteArrayRef#delete()} does nothing.</li>
+   *   <li>Then calls {@link ByteArrayRef#delete()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link TimerJobEntityManagerImpl#delete(TimerJobEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.delete(TimerJobEntity)"})
+  public void testDeleteWithTimerJobEntity_givenByteArrayRefDeleteDoesNothing_thenCallsDelete() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
+    when(executionEntityImpl.getTimerJobCount()).thenReturn(3);
+    doNothing().when(executionEntityImpl).setTimerJobCount(anyInt());
+    when(executionEntityImpl.isCountEnabled()).thenReturn(true);
+    when(executionEntityImpl.getTimerJobs()).thenReturn(new ArrayList<>());
+    ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
+    when(executionEntityManager.findById(Mockito.<String>any())).thenReturn(executionEntityImpl);
+    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
+    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
+    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
+    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
+    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
+    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
+    performanceSettings.setEnableEagerExecutionTreeFetching(true);
+    performanceSettings.setEnableExecutionRelationshipCounts(true);
+    performanceSettings.setEnableLocalization(true);
+    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
+    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManager);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    TimerJobDataManager jobDataManager = mock(TimerJobDataManager.class);
+    doNothing().when(jobDataManager).delete(Mockito.<TimerJobEntity>any());
+    TimerJobEntityManagerImpl timerJobEntityManagerImpl = new TimerJobEntityManagerImpl(processEngineConfiguration,
+        jobDataManager);
+    ByteArrayRef byteArrayRef = mock(ByteArrayRef.class);
+    doNothing().when(byteArrayRef).delete();
+    TimerJobEntityImpl jobEntity = mock(TimerJobEntityImpl.class);
+    when(jobEntity.getExecutionId()).thenReturn("42");
+    when(jobEntity.getProcessDefinitionId()).thenReturn("42");
+    when(jobEntity.getProcessInstanceId()).thenReturn("42");
+    when(jobEntity.getExceptionByteArrayRef()).thenReturn(byteArrayRef);
+
+    // Act
+    timerJobEntityManagerImpl.delete(jobEntity);
+
+    // Assert
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher, atLeast(1)).isEnabled();
+    verify(performanceSettings, atLeast(1)).isEnableExecutionRelationshipCounts();
+    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
+    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
+    verify(performanceSettings).setEnableLocalization(eq(true));
+    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration, atLeast(1)).getExecutionEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
+    verify(jobEntity).getExceptionByteArrayRef();
+    verify(jobEntity, atLeast(1)).getExecutionId();
+    verify(jobEntity).getProcessDefinitionId();
+    verify(jobEntity).getProcessInstanceId();
+    verify(byteArrayRef).delete();
+    verify(executionEntityManager, atLeast(1)).findById(eq("42"));
+    verify(executionEntityImpl).getTimerJobCount();
+    verify(executionEntityImpl).getTimerJobs();
+    verify(executionEntityImpl).isCountEnabled();
+    verify(executionEntityImpl).setTimerJobCount(eq(2));
+    verify(jobDataManager).delete(isA(TimerJobEntity.class));
+  }
+
+  /**
+   * Test {@link TimerJobEntityManagerImpl#delete(TimerJobEntity)} with {@code TimerJobEntity}.
+   * <ul>
+   *   <li>Then calls {@link ExecutionEntityImpl#getTimerJobCount()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link TimerJobEntityManagerImpl#delete(TimerJobEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.delete(TimerJobEntity)"})
+  public void testDeleteWithTimerJobEntity_thenCallsGetTimerJobCount() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
+    when(executionEntityImpl.getTimerJobCount()).thenReturn(3);
+    doNothing().when(executionEntityImpl).setTimerJobCount(anyInt());
+    when(executionEntityImpl.isCountEnabled()).thenReturn(true);
+    when(executionEntityImpl.getTimerJobs()).thenReturn(new ArrayList<>());
+    ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
+    when(executionEntityManager.findById(Mockito.<String>any())).thenReturn(executionEntityImpl);
+    PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
+    when(performanceSettings.isEnableExecutionRelationshipCounts()).thenReturn(true);
+    doNothing().when(performanceSettings).setEnableEagerExecutionTreeFetching(anyBoolean());
+    doNothing().when(performanceSettings).setEnableExecutionRelationshipCounts(anyBoolean());
+    doNothing().when(performanceSettings).setEnableLocalization(anyBoolean());
+    doNothing().when(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(anyBoolean());
+    performanceSettings.setEnableEagerExecutionTreeFetching(true);
+    performanceSettings.setEnableExecutionRelationshipCounts(true);
+    performanceSettings.setEnableLocalization(true);
+    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
+    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManager);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    TimerJobDataManager jobDataManager = mock(TimerJobDataManager.class);
+    doNothing().when(jobDataManager).delete(Mockito.<TimerJobEntity>any());
+    TimerJobEntityManagerImpl timerJobEntityManagerImpl = new TimerJobEntityManagerImpl(processEngineConfiguration,
+        jobDataManager);
+    TimerJobEntityImpl jobEntity = mock(TimerJobEntityImpl.class);
+    when(jobEntity.getExecutionId()).thenReturn("42");
+    when(jobEntity.getProcessDefinitionId()).thenReturn("42");
+    when(jobEntity.getProcessInstanceId()).thenReturn("42");
+    when(jobEntity.getExceptionByteArrayRef()).thenReturn(new ByteArrayRef());
+
+    // Act
+    timerJobEntityManagerImpl.delete(jobEntity);
+
+    // Assert
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher, atLeast(1)).isEnabled();
+    verify(performanceSettings, atLeast(1)).isEnableExecutionRelationshipCounts();
+    verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
+    verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
+    verify(performanceSettings).setEnableLocalization(eq(true));
+    verify(performanceSettings).setValidateExecutionRelationshipCountConfigOnBoot(eq(true));
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration, atLeast(1)).getExecutionEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
+    verify(jobEntity).getExceptionByteArrayRef();
+    verify(jobEntity, atLeast(1)).getExecutionId();
+    verify(jobEntity).getProcessDefinitionId();
+    verify(jobEntity).getProcessInstanceId();
+    verify(executionEntityManager, atLeast(1)).findById(eq("42"));
+    verify(executionEntityImpl).getTimerJobCount();
+    verify(executionEntityImpl).getTimerJobs();
+    verify(executionEntityImpl).isCountEnabled();
+    verify(executionEntityImpl).setTimerJobCount(eq(2));
+    verify(jobDataManager).delete(isA(TimerJobEntity.class));
+  }
+
+  /**
+   * Test {@link TimerJobEntityManagerImpl#delete(TimerJobEntity)} with {@code TimerJobEntity}.
+   * <ul>
+   *   <li>When {@link TimerJobEntityImpl} (default constructor).</li>
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link TimerJobEntityManagerImpl#delete(TimerJobEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.delete(TimerJobEntity)"})
+  public void testDeleteWithTimerJobEntity_whenTimerJobEntityImpl_thenCallsDispatchEvent() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    TimerJobDataManager jobDataManager = mock(TimerJobDataManager.class);
+    doNothing().when(jobDataManager).delete(Mockito.<TimerJobEntity>any());
+    TimerJobEntityManagerImpl timerJobEntityManagerImpl = new TimerJobEntityManagerImpl(processEngineConfiguration,
+        jobDataManager);
+
+    // Act
+    timerJobEntityManagerImpl.delete(new TimerJobEntityImpl());
+
+    // Assert
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher, atLeast(1)).isEnabled();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(jobDataManager).delete(isA(TimerJobEntity.class));
+  }
+
+  /**
+   * Test {@link TimerJobEntityManagerImpl#removeExecutionLink(TimerJobEntity)}.
+   * <p>
+   * Method under test: {@link TimerJobEntityManagerImpl#removeExecutionLink(TimerJobEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.removeExecutionLink(TimerJobEntity)"})
   public void testRemoveExecutionLink() {
     // Arrange
     ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
@@ -2576,14 +3016,14 @@ public class TimerJobEntityManagerImplDiffblueTest {
   /**
    * Test {@link TimerJobEntityManagerImpl#removeExecutionLink(TimerJobEntity)}.
    * <ul>
-   *   <li>Given {@link ExecutionDataManager} {@link DataManager#findById(String)}
-   * return {@code null}.</li>
+   *   <li>Given {@link ExecutionDataManager} {@link DataManager#findById(String)} return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#removeExecutionLink(TimerJobEntity)}
+   * Method under test: {@link TimerJobEntityManagerImpl#removeExecutionLink(TimerJobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.removeExecutionLink(TimerJobEntity)"})
   public void testRemoveExecutionLink_givenExecutionDataManagerFindByIdReturnNull() {
     // Arrange
     ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
@@ -2632,10 +3072,11 @@ public class TimerJobEntityManagerImplDiffblueTest {
    *   <li>Then calls {@link EntityManager#findById(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#removeExecutionLink(TimerJobEntity)}
+   * Method under test: {@link TimerJobEntityManagerImpl#removeExecutionLink(TimerJobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.removeExecutionLink(TimerJobEntity)"})
   public void testRemoveExecutionLink_thenCallsFindById() {
     // Arrange
     ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
@@ -2679,16 +3120,16 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TimerJobEntityManagerImpl#deleteExceptionByteArrayRef(TimerJobEntity)}.
+   * Test {@link TimerJobEntityManagerImpl#deleteExceptionByteArrayRef(TimerJobEntity)}.
    * <ul>
    *   <li>Then calls {@link AbstractJobEntityImpl#getExceptionByteArrayRef()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#deleteExceptionByteArrayRef(TimerJobEntity)}
+   * Method under test: {@link TimerJobEntityManagerImpl#deleteExceptionByteArrayRef(TimerJobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.deleteExceptionByteArrayRef(TimerJobEntity)"})
   public void testDeleteExceptionByteArrayRef_thenCallsGetExceptionByteArrayRef() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
@@ -2702,61 +3143,9 @@ public class TimerJobEntityManagerImplDiffblueTest {
     // Act
     timerJobEntityManagerImpl.deleteExceptionByteArrayRef(jobEntity);
 
-    // Assert that nothing has changed
+    // Assert
     verify(jobEntity).getExceptionByteArrayRef();
     verify(byteArrayRef).delete();
-  }
-
-  /**
-   * Test {@link TimerJobEntityManagerImpl#createTimer(JobEntity)}.
-   * <p>
-   * Method under test: {@link TimerJobEntityManagerImpl#createTimer(JobEntity)}
-   */
-  @Test
-  public void testCreateTimer() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-    TimerJobEntityManagerImpl timerJobEntityManagerImpl = new TimerJobEntityManagerImpl(processEngineConfiguration,
-        new MybatisTimerJobDataManager(new JtaProcessEngineConfiguration()));
-
-    // Act
-    TimerJobEntity actualCreateTimerResult = timerJobEntityManagerImpl.createTimer(new JobEntityImpl());
-
-    // Assert
-    Object persistentState = actualCreateTimerResult.getPersistentState();
-    assertTrue(persistentState instanceof Map);
-    assertTrue(actualCreateTimerResult instanceof TimerJobEntityImpl);
-    assertEquals("", actualCreateTimerResult.getTenantId());
-    assertEquals("timer", actualCreateTimerResult.getJobType());
-    assertEquals(5, ((Map<String, Integer>) persistentState).size());
-    assertNull(((Map<String, Integer>) persistentState).get("duedate"));
-    assertNull(((Map<String, Integer>) persistentState).get("exceptionMessage"));
-    assertNull(((Map<String, Integer>) persistentState).get("lockExpirationTime"));
-    assertNull(((Map<String, Integer>) persistentState).get("lockOwner"));
-    assertNull(actualCreateTimerResult.getExceptionStacktrace());
-    assertNull(actualCreateTimerResult.getJobHandlerConfiguration());
-    assertNull(actualCreateTimerResult.getJobHandlerType());
-    assertNull(actualCreateTimerResult.getRepeat());
-    assertNull(actualCreateTimerResult.getId());
-    assertNull(actualCreateTimerResult.getLockOwner());
-    assertNull(actualCreateTimerResult.getExceptionMessage());
-    assertNull(actualCreateTimerResult.getExecutionId());
-    assertNull(actualCreateTimerResult.getProcessDefinitionId());
-    assertNull(actualCreateTimerResult.getProcessInstanceId());
-    assertNull(actualCreateTimerResult.getEndDate());
-    assertNull(actualCreateTimerResult.getLockExpirationTime());
-    assertNull(actualCreateTimerResult.getDuedate());
-    assertNull(actualCreateTimerResult.getExceptionByteArrayRef());
-    assertEquals(0, ((Map<String, Integer>) persistentState).get("retries").intValue());
-    assertEquals(0, actualCreateTimerResult.getMaxIterations());
-    assertEquals(0, actualCreateTimerResult.getRetries());
-    assertEquals(1, actualCreateTimerResult.getRevision());
-    assertEquals(2, actualCreateTimerResult.getRevisionNext());
-    assertFalse(actualCreateTimerResult.isDeleted());
-    assertFalse(actualCreateTimerResult.isInserted());
-    assertFalse(actualCreateTimerResult.isUpdated());
-    assertTrue(actualCreateTimerResult.isExclusive());
   }
 
   /**
@@ -2768,6 +3157,8 @@ public class TimerJobEntityManagerImplDiffblueTest {
    * Method under test: {@link TimerJobEntityManagerImpl#createTimer(JobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobEntity TimerJobEntityManagerImpl.createTimer(JobEntity)"})
   public void testCreateTimer_thenPersistentStateReturnMap() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
@@ -2783,11 +3174,6 @@ public class TimerJobEntityManagerImplDiffblueTest {
     assertTrue(actualCreateTimerResult instanceof TimerJobEntityImpl);
     assertEquals("", actualCreateTimerResult.getTenantId());
     assertEquals("timer", actualCreateTimerResult.getJobType());
-    assertEquals(5, ((Map<String, Integer>) persistentState).size());
-    assertNull(((Map<String, Integer>) persistentState).get("duedate"));
-    assertNull(((Map<String, Integer>) persistentState).get("exceptionMessage"));
-    assertNull(((Map<String, Integer>) persistentState).get("lockExpirationTime"));
-    assertNull(((Map<String, Integer>) persistentState).get("lockOwner"));
     assertNull(actualCreateTimerResult.getExceptionStacktrace());
     assertNull(actualCreateTimerResult.getJobHandlerConfiguration());
     assertNull(actualCreateTimerResult.getJobHandlerType());
@@ -2802,14 +3188,19 @@ public class TimerJobEntityManagerImplDiffblueTest {
     assertNull(actualCreateTimerResult.getLockExpirationTime());
     assertNull(actualCreateTimerResult.getDuedate());
     assertNull(actualCreateTimerResult.getExceptionByteArrayRef());
-    assertEquals(0, ((Map<String, Integer>) persistentState).get("retries").intValue());
     assertEquals(0, actualCreateTimerResult.getMaxIterations());
     assertEquals(0, actualCreateTimerResult.getRetries());
     assertEquals(1, actualCreateTimerResult.getRevision());
     assertEquals(2, actualCreateTimerResult.getRevisionNext());
+    assertEquals(5, ((Map<String, Integer>) persistentState).size());
     assertFalse(actualCreateTimerResult.isDeleted());
     assertFalse(actualCreateTimerResult.isInserted());
     assertFalse(actualCreateTimerResult.isUpdated());
+    assertTrue(((Map<String, Integer>) persistentState).containsKey("duedate"));
+    assertTrue(((Map<String, Integer>) persistentState).containsKey("exceptionMessage"));
+    assertTrue(((Map<String, Integer>) persistentState).containsKey("lockExpirationTime"));
+    assertTrue(((Map<String, Integer>) persistentState).containsKey("lockOwner"));
+    assertTrue(((Map<String, Integer>) persistentState).containsKey("retries"));
     assertTrue(actualCreateTimerResult.isExclusive());
   }
 
@@ -2820,10 +3211,11 @@ public class TimerJobEntityManagerImplDiffblueTest {
    *   <li>Then calls {@link AbstractJobEntity#getRepeat()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#setNewRepeat(JobEntity, int)}
+   * Method under test: {@link TimerJobEntityManagerImpl#setNewRepeat(JobEntity, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityManagerImpl.setNewRepeat(JobEntity, int)"})
   public void testSetNewRepeat_givenRepeat_thenCallsGetRepeat() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
@@ -2842,16 +3234,16 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TimerJobEntityManagerImpl#isValidTime(JobEntity, Date, VariableScope)}.
+   * Test {@link TimerJobEntityManagerImpl#isValidTime(JobEntity, Date, VariableScope)}.
    * <ul>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#isValidTime(JobEntity, Date, VariableScope)}
+   * Method under test: {@link TimerJobEntityManagerImpl#isValidTime(JobEntity, Date, VariableScope)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean TimerJobEntityManagerImpl.isValidTime(JobEntity, Date, VariableScope)"})
   public void testIsValidTime_thenReturnTrue() {
     // Arrange
     BusinessCalendarManager businessCalendarManager = mock(BusinessCalendarManager.class);
@@ -2883,22 +3275,20 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TimerJobEntityManagerImpl#calculateNextTimer(JobEntity, VariableScope)}.
+   * Test {@link TimerJobEntityManagerImpl#calculateNextTimer(JobEntity, VariableScope)}.
    * <ul>
-   *   <li>Then calls
-   * {@link BusinessCalendarManager#getBusinessCalendar(String)}.</li>
+   *   <li>Then calls {@link BusinessCalendarManager#getBusinessCalendar(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#calculateNextTimer(JobEntity, VariableScope)}
+   * Method under test: {@link TimerJobEntityManagerImpl#calculateNextTimer(JobEntity, VariableScope)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Date TimerJobEntityManagerImpl.calculateNextTimer(JobEntity, VariableScope)"})
   public void testCalculateNextTimer_thenCallsGetBusinessCalendar() {
     // Arrange
     BusinessCalendarManager businessCalendarManager = mock(BusinessCalendarManager.class);
-    when(businessCalendarManager.getBusinessCalendar(Mockito.<String>any()))
-        .thenReturn(new TimerCustomCalendarTest.CustomBusinessCalendar());
+    when(businessCalendarManager.getBusinessCalendar(Mockito.<String>any())).thenReturn(new CustomBusinessCalendar());
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration.setBusinessCalendarManager(businessCalendarManager);
@@ -2926,10 +3316,11 @@ public class TimerJobEntityManagerImplDiffblueTest {
    *   <li>Then return minus one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#calculateRepeatValue(JobEntity)}
+   * Method under test: {@link TimerJobEntityManagerImpl#calculateRepeatValue(JobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int TimerJobEntityManagerImpl.calculateRepeatValue(JobEntity)"})
   public void testCalculateRepeatValue_givenRepeat_thenReturnMinusOne() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
@@ -2947,17 +3338,17 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TimerJobEntityManagerImpl#getBusinessCalendarName(String, VariableScope)}.
+   * Test {@link TimerJobEntityManagerImpl#getBusinessCalendarName(String, VariableScope)}.
    * <ul>
    *   <li>When empty string.</li>
    *   <li>Then return {@code cycle}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobEntityManagerImpl#getBusinessCalendarName(String, VariableScope)}
+   * Method under test: {@link TimerJobEntityManagerImpl#getBusinessCalendarName(String, VariableScope)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String TimerJobEntityManagerImpl.getBusinessCalendarName(String, VariableScope)"})
   public void testGetBusinessCalendarName_whenEmptyString_thenReturnCycle() {
     // Arrange, Act and Assert
     assertEquals("cycle",
@@ -2965,19 +3356,21 @@ public class TimerJobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link TimerJobEntityManagerImpl#getDataManager()}.
+   * Test {@link TimerJobEntityManagerImpl#getBusinessCalendarName(String, VariableScope)}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code cycle}.</li>
+   * </ul>
    * <p>
-   * Method under test: {@link TimerJobEntityManagerImpl#getDataManager()}
+   * Method under test: {@link TimerJobEntityManagerImpl#getBusinessCalendarName(String, VariableScope)}
    */
   @Test
-  public void testGetDataManager() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    TimerJobEntityManagerImpl timerJobEntityManagerImpl = new TimerJobEntityManagerImpl(processEngineConfiguration,
-        new MybatisTimerJobDataManager(new JtaProcessEngineConfiguration()));
-
-    // Act and Assert
-    assertSame(timerJobEntityManagerImpl.jobDataManager, timerJobEntityManagerImpl.getDataManager());
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String TimerJobEntityManagerImpl.getBusinessCalendarName(String, VariableScope)"})
+  public void testGetBusinessCalendarName_whenNull_thenReturnCycle() {
+    // Arrange, Act and Assert
+    assertEquals("cycle",
+        timerJobEntityManagerImpl.getBusinessCalendarName(null, NoExecutionVariableScope.getSharedInstance()));
   }
 
   /**
@@ -2986,10 +3379,11 @@ public class TimerJobEntityManagerImplDiffblueTest {
    * Method under test: {@link TimerJobEntityManagerImpl#getDataManager()}
    */
   @Test
-  public void testGetDataManager2() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobDataManager TimerJobEntityManagerImpl.getDataManager()"})
+  public void testGetDataManager() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
     TimerJobEntityManagerImpl timerJobEntityManagerImpl = new TimerJobEntityManagerImpl(processEngineConfiguration,
         new MybatisTimerJobDataManager(new JtaProcessEngineConfiguration()));
 

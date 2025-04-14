@@ -19,22 +19,17 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ExecutionTreeDiffblueTest {
-  @InjectMocks
-  private ExecutionTree executionTree;
-
   /**
    * Test getters and setters.
    * <p>
@@ -46,13 +41,16 @@ public class ExecutionTreeDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionTree.<init>()", "ExecutionTreeNode ExecutionTree.getRoot()",
+      "void ExecutionTree.setRoot(ExecutionTreeNode)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ExecutionTree actualExecutionTree = new ExecutionTree();
     ExecutionTreeNode root = new ExecutionTreeNode(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
     actualExecutionTree.setRoot(root);
 
-    // Assert that nothing has changed
+    // Assert
     assertSame(root, actualExecutionTree.getRoot());
   }
 
@@ -62,6 +60,8 @@ public class ExecutionTreeDiffblueTest {
    * Method under test: {@link ExecutionTree#getTreeNode(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ExecutionTreeNode ExecutionTree.getTreeNode(String)"})
   public void testGetTreeNodeWithExecutionId() {
     // Arrange
     ExecutionEntityImpl executionEntity = mock(ExecutionEntityImpl.class);
@@ -80,15 +80,16 @@ public class ExecutionTreeDiffblueTest {
   }
 
   /**
-   * Test {@link ExecutionTree#getTreeNode(String, ExecutionTreeNode)} with
-   * {@code executionId}, {@code currentNode}.
+   * Test {@link ExecutionTree#getTreeNode(String, ExecutionTreeNode)} with {@code executionId}, {@code currentNode}.
    * <p>
-   * Method under test:
-   * {@link ExecutionTree#getTreeNode(String, ExecutionTreeNode)}
+   * Method under test: {@link ExecutionTree#getTreeNode(String, ExecutionTreeNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ExecutionTreeNode ExecutionTree.getTreeNode(String, ExecutionTreeNode)"})
   public void testGetTreeNodeWithExecutionIdCurrentNode() {
     // Arrange
+    ExecutionTree executionTree = new ExecutionTree();
     ExecutionEntityImpl executionEntity = mock(ExecutionEntityImpl.class);
     when(executionEntity.getId()).thenReturn("42");
     ExecutionTreeNode currentNode = new ExecutionTreeNode(executionEntity);
@@ -102,19 +103,21 @@ public class ExecutionTreeDiffblueTest {
   }
 
   /**
-   * Test {@link ExecutionTree#getTreeNode(String, ExecutionTreeNode)} with
-   * {@code executionId}, {@code currentNode}.
+   * Test {@link ExecutionTree#getTreeNode(String, ExecutionTreeNode)} with {@code executionId}, {@code currentNode}.
    * <ul>
    *   <li>Given {@code 42}.</li>
+   *   <li>When {@code Execution Id}.</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExecutionTree#getTreeNode(String, ExecutionTreeNode)}
+   * Method under test: {@link ExecutionTree#getTreeNode(String, ExecutionTreeNode)}
    */
   @Test
-  public void testGetTreeNodeWithExecutionIdCurrentNode_given42_thenReturnNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ExecutionTreeNode ExecutionTree.getTreeNode(String, ExecutionTreeNode)"})
+  public void testGetTreeNodeWithExecutionIdCurrentNode_given42_whenExecutionId_thenReturnNull() {
     // Arrange
+    ExecutionTree executionTree = new ExecutionTree();
     ExecutionEntityImpl executionEntity = mock(ExecutionEntityImpl.class);
     when(executionEntity.getId()).thenReturn("42");
 
@@ -128,36 +131,6 @@ public class ExecutionTreeDiffblueTest {
   }
 
   /**
-   * Test {@link ExecutionTree#getTreeNode(String, ExecutionTreeNode)} with
-   * {@code executionId}, {@code currentNode}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then calls {@link ExecutionTreeNode#getChildren()}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ExecutionTree#getTreeNode(String, ExecutionTreeNode)}
-   */
-  @Test
-  public void testGetTreeNodeWithExecutionIdCurrentNode_givenArrayList_thenCallsGetChildren() {
-    // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    createWithEmptyRelationshipCollectionsResult.setId("42");
-    ExecutionTreeNode currentNode = mock(ExecutionTreeNode.class);
-    when(currentNode.getChildren()).thenReturn(new ArrayList<>());
-    when(currentNode.getExecutionEntity()).thenReturn(createWithEmptyRelationshipCollectionsResult);
-
-    // Act
-    ExecutionTreeNode actualTreeNode = executionTree.getTreeNode("Execution Id", currentNode);
-
-    // Assert
-    verify(currentNode, atLeast(1)).getChildren();
-    verify(currentNode).getExecutionEntity();
-    assertNull(actualTreeNode);
-  }
-
-  /**
    * Test {@link ExecutionTree#getTreeNode(String)} with {@code executionId}.
    * <ul>
    *   <li>Then return {@code null}.</li>
@@ -166,6 +139,8 @@ public class ExecutionTreeDiffblueTest {
    * Method under test: {@link ExecutionTree#getTreeNode(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ExecutionTreeNode ExecutionTree.getTreeNode(String)"})
   public void testGetTreeNodeWithExecutionId_thenReturnNull() {
     // Arrange
     ExecutionEntityImpl executionEntity = mock(ExecutionEntityImpl.class);
@@ -189,53 +164,11 @@ public class ExecutionTreeDiffblueTest {
    * Method under test: {@link ExecutionTree#iterator()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Iterator ExecutionTree.iterator()"})
   public void testIterator() {
     // Arrange, Act and Assert
     assertTrue((new ExecutionTree()).iterator() instanceof ExecutionTreeBfsIterator);
-  }
-
-  /**
-   * Test {@link ExecutionTree#bfsIterator()}.
-   * <ul>
-   *   <li>Given {@link ExecutionTree} (default constructor).</li>
-   *   <li>Then {@link ExecutionTree} (default constructor) Root is
-   * {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionTree#bfsIterator()}
-   */
-  @Test
-  public void testBfsIterator_givenExecutionTree_thenExecutionTreeRootIsNull() {
-    // Arrange
-    ExecutionTree executionTree = new ExecutionTree();
-
-    // Act
-    executionTree.bfsIterator();
-
-    // Assert
-    assertNull(executionTree.getRoot());
-  }
-
-  /**
-   * Test {@link ExecutionTree#leafsFirstIterator()}.
-   * <ul>
-   *   <li>Given {@link ExecutionTree} (default constructor).</li>
-   *   <li>Then {@link ExecutionTree} (default constructor) Root is
-   * {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionTree#leafsFirstIterator()}
-   */
-  @Test
-  public void testLeafsFirstIterator_givenExecutionTree_thenExecutionTreeRootIsNull() {
-    // Arrange
-    ExecutionTree executionTree = new ExecutionTree();
-
-    // Act
-    executionTree.leafsFirstIterator();
-
-    // Assert
-    assertNull(executionTree.getRoot());
   }
 
   /**
@@ -247,6 +180,8 @@ public class ExecutionTreeDiffblueTest {
    * Method under test: {@link ExecutionTree#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExecutionTree.toString()"})
   public void testToString_givenCreateWithEmptyRelationshipCollectionsEndedIsTrue() {
     // Arrange
     ExecutionEntityImpl executionEntity = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
@@ -270,13 +205,14 @@ public class ExecutionTreeDiffblueTest {
   /**
    * Test {@link ExecutionTree#toString()}.
    * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections MultiInstanceRoot is
-   * {@code true}.</li>
+   *   <li>Given createWithEmptyRelationshipCollections MultiInstanceRoot is {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ExecutionTree#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExecutionTree.toString()"})
   public void testToString_givenCreateWithEmptyRelationshipCollectionsMultiInstanceRootIsTrue() {
     // Arrange
     ExecutionEntityImpl executionEntity = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
@@ -307,6 +243,8 @@ public class ExecutionTreeDiffblueTest {
    * Method under test: {@link ExecutionTree#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExecutionTree.toString()"})
   public void testToString_givenExecutionTree_thenReturnEmptyString() {
     // Arrange, Act and Assert
     assertEquals("", (new ExecutionTree()).toString());
@@ -321,6 +259,8 @@ public class ExecutionTreeDiffblueTest {
    * Method under test: {@link ExecutionTree#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExecutionTree.toString()"})
   public void testToString_thenReturnAString() {
     // Arrange
     ArrayList<ExecutionTreeNode> children = new ArrayList<>();
@@ -345,6 +285,8 @@ public class ExecutionTreeDiffblueTest {
    * Method under test: {@link ExecutionTree#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExecutionTree.toString()"})
   public void testToString_thenReturnAString2() {
     // Arrange
     ExecutionTreeNode executionTreeNode = new ExecutionTreeNode(
@@ -373,6 +315,8 @@ public class ExecutionTreeDiffblueTest {
    * Method under test: {@link ExecutionTree#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExecutionTree.toString()"})
   public void testToString_thenReturnAString3() {
     // Arrange
     ArrayList<ExecutionTreeNode> children = new ArrayList<>();
@@ -405,6 +349,8 @@ public class ExecutionTreeDiffblueTest {
    * Method under test: {@link ExecutionTree#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExecutionTree.toString()"})
   public void testToString_thenReturnAString4() {
     // Arrange
     ArrayList<ExecutionTreeNode> children = new ArrayList<>();
@@ -439,6 +385,8 @@ public class ExecutionTreeDiffblueTest {
    * Method under test: {@link ExecutionTree#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExecutionTree.toString()"})
   public void testToString_thenReturnNullParentId42() {
     // Arrange
     ExecutionEntityImpl executionEntity = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
@@ -461,6 +409,8 @@ public class ExecutionTreeDiffblueTest {
    * Method under test: {@link ExecutionTree#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExecutionTree.toString()"})
   public void testToString_thenReturnNullProcessInstance() {
     // Arrange
     ExecutionTree executionTree = new ExecutionTree();
@@ -479,6 +429,8 @@ public class ExecutionTreeDiffblueTest {
    * Method under test: {@link ExecutionTree#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExecutionTree.toString()"})
   public void testToString_thenReturnNullProcessInstance2() {
     // Arrange
     ExecutionTreeNode root = new ExecutionTreeNode(ExecutionEntityImpl.createWithEmptyRelationshipCollections());

@@ -21,6 +21,8 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -30,16 +32,18 @@ import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandContext;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class ResetExpiredJobsCmdDiffblueTest {
   /**
    * Test {@link ResetExpiredJobsCmd#ResetExpiredJobsCmd(Collection)}.
    * <p>
-   * Method under test:
-   * {@link ResetExpiredJobsCmd#ResetExpiredJobsCmd(Collection)}
+   * Method under test: {@link ResetExpiredJobsCmd#ResetExpiredJobsCmd(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ResetExpiredJobsCmd.<init>(Collection)"})
   public void testNewResetExpiredJobsCmd() {
     // Arrange, Act and Assert
     Collection<String> collection = (new ResetExpiredJobsCmd(new ArrayList<>())).jobIds;
@@ -56,6 +60,8 @@ public class ResetExpiredJobsCmdDiffblueTest {
    * Method under test: {@link ResetExpiredJobsCmd#execute(CommandContext)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Void ResetExpiredJobsCmd.execute(CommandContext)"})
   public void testExecute_thenReturnNull() {
     // Arrange
     ResetExpiredJobsCmd resetExpiredJobsCmd = new ResetExpiredJobsCmd(new ArrayList<>());

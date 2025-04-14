@@ -20,8 +20,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import java.sql.Date;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -33,6 +33,7 @@ import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ParallelGatewayActivityBehaviorDiffblueTest {
   /**
@@ -41,10 +42,11 @@ public class ParallelGatewayActivityBehaviorDiffblueTest {
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ParallelGatewayActivityBehavior#execute(DelegateExecution)}
+   * Method under test: {@link ParallelGatewayActivityBehavior#execute(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ParallelGatewayActivityBehavior.execute(DelegateExecution)"})
   public void testExecute_thenThrowActivitiException() {
     // Arrange
     ParallelGatewayActivityBehavior parallelGatewayActivityBehavior = new ParallelGatewayActivityBehavior();
@@ -55,16 +57,16 @@ public class ParallelGatewayActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ParallelGatewayActivityBehavior#cleanJoinedExecutions(Collection, DelegateExecution)}.
+   * Test {@link ParallelGatewayActivityBehavior#cleanJoinedExecutions(Collection, DelegateExecution)}.
    * <ul>
    *   <li>Then return {@link List}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ParallelGatewayActivityBehavior#cleanJoinedExecutions(Collection, DelegateExecution)}
+   * Method under test: {@link ParallelGatewayActivityBehavior#cleanJoinedExecutions(Collection, DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Collection ParallelGatewayActivityBehavior.cleanJoinedExecutions(Collection, DelegateExecution)"})
   public void testCleanJoinedExecutions_thenReturnList() {
     // Arrange
     ParallelGatewayActivityBehavior parallelGatewayActivityBehavior = new ParallelGatewayActivityBehavior();
@@ -82,16 +84,16 @@ public class ParallelGatewayActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ParallelGatewayActivityBehavior#cleanJoinedExecutions(Collection, DelegateExecution)}.
+   * Test {@link ParallelGatewayActivityBehavior#cleanJoinedExecutions(Collection, DelegateExecution)}.
    * <ul>
    *   <li>Then return {@link List}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ParallelGatewayActivityBehavior#cleanJoinedExecutions(Collection, DelegateExecution)}
+   * Method under test: {@link ParallelGatewayActivityBehavior#cleanJoinedExecutions(Collection, DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Collection ParallelGatewayActivityBehavior.cleanJoinedExecutions(Collection, DelegateExecution)"})
   public void testCleanJoinedExecutions_thenReturnList2() {
     // Arrange
     ParallelGatewayActivityBehavior parallelGatewayActivityBehavior = new ParallelGatewayActivityBehavior();
@@ -110,17 +112,17 @@ public class ParallelGatewayActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ParallelGatewayActivityBehavior#cleanJoinedExecutions(Collection, DelegateExecution)}.
+   * Test {@link ParallelGatewayActivityBehavior#cleanJoinedExecutions(Collection, DelegateExecution)}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    *   <li>Then return {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ParallelGatewayActivityBehavior#cleanJoinedExecutions(Collection, DelegateExecution)}
+   * Method under test: {@link ParallelGatewayActivityBehavior#cleanJoinedExecutions(Collection, DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Collection ParallelGatewayActivityBehavior.cleanJoinedExecutions(Collection, DelegateExecution)"})
   public void testCleanJoinedExecutions_whenArrayList_thenReturnArrayList() {
     // Arrange
     ParallelGatewayActivityBehavior parallelGatewayActivityBehavior = new ParallelGatewayActivityBehavior();
@@ -132,16 +134,17 @@ public class ParallelGatewayActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ParallelGatewayActivityBehavior#isChildOfMultiInstanceExecution(DelegateExecution, DelegateExecution)}.
+   * Test {@link ParallelGatewayActivityBehavior#isChildOfMultiInstanceExecution(DelegateExecution, DelegateExecution)}.
    * <ul>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ParallelGatewayActivityBehavior#isChildOfMultiInstanceExecution(DelegateExecution, DelegateExecution)}
+   * Method under test: {@link ParallelGatewayActivityBehavior#isChildOfMultiInstanceExecution(DelegateExecution, DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "boolean ParallelGatewayActivityBehavior.isChildOfMultiInstanceExecution(DelegateExecution, DelegateExecution)"})
   public void testIsChildOfMultiInstanceExecution_thenReturnFalse() {
     // Arrange
     ParallelGatewayActivityBehavior parallelGatewayActivityBehavior = new ParallelGatewayActivityBehavior();
@@ -153,17 +156,17 @@ public class ParallelGatewayActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ParallelGatewayActivityBehavior#hasMultiInstanceParent(FlowNode)}.
+   * Test {@link ParallelGatewayActivityBehavior#hasMultiInstanceParent(FlowNode)}.
    * <ul>
    *   <li>Given {@link AdhocSubProcess} (default constructor).</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ParallelGatewayActivityBehavior#hasMultiInstanceParent(FlowNode)}
+   * Method under test: {@link ParallelGatewayActivityBehavior#hasMultiInstanceParent(FlowNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ParallelGatewayActivityBehavior.hasMultiInstanceParent(FlowNode)"})
   public void testHasMultiInstanceParent_givenAdhocSubProcess_thenReturnFalse() {
     // Arrange
     ParallelGatewayActivityBehavior parallelGatewayActivityBehavior = new ParallelGatewayActivityBehavior();
@@ -176,16 +179,16 @@ public class ParallelGatewayActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ParallelGatewayActivityBehavior#hasMultiInstanceParent(FlowNode)}.
+   * Test {@link ParallelGatewayActivityBehavior#hasMultiInstanceParent(FlowNode)}.
    * <ul>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ParallelGatewayActivityBehavior#hasMultiInstanceParent(FlowNode)}
+   * Method under test: {@link ParallelGatewayActivityBehavior#hasMultiInstanceParent(FlowNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ParallelGatewayActivityBehavior.hasMultiInstanceParent(FlowNode)"})
   public void testHasMultiInstanceParent_thenReturnTrue() {
     // Arrange
     ParallelGatewayActivityBehavior parallelGatewayActivityBehavior = new ParallelGatewayActivityBehavior();
@@ -201,17 +204,17 @@ public class ParallelGatewayActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ParallelGatewayActivityBehavior#hasMultiInstanceParent(FlowNode)}.
+   * Test {@link ParallelGatewayActivityBehavior#hasMultiInstanceParent(FlowNode)}.
    * <ul>
    *   <li>When {@link AdhocSubProcess} (default constructor).</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ParallelGatewayActivityBehavior#hasMultiInstanceParent(FlowNode)}
+   * Method under test: {@link ParallelGatewayActivityBehavior#hasMultiInstanceParent(FlowNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ParallelGatewayActivityBehavior.hasMultiInstanceParent(FlowNode)"})
   public void testHasMultiInstanceParent_whenAdhocSubProcess_thenReturnFalse() {
     // Arrange
     ParallelGatewayActivityBehavior parallelGatewayActivityBehavior = new ParallelGatewayActivityBehavior();
@@ -221,38 +224,18 @@ public class ParallelGatewayActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ParallelGatewayActivityBehavior#findMultiInstanceParentExecution(DelegateExecution)}.
+   * Test {@link ParallelGatewayActivityBehavior#findMultiInstanceParentExecution(DelegateExecution)}.
    * <ul>
-   *   <li>Given {@link Date}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ParallelGatewayActivityBehavior#findMultiInstanceParentExecution(DelegateExecution)}
+   * Method under test: {@link ParallelGatewayActivityBehavior#findMultiInstanceParentExecution(DelegateExecution)}
    */
   @Test
-  public void testFindMultiInstanceParentExecution_givenDate() {
-    // Arrange
-    ParallelGatewayActivityBehavior parallelGatewayActivityBehavior = new ParallelGatewayActivityBehavior();
-    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-    execution.setLockTime(mock(Date.class));
-
-    // Act and Assert
-    assertNull(parallelGatewayActivityBehavior.findMultiInstanceParentExecution(execution));
-  }
-
-  /**
-   * Test
-   * {@link ParallelGatewayActivityBehavior#findMultiInstanceParentExecution(DelegateExecution)}.
-   * <ul>
-   *   <li>When createWithEmptyRelationshipCollections.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ParallelGatewayActivityBehavior#findMultiInstanceParentExecution(DelegateExecution)}
-   */
-  @Test
-  public void testFindMultiInstanceParentExecution_whenCreateWithEmptyRelationshipCollections() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "DelegateExecution ParallelGatewayActivityBehavior.findMultiInstanceParentExecution(DelegateExecution)"})
+  public void testFindMultiInstanceParentExecution_thenReturnNull() {
     // Arrange
     ParallelGatewayActivityBehavior parallelGatewayActivityBehavior = new ParallelGatewayActivityBehavior();
 

@@ -24,8 +24,8 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.CancelEventDefinition;
@@ -33,25 +33,24 @@ import org.activiti.bpmn.model.EventDefinition;
 import org.activiti.bpmn.model.IntermediateCatchEvent;
 import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.bpmn.model.Process;
-import org.activiti.bpmn.model.Resource;
-import org.activiti.bpmn.model.Signal;
 import org.activiti.bpmn.model.SignalEventDefinition;
 import org.activiti.bpmn.model.TimerEventDefinition;
 import org.activiti.validation.ValidationError;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class IntermediateCatchEventValidatorDiffblueTest {
   /**
-   * Test
-   * {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <p>
-   * Method under test:
-   * {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IntermediateCatchEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation() {
     // Arrange
     IntermediateCatchEventValidator intermediateCatchEventValidator = new IntermediateCatchEventValidator();
@@ -99,19 +98,19 @@ class IntermediateCatchEventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link MessageEventDefinition}
-   * (default constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link MessageEventDefinition} (default constructor).</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList() add MessageEventDefinition (default constructor)")
-  void testExecuteValidation_givenArrayListAddMessageEventDefinition() {
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList() add MessageEventDefinition (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IntermediateCatchEventValidator.executeValidation(BpmnModel, Process, List)"})
+  void testExecuteValidation_givenArrayListAddMessageEventDefinition_thenArrayListEmpty() {
     // Arrange
     IntermediateCatchEventValidator intermediateCatchEventValidator = new IntermediateCatchEventValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -134,29 +133,23 @@ class IntermediateCatchEventValidatorDiffblueTest {
     // Assert that nothing has changed
     verify(intermediateCatchEvent, atLeast(1)).getEventDefinitions();
     verify(process).findFlowElementsOfType(isA(Class.class));
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
     assertTrue(errors.isEmpty());
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
   }
 
   /**
-   * Test
-   * {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link SignalEventDefinition}
-   * (default constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link SignalEventDefinition} (default constructor).</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList() add SignalEventDefinition (default constructor)")
-  void testExecuteValidation_givenArrayListAddSignalEventDefinition() {
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList() add SignalEventDefinition (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IntermediateCatchEventValidator.executeValidation(BpmnModel, Process, List)"})
+  void testExecuteValidation_givenArrayListAddSignalEventDefinition_thenArrayListEmpty() {
     // Arrange
     IntermediateCatchEventValidator intermediateCatchEventValidator = new IntermediateCatchEventValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -179,29 +172,23 @@ class IntermediateCatchEventValidatorDiffblueTest {
     // Assert that nothing has changed
     verify(intermediateCatchEvent, atLeast(1)).getEventDefinitions();
     verify(process).findFlowElementsOfType(isA(Class.class));
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
     assertTrue(errors.isEmpty());
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
   }
 
   /**
-   * Test
-   * {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link TimerEventDefinition}
-   * (default constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link TimerEventDefinition} (default constructor).</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList() add TimerEventDefinition (default constructor)")
-  void testExecuteValidation_givenArrayListAddTimerEventDefinition() {
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList() add TimerEventDefinition (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IntermediateCatchEventValidator.executeValidation(BpmnModel, Process, List)"})
+  void testExecuteValidation_givenArrayListAddTimerEventDefinition_thenArrayListEmpty() {
     // Arrange
     IntermediateCatchEventValidator intermediateCatchEventValidator = new IntermediateCatchEventValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -224,29 +211,23 @@ class IntermediateCatchEventValidatorDiffblueTest {
     // Assert that nothing has changed
     verify(intermediateCatchEvent, atLeast(1)).getEventDefinitions();
     verify(process).findFlowElementsOfType(isA(Class.class));
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
     assertTrue(errors.isEmpty());
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
   }
 
   /**
-   * Test
-   * {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
    *   <li>Given {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then {@link BpmnModel} (default constructor) Resources {@link List}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList(); then BpmnModel (default constructor) Resources List")
-  void testExecuteValidation_givenArrayList_thenBpmnModelResourcesList() {
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList(); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IntermediateCatchEventValidator.executeValidation(BpmnModel, Process, List)"})
+  void testExecuteValidation_givenArrayList_thenArrayListEmpty() {
     // Arrange
     IntermediateCatchEventValidator intermediateCatchEventValidator = new IntermediateCatchEventValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -259,27 +240,21 @@ class IntermediateCatchEventValidatorDiffblueTest {
 
     // Assert that nothing has changed
     verify(process).findFlowElementsOfType(isA(Class.class));
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
     assertTrue(errors.isEmpty());
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
   }
 
   /**
-   * Test
-   * {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityId is '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IntermediateCatchEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListFirstActivityIdIs42() {
     // Arrange
     IntermediateCatchEventValidator intermediateCatchEventValidator = new IntermediateCatchEventValidator();
@@ -321,17 +296,17 @@ class IntermediateCatchEventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityId is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IntermediateCatchEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListFirstActivityIdIsNull() {
     // Arrange
     IntermediateCatchEventValidator intermediateCatchEventValidator = new IntermediateCatchEventValidator();
@@ -362,17 +337,17 @@ class IntermediateCatchEventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IntermediateCatchEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListSizeIsTwo() {
     // Arrange
     IntermediateCatchEventValidator intermediateCatchEventValidator = new IntermediateCatchEventValidator();
@@ -412,46 +387,19 @@ class IntermediateCatchEventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>When {@link BpmnModel}.</li>
+   *   <li>When {@link Process} (default constructor).</li>
    *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); when BpmnModel; then ArrayList() Empty")
-  void testExecuteValidation_whenBpmnModel_thenArrayListEmpty() {
-    // Arrange
-    IntermediateCatchEventValidator intermediateCatchEventValidator = new IntermediateCatchEventValidator();
-    BpmnModel bpmnModel = mock(BpmnModel.class);
-    Process process = new Process();
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    intermediateCatchEventValidator.executeValidation(bpmnModel, process, errors);
-
-    // Assert that nothing has changed
-    assertTrue(errors.isEmpty());
-  }
-
-  /**
-   * Test
-   * {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}.
-   * <ul>
-   *   <li>When {@link Process} (default constructor).</li>
-   *   <li>Then {@link BpmnModel} (default constructor) Resources {@link List}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link IntermediateCatchEventValidator#executeValidation(BpmnModel, Process, List)}
-   */
-  @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); when Process (default constructor); then BpmnModel (default constructor) Resources List")
-  void testExecuteValidation_whenProcess_thenBpmnModelResourcesList() {
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); when Process (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IntermediateCatchEventValidator.executeValidation(BpmnModel, Process, List)"})
+  void testExecuteValidation_whenProcess_thenArrayListEmpty() {
     // Arrange
     IntermediateCatchEventValidator intermediateCatchEventValidator = new IntermediateCatchEventValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -462,12 +410,6 @@ class IntermediateCatchEventValidatorDiffblueTest {
     intermediateCatchEventValidator.executeValidation(bpmnModel, process, errors);
 
     // Assert that nothing has changed
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
     assertTrue(errors.isEmpty());
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
   }
 }

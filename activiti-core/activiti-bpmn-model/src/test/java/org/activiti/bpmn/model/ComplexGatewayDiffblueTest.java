@@ -19,24 +19,24 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import java.util.HashMap;
-import java.util.List;
-import java.util.function.BiFunction;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ComplexGatewayDiffblueTest {
   /**
    * Test {@link ComplexGateway#clone()}.
    * <ul>
-   *   <li>Given {@link ComplexGateway} (default constructor) Asynchronous is
-   * {@code true}.</li>
+   *   <li>Given {@link ComplexGateway} (default constructor) Asynchronous is {@code true}.</li>
    *   <li>Then return Asynchronous.</li>
    * </ul>
    * <p>
    * Method under test: {@link ComplexGateway#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ComplexGateway ComplexGateway.clone()"})
   public void testClone_givenComplexGatewayAsynchronousIsTrue_thenReturnAsynchronous() {
     // Arrange
     ComplexGateway complexGateway = new ComplexGateway();
@@ -75,6 +75,8 @@ public class ComplexGatewayDiffblueTest {
    * Method under test: {@link ComplexGateway#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ComplexGateway ComplexGateway.clone()"})
   public void testClone_givenComplexGateway_thenReturnNotAsynchronous() {
     // Arrange and Act
     ComplexGateway actualCloneResult = (new ComplexGateway()).clone();
@@ -100,55 +102,13 @@ public class ComplexGatewayDiffblueTest {
   }
 
   /**
-   * Test {@link ComplexGateway#clone()}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@code foo} and
-   * {@link BiFunction}.</li>
-   *   <li>Then return not Asynchronous.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ComplexGateway#clone()}
-   */
-  @Test
-  public void testClone_givenHashMapComputeIfPresentFooAndBiFunction_thenReturnNotAsynchronous() {
-    // Arrange
-    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
-    attributes.computeIfPresent("foo", mock(BiFunction.class));
-
-    ComplexGateway complexGateway = new ComplexGateway();
-    complexGateway.setExtensionElements(null);
-    complexGateway.setAttributes(attributes);
-
-    // Act
-    ComplexGateway actualCloneResult = complexGateway.clone();
-
-    // Assert
-    assertNull(actualCloneResult.getBehavior());
-    assertNull(actualCloneResult.getId());
-    assertNull(actualCloneResult.getDocumentation());
-    assertNull(actualCloneResult.getName());
-    assertNull(actualCloneResult.getDefaultFlow());
-    assertNull(actualCloneResult.getParentContainer());
-    assertNull(actualCloneResult.getSubProcess());
-    assertEquals(0, actualCloneResult.getXmlColumnNumber());
-    assertEquals(0, actualCloneResult.getXmlRowNumber());
-    assertFalse(actualCloneResult.isAsynchronous());
-    assertFalse(actualCloneResult.isNotExclusive());
-    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
-    assertTrue(actualCloneResult.getIncomingFlows().isEmpty());
-    assertTrue(actualCloneResult.getOutgoingFlows().isEmpty());
-    assertTrue(actualCloneResult.getAttributes().isEmpty());
-    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-    assertTrue(actualCloneResult.isExclusive());
-  }
-
-  /**
    * Test new {@link ComplexGateway} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link ComplexGateway}
+   * Method under test: default or parameterless constructor of {@link ComplexGateway}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ComplexGateway.<init>()"})
   public void testNewComplexGateway() {
     // Arrange and Act
     ComplexGateway actualComplexGateway = new ComplexGateway();

@@ -18,20 +18,48 @@ package org.activiti.bpmn.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class LongDataObjectDiffblueTest {
   /**
+   * Test {@link LongDataObject#setValue(Object)}.
+   * <ul>
+   *   <li>When forty-two.</li>
+   *   <li>Then {@link LongDataObject} (default constructor) Value longValue is forty-two.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link LongDataObject#setValue(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void LongDataObject.setValue(Object)"})
+  public void testSetValue_whenFortyTwo_thenLongDataObjectValueLongValueIsFortyTwo() {
+    // Arrange
+    LongDataObject longDataObject = new LongDataObject();
+
+    // Act
+    longDataObject.setValue(42);
+
+    // Assert
+    assertEquals(42L, ((Long) longDataObject.getValue()).longValue());
+  }
+
+  /**
    * Test {@link LongDataObject#clone()}.
    * <ul>
-   *   <li>Given {@link LongDataObject} (default constructor) Value is
-   * forty-two.</li>
+   *   <li>Given {@link LongDataObject} (default constructor) Value is forty-two.</li>
+   *   <li>Then return Value longValue is forty-two.</li>
    * </ul>
    * <p>
    * Method under test: {@link LongDataObject#clone()}
    */
   @Test
-  public void testClone_givenLongDataObjectValueIsFortyTwo() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"LongDataObject LongDataObject.clone()"})
+  public void testClone_givenLongDataObjectValueIsFortyTwo_thenReturnValueLongValueIsFortyTwo() {
     // Arrange
     LongDataObject longDataObject = new LongDataObject();
     longDataObject.setValue(42);
@@ -48,6 +76,7 @@ public class LongDataObjectDiffblueTest {
     assertNull(actualCloneResult.getSubProcess());
     assertEquals(0, actualCloneResult.getXmlColumnNumber());
     assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertEquals(42L, ((Long) actualCloneResult.getValue()).longValue());
     assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
     assertTrue(actualCloneResult.getAttributes().isEmpty());
     assertTrue(actualCloneResult.getExtensionElements().isEmpty());
@@ -63,6 +92,8 @@ public class LongDataObjectDiffblueTest {
    * Method under test: {@link LongDataObject#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"LongDataObject LongDataObject.clone()"})
   public void testClone_givenLongDataObject_thenReturnValueIsNull() {
     // Arrange and Act
     LongDataObject actualCloneResult = (new LongDataObject()).clone();
@@ -85,10 +116,11 @@ public class LongDataObjectDiffblueTest {
   /**
    * Test new {@link LongDataObject} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link LongDataObject}
+   * Method under test: default or parameterless constructor of {@link LongDataObject}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void LongDataObject.<init>()"})
   public void testNewLongDataObject() {
     // Arrange and Act
     LongDataObject actualLongDataObject = new LongDataObject();

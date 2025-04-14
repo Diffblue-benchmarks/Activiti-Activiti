@@ -17,10 +17,13 @@ package org.activiti.engine.impl.persistence;
 
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.impl.interceptor.Session;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class GenericManagerFactoryDiffblueTest {
   /**
@@ -33,6 +36,9 @@ public class GenericManagerFactoryDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void GenericManagerFactory.<init>(Class)", "void GenericManagerFactory.<init>(Class, Class)",
+      "Class GenericManagerFactory.getSessionType()"})
   public void testGettersAndSetters() {
     // Arrange
     Class<Session> implementationClass = Session.class;
@@ -54,6 +60,9 @@ public class GenericManagerFactoryDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void GenericManagerFactory.<init>(Class)", "void GenericManagerFactory.<init>(Class, Class)",
+      "Class GenericManagerFactory.getSessionType()"})
   public void testGettersAndSetters2() {
     // Arrange
     Class<Session> typeClass = Session.class;
@@ -75,6 +84,8 @@ public class GenericManagerFactoryDiffblueTest {
    * Method under test: {@link GenericManagerFactory#openSession(CommandContext)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Session GenericManagerFactory.openSession(CommandContext)"})
   public void testOpenSession_thenThrowActivitiException() {
     // Arrange
     Class<Session> implementationClass = Session.class;

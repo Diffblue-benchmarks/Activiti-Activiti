@@ -17,27 +17,20 @@ package org.activiti.engine.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class HistoricProcessInstanceQueryPropertyDiffblueTest {
-  @InjectMocks
-  private HistoricProcessInstanceQueryProperty historicProcessInstanceQueryProperty;
-
-  @InjectMocks
-  private String string;
-
   /**
-   * Test
-   * {@link HistoricProcessInstanceQueryProperty#HistoricProcessInstanceQueryProperty(String)}.
+   * Test {@link HistoricProcessInstanceQueryProperty#HistoricProcessInstanceQueryProperty(String)}.
    * <p>
-   * Method under test:
-   * {@link HistoricProcessInstanceQueryProperty#HistoricProcessInstanceQueryProperty(String)}
+   * Method under test: {@link HistoricProcessInstanceQueryProperty#HistoricProcessInstanceQueryProperty(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HistoricProcessInstanceQueryProperty.<init>(String)"})
   public void testNewHistoricProcessInstanceQueryProperty() {
     // Arrange, Act and Assert
     assertEquals("Name", (new HistoricProcessInstanceQueryProperty("Name")).getName());
@@ -49,6 +42,8 @@ public class HistoricProcessInstanceQueryPropertyDiffblueTest {
    * Method under test: {@link HistoricProcessInstanceQueryProperty#getName()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String HistoricProcessInstanceQueryProperty.getName()"})
   public void testGetName() {
     // Arrange, Act and Assert
     assertEquals("Name", (new HistoricProcessInstanceQueryProperty("Name")).getName());
@@ -57,10 +52,11 @@ public class HistoricProcessInstanceQueryPropertyDiffblueTest {
   /**
    * Test {@link HistoricProcessInstanceQueryProperty#findByName(String)}.
    * <p>
-   * Method under test:
-   * {@link HistoricProcessInstanceQueryProperty#findByName(String)}
+   * Method under test: {@link HistoricProcessInstanceQueryProperty#findByName(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricProcessInstanceQueryProperty HistoricProcessInstanceQueryProperty.findByName(String)"})
   public void testFindByName() {
     // Arrange, Act and Assert
     assertNull(HistoricProcessInstanceQueryProperty.findByName("Property Name"));

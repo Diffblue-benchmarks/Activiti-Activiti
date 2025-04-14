@@ -19,22 +19,28 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.impl.asyncexecutor.AsyncExecutor;
 import org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor;
 import org.activiti.engine.impl.persistence.entity.JobEntity;
 import org.activiti.engine.impl.persistence.entity.JobEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class AsyncJobAddedNotificationDiffblueTest {
   /**
-   * Test
-   * {@link AsyncJobAddedNotification#AsyncJobAddedNotification(JobEntity, AsyncExecutor)}.
+   * Test {@link AsyncJobAddedNotification#AsyncJobAddedNotification(JobEntity, AsyncExecutor)}.
    * <p>
-   * Method under test:
-   * {@link AsyncJobAddedNotification#AsyncJobAddedNotification(JobEntity, AsyncExecutor)}
+   * Method under test: {@link AsyncJobAddedNotification#AsyncJobAddedNotification(JobEntity, AsyncExecutor)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AsyncJobAddedNotification.<init>(JobEntity, AsyncExecutor)",
+      "void AsyncJobAddedNotification.afterSessionsFlush(org.activiti.engine.impl.interceptor.CommandContext)",
+      "void AsyncJobAddedNotification.closeFailure(org.activiti.engine.impl.interceptor.CommandContext)",
+      "void AsyncJobAddedNotification.closing(org.activiti.engine.impl.interceptor.CommandContext)"})
   public void testNewAsyncJobAddedNotification() {
     // Arrange
     JobEntityImpl job = new JobEntityImpl();

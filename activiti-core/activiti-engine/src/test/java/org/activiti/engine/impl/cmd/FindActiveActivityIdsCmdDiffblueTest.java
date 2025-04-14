@@ -22,21 +22,25 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class FindActiveActivityIdsCmdDiffblueTest {
   /**
    * Test {@link FindActiveActivityIdsCmd#FindActiveActivityIdsCmd(String)}.
    * <p>
-   * Method under test:
-   * {@link FindActiveActivityIdsCmd#FindActiveActivityIdsCmd(String)}
+   * Method under test: {@link FindActiveActivityIdsCmd#FindActiveActivityIdsCmd(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FindActiveActivityIdsCmd.<init>(String)"})
   public void testNewFindActiveActivityIdsCmd() {
     // Arrange, Act and Assert
     assertEquals("42", (new FindActiveActivityIdsCmd("42")).executionId);
@@ -48,10 +52,11 @@ public class FindActiveActivityIdsCmdDiffblueTest {
    *   <li>Given createWithEmptyRelationshipCollections.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link FindActiveActivityIdsCmd#findActiveActivityIds(ExecutionEntity)}
+   * Method under test: {@link FindActiveActivityIdsCmd#findActiveActivityIds(ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List FindActiveActivityIdsCmd.findActiveActivityIds(ExecutionEntity)"})
   public void testFindActiveActivityIds_givenCreateWithEmptyRelationshipCollections() {
     // Arrange
     FindActiveActivityIdsCmd findActiveActivityIdsCmd = new FindActiveActivityIdsCmd("42");
@@ -68,10 +73,11 @@ public class FindActiveActivityIdsCmdDiffblueTest {
    *   <li>When createWithEmptyRelationshipCollections.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link FindActiveActivityIdsCmd#findActiveActivityIds(ExecutionEntity)}
+   * Method under test: {@link FindActiveActivityIdsCmd#findActiveActivityIds(ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List FindActiveActivityIdsCmd.findActiveActivityIds(ExecutionEntity)"})
   public void testFindActiveActivityIds_whenCreateWithEmptyRelationshipCollections() {
     // Arrange
     FindActiveActivityIdsCmd findActiveActivityIdsCmd = new FindActiveActivityIdsCmd("42");
@@ -83,13 +89,13 @@ public class FindActiveActivityIdsCmdDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}.
+   * Test {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}.
    * <p>
-   * Method under test:
-   * {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}
+   * Method under test: {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FindActiveActivityIdsCmd.collectActiveActivityIds(ExecutionEntity, List)"})
   public void testCollectActiveActivityIds() {
     // Arrange
     FindActiveActivityIdsCmd findActiveActivityIdsCmd = new FindActiveActivityIdsCmd("42");
@@ -114,17 +120,17 @@ public class FindActiveActivityIdsCmdDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}.
+   * Test {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}.
    * <ul>
    *   <li>Given {@link ArrayList#ArrayList()}.</li>
    *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}
+   * Method under test: {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FindActiveActivityIdsCmd.collectActiveActivityIds(ExecutionEntity, List)"})
   public void testCollectActiveActivityIds_givenArrayList_thenArrayListSizeIsOne() {
     // Arrange
     FindActiveActivityIdsCmd findActiveActivityIdsCmd = new FindActiveActivityIdsCmd("42");
@@ -146,16 +152,16 @@ public class FindActiveActivityIdsCmdDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}.
+   * Test {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}.
    * <ul>
    *   <li>Given {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}
+   * Method under test: {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FindActiveActivityIdsCmd.collectActiveActivityIds(ExecutionEntity, List)"})
   public void testCollectActiveActivityIds_givenFalse() {
     // Arrange
     FindActiveActivityIdsCmd findActiveActivityIdsCmd = new FindActiveActivityIdsCmd("42");
@@ -174,18 +180,18 @@ public class FindActiveActivityIdsCmdDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}.
+   * Test {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}.
    * <ul>
    *   <li>Given {@code foo}.</li>
    *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
    *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}
+   * Method under test: {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FindActiveActivityIdsCmd.collectActiveActivityIds(ExecutionEntity, List)"})
   public void testCollectActiveActivityIds_givenFoo_whenArrayListAddFoo_thenArrayListSizeIsTwo() {
     // Arrange
     FindActiveActivityIdsCmd findActiveActivityIdsCmd = new FindActiveActivityIdsCmd("42");
@@ -210,16 +216,16 @@ public class FindActiveActivityIdsCmdDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}.
+   * Test {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}.
    * <ul>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}
+   * Method under test: {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FindActiveActivityIdsCmd.collectActiveActivityIds(ExecutionEntity, List)"})
   public void testCollectActiveActivityIds_thenThrowActivitiIllegalArgumentException() {
     // Arrange
     FindActiveActivityIdsCmd findActiveActivityIdsCmd = new FindActiveActivityIdsCmd("42");
@@ -235,16 +241,16 @@ public class FindActiveActivityIdsCmdDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}.
+   * Test {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}.
    * <ul>
    *   <li>When createWithEmptyRelationshipCollections.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}
+   * Method under test: {@link FindActiveActivityIdsCmd#collectActiveActivityIds(ExecutionEntity, List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FindActiveActivityIdsCmd.collectActiveActivityIds(ExecutionEntity, List)"})
   public void testCollectActiveActivityIds_whenCreateWithEmptyRelationshipCollections() {
     // Arrange
     FindActiveActivityIdsCmd findActiveActivityIdsCmd = new FindActiveActivityIdsCmd("42");

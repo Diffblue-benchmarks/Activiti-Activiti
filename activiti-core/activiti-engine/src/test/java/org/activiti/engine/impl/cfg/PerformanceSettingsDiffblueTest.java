@@ -16,7 +16,10 @@
 package org.activiti.engine.impl.cfg;
 
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class PerformanceSettingsDiffblueTest {
   /**
@@ -28,16 +31,24 @@ public class PerformanceSettingsDiffblueTest {
    *   <li>{@link PerformanceSettings#setEnableEagerExecutionTreeFetching(boolean)}
    *   <li>{@link PerformanceSettings#setEnableExecutionRelationshipCounts(boolean)}
    *   <li>{@link PerformanceSettings#setEnableLocalization(boolean)}
-   *   <li>
-   * {@link PerformanceSettings#setValidateExecutionRelationshipCountConfigOnBoot(boolean)}
+   *   <li>{@link PerformanceSettings#setValidateExecutionRelationshipCountConfigOnBoot(boolean)}
    *   <li>{@link PerformanceSettings#isEnableEagerExecutionTreeFetching()}
    *   <li>{@link PerformanceSettings#isEnableExecutionRelationshipCounts()}
    *   <li>{@link PerformanceSettings#isEnableLocalization()}
-   *   <li>
-   * {@link PerformanceSettings#isValidateExecutionRelationshipCountConfigOnBoot()}
+   *   <li>{@link PerformanceSettings#isValidateExecutionRelationshipCountConfigOnBoot()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void PerformanceSettings.<init>()",
+      "boolean PerformanceSettings.isEnableEagerExecutionTreeFetching()",
+      "boolean PerformanceSettings.isEnableExecutionRelationshipCounts()",
+      "boolean PerformanceSettings.isEnableLocalization()",
+      "boolean PerformanceSettings.isValidateExecutionRelationshipCountConfigOnBoot()",
+      "void PerformanceSettings.setEnableEagerExecutionTreeFetching(boolean)",
+      "void PerformanceSettings.setEnableExecutionRelationshipCounts(boolean)",
+      "void PerformanceSettings.setEnableLocalization(boolean)",
+      "void PerformanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(boolean)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     PerformanceSettings actualPerformanceSettings = new PerformanceSettings();
@@ -51,7 +62,7 @@ public class PerformanceSettingsDiffblueTest {
         .isEnableExecutionRelationshipCounts();
     boolean actualIsEnableLocalizationResult = actualPerformanceSettings.isEnableLocalization();
 
-    // Assert that nothing has changed
+    // Assert
     assertTrue(actualIsEnableEagerExecutionTreeFetchingResult);
     assertTrue(actualIsEnableExecutionRelationshipCountsResult);
     assertTrue(actualIsEnableLocalizationResult);

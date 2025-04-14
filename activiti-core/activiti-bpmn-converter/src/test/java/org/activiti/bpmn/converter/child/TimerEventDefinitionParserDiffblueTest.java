@@ -16,7 +16,9 @@
 package org.activiti.bpmn.converter.child;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class TimerEventDefinitionParserDiffblueTest {
@@ -25,13 +27,15 @@ class TimerEventDefinitionParserDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of
-   * {@link TimerEventDefinitionParser}
+   *   <li>default or parameterless constructor of {@link TimerEventDefinitionParser}
    *   <li>{@link TimerEventDefinitionParser#getElementName()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TimerEventDefinitionParser.<init>()",
+      "java.lang.String TimerEventDefinitionParser.getElementName()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("timerEventDefinition", (new TimerEventDefinitionParser()).getElementName());

@@ -19,28 +19,22 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiFunction;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class SignalEventReceivedCmdDiffblueTest {
-  @InjectMocks
-  private SignalEventReceivedCmd signalEventReceivedCmd;
-
   /**
-   * Test
-   * {@link SignalEventReceivedCmd#SignalEventReceivedCmd(String, String, boolean, String)}.
+   * Test {@link SignalEventReceivedCmd#SignalEventReceivedCmd(String, String, boolean, String)}.
    * <p>
-   * Method under test:
-   * {@link SignalEventReceivedCmd#SignalEventReceivedCmd(String, String, boolean, String)}
+   * Method under test: {@link SignalEventReceivedCmd#SignalEventReceivedCmd(String, String, boolean, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SignalEventReceivedCmd.<init>(String, String, boolean, String)"})
   public void testNewSignalEventReceivedCmd() {
     // Arrange and Act
     SignalEventReceivedCmd actualSignalEventReceivedCmd = new SignalEventReceivedCmd("Event Name", "42", true, "42");
@@ -54,45 +48,18 @@ public class SignalEventReceivedCmdDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link SignalEventReceivedCmd#SignalEventReceivedCmd(String, String, Map, String)}.
-   * <ul>
-   *   <li>Given {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link SignalEventReceivedCmd#SignalEventReceivedCmd(String, String, Map, String)}
-   */
-  @Test
-  public void testNewSignalEventReceivedCmd_givenFoo() {
-    // Arrange
-    HashMap<String, Object> processVariables = new HashMap<>();
-    processVariables.computeIfPresent("foo", mock(BiFunction.class));
-
-    // Act
-    SignalEventReceivedCmd actualSignalEventReceivedCmd = new SignalEventReceivedCmd("Event Name", "42",
-        processVariables, "42");
-
-    // Assert
-    assertEquals("42", actualSignalEventReceivedCmd.executionId);
-    assertEquals("42", actualSignalEventReceivedCmd.tenantId);
-    assertEquals("Event Name", actualSignalEventReceivedCmd.eventName);
-    assertFalse(actualSignalEventReceivedCmd.async);
-    assertTrue(actualSignalEventReceivedCmd.payload.isEmpty());
-  }
-
-  /**
-   * Test
-   * {@link SignalEventReceivedCmd#SignalEventReceivedCmd(String, String, Map, String)}.
+   * Test {@link SignalEventReceivedCmd#SignalEventReceivedCmd(String, String, Map, String)}.
    * <ul>
    *   <li>When {@link HashMap#HashMap()}.</li>
+   *   <li>Then return {@link SignalEventReceivedCmd#payload} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SignalEventReceivedCmd#SignalEventReceivedCmd(String, String, Map, String)}
+   * Method under test: {@link SignalEventReceivedCmd#SignalEventReceivedCmd(String, String, Map, String)}
    */
   @Test
-  public void testNewSignalEventReceivedCmd_whenHashMap() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SignalEventReceivedCmd.<init>(String, String, Map, String)"})
+  public void testNewSignalEventReceivedCmd_whenHashMap_thenReturnPayloadEmpty() {
     // Arrange and Act
     SignalEventReceivedCmd actualSignalEventReceivedCmd = new SignalEventReceivedCmd("Event Name", "42",
         new HashMap<>(), "42");
@@ -103,5 +70,29 @@ public class SignalEventReceivedCmdDiffblueTest {
     assertEquals("Event Name", actualSignalEventReceivedCmd.eventName);
     assertFalse(actualSignalEventReceivedCmd.async);
     assertTrue(actualSignalEventReceivedCmd.payload.isEmpty());
+  }
+
+  /**
+   * Test {@link SignalEventReceivedCmd#SignalEventReceivedCmd(String, String, Map, String)}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@link SignalEventReceivedCmd#payload} is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link SignalEventReceivedCmd#SignalEventReceivedCmd(String, String, Map, String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SignalEventReceivedCmd.<init>(String, String, Map, String)"})
+  public void testNewSignalEventReceivedCmd_whenNull_thenReturnPayloadIsNull() {
+    // Arrange and Act
+    SignalEventReceivedCmd actualSignalEventReceivedCmd = new SignalEventReceivedCmd("Event Name", "42", null, "42");
+
+    // Assert
+    assertEquals("42", actualSignalEventReceivedCmd.executionId);
+    assertEquals("42", actualSignalEventReceivedCmd.tenantId);
+    assertEquals("Event Name", actualSignalEventReceivedCmd.eventName);
+    assertNull(actualSignalEventReceivedCmd.payload);
+    assertFalse(actualSignalEventReceivedCmd.async);
   }
 }

@@ -22,6 +22,7 @@ import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,6 +36,7 @@ import org.activiti.engine.impl.TaskQueryImpl;
 import org.activiti.engine.impl.persistence.entity.VariableInstance;
 import org.activiti.runtime.api.model.impl.APITaskConverter;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -69,11 +71,12 @@ class TaskRuntimeHelperDiffblueTest {
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskRuntimeHelper#getInternalTaskWithChecks(String)}
+   * Method under test: {@link TaskRuntimeHelper#getInternalTaskWithChecks(String)}
    */
   @Test
   @DisplayName("Test getInternalTaskWithChecks(String); then throw ActivitiException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.engine.task.Task TaskRuntimeHelper.getInternalTaskWithChecks(String)"})
   void testGetInternalTaskWithChecks_thenThrowActivitiException() throws SecurityException {
     // Arrange
     TaskQueryImpl taskQueryImpl = mock(TaskQueryImpl.class);
@@ -98,11 +101,12 @@ class TaskRuntimeHelperDiffblueTest {
    *   <li>Then throw {@link IllegalStateException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskRuntimeHelper#getInternalTaskWithChecks(String)}
+   * Method under test: {@link TaskRuntimeHelper#getInternalTaskWithChecks(String)}
    */
   @Test
   @DisplayName("Test getInternalTaskWithChecks(String); then throw IllegalStateException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.engine.task.Task TaskRuntimeHelper.getInternalTaskWithChecks(String)"})
   void testGetInternalTaskWithChecks_thenThrowIllegalStateException() {
     // Arrange
     when(securityManager.getAuthenticatedUserId()).thenReturn("");
@@ -118,11 +122,12 @@ class TaskRuntimeHelperDiffblueTest {
    *   <li>Then throw {@link NotFoundException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskRuntimeHelper#getInternalTaskWithChecks(String)}
+   * Method under test: {@link TaskRuntimeHelper#getInternalTaskWithChecks(String)}
    */
   @Test
   @DisplayName("Test getInternalTaskWithChecks(String); then throw NotFoundException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.engine.task.Task TaskRuntimeHelper.getInternalTaskWithChecks(String)"})
   void testGetInternalTaskWithChecks_thenThrowNotFoundException() throws SecurityException {
     // Arrange
     when(securityManager.getAuthenticatedUserRoles()).thenThrow(new NotFoundException("An error occurred"));
@@ -144,6 +149,8 @@ class TaskRuntimeHelperDiffblueTest {
    */
   @Test
   @DisplayName("Test assertHasAccessToTask(String); then throw ActivitiException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskRuntimeHelper.assertHasAccessToTask(String)"})
   void testAssertHasAccessToTask_thenThrowActivitiException() throws SecurityException {
     // Arrange
     TaskQueryImpl taskQueryImpl = mock(TaskQueryImpl.class);
@@ -172,6 +179,8 @@ class TaskRuntimeHelperDiffblueTest {
    */
   @Test
   @DisplayName("Test assertHasAccessToTask(String); then throw IllegalStateException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskRuntimeHelper.assertHasAccessToTask(String)"})
   void testAssertHasAccessToTask_thenThrowIllegalStateException() {
     // Arrange
     when(securityManager.getAuthenticatedUserId()).thenReturn("");
@@ -191,6 +200,8 @@ class TaskRuntimeHelperDiffblueTest {
    */
   @Test
   @DisplayName("Test assertHasAccessToTask(String); then throw NotFoundException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskRuntimeHelper.assertHasAccessToTask(String)"})
   void testAssertHasAccessToTask_thenThrowNotFoundException() throws SecurityException {
     // Arrange
     when(securityManager.getAuthenticatedUserRoles()).thenThrow(new NotFoundException("An error occurred"));
@@ -212,6 +223,8 @@ class TaskRuntimeHelperDiffblueTest {
    */
   @Test
   @DisplayName("Test getInternalTaskVariables(String); then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map TaskRuntimeHelper.getInternalTaskVariables(String)"})
   void testGetInternalTaskVariables_thenReturnEmpty() {
     // Arrange
     when(taskService.getVariableInstancesLocal(Mockito.<String>any())).thenReturn(new HashMap<>());
@@ -234,6 +247,8 @@ class TaskRuntimeHelperDiffblueTest {
    */
   @Test
   @DisplayName("Test getInternalTaskVariables(String); then throw IllegalStateException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map TaskRuntimeHelper.getInternalTaskVariables(String)"})
   void testGetInternalTaskVariables_thenThrowIllegalStateException() {
     // Arrange
     when(taskService.getVariableInstancesLocal(Mockito.<String>any())).thenThrow(new IllegalStateException("foo"));
@@ -244,18 +259,17 @@ class TaskRuntimeHelperDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TaskRuntimeHelper#handleCompleteTaskPayload(CompleteTaskPayload)}.
+   * Test {@link TaskRuntimeHelper#handleCompleteTaskPayload(CompleteTaskPayload)}.
    * <ul>
-   *   <li>Then {@link CompleteTaskPayload#CompleteTaskPayload()} Variables
-   * Empty.</li>
+   *   <li>Then {@link CompleteTaskPayload#CompleteTaskPayload()} Variables Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskRuntimeHelper#handleCompleteTaskPayload(CompleteTaskPayload)}
+   * Method under test: {@link TaskRuntimeHelper#handleCompleteTaskPayload(CompleteTaskPayload)}
    */
   @Test
   @DisplayName("Test handleCompleteTaskPayload(CompleteTaskPayload); then CompleteTaskPayload() Variables Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskRuntimeHelper.handleCompleteTaskPayload(CompleteTaskPayload)"})
   void testHandleCompleteTaskPayload_thenCompleteTaskPayloadVariablesEmpty() {
     // Arrange
     when(taskVariablesPayloadValidator.handlePayloadVariables(Mockito.<Map<String, Object>>any()))
@@ -271,17 +285,17 @@ class TaskRuntimeHelperDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TaskRuntimeHelper#handleCompleteTaskPayload(CompleteTaskPayload)}.
+   * Test {@link TaskRuntimeHelper#handleCompleteTaskPayload(CompleteTaskPayload)}.
    * <ul>
    *   <li>Then throw {@link IllegalStateException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskRuntimeHelper#handleCompleteTaskPayload(CompleteTaskPayload)}
+   * Method under test: {@link TaskRuntimeHelper#handleCompleteTaskPayload(CompleteTaskPayload)}
    */
   @Test
   @DisplayName("Test handleCompleteTaskPayload(CompleteTaskPayload); then throw IllegalStateException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskRuntimeHelper.handleCompleteTaskPayload(CompleteTaskPayload)"})
   void testHandleCompleteTaskPayload_thenThrowIllegalStateException() {
     // Arrange
     when(taskVariablesPayloadValidator.handlePayloadVariables(Mockito.<Map<String, Object>>any()))
@@ -299,11 +313,12 @@ class TaskRuntimeHelperDiffblueTest {
    *   <li>Then {@link SaveTaskPayload#SaveTaskPayload()} Variables Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskRuntimeHelper#handleSaveTaskPayload(SaveTaskPayload)}
+   * Method under test: {@link TaskRuntimeHelper#handleSaveTaskPayload(SaveTaskPayload)}
    */
   @Test
   @DisplayName("Test handleSaveTaskPayload(SaveTaskPayload); then SaveTaskPayload() Variables Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskRuntimeHelper.handleSaveTaskPayload(SaveTaskPayload)"})
   void testHandleSaveTaskPayload_thenSaveTaskPayloadVariablesEmpty() {
     // Arrange
     when(taskVariablesPayloadValidator.handlePayloadVariables(Mockito.<Map<String, Object>>any()))
@@ -324,11 +339,12 @@ class TaskRuntimeHelperDiffblueTest {
    *   <li>Then throw {@link IllegalStateException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskRuntimeHelper#handleSaveTaskPayload(SaveTaskPayload)}
+   * Method under test: {@link TaskRuntimeHelper#handleSaveTaskPayload(SaveTaskPayload)}
    */
   @Test
   @DisplayName("Test handleSaveTaskPayload(SaveTaskPayload); then throw IllegalStateException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskRuntimeHelper.handleSaveTaskPayload(SaveTaskPayload)"})
   void testHandleSaveTaskPayload_thenThrowIllegalStateException() {
     // Arrange
     when(taskVariablesPayloadValidator.handlePayloadVariables(Mockito.<Map<String, Object>>any()))

@@ -18,8 +18,11 @@ package org.activiti.engine.delegate;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class BpmnErrorDiffblueTest {
   /**
@@ -32,6 +35,8 @@ public class BpmnErrorDiffblueTest {
    * Method under test: {@link BpmnError#BpmnError(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnError.<init>(String, String)"})
   public void testNewBpmnError_whenAnErrorOccurred_thenReturnErrorCodeIsAnErrorOccurred() {
     // Arrange and Act
     BpmnError actualBpmnError = new BpmnError("An error occurred", "Not all who wander are lost");
@@ -54,6 +59,8 @@ public class BpmnErrorDiffblueTest {
    * Method under test: {@link BpmnError#BpmnError(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnError.<init>(String)"})
   public void testNewBpmnError_whenAnErrorOccurred_thenReturnLocalizedMessageIsEmptyString() {
     // Arrange and Act
     BpmnError actualBpmnError = new BpmnError("An error occurred");
@@ -76,10 +83,29 @@ public class BpmnErrorDiffblueTest {
    * Method under test: {@link BpmnError#BpmnError(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnError.<init>(String)"})
   public void testNewBpmnError_whenEmptyString_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> new BpmnError(""));
+  }
+
+  /**
+   * Test {@link BpmnError#BpmnError(String, String)}.
+   * <ul>
+   *   <li>When empty string.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnError#BpmnError(String, String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnError.<init>(String, String)"})
+  public void testNewBpmnError_whenEmptyString_thenThrowActivitiIllegalArgumentException2() {
+    // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> new BpmnError("", "Not all who wander are lost"));
+
   }
 
   /**
@@ -92,10 +118,29 @@ public class BpmnErrorDiffblueTest {
    * Method under test: {@link BpmnError#BpmnError(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnError.<init>(String)"})
   public void testNewBpmnError_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> new BpmnError(null));
+  }
+
+  /**
+   * Test {@link BpmnError#BpmnError(String, String)}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnError#BpmnError(String, String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnError.<init>(String, String)"})
+  public void testNewBpmnError_whenNull_thenThrowActivitiIllegalArgumentException2() {
+    // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> new BpmnError(null, "Not all who wander are lost"));
+
   }
 
   /**
@@ -108,6 +153,8 @@ public class BpmnErrorDiffblueTest {
    * Method under test: {@link BpmnError#setErrorCode(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnError.setErrorCode(String)"})
   public void testSetErrorCode_whenEmptyString_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> (new BpmnError("An error occurred")).setErrorCode(""));
@@ -123,6 +170,8 @@ public class BpmnErrorDiffblueTest {
    * Method under test: {@link BpmnError#setErrorCode(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnError.setErrorCode(String)"})
   public void testSetErrorCode_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> (new BpmnError("An error occurred")).setErrorCode(null));
@@ -134,6 +183,8 @@ public class BpmnErrorDiffblueTest {
    * Method under test: {@link BpmnError#getErrorCode()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String BpmnError.getErrorCode()"})
   public void testGetErrorCode() {
     // Arrange, Act and Assert
     assertEquals("An error occurred", (new BpmnError("An error occurred")).getErrorCode());

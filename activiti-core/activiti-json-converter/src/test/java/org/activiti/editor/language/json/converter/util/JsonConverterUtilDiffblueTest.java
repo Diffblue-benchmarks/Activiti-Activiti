@@ -25,6 +25,7 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ContainerNode;
@@ -34,7 +35,9 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import org.activiti.editor.language.json.converter.util.JsonConverterUtil.JsonLookupResult;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -46,65 +49,64 @@ class JsonConverterUtilDiffblueTest {
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#getPropertyValueAsString(String, JsonNode)}
+   * Method under test: {@link JsonConverterUtil#getPropertyValueAsString(String, JsonNode)}
    */
   @Test
   @DisplayName("Test getPropertyValueAsString(String, JsonNode); when Instance; then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String JsonConverterUtil.getPropertyValueAsString(String, JsonNode)"})
   void testGetPropertyValueAsString_whenInstance_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(JsonConverterUtil.getPropertyValueAsString("Name", MissingNode.getInstance()));
   }
 
   /**
-   * Test
-   * {@link JsonConverterUtil#getPropertyValueAsBoolean(String, JsonNode, boolean)}
-   * with {@code name}, {@code objectNode}, {@code defaultValue}.
+   * Test {@link JsonConverterUtil#getPropertyValueAsBoolean(String, JsonNode, boolean)} with {@code name}, {@code objectNode}, {@code defaultValue}.
    * <ul>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#getPropertyValueAsBoolean(String, JsonNode, boolean)}
+   * Method under test: {@link JsonConverterUtil#getPropertyValueAsBoolean(String, JsonNode, boolean)}
    */
   @Test
   @DisplayName("Test getPropertyValueAsBoolean(String, JsonNode, boolean) with 'name', 'objectNode', 'defaultValue'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean JsonConverterUtil.getPropertyValueAsBoolean(String, JsonNode, boolean)"})
   void testGetPropertyValueAsBooleanWithNameObjectNodeDefaultValue_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(JsonConverterUtil.getPropertyValueAsBoolean("Name", MissingNode.getInstance(), false));
   }
 
   /**
-   * Test
-   * {@link JsonConverterUtil#getPropertyValueAsBoolean(String, JsonNode, boolean)}
-   * with {@code name}, {@code objectNode}, {@code defaultValue}.
+   * Test {@link JsonConverterUtil#getPropertyValueAsBoolean(String, JsonNode, boolean)} with {@code name}, {@code objectNode}, {@code defaultValue}.
    * <ul>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#getPropertyValueAsBoolean(String, JsonNode, boolean)}
+   * Method under test: {@link JsonConverterUtil#getPropertyValueAsBoolean(String, JsonNode, boolean)}
    */
   @Test
   @DisplayName("Test getPropertyValueAsBoolean(String, JsonNode, boolean) with 'name', 'objectNode', 'defaultValue'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean JsonConverterUtil.getPropertyValueAsBoolean(String, JsonNode, boolean)"})
   void testGetPropertyValueAsBooleanWithNameObjectNodeDefaultValue_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(JsonConverterUtil.getPropertyValueAsBoolean("Name", MissingNode.getInstance(), true));
   }
 
   /**
-   * Test {@link JsonConverterUtil#getPropertyValueAsBoolean(String, JsonNode)}
-   * with {@code name}, {@code objectNode}.
+   * Test {@link JsonConverterUtil#getPropertyValueAsBoolean(String, JsonNode)} with {@code name}, {@code objectNode}.
    * <ul>
    *   <li>When Instance.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#getPropertyValueAsBoolean(String, JsonNode)}
+   * Method under test: {@link JsonConverterUtil#getPropertyValueAsBoolean(String, JsonNode)}
    */
   @Test
   @DisplayName("Test getPropertyValueAsBoolean(String, JsonNode) with 'name', 'objectNode'; when Instance; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean JsonConverterUtil.getPropertyValueAsBoolean(String, JsonNode)"})
   void testGetPropertyValueAsBooleanWithNameObjectNode_whenInstance_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(JsonConverterUtil.getPropertyValueAsBoolean("Name", MissingNode.getInstance()));
@@ -117,11 +119,12 @@ class JsonConverterUtilDiffblueTest {
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#getPropertyValueAsList(String, JsonNode)}
+   * Method under test: {@link JsonConverterUtil#getPropertyValueAsList(String, JsonNode)}
    */
   @Test
   @DisplayName("Test getPropertyValueAsList(String, JsonNode); when Instance; then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List JsonConverterUtil.getPropertyValueAsList(String, JsonNode)"})
   void testGetPropertyValueAsList_whenInstance_thenReturnEmpty() {
     // Arrange and Act
     List<String> actualPropertyValueAsList = JsonConverterUtil.getPropertyValueAsList("Name",
@@ -142,23 +145,25 @@ class JsonConverterUtilDiffblueTest {
    */
   @Test
   @DisplayName("Test getProperty(String, JsonNode); when Instance; then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"JsonNode JsonConverterUtil.getProperty(String, JsonNode)"})
   void testGetProperty_whenInstance_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(JsonConverterUtil.getProperty("Name", MissingNode.getInstance()));
   }
 
   /**
-   * Test
-   * {@link JsonConverterUtil#getBpmnProcessModelChildShapesPropertyValues(JsonNode, String, List)}.
+   * Test {@link JsonConverterUtil#getBpmnProcessModelChildShapesPropertyValues(JsonNode, String, List)}.
    * <ul>
    *   <li>Given {@code childShapes}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#getBpmnProcessModelChildShapesPropertyValues(JsonNode, String, List)}
+   * Method under test: {@link JsonConverterUtil#getBpmnProcessModelChildShapesPropertyValues(JsonNode, String, List)}
    */
   @Test
   @DisplayName("Test getBpmnProcessModelChildShapesPropertyValues(JsonNode, String, List); given 'childShapes'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List JsonConverterUtil.getBpmnProcessModelChildShapesPropertyValues(JsonNode, String, List)"})
   void testGetBpmnProcessModelChildShapesPropertyValues_givenChildShapes() {
     // Arrange
     MissingNode editorJsonNode = MissingNode.getInstance();
@@ -167,7 +172,7 @@ class JsonConverterUtilDiffblueTest {
     allowedStencilTypes.add("childShapes");
 
     // Act
-    List<JsonConverterUtil.JsonLookupResult> actualBpmnProcessModelChildShapesPropertyValues = JsonConverterUtil
+    List<JsonLookupResult> actualBpmnProcessModelChildShapesPropertyValues = JsonConverterUtil
         .getBpmnProcessModelChildShapesPropertyValues(editorJsonNode, "Property Name", allowedStencilTypes);
 
     // Assert
@@ -175,18 +180,18 @@ class JsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JsonConverterUtil#getBpmnProcessModelChildShapesPropertyValues(JsonNode, String, List)}.
+   * Test {@link JsonConverterUtil#getBpmnProcessModelChildShapesPropertyValues(JsonNode, String, List)}.
    * <ul>
    *   <li>Given {@code foo}.</li>
    *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#getBpmnProcessModelChildShapesPropertyValues(JsonNode, String, List)}
+   * Method under test: {@link JsonConverterUtil#getBpmnProcessModelChildShapesPropertyValues(JsonNode, String, List)}
    */
   @Test
   @DisplayName("Test getBpmnProcessModelChildShapesPropertyValues(JsonNode, String, List); given 'foo'; when ArrayList() add 'foo'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List JsonConverterUtil.getBpmnProcessModelChildShapesPropertyValues(JsonNode, String, List)"})
   void testGetBpmnProcessModelChildShapesPropertyValues_givenFoo_whenArrayListAddFoo() {
     // Arrange
     MissingNode editorJsonNode = MissingNode.getInstance();
@@ -196,7 +201,7 @@ class JsonConverterUtilDiffblueTest {
     allowedStencilTypes.add("childShapes");
 
     // Act
-    List<JsonConverterUtil.JsonLookupResult> actualBpmnProcessModelChildShapesPropertyValues = JsonConverterUtil
+    List<JsonLookupResult> actualBpmnProcessModelChildShapesPropertyValues = JsonConverterUtil
         .getBpmnProcessModelChildShapesPropertyValues(editorJsonNode, "Property Name", allowedStencilTypes);
 
     // Assert
@@ -204,24 +209,24 @@ class JsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JsonConverterUtil#getBpmnProcessModelChildShapesPropertyValues(JsonNode, String, List)}.
+   * Test {@link JsonConverterUtil#getBpmnProcessModelChildShapesPropertyValues(JsonNode, String, List)}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#getBpmnProcessModelChildShapesPropertyValues(JsonNode, String, List)}
+   * Method under test: {@link JsonConverterUtil#getBpmnProcessModelChildShapesPropertyValues(JsonNode, String, List)}
    */
   @Test
   @DisplayName("Test getBpmnProcessModelChildShapesPropertyValues(JsonNode, String, List); when ArrayList(); then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List JsonConverterUtil.getBpmnProcessModelChildShapesPropertyValues(JsonNode, String, List)"})
   void testGetBpmnProcessModelChildShapesPropertyValues_whenArrayList_thenReturnEmpty() {
     // Arrange
     MissingNode editorJsonNode = MissingNode.getInstance();
 
     // Act
-    List<JsonConverterUtil.JsonLookupResult> actualBpmnProcessModelChildShapesPropertyValues = JsonConverterUtil
+    List<JsonLookupResult> actualBpmnProcessModelChildShapesPropertyValues = JsonConverterUtil
         .getBpmnProcessModelChildShapesPropertyValues(editorJsonNode, "Property Name", new ArrayList<>());
 
     // Assert
@@ -229,21 +234,22 @@ class JsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
+   * Test {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
+   * Method under test: {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
    */
   @Test
   @DisplayName("Test internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)"})
   void testInternalGetBpmnProcessChildShapePropertyValues() {
     // Arrange
     ArrayNode editorJsonNode = mock(ArrayNode.class);
     when(editorJsonNode.get(Mockito.<String>any()))
         .thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
     ArrayList<String> allowedStencilTypes = new ArrayList<>();
-    ArrayList<JsonConverterUtil.JsonLookupResult> result = new ArrayList<>();
+    ArrayList<JsonLookupResult> result = new ArrayList<>();
 
     // Act
     JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(editorJsonNode, "Property Name",
@@ -255,14 +261,15 @@ class JsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
+   * Test {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
+   * Method under test: {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
    */
   @Test
   @DisplayName("Test internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)"})
   void testInternalGetBpmnProcessChildShapePropertyValues2() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -274,9 +281,9 @@ class JsonConverterUtilDiffblueTest {
     when(editorJsonNode.get(Mockito.<String>any())).thenReturn(arrayNode);
     ArrayList<String> allowedStencilTypes = new ArrayList<>();
 
-    ArrayList<JsonConverterUtil.JsonLookupResult> result = new ArrayList<>();
+    ArrayList<JsonLookupResult> result = new ArrayList<>();
     MissingNode jsonNode = MissingNode.getInstance();
-    result.add(new JsonConverterUtil.JsonLookupResult("childShapes", jsonNode));
+    result.add(new JsonLookupResult("childShapes", jsonNode));
 
     // Act
     JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(editorJsonNode, "Property Name",
@@ -287,20 +294,21 @@ class JsonConverterUtilDiffblueTest {
     verify(editorJsonNode).get(eq("childShapes"));
     verify(arrayNode).isArray();
     assertEquals(1, result.size());
-    JsonConverterUtil.JsonLookupResult getResult = result.get(0);
-    assertEquals("childShapes", getResult.getName());
-    assertSame(jsonNode, getResult.getJsonNode());
+    JsonNode jsonNode2 = result.get(0).getJsonNode();
+    assertTrue(jsonNode2 instanceof MissingNode);
+    assertSame(jsonNode, jsonNode2);
   }
 
   /**
-   * Test
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
+   * Test {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
+   * Method under test: {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
    */
   @Test
   @DisplayName("Test internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)"})
   void testInternalGetBpmnProcessChildShapePropertyValues3() {
     // Arrange
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
@@ -311,7 +319,7 @@ class JsonConverterUtilDiffblueTest {
     ArrayNode editorJsonNode = mock(ArrayNode.class);
     when(editorJsonNode.get(Mockito.<String>any())).thenReturn(arrayNode);
     ArrayList<String> allowedStencilTypes = new ArrayList<>();
-    ArrayList<JsonConverterUtil.JsonLookupResult> result = new ArrayList<>();
+    ArrayList<JsonLookupResult> result = new ArrayList<>();
 
     // Act
     JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(editorJsonNode, "Property Name",
@@ -325,14 +333,15 @@ class JsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
+   * Test {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
+   * Method under test: {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
    */
   @Test
   @DisplayName("Test internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)"})
   void testInternalGetBpmnProcessChildShapePropertyValues4() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -347,7 +356,7 @@ class JsonConverterUtilDiffblueTest {
     ArrayNode editorJsonNode = mock(ArrayNode.class);
     when(editorJsonNode.get(Mockito.<String>any())).thenReturn(arrayNode2);
     ArrayList<String> allowedStencilTypes = new ArrayList<>();
-    ArrayList<JsonConverterUtil.JsonLookupResult> result = new ArrayList<>();
+    ArrayList<JsonLookupResult> result = new ArrayList<>();
 
     // Act
     JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(editorJsonNode, "Property Name",
@@ -363,14 +372,15 @@ class JsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
+   * Test {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
+   * Method under test: {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
    */
   @Test
   @DisplayName("Test internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)"})
   void testInternalGetBpmnProcessChildShapePropertyValues5() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -391,7 +401,7 @@ class JsonConverterUtilDiffblueTest {
     ArrayNode editorJsonNode = mock(ArrayNode.class);
     when(editorJsonNode.get(Mockito.<String>any())).thenReturn(arrayNode3);
     ArrayList<String> allowedStencilTypes = new ArrayList<>();
-    ArrayList<JsonConverterUtil.JsonLookupResult> result = new ArrayList<>();
+    ArrayList<JsonLookupResult> result = new ArrayList<>();
 
     // Act
     JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(editorJsonNode, "Property Name",
@@ -410,14 +420,15 @@ class JsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
+   * Test {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
+   * Method under test: {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
    */
   @Test
   @DisplayName("Test internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)"})
   void testInternalGetBpmnProcessChildShapePropertyValues6() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -438,7 +449,7 @@ class JsonConverterUtilDiffblueTest {
     ArrayNode editorJsonNode = mock(ArrayNode.class);
     when(editorJsonNode.get(Mockito.<String>any())).thenReturn(arrayNode3);
     ArrayList<String> allowedStencilTypes = new ArrayList<>();
-    ArrayList<JsonConverterUtil.JsonLookupResult> result = new ArrayList<>();
+    ArrayList<JsonLookupResult> result = new ArrayList<>();
 
     // Act
     JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(editorJsonNode, "Property Name",
@@ -457,14 +468,15 @@ class JsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
+   * Test {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
+   * Method under test: {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
    */
   @Test
   @DisplayName("Test internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)"})
   void testInternalGetBpmnProcessChildShapePropertyValues7() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -491,7 +503,7 @@ class JsonConverterUtilDiffblueTest {
     ArrayList<String> allowedStencilTypes = new ArrayList<>();
     allowedStencilTypes.add("");
     allowedStencilTypes.add("childShapes");
-    ArrayList<JsonConverterUtil.JsonLookupResult> result = new ArrayList<>();
+    ArrayList<JsonLookupResult> result = new ArrayList<>();
 
     // Act
     JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(editorJsonNode, "Property Name",
@@ -513,17 +525,18 @@ class JsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
+   * Test {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
    * <ul>
    *   <li>Given {@link ArrayList#ArrayList()} add Instance.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
+   * Method under test: {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
    */
   @Test
   @DisplayName("Test internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List); given ArrayList() add Instance")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)"})
   void testInternalGetBpmnProcessChildShapePropertyValues_givenArrayListAddInstance() {
     // Arrange
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
@@ -534,7 +547,7 @@ class JsonConverterUtilDiffblueTest {
     ArrayNode editorJsonNode = mock(ArrayNode.class);
     when(editorJsonNode.get(Mockito.<String>any())).thenReturn(arrayNode);
     ArrayList<String> allowedStencilTypes = new ArrayList<>();
-    ArrayList<JsonConverterUtil.JsonLookupResult> result = new ArrayList<>();
+    ArrayList<JsonLookupResult> result = new ArrayList<>();
 
     // Act
     JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(editorJsonNode, "Property Name",
@@ -548,18 +561,18 @@ class JsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
+   * Test {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link JsonNode#has(String)} return
-   * {@code false}.</li>
+   *   <li>Given {@link ArrayNode} {@link JsonNode#has(String)} return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
+   * Method under test: {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
    */
   @Test
   @DisplayName("Test internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List); given ArrayNode has(String) return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)"})
   void testInternalGetBpmnProcessChildShapePropertyValues_givenArrayNodeHasReturnFalse() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -584,7 +597,7 @@ class JsonConverterUtilDiffblueTest {
     ArrayList<String> allowedStencilTypes = new ArrayList<>();
     allowedStencilTypes.add("");
     allowedStencilTypes.add("childShapes");
-    ArrayList<JsonConverterUtil.JsonLookupResult> result = new ArrayList<>();
+    ArrayList<JsonLookupResult> result = new ArrayList<>();
 
     // Act
     JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(editorJsonNode, "Property Name",
@@ -604,17 +617,18 @@ class JsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
+   * Test {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
    * <ul>
    *   <li>Given {@code childShapes}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
+   * Method under test: {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
    */
   @Test
   @DisplayName("Test internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List); given 'childShapes'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)"})
   void testInternalGetBpmnProcessChildShapePropertyValues_givenChildShapes() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -627,7 +641,7 @@ class JsonConverterUtilDiffblueTest {
 
     ArrayList<String> allowedStencilTypes = new ArrayList<>();
     allowedStencilTypes.add("childShapes");
-    ArrayList<JsonConverterUtil.JsonLookupResult> result = new ArrayList<>();
+    ArrayList<JsonLookupResult> result = new ArrayList<>();
 
     // Act
     JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(editorJsonNode, "Property Name",
@@ -641,18 +655,19 @@ class JsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
+   * Test {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
    * <ul>
    *   <li>Given {@code foo}.</li>
    *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
+   * Method under test: {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
    */
   @Test
   @DisplayName("Test internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List); given 'foo'; when ArrayList() add 'foo'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)"})
   void testInternalGetBpmnProcessChildShapePropertyValues_givenFoo_whenArrayListAddFoo() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -666,7 +681,7 @@ class JsonConverterUtilDiffblueTest {
     ArrayList<String> allowedStencilTypes = new ArrayList<>();
     allowedStencilTypes.add("foo");
     allowedStencilTypes.add("childShapes");
-    ArrayList<JsonConverterUtil.JsonLookupResult> result = new ArrayList<>();
+    ArrayList<JsonLookupResult> result = new ArrayList<>();
 
     // Act
     JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(editorJsonNode, "Property Name",
@@ -680,23 +695,24 @@ class JsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
+   * Test {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
    * <ul>
    *   <li>Given Instance.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
+   * Method under test: {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
    */
   @Test
   @DisplayName("Test internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List); given Instance")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)"})
   void testInternalGetBpmnProcessChildShapePropertyValues_givenInstance() {
     // Arrange
     ArrayNode editorJsonNode = mock(ArrayNode.class);
     when(editorJsonNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
     ArrayList<String> allowedStencilTypes = new ArrayList<>();
-    ArrayList<JsonConverterUtil.JsonLookupResult> result = new ArrayList<>();
+    ArrayList<JsonLookupResult> result = new ArrayList<>();
 
     // Act
     JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(editorJsonNode, "Property Name",
@@ -708,17 +724,18 @@ class JsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
+   * Test {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
+   * Method under test: {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
    */
   @Test
   @DisplayName("Test internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)"})
   void testInternalGetBpmnProcessChildShapePropertyValues_thenArrayListEmpty() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -729,7 +746,7 @@ class JsonConverterUtilDiffblueTest {
     ArrayNode editorJsonNode = mock(ArrayNode.class);
     when(editorJsonNode.get(Mockito.<String>any())).thenReturn(arrayNode);
     ArrayList<String> allowedStencilTypes = new ArrayList<>();
-    ArrayList<JsonConverterUtil.JsonLookupResult> result = new ArrayList<>();
+    ArrayList<JsonLookupResult> result = new ArrayList<>();
 
     // Act
     JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(editorJsonNode, "Property Name",
@@ -743,17 +760,18 @@ class JsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
+   * Test {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
+   * Method under test: {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
    */
   @Test
   @DisplayName("Test internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List); then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)"})
   void testInternalGetBpmnProcessChildShapePropertyValues_thenArrayListSizeIsTwo() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -765,10 +783,10 @@ class JsonConverterUtilDiffblueTest {
     when(editorJsonNode.get(Mockito.<String>any())).thenReturn(arrayNode);
     ArrayList<String> allowedStencilTypes = new ArrayList<>();
 
-    ArrayList<JsonConverterUtil.JsonLookupResult> result = new ArrayList<>();
-    result.add(new JsonConverterUtil.JsonLookupResult("childShapes", MissingNode.getInstance()));
+    ArrayList<JsonLookupResult> result = new ArrayList<>();
+    result.add(new JsonLookupResult("childShapes", MissingNode.getInstance()));
     MissingNode jsonNode = MissingNode.getInstance();
-    result.add(new JsonConverterUtil.JsonLookupResult("childShapes", jsonNode));
+    result.add(new JsonLookupResult("childShapes", jsonNode));
 
     // Act
     JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(editorJsonNode, "Property Name",
@@ -779,23 +797,24 @@ class JsonConverterUtilDiffblueTest {
     verify(editorJsonNode).get(eq("childShapes"));
     verify(arrayNode).isArray();
     assertEquals(2, result.size());
-    JsonConverterUtil.JsonLookupResult getResult = result.get(0);
-    assertEquals("childShapes", getResult.getName());
-    assertSame(jsonNode, getResult.getJsonNode());
+    JsonNode jsonNode2 = result.get(0).getJsonNode();
+    assertTrue(jsonNode2 instanceof MissingNode);
+    assertSame(jsonNode, jsonNode2);
   }
 
   /**
-   * Test
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
+   * Test {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
    * <ul>
    *   <li>Then calls {@link ContainerNode#asText()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
+   * Method under test: {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
    */
   @Test
   @DisplayName("Test internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List); then calls asText()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)"})
   void testInternalGetBpmnProcessChildShapePropertyValues_thenCallsAsText() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -822,7 +841,7 @@ class JsonConverterUtilDiffblueTest {
     ArrayList<String> allowedStencilTypes = new ArrayList<>();
     allowedStencilTypes.add("");
     allowedStencilTypes.add("childShapes");
-    ArrayList<JsonConverterUtil.JsonLookupResult> result = new ArrayList<>();
+    ArrayList<JsonLookupResult> result = new ArrayList<>();
 
     // Act
     JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(editorJsonNode, "Property Name",
@@ -844,22 +863,23 @@ class JsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
+   * Test {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}.
    * <ul>
    *   <li>When Instance.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
+   * Method under test: {@link JsonConverterUtil#internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)}
    */
   @Test
   @DisplayName("Test internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List); when Instance")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(JsonNode, String, List, List)"})
   void testInternalGetBpmnProcessChildShapePropertyValues_whenInstance() {
     // Arrange
     MissingNode editorJsonNode = MissingNode.getInstance();
     ArrayList<String> allowedStencilTypes = new ArrayList<>();
-    ArrayList<JsonConverterUtil.JsonLookupResult> result = new ArrayList<>();
+    ArrayList<JsonLookupResult> result = new ArrayList<>();
 
     // Act
     JsonConverterUtil.internalGetBpmnProcessChildShapePropertyValues(editorJsonNode, "Property Name",
@@ -876,14 +896,15 @@ class JsonConverterUtilDiffblueTest {
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#getBpmnProcessModelFormReferences(JsonNode)}
+   * Method under test: {@link JsonConverterUtil#getBpmnProcessModelFormReferences(JsonNode)}
    */
   @Test
   @DisplayName("Test getBpmnProcessModelFormReferences(JsonNode); when Instance; then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List JsonConverterUtil.getBpmnProcessModelFormReferences(JsonNode)"})
   void testGetBpmnProcessModelFormReferences_whenInstance_thenReturnEmpty() {
     // Arrange and Act
-    List<JsonConverterUtil.JsonLookupResult> actualBpmnProcessModelFormReferences = JsonConverterUtil
+    List<JsonLookupResult> actualBpmnProcessModelFormReferences = JsonConverterUtil
         .getBpmnProcessModelFormReferences(MissingNode.getInstance());
 
     // Assert
@@ -891,21 +912,21 @@ class JsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JsonConverterUtil#getBpmnProcessModelDecisionTableReferences(JsonNode)}.
+   * Test {@link JsonConverterUtil#getBpmnProcessModelDecisionTableReferences(JsonNode)}.
    * <ul>
    *   <li>When Instance.</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#getBpmnProcessModelDecisionTableReferences(JsonNode)}
+   * Method under test: {@link JsonConverterUtil#getBpmnProcessModelDecisionTableReferences(JsonNode)}
    */
   @Test
   @DisplayName("Test getBpmnProcessModelDecisionTableReferences(JsonNode); when Instance; then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List JsonConverterUtil.getBpmnProcessModelDecisionTableReferences(JsonNode)"})
   void testGetBpmnProcessModelDecisionTableReferences_whenInstance_thenReturnEmpty() {
     // Arrange and Act
-    List<JsonConverterUtil.JsonLookupResult> actualBpmnProcessModelDecisionTableReferences = JsonConverterUtil
+    List<JsonLookupResult> actualBpmnProcessModelDecisionTableReferences = JsonConverterUtil
         .getBpmnProcessModelDecisionTableReferences(MissingNode.getInstance());
 
     // Assert
@@ -915,11 +936,12 @@ class JsonConverterUtilDiffblueTest {
   /**
    * Test {@link JsonConverterUtil#getAppModelReferencedProcessModels(JsonNode)}.
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#getAppModelReferencedProcessModels(JsonNode)}
+   * Method under test: {@link JsonConverterUtil#getAppModelReferencedProcessModels(JsonNode)}
    */
   @Test
   @DisplayName("Test getAppModelReferencedProcessModels(JsonNode)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List JsonConverterUtil.getAppModelReferencedProcessModels(JsonNode)"})
   void testGetAppModelReferencedProcessModels() {
     // Arrange and Act
     List<JsonNode> actualAppModelReferencedProcessModels = JsonConverterUtil
@@ -936,11 +958,12 @@ class JsonConverterUtilDiffblueTest {
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#getAppModelReferencedProcessModels(JsonNode)}
+   * Method under test: {@link JsonConverterUtil#getAppModelReferencedProcessModels(JsonNode)}
    */
   @Test
   @DisplayName("Test getAppModelReferencedProcessModels(JsonNode); when Instance; then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List JsonConverterUtil.getAppModelReferencedProcessModels(JsonNode)"})
   void testGetAppModelReferencedProcessModels_whenInstance_thenReturnEmpty() {
     // Arrange and Act
     List<JsonNode> actualAppModelReferencedProcessModels = JsonConverterUtil
@@ -953,15 +976,15 @@ class JsonConverterUtilDiffblueTest {
   /**
    * Test {@link JsonConverterUtil#getAppModelReferencedModelIds(JsonNode)}.
    * <ul>
-   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is
-   * withExactBigDecimals {@code true}.</li>
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#getAppModelReferencedModelIds(JsonNode)}
+   * Method under test: {@link JsonConverterUtil#getAppModelReferencedModelIds(JsonNode)}
    */
   @Test
   @DisplayName("Test getAppModelReferencedModelIds(JsonNode); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Set JsonConverterUtil.getAppModelReferencedModelIds(JsonNode)"})
   void testGetAppModelReferencedModelIds_whenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
     // Arrange and Act
     Set<String> actualAppModelReferencedModelIds = JsonConverterUtil
@@ -978,11 +1001,12 @@ class JsonConverterUtilDiffblueTest {
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#getAppModelReferencedModelIds(JsonNode)}
+   * Method under test: {@link JsonConverterUtil#getAppModelReferencedModelIds(JsonNode)}
    */
   @Test
   @DisplayName("Test getAppModelReferencedModelIds(JsonNode); when Instance; then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Set JsonConverterUtil.getAppModelReferencedModelIds(JsonNode)"})
   void testGetAppModelReferencedModelIds_whenInstance_thenReturnEmpty() {
     // Arrange and Act
     Set<String> actualAppModelReferencedModelIds = JsonConverterUtil
@@ -993,14 +1017,14 @@ class JsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JsonConverterUtil#gatherLongPropertyFromJsonNodes(Iterable, String)}.
+   * Test {@link JsonConverterUtil#gatherLongPropertyFromJsonNodes(Iterable, String)}.
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#gatherLongPropertyFromJsonNodes(Iterable, String)}
+   * Method under test: {@link JsonConverterUtil#gatherLongPropertyFromJsonNodes(Iterable, String)}
    */
   @Test
   @DisplayName("Test gatherLongPropertyFromJsonNodes(Iterable, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Set JsonConverterUtil.gatherLongPropertyFromJsonNodes(Iterable, String)"})
   void testGatherLongPropertyFromJsonNodes() {
     // Arrange
     LinkedHashSet<JsonNode> jsonNodes = new LinkedHashSet<>();
@@ -1015,18 +1039,18 @@ class JsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JsonConverterUtil#gatherLongPropertyFromJsonNodes(Iterable, String)}.
+   * Test {@link JsonConverterUtil#gatherLongPropertyFromJsonNodes(Iterable, String)}.
    * <ul>
    *   <li>Given Instance.</li>
    *   <li>When {@link LinkedHashSet#LinkedHashSet()} add Instance.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#gatherLongPropertyFromJsonNodes(Iterable, String)}
+   * Method under test: {@link JsonConverterUtil#gatherLongPropertyFromJsonNodes(Iterable, String)}
    */
   @Test
   @DisplayName("Test gatherLongPropertyFromJsonNodes(Iterable, String); given Instance; when LinkedHashSet() add Instance")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Set JsonConverterUtil.gatherLongPropertyFromJsonNodes(Iterable, String)"})
   void testGatherLongPropertyFromJsonNodes_givenInstance_whenLinkedHashSetAddInstance() {
     // Arrange
     LinkedHashSet<JsonNode> jsonNodes = new LinkedHashSet<>();
@@ -1041,18 +1065,18 @@ class JsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JsonConverterUtil#gatherLongPropertyFromJsonNodes(Iterable, String)}.
+   * Test {@link JsonConverterUtil#gatherLongPropertyFromJsonNodes(Iterable, String)}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#gatherLongPropertyFromJsonNodes(Iterable, String)}
+   * Method under test: {@link JsonConverterUtil#gatherLongPropertyFromJsonNodes(Iterable, String)}
    */
   @Test
   @DisplayName("Test gatherLongPropertyFromJsonNodes(Iterable, String); when ArrayList(); then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Set JsonConverterUtil.gatherLongPropertyFromJsonNodes(Iterable, String)"})
   void testGatherLongPropertyFromJsonNodes_whenArrayList_thenReturnEmpty() {
     // Arrange and Act
     Set<Long> actualGatherLongPropertyFromJsonNodesResult = JsonConverterUtil
@@ -1063,14 +1087,14 @@ class JsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JsonConverterUtil#gatherStringPropertyFromJsonNodes(Iterable, String)}.
+   * Test {@link JsonConverterUtil#gatherStringPropertyFromJsonNodes(Iterable, String)}.
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#gatherStringPropertyFromJsonNodes(Iterable, String)}
+   * Method under test: {@link JsonConverterUtil#gatherStringPropertyFromJsonNodes(Iterable, String)}
    */
   @Test
   @DisplayName("Test gatherStringPropertyFromJsonNodes(Iterable, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Set JsonConverterUtil.gatherStringPropertyFromJsonNodes(Iterable, String)"})
   void testGatherStringPropertyFromJsonNodes() {
     // Arrange
     LinkedHashSet<JsonNode> jsonNodes = new LinkedHashSet<>();
@@ -1085,18 +1109,18 @@ class JsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JsonConverterUtil#gatherStringPropertyFromJsonNodes(Iterable, String)}.
+   * Test {@link JsonConverterUtil#gatherStringPropertyFromJsonNodes(Iterable, String)}.
    * <ul>
    *   <li>Given Instance.</li>
    *   <li>When {@link LinkedHashSet#LinkedHashSet()} add Instance.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#gatherStringPropertyFromJsonNodes(Iterable, String)}
+   * Method under test: {@link JsonConverterUtil#gatherStringPropertyFromJsonNodes(Iterable, String)}
    */
   @Test
   @DisplayName("Test gatherStringPropertyFromJsonNodes(Iterable, String); given Instance; when LinkedHashSet() add Instance")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Set JsonConverterUtil.gatherStringPropertyFromJsonNodes(Iterable, String)"})
   void testGatherStringPropertyFromJsonNodes_givenInstance_whenLinkedHashSetAddInstance() {
     // Arrange
     LinkedHashSet<JsonNode> jsonNodes = new LinkedHashSet<>();
@@ -1111,18 +1135,18 @@ class JsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JsonConverterUtil#gatherStringPropertyFromJsonNodes(Iterable, String)}.
+   * Test {@link JsonConverterUtil#gatherStringPropertyFromJsonNodes(Iterable, String)}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JsonConverterUtil#gatherStringPropertyFromJsonNodes(Iterable, String)}
+   * Method under test: {@link JsonConverterUtil#gatherStringPropertyFromJsonNodes(Iterable, String)}
    */
   @Test
   @DisplayName("Test gatherStringPropertyFromJsonNodes(Iterable, String); when ArrayList(); then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Set JsonConverterUtil.gatherStringPropertyFromJsonNodes(Iterable, String)"})
   void testGatherStringPropertyFromJsonNodes_whenArrayList_thenReturnEmpty() {
     // Arrange and Act
     Set<String> actualGatherStringPropertyFromJsonNodesResult = JsonConverterUtil
@@ -1142,18 +1166,22 @@ class JsonConverterUtilDiffblueTest {
    */
   @Test
   @DisplayName("Test filterOutJsonNodes(List); then return size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List JsonConverterUtil.filterOutJsonNodes(List)"})
   void testFilterOutJsonNodes_thenReturnSizeIsOne() {
     // Arrange
-    ArrayList<JsonConverterUtil.JsonLookupResult> lookupResults = new ArrayList<>();
+    ArrayList<JsonLookupResult> lookupResults = new ArrayList<>();
     MissingNode jsonNode = MissingNode.getInstance();
-    lookupResults.add(new JsonConverterUtil.JsonLookupResult("Name", jsonNode));
+    lookupResults.add(new JsonLookupResult("Name", jsonNode));
 
     // Act
     List<JsonNode> actualFilterOutJsonNodesResult = JsonConverterUtil.filterOutJsonNodes(lookupResults);
 
     // Assert
     assertEquals(1, actualFilterOutJsonNodesResult.size());
-    assertSame(jsonNode, actualFilterOutJsonNodesResult.get(0));
+    JsonNode getResult = actualFilterOutJsonNodesResult.get(0);
+    assertTrue(getResult instanceof MissingNode);
+    assertSame(jsonNode, getResult);
   }
 
   /**
@@ -1167,6 +1195,8 @@ class JsonConverterUtilDiffblueTest {
    */
   @Test
   @DisplayName("Test filterOutJsonNodes(List); when ArrayList(); then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List JsonConverterUtil.filterOutJsonNodes(List)"})
   void testFilterOutJsonNodes_whenArrayList_thenReturnEmpty() {
     // Arrange and Act
     List<JsonNode> actualFilterOutJsonNodesResult = JsonConverterUtil.filterOutJsonNodes(new ArrayList<>());
@@ -1183,22 +1213,26 @@ class JsonConverterUtilDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link JsonConverterUtil.JsonLookupResult#JsonLookupResult(String, String, JsonNode)}
-   *   <li>{@link JsonConverterUtil.JsonLookupResult#setId(String)}
-   *   <li>{@link JsonConverterUtil.JsonLookupResult#setJsonNode(JsonNode)}
-   *   <li>{@link JsonConverterUtil.JsonLookupResult#setName(String)}
-   *   <li>{@link JsonConverterUtil.JsonLookupResult#getId()}
-   *   <li>{@link JsonConverterUtil.JsonLookupResult#getJsonNode()}
-   *   <li>{@link JsonConverterUtil.JsonLookupResult#getName()}
+   *   <li>{@link JsonLookupResult#JsonLookupResult(String, String, JsonNode)}
+   *   <li>{@link JsonLookupResult#setId(String)}
+   *   <li>{@link JsonLookupResult#setJsonNode(JsonNode)}
+   *   <li>{@link JsonLookupResult#setName(String)}
+   *   <li>{@link JsonLookupResult#getId()}
+   *   <li>{@link JsonLookupResult#getJsonNode()}
+   *   <li>{@link JsonLookupResult#getName()}
    * </ul>
    */
   @Test
   @DisplayName("Test JsonLookupResult getters and setters; when '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void JsonLookupResult.<init>(String, JsonNode)",
+      "void JsonLookupResult.<init>(String, String, JsonNode)", "String JsonLookupResult.getId()",
+      "JsonNode JsonLookupResult.getJsonNode()", "String JsonLookupResult.getName()",
+      "void JsonLookupResult.setId(String)", "void JsonLookupResult.setJsonNode(JsonNode)",
+      "void JsonLookupResult.setName(String)"})
   void testJsonLookupResultGettersAndSetters_when42() {
     // Arrange and Act
-    JsonConverterUtil.JsonLookupResult actualJsonLookupResult = new JsonConverterUtil.JsonLookupResult("42", "Name",
-        MissingNode.getInstance());
+    JsonLookupResult actualJsonLookupResult = new JsonLookupResult("42", "Name", MissingNode.getInstance());
     actualJsonLookupResult.setId("42");
     MissingNode jsonNode = MissingNode.getInstance();
     actualJsonLookupResult.setJsonNode(jsonNode);
@@ -1206,7 +1240,7 @@ class JsonConverterUtilDiffblueTest {
     String actualId = actualJsonLookupResult.getId();
     JsonNode actualJsonNode = actualJsonLookupResult.getJsonNode();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualId);
     assertEquals("Name", actualJsonLookupResult.getName());
     assertSame(jsonNode, actualJsonNode);
@@ -1220,22 +1254,26 @@ class JsonConverterUtilDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link JsonConverterUtil.JsonLookupResult#JsonLookupResult(String, JsonNode)}
-   *   <li>{@link JsonConverterUtil.JsonLookupResult#setId(String)}
-   *   <li>{@link JsonConverterUtil.JsonLookupResult#setJsonNode(JsonNode)}
-   *   <li>{@link JsonConverterUtil.JsonLookupResult#setName(String)}
-   *   <li>{@link JsonConverterUtil.JsonLookupResult#getId()}
-   *   <li>{@link JsonConverterUtil.JsonLookupResult#getJsonNode()}
-   *   <li>{@link JsonConverterUtil.JsonLookupResult#getName()}
+   *   <li>{@link JsonLookupResult#JsonLookupResult(String, JsonNode)}
+   *   <li>{@link JsonLookupResult#setId(String)}
+   *   <li>{@link JsonLookupResult#setJsonNode(JsonNode)}
+   *   <li>{@link JsonLookupResult#setName(String)}
+   *   <li>{@link JsonLookupResult#getId()}
+   *   <li>{@link JsonLookupResult#getJsonNode()}
+   *   <li>{@link JsonLookupResult#getName()}
    * </ul>
    */
   @Test
   @DisplayName("Test JsonLookupResult getters and setters; when Instance")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void JsonLookupResult.<init>(String, JsonNode)",
+      "void JsonLookupResult.<init>(String, String, JsonNode)", "String JsonLookupResult.getId()",
+      "JsonNode JsonLookupResult.getJsonNode()", "String JsonLookupResult.getName()",
+      "void JsonLookupResult.setId(String)", "void JsonLookupResult.setJsonNode(JsonNode)",
+      "void JsonLookupResult.setName(String)"})
   void testJsonLookupResultGettersAndSetters_whenInstance() {
     // Arrange and Act
-    JsonConverterUtil.JsonLookupResult actualJsonLookupResult = new JsonConverterUtil.JsonLookupResult("Name",
-        MissingNode.getInstance());
+    JsonLookupResult actualJsonLookupResult = new JsonLookupResult("Name", MissingNode.getInstance());
     actualJsonLookupResult.setId("42");
     MissingNode jsonNode = MissingNode.getInstance();
     actualJsonLookupResult.setJsonNode(jsonNode);
@@ -1243,7 +1281,7 @@ class JsonConverterUtilDiffblueTest {
     String actualId = actualJsonLookupResult.getId();
     JsonNode actualJsonNode = actualJsonLookupResult.getJsonNode();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualId);
     assertEquals("Name", actualJsonLookupResult.getName());
     assertSame(jsonNode, actualJsonNode);

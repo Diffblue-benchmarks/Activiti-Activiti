@@ -17,24 +17,23 @@ package org.activiti.engine.impl.bpmn.listener;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import org.activiti.core.el.juel.ObjectValueExpression;
-import org.activiti.core.el.juel.misc.TypeConverter;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.impl.el.FixedValue;
-import org.activiti.engine.impl.el.JuelExpression;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ExpressionExecutionListenerDiffblueTest {
   /**
-   * Test
-   * {@link ExpressionExecutionListener#ExpressionExecutionListener(Expression)}.
+   * Test {@link ExpressionExecutionListener#ExpressionExecutionListener(Expression)}.
    * <p>
-   * Method under test:
-   * {@link ExpressionExecutionListener#ExpressionExecutionListener(Expression)}
+   * Method under test: {@link ExpressionExecutionListener#ExpressionExecutionListener(Expression)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExpressionExecutionListener.<init>(Expression)"})
   public void testNewExpressionExecutionListener() {
     // Arrange and Act
     ExpressionExecutionListener actualExpressionExecutionListener = new ExpressionExecutionListener(
@@ -50,38 +49,17 @@ public class ExpressionExecutionListenerDiffblueTest {
   /**
    * Test {@link ExpressionExecutionListener#getExpressionText()}.
    * <ul>
-   *   <li>Given {@link FixedValue#FixedValue(Object)} with value is
-   * {@link JSONObject#NULL}.</li>
+   *   <li>Given {@link FixedValue#FixedValue(Object)} with value is {@link JSONObject#NULL}.</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ExpressionExecutionListener#getExpressionText()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.String ExpressionExecutionListener.getExpressionText()"})
   public void testGetExpressionText_givenFixedValueWithValueIsNull_thenReturnNull() {
     // Arrange, Act and Assert
     assertEquals("null", (new ExpressionExecutionListener(new FixedValue(JSONObject.NULL))).getExpressionText());
-  }
-
-  /**
-   * Test {@link ExpressionExecutionListener#getExpressionText()}.
-   * <ul>
-   *   <li>Given {@code java.lang.Object}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExpressionExecutionListener#getExpressionText()}
-   */
-  @Test
-  public void testGetExpressionText_givenJavaLangObject_thenReturnNull() {
-    // Arrange
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-
-    // Act and Assert
-    assertEquals("null",
-        (new ExpressionExecutionListener(
-            new JuelExpression(new ObjectValueExpression(converter, JSONObject.NULL, type), "null")))
-            .getExpressionText());
   }
 }

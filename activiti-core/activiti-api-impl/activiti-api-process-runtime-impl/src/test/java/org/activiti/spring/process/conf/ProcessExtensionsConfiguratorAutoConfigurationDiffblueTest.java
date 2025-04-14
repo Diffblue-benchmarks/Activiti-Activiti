@@ -17,7 +17,8 @@ package org.activiti.spring.process.conf;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import java.util.HashMap;
 import org.activiti.engine.impl.el.ExpressionManager;
 import org.activiti.engine.impl.interceptor.DelegateInterceptor;
@@ -31,35 +32,36 @@ import org.activiti.spring.process.variable.VariableParsingService;
 import org.activiti.spring.process.variable.VariableValidationService;
 import org.activiti.spring.resources.DeploymentResourceLoader;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ProcessExtensionsConfiguratorAutoConfigurationDiffblueTest {
   /**
-   * Test
-   * {@link ProcessExtensionsConfiguratorAutoConfiguration#ProcessExtensionsConfiguratorAutoConfiguration(ProcessVariablesInitiator)}.
+   * Test {@link ProcessExtensionsConfiguratorAutoConfiguration#ProcessExtensionsConfiguratorAutoConfiguration(ProcessVariablesInitiator)}.
    * <p>
-   * Method under test:
-   * {@link ProcessExtensionsConfiguratorAutoConfiguration#ProcessExtensionsConfiguratorAutoConfiguration(ProcessVariablesInitiator)}
+   * Method under test: {@link ProcessExtensionsConfiguratorAutoConfiguration#ProcessExtensionsConfiguratorAutoConfiguration(ProcessVariablesInitiator)}
    */
   @Test
   @DisplayName("Test new ProcessExtensionsConfiguratorAutoConfiguration(ProcessVariablesInitiator)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessExtensionsConfiguratorAutoConfiguration.<init>(ProcessVariablesInitiator)"})
   void testNewProcessExtensionsConfiguratorAutoConfiguration() {
     // Arrange
     DeploymentResourceLoader<ProcessExtensionModel> processExtensionLoader = new DeploymentResourceLoader<>();
-    ObjectMapper objectMapper = new ObjectMapper();
+    JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
     ProcessExtensionService processExtensionService = new ProcessExtensionService(processExtensionLoader,
         new ProcessExtensionResourceReader(objectMapper, new HashMap<>()));
 
     VariableParsingService variableParsingService = new VariableParsingService(new HashMap<>());
     VariableValidationService variableValidationService = new VariableValidationService(new HashMap<>());
     DeploymentResourceLoader<ProcessExtensionModel> processExtensionLoader2 = new DeploymentResourceLoader<>();
-    ObjectMapper objectMapper2 = new ObjectMapper();
+    JsonMapper objectMapper2 = JsonMapper.builder().findAndAddModules().build();
     ProcessExtensionService processExtensionService2 = new ProcessExtensionService(processExtensionLoader2,
         new ProcessExtensionResourceReader(objectMapper2, new HashMap<>()));
 
     ExpressionManager expressionManager = new ExpressionManager();
-    ExpressionResolver expressionResolver = new ExpressionResolver(expressionManager, new ObjectMapper(),
-        mock(DelegateInterceptor.class));
+    ExpressionResolver expressionResolver = new ExpressionResolver(expressionManager,
+        JsonMapper.builder().findAndAddModules().build(), mock(DelegateInterceptor.class));
 
     ExtensionsVariablesMappingProvider variablesCalculator = new ExtensionsVariablesMappingProvider(
         processExtensionService2, expressionResolver, new VariableParsingService(new HashMap<>()));
@@ -68,9 +70,10 @@ class ProcessExtensionsConfiguratorAutoConfigurationDiffblueTest {
 
     // Act and Assert
     assertEquals(10000,
-        (new ProcessExtensionsConfiguratorAutoConfiguration(new ProcessVariablesInitiator(processExtensionService,
-            variableParsingService, variableValidationService, variablesCalculator,
-            new ExpressionResolver(expressionManager2, new ObjectMapper(), mock(DelegateInterceptor.class)))))
+        (new ProcessExtensionsConfiguratorAutoConfiguration(
+            new ProcessVariablesInitiator(processExtensionService, variableParsingService, variableValidationService,
+                variablesCalculator, new ExpressionResolver(expressionManager2,
+                    JsonMapper.builder().findAndAddModules().build(), mock(DelegateInterceptor.class)))))
             .getPriority());
   }
 }

@@ -18,19 +18,14 @@ package org.activiti.engine.impl.bpmn.webservice;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.webservice.WSOperation;
 import org.activiti.engine.impl.webservice.WSService;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class OperationDiffblueTest {
-  @InjectMocks
-  private Operation operation;
-
   /**
    * Test getters and setters.
    * <p>
@@ -52,6 +47,14 @@ public class OperationDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Operation.<init>()", "String Operation.getId()",
+      "OperationImplementation Operation.getImplementation()", "MessageDefinition Operation.getInMessage()",
+      "BpmnInterface Operation.getInterface()", "String Operation.getName()",
+      "MessageDefinition Operation.getOutMessage()", "void Operation.setId(String)",
+      "void Operation.setImplementation(OperationImplementation)", "void Operation.setInMessage(MessageDefinition)",
+      "void Operation.setInterface(BpmnInterface)", "void Operation.setName(String)",
+      "void Operation.setOutMessage(MessageDefinition)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Operation actualOperation = new Operation();
@@ -74,7 +77,7 @@ public class OperationDiffblueTest {
     BpmnInterface actualInterface = actualOperation.getInterface();
     String actualName = actualOperation.getName();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualId);
     assertEquals("Name", actualName);
     assertSame(bpmnInterface, actualInterface);
@@ -84,41 +87,17 @@ public class OperationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link Operation#Operation(String, String, BpmnInterface, MessageDefinition)}.
-   * <ul>
-   *   <li>Then return Interface is
-   * {@link BpmnInterface#BpmnInterface(String, String)} with id is {@code 42} and
-   * {@code Name}.</li>
-   * </ul>
+   * Test {@link Operation#Operation(String, String, BpmnInterface, MessageDefinition)}.
    * <p>
-   * Method under test:
-   * {@link Operation#Operation(String, String, BpmnInterface, MessageDefinition)}
+   * Method under test: {@link Operation#Operation(String, String, BpmnInterface, MessageDefinition)}
    */
   @Test
-  public void testNewOperation_thenReturnInterfaceIsBpmnInterfaceWithIdIs42AndName() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Operation.<init>(String, String, BpmnInterface, MessageDefinition)"})
+  public void testNewOperation() {
     // Arrange
     BpmnInterface bpmnInterface = new BpmnInterface("42", "Name");
 
-    // Act and Assert
-    assertSame(bpmnInterface, (new Operation("42", "Name", bpmnInterface, new MessageDefinition("42"))).getInterface());
-  }
-
-  /**
-   * Test
-   * {@link Operation#Operation(String, String, BpmnInterface, MessageDefinition)}.
-   * <ul>
-   *   <li>When {@link BpmnInterface}.</li>
-   *   <li>Then return Id is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link Operation#Operation(String, String, BpmnInterface, MessageDefinition)}
-   */
-  @Test
-  public void testNewOperation_whenBpmnInterface_thenReturnIdIs42() {
-    // Arrange
-    BpmnInterface bpmnInterface = mock(BpmnInterface.class);
     MessageDefinition inMessage = new MessageDefinition("42");
 
     // Act
@@ -129,7 +108,7 @@ public class OperationDiffblueTest {
     assertEquals("Name", actualOperation.getName());
     assertNull(actualOperation.getOutMessage());
     assertNull(actualOperation.getImplementation());
-    assertSame(inMessage, actualOperation.getInMessage());
     assertSame(bpmnInterface, actualOperation.getInterface());
+    assertSame(inMessage, actualOperation.getInMessage());
   }
 }

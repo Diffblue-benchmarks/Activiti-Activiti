@@ -16,43 +16,22 @@
 package org.activiti.engine.test.mock;
 
 import static org.junit.Assert.assertNull;
-import static org.mockito.Mockito.mock;
-import java.util.HashMap;
-import java.util.function.BiFunction;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class MocksDiffblueTest {
   /**
    * Test {@link Mocks#get(Object)}.
-   * <ul>
-   *   <li>Given {@link JSONObject#NULL}.</li>
-   *   <li>When {@link HashMap#HashMap()} computeIfPresent {@link JSONObject#NULL}
-   * and {@link BiFunction}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link Mocks#get(Object)}
    */
   @Test
-  public void testGet_givenNull_whenHashMapComputeIfPresentNullAndBiFunction() {
-    // Arrange
-    HashMap<Object, Object> objectObjectMap = new HashMap<>();
-    objectObjectMap.computeIfPresent(JSONObject.NULL, mock(BiFunction.class));
-
-    // Act and Assert
-    assertNull(Mocks.get(objectObjectMap));
-  }
-
-  /**
-   * Test {@link Mocks#get(Object)}.
-   * <ul>
-   *   <li>When {@link JSONObject#NULL}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Mocks#get(Object)}
-   */
-  @Test
-  public void testGet_whenNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object Mocks.get(Object)"})
+  public void testGet() {
     // Arrange, Act and Assert
     assertNull(Mocks.get(JSONObject.NULL));
   }

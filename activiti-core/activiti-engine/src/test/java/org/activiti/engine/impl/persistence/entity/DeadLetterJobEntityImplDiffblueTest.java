@@ -19,7 +19,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class DeadLetterJobEntityImplDiffblueTest {
   /**
@@ -32,6 +35,8 @@ public class DeadLetterJobEntityImplDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeadLetterJobEntityImpl.<init>()", "String DeadLetterJobEntityImpl.toString()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     DeadLetterJobEntityImpl actualDeadLetterJobEntityImpl = new DeadLetterJobEntityImpl();

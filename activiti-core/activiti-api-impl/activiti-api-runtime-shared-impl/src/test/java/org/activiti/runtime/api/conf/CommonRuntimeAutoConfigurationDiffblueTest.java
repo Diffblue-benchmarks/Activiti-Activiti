@@ -20,6 +20,7 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.api.model.shared.event.VariableCreatedEvent;
@@ -32,24 +33,28 @@ import org.activiti.engine.impl.RuntimeServiceImpl;
 import org.activiti.runtime.api.event.internal.VariableEventFilter;
 import org.activiti.runtime.api.impl.VariableNameValidator;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class CommonRuntimeAutoConfigurationDiffblueTest {
   /**
-   * Test
-   * {@link CommonRuntimeAutoConfiguration#registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter)}.
+   * Test {@link CommonRuntimeAutoConfiguration#registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter)}.
    * <ul>
    *   <li>Given {@link VariableEventListener}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link CommonRuntimeAutoConfiguration#registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter)}
+   * Method under test: {@link CommonRuntimeAutoConfiguration#registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter)}
    */
   @Test
   @DisplayName("Test registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter); given VariableEventListener")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.springframework.beans.factory.InitializingBean CommonRuntimeAutoConfiguration.registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter)"})
   void testRegisterVariableCreatedListenerDelegate_givenVariableEventListener() throws Exception {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
 
     // Arrange
     CommonRuntimeAutoConfiguration commonRuntimeAutoConfiguration = new CommonRuntimeAutoConfiguration();
@@ -70,19 +75,22 @@ class CommonRuntimeAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link CommonRuntimeAutoConfiguration#registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter)}.
+   * Test {@link CommonRuntimeAutoConfiguration#registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter)}.
    * <ul>
    *   <li>Given {@link VariableEventListener}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link CommonRuntimeAutoConfiguration#registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter)}
+   * Method under test: {@link CommonRuntimeAutoConfiguration#registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter)}
    */
   @Test
   @DisplayName("Test registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter); given VariableEventListener")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.springframework.beans.factory.InitializingBean CommonRuntimeAutoConfiguration.registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter)"})
   void testRegisterVariableCreatedListenerDelegate_givenVariableEventListener2() throws Exception {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
 
     // Arrange
     CommonRuntimeAutoConfiguration commonRuntimeAutoConfiguration = new CommonRuntimeAutoConfiguration();
@@ -104,19 +112,22 @@ class CommonRuntimeAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link CommonRuntimeAutoConfiguration#registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter)}.
+   * Test {@link CommonRuntimeAutoConfiguration#registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter)}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link CommonRuntimeAutoConfiguration#registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter)}
+   * Method under test: {@link CommonRuntimeAutoConfiguration#registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter)}
    */
   @Test
   @DisplayName("Test registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter); when ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.springframework.beans.factory.InitializingBean CommonRuntimeAutoConfiguration.registerVariableCreatedListenerDelegate(RuntimeService, List, VariableEventFilter)"})
   void testRegisterVariableCreatedListenerDelegate_whenArrayList() throws Exception {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
 
     // Arrange
     CommonRuntimeAutoConfiguration commonRuntimeAutoConfiguration = new CommonRuntimeAutoConfiguration();
@@ -135,19 +146,22 @@ class CommonRuntimeAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link CommonRuntimeAutoConfiguration#registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter)}.
+   * Test {@link CommonRuntimeAutoConfiguration#registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter)}.
    * <ul>
    *   <li>Given {@link VariableEventListener}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link CommonRuntimeAutoConfiguration#registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter)}
+   * Method under test: {@link CommonRuntimeAutoConfiguration#registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter)}
    */
   @Test
   @DisplayName("Test registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter); given VariableEventListener")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.springframework.beans.factory.InitializingBean CommonRuntimeAutoConfiguration.registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter)"})
   void testRegisterVariableUpdatedListenerDelegate_givenVariableEventListener() throws Exception {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
 
     // Arrange
     CommonRuntimeAutoConfiguration commonRuntimeAutoConfiguration = new CommonRuntimeAutoConfiguration();
@@ -168,19 +182,22 @@ class CommonRuntimeAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link CommonRuntimeAutoConfiguration#registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter)}.
+   * Test {@link CommonRuntimeAutoConfiguration#registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter)}.
    * <ul>
    *   <li>Given {@link VariableEventListener}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link CommonRuntimeAutoConfiguration#registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter)}
+   * Method under test: {@link CommonRuntimeAutoConfiguration#registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter)}
    */
   @Test
   @DisplayName("Test registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter); given VariableEventListener")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.springframework.beans.factory.InitializingBean CommonRuntimeAutoConfiguration.registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter)"})
   void testRegisterVariableUpdatedListenerDelegate_givenVariableEventListener2() throws Exception {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
 
     // Arrange
     CommonRuntimeAutoConfiguration commonRuntimeAutoConfiguration = new CommonRuntimeAutoConfiguration();
@@ -202,19 +219,22 @@ class CommonRuntimeAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link CommonRuntimeAutoConfiguration#registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter)}.
+   * Test {@link CommonRuntimeAutoConfiguration#registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter)}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link CommonRuntimeAutoConfiguration#registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter)}
+   * Method under test: {@link CommonRuntimeAutoConfiguration#registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter)}
    */
   @Test
   @DisplayName("Test registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter); when ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.springframework.beans.factory.InitializingBean CommonRuntimeAutoConfiguration.registerVariableUpdatedListenerDelegate(RuntimeService, List, VariableEventFilter)"})
   void testRegisterVariableUpdatedListenerDelegate_whenArrayList() throws Exception {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
 
     // Arrange
     CommonRuntimeAutoConfiguration commonRuntimeAutoConfiguration = new CommonRuntimeAutoConfiguration();
@@ -235,13 +255,16 @@ class CommonRuntimeAutoConfigurationDiffblueTest {
   /**
    * Test {@link CommonRuntimeAutoConfiguration#variableNameValidator()}.
    * <p>
-   * Method under test:
-   * {@link CommonRuntimeAutoConfiguration#variableNameValidator()}
+   * Method under test: {@link CommonRuntimeAutoConfiguration#variableNameValidator()}
    */
   @Test
   @DisplayName("Test variableNameValidator()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"VariableNameValidator CommonRuntimeAutoConfiguration.variableNameValidator()"})
   void testVariableNameValidator() {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
 
     // Arrange and Act
     VariableNameValidator actualVariableNameValidatorResult = (new CommonRuntimeAutoConfiguration())

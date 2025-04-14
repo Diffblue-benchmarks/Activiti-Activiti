@@ -18,22 +18,25 @@ package org.activiti.api.runtime.conf.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class CommonModelAutoConfigurationDiffblueTest {
   /**
    * Test {@link CommonModelAutoConfiguration#customizeCommonModelObjectMapper()}.
    * <p>
-   * Method under test:
-   * {@link CommonModelAutoConfiguration#customizeCommonModelObjectMapper()}
+   * Method under test: {@link CommonModelAutoConfiguration#customizeCommonModelObjectMapper()}
    */
   @Test
   @DisplayName("Test customizeCommonModelObjectMapper()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Module CommonModelAutoConfiguration.customizeCommonModelObjectMapper()"})
   void testCustomizeCommonModelObjectMapper() {
     // Arrange and Act
     Module actualCustomizeCommonModelObjectMapperResult = (new CommonModelAutoConfiguration())

@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import jakarta.el.ValueExpression;
 import java.lang.reflect.Method;
@@ -29,6 +30,7 @@ import org.activiti.core.el.juel.misc.TypeConverter;
 import org.activiti.core.el.juel.tree.Bindings;
 import org.activiti.core.el.juel.util.SimpleContext;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class AstParametersDiffblueTest {
@@ -43,6 +45,8 @@ class AstParametersDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstParameters.<init>(List)", "java.lang.String AstParameters.toString()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("(...)", (new AstParameters(new ArrayList<>())).toString());
@@ -55,41 +59,30 @@ class AstParametersDiffblueTest {
    */
   @Test
   @DisplayName("Test eval(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object[] AstParameters.eval(Bindings, ELContext)"})
   void testEval() {
     // Arrange
     ArrayList<AstNode> nodes = new ArrayList<>();
     AstNull question = new AstNull();
     AstNull yes = new AstNull();
     nodes.add(new AstChoice(question, yes, new AstNull()));
-    AstParameters astParameters = new AstParameters(nodes);
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-    Bindings bindings = new Bindings(new Method[]{null},
-        new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
-
-    // Act
-    Object[] actualEvalResult = astParameters.eval(bindings, new SimpleContext());
-
-    // Assert
-    assertNull(actualEvalResult[0]);
-    assertEquals(1, actualEvalResult.length);
-  }
-
-  /**
-   * Test {@link AstParameters#eval(Bindings, ELContext)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link AstNull} (default
-   * constructor).</li>
-   *   <li>Then return first element is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstParameters#eval(Bindings, ELContext)}
-   */
-  @Test
-  @DisplayName("Test eval(Bindings, ELContext); given ArrayList() add AstNull (default constructor); then return first element is 'null'")
-  void testEval_givenArrayListAddAstNull_thenReturnFirstElementIsNull() {
-    // Arrange
-    ArrayList<AstNode> nodes = new ArrayList<>();
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
     nodes.add(new AstNull());
     AstParameters astParameters = new AstParameters(nodes);
     TypeConverter converter = mock(TypeConverter.class);
@@ -102,30 +95,60 @@ class AstParametersDiffblueTest {
 
     // Assert
     assertNull(actualEvalResult[0]);
-    assertEquals(1, actualEvalResult.length);
+    assertNull(actualEvalResult[1]);
+    assertNull(actualEvalResult[10]);
+    assertNull(actualEvalResult[11]);
+    assertNull(actualEvalResult[12]);
+    assertNull(actualEvalResult[13]);
+    assertNull(actualEvalResult[14]);
+    assertNull(actualEvalResult[15]);
+    assertNull(actualEvalResult[17]);
+    assertNull(actualEvalResult[2]);
+    assertNull(actualEvalResult[3]);
+    assertNull(actualEvalResult[4]);
+    assertNull(actualEvalResult[5]);
+    assertNull(actualEvalResult[6]);
+    assertNull(actualEvalResult[7]);
+    assertNull(actualEvalResult[8]);
+    assertNull(actualEvalResult[9]);
+    assertNull(actualEvalResult[Short.SIZE]);
+    assertEquals(18, actualEvalResult.length);
   }
 
   /**
    * Test {@link AstParameters#eval(Bindings, ELContext)}.
    * <ul>
-   *   <li>Given {@link AstChoice#AstChoice(AstNode, AstNode, AstNode)} with
-   * question is {@link AstNull} (default constructor) and yes is {@link AstNull}
-   * (default constructor) and no is {@link AstNull} (default constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link AstNull} (default constructor).</li>
+   *   <li>Then return first element is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstParameters#eval(Bindings, ELContext)}
    */
   @Test
-  @DisplayName("Test eval(Bindings, ELContext); given AstChoice(AstNode, AstNode, AstNode) with question is AstNull (default constructor) and yes is AstNull (default constructor) and no is AstNull (default constructor)")
-  void testEval_givenAstChoiceWithQuestionIsAstNullAndYesIsAstNullAndNoIsAstNull() {
+  @DisplayName("Test eval(Bindings, ELContext); given ArrayList() add AstNull (default constructor); then return first element is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object[] AstParameters.eval(Bindings, ELContext)"})
+  void testEval_givenArrayListAddAstNull_thenReturnFirstElementIsNull() {
     // Arrange
     ArrayList<AstNode> nodes = new ArrayList<>();
-    AstNull question = new AstNull();
-    AstNull yes = new AstNull();
-    AstChoice question2 = new AstChoice(question, yes, new AstNull());
-
-    AstNull yes2 = new AstNull();
-    nodes.add(new AstChoice(question2, yes2, new AstNull()));
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
     AstParameters astParameters = new AstParameters(nodes);
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
@@ -137,7 +160,24 @@ class AstParametersDiffblueTest {
 
     // Assert
     assertNull(actualEvalResult[0]);
-    assertEquals(1, actualEvalResult.length);
+    assertNull(actualEvalResult[1]);
+    assertNull(actualEvalResult[10]);
+    assertNull(actualEvalResult[11]);
+    assertNull(actualEvalResult[12]);
+    assertNull(actualEvalResult[13]);
+    assertNull(actualEvalResult[14]);
+    assertNull(actualEvalResult[15]);
+    assertNull(actualEvalResult[17]);
+    assertNull(actualEvalResult[2]);
+    assertNull(actualEvalResult[3]);
+    assertNull(actualEvalResult[4]);
+    assertNull(actualEvalResult[5]);
+    assertNull(actualEvalResult[6]);
+    assertNull(actualEvalResult[7]);
+    assertNull(actualEvalResult[8]);
+    assertNull(actualEvalResult[9]);
+    assertNull(actualEvalResult[Short.SIZE]);
+    assertEquals(18, actualEvalResult.length);
   }
 
   /**
@@ -150,6 +190,8 @@ class AstParametersDiffblueTest {
    */
   @Test
   @DisplayName("Test eval(Bindings, ELContext); then return array length is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object[] AstParameters.eval(Bindings, ELContext)"})
   void testEval_thenReturnArrayLengthIsZero() {
     // Arrange
     AstParameters astParameters = new AstParameters(new ArrayList<>());
@@ -165,15 +207,62 @@ class AstParametersDiffblueTest {
   /**
    * Test {@link AstParameters#appendStructure(StringBuilder, Bindings)}.
    * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo}
-   * toString is {@code foo()}.</li>
+   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is a string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstParameters#appendStructure(StringBuilder, Bindings)}
+   * Method under test: {@link AstParameters#appendStructure(StringBuilder, Bindings)}
+   */
+  @Test
+  @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is a string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstParameters.appendStructure(StringBuilder, Bindings)"})
+  void testAppendStructure_thenStringBuilderWithFooToStringIsAString() {
+    // Arrange
+    ArrayList<AstNode> nodes = new ArrayList<>();
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    nodes.add(new AstNull());
+    AstParameters astParameters = new AstParameters(nodes);
+    StringBuilder builder = new StringBuilder("foo");
+    TypeConverter converter = mock(TypeConverter.class);
+    Class<Object> type = Object.class;
+
+    // Act
+    astParameters.appendStructure(builder,
+        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
+
+    // Assert
+    assertEquals("foo(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,"
+        + " null, null)", builder.toString());
+  }
+
+  /**
+   * Test {@link AstParameters#appendStructure(StringBuilder, Bindings)}.
+   * <ul>
+   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foo()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AstParameters#appendStructure(StringBuilder, Bindings)}
    */
   @Test
   @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foo()'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstParameters.appendStructure(StringBuilder, Bindings)"})
   void testAppendStructure_thenStringBuilderWithFooToStringIsFoo() {
     // Arrange
     AstParameters astParameters = new AstParameters(new ArrayList<>());
@@ -190,108 +279,23 @@ class AstParametersDiffblueTest {
   }
 
   /**
-   * Test {@link AstParameters#appendStructure(StringBuilder, Bindings)}.
-   * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo}
-   * toString is {@code foo(null)}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link AstParameters#appendStructure(StringBuilder, Bindings)}
-   */
-  @Test
-  @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foo(null)'")
-  void testAppendStructure_thenStringBuilderWithFooToStringIsFooNull() {
-    // Arrange
-    ArrayList<AstNode> nodes = new ArrayList<>();
-    nodes.add(new AstNull());
-    AstParameters astParameters = new AstParameters(nodes);
-    StringBuilder builder = new StringBuilder("foo");
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-
-    // Act
-    astParameters.appendStructure(builder,
-        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
-
-    // Assert
-    assertEquals("foo(null)", builder.toString());
-  }
-
-  /**
-   * Test {@link AstParameters#appendStructure(StringBuilder, Bindings)}.
-   * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo}
-   * toString is {@code foo(null, null)}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link AstParameters#appendStructure(StringBuilder, Bindings)}
-   */
-  @Test
-  @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foo(null, null)'")
-  void testAppendStructure_thenStringBuilderWithFooToStringIsFooNullNull() {
-    // Arrange
-    ArrayList<AstNode> nodes = new ArrayList<>();
-    nodes.add(new AstNull());
-    nodes.add(new AstNull());
-    AstParameters astParameters = new AstParameters(nodes);
-    StringBuilder builder = new StringBuilder("foo");
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-
-    // Act
-    astParameters.appendStructure(builder,
-        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
-
-    // Assert
-    assertEquals("foo(null, null)", builder.toString());
-  }
-
-  /**
    * Test {@link AstParameters#getCardinality()}.
-   * <ul>
-   *   <li>Given {@link AstParameters#AstParameters(List)} with nodes is
-   * {@link ArrayList#ArrayList()}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link AstParameters#getCardinality()}
    */
   @Test
-  @DisplayName("Test getCardinality(); given AstParameters(List) with nodes is ArrayList()")
-  void testGetCardinality_givenAstParametersWithNodesIsArrayList() {
+  @DisplayName("Test getCardinality()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"int AstParameters.getCardinality()"})
+  void testGetCardinality() {
     // Arrange, Act and Assert
     assertEquals(0, (new AstParameters(new ArrayList<>())).getCardinality());
   }
 
   /**
-   * Test {@link AstParameters#getCardinality()}.
-   * <ul>
-   *   <li>Given {@code java.lang.Object}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstParameters#getCardinality()}
-   */
-  @Test
-  @DisplayName("Test getCardinality(); given 'java.lang.Object'")
-  void testGetCardinality_givenJavaLangObject() {
-    // Arrange
-    AstParameters astParameters = new AstParameters(new ArrayList<>());
-    StringBuilder builder = new StringBuilder("foo");
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-    astParameters.appendStructure(builder,
-        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
-
-    // Act and Assert
-    assertEquals(0, astParameters.getCardinality());
-  }
-
-  /**
    * Test {@link AstParameters#getChild(int)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link AstNull} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link AstNull} (default constructor).</li>
    *   <li>Then return {@link AstNull} (default constructor).</li>
    * </ul>
    * <p>
@@ -299,6 +303,8 @@ class AstParametersDiffblueTest {
    */
   @Test
   @DisplayName("Test getChild(int); given ArrayList() add AstNull (default constructor); then return AstNull (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"AstNode AstParameters.getChild(int)"})
   void testGetChild_givenArrayListAddAstNull_thenReturnAstNull() {
     // Arrange
     ArrayList<AstNode> nodes = new ArrayList<>();

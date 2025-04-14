@@ -19,9 +19,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class CandidateGroupsPayloadDiffblueTest {
@@ -32,6 +34,8 @@ class CandidateGroupsPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test new CandidateGroupsPayload()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void CandidateGroupsPayload.<init>()"})
   void testNewCandidateGroupsPayload() {
     // Arrange and Act
     CandidateGroupsPayload actualCandidateGroupsPayload = new CandidateGroupsPayload();
@@ -48,11 +52,12 @@ class CandidateGroupsPayloadDiffblueTest {
    *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link CandidateGroupsPayload#CandidateGroupsPayload(String, List)}
+   * Method under test: {@link CandidateGroupsPayload#CandidateGroupsPayload(String, List)}
    */
   @Test
   @DisplayName("Test new CandidateGroupsPayload(String, List); given '42'; when ArrayList() add '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void CandidateGroupsPayload.<init>(String, List)"})
   void testNewCandidateGroupsPayload_given42_whenArrayListAdd42() {
     // Arrange
     ArrayList<String> candidateGroups = new ArrayList<>();
@@ -74,11 +79,12 @@ class CandidateGroupsPayloadDiffblueTest {
    *   <li>Then return CandidateGroups is {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link CandidateGroupsPayload#CandidateGroupsPayload(String, List)}
+   * Method under test: {@link CandidateGroupsPayload#CandidateGroupsPayload(String, List)}
    */
   @Test
   @DisplayName("Test new CandidateGroupsPayload(String, List); given 'foo'; then return CandidateGroups is ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void CandidateGroupsPayload.<init>(String, List)"})
   void testNewCandidateGroupsPayload_givenFoo_thenReturnCandidateGroupsIsArrayList() {
     // Arrange
     ArrayList<String> candidateGroups = new ArrayList<>();
@@ -99,11 +105,12 @@ class CandidateGroupsPayloadDiffblueTest {
    *   <li>Then return CandidateGroups Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link CandidateGroupsPayload#CandidateGroupsPayload(String, List)}
+   * Method under test: {@link CandidateGroupsPayload#CandidateGroupsPayload(String, List)}
    */
   @Test
   @DisplayName("Test new CandidateGroupsPayload(String, List); when ArrayList(); then return CandidateGroups Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void CandidateGroupsPayload.<init>(String, List)"})
   void testNewCandidateGroupsPayload_whenArrayList_thenReturnCandidateGroupsEmpty() {
     // Arrange and Act
     CandidateGroupsPayload actualCandidateGroupsPayload = new CandidateGroupsPayload("42", new ArrayList<>());
@@ -127,6 +134,10 @@ class CandidateGroupsPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List CandidateGroupsPayload.getCandidateGroups()", "String CandidateGroupsPayload.getId()",
+      "String CandidateGroupsPayload.getTaskId()", "void CandidateGroupsPayload.setCandidateGroups(List)",
+      "void CandidateGroupsPayload.setTaskId(String)"})
   void testGettersAndSetters() {
     // Arrange
     CandidateGroupsPayload candidateGroupsPayload = new CandidateGroupsPayload();
@@ -138,7 +149,7 @@ class CandidateGroupsPayloadDiffblueTest {
     List<String> actualCandidateGroups = candidateGroupsPayload.getCandidateGroups();
     candidateGroupsPayload.getId();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", candidateGroupsPayload.getTaskId());
     assertTrue(actualCandidateGroups.isEmpty());
     assertSame(candidateGroups, actualCandidateGroups);

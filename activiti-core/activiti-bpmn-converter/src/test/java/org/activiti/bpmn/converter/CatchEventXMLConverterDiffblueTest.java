@@ -16,12 +16,14 @@
 package org.activiti.bpmn.converter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import javax.xml.stream.XMLStreamWriter;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.IntermediateCatchEvent;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class CatchEventXMLConverterDiffblueTest {
@@ -31,14 +33,17 @@ class CatchEventXMLConverterDiffblueTest {
    * Methods under test:
    * <ul>
    *   <li>default or parameterless constructor of {@link CatchEventXMLConverter}
-   *   <li>
-   * {@link CatchEventXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
+   *   <li>{@link CatchEventXMLConverter#writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)}
    *   <li>{@link CatchEventXMLConverter#getBpmnElementType()}
    *   <li>{@link CatchEventXMLConverter#getXMLElementName()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void CatchEventXMLConverter.<init>()", "Class CatchEventXMLConverter.getBpmnElementType()",
+      "java.lang.String CatchEventXMLConverter.getXMLElementName()",
+      "void CatchEventXMLConverter.writeAdditionalAttributes(BaseElement, BpmnModel, XMLStreamWriter)"})
   void testGettersAndSetters() throws Exception {
     // Arrange and Act
     CatchEventXMLConverter actualCatchEventXMLConverter = new CatchEventXMLConverter();
@@ -47,7 +52,7 @@ class CatchEventXMLConverterDiffblueTest {
     actualCatchEventXMLConverter.writeAdditionalAttributes(element, model, new IndentingXMLStreamWriter(null));
     Class<? extends BaseElement> actualBpmnElementType = actualCatchEventXMLConverter.getBpmnElementType();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("intermediateCatchEvent", actualCatchEventXMLConverter.getXMLElementName());
     Class<IntermediateCatchEvent> expectedBpmnElementType = IntermediateCatchEvent.class;
     assertEquals(expectedBpmnElementType, actualBpmnElementType);

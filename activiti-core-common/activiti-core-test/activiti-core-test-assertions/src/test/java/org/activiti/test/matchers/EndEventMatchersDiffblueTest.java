@@ -16,7 +16,9 @@
 package org.activiti.test.matchers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class EndEventMatchersDiffblueTest {
@@ -27,6 +29,8 @@ class EndEventMatchersDiffblueTest {
    */
   @Test
   @DisplayName("Test getActivityType()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String EndEventMatchers.getActivityType()"})
   void testGetActivityType() {
     // Arrange, Act and Assert
     assertEquals("endEvent", EndEventMatchers.endEvent("Definition Key").getActivityType());
@@ -39,6 +43,8 @@ class EndEventMatchersDiffblueTest {
    */
   @Test
   @DisplayName("Test endEvent(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"EndEventMatchers EndEventMatchers.endEvent(String)"})
   void testEndEvent() {
     // Arrange, Act and Assert
     assertEquals("endEvent", EndEventMatchers.endEvent("Definition Key").getActivityType());

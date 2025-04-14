@@ -16,7 +16,9 @@
 package org.activiti.image.impl.icon;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ReceiveTaskIconTypeDiffblueTest {
@@ -32,6 +34,9 @@ class ReceiveTaskIconTypeDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ReceiveTaskIconType.<init>()", "String ReceiveTaskIconType.getDValue()",
+      "String ReceiveTaskIconType.getStyleValue()"})
   void testGettersAndSetters() {
     // Arrange and Act
     ReceiveTaskIconType actualReceiveTaskIconType = new ReceiveTaskIconType();

@@ -17,8 +17,11 @@ package org.activiti.api.runtime.model.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class VariableInstanceImplDiffblueTest {
@@ -40,23 +43,32 @@ class VariableInstanceImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void VariableInstanceImpl.<init>()",
+      "void VariableInstanceImpl.<init>(String, String, Object, String, String)",
+      "String VariableInstanceImpl.getName()", "String VariableInstanceImpl.getProcessInstanceId()",
+      "String VariableInstanceImpl.getTaskId()", "String VariableInstanceImpl.getType()",
+      "Object VariableInstanceImpl.getValue()", "void VariableInstanceImpl.setProcessInstanceId(String)",
+      "void VariableInstanceImpl.setTaskId(String)", "String VariableInstanceImpl.toString()"})
   void testGettersAndSetters() {
     // Arrange and Act
     VariableInstanceImpl<Object> actualVariableInstanceImpl = new VariableInstanceImpl<>();
     actualVariableInstanceImpl.setProcessInstanceId("42");
     actualVariableInstanceImpl.setTaskId("42");
     String actualToStringResult = actualVariableInstanceImpl.toString();
-    actualVariableInstanceImpl.getName();
+    String actualName = actualVariableInstanceImpl.getName();
     String actualProcessInstanceId = actualVariableInstanceImpl.getProcessInstanceId();
     String actualTaskId = actualVariableInstanceImpl.getTaskId();
-    actualVariableInstanceImpl.getType();
-    actualVariableInstanceImpl.getValue();
+    String actualType = actualVariableInstanceImpl.getType();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualProcessInstanceId);
     assertEquals("42", actualTaskId);
     assertEquals("VariableInstanceImpl{name='null', type='null', processInstanceId='42', taskId='42', value='null'}",
         actualToStringResult);
+    assertNull(actualVariableInstanceImpl.getValue());
+    assertNull(actualName);
+    assertNull(actualType);
   }
 
   /**
@@ -68,8 +80,7 @@ class VariableInstanceImplDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link VariableInstanceImpl#VariableInstanceImpl(String, String, Object, String, String)}
+   *   <li>{@link VariableInstanceImpl#VariableInstanceImpl(String, String, Object, String, String)}
    *   <li>{@link VariableInstanceImpl#setProcessInstanceId(String)}
    *   <li>{@link VariableInstanceImpl#setTaskId(String)}
    *   <li>{@link VariableInstanceImpl#toString()}
@@ -82,6 +93,13 @@ class VariableInstanceImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters; when 'Name'; then return 'Name'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void VariableInstanceImpl.<init>()",
+      "void VariableInstanceImpl.<init>(String, String, Object, String, String)",
+      "String VariableInstanceImpl.getName()", "String VariableInstanceImpl.getProcessInstanceId()",
+      "String VariableInstanceImpl.getTaskId()", "String VariableInstanceImpl.getType()",
+      "Object VariableInstanceImpl.getValue()", "void VariableInstanceImpl.setProcessInstanceId(String)",
+      "void VariableInstanceImpl.setTaskId(String)", "String VariableInstanceImpl.toString()"})
   void testGettersAndSetters_whenName_thenReturnName() {
     // Arrange and Act
     VariableInstanceImpl<Object> actualVariableInstanceImpl = new VariableInstanceImpl<>("Name", "Type", "Value", "42",
@@ -94,7 +112,7 @@ class VariableInstanceImplDiffblueTest {
     String actualTaskId = actualVariableInstanceImpl.getTaskId();
     String actualType = actualVariableInstanceImpl.getType();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualProcessInstanceId);
     assertEquals("42", actualTaskId);
     assertEquals("Name", actualName);
@@ -107,8 +125,7 @@ class VariableInstanceImplDiffblueTest {
   /**
    * Test {@link VariableInstanceImpl#isTaskVariable()}.
    * <ul>
-   *   <li>Given {@link VariableInstanceImpl#VariableInstanceImpl()} TaskId is
-   * {@code foo}.</li>
+   *   <li>Given {@link VariableInstanceImpl#VariableInstanceImpl()} TaskId is {@code foo}.</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
@@ -116,6 +133,8 @@ class VariableInstanceImplDiffblueTest {
    */
   @Test
   @DisplayName("Test isTaskVariable(); given VariableInstanceImpl() TaskId is 'foo'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean VariableInstanceImpl.isTaskVariable()"})
   void testIsTaskVariable_givenVariableInstanceImplTaskIdIsFoo_thenReturnTrue() {
     // Arrange
     VariableInstanceImpl<Object> variableInstanceImpl = new VariableInstanceImpl<>();
@@ -136,6 +155,8 @@ class VariableInstanceImplDiffblueTest {
    */
   @Test
   @DisplayName("Test isTaskVariable(); given VariableInstanceImpl(); then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean VariableInstanceImpl.isTaskVariable()"})
   void testIsTaskVariable_givenVariableInstanceImpl_thenReturnFalse() {
     // Arrange
     VariableInstanceImpl<Object> variableInstanceImpl = new VariableInstanceImpl<>();

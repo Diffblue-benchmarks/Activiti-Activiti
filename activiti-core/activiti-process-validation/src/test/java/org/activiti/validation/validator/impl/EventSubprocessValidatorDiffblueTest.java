@@ -24,6 +24,7 @@ import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -41,19 +42,20 @@ import org.activiti.bpmn.model.StartEvent;
 import org.activiti.bpmn.model.SubProcess;
 import org.activiti.validation.ValidationError;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class EventSubprocessValidatorDiffblueTest {
   /**
-   * Test
-   * {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
    * <p>
-   * Method under test:
-   * {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventSubprocessValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation() {
     // Arrange
     EventSubprocessValidator eventSubprocessValidator = new EventSubprocessValidator();
@@ -106,14 +108,14 @@ class EventSubprocessValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
    * <p>
-   * Method under test:
-   * {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventSubprocessValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation2() {
     // Arrange
     EventSubprocessValidator eventSubprocessValidator = new EventSubprocessValidator();
@@ -166,19 +168,18 @@ class EventSubprocessValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link StartEvent} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link StartEvent} (default constructor).</li>
    *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList() add StartEvent (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventSubprocessValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenArrayListAddStartEvent_thenArrayListEmpty() {
     // Arrange
     EventSubprocessValidator eventSubprocessValidator = new EventSubprocessValidator();
@@ -211,18 +212,18 @@ class EventSubprocessValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
    *   <li>Given {@link ArrayList#ArrayList()}.</li>
    *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList(); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventSubprocessValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenArrayList_thenArrayListEmpty() {
     // Arrange
     EventSubprocessValidator eventSubprocessValidator = new EventSubprocessValidator();
@@ -246,18 +247,18 @@ class EventSubprocessValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
    *   <li>Given {@link ArrayList#ArrayList()}.</li>
    *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList(); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventSubprocessValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenArrayList_thenArrayListEmpty2() {
     // Arrange
     EventSubprocessValidator eventSubprocessValidator = new EventSubprocessValidator();
@@ -287,18 +288,17 @@ class EventSubprocessValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link StartEvent} (default constructor) addEventDefinition
-   * {@link ErrorEventDefinition} (default constructor).</li>
+   *   <li>Given {@link StartEvent} (default constructor) addEventDefinition {@link ErrorEventDefinition} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given StartEvent (default constructor) addEventDefinition ErrorEventDefinition (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventSubprocessValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenStartEventAddEventDefinitionErrorEventDefinition() {
     // Arrange
     EventSubprocessValidator eventSubprocessValidator = new EventSubprocessValidator();
@@ -334,18 +334,17 @@ class EventSubprocessValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link StartEvent} (default constructor) addEventDefinition
-   * {@link MessageEventDefinition} (default constructor).</li>
+   *   <li>Given {@link StartEvent} (default constructor) addEventDefinition {@link MessageEventDefinition} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given StartEvent (default constructor) addEventDefinition MessageEventDefinition (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventSubprocessValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenStartEventAddEventDefinitionMessageEventDefinition() {
     // Arrange
     EventSubprocessValidator eventSubprocessValidator = new EventSubprocessValidator();
@@ -381,18 +380,17 @@ class EventSubprocessValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link StartEvent} (default constructor) addEventDefinition
-   * {@link SignalEventDefinition} (default constructor).</li>
+   *   <li>Given {@link StartEvent} (default constructor) addEventDefinition {@link SignalEventDefinition} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given StartEvent (default constructor) addEventDefinition SignalEventDefinition (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventSubprocessValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenStartEventAddEventDefinitionSignalEventDefinition() {
     // Arrange
     EventSubprocessValidator eventSubprocessValidator = new EventSubprocessValidator();
@@ -428,17 +426,17 @@ class EventSubprocessValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityId is '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventSubprocessValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListFirstActivityIdIs42() {
     // Arrange
     EventSubprocessValidator eventSubprocessValidator = new EventSubprocessValidator();
@@ -497,17 +495,17 @@ class EventSubprocessValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventSubprocessValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListSizeIsTwo() {
     // Arrange
     EventSubprocessValidator eventSubprocessValidator = new EventSubprocessValidator();
@@ -581,45 +579,18 @@ class EventSubprocessValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
-   * <ul>
-   *   <li>When {@link BpmnModel}.</li>
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
-   */
-  @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); when BpmnModel; then ArrayList() Empty")
-  void testExecuteValidation_whenBpmnModel_thenArrayListEmpty() {
-    // Arrange
-    EventSubprocessValidator eventSubprocessValidator = new EventSubprocessValidator();
-    BpmnModel bpmnModel = mock(BpmnModel.class);
-    Process process = new Process();
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    eventSubprocessValidator.executeValidation(bpmnModel, process, errors);
-
-    // Assert that nothing has changed
-    assertTrue(errors.isEmpty());
-  }
-
-  /**
-   * Test
-   * {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
    *   <li>When {@link Process} (default constructor).</li>
    *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link EventSubprocessValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); when Process (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EventSubprocessValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_whenProcess_thenArrayListEmpty() {
     // Arrange
     EventSubprocessValidator eventSubprocessValidator = new EventSubprocessValidator();

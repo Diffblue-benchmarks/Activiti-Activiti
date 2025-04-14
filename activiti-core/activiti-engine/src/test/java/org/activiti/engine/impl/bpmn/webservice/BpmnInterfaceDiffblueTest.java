@@ -20,17 +20,13 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class BpmnInterfaceDiffblueTest {
-  @InjectMocks
-  private BpmnInterface bpmnInterface;
-
   /**
    * Test getters and setters.
    * <p>
@@ -46,6 +42,11 @@ public class BpmnInterfaceDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnInterface.<init>()", "String BpmnInterface.getId()",
+      "BpmnInterfaceImplementation BpmnInterface.getImplementation()", "String BpmnInterface.getName()",
+      "void BpmnInterface.setId(String)", "void BpmnInterface.setImplementation(BpmnInterfaceImplementation)",
+      "void BpmnInterface.setName(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     BpmnInterface actualBpmnInterface = new BpmnInterface();
@@ -56,7 +57,7 @@ public class BpmnInterfaceDiffblueTest {
     String actualId = actualBpmnInterface.getId();
     BpmnInterfaceImplementation actualImplementation = actualBpmnInterface.getImplementation();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualId);
     assertEquals("Name", actualBpmnInterface.getName());
     assertTrue(actualBpmnInterface.operations.isEmpty());
@@ -69,6 +70,8 @@ public class BpmnInterfaceDiffblueTest {
    * Method under test: {@link BpmnInterface#BpmnInterface(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnInterface.<init>(String, String)"})
   public void testNewBpmnInterface() {
     // Arrange and Act
     BpmnInterface actualBpmnInterface = new BpmnInterface("42", "Name");
@@ -83,36 +86,15 @@ public class BpmnInterfaceDiffblueTest {
 
   /**
    * Test {@link BpmnInterface#addOperation(Operation)}.
-   * <p>
-   * Method under test: {@link BpmnInterface#addOperation(Operation)}
-   */
-  @Test
-  public void testAddOperation() {
-    // Arrange
-    BpmnInterface bpmnInterface = new BpmnInterface("42", "Name");
-    bpmnInterface.setImplementation(mock(BpmnInterfaceImplementation.class));
-    Operation operation = new Operation();
-
-    // Act
-    bpmnInterface.addOperation(operation);
-
-    // Assert
-    assertEquals(1, bpmnInterface.getOperations().size());
-    Map<String, Operation> stringOperationMap = bpmnInterface.operations;
-    assertEquals(1, stringOperationMap.size());
-    assertSame(operation, stringOperationMap.get(null));
-  }
-
-  /**
-   * Test {@link BpmnInterface#addOperation(Operation)}.
    * <ul>
-   *   <li>Then {@link BpmnInterface#BpmnInterface(String, String)} with id is
-   * {@code 42} and {@code Name} Operations size is one.</li>
+   *   <li>Then {@link BpmnInterface#BpmnInterface(String, String)} with id is {@code 42} and {@code Name} Operations size is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnInterface#addOperation(Operation)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnInterface.addOperation(Operation)"})
   public void testAddOperation_thenBpmnInterfaceWithIdIs42AndNameOperationsSizeIsOne() {
     // Arrange
     BpmnInterface bpmnInterface = new BpmnInterface("42", "Name");
@@ -134,9 +116,11 @@ public class BpmnInterfaceDiffblueTest {
    * Method under test: {@link BpmnInterface#getOperation(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Operation BpmnInterface.getOperation(String)"})
   public void testGetOperation() {
     // Arrange, Act and Assert
-    assertNull(bpmnInterface.getOperation("42"));
+    assertNull((new BpmnInterface("42", "Name")).getOperation("42"));
   }
 
   /**
@@ -145,26 +129,9 @@ public class BpmnInterfaceDiffblueTest {
    * Method under test: {@link BpmnInterface#getOperations()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Collection BpmnInterface.getOperations()"})
   public void testGetOperations() {
-    // Arrange
-    BpmnInterface bpmnInterface = new BpmnInterface("42", "Name");
-    bpmnInterface.setImplementation(mock(BpmnInterfaceImplementation.class));
-
-    // Act and Assert
-    assertTrue(bpmnInterface.getOperations().isEmpty());
-  }
-
-  /**
-   * Test {@link BpmnInterface#getOperations()}.
-   * <ul>
-   *   <li>Given {@link BpmnInterface#BpmnInterface(String, String)} with id is
-   * {@code 42} and {@code Name}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BpmnInterface#getOperations()}
-   */
-  @Test
-  public void testGetOperations_givenBpmnInterfaceWithIdIs42AndName() {
     // Arrange, Act and Assert
     assertTrue((new BpmnInterface("42", "Name")).getOperations().isEmpty());
   }

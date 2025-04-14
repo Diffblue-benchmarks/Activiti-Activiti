@@ -19,34 +19,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.AdhocSubProcess;
-import org.activiti.bpmn.model.MessageEventDefinition;
-import org.activiti.engine.impl.bpmn.parser.factory.DefaultMessageExecutionContext;
-import org.activiti.engine.impl.delegate.MessagePayloadMappingProvider;
-import org.activiti.engine.impl.el.ExpressionManager;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class AbstractBpmnActivityBehaviorDiffblueTest {
-  /**
-   * Test {@link AbstractBpmnActivityBehavior#hasLoopCharacteristics()}.
-   * <p>
-   * Method under test:
-   * {@link AbstractBpmnActivityBehavior#hasLoopCharacteristics()}
-   */
-  @Test
-  public void testHasLoopCharacteristics() {
-    // Arrange
-    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
-    MessageEventDefinition messageEventDefinition2 = new MessageEventDefinition();
-
-    // Act and Assert
-    assertFalse((new EventSubProcessMessageStartEventActivityBehavior(messageEventDefinition,
-        new DefaultMessageExecutionContext(messageEventDefinition2, new ExpressionManager(),
-            mock(MessagePayloadMappingProvider.class))))
-        .hasLoopCharacteristics());
-  }
-
   /**
    * Test {@link AbstractBpmnActivityBehavior#hasLoopCharacteristics()}.
    * <ul>
@@ -54,10 +33,11 @@ public class AbstractBpmnActivityBehaviorDiffblueTest {
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractBpmnActivityBehavior#hasLoopCharacteristics()}
+   * Method under test: {@link AbstractBpmnActivityBehavior#hasLoopCharacteristics()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean AbstractBpmnActivityBehavior.hasLoopCharacteristics()"})
   public void testHasLoopCharacteristics_givenAbstractBpmnActivityBehavior_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new AbstractBpmnActivityBehavior()).hasLoopCharacteristics());
@@ -69,10 +49,11 @@ public class AbstractBpmnActivityBehaviorDiffblueTest {
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractBpmnActivityBehavior#hasLoopCharacteristics()}
+   * Method under test: {@link AbstractBpmnActivityBehavior#hasLoopCharacteristics()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean AbstractBpmnActivityBehavior.hasLoopCharacteristics()"})
   public void testHasLoopCharacteristics_thenReturnTrue() {
     // Arrange
     AbstractBpmnActivityBehavior abstractBpmnActivityBehavior = new AbstractBpmnActivityBehavior();
@@ -86,34 +67,16 @@ public class AbstractBpmnActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link AbstractBpmnActivityBehavior#hasMultiInstanceCharacteristics()}.
-   * <p>
-   * Method under test:
-   * {@link AbstractBpmnActivityBehavior#hasMultiInstanceCharacteristics()}
-   */
-  @Test
-  public void testHasMultiInstanceCharacteristics() {
-    // Arrange
-    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
-    MessageEventDefinition messageEventDefinition2 = new MessageEventDefinition();
-
-    // Act and Assert
-    assertFalse((new EventSubProcessMessageStartEventActivityBehavior(messageEventDefinition,
-        new DefaultMessageExecutionContext(messageEventDefinition2, new ExpressionManager(),
-            mock(MessagePayloadMappingProvider.class))))
-        .hasMultiInstanceCharacteristics());
-  }
-
-  /**
-   * Test {@link AbstractBpmnActivityBehavior#hasMultiInstanceCharacteristics()}.
    * <ul>
-   *   <li>Given {@link AbstractBpmnActivityBehavior} (default constructor).</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractBpmnActivityBehavior#hasMultiInstanceCharacteristics()}
+   * Method under test: {@link AbstractBpmnActivityBehavior#hasMultiInstanceCharacteristics()}
    */
   @Test
-  public void testHasMultiInstanceCharacteristics_givenAbstractBpmnActivityBehavior() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean AbstractBpmnActivityBehavior.hasMultiInstanceCharacteristics()"})
+  public void testHasMultiInstanceCharacteristics_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new AbstractBpmnActivityBehavior()).hasMultiInstanceCharacteristics());
   }
@@ -124,10 +87,11 @@ public class AbstractBpmnActivityBehaviorDiffblueTest {
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractBpmnActivityBehavior#hasMultiInstanceCharacteristics()}
+   * Method under test: {@link AbstractBpmnActivityBehavior#hasMultiInstanceCharacteristics()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean AbstractBpmnActivityBehavior.hasMultiInstanceCharacteristics()"})
   public void testHasMultiInstanceCharacteristics_thenReturnTrue() {
     // Arrange
     AbstractBpmnActivityBehavior abstractBpmnActivityBehavior = new AbstractBpmnActivityBehavior();
@@ -144,12 +108,14 @@ public class AbstractBpmnActivityBehaviorDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link AbstractBpmnActivityBehavior#setMultiInstanceActivityBehavior(MultiInstanceActivityBehavior)}
+   *   <li>{@link AbstractBpmnActivityBehavior#setMultiInstanceActivityBehavior(MultiInstanceActivityBehavior)}
    *   <li>{@link AbstractBpmnActivityBehavior#getMultiInstanceActivityBehavior()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"MultiInstanceActivityBehavior AbstractBpmnActivityBehavior.getMultiInstanceActivityBehavior()",
+      "void AbstractBpmnActivityBehavior.setMultiInstanceActivityBehavior(MultiInstanceActivityBehavior)"})
   public void testGettersAndSetters() {
     // Arrange
     AbstractBpmnActivityBehavior abstractBpmnActivityBehavior = new AbstractBpmnActivityBehavior();
@@ -160,17 +126,18 @@ public class AbstractBpmnActivityBehaviorDiffblueTest {
     // Act
     abstractBpmnActivityBehavior.setMultiInstanceActivityBehavior(multiInstanceActivityBehavior);
 
-    // Assert that nothing has changed
+    // Assert
     assertSame(multiInstanceActivityBehavior, abstractBpmnActivityBehavior.getMultiInstanceActivityBehavior());
   }
 
   /**
    * Test new {@link AbstractBpmnActivityBehavior} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link AbstractBpmnActivityBehavior}
+   * Method under test: default or parameterless constructor of {@link AbstractBpmnActivityBehavior}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractBpmnActivityBehavior.<init>()"})
   public void testNewAbstractBpmnActivityBehavior() {
     // Arrange and Act
     AbstractBpmnActivityBehavior actualAbstractBpmnActivityBehavior = new AbstractBpmnActivityBehavior();

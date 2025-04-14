@@ -16,20 +16,14 @@
 package org.activiti.engine.impl.bpmn.parser;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ErrorEventDefinitionDiffblueTest {
-  @InjectMocks
-  private ErrorEventDefinition errorEventDefinition;
-
-  @InjectMocks
-  private String string;
-
   /**
    * Test getters and setters.
    * <p>
@@ -43,6 +37,10 @@ public class ErrorEventDefinitionDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ErrorEventDefinition.<init>(String)", "String ErrorEventDefinition.getErrorCode()",
+      "String ErrorEventDefinition.getHandlerActivityId()", "void ErrorEventDefinition.setErrorCode(String)",
+      "void ErrorEventDefinition.setPrecedence(Integer)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ErrorEventDefinition actualErrorEventDefinition = new ErrorEventDefinition("42");
@@ -50,7 +48,7 @@ public class ErrorEventDefinitionDiffblueTest {
     actualErrorEventDefinition.setPrecedence(1);
     String actualErrorCode = actualErrorEventDefinition.getErrorCode();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualErrorEventDefinition.getHandlerActivityId());
     assertEquals("An error occurred", actualErrorCode);
     assertEquals(1, actualErrorEventDefinition.precedence.intValue());
@@ -65,6 +63,8 @@ public class ErrorEventDefinitionDiffblueTest {
    * Method under test: {@link ErrorEventDefinition#getPrecedence()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Integer ErrorEventDefinition.getPrecedence()"})
   public void testGetPrecedence_thenReturnIntValueIsOne() {
     // Arrange
     ErrorEventDefinition errorEventDefinition = new ErrorEventDefinition("42");
@@ -83,6 +83,8 @@ public class ErrorEventDefinitionDiffblueTest {
    * Method under test: {@link ErrorEventDefinition#getPrecedence()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Integer ErrorEventDefinition.getPrecedence()"})
   public void testGetPrecedence_thenReturnIntValueIsZero() {
     // Arrange, Act and Assert
     assertEquals(0, (new ErrorEventDefinition("42")).getPrecedence().intValue());
@@ -90,29 +92,72 @@ public class ErrorEventDefinitionDiffblueTest {
 
   /**
    * Test {@link ErrorEventDefinition#catches(String)}.
-   * <ul>
-   *   <li>When {@code An error occurred}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link ErrorEventDefinition#catches(String)}
    */
   @Test
-  public void testCatches_whenAnErrorOccurred() {
-    // Arrange, Act and Assert
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ErrorEventDefinition.catches(String)"})
+  public void testCatches() {
+    // Arrange
+    ErrorEventDefinition errorEventDefinition = new ErrorEventDefinition("42");
+    errorEventDefinition.setErrorCode("An error occurred");
+
+    // Act and Assert
     assertTrue(errorEventDefinition.catches("An error occurred"));
   }
 
   /**
    * Test {@link ErrorEventDefinition#catches(String)}.
    * <ul>
+   *   <li>Given {@link ErrorEventDefinition#ErrorEventDefinition(String)} with handlerActivityId is {@code 42}.</li>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ErrorEventDefinition#catches(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ErrorEventDefinition.catches(String)"})
+  public void testCatches_givenErrorEventDefinitionWithHandlerActivityIdIs42_thenReturnTrue() {
+    // Arrange, Act and Assert
+    assertTrue((new ErrorEventDefinition("42")).catches("An error occurred"));
+  }
+
+  /**
+   * Test {@link ErrorEventDefinition#catches(String)}.
+   * <ul>
+   *   <li>Given {@link ErrorEventDefinition#ErrorEventDefinition(String)} with handlerActivityId is {@code 42}.</li>
    *   <li>When {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ErrorEventDefinition#catches(String)}
    */
   @Test
-  public void testCatches_whenNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ErrorEventDefinition.catches(String)"})
+  public void testCatches_givenErrorEventDefinitionWithHandlerActivityIdIs42_whenNull() {
     // Arrange, Act and Assert
-    assertTrue(errorEventDefinition.catches(null));
+    assertTrue((new ErrorEventDefinition("42")).catches(null));
+  }
+
+  /**
+   * Test {@link ErrorEventDefinition#catches(String)}.
+   * <ul>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ErrorEventDefinition#catches(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ErrorEventDefinition.catches(String)"})
+  public void testCatches_thenReturnFalse() {
+    // Arrange
+    ErrorEventDefinition errorEventDefinition = new ErrorEventDefinition("42");
+    errorEventDefinition.setErrorCode("Error Code");
+
+    // Act and Assert
+    assertFalse(errorEventDefinition.catches("An error occurred"));
   }
 }

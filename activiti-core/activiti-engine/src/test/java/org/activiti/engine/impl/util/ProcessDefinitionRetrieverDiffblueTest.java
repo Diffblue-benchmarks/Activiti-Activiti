@@ -18,14 +18,18 @@ package org.activiti.engine.impl.util;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.ActivitiObjectNotFoundException;
 import org.activiti.engine.impl.persistence.deploy.DeploymentManager;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntityImpl;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -40,16 +44,14 @@ public class ProcessDefinitionRetrieverDiffblueTest {
   @InjectMocks
   private ProcessDefinitionRetriever processDefinitionRetriever;
 
-  @InjectMocks
-  private String string;
-
   /**
    * Test {@link ProcessDefinitionRetriever#getProcessDefinition(String, String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessDefinitionRetriever#getProcessDefinition(String, String)}
+   * Method under test: {@link ProcessDefinitionRetriever#getProcessDefinition(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessDefinition ProcessDefinitionRetriever.getProcessDefinition(String, String)"})
   public void testGetProcessDefinition() {
     // Arrange
     ProcessDefinitionEntityImpl processDefinitionEntityImpl = new ProcessDefinitionEntityImpl();
@@ -68,10 +70,11 @@ public class ProcessDefinitionRetrieverDiffblueTest {
   /**
    * Test {@link ProcessDefinitionRetriever#getProcessDefinition(String, String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessDefinitionRetriever#getProcessDefinition(String, String)}
+   * Method under test: {@link ProcessDefinitionRetriever#getProcessDefinition(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessDefinition ProcessDefinitionRetriever.getProcessDefinition(String, String)"})
   public void testGetProcessDefinition2() {
     // Arrange
     ProcessDefinitionEntityImpl processDefinitionEntityImpl = new ProcessDefinitionEntityImpl();
@@ -92,10 +95,11 @@ public class ProcessDefinitionRetrieverDiffblueTest {
   /**
    * Test {@link ProcessDefinitionRetriever#getProcessDefinition(String, String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessDefinitionRetriever#getProcessDefinition(String, String)}
+   * Method under test: {@link ProcessDefinitionRetriever#getProcessDefinition(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessDefinition ProcessDefinitionRetriever.getProcessDefinition(String, String)"})
   public void testGetProcessDefinition3() {
     // Arrange
     ProcessDefinitionEntityImpl processDefinitionEntityImpl = new ProcessDefinitionEntityImpl();
@@ -114,10 +118,11 @@ public class ProcessDefinitionRetrieverDiffblueTest {
   /**
    * Test {@link ProcessDefinitionRetriever#getProcessDefinition(String, String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessDefinitionRetriever#getProcessDefinition(String, String)}
+   * Method under test: {@link ProcessDefinitionRetriever#getProcessDefinition(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessDefinition ProcessDefinitionRetriever.getProcessDefinition(String, String)"})
   public void testGetProcessDefinition4() {
     // Arrange
     when(deploymentManager.findDeployedProcessDefinitionById(Mockito.<String>any()))
@@ -132,10 +137,11 @@ public class ProcessDefinitionRetrieverDiffblueTest {
   /**
    * Test {@link ProcessDefinitionRetriever#getProcessDefinition(String, String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessDefinitionRetriever#getProcessDefinition(String, String)}
+   * Method under test: {@link ProcessDefinitionRetriever#getProcessDefinition(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessDefinition ProcessDefinitionRetriever.getProcessDefinition(String, String)"})
   public void testGetProcessDefinition5() {
     // Arrange
     when(deploymentManager.findDeployedLatestProcessDefinitionByKey(Mockito.<String>any()))
@@ -150,10 +156,11 @@ public class ProcessDefinitionRetrieverDiffblueTest {
   /**
    * Test {@link ProcessDefinitionRetriever#getProcessDefinition(String, String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessDefinitionRetriever#getProcessDefinition(String, String)}
+   * Method under test: {@link ProcessDefinitionRetriever#getProcessDefinition(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessDefinition ProcessDefinitionRetriever.getProcessDefinition(String, String)"})
   public void testGetProcessDefinition6() {
     // Arrange
     when(deploymentManager.findDeployedLatestProcessDefinitionByKey(Mockito.<String>any())).thenReturn(null);
@@ -169,11 +176,85 @@ public class ProcessDefinitionRetrieverDiffblueTest {
   /**
    * Test {@link ProcessDefinitionRetriever#getProcessDefinition(String, String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessDefinitionRetriever#getProcessDefinition(String, String)}
+   * Method under test: {@link ProcessDefinitionRetriever#getProcessDefinition(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessDefinition ProcessDefinitionRetriever.getProcessDefinition(String, String)"})
   public void testGetProcessDefinition7() {
+    // Arrange
+    DeploymentManager deploymentCache = mock(DeploymentManager.class);
+    ProcessDefinitionEntityImpl processDefinitionEntityImpl = new ProcessDefinitionEntityImpl();
+    when(deploymentCache.findDeployedLatestProcessDefinitionByKeyAndTenantId(Mockito.<String>any(),
+        Mockito.<String>any())).thenReturn(processDefinitionEntityImpl);
+    when(deploymentCache.findDeployedProcessDefinitionById(Mockito.<String>any())).thenReturn(null);
+
+    // Act
+    ProcessDefinition actualProcessDefinition = (new ProcessDefinitionRetriever("42", deploymentCache))
+        .getProcessDefinition("42", "Process Definition Key");
+
+    // Assert
+    verify(deploymentCache).findDeployedLatestProcessDefinitionByKeyAndTenantId(eq("Process Definition Key"), eq("42"));
+    verify(deploymentCache).findDeployedProcessDefinitionById(eq("42"));
+    assertSame(processDefinitionEntityImpl, actualProcessDefinition);
+  }
+
+  /**
+   * Test {@link ProcessDefinitionRetriever#getProcessDefinition(String, String)}.
+   * <p>
+   * Method under test: {@link ProcessDefinitionRetriever#getProcessDefinition(String, String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessDefinition ProcessDefinitionRetriever.getProcessDefinition(String, String)"})
+  public void testGetProcessDefinition8() {
+    // Arrange
+    DeploymentManager deploymentCache = mock(DeploymentManager.class);
+    ProcessDefinitionEntityImpl processDefinitionEntityImpl = new ProcessDefinitionEntityImpl();
+    when(deploymentCache.findDeployedLatestProcessDefinitionByKey(Mockito.<String>any()))
+        .thenReturn(processDefinitionEntityImpl);
+    when(deploymentCache.findDeployedProcessDefinitionById(Mockito.<String>any())).thenReturn(null);
+
+    // Act
+    ProcessDefinition actualProcessDefinition = (new ProcessDefinitionRetriever("", deploymentCache))
+        .getProcessDefinition("42", "Process Definition Key");
+
+    // Assert
+    verify(deploymentCache).findDeployedLatestProcessDefinitionByKey(eq("Process Definition Key"));
+    verify(deploymentCache).findDeployedProcessDefinitionById(eq("42"));
+    assertSame(processDefinitionEntityImpl, actualProcessDefinition);
+  }
+
+  /**
+   * Test {@link ProcessDefinitionRetriever#getProcessDefinition(String, String)}.
+   * <ul>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ProcessDefinitionRetriever#getProcessDefinition(String, String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessDefinition ProcessDefinitionRetriever.getProcessDefinition(String, String)"})
+  public void testGetProcessDefinition_thenThrowActivitiIllegalArgumentException() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> processDefinitionRetriever.getProcessDefinition(null, null));
+  }
+
+  /**
+   * Test {@link ProcessDefinitionRetriever#getProcessDefinition(String, String)}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiObjectNotFoundException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ProcessDefinitionRetriever#getProcessDefinition(String, String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessDefinition ProcessDefinitionRetriever.getProcessDefinition(String, String)"})
+  public void testGetProcessDefinition_whenNull_thenThrowActivitiObjectNotFoundException() {
     // Arrange
     when(deploymentManager.findDeployedProcessDefinitionById(Mockito.<String>any())).thenReturn(null);
 
@@ -181,22 +262,5 @@ public class ProcessDefinitionRetrieverDiffblueTest {
     assertThrows(ActivitiObjectNotFoundException.class,
         () -> processDefinitionRetriever.getProcessDefinition("42", null));
     verify(deploymentManager).findDeployedProcessDefinitionById(eq("42"));
-  }
-
-  /**
-   * Test {@link ProcessDefinitionRetriever#getProcessDefinition(String, String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessDefinitionRetriever#getProcessDefinition(String, String)}
-   */
-  @Test
-  public void testGetProcessDefinition_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> processDefinitionRetriever.getProcessDefinition(null, null));
   }
 }

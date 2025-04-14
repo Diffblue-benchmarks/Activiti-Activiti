@@ -24,23 +24,26 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.impl.bpmn.data.FieldBaseStructureInstance;
 import org.activiti.engine.impl.bpmn.data.ItemDefinition;
 import org.activiti.engine.impl.bpmn.data.ItemInstance;
 import org.activiti.engine.impl.bpmn.data.SimpleStructureDefinition;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class MessageImplicitDataInputAssociationDiffblueTest {
   /**
-   * Test
-   * {@link MessageImplicitDataInputAssociation#MessageImplicitDataInputAssociation(String, String)}.
+   * Test {@link MessageImplicitDataInputAssociation#MessageImplicitDataInputAssociation(String, String)}.
    * <p>
-   * Method under test:
-   * {@link MessageImplicitDataInputAssociation#MessageImplicitDataInputAssociation(String, String)}
+   * Method under test: {@link MessageImplicitDataInputAssociation#MessageImplicitDataInputAssociation(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MessageImplicitDataInputAssociation.<init>(String, String)"})
   public void testNewMessageImplicitDataInputAssociation() {
     // Arrange and Act
     MessageImplicitDataInputAssociation actualMessageImplicitDataInputAssociation = new MessageImplicitDataInputAssociation(
@@ -55,14 +58,14 @@ public class MessageImplicitDataInputAssociationDiffblueTest {
   /**
    * Test {@link MessageImplicitDataInputAssociation#evaluate(DelegateExecution)}.
    * <ul>
-   *   <li>Given {@link MessageDefinition#MessageDefinition(String)} with id is
-   * {@code 42}.</li>
+   *   <li>Given {@link MessageDefinition#MessageDefinition(String)} with id is {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link MessageImplicitDataInputAssociation#evaluate(DelegateExecution)}
+   * Method under test: {@link MessageImplicitDataInputAssociation#evaluate(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MessageImplicitDataInputAssociation.evaluate(DelegateExecution)"})
   public void testEvaluate_givenMessageDefinitionWithIdIs42() {
     // Arrange
     MessageImplicitDataInputAssociation messageImplicitDataInputAssociation = new MessageImplicitDataInputAssociation(
@@ -84,14 +87,14 @@ public class MessageImplicitDataInputAssociationDiffblueTest {
   /**
    * Test {@link MessageImplicitDataInputAssociation#evaluate(DelegateExecution)}.
    * <ul>
-   *   <li>Given {@link MessageInstance}
-   * {@link MessageInstance#getStructureInstance()} return {@code null}.</li>
+   *   <li>Given {@link MessageInstance} {@link MessageInstance#getStructureInstance()} return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link MessageImplicitDataInputAssociation#evaluate(DelegateExecution)}
+   * Method under test: {@link MessageImplicitDataInputAssociation#evaluate(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MessageImplicitDataInputAssociation.evaluate(DelegateExecution)"})
   public void testEvaluate_givenMessageInstanceGetStructureInstanceReturnNull() {
     // Arrange
     MessageImplicitDataInputAssociation messageImplicitDataInputAssociation = new MessageImplicitDataInputAssociation(
@@ -112,14 +115,14 @@ public class MessageImplicitDataInputAssociationDiffblueTest {
   /**
    * Test {@link MessageImplicitDataInputAssociation#evaluate(DelegateExecution)}.
    * <ul>
-   *   <li>Then calls
-   * {@link FieldBaseStructureInstance#setFieldValue(String, Object)}.</li>
+   *   <li>Then calls {@link FieldBaseStructureInstance#setFieldValue(String, Object)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link MessageImplicitDataInputAssociation#evaluate(DelegateExecution)}
+   * Method under test: {@link MessageImplicitDataInputAssociation#evaluate(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MessageImplicitDataInputAssociation.evaluate(DelegateExecution)"})
   public void testEvaluate_thenCallsSetFieldValue() {
     // Arrange
     MessageImplicitDataInputAssociation messageImplicitDataInputAssociation = new MessageImplicitDataInputAssociation(

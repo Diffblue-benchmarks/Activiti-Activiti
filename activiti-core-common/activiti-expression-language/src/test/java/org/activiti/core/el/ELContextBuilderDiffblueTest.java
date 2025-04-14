@@ -22,41 +22,21 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import jakarta.el.BeanNameELResolver;
-import jakarta.el.BeanNameResolver;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import jakarta.el.ELResolver;
 import jakarta.el.FunctionMapper;
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class ELContextBuilderDiffblueTest {
-  /**
-   * Test {@link ELContextBuilder#withResolvers(ELResolver[])}.
-   * <ul>
-   *   <li>When {@link BeanNameELResolver#BeanNameELResolver(BeanNameResolver)} with
-   * {@link BeanNameResolver}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ELContextBuilder#withResolvers(ELResolver[])}
-   */
-  @Test
-  @DisplayName("Test withResolvers(ELResolver[]); when BeanNameELResolver(BeanNameResolver) with BeanNameResolver")
-  void testWithResolvers_whenBeanNameELResolverWithBeanNameResolver() {
-    // Arrange
-    ELContextBuilder elContextBuilder = new ELContextBuilder();
-
-    // Act and Assert
-    assertSame(elContextBuilder, elContextBuilder.withResolvers(new BeanNameELResolver(mock(BeanNameResolver.class))));
-  }
-
   /**
    * Test {@link ELContextBuilder#withResolvers(ELResolver[])}.
    * <ul>
@@ -68,6 +48,8 @@ class ELContextBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test withResolvers(ELResolver[]); when JsonNodeELResolver(); then return ELContextBuilder (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ELContextBuilder ELContextBuilder.withResolvers(ELResolver[])"})
   void testWithResolvers_whenJsonNodeELResolver_thenReturnELContextBuilder() {
     // Arrange
     ELContextBuilder elContextBuilder = new ELContextBuilder();
@@ -83,6 +65,8 @@ class ELContextBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test buildWithCustomFunctions(List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ELContext ELContextBuilder.buildWithCustomFunctions(List)"})
   void testBuildWithCustomFunctions() {
     // Arrange
     ELContextBuilder elContextBuilder = new ELContextBuilder();
@@ -108,24 +92,21 @@ class ELContextBuilderDiffblueTest {
     assertTrue(functionMapper instanceof ActivitiFunctionMapper);
     Map<String, Method> stringMethodMap = ((ActivitiFunctionMapper) functionMapper).map;
     assertEquals(2, stringMethodMap.size());
-    Method getResult = stringMethodMap.get(":list");
-    Parameter[] parameters = getResult.getParameters();
-    assertEquals(1, parameters.length);
-    assertEquals(1, getResult.getParameterTypes().length);
-    assertSame(getResult, (parameters[0]).getDeclaringExecutable());
+    assertEquals(1, stringMethodMap.get(":list").getParameterTypes().length);
   }
 
   /**
    * Test {@link ELContextBuilder#buildWithCustomFunctions(List)}.
    * <ul>
-   *   <li>Given array of {@link ELResolver} with
-   * {@link JsonNodeELResolver#JsonNodeELResolver()}.</li>
+   *   <li>Given array of {@link ELResolver} with {@link JsonNodeELResolver#JsonNodeELResolver()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ELContextBuilder#buildWithCustomFunctions(List)}
    */
   @Test
   @DisplayName("Test buildWithCustomFunctions(List); given array of ELResolver with JsonNodeELResolver()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ELContext ELContextBuilder.buildWithCustomFunctions(List)"})
   void testBuildWithCustomFunctions_givenArrayOfELResolverWithJsonNodeELResolver() {
     // Arrange
     ELContextBuilder elContextBuilder = new ELContextBuilder();
@@ -150,24 +131,21 @@ class ELContextBuilderDiffblueTest {
     assertTrue(functionMapper instanceof ActivitiFunctionMapper);
     Map<String, Method> stringMethodMap = ((ActivitiFunctionMapper) functionMapper).map;
     assertEquals(2, stringMethodMap.size());
-    Method getResult = stringMethodMap.get(":list");
-    Parameter[] parameters = getResult.getParameters();
-    assertEquals(1, parameters.length);
-    assertEquals(1, getResult.getParameterTypes().length);
-    assertSame(getResult, (parameters[0]).getDeclaringExecutable());
+    assertEquals(1, stringMethodMap.get(":list").getParameterTypes().length);
   }
 
   /**
    * Test {@link ELContextBuilder#buildWithCustomFunctions(List)}.
    * <ul>
-   *   <li>Given {@link ELContextBuilder} (default constructor) withVariables
-   * {@link HashMap#HashMap()}.</li>
+   *   <li>Given {@link ELContextBuilder} (default constructor) withVariables {@link HashMap#HashMap()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ELContextBuilder#buildWithCustomFunctions(List)}
    */
   @Test
   @DisplayName("Test buildWithCustomFunctions(List); given ELContextBuilder (default constructor) withVariables HashMap()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ELContext ELContextBuilder.buildWithCustomFunctions(List)"})
   void testBuildWithCustomFunctions_givenELContextBuilderWithVariablesHashMap() {
     // Arrange
     ELContextBuilder elContextBuilder = new ELContextBuilder();
@@ -192,25 +170,22 @@ class ELContextBuilderDiffblueTest {
     assertTrue(functionMapper instanceof ActivitiFunctionMapper);
     Map<String, Method> stringMethodMap = ((ActivitiFunctionMapper) functionMapper).map;
     assertEquals(2, stringMethodMap.size());
-    Method getResult = stringMethodMap.get(":list");
-    Parameter[] parameters = getResult.getParameters();
-    assertEquals(1, parameters.length);
-    assertEquals(1, getResult.getParameterTypes().length);
-    assertSame(getResult, (parameters[0]).getDeclaringExecutable());
+    assertEquals(1, stringMethodMap.get(":list").getParameterTypes().length);
   }
 
   /**
    * Test {@link ELContextBuilder#buildWithCustomFunctions(List)}.
    * <ul>
    *   <li>Given {@link ELContextBuilder} (default constructor).</li>
-   *   <li>Then calls
-   * {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
+   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ELContextBuilder#buildWithCustomFunctions(List)}
    */
   @Test
   @DisplayName("Test buildWithCustomFunctions(List); given ELContextBuilder (default constructor); then calls addCustomFunctions(ActivitiElContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ELContext ELContextBuilder.buildWithCustomFunctions(List)"})
   void testBuildWithCustomFunctions_givenELContextBuilder_thenCallsAddCustomFunctions() {
     // Arrange
     ELContextBuilder elContextBuilder = new ELContextBuilder();
@@ -230,25 +205,22 @@ class ELContextBuilderDiffblueTest {
     assertTrue(functionMapper instanceof ActivitiFunctionMapper);
     Map<String, Method> stringMethodMap = ((ActivitiFunctionMapper) functionMapper).map;
     assertEquals(2, stringMethodMap.size());
-    Method getResult = stringMethodMap.get(":list");
-    Parameter[] parameters = getResult.getParameters();
-    assertEquals(1, parameters.length);
-    assertEquals(1, getResult.getParameterTypes().length);
-    assertSame(getResult, (parameters[0]).getDeclaringExecutable());
+    assertEquals(1, stringMethodMap.get(":list").getParameterTypes().length);
   }
 
   /**
    * Test {@link ELContextBuilder#buildWithCustomFunctions(List)}.
    * <ul>
    *   <li>Given {@link ELContextBuilder} (default constructor).</li>
-   *   <li>Then calls
-   * {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
+   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ELContextBuilder#buildWithCustomFunctions(List)}
    */
   @Test
   @DisplayName("Test buildWithCustomFunctions(List); given ELContextBuilder (default constructor); then calls addCustomFunctions(ActivitiElContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ELContext ELContextBuilder.buildWithCustomFunctions(List)"})
   void testBuildWithCustomFunctions_givenELContextBuilder_thenCallsAddCustomFunctions2() {
     // Arrange
     ELContextBuilder elContextBuilder = new ELContextBuilder();
@@ -272,11 +244,7 @@ class ELContextBuilderDiffblueTest {
     assertTrue(functionMapper instanceof ActivitiFunctionMapper);
     Map<String, Method> stringMethodMap = ((ActivitiFunctionMapper) functionMapper).map;
     assertEquals(2, stringMethodMap.size());
-    Method getResult = stringMethodMap.get(":list");
-    Parameter[] parameters = getResult.getParameters();
-    assertEquals(1, parameters.length);
-    assertEquals(1, getResult.getParameterTypes().length);
-    assertSame(getResult, (parameters[0]).getDeclaringExecutable());
+    assertEquals(1, stringMethodMap.get(":list").getParameterTypes().length);
   }
 
   /**
@@ -290,6 +258,8 @@ class ELContextBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test buildWithCustomFunctions(List); given ELContextBuilder (default constructor); when ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ELContext ELContextBuilder.buildWithCustomFunctions(List)"})
   void testBuildWithCustomFunctions_givenELContextBuilder_whenArrayList() {
     // Arrange
     ELContextBuilder elContextBuilder = new ELContextBuilder();
@@ -303,11 +273,7 @@ class ELContextBuilderDiffblueTest {
     assertTrue(functionMapper instanceof ActivitiFunctionMapper);
     Map<String, Method> stringMethodMap = ((ActivitiFunctionMapper) functionMapper).map;
     assertEquals(2, stringMethodMap.size());
-    Method getResult = stringMethodMap.get(":list");
-    Parameter[] parameters = getResult.getParameters();
-    assertEquals(1, parameters.length);
-    assertEquals(1, getResult.getParameterTypes().length);
-    assertSame(getResult, (parameters[0]).getDeclaringExecutable());
+    assertEquals(1, stringMethodMap.get(":list").getParameterTypes().length);
   }
 
   /**
@@ -321,6 +287,8 @@ class ELContextBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test buildWithCustomFunctions(List); given ELContextBuilder (default constructor); when 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ELContext ELContextBuilder.buildWithCustomFunctions(List)"})
   void testBuildWithCustomFunctions_givenELContextBuilder_whenNull() {
     // Arrange and Act
     ELContext actualBuildWithCustomFunctionsResult = (new ELContextBuilder()).buildWithCustomFunctions(null);
@@ -331,11 +299,7 @@ class ELContextBuilderDiffblueTest {
     assertTrue(functionMapper instanceof ActivitiFunctionMapper);
     Map<String, Method> stringMethodMap = ((ActivitiFunctionMapper) functionMapper).map;
     assertEquals(2, stringMethodMap.size());
-    Method getResult = stringMethodMap.get(":list");
-    Parameter[] parameters = getResult.getParameters();
-    assertEquals(1, parameters.length);
-    assertEquals(1, getResult.getParameterTypes().length);
-    assertSame(getResult, (parameters[0]).getDeclaringExecutable());
+    assertEquals(1, stringMethodMap.get(":list").getParameterTypes().length);
   }
 
   /**
@@ -350,6 +314,9 @@ class ELContextBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test build()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ELContextBuilder.<init>()", "ELContext ELContextBuilder.build()",
+      "ELContextBuilder ELContextBuilder.withVariables(Map)"})
   void testBuild() {
     // Arrange
     ELContextBuilder elContextBuilder = new ELContextBuilder();

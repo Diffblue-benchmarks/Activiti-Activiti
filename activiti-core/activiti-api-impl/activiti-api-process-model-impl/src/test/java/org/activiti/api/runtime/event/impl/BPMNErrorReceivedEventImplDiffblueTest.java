@@ -18,21 +18,26 @@ package org.activiti.api.runtime.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.BPMNError;
 import org.activiti.api.process.model.events.BPMNErrorReceivedEvent;
+import org.activiti.api.process.model.events.BPMNErrorReceivedEvent.ErrorEvents;
 import org.activiti.api.runtime.model.impl.BPMNErrorImpl;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class BPMNErrorReceivedEventImplDiffblueTest {
   /**
    * Test {@link BPMNErrorReceivedEventImpl#BPMNErrorReceivedEventImpl()}.
    * <p>
-   * Method under test:
-   * {@link BPMNErrorReceivedEventImpl#BPMNErrorReceivedEventImpl()}
+   * Method under test: {@link BPMNErrorReceivedEventImpl#BPMNErrorReceivedEventImpl()}
    */
   @Test
   @DisplayName("Test new BPMNErrorReceivedEventImpl()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNErrorReceivedEventImpl.<init>()"})
   void testNewBPMNErrorReceivedEventImpl() {
     // Arrange and Act
     BPMNErrorReceivedEventImpl actualBpmnErrorReceivedEventImpl = new BPMNErrorReceivedEventImpl();
@@ -45,18 +50,18 @@ class BPMNErrorReceivedEventImplDiffblueTest {
     assertNull(actualBpmnErrorReceivedEventImpl.getProcessDefinitionKey());
     assertNull(actualBpmnErrorReceivedEventImpl.getProcessInstanceId());
     assertNull(actualBpmnErrorReceivedEventImpl.getEntity());
-    assertEquals(BPMNErrorReceivedEvent.ErrorEvents.ERROR_RECEIVED, actualBpmnErrorReceivedEventImpl.getEventType());
+    assertEquals(ErrorEvents.ERROR_RECEIVED, actualBpmnErrorReceivedEventImpl.getEventType());
   }
 
   /**
-   * Test
-   * {@link BPMNErrorReceivedEventImpl#BPMNErrorReceivedEventImpl(BPMNError)}.
+   * Test {@link BPMNErrorReceivedEventImpl#BPMNErrorReceivedEventImpl(BPMNError)}.
    * <p>
-   * Method under test:
-   * {@link BPMNErrorReceivedEventImpl#BPMNErrorReceivedEventImpl(BPMNError)}
+   * Method under test: {@link BPMNErrorReceivedEventImpl#BPMNErrorReceivedEventImpl(BPMNError)}
    */
   @Test
   @DisplayName("Test new BPMNErrorReceivedEventImpl(BPMNError)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNErrorReceivedEventImpl.<init>(BPMNError)"})
   void testNewBPMNErrorReceivedEventImpl2() {
     // Arrange
     BPMNErrorImpl entity = new BPMNErrorImpl("42");
@@ -65,14 +70,16 @@ class BPMNErrorReceivedEventImplDiffblueTest {
     BPMNErrorReceivedEventImpl actualBpmnErrorReceivedEventImpl = new BPMNErrorReceivedEventImpl(entity);
 
     // Assert
+    BPMNError entity2 = actualBpmnErrorReceivedEventImpl.getEntity();
+    assertTrue(entity2 instanceof BPMNErrorImpl);
     assertNull(actualBpmnErrorReceivedEventImpl.getProcessDefinitionVersion());
     assertNull(actualBpmnErrorReceivedEventImpl.getBusinessKey());
     assertNull(actualBpmnErrorReceivedEventImpl.getParentProcessInstanceId());
     assertNull(actualBpmnErrorReceivedEventImpl.getProcessDefinitionId());
     assertNull(actualBpmnErrorReceivedEventImpl.getProcessDefinitionKey());
     assertNull(actualBpmnErrorReceivedEventImpl.getProcessInstanceId());
-    assertEquals(BPMNErrorReceivedEvent.ErrorEvents.ERROR_RECEIVED, actualBpmnErrorReceivedEventImpl.getEventType());
-    assertSame(entity, actualBpmnErrorReceivedEventImpl.getEntity());
+    assertEquals(ErrorEvents.ERROR_RECEIVED, actualBpmnErrorReceivedEventImpl.getEventType());
+    assertSame(entity, entity2);
   }
 
   /**
@@ -82,8 +89,10 @@ class BPMNErrorReceivedEventImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getEventType()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"BPMNErrorReceivedEvent.ErrorEvents BPMNErrorReceivedEventImpl.getEventType()"})
   void testGetEventType() {
     // Arrange, Act and Assert
-    assertEquals(BPMNErrorReceivedEvent.ErrorEvents.ERROR_RECEIVED, (new BPMNErrorReceivedEventImpl()).getEventType());
+    assertEquals(ErrorEvents.ERROR_RECEIVED, (new BPMNErrorReceivedEventImpl()).getEventType());
   }
 }

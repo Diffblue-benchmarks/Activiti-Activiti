@@ -27,6 +27,7 @@ import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ArrayELResolver;
 import jakarta.el.ELContext;
 import jakarta.el.ELException;
@@ -55,6 +56,7 @@ import org.activiti.core.el.juel.tree.impl.ast.AstIdentifierTest.TestMethodExpre
 import org.activiti.core.el.juel.util.RootPropertyResolver;
 import org.activiti.core.el.juel.util.SimpleContext;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -79,6 +81,11 @@ class AstIdentifierDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters; when 'Name'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstIdentifier.<init>(String, int)", "void AstIdentifier.<init>(String, int, boolean)",
+      "int AstIdentifier.getCardinality()", "int AstIdentifier.getIndex()", "String AstIdentifier.getName()",
+      "boolean AstIdentifier.isLeftValue()", "boolean AstIdentifier.isLiteralText()",
+      "boolean AstIdentifier.isMethodInvocation()", "String AstIdentifier.toString()"})
   void testGettersAndSetters_whenName() {
     // Arrange and Act
     AstIdentifier actualAstIdentifier = new AstIdentifier("Name", 1);
@@ -119,6 +126,11 @@ class AstIdentifierDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters; when 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstIdentifier.<init>(String, int)", "void AstIdentifier.<init>(String, int, boolean)",
+      "int AstIdentifier.getCardinality()", "int AstIdentifier.getIndex()", "String AstIdentifier.getName()",
+      "boolean AstIdentifier.isLeftValue()", "boolean AstIdentifier.isLiteralText()",
+      "boolean AstIdentifier.isMethodInvocation()", "String AstIdentifier.toString()"})
   void testGettersAndSetters_whenTrue() {
     // Arrange and Act
     AstIdentifier actualAstIdentifier = new AstIdentifier("Name", 1, true);
@@ -142,14 +154,15 @@ class AstIdentifierDiffblueTest {
   /**
    * Test {@link AstIdentifier#getType(Bindings, ELContext)}.
    * <ul>
-   *   <li>Given {@link AstIdentifier#AstIdentifier(String, int)} with name is
-   * {@code null} and index is zero.</li>
+   *   <li>Given {@link AstIdentifier#AstIdentifier(String, int)} with name is {@code null} and index is zero.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstIdentifier#getType(Bindings, ELContext)}
    */
   @Test
   @DisplayName("Test getType(Bindings, ELContext); given AstIdentifier(String, int) with name is 'null' and index is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Class AstIdentifier.getType(Bindings, ELContext)"})
   void testGetType_givenAstIdentifierWithNameIsNullAndIndexIsZero() {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier(null, 0);
@@ -162,14 +175,15 @@ class AstIdentifierDiffblueTest {
   /**
    * Test {@link AstIdentifier#getType(Bindings, ELContext)}.
    * <ul>
-   *   <li>Then {@link SimpleContext#SimpleContext(ELResolver)} with resolver is
-   * {@link RootPropertyResolver#RootPropertyResolver()} PropertyResolved.</li>
+   *   <li>Then {@link SimpleContext#SimpleContext(ELResolver)} with resolver is {@link RootPropertyResolver#RootPropertyResolver()} PropertyResolved.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstIdentifier#getType(Bindings, ELContext)}
    */
   @Test
   @DisplayName("Test getType(Bindings, ELContext); then SimpleContext(ELResolver) with resolver is RootPropertyResolver() PropertyResolved")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Class AstIdentifier.getType(Bindings, ELContext)"})
   void testGetType_thenSimpleContextWithResolverIsRootPropertyResolverPropertyResolved() {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -189,7 +203,7 @@ class AstIdentifierDiffblueTest {
   /**
    * Test {@link AstIdentifier#getType(Bindings, ELContext)}.
    * <ul>
-   *   <li>When {@code java.lang.Object}.</li>
+   *   <li>When {@code Object}.</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
@@ -197,6 +211,8 @@ class AstIdentifierDiffblueTest {
    */
   @Test
   @DisplayName("Test getType(Bindings, ELContext); when 'java.lang.Object'; then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Class AstIdentifier.getType(Bindings, ELContext)"})
   void testGetType_whenJavaLangObject_thenReturnNull() {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -215,14 +231,15 @@ class AstIdentifierDiffblueTest {
   /**
    * Test {@link AstIdentifier#getType(Bindings, ELContext)}.
    * <ul>
-   *   <li>When {@link SimpleContext#SimpleContext(ELResolver)} with resolver is
-   * {@link ArrayELResolver#ArrayELResolver()}.</li>
+   *   <li>When {@link SimpleContext#SimpleContext(ELResolver)} with resolver is {@link ArrayELResolver#ArrayELResolver()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstIdentifier#getType(Bindings, ELContext)}
    */
   @Test
   @DisplayName("Test getType(Bindings, ELContext); when SimpleContext(ELResolver) with resolver is ArrayELResolver()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Class AstIdentifier.getType(Bindings, ELContext)"})
   void testGetType_whenSimpleContextWithResolverIsArrayELResolver() {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -244,6 +261,8 @@ class AstIdentifierDiffblueTest {
    */
   @Test
   @DisplayName("Test getType(Bindings, ELContext); when SimpleContext(); then SimpleContext() PropertyResolved")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Class AstIdentifier.getType(Bindings, ELContext)"})
   void testGetType_whenSimpleContext_thenSimpleContextPropertyResolved() {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -266,11 +285,12 @@ class AstIdentifierDiffblueTest {
    *   <li>Then calls {@link TreeBuilder#build(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#getValueReference(Bindings, ELContext)}
+   * Method under test: {@link AstIdentifier#getValueReference(Bindings, ELContext)}
    */
   @Test
   @DisplayName("Test getValueReference(Bindings, ELContext); then calls build(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ValueReference AstIdentifier.getValueReference(Bindings, ELContext)"})
   void testGetValueReference_thenCallsBuild() throws TreeBuilderException {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -301,11 +321,12 @@ class AstIdentifierDiffblueTest {
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#getValueReference(Bindings, ELContext)}
+   * Method under test: {@link AstIdentifier#getValueReference(Bindings, ELContext)}
    */
   @Test
   @DisplayName("Test getValueReference(Bindings, ELContext); then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ValueReference AstIdentifier.getValueReference(Bindings, ELContext)"})
   void testGetValueReference_thenReturnNull() {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -324,11 +345,12 @@ class AstIdentifierDiffblueTest {
    *   <li>Then return Property is {@code Name}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#getValueReference(Bindings, ELContext)}
+   * Method under test: {@link AstIdentifier#getValueReference(Bindings, ELContext)}
    */
   @Test
   @DisplayName("Test getValueReference(Bindings, ELContext); then return Property is 'Name'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ValueReference AstIdentifier.getValueReference(Bindings, ELContext)"})
   void testGetValueReference_thenReturnPropertyIsName() {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -352,6 +374,8 @@ class AstIdentifierDiffblueTest {
    */
   @Test
   @DisplayName("Test eval(Bindings, ELContext); then calls build(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object AstIdentifier.eval(Bindings, ELContext)"})
   void testEval_thenCallsBuild() throws ELException {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -388,6 +412,8 @@ class AstIdentifierDiffblueTest {
    */
   @Test
   @DisplayName("Test eval(Bindings, ELContext); then return 'Convert'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object AstIdentifier.eval(Bindings, ELContext)"})
   void testEval_thenReturnConvert() throws ELException {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -408,11 +434,12 @@ class AstIdentifierDiffblueTest {
   /**
    * Test {@link AstIdentifier#setValue(Bindings, ELContext, Object)}.
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#setValue(Bindings, ELContext, Object)}
+   * Method under test: {@link AstIdentifier#setValue(Bindings, ELContext, Object)}
    */
   @Test
   @DisplayName("Test setValue(Bindings, ELContext, Object)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstIdentifier.setValue(Bindings, ELContext, Object)"})
   void testSetValue() {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -430,15 +457,15 @@ class AstIdentifierDiffblueTest {
   /**
    * Test {@link AstIdentifier#setValue(Bindings, ELContext, Object)}.
    * <ul>
-   *   <li>Given {@link AstIdentifier#AstIdentifier(String, int)} with name is
-   * {@code null} and index is zero.</li>
+   *   <li>Given {@link AstIdentifier#AstIdentifier(String, int)} with name is {@code null} and index is zero.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#setValue(Bindings, ELContext, Object)}
+   * Method under test: {@link AstIdentifier#setValue(Bindings, ELContext, Object)}
    */
   @Test
   @DisplayName("Test setValue(Bindings, ELContext, Object); given AstIdentifier(String, int) with name is 'null' and index is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstIdentifier.setValue(Bindings, ELContext, Object)"})
   void testSetValue_givenAstIdentifierWithNameIsNullAndIndexIsZero() {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier(null, 0);
@@ -451,15 +478,15 @@ class AstIdentifierDiffblueTest {
   /**
    * Test {@link AstIdentifier#setValue(Bindings, ELContext, Object)}.
    * <ul>
-   *   <li>Then {@link SimpleContext#SimpleContext(ELResolver)} with resolver is
-   * {@link RootPropertyResolver#RootPropertyResolver()} PropertyResolved.</li>
+   *   <li>Then {@link SimpleContext#SimpleContext(ELResolver)} with resolver is {@link RootPropertyResolver#RootPropertyResolver()} PropertyResolved.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#setValue(Bindings, ELContext, Object)}
+   * Method under test: {@link AstIdentifier#setValue(Bindings, ELContext, Object)}
    */
   @Test
   @DisplayName("Test setValue(Bindings, ELContext, Object); then SimpleContext(ELResolver) with resolver is RootPropertyResolver() PropertyResolved")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstIdentifier.setValue(Bindings, ELContext, Object)"})
   void testSetValue_thenSimpleContextWithResolverIsRootPropertyResolverPropertyResolved() {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -481,11 +508,12 @@ class AstIdentifierDiffblueTest {
    *   <li>Then {@link SimpleContext#SimpleContext()} PropertyResolved.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#setValue(Bindings, ELContext, Object)}
+   * Method under test: {@link AstIdentifier#setValue(Bindings, ELContext, Object)}
    */
   @Test
   @DisplayName("Test setValue(Bindings, ELContext, Object); when 'null'; then SimpleContext() PropertyResolved")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstIdentifier.setValue(Bindings, ELContext, Object)"})
   void testSetValue_whenNull_thenSimpleContextPropertyResolved() {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -503,15 +531,15 @@ class AstIdentifierDiffblueTest {
   /**
    * Test {@link AstIdentifier#setValue(Bindings, ELContext, Object)}.
    * <ul>
-   *   <li>When {@link SimpleContext#SimpleContext(ELResolver)} with resolver is
-   * {@link ArrayELResolver#ArrayELResolver()}.</li>
+   *   <li>When {@link SimpleContext#SimpleContext(ELResolver)} with resolver is {@link ArrayELResolver#ArrayELResolver()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#setValue(Bindings, ELContext, Object)}
+   * Method under test: {@link AstIdentifier#setValue(Bindings, ELContext, Object)}
    */
   @Test
   @DisplayName("Test setValue(Bindings, ELContext, Object); when SimpleContext(ELResolver) with resolver is ArrayELResolver()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstIdentifier.setValue(Bindings, ELContext, Object)"})
   void testSetValue_whenSimpleContextWithResolverIsArrayELResolver() {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -529,11 +557,12 @@ class AstIdentifierDiffblueTest {
    *   <li>Then {@link SimpleContext#SimpleContext()} PropertyResolved.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#setValue(Bindings, ELContext, Object)}
+   * Method under test: {@link AstIdentifier#setValue(Bindings, ELContext, Object)}
    */
   @Test
   @DisplayName("Test setValue(Bindings, ELContext, Object); when SimpleContext(); then SimpleContext() PropertyResolved")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstIdentifier.setValue(Bindings, ELContext, Object)"})
   void testSetValue_whenSimpleContext_thenSimpleContextPropertyResolved() {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -555,6 +584,8 @@ class AstIdentifierDiffblueTest {
    */
   @Test
   @DisplayName("Test isReadOnly(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean AstIdentifier.isReadOnly(Bindings, ELContext)"})
   void testIsReadOnly() {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -570,14 +601,15 @@ class AstIdentifierDiffblueTest {
   /**
    * Test {@link AstIdentifier#isReadOnly(Bindings, ELContext)}.
    * <ul>
-   *   <li>Given {@link AstIdentifier#AstIdentifier(String, int)} with name is
-   * {@code null} and index is zero.</li>
+   *   <li>Given {@link AstIdentifier#AstIdentifier(String, int)} with name is {@code null} and index is zero.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstIdentifier#isReadOnly(Bindings, ELContext)}
    */
   @Test
   @DisplayName("Test isReadOnly(Bindings, ELContext); given AstIdentifier(String, int) with name is 'null' and index is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean AstIdentifier.isReadOnly(Bindings, ELContext)"})
   void testIsReadOnly_givenAstIdentifierWithNameIsNullAndIndexIsZero() {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier(null, 0);
@@ -590,7 +622,7 @@ class AstIdentifierDiffblueTest {
   /**
    * Test {@link AstIdentifier#isReadOnly(Bindings, ELContext)}.
    * <ul>
-   *   <li>When {@code java.lang.Object}.</li>
+   *   <li>When {@code Object}.</li>
    *   <li>Then not {@link SimpleContext#SimpleContext()} PropertyResolved.</li>
    * </ul>
    * <p>
@@ -598,6 +630,8 @@ class AstIdentifierDiffblueTest {
    */
   @Test
   @DisplayName("Test isReadOnly(Bindings, ELContext); when 'java.lang.Object'; then not SimpleContext() PropertyResolved")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean AstIdentifier.isReadOnly(Bindings, ELContext)"})
   void testIsReadOnly_whenJavaLangObject_thenNotSimpleContextPropertyResolved() {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -619,14 +653,15 @@ class AstIdentifierDiffblueTest {
   /**
    * Test {@link AstIdentifier#isReadOnly(Bindings, ELContext)}.
    * <ul>
-   *   <li>When {@link SimpleContext#SimpleContext(ELResolver)} with resolver is
-   * {@link ArrayELResolver#ArrayELResolver()}.</li>
+   *   <li>When {@link SimpleContext#SimpleContext(ELResolver)} with resolver is {@link ArrayELResolver#ArrayELResolver()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstIdentifier#isReadOnly(Bindings, ELContext)}
    */
   @Test
   @DisplayName("Test isReadOnly(Bindings, ELContext); when SimpleContext(ELResolver) with resolver is ArrayELResolver()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean AstIdentifier.isReadOnly(Bindings, ELContext)"})
   void testIsReadOnly_whenSimpleContextWithResolverIsArrayELResolver() {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -648,6 +683,8 @@ class AstIdentifierDiffblueTest {
    */
   @Test
   @DisplayName("Test isReadOnly(Bindings, ELContext); when SimpleContext(); then SimpleContext() PropertyResolved")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean AstIdentifier.isReadOnly(Bindings, ELContext)"})
   void testIsReadOnly_whenSimpleContext_thenSimpleContextPropertyResolved() {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -661,19 +698,19 @@ class AstIdentifierDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AstIdentifier#getMethodExpression(Bindings, ELContext, Class, Class[])}.
+   * Test {@link AstIdentifier#getMethodExpression(Bindings, ELContext, Class, Class[])}.
    * <ul>
    *   <li>Given {@code Convert}.</li>
-   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)}
-   * return {@code Convert}.</li>
+   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)} return {@code Convert}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#getMethodExpression(Bindings, ELContext, Class, Class[])}
+   * Method under test: {@link AstIdentifier#getMethodExpression(Bindings, ELContext, Class, Class[])}
    */
   @Test
   @DisplayName("Test getMethodExpression(Bindings, ELContext, Class, Class[]); given 'Convert'; when TypeConverter convert(Object, Class) return 'Convert'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "jakarta.el.MethodExpression AstIdentifier.getMethodExpression(Bindings, ELContext, Class, Class[])"})
   void testGetMethodExpression_givenConvert_whenTypeConverterConvertReturnConvert() throws ELException {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -694,19 +731,19 @@ class AstIdentifierDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AstIdentifier#getMethodExpression(Bindings, ELContext, Class, Class[])}.
+   * Test {@link AstIdentifier#getMethodExpression(Bindings, ELContext, Class, Class[])}.
    * <ul>
    *   <li>Given {@code null}.</li>
-   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)}
-   * return {@code null}.</li>
+   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)} return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#getMethodExpression(Bindings, ELContext, Class, Class[])}
+   * Method under test: {@link AstIdentifier#getMethodExpression(Bindings, ELContext, Class, Class[])}
    */
   @Test
   @DisplayName("Test getMethodExpression(Bindings, ELContext, Class, Class[]); given 'null'; when TypeConverter convert(Object, Class) return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "jakarta.el.MethodExpression AstIdentifier.getMethodExpression(Bindings, ELContext, Class, Class[])"})
   void testGetMethodExpression_givenNull_whenTypeConverterConvertReturnNull() throws ELException {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -727,24 +764,25 @@ class AstIdentifierDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AstIdentifier#getMethodExpression(Bindings, ELContext, Class, Class[])}.
+   * Test {@link AstIdentifier#getMethodExpression(Bindings, ELContext, Class, Class[])}.
    * <ul>
    *   <li>Given {@link TestMethodExpression}.</li>
    *   <li>Then array length is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#getMethodExpression(Bindings, ELContext, Class, Class[])}
+   * Method under test: {@link AstIdentifier#getMethodExpression(Bindings, ELContext, Class, Class[])}
    */
   @Test
   @DisplayName("Test getMethodExpression(Bindings, ELContext, Class, Class[]); given TestMethodExpression; then array length is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "jakarta.el.MethodExpression AstIdentifier.getMethodExpression(Bindings, ELContext, Class, Class[])"})
   void testGetMethodExpression_givenTestMethodExpression_thenArrayLengthIsOne() throws ELException {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
     TypeConverter converter = mock(TypeConverter.class);
     when(converter.convert(Mockito.<Object>any(), Mockito.<Class<Object>>any()))
-        .thenReturn(mock(AstIdentifierTest.TestMethodExpression.class));
+        .thenReturn(mock(TestMethodExpression.class));
     Class<Object> type = Object.class;
     Bindings bindings = new Bindings(new Method[]{null},
         new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)});
@@ -765,17 +803,18 @@ class AstIdentifierDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AstIdentifier#getMethodExpression(Bindings, ELContext, Class, Class[])}.
+   * Test {@link AstIdentifier#getMethodExpression(Bindings, ELContext, Class, Class[])}.
    * <ul>
    *   <li>Then calls {@link TreeBuilder#build(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#getMethodExpression(Bindings, ELContext, Class, Class[])}
+   * Method under test: {@link AstIdentifier#getMethodExpression(Bindings, ELContext, Class, Class[])}
    */
   @Test
   @DisplayName("Test getMethodExpression(Bindings, ELContext, Class, Class[]); then calls build(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "jakarta.el.MethodExpression AstIdentifier.getMethodExpression(Bindings, ELContext, Class, Class[])"})
   void testGetMethodExpression_thenCallsBuild() throws ELException {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -805,18 +844,18 @@ class AstIdentifierDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}.
+   * Test {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}.
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}
+   * Method under test: {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}
    */
   @Test
   @DisplayName("Test getMethodInfo(Bindings, ELContext, Class, Class[])")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"MethodInfo AstIdentifier.getMethodInfo(Bindings, ELContext, Class, Class[])"})
   void testGetMethodInfo() throws ELException {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
-    AstIdentifierTest.TestMethodExpression testMethodExpression = mock(AstIdentifierTest.TestMethodExpression.class);
+    TestMethodExpression testMethodExpression = mock(TestMethodExpression.class);
     Class<Object> returnType = Object.class;
     Class<Object> forNameResult = Object.class;
     MethodInfo methodInfo = new MethodInfo("Name", returnType, new Class[]{forNameResult});
@@ -843,14 +882,14 @@ class AstIdentifierDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}.
+   * Test {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}.
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}
+   * Method under test: {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}
    */
   @Test
   @DisplayName("Test getMethodInfo(Bindings, ELContext, Class, Class[])")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"MethodInfo AstIdentifier.getMethodInfo(Bindings, ELContext, Class, Class[])"})
   void testGetMethodInfo2() throws ELException {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -860,7 +899,7 @@ class AstIdentifierDiffblueTest {
     when(builder.build(Mockito.<String>any())).thenReturn(new Tree(root, functions, new ArrayList<>(), true));
     TreeStore store = new TreeStore(builder, new Cache(3));
 
-    AstIdentifierTest.TestMethodExpression testMethodExpression = mock(AstIdentifierTest.TestMethodExpression.class);
+    TestMethodExpression testMethodExpression = mock(TestMethodExpression.class);
     when(testMethodExpression.getMethodInfo(Mockito.<ELContext>any()))
         .thenThrow(new PropertyNotFoundException("An error occurred"));
     TypeConverter converter = mock(TypeConverter.class);
@@ -884,19 +923,18 @@ class AstIdentifierDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}.
+   * Test {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}.
    * <ul>
    *   <li>Given {@code Convert}.</li>
-   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)}
-   * return {@code Convert}.</li>
+   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)} return {@code Convert}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}
+   * Method under test: {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}
    */
   @Test
   @DisplayName("Test getMethodInfo(Bindings, ELContext, Class, Class[]); given 'Convert'; when TypeConverter convert(Object, Class) return 'Convert'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"MethodInfo AstIdentifier.getMethodInfo(Bindings, ELContext, Class, Class[])"})
   void testGetMethodInfo_givenConvert_whenTypeConverterConvertReturnConvert() throws ELException {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -917,19 +955,18 @@ class AstIdentifierDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}.
+   * Test {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}.
    * <ul>
    *   <li>Given {@code Convert}.</li>
-   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)}
-   * return {@code Convert}.</li>
+   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)} return {@code Convert}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}
+   * Method under test: {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}
    */
   @Test
   @DisplayName("Test getMethodInfo(Bindings, ELContext, Class, Class[]); given 'Convert'; when TypeConverter convert(Object, Class) return 'Convert'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"MethodInfo AstIdentifier.getMethodInfo(Bindings, ELContext, Class, Class[])"})
   void testGetMethodInfo_givenConvert_whenTypeConverterConvertReturnConvert2() throws ELException {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -959,19 +996,18 @@ class AstIdentifierDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}.
+   * Test {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}.
    * <ul>
    *   <li>Given {@code null}.</li>
-   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)}
-   * return {@code null}.</li>
+   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)} return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}
+   * Method under test: {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}
    */
   @Test
   @DisplayName("Test getMethodInfo(Bindings, ELContext, Class, Class[]); given 'null'; when TypeConverter convert(Object, Class) return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"MethodInfo AstIdentifier.getMethodInfo(Bindings, ELContext, Class, Class[])"})
   void testGetMethodInfo_givenNull_whenTypeConverterConvertReturnNull() throws ELException {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -1001,21 +1037,20 @@ class AstIdentifierDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}.
+   * Test {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}.
    * <ul>
    *   <li>Then throw {@link PropertyNotFoundException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}
+   * Method under test: {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}
    */
   @Test
   @DisplayName("Test getMethodInfo(Bindings, ELContext, Class, Class[]); then throw PropertyNotFoundException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"MethodInfo AstIdentifier.getMethodInfo(Bindings, ELContext, Class, Class[])"})
   void testGetMethodInfo_thenThrowPropertyNotFoundException() {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier(null, 0);
-    new PropertyNotFoundException("An error occurred");
     Bindings bindings = new Bindings(new Method[]{null}, new ValueExpression[]{null});
 
     SimpleContext context = new SimpleContext();
@@ -1028,22 +1063,20 @@ class AstIdentifierDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}.
+   * Test {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}.
    * <ul>
-   *   <li>When {@link SimpleContext#SimpleContext(ELResolver)} with resolver is
-   * {@link ArrayELResolver#ArrayELResolver()}.</li>
+   *   <li>When {@link SimpleContext#SimpleContext(ELResolver)} with resolver is {@link ArrayELResolver#ArrayELResolver()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}
+   * Method under test: {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}
    */
   @Test
   @DisplayName("Test getMethodInfo(Bindings, ELContext, Class, Class[]); when SimpleContext(ELResolver) with resolver is ArrayELResolver()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"MethodInfo AstIdentifier.getMethodInfo(Bindings, ELContext, Class, Class[])"})
   void testGetMethodInfo_whenSimpleContextWithResolverIsArrayELResolver() {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier(null, 0);
-    new PropertyNotFoundException("An error occurred");
     Bindings bindings = new Bindings(new Method[]{null}, new ValueExpression[]{null});
 
     SimpleContext context = new SimpleContext(new ArrayELResolver());
@@ -1056,22 +1089,20 @@ class AstIdentifierDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}.
+   * Test {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}.
    * <ul>
-   *   <li>When {@link SimpleContext#SimpleContext(ELResolver)} with resolver is
-   * {@link RootPropertyResolver#RootPropertyResolver()}.</li>
+   *   <li>When {@link SimpleContext#SimpleContext(ELResolver)} with resolver is {@link RootPropertyResolver#RootPropertyResolver()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}
+   * Method under test: {@link AstIdentifier#getMethodInfo(Bindings, ELContext, Class, Class[])}
    */
   @Test
   @DisplayName("Test getMethodInfo(Bindings, ELContext, Class, Class[]); when SimpleContext(ELResolver) with resolver is RootPropertyResolver()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"MethodInfo AstIdentifier.getMethodInfo(Bindings, ELContext, Class, Class[])"})
   void testGetMethodInfo_whenSimpleContextWithResolverIsRootPropertyResolver() {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier(null, 0);
-    new PropertyNotFoundException("An error occurred");
     Bindings bindings = new Bindings(new Method[]{null}, new ValueExpression[]{null});
 
     SimpleContext context = new SimpleContext(new RootPropertyResolver());
@@ -1084,14 +1115,14 @@ class AstIdentifierDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}.
+   * Test {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}.
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}
+   * Method under test: {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}
    */
   @Test
   @DisplayName("Test invoke(Bindings, ELContext, Class, Class[], Object[])")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object AstIdentifier.invoke(Bindings, ELContext, Class, Class[], Object[])"})
   void testInvoke() throws ELException {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -1101,7 +1132,7 @@ class AstIdentifierDiffblueTest {
     when(builder.build(Mockito.<String>any())).thenReturn(new Tree(root, functions, new ArrayList<>(), true));
     TreeStore store = new TreeStore(builder, new Cache(3));
 
-    AstIdentifierTest.TestMethodExpression testMethodExpression = mock(AstIdentifierTest.TestMethodExpression.class);
+    TestMethodExpression testMethodExpression = mock(TestMethodExpression.class);
     when(testMethodExpression.invoke(Mockito.<ELContext>any(), Mockito.<Object[]>any()))
         .thenThrow(new PropertyNotFoundException("An error occurred"));
     TypeConverter converter = mock(TypeConverter.class);
@@ -1125,19 +1156,18 @@ class AstIdentifierDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}.
+   * Test {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}.
    * <ul>
    *   <li>Given {@code Convert}.</li>
-   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)}
-   * return {@code Convert}.</li>
+   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)} return {@code Convert}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}
+   * Method under test: {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}
    */
   @Test
   @DisplayName("Test invoke(Bindings, ELContext, Class, Class[], Object[]); given 'Convert'; when TypeConverter convert(Object, Class) return 'Convert'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object AstIdentifier.invoke(Bindings, ELContext, Class, Class[], Object[])"})
   void testInvoke_givenConvert_whenTypeConverterConvertReturnConvert() throws ELException {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -1158,19 +1188,18 @@ class AstIdentifierDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}.
+   * Test {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}.
    * <ul>
    *   <li>Given {@code Convert}.</li>
-   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)}
-   * return {@code Convert}.</li>
+   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)} return {@code Convert}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}
+   * Method under test: {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}
    */
   @Test
   @DisplayName("Test invoke(Bindings, ELContext, Class, Class[], Object[]); given 'Convert'; when TypeConverter convert(Object, Class) return 'Convert'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object AstIdentifier.invoke(Bindings, ELContext, Class, Class[], Object[])"})
   void testInvoke_givenConvert_whenTypeConverterConvertReturnConvert2() throws ELException {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -1200,19 +1229,18 @@ class AstIdentifierDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}.
+   * Test {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}.
    * <ul>
    *   <li>Given {@code null}.</li>
-   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)}
-   * return {@code null}.</li>
+   *   <li>When {@link TypeConverter} {@link TypeConverter#convert(Object, Class)} return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}
+   * Method under test: {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}
    */
   @Test
   @DisplayName("Test invoke(Bindings, ELContext, Class, Class[], Object[]); given 'null'; when TypeConverter convert(Object, Class) return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object AstIdentifier.invoke(Bindings, ELContext, Class, Class[], Object[])"})
   void testInvoke_givenNull_whenTypeConverterConvertReturnNull() throws ELException {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -1242,24 +1270,22 @@ class AstIdentifierDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}.
+   * Test {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}.
    * <ul>
-   *   <li>Given {@link TestMethodExpression}
-   * {@link TestMethodExpression#invoke(ELContext, Object[])} return
-   * {@code Invoke}.</li>
+   *   <li>Given {@link TestMethodExpression} {@link TestMethodExpression#invoke(ELContext, Object[])} return {@code Invoke}.</li>
    *   <li>Then return {@code Invoke}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}
+   * Method under test: {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}
    */
   @Test
   @DisplayName("Test invoke(Bindings, ELContext, Class, Class[], Object[]); given TestMethodExpression invoke(ELContext, Object[]) return 'Invoke'; then return 'Invoke'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object AstIdentifier.invoke(Bindings, ELContext, Class, Class[], Object[])"})
   void testInvoke_givenTestMethodExpressionInvokeReturnInvoke_thenReturnInvoke() throws ELException {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
-    AstIdentifierTest.TestMethodExpression testMethodExpression = mock(AstIdentifierTest.TestMethodExpression.class);
+    TestMethodExpression testMethodExpression = mock(TestMethodExpression.class);
     when(testMethodExpression.invoke(Mockito.<ELContext>any(), Mockito.<Object[]>any())).thenReturn("Invoke");
     TypeConverter converter = mock(TypeConverter.class);
     when(converter.convert(Mockito.<Object>any(), Mockito.<Class<Object>>any())).thenReturn(testMethodExpression);
@@ -1285,21 +1311,20 @@ class AstIdentifierDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}.
+   * Test {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}.
    * <ul>
    *   <li>Then throw {@link PropertyNotFoundException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}
+   * Method under test: {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}
    */
   @Test
   @DisplayName("Test invoke(Bindings, ELContext, Class, Class[], Object[]); then throw PropertyNotFoundException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object AstIdentifier.invoke(Bindings, ELContext, Class, Class[], Object[])"})
   void testInvoke_thenThrowPropertyNotFoundException() {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier(null, 0);
-    new PropertyNotFoundException("An error occurred");
     Bindings bindings = new Bindings(new Method[]{null}, new ValueExpression[]{null});
 
     SimpleContext context = new SimpleContext();
@@ -1312,22 +1337,20 @@ class AstIdentifierDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}.
+   * Test {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}.
    * <ul>
-   *   <li>When {@link SimpleContext#SimpleContext(ELResolver)} with resolver is
-   * {@link ArrayELResolver#ArrayELResolver()}.</li>
+   *   <li>When {@link SimpleContext#SimpleContext(ELResolver)} with resolver is {@link ArrayELResolver#ArrayELResolver()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}
+   * Method under test: {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}
    */
   @Test
   @DisplayName("Test invoke(Bindings, ELContext, Class, Class[], Object[]); when SimpleContext(ELResolver) with resolver is ArrayELResolver()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object AstIdentifier.invoke(Bindings, ELContext, Class, Class[], Object[])"})
   void testInvoke_whenSimpleContextWithResolverIsArrayELResolver() {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier(null, 0);
-    new PropertyNotFoundException("An error occurred");
     Bindings bindings = new Bindings(new Method[]{null}, new ValueExpression[]{null});
 
     SimpleContext context = new SimpleContext(new ArrayELResolver());
@@ -1340,22 +1363,20 @@ class AstIdentifierDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}.
+   * Test {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}.
    * <ul>
-   *   <li>When {@link SimpleContext#SimpleContext(ELResolver)} with resolver is
-   * {@link RootPropertyResolver#RootPropertyResolver()}.</li>
+   *   <li>When {@link SimpleContext#SimpleContext(ELResolver)} with resolver is {@link RootPropertyResolver#RootPropertyResolver()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}
+   * Method under test: {@link AstIdentifier#invoke(Bindings, ELContext, Class, Class[], Object[])}
    */
   @Test
   @DisplayName("Test invoke(Bindings, ELContext, Class, Class[], Object[]); when SimpleContext(ELResolver) with resolver is RootPropertyResolver()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object AstIdentifier.invoke(Bindings, ELContext, Class, Class[], Object[])"})
   void testInvoke_whenSimpleContextWithResolverIsRootPropertyResolver() {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier(null, 0);
-    new PropertyNotFoundException("An error occurred");
     Bindings bindings = new Bindings(new Method[]{null}, new ValueExpression[]{null});
 
     SimpleContext context = new SimpleContext(new RootPropertyResolver());
@@ -1370,11 +1391,12 @@ class AstIdentifierDiffblueTest {
   /**
    * Test {@link AstIdentifier#appendStructure(StringBuilder, Bindings)}.
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#appendStructure(StringBuilder, Bindings)}
+   * Method under test: {@link AstIdentifier#appendStructure(StringBuilder, Bindings)}
    */
   @Test
   @DisplayName("Test appendStructure(StringBuilder, Bindings)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstIdentifier.appendStructure(StringBuilder, Bindings)"})
   void testAppendStructure() {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -1390,15 +1412,15 @@ class AstIdentifierDiffblueTest {
   /**
    * Test {@link AstIdentifier#appendStructure(StringBuilder, Bindings)}.
    * <ul>
-   *   <li>Given {@link AstIdentifier#AstIdentifier(String, int)} with {@code Name}
-   * and index is minus one.</li>
+   *   <li>Given {@link AstIdentifier#AstIdentifier(String, int)} with {@code Name} and index is minus one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#appendStructure(StringBuilder, Bindings)}
+   * Method under test: {@link AstIdentifier#appendStructure(StringBuilder, Bindings)}
    */
   @Test
   @DisplayName("Test appendStructure(StringBuilder, Bindings); given AstIdentifier(String, int) with 'Name' and index is minus one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstIdentifier.appendStructure(StringBuilder, Bindings)"})
   void testAppendStructure_givenAstIdentifierWithNameAndIndexIsMinusOne() {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", -1);
@@ -1417,15 +1439,15 @@ class AstIdentifierDiffblueTest {
   /**
    * Test {@link AstIdentifier#appendStructure(StringBuilder, Bindings)}.
    * <ul>
-   *   <li>Given {@link AstIdentifier#AstIdentifier(String, int)} with {@code Name}
-   * and index is one.</li>
+   *   <li>Given {@link AstIdentifier#AstIdentifier(String, int)} with {@code Name} and index is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#appendStructure(StringBuilder, Bindings)}
+   * Method under test: {@link AstIdentifier#appendStructure(StringBuilder, Bindings)}
    */
   @Test
   @DisplayName("Test appendStructure(StringBuilder, Bindings); given AstIdentifier(String, int) with 'Name' and index is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstIdentifier.appendStructure(StringBuilder, Bindings)"})
   void testAppendStructure_givenAstIdentifierWithNameAndIndexIsOne() {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 1);
@@ -1444,16 +1466,16 @@ class AstIdentifierDiffblueTest {
   /**
    * Test {@link AstIdentifier#appendStructure(StringBuilder, Bindings)}.
    * <ul>
-   *   <li>Given {@link AstIdentifier#AstIdentifier(String, int)} with {@code Name}
-   * and index is one.</li>
+   *   <li>Given {@link AstIdentifier#AstIdentifier(String, int)} with {@code Name} and index is one.</li>
    *   <li>When {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#appendStructure(StringBuilder, Bindings)}
+   * Method under test: {@link AstIdentifier#appendStructure(StringBuilder, Bindings)}
    */
   @Test
   @DisplayName("Test appendStructure(StringBuilder, Bindings); given AstIdentifier(String, int) with 'Name' and index is one; when 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstIdentifier.appendStructure(StringBuilder, Bindings)"})
   void testAppendStructure_givenAstIdentifierWithNameAndIndexIsOne_whenNull() {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 1);
@@ -1469,15 +1491,15 @@ class AstIdentifierDiffblueTest {
   /**
    * Test {@link AstIdentifier#appendStructure(StringBuilder, Bindings)}.
    * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo}
-   * toString is {@code foo<var>}.</li>
+   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo} toString is {@code foo<var>}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstIdentifier#appendStructure(StringBuilder, Bindings)}
+   * Method under test: {@link AstIdentifier#appendStructure(StringBuilder, Bindings)}
    */
   @Test
   @DisplayName("Test appendStructure(StringBuilder, Bindings); then StringBuilder(String) with 'foo' toString is 'foo<var>'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstIdentifier.appendStructure(StringBuilder, Bindings)"})
   void testAppendStructure_thenStringBuilderWithFooToStringIsFooVar() {
     // Arrange
     AstIdentifier astIdentifier = new AstIdentifier("Name", 0);
@@ -1495,40 +1517,15 @@ class AstIdentifierDiffblueTest {
 
   /**
    * Test {@link AstIdentifier#getChild(int)}.
-   * <ul>
-   *   <li>Given {@link AstIdentifier#AstIdentifier(String, int)} with {@code Name}
-   * and index is one.</li>
-   * </ul>
    * <p>
    * Method under test: {@link AstIdentifier#getChild(int)}
    */
   @Test
-  @DisplayName("Test getChild(int); given AstIdentifier(String, int) with 'Name' and index is one")
-  void testGetChild_givenAstIdentifierWithNameAndIndexIsOne() {
+  @DisplayName("Test getChild(int)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.core.el.juel.tree.impl.ast.AstNode AstIdentifier.getChild(int)"})
+  void testGetChild() {
     // Arrange, Act and Assert
     assertNull((new AstIdentifier("Name", 1)).getChild(1));
-  }
-
-  /**
-   * Test {@link AstIdentifier#getChild(int)}.
-   * <ul>
-   *   <li>Given {@code java.lang.Object}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstIdentifier#getChild(int)}
-   */
-  @Test
-  @DisplayName("Test getChild(int); given 'java.lang.Object'")
-  void testGetChild_givenJavaLangObject() {
-    // Arrange
-    AstIdentifier astIdentifier = new AstIdentifier("Name", 1);
-    StringBuilder b = new StringBuilder("foo");
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-    astIdentifier.appendStructure(b,
-        new Bindings(new Method[]{null}, new ValueExpression[]{new ObjectValueExpression(converter, "Object", type)}));
-
-    // Act and Assert
-    assertNull(astIdentifier.getChild(1));
   }
 }

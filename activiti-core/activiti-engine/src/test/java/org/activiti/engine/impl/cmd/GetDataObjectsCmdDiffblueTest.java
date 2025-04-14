@@ -19,6 +19,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -26,20 +28,22 @@ import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class GetDataObjectsCmdDiffblueTest {
   /**
-   * Test
-   * {@link GetDataObjectsCmd#GetDataObjectsCmd(String, Collection, boolean)}.
+   * Test {@link GetDataObjectsCmd#GetDataObjectsCmd(String, Collection, boolean)}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    *   <li>Then return {@link GetDataObjectsCmd#locale} is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link GetDataObjectsCmd#GetDataObjectsCmd(String, Collection, boolean)}
+   * Method under test: {@link GetDataObjectsCmd#GetDataObjectsCmd(String, Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void GetDataObjectsCmd.<init>(String, Collection, boolean)",
+      "void GetDataObjectsCmd.<init>(String, Collection, boolean, String, boolean)"})
   public void testNewGetDataObjectsCmd_whenArrayList_thenReturnLocaleIsNull() {
     // Arrange and Act
     GetDataObjectsCmd actualGetDataObjectsCmd = new GetDataObjectsCmd("42", new ArrayList<>(), true);
@@ -55,17 +59,18 @@ public class GetDataObjectsCmdDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link GetDataObjectsCmd#GetDataObjectsCmd(String, Collection, boolean, String, boolean)}.
+   * Test {@link GetDataObjectsCmd#GetDataObjectsCmd(String, Collection, boolean, String, boolean)}.
    * <ul>
    *   <li>When {@code en}.</li>
    *   <li>Then return {@link GetDataObjectsCmd#locale} is {@code en}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link GetDataObjectsCmd#GetDataObjectsCmd(String, Collection, boolean, String, boolean)}
+   * Method under test: {@link GetDataObjectsCmd#GetDataObjectsCmd(String, Collection, boolean, String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void GetDataObjectsCmd.<init>(String, Collection, boolean)",
+      "void GetDataObjectsCmd.<init>(String, Collection, boolean, String, boolean)"})
   public void testNewGetDataObjectsCmd_whenEn_thenReturnLocaleIsEn() {
     // Arrange and Act
     GetDataObjectsCmd actualGetDataObjectsCmd = new GetDataObjectsCmd("42", new ArrayList<>(), true, "en", true);
@@ -86,10 +91,11 @@ public class GetDataObjectsCmdDiffblueTest {
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link GetDataObjectsCmd#getVariables(ExecutionEntity, CommandContext)}
+   * Method under test: {@link GetDataObjectsCmd#getVariables(ExecutionEntity, CommandContext)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Map GetDataObjectsCmd.getVariables(ExecutionEntity, CommandContext)"})
   public void testGetVariables_thenReturnEmpty() {
     // Arrange
     GetDataObjectsCmd getDataObjectsCmd = new GetDataObjectsCmd("42", new ArrayList<>(), true);
@@ -105,10 +111,11 @@ public class GetDataObjectsCmdDiffblueTest {
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link GetDataObjectsCmd#getVariables(ExecutionEntity, CommandContext)}
+   * Method under test: {@link GetDataObjectsCmd#getVariables(ExecutionEntity, CommandContext)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Map GetDataObjectsCmd.getVariables(ExecutionEntity, CommandContext)"})
   public void testGetVariables_thenReturnEmpty2() {
     // Arrange
     GetDataObjectsCmd getDataObjectsCmd = new GetDataObjectsCmd("42", new ArrayList<>(), false);

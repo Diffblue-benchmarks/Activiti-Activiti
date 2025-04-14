@@ -17,10 +17,13 @@ package org.activiti.engine.impl.transformer;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.math.BigDecimal;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class AbstractTransformerDiffblueTest {
   /**
@@ -33,6 +36,8 @@ public class AbstractTransformerDiffblueTest {
    * Method under test: {@link AbstractTransformer#transform(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object AbstractTransformer.transform(Object)"})
   public void testTransform_whenBigDecimalWith23_thenReturn23() {
     // Arrange
     BigDecimalToString bigDecimalToString = new BigDecimalToString();
@@ -51,6 +56,8 @@ public class AbstractTransformerDiffblueTest {
    * Method under test: {@link AbstractTransformer#transform(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object AbstractTransformer.transform(Object)"})
   public void testTransform_whenNull_thenThrowActivitiException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> (new BigDecimalToString()).transform(JSONObject.NULL));

@@ -19,6 +19,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Optional;
@@ -27,21 +29,21 @@ import org.activiti.engine.impl.bpmn.parser.FieldDeclaration;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class BpmnMessagePayloadMappingProviderDiffblueTest {
   /**
-   * Test
-   * {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}.
+   * Test {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add
-   * {@link FieldDeclaration#FieldDeclaration()}.</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldDeclaration#FieldDeclaration()}.</li>
    *   <li>Then return {@link Optional#get()} {@code null} is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}
+   * Method under test: {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Optional BpmnMessagePayloadMappingProvider.getMessagePayload(DelegateExecution)"})
   public void testGetMessagePayload_givenArrayListAddFieldDeclaration_thenReturnGetNullIsNull() {
     // Arrange
     ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
@@ -61,18 +63,17 @@ public class BpmnMessagePayloadMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}.
+   * Test {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add
-   * {@link FieldDeclaration#FieldDeclaration()}.</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldDeclaration#FieldDeclaration()}.</li>
    *   <li>Then return {@link Optional#get()} {@code null} is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}
+   * Method under test: {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Optional BpmnMessagePayloadMappingProvider.getMessagePayload(DelegateExecution)"})
   public void testGetMessagePayload_givenArrayListAddFieldDeclaration_thenReturnGetNullIsNull2() {
     // Arrange
     ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
@@ -93,16 +94,16 @@ public class BpmnMessagePayloadMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}.
+   * Test {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}.
    * <ul>
    *   <li>Then return {@link Optional#get()} containsKey {@code Name}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}
+   * Method under test: {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Optional BpmnMessagePayloadMappingProvider.getMessagePayload(DelegateExecution)"})
   public void testGetMessagePayload_thenReturnGetContainsKeyName() {
     // Arrange
     ArrayList<FieldDeclaration> fieldDeclarations = new ArrayList<>();
@@ -122,16 +123,16 @@ public class BpmnMessagePayloadMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}.
+   * Test {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}.
    * <ul>
    *   <li>Then return not Present.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}
+   * Method under test: {@link BpmnMessagePayloadMappingProvider#getMessagePayload(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Optional BpmnMessagePayloadMappingProvider.getMessagePayload(DelegateExecution)"})
   public void testGetMessagePayload_thenReturnNotPresent() {
     // Arrange
     BpmnMessagePayloadMappingProvider bpmnMessagePayloadMappingProvider = new BpmnMessagePayloadMappingProvider(

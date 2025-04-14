@@ -18,55 +18,26 @@ package org.activiti.engine.impl.persistence.entity.data.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import org.activiti.core.el.CustomFunctionProvider;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.persistence.entity.VariableInstanceEntity;
 import org.activiti.engine.impl.persistence.entity.VariableInstanceEntityImpl;
 import org.activiti.engine.impl.persistence.entity.data.impl.cachematcher.VariableByExecutionIdMatcher;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class MybatisVariableInstanceDataManagerDiffblueTest {
   /**
-   * Test
-   * {@link MybatisVariableInstanceDataManager#MybatisVariableInstanceDataManager(ProcessEngineConfigurationImpl)}.
-   * <ul>
-   *   <li>Given {@link CustomFunctionProvider}.</li>
-   * </ul>
+   * Test {@link MybatisVariableInstanceDataManager#MybatisVariableInstanceDataManager(ProcessEngineConfigurationImpl)}.
    * <p>
-   * Method under test:
-   * {@link MybatisVariableInstanceDataManager#MybatisVariableInstanceDataManager(ProcessEngineConfigurationImpl)}
+   * Method under test: {@link MybatisVariableInstanceDataManager#MybatisVariableInstanceDataManager(ProcessEngineConfigurationImpl)}
    */
   @Test
-  public void testNewMybatisVariableInstanceDataManager_givenCustomFunctionProvider() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    MybatisVariableInstanceDataManager actualMybatisVariableInstanceDataManager = new MybatisVariableInstanceDataManager(
-        processEngineConfiguration);
-
-    // Assert
-    assertTrue(actualMybatisVariableInstanceDataManager.variableInstanceEntity instanceof VariableByExecutionIdMatcher);
-    assertNull(actualMybatisVariableInstanceDataManager.getManagedEntitySubClasses());
-    Class<VariableInstanceEntityImpl> expectedManagedEntityClass = VariableInstanceEntityImpl.class;
-    assertEquals(expectedManagedEntityClass, actualMybatisVariableInstanceDataManager.getManagedEntityClass());
-  }
-
-  /**
-   * Test
-   * {@link MybatisVariableInstanceDataManager#MybatisVariableInstanceDataManager(ProcessEngineConfigurationImpl)}.
-   * <ul>
-   *   <li>When {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link MybatisVariableInstanceDataManager#MybatisVariableInstanceDataManager(ProcessEngineConfigurationImpl)}
-   */
-  @Test
-  public void testNewMybatisVariableInstanceDataManager_whenJtaProcessEngineConfiguration() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MybatisVariableInstanceDataManager.<init>(ProcessEngineConfigurationImpl)"})
+  public void testNewMybatisVariableInstanceDataManager() {
     // Arrange and Act
     MybatisVariableInstanceDataManager actualMybatisVariableInstanceDataManager = new MybatisVariableInstanceDataManager(
         new JtaProcessEngineConfiguration());
@@ -81,10 +52,11 @@ public class MybatisVariableInstanceDataManagerDiffblueTest {
   /**
    * Test {@link MybatisVariableInstanceDataManager#getManagedEntityClass()}.
    * <p>
-   * Method under test:
-   * {@link MybatisVariableInstanceDataManager#getManagedEntityClass()}
+   * Method under test: {@link MybatisVariableInstanceDataManager#getManagedEntityClass()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Class MybatisVariableInstanceDataManager.getManagedEntityClass()"})
   public void testGetManagedEntityClass() {
     // Arrange and Act
     Class<? extends VariableInstanceEntity> actualManagedEntityClass = (new MybatisVariableInstanceDataManager(

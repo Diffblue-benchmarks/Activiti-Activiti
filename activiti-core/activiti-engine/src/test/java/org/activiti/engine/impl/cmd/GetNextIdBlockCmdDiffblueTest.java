@@ -16,7 +16,10 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class GetNextIdBlockCmdDiffblueTest {
   /**
@@ -25,6 +28,8 @@ public class GetNextIdBlockCmdDiffblueTest {
    * Method under test: {@link GetNextIdBlockCmd#GetNextIdBlockCmd(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void GetNextIdBlockCmd.<init>(int)"})
   public void testNewGetNextIdBlockCmd() {
     // Arrange, Act and Assert
     assertEquals(1, (new GetNextIdBlockCmd(1)).idBlockSize);

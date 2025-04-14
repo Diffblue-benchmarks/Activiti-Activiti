@@ -17,10 +17,13 @@ package org.activiti.bpmn.model.parse;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.GraphicInfo;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ProblemDiffblueTest {
   /**
@@ -29,6 +32,8 @@ public class ProblemDiffblueTest {
    * Method under test: {@link Problem#Problem(String, String, int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Problem.<init>(String, String, int, int)"})
   public void testNewProblem() {
     // Arrange and Act
     Problem actualProblem = new Problem("An error occurred", "Local Name", 2, 10);
@@ -46,6 +51,8 @@ public class ProblemDiffblueTest {
    * Method under test: {@link Problem#Problem(String, GraphicInfo)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Problem.<init>(String, GraphicInfo)"})
   public void testNewProblem2() {
     // Arrange
     GraphicInfo graphicInfo = new GraphicInfo();
@@ -72,13 +79,14 @@ public class ProblemDiffblueTest {
    * Test {@link Problem#Problem(String, BaseElement)}.
    * <ul>
    *   <li>When {@link ActivitiListener} (default constructor).</li>
-   *   <li>Then return {@link Problem#errorMessage} is
-   * {@code An error occurred}.</li>
+   *   <li>Then return {@link Problem#errorMessage} is {@code An error occurred}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Problem#Problem(String, BaseElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Problem.<init>(String, BaseElement)"})
   public void testNewProblem_whenActivitiListener_thenReturnErrorMessageIsAnErrorOccurred() {
     // Arrange and Act
     Problem actualProblem = new Problem("An error occurred", new ActivitiListener());
@@ -99,6 +107,8 @@ public class ProblemDiffblueTest {
    * Method under test: {@link Problem#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String Problem.toString()"})
   public void testToString_thenReturnAnErrorOccurredLine2Column10() {
     // Arrange, Act and Assert
     assertEquals("An error occurred | line 2 | column 10", (new Problem("An error occurred", null, 2, 10)).toString());
@@ -107,13 +117,14 @@ public class ProblemDiffblueTest {
   /**
    * Test {@link Problem#toString()}.
    * <ul>
-   *   <li>Then return
-   * {@code An error occurred | Local Name | line 2 | column 10}.</li>
+   *   <li>Then return {@code An error occurred | Local Name | line 2 | column 10}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Problem#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String Problem.toString()"})
   public void testToString_thenReturnAnErrorOccurredLocalNameLine2Column10() {
     // Arrange, Act and Assert
     assertEquals("An error occurred | Local Name | line 2 | column 10",

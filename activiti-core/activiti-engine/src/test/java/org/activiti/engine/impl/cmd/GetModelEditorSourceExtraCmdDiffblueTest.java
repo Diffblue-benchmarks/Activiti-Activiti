@@ -16,17 +16,20 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class GetModelEditorSourceExtraCmdDiffblueTest {
   /**
-   * Test
-   * {@link GetModelEditorSourceExtraCmd#GetModelEditorSourceExtraCmd(String)}.
+   * Test {@link GetModelEditorSourceExtraCmd#GetModelEditorSourceExtraCmd(String)}.
    * <p>
-   * Method under test:
-   * {@link GetModelEditorSourceExtraCmd#GetModelEditorSourceExtraCmd(String)}
+   * Method under test: {@link GetModelEditorSourceExtraCmd#GetModelEditorSourceExtraCmd(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void GetModelEditorSourceExtraCmd.<init>(String)"})
   public void testNewGetModelEditorSourceExtraCmd() {
     // Arrange, Act and Assert
     assertEquals("42", (new GetModelEditorSourceExtraCmd("42")).modelId);

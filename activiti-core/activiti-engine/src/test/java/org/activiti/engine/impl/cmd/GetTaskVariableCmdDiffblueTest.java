@@ -17,16 +17,20 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class GetTaskVariableCmdDiffblueTest {
   /**
    * Test {@link GetTaskVariableCmd#GetTaskVariableCmd(String, String, boolean)}.
    * <p>
-   * Method under test:
-   * {@link GetTaskVariableCmd#GetTaskVariableCmd(String, String, boolean)}
+   * Method under test: {@link GetTaskVariableCmd#GetTaskVariableCmd(String, String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void GetTaskVariableCmd.<init>(String, String, boolean)"})
   public void testNewGetTaskVariableCmd() {
     // Arrange and Act
     GetTaskVariableCmd actualGetTaskVariableCmd = new GetTaskVariableCmd("42", "Variable Name", true);

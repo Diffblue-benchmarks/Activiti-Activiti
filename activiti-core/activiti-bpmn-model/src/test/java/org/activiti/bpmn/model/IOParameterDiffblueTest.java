@@ -19,26 +19,26 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import java.util.Map;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class IOParameterDiffblueTest {
   /**
    * Test {@link IOParameter#clone()}.
    * <ul>
-   *   <li>Given {@link IOParameter} (default constructor) ExtensionElements is
-   * {@code null}.</li>
+   *   <li>Given {@link IOParameter} (default constructor) ExtensionElements is {@code null}.</li>
    *   <li>Then return Id is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link IOParameter#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"IOParameter IOParameter.clone()"})
   public void testClone_givenIOParameterExtensionElementsIsNull_thenReturnIdIsNull() {
     // Arrange
     IOParameter ioParameter = new IOParameter();
@@ -70,6 +70,8 @@ public class IOParameterDiffblueTest {
    * Method under test: {@link IOParameter#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"IOParameter IOParameter.clone()"})
   public void testClone_givenIOParameter_thenReturnIdIsNull() {
     // Arrange and Act
     IOParameter actualCloneResult = (new IOParameter()).clone();
@@ -95,6 +97,8 @@ public class IOParameterDiffblueTest {
    * Method under test: {@link IOParameter#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"IOParameter IOParameter.clone()"})
   public void testClone_thenReturnAttributesSizeIsOne() {
     // Arrange
     IOParameter ioParameter = new IOParameter();
@@ -118,6 +122,8 @@ public class IOParameterDiffblueTest {
    * Method under test: {@link IOParameter#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"IOParameter IOParameter.clone()"})
   public void testClone_thenReturnAttributesSizeIsTwo() {
     // Arrange
     IOParameter ioParameter = new IOParameter();
@@ -132,31 +138,6 @@ public class IOParameterDiffblueTest {
     assertEquals(1, getResult.size());
     assertTrue(attributes.containsKey("Name"));
     assertSame(attribute, getResult.get(0));
-  }
-
-  /**
-   * Test {@link IOParameter#setValues(IOParameter)} with {@code IOParameter}.
-   * <ul>
-   *   <li>Then calls {@link ExtensionAttribute#getName()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IOParameter#setValues(IOParameter)}
-   */
-  @Test
-  public void testSetValuesWithIOParameter_thenCallsGetName() {
-    // Arrange
-    IOParameter ioParameter = new IOParameter();
-    ExtensionAttribute attribute = mock(ExtensionAttribute.class);
-    when(attribute.getName()).thenReturn("Name");
-
-    IOParameter otherElement = new IOParameter();
-    otherElement.addAttribute(attribute);
-
-    // Act
-    ioParameter.setValues(otherElement);
-
-    // Assert
-    verify(attribute, atLeast(1)).getName();
   }
 
   /**
@@ -176,6 +157,12 @@ public class IOParameterDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IOParameter.<init>()", "String IOParameter.getSource()",
+      "String IOParameter.getSourceExpression()", "String IOParameter.getTarget()",
+      "String IOParameter.getTargetExpression()", "void IOParameter.setSource(String)",
+      "void IOParameter.setSourceExpression(String)", "void IOParameter.setTarget(String)",
+      "void IOParameter.setTargetExpression(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     IOParameter actualIoParameter = new IOParameter();
@@ -187,11 +174,12 @@ public class IOParameterDiffblueTest {
     String actualSourceExpression = actualIoParameter.getSourceExpression();
     String actualTarget = actualIoParameter.getTarget();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Source Expression", actualSourceExpression);
     assertEquals("Source", actualSource);
     assertEquals("Target Expression", actualIoParameter.getTargetExpression());
     assertEquals("Target", actualTarget);
+    assertNull(actualIoParameter.getId());
     assertEquals(0, actualIoParameter.getXmlColumnNumber());
     assertEquals(0, actualIoParameter.getXmlRowNumber());
     assertTrue(actualIoParameter.getAttributes().isEmpty());

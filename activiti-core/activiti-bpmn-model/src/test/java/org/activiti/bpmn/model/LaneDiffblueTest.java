@@ -19,27 +19,27 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class LaneDiffblueTest {
   /**
    * Test {@link Lane#clone()}.
    * <ul>
-   *   <li>Given {@link Lane} (default constructor) ExtensionElements is
-   * {@code null}.</li>
+   *   <li>Given {@link Lane} (default constructor) ExtensionElements is {@code null}.</li>
    *   <li>Then return Id is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Lane#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Lane Lane.clone()"})
   public void testClone_givenLaneExtensionElementsIsNull_thenReturnIdIsNull() {
     // Arrange
     Lane lane = new Lane();
@@ -63,14 +63,15 @@ public class LaneDiffblueTest {
   /**
    * Test {@link Lane#clone()}.
    * <ul>
-   *   <li>Given {@link Lane} (default constructor) FlowReferences is
-   * {@code null}.</li>
+   *   <li>Given {@link Lane} (default constructor) FlowReferences is {@code null}.</li>
    *   <li>Then return Id is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Lane#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Lane Lane.clone()"})
   public void testClone_givenLaneFlowReferencesIsNull_thenReturnIdIsNull() {
     // Arrange
     Lane lane = new Lane();
@@ -100,6 +101,8 @@ public class LaneDiffblueTest {
    * Method under test: {@link Lane#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Lane Lane.clone()"})
   public void testClone_givenLane_thenReturnIdIsNull() {
     // Arrange and Act
     Lane actualCloneResult = (new Lane()).clone();
@@ -124,6 +127,8 @@ public class LaneDiffblueTest {
    * Method under test: {@link Lane#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Lane Lane.clone()"})
   public void testClone_thenReturnAttributesSizeIsOne() {
     // Arrange
     Lane lane = new Lane();
@@ -147,6 +152,8 @@ public class LaneDiffblueTest {
    * Method under test: {@link Lane#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Lane Lane.clone()"})
   public void testClone_thenReturnAttributesSizeIsTwo() {
     // Arrange
     Lane lane = new Lane();
@@ -164,33 +171,6 @@ public class LaneDiffblueTest {
   }
 
   /**
-   * Test {@link Lane#setValues(Lane)} with {@code Lane}.
-   * <ul>
-   *   <li>Given {@link ExtensionAttribute} {@link ExtensionAttribute#getName()}
-   * return {@code Name}.</li>
-   *   <li>Then calls {@link ExtensionAttribute#getName()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Lane#setValues(Lane)}
-   */
-  @Test
-  public void testSetValuesWithLane_givenExtensionAttributeGetNameReturnName_thenCallsGetName() {
-    // Arrange
-    Lane lane = new Lane();
-    ExtensionAttribute attribute = mock(ExtensionAttribute.class);
-    when(attribute.getName()).thenReturn("Name");
-
-    Lane otherElement = new Lane();
-    otherElement.addAttribute(attribute);
-
-    // Act
-    lane.setValues(otherElement);
-
-    // Assert
-    verify(attribute, atLeast(1)).getName();
-  }
-
-  /**
    * Test getters and setters.
    * <p>
    * Methods under test:
@@ -205,6 +185,10 @@ public class LaneDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Lane.<init>()", "List Lane.getFlowReferences()", "String Lane.getName()",
+      "Process Lane.getParentProcess()", "void Lane.setFlowReferences(List)", "void Lane.setName(String)",
+      "void Lane.setParentProcess(Process)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Lane actualLane = new Lane();
@@ -217,8 +201,9 @@ public class LaneDiffblueTest {
     String actualName = actualLane.getName();
     Process actualParentProcess = actualLane.getParentProcess();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Name", actualName);
+    assertNull(actualLane.getId());
     assertEquals(0, actualLane.getXmlColumnNumber());
     assertEquals(0, actualLane.getXmlRowNumber());
     assertTrue(actualFlowReferences.isEmpty());

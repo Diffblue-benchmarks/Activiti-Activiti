@@ -16,16 +16,20 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class GetProcessDefinitionInfoCmdDiffblueTest {
   /**
    * Test {@link GetProcessDefinitionInfoCmd#GetProcessDefinitionInfoCmd(String)}.
    * <p>
-   * Method under test:
-   * {@link GetProcessDefinitionInfoCmd#GetProcessDefinitionInfoCmd(String)}
+   * Method under test: {@link GetProcessDefinitionInfoCmd#GetProcessDefinitionInfoCmd(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void GetProcessDefinitionInfoCmd.<init>(String)"})
   public void testNewGetProcessDefinitionInfoCmd() {
     // Arrange, Act and Assert
     assertEquals("42", (new GetProcessDefinitionInfoCmd("42")).processDefinitionId);

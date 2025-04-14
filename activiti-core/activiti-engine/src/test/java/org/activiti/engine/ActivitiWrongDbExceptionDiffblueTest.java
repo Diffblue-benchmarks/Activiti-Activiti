@@ -17,27 +17,20 @@ package org.activiti.engine;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ActivitiWrongDbExceptionDiffblueTest {
-  @InjectMocks
-  private ActivitiWrongDbException activitiWrongDbException;
-
-  @InjectMocks
-  private String string;
-
   /**
-   * Test
-   * {@link ActivitiWrongDbException#ActivitiWrongDbException(String, String)}.
+   * Test {@link ActivitiWrongDbException#ActivitiWrongDbException(String, String)}.
    * <p>
-   * Method under test:
-   * {@link ActivitiWrongDbException#ActivitiWrongDbException(String, String)}
+   * Method under test: {@link ActivitiWrongDbException#ActivitiWrongDbException(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiWrongDbException.<init>(String, String)"})
   public void testNewActivitiWrongDbException() {
     // Arrange and Act
     ActivitiWrongDbException actualActivitiWrongDbException = new ActivitiWrongDbException("1.0.2", "1.0.2");
@@ -67,6 +60,9 @@ public class ActivitiWrongDbExceptionDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ActivitiWrongDbException.getDbVersion()",
+      "String ActivitiWrongDbException.getLibraryVersion()"})
   public void testGettersAndSetters() {
     // Arrange
     ActivitiWrongDbException activitiWrongDbException = new ActivitiWrongDbException("1.0.2", "1.0.2");

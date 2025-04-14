@@ -17,8 +17,10 @@ package org.activiti.application;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ApplicationEntryDiffblueTest {
@@ -34,6 +36,9 @@ class ApplicationEntryDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ApplicationEntry.<init>(String, FileContent)",
+      "FileContent ApplicationEntry.getFileContent()", "String ApplicationEntry.getType()"})
   void testGettersAndSetters() throws UnsupportedEncodingException {
     // Arrange
     FileContent fileContent = new FileContent("Name", "AXAXAXAX".getBytes("UTF-8"));

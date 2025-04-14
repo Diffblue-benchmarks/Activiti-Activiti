@@ -16,145 +16,112 @@
 package org.activiti.engine.impl.persistence.entity.data.impl.util;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import java.util.ArrayList;
-import java.util.List;
-import org.activiti.engine.delegate.DelegateExecution;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.Map;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ExecutionTreeStringBuilderDiffblueTest {
-  @Mock
-  private ExecutionEntity executionEntity;
-
-  @InjectMocks
-  private ExecutionTreeStringBuilder executionTreeStringBuilder;
-
   /**
-   * Test {@link ExecutionTreeStringBuilder#toString()}.
-   * <ul>
-   *   <li>Then return {@code null : null, parent id null}.</li>
-   * </ul>
+   * Test {@link ExecutionTreeStringBuilder#ExecutionTreeStringBuilder(ExecutionEntity)}.
    * <p>
-   * Method under test: {@link ExecutionTreeStringBuilder#toString()}
+   * Method under test: {@link ExecutionTreeStringBuilder#ExecutionTreeStringBuilder(ExecutionEntity)}
    */
   @Test
-  public void testToString_thenReturnNullNullParentIdNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionTreeStringBuilder.<init>(ExecutionEntity)"})
+  public void testNewExecutionTreeStringBuilder() {
     // Arrange, Act and Assert
-    assertEquals("null : null, parent id null\r\n",
-        (new ExecutionTreeStringBuilder(ExecutionEntityImpl.createWithEmptyRelationshipCollections())).toString());
-  }
-
-  /**
-   * Test
-   * {@link ExecutionTreeStringBuilder#internalToString(ExecutionEntity, StringBuilder, String, boolean)}.
-   * <ul>
-   *   <li>Given {@link ExecutionEntity}
-   * {@link ExecutionEntity#isMultiInstanceRoot()} return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ExecutionTreeStringBuilder#internalToString(ExecutionEntity, StringBuilder, String, boolean)}
-   */
-  @Test
-  public void testInternalToString_givenExecutionEntityIsMultiInstanceRootReturnFalse() {
-    // Arrange
-    when(executionEntity.isScope()).thenReturn(true);
-    when(executionEntity.isMultiInstanceRoot()).thenReturn(false);
-    when(executionEntity.getId()).thenReturn("42");
-    when(executionEntity.getParentId()).thenReturn("42");
-    when(executionEntity.getActivityId()).thenReturn("42");
-    Mockito.<List<? extends ExecutionEntity>>when(executionEntity.getExecutions()).thenReturn(new ArrayList<>());
-    StringBuilder strb = new StringBuilder("foo");
-
-    // Act
-    executionTreeStringBuilder.internalToString(executionEntity, strb, "Prefix", true);
-
-    // Assert
-    verify(executionEntity).getId();
-    verify(executionEntity).getParentId();
-    verify(executionEntity).isScope();
-    verify(executionEntity).getExecutions();
-    verify(executionEntity).isMultiInstanceRoot();
-    verify(executionEntity).getActivityId();
-    assertEquals("fooPrefix└── 42 : activityId=42, parent id 42 (scope)\r\n", strb.toString());
-  }
-
-  /**
-   * Test
-   * {@link ExecutionTreeStringBuilder#internalToString(ExecutionEntity, StringBuilder, String, boolean)}.
-   * <ul>
-   *   <li>Given {@link ExecutionEntity} {@link DelegateExecution#isScope()} return
-   * {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ExecutionTreeStringBuilder#internalToString(ExecutionEntity, StringBuilder, String, boolean)}
-   */
-  @Test
-  public void testInternalToString_givenExecutionEntityIsScopeReturnFalse() {
-    // Arrange
-    when(executionEntity.isScope()).thenReturn(false);
-    when(executionEntity.isMultiInstanceRoot()).thenReturn(true);
-    when(executionEntity.getId()).thenReturn("42");
-    when(executionEntity.getParentId()).thenReturn("42");
-    when(executionEntity.getActivityId()).thenReturn("42");
-    Mockito.<List<? extends ExecutionEntity>>when(executionEntity.getExecutions()).thenReturn(new ArrayList<>());
-    StringBuilder strb = new StringBuilder("foo");
-
-    // Act
-    executionTreeStringBuilder.internalToString(executionEntity, strb, "Prefix", true);
-
-    // Assert
-    verify(executionEntity).getId();
-    verify(executionEntity).getParentId();
-    verify(executionEntity).isScope();
-    verify(executionEntity).getExecutions();
-    verify(executionEntity).isMultiInstanceRoot();
-    verify(executionEntity).getActivityId();
-    assertEquals("fooPrefix└── 42 : activityId=42, parent id 42 (multi instance root)\r\n", strb.toString());
-  }
-
-  /**
-   * Test
-   * {@link ExecutionTreeStringBuilder#internalToString(ExecutionEntity, StringBuilder, String, boolean)}.
-   * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo}
-   * toString is a string.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ExecutionTreeStringBuilder#internalToString(ExecutionEntity, StringBuilder, String, boolean)}
-   */
-  @Test
-  public void testInternalToString_thenStringBuilderWithFooToStringIsAString() {
-    // Arrange
-    when(executionEntity.isScope()).thenReturn(true);
-    when(executionEntity.isMultiInstanceRoot()).thenReturn(true);
-    when(executionEntity.getId()).thenReturn("42");
-    when(executionEntity.getParentId()).thenReturn("42");
-    when(executionEntity.getActivityId()).thenReturn("42");
-    Mockito.<List<? extends ExecutionEntity>>when(executionEntity.getExecutions()).thenReturn(new ArrayList<>());
-    StringBuilder strb = new StringBuilder("foo");
-
-    // Act
-    executionTreeStringBuilder.internalToString(executionEntity, strb, "Prefix", true);
-
-    // Assert
-    verify(executionEntity).getId();
-    verify(executionEntity).getParentId();
-    verify(executionEntity).isScope();
-    verify(executionEntity).getExecutions();
-    verify(executionEntity).isMultiInstanceRoot();
-    verify(executionEntity).getActivityId();
-    assertEquals("fooPrefix└── 42 : activityId=42, parent id 42 (scope) (multi instance root)\r\n", strb.toString());
+    ExecutionEntity executionEntity = (new ExecutionTreeStringBuilder(
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections())).executionEntity;
+    Object persistentState = executionEntity.getPersistentState();
+    assertTrue(persistentState instanceof Map);
+    assertTrue(executionEntity instanceof ExecutionEntityImpl);
+    assertEquals("", executionEntity.getTenantId());
+    assertNull(((ExecutionEntityImpl) executionEntity).getCachedElContext());
+    assertNull(executionEntity.getAppVersion());
+    assertNull(executionEntity.getProcessDefinitionVersion());
+    assertEquals(23, ((Map<Object, Object>) persistentState).size());
+    assertNull(((Map<Object, Object>) persistentState).get("processDefinitionId"));
+    assertNull(executionEntity.getCurrentActivityId());
+    assertNull(executionEntity.getEventName());
+    assertNull(executionEntity.getId());
+    assertNull(executionEntity.getParentId());
+    assertNull(executionEntity.getProcessDefinitionId());
+    assertNull(executionEntity.getProcessInstanceId());
+    assertNull(executionEntity.getRootProcessInstanceId());
+    assertNull(executionEntity.getSuperExecutionId());
+    assertNull(executionEntity.getDeleteReason());
+    assertNull(executionEntity.getStartUserId());
+    assertNull(((ExecutionEntityImpl) executionEntity).getActivityName());
+    assertNull(executionEntity.getActivityId());
+    assertNull(executionEntity.getDescription());
+    assertNull(executionEntity.getName());
+    assertNull(executionEntity.getParentProcessInstanceId());
+    assertNull(executionEntity.getBusinessKey());
+    assertNull(executionEntity.getDeploymentId());
+    assertNull(executionEntity.getLocalizedDescription());
+    assertNull(executionEntity.getLocalizedName());
+    assertNull(executionEntity.getProcessDefinitionKey());
+    assertNull(executionEntity.getProcessDefinitionName());
+    assertNull(executionEntity.getLockTime());
+    assertNull(executionEntity.getStartTime());
+    assertNull(((ExecutionEntityImpl) executionEntity).getQueryVariables());
+    assertNull(executionEntity.getCurrentActivitiListener());
+    assertNull(executionEntity.getCurrentFlowElement());
+    assertNull(executionEntity.getEngineServices());
+    assertNull(executionEntity.getParent());
+    assertNull(executionEntity.getProcessInstance());
+    assertNull(executionEntity.getSuperExecution());
+    assertEquals(0, ((Integer) ((Map<Object, Object>) persistentState).get("suspendedJobCount")).intValue());
+    assertEquals(0, ((ExecutionEntityImpl) executionEntity).getDeadLetterJobCount());
+    assertEquals(0, ((ExecutionEntityImpl) executionEntity).getEventSubscriptionCount());
+    assertEquals(0, ((ExecutionEntityImpl) executionEntity).getIdentityLinkCount());
+    assertEquals(0, ((ExecutionEntityImpl) executionEntity).getJobCount());
+    assertEquals(0, ((ExecutionEntityImpl) executionEntity).getSuspendedJobCount());
+    assertEquals(0, ((ExecutionEntityImpl) executionEntity).getTaskCount());
+    assertEquals(0, ((ExecutionEntityImpl) executionEntity).getTimerJobCount());
+    assertEquals(0, ((ExecutionEntityImpl) executionEntity).getVariableCount());
+    assertEquals(1, ((Integer) ((Map<Object, Object>) persistentState).get("suspensionState")).intValue());
+    assertEquals(1, executionEntity.getRevision());
+    assertEquals(1, executionEntity.getSuspensionState());
+    assertEquals(2, executionEntity.getRevisionNext());
+    assertFalse(executionEntity.isConcurrent());
+    assertFalse(executionEntity.isEnded());
+    assertFalse(executionEntity.isRootExecution());
+    assertFalse(executionEntity.isInserted());
+    assertFalse(executionEntity.isUpdated());
+    assertFalse(executionEntity.isDeleted());
+    assertFalse(executionEntity.isEventScope());
+    assertFalse(executionEntity.isMultiInstanceRoot());
+    assertFalse(((ExecutionEntityImpl) executionEntity).isCountEnabled());
+    assertFalse(executionEntity.isSuspended());
+    assertTrue(executionEntity.getEventSubscriptions().isEmpty());
+    assertTrue(executionEntity.getExecutions().isEmpty());
+    assertTrue(executionEntity.getIdentityLinks().isEmpty());
+    assertTrue(executionEntity.getJobs().isEmpty());
+    assertTrue(executionEntity.getTasks().isEmpty());
+    assertTrue(executionEntity.getTimerJobs().isEmpty());
+    assertTrue(executionEntity.getTransientVariables().isEmpty());
+    assertTrue(executionEntity.getTransientVariablesLocal().isEmpty());
+    assertTrue(executionEntity.getVariableInstances().isEmpty());
+    assertTrue(executionEntity.getVariableInstancesLocal().isEmpty());
+    assertTrue(executionEntity.getVariables().isEmpty());
+    assertTrue(executionEntity.getVariablesLocal().isEmpty());
+    assertTrue(((ExecutionEntityImpl) executionEntity).getUsedVariablesCache().isEmpty());
+    assertTrue(((ExecutionEntityImpl) executionEntity).getVariableInstanceEntities().isEmpty());
+    assertTrue(executionEntity.getProcessVariables().isEmpty());
+    assertTrue(executionEntity.getVariableNames().isEmpty());
+    assertTrue(executionEntity.getVariableNamesLocal().isEmpty());
+    assertTrue(executionEntity.isActive());
+    assertTrue(executionEntity.isProcessInstanceType());
+    assertTrue(executionEntity.isScope());
+    assertTrue((Boolean) ((Map<Object, Object>) persistentState).get("isScope"));
   }
 }

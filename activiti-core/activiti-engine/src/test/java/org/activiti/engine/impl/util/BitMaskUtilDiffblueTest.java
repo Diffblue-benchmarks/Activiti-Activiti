@@ -19,7 +19,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class BitMaskUtilDiffblueTest {
   /**
@@ -32,6 +35,8 @@ public class BitMaskUtilDiffblueTest {
    * Method under test: {@link BitMaskUtil#setBitOn(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int BitMaskUtil.setBitOn(int, int)"})
   public void testSetBitOn_whenEight_thenReturnOneHundredSeventy() {
     // Arrange, Act and Assert
     assertEquals(170, BitMaskUtil.setBitOn(42, 8));
@@ -47,6 +52,8 @@ public class BitMaskUtilDiffblueTest {
    * Method under test: {@link BitMaskUtil#setBitOn(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int BitMaskUtil.setBitOn(int, int)"})
   public void testSetBitOn_whenOne_thenReturnFortyThree() {
     // Arrange, Act and Assert
     assertEquals(43, BitMaskUtil.setBitOn(42, 1));
@@ -62,6 +69,8 @@ public class BitMaskUtilDiffblueTest {
    * Method under test: {@link BitMaskUtil#setBitOn(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int BitMaskUtil.setBitOn(int, int)"})
   public void testSetBitOn_whenTen_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(IllegalArgumentException.class, () -> BitMaskUtil.setBitOn(42, 10));
@@ -77,6 +86,8 @@ public class BitMaskUtilDiffblueTest {
    * Method under test: {@link BitMaskUtil#setBitOn(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int BitMaskUtil.setBitOn(int, int)"})
   public void testSetBitOn_whenZero_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(IllegalArgumentException.class, () -> BitMaskUtil.setBitOn(42, 0));
@@ -92,6 +103,8 @@ public class BitMaskUtilDiffblueTest {
    * Method under test: {@link BitMaskUtil#setBitOff(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int BitMaskUtil.setBitOff(int, int)"})
   public void testSetBitOff_whenEight_thenReturnFortyTwo() {
     // Arrange, Act and Assert
     assertEquals(42, BitMaskUtil.setBitOff(42, 8));
@@ -107,6 +120,8 @@ public class BitMaskUtilDiffblueTest {
    * Method under test: {@link BitMaskUtil#setBitOff(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int BitMaskUtil.setBitOff(int, int)"})
   public void testSetBitOff_whenOne_thenReturnFortyTwo() {
     // Arrange, Act and Assert
     assertEquals(42, BitMaskUtil.setBitOff(42, 1));
@@ -122,6 +137,8 @@ public class BitMaskUtilDiffblueTest {
    * Method under test: {@link BitMaskUtil#setBitOff(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int BitMaskUtil.setBitOff(int, int)"})
   public void testSetBitOff_whenTen_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(IllegalArgumentException.class, () -> BitMaskUtil.setBitOff(42, 10));
@@ -137,6 +154,8 @@ public class BitMaskUtilDiffblueTest {
    * Method under test: {@link BitMaskUtil#setBitOff(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int BitMaskUtil.setBitOff(int, int)"})
   public void testSetBitOff_whenZero_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(IllegalArgumentException.class, () -> BitMaskUtil.setBitOff(42, 0));
@@ -152,6 +171,8 @@ public class BitMaskUtilDiffblueTest {
    * Method under test: {@link BitMaskUtil#isBitOn(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean BitMaskUtil.isBitOn(int, int)"})
   public void testIsBitOn_whenOne_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(BitMaskUtil.isBitOn(42, 1));
@@ -167,6 +188,8 @@ public class BitMaskUtilDiffblueTest {
    * Method under test: {@link BitMaskUtil#isBitOn(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean BitMaskUtil.isBitOn(int, int)"})
   public void testIsBitOn_whenSix_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(BitMaskUtil.isBitOn(42, 6));
@@ -182,6 +205,8 @@ public class BitMaskUtilDiffblueTest {
    * Method under test: {@link BitMaskUtil#isBitOn(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean BitMaskUtil.isBitOn(int, int)"})
   public void testIsBitOn_whenTen_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(IllegalArgumentException.class, () -> BitMaskUtil.isBitOn(42, 10));
@@ -197,6 +222,8 @@ public class BitMaskUtilDiffblueTest {
    * Method under test: {@link BitMaskUtil#isBitOn(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean BitMaskUtil.isBitOn(int, int)"})
   public void testIsBitOn_whenZero_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(IllegalArgumentException.class, () -> BitMaskUtil.isBitOn(42, 0));
@@ -212,6 +239,8 @@ public class BitMaskUtilDiffblueTest {
    * Method under test: {@link BitMaskUtil#setBit(int, int, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int BitMaskUtil.setBit(int, int, boolean)"})
   public void testSetBit_whenNine_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(IllegalArgumentException.class, () -> BitMaskUtil.setBit(42, 9, false));
@@ -227,6 +256,8 @@ public class BitMaskUtilDiffblueTest {
    * Method under test: {@link BitMaskUtil#setBit(int, int, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int BitMaskUtil.setBit(int, int, boolean)"})
   public void testSetBit_whenOne_thenReturnFortyThree() {
     // Arrange, Act and Assert
     assertEquals(43, BitMaskUtil.setBit(42, 1, true));
@@ -242,6 +273,8 @@ public class BitMaskUtilDiffblueTest {
    * Method under test: {@link BitMaskUtil#setBit(int, int, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int BitMaskUtil.setBit(int, int, boolean)"})
   public void testSetBit_whenOne_thenReturnFortyTwo() {
     // Arrange, Act and Assert
     assertEquals(42, BitMaskUtil.setBit(42, 1, false));
@@ -257,6 +290,8 @@ public class BitMaskUtilDiffblueTest {
    * Method under test: {@link BitMaskUtil#setBit(int, int, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int BitMaskUtil.setBit(int, int, boolean)"})
   public void testSetBit_whenTen_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(IllegalArgumentException.class, () -> BitMaskUtil.setBit(42, 10, true));
@@ -272,9 +307,27 @@ public class BitMaskUtilDiffblueTest {
    * Method under test: {@link BitMaskUtil#setBit(int, int, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int BitMaskUtil.setBit(int, int, boolean)"})
   public void testSetBit_whenZero_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(IllegalArgumentException.class, () -> BitMaskUtil.setBit(42, 0, false));
+  }
+
+  /**
+   * Test {@link BitMaskUtil#setBit(int, int, boolean)}.
+   * <ul>
+   *   <li>When zero.</li>
+   *   <li>Then throw {@link IllegalArgumentException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BitMaskUtil#setBit(int, int, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int BitMaskUtil.setBit(int, int, boolean)"})
+  public void testSetBit_whenZero_thenThrowIllegalArgumentException2() {
+    // Arrange, Act and Assert
     assertThrows(IllegalArgumentException.class, () -> BitMaskUtil.setBit(42, 0, true));
   }
 }

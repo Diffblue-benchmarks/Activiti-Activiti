@@ -15,55 +15,31 @@
  */
 package org.activiti.core.common.spring.security;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 class AbstractSimpleGrantedAuthoritiesMapperDiffblueTest {
   /**
-   * Test
-   * {@link AbstractSimpleGrantedAuthoritiesMapper#getAuthoritesFilteredByPrefix(Collection, String)}.
+   * Test {@link AbstractSimpleGrantedAuthoritiesMapper#getAuthoritesFilteredByPrefix(Collection, String)}.
    * <ul>
-   *   <li>Then return Empty.</li>
+   *   <li>Given {@link SimpleGrantedAuthority#SimpleGrantedAuthority(String)} with {@code Role}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractSimpleGrantedAuthoritiesMapper#getAuthoritesFilteredByPrefix(Collection, String)}
+   * Method under test: {@link AbstractSimpleGrantedAuthoritiesMapper#getAuthoritesFilteredByPrefix(Collection, String)}
    */
   @Test
-  @DisplayName("Test getAuthoritesFilteredByPrefix(Collection, String); then return Empty")
-  void testGetAuthoritesFilteredByPrefix_thenReturnEmpty() {
-    // Arrange
-    ArrayList<GrantedAuthority> authorities = new ArrayList<>();
-    authorities.add(new SimpleGrantedAuthority("Role"));
-
-    // Act
-    List<String> actualAuthoritesFilteredByPrefix = AbstractSimpleGrantedAuthoritiesMapper
-        .getAuthoritesFilteredByPrefix(authorities, "Prefix");
-
-    // Assert
-    assertTrue(actualAuthoritesFilteredByPrefix.isEmpty());
-  }
-
-  /**
-   * Test
-   * {@link AbstractSimpleGrantedAuthoritiesMapper#getAuthoritesFilteredByPrefix(Collection, String)}.
-   * <ul>
-   *   <li>Then return Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link AbstractSimpleGrantedAuthoritiesMapper#getAuthoritesFilteredByPrefix(Collection, String)}
-   */
-  @Test
-  @DisplayName("Test getAuthoritesFilteredByPrefix(Collection, String); then return Empty")
-  void testGetAuthoritesFilteredByPrefix_thenReturnEmpty2() {
+  @DisplayName("Test getAuthoritesFilteredByPrefix(Collection, String); given SimpleGrantedAuthority(String) with 'Role'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List AbstractSimpleGrantedAuthoritiesMapper.getAuthoritesFilteredByPrefix(Collection, String)"})
+  void testGetAuthoritesFilteredByPrefix_givenSimpleGrantedAuthorityWithRole() {
     // Arrange
     ArrayList<GrantedAuthority> authorities = new ArrayList<>();
     authorities.add(new SimpleGrantedAuthority("Role"));
@@ -78,18 +54,18 @@ class AbstractSimpleGrantedAuthoritiesMapperDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AbstractSimpleGrantedAuthoritiesMapper#getAuthoritesFilteredByPrefix(Collection, String)}.
+   * Test {@link AbstractSimpleGrantedAuthoritiesMapper#getAuthoritesFilteredByPrefix(Collection, String)}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractSimpleGrantedAuthoritiesMapper#getAuthoritesFilteredByPrefix(Collection, String)}
+   * Method under test: {@link AbstractSimpleGrantedAuthoritiesMapper#getAuthoritesFilteredByPrefix(Collection, String)}
    */
   @Test
   @DisplayName("Test getAuthoritesFilteredByPrefix(Collection, String); when ArrayList(); then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List AbstractSimpleGrantedAuthoritiesMapper.getAuthoritesFilteredByPrefix(Collection, String)"})
   void testGetAuthoritesFilteredByPrefix_whenArrayList_thenReturnEmpty() {
     // Arrange and Act
     List<String> actualAuthoritesFilteredByPrefix = AbstractSimpleGrantedAuthoritiesMapper
@@ -97,32 +73,5 @@ class AbstractSimpleGrantedAuthoritiesMapperDiffblueTest {
 
     // Assert
     assertTrue(actualAuthoritesFilteredByPrefix.isEmpty());
-  }
-
-  /**
-   * Test
-   * {@link AbstractSimpleGrantedAuthoritiesMapper#getAuthoritesFilteredByPrefix(Collection, String)}.
-   * <ul>
-   *   <li>When empty string.</li>
-   *   <li>Then return size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link AbstractSimpleGrantedAuthoritiesMapper#getAuthoritesFilteredByPrefix(Collection, String)}
-   */
-  @Test
-  @DisplayName("Test getAuthoritesFilteredByPrefix(Collection, String); when empty string; then return size is one")
-  void testGetAuthoritesFilteredByPrefix_whenEmptyString_thenReturnSizeIsOne() {
-    // Arrange
-    ArrayList<GrantedAuthority> authorities = new ArrayList<>();
-    authorities.add(new SimpleGrantedAuthority("Role"));
-
-    // Act
-    List<String> actualAuthoritesFilteredByPrefix = AbstractSimpleGrantedAuthoritiesMapper
-        .getAuthoritesFilteredByPrefix(authorities, "");
-
-    // Assert
-    assertEquals(1, actualAuthoritesFilteredByPrefix.size());
-    assertEquals("Role", actualAuthoritesFilteredByPrefix.get(0));
   }
 }

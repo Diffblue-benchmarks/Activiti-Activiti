@@ -15,12 +15,17 @@
  */
 package org.activiti.engine.impl.persistence.entity;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ResourceEntityImplDiffblueTest {
   /**
@@ -42,6 +47,13 @@ public class ResourceEntityImplDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ResourceEntityImpl.<init>()", "byte[] ResourceEntityImpl.getBytes()",
+      "String ResourceEntityImpl.getDeploymentId()", "String ResourceEntityImpl.getName()",
+      "java.lang.Object ResourceEntityImpl.getPersistentState()", "boolean ResourceEntityImpl.isGenerated()",
+      "void ResourceEntityImpl.setBytes(byte[])", "void ResourceEntityImpl.setDeploymentId(String)",
+      "void ResourceEntityImpl.setGenerated(boolean)", "void ResourceEntityImpl.setName(String)",
+      "String ResourceEntityImpl.toString()"})
   public void testGettersAndSetters() throws UnsupportedEncodingException {
     // Arrange and Act
     ResourceEntityImpl actualResourceEntityImpl = new ResourceEntityImpl();
@@ -57,14 +69,16 @@ public class ResourceEntityImplDiffblueTest {
     actualResourceEntityImpl.getPersistentState();
     boolean actualIsGeneratedResult = actualResourceEntityImpl.isGenerated();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualDeploymentId);
     assertEquals("Name", actualName);
     assertEquals("ResourceEntity[id=null, name=Name]", actualToStringResult);
+    assertNull(actualResourceEntityImpl.getId());
     assertFalse(actualResourceEntityImpl.isDeleted());
     assertFalse(actualResourceEntityImpl.isInserted());
     assertFalse(actualResourceEntityImpl.isUpdated());
     assertTrue(actualIsGeneratedResult);
     assertSame(bytes, actualBytes);
+    assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), actualBytes);
   }
 }

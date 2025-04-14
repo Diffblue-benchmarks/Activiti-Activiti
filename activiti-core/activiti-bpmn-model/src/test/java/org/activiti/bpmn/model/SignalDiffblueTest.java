@@ -19,17 +19,19 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import java.util.Map;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class SignalDiffblueTest {
   /**
    * Test getters and setters.
+   * <ul>
+   *   <li>Then return Id is {@code null}.</li>
+   * </ul>
    * <p>
    * Methods under test:
    * <ul>
@@ -41,16 +43,20 @@ public class SignalDiffblueTest {
    * </ul>
    */
   @Test
-  public void testGettersAndSetters() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Signal.<init>()", "void Signal.<init>(String, String)", "String Signal.getName()",
+      "String Signal.getScope()", "void Signal.setName(String)", "void Signal.setScope(String)"})
+  public void testGettersAndSetters_thenReturnIdIsNull() {
     // Arrange and Act
     Signal actualSignal = new Signal();
     actualSignal.setName("Name");
     actualSignal.setScope("Scope");
     String actualName = actualSignal.getName();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Name", actualName);
     assertEquals("Scope", actualSignal.getScope());
+    assertNull(actualSignal.getId());
     assertEquals(0, actualSignal.getXmlColumnNumber());
     assertEquals(0, actualSignal.getXmlRowNumber());
     assertTrue(actualSignal.getAttributes().isEmpty());
@@ -74,6 +80,9 @@ public class SignalDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Signal.<init>()", "void Signal.<init>(String, String)", "String Signal.getName()",
+      "String Signal.getScope()", "void Signal.setName(String)", "void Signal.setScope(String)"})
   public void testGettersAndSetters_when42_thenReturnIdIs42() {
     // Arrange and Act
     Signal actualSignal = new Signal("42", "Name");
@@ -82,7 +91,7 @@ public class SignalDiffblueTest {
     String actualName = actualSignal.getName();
     String actualScope = actualSignal.getScope();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualSignal.getId());
     assertEquals("Name", actualName);
     assertEquals("Scope", actualScope);
@@ -95,14 +104,15 @@ public class SignalDiffblueTest {
   /**
    * Test {@link Signal#clone()}.
    * <ul>
-   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and
-   * {@code Name} ExtensionElements is {@code null}.</li>
+   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and {@code Name} ExtensionElements is {@code null}.</li>
    *   <li>Then return Id is {@code 42}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Signal#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Signal Signal.clone()"})
   public void testClone_givenSignalWithIdIs42AndNameExtensionElementsIsNull_thenReturnIdIs42() {
     // Arrange
     Signal signal = new Signal("42", "Name");
@@ -125,14 +135,15 @@ public class SignalDiffblueTest {
   /**
    * Test {@link Signal#clone()}.
    * <ul>
-   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and
-   * {@code Name}.</li>
+   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and {@code Name}.</li>
    *   <li>Then return Id is {@code 42}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Signal#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Signal Signal.clone()"})
   public void testClone_givenSignalWithIdIs42AndName_thenReturnIdIs42() {
     // Arrange and Act
     Signal actualCloneResult = (new Signal("42", "Name")).clone();
@@ -156,6 +167,8 @@ public class SignalDiffblueTest {
    * Method under test: {@link Signal#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Signal Signal.clone()"})
   public void testClone_thenReturnAttributesSizeIsOne() {
     // Arrange
     Signal signal = new Signal("42", "Name");
@@ -179,6 +192,8 @@ public class SignalDiffblueTest {
    * Method under test: {@link Signal#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Signal Signal.clone()"})
   public void testClone_thenReturnAttributesSizeIsTwo() {
     // Arrange
     Signal signal = new Signal("42", "Name");
@@ -193,30 +208,5 @@ public class SignalDiffblueTest {
     assertEquals(1, getResult.size());
     assertTrue(attributes.containsKey("Name"));
     assertSame(attribute, getResult.get(0));
-  }
-
-  /**
-   * Test {@link Signal#setValues(Signal)} with {@code Signal}.
-   * <ul>
-   *   <li>Then calls {@link ExtensionAttribute#getName()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Signal#setValues(Signal)}
-   */
-  @Test
-  public void testSetValuesWithSignal_thenCallsGetName() {
-    // Arrange
-    Signal signal = new Signal("42", "Name");
-    ExtensionAttribute attribute = mock(ExtensionAttribute.class);
-    when(attribute.getName()).thenReturn("Name");
-
-    Signal otherElement = new Signal("42", "Name");
-    otherElement.addAttribute(attribute);
-
-    // Act
-    signal.setValues(otherElement);
-
-    // Assert
-    verify(attribute, atLeast(1)).getName();
   }
 }

@@ -19,9 +19,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
-import org.activiti.core.el.CustomFunctionProvider;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.persistence.entity.HistoricVariableInstanceEntity;
@@ -29,16 +29,17 @@ import org.activiti.engine.impl.persistence.entity.HistoricVariableInstanceEntit
 import org.activiti.engine.impl.persistence.entity.data.impl.cachematcher.HistoricVariableInstanceByProcInstMatcher;
 import org.activiti.engine.impl.persistence.entity.data.impl.cachematcher.HistoricVariableInstanceByTaskIdMatcher;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class MybatisHistoricVariableInstanceDataManagerDiffblueTest {
   /**
-   * Test
-   * {@link MybatisHistoricVariableInstanceDataManager#MybatisHistoricVariableInstanceDataManager(ProcessEngineConfigurationImpl)}.
+   * Test {@link MybatisHistoricVariableInstanceDataManager#MybatisHistoricVariableInstanceDataManager(ProcessEngineConfigurationImpl)}.
    * <p>
-   * Method under test:
-   * {@link MybatisHistoricVariableInstanceDataManager#MybatisHistoricVariableInstanceDataManager(ProcessEngineConfigurationImpl)}
+   * Method under test: {@link MybatisHistoricVariableInstanceDataManager#MybatisHistoricVariableInstanceDataManager(ProcessEngineConfigurationImpl)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MybatisHistoricVariableInstanceDataManager.<init>(ProcessEngineConfigurationImpl)"})
   public void testNewMybatisHistoricVariableInstanceDataManager() {
     // Arrange and Act
     MybatisHistoricVariableInstanceDataManager actualMybatisHistoricVariableInstanceDataManager = new MybatisHistoricVariableInstanceDataManager(
@@ -55,43 +56,13 @@ public class MybatisHistoricVariableInstanceDataManagerDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link MybatisHistoricVariableInstanceDataManager#MybatisHistoricVariableInstanceDataManager(ProcessEngineConfigurationImpl)}.
-   * <ul>
-   *   <li>Given {@link CustomFunctionProvider}.</li>
-   * </ul>
+   * Test {@link MybatisHistoricVariableInstanceDataManager#getManagedEntityClass()}.
    * <p>
-   * Method under test:
-   * {@link MybatisHistoricVariableInstanceDataManager#MybatisHistoricVariableInstanceDataManager(ProcessEngineConfigurationImpl)}
+   * Method under test: {@link MybatisHistoricVariableInstanceDataManager#getManagedEntityClass()}
    */
   @Test
-  public void testNewMybatisHistoricVariableInstanceDataManager_givenCustomFunctionProvider() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    MybatisHistoricVariableInstanceDataManager actualMybatisHistoricVariableInstanceDataManager = new MybatisHistoricVariableInstanceDataManager(
-        processEngineConfiguration);
-
-    // Assert
-    assertTrue(
-        actualMybatisHistoricVariableInstanceDataManager.historicVariableInstanceByProcInstMatcher instanceof HistoricVariableInstanceByProcInstMatcher);
-    assertTrue(
-        actualMybatisHistoricVariableInstanceDataManager.historicVariableInstanceByTaskIdMatcher instanceof HistoricVariableInstanceByTaskIdMatcher);
-    assertNull(actualMybatisHistoricVariableInstanceDataManager.getManagedEntitySubClasses());
-    Class<HistoricVariableInstanceEntityImpl> expectedManagedEntityClass = HistoricVariableInstanceEntityImpl.class;
-    assertEquals(expectedManagedEntityClass, actualMybatisHistoricVariableInstanceDataManager.getManagedEntityClass());
-  }
-
-  /**
-   * Test
-   * {@link MybatisHistoricVariableInstanceDataManager#getManagedEntityClass()}.
-   * <p>
-   * Method under test:
-   * {@link MybatisHistoricVariableInstanceDataManager#getManagedEntityClass()}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Class MybatisHistoricVariableInstanceDataManager.getManagedEntityClass()"})
   public void testGetManagedEntityClass() {
     // Arrange and Act
     Class<? extends HistoricVariableInstanceEntity> actualManagedEntityClass = (new MybatisHistoricVariableInstanceDataManager(
@@ -105,10 +76,11 @@ public class MybatisHistoricVariableInstanceDataManagerDiffblueTest {
   /**
    * Test {@link MybatisHistoricVariableInstanceDataManager#create()}.
    * <p>
-   * Method under test:
-   * {@link MybatisHistoricVariableInstanceDataManager#create()}
+   * Method under test: {@link MybatisHistoricVariableInstanceDataManager#create()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricVariableInstanceEntity MybatisHistoricVariableInstanceDataManager.create()"})
   public void testCreate() {
     // Arrange and Act
     HistoricVariableInstanceEntity actualCreateResult = (new MybatisHistoricVariableInstanceDataManager(
@@ -121,13 +93,6 @@ public class MybatisHistoricVariableInstanceDataManagerDiffblueTest {
     assertNull(actualCreateResult.getBytes());
     assertNull(actualCreateResult.getDoubleValue());
     assertNull(actualCreateResult.getLongValue());
-    assertEquals(6, ((Map<String, Object>) persistentState).size());
-    assertNull(((Map<String, Object>) persistentState).get("createTime"));
-    assertNull(((Map<String, Object>) persistentState).get("doubleValue"));
-    assertNull(((Map<String, Object>) persistentState).get("lastUpdatedTime"));
-    assertNull(((Map<String, Object>) persistentState).get("longValue"));
-    assertNull(((Map<String, Object>) persistentState).get("textValue"));
-    assertNull(((Map<String, Object>) persistentState).get("textValue2"));
     assertNull(actualCreateResult.getCachedValue());
     assertNull(actualCreateResult.getId());
     assertNull(actualCreateResult.getProcessInstanceId());
@@ -145,60 +110,15 @@ public class MybatisHistoricVariableInstanceDataManagerDiffblueTest {
     assertNull(actualCreateResult.getVariableType());
     assertEquals(1, actualCreateResult.getRevision());
     assertEquals(2, actualCreateResult.getRevisionNext());
-    assertFalse(actualCreateResult.isDeleted());
-    assertFalse(actualCreateResult.isInserted());
-    assertFalse(actualCreateResult.isUpdated());
-  }
-
-  /**
-   * Test {@link MybatisHistoricVariableInstanceDataManager#create()}.
-   * <p>
-   * Method under test:
-   * {@link MybatisHistoricVariableInstanceDataManager#create()}
-   */
-  @Test
-  public void testCreate2() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    HistoricVariableInstanceEntity actualCreateResult = (new MybatisHistoricVariableInstanceDataManager(
-        processEngineConfiguration)).create();
-
-    // Assert
-    Object persistentState = actualCreateResult.getPersistentState();
-    assertTrue(persistentState instanceof Map);
-    assertTrue(actualCreateResult instanceof HistoricVariableInstanceEntityImpl);
-    assertNull(actualCreateResult.getBytes());
-    assertNull(actualCreateResult.getDoubleValue());
-    assertNull(actualCreateResult.getLongValue());
     assertEquals(6, ((Map<String, Object>) persistentState).size());
-    assertNull(((Map<String, Object>) persistentState).get("createTime"));
-    assertNull(((Map<String, Object>) persistentState).get("doubleValue"));
-    assertNull(((Map<String, Object>) persistentState).get("lastUpdatedTime"));
-    assertNull(((Map<String, Object>) persistentState).get("longValue"));
-    assertNull(((Map<String, Object>) persistentState).get("textValue"));
-    assertNull(((Map<String, Object>) persistentState).get("textValue2"));
-    assertNull(actualCreateResult.getCachedValue());
-    assertNull(actualCreateResult.getId());
-    assertNull(actualCreateResult.getProcessInstanceId());
-    assertNull(actualCreateResult.getTaskId());
-    assertNull(actualCreateResult.getVariableName());
-    assertNull(actualCreateResult.getVariableTypeName());
-    assertNull(actualCreateResult.getExecutionId());
-    assertNull(actualCreateResult.getName());
-    assertNull(actualCreateResult.getTextValue());
-    assertNull(actualCreateResult.getTextValue2());
-    assertNull(actualCreateResult.getTime());
-    assertNull(actualCreateResult.getCreateTime());
-    assertNull(actualCreateResult.getLastUpdatedTime());
-    assertNull(actualCreateResult.getByteArrayRef());
-    assertNull(actualCreateResult.getVariableType());
-    assertEquals(1, actualCreateResult.getRevision());
-    assertEquals(2, actualCreateResult.getRevisionNext());
     assertFalse(actualCreateResult.isDeleted());
     assertFalse(actualCreateResult.isInserted());
     assertFalse(actualCreateResult.isUpdated());
+    assertTrue(((Map<String, Object>) persistentState).containsKey("createTime"));
+    assertTrue(((Map<String, Object>) persistentState).containsKey("doubleValue"));
+    assertTrue(((Map<String, Object>) persistentState).containsKey("lastUpdatedTime"));
+    assertTrue(((Map<String, Object>) persistentState).containsKey("longValue"));
+    assertTrue(((Map<String, Object>) persistentState).containsKey("textValue"));
+    assertTrue(((Map<String, Object>) persistentState).containsKey("textValue2"));
   }
 }

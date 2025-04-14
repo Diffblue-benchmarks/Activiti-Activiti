@@ -22,6 +22,8 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.bpmn.model.ThrowEvent;
 import org.activiti.engine.delegate.DelegateExecution;
@@ -32,17 +34,18 @@ import org.activiti.engine.impl.delegate.ThrowMessageDelegate;
 import org.activiti.engine.impl.el.ExpressionManager;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class AbstractThrowMessageEventActivityBehaviorDiffblueTest {
   /**
-   * Test
-   * {@link AbstractThrowMessageEventActivityBehavior#getMessageEventDefinition()}.
+   * Test {@link AbstractThrowMessageEventActivityBehavior#getMessageEventDefinition()}.
    * <p>
-   * Method under test:
-   * {@link AbstractThrowMessageEventActivityBehavior#getMessageEventDefinition()}
+   * Method under test: {@link AbstractThrowMessageEventActivityBehavior#getMessageEventDefinition()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"MessageEventDefinition AbstractThrowMessageEventActivityBehavior.getMessageEventDefinition()"})
   public void testGetMessageEventDefinition() {
     // Arrange
     ThrowEvent throwEvent = new ThrowEvent();
@@ -61,10 +64,11 @@ public class AbstractThrowMessageEventActivityBehaviorDiffblueTest {
   /**
    * Test {@link AbstractThrowMessageEventActivityBehavior#getDelegate()}.
    * <p>
-   * Method under test:
-   * {@link AbstractThrowMessageEventActivityBehavior#getDelegate()}
+   * Method under test: {@link AbstractThrowMessageEventActivityBehavior#getDelegate()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ThrowMessageDelegate AbstractThrowMessageEventActivityBehavior.getDelegate()"})
   public void testGetDelegate() {
     // Arrange
     ThrowMessageDelegate delegate = mock(ThrowMessageDelegate.class);
@@ -89,10 +93,11 @@ public class AbstractThrowMessageEventActivityBehaviorDiffblueTest {
   /**
    * Test {@link AbstractThrowMessageEventActivityBehavior#getDelegate()}.
    * <p>
-   * Method under test:
-   * {@link AbstractThrowMessageEventActivityBehavior#getDelegate()}
+   * Method under test: {@link AbstractThrowMessageEventActivityBehavior#getDelegate()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ThrowMessageDelegate AbstractThrowMessageEventActivityBehavior.getDelegate()"})
   public void testGetDelegate2() {
     // Arrange
     ThrowMessageDelegate delegate = mock(ThrowMessageDelegate.class);
@@ -115,13 +120,14 @@ public class AbstractThrowMessageEventActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AbstractThrowMessageEventActivityBehavior#getMessageExecutionContext()}.
+   * Test {@link AbstractThrowMessageEventActivityBehavior#getMessageExecutionContext()}.
    * <p>
-   * Method under test:
-   * {@link AbstractThrowMessageEventActivityBehavior#getMessageExecutionContext()}
+   * Method under test: {@link AbstractThrowMessageEventActivityBehavior#getMessageExecutionContext()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.parser.factory.MessageExecutionContext AbstractThrowMessageEventActivityBehavior.getMessageExecutionContext()"})
   public void testGetMessageExecutionContext() {
     // Arrange
     ThrowEvent throwEvent = new ThrowEvent();

@@ -16,7 +16,9 @@
 package org.activiti.core.el.juel.misc;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class LocalMessagesDiffblueTest {
@@ -31,6 +33,8 @@ class LocalMessagesDiffblueTest {
    */
   @Test
   @DisplayName("Test get(String, Object[]); when 'Args' and 'Args'; then return 'Unknown message: Key(Args, Args)'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String LocalMessages.get(String, Object[])"})
   void testGet_whenArgsAndArgs_thenReturnUnknownMessageKeyArgsArgs() {
     // Arrange, Act and Assert
     assertEquals("Unknown message: Key(Args, Args)", LocalMessages.get("Key", "Args", "Args"));
@@ -47,6 +51,8 @@ class LocalMessagesDiffblueTest {
    */
   @Test
   @DisplayName("Test get(String, Object[]); when 'Args'; then return 'Unknown message: Key(Args)'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String LocalMessages.get(String, Object[])"})
   void testGet_whenArgs_thenReturnUnknownMessageKeyArgs() {
     // Arrange, Act and Assert
     assertEquals("Unknown message: Key(Args)", LocalMessages.get("Key", "Args"));
@@ -63,6 +69,8 @@ class LocalMessagesDiffblueTest {
    */
   @Test
   @DisplayName("Test get(String, Object[]); when 'Key'; then return 'Unknown message: Key'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String LocalMessages.get(String, Object[])"})
   void testGet_whenKey_thenReturnUnknownMessageKey() {
     // Arrange, Act and Assert
     assertEquals("Unknown message: Key", LocalMessages.get("Key"));
@@ -79,6 +87,8 @@ class LocalMessagesDiffblueTest {
    */
   @Test
   @DisplayName("Test get(String, Object[]); when 'message.unknown'; then return 'Unknown message'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String LocalMessages.get(String, Object[])"})
   void testGet_whenMessageUnknown_thenReturnUnknownMessage() {
     // Arrange, Act and Assert
     assertEquals("Unknown message", LocalMessages.get("message.unknown", "Args"));
@@ -95,6 +105,8 @@ class LocalMessagesDiffblueTest {
    */
   @Test
   @DisplayName("Test get(String, Object[]); when 'null'; then return 'Unknown message: Key'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String LocalMessages.get(String, Object[])"})
   void testGet_whenNull_thenReturnUnknownMessageKey() {
     // Arrange, Act and Assert
     assertEquals("Unknown message: Key", LocalMessages.get("Key", null));

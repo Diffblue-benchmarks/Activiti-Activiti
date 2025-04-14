@@ -17,9 +17,11 @@ package org.activiti.editor.language.json.converter.util;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class CollectionUtilsDiffblueTest {
@@ -35,6 +37,8 @@ class CollectionUtilsDiffblueTest {
    */
   @Test
   @DisplayName("Test isEmpty(Collection); given '42'; when ArrayList() add '42'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean CollectionUtils.isEmpty(Collection)"})
   void testIsEmpty_given42_whenArrayListAdd42_thenReturnFalse() {
     // Arrange
     ArrayList<Object> collection = new ArrayList<>();
@@ -56,6 +60,8 @@ class CollectionUtilsDiffblueTest {
    */
   @Test
   @DisplayName("Test isEmpty(Collection); given '42'; when ArrayList() add '42'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean CollectionUtils.isEmpty(Collection)"})
   void testIsEmpty_given42_whenArrayListAdd42_thenReturnFalse2() {
     // Arrange
     ArrayList<Object> collection = new ArrayList<>();
@@ -77,6 +83,8 @@ class CollectionUtilsDiffblueTest {
    */
   @Test
   @DisplayName("Test isEmpty(Collection); when ArrayList(); then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean CollectionUtils.isEmpty(Collection)"})
   void testIsEmpty_whenArrayList_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(CollectionUtils.isEmpty(new ArrayList<>()));
@@ -93,6 +101,8 @@ class CollectionUtilsDiffblueTest {
    */
   @Test
   @DisplayName("Test isEmpty(Collection); when 'null'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean CollectionUtils.isEmpty(Collection)"})
   void testIsEmpty_whenNull_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue(CollectionUtils.isEmpty(null));
@@ -110,6 +120,8 @@ class CollectionUtilsDiffblueTest {
    */
   @Test
   @DisplayName("Test isNotEmpty(Collection); given '42'; when ArrayList() add '42'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean CollectionUtils.isNotEmpty(Collection)"})
   void testIsNotEmpty_given42_whenArrayListAdd42_thenReturnTrue() {
     // Arrange
     ArrayList<Object> collection = new ArrayList<>();
@@ -131,6 +143,8 @@ class CollectionUtilsDiffblueTest {
    */
   @Test
   @DisplayName("Test isNotEmpty(Collection); given '42'; when ArrayList() add '42'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean CollectionUtils.isNotEmpty(Collection)"})
   void testIsNotEmpty_given42_whenArrayListAdd42_thenReturnTrue2() {
     // Arrange
     ArrayList<Object> collection = new ArrayList<>();
@@ -152,6 +166,8 @@ class CollectionUtilsDiffblueTest {
    */
   @Test
   @DisplayName("Test isNotEmpty(Collection); when ArrayList(); then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean CollectionUtils.isNotEmpty(Collection)"})
   void testIsNotEmpty_whenArrayList_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(CollectionUtils.isNotEmpty(new ArrayList<>()));
@@ -168,6 +184,8 @@ class CollectionUtilsDiffblueTest {
    */
   @Test
   @DisplayName("Test isNotEmpty(Collection); when 'null'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean CollectionUtils.isNotEmpty(Collection)"})
   void testIsNotEmpty_whenNull_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(CollectionUtils.isNotEmpty(null));

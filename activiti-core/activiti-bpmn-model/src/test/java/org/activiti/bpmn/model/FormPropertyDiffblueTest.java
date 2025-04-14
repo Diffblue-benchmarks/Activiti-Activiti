@@ -21,29 +21,32 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.isNull;
-import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class FormPropertyDiffblueTest {
   /**
    * Test {@link FormProperty#clone()}.
    * <ul>
-   *   <li>Given {@link FormProperty} (default constructor) ExtensionElements is
-   * {@code null}.</li>
+   *   <li>Given {@link FormProperty} (default constructor) ExtensionElements is {@code null}.</li>
    *   <li>Then return Id is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link FormProperty#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FormProperty FormProperty.clone()"})
   public void testClone_givenFormPropertyExtensionElementsIsNull_thenReturnIdIsNull() {
     // Arrange
     FormProperty formProperty = new FormProperty();
@@ -74,14 +77,15 @@ public class FormPropertyDiffblueTest {
   /**
    * Test {@link FormProperty#clone()}.
    * <ul>
-   *   <li>Given {@link FormProperty} (default constructor) FormValues is
-   * {@code null}.</li>
+   *   <li>Given {@link FormProperty} (default constructor) FormValues is {@code null}.</li>
    *   <li>Then return Id is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link FormProperty#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FormProperty FormProperty.clone()"})
   public void testClone_givenFormPropertyFormValuesIsNull_thenReturnIdIsNull() {
     // Arrange
     FormProperty formProperty = new FormProperty();
@@ -118,6 +122,8 @@ public class FormPropertyDiffblueTest {
    * Method under test: {@link FormProperty#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FormProperty FormProperty.clone()"})
   public void testClone_givenFormProperty_thenReturnIdIsNull() {
     // Arrange and Act
     FormProperty actualCloneResult = (new FormProperty()).clone();
@@ -143,14 +149,15 @@ public class FormPropertyDiffblueTest {
   /**
    * Test {@link FormProperty#clone()}.
    * <ul>
-   *   <li>Given {@link FormValue} (default constructor) ExtensionElements is
-   * {@code null}.</li>
+   *   <li>Given {@link FormValue} (default constructor) ExtensionElements is {@code null}.</li>
    *   <li>Then return FormValues size is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link FormProperty#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FormProperty FormProperty.clone()"})
   public void testClone_givenFormValueExtensionElementsIsNull_thenReturnFormValuesSizeIsOne() {
     // Arrange
     FormValue formValue = new FormValue();
@@ -184,6 +191,8 @@ public class FormPropertyDiffblueTest {
    * Method under test: {@link FormProperty#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FormProperty FormProperty.clone()"})
   public void testClone_thenReturnAttributesSizeIsOne() {
     // Arrange
     FormProperty formProperty = new FormProperty();
@@ -207,6 +216,8 @@ public class FormPropertyDiffblueTest {
    * Method under test: {@link FormProperty#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FormProperty FormProperty.clone()"})
   public void testClone_thenReturnAttributesSizeIsTwo() {
     // Arrange
     FormProperty formProperty = new FormProperty();
@@ -226,37 +237,14 @@ public class FormPropertyDiffblueTest {
   /**
    * Test {@link FormProperty#setValues(FormProperty)} with {@code otherProperty}.
    * <ul>
-   *   <li>Then calls {@link ExtensionAttribute#getName()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link FormProperty#setValues(FormProperty)}
-   */
-  @Test
-  public void testSetValuesWithOtherProperty_thenCallsGetName() {
-    // Arrange
-    FormProperty formProperty = new FormProperty();
-    ExtensionAttribute attribute = mock(ExtensionAttribute.class);
-    when(attribute.getName()).thenReturn("Name");
-
-    FormProperty otherProperty = new FormProperty();
-    otherProperty.addAttribute(attribute);
-
-    // Act
-    formProperty.setValues(otherProperty);
-
-    // Assert
-    verify(attribute, atLeast(1)).getName();
-  }
-
-  /**
-   * Test {@link FormProperty#setValues(FormProperty)} with {@code otherProperty}.
-   * <ul>
    *   <li>Then calls {@link BaseElement#setAttributes(Map)}.</li>
    * </ul>
    * <p>
    * Method under test: {@link FormProperty#setValues(FormProperty)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FormProperty.setValues(FormProperty)"})
   public void testSetValuesWithOtherProperty_thenCallsSetAttributes() {
     // Arrange
     FormProperty formProperty = new FormProperty();
@@ -311,6 +299,17 @@ public class FormPropertyDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FormProperty.<init>()", "String FormProperty.getDatePattern()",
+      "String FormProperty.getDefaultExpression()", "String FormProperty.getExpression()",
+      "List FormProperty.getFormValues()", "String FormProperty.getName()", "String FormProperty.getType()",
+      "String FormProperty.getVariable()", "boolean FormProperty.isReadable()", "boolean FormProperty.isRequired()",
+      "boolean FormProperty.isWriteable()", "void FormProperty.setDatePattern(String)",
+      "void FormProperty.setDefaultExpression(String)", "void FormProperty.setExpression(String)",
+      "void FormProperty.setFormValues(List)", "void FormProperty.setName(String)",
+      "void FormProperty.setReadable(boolean)", "void FormProperty.setRequired(boolean)",
+      "void FormProperty.setType(String)", "void FormProperty.setVariable(String)",
+      "void FormProperty.setWriteable(boolean)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     FormProperty actualFormProperty = new FormProperty();
@@ -336,13 +335,14 @@ public class FormPropertyDiffblueTest {
     boolean actualIsRequiredResult = actualFormProperty.isRequired();
     boolean actualIsWriteableResult = actualFormProperty.isWriteable();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("2020-03-01", actualDatePattern);
     assertEquals("Default Expression", actualDefaultExpression);
     assertEquals("Expression", actualExpression);
     assertEquals("Name", actualName);
     assertEquals("Type", actualType);
     assertEquals("Variable", actualVariable);
+    assertNull(actualFormProperty.getId());
     assertEquals(0, actualFormProperty.getXmlColumnNumber());
     assertEquals(0, actualFormProperty.getXmlRowNumber());
     assertTrue(actualFormValues.isEmpty());

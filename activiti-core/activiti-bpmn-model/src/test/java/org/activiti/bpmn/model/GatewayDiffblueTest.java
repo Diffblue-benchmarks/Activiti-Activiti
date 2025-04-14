@@ -23,9 +23,12 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class GatewayDiffblueTest {
   /**
@@ -34,6 +37,8 @@ public class GatewayDiffblueTest {
    * Method under test: {@link Gateway#getDefaultFlow()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String Gateway.getDefaultFlow()"})
   public void testGetDefaultFlow() {
     // Arrange, Act and Assert
     assertNull((new ComplexGateway()).getDefaultFlow());
@@ -45,6 +50,8 @@ public class GatewayDiffblueTest {
    * Method under test: {@link Gateway#setDefaultFlow(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Gateway.setDefaultFlow(String)"})
   public void testSetDefaultFlow() {
     // Arrange
     ComplexGateway complexGateway = new ComplexGateway();
@@ -66,6 +73,8 @@ public class GatewayDiffblueTest {
    * Method under test: {@link Gateway#setValues(Gateway)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Gateway.setValues(Gateway)"})
   public void testSetValuesWithGateway_givenTrue_thenComplexGatewayIdIs42() {
     // Arrange
     ComplexGateway complexGateway = new ComplexGateway();
@@ -106,14 +115,15 @@ public class GatewayDiffblueTest {
    * Test {@link Gateway#setValues(Gateway)} with {@code Gateway}.
    * <ul>
    *   <li>When {@link ComplexGateway} (default constructor).</li>
-   *   <li>Then {@link ComplexGateway} (default constructor) Id is
-   * {@code null}.</li>
+   *   <li>Then not {@link ComplexGateway} (default constructor) Asynchronous.</li>
    * </ul>
    * <p>
    * Method under test: {@link Gateway#setValues(Gateway)}
    */
   @Test
-  public void testSetValuesWithGateway_whenComplexGateway_thenComplexGatewayIdIsNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Gateway.setValues(Gateway)"})
+  public void testSetValuesWithGateway_whenComplexGateway_thenNotComplexGatewayAsynchronous() {
     // Arrange
     ComplexGateway complexGateway = new ComplexGateway();
     ComplexGateway otherElement = new ComplexGateway();
@@ -121,11 +131,7 @@ public class GatewayDiffblueTest {
     // Act
     complexGateway.setValues((Gateway) otherElement);
 
-    // Assert
-    assertNull(otherElement.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
-    assertNull(otherElement.getDefaultFlow());
+    // Assert that nothing has changed
     assertFalse(otherElement.isAsynchronous());
     assertFalse(otherElement.isNotExclusive());
     assertTrue(otherElement.isExclusive());

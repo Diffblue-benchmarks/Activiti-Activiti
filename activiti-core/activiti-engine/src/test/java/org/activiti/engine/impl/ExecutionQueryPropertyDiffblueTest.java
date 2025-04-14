@@ -17,26 +17,20 @@ package org.activiti.engine.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ExecutionQueryPropertyDiffblueTest {
-  @InjectMocks
-  private ExecutionQueryProperty executionQueryProperty;
-
-  @InjectMocks
-  private String string;
-
   /**
    * Test {@link ExecutionQueryProperty#ExecutionQueryProperty(String)}.
    * <p>
-   * Method under test:
-   * {@link ExecutionQueryProperty#ExecutionQueryProperty(String)}
+   * Method under test: {@link ExecutionQueryProperty#ExecutionQueryProperty(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionQueryProperty.<init>(String)"})
   public void testNewExecutionQueryProperty() {
     // Arrange, Act and Assert
     assertEquals("Name", (new ExecutionQueryProperty("Name")).getName());
@@ -48,6 +42,8 @@ public class ExecutionQueryPropertyDiffblueTest {
    * Method under test: {@link ExecutionQueryProperty#getName()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExecutionQueryProperty.getName()"})
   public void testGetName() {
     // Arrange, Act and Assert
     assertEquals("Name", (new ExecutionQueryProperty("Name")).getName());
@@ -59,6 +55,8 @@ public class ExecutionQueryPropertyDiffblueTest {
    * Method under test: {@link ExecutionQueryProperty#findByName(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ExecutionQueryProperty ExecutionQueryProperty.findByName(String)"})
   public void testFindByName() {
     // Arrange, Act and Assert
     assertNull(ExecutionQueryProperty.findByName("Property Name"));

@@ -17,27 +17,20 @@ package org.activiti.engine.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class HistoricTaskInstanceQueryPropertyDiffblueTest {
-  @InjectMocks
-  private HistoricTaskInstanceQueryProperty historicTaskInstanceQueryProperty;
-
-  @InjectMocks
-  private String string;
-
   /**
-   * Test
-   * {@link HistoricTaskInstanceQueryProperty#HistoricTaskInstanceQueryProperty(String)}.
+   * Test {@link HistoricTaskInstanceQueryProperty#HistoricTaskInstanceQueryProperty(String)}.
    * <p>
-   * Method under test:
-   * {@link HistoricTaskInstanceQueryProperty#HistoricTaskInstanceQueryProperty(String)}
+   * Method under test: {@link HistoricTaskInstanceQueryProperty#HistoricTaskInstanceQueryProperty(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HistoricTaskInstanceQueryProperty.<init>(String)"})
   public void testNewHistoricTaskInstanceQueryProperty() {
     // Arrange, Act and Assert
     assertEquals("Name", (new HistoricTaskInstanceQueryProperty("Name")).getName());
@@ -49,6 +42,8 @@ public class HistoricTaskInstanceQueryPropertyDiffblueTest {
    * Method under test: {@link HistoricTaskInstanceQueryProperty#getName()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String HistoricTaskInstanceQueryProperty.getName()"})
   public void testGetName() {
     // Arrange, Act and Assert
     assertEquals("Name", (new HistoricTaskInstanceQueryProperty("Name")).getName());
@@ -57,10 +52,11 @@ public class HistoricTaskInstanceQueryPropertyDiffblueTest {
   /**
    * Test {@link HistoricTaskInstanceQueryProperty#findByName(String)}.
    * <p>
-   * Method under test:
-   * {@link HistoricTaskInstanceQueryProperty#findByName(String)}
+   * Method under test: {@link HistoricTaskInstanceQueryProperty#findByName(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricTaskInstanceQueryProperty HistoricTaskInstanceQueryProperty.findByName(String)"})
   public void testFindByName() {
     // Arrange, Act and Assert
     assertNull(HistoricTaskInstanceQueryProperty.findByName("Property Name"));

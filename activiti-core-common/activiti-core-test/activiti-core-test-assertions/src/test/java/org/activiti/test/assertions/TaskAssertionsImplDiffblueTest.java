@@ -23,6 +23,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.api.task.model.Task;
@@ -31,6 +32,7 @@ import org.activiti.test.TaskSource;
 import org.activiti.test.matchers.ProcessTaskMatcher;
 import org.activiti.test.matchers.TaskResultMatcher;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -38,11 +40,12 @@ class TaskAssertionsImplDiffblueTest {
   /**
    * Test {@link TaskAssertionsImpl#expectFields(TaskResultMatcher[])}.
    * <p>
-   * Method under test:
-   * {@link TaskAssertionsImpl#expectFields(TaskResultMatcher[])}
+   * Method under test: {@link TaskAssertionsImpl#expectFields(TaskResultMatcher[])}
    */
   @Test
   @DisplayName("Test expectFields(TaskResultMatcher[])")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"TaskAssertions TaskAssertionsImpl.expectFields(TaskResultMatcher[])"})
   void testExpectFields() {
     // Arrange
     Task task = mock(Task.class);
@@ -66,6 +69,8 @@ class TaskAssertionsImplDiffblueTest {
    */
   @Test
   @DisplayName("Test expect(ProcessTaskMatcher[])")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"TaskAssertions TaskAssertionsImpl.expect(ProcessTaskMatcher[])"})
   void testExpect() {
     // Arrange
     Task task = mock(Task.class);

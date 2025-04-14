@@ -23,28 +23,27 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import java.util.Map;
-import org.activiti.core.el.juel.ObjectValueExpression;
-import org.activiti.core.el.juel.misc.TypeConverter;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventListener;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.delegate.event.BaseEntityEventListener;
 import org.activiti.engine.impl.bpmn.helper.DelegateActivitiEventListener;
-import org.activiti.engine.impl.bpmn.helper.DelegateExpressionActivitiEventListener;
-import org.activiti.engine.impl.el.JuelExpression;
-import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ActivitiEventDispatcherImplDiffblueTest {
   /**
    * Test new {@link ActivitiEventDispatcherImpl} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link ActivitiEventDispatcherImpl}
+   * Method under test: default or parameterless constructor of {@link ActivitiEventDispatcherImpl}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiEventDispatcherImpl.<init>()"})
   public void testNewActivitiEventDispatcherImpl() {
     // Arrange and Act
     ActivitiEventDispatcherImpl actualActivitiEventDispatcherImpl = new ActivitiEventDispatcherImpl();
@@ -66,6 +65,9 @@ public class ActivitiEventDispatcherImplDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ActivitiEventDispatcherImpl.isEnabled()",
+      "void ActivitiEventDispatcherImpl.setEnabled(boolean)"})
   public void testGettersAndSetters() {
     // Arrange
     ActivitiEventDispatcherImpl activitiEventDispatcherImpl = new ActivitiEventDispatcherImpl();
@@ -73,19 +75,18 @@ public class ActivitiEventDispatcherImplDiffblueTest {
     // Act
     activitiEventDispatcherImpl.setEnabled(true);
 
-    // Assert that nothing has changed
+    // Assert
     assertTrue(activitiEventDispatcherImpl.isEnabled());
   }
 
   /**
-   * Test
-   * {@link ActivitiEventDispatcherImpl#addEventListener(ActivitiEventListener)}
-   * with {@code listenerToAdd}.
+   * Test {@link ActivitiEventDispatcherImpl#addEventListener(ActivitiEventListener)} with {@code listenerToAdd}.
    * <p>
-   * Method under test:
-   * {@link ActivitiEventDispatcherImpl#addEventListener(ActivitiEventListener)}
+   * Method under test: {@link ActivitiEventDispatcherImpl#addEventListener(ActivitiEventListener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiEventDispatcherImpl.addEventListener(ActivitiEventListener)"})
   public void testAddEventListenerWithListenerToAdd() {
     // Arrange
     ActivitiEventDispatcherImpl activitiEventDispatcherImpl = new ActivitiEventDispatcherImpl();
@@ -101,44 +102,13 @@ public class ActivitiEventDispatcherImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventDispatcherImpl#addEventListener(ActivitiEventListener)}
-   * with {@code listenerToAdd}.
+   * Test {@link ActivitiEventDispatcherImpl#addEventListener(ActivitiEventListener, ActivitiEventType[])} with {@code listenerToAdd}, {@code types}.
    * <p>
-   * Method under test:
-   * {@link ActivitiEventDispatcherImpl#addEventListener(ActivitiEventListener)}
+   * Method under test: {@link ActivitiEventDispatcherImpl#addEventListener(ActivitiEventListener, ActivitiEventType[])}
    */
   @Test
-  public void testAddEventListenerWithListenerToAdd2() {
-    // Arrange
-    ActivitiEventDispatcherImpl activitiEventDispatcherImpl = new ActivitiEventDispatcherImpl();
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-    JuelExpression expression = new JuelExpression(new ObjectValueExpression(converter, JSONObject.NULL, type),
-        "Expression Text");
-
-    Class<Object> entityClass = Object.class;
-    DelegateExpressionActivitiEventListener listenerToAdd = new DelegateExpressionActivitiEventListener(expression,
-        entityClass);
-
-    // Act
-    activitiEventDispatcherImpl.addEventListener(listenerToAdd);
-
-    // Assert
-    List<ActivitiEventListener> activitiEventListenerList = activitiEventDispatcherImpl.eventSupport.eventListeners;
-    assertEquals(1, activitiEventListenerList.size());
-    assertSame(listenerToAdd, activitiEventListenerList.get(0));
-  }
-
-  /**
-   * Test
-   * {@link ActivitiEventDispatcherImpl#addEventListener(ActivitiEventListener, ActivitiEventType[])}
-   * with {@code listenerToAdd}, {@code types}.
-   * <p>
-   * Method under test:
-   * {@link ActivitiEventDispatcherImpl#addEventListener(ActivitiEventListener, ActivitiEventType[])}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiEventDispatcherImpl.addEventListener(ActivitiEventListener, ActivitiEventType[])"})
   public void testAddEventListenerWithListenerToAddTypes() {
     // Arrange
     ActivitiEventDispatcherImpl activitiEventDispatcherImpl = new ActivitiEventDispatcherImpl();
@@ -158,23 +128,21 @@ public class ActivitiEventDispatcherImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventDispatcherImpl#addEventListener(ActivitiEventListener, ActivitiEventType[])}
-   * with {@code listenerToAdd}, {@code types}.
+   * Test {@link ActivitiEventDispatcherImpl#addEventListener(ActivitiEventListener, ActivitiEventType[])} with {@code listenerToAdd}, {@code types}.
    * <p>
-   * Method under test:
-   * {@link ActivitiEventDispatcherImpl#addEventListener(ActivitiEventListener, ActivitiEventType[])}
+   * Method under test: {@link ActivitiEventDispatcherImpl#addEventListener(ActivitiEventListener, ActivitiEventType[])}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiEventDispatcherImpl.addEventListener(ActivitiEventListener, ActivitiEventType[])"})
   public void testAddEventListenerWithListenerToAddTypes2() {
     // Arrange
     ActivitiEventDispatcherImpl activitiEventDispatcherImpl = new ActivitiEventDispatcherImpl();
+    activitiEventDispatcherImpl.addEventListener(new BaseEntityEventListener(true), ActivitiEventType.ENTITY_CREATED);
     BaseEntityEventListener listenerToAdd = new BaseEntityEventListener(true);
-    activitiEventDispatcherImpl.addEventListener(listenerToAdd, ActivitiEventType.ENTITY_CREATED);
-    BaseEntityEventListener listenerToAdd2 = new BaseEntityEventListener(true);
 
     // Act
-    activitiEventDispatcherImpl.addEventListener(listenerToAdd2, ActivitiEventType.ENTITY_CREATED);
+    activitiEventDispatcherImpl.addEventListener(listenerToAdd, ActivitiEventType.ENTITY_CREATED);
 
     // Assert
     ActivitiEventSupport activitiEventSupport = activitiEventDispatcherImpl.eventSupport;
@@ -182,29 +150,25 @@ public class ActivitiEventDispatcherImplDiffblueTest {
     assertEquals(1, activitiEventTypeListMap.size());
     List<ActivitiEventListener> getResult = activitiEventTypeListMap.get(ActivitiEventType.ENTITY_CREATED);
     assertEquals(2, getResult.size());
-    ActivitiEventListener getResult2 = getResult.get(0);
-    assertTrue(getResult2 instanceof BaseEntityEventListener);
     assertTrue(activitiEventSupport.eventListeners.isEmpty());
-    assertSame(listenerToAdd, getResult2);
-    assertSame(listenerToAdd2, getResult.get(1));
+    assertSame(listenerToAdd, getResult.get(1));
   }
 
   /**
-   * Test
-   * {@link ActivitiEventDispatcherImpl#addEventListener(ActivitiEventListener, ActivitiEventType[])}
-   * with {@code listenerToAdd}, {@code types}.
+   * Test {@link ActivitiEventDispatcherImpl#addEventListener(ActivitiEventListener, ActivitiEventType[])} with {@code listenerToAdd}, {@code types}.
    * <p>
-   * Method under test:
-   * {@link ActivitiEventDispatcherImpl#addEventListener(ActivitiEventListener, ActivitiEventType[])}
+   * Method under test: {@link ActivitiEventDispatcherImpl#addEventListener(ActivitiEventListener, ActivitiEventType[])}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiEventDispatcherImpl.addEventListener(ActivitiEventListener, ActivitiEventType[])"})
   public void testAddEventListenerWithListenerToAddTypes3() {
     // Arrange
     ActivitiEventDispatcherImpl activitiEventDispatcherImpl = new ActivitiEventDispatcherImpl();
     BaseEntityEventListener listenerToAdd = new BaseEntityEventListener(true);
 
     // Act
-    activitiEventDispatcherImpl.addEventListener(listenerToAdd);
+    activitiEventDispatcherImpl.addEventListener(listenerToAdd, new ActivitiEventType[]{});
 
     // Assert
     ActivitiEventSupport activitiEventSupport = activitiEventDispatcherImpl.eventSupport;
@@ -215,14 +179,13 @@ public class ActivitiEventDispatcherImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventDispatcherImpl#addEventListener(ActivitiEventListener, ActivitiEventType[])}
-   * with {@code listenerToAdd}, {@code types}.
+   * Test {@link ActivitiEventDispatcherImpl#addEventListener(ActivitiEventListener, ActivitiEventType[])} with {@code listenerToAdd}, {@code types}.
    * <p>
-   * Method under test:
-   * {@link ActivitiEventDispatcherImpl#addEventListener(ActivitiEventListener, ActivitiEventType[])}
+   * Method under test: {@link ActivitiEventDispatcherImpl#addEventListener(ActivitiEventListener, ActivitiEventType[])}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiEventDispatcherImpl.addEventListener(ActivitiEventListener, ActivitiEventType[])"})
   public void testAddEventListenerWithListenerToAddTypes4() {
     // Arrange
     ActivitiEventDispatcherImpl activitiEventDispatcherImpl = new ActivitiEventDispatcherImpl();
@@ -244,10 +207,11 @@ public class ActivitiEventDispatcherImplDiffblueTest {
   /**
    * Test {@link ActivitiEventDispatcherImpl#dispatchEvent(ActivitiEvent)}.
    * <p>
-   * Method under test:
-   * {@link ActivitiEventDispatcherImpl#dispatchEvent(ActivitiEvent)}
+   * Method under test: {@link ActivitiEventDispatcherImpl#dispatchEvent(ActivitiEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiEventDispatcherImpl.dispatchEvent(ActivitiEvent)"})
   public void testDispatchEvent() {
     // Arrange
     ActivitiEventDispatcherImpl activitiEventDispatcherImpl = new ActivitiEventDispatcherImpl();
@@ -265,38 +229,16 @@ public class ActivitiEventDispatcherImplDiffblueTest {
   /**
    * Test {@link ActivitiEventDispatcherImpl#dispatchEvent(ActivitiEvent)}.
    * <p>
-   * Method under test:
-   * {@link ActivitiEventDispatcherImpl#dispatchEvent(ActivitiEvent)}
+   * Method under test: {@link ActivitiEventDispatcherImpl#dispatchEvent(ActivitiEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiEventDispatcherImpl.dispatchEvent(ActivitiEvent)"})
   public void testDispatchEvent2() {
     // Arrange
     ActivitiEventDispatcherImpl activitiEventDispatcherImpl = new ActivitiEventDispatcherImpl();
-    activitiEventDispatcherImpl.addEventListener(new DelegateActivitiEventListener("Class Name", null));
-    ActivitiEvent event = mock(ActivitiEvent.class);
-    when(event.getType()).thenReturn(ActivitiEventType.ENTITY_CREATED);
-
-    // Act
-    activitiEventDispatcherImpl.dispatchEvent(event);
-
-    // Assert
-    verify(event, atLeast(1)).getType();
-  }
-
-  /**
-   * Test {@link ActivitiEventDispatcherImpl#dispatchEvent(ActivitiEvent)}.
-   * <ul>
-   *   <li>Given {@link ActivitiEventDispatcherImpl} (default constructor).</li>
-   *   <li>Then calls {@link ActivitiEvent#getType()}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ActivitiEventDispatcherImpl#dispatchEvent(ActivitiEvent)}
-   */
-  @Test
-  public void testDispatchEvent_givenActivitiEventDispatcherImpl_thenCallsGetType() {
-    // Arrange
-    ActivitiEventDispatcherImpl activitiEventDispatcherImpl = new ActivitiEventDispatcherImpl();
+    activitiEventDispatcherImpl.addEventListener(new DelegateActivitiEventListener("Class Name", null),
+        new ActivitiEventType[]{});
     ActivitiEvent event = mock(ActivitiEvent.class);
     when(event.getType()).thenReturn(ActivitiEventType.ENTITY_CREATED);
 
@@ -311,14 +253,14 @@ public class ActivitiEventDispatcherImplDiffblueTest {
    * Test {@link ActivitiEventDispatcherImpl#dispatchEvent(ActivitiEvent)}.
    * <ul>
    *   <li>Given {@code ENTITY_DELETED}.</li>
-   *   <li>When {@link ActivitiEvent} {@link ActivitiEvent#getType()} return
-   * {@code ENTITY_DELETED}.</li>
+   *   <li>When {@link ActivitiEvent} {@link ActivitiEvent#getType()} return {@code ENTITY_DELETED}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiEventDispatcherImpl#dispatchEvent(ActivitiEvent)}
+   * Method under test: {@link ActivitiEventDispatcherImpl#dispatchEvent(ActivitiEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiEventDispatcherImpl.dispatchEvent(ActivitiEvent)"})
   public void testDispatchEvent_givenEntityDeleted_whenActivitiEventGetTypeReturnEntityDeleted() {
     // Arrange
     ActivitiEventDispatcherImpl activitiEventDispatcherImpl = new ActivitiEventDispatcherImpl();
@@ -333,16 +275,17 @@ public class ActivitiEventDispatcherImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventDispatcherImpl#extractBpmnModelFromEvent(ActivitiEvent)}.
+   * Test {@link ActivitiEventDispatcherImpl#extractBpmnModelFromEvent(ActivitiEvent)}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiEventDispatcherImpl#extractBpmnModelFromEvent(ActivitiEvent)}
+   * Method under test: {@link ActivitiEventDispatcherImpl#extractBpmnModelFromEvent(ActivitiEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.bpmn.model.BpmnModel ActivitiEventDispatcherImpl.extractBpmnModelFromEvent(ActivitiEvent)"})
   public void testExtractBpmnModelFromEvent_thenReturnNull() {
     // Arrange
     ActivitiEventDispatcherImpl activitiEventDispatcherImpl = new ActivitiEventDispatcherImpl();

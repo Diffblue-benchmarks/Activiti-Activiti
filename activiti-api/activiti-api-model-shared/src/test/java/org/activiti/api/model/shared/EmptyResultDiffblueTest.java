@@ -18,7 +18,9 @@ package org.activiti.api.model.shared;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class EmptyResultDiffblueTest {
@@ -32,6 +34,8 @@ class EmptyResultDiffblueTest {
    */
   @Test
   @DisplayName("Test new EmptyResult(); then return Payload is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EmptyResult.<init>()", "void EmptyResult.<init>(Payload)"})
   void testNewEmptyResult_thenReturnPayloadIsNull() {
     // Arrange and Act
     EmptyResult actualEmptyResult = new EmptyResult();
@@ -52,6 +56,8 @@ class EmptyResultDiffblueTest {
    */
   @Test
   @DisplayName("Test new EmptyResult(Payload); when Payload; then return Payload")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void EmptyResult.<init>()", "void EmptyResult.<init>(Payload)"})
   void testNewEmptyResult_whenPayload_thenReturnPayload() {
     // Arrange
     Payload payload = mock(Payload.class);

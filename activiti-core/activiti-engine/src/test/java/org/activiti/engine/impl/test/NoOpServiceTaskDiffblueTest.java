@@ -17,10 +17,13 @@ package org.activiti.engine.impl.test;
 
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.impl.el.FixedValue;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class NoOpServiceTaskDiffblueTest {
   /**
@@ -34,6 +37,9 @@ public class NoOpServiceTaskDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void NoOpServiceTask.<init>()", "Expression NoOpServiceTask.getName()",
+      "void NoOpServiceTask.setName(Expression)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     NoOpServiceTask actualNoOpServiceTask = new NoOpServiceTask();
@@ -41,7 +47,7 @@ public class NoOpServiceTaskDiffblueTest {
     actualNoOpServiceTask.setName(name);
     Expression actualName = actualNoOpServiceTask.getName();
 
-    // Assert that nothing has changed
+    // Assert
     assertTrue(actualName instanceof FixedValue);
     assertSame(name, actualName);
   }

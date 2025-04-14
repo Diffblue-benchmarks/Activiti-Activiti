@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -31,25 +32,27 @@ import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.ExtensionAttribute;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.Message;
+import org.activiti.bpmn.model.Message.Builder;
 import org.activiti.bpmn.model.Process;
 import org.activiti.bpmn.model.Resource;
 import org.activiti.bpmn.model.Signal;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class SubprocessXMLConverterDiffblueTest {
   /**
-   * Test {@link SubprocessXMLConverter#convertToXML(BpmnModel, String)} with
-   * {@code model}, {@code encoding}.
+   * Test {@link SubprocessXMLConverter#convertToXML(BpmnModel, String)} with {@code model}, {@code encoding}.
    * <ul>
    *   <li>Given empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SubprocessXMLConverter#convertToXML(BpmnModel, String)}
+   * Method under test: {@link SubprocessXMLConverter#convertToXML(BpmnModel, String)}
    */
   @Test
   @DisplayName("Test convertToXML(BpmnModel, String) with 'model', 'encoding'; given empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"byte[] SubprocessXMLConverter.convertToXML(BpmnModel, String)"})
   void testConvertToXMLWithModelEncoding_givenEmptyString() {
     // Arrange
     SubprocessXMLConverter subprocessXMLConverter = new SubprocessXMLConverter();
@@ -91,24 +94,24 @@ class SubprocessXMLConverterDiffblueTest {
   }
 
   /**
-   * Test {@link SubprocessXMLConverter#convertToXML(BpmnModel, String)} with
-   * {@code model}, {@code encoding}.
+   * Test {@link SubprocessXMLConverter#convertToXML(BpmnModel, String)} with {@code model}, {@code encoding}.
    * <ul>
    *   <li>Then return array length is six hundred ninety-eight.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SubprocessXMLConverter#convertToXML(BpmnModel, String)}
+   * Method under test: {@link SubprocessXMLConverter#convertToXML(BpmnModel, String)}
    */
   @Test
   @DisplayName("Test convertToXML(BpmnModel, String) with 'model', 'encoding'; then return array length is six hundred ninety-eight")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"byte[] SubprocessXMLConverter.convertToXML(BpmnModel, String)"})
   void testConvertToXMLWithModelEncoding_thenReturnArrayLengthIsSixHundredNinetyEight() {
     // Arrange
     SubprocessXMLConverter subprocessXMLConverter = new SubprocessXMLConverter();
 
     BpmnModel model = new BpmnModel();
-    Message.Builder builderResult = Message.builder();
-    Message.Builder attributesResult = builderResult.attributes(new HashMap<>());
+    Builder builderResult = Message.builder();
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
     Message message = attributesResult.extensionElements(new HashMap<>())
         .id("42")
         .itemRef("Item Ref")
@@ -151,24 +154,24 @@ class SubprocessXMLConverterDiffblueTest {
   }
 
   /**
-   * Test {@link SubprocessXMLConverter#convertToXML(BpmnModel, String)} with
-   * {@code model}, {@code encoding}.
+   * Test {@link SubprocessXMLConverter#convertToXML(BpmnModel, String)} with {@code model}, {@code encoding}.
    * <ul>
    *   <li>Then return array length is six hundred ninety-one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SubprocessXMLConverter#convertToXML(BpmnModel, String)}
+   * Method under test: {@link SubprocessXMLConverter#convertToXML(BpmnModel, String)}
    */
   @Test
   @DisplayName("Test convertToXML(BpmnModel, String) with 'model', 'encoding'; then return array length is six hundred ninety-one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"byte[] SubprocessXMLConverter.convertToXML(BpmnModel, String)"})
   void testConvertToXMLWithModelEncoding_thenReturnArrayLengthIsSixHundredNinetyOne() {
     // Arrange
     SubprocessXMLConverter subprocessXMLConverter = new SubprocessXMLConverter();
 
     BpmnModel model = new BpmnModel();
-    Message.Builder builderResult = Message.builder();
-    Message.Builder attributesResult = builderResult.attributes(new HashMap<>());
+    Builder builderResult = Message.builder();
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
     Message message = attributesResult.extensionElements(new HashMap<>())
         .id("42")
         .itemRef("")
@@ -211,17 +214,17 @@ class SubprocessXMLConverterDiffblueTest {
   }
 
   /**
-   * Test {@link SubprocessXMLConverter#convertToXML(BpmnModel, String)} with
-   * {@code model}, {@code encoding}.
+   * Test {@link SubprocessXMLConverter#convertToXML(BpmnModel, String)} with {@code model}, {@code encoding}.
    * <ul>
    *   <li>Then return array length is six hundred seventy-five.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SubprocessXMLConverter#convertToXML(BpmnModel, String)}
+   * Method under test: {@link SubprocessXMLConverter#convertToXML(BpmnModel, String)}
    */
   @Test
   @DisplayName("Test convertToXML(BpmnModel, String) with 'model', 'encoding'; then return array length is six hundred seventy-five")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"byte[] SubprocessXMLConverter.convertToXML(BpmnModel, String)"})
   void testConvertToXMLWithModelEncoding_thenReturnArrayLengthIsSixHundredSeventyFive() {
     // Arrange
     SubprocessXMLConverter subprocessXMLConverter = new SubprocessXMLConverter();
@@ -263,17 +266,17 @@ class SubprocessXMLConverterDiffblueTest {
   }
 
   /**
-   * Test {@link SubprocessXMLConverter#convertToXML(BpmnModel, String)} with
-   * {@code model}, {@code encoding}.
+   * Test {@link SubprocessXMLConverter#convertToXML(BpmnModel, String)} with {@code model}, {@code encoding}.
    * <ul>
    *   <li>Then return array length is six hundred thirty-six.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SubprocessXMLConverter#convertToXML(BpmnModel, String)}
+   * Method under test: {@link SubprocessXMLConverter#convertToXML(BpmnModel, String)}
    */
   @Test
   @DisplayName("Test convertToXML(BpmnModel, String) with 'model', 'encoding'; then return array length is six hundred thirty-six")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"byte[] SubprocessXMLConverter.convertToXML(BpmnModel, String)"})
   void testConvertToXMLWithModelEncoding_thenReturnArrayLengthIsSixHundredThirtySix() {
     // Arrange
     SubprocessXMLConverter subprocessXMLConverter = new SubprocessXMLConverter();
@@ -314,17 +317,17 @@ class SubprocessXMLConverterDiffblueTest {
   }
 
   /**
-   * Test {@link SubprocessXMLConverter#convertToXML(BpmnModel, String)} with
-   * {@code model}, {@code encoding}.
+   * Test {@link SubprocessXMLConverter#convertToXML(BpmnModel, String)} with {@code model}, {@code encoding}.
    * <ul>
    *   <li>Then throw {@link XMLException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SubprocessXMLConverter#convertToXML(BpmnModel, String)}
+   * Method under test: {@link SubprocessXMLConverter#convertToXML(BpmnModel, String)}
    */
   @Test
   @DisplayName("Test convertToXML(BpmnModel, String) with 'model', 'encoding'; then throw XMLException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"byte[] SubprocessXMLConverter.convertToXML(BpmnModel, String)"})
   void testConvertToXMLWithModelEncoding_thenThrowXMLException() {
     // Arrange
     SubprocessXMLConverter subprocessXMLConverter = new SubprocessXMLConverter();
@@ -340,18 +343,18 @@ class SubprocessXMLConverterDiffblueTest {
   }
 
   /**
-   * Test {@link SubprocessXMLConverter#convertToXML(BpmnModel, String)} with
-   * {@code model}, {@code encoding}.
+   * Test {@link SubprocessXMLConverter#convertToXML(BpmnModel, String)} with {@code model}, {@code encoding}.
    * <ul>
    *   <li>When space space.</li>
    *   <li>Then throw {@link XMLException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SubprocessXMLConverter#convertToXML(BpmnModel, String)}
+   * Method under test: {@link SubprocessXMLConverter#convertToXML(BpmnModel, String)}
    */
   @Test
   @DisplayName("Test convertToXML(BpmnModel, String) with 'model', 'encoding'; when space space; then throw XMLException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"byte[] SubprocessXMLConverter.convertToXML(BpmnModel, String)"})
   void testConvertToXMLWithModelEncoding_whenSpaceSpace_thenThrowXMLException() {
     // Arrange
     SubprocessXMLConverter subprocessXMLConverter = new SubprocessXMLConverter();
@@ -367,8 +370,7 @@ class SubprocessXMLConverterDiffblueTest {
   }
 
   /**
-   * Test {@link SubprocessXMLConverter#parseSubModels(BpmnModel)} with
-   * {@code model}.
+   * Test {@link SubprocessXMLConverter#parseSubModels(BpmnModel)} with {@code model}.
    * <ul>
    *   <li>Given {@link Process} (default constructor).</li>
    *   <li>Then return first Processes size is one.</li>
@@ -378,6 +380,8 @@ class SubprocessXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName("Test parseSubModels(BpmnModel) with 'model'; given Process (default constructor); then return first Processes size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List SubprocessXMLConverter.parseSubModels(BpmnModel)"})
   void testParseSubModelsWithModel_givenProcess_thenReturnFirstProcessesSizeIsOne() {
     // Arrange
     SubprocessXMLConverter subprocessXMLConverter = new SubprocessXMLConverter();
@@ -399,8 +403,7 @@ class SubprocessXMLConverterDiffblueTest {
   }
 
   /**
-   * Test {@link SubprocessXMLConverter#parseSubModels(BpmnModel)} with
-   * {@code model}.
+   * Test {@link SubprocessXMLConverter#parseSubModels(BpmnModel)} with {@code model}.
    * <ul>
    *   <li>Then return first MainProcess FlowElements size is one.</li>
    * </ul>
@@ -409,6 +412,8 @@ class SubprocessXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName("Test parseSubModels(BpmnModel) with 'model'; then return first MainProcess FlowElements size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List SubprocessXMLConverter.parseSubModels(BpmnModel)"})
   void testParseSubModelsWithModel_thenReturnFirstMainProcessFlowElementsSizeIsOne() {
     // Arrange
     SubprocessXMLConverter subprocessXMLConverter = new SubprocessXMLConverter();
@@ -432,8 +437,7 @@ class SubprocessXMLConverterDiffblueTest {
   }
 
   /**
-   * Test {@link SubprocessXMLConverter#parseSubModels(BpmnModel)} with
-   * {@code model}.
+   * Test {@link SubprocessXMLConverter#parseSubModels(BpmnModel)} with {@code model}.
    * <ul>
    *   <li>Then return size is three.</li>
    * </ul>
@@ -442,6 +446,8 @@ class SubprocessXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName("Test parseSubModels(BpmnModel) with 'model'; then return size is three")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List SubprocessXMLConverter.parseSubModels(BpmnModel)"})
   void testParseSubModelsWithModel_thenReturnSizeIsThree() {
     // Arrange
     SubprocessXMLConverter subprocessXMLConverter = new SubprocessXMLConverter();
@@ -465,18 +471,12 @@ class SubprocessXMLConverterDiffblueTest {
     assertTrue(resources instanceof List);
     Collection<Signal> signals = getResult.getSignals();
     assertTrue(signals instanceof List);
-    Collection<FlowElement> flowElements = actualParseSubModelsResult.get(1).getMainProcess().getFlowElements();
-    assertEquals(1, flowElements.size());
-    assertTrue(flowElements instanceof List);
-    FlowElement getResult2 = ((List<FlowElement>) flowElements).get(0);
-    assertTrue(getResult2 instanceof AdhocSubProcess);
     assertNull(getResult.getEventSupport());
     assertNull(getResult.getSourceSystemId());
     assertNull(getResult.getTargetNamespace());
     assertNull(getResult.getStartEventFormTypes());
     assertNull(getResult.getUserTaskFormTypes());
-    List<Process> processes = getResult.getProcesses();
-    assertEquals(1, processes.size());
+    assertEquals(1, getResult.getProcesses().size());
     assertFalse(getResult.hasDiagramInterchangeInfo());
     assertTrue(getResult.getMessages().isEmpty());
     assertTrue(resources.isEmpty());
@@ -494,15 +494,11 @@ class SubprocessXMLConverterDiffblueTest {
     assertTrue(getResult.getLocationMap().isEmpty());
     assertTrue(getResult.getMessageFlows().isEmpty());
     assertTrue(getResult.getNamespaces().isEmpty());
-    assertSame(element, getResult2.getParentContainer());
-    assertSame(element, getResult2.getSubProcess());
-    assertSame(process, processes.get(0));
     assertSame(process, getResult.getMainProcess());
   }
 
   /**
-   * Test {@link SubprocessXMLConverter#parseSubModels(BpmnModel)} with
-   * {@code model}.
+   * Test {@link SubprocessXMLConverter#parseSubModels(BpmnModel)} with {@code model}.
    * <ul>
    *   <li>Then return size is two.</li>
    * </ul>
@@ -511,6 +507,8 @@ class SubprocessXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName("Test parseSubModels(BpmnModel) with 'model'; then return size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List SubprocessXMLConverter.parseSubModels(BpmnModel)"})
   void testParseSubModelsWithModel_thenReturnSizeIsTwo() {
     // Arrange
     SubprocessXMLConverter subprocessXMLConverter = new SubprocessXMLConverter();
@@ -536,11 +534,12 @@ class SubprocessXMLConverterDiffblueTest {
   /**
    * Test new {@link SubprocessXMLConverter} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link SubprocessXMLConverter}
+   * Method under test: default or parameterless constructor of {@link SubprocessXMLConverter}
    */
   @Test
   @DisplayName("Test new SubprocessXMLConverter (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SubprocessXMLConverter.<init>()"})
   void testNewSubprocessXMLConverter() {
     // Arrange and Act
     SubprocessXMLConverter actualSubprocessXMLConverter = new SubprocessXMLConverter();

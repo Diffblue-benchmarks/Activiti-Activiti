@@ -15,19 +15,23 @@
  */
 package org.activiti.engine.test.profiler;
 
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class ConsoleLoggerDiffblueTest {
@@ -37,6 +41,8 @@ public class ConsoleLoggerDiffblueTest {
    * Method under test: {@link ConsoleLogger#log()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ConsoleLogger.log()"})
   public void testLog() {
     // Arrange
     HashMap<String, CommandStats> stringCommandStatsMap = new HashMap<>();
@@ -49,40 +55,39 @@ public class ConsoleLoggerDiffblueTest {
         .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     when(profileSession.calculateSummaryStatistics()).thenReturn(stringCommandStatsMap);
     when(profileSession.getTotalTime()).thenReturn(1L);
-    doNothing().when(profileSession).addCommandExecution(Mockito.<String>any(), Mockito.<CommandExecutionResult>any());
-    profileSession.addCommandExecution("Class Fqn", new CommandExecutionResult());
+    doNothing().when(profileSession).setCommandExecutions(Mockito.<Map<String, List<CommandExecutionResult>>>any());
+    profileSession.setCommandExecutions(new HashMap<>());
 
-    ArrayList<ProfileSession> profileSessionList = new ArrayList<>();
-    profileSessionList.add(0, profileSession);
-    ActivitiProfiler profiler = mock(ActivitiProfiler.class);
-    when(profiler.getProfileSessions()).thenReturn(profileSessionList);
+    ArrayList<ProfileSession> profileSessions = new ArrayList<>();
+    profileSessions.add(profileSession);
+    ActivitiProfiler profiler = ActivitiProfiler.getInstance();
+    profiler.setProfileSessions(profileSessions);
 
     // Act
     (new ConsoleLogger(profiler)).log();
 
-    // Assert that nothing has changed
-    verify(profiler).getProfileSessions();
-    verify(profileSession).addCommandExecution(eq("Class Fqn"), isA(CommandExecutionResult.class));
+    // Assert
     verify(profileSession).calculateSummaryStatistics();
     verify(profileSession).getEndTime();
     verify(profileSession).getName();
     verify(profileSession).getStartTime();
     verify(profileSession, atLeast(1)).getTotalTime();
+    verify(profileSession).setCommandExecutions(isA(Map.class));
   }
 
   /**
    * Test {@link ConsoleLogger#log()}.
    * <ul>
-   *   <li>Given {@link ProfileSession} {@link ProfileSession#getName()} return
-   * {@code Name}.</li>
-   *   <li>Then calls
-   * {@link ProfileSession#addCommandExecution(String, CommandExecutionResult)}.</li>
+   *   <li>Given {@link ProfileSession} {@link ProfileSession#getName()} return {@code Name}.</li>
+   *   <li>Then calls {@link ProfileSession#calculateSummaryStatistics()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ConsoleLogger#log()}
    */
   @Test
-  public void testLog_givenProfileSessionGetNameReturnName_thenCallsAddCommandExecution() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ConsoleLogger.log()"})
+  public void testLog_givenProfileSessionGetNameReturnName_thenCallsCalculateSummaryStatistics() {
     // Arrange
     ProfileSession profileSession = mock(ProfileSession.class);
     when(profileSession.getName()).thenReturn("Name");
@@ -92,45 +97,23 @@ public class ConsoleLoggerDiffblueTest {
         .thenReturn(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     when(profileSession.calculateSummaryStatistics()).thenReturn(new HashMap<>());
     when(profileSession.getTotalTime()).thenReturn(1L);
-    doNothing().when(profileSession).addCommandExecution(Mockito.<String>any(), Mockito.<CommandExecutionResult>any());
-    profileSession.addCommandExecution("Class Fqn", new CommandExecutionResult());
+    doNothing().when(profileSession).setCommandExecutions(Mockito.<Map<String, List<CommandExecutionResult>>>any());
+    profileSession.setCommandExecutions(new HashMap<>());
 
-    ArrayList<ProfileSession> profileSessionList = new ArrayList<>();
-    profileSessionList.add(0, profileSession);
-    ActivitiProfiler profiler = mock(ActivitiProfiler.class);
-    when(profiler.getProfileSessions()).thenReturn(profileSessionList);
+    ArrayList<ProfileSession> profileSessions = new ArrayList<>();
+    profileSessions.add(profileSession);
+    ActivitiProfiler profiler = ActivitiProfiler.getInstance();
+    profiler.setProfileSessions(profileSessions);
 
     // Act
     (new ConsoleLogger(profiler)).log();
 
-    // Assert that nothing has changed
-    verify(profiler).getProfileSessions();
-    verify(profileSession).addCommandExecution(eq("Class Fqn"), isA(CommandExecutionResult.class));
+    // Assert
     verify(profileSession).calculateSummaryStatistics();
     verify(profileSession).getEndTime();
     verify(profileSession).getName();
     verify(profileSession).getStartTime();
     verify(profileSession).getTotalTime();
-  }
-
-  /**
-   * Test {@link ConsoleLogger#log()}.
-   * <ul>
-   *   <li>Then calls {@link ActivitiProfiler#getProfileSessions()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ConsoleLogger#log()}
-   */
-  @Test
-  public void testLog_thenCallsGetProfileSessions() {
-    // Arrange
-    ActivitiProfiler profiler = mock(ActivitiProfiler.class);
-    when(profiler.getProfileSessions()).thenReturn(new ArrayList<>());
-
-    // Act
-    (new ConsoleLogger(profiler)).log();
-
-    // Assert that nothing has changed
-    verify(profiler).getProfileSessions();
+    verify(profileSession).setCommandExecutions(isA(Map.class));
   }
 }

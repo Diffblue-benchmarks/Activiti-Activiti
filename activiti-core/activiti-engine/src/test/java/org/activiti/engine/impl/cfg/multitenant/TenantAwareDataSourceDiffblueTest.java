@@ -22,6 +22,8 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.SQLException;
@@ -34,6 +36,7 @@ import org.activiti.engine.ActivitiException;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.activiti.engine.test.cfg.multitenant.DummyTenantInfoHolder;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -59,6 +62,10 @@ public class TenantAwareDataSourceDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TenantAwareDataSource.<init>(TenantInfoHolder)",
+      "Map TenantAwareDataSource.getDataSources()", "int TenantAwareDataSource.getLoginTimeout()",
+      "void TenantAwareDataSource.setDataSources(Map)"})
   public void testGettersAndSetters() throws SQLException {
     // Arrange and Act
     TenantAwareDataSource actualTenantAwareDataSource = new TenantAwareDataSource(new DummyTenantInfoHolder());
@@ -66,7 +73,7 @@ public class TenantAwareDataSourceDiffblueTest {
     actualTenantAwareDataSource.setDataSources(dataSources);
     Map<Object, DataSource> actualDataSources = actualTenantAwareDataSource.getDataSources();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals(0, actualTenantAwareDataSource.getLoginTimeout());
     assertTrue(actualDataSources.isEmpty());
     assertSame(dataSources, actualDataSources);
@@ -75,10 +82,11 @@ public class TenantAwareDataSourceDiffblueTest {
   /**
    * Test {@link TenantAwareDataSource#addDataSource(Object, DataSource)}.
    * <p>
-   * Method under test:
-   * {@link TenantAwareDataSource#addDataSource(Object, DataSource)}
+   * Method under test: {@link TenantAwareDataSource#addDataSource(Object, DataSource)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TenantAwareDataSource.addDataSource(Object, DataSource)"})
   public void testAddDataSource() {
     // Arrange
     TenantAwareDataSource tenantAwareDataSource = new TenantAwareDataSource(new DummyTenantInfoHolder());
@@ -91,48 +99,13 @@ public class TenantAwareDataSourceDiffblueTest {
   }
 
   /**
-   * Test {@link TenantAwareDataSource#removeDataSource(Object)}.
+   * Test {@link TenantAwareDataSource#getConnection(String, String)} with {@code String}, {@code String}.
    * <p>
-   * Method under test: {@link TenantAwareDataSource#removeDataSource(Object)}
+   * Method under test: {@link TenantAwareDataSource#getConnection(String, String)}
    */
   @Test
-  public void testRemoveDataSource() {
-    // Arrange
-    TenantAwareDataSource tenantAwareDataSource = new TenantAwareDataSource(new DummyTenantInfoHolder());
-
-    // Act
-    tenantAwareDataSource.removeDataSource(JSONObject.NULL);
-
-    // Assert
-    assertTrue(tenantAwareDataSource.getDataSources().isEmpty());
-  }
-
-  /**
-   * Test {@link TenantAwareDataSource#removeDataSource(Object)}.
-   * <p>
-   * Method under test: {@link TenantAwareDataSource#removeDataSource(Object)}
-   */
-  @Test
-  public void testRemoveDataSource2() {
-    // Arrange
-    TenantAwareDataSource tenantAwareDataSource = new TenantAwareDataSource(new DummyTenantInfoHolder());
-    tenantAwareDataSource.addDataSource(JSONObject.NULL, mock(DataSource.class));
-
-    // Act
-    tenantAwareDataSource.removeDataSource(JSONObject.NULL);
-
-    // Assert
-    assertTrue(tenantAwareDataSource.getDataSources().isEmpty());
-  }
-
-  /**
-   * Test {@link TenantAwareDataSource#getConnection(String, String)} with
-   * {@code String}, {@code String}.
-   * <p>
-   * Method under test:
-   * {@link TenantAwareDataSource#getConnection(String, String)}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.sql.Connection TenantAwareDataSource.getConnection(String, String)"})
   public void testGetConnectionWithStringString() throws SQLException {
     // Arrange
     when(tenantInfoHolder.getCurrentTenantId()).thenReturn("42");
@@ -143,13 +116,13 @@ public class TenantAwareDataSourceDiffblueTest {
   }
 
   /**
-   * Test {@link TenantAwareDataSource#getConnection(String, String)} with
-   * {@code String}, {@code String}.
+   * Test {@link TenantAwareDataSource#getConnection(String, String)} with {@code String}, {@code String}.
    * <p>
-   * Method under test:
-   * {@link TenantAwareDataSource#getConnection(String, String)}
+   * Method under test: {@link TenantAwareDataSource#getConnection(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.sql.Connection TenantAwareDataSource.getConnection(String, String)"})
   public void testGetConnectionWithStringString2() throws SQLException {
     // Arrange
     when(tenantInfoHolder.getCurrentTenantId()).thenThrow(new ActivitiException("An error occurred"));
@@ -168,6 +141,8 @@ public class TenantAwareDataSourceDiffblueTest {
    * Method under test: {@link TenantAwareDataSource#getConnection()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.sql.Connection TenantAwareDataSource.getConnection()"})
   public void testGetConnection_thenThrowActivitiException() throws SQLException {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class,
@@ -183,6 +158,8 @@ public class TenantAwareDataSourceDiffblueTest {
    * Method under test: {@link TenantAwareDataSource#getCurrentDataSource()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DataSource TenantAwareDataSource.getCurrentDataSource()"})
   public void testGetCurrentDataSource_thenThrowActivitiException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class,
@@ -195,27 +172,11 @@ public class TenantAwareDataSourceDiffblueTest {
    * Method under test: {@link TenantAwareDataSource#getParentLogger()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Logger TenantAwareDataSource.getParentLogger()"})
   public void testGetParentLogger() throws SQLFeatureNotSupportedException {
     // Arrange and Act
     Logger actualParentLogger = (new TenantAwareDataSource(new DummyTenantInfoHolder())).getParentLogger();
-
-    // Assert
-    assertSame(actualParentLogger.global, actualParentLogger);
-  }
-
-  /**
-   * Test {@link TenantAwareDataSource#getParentLogger()}.
-   * <p>
-   * Method under test: {@link TenantAwareDataSource#getParentLogger()}
-   */
-  @Test
-  public void testGetParentLogger2() throws SQLFeatureNotSupportedException {
-    // Arrange
-    TenantAwareDataSource tenantAwareDataSource = new TenantAwareDataSource(new DummyTenantInfoHolder());
-    tenantAwareDataSource.addDataSource(JSONObject.NULL, mock(DataSource.class));
-
-    // Act
-    Logger actualParentLogger = tenantAwareDataSource.getParentLogger();
 
     // Assert
     assertSame(actualParentLogger.global, actualParentLogger);
@@ -227,6 +188,8 @@ public class TenantAwareDataSourceDiffblueTest {
    * Method under test: {@link TenantAwareDataSource#unwrap(Class)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object TenantAwareDataSource.unwrap(Class)"})
   public void testUnwrap() throws SQLException {
     // Arrange
     TenantAwareDataSource tenantAwareDataSource = new TenantAwareDataSource(new DummyTenantInfoHolder());
@@ -237,47 +200,18 @@ public class TenantAwareDataSourceDiffblueTest {
   }
 
   /**
-   * Test {@link TenantAwareDataSource#unwrap(Class)}.
-   * <p>
-   * Method under test: {@link TenantAwareDataSource#unwrap(Class)}
-   */
-  @Test
-  public void testUnwrap2() throws SQLException {
-    // Arrange
-    TenantAwareDataSource tenantAwareDataSource = new TenantAwareDataSource(new DummyTenantInfoHolder());
-    tenantAwareDataSource.addDataSource(JSONObject.NULL, mock(DataSource.class));
-    Class<Object> iface = Object.class;
-
-    // Act and Assert
-    assertSame(tenantAwareDataSource, tenantAwareDataSource.unwrap(iface));
-  }
-
-  /**
-   * Test {@link TenantAwareDataSource#isWrapperFor(Class)}.
-   * <p>
-   * Method under test: {@link TenantAwareDataSource#isWrapperFor(Class)}
-   */
-  @Test
-  public void testIsWrapperFor() throws SQLException {
-    // Arrange
-    TenantAwareDataSource tenantAwareDataSource = new TenantAwareDataSource(new DummyTenantInfoHolder());
-    tenantAwareDataSource.addDataSource(JSONObject.NULL, mock(DataSource.class));
-    Class<Object> iface = Object.class;
-
-    // Act and Assert
-    assertTrue(tenantAwareDataSource.isWrapperFor(iface));
-  }
-
-  /**
    * Test {@link TenantAwareDataSource#isWrapperFor(Class)}.
    * <ul>
+   *   <li>When {@code Object}.</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link TenantAwareDataSource#isWrapperFor(Class)}
    */
   @Test
-  public void testIsWrapperFor_thenReturnTrue() throws SQLException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean TenantAwareDataSource.isWrapperFor(Class)"})
+  public void testIsWrapperFor_whenJavaLangObject_thenReturnTrue() throws SQLException {
     // Arrange
     TenantAwareDataSource tenantAwareDataSource = new TenantAwareDataSource(new DummyTenantInfoHolder());
     Class<Object> iface = Object.class;
@@ -292,6 +226,8 @@ public class TenantAwareDataSourceDiffblueTest {
    * Method under test: {@link TenantAwareDataSource#getLogWriter()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"PrintWriter TenantAwareDataSource.getLogWriter()"})
   public void testGetLogWriter() throws SQLException {
     // Arrange, Act and Assert
     assertThrows(UnsupportedOperationException.class,
@@ -304,6 +240,8 @@ public class TenantAwareDataSourceDiffblueTest {
    * Method under test: {@link TenantAwareDataSource#setLogWriter(PrintWriter)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TenantAwareDataSource.setLogWriter(PrintWriter)"})
   public void testSetLogWriter() throws SQLException {
     // Arrange
     TenantAwareDataSource tenantAwareDataSource = new TenantAwareDataSource(new DummyTenantInfoHolder());
@@ -319,6 +257,8 @@ public class TenantAwareDataSourceDiffblueTest {
    * Method under test: {@link TenantAwareDataSource#setLoginTimeout(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TenantAwareDataSource.setLoginTimeout(int)"})
   public void testSetLoginTimeout() throws SQLException {
     // Arrange, Act and Assert
     assertThrows(UnsupportedOperationException.class,

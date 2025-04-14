@@ -18,34 +18,37 @@ package org.activiti.runtime.api.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.mockito.Mockito.mock;
-import java.sql.Date;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.task.model.Task;
+import org.activiti.api.task.model.Task.TaskStatus;
 import org.activiti.api.task.model.events.TaskRuntimeEvent;
+import org.activiti.api.task.model.events.TaskRuntimeEvent.TaskEvents;
 import org.activiti.api.task.model.impl.TaskImpl;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class TaskCancelledImplDiffblueTest {
   /**
    * Test {@link TaskCancelledImpl#TaskCancelledImpl(Task, String)}.
-   * <ul>
-   *   <li>Given {@link Date}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link TaskCancelledImpl#TaskCancelledImpl(Task, String)}
    */
   @Test
-  @DisplayName("Test new TaskCancelledImpl(Task, String); given Date")
-  void testNewTaskCancelledImpl_givenDate() {
+  @DisplayName("Test new TaskCancelledImpl(Task, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskCancelledImpl.<init>(Task, String)"})
+  void testNewTaskCancelledImpl() {
     // Arrange
-    TaskImpl entity = new TaskImpl("42", "Name", Task.TaskStatus.CREATED);
-    entity.setCreatedDate(mock(Date.class));
+    TaskImpl entity = new TaskImpl("42", "Name", TaskStatus.CREATED);
 
     // Act
     TaskCancelledImpl actualTaskCancelledImpl = new TaskCancelledImpl(entity, "Just cause");
 
     // Assert
+    Task entity2 = actualTaskCancelledImpl.getEntity();
+    assertTrue(entity2 instanceof TaskImpl);
     assertEquals("Just cause", actualTaskCancelledImpl.getReason());
     assertNull(actualTaskCancelledImpl.getProcessDefinitionVersion());
     assertNull(actualTaskCancelledImpl.getBusinessKey());
@@ -53,38 +56,8 @@ class TaskCancelledImplDiffblueTest {
     assertNull(actualTaskCancelledImpl.getProcessDefinitionId());
     assertNull(actualTaskCancelledImpl.getProcessDefinitionKey());
     assertNull(actualTaskCancelledImpl.getProcessInstanceId());
-    assertEquals(TaskRuntimeEvent.TaskEvents.TASK_CANCELLED, actualTaskCancelledImpl.getEventType());
-    assertSame(entity, actualTaskCancelledImpl.getEntity());
-  }
-
-  /**
-   * Test {@link TaskCancelledImpl#TaskCancelledImpl(Task, String)}.
-   * <ul>
-   *   <li>When {@link TaskImpl#TaskImpl(String, String, TaskStatus)} with id is
-   * {@code 42} and {@code Name} and status is {@code CREATED}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TaskCancelledImpl#TaskCancelledImpl(Task, String)}
-   */
-  @Test
-  @DisplayName("Test new TaskCancelledImpl(Task, String); when TaskImpl(String, String, TaskStatus) with id is '42' and 'Name' and status is 'CREATED'")
-  void testNewTaskCancelledImpl_whenTaskImplWithIdIs42AndNameAndStatusIsCreated() {
-    // Arrange
-    TaskImpl entity = new TaskImpl("42", "Name", Task.TaskStatus.CREATED);
-
-    // Act
-    TaskCancelledImpl actualTaskCancelledImpl = new TaskCancelledImpl(entity, "Just cause");
-
-    // Assert
-    assertEquals("Just cause", actualTaskCancelledImpl.getReason());
-    assertNull(actualTaskCancelledImpl.getProcessDefinitionVersion());
-    assertNull(actualTaskCancelledImpl.getBusinessKey());
-    assertNull(actualTaskCancelledImpl.getParentProcessInstanceId());
-    assertNull(actualTaskCancelledImpl.getProcessDefinitionId());
-    assertNull(actualTaskCancelledImpl.getProcessDefinitionKey());
-    assertNull(actualTaskCancelledImpl.getProcessInstanceId());
-    assertEquals(TaskRuntimeEvent.TaskEvents.TASK_CANCELLED, actualTaskCancelledImpl.getEventType());
-    assertSame(entity, actualTaskCancelledImpl.getEntity());
+    assertEquals(TaskEvents.TASK_CANCELLED, actualTaskCancelledImpl.getEventType());
+    assertSame(entity, entity2);
   }
 
   /**
@@ -94,31 +67,12 @@ class TaskCancelledImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getEventType()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"TaskRuntimeEvent.TaskEvents TaskCancelledImpl.getEventType()"})
   void testGetEventType() {
-    // Arrange
-    TaskImpl entity = new TaskImpl("42", "Name", Task.TaskStatus.CREATED);
-    entity.setCreatedDate(mock(Date.class));
-
-    // Act and Assert
-    assertEquals(TaskRuntimeEvent.TaskEvents.TASK_CANCELLED,
-        (new TaskCancelledImpl(entity, "Just cause")).getEventType());
-  }
-
-  /**
-   * Test {@link TaskCancelledImpl#getEventType()}.
-   * <ul>
-   *   <li>Given {@link TaskImpl#TaskImpl(String, String, TaskStatus)} with id is
-   * {@code 42} and {@code Name} and status is {@code CREATED}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TaskCancelledImpl#getEventType()}
-   */
-  @Test
-  @DisplayName("Test getEventType(); given TaskImpl(String, String, TaskStatus) with id is '42' and 'Name' and status is 'CREATED'")
-  void testGetEventType_givenTaskImplWithIdIs42AndNameAndStatusIsCreated() {
     // Arrange, Act and Assert
-    assertEquals(TaskRuntimeEvent.TaskEvents.TASK_CANCELLED,
-        (new TaskCancelledImpl(new TaskImpl("42", "Name", Task.TaskStatus.CREATED), "Just cause")).getEventType());
+    assertEquals(TaskEvents.TASK_CANCELLED,
+        (new TaskCancelledImpl(new TaskImpl("42", "Name", TaskStatus.CREATED), "Just cause")).getEventType());
   }
 
   /**
@@ -128,9 +82,11 @@ class TaskCancelledImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getReason()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String TaskCancelledImpl.getReason()"})
   void testGetReason() {
     // Arrange, Act and Assert
     assertEquals("Just cause",
-        (new TaskCancelledImpl(new TaskImpl("42", "Name", Task.TaskStatus.CREATED), "Just cause")).getReason());
+        (new TaskCancelledImpl(new TaskImpl("42", "Name", TaskStatus.CREATED), "Just cause")).getReason());
   }
 }

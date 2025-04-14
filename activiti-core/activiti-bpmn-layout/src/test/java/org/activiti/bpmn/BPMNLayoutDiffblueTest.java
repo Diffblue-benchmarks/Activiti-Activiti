@@ -28,6 +28,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
 import com.mxgraph.model.mxGraphModel;
@@ -39,7 +40,6 @@ import com.mxgraph.util.mxRectangle;
 import com.mxgraph.view.mxCellState;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxGraphView;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -48,114 +48,21 @@ import org.activiti.bpmn.BPMNLayout.Polyline;
 import org.activiti.bpmn.BPMNLayout.TreeNode;
 import org.activiti.bpmn.model.BpmnModel;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class BPMNLayoutDiffblueTest {
   /**
    * Test {@link BPMNLayout#BPMNLayout(mxGraph)}.
-   * <ul>
-   *   <li>Given {@link PropertyChangeListener}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link BPMNLayout#BPMNLayout(mxGraph)}
    */
   @Test
-  @DisplayName("Test new BPMNLayout(mxGraph); given PropertyChangeListener")
-  void testNewBPMNLayout_givenPropertyChangeListener() {
-    // Arrange
-    mxGraph graph = new mxGraph();
-    graph.addPropertyChangeListener(mock(PropertyChangeListener.class));
-
-    // Act
-    BPMNLayout actualBpmnLayout = new BPMNLayout(graph);
-
-    // Assert
-    assertNull(actualBpmnLayout.bpmnAutoLayout);
-    assertEquals(20, actualBpmnLayout.getNodeDistance());
-    assertEquals(40, actualBpmnLayout.getLevelDistance());
-    assertFalse(actualBpmnLayout.isUseBoundingBox());
-    assertFalse(actualBpmnLayout.isInvert());
-    assertTrue(actualBpmnLayout.isHorizontal());
-    assertTrue(actualBpmnLayout.isMoveTree());
-    assertTrue(actualBpmnLayout.isResetEdges());
-    assertTrue(actualBpmnLayout.isResizeParent());
-    assertSame(graph, actualBpmnLayout.getGraph());
-  }
-
-  /**
-   * Test {@link BPMNLayout#BPMNLayout(mxGraph, boolean)}.
-   * <ul>
-   *   <li>Given {@link PropertyChangeListener}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BPMNLayout#BPMNLayout(mxGraph, boolean)}
-   */
-  @Test
-  @DisplayName("Test new BPMNLayout(mxGraph, boolean); given PropertyChangeListener")
-  void testNewBPMNLayout_givenPropertyChangeListener2() {
-    // Arrange
-    mxGraph graph = new mxGraph();
-    graph.addPropertyChangeListener(mock(PropertyChangeListener.class));
-
-    // Act
-    BPMNLayout actualBpmnLayout = new BPMNLayout(graph, true);
-
-    // Assert
-    assertNull(actualBpmnLayout.bpmnAutoLayout);
-    assertEquals(20, actualBpmnLayout.getNodeDistance());
-    assertEquals(40, actualBpmnLayout.getLevelDistance());
-    assertFalse(actualBpmnLayout.isUseBoundingBox());
-    assertFalse(actualBpmnLayout.isInvert());
-    assertTrue(actualBpmnLayout.isHorizontal());
-    assertTrue(actualBpmnLayout.isMoveTree());
-    assertTrue(actualBpmnLayout.isResetEdges());
-    assertTrue(actualBpmnLayout.isResizeParent());
-    assertSame(graph, actualBpmnLayout.getGraph());
-  }
-
-  /**
-   * Test {@link BPMNLayout#BPMNLayout(mxGraph, boolean, boolean)}.
-   * <ul>
-   *   <li>Given {@link PropertyChangeListener}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BPMNLayout#BPMNLayout(mxGraph, boolean, boolean)}
-   */
-  @Test
-  @DisplayName("Test new BPMNLayout(mxGraph, boolean, boolean); given PropertyChangeListener")
-  void testNewBPMNLayout_givenPropertyChangeListener3() {
-    // Arrange
-    mxGraph graph = new mxGraph();
-    graph.addPropertyChangeListener(mock(PropertyChangeListener.class));
-
-    // Act
-    BPMNLayout actualBpmnLayout = new BPMNLayout(graph, true, true);
-
-    // Assert
-    assertNull(actualBpmnLayout.bpmnAutoLayout);
-    assertEquals(20, actualBpmnLayout.getNodeDistance());
-    assertEquals(40, actualBpmnLayout.getLevelDistance());
-    assertFalse(actualBpmnLayout.isUseBoundingBox());
-    assertTrue(actualBpmnLayout.isHorizontal());
-    assertTrue(actualBpmnLayout.isInvert());
-    assertTrue(actualBpmnLayout.isMoveTree());
-    assertTrue(actualBpmnLayout.isResetEdges());
-    assertTrue(actualBpmnLayout.isResizeParent());
-    assertSame(graph, actualBpmnLayout.getGraph());
-  }
-
-  /**
-   * Test {@link BPMNLayout#BPMNLayout(mxGraph)}.
-   * <ul>
-   *   <li>When {@link mxGraph#mxGraph()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BPMNLayout#BPMNLayout(mxGraph)}
-   */
-  @Test
-  @DisplayName("Test new BPMNLayout(mxGraph); when mxGraph()")
-  void testNewBPMNLayout_whenMxGraph() {
+  @DisplayName("Test new BPMNLayout(mxGraph)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNLayout.<init>(mxGraph)"})
+  void testNewBPMNLayout() {
     // Arrange
     mxGraph graph = new mxGraph();
 
@@ -177,15 +84,14 @@ class BPMNLayoutDiffblueTest {
 
   /**
    * Test {@link BPMNLayout#BPMNLayout(mxGraph, boolean)}.
-   * <ul>
-   *   <li>When {@link mxGraph#mxGraph()}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link BPMNLayout#BPMNLayout(mxGraph, boolean)}
    */
   @Test
-  @DisplayName("Test new BPMNLayout(mxGraph, boolean); when mxGraph()")
-  void testNewBPMNLayout_whenMxGraph2() {
+  @DisplayName("Test new BPMNLayout(mxGraph, boolean)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNLayout.<init>(mxGraph, boolean)"})
+  void testNewBPMNLayout2() {
     // Arrange
     mxGraph graph = new mxGraph();
 
@@ -207,15 +113,14 @@ class BPMNLayoutDiffblueTest {
 
   /**
    * Test {@link BPMNLayout#BPMNLayout(mxGraph, boolean, boolean)}.
-   * <ul>
-   *   <li>When {@link mxGraph#mxGraph()}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link BPMNLayout#BPMNLayout(mxGraph, boolean, boolean)}
    */
   @Test
-  @DisplayName("Test new BPMNLayout(mxGraph, boolean, boolean); when mxGraph()")
-  void testNewBPMNLayout_whenMxGraph3() {
+  @DisplayName("Test new BPMNLayout(mxGraph, boolean, boolean)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNLayout.<init>(mxGraph, boolean, boolean)"})
+  void testNewBPMNLayout3() {
     // Arrange
     mxGraph graph = new mxGraph();
 
@@ -260,6 +165,14 @@ class BPMNLayoutDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"mxGraph BPMNLayout.getGraph()", "int BPMNLayout.getLevelDistance()",
+      "int BPMNLayout.getNodeDistance()", "boolean BPMNLayout.isHorizontal()", "boolean BPMNLayout.isInvert()",
+      "boolean BPMNLayout.isMoveTree()", "boolean BPMNLayout.isResetEdges()", "boolean BPMNLayout.isResizeParent()",
+      "void BPMNLayout.setBpmnAutoLayout(BpmnAutoLayout)", "void BPMNLayout.setHorizontal(boolean)",
+      "void BPMNLayout.setInvert(boolean)", "void BPMNLayout.setLevelDistance(int)",
+      "void BPMNLayout.setMoveTree(boolean)", "void BPMNLayout.setNodeDistance(int)",
+      "void BPMNLayout.setResetEdges(boolean)", "void BPMNLayout.setResizeParent(boolean)"})
   void testGettersAndSetters() {
     // Arrange
     mxGraph graph = new mxGraph();
@@ -282,7 +195,7 @@ class BPMNLayoutDiffblueTest {
     boolean actualIsMoveTreeResult = bpmnLayout.isMoveTree();
     boolean actualIsResetEdgesResult = bpmnLayout.isResetEdges();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals(1, actualLevelDistance);
     assertEquals(1, actualNodeDistance);
     assertTrue(actualIsHorizontalResult);
@@ -296,8 +209,7 @@ class BPMNLayoutDiffblueTest {
   /**
    * Test {@link BPMNLayout#isVertexIgnored(Object)}.
    * <ul>
-   *   <li>Given {@link BPMNLayout#BPMNLayout(mxGraph)} with graph is
-   * {@link mxGraph#mxGraph()}.</li>
+   *   <li>Given {@link BPMNLayout#BPMNLayout(mxGraph)} with graph is {@link mxGraph#mxGraph()}.</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
@@ -305,36 +217,17 @@ class BPMNLayoutDiffblueTest {
    */
   @Test
   @DisplayName("Test isVertexIgnored(Object); given BPMNLayout(mxGraph) with graph is mxGraph(); then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BPMNLayout.isVertexIgnored(Object)"})
   void testIsVertexIgnored_givenBPMNLayoutWithGraphIsMxGraph_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue((new BPMNLayout(new mxGraph())).isVertexIgnored("Vertex"));
   }
 
   /**
-   * Test {@link BPMNLayout#isVertexIgnored(Object)}.
-   * <ul>
-   *   <li>Given {@link mxGraph#mxGraph()} addPropertyChangeListener
-   * {@link PropertyChangeListener}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BPMNLayout#isVertexIgnored(Object)}
-   */
-  @Test
-  @DisplayName("Test isVertexIgnored(Object); given mxGraph() addPropertyChangeListener PropertyChangeListener")
-  void testIsVertexIgnored_givenMxGraphAddPropertyChangeListenerPropertyChangeListener() {
-    // Arrange
-    mxGraph graph = new mxGraph();
-    graph.addPropertyChangeListener(mock(PropertyChangeListener.class));
-
-    // Act and Assert
-    assertTrue((new BPMNLayout(graph)).isVertexIgnored("Vertex"));
-  }
-
-  /**
    * Test {@link BPMNLayout#execute(Object)}.
    * <ul>
-   *   <li>Given {@link mxGraph} {@link mxGraph#getModel()} return
-   * {@link mxGraphModel#mxGraphModel()}.</li>
+   *   <li>Given {@link mxGraph} {@link mxGraph#getModel()} return {@link mxGraphModel#mxGraphModel()}.</li>
    *   <li>Then calls {@link mxGraph#findTreeRoots(Object, boolean, boolean)}.</li>
    * </ul>
    * <p>
@@ -342,6 +235,8 @@ class BPMNLayoutDiffblueTest {
    */
   @Test
   @DisplayName("Test execute(Object); given mxGraph getModel() return mxGraphModel(); then calls findTreeRoots(Object, boolean, boolean)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNLayout.execute(Object)"})
   void testExecute_givenMxGraphGetModelReturnMxGraphModel_thenCallsFindTreeRoots() {
     // Arrange
     mxGraph graph = mock(mxGraph.class);
@@ -351,7 +246,7 @@ class BPMNLayoutDiffblueTest {
     // Act
     (new BPMNLayout(graph)).execute("Parent");
 
-    // Assert that nothing has changed
+    // Assert
     verify(graph).findTreeRoots(isA(Object.class), eq(true), eq(false));
     verify(graph).getModel();
   }
@@ -359,8 +254,7 @@ class BPMNLayoutDiffblueTest {
   /**
    * Test {@link BPMNLayout#execute(Object)}.
    * <ul>
-   *   <li>Given {@link mxGraph} {@link mxGraph#getModel()} return
-   * {@link mxGraphModel#mxGraphModel()}.</li>
+   *   <li>Given {@link mxGraph} {@link mxGraph#getModel()} return {@link mxGraphModel#mxGraphModel()}.</li>
    *   <li>Then calls {@link mxGraph#findTreeRoots(Object, boolean, boolean)}.</li>
    * </ul>
    * <p>
@@ -368,6 +262,8 @@ class BPMNLayoutDiffblueTest {
    */
   @Test
   @DisplayName("Test execute(Object); given mxGraph getModel() return mxGraphModel(); then calls findTreeRoots(Object, boolean, boolean)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNLayout.execute(Object)"})
   void testExecute_givenMxGraphGetModelReturnMxGraphModel_thenCallsFindTreeRoots2() {
     // Arrange
     ArrayList<Object> objectList = new ArrayList<>();
@@ -387,15 +283,15 @@ class BPMNLayoutDiffblueTest {
   /**
    * Test {@link BPMNLayout#execute(Object)}.
    * <ul>
-   *   <li>Given {@link mxGraph} {@link mxGraph#getView()} return
-   * {@link mxGraphView#mxGraphView(mxGraph)} with graph is
-   * {@link mxGraph#mxGraph()}.</li>
+   *   <li>Given {@link mxGraph} {@link mxGraph#getView()} return {@link mxGraphView#mxGraphView(mxGraph)} with graph is {@link mxGraph#mxGraph()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BPMNLayout#execute(Object)}
    */
   @Test
   @DisplayName("Test execute(Object); given mxGraph getView() return mxGraphView(mxGraph) with graph is mxGraph()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNLayout.execute(Object)"})
   void testExecute_givenMxGraphGetViewReturnMxGraphViewWithGraphIsMxGraph() {
     // Arrange
     mxIGraphModel mxIGraphModel = mock(mxIGraphModel.class);
@@ -456,14 +352,15 @@ class BPMNLayoutDiffblueTest {
   /**
    * Test {@link BPMNLayout#execute(Object)}.
    * <ul>
-   *   <li>Given {@link mxGraph} {@link mxGraph#getView()} return
-   * {@link mxGraphView#mxGraphView(mxGraph)} with graph is {@link mxGraph}.</li>
+   *   <li>Given {@link mxGraph} {@link mxGraph#getView()} return {@link mxGraphView#mxGraphView(mxGraph)} with graph is {@link mxGraph}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BPMNLayout#execute(Object)}
    */
   @Test
   @DisplayName("Test execute(Object); given mxGraph getView() return mxGraphView(mxGraph) with graph is mxGraph")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNLayout.execute(Object)"})
   void testExecute_givenMxGraphGetViewReturnMxGraphViewWithGraphIsMxGraph2() {
     // Arrange
     mxIGraphModel mxIGraphModel = mock(mxIGraphModel.class);
@@ -528,8 +425,7 @@ class BPMNLayoutDiffblueTest {
   /**
    * Test {@link BPMNLayout#execute(Object)}.
    * <ul>
-   *   <li>Given {@link mxGraph} {@link mxGraph#isCellCollapsed(Object)} return
-   * {@code false}.</li>
+   *   <li>Given {@link mxGraph} {@link mxGraph#isCellCollapsed(Object)} return {@code false}.</li>
    *   <li>Then calls {@link mxIGraphModel#getGeometry(Object)}.</li>
    * </ul>
    * <p>
@@ -537,6 +433,8 @@ class BPMNLayoutDiffblueTest {
    */
   @Test
   @DisplayName("Test execute(Object); given mxGraph isCellCollapsed(Object) return 'false'; then calls getGeometry(Object)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNLayout.execute(Object)"})
   void testExecute_givenMxGraphIsCellCollapsedReturnFalse_thenCallsGetGeometry() {
     // Arrange
     mxIGraphModel mxIGraphModel = mock(mxIGraphModel.class);
@@ -597,8 +495,7 @@ class BPMNLayoutDiffblueTest {
   /**
    * Test {@link BPMNLayout#execute(Object)}.
    * <ul>
-   *   <li>Given {@link mxGraph} {@link mxGraph#isSwimlane(Object)} return
-   * {@code true}.</li>
+   *   <li>Given {@link mxGraph} {@link mxGraph#isSwimlane(Object)} return {@code true}.</li>
    *   <li>Then calls {@link mxIGraphModel#beginUpdate()}.</li>
    * </ul>
    * <p>
@@ -606,6 +503,8 @@ class BPMNLayoutDiffblueTest {
    */
   @Test
   @DisplayName("Test execute(Object); given mxGraph isSwimlane(Object) return 'true'; then calls beginUpdate()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNLayout.execute(Object)"})
   void testExecute_givenMxGraphIsSwimlaneReturnTrue_thenCallsBeginUpdate() {
     // Arrange
     mxIGraphModel mxIGraphModel = mock(mxIGraphModel.class);
@@ -639,18 +538,19 @@ class BPMNLayoutDiffblueTest {
   /**
    * Test {@link BPMNLayout#execute(Object)}.
    * <ul>
-   *   <li>Given {@link mxGraphModel#mxGraphModel()} addListener {@code 42} and
-   * {@link mxIEventListener}.</li>
+   *   <li>Given {@link mxGraphModel#mxGraphModel()} addListener {@code 42} and {@link mxIEventListener}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BPMNLayout#execute(Object)}
    */
   @Test
   @DisplayName("Test execute(Object); given mxGraphModel() addListener '42' and mxIEventListener")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNLayout.execute(Object)"})
   void testExecute_givenMxGraphModelAddListener42AndMxIEventListener() {
     // Arrange
     mxGraphModel mxGraphModel = new mxGraphModel();
-    mxGraphModel.addListener("42", mock(mxEventSource.mxIEventListener.class));
+    mxGraphModel.addListener("42", mock(mxIEventListener.class));
 
     ArrayList<Object> objectList = new ArrayList<>();
     objectList.add("42");
@@ -677,6 +577,8 @@ class BPMNLayoutDiffblueTest {
    */
   @Test
   @DisplayName("Test isBoundaryEvent(Object); given 'boundary-event-'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BPMNLayout.isBoundaryEvent(Object)"})
   void testIsBoundaryEvent_givenBoundaryEvent_thenReturnTrue() {
     // Arrange
     BPMNLayout bpmnLayout = new BPMNLayout(new mxGraph());
@@ -691,26 +593,6 @@ class BPMNLayoutDiffblueTest {
   /**
    * Test {@link BPMNLayout#isBoundaryEvent(Object)}.
    * <ul>
-   *   <li>Given {@link mxGraph#mxGraph()} addPropertyChangeListener
-   * {@link PropertyChangeListener}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BPMNLayout#isBoundaryEvent(Object)}
-   */
-  @Test
-  @DisplayName("Test isBoundaryEvent(Object); given mxGraph() addPropertyChangeListener PropertyChangeListener")
-  void testIsBoundaryEvent_givenMxGraphAddPropertyChangeListenerPropertyChangeListener() {
-    // Arrange
-    mxGraph graph = new mxGraph();
-    graph.addPropertyChangeListener(mock(PropertyChangeListener.class));
-
-    // Act and Assert
-    assertFalse((new BPMNLayout(graph)).isBoundaryEvent("Obj"));
-  }
-
-  /**
-   * Test {@link BPMNLayout#isBoundaryEvent(Object)}.
-   * <ul>
    *   <li>When {@code Obj}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
@@ -719,6 +601,8 @@ class BPMNLayoutDiffblueTest {
    */
   @Test
   @DisplayName("Test isBoundaryEvent(Object); when 'Obj'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BPMNLayout.isBoundaryEvent(Object)"})
   void testIsBoundaryEvent_whenObj_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new BPMNLayout(new mxGraph())).isBoundaryEvent("Obj"));
@@ -727,48 +611,20 @@ class BPMNLayoutDiffblueTest {
   /**
    * Test {@link BPMNLayout#moveNode(TreeNode, double, double)}.
    * <ul>
-   *   <li>Given {@link BPMNLayout#BPMNLayout(mxGraph)} with graph is
-   * {@link mxGraph#mxGraph()}.</li>
-   *   <li>Then {@link TreeNode#TreeNode(Object)} with {@code Cell}
-   * {@link TreeNode#x} is ten.</li>
+   *   <li>Given {@link BPMNLayout#BPMNLayout(mxGraph)} with graph is {@link mxGraph#mxGraph()}.</li>
+   *   <li>Then {@link TreeNode#TreeNode(Object)} with {@code Cell} {@link TreeNode#x} is ten.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BPMNLayout#moveNode(BPMNLayout.TreeNode, double, double)}
+   * Method under test: {@link BPMNLayout#moveNode(TreeNode, double, double)}
    */
   @Test
   @DisplayName("Test moveNode(TreeNode, double, double); given BPMNLayout(mxGraph) with graph is mxGraph(); then TreeNode(Object) with 'Cell' x is ten")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNLayout.moveNode(TreeNode, double, double)"})
   void testMoveNode_givenBPMNLayoutWithGraphIsMxGraph_thenTreeNodeWithCellXIsTen() {
     // Arrange
     BPMNLayout bpmnLayout = new BPMNLayout(new mxGraph());
-    BPMNLayout.TreeNode node = new BPMNLayout.TreeNode("Cell");
-
-    // Act
-    bpmnLayout.moveNode(node, 10.0d, 10.0d);
-
-    // Assert
-    assertEquals(10.0d, node.x);
-    assertEquals(10.0d, node.y);
-  }
-
-  /**
-   * Test {@link BPMNLayout#moveNode(TreeNode, double, double)}.
-   * <ul>
-   *   <li>Given {@link mxGraph#mxGraph()} addPropertyChangeListener
-   * {@link PropertyChangeListener}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link BPMNLayout#moveNode(BPMNLayout.TreeNode, double, double)}
-   */
-  @Test
-  @DisplayName("Test moveNode(TreeNode, double, double); given mxGraph() addPropertyChangeListener PropertyChangeListener")
-  void testMoveNode_givenMxGraphAddPropertyChangeListenerPropertyChangeListener() {
-    // Arrange
-    mxGraph graph = new mxGraph();
-    graph.addPropertyChangeListener(mock(PropertyChangeListener.class));
-    BPMNLayout bpmnLayout = new BPMNLayout(graph);
-    BPMNLayout.TreeNode node = new BPMNLayout.TreeNode("Cell");
+    TreeNode node = new TreeNode("Cell");
 
     // Act
     bpmnLayout.moveNode(node, 10.0d, 10.0d);
@@ -781,8 +637,7 @@ class BPMNLayoutDiffblueTest {
   /**
    * Test {@link BPMNLayout#dfs(Object, Object, Set)}.
    * <ul>
-   *   <li>Given {@link BPMNLayout#BPMNLayout(mxGraph)} with graph is
-   * {@link mxGraph#mxGraph()}.</li>
+   *   <li>Given {@link BPMNLayout#BPMNLayout(mxGraph)} with graph is {@link mxGraph#mxGraph()}.</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
@@ -790,6 +645,8 @@ class BPMNLayoutDiffblueTest {
    */
   @Test
   @DisplayName("Test dfs(Object, Object, Set); given BPMNLayout(mxGraph) with graph is mxGraph(); then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"TreeNode BPMNLayout.dfs(Object, Object, Set)"})
   void testDfs_givenBPMNLayoutWithGraphIsMxGraph_thenReturnNull() {
     // Arrange
     BPMNLayout bpmnLayout = new BPMNLayout(new mxGraph());
@@ -799,88 +656,31 @@ class BPMNLayoutDiffblueTest {
   }
 
   /**
-   * Test {@link BPMNLayout#dfs(Object, Object, Set)}.
-   * <ul>
-   *   <li>Given {@link mxGraph#mxGraph()} addPropertyChangeListener
-   * {@link PropertyChangeListener}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BPMNLayout#dfs(Object, Object, Set)}
-   */
-  @Test
-  @DisplayName("Test dfs(Object, Object, Set); given mxGraph() addPropertyChangeListener PropertyChangeListener")
-  void testDfs_givenMxGraphAddPropertyChangeListenerPropertyChangeListener() {
-    // Arrange
-    mxGraph graph = new mxGraph();
-    graph.addPropertyChangeListener(mock(PropertyChangeListener.class));
-    BPMNLayout bpmnLayout = new BPMNLayout(graph);
-
-    // Act and Assert
-    assertNull(bpmnLayout.dfs("Cell", "Parent", new HashSet<>()));
-  }
-
-  /**
    * Test {@link BPMNLayout#layout(TreeNode)}.
    * <p>
-   * Method under test: {@link BPMNLayout#layout(BPMNLayout.TreeNode)}
+   * Method under test: {@link BPMNLayout#layout(TreeNode)}
    */
   @Test
   @DisplayName("Test layout(TreeNode)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNLayout.layout(TreeNode)"})
   void testLayout() {
     // Arrange
     BPMNLayout bpmnLayout = new BPMNLayout(new mxGraph());
-    BPMNLayout.TreeNode node = new BPMNLayout.TreeNode("Cell");
+    TreeNode node = new TreeNode("Cell");
 
     // Act
     bpmnLayout.layout(node);
 
     // Assert
-    BPMNLayout.Polygon polygon = node.contour;
-    BPMNLayout.Polyline polyline = polygon.lowerTail;
+    Polygon polygon = node.contour;
+    Polyline polyline = polygon.lowerTail;
     assertNull(polyline.next);
-    BPMNLayout.Polyline polyline2 = polygon.upperHead;
+    Polyline polyline2 = polygon.upperHead;
     assertNull(polyline2.next);
     assertEquals(-40.0d, polyline.dy);
     assertEquals(0.0d, polyline.dx);
-    BPMNLayout.Polyline polyline3 = polygon.lowerHead;
-    assertEquals(0.0d, polyline3.dy);
-    assertEquals(0.0d, polyline2.dy);
-    assertEquals(40.0d, polyline3.dx);
-    assertEquals(40.0d, polyline2.dx);
-    assertSame(polyline, polyline3.next);
-    assertSame(polyline2, polygon.upperTail);
-  }
-
-  /**
-   * Test {@link BPMNLayout#layout(TreeNode)}.
-   * <ul>
-   *   <li>Given {@link mxGraph#mxGraph()} addPropertyChangeListener
-   * {@link PropertyChangeListener}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BPMNLayout#layout(BPMNLayout.TreeNode)}
-   */
-  @Test
-  @DisplayName("Test layout(TreeNode); given mxGraph() addPropertyChangeListener PropertyChangeListener")
-  void testLayout_givenMxGraphAddPropertyChangeListenerPropertyChangeListener() {
-    // Arrange
-    mxGraph graph = new mxGraph();
-    graph.addPropertyChangeListener(mock(PropertyChangeListener.class));
-    BPMNLayout bpmnLayout = new BPMNLayout(graph);
-    BPMNLayout.TreeNode node = new BPMNLayout.TreeNode("Cell");
-
-    // Act
-    bpmnLayout.layout(node);
-
-    // Assert
-    BPMNLayout.Polygon polygon = node.contour;
-    BPMNLayout.Polyline polyline = polygon.lowerTail;
-    assertNull(polyline.next);
-    BPMNLayout.Polyline polyline2 = polygon.upperHead;
-    assertNull(polyline2.next);
-    assertEquals(-40.0d, polyline.dy);
-    assertEquals(0.0d, polyline.dx);
-    BPMNLayout.Polyline polyline3 = polygon.lowerHead;
+    Polyline polyline3 = polygon.lowerHead;
     assertEquals(0.0d, polyline3.dy);
     assertEquals(0.0d, polyline2.dy);
     assertEquals(40.0d, polyline3.dx);
@@ -892,27 +692,29 @@ class BPMNLayoutDiffblueTest {
   /**
    * Test {@link BPMNLayout#layoutLeaf(TreeNode)}.
    * <p>
-   * Method under test: {@link BPMNLayout#layoutLeaf(BPMNLayout.TreeNode)}
+   * Method under test: {@link BPMNLayout#layoutLeaf(TreeNode)}
    */
   @Test
   @DisplayName("Test layoutLeaf(TreeNode)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNLayout.layoutLeaf(TreeNode)"})
   void testLayoutLeaf() {
     // Arrange
     BPMNLayout bpmnLayout = new BPMNLayout(new mxGraph());
-    BPMNLayout.TreeNode node = new BPMNLayout.TreeNode("Cell");
+    TreeNode node = new TreeNode("Cell");
 
     // Act
     bpmnLayout.layoutLeaf(node);
 
     // Assert
-    BPMNLayout.Polygon polygon = node.contour;
-    BPMNLayout.Polyline polyline = polygon.lowerTail;
+    Polygon polygon = node.contour;
+    Polyline polyline = polygon.lowerTail;
     assertNull(polyline.next);
-    BPMNLayout.Polyline polyline2 = polygon.upperHead;
+    Polyline polyline2 = polygon.upperHead;
     assertNull(polyline2.next);
     assertEquals(-40.0d, polyline.dy);
     assertEquals(0.0d, polyline.dx);
-    BPMNLayout.Polyline polyline3 = polygon.lowerHead;
+    Polyline polyline3 = polygon.lowerHead;
     assertEquals(0.0d, polyline3.dy);
     assertEquals(0.0d, polyline2.dy);
     assertEquals(40.0d, polyline3.dx);
@@ -922,138 +724,96 @@ class BPMNLayoutDiffblueTest {
   }
 
   /**
-   * Test {@link BPMNLayout#layoutLeaf(TreeNode)}.
-   * <ul>
-   *   <li>Given {@link mxGraph#mxGraph()} addPropertyChangeListener
-   * {@link PropertyChangeListener}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BPMNLayout#layoutLeaf(BPMNLayout.TreeNode)}
-   */
-  @Test
-  @DisplayName("Test layoutLeaf(TreeNode); given mxGraph() addPropertyChangeListener PropertyChangeListener")
-  void testLayoutLeaf_givenMxGraphAddPropertyChangeListenerPropertyChangeListener() {
-    // Arrange
-    mxGraph graph = new mxGraph();
-    graph.addPropertyChangeListener(mock(PropertyChangeListener.class));
-    BPMNLayout bpmnLayout = new BPMNLayout(graph);
-    BPMNLayout.TreeNode node = new BPMNLayout.TreeNode("Cell");
-
-    // Act
-    bpmnLayout.layoutLeaf(node);
-
-    // Assert
-    BPMNLayout.Polygon polygon = node.contour;
-    BPMNLayout.Polyline polyline = polygon.lowerTail;
-    assertNull(polyline.next);
-    BPMNLayout.Polyline polyline2 = polygon.upperHead;
-    assertNull(polyline2.next);
-    assertEquals(-40.0d, polyline.dy);
-    assertEquals(0.0d, polyline.dx);
-    BPMNLayout.Polyline polyline3 = polygon.lowerHead;
-    assertEquals(0.0d, polyline3.dy);
-    assertEquals(0.0d, polyline2.dy);
-    assertEquals(40.0d, polyline3.dx);
-    assertEquals(40.0d, polyline2.dx);
-    assertSame(polyline, polyline3.next);
-    assertSame(polyline2, polygon.upperTail);
-  }
-
-  /**
-   * Test
-   * {@link BPMNLayout#offset(double, double, double, double, double, double)}.
-   * <ul>
-   *   <li>Given {@link mxGraph#mxGraph()} addPropertyChangeListener
-   * {@link PropertyChangeListener}.</li>
-   *   <li>When ten.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link BPMNLayout#offset(double, double, double, double, double, double)}
-   */
-  @Test
-  @DisplayName("Test offset(double, double, double, double, double, double); given mxGraph() addPropertyChangeListener PropertyChangeListener; when ten")
-  void testOffset_givenMxGraphAddPropertyChangeListenerPropertyChangeListener_whenTen() {
-    // Arrange
-    mxGraph graph = new mxGraph();
-    graph.addPropertyChangeListener(mock(PropertyChangeListener.class));
-
-    // Act and Assert
-    assertEquals(0.0d, (new BPMNLayout(graph)).offset(10.0d, 10.0d, 10.0d, 10.0d, 10.0d, 10.0d));
-  }
-
-  /**
-   * Test
-   * {@link BPMNLayout#offset(double, double, double, double, double, double)}.
+   * Test {@link BPMNLayout#offset(double, double, double, double, double, double)}.
    * <ul>
    *   <li>When {@code -1.0E-10}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BPMNLayout#offset(double, double, double, double, double, double)}
+   * Method under test: {@link BPMNLayout#offset(double, double, double, double, double, double)}
    */
   @Test
   @DisplayName("Test offset(double, double, double, double, double, double); when '-1.0E-10'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"double BPMNLayout.offset(double, double, double, double, double, double)"})
   void testOffset_when10e10() {
     // Arrange, Act and Assert
     assertEquals(0.0d, (new BPMNLayout(new mxGraph())).offset(-1.0E-10d, 10.0d, 10.0d, 10.0d, 10.0d, 10.0d));
+  }
+
+  /**
+   * Test {@link BPMNLayout#offset(double, double, double, double, double, double)}.
+   * <ul>
+   *   <li>When {@code 1.0E-10}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BPMNLayout#offset(double, double, double, double, double, double)}
+   */
+  @Test
+  @DisplayName("Test offset(double, double, double, double, double, double); when '1.0E-10'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"double BPMNLayout.offset(double, double, double, double, double, double)"})
+  void testOffset_when10e102() {
+    // Arrange, Act and Assert
     assertEquals(0.0d, (new BPMNLayout(new mxGraph())).offset(1.0E-10d, 10.0d, 10.0d, 10.0d, 10.0d, 10.0d));
   }
 
   /**
-   * Test
-   * {@link BPMNLayout#offset(double, double, double, double, double, double)}.
+   * Test {@link BPMNLayout#offset(double, double, double, double, double, double)}.
    * <ul>
    *   <li>When ten.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BPMNLayout#offset(double, double, double, double, double, double)}
+   * Method under test: {@link BPMNLayout#offset(double, double, double, double, double, double)}
    */
   @Test
   @DisplayName("Test offset(double, double, double, double, double, double); when ten")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"double BPMNLayout.offset(double, double, double, double, double, double)"})
   void testOffset_whenTen() {
     // Arrange, Act and Assert
     assertEquals(0.0d, (new BPMNLayout(new mxGraph())).offset(10.0d, 10.0d, 10.0d, 10.0d, 10.0d, 10.0d));
   }
 
   /**
-   * Test
-   * {@link BPMNLayout#offset(double, double, double, double, double, double)}.
+   * Test {@link BPMNLayout#offset(double, double, double, double, double, double)}.
    * <ul>
    *   <li>When zero.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BPMNLayout#offset(double, double, double, double, double, double)}
+   * Method under test: {@link BPMNLayout#offset(double, double, double, double, double, double)}
    */
   @Test
   @DisplayName("Test offset(double, double, double, double, double, double); when zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"double BPMNLayout.offset(double, double, double, double, double, double)"})
   void testOffset_whenZero() {
     // Arrange, Act and Assert
     assertEquals(0.0d, (new BPMNLayout(new mxGraph())).offset(0.0d, 10.0d, 10.0d, 10.0d, 10.0d, 10.0d));
   }
 
   /**
-   * Test
-   * {@link BPMNLayout#bridge(Polyline, double, double, Polyline, double, double)}.
+   * Test {@link BPMNLayout#bridge(Polyline, double, double, Polyline, double, double)}.
+   * <ul>
+   *   <li>Then {@link Polyline#Polyline(double, double, Polyline)} with dx is ten and dy is ten and next is {@link Polyline} {@link Polyline#next} {@link Polyline#dy} is minus two.</li>
+   * </ul>
    * <p>
-   * Method under test:
-   * {@link BPMNLayout#bridge(BPMNLayout.Polyline, double, double, BPMNLayout.Polyline, double, double)}
+   * Method under test: {@link BPMNLayout#bridge(Polyline, double, double, Polyline, double, double)}
    */
   @Test
-  @DisplayName("Test bridge(Polyline, double, double, Polyline, double, double)")
-  void testBridge() {
+  @DisplayName("Test bridge(Polyline, double, double, Polyline, double, double); then Polyline(double, double, Polyline) with dx is ten and dy is ten and next is Polyline next dy is minus two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Polyline BPMNLayout.bridge(Polyline, double, double, Polyline, double, double)"})
+  void testBridge_thenPolylineWithDxIsTenAndDyIsTenAndNextIsPolylineNextDyIsMinusTwo() {
     // Arrange
     BPMNLayout bpmnLayout = new BPMNLayout(new mxGraph());
-    BPMNLayout.Polyline line1 = new BPMNLayout.Polyline(10.0d, 10.0d, mock(BPMNLayout.Polyline.class));
+    Polyline line1 = new Polyline(10.0d, 10.0d, mock(Polyline.class));
 
     // Act
-    BPMNLayout.Polyline actualBridgeResult = bpmnLayout.bridge(line1, 1.0d, 3.0d,
-        new BPMNLayout.Polyline(10.0d, 10.0d, mock(BPMNLayout.Polyline.class)), 10.0d, 10.0d);
+    Polyline actualBridgeResult = bpmnLayout.bridge(line1, 1.0d, 3.0d, new Polyline(10.0d, 10.0d, mock(Polyline.class)),
+        10.0d, 10.0d);
 
     // Assert
-    BPMNLayout.Polyline polyline = line1.next;
+    Polyline polyline = line1.next;
     assertEquals(-2.0d, polyline.dy);
     assertEquals(0.0d, polyline.dx);
     assertEquals(19.0d, actualBridgeResult.dx);
@@ -1061,10 +821,39 @@ class BPMNLayoutDiffblueTest {
   }
 
   /**
+   * Test {@link BPMNLayout#bridge(Polyline, double, double, Polyline, double, double)}.
+   * <ul>
+   *   <li>When {@link Polyline#Polyline(double, double, Polyline)} with dx is zero and dy is ten and next is {@link Polyline}.</li>
+   *   <li>Then return {@link Polyline#dy} is ten.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BPMNLayout#bridge(Polyline, double, double, Polyline, double, double)}
+   */
+  @Test
+  @DisplayName("Test bridge(Polyline, double, double, Polyline, double, double); when Polyline(double, double, Polyline) with dx is zero and dy is ten and next is Polyline; then return dy is ten")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Polyline BPMNLayout.bridge(Polyline, double, double, Polyline, double, double)"})
+  void testBridge_whenPolylineWithDxIsZeroAndDyIsTenAndNextIsPolyline_thenReturnDyIsTen() {
+    // Arrange
+    BPMNLayout bpmnLayout = new BPMNLayout(new mxGraph());
+    Polyline line1 = new Polyline(10.0d, 10.0d, mock(Polyline.class));
+
+    // Act
+    Polyline actualBridgeResult = bpmnLayout.bridge(line1, 1.0d, 3.0d, new Polyline(0.0d, 10.0d, mock(Polyline.class)),
+        10.0d, 10.0d);
+
+    // Assert
+    Polyline polyline = line1.next;
+    assertEquals(0.0d, polyline.dx);
+    assertEquals(10.0d, actualBridgeResult.dy);
+    assertEquals(7.0d, polyline.dy);
+    assertEquals(9.0d, actualBridgeResult.dx);
+  }
+
+  /**
    * Test {@link BPMNLayout#createNode(Object)}.
    * <ul>
-   *   <li>Given {@link BPMNLayout#BPMNLayout(mxGraph)} with graph is
-   * {@link mxGraph}.</li>
+   *   <li>Given {@link BPMNLayout#BPMNLayout(mxGraph)} with graph is {@link mxGraph}.</li>
    *   <li>Then return {@link TreeNode#height} is ten.</li>
    * </ul>
    * <p>
@@ -1072,6 +861,8 @@ class BPMNLayoutDiffblueTest {
    */
   @Test
   @DisplayName("Test createNode(Object); given BPMNLayout(mxGraph) with graph is mxGraph; then return height is ten")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"TreeNode BPMNLayout.createNode(Object)"})
   void testCreateNode_givenBPMNLayoutWithGraphIsMxGraph_thenReturnHeightIsTen() {
     // Arrange
     mxGeometry mxGeometry = mock(mxGeometry.class);
@@ -1085,7 +876,7 @@ class BPMNLayoutDiffblueTest {
     when(graph.getModel()).thenReturn(mxGraphModel);
 
     // Act
-    BPMNLayout.TreeNode actualCreateNodeResult = (new BPMNLayout(graph)).createNode("Cell");
+    TreeNode actualCreateNodeResult = (new BPMNLayout(graph)).createNode("Cell");
 
     // Assert
     verify(mxGraphModel).getGeometry(isA(Object.class));
@@ -1095,7 +886,7 @@ class BPMNLayoutDiffblueTest {
     verify(mxGeometry).getWidth();
     verify(graph).getModel();
     assertEquals("Cell", actualCreateNodeResult.cell);
-    BPMNLayout.Polygon polygon = actualCreateNodeResult.contour;
+    Polygon polygon = actualCreateNodeResult.contour;
     assertNull(polygon.lowerHead);
     assertNull(polygon.lowerTail);
     assertNull(polygon.upperHead);
@@ -1113,15 +904,15 @@ class BPMNLayoutDiffblueTest {
   /**
    * Test {@link BPMNLayout#createNode(Object)}.
    * <ul>
-   *   <li>Given {@link mxGraph} {@link mxGraph#getView()} return
-   * {@link mxGraphView#mxGraphView(mxGraph)} with graph is
-   * {@link mxGraph#mxGraph()}.</li>
+   *   <li>Given {@link mxGraph} {@link mxGraph#getView()} return {@link mxGraphView#mxGraphView(mxGraph)} with graph is {@link mxGraph#mxGraph()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BPMNLayout#createNode(Object)}
    */
   @Test
   @DisplayName("Test createNode(Object); given mxGraph getView() return mxGraphView(mxGraph) with graph is mxGraph()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"TreeNode BPMNLayout.createNode(Object)"})
   void testCreateNode_givenMxGraphGetViewReturnMxGraphViewWithGraphIsMxGraph() {
     // Arrange
     mxGeometry mxGeometry = mock(mxGeometry.class);
@@ -1139,7 +930,7 @@ class BPMNLayoutDiffblueTest {
     bpmnLayout.setUseBoundingBox(true);
 
     // Act
-    BPMNLayout.TreeNode actualCreateNodeResult = bpmnLayout.createNode("Cell");
+    TreeNode actualCreateNodeResult = bpmnLayout.createNode("Cell");
 
     // Assert
     verify(mxGraphModel).getGeometry(isA(Object.class));
@@ -1150,7 +941,7 @@ class BPMNLayoutDiffblueTest {
     verify(graph).getModel();
     verify(graph).getView();
     assertEquals("Cell", actualCreateNodeResult.cell);
-    BPMNLayout.Polygon polygon = actualCreateNodeResult.contour;
+    Polygon polygon = actualCreateNodeResult.contour;
     assertNull(polygon.lowerHead);
     assertNull(polygon.lowerTail);
     assertNull(polygon.upperHead);
@@ -1176,6 +967,8 @@ class BPMNLayoutDiffblueTest {
    */
   @Test
   @DisplayName("Test createNode(Object); given mxRectangle getX() return two; then calls getBoundingBox()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"TreeNode BPMNLayout.createNode(Object)"})
   void testCreateNode_givenMxRectangleGetXReturnTwo_thenCallsGetBoundingBox() {
     // Arrange
     mxGeometry mxGeometry = mock(mxGeometry.class);
@@ -1207,7 +1000,7 @@ class BPMNLayoutDiffblueTest {
     bpmnLayout.setUseBoundingBox(true);
 
     // Act
-    BPMNLayout.TreeNode actualCreateNodeResult = bpmnLayout.createNode("Cell");
+    TreeNode actualCreateNodeResult = bpmnLayout.createNode("Cell");
 
     // Assert
     verify(mxGraphModel).getGeometry(isA(Object.class));
@@ -1229,7 +1022,7 @@ class BPMNLayoutDiffblueTest {
     verify(mxGraphView).getScale();
     verify(mxGraphView).getState(isA(Object.class));
     assertEquals("Cell", actualCreateNodeResult.cell);
-    BPMNLayout.Polygon polygon = actualCreateNodeResult.contour;
+    Polygon polygon = actualCreateNodeResult.contour;
     assertNull(polygon.lowerHead);
     assertNull(polygon.lowerTail);
     assertNull(polygon.upperHead);
@@ -1254,6 +1047,8 @@ class BPMNLayoutDiffblueTest {
    */
   @Test
   @DisplayName("Test createNode(Object); then return height is nine")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"TreeNode BPMNLayout.createNode(Object)"})
   void testCreateNode_thenReturnHeightIsNine() {
     // Arrange
     mxGeometry mxGeometry = mock(mxGeometry.class);
@@ -1280,7 +1075,7 @@ class BPMNLayoutDiffblueTest {
     bpmnLayout.setUseBoundingBox(true);
 
     // Act
-    BPMNLayout.TreeNode actualCreateNodeResult = bpmnLayout.createNode("Cell");
+    TreeNode actualCreateNodeResult = bpmnLayout.createNode("Cell");
 
     // Assert
     verify(mxGraphModel).getGeometry(isA(Object.class));
@@ -1298,7 +1093,7 @@ class BPMNLayoutDiffblueTest {
     verify(mxGraphView).getScale();
     verify(mxGraphView).getState(isA(Object.class));
     assertEquals("Cell", actualCreateNodeResult.cell);
-    BPMNLayout.Polygon polygon = actualCreateNodeResult.contour;
+    Polygon polygon = actualCreateNodeResult.contour;
     assertNull(polygon.lowerHead);
     assertNull(polygon.lowerTail);
     assertNull(polygon.upperHead);
@@ -1323,6 +1118,8 @@ class BPMNLayoutDiffblueTest {
    */
   @Test
   @DisplayName("Test createNode(Object); then return height is zero")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"TreeNode BPMNLayout.createNode(Object)"})
   void testCreateNode_thenReturnHeightIsZero() {
     // Arrange
     mxGraphModel mxGraphModel = mock(mxGraphModel.class);
@@ -1331,13 +1128,13 @@ class BPMNLayoutDiffblueTest {
     when(graph.getModel()).thenReturn(mxGraphModel);
 
     // Act
-    BPMNLayout.TreeNode actualCreateNodeResult = (new BPMNLayout(graph)).createNode("Cell");
+    TreeNode actualCreateNodeResult = (new BPMNLayout(graph)).createNode("Cell");
 
     // Assert
     verify(mxGraphModel).getGeometry(isA(Object.class));
     verify(graph).getModel();
     assertEquals("Cell", actualCreateNodeResult.cell);
-    BPMNLayout.Polygon polygon = actualCreateNodeResult.contour;
+    Polygon polygon = actualCreateNodeResult.contour;
     assertNull(polygon.lowerHead);
     assertNull(polygon.lowerTail);
     assertNull(polygon.upperHead);
@@ -1355,19 +1152,20 @@ class BPMNLayoutDiffblueTest {
   /**
    * Test {@link BPMNLayout#apply(TreeNode, mxRectangle)}.
    * <ul>
-   *   <li>Given {@link BPMNLayout#BPMNLayout(mxGraph)} with graph is
-   * {@link mxGraph#mxGraph()}.</li>
+   *   <li>Given {@link BPMNLayout#BPMNLayout(mxGraph)} with graph is {@link mxGraph#mxGraph()}.</li>
    *   <li>Then return {@link mxRectangle#mxRectangle()}.</li>
    * </ul>
    * <p>
-   * Method under test: {@link BPMNLayout#apply(BPMNLayout.TreeNode, mxRectangle)}
+   * Method under test: {@link BPMNLayout#apply(TreeNode, mxRectangle)}
    */
   @Test
   @DisplayName("Test apply(TreeNode, mxRectangle); given BPMNLayout(mxGraph) with graph is mxGraph(); then return mxRectangle()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"mxRectangle BPMNLayout.apply(TreeNode, mxRectangle)"})
   void testApply_givenBPMNLayoutWithGraphIsMxGraph_thenReturnMxRectangle() {
     // Arrange
     BPMNLayout bpmnLayout = new BPMNLayout(new mxGraph());
-    BPMNLayout.TreeNode node = new BPMNLayout.TreeNode("Cell");
+    TreeNode node = new TreeNode("Cell");
     mxRectangle bounds = new mxRectangle();
 
     // Act and Assert
@@ -1377,45 +1175,44 @@ class BPMNLayoutDiffblueTest {
   /**
    * Test {@link BPMNLayout#apply(TreeNode, mxRectangle)}.
    * <ul>
-   *   <li>Given {@link mxGraph#mxGraph()} addPropertyChangeListener
-   * {@link PropertyChangeListener}.</li>
+   *   <li>When {@link TreeNode#TreeNode(Object)} with cell is {@code null}.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test: {@link BPMNLayout#apply(BPMNLayout.TreeNode, mxRectangle)}
+   * Method under test: {@link BPMNLayout#apply(TreeNode, mxRectangle)}
    */
   @Test
-  @DisplayName("Test apply(TreeNode, mxRectangle); given mxGraph() addPropertyChangeListener PropertyChangeListener")
-  void testApply_givenMxGraphAddPropertyChangeListenerPropertyChangeListener() {
+  @DisplayName("Test apply(TreeNode, mxRectangle); when TreeNode(Object) with cell is 'null'; then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"mxRectangle BPMNLayout.apply(TreeNode, mxRectangle)"})
+  void testApply_whenTreeNodeWithCellIsNull_thenReturnNull() {
     // Arrange
-    mxGraph graph = new mxGraph();
-    graph.addPropertyChangeListener(mock(PropertyChangeListener.class));
-    BPMNLayout bpmnLayout = new BPMNLayout(graph);
-    BPMNLayout.TreeNode node = new BPMNLayout.TreeNode("Cell");
-    mxRectangle bounds = new mxRectangle();
+    BPMNLayout bpmnLayout = new BPMNLayout(new mxGraph());
 
     // Act and Assert
-    assertSame(bounds, bpmnLayout.apply(node, bounds));
+    assertNull(bpmnLayout.apply(new TreeNode(null), null));
   }
 
   /**
    * Test {@link BPMNLayout#createLine(double, double, Polyline)}.
    * <p>
-   * Method under test:
-   * {@link BPMNLayout#createLine(double, double, BPMNLayout.Polyline)}
+   * Method under test: {@link BPMNLayout#createLine(double, double, Polyline)}
    */
   @Test
   @DisplayName("Test createLine(double, double, Polyline)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Polyline BPMNLayout.createLine(double, double, Polyline)"})
   void testCreateLine() {
     // Arrange
     BPMNLayout bpmnLayout = new BPMNLayout(new mxGraph());
-    BPMNLayout.Polyline next = new BPMNLayout.Polyline(10.0d, 10.0d, mock(BPMNLayout.Polyline.class));
+    Polyline next = new Polyline(10.0d, 10.0d, mock(Polyline.class));
 
     // Act
-    BPMNLayout.Polyline actualCreateLineResult = bpmnLayout.createLine(10.0d, 10.0d, next);
+    Polyline actualCreateLineResult = bpmnLayout.createLine(10.0d, 10.0d, next);
 
     // Assert
     assertEquals(10.0d, actualCreateLineResult.dx);
-    BPMNLayout.Polyline polyline = actualCreateLineResult.next;
+    Polyline polyline = actualCreateLineResult.next;
     assertEquals(10.0d, polyline.dx);
     assertEquals(10.0d, actualCreateLineResult.dy);
     assertEquals(10.0d, polyline.dy);
@@ -1425,14 +1222,15 @@ class BPMNLayoutDiffblueTest {
   /**
    * Test Polygon new {@link Polygon} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link BPMNLayout.Polygon}
+   * Method under test: default or parameterless constructor of {@link Polygon}
    */
   @Test
   @DisplayName("Test Polygon new Polygon (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void Polygon.<init>()"})
   void testPolygonNewPolygon() {
     // Arrange and Act
-    BPMNLayout.Polygon actualPolygon = new BPMNLayout.Polygon();
+    Polygon actualPolygon = new Polygon();
 
     // Assert
     assertNull(actualPolygon.lowerHead);
@@ -1444,14 +1242,15 @@ class BPMNLayoutDiffblueTest {
   /**
    * Test Polyline {@link Polyline#Polyline(double, double, Polyline)}.
    * <p>
-   * Method under test:
-   * {@link BPMNLayout.Polyline#Polyline(double, double, BPMNLayout.Polyline)}
+   * Method under test: {@link Polyline#Polyline(double, double, Polyline)}
    */
   @Test
   @DisplayName("Test Polyline new Polyline(double, double, Polyline)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void Polyline.<init>(double, double, Polyline)"})
   void testPolylineNewPolyline() {
     // Arrange and Act
-    BPMNLayout.Polyline actualPolyline = new BPMNLayout.Polyline(10.0d, 10.0d, null);
+    Polyline actualPolyline = new Polyline(10.0d, 10.0d, null);
 
     // Assert
     assertNull(actualPolyline.next);
@@ -1462,17 +1261,19 @@ class BPMNLayoutDiffblueTest {
   /**
    * Test TreeNode {@link TreeNode#TreeNode(Object)}.
    * <p>
-   * Method under test: {@link BPMNLayout.TreeNode#TreeNode(Object)}
+   * Method under test: {@link TreeNode#TreeNode(Object)}
    */
   @Test
   @DisplayName("Test TreeNode new TreeNode(Object)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TreeNode.<init>(Object)"})
   void testTreeNodeNewTreeNode() {
     // Arrange and Act
-    BPMNLayout.TreeNode actualTreeNode = new BPMNLayout.TreeNode("Cell");
+    TreeNode actualTreeNode = new TreeNode("Cell");
 
     // Assert
     assertEquals("Cell", actualTreeNode.cell);
-    BPMNLayout.Polygon polygon = actualTreeNode.contour;
+    Polygon polygon = actualTreeNode.contour;
     assertNull(polygon.lowerHead);
     assertNull(polygon.lowerTail);
     assertNull(polygon.upperHead);

@@ -17,9 +17,13 @@ package org.activiti.bpmn.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class AdhocSubProcessDiffblueTest {
   /**
@@ -32,6 +36,8 @@ public class AdhocSubProcessDiffblueTest {
    * Method under test: {@link AdhocSubProcess#hasParallelOrdering()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean AdhocSubProcess.hasParallelOrdering()"})
   public void testHasParallelOrdering_givenAdhocSubProcess_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue((new AdhocSubProcess()).hasParallelOrdering());
@@ -46,6 +52,8 @@ public class AdhocSubProcessDiffblueTest {
    * Method under test: {@link AdhocSubProcess#hasParallelOrdering()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean AdhocSubProcess.hasParallelOrdering()"})
   public void testHasParallelOrdering_thenReturnFalse() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -65,6 +73,8 @@ public class AdhocSubProcessDiffblueTest {
    * Method under test: {@link AdhocSubProcess#hasSequentialOrdering()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean AdhocSubProcess.hasSequentialOrdering()"})
   public void testHasSequentialOrdering_givenAdhocSubProcess_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new AdhocSubProcess()).hasSequentialOrdering());
@@ -79,6 +89,8 @@ public class AdhocSubProcessDiffblueTest {
    * Method under test: {@link AdhocSubProcess#hasSequentialOrdering()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean AdhocSubProcess.hasSequentialOrdering()"})
   public void testHasSequentialOrdering_thenReturnTrue() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -103,6 +115,11 @@ public class AdhocSubProcessDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AdhocSubProcess.<init>()", "String AdhocSubProcess.getCompletionCondition()",
+      "String AdhocSubProcess.getOrdering()", "boolean AdhocSubProcess.isCancelRemainingInstances()",
+      "void AdhocSubProcess.setCancelRemainingInstances(boolean)",
+      "void AdhocSubProcess.setCompletionCondition(String)", "void AdhocSubProcess.setOrdering(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     AdhocSubProcess actualAdhocSubProcess = new AdhocSubProcess();
@@ -113,11 +130,20 @@ public class AdhocSubProcessDiffblueTest {
     String actualOrdering = actualAdhocSubProcess.getOrdering();
     boolean actualIsCancelRemainingInstancesResult = actualAdhocSubProcess.isCancelRemainingInstances();
 
-    // Assert that nothing has changed
+    // Assert
     assertTrue(actualAdhocSubProcess.getArtifacts() instanceof List);
     assertTrue(actualAdhocSubProcess.getFlowElements() instanceof List);
     assertEquals("Completion Condition", actualCompletionCondition);
     assertEquals("Ordering", actualOrdering);
+    assertNull(actualAdhocSubProcess.getBehavior());
+    assertNull(actualAdhocSubProcess.getDefaultFlow());
+    assertNull(actualAdhocSubProcess.getFailedJobRetryTimeCycleValue());
+    assertNull(actualAdhocSubProcess.getId());
+    assertNull(actualAdhocSubProcess.getDocumentation());
+    assertNull(actualAdhocSubProcess.getName());
+    assertNull(actualAdhocSubProcess.getParentContainer());
+    assertNull(actualAdhocSubProcess.getIoSpecification());
+    assertNull(actualAdhocSubProcess.getLoopCharacteristics());
     assertEquals(0, actualAdhocSubProcess.getXmlColumnNumber());
     assertEquals(0, actualAdhocSubProcess.getXmlRowNumber());
     assertFalse(actualAdhocSubProcess.isForCompensation());

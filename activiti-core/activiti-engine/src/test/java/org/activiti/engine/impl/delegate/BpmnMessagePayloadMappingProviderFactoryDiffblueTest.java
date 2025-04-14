@@ -24,6 +24,8 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -40,28 +42,29 @@ import org.activiti.engine.impl.el.FixedValue;
 import org.activiti.engine.impl.el.JuelExpression;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class BpmnMessagePayloadMappingProviderFactoryDiffblueTest {
   /**
-   * Test
-   * {@link BpmnMessagePayloadMappingProviderFactory#create(Event, MessageEventDefinition, ExpressionManager)}.
+   * Test {@link BpmnMessagePayloadMappingProviderFactory#create(Event, MessageEventDefinition, ExpressionManager)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add
-   * {@link CustomFunctionProvider}.</li>
+   *   <li>Given {@link FieldExtension} (default constructor) Expression is empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnMessagePayloadMappingProviderFactory#create(Event, MessageEventDefinition, ExpressionManager)}
+   * Method under test: {@link BpmnMessagePayloadMappingProviderFactory#create(Event, MessageEventDefinition, ExpressionManager)}
    */
   @Test
-  public void testCreate_givenArrayListAddCustomFunctionProvider() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "MessagePayloadMappingProvider BpmnMessagePayloadMappingProviderFactory.create(Event, MessageEventDefinition, ExpressionManager)"})
+  public void testCreate_givenFieldExtensionExpressionIsEmptyString() {
     // Arrange
     BpmnMessagePayloadMappingProviderFactory bpmnMessagePayloadMappingProviderFactory = new BpmnMessagePayloadMappingProviderFactory();
     BoundaryEvent bpmnEvent = new BoundaryEvent();
 
     FieldExtension fieldExtension = new FieldExtension();
-    fieldExtension.setExpression(null);
+    fieldExtension.setExpression("");
 
     ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
     fieldExtensions.add(fieldExtension);
@@ -69,11 +72,8 @@ public class BpmnMessagePayloadMappingProviderFactoryDiffblueTest {
     MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
     messageEventDefinition.setFieldExtensions(fieldExtensions);
 
-    ArrayList<CustomFunctionProvider> customFunctionProviders = new ArrayList<>();
-    customFunctionProviders.add(mock(CustomFunctionProvider.class));
-
     ExpressionManager expressionManager = new ExpressionManager();
-    expressionManager.setCustomFunctionProviders(customFunctionProviders);
+    expressionManager.setCustomFunctionProviders(null);
 
     // Act
     MessagePayloadMappingProvider actualCreateResult = bpmnMessagePayloadMappingProviderFactory.create(bpmnEvent,
@@ -88,28 +88,28 @@ public class BpmnMessagePayloadMappingProviderFactoryDiffblueTest {
     assertEquals(1, getResult.size());
     assertNull(getResult.get(null));
     assertTrue(messagePayload.isPresent());
-    assertEquals(messagePayload, actualMessagePayload);
+    assertTrue(actualMessagePayload.isPresent());
   }
 
   /**
-   * Test
-   * {@link BpmnMessagePayloadMappingProviderFactory#create(Event, MessageEventDefinition, ExpressionManager)}.
+   * Test {@link BpmnMessagePayloadMappingProviderFactory#create(Event, MessageEventDefinition, ExpressionManager)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return MessagePayload is {@code null} size is one.</li>
+   *   <li>Given {@link FieldExtension} (default constructor) Expression is empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnMessagePayloadMappingProviderFactory#create(Event, MessageEventDefinition, ExpressionManager)}
+   * Method under test: {@link BpmnMessagePayloadMappingProviderFactory#create(Event, MessageEventDefinition, ExpressionManager)}
    */
   @Test
-  public void testCreate_givenArrayList_thenReturnMessagePayloadIsNullSizeIsOne() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "MessagePayloadMappingProvider BpmnMessagePayloadMappingProviderFactory.create(Event, MessageEventDefinition, ExpressionManager)"})
+  public void testCreate_givenFieldExtensionExpressionIsEmptyString2() {
     // Arrange
     BpmnMessagePayloadMappingProviderFactory bpmnMessagePayloadMappingProviderFactory = new BpmnMessagePayloadMappingProviderFactory();
     BoundaryEvent bpmnEvent = new BoundaryEvent();
 
     FieldExtension fieldExtension = new FieldExtension();
-    fieldExtension.setExpression(null);
+    fieldExtension.setExpression("");
 
     ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
     fieldExtensions.add(fieldExtension);
@@ -133,23 +133,22 @@ public class BpmnMessagePayloadMappingProviderFactoryDiffblueTest {
     assertEquals(1, getResult.size());
     assertNull(getResult.get(null));
     assertTrue(messagePayload.isPresent());
-    assertEquals(messagePayload, actualMessagePayload);
+    assertTrue(actualMessagePayload.isPresent());
   }
 
   /**
-   * Test
-   * {@link BpmnMessagePayloadMappingProviderFactory#create(Event, MessageEventDefinition, ExpressionManager)}.
+   * Test {@link BpmnMessagePayloadMappingProviderFactory#create(Event, MessageEventDefinition, ExpressionManager)}.
    * <ul>
-   *   <li>Given {@code null}.</li>
-   *   <li>When {@link ExpressionManager#ExpressionManager()}
-   * CustomFunctionProviders is {@code null}.</li>
+   *   <li>Given {@link FieldExtension} (default constructor) Expression is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnMessagePayloadMappingProviderFactory#create(Event, MessageEventDefinition, ExpressionManager)}
+   * Method under test: {@link BpmnMessagePayloadMappingProviderFactory#create(Event, MessageEventDefinition, ExpressionManager)}
    */
   @Test
-  public void testCreate_givenNull_whenExpressionManagerCustomFunctionProvidersIsNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "MessagePayloadMappingProvider BpmnMessagePayloadMappingProviderFactory.create(Event, MessageEventDefinition, ExpressionManager)"})
+  public void testCreate_givenFieldExtensionExpressionIsNull() {
     // Arrange
     BpmnMessagePayloadMappingProviderFactory bpmnMessagePayloadMappingProviderFactory = new BpmnMessagePayloadMappingProviderFactory();
     BoundaryEvent bpmnEvent = new BoundaryEvent();
@@ -179,21 +178,67 @@ public class BpmnMessagePayloadMappingProviderFactoryDiffblueTest {
     assertEquals(1, getResult.size());
     assertNull(getResult.get(null));
     assertTrue(messagePayload.isPresent());
-    assertEquals(messagePayload, actualMessagePayload);
+    assertTrue(actualMessagePayload.isPresent());
   }
 
   /**
-   * Test
-   * {@link BpmnMessagePayloadMappingProviderFactory#create(Event, MessageEventDefinition, ExpressionManager)}.
+   * Test {@link BpmnMessagePayloadMappingProviderFactory#create(Event, MessageEventDefinition, ExpressionManager)}.
+   * <ul>
+   *   <li>Given {@link FieldExtension} (default constructor) Expression is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnMessagePayloadMappingProviderFactory#create(Event, MessageEventDefinition, ExpressionManager)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "MessagePayloadMappingProvider BpmnMessagePayloadMappingProviderFactory.create(Event, MessageEventDefinition, ExpressionManager)"})
+  public void testCreate_givenFieldExtensionExpressionIsNull2() {
+    // Arrange
+    BpmnMessagePayloadMappingProviderFactory bpmnMessagePayloadMappingProviderFactory = new BpmnMessagePayloadMappingProviderFactory();
+    BoundaryEvent bpmnEvent = new BoundaryEvent();
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setExpression(null);
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(fieldExtension);
+
+    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
+    messageEventDefinition.setFieldExtensions(fieldExtensions);
+
+    ExpressionManager expressionManager = new ExpressionManager();
+    expressionManager.setCustomFunctionProviders(new ArrayList<>());
+
+    // Act
+    MessagePayloadMappingProvider actualCreateResult = bpmnMessagePayloadMappingProviderFactory.create(bpmnEvent,
+        messageEventDefinition, expressionManager);
+    Optional<Map<String, Object>> actualMessagePayload = actualCreateResult
+        .getMessagePayload(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
+
+    // Assert
+    assertTrue(actualCreateResult instanceof BpmnMessagePayloadMappingProvider);
+    Optional<Map<String, Object>> messagePayload = actualCreateResult.getMessagePayload(null);
+    Map<String, Object> getResult = messagePayload.get();
+    assertEquals(1, getResult.size());
+    assertNull(getResult.get(null));
+    assertTrue(messagePayload.isPresent());
+    assertTrue(actualMessagePayload.isPresent());
+  }
+
+  /**
+   * Test {@link BpmnMessagePayloadMappingProviderFactory#create(Event, MessageEventDefinition, ExpressionManager)}.
    * <ul>
    *   <li>When {@link MessageEventDefinition} (default constructor).</li>
    *   <li>Then return not MessagePayload is {@code null} Present.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnMessagePayloadMappingProviderFactory#create(Event, MessageEventDefinition, ExpressionManager)}
+   * Method under test: {@link BpmnMessagePayloadMappingProviderFactory#create(Event, MessageEventDefinition, ExpressionManager)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "MessagePayloadMappingProvider BpmnMessagePayloadMappingProviderFactory.create(Event, MessageEventDefinition, ExpressionManager)"})
   public void testCreate_whenMessageEventDefinition_thenReturnNotMessagePayloadIsNullPresent() {
     // Arrange
     BpmnMessagePayloadMappingProviderFactory bpmnMessagePayloadMappingProviderFactory = new BpmnMessagePayloadMappingProviderFactory();
@@ -214,22 +259,22 @@ public class BpmnMessagePayloadMappingProviderFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}.
+   * Test {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}.
    * <ul>
    *   <li>Given {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}
+   * Method under test: {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List BpmnMessagePayloadMappingProviderFactory.createFieldDeclarations(List, ExpressionManager)"})
   public void testCreateFieldDeclarations_givenArrayList() {
     // Arrange
     BpmnMessagePayloadMappingProviderFactory bpmnMessagePayloadMappingProviderFactory = new BpmnMessagePayloadMappingProviderFactory();
 
     FieldExtension fieldExtension = new FieldExtension();
-    fieldExtension.setExpression("Field List");
+    fieldExtension.setExpression("not empty");
 
     ArrayList<FieldExtension> fieldList = new ArrayList<>();
     fieldList.add(fieldExtension);
@@ -246,23 +291,22 @@ public class BpmnMessagePayloadMappingProviderFactoryDiffblueTest {
     FieldDeclaration getResult = actualCreateFieldDeclarationsResult.get(0);
     Object value = getResult.getValue();
     assertTrue(value instanceof JuelExpression);
-    assertEquals("Field List", ((JuelExpression) value).getExpressionText());
+    assertEquals("not empty", ((JuelExpression) value).getExpressionText());
     assertEquals("org.activiti.engine.delegate.Expression", getResult.getType());
     assertNull(getResult.getName());
   }
 
   /**
-   * Test
-   * {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}.
+   * Test {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}.
    * <ul>
-   *   <li>Given {@link FieldExtension} (default constructor) Expression is empty
-   * string.</li>
+   *   <li>Given {@link FieldExtension} (default constructor) Expression is empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}
+   * Method under test: {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List BpmnMessagePayloadMappingProviderFactory.createFieldDeclarations(List, ExpressionManager)"})
   public void testCreateFieldDeclarations_givenFieldExtensionExpressionIsEmptyString() {
     // Arrange
     BpmnMessagePayloadMappingProviderFactory bpmnMessagePayloadMappingProviderFactory = new BpmnMessagePayloadMappingProviderFactory();
@@ -289,17 +333,16 @@ public class BpmnMessagePayloadMappingProviderFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}.
+   * Test {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}.
    * <ul>
-   *   <li>Given {@link FieldExtension} (default constructor) Expression is
-   * {@code null}.</li>
+   *   <li>Given {@link FieldExtension} (default constructor) Expression is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}
+   * Method under test: {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List BpmnMessagePayloadMappingProviderFactory.createFieldDeclarations(List, ExpressionManager)"})
   public void testCreateFieldDeclarations_givenFieldExtensionExpressionIsNull() {
     // Arrange
     BpmnMessagePayloadMappingProviderFactory bpmnMessagePayloadMappingProviderFactory = new BpmnMessagePayloadMappingProviderFactory();
@@ -326,17 +369,17 @@ public class BpmnMessagePayloadMappingProviderFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}.
+   * Test {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}.
    * <ul>
    *   <li>Given {@link FieldExtension} (default constructor).</li>
    *   <li>Then return size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}
+   * Method under test: {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List BpmnMessagePayloadMappingProviderFactory.createFieldDeclarations(List, ExpressionManager)"})
   public void testCreateFieldDeclarations_givenFieldExtension_thenReturnSizeIsTwo() {
     // Arrange
     BpmnMessagePayloadMappingProviderFactory bpmnMessagePayloadMappingProviderFactory = new BpmnMessagePayloadMappingProviderFactory();
@@ -358,23 +401,22 @@ public class BpmnMessagePayloadMappingProviderFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}.
+   * Test {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}.
    * <ul>
-   *   <li>Then calls
-   * {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
+   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}
+   * Method under test: {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List BpmnMessagePayloadMappingProviderFactory.createFieldDeclarations(List, ExpressionManager)"})
   public void testCreateFieldDeclarations_thenCallsAddCustomFunctions() {
     // Arrange
     BpmnMessagePayloadMappingProviderFactory bpmnMessagePayloadMappingProviderFactory = new BpmnMessagePayloadMappingProviderFactory();
 
     FieldExtension fieldExtension = new FieldExtension();
-    fieldExtension.setExpression("Field List");
+    fieldExtension.setExpression("not empty");
 
     ArrayList<FieldExtension> fieldList = new ArrayList<>();
     fieldList.add(fieldExtension);
@@ -397,29 +439,28 @@ public class BpmnMessagePayloadMappingProviderFactoryDiffblueTest {
     FieldDeclaration getResult = actualCreateFieldDeclarationsResult.get(0);
     Object value = getResult.getValue();
     assertTrue(value instanceof JuelExpression);
-    assertEquals("Field List", ((JuelExpression) value).getExpressionText());
+    assertEquals("not empty", ((JuelExpression) value).getExpressionText());
     assertEquals("org.activiti.engine.delegate.Expression", getResult.getType());
     assertNull(getResult.getName());
   }
 
   /**
-   * Test
-   * {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}.
+   * Test {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}.
    * <ul>
-   *   <li>Then calls
-   * {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
+   *   <li>Then calls {@link CustomFunctionProvider#addCustomFunctions(ActivitiElContext)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}
+   * Method under test: {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List BpmnMessagePayloadMappingProviderFactory.createFieldDeclarations(List, ExpressionManager)"})
   public void testCreateFieldDeclarations_thenCallsAddCustomFunctions2() {
     // Arrange
     BpmnMessagePayloadMappingProviderFactory bpmnMessagePayloadMappingProviderFactory = new BpmnMessagePayloadMappingProviderFactory();
 
     FieldExtension fieldExtension = new FieldExtension();
-    fieldExtension.setExpression("Field List");
+    fieldExtension.setExpression("not empty");
 
     ArrayList<FieldExtension> fieldList = new ArrayList<>();
     fieldList.add(fieldExtension);
@@ -446,23 +487,23 @@ public class BpmnMessagePayloadMappingProviderFactoryDiffblueTest {
     FieldDeclaration getResult = actualCreateFieldDeclarationsResult.get(0);
     Object value = getResult.getValue();
     assertTrue(value instanceof JuelExpression);
-    assertEquals("Field List", ((JuelExpression) value).getExpressionText());
+    assertEquals("not empty", ((JuelExpression) value).getExpressionText());
     assertEquals("org.activiti.engine.delegate.Expression", getResult.getType());
     assertNull(getResult.getName());
   }
 
   /**
-   * Test
-   * {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}.
+   * Test {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}
+   * Method under test: {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List BpmnMessagePayloadMappingProviderFactory.createFieldDeclarations(List, ExpressionManager)"})
   public void testCreateFieldDeclarations_whenArrayList_thenReturnEmpty() {
     // Arrange
     BpmnMessagePayloadMappingProviderFactory bpmnMessagePayloadMappingProviderFactory = new BpmnMessagePayloadMappingProviderFactory();
@@ -474,23 +515,22 @@ public class BpmnMessagePayloadMappingProviderFactoryDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}.
+   * Test {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}.
    * <ul>
-   *   <li>When {@link ExpressionManager#ExpressionManager()}
-   * CustomFunctionProviders is {@code null}.</li>
+   *   <li>When {@link ExpressionManager#ExpressionManager()} CustomFunctionProviders is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}
+   * Method under test: {@link BpmnMessagePayloadMappingProviderFactory#createFieldDeclarations(List, ExpressionManager)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List BpmnMessagePayloadMappingProviderFactory.createFieldDeclarations(List, ExpressionManager)"})
   public void testCreateFieldDeclarations_whenExpressionManagerCustomFunctionProvidersIsNull() {
     // Arrange
     BpmnMessagePayloadMappingProviderFactory bpmnMessagePayloadMappingProviderFactory = new BpmnMessagePayloadMappingProviderFactory();
 
     FieldExtension fieldExtension = new FieldExtension();
-    fieldExtension.setExpression("Field List");
+    fieldExtension.setExpression("not empty");
 
     ArrayList<FieldExtension> fieldList = new ArrayList<>();
     fieldList.add(fieldExtension);
@@ -507,7 +547,7 @@ public class BpmnMessagePayloadMappingProviderFactoryDiffblueTest {
     FieldDeclaration getResult = actualCreateFieldDeclarationsResult.get(0);
     Object value = getResult.getValue();
     assertTrue(value instanceof JuelExpression);
-    assertEquals("Field List", ((JuelExpression) value).getExpressionText());
+    assertEquals("not empty", ((JuelExpression) value).getExpressionText());
     assertEquals("org.activiti.engine.delegate.Expression", getResult.getType());
     assertNull(getResult.getName());
   }

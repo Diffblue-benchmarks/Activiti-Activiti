@@ -19,6 +19,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.util.List;
 import java.util.Locale;
@@ -26,21 +28,17 @@ import java.util.Map;
 import java.util.Stack;
 import org.activiti.engine.impl.context.Context.ResourceBundleControl;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ContextDiffblueTest {
-  @InjectMocks
-  private Context.ResourceBundleControl resourceBundleControl;
-
   /**
    * Test {@link Context#getCommandContext()}.
    * <p>
    * Method under test: {@link Context#getCommandContext()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.impl.interceptor.CommandContext Context.getCommandContext()"})
   public void testGetCommandContext() {
     // Arrange, Act and Assert
     assertNull(Context.getCommandContext());
@@ -52,6 +50,9 @@ public class ContextDiffblueTest {
    * Method under test: {@link Context#getProcessEngineConfiguration()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl Context.getProcessEngineConfiguration()"})
   public void testGetProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertNull(Context.getProcessEngineConfiguration());
@@ -63,6 +64,8 @@ public class ContextDiffblueTest {
    * Method under test: {@link Context#getTransactionContext()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.impl.cfg.TransactionContext Context.getTransactionContext()"})
   public void testGetTransactionContext() {
     // Arrange, Act and Assert
     assertNull(Context.getTransactionContext());
@@ -78,6 +81,8 @@ public class ContextDiffblueTest {
    * Method under test: {@link Context#getStack(ThreadLocal)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Stack Context.getStack(ThreadLocal)"})
   public void testGetStack_whenThreadLocal_thenReturnEmpty() {
     // Arrange and Act
     Stack<Object> actualStack = Context.getStack(new ThreadLocal<>());
@@ -92,6 +97,8 @@ public class ContextDiffblueTest {
    * Method under test: {@link Context#getBpmnOverrideContext()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map Context.getBpmnOverrideContext()"})
   public void testGetBpmnOverrideContext() {
     // Arrange and Act
     Map<String, ObjectNode> actualBpmnOverrideContext = Context.getBpmnOverrideContext();
@@ -106,25 +113,28 @@ public class ContextDiffblueTest {
    * Method under test: {@link Context#getProcessDefinitionHelper()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.impl.ProcessDefinitionHelper Context.getProcessDefinitionHelper()"})
   public void testGetProcessDefinitionHelper() {
     // Arrange, Act and Assert
     assertNull(Context.getProcessDefinitionHelper());
   }
 
   /**
-   * Test ResourceBundleControl
-   * {@link ResourceBundleControl#getCandidateLocales(String, Locale)}.
+   * Test ResourceBundleControl {@link ResourceBundleControl#getCandidateLocales(String, Locale)}.
    * <ul>
    *   <li>When Default.</li>
    *   <li>Then return size is three.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link Context.ResourceBundleControl#getCandidateLocales(String, Locale)}
+   * Method under test: {@link ResourceBundleControl#getCandidateLocales(String, Locale)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List ResourceBundleControl.getCandidateLocales(String, Locale)"})
   public void testResourceBundleControlGetCandidateLocales_whenDefault_thenReturnSizeIsThree() {
     // Arrange
+    ResourceBundleControl resourceBundleControl = new ResourceBundleControl();
     Locale locale = Locale.getDefault();
 
     // Act

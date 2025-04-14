@@ -21,14 +21,17 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.api.runtime.shared.query.Page;
 import org.activiti.api.runtime.shared.query.Pageable;
 import org.activiti.api.task.model.Task;
+import org.activiti.api.task.model.Task.TaskStatus;
 import org.activiti.api.task.model.payloads.GetTasksPayload;
 import org.activiti.api.task.runtime.TaskRuntime;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -55,6 +58,8 @@ class LocalTaskSourceDiffblueTest {
    */
   @Test
   @DisplayName("Test getTasks(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List LocalTaskSource.getTasks(String)"})
   void testGetTasks() {
     // Arrange
     Page<Task> page = mock(Page.class);
@@ -81,9 +86,11 @@ class LocalTaskSourceDiffblueTest {
    */
   @Test
   @DisplayName("Test canHandle(TaskStatus); when 'COMPLETED'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean LocalTaskSource.canHandle(Task.TaskStatus)"})
   void testCanHandle_whenCompleted_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertFalse(localTaskSource.canHandle(Task.TaskStatus.COMPLETED));
+    assertFalse(localTaskSource.canHandle(TaskStatus.COMPLETED));
   }
 
   /**
@@ -97,8 +104,10 @@ class LocalTaskSourceDiffblueTest {
    */
   @Test
   @DisplayName("Test canHandle(TaskStatus); when 'CREATED'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean LocalTaskSource.canHandle(Task.TaskStatus)"})
   void testCanHandle_whenCreated_thenReturnTrue() {
     // Arrange, Act and Assert
-    assertTrue(localTaskSource.canHandle(Task.TaskStatus.CREATED));
+    assertTrue(localTaskSource.canHandle(TaskStatus.CREATED));
   }
 }

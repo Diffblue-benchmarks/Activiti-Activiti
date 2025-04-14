@@ -17,51 +17,30 @@ package org.activiti.engine.impl.persistence.entity.integration;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.Map;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class IntegrationContextEntityImplDiffblueTest {
   /**
    * Test {@link IntegrationContextEntityImpl#getPersistentState()}.
-   * <ul>
-   *   <li>Given {@link IntegrationContextEntityImpl} (default constructor).</li>
-   * </ul>
    * <p>
    * Method under test: {@link IntegrationContextEntityImpl#getPersistentState()}
    */
   @Test
-  public void testGetPersistentState_givenIntegrationContextEntityImpl() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object IntegrationContextEntityImpl.getPersistentState()"})
+  public void testGetPersistentState() {
     // Arrange and Act
     Object actualPersistentState = (new IntegrationContextEntityImpl()).getPersistentState();
-
-    // Assert
-    assertTrue(actualPersistentState instanceof Map);
-    assertTrue(((Map<Object, Object>) actualPersistentState).isEmpty());
-  }
-
-  /**
-   * Test {@link IntegrationContextEntityImpl#getPersistentState()}.
-   * <ul>
-   *   <li>Given {@link IntegrationContextEntityImpl} (default constructor)
-   * CreatedDate is {@link Date}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IntegrationContextEntityImpl#getPersistentState()}
-   */
-  @Test
-  public void testGetPersistentState_givenIntegrationContextEntityImplCreatedDateIsDate() {
-    // Arrange
-    IntegrationContextEntityImpl integrationContextEntityImpl = new IntegrationContextEntityImpl();
-    integrationContextEntityImpl.setCreatedDate(mock(java.sql.Date.class));
-
-    // Act
-    Object actualPersistentState = integrationContextEntityImpl.getPersistentState();
 
     // Assert
     assertTrue(actualPersistentState instanceof Map);
@@ -73,8 +52,7 @@ public class IntegrationContextEntityImplDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of
-   * {@link IntegrationContextEntityImpl}
+   *   <li>default or parameterless constructor of {@link IntegrationContextEntityImpl}
    *   <li>{@link IntegrationContextEntityImpl#setCreatedDate(Date)}
    *   <li>{@link IntegrationContextEntityImpl#setExecutionId(String)}
    *   <li>{@link IntegrationContextEntityImpl#setFlowNodeId(String)}
@@ -89,6 +67,17 @@ public class IntegrationContextEntityImplDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IntegrationContextEntityImpl.<init>()", "Date IntegrationContextEntityImpl.getCreatedDate()",
+      "String IntegrationContextEntityImpl.getExecutionId()", "String IntegrationContextEntityImpl.getFlowNodeId()",
+      "String IntegrationContextEntityImpl.getProcessDefinitionId()",
+      "String IntegrationContextEntityImpl.getProcessInstanceId()",
+      "void IntegrationContextEntityImpl.setCreatedDate(Date)",
+      "void IntegrationContextEntityImpl.setExecutionId(String)",
+      "void IntegrationContextEntityImpl.setFlowNodeId(String)",
+      "void IntegrationContextEntityImpl.setProcessDefinitionId(String)",
+      "void IntegrationContextEntityImpl.setProcessInstanceId(String)",
+      "String IntegrationContextEntityImpl.toString()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     IntegrationContextEntityImpl actualIntegrationContextEntityImpl = new IntegrationContextEntityImpl();
@@ -104,13 +93,14 @@ public class IntegrationContextEntityImplDiffblueTest {
     String actualFlowNodeId = actualIntegrationContextEntityImpl.getFlowNodeId();
     String actualProcessDefinitionId = actualIntegrationContextEntityImpl.getProcessDefinitionId();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualExecutionId);
     assertEquals("42", actualFlowNodeId);
     assertEquals("42", actualProcessDefinitionId);
     assertEquals("42", actualIntegrationContextEntityImpl.getProcessInstanceId());
     assertEquals("IntegrationContext[ executionId='42', processInstanceId='42', flowNodeId='42' ]",
         actualToStringResult);
+    assertNull(actualIntegrationContextEntityImpl.getId());
     assertEquals(1, actualIntegrationContextEntityImpl.getRevision());
     assertFalse(actualIntegrationContextEntityImpl.isDeleted());
     assertFalse(actualIntegrationContextEntityImpl.isInserted());

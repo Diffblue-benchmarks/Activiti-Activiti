@@ -16,7 +16,9 @@
 package org.activiti.validation.validator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ErrorMessageDefinitionDiffblueTest {
@@ -34,6 +36,10 @@ class ErrorMessageDefinitionDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ErrorMessageDefinition.<init>()", "String ErrorMessageDefinition.getDescription()",
+      "String ErrorMessageDefinition.getProblem()", "void ErrorMessageDefinition.setDescription(String)",
+      "void ErrorMessageDefinition.setProblem(String)"})
   void testGettersAndSetters() {
     // Arrange and Act
     ErrorMessageDefinition actualErrorMessageDefinition = new ErrorMessageDefinition();
@@ -41,7 +47,7 @@ class ErrorMessageDefinitionDiffblueTest {
     actualErrorMessageDefinition.setProblem("Problem");
     String actualDescription = actualErrorMessageDefinition.getDescription();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Problem", actualErrorMessageDefinition.getProblem());
     assertEquals("The characteristics of someone or something", actualDescription);
   }

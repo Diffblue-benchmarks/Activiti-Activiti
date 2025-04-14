@@ -18,12 +18,15 @@ package org.activiti.engine.impl.bpmn.webservice;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.bpmn.data.FieldBaseStructureInstance;
 import org.activiti.engine.impl.bpmn.data.ItemDefinition;
 import org.activiti.engine.impl.bpmn.data.ItemInstance;
 import org.activiti.engine.impl.bpmn.data.SimpleStructureDefinition;
 import org.activiti.engine.impl.bpmn.data.StructureInstance;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class MessageDefinitionDiffblueTest {
   /**
@@ -38,6 +41,10 @@ public class MessageDefinitionDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MessageDefinition.<init>(String)", "String MessageDefinition.getId()",
+      "ItemDefinition MessageDefinition.getItemDefinition()",
+      "void MessageDefinition.setItemDefinition(ItemDefinition)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     MessageDefinition actualMessageDefinition = new MessageDefinition("42");
@@ -46,7 +53,7 @@ public class MessageDefinitionDiffblueTest {
     actualMessageDefinition.setItemDefinition(itemDefinition);
     String actualId = actualMessageDefinition.getId();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualId);
     assertSame(itemDefinition, actualMessageDefinition.getItemDefinition());
   }
@@ -60,6 +67,8 @@ public class MessageDefinitionDiffblueTest {
    * Method under test: {@link MessageDefinition#createInstance()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"MessageInstance MessageDefinition.createInstance()"})
   public void testCreateInstance_thenStructureInstanceReturnFieldBaseStructureInstance() {
     // Arrange
     MessageDefinition messageDefinition = new MessageDefinition("42");
@@ -84,14 +93,15 @@ public class MessageDefinitionDiffblueTest {
   /**
    * Test {@link MessageDefinition#getStructureDefinition()}.
    * <ul>
-   *   <li>Then return
-   * {@link SimpleStructureDefinition#SimpleStructureDefinition(String)} with id
-   * is {@code 42}.</li>
+   *   <li>Then return {@link SimpleStructureDefinition#SimpleStructureDefinition(String)} with id is {@code 42}.</li>
    * </ul>
    * <p>
    * Method under test: {@link MessageDefinition#getStructureDefinition()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.bpmn.data.StructureDefinition MessageDefinition.getStructureDefinition()"})
   public void testGetStructureDefinition_thenReturnSimpleStructureDefinitionWithIdIs42() {
     // Arrange
     MessageDefinition messageDefinition = new MessageDefinition("42");

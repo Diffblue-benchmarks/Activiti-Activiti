@@ -21,34 +21,29 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiFunction;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class CDLDiffblueTest {
-  @InjectMocks
-  private CDL cDL;
-
   /**
    * Test {@link CDL#rowToJSONArray(JSONTokener)}.
    * <p>
    * Method under test: {@link CDL#rowToJSONArray(JSONTokener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray CDL.rowToJSONArray(JSONTokener)"})
   public void testRowToJSONArray() throws JSONException {
     // Arrange
     JSONTokener x = new JSONTokener(",:]}/\\\"[{;=#");
@@ -68,6 +63,8 @@ public class CDLDiffblueTest {
    * Method under test: {@link CDL#rowToJSONArray(JSONTokener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray CDL.rowToJSONArray(JSONTokener)"})
   public void testRowToJSONArray_whenJSONTokenerWithSIsEmptyString_thenReturnNull() throws JSONException {
     // Arrange
     JSONTokener x = new JSONTokener("");
@@ -80,15 +77,15 @@ public class CDLDiffblueTest {
   /**
    * Test {@link CDL#rowToJSONArray(JSONTokener)}.
    * <ul>
-   *   <li>When {@link JSONTokener#JSONTokener(String)} with s is
-   * {@code foo,:]}/\"[{;=#}.</li>
-   *   <li>Then {@link JSONTokener#JSONTokener(String)} with s is
-   * {@code foo,:]}/\"[{;=#} end.</li>
+   *   <li>When {@link JSONTokener#JSONTokener(String)} with s is {@code foo,:]}/\"[{;=#}.</li>
+   *   <li>Then {@link JSONTokener#JSONTokener(String)} with s is {@code foo,:]}/\"[{;=#} end.</li>
    * </ul>
    * <p>
    * Method under test: {@link CDL#rowToJSONArray(JSONTokener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray CDL.rowToJSONArray(JSONTokener)"})
   public void testRowToJSONArray_whenJSONTokenerWithSIsFoo_thenJSONTokenerWithSIsFooEnd() throws JSONException {
     // Arrange
     JSONTokener x = new JSONTokener("foo,:]}/\\\"[{;=#");
@@ -108,6 +105,8 @@ public class CDLDiffblueTest {
    * Method under test: {@link CDL#rowToJSONArray(JSONTokener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray CDL.rowToJSONArray(JSONTokener)"})
   public void testRowToJSONArray_whenJSONTokenerWithSIsFoo_thenReturnLengthIsOne() throws JSONException {
     // Arrange
     JSONTokener x = new JSONTokener("foo");
@@ -123,6 +122,8 @@ public class CDLDiffblueTest {
    * Method under test: {@link CDL#rowToJSONObject(JSONArray, JSONTokener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject CDL.rowToJSONObject(JSONArray, JSONTokener)"})
   public void testRowToJSONObject() throws JSONException {
     // Arrange
     JSONArray names = new JSONArray("[]");
@@ -143,6 +144,8 @@ public class CDLDiffblueTest {
    * Method under test: {@link CDL#rowToJSONObject(JSONArray, JSONTokener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject CDL.rowToJSONObject(JSONArray, JSONTokener)"})
   public void testRowToJSONObject_givenArrayList() throws JSONException {
     // Arrange
     JSONArray names = new JSONArray("[]");
@@ -163,6 +166,8 @@ public class CDLDiffblueTest {
    * Method under test: {@link CDL#rowToJSONObject(JSONArray, JSONTokener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject CDL.rowToJSONObject(JSONArray, JSONTokener)"})
   public void testRowToJSONObject_givenHashMap() throws JSONException {
     // Arrange
     JSONArray names = new JSONArray("[]");
@@ -184,6 +189,8 @@ public class CDLDiffblueTest {
    * Method under test: {@link CDL#rowToJSONObject(JSONArray, JSONTokener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject CDL.rowToJSONObject(JSONArray, JSONTokener)"})
   public void testRowToJSONObject_givenOneHundredTwo_thenReturnLengthIsZero() throws JSONException {
     // Arrange
     JSONArray names = new JSONArray("[]");
@@ -204,6 +211,8 @@ public class CDLDiffblueTest {
    * Method under test: {@link CDL#rowToJSONObject(JSONArray, JSONTokener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject CDL.rowToJSONObject(JSONArray, JSONTokener)"})
   public void testRowToJSONObject_whenJSONArrayWithSourceIsLeftSquareBracketRightSquareBracket() throws JSONException {
     // Arrange
     JSONArray names = new JSONArray("[]");
@@ -224,6 +233,8 @@ public class CDLDiffblueTest {
    * Method under test: {@link CDL#rowToJSONObject(JSONArray, JSONTokener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject CDL.rowToJSONObject(JSONArray, JSONTokener)"})
   public void testRowToJSONObject_whenNull_thenReturnNull() throws JSONException {
     // Arrange
     JSONTokener x = new JSONTokener("foo");
@@ -234,20 +245,20 @@ public class CDLDiffblueTest {
   }
 
   /**
-   * Test {@link CDL#toJSONArray(JSONArray, String)} with {@code names},
-   * {@code string}.
+   * Test {@link CDL#toJSONArray(JSONArray, String)} with {@code names}, {@code string}.
    * <p>
    * Method under test: {@link CDL#toJSONArray(JSONArray, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray CDL.toJSONArray(JSONArray, String)"})
   public void testToJSONArrayWithNamesString() throws JSONException {
     // Arrange, Act and Assert
     assertNull(CDL.toJSONArray(new JSONArray("[]"), "String"));
   }
 
   /**
-   * Test {@link CDL#toJSONArray(JSONArray, String)} with {@code names},
-   * {@code string}.
+   * Test {@link CDL#toJSONArray(JSONArray, String)} with {@code names}, {@code string}.
    * <ul>
    *   <li>Given {@code String}.</li>
    *   <li>Then return length is one.</li>
@@ -256,6 +267,8 @@ public class CDLDiffblueTest {
    * Method under test: {@link CDL#toJSONArray(JSONArray, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray CDL.toJSONArray(JSONArray, String)"})
   public void testToJSONArrayWithNamesString_givenString_thenReturnLengthIsOne() throws JSONException {
     // Arrange
     JSONArray names = mock(JSONArray.class);
@@ -272,8 +285,7 @@ public class CDLDiffblueTest {
   }
 
   /**
-   * Test {@link CDL#toJSONArray(JSONArray, String)} with {@code names},
-   * {@code string}.
+   * Test {@link CDL#toJSONArray(JSONArray, String)} with {@code names}, {@code string}.
    * <ul>
    *   <li>Given three.</li>
    *   <li>When empty string.</li>
@@ -283,6 +295,8 @@ public class CDLDiffblueTest {
    * Method under test: {@link CDL#toJSONArray(JSONArray, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray CDL.toJSONArray(JSONArray, String)"})
   public void testToJSONArrayWithNamesString_givenThree_whenEmptyString_thenReturnNull() throws JSONException {
     // Arrange
     JSONArray names = mock(JSONArray.class);
@@ -297,8 +311,7 @@ public class CDLDiffblueTest {
   }
 
   /**
-   * Test {@link CDL#toJSONArray(JSONArray, String)} with {@code names},
-   * {@code string}.
+   * Test {@link CDL#toJSONArray(JSONArray, String)} with {@code names}, {@code string}.
    * <ul>
    *   <li>Then throw {@link JSONException}.</li>
    * </ul>
@@ -306,6 +319,8 @@ public class CDLDiffblueTest {
    * Method under test: {@link CDL#toJSONArray(JSONArray, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray CDL.toJSONArray(JSONArray, String)"})
   public void testToJSONArrayWithNamesString_thenThrowJSONException() throws JSONException {
     // Arrange
     JSONArray names = mock(JSONArray.class);
@@ -319,8 +334,7 @@ public class CDLDiffblueTest {
   }
 
   /**
-   * Test {@link CDL#toJSONArray(JSONArray, String)} with {@code names},
-   * {@code string}.
+   * Test {@link CDL#toJSONArray(JSONArray, String)} with {@code names}, {@code string}.
    * <ul>
    *   <li>When {@code null}.</li>
    *   <li>Then return {@code null}.</li>
@@ -329,18 +343,21 @@ public class CDLDiffblueTest {
    * Method under test: {@link CDL#toJSONArray(JSONArray, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray CDL.toJSONArray(JSONArray, String)"})
   public void testToJSONArrayWithNamesString_whenNull_thenReturnNull() throws JSONException {
     // Arrange, Act and Assert
     assertNull(CDL.toJSONArray(null, "String"));
   }
 
   /**
-   * Test {@link CDL#toJSONArray(JSONArray, JSONTokener)} with {@code names},
-   * {@code x}.
+   * Test {@link CDL#toJSONArray(JSONArray, JSONTokener)} with {@code names}, {@code x}.
    * <p>
    * Method under test: {@link CDL#toJSONArray(JSONArray, JSONTokener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray CDL.toJSONArray(JSONArray, JSONTokener)"})
   public void testToJSONArrayWithNamesX() throws JSONException {
     // Arrange
     JSONArray names = new JSONArray("[]");
@@ -352,8 +369,7 @@ public class CDLDiffblueTest {
   }
 
   /**
-   * Test {@link CDL#toJSONArray(JSONArray, JSONTokener)} with {@code names},
-   * {@code x}.
+   * Test {@link CDL#toJSONArray(JSONArray, JSONTokener)} with {@code names}, {@code x}.
    * <ul>
    *   <li>Given {@link ArrayList#ArrayList()}.</li>
    * </ul>
@@ -361,6 +377,8 @@ public class CDLDiffblueTest {
    * Method under test: {@link CDL#toJSONArray(JSONArray, JSONTokener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray CDL.toJSONArray(JSONArray, JSONTokener)"})
   public void testToJSONArrayWithNamesX_givenArrayList() throws JSONException {
     // Arrange
     JSONArray names = new JSONArray("[]");
@@ -373,8 +391,7 @@ public class CDLDiffblueTest {
   }
 
   /**
-   * Test {@link CDL#toJSONArray(JSONArray, JSONTokener)} with {@code names},
-   * {@code x}.
+   * Test {@link CDL#toJSONArray(JSONArray, JSONTokener)} with {@code names}, {@code x}.
    * <ul>
    *   <li>Given {@code false}.</li>
    * </ul>
@@ -382,6 +399,8 @@ public class CDLDiffblueTest {
    * Method under test: {@link CDL#toJSONArray(JSONArray, JSONTokener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray CDL.toJSONArray(JSONArray, JSONTokener)"})
   public void testToJSONArrayWithNamesX_givenFalse() throws JSONException {
     // Arrange
     JSONArray names = new JSONArray("[]");
@@ -394,8 +413,7 @@ public class CDLDiffblueTest {
   }
 
   /**
-   * Test {@link CDL#toJSONArray(JSONArray, JSONTokener)} with {@code names},
-   * {@code x}.
+   * Test {@link CDL#toJSONArray(JSONArray, JSONTokener)} with {@code names}, {@code x}.
    * <ul>
    *   <li>Given {@link HashMap#HashMap()}.</li>
    * </ul>
@@ -403,6 +421,8 @@ public class CDLDiffblueTest {
    * Method under test: {@link CDL#toJSONArray(JSONArray, JSONTokener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray CDL.toJSONArray(JSONArray, JSONTokener)"})
   public void testToJSONArrayWithNamesX_givenHashMap() throws JSONException {
     // Arrange
     JSONArray names = new JSONArray("[]");
@@ -415,8 +435,7 @@ public class CDLDiffblueTest {
   }
 
   /**
-   * Test {@link CDL#toJSONArray(JSONArray, JSONTokener)} with {@code names},
-   * {@code x}.
+   * Test {@link CDL#toJSONArray(JSONArray, JSONTokener)} with {@code names}, {@code x}.
    * <ul>
    *   <li>Given {@code true}.</li>
    * </ul>
@@ -424,6 +443,8 @@ public class CDLDiffblueTest {
    * Method under test: {@link CDL#toJSONArray(JSONArray, JSONTokener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray CDL.toJSONArray(JSONArray, JSONTokener)"})
   public void testToJSONArrayWithNamesX_givenTrue() throws JSONException {
     // Arrange
     JSONArray names = new JSONArray("[]");
@@ -437,8 +458,7 @@ public class CDLDiffblueTest {
   }
 
   /**
-   * Test {@link CDL#toJSONArray(JSONArray, JSONTokener)} with {@code names},
-   * {@code x}.
+   * Test {@link CDL#toJSONArray(JSONArray, JSONTokener)} with {@code names}, {@code x}.
    * <ul>
    *   <li>When {@code null}.</li>
    *   <li>Then return {@code null}.</li>
@@ -447,6 +467,8 @@ public class CDLDiffblueTest {
    * Method under test: {@link CDL#toJSONArray(JSONArray, JSONTokener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray CDL.toJSONArray(JSONArray, JSONTokener)"})
   public void testToJSONArrayWithNamesX_whenNull_thenReturnNull() throws JSONException {
     // Arrange
     JSONTokener x = new JSONTokener("foo");
@@ -466,6 +488,8 @@ public class CDLDiffblueTest {
    * Method under test: {@link CDL#toJSONArray(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray CDL.toJSONArray(String)"})
   public void testToJSONArrayWithString_whenEmptyString_thenReturnNull() throws JSONException {
     // Arrange, Act and Assert
     assertNull(CDL.toJSONArray(""));
@@ -481,6 +505,8 @@ public class CDLDiffblueTest {
    * Method under test: {@link CDL#toJSONArray(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray CDL.toJSONArray(String)"})
   public void testToJSONArrayWithString_whenString_thenReturnNull() throws JSONException {
     // Arrange, Act and Assert
     assertNull(CDL.toJSONArray("String"));
@@ -492,6 +518,8 @@ public class CDLDiffblueTest {
    * Method under test: {@link CDL#toJSONArray(JSONTokener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray CDL.toJSONArray(JSONTokener)"})
   public void testToJSONArrayWithX() throws JSONException {
     // Arrange
     JSONTokener x = new JSONTokener(",:]}/\\\"[{;=#");
@@ -504,13 +532,14 @@ public class CDLDiffblueTest {
   /**
    * Test {@link CDL#toJSONArray(JSONTokener)} with {@code x}.
    * <ul>
-   *   <li>Then {@link JSONTokener#JSONTokener(String)} with s is empty string
-   * end.</li>
+   *   <li>Then {@link JSONTokener#JSONTokener(String)} with s is empty string end.</li>
    * </ul>
    * <p>
    * Method under test: {@link CDL#toJSONArray(JSONTokener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray CDL.toJSONArray(JSONTokener)"})
   public void testToJSONArrayWithX_thenJSONTokenerWithSIsEmptyStringEnd() throws JSONException {
     // Arrange
     JSONTokener x = new JSONTokener("");
@@ -524,13 +553,14 @@ public class CDLDiffblueTest {
    * Test {@link CDL#toJSONArray(JSONTokener)} with {@code x}.
    * <ul>
    *   <li>When {@link JSONTokener#JSONTokener(String)} with s is {@code foo}.</li>
-   *   <li>Then {@link JSONTokener#JSONTokener(String)} with s is {@code foo}
-   * end.</li>
+   *   <li>Then {@link JSONTokener#JSONTokener(String)} with s is {@code foo} end.</li>
    * </ul>
    * <p>
    * Method under test: {@link CDL#toJSONArray(JSONTokener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray CDL.toJSONArray(JSONTokener)"})
   public void testToJSONArrayWithX_whenJSONTokenerWithSIsFoo_thenJSONTokenerWithSIsFooEnd() throws JSONException {
     // Arrange
     JSONTokener x = new JSONTokener("foo");
@@ -543,15 +573,15 @@ public class CDLDiffblueTest {
   /**
    * Test {@link CDL#toJSONArray(JSONTokener)} with {@code x}.
    * <ul>
-   *   <li>When {@link JSONTokener#JSONTokener(String)} with s is
-   * {@code foo,:]}/\"[{;=#}.</li>
-   *   <li>Then {@link JSONTokener#JSONTokener(String)} with s is
-   * {@code foo,:]}/\"[{;=#} end.</li>
+   *   <li>When {@link JSONTokener#JSONTokener(String)} with s is {@code foo,:]}/\"[{;=#}.</li>
+   *   <li>Then {@link JSONTokener#JSONTokener(String)} with s is {@code foo,:]}/\"[{;=#} end.</li>
    * </ul>
    * <p>
    * Method under test: {@link CDL#toJSONArray(JSONTokener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray CDL.toJSONArray(JSONTokener)"})
   public void testToJSONArrayWithX_whenJSONTokenerWithSIsFoo_thenJSONTokenerWithSIsFooEnd2() throws JSONException {
     // Arrange
     JSONTokener x = new JSONTokener("foo,:]}/\\\"[{;=#");
@@ -571,6 +601,8 @@ public class CDLDiffblueTest {
    * Method under test: {@link CDL#rowToString(JSONArray)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String CDL.rowToString(JSONArray)"})
   public void testRowToString_givenArrayList_thenReturnLeftSquareBracketRightSquareBracket() throws JSONException {
     // Arrange
     JSONArray ja = new JSONArray("[]");
@@ -590,6 +622,8 @@ public class CDLDiffblueTest {
    * Method under test: {@link CDL#rowToString(JSONArray)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String CDL.rowToString(JSONArray)"})
   public void testRowToString_givenHashMap_thenReturnLeftCurlyBracketRightCurlyBracket() throws JSONException {
     // Arrange
     JSONArray ja = new JSONArray("[]");
@@ -603,13 +637,14 @@ public class CDLDiffblueTest {
    * Test {@link CDL#rowToString(JSONArray)}.
    * <ul>
    *   <li>Given ten.</li>
-   *   <li>Then return
-   * {@code null,null,null,null,null,null,null,null,null,null,false}.</li>
+   *   <li>Then return {@code null,null,null,null,null,null,null,null,null,null,false}.</li>
    * </ul>
    * <p>
    * Method under test: {@link CDL#rowToString(JSONArray)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String CDL.rowToString(JSONArray)"})
   public void testRowToString_givenTen_thenReturnNullNullNullNullNullNullNullNullNullNullFalse() throws JSONException {
     // Arrange
     JSONArray ja = new JSONArray("[]");
@@ -628,6 +663,8 @@ public class CDLDiffblueTest {
    * Method under test: {@link CDL#rowToString(JSONArray)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String CDL.rowToString(JSONArray)"})
   public void testRowToString_thenReturnFalse() throws JSONException {
     // Arrange
     JSONArray ja = new JSONArray("[]");
@@ -646,6 +683,8 @@ public class CDLDiffblueTest {
    * Method under test: {@link CDL#rowToString(JSONArray)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String CDL.rowToString(JSONArray)"})
   public void testRowToString_thenReturnLf() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("\n", CDL.rowToString(new JSONArray("[]")));
@@ -657,6 +696,8 @@ public class CDLDiffblueTest {
    * Method under test: {@link CDL#toString(JSONArray)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String CDL.toString(JSONArray)"})
   public void testToStringWithJa() throws JSONException {
     // Arrange
     HashMap<Object, Object> value = new HashMap<>();
@@ -678,6 +719,8 @@ public class CDLDiffblueTest {
    * Method under test: {@link CDL#toString(JSONArray)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String CDL.toString(JSONArray)"})
   public void testToStringWithJa_givenFalse() throws JSONException {
     // Arrange
     JSONArray ja = new JSONArray("[]");
@@ -690,38 +733,15 @@ public class CDLDiffblueTest {
   /**
    * Test {@link CDL#toString(JSONArray)} with {@code ja}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@link JSONObject#NULL}
-   * and {@link BiFunction}.</li>
+   *   <li>Given {@link HashMap#HashMap()} empty string is {@link JSONObject#NULL}.</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link CDL#toString(JSONArray)}
    */
   @Test
-  public void testToStringWithJa_givenHashMapComputeIfPresentNullAndBiFunction_thenReturnNull() throws JSONException {
-    // Arrange
-    HashMap<Object, Object> value = new HashMap<>();
-    value.computeIfPresent(JSONObject.NULL, mock(BiFunction.class));
-    value.put(JSONObject.NULL, JSONObject.NULL);
-
-    JSONArray ja = new JSONArray("[]");
-    ja.put((Map) value);
-
-    // Act and Assert
-    assertEquals("null\n\n", CDL.toString(ja));
-  }
-
-  /**
-   * Test {@link CDL#toString(JSONArray)} with {@code ja}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} empty string is
-   * {@link JSONObject#NULL}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CDL#toString(JSONArray)}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String CDL.toString(JSONArray)"})
   public void testToStringWithJa_givenHashMapEmptyStringIsNull_thenReturnNull() throws JSONException {
     // Arrange
     HashMap<Object, Object> value = new HashMap<>();
@@ -737,14 +757,15 @@ public class CDLDiffblueTest {
   /**
    * Test {@link CDL#toString(JSONArray)} with {@code ja}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@link JSONObject#NULL} is
-   * {@link JSONObject#NULL}.</li>
+   *   <li>Given {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@link JSONObject#NULL}.</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link CDL#toString(JSONArray)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String CDL.toString(JSONArray)"})
   public void testToStringWithJa_givenHashMapNullIsNull_thenReturnNull() throws JSONException {
     // Arrange
     HashMap<Object, Object> value = new HashMap<>();
@@ -767,6 +788,8 @@ public class CDLDiffblueTest {
    * Method under test: {@link CDL#toString(JSONArray)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String CDL.toString(JSONArray)"})
   public void testToStringWithJa_givenHashMap_thenReturnNull() throws JSONException {
     // Arrange
     JSONArray ja = new JSONArray("[]");
@@ -779,12 +802,209 @@ public class CDLDiffblueTest {
   /**
    * Test {@link CDL#toString(JSONArray)} with {@code ja}.
    * <ul>
+   *   <li>Given {@link JSONObject#JSONObject()} append {@code {} and {@link JSONObject#NULL}.</li>
+   *   <li>Then return {@code {"{":[null]}}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link CDL#toString(JSONArray)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String CDL.toString(JSONArray)"})
+  public void testToStringWithJa_givenJSONObjectAppendLeftCurlyBracketAndNull_thenReturnNull() throws JSONException {
+    // Arrange
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.append("{", JSONObject.NULL);
+
+    HashMap<Object, Object> value = new HashMap<>();
+    value.put(jsonObject, JSONObject.NULL);
+
+    JSONArray ja = new JSONArray("[]");
+    ja.put((Map) value);
+
+    // Act and Assert
+    assertEquals("{\"{\":[null]}\n\n", CDL.toString(ja));
+  }
+
+  /**
+   * Test {@link CDL#toString(JSONArray)} with {@code ja}.
+   * <ul>
+   *   <li>Given {@link JSONObject#JSONObject()} {@code ,} is {@code 0.5}.</li>
+   *   <li>Then return {@code "{{:[null],,:0.5}"}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link CDL#toString(JSONArray)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String CDL.toString(JSONArray)"})
+  public void testToStringWithJa_givenJSONObjectCommaIs05_thenReturnNull05() throws JSONException {
+    // Arrange
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.put(",", 0.5d);
+    jsonObject.append("{", JSONObject.NULL);
+
+    HashMap<Object, Object> value = new HashMap<>();
+    value.put(jsonObject, JSONObject.NULL);
+
+    JSONArray ja = new JSONArray("[]");
+    ja.put((Map) value);
+
+    // Act and Assert
+    assertEquals("\"{{:[null],,:0.5}\"\n\n", CDL.toString(ja));
+  }
+
+  /**
+   * Test {@link CDL#toString(JSONArray)} with {@code ja}.
+   * <ul>
+   *   <li>Given {@link JSONObject#JSONObject()} {@code ,} is {@code false}.</li>
+   *   <li>Then return {@code "{{:[null],,:false}"}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link CDL#toString(JSONArray)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String CDL.toString(JSONArray)"})
+  public void testToStringWithJa_givenJSONObjectCommaIsFalse_thenReturnNullFalse() throws JSONException {
+    // Arrange
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.put(",", false);
+    jsonObject.append("{", JSONObject.NULL);
+
+    HashMap<Object, Object> value = new HashMap<>();
+    value.put(jsonObject, JSONObject.NULL);
+
+    JSONArray ja = new JSONArray("[]");
+    ja.put((Map) value);
+
+    // Act and Assert
+    assertEquals("\"{{:[null],,:false}\"\n\n", CDL.toString(ja));
+  }
+
+  /**
+   * Test {@link CDL#toString(JSONArray)} with {@code ja}.
+   * <ul>
+   *   <li>Given {@link JSONObject#JSONObject()} {@code ,} is {@code false}.</li>
+   *   <li>Then return {@code "{{:[null,null],,:false}"}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link CDL#toString(JSONArray)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String CDL.toString(JSONArray)"})
+  public void testToStringWithJa_givenJSONObjectCommaIsFalse_thenReturnNullNullFalse() throws JSONException {
+    // Arrange
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.append("{", JSONObject.NULL);
+    jsonObject.put(",", false);
+    jsonObject.append("{", JSONObject.NULL);
+
+    HashMap<Object, Object> value = new HashMap<>();
+    value.put(jsonObject, JSONObject.NULL);
+
+    JSONArray ja = new JSONArray("[]");
+    ja.put((Map) value);
+
+    // Act and Assert
+    assertEquals("\"{{:[null,null],,:false}\"\n\n", CDL.toString(ja));
+  }
+
+  /**
+   * Test {@link CDL#toString(JSONArray)} with {@code ja}.
+   * <ul>
+   *   <li>Given {@link JSONObject#JSONObject()} {@code ,} is {@link HashMap#HashMap()}.</li>
+   *   <li>Then return {@code "{{:[null],,:{}}"}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link CDL#toString(JSONArray)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String CDL.toString(JSONArray)"})
+  public void testToStringWithJa_givenJSONObjectCommaIsHashMap_thenReturnNull() throws JSONException {
+    // Arrange
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.put(",", (Map) new HashMap<>());
+    jsonObject.append("{", JSONObject.NULL);
+
+    HashMap<Object, Object> value = new HashMap<>();
+    value.put(jsonObject, JSONObject.NULL);
+
+    JSONArray ja = new JSONArray("[]");
+    ja.put((Map) value);
+
+    // Act and Assert
+    assertEquals("\"{{:[null],,:{}}\"\n\n", CDL.toString(ja));
+  }
+
+  /**
+   * Test {@link CDL#toString(JSONArray)} with {@code ja}.
+   * <ul>
+   *   <li>Given {@link JSONObject#JSONObject()} increment {@code ,}.</li>
+   *   <li>Then return {@code "{{:[null],,:1}"}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link CDL#toString(JSONArray)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String CDL.toString(JSONArray)"})
+  public void testToStringWithJa_givenJSONObjectIncrementComma_thenReturnNull1() throws JSONException {
+    // Arrange
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.increment(",");
+    jsonObject.append("{", JSONObject.NULL);
+
+    HashMap<Object, Object> value = new HashMap<>();
+    value.put(jsonObject, JSONObject.NULL);
+
+    JSONArray ja = new JSONArray("[]");
+    ja.put((Map) value);
+
+    // Act and Assert
+    assertEquals("\"{{:[null],,:1}\"\n\n", CDL.toString(ja));
+  }
+
+  /**
+   * Test {@link CDL#toString(JSONArray)} with {@code ja}.
+   * <ul>
+   *   <li>Given {@link JSONObject#JSONObject()} {@code {} is ten.</li>
+   *   <li>Then return {@code {"{":10}}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link CDL#toString(JSONArray)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String CDL.toString(JSONArray)"})
+  public void testToStringWithJa_givenJSONObjectLeftCurlyBracketIsTen_thenReturn10() throws JSONException {
+    // Arrange
+    JSONObject jsonObject = new JSONObject();
+    jsonObject.put("{", 10.0d);
+
+    HashMap<Object, Object> value = new HashMap<>();
+    value.put(jsonObject, JSONObject.NULL);
+
+    JSONArray ja = new JSONArray("[]");
+    ja.put((Map) value);
+
+    // Act and Assert
+    assertEquals("{\"{\":10}\n\n", CDL.toString(ja));
+  }
+
+  /**
+   * Test {@link CDL#toString(JSONArray)} with {@code ja}.
+   * <ul>
    *   <li>Then return {@code {}}.</li>
    * </ul>
    * <p>
    * Method under test: {@link CDL#toString(JSONArray)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String CDL.toString(JSONArray)"})
   public void testToStringWithJa_thenReturnLeftCurlyBracketRightCurlyBracket() throws JSONException {
     // Arrange
     HashMap<Object, Object> value = new HashMap<>();
@@ -806,308 +1026,10 @@ public class CDLDiffblueTest {
    * Method under test: {@link CDL#toString(JSONArray)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String CDL.toString(JSONArray)"})
   public void testToStringWithJa_whenJSONArrayWithSourceIsLeftSquareBracketRightSquareBracket() throws JSONException {
     // Arrange, Act and Assert
     assertNull(CDL.toString(new JSONArray("[]")));
-  }
-
-  /**
-   * Test {@link CDL#toString(JSONArray, JSONArray)} with {@code names},
-   * {@code ja}.
-   * <p>
-   * Method under test: {@link CDL#toString(JSONArray, JSONArray)}
-   */
-  @Test
-  public void testToStringWithNamesJa() throws JSONException {
-    // Arrange
-    JSONArray names = mock(JSONArray.class);
-    when(names.length()).thenReturn(3);
-    JSONArray jsonArray = mock(JSONArray.class);
-    when(jsonArray.opt(anyInt())).thenThrow(new JSONException("An error occurred"));
-    when(jsonArray.length()).thenReturn(3);
-    JSONObject jsonObject = mock(JSONObject.class);
-    when(jsonObject.toJSONArray(Mockito.<JSONArray>any())).thenReturn(jsonArray);
-    JSONArray ja = mock(JSONArray.class);
-    when(ja.optJSONObject(anyInt())).thenReturn(jsonObject);
-    when(ja.length()).thenReturn(3);
-
-    // Act and Assert
-    assertThrows(JSONException.class, () -> CDL.toString(names, ja));
-    verify(names).length();
-    verify(ja).length();
-    verify(jsonArray).length();
-    verify(jsonArray).opt(eq(0));
-    verify(ja).optJSONObject(eq(0));
-    verify(jsonObject).toJSONArray(isA(JSONArray.class));
-  }
-
-  /**
-   * Test {@link CDL#toString(JSONArray, JSONArray)} with {@code names},
-   * {@code ja}.
-   * <ul>
-   *   <li>Given {@link JSONArray} {@link JSONArray#opt(int)} return empty
-   * string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CDL#toString(JSONArray, JSONArray)}
-   */
-  @Test
-  public void testToStringWithNamesJa_givenJSONArrayOptReturnEmptyString() throws JSONException {
-    // Arrange
-    JSONArray names = mock(JSONArray.class);
-    when(names.length()).thenReturn(3);
-    JSONArray jsonArray = mock(JSONArray.class);
-    when(jsonArray.opt(anyInt())).thenReturn("");
-    when(jsonArray.length()).thenReturn(3);
-    JSONObject jsonObject = mock(JSONObject.class);
-    when(jsonObject.toJSONArray(Mockito.<JSONArray>any())).thenReturn(jsonArray);
-    JSONArray ja = mock(JSONArray.class);
-    when(ja.optJSONObject(anyInt())).thenReturn(jsonObject);
-    when(ja.length()).thenReturn(3);
-
-    // Act
-    String actualToStringResult = CDL.toString(names, ja);
-
-    // Assert
-    verify(names).length();
-    verify(ja, atLeast(1)).length();
-    verify(jsonArray, atLeast(1)).length();
-    verify(jsonArray, atLeast(1)).opt(anyInt());
-    verify(ja, atLeast(1)).optJSONObject(anyInt());
-    verify(jsonObject, atLeast(1)).toJSONArray(isA(JSONArray.class));
-    assertEquals(",,\n,,\n,,\n", actualToStringResult);
-  }
-
-  /**
-   * Test {@link CDL#toString(JSONArray, JSONArray)} with {@code names},
-   * {@code ja}.
-   * <ul>
-   *   <li>Given {@link JSONException#JSONException(String)} with message is
-   * {@code An error occurred}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CDL#toString(JSONArray, JSONArray)}
-   */
-  @Test
-  public void testToStringWithNamesJa_givenJSONExceptionWithMessageIsAnErrorOccurred() throws JSONException {
-    // Arrange
-    JSONArray names = mock(JSONArray.class);
-    when(names.length()).thenReturn(3);
-    JSONArray ja = mock(JSONArray.class);
-    when(ja.optJSONObject(anyInt())).thenThrow(new JSONException("An error occurred"));
-    when(ja.length()).thenReturn(3);
-
-    // Act and Assert
-    assertThrows(JSONException.class, () -> CDL.toString(names, ja));
-    verify(names).length();
-    verify(ja).length();
-    verify(ja).optJSONObject(eq(0));
-  }
-
-  /**
-   * Test {@link CDL#toString(JSONArray, JSONArray)} with {@code names},
-   * {@code ja}.
-   * <ul>
-   *   <li>Given {@code String}.</li>
-   *   <li>Then calls {@link JSONArray#getString(int)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CDL#toString(JSONArray, JSONArray)}
-   */
-  @Test
-  public void testToStringWithNamesJa_givenString_thenCallsGetString() throws JSONException {
-    // Arrange
-    JSONArray names = mock(JSONArray.class);
-    when(names.getString(anyInt())).thenReturn("String");
-    when(names.length()).thenReturn(3);
-    JSONArray ja = mock(JSONArray.class);
-    when(ja.optJSONObject(anyInt())).thenReturn(Cookie.toJSONObject("=;"));
-    when(ja.length()).thenReturn(3);
-
-    // Act
-    String actualToStringResult = CDL.toString(names, ja);
-
-    // Assert
-    verify(names, atLeast(1)).getString(anyInt());
-    verify(ja, atLeast(1)).length();
-    verify(names, atLeast(1)).length();
-    verify(ja, atLeast(1)).optJSONObject(anyInt());
-    assertEquals(",,\n,,\n,,\n", actualToStringResult);
-  }
-
-  /**
-   * Test {@link CDL#toString(JSONArray, JSONArray)} with {@code names},
-   * {@code ja}.
-   * <ul>
-   *   <li>Given zero.</li>
-   *   <li>When {@link JSONArray} {@link JSONArray#length()} return zero.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CDL#toString(JSONArray, JSONArray)}
-   */
-  @Test
-  public void testToStringWithNamesJa_givenZero_whenJSONArrayLengthReturnZero_thenReturnNull() throws JSONException {
-    // Arrange
-    JSONArray names = mock(JSONArray.class);
-    when(names.length()).thenReturn(0);
-
-    // Act
-    String actualToStringResult = CDL.toString(names, new JSONArray("[]"));
-
-    // Assert
-    verify(names).length();
-    assertNull(actualToStringResult);
-  }
-
-  /**
-   * Test {@link CDL#toString(JSONArray, JSONArray)} with {@code names},
-   * {@code ja}.
-   * <ul>
-   *   <li>Then return empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CDL#toString(JSONArray, JSONArray)}
-   */
-  @Test
-  public void testToStringWithNamesJa_thenReturnEmptyString() throws JSONException {
-    // Arrange
-    JSONArray names = mock(JSONArray.class);
-    when(names.length()).thenReturn(3);
-
-    // Act
-    String actualToStringResult = CDL.toString(names, new JSONArray("[]"));
-
-    // Assert
-    verify(names).length();
-    assertEquals("", actualToStringResult);
-  }
-
-  /**
-   * Test {@link CDL#toString(JSONArray, JSONArray)} with {@code names},
-   * {@code ja}.
-   * <ul>
-   *   <li>Then return lf lf lf.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CDL#toString(JSONArray, JSONArray)}
-   */
-  @Test
-  public void testToStringWithNamesJa_thenReturnLfLfLf() throws JSONException {
-    // Arrange
-    JSONArray names = mock(JSONArray.class);
-    when(names.length()).thenReturn(3);
-    JSONObject jsonObject = mock(JSONObject.class);
-    when(jsonObject.toJSONArray(Mockito.<JSONArray>any())).thenReturn(new JSONArray("[]"));
-    JSONArray ja = mock(JSONArray.class);
-    when(ja.optJSONObject(anyInt())).thenReturn(jsonObject);
-    when(ja.length()).thenReturn(3);
-
-    // Act
-    String actualToStringResult = CDL.toString(names, ja);
-
-    // Assert
-    verify(names).length();
-    verify(ja, atLeast(1)).length();
-    verify(ja, atLeast(1)).optJSONObject(anyInt());
-    verify(jsonObject, atLeast(1)).toJSONArray(isA(JSONArray.class));
-    assertEquals("\n\n\n", actualToStringResult);
-  }
-
-  /**
-   * Test {@link CDL#toString(JSONArray, JSONArray)} with {@code names},
-   * {@code ja}.
-   * <ul>
-   *   <li>Then return {@code null,null,null null,null,null null,null,null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CDL#toString(JSONArray, JSONArray)}
-   */
-  @Test
-  public void testToStringWithNamesJa_thenReturnNullNullNullNullNullNullNullNullNull() throws JSONException {
-    // Arrange
-    JSONArray names = mock(JSONArray.class);
-    when(names.length()).thenReturn(3);
-    JSONArray jsonArray = mock(JSONArray.class);
-    when(jsonArray.opt(anyInt())).thenReturn(JSONObject.NULL);
-    when(jsonArray.length()).thenReturn(3);
-    JSONObject jsonObject = mock(JSONObject.class);
-    when(jsonObject.toJSONArray(Mockito.<JSONArray>any())).thenReturn(jsonArray);
-    JSONArray ja = mock(JSONArray.class);
-    when(ja.optJSONObject(anyInt())).thenReturn(jsonObject);
-    when(ja.length()).thenReturn(3);
-
-    // Act
-    String actualToStringResult = CDL.toString(names, ja);
-
-    // Assert
-    verify(names).length();
-    verify(ja, atLeast(1)).length();
-    verify(jsonArray, atLeast(1)).length();
-    verify(jsonArray, atLeast(1)).opt(anyInt());
-    verify(ja, atLeast(1)).optJSONObject(anyInt());
-    verify(jsonObject, atLeast(1)).toJSONArray(isA(JSONArray.class));
-    assertEquals("null,null,null\nnull,null,null\nnull,null,null\n", actualToStringResult);
-  }
-
-  /**
-   * Test {@link CDL#toString(JSONArray, JSONArray)} with {@code names},
-   * {@code ja}.
-   * <ul>
-   *   <li>When {@link JSONArray} {@link JSONArray#getString(int)} return
-   * {@code null}.</li>
-   *   <li>Then calls {@link JSONArray#getString(int)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CDL#toString(JSONArray, JSONArray)}
-   */
-  @Test
-  public void testToStringWithNamesJa_whenJSONArrayGetStringReturnNull_thenCallsGetString() throws JSONException {
-    // Arrange
-    JSONArray names = mock(JSONArray.class);
-    when(names.getString(anyInt())).thenReturn(null);
-    when(names.length()).thenReturn(3);
-    JSONArray ja = mock(JSONArray.class);
-    when(ja.optJSONObject(anyInt())).thenReturn(Cookie.toJSONObject("=;"));
-    when(ja.length()).thenReturn(3);
-
-    // Act
-    String actualToStringResult = CDL.toString(names, ja);
-
-    // Assert
-    verify(names, atLeast(1)).getString(anyInt());
-    verify(ja, atLeast(1)).length();
-    verify(names, atLeast(1)).length();
-    verify(ja, atLeast(1)).optJSONObject(anyInt());
-    assertEquals(",,\n,,\n,,\n", actualToStringResult);
-  }
-
-  /**
-   * Test {@link CDL#toString(JSONArray, JSONArray)} with {@code names},
-   * {@code ja}.
-   * <ul>
-   *   <li>When {@link JSONArray} {@link JSONArray#optJSONObject(int)} return
-   * {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CDL#toString(JSONArray, JSONArray)}
-   */
-  @Test
-  public void testToStringWithNamesJa_whenJSONArrayOptJSONObjectReturnNull() throws JSONException {
-    // Arrange
-    JSONArray names = mock(JSONArray.class);
-    when(names.length()).thenReturn(3);
-    JSONArray ja = mock(JSONArray.class);
-    when(ja.optJSONObject(anyInt())).thenReturn(null);
-    when(ja.length()).thenReturn(3);
-
-    // Act
-    String actualToStringResult = CDL.toString(names, ja);
-
-    // Assert
-    verify(names).length();
-    verify(ja, atLeast(1)).length();
-    verify(ja, atLeast(1)).optJSONObject(anyInt());
-    assertEquals("", actualToStringResult);
   }
 }

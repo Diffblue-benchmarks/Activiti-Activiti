@@ -24,6 +24,7 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -31,24 +32,23 @@ import java.util.List;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.Process;
-import org.activiti.bpmn.model.Resource;
 import org.activiti.bpmn.model.ServiceTask;
-import org.activiti.bpmn.model.Signal;
 import org.activiti.validation.ValidationError;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class ServiceTaskValidatorDiffblueTest {
   /**
-   * Test
-   * {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}.
    * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation() {
     // Arrange
     ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
@@ -82,14 +82,14 @@ class ServiceTaskValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}.
    * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation2() {
     // Arrange
     ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
@@ -133,14 +133,14 @@ class ServiceTaskValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}.
    * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation3() {
     // Arrange
     ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
@@ -188,14 +188,14 @@ class ServiceTaskValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}.
    * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation4() {
     // Arrange
     ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
@@ -241,19 +241,19 @@ class ServiceTaskValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
    *   <li>Given {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then {@link BpmnModel} (default constructor) Resources {@link List}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList(); then BpmnModel (default constructor) Resources List")
-  void testExecuteValidation_givenArrayList_thenBpmnModelResourcesList() {
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList(); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.executeValidation(BpmnModel, Process, List)"})
+  void testExecuteValidation_givenArrayList_thenArrayListEmpty() {
     // Arrange
     ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -266,28 +266,21 @@ class ServiceTaskValidatorDiffblueTest {
 
     // Assert that nothing has changed
     verify(process).findFlowElementsOfType(isA(Class.class));
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
     assertTrue(errors.isEmpty());
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
   }
 
   /**
-   * Test
-   * {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link ServiceTask} {@link ServiceTask#getImplementationType()}
-   * return {@code class}.</li>
+   *   <li>Given {@link ServiceTask} {@link ServiceTask#getImplementationType()} return {@code class}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given ServiceTask getImplementationType() return 'class'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenServiceTaskGetImplementationTypeReturnClass() {
     // Arrange
     ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
@@ -335,18 +328,17 @@ class ServiceTaskValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link ServiceTask} {@link ServiceTask#getResultVariableName()}
-   * return empty string.</li>
+   *   <li>Given {@link ServiceTask} {@link ServiceTask#getResultVariableName()} return empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given ServiceTask getResultVariableName() return empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenServiceTaskGetResultVariableNameReturnEmptyString() {
     // Arrange
     ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
@@ -390,17 +382,17 @@ class ServiceTaskValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityId is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListFirstActivityIdIsNull() {
     // Arrange
     ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
@@ -430,18 +422,17 @@ class ServiceTaskValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} second DefaultDescription is
-   * {@code MAIL_TASK_NO_CONTENT}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} second DefaultDescription is {@code MAIL_TASK_NO_CONTENT}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() second DefaultDescription is 'MAIL_TASK_NO_CONTENT'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListSecondDefaultDescriptionIsMailTaskNoContent() {
     // Arrange
     ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
@@ -491,17 +482,17 @@ class ServiceTaskValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
    *   <li>Then calls {@link ServiceTask#getImplementation()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); then calls getImplementation()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenCallsGetImplementation() {
     // Arrange
     ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
@@ -527,56 +518,23 @@ class ServiceTaskValidatorDiffblueTest {
     verify(serviceTask, atLeast(1)).getImplementationType();
     verify(serviceTask).getResultVariableName();
     verify(serviceTask, atLeast(1)).getType();
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
     assertTrue(errors.isEmpty());
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
   }
 
   /**
-   * Test
-   * {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>When {@link BpmnModel}.</li>
+   *   <li>When {@link Process} (default constructor).</li>
    *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); when BpmnModel; then ArrayList() Empty")
-  void testExecuteValidation_whenBpmnModel_thenArrayListEmpty() {
-    // Arrange
-    ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
-    BpmnModel bpmnModel = mock(BpmnModel.class);
-    Process process = new Process();
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    serviceTaskValidator.executeValidation(bpmnModel, process, errors);
-
-    // Assert that nothing has changed
-    assertTrue(errors.isEmpty());
-  }
-
-  /**
-   * Test
-   * {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}.
-   * <ul>
-   *   <li>When {@link Process} (default constructor).</li>
-   *   <li>Then {@link BpmnModel} (default constructor) Resources {@link List}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#executeValidation(BpmnModel, Process, List)}
-   */
-  @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); when Process (default constructor); then BpmnModel (default constructor) Resources List")
-  void testExecuteValidation_whenProcess_thenBpmnModelResourcesList() {
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); when Process (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.executeValidation(BpmnModel, Process, List)"})
+  void testExecuteValidation_whenProcess_thenArrayListEmpty() {
     // Arrange
     ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -587,128 +545,21 @@ class ServiceTaskValidatorDiffblueTest {
     serviceTaskValidator.executeValidation(bpmnModel, process, errors);
 
     // Assert that nothing has changed
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
     assertTrue(errors.isEmpty());
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
   }
 
   /**
-   * Test
-   * {@link ServiceTaskValidator#verifyImplementation(Process, ServiceTask, List)}.
-   * <ul>
-   *   <li>Given empty string.</li>
-   *   <li>When {@link ServiceTask} (default constructor) Type is empty string.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#verifyImplementation(Process, ServiceTask, List)}
-   */
-  @Test
-  @DisplayName("Test verifyImplementation(Process, ServiceTask, List); given empty string; when ServiceTask (default constructor) Type is empty string")
-  void testVerifyImplementation_givenEmptyString_whenServiceTaskTypeIsEmptyString() {
-    // Arrange
-    ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
-    Process process = new Process();
-
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setType("");
-    serviceTask.setImplementation("Service Task");
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    serviceTaskValidator.verifyImplementation(process, serviceTask, errors);
-
-    // Assert that nothing has changed
-    Collection<FlowElement> flowElements = process.getFlowElements();
-    assertTrue(flowElements instanceof List);
-    assertTrue(errors.isEmpty());
-    assertTrue(flowElements.isEmpty());
-  }
-
-  /**
-   * Test
-   * {@link ServiceTaskValidator#verifyImplementation(Process, ServiceTask, List)}.
-   * <ul>
-   *   <li>Given {@code null}.</li>
-   *   <li>When {@link ServiceTask} (default constructor) Type is {@code null}.</li>
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#verifyImplementation(Process, ServiceTask, List)}
-   */
-  @Test
-  @DisplayName("Test verifyImplementation(Process, ServiceTask, List); given 'null'; when ServiceTask (default constructor) Type is 'null'; then ArrayList() Empty")
-  void testVerifyImplementation_givenNull_whenServiceTaskTypeIsNull_thenArrayListEmpty() {
-    // Arrange
-    ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
-    Process process = new Process();
-
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setType(null);
-    serviceTask.setImplementation("Service Task");
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    serviceTaskValidator.verifyImplementation(process, serviceTask, errors);
-
-    // Assert that nothing has changed
-    Collection<FlowElement> flowElements = process.getFlowElements();
-    assertTrue(flowElements instanceof List);
-    assertTrue(errors.isEmpty());
-    assertTrue(flowElements.isEmpty());
-  }
-
-  /**
-   * Test
-   * {@link ServiceTaskValidator#verifyImplementation(Process, ServiceTask, List)}.
-   * <ul>
-   *   <li>Given {@code null}.</li>
-   *   <li>When {@link ServiceTask} (default constructor) Type is
-   * {@code Service Task}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#verifyImplementation(Process, ServiceTask, List)}
-   */
-  @Test
-  @DisplayName("Test verifyImplementation(Process, ServiceTask, List); given 'null'; when ServiceTask (default constructor) Type is 'Service Task'")
-  void testVerifyImplementation_givenNull_whenServiceTaskTypeIsServiceTask() {
-    // Arrange
-    ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
-    Process process = new Process();
-
-    ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setType("Service Task");
-    serviceTask.setImplementation(null);
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    serviceTaskValidator.verifyImplementation(process, serviceTask, errors);
-
-    // Assert that nothing has changed
-    Collection<FlowElement> flowElements = process.getFlowElements();
-    assertTrue(flowElements instanceof List);
-    assertTrue(errors.isEmpty());
-    assertTrue(flowElements.isEmpty());
-  }
-
-  /**
-   * Test
-   * {@link ServiceTaskValidator#verifyImplementation(Process, ServiceTask, List)}.
+   * Test {@link ServiceTaskValidator#verifyImplementation(Process, ServiceTask, List)}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#verifyImplementation(Process, ServiceTask, List)}
+   * Method under test: {@link ServiceTaskValidator#verifyImplementation(Process, ServiceTask, List)}
    */
   @Test
   @DisplayName("Test verifyImplementation(Process, ServiceTask, List); then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.verifyImplementation(Process, ServiceTask, List)"})
   void testVerifyImplementation_thenArrayListSizeIsTwo() {
     // Arrange
     ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
@@ -753,18 +604,18 @@ class ServiceTaskValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskValidator#verifyImplementation(Process, ServiceTask, List)}.
+   * Test {@link ServiceTaskValidator#verifyImplementation(Process, ServiceTask, List)}.
    * <ul>
    *   <li>When {@code null}.</li>
    *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#verifyImplementation(Process, ServiceTask, List)}
+   * Method under test: {@link ServiceTaskValidator#verifyImplementation(Process, ServiceTask, List)}
    */
   @Test
   @DisplayName("Test verifyImplementation(Process, ServiceTask, List); when 'null'; then ArrayList() size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.verifyImplementation(Process, ServiceTask, List)"})
   void testVerifyImplementation_whenNull_thenArrayListSizeIsOne() {
     // Arrange
     ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
@@ -792,18 +643,129 @@ class ServiceTaskValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskValidator#verifyImplementation(Process, ServiceTask, List)}.
+   * Test {@link ServiceTaskValidator#verifyImplementation(Process, ServiceTask, List)}.
+   * <ul>
+   *   <li>When {@link ServiceTask} (default constructor) Implementation is {@code Service Task}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ServiceTaskValidator#verifyImplementation(Process, ServiceTask, List)}
+   */
+  @Test
+  @DisplayName("Test verifyImplementation(Process, ServiceTask, List); when ServiceTask (default constructor) Implementation is 'Service Task'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.verifyImplementation(Process, ServiceTask, List)"})
+  void testVerifyImplementation_whenServiceTaskImplementationIsServiceTask() {
+    // Arrange
+    ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
+    Process process = new Process();
+
+    ServiceTask serviceTask = new ServiceTask();
+    serviceTask.setType("");
+    serviceTask.setImplementation("Service Task");
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    serviceTaskValidator.verifyImplementation(process, serviceTask, errors);
+
+    // Assert that nothing has changed
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertTrue(errors.isEmpty());
+    assertTrue(flowElements.isEmpty());
+  }
+
+  /**
+   * Test {@link ServiceTaskValidator#verifyImplementation(Process, ServiceTask, List)}.
+   * <ul>
+   *   <li>When {@link ServiceTask} (default constructor) Type is empty string.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ServiceTaskValidator#verifyImplementation(Process, ServiceTask, List)}
+   */
+  @Test
+  @DisplayName("Test verifyImplementation(Process, ServiceTask, List); when ServiceTask (default constructor) Type is empty string; then ArrayList() size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.verifyImplementation(Process, ServiceTask, List)"})
+  void testVerifyImplementation_whenServiceTaskTypeIsEmptyString_thenArrayListSizeIsOne() {
+    // Arrange
+    ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
+    Process process = new Process();
+
+    ServiceTask serviceTask = new ServiceTask();
+    serviceTask.setType("");
+    serviceTask.setImplementation("");
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    serviceTaskValidator.verifyImplementation(process, serviceTask, errors);
+
+    // Assert
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertEquals(1, errors.size());
+    ValidationError getResult = errors.get(0);
+    assertEquals("SERVICE_TASK_MISSING_IMPLEMENTATION", getResult.getDefaultDescription());
+    assertEquals("SERVICE_TASK_MISSING_IMPLEMENTATION", getResult.getKey());
+    assertEquals("SERVICE_TASK_MISSING_IMPLEMENTATION", getResult.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
+    assertTrue(flowElements.isEmpty());
+    assertTrue(getResult.getParams().isEmpty());
+  }
+
+  /**
+   * Test {@link ServiceTaskValidator#verifyImplementation(Process, ServiceTask, List)}.
+   * <ul>
+   *   <li>When {@link ServiceTask} (default constructor) Type is {@code Service Task}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ServiceTaskValidator#verifyImplementation(Process, ServiceTask, List)}
+   */
+  @Test
+  @DisplayName("Test verifyImplementation(Process, ServiceTask, List); when ServiceTask (default constructor) Type is 'Service Task'; then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.verifyImplementation(Process, ServiceTask, List)"})
+  void testVerifyImplementation_whenServiceTaskTypeIsServiceTask_thenArrayListEmpty() {
+    // Arrange
+    ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
+    Process process = new Process();
+
+    ServiceTask serviceTask = new ServiceTask();
+    serviceTask.setType("Service Task");
+    serviceTask.setImplementation("");
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    serviceTaskValidator.verifyImplementation(process, serviceTask, errors);
+
+    // Assert that nothing has changed
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertTrue(errors.isEmpty());
+    assertTrue(flowElements.isEmpty());
+  }
+
+  /**
+   * Test {@link ServiceTaskValidator#verifyImplementation(Process, ServiceTask, List)}.
    * <ul>
    *   <li>When {@link ServiceTask} (default constructor).</li>
    *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#verifyImplementation(Process, ServiceTask, List)}
+   * Method under test: {@link ServiceTaskValidator#verifyImplementation(Process, ServiceTask, List)}
    */
   @Test
   @DisplayName("Test verifyImplementation(Process, ServiceTask, List); when ServiceTask (default constructor); then ArrayList() size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.verifyImplementation(Process, ServiceTask, List)"})
   void testVerifyImplementation_whenServiceTask_thenArrayListSizeIsOne() {
     // Arrange
     ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
@@ -838,18 +800,17 @@ class ServiceTaskValidatorDiffblueTest {
    * Test {@link ServiceTaskValidator#verifyType(Process, ServiceTask, List)}.
    * <ul>
    *   <li>Given {@code camel}.</li>
-   *   <li>When {@link ServiceTask} (default constructor) Type is
-   * {@code camel}.</li>
-   *   <li>Then {@link Process} (default constructor) FlowElements
-   * {@link List}.</li>
+   *   <li>When {@link ServiceTask} (default constructor) Type is {@code camel}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#verifyType(Process, ServiceTask, List)}
+   * Method under test: {@link ServiceTaskValidator#verifyType(Process, ServiceTask, List)}
    */
   @Test
-  @DisplayName("Test verifyType(Process, ServiceTask, List); given 'camel'; when ServiceTask (default constructor) Type is 'camel'; then Process (default constructor) FlowElements List")
-  void testVerifyType_givenCamel_whenServiceTaskTypeIsCamel_thenProcessFlowElementsList() {
+  @DisplayName("Test verifyType(Process, ServiceTask, List); given 'camel'; when ServiceTask (default constructor) Type is 'camel'; then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.verifyType(Process, ServiceTask, List)"})
+  void testVerifyType_givenCamel_whenServiceTaskTypeIsCamel_thenArrayListEmpty() {
     // Arrange
     ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
     Process process = new Process();
@@ -862,25 +823,22 @@ class ServiceTaskValidatorDiffblueTest {
     serviceTaskValidator.verifyType(process, serviceTask, errors);
 
     // Assert that nothing has changed
-    Collection<FlowElement> flowElements = process.getFlowElements();
-    assertTrue(flowElements instanceof List);
     assertTrue(errors.isEmpty());
-    assertTrue(flowElements.isEmpty());
   }
 
   /**
    * Test {@link ServiceTaskValidator#verifyType(Process, ServiceTask, List)}.
    * <ul>
    *   <li>Given {@link ServiceTask#DMN_TASK}.</li>
-   *   <li>Then {@link ArrayList#ArrayList()} first DefaultDescription is
-   * {@code DMN_TASK_NO_KEY}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} first DefaultDescription is {@code DMN_TASK_NO_KEY}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#verifyType(Process, ServiceTask, List)}
+   * Method under test: {@link ServiceTaskValidator#verifyType(Process, ServiceTask, List)}
    */
   @Test
   @DisplayName("Test verifyType(Process, ServiceTask, List); given DMN_TASK; then ArrayList() first DefaultDescription is 'DMN_TASK_NO_KEY'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.verifyType(Process, ServiceTask, List)"})
   void testVerifyType_givenDmn_task_thenArrayListFirstDefaultDescriptionIsDmnTaskNoKey() {
     // Arrange
     ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
@@ -908,11 +866,12 @@ class ServiceTaskValidatorDiffblueTest {
    *   <li>When {@link ServiceTask} (default constructor) Type is empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#verifyType(Process, ServiceTask, List)}
+   * Method under test: {@link ServiceTaskValidator#verifyType(Process, ServiceTask, List)}
    */
   @Test
   @DisplayName("Test verifyType(Process, ServiceTask, List); given empty string; when ServiceTask (default constructor) Type is empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.verifyType(Process, ServiceTask, List)"})
   void testVerifyType_givenEmptyString_whenServiceTaskTypeIsEmptyString() {
     // Arrange
     ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
@@ -926,10 +885,7 @@ class ServiceTaskValidatorDiffblueTest {
     serviceTaskValidator.verifyType(process, serviceTask, errors);
 
     // Assert that nothing has changed
-    Collection<FlowElement> flowElements = process.getFlowElements();
-    assertTrue(flowElements instanceof List);
     assertTrue(errors.isEmpty());
-    assertTrue(flowElements.isEmpty());
   }
 
   /**
@@ -939,11 +895,12 @@ class ServiceTaskValidatorDiffblueTest {
    *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#verifyType(Process, ServiceTask, List)}
+   * Method under test: {@link ServiceTaskValidator#verifyType(Process, ServiceTask, List)}
    */
   @Test
   @DisplayName("Test verifyType(Process, ServiceTask, List); given MAIL_TASK; then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.verifyType(Process, ServiceTask, List)"})
   void testVerifyType_givenMail_task_thenArrayListSizeIsTwo() {
     // Arrange
     ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
@@ -982,16 +939,16 @@ class ServiceTaskValidatorDiffblueTest {
    * <ul>
    *   <li>Given {@code mule}.</li>
    *   <li>When {@link ServiceTask} (default constructor) Type is {@code mule}.</li>
-   *   <li>Then {@link Process} (default constructor) FlowElements
-   * {@link List}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#verifyType(Process, ServiceTask, List)}
+   * Method under test: {@link ServiceTaskValidator#verifyType(Process, ServiceTask, List)}
    */
   @Test
-  @DisplayName("Test verifyType(Process, ServiceTask, List); given 'mule'; when ServiceTask (default constructor) Type is 'mule'; then Process (default constructor) FlowElements List")
-  void testVerifyType_givenMule_whenServiceTaskTypeIsMule_thenProcessFlowElementsList() {
+  @DisplayName("Test verifyType(Process, ServiceTask, List); given 'mule'; when ServiceTask (default constructor) Type is 'mule'; then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.verifyType(Process, ServiceTask, List)"})
+  void testVerifyType_givenMule_whenServiceTaskTypeIsMule_thenArrayListEmpty() {
     // Arrange
     ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
     Process process = new Process();
@@ -1004,31 +961,28 @@ class ServiceTaskValidatorDiffblueTest {
     serviceTaskValidator.verifyType(process, serviceTask, errors);
 
     // Assert that nothing has changed
-    Collection<FlowElement> flowElements = process.getFlowElements();
-    assertTrue(flowElements instanceof List);
     assertTrue(errors.isEmpty());
-    assertTrue(flowElements.isEmpty());
   }
 
   /**
    * Test {@link ServiceTaskValidator#verifyType(Process, ServiceTask, List)}.
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} first DefaultDescription is
-   * {@code SERVICE_TASK_INVALID_TYPE}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} first DefaultDescription is {@code SERVICE_TASK_INVALID_TYPE}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#verifyType(Process, ServiceTask, List)}
+   * Method under test: {@link ServiceTaskValidator#verifyType(Process, ServiceTask, List)}
    */
   @Test
   @DisplayName("Test verifyType(Process, ServiceTask, List); then ArrayList() first DefaultDescription is 'SERVICE_TASK_INVALID_TYPE'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.verifyType(Process, ServiceTask, List)"})
   void testVerifyType_thenArrayListFirstDefaultDescriptionIsServiceTaskInvalidType() {
     // Arrange
     ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
     Process process = new Process();
 
     ServiceTask serviceTask = new ServiceTask();
-    serviceTask.setType("Service Task");
+    serviceTask.setType("not empty");
     ArrayList<ValidationError> errors = new ArrayList<>();
 
     // Act
@@ -1045,15 +999,15 @@ class ServiceTaskValidatorDiffblueTest {
   /**
    * Test {@link ServiceTaskValidator#verifyType(Process, ServiceTask, List)}.
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} first DefaultDescription is
-   * {@code SHELL_TASK_NO_COMMAND}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} first DefaultDescription is {@code SHELL_TASK_NO_COMMAND}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#verifyType(Process, ServiceTask, List)}
+   * Method under test: {@link ServiceTaskValidator#verifyType(Process, ServiceTask, List)}
    */
   @Test
   @DisplayName("Test verifyType(Process, ServiceTask, List); then ArrayList() first DefaultDescription is 'SHELL_TASK_NO_COMMAND'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.verifyType(Process, ServiceTask, List)"})
   void testVerifyType_thenArrayListFirstDefaultDescriptionIsShellTaskNoCommand() {
     // Arrange
     ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
@@ -1078,16 +1032,16 @@ class ServiceTaskValidatorDiffblueTest {
    * Test {@link ServiceTaskValidator#verifyType(Process, ServiceTask, List)}.
    * <ul>
    *   <li>When {@link ServiceTask} (default constructor).</li>
-   *   <li>Then {@link Process} (default constructor) FlowElements
-   * {@link List}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#verifyType(Process, ServiceTask, List)}
+   * Method under test: {@link ServiceTaskValidator#verifyType(Process, ServiceTask, List)}
    */
   @Test
-  @DisplayName("Test verifyType(Process, ServiceTask, List); when ServiceTask (default constructor); then Process (default constructor) FlowElements List")
-  void testVerifyType_whenServiceTask_thenProcessFlowElementsList() {
+  @DisplayName("Test verifyType(Process, ServiceTask, List); when ServiceTask (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.verifyType(Process, ServiceTask, List)"})
+  void testVerifyType_whenServiceTask_thenArrayListEmpty() {
     // Arrange
     ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
     Process process = new Process();
@@ -1098,24 +1052,21 @@ class ServiceTaskValidatorDiffblueTest {
     serviceTaskValidator.verifyType(process, serviceTask, errors);
 
     // Assert that nothing has changed
-    Collection<FlowElement> flowElements = process.getFlowElements();
-    assertTrue(flowElements instanceof List);
     assertTrue(errors.isEmpty());
-    assertTrue(flowElements.isEmpty());
   }
 
   /**
-   * Test
-   * {@link ServiceTaskValidator#verifyResultVariableName(Process, ServiceTask, List)}.
+   * Test {@link ServiceTaskValidator#verifyResultVariableName(Process, ServiceTask, List)}.
    * <ul>
    *   <li>Given empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#verifyResultVariableName(Process, ServiceTask, List)}
+   * Method under test: {@link ServiceTaskValidator#verifyResultVariableName(Process, ServiceTask, List)}
    */
   @Test
   @DisplayName("Test verifyResultVariableName(Process, ServiceTask, List); given empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.verifyResultVariableName(Process, ServiceTask, List)"})
   void testVerifyResultVariableName_givenEmptyString() {
     // Arrange
     ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
@@ -1136,17 +1087,17 @@ class ServiceTaskValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskValidator#verifyResultVariableName(Process, ServiceTask, List)}.
+   * Test {@link ServiceTaskValidator#verifyResultVariableName(Process, ServiceTask, List)}.
    * <ul>
    *   <li>Given {@code Implementation Type}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#verifyResultVariableName(Process, ServiceTask, List)}
+   * Method under test: {@link ServiceTaskValidator#verifyResultVariableName(Process, ServiceTask, List)}
    */
   @Test
   @DisplayName("Test verifyResultVariableName(Process, ServiceTask, List); given 'Implementation Type'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.verifyResultVariableName(Process, ServiceTask, List)"})
   void testVerifyResultVariableName_givenImplementationType() {
     // Arrange
     ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
@@ -1169,18 +1120,18 @@ class ServiceTaskValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskValidator#verifyResultVariableName(Process, ServiceTask, List)}.
+   * Test {@link ServiceTaskValidator#verifyResultVariableName(Process, ServiceTask, List)}.
    * <ul>
    *   <li>Given ten.</li>
    *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#verifyResultVariableName(Process, ServiceTask, List)}
+   * Method under test: {@link ServiceTaskValidator#verifyResultVariableName(Process, ServiceTask, List)}
    */
   @Test
   @DisplayName("Test verifyResultVariableName(Process, ServiceTask, List); given ten; then ArrayList() size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.verifyResultVariableName(Process, ServiceTask, List)"})
   void testVerifyResultVariableName_givenTen_thenArrayListSizeIsOne() {
     // Arrange
     ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
@@ -1224,19 +1175,19 @@ class ServiceTaskValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskValidator#verifyResultVariableName(Process, ServiceTask, List)}.
+   * Test {@link ServiceTaskValidator#verifyResultVariableName(Process, ServiceTask, List)}.
    * <ul>
    *   <li>Given ten.</li>
    *   <li>When {@code null}.</li>
    *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#verifyResultVariableName(Process, ServiceTask, List)}
+   * Method under test: {@link ServiceTaskValidator#verifyResultVariableName(Process, ServiceTask, List)}
    */
   @Test
   @DisplayName("Test verifyResultVariableName(Process, ServiceTask, List); given ten; when 'null'; then ArrayList() size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.verifyResultVariableName(Process, ServiceTask, List)"})
   void testVerifyResultVariableName_givenTen_whenNull_thenArrayListSizeIsOne() {
     // Arrange
     ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
@@ -1276,17 +1227,17 @@ class ServiceTaskValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskValidator#verifyResultVariableName(Process, ServiceTask, List)}.
+   * Test {@link ServiceTaskValidator#verifyResultVariableName(Process, ServiceTask, List)}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#verifyResultVariableName(Process, ServiceTask, List)}
+   * Method under test: {@link ServiceTaskValidator#verifyResultVariableName(Process, ServiceTask, List)}
    */
   @Test
   @DisplayName("Test verifyResultVariableName(Process, ServiceTask, List); then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.verifyResultVariableName(Process, ServiceTask, List)"})
   void testVerifyResultVariableName_thenArrayListSizeIsTwo() {
     // Arrange
     ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
@@ -1343,47 +1294,19 @@ class ServiceTaskValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ServiceTaskValidator#verifyResultVariableName(Process, ServiceTask, List)}.
+   * Test {@link ServiceTaskValidator#verifyResultVariableName(Process, ServiceTask, List)}.
    * <ul>
-   *   <li>When {@link Process}.</li>
+   *   <li>When {@link ServiceTask} (default constructor).</li>
    *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#verifyResultVariableName(Process, ServiceTask, List)}
+   * Method under test: {@link ServiceTaskValidator#verifyResultVariableName(Process, ServiceTask, List)}
    */
   @Test
-  @DisplayName("Test verifyResultVariableName(Process, ServiceTask, List); when Process; then ArrayList() Empty")
-  void testVerifyResultVariableName_whenProcess_thenArrayListEmpty() {
-    // Arrange
-    ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
-    Process process = mock(Process.class);
-    ServiceTask serviceTask = new ServiceTask();
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    serviceTaskValidator.verifyResultVariableName(process, serviceTask, errors);
-
-    // Assert that nothing has changed
-    assertTrue(errors.isEmpty());
-  }
-
-  /**
-   * Test
-   * {@link ServiceTaskValidator#verifyResultVariableName(Process, ServiceTask, List)}.
-   * <ul>
-   *   <li>When {@link ServiceTask} (default constructor).</li>
-   *   <li>Then {@link Process} (default constructor) FlowElements
-   * {@link List}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ServiceTaskValidator#verifyResultVariableName(Process, ServiceTask, List)}
-   */
-  @Test
-  @DisplayName("Test verifyResultVariableName(Process, ServiceTask, List); when ServiceTask (default constructor); then Process (default constructor) FlowElements List")
-  void testVerifyResultVariableName_whenServiceTask_thenProcessFlowElementsList() {
+  @DisplayName("Test verifyResultVariableName(Process, ServiceTask, List); when ServiceTask (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ServiceTaskValidator.verifyResultVariableName(Process, ServiceTask, List)"})
+  void testVerifyResultVariableName_whenServiceTask_thenArrayListEmpty() {
     // Arrange
     ServiceTaskValidator serviceTaskValidator = new ServiceTaskValidator();
     Process process = new Process();

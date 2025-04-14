@@ -18,7 +18,10 @@ package org.activiti.api.runtime.shared.query;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import org.activiti.api.runtime.shared.query.Order.Direction;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class PageableDiffblueTest {
@@ -29,6 +32,8 @@ class PageableDiffblueTest {
    */
   @Test
   @DisplayName("Test of(int, int) with 'startIndex', 'maxItems'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Pageable Pageable.of(int, int)"})
   void testOfWithStartIndexMaxItems() {
     // Arrange and Act
     Pageable actualOfResult = Pageable.of(1, 3);
@@ -40,16 +45,17 @@ class PageableDiffblueTest {
   }
 
   /**
-   * Test {@link Pageable#of(int, int, Order)} with {@code startIndex},
-   * {@code maxItems}, {@code order}.
+   * Test {@link Pageable#of(int, int, Order)} with {@code startIndex}, {@code maxItems}, {@code order}.
    * <p>
    * Method under test: {@link Pageable#of(int, int, Order)}
    */
   @Test
   @DisplayName("Test of(int, int, Order) with 'startIndex', 'maxItems', 'order'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Pageable Pageable.of(int, int, Order)"})
   void testOfWithStartIndexMaxItemsOrder() {
     // Arrange
-    Order order = Order.by("Property", Order.Direction.ASC);
+    Order order = Order.by("Property", Direction.ASC);
 
     // Act
     Pageable actualOfResult = Pageable.of(1, 3, order);
@@ -72,6 +78,8 @@ class PageableDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"int Pageable.getMaxItems()", "Order Pageable.getOrder()", "int Pageable.getStartIndex()"})
   void testGettersAndSetters() {
     // Arrange
     Pageable ofResult = Pageable.of(1, 3);

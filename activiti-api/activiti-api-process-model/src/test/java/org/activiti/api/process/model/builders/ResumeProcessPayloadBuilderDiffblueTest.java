@@ -21,21 +21,23 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.payloads.ResumeProcessPayload;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ResumeProcessPayloadBuilderDiffblueTest {
   /**
-   * Test
-   * {@link ResumeProcessPayloadBuilder#withProcessInstance(ProcessInstance)}.
+   * Test {@link ResumeProcessPayloadBuilder#withProcessInstance(ProcessInstance)}.
    * <p>
-   * Method under test:
-   * {@link ResumeProcessPayloadBuilder#withProcessInstance(ProcessInstance)}
+   * Method under test: {@link ResumeProcessPayloadBuilder#withProcessInstance(ProcessInstance)}
    */
   @Test
   @DisplayName("Test withProcessInstance(ProcessInstance)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ResumeProcessPayloadBuilder ResumeProcessPayloadBuilder.withProcessInstance(ProcessInstance)"})
   void testWithProcessInstance() {
     // Arrange
     ResumeProcessPayloadBuilder resumeResult = ProcessPayloadBuilder.resume();
@@ -57,13 +59,16 @@ class ResumeProcessPayloadBuilderDiffblueTest {
    * Methods under test:
    * <ul>
    *   <li>{@link ResumeProcessPayloadBuilder#build()}
-   *   <li>default or parameterless constructor of
-   * {@link ResumeProcessPayloadBuilder}
+   *   <li>default or parameterless constructor of {@link ResumeProcessPayloadBuilder}
    *   <li>{@link ResumeProcessPayloadBuilder#withProcessInstanceId(String)}
    * </ul>
    */
   @Test
   @DisplayName("Test build()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ResumeProcessPayloadBuilder.<init>()",
+      "ResumeProcessPayload ResumeProcessPayloadBuilder.build()",
+      "ResumeProcessPayloadBuilder ResumeProcessPayloadBuilder.withProcessInstanceId(String)"})
   void testBuild() {
     // Arrange and Act
     ResumeProcessPayload actualBuildResult = (new ResumeProcessPayloadBuilder())

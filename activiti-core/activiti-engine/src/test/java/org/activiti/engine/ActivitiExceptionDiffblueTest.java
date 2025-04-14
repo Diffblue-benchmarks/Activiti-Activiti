@@ -18,7 +18,10 @@ package org.activiti.engine;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ActivitiExceptionDiffblueTest {
   /**
@@ -31,6 +34,8 @@ public class ActivitiExceptionDiffblueTest {
    * Method under test: {@link ActivitiException#ActivitiException(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiException.<init>(String)", "void ActivitiException.<init>(String, Throwable)"})
   public void testNewActivitiException_whenAnErrorOccurred_thenReturnCauseIsNull() {
     // Arrange and Act
     ActivitiException actualActivitiException = new ActivitiException("An error occurred");
@@ -48,10 +53,11 @@ public class ActivitiExceptionDiffblueTest {
    *   <li>Then return Cause is {@link Throwable#Throwable()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiException#ActivitiException(String, Throwable)}
+   * Method under test: {@link ActivitiException#ActivitiException(String, Throwable)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiException.<init>(String)", "void ActivitiException.<init>(String, Throwable)"})
   public void testNewActivitiException_whenThrowable_thenReturnCauseIsThrowable() {
     // Arrange
     Throwable cause = new Throwable();

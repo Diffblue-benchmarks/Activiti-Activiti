@@ -25,231 +25,70 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import jakarta.transaction.TransactionManager;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.impl.cfg.CommandExecutorImpl;
 import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandConfig;
 import org.activiti.engine.impl.interceptor.CommandContextInterceptor;
-import org.activiti.engine.impl.interceptor.CommandExecutor;
-import org.activiti.engine.impl.interceptor.JtaRetryInterceptor;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.runtime.ProcessInstanceBuilderImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
+import org.activiti.engine.runtime.DataObject;
 import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.runtime.ExecutionQuery;
 import org.activiti.engine.runtime.NativeExecutionQuery;
 import org.activiti.engine.runtime.NativeProcessInstanceQuery;
-import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.runtime.ProcessInstanceBuilder;
 import org.activiti.engine.runtime.ProcessInstanceQuery;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class)
 public class RuntimeServiceImplDiffblueTest {
-  @InjectMocks
-  private RuntimeServiceImpl runtimeServiceImpl;
-
   /**
-   * Test
-   * {@link RuntimeServiceImpl#startProcessInstanceByKey(String, String, Map)}
-   * with {@code processDefinitionKey}, {@code businessKey}, {@code variables}.
+   * Test {@link RuntimeServiceImpl#deleteProcessInstance(String, String)}.
+   * <ul>
+   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.</li>
+   * </ul>
    * <p>
-   * Method under test:
-   * {@link RuntimeServiceImpl#startProcessInstanceByKey(String, String, Map)}
+   * Method under test: {@link RuntimeServiceImpl#deleteProcessInstance(String, String)}
    */
   @Test
-  public void testStartProcessInstanceByKeyWithProcessDefinitionKeyBusinessKeyVariables() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void RuntimeServiceImpl.deleteProcessInstance(String, String)"})
+  public void testDeleteProcessInstance_thenCallsExecute() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
-        .thenReturn(createWithEmptyRelationshipCollectionsResult);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
     runtimeServiceImpl.setCommandExecutor(commandExecutor);
 
     // Act
-    ProcessInstance actualStartProcessInstanceByKeyResult = runtimeServiceImpl
-        .startProcessInstanceByKey("Process Definition Key", "Business Key", new HashMap<>());
+    runtimeServiceImpl.deleteProcessInstance("42", "Just cause");
 
     // Assert
     verify(first).execute(isA(CommandConfig.class), isA(Command.class));
-    assertSame(createWithEmptyRelationshipCollectionsResult, actualStartProcessInstanceByKeyResult);
-  }
-
-  /**
-   * Test {@link RuntimeServiceImpl#startProcessInstanceByKey(String, Map)} with
-   * {@code processDefinitionKey}, {@code variables}.
-   * <p>
-   * Method under test:
-   * {@link RuntimeServiceImpl#startProcessInstanceByKey(String, Map)}
-   */
-  @Test
-  public void testStartProcessInstanceByKeyWithProcessDefinitionKeyVariables() {
-    // Arrange
-    CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
-        .thenReturn(createWithEmptyRelationshipCollectionsResult);
-    CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
-
-    RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
-    runtimeServiceImpl.setCommandExecutor(commandExecutor);
-
-    // Act
-    ProcessInstance actualStartProcessInstanceByKeyResult = runtimeServiceImpl
-        .startProcessInstanceByKey("Process Definition Key", new HashMap<>());
-
-    // Assert
-    verify(first).execute(isA(CommandConfig.class), isA(Command.class));
-    assertSame(createWithEmptyRelationshipCollectionsResult, actualStartProcessInstanceByKeyResult);
-  }
-
-  /**
-   * Test
-   * {@link RuntimeServiceImpl#startProcessInstanceByKeyAndTenantId(String, String, Map, String)}
-   * with {@code processDefinitionKey}, {@code businessKey}, {@code variables},
-   * {@code tenantId}.
-   * <p>
-   * Method under test:
-   * {@link RuntimeServiceImpl#startProcessInstanceByKeyAndTenantId(String, String, Map, String)}
-   */
-  @Test
-  public void testStartProcessInstanceByKeyAndTenantIdWithProcessDefinitionKeyBusinessKeyVariablesTenantId() {
-    // Arrange
-    CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
-        .thenReturn(createWithEmptyRelationshipCollectionsResult);
-    CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
-
-    RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
-    runtimeServiceImpl.setCommandExecutor(commandExecutor);
-
-    // Act
-    ProcessInstance actualStartProcessInstanceByKeyAndTenantIdResult = runtimeServiceImpl
-        .startProcessInstanceByKeyAndTenantId("Process Definition Key", "Business Key", new HashMap<>(), "42");
-
-    // Assert
-    verify(first).execute(isA(CommandConfig.class), isA(Command.class));
-    assertSame(createWithEmptyRelationshipCollectionsResult, actualStartProcessInstanceByKeyAndTenantIdResult);
-  }
-
-  /**
-   * Test
-   * {@link RuntimeServiceImpl#startProcessInstanceByKeyAndTenantId(String, Map, String)}
-   * with {@code processDefinitionKey}, {@code variables}, {@code tenantId}.
-   * <p>
-   * Method under test:
-   * {@link RuntimeServiceImpl#startProcessInstanceByKeyAndTenantId(String, Map, String)}
-   */
-  @Test
-  public void testStartProcessInstanceByKeyAndTenantIdWithProcessDefinitionKeyVariablesTenantId() {
-    // Arrange
-    CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
-        .thenReturn(createWithEmptyRelationshipCollectionsResult);
-    CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
-
-    RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
-    runtimeServiceImpl.setCommandExecutor(commandExecutor);
-
-    // Act
-    ProcessInstance actualStartProcessInstanceByKeyAndTenantIdResult = runtimeServiceImpl
-        .startProcessInstanceByKeyAndTenantId("Process Definition Key", new HashMap<>(), "42");
-
-    // Assert
-    verify(first).execute(isA(CommandConfig.class), isA(Command.class));
-    assertSame(createWithEmptyRelationshipCollectionsResult, actualStartProcessInstanceByKeyAndTenantIdResult);
-  }
-
-  /**
-   * Test {@link RuntimeServiceImpl#startProcessInstanceById(String, String, Map)}
-   * with {@code processDefinitionId}, {@code businessKey}, {@code variables}.
-   * <p>
-   * Method under test:
-   * {@link RuntimeServiceImpl#startProcessInstanceById(String, String, Map)}
-   */
-  @Test
-  public void testStartProcessInstanceByIdWithProcessDefinitionIdBusinessKeyVariables() {
-    // Arrange
-    CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
-        .thenReturn(createWithEmptyRelationshipCollectionsResult);
-    CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
-
-    RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
-    runtimeServiceImpl.setCommandExecutor(commandExecutor);
-
-    // Act
-    ProcessInstance actualStartProcessInstanceByIdResult = runtimeServiceImpl.startProcessInstanceById("42",
-        "Business Key", new HashMap<>());
-
-    // Assert
-    verify(first).execute(isA(CommandConfig.class), isA(Command.class));
-    assertSame(createWithEmptyRelationshipCollectionsResult, actualStartProcessInstanceByIdResult);
-  }
-
-  /**
-   * Test {@link RuntimeServiceImpl#startProcessInstanceById(String, Map)} with
-   * {@code processDefinitionId}, {@code variables}.
-   * <p>
-   * Method under test:
-   * {@link RuntimeServiceImpl#startProcessInstanceById(String, Map)}
-   */
-  @Test
-  public void testStartProcessInstanceByIdWithProcessDefinitionIdVariables() {
-    // Arrange
-    CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
-        .thenReturn(createWithEmptyRelationshipCollectionsResult);
-    CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
-
-    RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
-    runtimeServiceImpl.setCommandExecutor(commandExecutor);
-
-    // Act
-    ProcessInstance actualStartProcessInstanceByIdResult = runtimeServiceImpl.startProcessInstanceById("42",
-        new HashMap<>());
-
-    // Assert
-    verify(first).execute(isA(CommandConfig.class), isA(Command.class));
-    assertSame(createWithEmptyRelationshipCollectionsResult, actualStartProcessInstanceByIdResult);
   }
 
   /**
    * Test {@link RuntimeServiceImpl#createExecutionQuery()}.
-   * <ul>
-   *   <li>Given {@link RuntimeServiceImpl} (default constructor).</li>
-   *   <li>Then return OrderBy is {@code RES.ID_ asc}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link RuntimeServiceImpl#createExecutionQuery()}
    */
   @Test
-  public void testCreateExecutionQuery_givenRuntimeServiceImpl_thenReturnOrderByIsResIdAsc() {
-    // Arrange
-    RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
-
-    // Act
-    ExecutionQuery actualCreateExecutionQueryResult = runtimeServiceImpl.createExecutionQuery();
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ExecutionQuery RuntimeServiceImpl.createExecutionQuery()"})
+  public void testCreateExecutionQuery() {
+    // Arrange and Act
+    ExecutionQuery actualCreateExecutionQueryResult = (new RuntimeServiceImpl()).createExecutionQuery();
 
     // Assert
     assertTrue(actualCreateExecutionQueryResult instanceof ExecutionQueryImpl);
@@ -291,7 +130,6 @@ public class RuntimeServiceImplDiffblueTest {
     assertNull(((ExecutionQueryImpl) actualCreateExecutionQueryResult).nullHandlingOnOrder);
     assertNull(((ExecutionQueryImpl) actualCreateExecutionQueryResult).resultType);
     assertNull(((ExecutionQueryImpl) actualCreateExecutionQueryResult).commandContext);
-    assertNull(runtimeServiceImpl.getCommandExecutor());
     assertNull(((ExecutionQueryImpl) actualCreateExecutionQueryResult).commandExecutor);
     assertNull(((ExecutionQueryImpl) actualCreateExecutionQueryResult).getSuspensionState());
     assertNull(((ExecutionQueryImpl) actualCreateExecutionQueryResult).orderProperty);
@@ -316,86 +154,22 @@ public class RuntimeServiceImplDiffblueTest {
   }
 
   /**
-   * Test {@link RuntimeServiceImpl#createExecutionQuery()}.
-   * <ul>
-   *   <li>Then {@link AbstractQuery#commandExecutor} return
-   * {@link CommandExecutorImpl}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link RuntimeServiceImpl#createExecutionQuery()}
-   */
-  @Test
-  public void testCreateExecutionQuery_thenCommandExecutorReturnCommandExecutorImpl() {
-    // Arrange
-    RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
-    CommandConfig defaultConfig = new CommandConfig();
-    JtaRetryInterceptor first = new JtaRetryInterceptor(mock(TransactionManager.class));
-    runtimeServiceImpl.setCommandExecutor(new CommandExecutorImpl(defaultConfig, first));
-
-    // Act
-    ExecutionQuery actualCreateExecutionQueryResult = runtimeServiceImpl.createExecutionQuery();
-
-    // Assert
-    assertTrue(actualCreateExecutionQueryResult instanceof ExecutionQueryImpl);
-    CommandExecutor commandExecutor = ((ExecutionQueryImpl) actualCreateExecutionQueryResult).commandExecutor;
-    assertTrue(commandExecutor instanceof CommandExecutorImpl);
-    assertSame(defaultConfig, commandExecutor.getDefaultConfig());
-    assertSame(first, ((CommandExecutorImpl) commandExecutor).getFirst());
-    CommandExecutor expectedCommandExecutor = ((AbstractQuery<ExecutionQuery, Execution>) actualCreateExecutionQueryResult).commandExecutor;
-    assertSame(expectedCommandExecutor, runtimeServiceImpl.getCommandExecutor());
-  }
-
-  /**
    * Test {@link RuntimeServiceImpl#createNativeExecutionQuery()}.
-   * <ul>
-   *   <li>Then {@link AbstractNativeQuery#commandExecutor} return
-   * {@link CommandExecutorImpl}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link RuntimeServiceImpl#createNativeExecutionQuery()}
    */
   @Test
-  public void testCreateNativeExecutionQuery_thenCommandExecutorReturnCommandExecutorImpl() {
-    // Arrange
-    RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
-    CommandConfig defaultConfig = new CommandConfig();
-    JtaRetryInterceptor first = new JtaRetryInterceptor(mock(TransactionManager.class));
-    runtimeServiceImpl.setCommandExecutor(new CommandExecutorImpl(defaultConfig, first));
-
-    // Act
-    NativeExecutionQuery actualCreateNativeExecutionQueryResult = runtimeServiceImpl.createNativeExecutionQuery();
-
-    // Assert
-    assertTrue(actualCreateNativeExecutionQueryResult instanceof NativeExecutionQueryImpl);
-    CommandExecutor commandExecutor = ((NativeExecutionQueryImpl) actualCreateNativeExecutionQueryResult).commandExecutor;
-    assertTrue(commandExecutor instanceof CommandExecutorImpl);
-    assertSame(defaultConfig, commandExecutor.getDefaultConfig());
-    assertSame(first, ((CommandExecutorImpl) commandExecutor).getFirst());
-    CommandExecutor expectedCommandExecutor = ((AbstractNativeQuery<NativeExecutionQuery, Execution>) actualCreateNativeExecutionQueryResult).commandExecutor;
-    assertSame(expectedCommandExecutor, runtimeServiceImpl.getCommandExecutor());
-  }
-
-  /**
-   * Test {@link RuntimeServiceImpl#createNativeExecutionQuery()}.
-   * <ul>
-   *   <li>Then return {@link AbstractNativeQuery#resultType} is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link RuntimeServiceImpl#createNativeExecutionQuery()}
-   */
-  @Test
-  public void testCreateNativeExecutionQuery_thenReturnResultTypeIsNull() {
-    // Arrange
-    RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
-
-    // Act
-    NativeExecutionQuery actualCreateNativeExecutionQueryResult = runtimeServiceImpl.createNativeExecutionQuery();
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"NativeExecutionQuery RuntimeServiceImpl.createNativeExecutionQuery()"})
+  public void testCreateNativeExecutionQuery() {
+    // Arrange and Act
+    NativeExecutionQuery actualCreateNativeExecutionQueryResult = (new RuntimeServiceImpl())
+        .createNativeExecutionQuery();
 
     // Assert
     assertTrue(actualCreateNativeExecutionQueryResult instanceof NativeExecutionQueryImpl);
     assertNull(((NativeExecutionQueryImpl) actualCreateNativeExecutionQueryResult).resultType);
     assertNull(((NativeExecutionQueryImpl) actualCreateNativeExecutionQueryResult).commandContext);
-    assertNull(runtimeServiceImpl.getCommandExecutor());
     assertNull(((NativeExecutionQueryImpl) actualCreateNativeExecutionQueryResult).commandExecutor);
     assertEquals(0, ((NativeExecutionQueryImpl) actualCreateNativeExecutionQueryResult).firstResult);
     assertTrue(((NativeExecutionQueryImpl) actualCreateNativeExecutionQueryResult).getParameters().isEmpty());
@@ -405,54 +179,20 @@ public class RuntimeServiceImplDiffblueTest {
   /**
    * Test {@link RuntimeServiceImpl#createNativeProcessInstanceQuery()}.
    * <p>
-   * Method under test:
-   * {@link RuntimeServiceImpl#createNativeProcessInstanceQuery()}
+   * Method under test: {@link RuntimeServiceImpl#createNativeProcessInstanceQuery()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"NativeProcessInstanceQuery RuntimeServiceImpl.createNativeProcessInstanceQuery()"})
   public void testCreateNativeProcessInstanceQuery() {
-    // Arrange
-    RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
-    CommandConfig defaultConfig = new CommandConfig();
-    JtaRetryInterceptor first = new JtaRetryInterceptor(mock(TransactionManager.class));
-    runtimeServiceImpl.setCommandExecutor(new CommandExecutorImpl(defaultConfig, first));
-
-    // Act
-    NativeProcessInstanceQuery actualCreateNativeProcessInstanceQueryResult = runtimeServiceImpl
-        .createNativeProcessInstanceQuery();
-
-    // Assert
-    assertTrue(actualCreateNativeProcessInstanceQueryResult instanceof NativeProcessInstanceQueryImpl);
-    CommandExecutor commandExecutor = ((NativeProcessInstanceQueryImpl) actualCreateNativeProcessInstanceQueryResult).commandExecutor;
-    assertTrue(commandExecutor instanceof CommandExecutorImpl);
-    assertSame(defaultConfig, commandExecutor.getDefaultConfig());
-    assertSame(first, ((CommandExecutorImpl) commandExecutor).getFirst());
-    CommandExecutor expectedCommandExecutor = ((AbstractNativeQuery<NativeProcessInstanceQuery, ProcessInstance>) actualCreateNativeProcessInstanceQueryResult).commandExecutor;
-    assertSame(expectedCommandExecutor, runtimeServiceImpl.getCommandExecutor());
-  }
-
-  /**
-   * Test {@link RuntimeServiceImpl#createNativeProcessInstanceQuery()}.
-   * <ul>
-   *   <li>Then return {@link AbstractNativeQuery#resultType} is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link RuntimeServiceImpl#createNativeProcessInstanceQuery()}
-   */
-  @Test
-  public void testCreateNativeProcessInstanceQuery_thenReturnResultTypeIsNull() {
-    // Arrange
-    RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
-
-    // Act
-    NativeProcessInstanceQuery actualCreateNativeProcessInstanceQueryResult = runtimeServiceImpl
+    // Arrange and Act
+    NativeProcessInstanceQuery actualCreateNativeProcessInstanceQueryResult = (new RuntimeServiceImpl())
         .createNativeProcessInstanceQuery();
 
     // Assert
     assertTrue(actualCreateNativeProcessInstanceQueryResult instanceof NativeProcessInstanceQueryImpl);
     assertNull(((NativeProcessInstanceQueryImpl) actualCreateNativeProcessInstanceQueryResult).resultType);
     assertNull(((NativeProcessInstanceQueryImpl) actualCreateNativeProcessInstanceQueryResult).commandContext);
-    assertNull(runtimeServiceImpl.getCommandExecutor());
     assertNull(((NativeProcessInstanceQueryImpl) actualCreateNativeProcessInstanceQueryResult).commandExecutor);
     assertEquals(0, ((NativeProcessInstanceQueryImpl) actualCreateNativeProcessInstanceQueryResult).firstResult);
     assertTrue(
@@ -462,218 +202,162 @@ public class RuntimeServiceImplDiffblueTest {
   }
 
   /**
-   * Test {@link RuntimeServiceImpl#setVariable(String, String, Object)}.
+   * Test {@link RuntimeServiceImpl#getDataObjects(String)} with {@code executionId}.
    * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link RuntimeServiceImpl#setVariable(String, String, Object)}
+   * Method under test: {@link RuntimeServiceImpl#getDataObjects(String)}
    */
   @Test
-  public void testSetVariable_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> runtimeServiceImpl.setVariable("42", null, JSONObject.NULL));
-  }
-
-  /**
-   * Test {@link RuntimeServiceImpl#setVariableLocal(String, String, Object)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link RuntimeServiceImpl#setVariableLocal(String, String, Object)}
-   */
-  @Test
-  public void testSetVariableLocal_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> runtimeServiceImpl.setVariableLocal("42", null, JSONObject.NULL));
-  }
-
-  /**
-   * Test {@link RuntimeServiceImpl#setVariables(String, Map)}.
-   * <ul>
-   *   <li>Then calls
-   * {@link CommandContextInterceptor#execute(CommandConfig, Command)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link RuntimeServiceImpl#setVariables(String, Map)}
-   */
-  @Test
-  public void testSetVariables_thenCallsExecute() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map RuntimeServiceImpl.getDataObjects(String)"})
+  public void testGetDataObjectsWithExecutionId_thenReturnEmpty() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(JSONObject.NULL);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Map<String, DataObject>>>any()))
+        .thenReturn(new HashMap<>());
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
     runtimeServiceImpl.setCommandExecutor(commandExecutor);
 
     // Act
-    runtimeServiceImpl.setVariables("42", new HashMap<>());
+    Map<String, DataObject> actualDataObjects = runtimeServiceImpl.getDataObjects("42");
 
     // Assert
     verify(first).execute(isA(CommandConfig.class), isA(Command.class));
+    assertTrue(actualDataObjects.isEmpty());
   }
 
   /**
-   * Test {@link RuntimeServiceImpl#setVariablesLocal(String, Map)}.
-   * <ul>
-   *   <li>Then calls
-   * {@link CommandContextInterceptor#execute(CommandConfig, Command)}.</li>
-   * </ul>
+   * Test {@link RuntimeServiceImpl#getDataObject(String, String)} with {@code executionId}, {@code dataObject}.
    * <p>
-   * Method under test: {@link RuntimeServiceImpl#setVariablesLocal(String, Map)}
+   * Method under test: {@link RuntimeServiceImpl#getDataObject(String, String)}
    */
   @Test
-  public void testSetVariablesLocal_thenCallsExecute() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DataObject RuntimeServiceImpl.getDataObject(String, String)"})
+  public void testGetDataObjectWithExecutionIdDataObject() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(JSONObject.NULL);
+    DataObjectImpl dataObjectImpl = new DataObjectImpl("Name", JSONObject.NULL,
+        "The characteristics of someone or something", "Type", "Localized Name", "Localized Description",
+        "Data Object Definition Key");
+
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<DataObject>>any())).thenReturn(dataObjectImpl);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
     runtimeServiceImpl.setCommandExecutor(commandExecutor);
 
     // Act
-    runtimeServiceImpl.setVariablesLocal("42", new HashMap<>());
+    DataObject actualDataObject = runtimeServiceImpl.getDataObject("42", "Data Object");
 
     // Assert
     verify(first).execute(isA(CommandConfig.class), isA(Command.class));
+    assertSame(dataObjectImpl, actualDataObject);
   }
 
   /**
-   * Test {@link RuntimeServiceImpl#signal(String, Map)} with {@code executionId},
-   * {@code processVariables}.
-   * <ul>
-   *   <li>Then calls
-   * {@link CommandContextInterceptor#execute(CommandConfig, Command)}.</li>
-   * </ul>
+   * Test {@link RuntimeServiceImpl#getDataObject(String, String, String, boolean)} with {@code executionId}, {@code dataObjectName}, {@code locale}, {@code withLocalizationFallback}.
    * <p>
-   * Method under test: {@link RuntimeServiceImpl#signal(String, Map)}
+   * Method under test: {@link RuntimeServiceImpl#getDataObject(String, String, String, boolean)}
    */
   @Test
-  public void testSignalWithExecutionIdProcessVariables_thenCallsExecute() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DataObject RuntimeServiceImpl.getDataObject(String, String, String, boolean)"})
+  public void testGetDataObjectWithExecutionIdDataObjectNameLocaleWithLocalizationFallback() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(JSONObject.NULL);
+    DataObjectImpl dataObjectImpl = new DataObjectImpl("Name", JSONObject.NULL,
+        "The characteristics of someone or something", "Type", "Localized Name", "Localized Description",
+        "Data Object Definition Key");
+
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<DataObject>>any())).thenReturn(dataObjectImpl);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
     runtimeServiceImpl.setCommandExecutor(commandExecutor);
 
     // Act
-    runtimeServiceImpl.signal("42", new HashMap<>());
+    DataObject actualDataObject = runtimeServiceImpl.getDataObject("42", "Data Object Name", "en", true);
 
     // Assert
     verify(first).execute(isA(CommandConfig.class), isA(Command.class));
+    assertSame(dataObjectImpl, actualDataObject);
   }
 
   /**
-   * Test {@link RuntimeServiceImpl#trigger(String, Map, Map)} with
-   * {@code executionId}, {@code processVariables}, {@code transientVariables}.
-   * <ul>
-   *   <li>Then calls
-   * {@link CommandContextInterceptor#execute(CommandConfig, Command)}.</li>
-   * </ul>
+   * Test {@link RuntimeServiceImpl#getDataObjectLocal(String, String)} with {@code executionId}, {@code dataObjectName}.
    * <p>
-   * Method under test: {@link RuntimeServiceImpl#trigger(String, Map, Map)}
+   * Method under test: {@link RuntimeServiceImpl#getDataObjectLocal(String, String)}
    */
   @Test
-  public void testTriggerWithExecutionIdProcessVariablesTransientVariables_thenCallsExecute() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DataObject RuntimeServiceImpl.getDataObjectLocal(String, String)"})
+  public void testGetDataObjectLocalWithExecutionIdDataObjectName() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(JSONObject.NULL);
-    CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
+    DataObjectImpl dataObjectImpl = new DataObjectImpl("Name", JSONObject.NULL,
+        "The characteristics of someone or something", "Type", "Localized Name", "Localized Description",
+        "Data Object Definition Key");
 
-    RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
-    runtimeServiceImpl.setCommandExecutor(commandExecutor);
-    HashMap<String, Object> processVariables = new HashMap<>();
-
-    // Act
-    runtimeServiceImpl.trigger("42", processVariables, new HashMap<>());
-
-    // Assert
-    verify(first).execute(isA(CommandConfig.class), isA(Command.class));
-  }
-
-  /**
-   * Test {@link RuntimeServiceImpl#trigger(String, Map)} with
-   * {@code executionId}, {@code processVariables}.
-   * <ul>
-   *   <li>Then calls
-   * {@link CommandContextInterceptor#execute(CommandConfig, Command)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link RuntimeServiceImpl#trigger(String, Map)}
-   */
-  @Test
-  public void testTriggerWithExecutionIdProcessVariables_thenCallsExecute() {
-    // Arrange
-    CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(JSONObject.NULL);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<DataObject>>any())).thenReturn(dataObjectImpl);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
     runtimeServiceImpl.setCommandExecutor(commandExecutor);
 
     // Act
-    runtimeServiceImpl.trigger("42", new HashMap<>());
+    DataObject actualDataObjectLocal = runtimeServiceImpl.getDataObjectLocal("42", "Data Object Name");
 
     // Assert
     verify(first).execute(isA(CommandConfig.class), isA(Command.class));
+    assertSame(dataObjectImpl, actualDataObjectLocal);
+  }
+
+  /**
+   * Test {@link RuntimeServiceImpl#getDataObjectLocal(String, String, String, boolean)} with {@code executionId}, {@code dataObjectName}, {@code locale}, {@code withLocalizationFallback}.
+   * <p>
+   * Method under test: {@link RuntimeServiceImpl#getDataObjectLocal(String, String, String, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DataObject RuntimeServiceImpl.getDataObjectLocal(String, String, String, boolean)"})
+  public void testGetDataObjectLocalWithExecutionIdDataObjectNameLocaleWithLocalizationFallback() {
+    // Arrange
+    CommandContextInterceptor first = mock(CommandContextInterceptor.class);
+    DataObjectImpl dataObjectImpl = new DataObjectImpl("Name", JSONObject.NULL,
+        "The characteristics of someone or something", "Type", "Localized Name", "Localized Description",
+        "Data Object Definition Key");
+
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<DataObject>>any())).thenReturn(dataObjectImpl);
+    CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
+
+    RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
+    runtimeServiceImpl.setCommandExecutor(commandExecutor);
+
+    // Act
+    DataObject actualDataObjectLocal = runtimeServiceImpl.getDataObjectLocal("42", "Data Object Name", "en", true);
+
+    // Assert
+    verify(first).execute(isA(CommandConfig.class), isA(Command.class));
+    assertSame(dataObjectImpl, actualDataObjectLocal);
   }
 
   /**
    * Test {@link RuntimeServiceImpl#createProcessInstanceQuery()}.
-   * <ul>
-   *   <li>Then {@link AbstractQuery#commandExecutor} return
-   * {@link CommandExecutorImpl}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link RuntimeServiceImpl#createProcessInstanceQuery()}
    */
   @Test
-  public void testCreateProcessInstanceQuery_thenCommandExecutorReturnCommandExecutorImpl() {
-    // Arrange
-    RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
-    CommandConfig defaultConfig = new CommandConfig();
-    JtaRetryInterceptor first = new JtaRetryInterceptor(mock(TransactionManager.class));
-    runtimeServiceImpl.setCommandExecutor(new CommandExecutorImpl(defaultConfig, first));
-
-    // Act
-    ProcessInstanceQuery actualCreateProcessInstanceQueryResult = runtimeServiceImpl.createProcessInstanceQuery();
-
-    // Assert
-    assertTrue(actualCreateProcessInstanceQueryResult instanceof ProcessInstanceQueryImpl);
-    CommandExecutor commandExecutor = ((ProcessInstanceQueryImpl) actualCreateProcessInstanceQueryResult).commandExecutor;
-    assertTrue(commandExecutor instanceof CommandExecutorImpl);
-    assertSame(defaultConfig, commandExecutor.getDefaultConfig());
-    assertSame(first, ((CommandExecutorImpl) commandExecutor).getFirst());
-    CommandExecutor expectedCommandExecutor = ((AbstractQuery<ProcessInstanceQuery, ProcessInstance>) actualCreateProcessInstanceQueryResult).commandExecutor;
-    assertSame(expectedCommandExecutor, runtimeServiceImpl.getCommandExecutor());
-  }
-
-  /**
-   * Test {@link RuntimeServiceImpl#createProcessInstanceQuery()}.
-   * <ul>
-   *   <li>Then return OrderBy is {@code RES.ID_ asc}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link RuntimeServiceImpl#createProcessInstanceQuery()}
-   */
-  @Test
-  public void testCreateProcessInstanceQuery_thenReturnOrderByIsResIdAsc() {
-    // Arrange
-    RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
-
-    // Act
-    ProcessInstanceQuery actualCreateProcessInstanceQueryResult = runtimeServiceImpl.createProcessInstanceQuery();
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQuery RuntimeServiceImpl.createProcessInstanceQuery()"})
+  public void testCreateProcessInstanceQuery() {
+    // Arrange and Act
+    ProcessInstanceQuery actualCreateProcessInstanceQueryResult = (new RuntimeServiceImpl())
+        .createProcessInstanceQuery();
 
     // Assert
     assertTrue(actualCreateProcessInstanceQueryResult instanceof ProcessInstanceQueryImpl);
@@ -721,7 +405,6 @@ public class RuntimeServiceImplDiffblueTest {
     assertNull(((ProcessInstanceQueryImpl) actualCreateProcessInstanceQueryResult).resultType);
     assertNull(((ProcessInstanceQueryImpl) actualCreateProcessInstanceQueryResult).currentOrQueryObject);
     assertNull(((ProcessInstanceQueryImpl) actualCreateProcessInstanceQueryResult).commandContext);
-    assertNull(runtimeServiceImpl.getCommandExecutor());
     assertNull(((ProcessInstanceQueryImpl) actualCreateProcessInstanceQueryResult).commandExecutor);
     assertNull(((ProcessInstanceQueryImpl) actualCreateProcessInstanceQueryResult).getSuspensionState());
     assertNull(((ProcessInstanceQueryImpl) actualCreateProcessInstanceQueryResult).orderProperty);
@@ -749,162 +432,46 @@ public class RuntimeServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link RuntimeServiceImpl#startProcessInstanceByMessage(String, String, Map)}
-   * with {@code messageName}, {@code businessKey}, {@code processVariables}.
-   * <p>
-   * Method under test:
-   * {@link RuntimeServiceImpl#startProcessInstanceByMessage(String, String, Map)}
-   */
-  @Test
-  public void testStartProcessInstanceByMessageWithMessageNameBusinessKeyProcessVariables() {
-    // Arrange
-    CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<ProcessInstance>>any()))
-        .thenReturn(createWithEmptyRelationshipCollectionsResult);
-    CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
-
-    RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
-    runtimeServiceImpl.setCommandExecutor(commandExecutor);
-
-    // Act
-    ProcessInstance actualStartProcessInstanceByMessageResult = runtimeServiceImpl
-        .startProcessInstanceByMessage("Message Name", "Business Key", new HashMap<>());
-
-    // Assert
-    verify(first).execute(isA(CommandConfig.class), isA(Command.class));
-    assertSame(createWithEmptyRelationshipCollectionsResult, actualStartProcessInstanceByMessageResult);
-  }
-
-  /**
-   * Test {@link RuntimeServiceImpl#startProcessInstanceByMessage(String, Map)}
-   * with {@code messageName}, {@code processVariables}.
-   * <p>
-   * Method under test:
-   * {@link RuntimeServiceImpl#startProcessInstanceByMessage(String, Map)}
-   */
-  @Test
-  public void testStartProcessInstanceByMessageWithMessageNameProcessVariables() {
-    // Arrange
-    CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<ProcessInstance>>any()))
-        .thenReturn(createWithEmptyRelationshipCollectionsResult);
-    CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
-
-    RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
-    runtimeServiceImpl.setCommandExecutor(commandExecutor);
-
-    // Act
-    ProcessInstance actualStartProcessInstanceByMessageResult = runtimeServiceImpl
-        .startProcessInstanceByMessage("Message Name", new HashMap<>());
-
-    // Assert
-    verify(first).execute(isA(CommandConfig.class), isA(Command.class));
-    assertSame(createWithEmptyRelationshipCollectionsResult, actualStartProcessInstanceByMessageResult);
-  }
-
-  /**
-   * Test
-   * {@link RuntimeServiceImpl#startProcessInstanceByMessageAndTenantId(String, String, Map, String)}
-   * with {@code messageName}, {@code businessKey}, {@code processVariables},
-   * {@code tenantId}.
-   * <p>
-   * Method under test:
-   * {@link RuntimeServiceImpl#startProcessInstanceByMessageAndTenantId(String, String, Map, String)}
-   */
-  @Test
-  public void testStartProcessInstanceByMessageAndTenantIdWithMessageNameBusinessKeyProcessVariablesTenantId() {
-    // Arrange
-    CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<ProcessInstance>>any()))
-        .thenReturn(createWithEmptyRelationshipCollectionsResult);
-    CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
-
-    RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
-    runtimeServiceImpl.setCommandExecutor(commandExecutor);
-
-    // Act
-    ProcessInstance actualStartProcessInstanceByMessageAndTenantIdResult = runtimeServiceImpl
-        .startProcessInstanceByMessageAndTenantId("Message Name", "Business Key", new HashMap<>(), "42");
-
-    // Assert
-    verify(first).execute(isA(CommandConfig.class), isA(Command.class));
-    assertSame(createWithEmptyRelationshipCollectionsResult, actualStartProcessInstanceByMessageAndTenantIdResult);
-  }
-
-  /**
-   * Test
-   * {@link RuntimeServiceImpl#startProcessInstanceByMessageAndTenantId(String, Map, String)}
-   * with {@code messageName}, {@code processVariables}, {@code tenantId}.
-   * <p>
-   * Method under test:
-   * {@link RuntimeServiceImpl#startProcessInstanceByMessageAndTenantId(String, Map, String)}
-   */
-  @Test
-  public void testStartProcessInstanceByMessageAndTenantIdWithMessageNameProcessVariablesTenantId() {
-    // Arrange
-    CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<ProcessInstance>>any()))
-        .thenReturn(createWithEmptyRelationshipCollectionsResult);
-    CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
-
-    RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
-    runtimeServiceImpl.setCommandExecutor(commandExecutor);
-
-    // Act
-    ProcessInstance actualStartProcessInstanceByMessageAndTenantIdResult = runtimeServiceImpl
-        .startProcessInstanceByMessageAndTenantId("Message Name", new HashMap<>(), "42");
-
-    // Assert
-    verify(first).execute(isA(CommandConfig.class), isA(Command.class));
-    assertSame(createWithEmptyRelationshipCollectionsResult, actualStartProcessInstanceByMessageAndTenantIdResult);
-  }
-
-  /**
-   * Test {@link RuntimeServiceImpl#signalEventReceived(String, String, Map)} with
-   * {@code signalName}, {@code executionId}, {@code processVariables}.
-   * <p>
-   * Method under test:
-   * {@link RuntimeServiceImpl#signalEventReceived(String, String, Map)}
-   */
-  @Test
-  public void testSignalEventReceivedWithSignalNameExecutionIdProcessVariables() {
-    // Arrange
-    CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
-    CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
-
-    RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
-    runtimeServiceImpl.setCommandExecutor(commandExecutor);
-
-    // Act
-    runtimeServiceImpl.signalEventReceived("Signal Name", "42", new HashMap<>());
-
-    // Assert
-    verify(first).execute(isA(CommandConfig.class), isA(Command.class));
-  }
-
-  /**
-   * Test {@link RuntimeServiceImpl#signalEventReceived(String, Map)} with
-   * {@code signalName}, {@code processVariables}.
+   * Test {@link RuntimeServiceImpl#getActiveActivityIds(String)}.
    * <ul>
-   *   <li>Then calls
-   * {@link CommandContextInterceptor#execute(CommandConfig, Command)}.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link RuntimeServiceImpl#signalEventReceived(String, Map)}
+   * Method under test: {@link RuntimeServiceImpl#getActiveActivityIds(String)}
    */
   @Test
-  public void testSignalEventReceivedWithSignalNameProcessVariables_thenCallsExecute() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List RuntimeServiceImpl.getActiveActivityIds(String)"})
+  public void testGetActiveActivityIds_thenReturnEmpty() {
+    // Arrange
+    CommandContextInterceptor first = mock(CommandContextInterceptor.class);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<List<String>>>any()))
+        .thenReturn(new ArrayList<>());
+    CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
+
+    RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
+    runtimeServiceImpl.setCommandExecutor(commandExecutor);
+
+    // Act
+    List<String> actualActiveActivityIds = runtimeServiceImpl.getActiveActivityIds("42");
+
+    // Assert
+    verify(first).execute(isA(CommandConfig.class), isA(Command.class));
+    assertTrue(actualActiveActivityIds.isEmpty());
+  }
+
+  /**
+   * Test {@link RuntimeServiceImpl#activateProcessInstanceById(String)}.
+   * <ul>
+   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link RuntimeServiceImpl#activateProcessInstanceById(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void RuntimeServiceImpl.activateProcessInstanceById(String)"})
+  public void testActivateProcessInstanceById_thenCallsExecute() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
     when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
@@ -914,46 +481,53 @@ public class RuntimeServiceImplDiffblueTest {
     runtimeServiceImpl.setCommandExecutor(commandExecutor);
 
     // Act
-    runtimeServiceImpl.signalEventReceived("Signal Name", new HashMap<>());
+    runtimeServiceImpl.activateProcessInstanceById("42");
 
     // Assert
     verify(first).execute(isA(CommandConfig.class), isA(Command.class));
   }
 
   /**
-   * Test
-   * {@link RuntimeServiceImpl#signalEventReceivedWithTenantId(String, Map, String)}
-   * with {@code signalName}, {@code processVariables}, {@code tenantId}.
+   * Test {@link RuntimeServiceImpl#executeActivityInAdhocSubProcess(String, String)}.
    * <p>
-   * Method under test:
-   * {@link RuntimeServiceImpl#signalEventReceivedWithTenantId(String, Map, String)}
+   * Method under test: {@link RuntimeServiceImpl#executeActivityInAdhocSubProcess(String, String)}
    */
   @Test
-  public void testSignalEventReceivedWithTenantIdWithSignalNameProcessVariablesTenantId() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Execution RuntimeServiceImpl.executeActivityInAdhocSubProcess(String, String)"})
+  public void testExecuteActivityInAdhocSubProcess() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Execution>>any()))
+        .thenReturn(createWithEmptyRelationshipCollectionsResult);
     CommandExecutorImpl commandExecutor = new CommandExecutorImpl(new CommandConfig(), first);
 
     RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
     runtimeServiceImpl.setCommandExecutor(commandExecutor);
 
     // Act
-    runtimeServiceImpl.signalEventReceivedWithTenantId("Signal Name", new HashMap<>(), "42");
+    Execution actualExecuteActivityInAdhocSubProcessResult = runtimeServiceImpl.executeActivityInAdhocSubProcess("42",
+        "42");
 
     // Assert
     verify(first).execute(isA(CommandConfig.class), isA(Command.class));
+    assertSame(createWithEmptyRelationshipCollectionsResult, actualExecuteActivityInAdhocSubProcessResult);
   }
 
   /**
-   * Test {@link RuntimeServiceImpl#messageEventReceived(String, String, Map)}
-   * with {@code messageName}, {@code executionId}, {@code processVariables}.
+   * Test {@link RuntimeServiceImpl#completeAdhocSubProcess(String)}.
+   * <ul>
+   *   <li>Then calls {@link CommandContextInterceptor#execute(CommandConfig, Command)}.</li>
+   * </ul>
    * <p>
-   * Method under test:
-   * {@link RuntimeServiceImpl#messageEventReceived(String, String, Map)}
+   * Method under test: {@link RuntimeServiceImpl#completeAdhocSubProcess(String)}
    */
   @Test
-  public void testMessageEventReceivedWithMessageNameExecutionIdProcessVariables() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void RuntimeServiceImpl.completeAdhocSubProcess(String)"})
+  public void testCompleteAdhocSubProcess_thenCallsExecute() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
     when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Void>>any())).thenReturn(null);
@@ -963,7 +537,7 @@ public class RuntimeServiceImplDiffblueTest {
     runtimeServiceImpl.setCommandExecutor(commandExecutor);
 
     // Act
-    runtimeServiceImpl.messageEventReceived("Message Name", "42", new HashMap<>());
+    runtimeServiceImpl.completeAdhocSubProcess("42");
 
     // Assert
     verify(first).execute(isA(CommandConfig.class), isA(Command.class));
@@ -971,47 +545,13 @@ public class RuntimeServiceImplDiffblueTest {
 
   /**
    * Test {@link RuntimeServiceImpl#createProcessInstanceBuilder()}.
-   * <ul>
-   *   <li>Given {@link JtaRetryInterceptor#JtaRetryInterceptor(TransactionManager)}
-   * with {@link TransactionManager}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link RuntimeServiceImpl#createProcessInstanceBuilder()}
    */
   @Test
-  public void testCreateProcessInstanceBuilder_givenJtaRetryInterceptorWithTransactionManager() {
-    // Arrange
-    RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
-    CommandConfig defaultConfig = new CommandConfig();
-    runtimeServiceImpl.setCommandExecutor(
-        new CommandExecutorImpl(defaultConfig, new JtaRetryInterceptor(mock(TransactionManager.class))));
-
-    // Act
-    ProcessInstanceBuilder actualCreateProcessInstanceBuilderResult = runtimeServiceImpl.createProcessInstanceBuilder();
-
-    // Assert
-    assertTrue(actualCreateProcessInstanceBuilderResult instanceof ProcessInstanceBuilderImpl);
-    assertNull(((ProcessInstanceBuilderImpl) actualCreateProcessInstanceBuilderResult).getBusinessKey());
-    assertNull(((ProcessInstanceBuilderImpl) actualCreateProcessInstanceBuilderResult).getMessageName());
-    assertNull(((ProcessInstanceBuilderImpl) actualCreateProcessInstanceBuilderResult).getProcessDefinitionId());
-    assertNull(((ProcessInstanceBuilderImpl) actualCreateProcessInstanceBuilderResult).getProcessDefinitionKey());
-    assertNull(((ProcessInstanceBuilderImpl) actualCreateProcessInstanceBuilderResult).getProcessInstanceName());
-    assertNull(((ProcessInstanceBuilderImpl) actualCreateProcessInstanceBuilderResult).getTenantId());
-    assertNull(((ProcessInstanceBuilderImpl) actualCreateProcessInstanceBuilderResult).getTransientVariables());
-    assertNull(((ProcessInstanceBuilderImpl) actualCreateProcessInstanceBuilderResult).getVariables());
-    assertFalse(((ProcessInstanceBuilderImpl) actualCreateProcessInstanceBuilderResult).hasProcessDefinitionIdOrKey());
-  }
-
-  /**
-   * Test {@link RuntimeServiceImpl#createProcessInstanceBuilder()}.
-   * <ul>
-   *   <li>Given {@link RuntimeServiceImpl} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link RuntimeServiceImpl#createProcessInstanceBuilder()}
-   */
-  @Test
-  public void testCreateProcessInstanceBuilder_givenRuntimeServiceImpl() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceBuilder RuntimeServiceImpl.createProcessInstanceBuilder()"})
+  public void testCreateProcessInstanceBuilder() {
     // Arrange and Act
     ProcessInstanceBuilder actualCreateProcessInstanceBuilderResult = (new RuntimeServiceImpl())
         .createProcessInstanceBuilder();
@@ -1030,16 +570,17 @@ public class RuntimeServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link RuntimeServiceImpl#startProcessInstance(ProcessInstanceBuilderImpl)}.
+   * Test {@link RuntimeServiceImpl#startProcessInstance(ProcessInstanceBuilderImpl)}.
    * <ul>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link RuntimeServiceImpl#startProcessInstance(ProcessInstanceBuilderImpl)}
+   * Method under test: {@link RuntimeServiceImpl#startProcessInstance(ProcessInstanceBuilderImpl)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.runtime.ProcessInstance RuntimeServiceImpl.startProcessInstance(ProcessInstanceBuilderImpl)"})
   public void testStartProcessInstance_thenThrowActivitiIllegalArgumentException() {
     // Arrange
     RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
@@ -1050,16 +591,17 @@ public class RuntimeServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link RuntimeServiceImpl#createProcessInstance(ProcessInstanceBuilderImpl)}.
+   * Test {@link RuntimeServiceImpl#createProcessInstance(ProcessInstanceBuilderImpl)}.
    * <ul>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link RuntimeServiceImpl#createProcessInstance(ProcessInstanceBuilderImpl)}
+   * Method under test: {@link RuntimeServiceImpl#createProcessInstance(ProcessInstanceBuilderImpl)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.runtime.ProcessInstance RuntimeServiceImpl.createProcessInstance(ProcessInstanceBuilderImpl)"})
   public void testCreateProcessInstance_thenThrowActivitiIllegalArgumentException() {
     // Arrange
     RuntimeServiceImpl runtimeServiceImpl = new RuntimeServiceImpl();
@@ -1072,10 +614,11 @@ public class RuntimeServiceImplDiffblueTest {
   /**
    * Test new {@link RuntimeServiceImpl} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link RuntimeServiceImpl}
+   * Method under test: default or parameterless constructor of {@link RuntimeServiceImpl}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void RuntimeServiceImpl.<init>()"})
   public void testNewRuntimeServiceImpl() {
     // Arrange, Act and Assert
     assertNull((new RuntimeServiceImpl()).getCommandExecutor());

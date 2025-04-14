@@ -21,6 +21,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.payloads.SignalPayload;
@@ -33,6 +34,7 @@ import org.activiti.test.assertions.ProcessInstanceAssertionsImpl;
 import org.activiti.test.assertions.SignalAssertions;
 import org.activiti.test.assertions.SignalAssertionsImpl;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -64,11 +66,12 @@ class ProcessRuntimeOperationsDiffblueTest {
   /**
    * Test {@link ProcessRuntimeOperations#start(StartProcessPayload)}.
    * <p>
-   * Method under test:
-   * {@link ProcessRuntimeOperations#start(StartProcessPayload)}
+   * Method under test: {@link ProcessRuntimeOperations#start(StartProcessPayload)}
    */
   @Test
   @DisplayName("Test start(StartProcessPayload)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ProcessInstanceAssertions ProcessRuntimeOperations.start(StartProcessPayload)"})
   void testStart() {
     // Arrange
     when(processRuntime.start(Mockito.<StartProcessPayload>any())).thenReturn(mock(ProcessInstance.class));
@@ -88,6 +91,8 @@ class ProcessRuntimeOperationsDiffblueTest {
    */
   @Test
   @DisplayName("Test signal(SignalPayload)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"SignalAssertions ProcessRuntimeOperations.signal(SignalPayload)"})
   void testSignal() {
     // Arrange
     doNothing().when(processRuntime).signal(Mockito.<SignalPayload>any());

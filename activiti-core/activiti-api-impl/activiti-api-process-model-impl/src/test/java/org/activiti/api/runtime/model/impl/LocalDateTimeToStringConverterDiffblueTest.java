@@ -16,9 +16,11 @@
 package org.activiti.api.runtime.model.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,14 +34,14 @@ class LocalDateTimeToStringConverterDiffblueTest {
   private LocalDateTimeToStringConverter localDateTimeToStringConverter;
 
   /**
-   * Test {@link LocalDateTimeToStringConverter#convert(LocalDateTime)} with
-   * {@code LocalDateTime}.
+   * Test {@link LocalDateTimeToStringConverter#convert(LocalDateTime)} with {@code LocalDateTime}.
    * <p>
-   * Method under test:
-   * {@link LocalDateTimeToStringConverter#convert(LocalDateTime)}
+   * Method under test: {@link LocalDateTimeToStringConverter#convert(LocalDateTime)}
    */
   @Test
   @DisplayName("Test convert(LocalDateTime) with 'LocalDateTime'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.lang.String LocalDateTimeToStringConverter.convert(LocalDateTime)"})
   void testConvertWithLocalDateTime() {
     // Arrange, Act and Assert
     assertEquals("1970-01-01T00:00:00",

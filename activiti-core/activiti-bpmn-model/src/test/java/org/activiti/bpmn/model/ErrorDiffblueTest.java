@@ -16,7 +16,10 @@
 package org.activiti.bpmn.model;
 
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ErrorDiffblueTest {
   /**
@@ -34,6 +37,10 @@ public class ErrorDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Error.<init>(String, String, String)", "String Error.getErrorCode()", "String Error.getId()",
+      "String Error.getName()", "void Error.setErrorCode(String)", "void Error.setId(String)",
+      "void Error.setName(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Error actualError = new Error("42", "Name", "An error occurred");
@@ -43,7 +50,7 @@ public class ErrorDiffblueTest {
     String actualErrorCode = actualError.getErrorCode();
     String actualId = actualError.getId();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualId);
     assertEquals("An error occurred", actualErrorCode);
     assertEquals("Name", actualError.getName());

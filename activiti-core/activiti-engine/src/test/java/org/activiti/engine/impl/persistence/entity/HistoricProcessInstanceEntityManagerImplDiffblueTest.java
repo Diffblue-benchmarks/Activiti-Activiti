@@ -28,27 +28,28 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.activiti.core.el.CustomFunctionProvider;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.impl.HistoricProcessInstanceQueryImpl;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.history.DefaultHistoryManager;
 import org.activiti.engine.impl.history.HistoryLevel;
-import org.activiti.engine.impl.persistence.entity.data.CommentDataManager;
 import org.activiti.engine.impl.persistence.entity.data.DataManager;
-import org.activiti.engine.impl.persistence.entity.data.HistoricActivityInstanceDataManager;
 import org.activiti.engine.impl.persistence.entity.data.HistoricIdentityLinkDataManager;
 import org.activiti.engine.impl.persistence.entity.data.HistoricProcessInstanceDataManager;
-import org.activiti.engine.impl.persistence.entity.data.HistoricVariableInstanceDataManager;
+import org.activiti.engine.impl.persistence.entity.data.impl.MybatisHistoricActivityInstanceDataManager;
 import org.activiti.engine.impl.persistence.entity.data.impl.MybatisHistoricDetailDataManager;
 import org.activiti.engine.impl.persistence.entity.data.impl.MybatisHistoricProcessInstanceDataManager;
 import org.activiti.engine.impl.persistence.entity.data.impl.MybatisHistoricTaskInstanceDataManager;
+import org.activiti.engine.impl.persistence.entity.data.impl.MybatisHistoricVariableInstanceDataManager;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -71,16 +72,19 @@ public class HistoricProcessInstanceEntityManagerImplDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link HistoricProcessInstanceEntityManagerImpl#HistoricProcessInstanceEntityManagerImpl(ProcessEngineConfigurationImpl, HistoricProcessInstanceDataManager)}
-   *   <li>
-   * {@link HistoricProcessInstanceEntityManagerImpl#setHistoricProcessInstanceDataManager(HistoricProcessInstanceDataManager)}
+   *   <li>{@link HistoricProcessInstanceEntityManagerImpl#HistoricProcessInstanceEntityManagerImpl(ProcessEngineConfigurationImpl, HistoricProcessInstanceDataManager)}
+   *   <li>{@link HistoricProcessInstanceEntityManagerImpl#setHistoricProcessInstanceDataManager(HistoricProcessInstanceDataManager)}
    *   <li>{@link HistoricProcessInstanceEntityManagerImpl#getDataManager()}
-   *   <li>
-   * {@link HistoricProcessInstanceEntityManagerImpl#getHistoricProcessInstanceDataManager()}
+   *   <li>{@link HistoricProcessInstanceEntityManagerImpl#getHistoricProcessInstanceDataManager()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "void HistoricProcessInstanceEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, HistoricProcessInstanceDataManager)",
+      "DataManager HistoricProcessInstanceEntityManagerImpl.getDataManager()",
+      "HistoricProcessInstanceDataManager HistoricProcessInstanceEntityManagerImpl.getHistoricProcessInstanceDataManager()",
+      "void HistoricProcessInstanceEntityManagerImpl.setHistoricProcessInstanceDataManager(HistoricProcessInstanceDataManager)"})
   public void testGettersAndSetters() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
@@ -95,84 +99,23 @@ public class HistoricProcessInstanceEntityManagerImplDiffblueTest {
     DataManager<HistoricProcessInstanceEntity> actualDataManager = actualHistoricProcessInstanceEntityManagerImpl
         .getDataManager();
 
-    // Assert that nothing has changed
+    // Assert
     assertSame(historicProcessInstanceDataManager, actualDataManager);
     assertSame(historicProcessInstanceDataManager,
         actualHistoricProcessInstanceEntityManagerImpl.getHistoricProcessInstanceDataManager());
   }
 
   /**
-   * Test {@link HistoricProcessInstanceEntityManagerImpl#create(ExecutionEntity)}
-   * with {@code ExecutionEntity}.
-   * <p>
-   * Method under test:
-   * {@link HistoricProcessInstanceEntityManagerImpl#create(ExecutionEntity)}
-   */
-  @Test
-  public void testCreateWithExecutionEntity() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-    HistoricProcessInstanceEntityManagerImpl historicProcessInstanceEntityManagerImpl = new HistoricProcessInstanceEntityManagerImpl(
-        processEngineConfiguration, new MybatisHistoricProcessInstanceDataManager(new JtaProcessEngineConfiguration()));
-
-    // Act
-    HistoricProcessInstanceEntity actualCreateResult = historicProcessInstanceEntityManagerImpl
-        .create(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-
-    // Assert
-    Object persistentState = actualCreateResult.getPersistentState();
-    assertTrue(persistentState instanceof Map);
-    assertTrue(actualCreateResult instanceof HistoricProcessInstanceEntityImpl);
-    assertEquals("", actualCreateResult.getTenantId());
-    assertNull(actualCreateResult.getProcessDefinitionVersion());
-    assertNull(actualCreateResult.getDurationInMillis());
-    assertEquals(12, ((Map<String, Object>) persistentState).size());
-    assertNull(((Map<String, Object>) persistentState).get("businessKey"));
-    assertNull(((Map<String, Object>) persistentState).get("deploymentId"));
-    assertNull(((Map<String, Object>) persistentState).get("durationInMillis"));
-    assertNull(((Map<String, Object>) persistentState).get("endStateName"));
-    assertNull(((Map<String, Object>) persistentState).get("name"));
-    assertNull(((Map<String, Object>) persistentState).get("processDefinitionId"));
-    assertNull(actualCreateResult.getBusinessKey());
-    assertNull(actualCreateResult.getDeleteReason());
-    assertNull(actualCreateResult.getDescription());
-    assertNull(actualCreateResult.getEndActivityId());
-    assertNull(actualCreateResult.getId());
-    assertNull(actualCreateResult.getName());
-    assertNull(actualCreateResult.getProcessDefinitionId());
-    assertNull(actualCreateResult.getStartActivityId());
-    assertNull(actualCreateResult.getStartUserId());
-    assertNull(actualCreateResult.getSuperProcessInstanceId());
-    assertNull(actualCreateResult.getDeploymentId());
-    assertNull(actualCreateResult.getProcessDefinitionKey());
-    assertNull(actualCreateResult.getProcessDefinitionName());
-    assertNull(((HistoricProcessInstanceEntityImpl) actualCreateResult).getLocalizedDescription());
-    assertNull(((HistoricProcessInstanceEntityImpl) actualCreateResult).getLocalizedName());
-    assertNull(actualCreateResult.getProcessInstanceId());
-    assertNull(((HistoricProcessInstanceEntityImpl) actualCreateResult).description);
-    assertNull(((HistoricProcessInstanceEntityImpl) actualCreateResult).name);
-    assertNull(actualCreateResult.getEndTime());
-    assertNull(actualCreateResult.getStartTime());
-    assertNull(actualCreateResult.getQueryVariables());
-    assertNull(((HistoricProcessInstanceEntityImpl) actualCreateResult).queryVariables);
-    assertFalse(actualCreateResult.isDeleted());
-    assertFalse(actualCreateResult.isInserted());
-    assertFalse(actualCreateResult.isUpdated());
-    assertTrue(actualCreateResult.getProcessVariables().isEmpty());
-  }
-
-  /**
-   * Test {@link HistoricProcessInstanceEntityManagerImpl#create(ExecutionEntity)}
-   * with {@code ExecutionEntity}.
+   * Test {@link HistoricProcessInstanceEntityManagerImpl#create(ExecutionEntity)} with {@code ExecutionEntity}.
    * <ul>
    *   <li>Then PersistentState return {@link Map}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricProcessInstanceEntityManagerImpl#create(ExecutionEntity)}
+   * Method under test: {@link HistoricProcessInstanceEntityManagerImpl#create(ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricProcessInstanceEntity HistoricProcessInstanceEntityManagerImpl.create(ExecutionEntity)"})
   public void testCreateWithExecutionEntity_thenPersistentStateReturnMap() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
@@ -190,13 +133,6 @@ public class HistoricProcessInstanceEntityManagerImplDiffblueTest {
     assertEquals("", actualCreateResult.getTenantId());
     assertNull(actualCreateResult.getProcessDefinitionVersion());
     assertNull(actualCreateResult.getDurationInMillis());
-    assertEquals(12, ((Map<String, Object>) persistentState).size());
-    assertNull(((Map<String, Object>) persistentState).get("businessKey"));
-    assertNull(((Map<String, Object>) persistentState).get("deploymentId"));
-    assertNull(((Map<String, Object>) persistentState).get("durationInMillis"));
-    assertNull(((Map<String, Object>) persistentState).get("endStateName"));
-    assertNull(((Map<String, Object>) persistentState).get("name"));
-    assertNull(((Map<String, Object>) persistentState).get("processDefinitionId"));
     assertNull(actualCreateResult.getBusinessKey());
     assertNull(actualCreateResult.getDeleteReason());
     assertNull(actualCreateResult.getDescription());
@@ -219,44 +155,53 @@ public class HistoricProcessInstanceEntityManagerImplDiffblueTest {
     assertNull(actualCreateResult.getStartTime());
     assertNull(actualCreateResult.getQueryVariables());
     assertNull(((HistoricProcessInstanceEntityImpl) actualCreateResult).queryVariables);
+    assertEquals(12, ((Map<String, Object>) persistentState).size());
     assertFalse(actualCreateResult.isDeleted());
     assertFalse(actualCreateResult.isInserted());
     assertFalse(actualCreateResult.isUpdated());
+    assertTrue(((Map<String, Object>) persistentState).containsKey("businessKey"));
+    assertTrue(((Map<String, Object>) persistentState).containsKey("deploymentId"));
+    assertTrue(((Map<String, Object>) persistentState).containsKey("durationInMillis"));
+    assertTrue(((Map<String, Object>) persistentState).containsKey("endStateName"));
+    assertTrue(((Map<String, Object>) persistentState).containsKey("name"));
+    assertTrue(((Map<String, Object>) persistentState).containsKey("processDefinitionId"));
     assertTrue(actualCreateResult.getProcessVariables().isEmpty());
   }
 
   /**
-   * Test
-   * {@link HistoricProcessInstanceEntityManagerImpl#deleteHistoricProcessInstanceByProcessDefinitionId(String)}.
+   * Test {@link HistoricProcessInstanceEntityManagerImpl#deleteHistoricProcessInstanceByProcessDefinitionId(String)}.
    * <p>
-   * Method under test:
-   * {@link HistoricProcessInstanceEntityManagerImpl#deleteHistoricProcessInstanceByProcessDefinitionId(String)}
+   * Method under test: {@link HistoricProcessInstanceEntityManagerImpl#deleteHistoricProcessInstanceByProcessDefinitionId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "void HistoricProcessInstanceEntityManagerImpl.deleteHistoricProcessInstanceByProcessDefinitionId(String)"})
   public void testDeleteHistoricProcessInstanceByProcessDefinitionId() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.NONE));
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
 
     // Act
     historicProcessInstanceEntityManagerImpl.deleteHistoricProcessInstanceByProcessDefinitionId("42");
 
-    // Assert that nothing has changed
+    // Assert
     verify(processEngineConfigurationImpl).getHistoryManager();
   }
 
   /**
-   * Test
-   * {@link HistoricProcessInstanceEntityManagerImpl#deleteHistoricProcessInstanceByProcessDefinitionId(String)}.
+   * Test {@link HistoricProcessInstanceEntityManagerImpl#deleteHistoricProcessInstanceByProcessDefinitionId(String)}.
    * <p>
-   * Method under test:
-   * {@link HistoricProcessInstanceEntityManagerImpl#deleteHistoricProcessInstanceByProcessDefinitionId(String)}
+   * Method under test: {@link HistoricProcessInstanceEntityManagerImpl#deleteHistoricProcessInstanceByProcessDefinitionId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "void HistoricProcessInstanceEntityManagerImpl.deleteHistoricProcessInstanceByProcessDefinitionId(String)"})
   public void testDeleteHistoricProcessInstanceByProcessDefinitionId2() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.ACTIVITY));
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
     when(historicProcessInstanceDataManager.findHistoricProcessInstanceIdsByProcessDefinitionId(Mockito.<String>any()))
         .thenReturn(new ArrayList<>());
 
@@ -269,55 +214,53 @@ public class HistoricProcessInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link HistoricProcessInstanceEntityManagerImpl#deleteHistoricProcessInstanceByProcessDefinitionId(String)}.
+   * Test {@link HistoricProcessInstanceEntityManagerImpl#deleteHistoricProcessInstanceByProcessDefinitionId(String)}.
    * <p>
-   * Method under test:
-   * {@link HistoricProcessInstanceEntityManagerImpl#deleteHistoricProcessInstanceByProcessDefinitionId(String)}
+   * Method under test: {@link HistoricProcessInstanceEntityManagerImpl#deleteHistoricProcessInstanceByProcessDefinitionId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "void HistoricProcessInstanceEntityManagerImpl.deleteHistoricProcessInstanceByProcessDefinitionId(String)"})
   public void testDeleteHistoricProcessInstanceByProcessDefinitionId3() {
     // Arrange
-    HistoricVariableInstanceDataManager historicVariableInstanceDataManager = mock(
-        HistoricVariableInstanceDataManager.class);
-    when(historicVariableInstanceDataManager.findHistoricVariableInstancesByProcessInstanceId(Mockito.<String>any()))
-        .thenReturn(new ArrayList<>());
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getHistoryManager())
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
     HistoricVariableInstanceEntityManagerImpl historicVariableInstanceEntityManagerImpl = new HistoricVariableInstanceEntityManagerImpl(
-        processEngineConfigurationImpl, historicVariableInstanceDataManager);
+        processEngineConfiguration,
+        new MybatisHistoricVariableInstanceDataManager(new JtaProcessEngineConfiguration()));
 
-    HistoricActivityInstanceDataManager historicActivityInstanceDataManager = mock(
-        HistoricActivityInstanceDataManager.class);
-    doNothing().when(historicActivityInstanceDataManager)
-        .deleteHistoricActivityInstancesByProcessInstanceId(Mockito.<String>any());
+    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration2.getHistoryManager())
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
     HistoricActivityInstanceEntityManagerImpl historicActivityInstanceEntityManagerImpl = new HistoricActivityInstanceEntityManagerImpl(
-        processEngineConfigurationImpl, historicActivityInstanceDataManager);
+        processEngineConfiguration2,
+        new MybatisHistoricActivityInstanceDataManager(new JtaProcessEngineConfiguration()));
 
     HistoricIdentityLinkDataManager historicIdentityLinkDataManager = mock(HistoricIdentityLinkDataManager.class);
     when(historicIdentityLinkDataManager.findHistoricIdentityLinksByProcessInstanceId(Mockito.<String>any()))
         .thenReturn(new ArrayList<>());
     HistoricIdentityLinkEntityManagerImpl historicIdentityLinkEntityManagerImpl = new HistoricIdentityLinkEntityManagerImpl(
-        processEngineConfigurationImpl, historicIdentityLinkDataManager);
+        new JtaProcessEngineConfiguration(), historicIdentityLinkDataManager);
 
-    CommentDataManager commentDataManager = mock(CommentDataManager.class);
-    doNothing().when(commentDataManager).deleteCommentsByProcessInstanceId(Mockito.<String>any());
-    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfigurationImpl,
-        commentDataManager);
-
-    when(processEngineConfigurationImpl.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
+    CommentEntityManager commentEntityManager = mock(CommentEntityManager.class);
+    doNothing().when(commentEntityManager).deleteCommentsByProcessInstanceId(Mockito.<String>any());
+    when(processEngineConfigurationImpl.getCommentEntityManager()).thenReturn(commentEntityManager);
     when(processEngineConfigurationImpl.getHistoricIdentityLinkEntityManager())
         .thenReturn(historicIdentityLinkEntityManagerImpl);
     when(processEngineConfigurationImpl.getHistoricTaskInstanceEntityManager())
         .thenReturn(new HistoricTaskInstanceEntityManagerImpl(processEngineConfigurationImpl,
-            new MybatisHistoricTaskInstanceDataManager(processEngineConfigurationImpl)));
+            new MybatisHistoricTaskInstanceDataManager(new JtaProcessEngineConfiguration())));
     when(processEngineConfigurationImpl.getHistoricActivityInstanceEntityManager())
         .thenReturn(historicActivityInstanceEntityManagerImpl);
     when(processEngineConfigurationImpl.getHistoricVariableInstanceEntityManager())
         .thenReturn(historicVariableInstanceEntityManagerImpl);
     when(processEngineConfigurationImpl.getHistoricDetailEntityManager())
         .thenReturn(new HistoricDetailEntityManagerImpl(processEngineConfigurationImpl,
-            new MybatisHistoricDetailDataManager(processEngineConfigurationImpl)));
+            new MybatisHistoricDetailDataManager(new JtaProcessEngineConfiguration())));
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.ACTIVITY));
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
 
     ArrayList<String> stringList = new ArrayList<>();
     stringList.add("foo");
@@ -339,91 +282,90 @@ public class HistoricProcessInstanceEntityManagerImplDiffblueTest {
     verify(processEngineConfigurationImpl).getHistoricIdentityLinkEntityManager();
     verify(processEngineConfigurationImpl).getHistoricTaskInstanceEntityManager();
     verify(processEngineConfigurationImpl).getHistoricVariableInstanceEntityManager();
+    verify(processEngineConfiguration2).getHistoryManager();
+    verify(processEngineConfiguration).getHistoryManager();
     verify(processEngineConfigurationImpl, atLeast(1)).getHistoryManager();
-    verify(commentDataManager).deleteCommentsByProcessInstanceId(eq("foo"));
+    verify(commentEntityManager).deleteCommentsByProcessInstanceId(eq("foo"));
     verify(historicProcessInstanceDataManager).delete(isA(HistoricProcessInstanceEntity.class));
     verify(historicProcessInstanceDataManager).findById(eq("foo"));
-    verify(historicActivityInstanceDataManager).deleteHistoricActivityInstancesByProcessInstanceId(eq("foo"));
     verify(historicIdentityLinkDataManager).findHistoricIdentityLinksByProcessInstanceId(eq("foo"));
     verify(historicProcessInstanceDataManager).findHistoricProcessInstanceIdsByProcessDefinitionId(eq("42"));
     verify(historicProcessInstanceDataManager).findHistoricProcessInstancesBySuperProcessInstanceId(eq("foo"));
-    verify(historicVariableInstanceDataManager).findHistoricVariableInstancesByProcessInstanceId(eq("foo"));
   }
 
   /**
-   * Test {@link HistoricProcessInstanceEntityManagerImpl#delete(String)} with
-   * {@code historicProcessInstanceId}.
+   * Test {@link HistoricProcessInstanceEntityManagerImpl#delete(String)} with {@code historicProcessInstanceId}.
+   * <ul>
+   *   <li>Given {@link HistoricProcessInstanceDataManager}.</li>
+   * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricProcessInstanceEntityManagerImpl#delete(String)}
+   * Method under test: {@link HistoricProcessInstanceEntityManagerImpl#delete(String)}
    */
   @Test
-  public void testDeleteWithHistoricProcessInstanceId() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HistoricProcessInstanceEntityManagerImpl.delete(String)"})
+  public void testDeleteWithHistoricProcessInstanceId_givenHistoricProcessInstanceDataManager() {
     // Arrange
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.NONE));
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
 
     // Act
     historicProcessInstanceEntityManagerImpl.delete("42");
 
-    // Assert that nothing has changed
+    // Assert
     verify(processEngineConfigurationImpl).getHistoryManager();
   }
 
   /**
-   * Test {@link HistoricProcessInstanceEntityManagerImpl#delete(String)} with
-   * {@code historicProcessInstanceId}.
+   * Test {@link HistoricProcessInstanceEntityManagerImpl#delete(String)} with {@code historicProcessInstanceId}.
    * <ul>
-   *   <li>Then calls
-   * {@link ProcessEngineConfigurationImpl#getCommentEntityManager()}.</li>
+   *   <li>Then calls {@link ProcessEngineConfigurationImpl#getCommentEntityManager()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricProcessInstanceEntityManagerImpl#delete(String)}
+   * Method under test: {@link HistoricProcessInstanceEntityManagerImpl#delete(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HistoricProcessInstanceEntityManagerImpl.delete(String)"})
   public void testDeleteWithHistoricProcessInstanceId_thenCallsGetCommentEntityManager() {
     // Arrange
-    HistoricVariableInstanceDataManager historicVariableInstanceDataManager = mock(
-        HistoricVariableInstanceDataManager.class);
-    when(historicVariableInstanceDataManager.findHistoricVariableInstancesByProcessInstanceId(Mockito.<String>any()))
-        .thenReturn(new ArrayList<>());
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getHistoryManager())
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
     HistoricVariableInstanceEntityManagerImpl historicVariableInstanceEntityManagerImpl = new HistoricVariableInstanceEntityManagerImpl(
-        processEngineConfigurationImpl, historicVariableInstanceDataManager);
+        processEngineConfiguration,
+        new MybatisHistoricVariableInstanceDataManager(new JtaProcessEngineConfiguration()));
 
-    HistoricActivityInstanceDataManager historicActivityInstanceDataManager = mock(
-        HistoricActivityInstanceDataManager.class);
-    doNothing().when(historicActivityInstanceDataManager)
-        .deleteHistoricActivityInstancesByProcessInstanceId(Mockito.<String>any());
+    ProcessEngineConfigurationImpl processEngineConfiguration2 = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration2.getHistoryManager())
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
     HistoricActivityInstanceEntityManagerImpl historicActivityInstanceEntityManagerImpl = new HistoricActivityInstanceEntityManagerImpl(
-        processEngineConfigurationImpl, historicActivityInstanceDataManager);
+        processEngineConfiguration2,
+        new MybatisHistoricActivityInstanceDataManager(new JtaProcessEngineConfiguration()));
 
     HistoricIdentityLinkDataManager historicIdentityLinkDataManager = mock(HistoricIdentityLinkDataManager.class);
     when(historicIdentityLinkDataManager.findHistoricIdentityLinksByProcessInstanceId(Mockito.<String>any()))
         .thenReturn(new ArrayList<>());
     HistoricIdentityLinkEntityManagerImpl historicIdentityLinkEntityManagerImpl = new HistoricIdentityLinkEntityManagerImpl(
-        processEngineConfigurationImpl, historicIdentityLinkDataManager);
+        new JtaProcessEngineConfiguration(), historicIdentityLinkDataManager);
 
-    CommentDataManager commentDataManager = mock(CommentDataManager.class);
-    doNothing().when(commentDataManager).deleteCommentsByProcessInstanceId(Mockito.<String>any());
-    CommentEntityManagerImpl commentEntityManagerImpl = new CommentEntityManagerImpl(processEngineConfigurationImpl,
-        commentDataManager);
-
-    when(processEngineConfigurationImpl.getCommentEntityManager()).thenReturn(commentEntityManagerImpl);
+    CommentEntityManager commentEntityManager = mock(CommentEntityManager.class);
+    doNothing().when(commentEntityManager).deleteCommentsByProcessInstanceId(Mockito.<String>any());
+    when(processEngineConfigurationImpl.getCommentEntityManager()).thenReturn(commentEntityManager);
     when(processEngineConfigurationImpl.getHistoricIdentityLinkEntityManager())
         .thenReturn(historicIdentityLinkEntityManagerImpl);
     when(processEngineConfigurationImpl.getHistoricTaskInstanceEntityManager())
         .thenReturn(new HistoricTaskInstanceEntityManagerImpl(processEngineConfigurationImpl,
-            new MybatisHistoricTaskInstanceDataManager(processEngineConfigurationImpl)));
+            new MybatisHistoricTaskInstanceDataManager(new JtaProcessEngineConfiguration())));
     when(processEngineConfigurationImpl.getHistoricActivityInstanceEntityManager())
         .thenReturn(historicActivityInstanceEntityManagerImpl);
     when(processEngineConfigurationImpl.getHistoricVariableInstanceEntityManager())
         .thenReturn(historicVariableInstanceEntityManagerImpl);
     when(processEngineConfigurationImpl.getHistoricDetailEntityManager())
         .thenReturn(new HistoricDetailEntityManagerImpl(processEngineConfigurationImpl,
-            new MybatisHistoricDetailDataManager(processEngineConfigurationImpl)));
+            new MybatisHistoricDetailDataManager(new JtaProcessEngineConfiguration())));
     when(processEngineConfigurationImpl.getHistoryManager())
-        .thenReturn(new DefaultHistoryManager(processEngineConfigurationImpl, HistoryLevel.ACTIVITY));
+        .thenReturn(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.ACTIVITY));
     when(historicProcessInstanceDataManager.findHistoricProcessInstancesBySuperProcessInstanceId(Mockito.<String>any()))
         .thenReturn(new ArrayList<>());
     doNothing().when(historicProcessInstanceDataManager).delete(Mockito.<HistoricProcessInstanceEntity>any());
@@ -440,33 +382,33 @@ public class HistoricProcessInstanceEntityManagerImplDiffblueTest {
     verify(processEngineConfigurationImpl).getHistoricIdentityLinkEntityManager();
     verify(processEngineConfigurationImpl).getHistoricTaskInstanceEntityManager();
     verify(processEngineConfigurationImpl).getHistoricVariableInstanceEntityManager();
+    verify(processEngineConfiguration2).getHistoryManager();
+    verify(processEngineConfiguration).getHistoryManager();
     verify(processEngineConfigurationImpl, atLeast(1)).getHistoryManager();
-    verify(commentDataManager).deleteCommentsByProcessInstanceId(eq("42"));
+    verify(commentEntityManager).deleteCommentsByProcessInstanceId(eq("42"));
     verify(historicProcessInstanceDataManager).delete(isA(HistoricProcessInstanceEntity.class));
     verify(historicProcessInstanceDataManager).findById(eq("42"));
-    verify(historicActivityInstanceDataManager).deleteHistoricActivityInstancesByProcessInstanceId(eq("42"));
     verify(historicIdentityLinkDataManager).findHistoricIdentityLinksByProcessInstanceId(eq("42"));
     verify(historicProcessInstanceDataManager).findHistoricProcessInstancesBySuperProcessInstanceId(eq("42"));
-    verify(historicVariableInstanceDataManager).findHistoricVariableInstancesByProcessInstanceId(eq("42"));
   }
 
   /**
-   * Test
-   * {@link HistoricProcessInstanceEntityManagerImpl#findHistoricProcessInstanceCountByQueryCriteria(HistoricProcessInstanceQueryImpl)}.
+   * Test {@link HistoricProcessInstanceEntityManagerImpl#findHistoricProcessInstanceCountByQueryCriteria(HistoricProcessInstanceQueryImpl)}.
    * <ul>
    *   <li>Then return zero.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricProcessInstanceEntityManagerImpl#findHistoricProcessInstanceCountByQueryCriteria(HistoricProcessInstanceQueryImpl)}
+   * Method under test: {@link HistoricProcessInstanceEntityManagerImpl#findHistoricProcessInstanceCountByQueryCriteria(HistoricProcessInstanceQueryImpl)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "long HistoricProcessInstanceEntityManagerImpl.findHistoricProcessInstanceCountByQueryCriteria(HistoricProcessInstanceQueryImpl)"})
   public void testFindHistoricProcessInstanceCountByQueryCriteria_thenReturnZero() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration
         .setHistoryManager(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
     HistoricProcessInstanceEntityManagerImpl historicProcessInstanceEntityManagerImpl = new HistoricProcessInstanceEntityManagerImpl(
         processEngineConfiguration, new MybatisHistoricProcessInstanceDataManager(new JtaProcessEngineConfiguration()));
 
@@ -476,22 +418,22 @@ public class HistoricProcessInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link HistoricProcessInstanceEntityManagerImpl#findHistoricProcessInstancesByQueryCriteria(HistoricProcessInstanceQueryImpl)}.
+   * Test {@link HistoricProcessInstanceEntityManagerImpl#findHistoricProcessInstancesByQueryCriteria(HistoricProcessInstanceQueryImpl)}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricProcessInstanceEntityManagerImpl#findHistoricProcessInstancesByQueryCriteria(HistoricProcessInstanceQueryImpl)}
+   * Method under test: {@link HistoricProcessInstanceEntityManagerImpl#findHistoricProcessInstancesByQueryCriteria(HistoricProcessInstanceQueryImpl)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List HistoricProcessInstanceEntityManagerImpl.findHistoricProcessInstancesByQueryCriteria(HistoricProcessInstanceQueryImpl)"})
   public void testFindHistoricProcessInstancesByQueryCriteria_thenReturnEmpty() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration
         .setHistoryManager(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
     HistoricProcessInstanceEntityManagerImpl historicProcessInstanceEntityManagerImpl = new HistoricProcessInstanceEntityManagerImpl(
         processEngineConfiguration, new MybatisHistoricProcessInstanceDataManager(new JtaProcessEngineConfiguration()));
 
@@ -502,22 +444,22 @@ public class HistoricProcessInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link HistoricProcessInstanceEntityManagerImpl#findHistoricProcessInstancesAndVariablesByQueryCriteria(HistoricProcessInstanceQueryImpl)}.
+   * Test {@link HistoricProcessInstanceEntityManagerImpl#findHistoricProcessInstancesAndVariablesByQueryCriteria(HistoricProcessInstanceQueryImpl)}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricProcessInstanceEntityManagerImpl#findHistoricProcessInstancesAndVariablesByQueryCriteria(HistoricProcessInstanceQueryImpl)}
+   * Method under test: {@link HistoricProcessInstanceEntityManagerImpl#findHistoricProcessInstancesAndVariablesByQueryCriteria(HistoricProcessInstanceQueryImpl)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List HistoricProcessInstanceEntityManagerImpl.findHistoricProcessInstancesAndVariablesByQueryCriteria(HistoricProcessInstanceQueryImpl)"})
   public void testFindHistoricProcessInstancesAndVariablesByQueryCriteria_thenReturnEmpty() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
     processEngineConfiguration
         .setHistoryManager(new DefaultHistoryManager(new JtaProcessEngineConfiguration(), HistoryLevel.NONE));
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
     HistoricProcessInstanceEntityManagerImpl historicProcessInstanceEntityManagerImpl = new HistoricProcessInstanceEntityManagerImpl(
         processEngineConfiguration, new MybatisHistoricProcessInstanceDataManager(new JtaProcessEngineConfiguration()));
 
@@ -528,16 +470,17 @@ public class HistoricProcessInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link HistoricProcessInstanceEntityManagerImpl#findHistoricProcessInstancesByNativeQuery(Map, int, int)}.
+   * Test {@link HistoricProcessInstanceEntityManagerImpl#findHistoricProcessInstancesByNativeQuery(Map, int, int)}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricProcessInstanceEntityManagerImpl#findHistoricProcessInstancesByNativeQuery(Map, int, int)}
+   * Method under test: {@link HistoricProcessInstanceEntityManagerImpl#findHistoricProcessInstancesByNativeQuery(Map, int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List HistoricProcessInstanceEntityManagerImpl.findHistoricProcessInstancesByNativeQuery(Map, int, int)"})
   public void testFindHistoricProcessInstancesByNativeQuery_thenReturnEmpty() {
     // Arrange
     HistoricProcessInstanceDataManager historicProcessInstanceDataManager = mock(
@@ -558,16 +501,17 @@ public class HistoricProcessInstanceEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link HistoricProcessInstanceEntityManagerImpl#findHistoricProcessInstanceCountByNativeQuery(Map)}.
+   * Test {@link HistoricProcessInstanceEntityManagerImpl#findHistoricProcessInstanceCountByNativeQuery(Map)}.
    * <ul>
    *   <li>Then return three.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricProcessInstanceEntityManagerImpl#findHistoricProcessInstanceCountByNativeQuery(Map)}
+   * Method under test: {@link HistoricProcessInstanceEntityManagerImpl#findHistoricProcessInstanceCountByNativeQuery(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "long HistoricProcessInstanceEntityManagerImpl.findHistoricProcessInstanceCountByNativeQuery(Map)"})
   public void testFindHistoricProcessInstanceCountByNativeQuery_thenReturnThree() {
     // Arrange
     HistoricProcessInstanceDataManager historicProcessInstanceDataManager = mock(

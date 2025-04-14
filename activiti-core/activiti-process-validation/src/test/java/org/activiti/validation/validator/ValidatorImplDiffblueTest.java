@@ -20,13 +20,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiFunction;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.BaseElement;
@@ -35,89 +34,12 @@ import org.activiti.bpmn.model.Process;
 import org.activiti.validation.ValidationError;
 import org.activiti.validation.validator.impl.ActivitiEventListenerValidator;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ValidatorImplDiffblueTest {
   /**
-   * Test {@link ValidatorImpl#addError(List, ValidationError)} with
-   * {@code validationErrors}, {@code error}.
-   * <p>
-   * Method under test: {@link ValidatorImpl#addError(List, ValidationError)}
-   */
-  @Test
-  @DisplayName("Test addError(List, ValidationError) with 'validationErrors', 'error'")
-  void testAddErrorWithValidationErrorsError() {
-    // Arrange
-    ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
-    ArrayList<ValidationError> validationErrors = new ArrayList<>();
-
-    HashMap<String, String> params = new HashMap<>();
-    params.computeIfPresent("foo", mock(BiFunction.class));
-
-    ValidationError error = new ValidationError();
-    error.setActivityId("42");
-    error.setActivityName("Activity Name");
-    error.setDefaultDescription("Default Description");
-    error.setKey("Key");
-    error.setParams(params);
-    error.setProblem("Problem");
-    error.setProcessDefinitionId("42");
-    error.setProcessDefinitionName("Process Definition Name");
-    error.setValidatorSetName("Validator Set Name");
-    error.setWarning(true);
-    error.setXmlColumnNumber(10);
-    error.setXmlLineNumber(2);
-
-    // Act
-    activitiEventListenerValidator.addError(validationErrors, error);
-
-    // Assert
-    assertEquals(1, validationErrors.size());
-    assertSame(error, validationErrors.get(0));
-  }
-
-  /**
-   * Test {@link ValidatorImpl#addError(List, ValidationError)} with
-   * {@code validationErrors}, {@code error}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()}.</li>
-   *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ValidatorImpl#addError(List, ValidationError)}
-   */
-  @Test
-  @DisplayName("Test addError(List, ValidationError) with 'validationErrors', 'error'; given HashMap(); then ArrayList() size is one")
-  void testAddErrorWithValidationErrorsError_givenHashMap_thenArrayListSizeIsOne() {
-    // Arrange
-    ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
-    ArrayList<ValidationError> validationErrors = new ArrayList<>();
-
-    ValidationError error = new ValidationError();
-    error.setActivityId("42");
-    error.setActivityName("Activity Name");
-    error.setDefaultDescription("Default Description");
-    error.setKey("Key");
-    error.setParams(new HashMap<>());
-    error.setProblem("Problem");
-    error.setProcessDefinitionId("42");
-    error.setProcessDefinitionName("Process Definition Name");
-    error.setValidatorSetName("Validator Set Name");
-    error.setWarning(true);
-    error.setXmlColumnNumber(10);
-    error.setXmlLineNumber(2);
-
-    // Act
-    activitiEventListenerValidator.addError(validationErrors, error);
-
-    // Assert
-    assertEquals(1, validationErrors.size());
-    assertSame(error, validationErrors.get(0));
-  }
-
-  /**
-   * Test {@link ValidatorImpl#addError(List, ValidationError)} with
-   * {@code validationErrors}, {@code error}.
+   * Test {@link ValidatorImpl#addError(List, ValidationError)} with {@code validationErrors}, {@code error}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
@@ -126,6 +48,8 @@ class ValidatorImplDiffblueTest {
    */
   @Test
   @DisplayName("Test addError(List, ValidationError) with 'validationErrors', 'error'; then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, ValidationError)"})
   void testAddErrorWithValidationErrorsError_thenArrayListSizeIsTwo() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -171,78 +95,54 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test {@link ValidatorImpl#addError(List, String)} with
-   * {@code validationErrors}, {@code problem}.
+   * Test {@link ValidatorImpl#addError(List, ValidationError)} with {@code validationErrors}, {@code error}.
+   * <ul>
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
+   * </ul>
    * <p>
-   * Method under test: {@link ValidatorImpl#addError(List, String)}
+   * Method under test: {@link ValidatorImpl#addError(List, ValidationError)}
    */
   @Test
-  @DisplayName("Test addError(List, String) with 'validationErrors', 'problem'")
-  void testAddErrorWithValidationErrorsProblem() {
+  @DisplayName("Test addError(List, ValidationError) with 'validationErrors', 'error'; when ArrayList(); then ArrayList() size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, ValidationError)"})
+  void testAddErrorWithValidationErrorsError_whenArrayList_thenArrayListSizeIsOne() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
-
-    HashMap<String, String> params = new HashMap<>();
-    params.computeIfPresent("foo", mock(BiFunction.class));
-
-    ValidationError validationError = new ValidationError();
-    validationError.setActivityId("42");
-    validationError.setActivityName("Activity Name");
-    validationError.setDefaultDescription("Default Description");
-    validationError.setKey("Key");
-    validationError.setParams(params);
-    validationError.setProblem("Problem");
-    validationError.setProcessDefinitionId("42");
-    validationError.setProcessDefinitionName("Process Definition Name");
-    validationError.setValidatorSetName("Validator Set Name");
-    validationError.setWarning(true);
-    validationError.setXmlColumnNumber(10);
-    validationError.setXmlLineNumber(2);
-
     ArrayList<ValidationError> validationErrors = new ArrayList<>();
-    validationErrors.add(validationError);
+
+    ValidationError error = new ValidationError();
+    error.setActivityId("42");
+    error.setActivityName("Activity Name");
+    error.setDefaultDescription("Default Description");
+    error.setKey("Key");
+    error.setParams(new HashMap<>());
+    error.setProblem("Problem");
+    error.setProcessDefinitionId("42");
+    error.setProcessDefinitionName("Process Definition Name");
+    error.setValidatorSetName("Validator Set Name");
+    error.setWarning(true);
+    error.setXmlColumnNumber(10);
+    error.setXmlLineNumber(2);
 
     // Act
-    activitiEventListenerValidator.addError(validationErrors, "Problem");
+    activitiEventListenerValidator.addError(validationErrors, error);
 
     // Assert
-    assertEquals(2, validationErrors.size());
-    ValidationError getResult = validationErrors.get(0);
-    assertEquals("42", getResult.getActivityId());
-    assertEquals("42", getResult.getProcessDefinitionId());
-    assertEquals("Activity Name", getResult.getActivityName());
-    assertEquals("Default Description", getResult.getDefaultDescription());
-    assertEquals("Key", getResult.getKey());
-    ValidationError getResult2 = validationErrors.get(1);
-    assertEquals("Problem", getResult2.getDefaultDescription());
-    assertEquals("Problem", getResult2.getKey());
-    assertEquals("Problem", getResult.getProblem());
-    assertEquals("Problem", getResult2.getProblem());
-    assertEquals("Process Definition Name", getResult.getProcessDefinitionName());
-    assertEquals("Validator Set Name", getResult.getValidatorSetName());
-    assertNull(getResult2.getActivityId());
-    assertNull(getResult2.getActivityName());
-    assertNull(getResult2.getProcessDefinitionId());
-    assertNull(getResult2.getProcessDefinitionName());
-    assertNull(getResult2.getValidatorSetName());
-    assertEquals(0, getResult2.getXmlColumnNumber());
-    assertEquals(0, getResult2.getXmlLineNumber());
-    assertEquals(10, getResult.getXmlColumnNumber());
-    assertEquals(2, getResult.getXmlLineNumber());
-    assertFalse(getResult2.isWarning());
-    assertTrue(getResult.getParams().isEmpty());
-    assertTrue(getResult2.getParams().isEmpty());
-    assertTrue(getResult.isWarning());
+    assertEquals(1, validationErrors.size());
+    assertSame(error, validationErrors.get(0));
   }
 
   /**
-   * Test {@link ValidatorImpl#addError(List, String, BaseElement)} with
-   * {@code validationErrors}, {@code problem}, {@code baseElement}.
+   * Test {@link ValidatorImpl#addError(List, String, BaseElement)} with {@code validationErrors}, {@code problem}, {@code baseElement}.
    * <p>
    * Method under test: {@link ValidatorImpl#addError(List, String, BaseElement)}
    */
   @Test
   @DisplayName("Test addError(List, String, BaseElement) with 'validationErrors', 'problem', 'baseElement'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String, BaseElement)"})
   void testAddErrorWithValidationErrorsProblemBaseElement() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -273,80 +173,14 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test {@link ValidatorImpl#addError(List, String, BaseElement)} with
-   * {@code validationErrors}, {@code problem}, {@code baseElement}.
+   * Test {@link ValidatorImpl#addError(List, String, BaseElement, Map)} with {@code validationErrors}, {@code problem}, {@code baseElement}, {@code params}.
    * <p>
-   * Method under test: {@link ValidatorImpl#addError(List, String, BaseElement)}
-   */
-  @Test
-  @DisplayName("Test addError(List, String, BaseElement) with 'validationErrors', 'problem', 'baseElement'")
-  void testAddErrorWithValidationErrorsProblemBaseElement2() {
-    // Arrange
-    ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
-
-    HashMap<String, String> params = new HashMap<>();
-    params.computeIfPresent("foo", mock(BiFunction.class));
-
-    ValidationError validationError = new ValidationError();
-    validationError.setActivityId("42");
-    validationError.setActivityName("Activity Name");
-    validationError.setDefaultDescription("Default Description");
-    validationError.setKey("Key");
-    validationError.setParams(params);
-    validationError.setProblem("Problem");
-    validationError.setProcessDefinitionId("42");
-    validationError.setProcessDefinitionName("Process Definition Name");
-    validationError.setValidatorSetName("Validator Set Name");
-    validationError.setWarning(true);
-    validationError.setXmlColumnNumber(10);
-    validationError.setXmlLineNumber(2);
-
-    ArrayList<ValidationError> validationErrors = new ArrayList<>();
-    validationErrors.add(validationError);
-
-    // Act
-    activitiEventListenerValidator.addError(validationErrors, "Problem", new ActivitiListener());
-
-    // Assert
-    assertEquals(2, validationErrors.size());
-    ValidationError getResult = validationErrors.get(0);
-    assertEquals("42", getResult.getActivityId());
-    assertEquals("42", getResult.getProcessDefinitionId());
-    assertEquals("Activity Name", getResult.getActivityName());
-    assertEquals("Default Description", getResult.getDefaultDescription());
-    assertEquals("Key", getResult.getKey());
-    ValidationError getResult2 = validationErrors.get(1);
-    assertEquals("Problem", getResult2.getDefaultDescription());
-    assertEquals("Problem", getResult2.getKey());
-    assertEquals("Problem", getResult.getProblem());
-    assertEquals("Problem", getResult2.getProblem());
-    assertEquals("Process Definition Name", getResult.getProcessDefinitionName());
-    assertEquals("Validator Set Name", getResult.getValidatorSetName());
-    assertNull(getResult2.getActivityId());
-    assertNull(getResult2.getActivityName());
-    assertNull(getResult2.getProcessDefinitionId());
-    assertNull(getResult2.getProcessDefinitionName());
-    assertNull(getResult2.getValidatorSetName());
-    assertEquals(0, getResult2.getXmlColumnNumber());
-    assertEquals(0, getResult2.getXmlLineNumber());
-    assertEquals(10, getResult.getXmlColumnNumber());
-    assertEquals(2, getResult.getXmlLineNumber());
-    assertFalse(getResult2.isWarning());
-    assertTrue(getResult.getParams().isEmpty());
-    assertTrue(getResult2.getParams().isEmpty());
-    assertTrue(getResult.isWarning());
-  }
-
-  /**
-   * Test {@link ValidatorImpl#addError(List, String, BaseElement, Map)} with
-   * {@code validationErrors}, {@code problem}, {@code baseElement},
-   * {@code params}.
-   * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addError(List, String, BaseElement, Map)}
+   * Method under test: {@link ValidatorImpl#addError(List, String, BaseElement, Map)}
    */
   @Test
   @DisplayName("Test addError(List, String, BaseElement, Map) with 'validationErrors', 'problem', 'baseElement', 'params'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String, BaseElement, Map)"})
   void testAddErrorWithValidationErrorsProblemBaseElementParams() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -377,18 +211,17 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test {@link ValidatorImpl#addError(List, String, BaseElement, Map)} with
-   * {@code validationErrors}, {@code problem}, {@code baseElement},
-   * {@code params}.
+   * Test {@link ValidatorImpl#addError(List, String, BaseElement, Map)} with {@code validationErrors}, {@code problem}, {@code baseElement}, {@code params}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addError(List, String, BaseElement, Map)}
+   * Method under test: {@link ValidatorImpl#addError(List, String, BaseElement, Map)}
    */
   @Test
   @DisplayName("Test addError(List, String, BaseElement, Map) with 'validationErrors', 'problem', 'baseElement', 'params'; then ArrayList() size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String, BaseElement, Map)"})
   void testAddErrorWithValidationErrorsProblemBaseElementParams_thenArrayListSizeIsOne() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -416,18 +249,17 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test {@link ValidatorImpl#addError(List, String, BaseElement, Map)} with
-   * {@code validationErrors}, {@code problem}, {@code baseElement},
-   * {@code params}.
+   * Test {@link ValidatorImpl#addError(List, String, BaseElement, Map)} with {@code validationErrors}, {@code problem}, {@code baseElement}, {@code params}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addError(List, String, BaseElement, Map)}
+   * Method under test: {@link ValidatorImpl#addError(List, String, BaseElement, Map)}
    */
   @Test
   @DisplayName("Test addError(List, String, BaseElement, Map) with 'validationErrors', 'problem', 'baseElement', 'params'; then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String, BaseElement, Map)"})
   void testAddErrorWithValidationErrorsProblemBaseElementParams_thenArrayListSizeIsTwo() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -484,18 +316,17 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test {@link ValidatorImpl#addError(List, String, BaseElement, Map)} with
-   * {@code validationErrors}, {@code problem}, {@code baseElement},
-   * {@code params}.
+   * Test {@link ValidatorImpl#addError(List, String, BaseElement, Map)} with {@code validationErrors}, {@code problem}, {@code baseElement}, {@code params}.
    * <ul>
    *   <li>When {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addError(List, String, BaseElement, Map)}
+   * Method under test: {@link ValidatorImpl#addError(List, String, BaseElement, Map)}
    */
   @Test
   @DisplayName("Test addError(List, String, BaseElement, Map) with 'validationErrors', 'problem', 'baseElement', 'params'; when 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String, BaseElement, Map)"})
   void testAddErrorWithValidationErrorsProblemBaseElementParams_whenNull() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -522,8 +353,7 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test {@link ValidatorImpl#addError(List, String, BaseElement)} with
-   * {@code validationErrors}, {@code problem}, {@code baseElement}.
+   * Test {@link ValidatorImpl#addError(List, String, BaseElement)} with {@code validationErrors}, {@code problem}, {@code baseElement}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
    * </ul>
@@ -532,6 +362,8 @@ class ValidatorImplDiffblueTest {
    */
   @Test
   @DisplayName("Test addError(List, String, BaseElement) with 'validationErrors', 'problem', 'baseElement'; then ArrayList() size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String, BaseElement)"})
   void testAddErrorWithValidationErrorsProblemBaseElement_thenArrayListSizeIsOne() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -558,8 +390,7 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test {@link ValidatorImpl#addError(List, String, BaseElement)} with
-   * {@code validationErrors}, {@code problem}, {@code baseElement}.
+   * Test {@link ValidatorImpl#addError(List, String, BaseElement)} with {@code validationErrors}, {@code problem}, {@code baseElement}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
@@ -568,6 +399,8 @@ class ValidatorImplDiffblueTest {
    */
   @Test
   @DisplayName("Test addError(List, String, BaseElement) with 'validationErrors', 'problem', 'baseElement'; then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String, BaseElement)"})
   void testAddErrorWithValidationErrorsProblemBaseElement_thenArrayListSizeIsTwo() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -623,8 +456,7 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test {@link ValidatorImpl#addError(List, String, BaseElement)} with
-   * {@code validationErrors}, {@code problem}, {@code baseElement}.
+   * Test {@link ValidatorImpl#addError(List, String, BaseElement)} with {@code validationErrors}, {@code problem}, {@code baseElement}.
    * <ul>
    *   <li>When {@code null}.</li>
    * </ul>
@@ -633,6 +465,8 @@ class ValidatorImplDiffblueTest {
    */
   @Test
   @DisplayName("Test addError(List, String, BaseElement) with 'validationErrors', 'problem', 'baseElement'; when 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String, BaseElement)"})
   void testAddErrorWithValidationErrorsProblemBaseElement_whenNull() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -659,47 +493,7 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test {@link ValidatorImpl#addError(List, String, Map)} with
-   * {@code validationErrors}, {@code problem}, {@code params}.
-   * <ul>
-   *   <li>Given {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ValidatorImpl#addError(List, String, Map)}
-   */
-  @Test
-  @DisplayName("Test addError(List, String, Map) with 'validationErrors', 'problem', 'params'; given 'foo'")
-  void testAddErrorWithValidationErrorsProblemParams_givenFoo() {
-    // Arrange
-    ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
-    ArrayList<ValidationError> validationErrors = new ArrayList<>();
-
-    HashMap<String, String> params = new HashMap<>();
-    params.computeIfPresent("foo", mock(BiFunction.class));
-
-    // Act
-    activitiEventListenerValidator.addError(validationErrors, "Problem", params);
-
-    // Assert
-    assertEquals(1, validationErrors.size());
-    ValidationError getResult = validationErrors.get(0);
-    assertEquals("Problem", getResult.getDefaultDescription());
-    assertEquals("Problem", getResult.getKey());
-    assertEquals("Problem", getResult.getProblem());
-    assertNull(getResult.getActivityId());
-    assertNull(getResult.getActivityName());
-    assertNull(getResult.getProcessDefinitionId());
-    assertNull(getResult.getProcessDefinitionName());
-    assertNull(getResult.getValidatorSetName());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlLineNumber());
-    assertFalse(getResult.isWarning());
-    assertTrue(getResult.getParams().isEmpty());
-  }
-
-  /**
-   * Test {@link ValidatorImpl#addError(List, String, Map)} with
-   * {@code validationErrors}, {@code problem}, {@code params}.
+   * Test {@link ValidatorImpl#addError(List, String, Map)} with {@code validationErrors}, {@code problem}, {@code params}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
    * </ul>
@@ -708,6 +502,8 @@ class ValidatorImplDiffblueTest {
    */
   @Test
   @DisplayName("Test addError(List, String, Map) with 'validationErrors', 'problem', 'params'; then ArrayList() size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String, Map)"})
   void testAddErrorWithValidationErrorsProblemParams_thenArrayListSizeIsOne() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -734,8 +530,7 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test {@link ValidatorImpl#addError(List, String, Map)} with
-   * {@code validationErrors}, {@code problem}, {@code params}.
+   * Test {@link ValidatorImpl#addError(List, String, Map)} with {@code validationErrors}, {@code problem}, {@code params}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
@@ -744,6 +539,8 @@ class ValidatorImplDiffblueTest {
    */
   @Test
   @DisplayName("Test addError(List, String, Map) with 'validationErrors', 'problem', 'params'; then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String, Map)"})
   void testAddErrorWithValidationErrorsProblemParams_thenArrayListSizeIsTwo() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -799,15 +596,14 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test {@link ValidatorImpl#addError(List, String, Process, BaseElement)} with
-   * {@code validationErrors}, {@code problem}, {@code process},
-   * {@code baseElement}.
+   * Test {@link ValidatorImpl#addError(List, String, Process, BaseElement)} with {@code validationErrors}, {@code problem}, {@code process}, {@code baseElement}.
    * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addError(List, String, Process, BaseElement)}
+   * Method under test: {@link ValidatorImpl#addError(List, String, Process, BaseElement)}
    */
   @Test
   @DisplayName("Test addError(List, String, Process, BaseElement) with 'validationErrors', 'problem', 'process', 'baseElement'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String, Process, BaseElement)"})
   void testAddErrorWithValidationErrorsProblemProcessBaseElement() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -838,15 +634,14 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test {@link ValidatorImpl#addError(List, String, Process, BaseElement)} with
-   * {@code validationErrors}, {@code problem}, {@code process},
-   * {@code baseElement}.
+   * Test {@link ValidatorImpl#addError(List, String, Process, BaseElement)} with {@code validationErrors}, {@code problem}, {@code process}, {@code baseElement}.
    * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addError(List, String, Process, BaseElement)}
+   * Method under test: {@link ValidatorImpl#addError(List, String, Process, BaseElement)}
    */
   @Test
   @DisplayName("Test addError(List, String, Process, BaseElement) with 'validationErrors', 'problem', 'process', 'baseElement'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String, Process, BaseElement)"})
   void testAddErrorWithValidationErrorsProblemProcessBaseElement2() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -864,16 +659,14 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean)}
-   * with {@code validationErrors}, {@code problem}, {@code process},
-   * {@code baseElement}, {@code isWarning}.
+   * Test {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean)} with {@code validationErrors}, {@code problem}, {@code process}, {@code baseElement}, {@code isWarning}.
    * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean)}
+   * Method under test: {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean)}
    */
   @Test
   @DisplayName("Test addError(List, String, Process, BaseElement, boolean) with 'validationErrors', 'problem', 'process', 'baseElement', 'isWarning'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String, Process, BaseElement, boolean)"})
   void testAddErrorWithValidationErrorsProblemProcessBaseElementIsWarning() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -904,16 +697,14 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean)}
-   * with {@code validationErrors}, {@code problem}, {@code process},
-   * {@code baseElement}, {@code isWarning}.
+   * Test {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean)} with {@code validationErrors}, {@code problem}, {@code process}, {@code baseElement}, {@code isWarning}.
    * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean)}
+   * Method under test: {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean)}
    */
   @Test
   @DisplayName("Test addError(List, String, Process, BaseElement, boolean) with 'validationErrors', 'problem', 'process', 'baseElement', 'isWarning'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String, Process, BaseElement, boolean)"})
   void testAddErrorWithValidationErrorsProblemProcessBaseElementIsWarning2() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -941,45 +732,30 @@ class ValidatorImplDiffblueTest {
 
     // Assert
     assertEquals(2, validationErrors.size());
-    ValidationError getResult = validationErrors.get(0);
-    assertEquals("42", getResult.getActivityId());
-    assertEquals("42", getResult.getProcessDefinitionId());
-    assertEquals("Activity Name", getResult.getActivityName());
-    assertEquals("Default Description", getResult.getDefaultDescription());
-    assertEquals("Key", getResult.getKey());
-    ValidationError getResult2 = validationErrors.get(1);
-    assertEquals("Problem", getResult2.getDefaultDescription());
-    assertEquals("Problem", getResult2.getKey());
+    ValidationError getResult = validationErrors.get(1);
+    assertEquals("Problem", getResult.getDefaultDescription());
+    assertEquals("Problem", getResult.getKey());
     assertEquals("Problem", getResult.getProblem());
-    assertEquals("Problem", getResult2.getProblem());
-    assertEquals("Process Definition Name", getResult.getProcessDefinitionName());
-    assertEquals("Validator Set Name", getResult.getValidatorSetName());
-    assertNull(getResult2.getActivityId());
-    assertNull(getResult2.getActivityName());
-    assertNull(getResult2.getProcessDefinitionId());
-    assertNull(getResult2.getProcessDefinitionName());
-    assertNull(getResult2.getValidatorSetName());
-    assertEquals(0, getResult2.getXmlColumnNumber());
-    assertEquals(0, getResult2.getXmlLineNumber());
-    assertEquals(10, getResult.getXmlColumnNumber());
-    assertEquals(2, getResult.getXmlLineNumber());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
     assertTrue(getResult.getParams().isEmpty());
-    assertTrue(getResult2.getParams().isEmpty());
     assertTrue(getResult.isWarning());
-    assertTrue(getResult2.isWarning());
   }
 
   /**
-   * Test
-   * {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean)}
-   * with {@code validationErrors}, {@code problem}, {@code process},
-   * {@code baseElement}, {@code isWarning}.
+   * Test {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean)} with {@code validationErrors}, {@code problem}, {@code process}, {@code baseElement}, {@code isWarning}.
    * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean)}
+   * Method under test: {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean)}
    */
   @Test
   @DisplayName("Test addError(List, String, Process, BaseElement, boolean) with 'validationErrors', 'problem', 'process', 'baseElement', 'isWarning'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String, Process, BaseElement, boolean)"})
   void testAddErrorWithValidationErrorsProblemProcessBaseElementIsWarning3() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -997,16 +773,14 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean, Map)}
-   * with {@code validationErrors}, {@code problem}, {@code process},
-   * {@code baseElement}, {@code isWarning}, {@code params}.
+   * Test {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean, Map)} with {@code validationErrors}, {@code problem}, {@code process}, {@code baseElement}, {@code isWarning}, {@code params}.
    * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean, Map)}
+   * Method under test: {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean, Map)}
    */
   @Test
   @DisplayName("Test addError(List, String, Process, BaseElement, boolean, Map) with 'validationErrors', 'problem', 'process', 'baseElement', 'isWarning', 'params'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String, Process, BaseElement, boolean, Map)"})
   void testAddErrorWithValidationErrorsProblemProcessBaseElementIsWarningParams() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -1038,16 +812,14 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean, Map)}
-   * with {@code validationErrors}, {@code problem}, {@code process},
-   * {@code baseElement}, {@code isWarning}, {@code params}.
+   * Test {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean, Map)} with {@code validationErrors}, {@code problem}, {@code process}, {@code baseElement}, {@code isWarning}, {@code params}.
    * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean, Map)}
+   * Method under test: {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean, Map)}
    */
   @Test
   @DisplayName("Test addError(List, String, Process, BaseElement, boolean, Map) with 'validationErrors', 'problem', 'process', 'baseElement', 'isWarning', 'params'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String, Process, BaseElement, boolean, Map)"})
   void testAddErrorWithValidationErrorsProblemProcessBaseElementIsWarningParams2() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -1074,16 +846,14 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean, Map)}
-   * with {@code validationErrors}, {@code problem}, {@code process},
-   * {@code baseElement}, {@code isWarning}, {@code params}.
+   * Test {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean, Map)} with {@code validationErrors}, {@code problem}, {@code process}, {@code baseElement}, {@code isWarning}, {@code params}.
    * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean, Map)}
+   * Method under test: {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean, Map)}
    */
   @Test
   @DisplayName("Test addError(List, String, Process, BaseElement, boolean, Map) with 'validationErrors', 'problem', 'process', 'baseElement', 'isWarning', 'params'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String, Process, BaseElement, boolean, Map)"})
   void testAddErrorWithValidationErrorsProblemProcessBaseElementIsWarningParams3() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -1112,45 +882,30 @@ class ValidatorImplDiffblueTest {
 
     // Assert
     assertEquals(2, validationErrors.size());
-    ValidationError getResult = validationErrors.get(0);
-    assertEquals("42", getResult.getActivityId());
-    assertEquals("42", getResult.getProcessDefinitionId());
-    assertEquals("Activity Name", getResult.getActivityName());
-    assertEquals("Default Description", getResult.getDefaultDescription());
-    assertEquals("Key", getResult.getKey());
-    ValidationError getResult2 = validationErrors.get(1);
-    assertEquals("Problem", getResult2.getDefaultDescription());
-    assertEquals("Problem", getResult2.getKey());
+    ValidationError getResult = validationErrors.get(1);
+    assertEquals("Problem", getResult.getDefaultDescription());
+    assertEquals("Problem", getResult.getKey());
     assertEquals("Problem", getResult.getProblem());
-    assertEquals("Problem", getResult2.getProblem());
-    assertEquals("Process Definition Name", getResult.getProcessDefinitionName());
-    assertEquals("Validator Set Name", getResult.getValidatorSetName());
-    assertNull(getResult2.getActivityId());
-    assertNull(getResult2.getActivityName());
-    assertNull(getResult2.getProcessDefinitionId());
-    assertNull(getResult2.getProcessDefinitionName());
-    assertNull(getResult2.getValidatorSetName());
-    assertEquals(0, getResult2.getXmlColumnNumber());
-    assertEquals(0, getResult2.getXmlLineNumber());
-    assertEquals(10, getResult.getXmlColumnNumber());
-    assertEquals(2, getResult.getXmlLineNumber());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
     assertTrue(getResult.getParams().isEmpty());
-    assertTrue(getResult2.getParams().isEmpty());
     assertTrue(getResult.isWarning());
-    assertTrue(getResult2.isWarning());
   }
 
   /**
-   * Test
-   * {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean, Map)}
-   * with {@code validationErrors}, {@code problem}, {@code process},
-   * {@code baseElement}, {@code isWarning}, {@code params}.
+   * Test {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean, Map)} with {@code validationErrors}, {@code problem}, {@code process}, {@code baseElement}, {@code isWarning}, {@code params}.
    * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean, Map)}
+   * Method under test: {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean, Map)}
    */
   @Test
   @DisplayName("Test addError(List, String, Process, BaseElement, boolean, Map) with 'validationErrors', 'problem', 'process', 'baseElement', 'isWarning', 'params'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String, Process, BaseElement, boolean, Map)"})
   void testAddErrorWithValidationErrorsProblemProcessBaseElementIsWarningParams4() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -1168,19 +923,17 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean)}
-   * with {@code validationErrors}, {@code problem}, {@code process},
-   * {@code baseElement}, {@code isWarning}.
+   * Test {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean)} with {@code validationErrors}, {@code problem}, {@code process}, {@code baseElement}, {@code isWarning}.
    * <ul>
    *   <li>When {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean)}
+   * Method under test: {@link ValidatorImpl#addError(List, String, Process, BaseElement, boolean)}
    */
   @Test
   @DisplayName("Test addError(List, String, Process, BaseElement, boolean) with 'validationErrors', 'problem', 'process', 'baseElement', 'isWarning'; when 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String, Process, BaseElement, boolean)"})
   void testAddErrorWithValidationErrorsProblemProcessBaseElementIsWarning_whenNull() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -1207,15 +960,14 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test {@link ValidatorImpl#addError(List, String, Process, BaseElement, Map)}
-   * with {@code validationErrors}, {@code problem}, {@code process},
-   * {@code baseElement}, {@code params}.
+   * Test {@link ValidatorImpl#addError(List, String, Process, BaseElement, Map)} with {@code validationErrors}, {@code problem}, {@code process}, {@code baseElement}, {@code params}.
    * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addError(List, String, Process, BaseElement, Map)}
+   * Method under test: {@link ValidatorImpl#addError(List, String, Process, BaseElement, Map)}
    */
   @Test
   @DisplayName("Test addError(List, String, Process, BaseElement, Map) with 'validationErrors', 'problem', 'process', 'baseElement', 'params'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String, Process, BaseElement, Map)"})
   void testAddErrorWithValidationErrorsProblemProcessBaseElementParams() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -1247,15 +999,14 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test {@link ValidatorImpl#addError(List, String, Process, BaseElement, Map)}
-   * with {@code validationErrors}, {@code problem}, {@code process},
-   * {@code baseElement}, {@code params}.
+   * Test {@link ValidatorImpl#addError(List, String, Process, BaseElement, Map)} with {@code validationErrors}, {@code problem}, {@code process}, {@code baseElement}, {@code params}.
    * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addError(List, String, Process, BaseElement, Map)}
+   * Method under test: {@link ValidatorImpl#addError(List, String, Process, BaseElement, Map)}
    */
   @Test
   @DisplayName("Test addError(List, String, Process, BaseElement, Map) with 'validationErrors', 'problem', 'process', 'baseElement', 'params'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String, Process, BaseElement, Map)"})
   void testAddErrorWithValidationErrorsProblemProcessBaseElementParams2() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -1284,44 +1035,30 @@ class ValidatorImplDiffblueTest {
 
     // Assert
     assertEquals(2, validationErrors.size());
-    ValidationError getResult = validationErrors.get(0);
-    assertEquals("42", getResult.getActivityId());
-    assertEquals("42", getResult.getProcessDefinitionId());
-    assertEquals("Activity Name", getResult.getActivityName());
-    assertEquals("Default Description", getResult.getDefaultDescription());
-    assertEquals("Key", getResult.getKey());
-    ValidationError getResult2 = validationErrors.get(1);
-    assertEquals("Problem", getResult2.getDefaultDescription());
-    assertEquals("Problem", getResult2.getKey());
+    ValidationError getResult = validationErrors.get(1);
+    assertEquals("Problem", getResult.getDefaultDescription());
+    assertEquals("Problem", getResult.getKey());
     assertEquals("Problem", getResult.getProblem());
-    assertEquals("Problem", getResult2.getProblem());
-    assertEquals("Process Definition Name", getResult.getProcessDefinitionName());
-    assertEquals("Validator Set Name", getResult.getValidatorSetName());
-    assertNull(getResult2.getActivityId());
-    assertNull(getResult2.getActivityName());
-    assertNull(getResult2.getProcessDefinitionId());
-    assertNull(getResult2.getProcessDefinitionName());
-    assertNull(getResult2.getValidatorSetName());
-    assertEquals(0, getResult2.getXmlColumnNumber());
-    assertEquals(0, getResult2.getXmlLineNumber());
-    assertEquals(10, getResult.getXmlColumnNumber());
-    assertEquals(2, getResult.getXmlLineNumber());
-    assertFalse(getResult2.isWarning());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
     assertTrue(getResult.getParams().isEmpty());
-    assertTrue(getResult2.getParams().isEmpty());
-    assertTrue(getResult.isWarning());
   }
 
   /**
-   * Test {@link ValidatorImpl#addError(List, String, Process, BaseElement, Map)}
-   * with {@code validationErrors}, {@code problem}, {@code process},
-   * {@code baseElement}, {@code params}.
+   * Test {@link ValidatorImpl#addError(List, String, Process, BaseElement, Map)} with {@code validationErrors}, {@code problem}, {@code process}, {@code baseElement}, {@code params}.
    * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addError(List, String, Process, BaseElement, Map)}
+   * Method under test: {@link ValidatorImpl#addError(List, String, Process, BaseElement, Map)}
    */
   @Test
   @DisplayName("Test addError(List, String, Process, BaseElement, Map) with 'validationErrors', 'problem', 'process', 'baseElement', 'params'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String, Process, BaseElement, Map)"})
   void testAddErrorWithValidationErrorsProblemProcessBaseElementParams3() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -1339,18 +1076,17 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test {@link ValidatorImpl#addError(List, String, Process, BaseElement, Map)}
-   * with {@code validationErrors}, {@code problem}, {@code process},
-   * {@code baseElement}, {@code params}.
+   * Test {@link ValidatorImpl#addError(List, String, Process, BaseElement, Map)} with {@code validationErrors}, {@code problem}, {@code process}, {@code baseElement}, {@code params}.
    * <ul>
    *   <li>When {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addError(List, String, Process, BaseElement, Map)}
+   * Method under test: {@link ValidatorImpl#addError(List, String, Process, BaseElement, Map)}
    */
   @Test
   @DisplayName("Test addError(List, String, Process, BaseElement, Map) with 'validationErrors', 'problem', 'process', 'baseElement', 'params'; when 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String, Process, BaseElement, Map)"})
   void testAddErrorWithValidationErrorsProblemProcessBaseElementParams_whenNull() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -1377,18 +1113,17 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test {@link ValidatorImpl#addError(List, String, Process, BaseElement)} with
-   * {@code validationErrors}, {@code problem}, {@code process},
-   * {@code baseElement}.
+   * Test {@link ValidatorImpl#addError(List, String, Process, BaseElement)} with {@code validationErrors}, {@code problem}, {@code process}, {@code baseElement}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addError(List, String, Process, BaseElement)}
+   * Method under test: {@link ValidatorImpl#addError(List, String, Process, BaseElement)}
    */
   @Test
   @DisplayName("Test addError(List, String, Process, BaseElement) with 'validationErrors', 'problem', 'process', 'baseElement'; then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String, Process, BaseElement)"})
   void testAddErrorWithValidationErrorsProblemProcessBaseElement_thenArrayListSizeIsTwo() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -1416,47 +1151,33 @@ class ValidatorImplDiffblueTest {
 
     // Assert
     assertEquals(2, validationErrors.size());
-    ValidationError getResult = validationErrors.get(0);
-    assertEquals("42", getResult.getActivityId());
-    assertEquals("42", getResult.getProcessDefinitionId());
-    assertEquals("Activity Name", getResult.getActivityName());
-    assertEquals("Default Description", getResult.getDefaultDescription());
-    assertEquals("Key", getResult.getKey());
-    ValidationError getResult2 = validationErrors.get(1);
-    assertEquals("Problem", getResult2.getDefaultDescription());
-    assertEquals("Problem", getResult2.getKey());
+    ValidationError getResult = validationErrors.get(1);
+    assertEquals("Problem", getResult.getDefaultDescription());
+    assertEquals("Problem", getResult.getKey());
     assertEquals("Problem", getResult.getProblem());
-    assertEquals("Problem", getResult2.getProblem());
-    assertEquals("Process Definition Name", getResult.getProcessDefinitionName());
-    assertEquals("Validator Set Name", getResult.getValidatorSetName());
-    assertNull(getResult2.getActivityId());
-    assertNull(getResult2.getActivityName());
-    assertNull(getResult2.getProcessDefinitionId());
-    assertNull(getResult2.getProcessDefinitionName());
-    assertNull(getResult2.getValidatorSetName());
-    assertEquals(0, getResult2.getXmlColumnNumber());
-    assertEquals(0, getResult2.getXmlLineNumber());
-    assertEquals(10, getResult.getXmlColumnNumber());
-    assertEquals(2, getResult.getXmlLineNumber());
-    assertFalse(getResult2.isWarning());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
     assertTrue(getResult.getParams().isEmpty());
-    assertTrue(getResult2.getParams().isEmpty());
-    assertTrue(getResult.isWarning());
   }
 
   /**
-   * Test {@link ValidatorImpl#addError(List, String, Process, BaseElement)} with
-   * {@code validationErrors}, {@code problem}, {@code process},
-   * {@code baseElement}.
+   * Test {@link ValidatorImpl#addError(List, String, Process, BaseElement)} with {@code validationErrors}, {@code problem}, {@code process}, {@code baseElement}.
    * <ul>
    *   <li>When {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addError(List, String, Process, BaseElement)}
+   * Method under test: {@link ValidatorImpl#addError(List, String, Process, BaseElement)}
    */
   @Test
   @DisplayName("Test addError(List, String, Process, BaseElement) with 'validationErrors', 'problem', 'process', 'baseElement'; when 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String, Process, BaseElement)"})
   void testAddErrorWithValidationErrorsProblemProcessBaseElement_whenNull() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -1483,83 +1204,17 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test {@link ValidatorImpl#addError(List, String, Process, String)} with
-   * {@code validationErrors}, {@code problem}, {@code process}, {@code id}.
-   * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addError(List, String, Process, String)}
-   */
-  @Test
-  @DisplayName("Test addError(List, String, Process, String) with 'validationErrors', 'problem', 'process', 'id'")
-  void testAddErrorWithValidationErrorsProblemProcessId() {
-    // Arrange
-    ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
-
-    HashMap<String, String> params = new HashMap<>();
-    params.computeIfPresent("foo", mock(BiFunction.class));
-
-    ValidationError validationError = new ValidationError();
-    validationError.setActivityId("42");
-    validationError.setActivityName("Activity Name");
-    validationError.setDefaultDescription("Default Description");
-    validationError.setKey("Key");
-    validationError.setParams(params);
-    validationError.setProblem("Problem");
-    validationError.setProcessDefinitionId("42");
-    validationError.setProcessDefinitionName("Process Definition Name");
-    validationError.setValidatorSetName("Validator Set Name");
-    validationError.setWarning(true);
-    validationError.setXmlColumnNumber(10);
-    validationError.setXmlLineNumber(2);
-
-    ArrayList<ValidationError> validationErrors = new ArrayList<>();
-    validationErrors.add(validationError);
-
-    // Act
-    activitiEventListenerValidator.addError(validationErrors, "Problem", new Process(), "42");
-
-    // Assert
-    assertEquals(2, validationErrors.size());
-    ValidationError getResult = validationErrors.get(0);
-    assertEquals("42", getResult.getActivityId());
-    ValidationError getResult2 = validationErrors.get(1);
-    assertEquals("42", getResult2.getActivityId());
-    assertEquals("42", getResult.getProcessDefinitionId());
-    assertEquals("Activity Name", getResult.getActivityName());
-    assertEquals("Default Description", getResult.getDefaultDescription());
-    assertEquals("Key", getResult.getKey());
-    assertEquals("Problem", getResult2.getDefaultDescription());
-    assertEquals("Problem", getResult2.getKey());
-    assertEquals("Problem", getResult.getProblem());
-    assertEquals("Problem", getResult2.getProblem());
-    assertEquals("Process Definition Name", getResult.getProcessDefinitionName());
-    assertEquals("Validator Set Name", getResult.getValidatorSetName());
-    assertNull(getResult2.getActivityName());
-    assertNull(getResult2.getProcessDefinitionId());
-    assertNull(getResult2.getProcessDefinitionName());
-    assertNull(getResult2.getValidatorSetName());
-    assertEquals(0, getResult2.getXmlColumnNumber());
-    assertEquals(0, getResult2.getXmlLineNumber());
-    assertEquals(10, getResult.getXmlColumnNumber());
-    assertEquals(2, getResult.getXmlLineNumber());
-    assertFalse(getResult2.isWarning());
-    assertTrue(getResult.getParams().isEmpty());
-    assertTrue(getResult2.getParams().isEmpty());
-    assertTrue(getResult.isWarning());
-  }
-
-  /**
-   * Test {@link ValidatorImpl#addError(List, String, Process, String)} with
-   * {@code validationErrors}, {@code problem}, {@code process}, {@code id}.
+   * Test {@link ValidatorImpl#addError(List, String, Process, String)} with {@code validationErrors}, {@code problem}, {@code process}, {@code id}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addError(List, String, Process, String)}
+   * Method under test: {@link ValidatorImpl#addError(List, String, Process, String)}
    */
   @Test
   @DisplayName("Test addError(List, String, Process, String) with 'validationErrors', 'problem', 'process', 'id'; then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String, Process, String)"})
   void testAddErrorWithValidationErrorsProblemProcessId_thenArrayListSizeIsTwo() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -1615,18 +1270,17 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test {@link ValidatorImpl#addError(List, String, Process, String)} with
-   * {@code validationErrors}, {@code problem}, {@code process}, {@code id}.
+   * Test {@link ValidatorImpl#addError(List, String, Process, String)} with {@code validationErrors}, {@code problem}, {@code process}, {@code id}.
    * <ul>
-   *   <li>Then {@link Process} (default constructor) FlowElements
-   * {@link List}.</li>
+   *   <li>Then {@link Process} (default constructor) FlowElements {@link List}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addError(List, String, Process, String)}
+   * Method under test: {@link ValidatorImpl#addError(List, String, Process, String)}
    */
   @Test
   @DisplayName("Test addError(List, String, Process, String) with 'validationErrors', 'problem', 'process', 'id'; then Process (default constructor) FlowElements List")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String, Process, String)"})
   void testAddErrorWithValidationErrorsProblemProcessId_thenProcessFlowElementsList() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -1657,18 +1311,18 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test {@link ValidatorImpl#addError(List, String, Process, String)} with
-   * {@code validationErrors}, {@code problem}, {@code process}, {@code id}.
+   * Test {@link ValidatorImpl#addError(List, String, Process, String)} with {@code validationErrors}, {@code problem}, {@code process}, {@code id}.
    * <ul>
    *   <li>When {@code null}.</li>
    *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addError(List, String, Process, String)}
+   * Method under test: {@link ValidatorImpl#addError(List, String, Process, String)}
    */
   @Test
   @DisplayName("Test addError(List, String, Process, String) with 'validationErrors', 'problem', 'process', 'id'; when 'null'; then ArrayList() size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String, Process, String)"})
   void testAddErrorWithValidationErrorsProblemProcessId_whenNull_thenArrayListSizeIsOne() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -1695,8 +1349,44 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test {@link ValidatorImpl#addError(List, String)} with
-   * {@code validationErrors}, {@code problem}.
+   * Test {@link ValidatorImpl#addError(List, String)} with {@code validationErrors}, {@code problem}.
+   * <ul>
+   *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ValidatorImpl#addError(List, String)}
+   */
+  @Test
+  @DisplayName("Test addError(List, String) with 'validationErrors', 'problem'; then ArrayList() size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String)"})
+  void testAddErrorWithValidationErrorsProblem_thenArrayListSizeIsOne() {
+    // Arrange
+    ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
+    ArrayList<ValidationError> validationErrors = new ArrayList<>();
+
+    // Act
+    activitiEventListenerValidator.addError(validationErrors, "Problem");
+
+    // Assert
+    assertEquals(1, validationErrors.size());
+    ValidationError getResult = validationErrors.get(0);
+    assertEquals("Problem", getResult.getDefaultDescription());
+    assertEquals("Problem", getResult.getKey());
+    assertEquals("Problem", getResult.getProblem());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
+    assertFalse(getResult.isWarning());
+    assertTrue(getResult.getParams().isEmpty());
+  }
+
+  /**
+   * Test {@link ValidatorImpl#addError(List, String)} with {@code validationErrors}, {@code problem}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
@@ -1705,6 +1395,8 @@ class ValidatorImplDiffblueTest {
    */
   @Test
   @DisplayName("Test addError(List, String) with 'validationErrors', 'problem'; then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addError(List, String)"})
   void testAddErrorWithValidationErrorsProblem_thenArrayListSizeIsTwo() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -1760,52 +1452,14 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test {@link ValidatorImpl#addError(List, String)} with
-   * {@code validationErrors}, {@code problem}.
-   * <ul>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
-   * </ul>
+   * Test {@link ValidatorImpl#addWarning(List, String, Process, BaseElement)} with {@code validationErrors}, {@code problem}, {@code process}, {@code baseElement}.
    * <p>
-   * Method under test: {@link ValidatorImpl#addError(List, String)}
-   */
-  @Test
-  @DisplayName("Test addError(List, String) with 'validationErrors', 'problem'; when ArrayList(); then ArrayList() size is one")
-  void testAddErrorWithValidationErrorsProblem_whenArrayList_thenArrayListSizeIsOne() {
-    // Arrange
-    ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
-    ArrayList<ValidationError> validationErrors = new ArrayList<>();
-
-    // Act
-    activitiEventListenerValidator.addError(validationErrors, "Problem");
-
-    // Assert
-    assertEquals(1, validationErrors.size());
-    ValidationError getResult = validationErrors.get(0);
-    assertEquals("Problem", getResult.getDefaultDescription());
-    assertEquals("Problem", getResult.getKey());
-    assertEquals("Problem", getResult.getProblem());
-    assertNull(getResult.getActivityId());
-    assertNull(getResult.getActivityName());
-    assertNull(getResult.getProcessDefinitionId());
-    assertNull(getResult.getProcessDefinitionName());
-    assertNull(getResult.getValidatorSetName());
-    assertEquals(0, getResult.getXmlColumnNumber());
-    assertEquals(0, getResult.getXmlLineNumber());
-    assertFalse(getResult.isWarning());
-    assertTrue(getResult.getParams().isEmpty());
-  }
-
-  /**
-   * Test {@link ValidatorImpl#addWarning(List, String, Process, BaseElement)}
-   * with {@code validationErrors}, {@code problem}, {@code process},
-   * {@code baseElement}.
-   * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addWarning(List, String, Process, BaseElement)}
+   * Method under test: {@link ValidatorImpl#addWarning(List, String, Process, BaseElement)}
    */
   @Test
   @DisplayName("Test addWarning(List, String, Process, BaseElement) with 'validationErrors', 'problem', 'process', 'baseElement'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addWarning(List, String, Process, BaseElement)"})
   void testAddWarningWithValidationErrorsProblemProcessBaseElement() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -1836,15 +1490,14 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test {@link ValidatorImpl#addWarning(List, String, Process, BaseElement)}
-   * with {@code validationErrors}, {@code problem}, {@code process},
-   * {@code baseElement}.
+   * Test {@link ValidatorImpl#addWarning(List, String, Process, BaseElement)} with {@code validationErrors}, {@code problem}, {@code process}, {@code baseElement}.
    * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addWarning(List, String, Process, BaseElement)}
+   * Method under test: {@link ValidatorImpl#addWarning(List, String, Process, BaseElement)}
    */
   @Test
   @DisplayName("Test addWarning(List, String, Process, BaseElement) with 'validationErrors', 'problem', 'process', 'baseElement'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addWarning(List, String, Process, BaseElement)"})
   void testAddWarningWithValidationErrorsProblemProcessBaseElement2() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -1872,44 +1525,30 @@ class ValidatorImplDiffblueTest {
 
     // Assert
     assertEquals(2, validationErrors.size());
-    ValidationError getResult = validationErrors.get(0);
-    assertEquals("42", getResult.getActivityId());
-    assertEquals("42", getResult.getProcessDefinitionId());
-    assertEquals("Activity Name", getResult.getActivityName());
-    assertEquals("Default Description", getResult.getDefaultDescription());
-    assertEquals("Key", getResult.getKey());
-    ValidationError getResult2 = validationErrors.get(1);
-    assertEquals("Problem", getResult2.getDefaultDescription());
-    assertEquals("Problem", getResult2.getKey());
+    ValidationError getResult = validationErrors.get(1);
+    assertEquals("Problem", getResult.getDefaultDescription());
+    assertEquals("Problem", getResult.getKey());
     assertEquals("Problem", getResult.getProblem());
-    assertEquals("Problem", getResult2.getProblem());
-    assertEquals("Process Definition Name", getResult.getProcessDefinitionName());
-    assertEquals("Validator Set Name", getResult.getValidatorSetName());
-    assertNull(getResult2.getActivityId());
-    assertNull(getResult2.getActivityName());
-    assertNull(getResult2.getProcessDefinitionId());
-    assertNull(getResult2.getProcessDefinitionName());
-    assertNull(getResult2.getValidatorSetName());
-    assertEquals(0, getResult2.getXmlColumnNumber());
-    assertEquals(0, getResult2.getXmlLineNumber());
-    assertEquals(10, getResult.getXmlColumnNumber());
-    assertEquals(2, getResult.getXmlLineNumber());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
     assertTrue(getResult.getParams().isEmpty());
-    assertTrue(getResult2.getParams().isEmpty());
     assertTrue(getResult.isWarning());
-    assertTrue(getResult2.isWarning());
   }
 
   /**
-   * Test {@link ValidatorImpl#addWarning(List, String, Process, BaseElement)}
-   * with {@code validationErrors}, {@code problem}, {@code process},
-   * {@code baseElement}.
+   * Test {@link ValidatorImpl#addWarning(List, String, Process, BaseElement)} with {@code validationErrors}, {@code problem}, {@code process}, {@code baseElement}.
    * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addWarning(List, String, Process, BaseElement)}
+   * Method under test: {@link ValidatorImpl#addWarning(List, String, Process, BaseElement)}
    */
   @Test
   @DisplayName("Test addWarning(List, String, Process, BaseElement) with 'validationErrors', 'problem', 'process', 'baseElement'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addWarning(List, String, Process, BaseElement)"})
   void testAddWarningWithValidationErrorsProblemProcessBaseElement3() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -1927,16 +1566,14 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ValidatorImpl#addWarning(List, String, Process, BaseElement, Map)}
-   * with {@code validationErrors}, {@code problem}, {@code process},
-   * {@code baseElement}, {@code params}.
+   * Test {@link ValidatorImpl#addWarning(List, String, Process, BaseElement, Map)} with {@code validationErrors}, {@code problem}, {@code process}, {@code baseElement}, {@code params}.
    * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addWarning(List, String, Process, BaseElement, Map)}
+   * Method under test: {@link ValidatorImpl#addWarning(List, String, Process, BaseElement, Map)}
    */
   @Test
   @DisplayName("Test addWarning(List, String, Process, BaseElement, Map) with 'validationErrors', 'problem', 'process', 'baseElement', 'params'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addWarning(List, String, Process, BaseElement, Map)"})
   void testAddWarningWithValidationErrorsProblemProcessBaseElementParams() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -1968,16 +1605,14 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ValidatorImpl#addWarning(List, String, Process, BaseElement, Map)}
-   * with {@code validationErrors}, {@code problem}, {@code process},
-   * {@code baseElement}, {@code params}.
+   * Test {@link ValidatorImpl#addWarning(List, String, Process, BaseElement, Map)} with {@code validationErrors}, {@code problem}, {@code process}, {@code baseElement}, {@code params}.
    * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addWarning(List, String, Process, BaseElement, Map)}
+   * Method under test: {@link ValidatorImpl#addWarning(List, String, Process, BaseElement, Map)}
    */
   @Test
   @DisplayName("Test addWarning(List, String, Process, BaseElement, Map) with 'validationErrors', 'problem', 'process', 'baseElement', 'params'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addWarning(List, String, Process, BaseElement, Map)"})
   void testAddWarningWithValidationErrorsProblemProcessBaseElementParams2() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -2006,45 +1641,30 @@ class ValidatorImplDiffblueTest {
 
     // Assert
     assertEquals(2, validationErrors.size());
-    ValidationError getResult = validationErrors.get(0);
-    assertEquals("42", getResult.getActivityId());
-    assertEquals("42", getResult.getProcessDefinitionId());
-    assertEquals("Activity Name", getResult.getActivityName());
-    assertEquals("Default Description", getResult.getDefaultDescription());
-    assertEquals("Key", getResult.getKey());
-    ValidationError getResult2 = validationErrors.get(1);
-    assertEquals("Problem", getResult2.getDefaultDescription());
-    assertEquals("Problem", getResult2.getKey());
+    ValidationError getResult = validationErrors.get(1);
+    assertEquals("Problem", getResult.getDefaultDescription());
+    assertEquals("Problem", getResult.getKey());
     assertEquals("Problem", getResult.getProblem());
-    assertEquals("Problem", getResult2.getProblem());
-    assertEquals("Process Definition Name", getResult.getProcessDefinitionName());
-    assertEquals("Validator Set Name", getResult.getValidatorSetName());
-    assertNull(getResult2.getActivityId());
-    assertNull(getResult2.getActivityName());
-    assertNull(getResult2.getProcessDefinitionId());
-    assertNull(getResult2.getProcessDefinitionName());
-    assertNull(getResult2.getValidatorSetName());
-    assertEquals(0, getResult2.getXmlColumnNumber());
-    assertEquals(0, getResult2.getXmlLineNumber());
-    assertEquals(10, getResult.getXmlColumnNumber());
-    assertEquals(2, getResult.getXmlLineNumber());
+    assertNull(getResult.getActivityId());
+    assertNull(getResult.getActivityName());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionName());
+    assertNull(getResult.getValidatorSetName());
+    assertEquals(0, getResult.getXmlColumnNumber());
+    assertEquals(0, getResult.getXmlLineNumber());
     assertTrue(getResult.getParams().isEmpty());
-    assertTrue(getResult2.getParams().isEmpty());
     assertTrue(getResult.isWarning());
-    assertTrue(getResult2.isWarning());
   }
 
   /**
-   * Test
-   * {@link ValidatorImpl#addWarning(List, String, Process, BaseElement, Map)}
-   * with {@code validationErrors}, {@code problem}, {@code process},
-   * {@code baseElement}, {@code params}.
+   * Test {@link ValidatorImpl#addWarning(List, String, Process, BaseElement, Map)} with {@code validationErrors}, {@code problem}, {@code process}, {@code baseElement}, {@code params}.
    * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addWarning(List, String, Process, BaseElement, Map)}
+   * Method under test: {@link ValidatorImpl#addWarning(List, String, Process, BaseElement, Map)}
    */
   @Test
   @DisplayName("Test addWarning(List, String, Process, BaseElement, Map) with 'validationErrors', 'problem', 'process', 'baseElement', 'params'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addWarning(List, String, Process, BaseElement, Map)"})
   void testAddWarningWithValidationErrorsProblemProcessBaseElementParams3() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -2062,19 +1682,17 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ValidatorImpl#addWarning(List, String, Process, BaseElement, Map)}
-   * with {@code validationErrors}, {@code problem}, {@code process},
-   * {@code baseElement}, {@code params}.
+   * Test {@link ValidatorImpl#addWarning(List, String, Process, BaseElement, Map)} with {@code validationErrors}, {@code problem}, {@code process}, {@code baseElement}, {@code params}.
    * <ul>
    *   <li>When {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addWarning(List, String, Process, BaseElement, Map)}
+   * Method under test: {@link ValidatorImpl#addWarning(List, String, Process, BaseElement, Map)}
    */
   @Test
   @DisplayName("Test addWarning(List, String, Process, BaseElement, Map) with 'validationErrors', 'problem', 'process', 'baseElement', 'params'; when 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addWarning(List, String, Process, BaseElement, Map)"})
   void testAddWarningWithValidationErrorsProblemProcessBaseElementParams_whenNull() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();
@@ -2101,18 +1719,17 @@ class ValidatorImplDiffblueTest {
   }
 
   /**
-   * Test {@link ValidatorImpl#addWarning(List, String, Process, BaseElement)}
-   * with {@code validationErrors}, {@code problem}, {@code process},
-   * {@code baseElement}.
+   * Test {@link ValidatorImpl#addWarning(List, String, Process, BaseElement)} with {@code validationErrors}, {@code problem}, {@code process}, {@code baseElement}.
    * <ul>
    *   <li>When {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ValidatorImpl#addWarning(List, String, Process, BaseElement)}
+   * Method under test: {@link ValidatorImpl#addWarning(List, String, Process, BaseElement)}
    */
   @Test
   @DisplayName("Test addWarning(List, String, Process, BaseElement) with 'validationErrors', 'problem', 'process', 'baseElement'; when 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorImpl.addWarning(List, String, Process, BaseElement)"})
   void testAddWarningWithValidationErrorsProblemProcessBaseElement_whenNull() {
     // Arrange
     ActivitiEventListenerValidator activitiEventListenerValidator = new ActivitiEventListenerValidator();

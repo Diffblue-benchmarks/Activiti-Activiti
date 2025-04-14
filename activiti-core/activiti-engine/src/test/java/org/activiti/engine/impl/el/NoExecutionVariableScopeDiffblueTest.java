@@ -20,6 +20,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -28,38 +30,34 @@ import java.util.Set;
 import org.activiti.engine.impl.persistence.entity.VariableInstance;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class NoExecutionVariableScopeDiffblueTest {
-  @InjectMocks
-  private NoExecutionVariableScope noExecutionVariableScope;
-
   /**
    * Test {@link NoExecutionVariableScope#getVariables()}.
    * <p>
    * Method under test: {@link NoExecutionVariableScope#getVariables()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map NoExecutionVariableScope.getVariables()"})
   public void testGetVariables() {
     // Arrange, Act and Assert
     assertTrue(NoExecutionVariableScope.getSharedInstance().getVariables().isEmpty());
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#getVariables(Collection, boolean)} with
-   * {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link NoExecutionVariableScope#getVariables(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getVariables(Collection, boolean)}
+   * Method under test: {@link NoExecutionVariableScope#getVariables(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map NoExecutionVariableScope.getVariables(Collection, boolean)"})
   public void testGetVariablesWithVariableNamesFetchAllVariables_given42_whenArrayListAdd42() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -73,17 +71,17 @@ public class NoExecutionVariableScopeDiffblueTest {
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#getVariables(Collection, boolean)} with
-   * {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link NoExecutionVariableScope#getVariables(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <ul>
    *   <li>Given {@code foo}.</li>
    *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getVariables(Collection, boolean)}
+   * Method under test: {@link NoExecutionVariableScope#getVariables(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map NoExecutionVariableScope.getVariables(Collection, boolean)"})
   public void testGetVariablesWithVariableNamesFetchAllVariables_givenFoo_whenArrayListAddFoo() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -96,16 +94,16 @@ public class NoExecutionVariableScopeDiffblueTest {
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#getVariables(Collection, boolean)} with
-   * {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link NoExecutionVariableScope#getVariables(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getVariables(Collection, boolean)}
+   * Method under test: {@link NoExecutionVariableScope#getVariables(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map NoExecutionVariableScope.getVariables(Collection, boolean)"})
   public void testGetVariablesWithVariableNamesFetchAllVariables_whenArrayList() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -115,8 +113,7 @@ public class NoExecutionVariableScopeDiffblueTest {
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#getVariables(Collection)} with
-   * {@code variableNames}.
+   * Test {@link NoExecutionVariableScope#getVariables(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
@@ -125,6 +122,8 @@ public class NoExecutionVariableScopeDiffblueTest {
    * Method under test: {@link NoExecutionVariableScope#getVariables(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map NoExecutionVariableScope.getVariables(Collection)"})
   public void testGetVariablesWithVariableNames_given42_whenArrayListAdd42() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -138,8 +137,7 @@ public class NoExecutionVariableScopeDiffblueTest {
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#getVariables(Collection)} with
-   * {@code variableNames}.
+   * Test {@link NoExecutionVariableScope#getVariables(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Given {@code foo}.</li>
    *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
@@ -148,6 +146,8 @@ public class NoExecutionVariableScopeDiffblueTest {
    * Method under test: {@link NoExecutionVariableScope#getVariables(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map NoExecutionVariableScope.getVariables(Collection)"})
   public void testGetVariablesWithVariableNames_givenFoo_whenArrayListAddFoo() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -160,8 +160,7 @@ public class NoExecutionVariableScopeDiffblueTest {
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#getVariables(Collection)} with
-   * {@code variableNames}.
+   * Test {@link NoExecutionVariableScope#getVariables(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
@@ -169,6 +168,8 @@ public class NoExecutionVariableScopeDiffblueTest {
    * Method under test: {@link NoExecutionVariableScope#getVariables(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map NoExecutionVariableScope.getVariables(Collection)"})
   public void testGetVariablesWithVariableNames_whenArrayList() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -183,22 +184,24 @@ public class NoExecutionVariableScopeDiffblueTest {
    * Method under test: {@link NoExecutionVariableScope#getVariablesLocal()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map NoExecutionVariableScope.getVariablesLocal()"})
   public void testGetVariablesLocal() {
     // Arrange, Act and Assert
     assertTrue(NoExecutionVariableScope.getSharedInstance().getVariablesLocal().isEmpty());
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#getVariablesLocal(Collection, boolean)}
-   * with {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link NoExecutionVariableScope#getVariablesLocal(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getVariablesLocal(Collection, boolean)}
+   * Method under test: {@link NoExecutionVariableScope#getVariablesLocal(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map NoExecutionVariableScope.getVariablesLocal(Collection, boolean)"})
   public void testGetVariablesLocalWithVariableNamesFetchAllVariables_given42() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -212,16 +215,16 @@ public class NoExecutionVariableScopeDiffblueTest {
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#getVariablesLocal(Collection, boolean)}
-   * with {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link NoExecutionVariableScope#getVariablesLocal(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <ul>
    *   <li>Given {@code foo}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getVariablesLocal(Collection, boolean)}
+   * Method under test: {@link NoExecutionVariableScope#getVariablesLocal(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map NoExecutionVariableScope.getVariablesLocal(Collection, boolean)"})
   public void testGetVariablesLocalWithVariableNamesFetchAllVariables_givenFoo() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -234,16 +237,16 @@ public class NoExecutionVariableScopeDiffblueTest {
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#getVariablesLocal(Collection, boolean)}
-   * with {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link NoExecutionVariableScope#getVariablesLocal(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getVariablesLocal(Collection, boolean)}
+   * Method under test: {@link NoExecutionVariableScope#getVariablesLocal(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map NoExecutionVariableScope.getVariablesLocal(Collection, boolean)"})
   public void testGetVariablesLocalWithVariableNamesFetchAllVariables_whenArrayList() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -253,17 +256,17 @@ public class NoExecutionVariableScopeDiffblueTest {
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#getVariablesLocal(Collection)} with
-   * {@code variableNames}.
+   * Test {@link NoExecutionVariableScope#getVariablesLocal(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getVariablesLocal(Collection)}
+   * Method under test: {@link NoExecutionVariableScope#getVariablesLocal(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map NoExecutionVariableScope.getVariablesLocal(Collection)"})
   public void testGetVariablesLocalWithVariableNames_given42_whenArrayListAdd42() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -277,17 +280,17 @@ public class NoExecutionVariableScopeDiffblueTest {
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#getVariablesLocal(Collection)} with
-   * {@code variableNames}.
+   * Test {@link NoExecutionVariableScope#getVariablesLocal(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Given {@code foo}.</li>
    *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getVariablesLocal(Collection)}
+   * Method under test: {@link NoExecutionVariableScope#getVariablesLocal(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map NoExecutionVariableScope.getVariablesLocal(Collection)"})
   public void testGetVariablesLocalWithVariableNames_givenFoo_whenArrayListAddFoo() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -300,16 +303,16 @@ public class NoExecutionVariableScopeDiffblueTest {
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#getVariablesLocal(Collection)} with
-   * {@code variableNames}.
+   * Test {@link NoExecutionVariableScope#getVariablesLocal(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getVariablesLocal(Collection)}
+   * Method under test: {@link NoExecutionVariableScope#getVariablesLocal(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map NoExecutionVariableScope.getVariablesLocal(Collection)"})
   public void testGetVariablesLocalWithVariableNames_whenArrayList() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -319,99 +322,102 @@ public class NoExecutionVariableScopeDiffblueTest {
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#getVariable(String)} with
-   * {@code variableName}.
+   * Test {@link NoExecutionVariableScope#getVariable(String)} with {@code variableName}.
    * <p>
    * Method under test: {@link NoExecutionVariableScope#getVariable(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object NoExecutionVariableScope.getVariable(String)"})
   public void testGetVariableWithVariableName() {
     // Arrange, Act and Assert
-    assertNull(noExecutionVariableScope.getVariable("Variable Name"));
+    assertNull(NoExecutionVariableScope.getSharedInstance().getVariable("Variable Name"));
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#getVariable(String, boolean)} with
-   * {@code variableName}, {@code fetchAllVariables}.
+   * Test {@link NoExecutionVariableScope#getVariable(String, boolean)} with {@code variableName}, {@code fetchAllVariables}.
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getVariable(String, boolean)}
+   * Method under test: {@link NoExecutionVariableScope#getVariable(String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object NoExecutionVariableScope.getVariable(String, boolean)"})
   public void testGetVariableWithVariableNameFetchAllVariables() {
     // Arrange, Act and Assert
-    assertNull(noExecutionVariableScope.getVariable("Variable Name", true));
+    assertNull(NoExecutionVariableScope.getSharedInstance().getVariable("Variable Name", true));
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#getVariable(String, Class)} with
-   * {@code variableName}, {@code variableClass}.
+   * Test {@link NoExecutionVariableScope#getVariable(String, Class)} with {@code variableName}, {@code variableClass}.
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getVariable(String, Class)}
+   * Method under test: {@link NoExecutionVariableScope#getVariable(String, Class)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object NoExecutionVariableScope.getVariable(String, Class)"})
   public void testGetVariableWithVariableNameVariableClass() {
     // Arrange
+    NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
     Class<Object> variableClass = Object.class;
 
     // Act and Assert
-    assertNull(noExecutionVariableScope.getVariable("Variable Name", variableClass));
+    assertNull(sharedInstance.getVariable("Variable Name", variableClass));
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#getVariableLocal(String)} with
-   * {@code variableName}.
+   * Test {@link NoExecutionVariableScope#getVariableLocal(String)} with {@code variableName}.
    * <p>
    * Method under test: {@link NoExecutionVariableScope#getVariableLocal(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object NoExecutionVariableScope.getVariableLocal(String)"})
   public void testGetVariableLocalWithVariableName() {
     // Arrange, Act and Assert
-    assertNull(noExecutionVariableScope.getVariableLocal("Variable Name"));
+    assertNull(NoExecutionVariableScope.getSharedInstance().getVariableLocal("Variable Name"));
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#getVariableLocal(String, boolean)} with
-   * {@code variableName}, {@code fetchAllVariables}.
+   * Test {@link NoExecutionVariableScope#getVariableLocal(String, boolean)} with {@code variableName}, {@code fetchAllVariables}.
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getVariableLocal(String, boolean)}
+   * Method under test: {@link NoExecutionVariableScope#getVariableLocal(String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object NoExecutionVariableScope.getVariableLocal(String, boolean)"})
   public void testGetVariableLocalWithVariableNameFetchAllVariables() {
     // Arrange, Act and Assert
-    assertNull(noExecutionVariableScope.getVariableLocal("Variable Name", true));
+    assertNull(NoExecutionVariableScope.getSharedInstance().getVariableLocal("Variable Name", true));
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#getVariableLocal(String, Class)} with
-   * {@code variableName}, {@code variableClass}.
+   * Test {@link NoExecutionVariableScope#getVariableLocal(String, Class)} with {@code variableName}, {@code variableClass}.
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getVariableLocal(String, Class)}
+   * Method under test: {@link NoExecutionVariableScope#getVariableLocal(String, Class)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object NoExecutionVariableScope.getVariableLocal(String, Class)"})
   public void testGetVariableLocalWithVariableNameVariableClass() {
     // Arrange
+    NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
     Class<Object> variableClass = Object.class;
 
     // Act and Assert
-    assertNull(noExecutionVariableScope.getVariableLocal("Variable Name", variableClass));
+    assertNull(sharedInstance.getVariableLocal("Variable Name", variableClass));
   }
 
   /**
-   * Test
-   * {@link NoExecutionVariableScope#getVariableInstances(Collection, boolean)}
-   * with {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link NoExecutionVariableScope#getVariableInstances(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getVariableInstances(Collection, boolean)}
+   * Method under test: {@link NoExecutionVariableScope#getVariableInstances(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map NoExecutionVariableScope.getVariableInstances(Collection, boolean)"})
   public void testGetVariableInstancesWithVariableNamesFetchAllVariables_given42() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -425,17 +431,16 @@ public class NoExecutionVariableScopeDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link NoExecutionVariableScope#getVariableInstances(Collection, boolean)}
-   * with {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link NoExecutionVariableScope#getVariableInstances(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <ul>
    *   <li>Given {@code foo}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getVariableInstances(Collection, boolean)}
+   * Method under test: {@link NoExecutionVariableScope#getVariableInstances(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map NoExecutionVariableScope.getVariableInstances(Collection, boolean)"})
   public void testGetVariableInstancesWithVariableNamesFetchAllVariables_givenFoo() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -448,17 +453,16 @@ public class NoExecutionVariableScopeDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link NoExecutionVariableScope#getVariableInstances(Collection, boolean)}
-   * with {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link NoExecutionVariableScope#getVariableInstances(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getVariableInstances(Collection, boolean)}
+   * Method under test: {@link NoExecutionVariableScope#getVariableInstances(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map NoExecutionVariableScope.getVariableInstances(Collection, boolean)"})
   public void testGetVariableInstancesWithVariableNamesFetchAllVariables_whenArrayList() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -468,17 +472,17 @@ public class NoExecutionVariableScopeDiffblueTest {
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#getVariableInstances(Collection)} with
-   * {@code variableNames}.
+   * Test {@link NoExecutionVariableScope#getVariableInstances(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getVariableInstances(Collection)}
+   * Method under test: {@link NoExecutionVariableScope#getVariableInstances(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map NoExecutionVariableScope.getVariableInstances(Collection)"})
   public void testGetVariableInstancesWithVariableNames_given42_whenArrayListAdd42() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -492,17 +496,17 @@ public class NoExecutionVariableScopeDiffblueTest {
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#getVariableInstances(Collection)} with
-   * {@code variableNames}.
+   * Test {@link NoExecutionVariableScope#getVariableInstances(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Given {@code foo}.</li>
    *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getVariableInstances(Collection)}
+   * Method under test: {@link NoExecutionVariableScope#getVariableInstances(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map NoExecutionVariableScope.getVariableInstances(Collection)"})
   public void testGetVariableInstancesWithVariableNames_givenFoo_whenArrayListAddFoo() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -515,16 +519,16 @@ public class NoExecutionVariableScopeDiffblueTest {
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#getVariableInstances(Collection)} with
-   * {@code variableNames}.
+   * Test {@link NoExecutionVariableScope#getVariableInstances(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getVariableInstances(Collection)}
+   * Method under test: {@link NoExecutionVariableScope#getVariableInstances(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map NoExecutionVariableScope.getVariableInstances(Collection)"})
   public void testGetVariableInstancesWithVariableNames_whenArrayList() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -534,17 +538,16 @@ public class NoExecutionVariableScopeDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link NoExecutionVariableScope#getVariableInstancesLocal(Collection, boolean)}
-   * with {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link NoExecutionVariableScope#getVariableInstancesLocal(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getVariableInstancesLocal(Collection, boolean)}
+   * Method under test: {@link NoExecutionVariableScope#getVariableInstancesLocal(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map NoExecutionVariableScope.getVariableInstancesLocal(Collection, boolean)"})
   public void testGetVariableInstancesLocalWithVariableNamesFetchAllVariables_given42() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -558,17 +561,16 @@ public class NoExecutionVariableScopeDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link NoExecutionVariableScope#getVariableInstancesLocal(Collection, boolean)}
-   * with {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link NoExecutionVariableScope#getVariableInstancesLocal(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <ul>
    *   <li>Given {@code foo}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getVariableInstancesLocal(Collection, boolean)}
+   * Method under test: {@link NoExecutionVariableScope#getVariableInstancesLocal(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map NoExecutionVariableScope.getVariableInstancesLocal(Collection, boolean)"})
   public void testGetVariableInstancesLocalWithVariableNamesFetchAllVariables_givenFoo() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -581,17 +583,16 @@ public class NoExecutionVariableScopeDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link NoExecutionVariableScope#getVariableInstancesLocal(Collection, boolean)}
-   * with {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link NoExecutionVariableScope#getVariableInstancesLocal(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getVariableInstancesLocal(Collection, boolean)}
+   * Method under test: {@link NoExecutionVariableScope#getVariableInstancesLocal(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map NoExecutionVariableScope.getVariableInstancesLocal(Collection, boolean)"})
   public void testGetVariableInstancesLocalWithVariableNamesFetchAllVariables_whenArrayList() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -601,17 +602,17 @@ public class NoExecutionVariableScopeDiffblueTest {
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#getVariableInstancesLocal(Collection)}
-   * with {@code variableNames}.
+   * Test {@link NoExecutionVariableScope#getVariableInstancesLocal(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getVariableInstancesLocal(Collection)}
+   * Method under test: {@link NoExecutionVariableScope#getVariableInstancesLocal(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map NoExecutionVariableScope.getVariableInstancesLocal(Collection)"})
   public void testGetVariableInstancesLocalWithVariableNames_given42_whenArrayListAdd42() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -625,17 +626,17 @@ public class NoExecutionVariableScopeDiffblueTest {
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#getVariableInstancesLocal(Collection)}
-   * with {@code variableNames}.
+   * Test {@link NoExecutionVariableScope#getVariableInstancesLocal(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Given {@code foo}.</li>
    *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getVariableInstancesLocal(Collection)}
+   * Method under test: {@link NoExecutionVariableScope#getVariableInstancesLocal(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map NoExecutionVariableScope.getVariableInstancesLocal(Collection)"})
   public void testGetVariableInstancesLocalWithVariableNames_givenFoo_whenArrayListAddFoo() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -648,16 +649,16 @@ public class NoExecutionVariableScopeDiffblueTest {
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#getVariableInstancesLocal(Collection)}
-   * with {@code variableNames}.
+   * Test {@link NoExecutionVariableScope#getVariableInstancesLocal(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getVariableInstancesLocal(Collection)}
+   * Method under test: {@link NoExecutionVariableScope#getVariableInstancesLocal(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map NoExecutionVariableScope.getVariableInstancesLocal(Collection)"})
   public void testGetVariableInstancesLocalWithVariableNames_whenArrayList() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -667,56 +668,55 @@ public class NoExecutionVariableScopeDiffblueTest {
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#getVariableInstance(String)} with
-   * {@code variableName}.
+   * Test {@link NoExecutionVariableScope#getVariableInstance(String)} with {@code variableName}.
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getVariableInstance(String)}
+   * Method under test: {@link NoExecutionVariableScope#getVariableInstance(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"VariableInstance NoExecutionVariableScope.getVariableInstance(String)"})
   public void testGetVariableInstanceWithVariableName() {
     // Arrange, Act and Assert
-    assertNull(noExecutionVariableScope.getVariableInstance("Variable Name"));
+    assertNull(NoExecutionVariableScope.getSharedInstance().getVariableInstance("Variable Name"));
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#getVariableInstance(String, boolean)}
-   * with {@code variableName}, {@code fetchAllVariables}.
+   * Test {@link NoExecutionVariableScope#getVariableInstance(String, boolean)} with {@code variableName}, {@code fetchAllVariables}.
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getVariableInstance(String, boolean)}
+   * Method under test: {@link NoExecutionVariableScope#getVariableInstance(String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"VariableInstance NoExecutionVariableScope.getVariableInstance(String, boolean)"})
   public void testGetVariableInstanceWithVariableNameFetchAllVariables() {
     // Arrange, Act and Assert
-    assertNull(noExecutionVariableScope.getVariableInstance("Variable Name", true));
+    assertNull(NoExecutionVariableScope.getSharedInstance().getVariableInstance("Variable Name", true));
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#getVariableInstanceLocal(String)} with
-   * {@code variableName}.
+   * Test {@link NoExecutionVariableScope#getVariableInstanceLocal(String)} with {@code variableName}.
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getVariableInstanceLocal(String)}
+   * Method under test: {@link NoExecutionVariableScope#getVariableInstanceLocal(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"VariableInstance NoExecutionVariableScope.getVariableInstanceLocal(String)"})
   public void testGetVariableInstanceLocalWithVariableName() {
     // Arrange, Act and Assert
-    assertNull(noExecutionVariableScope.getVariableInstanceLocal("Variable Name"));
+    assertNull(NoExecutionVariableScope.getSharedInstance().getVariableInstanceLocal("Variable Name"));
   }
 
   /**
-   * Test
-   * {@link NoExecutionVariableScope#getVariableInstanceLocal(String, boolean)}
-   * with {@code variableName}, {@code fetchAllVariables}.
+   * Test {@link NoExecutionVariableScope#getVariableInstanceLocal(String, boolean)} with {@code variableName}, {@code fetchAllVariables}.
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getVariableInstanceLocal(String, boolean)}
+   * Method under test: {@link NoExecutionVariableScope#getVariableInstanceLocal(String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"VariableInstance NoExecutionVariableScope.getVariableInstanceLocal(String, boolean)"})
   public void testGetVariableInstanceLocalWithVariableNameFetchAllVariables() {
     // Arrange, Act and Assert
-    assertNull(noExecutionVariableScope.getVariableInstanceLocal("Variable Name", true));
+    assertNull(NoExecutionVariableScope.getSharedInstance().getVariableInstanceLocal("Variable Name", true));
   }
 
   /**
@@ -725,66 +725,67 @@ public class NoExecutionVariableScopeDiffblueTest {
    * Method under test: {@link NoExecutionVariableScope#getVariableNames()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Set NoExecutionVariableScope.getVariableNames()"})
   public void testGetVariableNames() {
     // Arrange, Act and Assert
     assertTrue(NoExecutionVariableScope.getSharedInstance().getVariableNames().isEmpty());
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#setVariable(String, Object)} with
-   * {@code variableName}, {@code value}.
+   * Test {@link NoExecutionVariableScope#setVariable(String, Object)} with {@code variableName}, {@code value}.
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#setVariable(String, Object)}
+   * Method under test: {@link NoExecutionVariableScope#setVariable(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void NoExecutionVariableScope.setVariable(String, Object)"})
   public void testSetVariableWithVariableNameValue() {
     // Arrange, Act and Assert
     assertThrows(UnsupportedOperationException.class,
-        () -> noExecutionVariableScope.setVariable("Variable Name", JSONObject.NULL));
+        () -> NoExecutionVariableScope.getSharedInstance().setVariable("Variable Name", JSONObject.NULL));
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#setVariable(String, Object, boolean)}
-   * with {@code variableName}, {@code value}, {@code fetchAllVariables}.
+   * Test {@link NoExecutionVariableScope#setVariable(String, Object, boolean)} with {@code variableName}, {@code value}, {@code fetchAllVariables}.
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#setVariable(String, Object, boolean)}
+   * Method under test: {@link NoExecutionVariableScope#setVariable(String, Object, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void NoExecutionVariableScope.setVariable(String, Object, boolean)"})
   public void testSetVariableWithVariableNameValueFetchAllVariables() {
     // Arrange, Act and Assert
     assertThrows(UnsupportedOperationException.class,
-        () -> noExecutionVariableScope.setVariable("Variable Name", JSONObject.NULL, true));
+        () -> NoExecutionVariableScope.getSharedInstance().setVariable("Variable Name", JSONObject.NULL, true));
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#setVariableLocal(String, Object)} with
-   * {@code variableName}, {@code value}.
+   * Test {@link NoExecutionVariableScope#setVariableLocal(String, Object)} with {@code variableName}, {@code value}.
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#setVariableLocal(String, Object)}
+   * Method under test: {@link NoExecutionVariableScope#setVariableLocal(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object NoExecutionVariableScope.setVariableLocal(String, Object)"})
   public void testSetVariableLocalWithVariableNameValue() {
     // Arrange, Act and Assert
     assertThrows(UnsupportedOperationException.class,
-        () -> noExecutionVariableScope.setVariableLocal("Variable Name", JSONObject.NULL));
+        () -> NoExecutionVariableScope.getSharedInstance().setVariableLocal("Variable Name", JSONObject.NULL));
   }
 
   /**
-   * Test
-   * {@link NoExecutionVariableScope#setVariableLocal(String, Object, boolean)}
-   * with {@code variableName}, {@code value}, {@code fetchAllVariables}.
+   * Test {@link NoExecutionVariableScope#setVariableLocal(String, Object, boolean)} with {@code variableName}, {@code value}, {@code fetchAllVariables}.
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#setVariableLocal(String, Object, boolean)}
+   * Method under test: {@link NoExecutionVariableScope#setVariableLocal(String, Object, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object NoExecutionVariableScope.setVariableLocal(String, Object, boolean)"})
   public void testSetVariableLocalWithVariableNameValueFetchAllVariables() {
     // Arrange, Act and Assert
     assertThrows(UnsupportedOperationException.class,
-        () -> noExecutionVariableScope.setVariableLocal("Variable Name", JSONObject.NULL, true));
+        () -> NoExecutionVariableScope.getSharedInstance().setVariableLocal("Variable Name", JSONObject.NULL, true));
   }
 
   /**
@@ -793,6 +794,8 @@ public class NoExecutionVariableScopeDiffblueTest {
    * Method under test: {@link NoExecutionVariableScope#setVariables(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void NoExecutionVariableScope.setVariables(Map)"})
   public void testSetVariables() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -807,6 +810,8 @@ public class NoExecutionVariableScopeDiffblueTest {
    * Method under test: {@link NoExecutionVariableScope#setVariablesLocal(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void NoExecutionVariableScope.setVariablesLocal(Map)"})
   public void testSetVariablesLocal() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -821,9 +826,11 @@ public class NoExecutionVariableScopeDiffblueTest {
    * Method under test: {@link NoExecutionVariableScope#hasVariable(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean NoExecutionVariableScope.hasVariable(String)"})
   public void testHasVariable() {
     // Arrange, Act and Assert
-    assertFalse(noExecutionVariableScope.hasVariable("Variable Name"));
+    assertFalse(NoExecutionVariableScope.getSharedInstance().hasVariable("Variable Name"));
   }
 
   /**
@@ -832,22 +839,25 @@ public class NoExecutionVariableScopeDiffblueTest {
    * Method under test: {@link NoExecutionVariableScope#hasVariableLocal(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean NoExecutionVariableScope.hasVariableLocal(String)"})
   public void testHasVariableLocal() {
     // Arrange, Act and Assert
-    assertFalse(noExecutionVariableScope.hasVariableLocal("Variable Name"));
+    assertFalse(NoExecutionVariableScope.getSharedInstance().hasVariableLocal("Variable Name"));
   }
 
   /**
    * Test {@link NoExecutionVariableScope#createVariableLocal(String, Object)}.
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#createVariableLocal(String, Object)}
+   * Method under test: {@link NoExecutionVariableScope#createVariableLocal(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void NoExecutionVariableScope.createVariableLocal(String, Object)"})
   public void testCreateVariableLocal() {
     // Arrange, Act and Assert
     assertThrows(UnsupportedOperationException.class,
-        () -> noExecutionVariableScope.createVariableLocal("Variable Name", JSONObject.NULL));
+        () -> NoExecutionVariableScope.getSharedInstance().createVariableLocal("Variable Name", JSONObject.NULL));
   }
 
   /**
@@ -856,6 +866,8 @@ public class NoExecutionVariableScopeDiffblueTest {
    * Method under test: {@link NoExecutionVariableScope#createVariablesLocal(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void NoExecutionVariableScope.createVariablesLocal(Map)"})
   public void testCreateVariablesLocal() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -870,22 +882,26 @@ public class NoExecutionVariableScopeDiffblueTest {
    * Method under test: {@link NoExecutionVariableScope#removeVariable(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void NoExecutionVariableScope.removeVariable(String)"})
   public void testRemoveVariable() {
     // Arrange, Act and Assert
-    assertThrows(UnsupportedOperationException.class, () -> noExecutionVariableScope.removeVariable("Variable Name"));
+    assertThrows(UnsupportedOperationException.class,
+        () -> NoExecutionVariableScope.getSharedInstance().removeVariable("Variable Name"));
   }
 
   /**
    * Test {@link NoExecutionVariableScope#removeVariableLocal(String)}.
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#removeVariableLocal(String)}
+   * Method under test: {@link NoExecutionVariableScope#removeVariableLocal(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void NoExecutionVariableScope.removeVariableLocal(String)"})
   public void testRemoveVariableLocal() {
     // Arrange, Act and Assert
     assertThrows(UnsupportedOperationException.class,
-        () -> noExecutionVariableScope.removeVariableLocal("Variable Name"));
+        () -> NoExecutionVariableScope.getSharedInstance().removeVariableLocal("Variable Name"));
   }
 
   /**
@@ -894,6 +910,8 @@ public class NoExecutionVariableScopeDiffblueTest {
    * Method under test: {@link NoExecutionVariableScope#removeVariables()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void NoExecutionVariableScope.removeVariables()"})
   public void testRemoveVariables() {
     // Arrange, Act and Assert
     assertThrows(UnsupportedOperationException.class,
@@ -901,17 +919,17 @@ public class NoExecutionVariableScopeDiffblueTest {
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#removeVariables(Collection)} with
-   * {@code Collection}.
+   * Test {@link NoExecutionVariableScope#removeVariables(Collection)} with {@code Collection}.
    * <ul>
    *   <li>Given {@code foo}.</li>
    *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#removeVariables(Collection)}
+   * Method under test: {@link NoExecutionVariableScope#removeVariables(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void NoExecutionVariableScope.removeVariables(Collection)"})
   public void testRemoveVariablesWithCollection_givenFoo_whenArrayListAddFoo() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -925,16 +943,16 @@ public class NoExecutionVariableScopeDiffblueTest {
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#removeVariables(Collection)} with
-   * {@code Collection}.
+   * Test {@link NoExecutionVariableScope#removeVariables(Collection)} with {@code Collection}.
    * <ul>
    *   <li>Given {@code No execution active, no variables can be removed}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#removeVariables(Collection)}
+   * Method under test: {@link NoExecutionVariableScope#removeVariables(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void NoExecutionVariableScope.removeVariables(Collection)"})
   public void testRemoveVariablesWithCollection_givenNoExecutionActiveNoVariablesCanBeRemoved() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -947,16 +965,16 @@ public class NoExecutionVariableScopeDiffblueTest {
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#removeVariables(Collection)} with
-   * {@code Collection}.
+   * Test {@link NoExecutionVariableScope#removeVariables(Collection)} with {@code Collection}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#removeVariables(Collection)}
+   * Method under test: {@link NoExecutionVariableScope#removeVariables(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void NoExecutionVariableScope.removeVariables(Collection)"})
   public void testRemoveVariablesWithCollection_whenArrayList() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -971,6 +989,8 @@ public class NoExecutionVariableScopeDiffblueTest {
    * Method under test: {@link NoExecutionVariableScope#removeVariablesLocal()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void NoExecutionVariableScope.removeVariablesLocal()"})
   public void testRemoveVariablesLocal() {
     // Arrange, Act and Assert
     assertThrows(UnsupportedOperationException.class,
@@ -978,13 +998,13 @@ public class NoExecutionVariableScopeDiffblueTest {
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#removeVariablesLocal(Collection)} with
-   * {@code Collection}.
+   * Test {@link NoExecutionVariableScope#removeVariablesLocal(Collection)} with {@code Collection}.
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#removeVariablesLocal(Collection)}
+   * Method under test: {@link NoExecutionVariableScope#removeVariablesLocal(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void NoExecutionVariableScope.removeVariablesLocal(Collection)"})
   public void testRemoveVariablesLocalWithCollection() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -997,17 +1017,17 @@ public class NoExecutionVariableScopeDiffblueTest {
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#removeVariablesLocal(Collection)} with
-   * {@code Collection}.
+   * Test {@link NoExecutionVariableScope#removeVariablesLocal(Collection)} with {@code Collection}.
    * <ul>
    *   <li>Given {@code foo}.</li>
    *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#removeVariablesLocal(Collection)}
+   * Method under test: {@link NoExecutionVariableScope#removeVariablesLocal(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void NoExecutionVariableScope.removeVariablesLocal(Collection)"})
   public void testRemoveVariablesLocalWithCollection_givenFoo_whenArrayListAddFoo() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -1021,16 +1041,16 @@ public class NoExecutionVariableScopeDiffblueTest {
   }
 
   /**
-   * Test {@link NoExecutionVariableScope#removeVariablesLocal(Collection)} with
-   * {@code Collection}.
+   * Test {@link NoExecutionVariableScope#removeVariablesLocal(Collection)} with {@code Collection}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#removeVariablesLocal(Collection)}
+   * Method under test: {@link NoExecutionVariableScope#removeVariablesLocal(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void NoExecutionVariableScope.removeVariablesLocal(Collection)"})
   public void testRemoveVariablesLocalWithCollection_whenArrayList() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -1042,10 +1062,11 @@ public class NoExecutionVariableScopeDiffblueTest {
   /**
    * Test {@link NoExecutionVariableScope#setTransientVariablesLocal(Map)}.
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#setTransientVariablesLocal(Map)}
+   * Method under test: {@link NoExecutionVariableScope#setTransientVariablesLocal(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void NoExecutionVariableScope.setTransientVariablesLocal(Map)"})
   public void testSetTransientVariablesLocal() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -1055,26 +1076,27 @@ public class NoExecutionVariableScopeDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link NoExecutionVariableScope#setTransientVariableLocal(String, Object)}.
+   * Test {@link NoExecutionVariableScope#setTransientVariableLocal(String, Object)}.
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#setTransientVariableLocal(String, Object)}
+   * Method under test: {@link NoExecutionVariableScope#setTransientVariableLocal(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void NoExecutionVariableScope.setTransientVariableLocal(String, Object)"})
   public void testSetTransientVariableLocal() {
     // Arrange, Act and Assert
     assertThrows(UnsupportedOperationException.class,
-        () -> noExecutionVariableScope.setTransientVariableLocal("Variable Name", JSONObject.NULL));
+        () -> NoExecutionVariableScope.getSharedInstance().setTransientVariableLocal("Variable Name", JSONObject.NULL));
   }
 
   /**
    * Test {@link NoExecutionVariableScope#setTransientVariables(Map)}.
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#setTransientVariables(Map)}
+   * Method under test: {@link NoExecutionVariableScope#setTransientVariables(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void NoExecutionVariableScope.setTransientVariables(Map)"})
   public void testSetTransientVariables() {
     // Arrange
     NoExecutionVariableScope sharedInstance = NoExecutionVariableScope.getSharedInstance();
@@ -1086,60 +1108,65 @@ public class NoExecutionVariableScopeDiffblueTest {
   /**
    * Test {@link NoExecutionVariableScope#setTransientVariable(String, Object)}.
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#setTransientVariable(String, Object)}
+   * Method under test: {@link NoExecutionVariableScope#setTransientVariable(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void NoExecutionVariableScope.setTransientVariable(String, Object)"})
   public void testSetTransientVariable() {
     // Arrange, Act and Assert
     assertThrows(UnsupportedOperationException.class,
-        () -> noExecutionVariableScope.setTransientVariable("Variable Name", JSONObject.NULL));
+        () -> NoExecutionVariableScope.getSharedInstance().setTransientVariable("Variable Name", JSONObject.NULL));
   }
 
   /**
    * Test {@link NoExecutionVariableScope#getTransientVariableLocal(String)}.
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getTransientVariableLocal(String)}
+   * Method under test: {@link NoExecutionVariableScope#getTransientVariableLocal(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object NoExecutionVariableScope.getTransientVariableLocal(String)"})
   public void testGetTransientVariableLocal() {
     // Arrange, Act and Assert
-    assertNull(noExecutionVariableScope.getTransientVariableLocal("Variable Name"));
+    assertNull(NoExecutionVariableScope.getSharedInstance().getTransientVariableLocal("Variable Name"));
   }
 
   /**
    * Test {@link NoExecutionVariableScope#getTransientVariable(String)}.
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#getTransientVariable(String)}
+   * Method under test: {@link NoExecutionVariableScope#getTransientVariable(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object NoExecutionVariableScope.getTransientVariable(String)"})
   public void testGetTransientVariable() {
     // Arrange, Act and Assert
-    assertNull(noExecutionVariableScope.getTransientVariable("Variable Name"));
+    assertNull(NoExecutionVariableScope.getSharedInstance().getTransientVariable("Variable Name"));
   }
 
   /**
    * Test {@link NoExecutionVariableScope#removeTransientVariableLocal(String)}.
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#removeTransientVariableLocal(String)}
+   * Method under test: {@link NoExecutionVariableScope#removeTransientVariableLocal(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void NoExecutionVariableScope.removeTransientVariableLocal(String)"})
   public void testRemoveTransientVariableLocal() {
     // Arrange, Act and Assert
     assertThrows(UnsupportedOperationException.class,
-        () -> noExecutionVariableScope.removeTransientVariableLocal("Variable Name"));
+        () -> NoExecutionVariableScope.getSharedInstance().removeTransientVariableLocal("Variable Name"));
   }
 
   /**
    * Test {@link NoExecutionVariableScope#removeTransientVariablesLocal()}.
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#removeTransientVariablesLocal()}
+   * Method under test: {@link NoExecutionVariableScope#removeTransientVariablesLocal()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void NoExecutionVariableScope.removeTransientVariablesLocal()"})
   public void testRemoveTransientVariablesLocal() {
     // Arrange, Act and Assert
     assertThrows(UnsupportedOperationException.class,
@@ -1149,23 +1176,25 @@ public class NoExecutionVariableScopeDiffblueTest {
   /**
    * Test {@link NoExecutionVariableScope#removeTransientVariable(String)}.
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#removeTransientVariable(String)}
+   * Method under test: {@link NoExecutionVariableScope#removeTransientVariable(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void NoExecutionVariableScope.removeTransientVariable(String)"})
   public void testRemoveTransientVariable() {
     // Arrange, Act and Assert
     assertThrows(UnsupportedOperationException.class,
-        () -> noExecutionVariableScope.removeTransientVariable("Variable Name"));
+        () -> NoExecutionVariableScope.getSharedInstance().removeTransientVariable("Variable Name"));
   }
 
   /**
    * Test {@link NoExecutionVariableScope#removeTransientVariables()}.
    * <p>
-   * Method under test:
-   * {@link NoExecutionVariableScope#removeTransientVariables()}
+   * Method under test: {@link NoExecutionVariableScope#removeTransientVariables()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void NoExecutionVariableScope.removeTransientVariables()"})
   public void testRemoveTransientVariables() {
     // Arrange, Act and Assert
     assertThrows(UnsupportedOperationException.class,
@@ -1189,6 +1218,14 @@ public class NoExecutionVariableScopeDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void NoExecutionVariableScope.<init>()",
+      "NoExecutionVariableScope NoExecutionVariableScope.getSharedInstance()",
+      "Map NoExecutionVariableScope.getTransientVariables()",
+      "Map NoExecutionVariableScope.getTransientVariablesLocal()",
+      "Map NoExecutionVariableScope.getVariableInstances()", "Map NoExecutionVariableScope.getVariableInstancesLocal()",
+      "Set NoExecutionVariableScope.getVariableNamesLocal()", "boolean NoExecutionVariableScope.hasVariables()",
+      "boolean NoExecutionVariableScope.hasVariablesLocal()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     NoExecutionVariableScope actualNoExecutionVariableScope = new NoExecutionVariableScope();

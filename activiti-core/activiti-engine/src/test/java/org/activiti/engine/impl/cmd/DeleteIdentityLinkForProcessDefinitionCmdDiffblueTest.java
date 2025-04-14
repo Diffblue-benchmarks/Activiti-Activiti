@@ -18,40 +18,55 @@ package org.activiti.engine.impl.cmd;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class DeleteIdentityLinkForProcessDefinitionCmdDiffblueTest {
   /**
-   * Test
-   * {@link DeleteIdentityLinkForProcessDefinitionCmd#DeleteIdentityLinkForProcessDefinitionCmd(String, String, String)}.
+   * Test {@link DeleteIdentityLinkForProcessDefinitionCmd#DeleteIdentityLinkForProcessDefinitionCmd(String, String, String)}.
    * <p>
-   * Method under test:
-   * {@link DeleteIdentityLinkForProcessDefinitionCmd#DeleteIdentityLinkForProcessDefinitionCmd(String, String, String)}
+   * Method under test: {@link DeleteIdentityLinkForProcessDefinitionCmd#DeleteIdentityLinkForProcessDefinitionCmd(String, String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeleteIdentityLinkForProcessDefinitionCmd.<init>(String, String, String)"})
   public void testNewDeleteIdentityLinkForProcessDefinitionCmd() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> new DeleteIdentityLinkForProcessDefinitionCmd(null, "42", "42"));
+        () -> new DeleteIdentityLinkForProcessDefinitionCmd(null, null, null));
 
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> new DeleteIdentityLinkForProcessDefinitionCmd("42", null, null));
   }
 
   /**
-   * Test
-   * {@link DeleteIdentityLinkForProcessDefinitionCmd#DeleteIdentityLinkForProcessDefinitionCmd(String, String, String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then return {@link DeleteIdentityLinkForProcessDefinitionCmd#userId} is
-   * {@code 42}.</li>
-   * </ul>
+   * Test {@link DeleteIdentityLinkForProcessDefinitionCmd#DeleteIdentityLinkForProcessDefinitionCmd(String, String, String)}.
    * <p>
-   * Method under test:
-   * {@link DeleteIdentityLinkForProcessDefinitionCmd#DeleteIdentityLinkForProcessDefinitionCmd(String, String, String)}
+   * Method under test: {@link DeleteIdentityLinkForProcessDefinitionCmd#DeleteIdentityLinkForProcessDefinitionCmd(String, String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeleteIdentityLinkForProcessDefinitionCmd.<init>(String, String, String)"})
+  public void testNewDeleteIdentityLinkForProcessDefinitionCmd2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> new DeleteIdentityLinkForProcessDefinitionCmd("42", null, null));
+
+  }
+
+  /**
+   * Test {@link DeleteIdentityLinkForProcessDefinitionCmd#DeleteIdentityLinkForProcessDefinitionCmd(String, String, String)}.
+   * <ul>
+   *   <li>When {@code 42}.</li>
+   *   <li>Then return {@link DeleteIdentityLinkForProcessDefinitionCmd#userId} is {@code 42}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DeleteIdentityLinkForProcessDefinitionCmd#DeleteIdentityLinkForProcessDefinitionCmd(String, String, String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeleteIdentityLinkForProcessDefinitionCmd.<init>(String, String, String)"})
   public void testNewDeleteIdentityLinkForProcessDefinitionCmd_when42_thenReturnUserIdIs42() {
     // Arrange and Act
     DeleteIdentityLinkForProcessDefinitionCmd actualDeleteIdentityLinkForProcessDefinitionCmd = new DeleteIdentityLinkForProcessDefinitionCmd(
@@ -64,19 +79,18 @@ public class DeleteIdentityLinkForProcessDefinitionCmdDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DeleteIdentityLinkForProcessDefinitionCmd#DeleteIdentityLinkForProcessDefinitionCmd(String, String, String)}.
+   * Test {@link DeleteIdentityLinkForProcessDefinitionCmd#DeleteIdentityLinkForProcessDefinitionCmd(String, String, String)}.
    * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return {@link DeleteIdentityLinkForProcessDefinitionCmd#userId} is
-   * {@code null}.</li>
+   *   <li>When {@code 42}.</li>
+   *   <li>Then return {@link DeleteIdentityLinkForProcessDefinitionCmd#userId} is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DeleteIdentityLinkForProcessDefinitionCmd#DeleteIdentityLinkForProcessDefinitionCmd(String, String, String)}
+   * Method under test: {@link DeleteIdentityLinkForProcessDefinitionCmd#DeleteIdentityLinkForProcessDefinitionCmd(String, String, String)}
    */
   @Test
-  public void testNewDeleteIdentityLinkForProcessDefinitionCmd_whenNull_thenReturnUserIdIsNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeleteIdentityLinkForProcessDefinitionCmd.<init>(String, String, String)"})
+  public void testNewDeleteIdentityLinkForProcessDefinitionCmd_when42_thenReturnUserIdIsNull() {
     // Arrange and Act
     DeleteIdentityLinkForProcessDefinitionCmd actualDeleteIdentityLinkForProcessDefinitionCmd = new DeleteIdentityLinkForProcessDefinitionCmd(
         "42", null, "42");
@@ -88,21 +102,37 @@ public class DeleteIdentityLinkForProcessDefinitionCmdDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DeleteIdentityLinkForProcessDefinitionCmd#validateParams(String, String, String)}.
+   * Test {@link DeleteIdentityLinkForProcessDefinitionCmd#validateParams(String, String, String)}.
    * <ul>
    *   <li>When {@code null}.</li>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DeleteIdentityLinkForProcessDefinitionCmd#validateParams(String, String, String)}
+   * Method under test: {@link DeleteIdentityLinkForProcessDefinitionCmd#validateParams(String, String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeleteIdentityLinkForProcessDefinitionCmd.validateParams(String, String, String)"})
   public void testValidateParams_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> (new DeleteIdentityLinkForProcessDefinitionCmd("42", "42", "42")).validateParams("42", "42", null));
+        () -> (new DeleteIdentityLinkForProcessDefinitionCmd("42", "42", "42")).validateParams(null, null, null));
+  }
+
+  /**
+   * Test {@link DeleteIdentityLinkForProcessDefinitionCmd#validateParams(String, String, String)}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DeleteIdentityLinkForProcessDefinitionCmd#validateParams(String, String, String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeleteIdentityLinkForProcessDefinitionCmd.validateParams(String, String, String)"})
+  public void testValidateParams_whenNull_thenThrowActivitiIllegalArgumentException2() {
+    // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
         () -> (new DeleteIdentityLinkForProcessDefinitionCmd("42", "42", "42")).validateParams(null, null, "42"));
   }

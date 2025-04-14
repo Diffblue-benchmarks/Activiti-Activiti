@@ -23,6 +23,8 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -34,6 +36,7 @@ import org.activiti.engine.impl.persistence.entity.DeploymentEntityImpl;
 import org.activiti.engine.impl.persistence.entity.ResourceEntity;
 import org.activiti.engine.impl.persistence.entity.ResourceEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -55,13 +58,14 @@ public class ParsedDeploymentBuilderDiffblueTest {
   private ParsedDeploymentBuilder parsedDeploymentBuilder;
 
   /**
-   * Test
-   * {@link ParsedDeploymentBuilder#ParsedDeploymentBuilder(DeploymentEntity, BpmnParser, Map)}.
+   * Test {@link ParsedDeploymentBuilder#ParsedDeploymentBuilder(DeploymentEntity, BpmnParser, Map)}.
    * <p>
-   * Method under test:
-   * {@link ParsedDeploymentBuilder#ParsedDeploymentBuilder(DeploymentEntity, BpmnParser, Map)}
+   * Method under test: {@link ParsedDeploymentBuilder#ParsedDeploymentBuilder(DeploymentEntity, BpmnParser, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ParsedDeploymentBuilder.<init>(DeploymentEntity, BpmnParser, Map)",
+      "org.activiti.engine.impl.bpmn.deployer.ParsedDeployment ParsedDeploymentBuilder.build()"})
   public void testNewParsedDeploymentBuilder() {
     // Arrange
     DeploymentEntityImpl deployment = new DeploymentEntityImpl();
@@ -81,16 +85,16 @@ public class ParsedDeploymentBuilderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ParsedDeploymentBuilder#createBpmnParseFromResource(ResourceEntity)}.
+   * Test {@link ParsedDeploymentBuilder#createBpmnParseFromResource(ResourceEntity)}.
    * <ul>
    *   <li>Then calls {@link BpmnParse#deployment(DeploymentEntity)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ParsedDeploymentBuilder#createBpmnParseFromResource(ResourceEntity)}
+   * Method under test: {@link ParsedDeploymentBuilder#createBpmnParseFromResource(ResourceEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"BpmnParse ParsedDeploymentBuilder.createBpmnParseFromResource(ResourceEntity)"})
   public void testCreateBpmnParseFromResource_thenCallsDeployment() throws UnsupportedEncodingException {
     // Arrange
     BpmnParse bpmnParse = mock(BpmnParse.class);
@@ -132,6 +136,8 @@ public class ParsedDeploymentBuilderDiffblueTest {
    * Method under test: {@link ParsedDeploymentBuilder#isBpmnResource(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ParsedDeploymentBuilder.isBpmnResource(String)"})
   public void testIsBpmnResource() {
     // Arrange, Act and Assert
     assertFalse(parsedDeploymentBuilder.isBpmnResource("Resource Name"));

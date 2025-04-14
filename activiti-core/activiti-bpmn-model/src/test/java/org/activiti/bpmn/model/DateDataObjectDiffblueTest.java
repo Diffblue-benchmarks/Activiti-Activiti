@@ -17,24 +17,62 @@ package org.activiti.bpmn.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import java.util.HashMap;
-import java.util.List;
-import java.util.function.BiFunction;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.util.Date;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class DateDataObjectDiffblueTest {
   /**
    * Test {@link DateDataObject#clone()}.
+   * <p>
+   * Method under test: {@link DateDataObject#clone()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DateDataObject DateDataObject.clone()"})
+  public void testClone() {
+    // Arrange
+    DateDataObject dateDataObject = new DateDataObject();
+    Date fromResult = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    dateDataObject.setValue(fromResult);
+
+    // Act
+    DateDataObject actualCloneResult = dateDataObject.clone();
+
+    // Assert
+    assertNull(actualCloneResult.getId());
+    assertNull(actualCloneResult.getDocumentation());
+    assertNull(actualCloneResult.getName());
+    assertNull(actualCloneResult.getParentContainer());
+    assertNull(actualCloneResult.getItemSubjectRef());
+    assertNull(actualCloneResult.getSubProcess());
+    assertEquals(0, actualCloneResult.getXmlColumnNumber());
+    assertEquals(0, actualCloneResult.getXmlRowNumber());
+    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
+    assertTrue(actualCloneResult.getAttributes().isEmpty());
+    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
+    assertSame(fromResult, actualCloneResult.getValue());
+  }
+
+  /**
+   * Test {@link DateDataObject#clone()}.
    * <ul>
    *   <li>Given {@link DateDataObject} (default constructor).</li>
+   *   <li>Then return Value is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link DateDataObject#clone()}
    */
   @Test
-  public void testClone_givenDateDataObject() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DateDataObject DateDataObject.clone()"})
+  public void testClone_givenDateDataObject_thenReturnValueIsNull() {
     // Arrange and Act
     DateDataObject actualCloneResult = (new DateDataObject()).clone();
 
@@ -54,48 +92,13 @@ public class DateDataObjectDiffblueTest {
   }
 
   /**
-   * Test {@link DateDataObject#clone()}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@code foo} and
-   * {@link BiFunction}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DateDataObject#clone()}
-   */
-  @Test
-  public void testClone_givenHashMapComputeIfPresentFooAndBiFunction() {
-    // Arrange
-    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
-    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
-
-    DateDataObject dateDataObject = new DateDataObject();
-    dateDataObject.setExtensionElements(extensionElements);
-
-    // Act
-    DateDataObject actualCloneResult = dateDataObject.clone();
-
-    // Assert
-    assertNull(actualCloneResult.getValue());
-    assertNull(actualCloneResult.getId());
-    assertNull(actualCloneResult.getDocumentation());
-    assertNull(actualCloneResult.getName());
-    assertNull(actualCloneResult.getParentContainer());
-    assertNull(actualCloneResult.getItemSubjectRef());
-    assertNull(actualCloneResult.getSubProcess());
-    assertEquals(0, actualCloneResult.getXmlColumnNumber());
-    assertEquals(0, actualCloneResult.getXmlRowNumber());
-    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
-    assertTrue(actualCloneResult.getAttributes().isEmpty());
-    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-  }
-
-  /**
    * Test new {@link DateDataObject} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link DateDataObject}
+   * Method under test: default or parameterless constructor of {@link DateDataObject}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DateDataObject.<init>()", "void DateDataObject.setValue(java.lang.Object)"})
   public void testNewDateDataObject() {
     // Arrange and Act
     DateDataObject actualDateDataObject = new DateDataObject();

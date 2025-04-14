@@ -16,8 +16,10 @@
 package org.activiti.api.runtime.model.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +33,7 @@ class LocalDateToStringConverterDiffblueTest {
   private LocalDateToStringConverter localDateToStringConverter;
 
   /**
-   * Test {@link LocalDateToStringConverter#convert(LocalDate)} with
-   * {@code LocalDate}.
+   * Test {@link LocalDateToStringConverter#convert(LocalDate)} with {@code LocalDate}.
    * <ul>
    *   <li>When {@link LocalDate} with {@code 1970} and one and one.</li>
    *   <li>Then return {@code 1970-01-01}.</li>
@@ -42,6 +43,8 @@ class LocalDateToStringConverterDiffblueTest {
    */
   @Test
   @DisplayName("Test convert(LocalDate) with 'LocalDate'; when LocalDate with '1970' and one and one; then return '1970-01-01'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.lang.String LocalDateToStringConverter.convert(LocalDate)"})
   void testConvertWithLocalDate_whenLocalDateWith1970AndOneAndOne_thenReturn19700101() {
     // Arrange, Act and Assert
     assertEquals("1970-01-01", localDateToStringConverter.convert(LocalDate.of(1970, 1, 1)));

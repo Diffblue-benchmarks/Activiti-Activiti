@@ -18,26 +18,21 @@ package org.activiti.bpmn.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import java.util.HashMap;
-import java.util.List;
-import java.util.function.BiFunction;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class EventListenerDiffblueTest {
   /**
    * Test {@link EventListener#clone()}.
-   * <ul>
-   *   <li>Given {@link EventListener} (default constructor).</li>
-   * </ul>
    * <p>
    * Method under test: {@link EventListener#clone()}
    */
   @Test
-  public void testClone_givenEventListener() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"EventListener EventListener.clone()"})
+  public void testClone() {
     // Arrange and Act
     EventListener actualCloneResult = (new EventListener()).clone();
 
@@ -51,64 +46,6 @@ public class EventListenerDiffblueTest {
     assertEquals(0, actualCloneResult.getXmlRowNumber());
     assertTrue(actualCloneResult.getAttributes().isEmpty());
     assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link EventListener#clone()}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@code foo} and
-   * {@link BiFunction}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EventListener#clone()}
-   */
-  @Test
-  public void testClone_givenHashMapComputeIfPresentFooAndBiFunction() {
-    // Arrange
-    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
-    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
-
-    EventListener eventListener = new EventListener();
-    eventListener.setExtensionElements(extensionElements);
-
-    // Act
-    EventListener actualCloneResult = eventListener.clone();
-
-    // Assert
-    assertNull(actualCloneResult.getId());
-    assertNull(actualCloneResult.getEntityType());
-    assertNull(actualCloneResult.getEvents());
-    assertNull(actualCloneResult.getImplementation());
-    assertNull(actualCloneResult.getImplementationType());
-    assertEquals(0, actualCloneResult.getXmlColumnNumber());
-    assertEquals(0, actualCloneResult.getXmlRowNumber());
-    assertTrue(actualCloneResult.getAttributes().isEmpty());
-    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link EventListener#setValues(EventListener)} with
-   * {@code otherListener}.
-   * <ul>
-   *   <li>Then calls {@link ExtensionElement#getName()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EventListener#setValues(EventListener)}
-   */
-  @Test
-  public void testSetValuesWithOtherListener_thenCallsGetName() {
-    // Arrange
-    ExtensionElement extensionElement = mock(ExtensionElement.class);
-    when(extensionElement.getName()).thenReturn("Name");
-
-    EventListener eventListener = new EventListener();
-    eventListener.addExtensionElement(extensionElement);
-
-    // Act
-    eventListener.setValues(new EventListener());
-
-    // Assert
-    verify(extensionElement, atLeast(1)).getName();
   }
 
   /**
@@ -128,6 +65,12 @@ public class EventListenerDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventListener.<init>()", "String EventListener.getEntityType()",
+      "String EventListener.getEvents()", "String EventListener.getImplementation()",
+      "String EventListener.getImplementationType()", "void EventListener.setEntityType(String)",
+      "void EventListener.setEvents(String)", "void EventListener.setImplementation(String)",
+      "void EventListener.setImplementationType(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     EventListener actualEventListener = new EventListener();
@@ -139,11 +82,12 @@ public class EventListenerDiffblueTest {
     String actualEvents = actualEventListener.getEvents();
     String actualImplementation = actualEventListener.getImplementation();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Entity Type", actualEntityType);
     assertEquals("Events", actualEvents);
     assertEquals("Implementation Type", actualEventListener.getImplementationType());
     assertEquals("Implementation", actualImplementation);
+    assertNull(actualEventListener.getId());
     assertEquals(0, actualEventListener.getXmlColumnNumber());
     assertEquals(0, actualEventListener.getXmlRowNumber());
     assertTrue(actualEventListener.getAttributes().isEmpty());

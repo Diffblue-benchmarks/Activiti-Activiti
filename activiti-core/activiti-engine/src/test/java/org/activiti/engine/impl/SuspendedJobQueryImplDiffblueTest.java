@@ -21,26 +21,24 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class SuspendedJobQueryImplDiffblueTest {
-  @InjectMocks
-  private SuspendedJobQueryImpl suspendedJobQueryImpl;
-
   /**
    * Test {@link SuspendedJobQueryImpl#SuspendedJobQueryImpl()}.
    * <p>
    * Method under test: {@link SuspendedJobQueryImpl#SuspendedJobQueryImpl()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SuspendedJobQueryImpl.<init>()"})
   public void testNewSuspendedJobQueryImpl() {
     // Arrange and Act
     SuspendedJobQueryImpl actualSuspendedJobQueryImpl = new SuspendedJobQueryImpl();
@@ -81,166 +79,13 @@ public class SuspendedJobQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link SuspendedJobQueryImpl#jobId(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then {@link SuspendedJobQueryImpl} Id is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SuspendedJobQueryImpl#jobId(String)}
-   */
-  @Test
-  public void testJobId_when42_thenSuspendedJobQueryImplIdIs42() {
-    // Arrange and Act
-    SuspendedJobQueryImpl actualJobIdResult = suspendedJobQueryImpl.jobId("42");
-
-    // Assert
-    assertEquals("42", suspendedJobQueryImpl.getId());
-    assertSame(suspendedJobQueryImpl, actualJobIdResult);
-  }
-
-  /**
-   * Test {@link SuspendedJobQueryImpl#jobId(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SuspendedJobQueryImpl#jobId(String)}
-   */
-  @Test
-  public void testJobId_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> suspendedJobQueryImpl.jobId(null));
-  }
-
-  /**
-   * Test {@link SuspendedJobQueryImpl#processInstanceId(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then {@link SuspendedJobQueryImpl} ProcessInstanceId is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SuspendedJobQueryImpl#processInstanceId(String)}
-   */
-  @Test
-  public void testProcessInstanceId_when42_thenSuspendedJobQueryImplProcessInstanceIdIs42() {
-    // Arrange and Act
-    SuspendedJobQueryImpl actualProcessInstanceIdResult = suspendedJobQueryImpl.processInstanceId("42");
-
-    // Assert
-    assertEquals("42", suspendedJobQueryImpl.getProcessInstanceId());
-    assertSame(suspendedJobQueryImpl, actualProcessInstanceIdResult);
-  }
-
-  /**
-   * Test {@link SuspendedJobQueryImpl#processInstanceId(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SuspendedJobQueryImpl#processInstanceId(String)}
-   */
-  @Test
-  public void testProcessInstanceId_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> suspendedJobQueryImpl.processInstanceId(null));
-  }
-
-  /**
-   * Test {@link SuspendedJobQueryImpl#processDefinitionId(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then {@link SuspendedJobQueryImpl} ProcessDefinitionId is
-   * {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SuspendedJobQueryImpl#processDefinitionId(String)}
-   */
-  @Test
-  public void testProcessDefinitionId_when42_thenSuspendedJobQueryImplProcessDefinitionIdIs42() {
-    // Arrange and Act
-    SuspendedJobQueryImpl actualProcessDefinitionIdResult = suspendedJobQueryImpl.processDefinitionId("42");
-
-    // Assert
-    assertEquals("42", suspendedJobQueryImpl.getProcessDefinitionId());
-    assertSame(suspendedJobQueryImpl, actualProcessDefinitionIdResult);
-  }
-
-  /**
-   * Test {@link SuspendedJobQueryImpl#processDefinitionId(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SuspendedJobQueryImpl#processDefinitionId(String)}
-   */
-  @Test
-  public void testProcessDefinitionId_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> suspendedJobQueryImpl.processDefinitionId(null));
-  }
-
-  /**
-   * Test {@link SuspendedJobQueryImpl#executionId(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then {@link SuspendedJobQueryImpl} ExecutionId is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SuspendedJobQueryImpl#executionId(String)}
-   */
-  @Test
-  public void testExecutionId_when42_thenSuspendedJobQueryImplExecutionIdIs42() {
-    // Arrange and Act
-    SuspendedJobQueryImpl actualExecutionIdResult = suspendedJobQueryImpl.executionId("42");
-
-    // Assert
-    assertEquals("42", suspendedJobQueryImpl.getExecutionId());
-    assertSame(suspendedJobQueryImpl, actualExecutionIdResult);
-  }
-
-  /**
-   * Test {@link SuspendedJobQueryImpl#executionId(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SuspendedJobQueryImpl#executionId(String)}
-   */
-  @Test
-  public void testExecutionId_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> suspendedJobQueryImpl.executionId(null));
-  }
-
-  /**
-   * Test {@link SuspendedJobQueryImpl#withRetriesLeft()}.
-   * <p>
-   * Method under test: {@link SuspendedJobQueryImpl#withRetriesLeft()}
-   */
-  @Test
-  public void testWithRetriesLeft() {
-    // Arrange
-    SuspendedJobQueryImpl suspendedJobQueryImpl = new SuspendedJobQueryImpl();
-
-    // Act
-    SuspendedJobQueryImpl actualWithRetriesLeftResult = suspendedJobQueryImpl.withRetriesLeft();
-
-    // Assert
-    assertTrue(suspendedJobQueryImpl.getRetriesLeft());
-    assertSame(suspendedJobQueryImpl, actualWithRetriesLeftResult);
-  }
-
-  /**
    * Test {@link SuspendedJobQueryImpl#executable()}.
    * <p>
    * Method under test: {@link SuspendedJobQueryImpl#executable()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"SuspendedJobQueryImpl SuspendedJobQueryImpl.executable()"})
   public void testExecutable() {
     // Arrange
     SuspendedJobQueryImpl suspendedJobQueryImpl = new SuspendedJobQueryImpl();
@@ -254,42 +99,6 @@ public class SuspendedJobQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link SuspendedJobQueryImpl#timers()}.
-   * <p>
-   * Method under test: {@link SuspendedJobQueryImpl#timers()}
-   */
-  @Test
-  public void testTimers() {
-    // Arrange
-    SuspendedJobQueryImpl suspendedJobQueryImpl = new SuspendedJobQueryImpl();
-
-    // Act
-    SuspendedJobQueryImpl actualTimersResult = suspendedJobQueryImpl.timers();
-
-    // Assert
-    assertTrue(suspendedJobQueryImpl.isOnlyTimers());
-    assertSame(suspendedJobQueryImpl, actualTimersResult);
-  }
-
-  /**
-   * Test {@link SuspendedJobQueryImpl#messages()}.
-   * <p>
-   * Method under test: {@link SuspendedJobQueryImpl#messages()}
-   */
-  @Test
-  public void testMessages() {
-    // Arrange
-    SuspendedJobQueryImpl suspendedJobQueryImpl = new SuspendedJobQueryImpl();
-
-    // Act
-    SuspendedJobQueryImpl actualMessagesResult = suspendedJobQueryImpl.messages();
-
-    // Assert
-    assertTrue(suspendedJobQueryImpl.isOnlyMessages());
-    assertSame(suspendedJobQueryImpl, actualMessagesResult);
-  }
-
-  /**
    * Test {@link SuspendedJobQueryImpl#duedateHigherThan(Date)}.
    * <ul>
    *   <li>Then return {@link SuspendedJobQueryImpl#SuspendedJobQueryImpl()}.</li>
@@ -298,6 +107,8 @@ public class SuspendedJobQueryImplDiffblueTest {
    * Method under test: {@link SuspendedJobQueryImpl#duedateHigherThan(Date)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"SuspendedJobQueryImpl SuspendedJobQueryImpl.duedateHigherThan(Date)"})
   public void testDuedateHigherThan_thenReturnSuspendedJobQueryImpl() {
     // Arrange
     SuspendedJobQueryImpl suspendedJobQueryImpl = new SuspendedJobQueryImpl();
@@ -318,6 +129,8 @@ public class SuspendedJobQueryImplDiffblueTest {
    * Method under test: {@link SuspendedJobQueryImpl#duedateHigherThan(Date)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"SuspendedJobQueryImpl SuspendedJobQueryImpl.duedateHigherThan(Date)"})
   public void testDuedateHigherThan_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> (new SuspendedJobQueryImpl()).duedateHigherThan(null));
@@ -332,6 +145,8 @@ public class SuspendedJobQueryImplDiffblueTest {
    * Method under test: {@link SuspendedJobQueryImpl#duedateLowerThan(Date)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"SuspendedJobQueryImpl SuspendedJobQueryImpl.duedateLowerThan(Date)"})
   public void testDuedateLowerThan_thenReturnSuspendedJobQueryImpl() {
     // Arrange
     SuspendedJobQueryImpl suspendedJobQueryImpl = new SuspendedJobQueryImpl();
@@ -352,6 +167,8 @@ public class SuspendedJobQueryImplDiffblueTest {
    * Method under test: {@link SuspendedJobQueryImpl#duedateLowerThan(Date)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"SuspendedJobQueryImpl SuspendedJobQueryImpl.duedateLowerThan(Date)"})
   public void testDuedateLowerThan_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> (new SuspendedJobQueryImpl()).duedateLowerThan(null));
@@ -366,6 +183,8 @@ public class SuspendedJobQueryImplDiffblueTest {
    * Method under test: {@link SuspendedJobQueryImpl#duedateHigherThen(Date)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"SuspendedJobQueryImpl SuspendedJobQueryImpl.duedateHigherThen(Date)"})
   public void testDuedateHigherThen_thenReturnSuspendedJobQueryImpl() {
     // Arrange
     SuspendedJobQueryImpl suspendedJobQueryImpl = new SuspendedJobQueryImpl();
@@ -386,6 +205,8 @@ public class SuspendedJobQueryImplDiffblueTest {
    * Method under test: {@link SuspendedJobQueryImpl#duedateHigherThen(Date)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"SuspendedJobQueryImpl SuspendedJobQueryImpl.duedateHigherThen(Date)"})
   public void testDuedateHigherThen_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> (new SuspendedJobQueryImpl()).duedateHigherThen(null));
@@ -397,10 +218,11 @@ public class SuspendedJobQueryImplDiffblueTest {
    *   <li>Then return {@link SuspendedJobQueryImpl#SuspendedJobQueryImpl()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SuspendedJobQueryImpl#duedateHigherThenOrEquals(Date)}
+   * Method under test: {@link SuspendedJobQueryImpl#duedateHigherThenOrEquals(Date)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"SuspendedJobQueryImpl SuspendedJobQueryImpl.duedateHigherThenOrEquals(Date)"})
   public void testDuedateHigherThenOrEquals_thenReturnSuspendedJobQueryImpl() {
     // Arrange
     SuspendedJobQueryImpl suspendedJobQueryImpl = new SuspendedJobQueryImpl();
@@ -418,10 +240,11 @@ public class SuspendedJobQueryImplDiffblueTest {
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SuspendedJobQueryImpl#duedateHigherThenOrEquals(Date)}
+   * Method under test: {@link SuspendedJobQueryImpl#duedateHigherThenOrEquals(Date)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"SuspendedJobQueryImpl SuspendedJobQueryImpl.duedateHigherThenOrEquals(Date)"})
   public void testDuedateHigherThenOrEquals_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
@@ -437,6 +260,8 @@ public class SuspendedJobQueryImplDiffblueTest {
    * Method under test: {@link SuspendedJobQueryImpl#duedateLowerThen(Date)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"SuspendedJobQueryImpl SuspendedJobQueryImpl.duedateLowerThen(Date)"})
   public void testDuedateLowerThen_thenReturnSuspendedJobQueryImpl() {
     // Arrange
     SuspendedJobQueryImpl suspendedJobQueryImpl = new SuspendedJobQueryImpl();
@@ -457,6 +282,8 @@ public class SuspendedJobQueryImplDiffblueTest {
    * Method under test: {@link SuspendedJobQueryImpl#duedateLowerThen(Date)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"SuspendedJobQueryImpl SuspendedJobQueryImpl.duedateLowerThen(Date)"})
   public void testDuedateLowerThen_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> (new SuspendedJobQueryImpl()).duedateLowerThen(null));
@@ -468,10 +295,11 @@ public class SuspendedJobQueryImplDiffblueTest {
    *   <li>Then return {@link SuspendedJobQueryImpl#SuspendedJobQueryImpl()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SuspendedJobQueryImpl#duedateLowerThenOrEquals(Date)}
+   * Method under test: {@link SuspendedJobQueryImpl#duedateLowerThenOrEquals(Date)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"SuspendedJobQueryImpl SuspendedJobQueryImpl.duedateLowerThenOrEquals(Date)"})
   public void testDuedateLowerThenOrEquals_thenReturnSuspendedJobQueryImpl() {
     // Arrange
     SuspendedJobQueryImpl suspendedJobQueryImpl = new SuspendedJobQueryImpl();
@@ -489,169 +317,14 @@ public class SuspendedJobQueryImplDiffblueTest {
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SuspendedJobQueryImpl#duedateLowerThenOrEquals(Date)}
+   * Method under test: {@link SuspendedJobQueryImpl#duedateLowerThenOrEquals(Date)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"SuspendedJobQueryImpl SuspendedJobQueryImpl.duedateLowerThenOrEquals(Date)"})
   public void testDuedateLowerThenOrEquals_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
         () -> (new SuspendedJobQueryImpl()).duedateLowerThenOrEquals(null));
-  }
-
-  /**
-   * Test {@link SuspendedJobQueryImpl#noRetriesLeft()}.
-   * <p>
-   * Method under test: {@link SuspendedJobQueryImpl#noRetriesLeft()}
-   */
-  @Test
-  public void testNoRetriesLeft() {
-    // Arrange
-    SuspendedJobQueryImpl suspendedJobQueryImpl = new SuspendedJobQueryImpl();
-
-    // Act
-    SuspendedJobQueryImpl actualNoRetriesLeftResult = suspendedJobQueryImpl.noRetriesLeft();
-
-    // Assert
-    assertTrue(suspendedJobQueryImpl.isNoRetriesLeft());
-    assertSame(suspendedJobQueryImpl, actualNoRetriesLeftResult);
-  }
-
-  /**
-   * Test {@link SuspendedJobQueryImpl#withException()}.
-   * <p>
-   * Method under test: {@link SuspendedJobQueryImpl#withException()}
-   */
-  @Test
-  public void testWithException() {
-    // Arrange
-    SuspendedJobQueryImpl suspendedJobQueryImpl = new SuspendedJobQueryImpl();
-
-    // Act
-    SuspendedJobQueryImpl actualWithExceptionResult = suspendedJobQueryImpl.withException();
-
-    // Assert
-    assertTrue(suspendedJobQueryImpl.isWithException());
-    assertSame(suspendedJobQueryImpl, actualWithExceptionResult);
-  }
-
-  /**
-   * Test {@link SuspendedJobQueryImpl#exceptionMessage(String)}.
-   * <ul>
-   *   <li>Then {@link SuspendedJobQueryImpl} ExceptionMessage is
-   * {@code Exception Message}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SuspendedJobQueryImpl#exceptionMessage(String)}
-   */
-  @Test
-  public void testExceptionMessage_thenSuspendedJobQueryImplExceptionMessageIsExceptionMessage() {
-    // Arrange and Act
-    SuspendedJobQueryImpl actualExceptionMessageResult = suspendedJobQueryImpl.exceptionMessage("Exception Message");
-
-    // Assert
-    assertEquals("Exception Message", suspendedJobQueryImpl.getExceptionMessage());
-    assertSame(suspendedJobQueryImpl, actualExceptionMessageResult);
-  }
-
-  /**
-   * Test {@link SuspendedJobQueryImpl#exceptionMessage(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SuspendedJobQueryImpl#exceptionMessage(String)}
-   */
-  @Test
-  public void testExceptionMessage_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> suspendedJobQueryImpl.exceptionMessage(null));
-  }
-
-  /**
-   * Test {@link SuspendedJobQueryImpl#jobTenantId(String)}.
-   * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then {@link SuspendedJobQueryImpl} TenantId is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SuspendedJobQueryImpl#jobTenantId(String)}
-   */
-  @Test
-  public void testJobTenantId_when42_thenSuspendedJobQueryImplTenantIdIs42() {
-    // Arrange and Act
-    SuspendedJobQueryImpl actualJobTenantIdResult = suspendedJobQueryImpl.jobTenantId("42");
-
-    // Assert
-    assertEquals("42", suspendedJobQueryImpl.getTenantId());
-    assertSame(suspendedJobQueryImpl, actualJobTenantIdResult);
-  }
-
-  /**
-   * Test {@link SuspendedJobQueryImpl#jobTenantId(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SuspendedJobQueryImpl#jobTenantId(String)}
-   */
-  @Test
-  public void testJobTenantId_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> suspendedJobQueryImpl.jobTenantId(null));
-  }
-
-  /**
-   * Test {@link SuspendedJobQueryImpl#jobTenantIdLike(String)}.
-   * <ul>
-   *   <li>Then {@link SuspendedJobQueryImpl} TenantIdLike is
-   * {@code Tenant Id Like}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SuspendedJobQueryImpl#jobTenantIdLike(String)}
-   */
-  @Test
-  public void testJobTenantIdLike_thenSuspendedJobQueryImplTenantIdLikeIsTenantIdLike() {
-    // Arrange and Act
-    SuspendedJobQueryImpl actualJobTenantIdLikeResult = suspendedJobQueryImpl.jobTenantIdLike("Tenant Id Like");
-
-    // Assert
-    assertEquals("Tenant Id Like", suspendedJobQueryImpl.getTenantIdLike());
-    assertSame(suspendedJobQueryImpl, actualJobTenantIdLikeResult);
-  }
-
-  /**
-   * Test {@link SuspendedJobQueryImpl#jobTenantIdLike(String)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SuspendedJobQueryImpl#jobTenantIdLike(String)}
-   */
-  @Test
-  public void testJobTenantIdLike_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> suspendedJobQueryImpl.jobTenantIdLike(null));
-  }
-
-  /**
-   * Test {@link SuspendedJobQueryImpl#jobWithoutTenantId()}.
-   * <p>
-   * Method under test: {@link SuspendedJobQueryImpl#jobWithoutTenantId()}
-   */
-  @Test
-  public void testJobWithoutTenantId() {
-    // Arrange
-    SuspendedJobQueryImpl suspendedJobQueryImpl = new SuspendedJobQueryImpl();
-
-    // Act
-    SuspendedJobQueryImpl actualJobWithoutTenantIdResult = suspendedJobQueryImpl.jobWithoutTenantId();
-
-    // Assert
-    assertTrue(suspendedJobQueryImpl.isWithoutTenantId());
-    assertSame(suspendedJobQueryImpl, actualJobWithoutTenantIdResult);
   }
 }

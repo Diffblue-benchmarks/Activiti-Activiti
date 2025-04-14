@@ -16,11 +16,11 @@
 package org.activiti.runtime.api.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.bpmn.behavior.VariablesCalculator;
-import org.activiti.engine.impl.persistence.entity.CompensateEventSubscriptionEntityImpl;
 import org.activiti.engine.impl.persistence.entity.EventSubscriptionEntity;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,38 +40,19 @@ class EventSubscriptionVariablesMappingProviderDiffblueTest {
   private VariablesCalculator variablesCalculator;
 
   /**
-   * Test
-   * {@link EventSubscriptionVariablesMappingProvider#apply(Object, EventSubscriptionEntity)}.
+   * Test {@link EventSubscriptionVariablesMappingProvider#apply(Object, EventSubscriptionEntity)}.
    * <ul>
-   *   <li>When {@link CompensateEventSubscriptionEntityImpl}.</li>
+   *   <li>When {@code Payload}.</li>
    *   <li>Then return {@code Payload}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubscriptionVariablesMappingProvider#apply(Object, EventSubscriptionEntity)}
+   * Method under test: {@link EventSubscriptionVariablesMappingProvider#apply(Object, EventSubscriptionEntity)}
    */
   @Test
-  @DisplayName("Test apply(Object, EventSubscriptionEntity); when CompensateEventSubscriptionEntityImpl; then return 'Payload'")
-  void testApply_whenCompensateEventSubscriptionEntityImpl_thenReturnPayload() {
-    // Arrange, Act and Assert
-    assertEquals("Payload",
-        eventSubscriptionVariablesMappingProvider.apply("Payload", mock(CompensateEventSubscriptionEntityImpl.class)));
-  }
-
-  /**
-   * Test
-   * {@link EventSubscriptionVariablesMappingProvider#apply(Object, EventSubscriptionEntity)}.
-   * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return {@code Payload}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link EventSubscriptionVariablesMappingProvider#apply(Object, EventSubscriptionEntity)}
-   */
-  @Test
-  @DisplayName("Test apply(Object, EventSubscriptionEntity); when 'null'; then return 'Payload'")
-  void testApply_whenNull_thenReturnPayload() {
+  @DisplayName("Test apply(Object, EventSubscriptionEntity); when 'Payload'; then return 'Payload'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object EventSubscriptionVariablesMappingProvider.apply(Object, EventSubscriptionEntity)"})
+  void testApply_whenPayload_thenReturnPayload() {
     // Arrange, Act and Assert
     assertEquals("Payload", eventSubscriptionVariablesMappingProvider.apply("Payload", null));
   }

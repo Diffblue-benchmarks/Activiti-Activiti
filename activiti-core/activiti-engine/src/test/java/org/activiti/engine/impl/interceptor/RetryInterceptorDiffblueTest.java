@@ -16,7 +16,11 @@
 package org.activiti.engine.impl.interceptor;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class RetryInterceptorDiffblueTest {
   /**
@@ -34,6 +38,11 @@ public class RetryInterceptorDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void RetryInterceptor.<init>()", "int RetryInterceptor.getNumOfRetries()",
+      "int RetryInterceptor.getWaitIncreaseFactor()", "int RetryInterceptor.getWaitTimeInMs()",
+      "void RetryInterceptor.setNumOfRetries(int)", "void RetryInterceptor.setWaitIncreaseFactor(int)",
+      "void RetryInterceptor.setWaitTimeInMs(int)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     RetryInterceptor actualRetryInterceptor = new RetryInterceptor();
@@ -42,9 +51,11 @@ public class RetryInterceptorDiffblueTest {
     actualRetryInterceptor.setWaitTimeInMs(1);
     int actualNumOfRetries = actualRetryInterceptor.getNumOfRetries();
     int actualWaitIncreaseFactor = actualRetryInterceptor.getWaitIncreaseFactor();
+    int actualWaitTimeInMs = actualRetryInterceptor.getWaitTimeInMs();
 
-    // Assert that nothing has changed
-    assertEquals(1, actualRetryInterceptor.getWaitTimeInMs());
+    // Assert
+    assertNull(actualRetryInterceptor.getNext());
+    assertEquals(1, actualWaitTimeInMs);
     assertEquals(10, actualNumOfRetries);
     assertEquals(3, actualWaitIncreaseFactor);
   }

@@ -16,16 +16,12 @@
 package org.activiti.engine.impl.util.json;
 
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class CookieDiffblueTest {
-  @InjectMocks
-  private Cookie cookie;
-
   /**
    * Test {@link Cookie#escape(String)}.
    * <ul>
@@ -36,6 +32,8 @@ public class CookieDiffblueTest {
    * Method under test: {@link Cookie#escape(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String Cookie.escape(String)"})
   public void testEscape_whenEqualsSignSemicolon_thenReturn3d3b() {
     // Arrange, Act and Assert
     assertEquals("%3d%3b", Cookie.escape("=;"));
@@ -51,6 +49,8 @@ public class CookieDiffblueTest {
    * Method under test: {@link Cookie#escape(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String Cookie.escape(String)"})
   public void testEscape_whenString_thenReturnString() {
     // Arrange, Act and Assert
     assertEquals("String", Cookie.escape("String"));
@@ -65,6 +65,8 @@ public class CookieDiffblueTest {
    * Method under test: {@link Cookie#toJSONObject(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject Cookie.toJSONObject(String)"})
   public void testToJSONObject_whenEqualsSignSemicolonEqualsSignSemicolon() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(3, Cookie.toJSONObject("=;=;").length());
@@ -80,6 +82,8 @@ public class CookieDiffblueTest {
    * Method under test: {@link Cookie#toJSONObject(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject Cookie.toJSONObject(String)"})
   public void testToJSONObject_whenEqualsSignSemicolon_thenReturnLengthIsTwo() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(2, Cookie.toJSONObject("=;").length());
@@ -95,6 +99,8 @@ public class CookieDiffblueTest {
    * Method under test: {@link Cookie#toJSONObject(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject Cookie.toJSONObject(String)"})
   public void testToJSONObject_whenSecure_thenReturnLengthIsThree() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(3, Cookie.toJSONObject("=;secure").length());
@@ -109,6 +115,8 @@ public class CookieDiffblueTest {
    * Method under test: {@link Cookie#toString(JSONObject)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String Cookie.toString(JSONObject)"})
   public void testToStringWithJSONObject_thenReturnEqualsSign() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("=", Cookie.toString(Cookie.toJSONObject("=;")));
@@ -120,6 +128,8 @@ public class CookieDiffblueTest {
    * Method under test: {@link Cookie#unescape(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String Cookie.unescape(String)"})
   public void testUnescape() {
     // Arrange, Act and Assert
     assertEquals("foo", Cookie.unescape("foo"));

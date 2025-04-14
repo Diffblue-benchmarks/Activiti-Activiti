@@ -19,15 +19,21 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 
 @RunWith(MockitoJUnitRunner.class)
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class FieldBaseStructureInstanceDiffblueTest {
   @Mock
   private FieldBaseStructureDefinition fieldBaseStructureDefinition;
@@ -36,13 +42,13 @@ public class FieldBaseStructureInstanceDiffblueTest {
   private FieldBaseStructureInstance fieldBaseStructureInstance;
 
   /**
-   * Test
-   * {@link FieldBaseStructureInstance#FieldBaseStructureInstance(FieldBaseStructureDefinition)}.
+   * Test {@link FieldBaseStructureInstance#FieldBaseStructureInstance(FieldBaseStructureDefinition)}.
    * <p>
-   * Method under test:
-   * {@link FieldBaseStructureInstance#FieldBaseStructureInstance(FieldBaseStructureDefinition)}
+   * Method under test: {@link FieldBaseStructureInstance#FieldBaseStructureInstance(FieldBaseStructureDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FieldBaseStructureInstance.<init>(FieldBaseStructureDefinition)"})
   public void testNewFieldBaseStructureInstance() {
     // Arrange and Act
     FieldBaseStructureInstance actualFieldBaseStructureInstance = new FieldBaseStructureInstance(
@@ -60,6 +66,8 @@ public class FieldBaseStructureInstanceDiffblueTest {
    * Method under test: {@link FieldBaseStructureInstance#getFieldValue(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object FieldBaseStructureInstance.getFieldValue(String)"})
   public void testGetFieldValue() {
     // Arrange, Act and Assert
     assertNull(fieldBaseStructureInstance.getFieldValue("Field Name"));
@@ -68,10 +76,11 @@ public class FieldBaseStructureInstanceDiffblueTest {
   /**
    * Test {@link FieldBaseStructureInstance#setFieldValue(String, Object)}.
    * <p>
-   * Method under test:
-   * {@link FieldBaseStructureInstance#setFieldValue(String, Object)}
+   * Method under test: {@link FieldBaseStructureInstance#setFieldValue(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FieldBaseStructureInstance.setFieldValue(String, Object)"})
   public void testSetFieldValue() {
     // Arrange
     Object object = JSONObject.NULL;
@@ -88,14 +97,15 @@ public class FieldBaseStructureInstanceDiffblueTest {
   /**
    * Test {@link FieldBaseStructureInstance#getFieldSize()}.
    * <ul>
-   *   <li>Given {@link SimpleStructureDefinition#SimpleStructureDefinition(String)}
-   * with id is {@code 42}.</li>
+   *   <li>Given {@link SimpleStructureDefinition#SimpleStructureDefinition(String)} with id is {@code 42}.</li>
    *   <li>Then return zero.</li>
    * </ul>
    * <p>
    * Method under test: {@link FieldBaseStructureInstance#getFieldSize()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int FieldBaseStructureInstance.getFieldSize()"})
   public void testGetFieldSize_givenSimpleStructureDefinitionWithIdIs42_thenReturnZero() {
     // Arrange, Act and Assert
     assertEquals(0, (new FieldBaseStructureInstance(new SimpleStructureDefinition("42"))).getFieldSize());
@@ -104,13 +114,15 @@ public class FieldBaseStructureInstanceDiffblueTest {
   /**
    * Test {@link FieldBaseStructureInstance#getFieldNameAt(int)}.
    * <ul>
-   *   <li>Given {@code java.lang.Object}.</li>
+   *   <li>Given {@code Object}.</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link FieldBaseStructureInstance#getFieldNameAt(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String FieldBaseStructureInstance.getFieldNameAt(int)"})
   public void testGetFieldNameAt_givenJavaLangObject_thenReturnNull() {
     // Arrange
     Class<Object> classStructure = Object.class;
@@ -122,14 +134,15 @@ public class FieldBaseStructureInstanceDiffblueTest {
   /**
    * Test {@link FieldBaseStructureInstance#toArray()}.
    * <ul>
-   *   <li>Given {@link SimpleStructureDefinition#SimpleStructureDefinition(String)}
-   * with id is {@code 42}.</li>
+   *   <li>Given {@link SimpleStructureDefinition#SimpleStructureDefinition(String)} with id is {@code 42}.</li>
    *   <li>Then return array length is zero.</li>
    * </ul>
    * <p>
    * Method under test: {@link FieldBaseStructureInstance#toArray()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object[] FieldBaseStructureInstance.toArray()"})
   public void testToArray_givenSimpleStructureDefinitionWithIdIs42_thenReturnArrayLengthIsZero() {
     // Arrange, Act and Assert
     assertEquals(0, (new FieldBaseStructureInstance(new SimpleStructureDefinition("42"))).toArray().length);

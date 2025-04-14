@@ -17,7 +17,9 @@ package org.activiti.api.process.model.payloads;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class SuspendProcessPayloadDiffblueTest {
@@ -34,14 +36,18 @@ class SuspendProcessPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SuspendProcessPayload.<init>(String)", "String SuspendProcessPayload.getId()",
+      "String SuspendProcessPayload.getProcessInstanceId()", "void SuspendProcessPayload.setProcessInstanceId(String)"})
   void testGettersAndSetters() {
     // Arrange and Act
     SuspendProcessPayload actualSuspendProcessPayload = new SuspendProcessPayload("42");
     actualSuspendProcessPayload.setProcessInstanceId("42");
-    actualSuspendProcessPayload.getId();
+    String actualId = actualSuspendProcessPayload.getId();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualSuspendProcessPayload.getProcessInstanceId());
+    assertNull(actualId);
   }
 
   /**
@@ -51,6 +57,8 @@ class SuspendProcessPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test new SuspendProcessPayload()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SuspendProcessPayload.<init>()"})
   void testNewSuspendProcessPayload() {
     // Arrange, Act and Assert
     assertNull((new SuspendProcessPayload()).getProcessInstanceId());

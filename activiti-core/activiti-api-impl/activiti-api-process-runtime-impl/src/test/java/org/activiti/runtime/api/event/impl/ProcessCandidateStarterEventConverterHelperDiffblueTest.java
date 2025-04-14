@@ -16,25 +16,28 @@
 package org.activiti.runtime.api.event.impl;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import org.activiti.engine.impl.persistence.entity.IdentityLinkEntityImpl;
 import org.activiti.engine.task.IdentityLink;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ProcessCandidateStarterEventConverterHelperDiffblueTest {
   /**
-   * Test
-   * {@link ProcessCandidateStarterEventConverterHelper#isProcessCandidateStarterUserLink(IdentityLink)}.
+   * Test {@link ProcessCandidateStarterEventConverterHelper#isProcessCandidateStarterUserLink(IdentityLink)}.
    * <ul>
    *   <li>Given {@code candidate}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessCandidateStarterEventConverterHelper#isProcessCandidateStarterUserLink(IdentityLink)}
+   * Method under test: {@link ProcessCandidateStarterEventConverterHelper#isProcessCandidateStarterUserLink(IdentityLink)}
    */
   @Test
   @DisplayName("Test isProcessCandidateStarterUserLink(IdentityLink); given 'candidate'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "boolean ProcessCandidateStarterEventConverterHelper.isProcessCandidateStarterUserLink(IdentityLink)"})
   void testIsProcessCandidateStarterUserLink_givenCandidate() throws UnsupportedEncodingException {
     // Arrange
     ProcessCandidateStarterEventConverterHelper processCandidateStarterEventConverterHelper = new ProcessCandidateStarterEventConverterHelper();
@@ -57,17 +60,18 @@ class ProcessCandidateStarterEventConverterHelperDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessCandidateStarterEventConverterHelper#isProcessCandidateStarterUserLink(IdentityLink)}.
+   * Test {@link ProcessCandidateStarterEventConverterHelper#isProcessCandidateStarterUserLink(IdentityLink)}.
    * <ul>
    *   <li>Given {@code Type}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessCandidateStarterEventConverterHelper#isProcessCandidateStarterUserLink(IdentityLink)}
+   * Method under test: {@link ProcessCandidateStarterEventConverterHelper#isProcessCandidateStarterUserLink(IdentityLink)}
    */
   @Test
   @DisplayName("Test isProcessCandidateStarterUserLink(IdentityLink); given 'Type'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "boolean ProcessCandidateStarterEventConverterHelper.isProcessCandidateStarterUserLink(IdentityLink)"})
   void testIsProcessCandidateStarterUserLink_givenType() throws UnsupportedEncodingException {
     // Arrange
     ProcessCandidateStarterEventConverterHelper processCandidateStarterEventConverterHelper = new ProcessCandidateStarterEventConverterHelper();
@@ -90,18 +94,19 @@ class ProcessCandidateStarterEventConverterHelperDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessCandidateStarterEventConverterHelper#isProcessCandidateStarterUserLink(IdentityLink)}.
+   * Test {@link ProcessCandidateStarterEventConverterHelper#isProcessCandidateStarterUserLink(IdentityLink)}.
    * <ul>
    *   <li>When {@link IdentityLinkEntityImpl} (default constructor).</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessCandidateStarterEventConverterHelper#isProcessCandidateStarterUserLink(IdentityLink)}
+   * Method under test: {@link ProcessCandidateStarterEventConverterHelper#isProcessCandidateStarterUserLink(IdentityLink)}
    */
   @Test
   @DisplayName("Test isProcessCandidateStarterUserLink(IdentityLink); when IdentityLinkEntityImpl (default constructor); then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "boolean ProcessCandidateStarterEventConverterHelper.isProcessCandidateStarterUserLink(IdentityLink)"})
   void testIsProcessCandidateStarterUserLink_whenIdentityLinkEntityImpl_thenReturnFalse() {
     // Arrange
     ProcessCandidateStarterEventConverterHelper processCandidateStarterEventConverterHelper = new ProcessCandidateStarterEventConverterHelper();
@@ -112,17 +117,18 @@ class ProcessCandidateStarterEventConverterHelperDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessCandidateStarterEventConverterHelper#isProcessCandidateStarterGroupLink(IdentityLink)}.
+   * Test {@link ProcessCandidateStarterEventConverterHelper#isProcessCandidateStarterGroupLink(IdentityLink)}.
    * <ul>
    *   <li>Given {@code candidate}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessCandidateStarterEventConverterHelper#isProcessCandidateStarterGroupLink(IdentityLink)}
+   * Method under test: {@link ProcessCandidateStarterEventConverterHelper#isProcessCandidateStarterGroupLink(IdentityLink)}
    */
   @Test
   @DisplayName("Test isProcessCandidateStarterGroupLink(IdentityLink); given 'candidate'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "boolean ProcessCandidateStarterEventConverterHelper.isProcessCandidateStarterGroupLink(IdentityLink)"})
   void testIsProcessCandidateStarterGroupLink_givenCandidate() throws UnsupportedEncodingException {
     // Arrange
     ProcessCandidateStarterEventConverterHelper processCandidateStarterEventConverterHelper = new ProcessCandidateStarterEventConverterHelper();
@@ -145,17 +151,18 @@ class ProcessCandidateStarterEventConverterHelperDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessCandidateStarterEventConverterHelper#isProcessCandidateStarterGroupLink(IdentityLink)}.
+   * Test {@link ProcessCandidateStarterEventConverterHelper#isProcessCandidateStarterGroupLink(IdentityLink)}.
    * <ul>
    *   <li>Given {@code Type}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessCandidateStarterEventConverterHelper#isProcessCandidateStarterGroupLink(IdentityLink)}
+   * Method under test: {@link ProcessCandidateStarterEventConverterHelper#isProcessCandidateStarterGroupLink(IdentityLink)}
    */
   @Test
   @DisplayName("Test isProcessCandidateStarterGroupLink(IdentityLink); given 'Type'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "boolean ProcessCandidateStarterEventConverterHelper.isProcessCandidateStarterGroupLink(IdentityLink)"})
   void testIsProcessCandidateStarterGroupLink_givenType() throws UnsupportedEncodingException {
     // Arrange
     ProcessCandidateStarterEventConverterHelper processCandidateStarterEventConverterHelper = new ProcessCandidateStarterEventConverterHelper();
@@ -178,17 +185,18 @@ class ProcessCandidateStarterEventConverterHelperDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessCandidateStarterEventConverterHelper#isProcessCandidateStarterGroupLink(IdentityLink)}.
+   * Test {@link ProcessCandidateStarterEventConverterHelper#isProcessCandidateStarterGroupLink(IdentityLink)}.
    * <ul>
    *   <li>When {@link IdentityLinkEntityImpl} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessCandidateStarterEventConverterHelper#isProcessCandidateStarterGroupLink(IdentityLink)}
+   * Method under test: {@link ProcessCandidateStarterEventConverterHelper#isProcessCandidateStarterGroupLink(IdentityLink)}
    */
   @Test
   @DisplayName("Test isProcessCandidateStarterGroupLink(IdentityLink); when IdentityLinkEntityImpl (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "boolean ProcessCandidateStarterEventConverterHelper.isProcessCandidateStarterGroupLink(IdentityLink)"})
   void testIsProcessCandidateStarterGroupLink_whenIdentityLinkEntityImpl() {
     // Arrange
     ProcessCandidateStarterEventConverterHelper processCandidateStarterEventConverterHelper = new ProcessCandidateStarterEventConverterHelper();

@@ -22,11 +22,13 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ValueExpression;
 import java.lang.reflect.Method;
 import org.activiti.core.el.juel.ObjectValueExpression;
 import org.activiti.core.el.juel.misc.TypeConverter;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class BindingsDiffblueTest {
@@ -40,6 +42,8 @@ class BindingsDiffblueTest {
    */
   @Test
   @DisplayName("Test new Bindings(Method[], ValueExpression[]); when array of Method with 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void Bindings.<init>(Method[], ValueExpression[])"})
   void testNewBindings_whenArrayOfMethodWithNull() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -60,11 +64,12 @@ class BindingsDiffblueTest {
    *   <li>When array of {@link Method} with {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link Bindings#Bindings(Method[], ValueExpression[], TypeConverter)}
+   * Method under test: {@link Bindings#Bindings(Method[], ValueExpression[], TypeConverter)}
    */
   @Test
   @DisplayName("Test new Bindings(Method[], ValueExpression[], TypeConverter); when array of Method with 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void Bindings.<init>(Method[], ValueExpression[], TypeConverter)"})
   void testNewBindings_whenArrayOfMethodWithNull2() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -89,6 +94,8 @@ class BindingsDiffblueTest {
    */
   @Test
   @DisplayName("Test new Bindings(Method[], ValueExpression[]); when empty array of Method")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void Bindings.<init>(Method[], ValueExpression[])"})
   void testNewBindings_whenEmptyArrayOfMethod() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -109,11 +116,12 @@ class BindingsDiffblueTest {
    *   <li>When empty array of {@link Method}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link Bindings#Bindings(Method[], ValueExpression[], TypeConverter)}
+   * Method under test: {@link Bindings#Bindings(Method[], ValueExpression[], TypeConverter)}
    */
   @Test
   @DisplayName("Test new Bindings(Method[], ValueExpression[], TypeConverter); when empty array of Method")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void Bindings.<init>(Method[], ValueExpression[], TypeConverter)"})
   void testNewBindings_whenEmptyArrayOfMethod2() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -138,6 +146,8 @@ class BindingsDiffblueTest {
    */
   @Test
   @DisplayName("Test new Bindings(Method[], ValueExpression[]); when empty array of ValueExpression")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void Bindings.<init>(Method[], ValueExpression[])"})
   void testNewBindings_whenEmptyArrayOfValueExpression() {
     // Arrange and Act
     Bindings actualBindings = new Bindings(new Method[]{null}, new ValueExpression[]{});
@@ -153,11 +163,12 @@ class BindingsDiffblueTest {
    *   <li>When empty array of {@link ValueExpression}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link Bindings#Bindings(Method[], ValueExpression[], TypeConverter)}
+   * Method under test: {@link Bindings#Bindings(Method[], ValueExpression[], TypeConverter)}
    */
   @Test
   @DisplayName("Test new Bindings(Method[], ValueExpression[], TypeConverter); when empty array of ValueExpression")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void Bindings.<init>(Method[], ValueExpression[], TypeConverter)"})
   void testNewBindings_whenEmptyArrayOfValueExpression2() {
     // Arrange and Act
     Bindings actualBindings = new Bindings(new Method[]{null}, new ValueExpression[]{}, mock(TypeConverter.class));
@@ -177,6 +188,8 @@ class BindingsDiffblueTest {
    */
   @Test
   @DisplayName("Test new Bindings(Method[], ValueExpression[]); when 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void Bindings.<init>(Method[], ValueExpression[])"})
   void testNewBindings_whenNull() {
     // Arrange and Act
     Bindings actualBindings = new Bindings(null, null);
@@ -192,11 +205,12 @@ class BindingsDiffblueTest {
    *   <li>When {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link Bindings#Bindings(Method[], ValueExpression[], TypeConverter)}
+   * Method under test: {@link Bindings#Bindings(Method[], ValueExpression[], TypeConverter)}
    */
   @Test
   @DisplayName("Test new Bindings(Method[], ValueExpression[], TypeConverter); when 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void Bindings.<init>(Method[], ValueExpression[], TypeConverter)"})
   void testNewBindings_whenNull2() {
     // Arrange and Act
     Bindings actualBindings = new Bindings(null, null, null);
@@ -216,6 +230,8 @@ class BindingsDiffblueTest {
    */
   @Test
   @DisplayName("Test getFunction(int); then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Method Bindings.getFunction(int)"})
   void testGetFunction_thenReturnNull() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -237,6 +253,8 @@ class BindingsDiffblueTest {
    */
   @Test
   @DisplayName("Test isFunctionBound(int); when minus one; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean Bindings.isFunctionBound(int)"})
   void testIsFunctionBound_whenMinusOne_thenReturnFalse() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -259,6 +277,8 @@ class BindingsDiffblueTest {
    */
   @Test
   @DisplayName("Test isFunctionBound(int); when one; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean Bindings.isFunctionBound(int)"})
   void testIsFunctionBound_whenOne_thenReturnFalse() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -281,6 +301,8 @@ class BindingsDiffblueTest {
    */
   @Test
   @DisplayName("Test isFunctionBound(int); when zero; then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean Bindings.isFunctionBound(int)"})
   void testIsFunctionBound_whenZero_thenReturnTrue() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -299,6 +321,8 @@ class BindingsDiffblueTest {
    */
   @Test
   @DisplayName("Test getVariable(int)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ValueExpression Bindings.getVariable(int)"})
   void testGetVariable() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -322,6 +346,8 @@ class BindingsDiffblueTest {
    */
   @Test
   @DisplayName("Test isVariableBound(int)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean Bindings.isVariableBound(int)"})
   void testIsVariableBound() {
     // Arrange, Act and Assert
     assertFalse((new Bindings(new Method[]{null}, new ValueExpression[]{null})).isVariableBound(0));
@@ -330,7 +356,7 @@ class BindingsDiffblueTest {
   /**
    * Test {@link Bindings#isVariableBound(int)}.
    * <ul>
-   *   <li>Given {@code java.lang.Object}.</li>
+   *   <li>Given {@code Object}.</li>
    *   <li>When minus one.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
@@ -339,6 +365,8 @@ class BindingsDiffblueTest {
    */
   @Test
   @DisplayName("Test isVariableBound(int); given 'java.lang.Object'; when minus one; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean Bindings.isVariableBound(int)"})
   void testIsVariableBound_givenJavaLangObject_whenMinusOne_thenReturnFalse() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -353,7 +381,7 @@ class BindingsDiffblueTest {
   /**
    * Test {@link Bindings#isVariableBound(int)}.
    * <ul>
-   *   <li>Given {@code java.lang.Object}.</li>
+   *   <li>Given {@code Object}.</li>
    *   <li>When one.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
@@ -362,6 +390,8 @@ class BindingsDiffblueTest {
    */
   @Test
   @DisplayName("Test isVariableBound(int); given 'java.lang.Object'; when one; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean Bindings.isVariableBound(int)"})
   void testIsVariableBound_givenJavaLangObject_whenOne_thenReturnFalse() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -376,7 +406,7 @@ class BindingsDiffblueTest {
   /**
    * Test {@link Bindings#isVariableBound(int)}.
    * <ul>
-   *   <li>Given {@code java.lang.Object}.</li>
+   *   <li>Given {@code Object}.</li>
    *   <li>When zero.</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
@@ -385,6 +415,8 @@ class BindingsDiffblueTest {
    */
   @Test
   @DisplayName("Test isVariableBound(int); given 'java.lang.Object'; when zero; then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean Bindings.isVariableBound(int)"})
   void testIsVariableBound_givenJavaLangObject_whenZero_thenReturnTrue() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -399,7 +431,7 @@ class BindingsDiffblueTest {
   /**
    * Test {@link Bindings#convert(Object, Class)}.
    * <ul>
-   *   <li>When {@code java.lang.Object}.</li>
+   *   <li>When {@code Object}.</li>
    *   <li>Then return {@code Value}.</li>
    * </ul>
    * <p>
@@ -407,6 +439,8 @@ class BindingsDiffblueTest {
    */
   @Test
   @DisplayName("Test convert(Object, Class); when 'java.lang.Object'; then return 'Value'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object Bindings.convert(Object, Class)"})
   void testConvert_whenJavaLangObject_thenReturnValue() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -434,6 +468,8 @@ class BindingsDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is equal; then return equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean Bindings.equals(Object)", "int Bindings.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -466,6 +502,8 @@ class BindingsDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean Bindings.equals(Object)", "int Bindings.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -490,6 +528,8 @@ class BindingsDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean Bindings.equals(Object)", "int Bindings.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -515,6 +555,8 @@ class BindingsDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean Bindings.equals(Object)", "int Bindings.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -540,6 +582,8 @@ class BindingsDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean Bindings.equals(Object)", "int Bindings.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual3() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -570,6 +614,8 @@ class BindingsDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean Bindings.equals(Object)", "int Bindings.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual4() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -595,6 +641,8 @@ class BindingsDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean Bindings.equals(Object)", "int Bindings.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual5() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -623,6 +671,8 @@ class BindingsDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean Bindings.equals(Object)", "int Bindings.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -645,6 +695,8 @@ class BindingsDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean Bindings.equals(Object)", "int Bindings.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);

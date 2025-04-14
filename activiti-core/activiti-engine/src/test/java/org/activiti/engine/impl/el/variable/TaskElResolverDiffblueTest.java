@@ -16,50 +16,25 @@
 package org.activiti.engine.impl.el.variable;
 
 import static org.junit.Assert.assertSame;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.VariableScope;
 import org.activiti.engine.impl.el.NoExecutionVariableScope;
-import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class TaskElResolverDiffblueTest {
-  @InjectMocks
-  private TaskElResolver taskElResolver;
-
   /**
    * Test {@link TaskElResolver#resolve(String, VariableScope)}.
-   * <ul>
-   *   <li>When {@link ExecutionEntityImpl}.</li>
-   *   <li>Then return {@link ExecutionEntityImpl}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link TaskElResolver#resolve(String, VariableScope)}
    */
   @Test
-  public void testResolve_whenExecutionEntityImpl_thenReturnExecutionEntityImpl() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Object TaskElResolver.resolve(String, VariableScope)"})
+  public void testResolve() {
     // Arrange
-    ExecutionEntityImpl variableScope = mock(ExecutionEntityImpl.class);
-
-    // Act and Assert
-    assertSame(variableScope, taskElResolver.resolve("Property", variableScope));
-  }
-
-  /**
-   * Test {@link TaskElResolver#resolve(String, VariableScope)}.
-   * <ul>
-   *   <li>When SharedInstance.</li>
-   *   <li>Then return SharedInstance.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TaskElResolver#resolve(String, VariableScope)}
-   */
-  @Test
-  public void testResolve_whenSharedInstance_thenReturnSharedInstance() {
-    // Arrange
+    TaskElResolver taskElResolver = new TaskElResolver();
     NoExecutionVariableScope variableScope = NoExecutionVariableScope.getSharedInstance();
 
     // Act and Assert

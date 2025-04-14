@@ -23,6 +23,7 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import jakarta.el.ELException;
 import jakarta.el.ValueExpression;
@@ -33,6 +34,7 @@ import org.activiti.core.el.juel.tree.Bindings;
 import org.activiti.core.el.juel.tree.impl.ast.AstUnary.Operator;
 import org.activiti.core.el.juel.util.SimpleContext;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -42,7 +44,7 @@ class AstUnaryDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>{@link AstUnary#AstUnary(AstNode, AstUnary.Operator)}
+   *   <li>{@link AstUnary#AstUnary(AstNode, Operator)}
    *   <li>{@link AstUnary#toString()}
    *   <li>{@link AstUnary#getCardinality()}
    *   <li>{@link AstUnary#getOperator()}
@@ -50,9 +52,12 @@ class AstUnaryDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstUnary.<init>(AstNode, Operator)", "int AstUnary.getCardinality()",
+      "Operator AstUnary.getOperator()", "java.lang.String AstUnary.toString()"})
   void testGettersAndSetters() {
     // Arrange
-    AstUnary.Operator operator = mock(AstUnary.Operator.class);
+    Operator operator = mock(Operator.class);
 
     // Act
     AstUnary actualAstUnary = new AstUnary(new AstNull(), operator);
@@ -67,8 +72,7 @@ class AstUnaryDiffblueTest {
   /**
    * Test {@link AstUnary#eval(Bindings, ELContext)}.
    * <ul>
-   *   <li>Given {@link Operator}
-   * {@link Operator#eval(Bindings, ELContext, AstNode)} return {@code Eval}.</li>
+   *   <li>Given {@link Operator} {@link Operator#eval(Bindings, ELContext, AstNode)} return {@code Eval}.</li>
    *   <li>Then return {@code Eval}.</li>
    * </ul>
    * <p>
@@ -76,9 +80,11 @@ class AstUnaryDiffblueTest {
    */
   @Test
   @DisplayName("Test eval(Bindings, ELContext); given Operator eval(Bindings, ELContext, AstNode) return 'Eval'; then return 'Eval'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object AstUnary.eval(Bindings, ELContext)"})
   void testEval_givenOperatorEvalReturnEval_thenReturnEval() throws ELException {
     // Arrange
-    AstUnary.Operator operator = mock(AstUnary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any())).thenReturn("Eval");
     AstUnary astUnary = new AstUnary(new AstNull(), operator);
     TypeConverter converter = mock(TypeConverter.class);
@@ -104,9 +110,11 @@ class AstUnaryDiffblueTest {
    */
   @Test
   @DisplayName("Test eval(Bindings, ELContext); then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object AstUnary.eval(Bindings, ELContext)"})
   void testEval_thenThrowELException() throws ELException {
     // Arrange
-    AstUnary.Operator operator = mock(AstUnary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any()))
         .thenThrow(new ELException("An error occurred"));
     AstUnary astUnary = new AstUnary(new AstNull(), operator);
@@ -131,9 +139,11 @@ class AstUnaryDiffblueTest {
    */
   @Test
   @DisplayName("Test getChild(int); when one; then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"AstNode AstUnary.getChild(int)"})
   void testGetChild_whenOne_thenReturnNull() {
     // Arrange, Act and Assert
-    assertNull((new AstUnary(new AstNull(), mock(AstUnary.Operator.class))).getChild(1));
+    assertNull((new AstUnary(new AstNull(), mock(Operator.class))).getChild(1));
   }
 
   /**
@@ -147,11 +157,13 @@ class AstUnaryDiffblueTest {
    */
   @Test
   @DisplayName("Test getChild(int); when zero; then return AstNull (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"AstNode AstUnary.getChild(int)"})
   void testGetChild_whenZero_thenReturnAstNull() {
     // Arrange
     AstNull child = new AstNull();
 
     // Act and Assert
-    assertSame(child, (new AstUnary(child, mock(AstUnary.Operator.class))).getChild(0));
+    assertSame(child, (new AstUnary(child, mock(Operator.class))).getChild(0));
   }
 }

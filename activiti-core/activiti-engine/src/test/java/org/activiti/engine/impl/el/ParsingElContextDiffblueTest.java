@@ -17,9 +17,12 @@ package org.activiti.engine.impl.el;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELResolver;
 import jakarta.el.FunctionMapper;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ParsingElContextDiffblueTest {
   /**
@@ -34,6 +37,10 @@ public class ParsingElContextDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ParsingElContext.<init>()", "ELResolver ParsingElContext.getELResolver()",
+      "FunctionMapper ParsingElContext.getFunctionMapper()",
+      "jakarta.el.VariableMapper ParsingElContext.getVariableMapper()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ParsingElContext actualParsingElContext = new ParsingElContext();

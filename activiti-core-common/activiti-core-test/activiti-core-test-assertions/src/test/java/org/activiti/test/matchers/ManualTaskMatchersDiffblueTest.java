@@ -16,7 +16,9 @@
 package org.activiti.test.matchers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ManualTaskMatchersDiffblueTest {
@@ -27,6 +29,8 @@ class ManualTaskMatchersDiffblueTest {
    */
   @Test
   @DisplayName("Test getActivityType()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String ManualTaskMatchers.getActivityType()"})
   void testGetActivityType() {
     // Arrange, Act and Assert
     assertEquals("manualTask", ManualTaskMatchers.manualTask("Definition Key").getActivityType());
@@ -39,6 +43,8 @@ class ManualTaskMatchersDiffblueTest {
    */
   @Test
   @DisplayName("Test manualTask(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ManualTaskMatchers ManualTaskMatchers.manualTask(String)"})
   void testManualTask() {
     // Arrange, Act and Assert
     assertEquals("manualTask", ManualTaskMatchers.manualTask("Definition Key").getActivityType());

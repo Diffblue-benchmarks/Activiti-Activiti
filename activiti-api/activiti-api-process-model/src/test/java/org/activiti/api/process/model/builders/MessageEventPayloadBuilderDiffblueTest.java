@@ -20,54 +20,27 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiFunction;
 import org.activiti.api.process.model.payloads.MessageEventPayload;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class MessageEventPayloadBuilderDiffblueTest {
   /**
    * Test {@link MessageEventPayloadBuilder#from(MessageEventPayload)}.
    * <ul>
-   *   <li>Given {@code messagePayload must not be null}.</li>
+   *   <li>Then return build BusinessKey is {@code messagePayload must not be null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link MessageEventPayloadBuilder#from(MessageEventPayload)}
-   */
-  @Test
-  @DisplayName("Test from(MessageEventPayload); given 'messagePayload must not be null'")
-  void testFrom_givenMessagePayloadMustNotBeNull() {
-    // Arrange
-    HashMap<String, Object> variables = new HashMap<>();
-    variables.computeIfPresent("messagePayload must not be null", mock(BiFunction.class));
-
-    // Act and Assert
-    MessageEventPayload buildResult = MessageEventPayloadBuilder
-        .from(new MessageEventPayload("messagePayload must not be null", "messagePayload must not be null",
-            "messagePayload must not be null", variables))
-        .build();
-    assertEquals("messagePayload must not be null", buildResult.getBusinessKey());
-    assertEquals("messagePayload must not be null", buildResult.getCorrelationKey());
-    assertEquals("messagePayload must not be null", buildResult.getName());
-    assertTrue(buildResult.getVariables().isEmpty());
-  }
-
-  /**
-   * Test {@link MessageEventPayloadBuilder#from(MessageEventPayload)}.
-   * <ul>
-   *   <li>Then return build BusinessKey is
-   * {@code messagePayload must not be null}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link MessageEventPayloadBuilder#from(MessageEventPayload)}
+   * Method under test: {@link MessageEventPayloadBuilder#from(MessageEventPayload)}
    */
   @Test
   @DisplayName("Test from(MessageEventPayload); then return build BusinessKey is 'messagePayload must not be null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"MessageEventPayloadBuilder MessageEventPayloadBuilder.from(MessageEventPayload)"})
   void testFrom_thenReturnBuildBusinessKeyIsMessagePayloadMustNotBeNull() {
     // Arrange, Act and Assert
     MessageEventPayload buildResult = MessageEventPayloadBuilder
@@ -87,6 +60,8 @@ class MessageEventPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test messageEvent(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"MessageEventPayloadBuilder MessageEventPayloadBuilder.messageEvent(String)"})
   void testMessageEvent() {
     // Arrange, Act and Assert
     MessageEventPayload buildResult = MessageEventPayloadBuilder.messageEvent("Name").build();
@@ -99,38 +74,15 @@ class MessageEventPayloadBuilderDiffblueTest {
   /**
    * Test {@link MessageEventPayloadBuilder#withVariable(String, Object)}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@code foo} and
-   * {@link BiFunction}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link MessageEventPayloadBuilder#withVariable(String, Object)}
-   */
-  @Test
-  @DisplayName("Test withVariable(String, Object); given HashMap() computeIfPresent 'foo' and BiFunction")
-  void testWithVariable_givenHashMapComputeIfPresentFooAndBiFunction() {
-    // Arrange
-    HashMap<String, Object> variables = new HashMap<>();
-    variables.computeIfPresent("foo", mock(BiFunction.class));
-
-    MessageEventPayloadBuilder messageEventPayloadBuilder = new MessageEventPayloadBuilder();
-    messageEventPayloadBuilder.withVariables(variables);
-
-    // Act and Assert
-    assertSame(messageEventPayloadBuilder, messageEventPayloadBuilder.withVariable("Name", "Value"));
-  }
-
-  /**
-   * Test {@link MessageEventPayloadBuilder#withVariable(String, Object)}.
-   * <ul>
    *   <li>Given {@link MessageEventPayloadBuilder} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link MessageEventPayloadBuilder#withVariable(String, Object)}
+   * Method under test: {@link MessageEventPayloadBuilder#withVariable(String, Object)}
    */
   @Test
   @DisplayName("Test withVariable(String, Object); given MessageEventPayloadBuilder (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"MessageEventPayloadBuilder MessageEventPayloadBuilder.withVariable(String, Object)"})
   void testWithVariable_givenMessageEventPayloadBuilder() {
     // Arrange
     MessageEventPayloadBuilder messageEventPayloadBuilder = new MessageEventPayloadBuilder();
@@ -142,15 +94,15 @@ class MessageEventPayloadBuilderDiffblueTest {
   /**
    * Test {@link MessageEventPayloadBuilder#withVariable(String, Object)}.
    * <ul>
-   *   <li>Given {@link MessageEventPayloadBuilder} (default constructor)
-   * withVariables {@link HashMap#HashMap()}.</li>
+   *   <li>Given {@link MessageEventPayloadBuilder} (default constructor) withVariables {@link HashMap#HashMap()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link MessageEventPayloadBuilder#withVariable(String, Object)}
+   * Method under test: {@link MessageEventPayloadBuilder#withVariable(String, Object)}
    */
   @Test
   @DisplayName("Test withVariable(String, Object); given MessageEventPayloadBuilder (default constructor) withVariables HashMap()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"MessageEventPayloadBuilder MessageEventPayloadBuilder.withVariable(String, Object)"})
   void testWithVariable_givenMessageEventPayloadBuilderWithVariablesHashMap() {
     // Arrange
     MessageEventPayloadBuilder messageEventPayloadBuilder = new MessageEventPayloadBuilder();
@@ -161,8 +113,7 @@ class MessageEventPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link MessageEventPayloadBuilder#equals(Object)}, and
-   * {@link MessageEventPayloadBuilder#hashCode()}.
+   * Test {@link MessageEventPayloadBuilder#equals(Object)}, and {@link MessageEventPayloadBuilder#hashCode()}.
    * <ul>
    *   <li>When other is equal.</li>
    *   <li>Then return equal.</li>
@@ -176,6 +127,8 @@ class MessageEventPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is equal; then return equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean MessageEventPayloadBuilder.equals(Object)", "int MessageEventPayloadBuilder.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
     // Arrange
     MessageEventPayloadBuilder messageEventPayloadBuilder = new MessageEventPayloadBuilder();
@@ -188,8 +141,7 @@ class MessageEventPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link MessageEventPayloadBuilder#equals(Object)}, and
-   * {@link MessageEventPayloadBuilder#hashCode()}.
+   * Test {@link MessageEventPayloadBuilder#equals(Object)}, and {@link MessageEventPayloadBuilder#hashCode()}.
    * <ul>
    *   <li>When other is same.</li>
    *   <li>Then return equal.</li>
@@ -203,6 +155,8 @@ class MessageEventPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean MessageEventPayloadBuilder.equals(Object)", "int MessageEventPayloadBuilder.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
     MessageEventPayloadBuilder messageEventPayloadBuilder = new MessageEventPayloadBuilder();
@@ -224,6 +178,8 @@ class MessageEventPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean MessageEventPayloadBuilder.equals(Object)", "int MessageEventPayloadBuilder.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new MessageEventPayloadBuilder(), 1);
@@ -240,6 +196,8 @@ class MessageEventPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean MessageEventPayloadBuilder.equals(Object)", "int MessageEventPayloadBuilder.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
     // Arrange
     MessageEventPayloadBuilder messageEventPayloadBuilder = new MessageEventPayloadBuilder();
@@ -260,6 +218,8 @@ class MessageEventPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean MessageEventPayloadBuilder.equals(Object)", "int MessageEventPayloadBuilder.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual3() {
     // Arrange
     MessageEventPayloadBuilder messageEventPayloadBuilder = new MessageEventPayloadBuilder();
@@ -280,6 +240,8 @@ class MessageEventPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean MessageEventPayloadBuilder.equals(Object)", "int MessageEventPayloadBuilder.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual4() {
     // Arrange
     MessageEventPayloadBuilder messageEventPayloadBuilder = new MessageEventPayloadBuilder();
@@ -300,33 +262,12 @@ class MessageEventPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean MessageEventPayloadBuilder.equals(Object)", "int MessageEventPayloadBuilder.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual5() {
     // Arrange
     MessageEventPayloadBuilder messageEventPayloadBuilder = new MessageEventPayloadBuilder();
     messageEventPayloadBuilder.withBusinessKey("Business Key");
-
-    // Act and Assert
-    assertNotEquals(messageEventPayloadBuilder, new MessageEventPayloadBuilder());
-  }
-
-  /**
-   * Test {@link MessageEventPayloadBuilder#equals(Object)}.
-   * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link MessageEventPayloadBuilder#equals(Object)}
-   */
-  @Test
-  @DisplayName("Test equals(Object); when other is different; then return not equal")
-  void testEquals_whenOtherIsDifferent_thenReturnNotEqual6() {
-    // Arrange
-    HashMap<String, Object> variables = new HashMap<>();
-    variables.computeIfPresent("foo", mock(BiFunction.class));
-
-    MessageEventPayloadBuilder messageEventPayloadBuilder = new MessageEventPayloadBuilder();
-    messageEventPayloadBuilder.withVariables(variables);
 
     // Act and Assert
     assertNotEquals(messageEventPayloadBuilder, new MessageEventPayloadBuilder());
@@ -343,6 +284,8 @@ class MessageEventPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean MessageEventPayloadBuilder.equals(Object)", "int MessageEventPayloadBuilder.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new MessageEventPayloadBuilder(), null);
@@ -359,6 +302,8 @@ class MessageEventPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean MessageEventPayloadBuilder.equals(Object)", "int MessageEventPayloadBuilder.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new MessageEventPayloadBuilder(), "Different type to MessageEventPayloadBuilder");
@@ -370,8 +315,7 @@ class MessageEventPayloadBuilderDiffblueTest {
    * Methods under test:
    * <ul>
    *   <li>{@link MessageEventPayloadBuilder#build()}
-   *   <li>default or parameterless constructor of
-   * {@link MessageEventPayloadBuilder}
+   *   <li>default or parameterless constructor of {@link MessageEventPayloadBuilder}
    *   <li>{@link MessageEventPayloadBuilder#withBusinessKey(String)}
    *   <li>{@link MessageEventPayloadBuilder#withCorrelationKey(String)}
    *   <li>{@link MessageEventPayloadBuilder#withName(String)}
@@ -380,6 +324,13 @@ class MessageEventPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test build()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void MessageEventPayloadBuilder.<init>()",
+      "MessageEventPayload MessageEventPayloadBuilder.build()", "String MessageEventPayloadBuilder.toString()",
+      "MessageEventPayloadBuilder MessageEventPayloadBuilder.withBusinessKey(String)",
+      "MessageEventPayloadBuilder MessageEventPayloadBuilder.withCorrelationKey(String)",
+      "MessageEventPayloadBuilder MessageEventPayloadBuilder.withName(String)",
+      "MessageEventPayloadBuilder MessageEventPayloadBuilder.withVariables(Map)"})
   void testBuild() {
     // Arrange
     MessageEventPayloadBuilder withVariableResult = (new MessageEventPayloadBuilder()).withBusinessKey("Business Key")

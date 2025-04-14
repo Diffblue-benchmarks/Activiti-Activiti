@@ -17,125 +17,47 @@ package org.activiti.engine.impl.bpmn.data;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import org.activiti.core.el.juel.ObjectValueExpression;
-import org.activiti.core.el.juel.misc.TypeConverter;
-import org.activiti.engine.delegate.Expression;
-import org.activiti.engine.impl.el.JuelExpression;
-import org.activiti.engine.impl.util.json.JSONObject;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class AbstractDataAssociationDiffblueTest {
   /**
    * Test {@link AbstractDataAssociation#getSource()}.
-   * <ul>
-   *   <li>Given {@code java.lang.Object}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link AbstractDataAssociation#getSource()}
    */
   @Test
-  public void testGetSource_givenJavaLangObject_thenReturnNull() {
-    // Arrange
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-
-    // Act and Assert
-    assertNull((new SimpleDataInputAssociation(
-        new JuelExpression(new ObjectValueExpression(converter, JSONObject.NULL, type), "Expression Text"), "Target"))
-        .getSource());
-  }
-
-  /**
-   * Test {@link AbstractDataAssociation#getSource()}.
-   * <ul>
-   *   <li>Then return {@code Source}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AbstractDataAssociation#getSource()}
-   */
-  @Test
-  public void testGetSource_thenReturnSource() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.String AbstractDataAssociation.getSource()"})
+  public void testGetSource() {
     // Arrange, Act and Assert
     assertEquals("Source", (new SimpleDataInputAssociation("Source", "Target")).getSource());
   }
 
   /**
    * Test {@link AbstractDataAssociation#getTarget()}.
-   * <ul>
-   *   <li>Given {@code java.lang.Object}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link AbstractDataAssociation#getTarget()}
    */
   @Test
-  public void testGetTarget_givenJavaLangObject() {
-    // Arrange
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-
-    // Act and Assert
-    assertEquals("Target",
-        (new SimpleDataInputAssociation(
-            new JuelExpression(new ObjectValueExpression(converter, JSONObject.NULL, type), "Expression Text"),
-            "Target")).getTarget());
-  }
-
-  /**
-   * Test {@link AbstractDataAssociation#getTarget()}.
-   * <ul>
-   *   <li>Given
-   * {@link SimpleDataInputAssociation#SimpleDataInputAssociation(String, String)}
-   * with {@code Source} and {@code Target}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AbstractDataAssociation#getTarget()}
-   */
-  @Test
-  public void testGetTarget_givenSimpleDataInputAssociationWithSourceAndTarget() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.String AbstractDataAssociation.getTarget()"})
+  public void testGetTarget() {
     // Arrange, Act and Assert
     assertEquals("Target", (new SimpleDataInputAssociation("Source", "Target")).getTarget());
   }
 
   /**
    * Test {@link AbstractDataAssociation#getSourceExpression()}.
-   * <ul>
-   *   <li>Given {@code java.lang.Object}.</li>
-   *   <li>Then return {@link JuelExpression}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link AbstractDataAssociation#getSourceExpression()}
    */
   @Test
-  public void testGetSourceExpression_givenJavaLangObject_thenReturnJuelExpression() {
-    // Arrange
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-    SimpleDataInputAssociation simpleDataInputAssociation = new SimpleDataInputAssociation(
-        new JuelExpression(new ObjectValueExpression(converter, JSONObject.NULL, type), "Expression Text"), "Target");
-
-    // Act
-    Expression actualSourceExpression = simpleDataInputAssociation.getSourceExpression();
-
-    // Assert
-    assertTrue(actualSourceExpression instanceof JuelExpression);
-    assertEquals("Expression Text", actualSourceExpression.getExpressionText());
-    assertSame(simpleDataInputAssociation.sourceExpression, actualSourceExpression);
-  }
-
-  /**
-   * Test {@link AbstractDataAssociation#getSourceExpression()}.
-   * <ul>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AbstractDataAssociation#getSourceExpression()}
-   */
-  @Test
-  public void testGetSourceExpression_thenReturnNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.delegate.Expression AbstractDataAssociation.getSourceExpression()"})
+  public void testGetSourceExpression() {
     // Arrange, Act and Assert
     assertNull((new SimpleDataInputAssociation("Source", "Target")).getSourceExpression());
   }

@@ -17,10 +17,13 @@ package org.activiti.engine.impl.el;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.delegate.VariableScope;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class FixedValueDiffblueTest {
   /**
@@ -29,6 +32,8 @@ public class FixedValueDiffblueTest {
    * Method under test: {@link FixedValue#FixedValue(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FixedValue.<init>(Object)"})
   public void testNewFixedValue() {
     // Arrange, Act and Assert
     assertEquals("null", (new FixedValue(JSONObject.NULL)).getExpressionText());
@@ -40,6 +45,8 @@ public class FixedValueDiffblueTest {
    * Method under test: {@link FixedValue#setValue(Object, VariableScope)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FixedValue.setValue(Object, VariableScope)"})
   public void testSetValue() {
     // Arrange
     FixedValue fixedValue = new FixedValue(JSONObject.NULL);
@@ -55,6 +62,8 @@ public class FixedValueDiffblueTest {
    * Method under test: {@link FixedValue#getExpressionText()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.String FixedValue.getExpressionText()"})
   public void testGetExpressionText() {
     // Arrange, Act and Assert
     assertEquals("null", (new FixedValue(JSONObject.NULL)).getExpressionText());

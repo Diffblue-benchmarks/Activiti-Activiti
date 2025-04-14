@@ -17,7 +17,9 @@ package org.activiti.api.task.model.payloads;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class AssignTaskPayloadDiffblueTest {
@@ -28,6 +30,8 @@ class AssignTaskPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test new AssignTaskPayload()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AssignTaskPayload.<init>()"})
   void testNewAssignTaskPayload() {
     // Arrange and Act
     AssignTaskPayload actualAssignTaskPayload = new AssignTaskPayload();
@@ -40,11 +44,12 @@ class AssignTaskPayloadDiffblueTest {
   /**
    * Test {@link AssignTaskPayload#AssignTaskPayload(String, String)}.
    * <p>
-   * Method under test:
-   * {@link AssignTaskPayload#AssignTaskPayload(String, String)}
+   * Method under test: {@link AssignTaskPayload#AssignTaskPayload(String, String)}
    */
   @Test
   @DisplayName("Test new AssignTaskPayload(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AssignTaskPayload.<init>(String, String)"})
   void testNewAssignTaskPayload2() {
     // Arrange and Act
     AssignTaskPayload actualAssignTaskPayload = new AssignTaskPayload("42", "Assignee");
@@ -68,6 +73,10 @@ class AssignTaskPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String AssignTaskPayload.getAssignee()", "String AssignTaskPayload.getId()",
+      "String AssignTaskPayload.getTaskId()", "void AssignTaskPayload.setAssignee(String)",
+      "void AssignTaskPayload.setTaskId(String)"})
   void testGettersAndSetters() {
     // Arrange
     AssignTaskPayload assignTaskPayload = new AssignTaskPayload();
@@ -78,7 +87,7 @@ class AssignTaskPayloadDiffblueTest {
     String actualAssignee = assignTaskPayload.getAssignee();
     assignTaskPayload.getId();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", assignTaskPayload.getTaskId());
     assertEquals("Assignee", actualAssignee);
   }

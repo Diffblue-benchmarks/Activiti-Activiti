@@ -16,17 +16,20 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class GetDeploymentResourceCmdDiffblueTest {
   /**
-   * Test
-   * {@link GetDeploymentResourceCmd#GetDeploymentResourceCmd(String, String)}.
+   * Test {@link GetDeploymentResourceCmd#GetDeploymentResourceCmd(String, String)}.
    * <p>
-   * Method under test:
-   * {@link GetDeploymentResourceCmd#GetDeploymentResourceCmd(String, String)}
+   * Method under test: {@link GetDeploymentResourceCmd#GetDeploymentResourceCmd(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void GetDeploymentResourceCmd.<init>(String, String)"})
   public void testNewGetDeploymentResourceCmd() {
     // Arrange and Act
     GetDeploymentResourceCmd actualGetDeploymentResourceCmd = new GetDeploymentResourceCmd("42", "Resource Name");

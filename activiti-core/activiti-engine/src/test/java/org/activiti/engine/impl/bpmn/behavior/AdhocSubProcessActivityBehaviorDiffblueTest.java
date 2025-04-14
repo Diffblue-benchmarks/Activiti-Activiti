@@ -20,22 +20,19 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Map;
-import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.BooleanDataObject;
-import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.bpmn.model.ValuedDataObject;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.delegate.DelegateExecution;
-import org.activiti.engine.impl.bpmn.parser.factory.DefaultMessageExecutionContext;
-import org.activiti.engine.impl.delegate.MessagePayloadMappingProvider;
-import org.activiti.engine.impl.el.ExpressionManager;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class AdhocSubProcessActivityBehaviorDiffblueTest {
   /**
@@ -44,10 +41,11 @@ public class AdhocSubProcessActivityBehaviorDiffblueTest {
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AdhocSubProcessActivityBehavior#execute(DelegateExecution)}
+   * Method under test: {@link AdhocSubProcessActivityBehavior#execute(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AdhocSubProcessActivityBehavior.execute(DelegateExecution)"})
   public void testExecute_thenThrowActivitiException() {
     // Arrange
     AdhocSubProcessActivityBehavior adhocSubProcessActivityBehavior = new AdhocSubProcessActivityBehavior();
@@ -58,16 +56,17 @@ public class AdhocSubProcessActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AdhocSubProcessActivityBehavior#getSubProcessFromExecution(DelegateExecution)}.
+   * Test {@link AdhocSubProcessActivityBehavior#getSubProcessFromExecution(DelegateExecution)}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AdhocSubProcessActivityBehavior#getSubProcessFromExecution(DelegateExecution)}
+   * Method under test: {@link AdhocSubProcessActivityBehavior#getSubProcessFromExecution(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.bpmn.model.SubProcess AdhocSubProcessActivityBehavior.getSubProcessFromExecution(DelegateExecution)"})
   public void testGetSubProcessFromExecution_thenThrowActivitiException() {
     // Arrange
     AdhocSubProcessActivityBehavior adhocSubProcessActivityBehavior = new AdhocSubProcessActivityBehavior();
@@ -79,39 +78,16 @@ public class AdhocSubProcessActivityBehaviorDiffblueTest {
 
   /**
    * Test {@link AdhocSubProcessActivityBehavior#processDataObjects(Collection)}.
-   * <p>
-   * Method under test:
-   * {@link AdhocSubProcessActivityBehavior#processDataObjects(Collection)}
-   */
-  @Test
-  public void testProcessDataObjects() {
-    // Arrange
-    AdhocSubProcessActivityBehavior adhocSubProcessActivityBehavior = new AdhocSubProcessActivityBehavior();
-    AdhocSubProcess activity = new AdhocSubProcess();
-    MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
-    MessageEventDefinition messageEventDefinition2 = new MessageEventDefinition();
-    adhocSubProcessActivityBehavior
-        .setMultiInstanceActivityBehavior(new ParallelMultiInstanceBehavior(activity,
-            new EventSubProcessMessageStartEventActivityBehavior(messageEventDefinition,
-                new DefaultMessageExecutionContext(messageEventDefinition2, new ExpressionManager(),
-                    mock(MessagePayloadMappingProvider.class)))));
-
-    // Act and Assert
-    assertTrue(adhocSubProcessActivityBehavior.processDataObjects(new ArrayList<>()).isEmpty());
-  }
-
-  /**
-   * Test {@link AdhocSubProcessActivityBehavior#processDataObjects(Collection)}.
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()} add {@link BooleanDataObject} (default
-   * constructor).</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link BooleanDataObject} (default constructor).</li>
    *   <li>Then return size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AdhocSubProcessActivityBehavior#processDataObjects(Collection)}
+   * Method under test: {@link AdhocSubProcessActivityBehavior#processDataObjects(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map AdhocSubProcessActivityBehavior.processDataObjects(Collection)"})
   public void testProcessDataObjects_whenArrayListAddBooleanDataObject_thenReturnSizeIsOne() {
     // Arrange
     AdhocSubProcessActivityBehavior adhocSubProcessActivityBehavior = new AdhocSubProcessActivityBehavior();
@@ -136,10 +112,11 @@ public class AdhocSubProcessActivityBehaviorDiffblueTest {
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AdhocSubProcessActivityBehavior#processDataObjects(Collection)}
+   * Method under test: {@link AdhocSubProcessActivityBehavior#processDataObjects(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map AdhocSubProcessActivityBehavior.processDataObjects(Collection)"})
   public void testProcessDataObjects_whenArrayList_thenReturnEmpty() {
     // Arrange
     AdhocSubProcessActivityBehavior adhocSubProcessActivityBehavior = new AdhocSubProcessActivityBehavior();
@@ -151,15 +128,15 @@ public class AdhocSubProcessActivityBehaviorDiffblueTest {
   /**
    * Test {@link AdhocSubProcessActivityBehavior#processDataObjects(Collection)}.
    * <ul>
-   *   <li>When {@link LinkedHashSet#LinkedHashSet()} add {@link BooleanDataObject}
-   * (default constructor).</li>
+   *   <li>When {@link LinkedHashSet#LinkedHashSet()} add {@link BooleanDataObject} (default constructor).</li>
    *   <li>Then return size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AdhocSubProcessActivityBehavior#processDataObjects(Collection)}
+   * Method under test: {@link AdhocSubProcessActivityBehavior#processDataObjects(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map AdhocSubProcessActivityBehavior.processDataObjects(Collection)"})
   public void testProcessDataObjects_whenLinkedHashSetAddBooleanDataObject_thenReturnSizeIsOne() {
     // Arrange
     AdhocSubProcessActivityBehavior adhocSubProcessActivityBehavior = new AdhocSubProcessActivityBehavior();
@@ -183,10 +160,11 @@ public class AdhocSubProcessActivityBehaviorDiffblueTest {
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AdhocSubProcessActivityBehavior#processDataObjects(Collection)}
+   * Method under test: {@link AdhocSubProcessActivityBehavior#processDataObjects(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map AdhocSubProcessActivityBehavior.processDataObjects(Collection)"})
   public void testProcessDataObjects_whenNull_thenReturnEmpty() {
     // Arrange, Act and Assert
     assertTrue((new AdhocSubProcessActivityBehavior()).processDataObjects(null).isEmpty());
@@ -195,10 +173,11 @@ public class AdhocSubProcessActivityBehaviorDiffblueTest {
   /**
    * Test new {@link AdhocSubProcessActivityBehavior} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link AdhocSubProcessActivityBehavior}
+   * Method under test: default or parameterless constructor of {@link AdhocSubProcessActivityBehavior}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AdhocSubProcessActivityBehavior.<init>()"})
   public void testNewAdhocSubProcessActivityBehavior() {
     // Arrange and Act
     AdhocSubProcessActivityBehavior actualAdhocSubProcessActivityBehavior = new AdhocSubProcessActivityBehavior();

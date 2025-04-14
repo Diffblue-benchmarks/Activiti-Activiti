@@ -21,10 +21,13 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.defaults.DefaultSqlSession;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class BulkDeleteOperationDiffblueTest {
@@ -38,6 +41,8 @@ public class BulkDeleteOperationDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BulkDeleteOperation.<init>(String, Object)", "String BulkDeleteOperation.toString()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("bulk delete: MD(null)", (new BulkDeleteOperation("MD", JSONObject.NULL)).toString());
@@ -47,14 +52,15 @@ public class BulkDeleteOperationDiffblueTest {
    * Test {@link BulkDeleteOperation#execute(SqlSession)}.
    * <ul>
    *   <li>Given one.</li>
-   *   <li>When {@link DefaultSqlSession}
-   * {@link DefaultSqlSession#delete(String, Object)} return one.</li>
+   *   <li>When {@link DefaultSqlSession} {@link DefaultSqlSession#delete(String, Object)} return one.</li>
    *   <li>Then calls {@link DefaultSqlSession#delete(String, Object)}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BulkDeleteOperation#execute(SqlSession)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BulkDeleteOperation.execute(SqlSession)"})
   public void testExecute_givenOne_whenDefaultSqlSessionDeleteReturnOne_thenCallsDelete() {
     // Arrange
     BulkDeleteOperation bulkDeleteOperation = new BulkDeleteOperation("MD", JSONObject.NULL);
@@ -64,7 +70,7 @@ public class BulkDeleteOperationDiffblueTest {
     // Act
     bulkDeleteOperation.execute(sqlSession);
 
-    // Assert that nothing has changed
+    // Assert
     verify(sqlSession).delete(eq("MD"), isA(Object.class));
   }
 }

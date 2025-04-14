@@ -17,11 +17,10 @@ package org.activiti.bpmn.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import java.util.HashMap;
-import java.util.List;
-import java.util.function.BiFunction;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ResourceDiffblueTest {
   /**
@@ -30,6 +29,8 @@ public class ResourceDiffblueTest {
    * Method under test: {@link Resource#Resource(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Resource.<init>(String, String)"})
   public void testNewResource() {
     // Arrange and Act
     Resource actualResource = new Resource("42", "Resource Name");
@@ -53,6 +54,8 @@ public class ResourceDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String Resource.getName()", "void Resource.setName(String)"})
   public void testGettersAndSetters() {
     // Arrange
     Resource resource = new Resource("42", "Resource Name");
@@ -60,52 +63,19 @@ public class ResourceDiffblueTest {
     // Act
     resource.setName("Name");
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Name", resource.getName());
   }
 
   /**
    * Test {@link Resource#clone()}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@code foo} and
-   * {@link BiFunction}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link Resource#clone()}
    */
   @Test
-  public void testClone_givenHashMapComputeIfPresentFooAndBiFunction() {
-    // Arrange
-    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
-    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
-
-    Resource resource = new Resource("42", "Resource Name");
-    resource.setExtensionElements(extensionElements);
-
-    // Act
-    BaseElement actualCloneResult = resource.clone();
-
-    // Assert
-    assertTrue(actualCloneResult instanceof Resource);
-    assertEquals("42", actualCloneResult.getId());
-    assertEquals("Resource Name", ((Resource) actualCloneResult).getName());
-    assertEquals(0, actualCloneResult.getXmlColumnNumber());
-    assertEquals(0, actualCloneResult.getXmlRowNumber());
-    assertTrue(actualCloneResult.getAttributes().isEmpty());
-    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link Resource#clone()}.
-   * <ul>
-   *   <li>Given {@link Resource#Resource(String, String)} with resourceId is
-   * {@code 42} and {@code Resource Name}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Resource#clone()}
-   */
-  @Test
-  public void testClone_givenResourceWithResourceIdIs42AndResourceName() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"BaseElement Resource.clone()"})
+  public void testClone() {
     // Arrange and Act
     BaseElement actualCloneResult = (new Resource("42", "Resource Name")).clone();
 

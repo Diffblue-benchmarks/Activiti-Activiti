@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -30,18 +31,20 @@ import org.activiti.bpmn.model.SendTask;
 import org.activiti.bpmn.model.TaskWithFieldExtensions;
 import org.activiti.validation.ValidationError;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ExternalInvocationTaskValidatorDiffblueTest {
   /**
-   * Test
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}.
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}.
    * <p>
-   * Method under test:
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}
+   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}
    */
   @Test
   @DisplayName("Test validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)"})
   void testValidateFieldDeclarationsForEmail() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
@@ -70,18 +73,18 @@ class ExternalInvocationTaskValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}.
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}.
    * <ul>
-   *   <li>Given {@link FieldExtension} (default constructor) FieldName is
-   * {@code html}.</li>
+   *   <li>Given {@link FieldExtension} (default constructor) FieldName is {@code html}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}
+   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}
    */
   @Test
   @DisplayName("Test validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List); given FieldExtension (default constructor) FieldName is 'html'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)"})
   void testValidateFieldDeclarationsForEmail_givenFieldExtensionFieldNameIsHtml() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
@@ -110,18 +113,18 @@ class ExternalInvocationTaskValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}.
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}.
    * <ul>
-   *   <li>Given {@link FieldExtension} (default constructor) FieldName is
-   * {@code htmlVar}.</li>
+   *   <li>Given {@link FieldExtension} (default constructor) FieldName is {@code htmlVar}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}
+   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}
    */
   @Test
   @DisplayName("Test validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List); given FieldExtension (default constructor) FieldName is 'htmlVar'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)"})
   void testValidateFieldDeclarationsForEmail_givenFieldExtensionFieldNameIsHtmlVar() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
@@ -150,18 +153,18 @@ class ExternalInvocationTaskValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}.
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}.
    * <ul>
-   *   <li>Given {@link FieldExtension} (default constructor) FieldName is
-   * {@code text}.</li>
+   *   <li>Given {@link FieldExtension} (default constructor) FieldName is {@code text}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}
+   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}
    */
   @Test
   @DisplayName("Test validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List); given FieldExtension (default constructor) FieldName is 'text'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)"})
   void testValidateFieldDeclarationsForEmail_givenFieldExtensionFieldNameIsText() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
@@ -190,18 +193,18 @@ class ExternalInvocationTaskValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}.
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}.
    * <ul>
-   *   <li>Given {@link FieldExtension} (default constructor) FieldName is
-   * {@code textVar}.</li>
+   *   <li>Given {@link FieldExtension} (default constructor) FieldName is {@code textVar}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}
+   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}
    */
   @Test
   @DisplayName("Test validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List); given FieldExtension (default constructor) FieldName is 'textVar'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)"})
   void testValidateFieldDeclarationsForEmail_givenFieldExtensionFieldNameIsTextVar() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
@@ -230,18 +233,19 @@ class ExternalInvocationTaskValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}.
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}.
    * <ul>
    *   <li>When {@link SendTask} (default constructor).</li>
    *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}
+   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)}
    */
   @Test
   @DisplayName("Test validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List); when SendTask (default constructor); then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForEmail(Process, TaskWithFieldExtensions, List, List)"})
   void testValidateFieldDeclarationsForEmail_whenSendTask_thenArrayListSizeIsTwo() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
@@ -274,14 +278,15 @@ class ExternalInvocationTaskValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}.
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}.
    * <p>
-   * Method under test:
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}
+   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}
    */
   @Test
   @DisplayName("Test validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)"})
   void testValidateFieldDeclarationsForShell() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
@@ -321,14 +326,15 @@ class ExternalInvocationTaskValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}.
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}.
    * <p>
-   * Method under test:
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}
+   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}
    */
   @Test
   @DisplayName("Test validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)"})
   void testValidateFieldDeclarationsForShell2() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
@@ -358,14 +364,15 @@ class ExternalInvocationTaskValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}.
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}.
    * <p>
-   * Method under test:
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}
+   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}
    */
   @Test
   @DisplayName("Test validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)"})
   void testValidateFieldDeclarationsForShell3() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
@@ -395,53 +402,19 @@ class ExternalInvocationTaskValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}.
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}.
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
+   *   <li>Given {@link ValidationError} (default constructor) ActivityId is {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}
+   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}
    */
   @Test
-  @DisplayName("Test validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List); then ArrayList() Empty")
-  void testValidateFieldDeclarationsForShell_thenArrayListEmpty() {
-    // Arrange
-    SendTaskValidator sendTaskValidator = new SendTaskValidator();
-    Process process = new Process();
-    SendTask task = new SendTask();
-
-    FieldExtension fieldExtension = new FieldExtension();
-    fieldExtension.setFieldName("command");
-
-    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
-    fieldExtensions.add(fieldExtension);
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    sendTaskValidator.validateFieldDeclarationsForShell(process, task, fieldExtensions, errors);
-
-    // Assert that nothing has changed
-    Collection<FlowElement> flowElements = process.getFlowElements();
-    assertTrue(flowElements instanceof List);
-    assertTrue(errors.isEmpty());
-    assertTrue(flowElements.isEmpty());
-  }
-
-  /**
-   * Test
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}.
-   * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}
-   */
-  @Test
-  @DisplayName("Test validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List); then ArrayList() first ActivityId is '42'")
-  void testValidateFieldDeclarationsForShell_thenArrayListFirstActivityIdIs42() {
+  @DisplayName("Test validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List); given ValidationError (default constructor) ActivityId is '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)"})
+  void testValidateFieldDeclarationsForShell_givenValidationErrorActivityIdIs42() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
     Process process = new Process();
@@ -471,9 +444,6 @@ class ExternalInvocationTaskValidatorDiffblueTest {
     // Assert
     assertEquals(2, errors.size());
     ValidationError getResult = errors.get(0);
-    assertEquals("42", getResult.getActivityId());
-    assertEquals("42", getResult.getProcessDefinitionId());
-    assertEquals("SHELL_TASK_NO_COMMAND", getResult.getActivityName());
     assertEquals("SHELL_TASK_NO_COMMAND", getResult.getDefaultDescription());
     ValidationError getResult2 = errors.get(1);
     assertEquals("SHELL_TASK_NO_COMMAND", getResult2.getDefaultDescription());
@@ -481,8 +451,6 @@ class ExternalInvocationTaskValidatorDiffblueTest {
     assertEquals("SHELL_TASK_NO_COMMAND", getResult2.getKey());
     assertEquals("SHELL_TASK_NO_COMMAND", getResult.getProblem());
     assertEquals("SHELL_TASK_NO_COMMAND", getResult2.getProblem());
-    assertEquals("SHELL_TASK_NO_COMMAND", getResult.getProcessDefinitionName());
-    assertEquals("SHELL_TASK_NO_COMMAND", getResult.getValidatorSetName());
     assertNull(getResult2.getActivityId());
     assertNull(getResult2.getActivityName());
     assertNull(getResult2.getProcessDefinitionId());
@@ -490,27 +458,60 @@ class ExternalInvocationTaskValidatorDiffblueTest {
     assertNull(getResult2.getValidatorSetName());
     assertEquals(0, getResult2.getXmlColumnNumber());
     assertEquals(0, getResult2.getXmlLineNumber());
-    assertEquals(10, getResult.getXmlColumnNumber());
-    assertEquals(2, getResult.getXmlLineNumber());
     assertFalse(getResult2.isWarning());
-    assertTrue(getResult.getParams().isEmpty());
     assertTrue(getResult2.getParams().isEmpty());
-    assertTrue(getResult.isWarning());
   }
 
   /**
-   * Test
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}.
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}.
+   * <ul>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}
+   */
+  @Test
+  @DisplayName("Test validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)"})
+  void testValidateFieldDeclarationsForShell_thenArrayListEmpty() {
+    // Arrange
+    SendTaskValidator sendTaskValidator = new SendTaskValidator();
+    Process process = new Process();
+    SendTask task = new SendTask();
+
+    FieldExtension fieldExtension = new FieldExtension();
+    fieldExtension.setFieldName("command");
+
+    ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
+    fieldExtensions.add(fieldExtension);
+    ArrayList<ValidationError> errors = new ArrayList<>();
+
+    // Act
+    sendTaskValidator.validateFieldDeclarationsForShell(process, task, fieldExtensions, errors);
+
+    // Assert that nothing has changed
+    Collection<FlowElement> flowElements = process.getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertTrue(errors.isEmpty());
+    assertTrue(flowElements.isEmpty());
+  }
+
+  /**
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}.
    * <ul>
    *   <li>When {@link SendTask} (default constructor).</li>
    *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}
+   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)}
    */
   @Test
   @DisplayName("Test validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List); when SendTask (default constructor); then ArrayList() size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForShell(Process, TaskWithFieldExtensions, List, List)"})
   void testValidateFieldDeclarationsForShell_whenSendTask_thenArrayListSizeIsOne() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
@@ -534,18 +535,18 @@ class ExternalInvocationTaskValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}.
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}.
    * <ul>
-   *   <li>Given {@link FieldExtension} (default constructor) FieldName is
-   * {@code DMN_TASK_NO_KEY}.</li>
+   *   <li>Given {@link FieldExtension} (default constructor) FieldName is {@code DMN_TASK_NO_KEY}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}
+   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}
    */
   @Test
   @DisplayName("Test validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List); given FieldExtension (default constructor) FieldName is 'DMN_TASK_NO_KEY'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)"})
   void testValidateFieldDeclarationsForDmn_givenFieldExtensionFieldNameIsDmnTaskNoKey() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
@@ -584,18 +585,18 @@ class ExternalInvocationTaskValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}.
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}.
    * <ul>
-   *   <li>Given {@link FieldExtension} (default constructor) StringValue is empty
-   * string.</li>
+   *   <li>Given {@link FieldExtension} (default constructor) StringValue is empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}
+   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}
    */
   @Test
   @DisplayName("Test validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List); given FieldExtension (default constructor) StringValue is empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)"})
   void testValidateFieldDeclarationsForDmn_givenFieldExtensionStringValueIsEmptyString() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
@@ -634,18 +635,18 @@ class ExternalInvocationTaskValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}.
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}.
    * <ul>
-   *   <li>Given {@link FieldExtension} (default constructor) StringValue is
-   * {@code null}.</li>
+   *   <li>Given {@link FieldExtension} (default constructor) StringValue is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}
+   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}
    */
   @Test
   @DisplayName("Test validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List); given FieldExtension (default constructor) StringValue is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)"})
   void testValidateFieldDeclarationsForDmn_givenFieldExtensionStringValueIsNull() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
@@ -684,17 +685,18 @@ class ExternalInvocationTaskValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}.
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}
+   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}
    */
   @Test
   @DisplayName("Test validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)"})
   void testValidateFieldDeclarationsForDmn_thenArrayListEmpty() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
@@ -720,17 +722,18 @@ class ExternalInvocationTaskValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}.
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}
+   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}
    */
   @Test
   @DisplayName("Test validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List); then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)"})
   void testValidateFieldDeclarationsForDmn_thenArrayListSizeIsTwo() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();
@@ -776,18 +779,19 @@ class ExternalInvocationTaskValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}.
+   * Test {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}.
    * <ul>
    *   <li>When {@link SendTask} (default constructor).</li>
    *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}
+   * Method under test: {@link ExternalInvocationTaskValidator#validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)}
    */
   @Test
   @DisplayName("Test validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List); when SendTask (default constructor); then ArrayList() size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void ExternalInvocationTaskValidator.validateFieldDeclarationsForDmn(Process, TaskWithFieldExtensions, List, List)"})
   void testValidateFieldDeclarationsForDmn_whenSendTask_thenArrayListSizeIsOne() {
     // Arrange
     SendTaskValidator sendTaskValidator = new SendTaskValidator();

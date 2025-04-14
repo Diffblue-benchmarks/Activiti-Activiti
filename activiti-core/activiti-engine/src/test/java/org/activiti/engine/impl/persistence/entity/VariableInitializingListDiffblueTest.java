@@ -20,24 +20,26 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class VariableInitializingListDiffblueTest {
   /**
-   * Test {@link VariableInitializingList#add(int, VariableInstanceEntity)} with
-   * {@code int}, {@code VariableInstanceEntity}.
+   * Test {@link VariableInitializingList#add(int, VariableInstanceEntity)} with {@code int}, {@code VariableInstanceEntity}.
    * <ul>
-   *   <li>Then {@link VariableInitializingList} (default constructor) size is
-   * one.</li>
+   *   <li>Then {@link VariableInitializingList} (default constructor) size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableInitializingList#add(int, VariableInstanceEntity)}
+   * Method under test: {@link VariableInitializingList#add(int, VariableInstanceEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableInitializingList.add(int, VariableInstanceEntity)"})
   public void testAddWithIntVariableInstanceEntity_thenVariableInitializingListSizeIsOne() {
     // Arrange
     VariableInitializingList variableInitializingList = new VariableInitializingList();
@@ -52,43 +54,16 @@ public class VariableInitializingListDiffblueTest {
   }
 
   /**
-   * Test {@link VariableInitializingList#add(int, VariableInstanceEntity)} with
-   * {@code int}, {@code VariableInstanceEntity}.
+   * Test {@link VariableInitializingList#add(VariableInstanceEntity)} with {@code VariableInstanceEntity}.
    * <ul>
-   *   <li>Then {@link VariableInitializingList} (default constructor) size is
-   * two.</li>
+   *   <li>Then {@link VariableInitializingList} (default constructor) size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableInitializingList#add(int, VariableInstanceEntity)}
+   * Method under test: {@link VariableInitializingList#add(VariableInstanceEntity)}
    */
   @Test
-  public void testAddWithIntVariableInstanceEntity_thenVariableInitializingListSizeIsTwo() {
-    // Arrange
-    VariableInitializingList variableInitializingList = new VariableInitializingList();
-    VariableInstanceEntityImpl e = new VariableInstanceEntityImpl();
-    variableInitializingList.add(e);
-
-    // Act
-    variableInitializingList.add(1, null);
-
-    // Assert that nothing has changed
-    assertEquals(2, variableInitializingList.size());
-    assertSame(e, variableInitializingList.get(0));
-  }
-
-  /**
-   * Test {@link VariableInitializingList#add(VariableInstanceEntity)} with
-   * {@code VariableInstanceEntity}.
-   * <ul>
-   *   <li>Then {@link VariableInitializingList} (default constructor) size is
-   * one.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link VariableInitializingList#add(VariableInstanceEntity)}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean VariableInitializingList.add(VariableInstanceEntity)"})
   public void testAddWithVariableInstanceEntity_thenVariableInitializingListSizeIsOne() {
     // Arrange
     VariableInitializingList variableInitializingList = new VariableInitializingList();
@@ -104,17 +79,16 @@ public class VariableInitializingListDiffblueTest {
   }
 
   /**
-   * Test {@link VariableInitializingList#add(VariableInstanceEntity)} with
-   * {@code VariableInstanceEntity}.
+   * Test {@link VariableInitializingList#add(VariableInstanceEntity)} with {@code VariableInstanceEntity}.
    * <ul>
-   *   <li>Then {@link VariableInitializingList} (default constructor) size is
-   * two.</li>
+   *   <li>Then {@link VariableInitializingList} (default constructor) size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableInitializingList#add(VariableInstanceEntity)}
+   * Method under test: {@link VariableInitializingList#add(VariableInstanceEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean VariableInitializingList.add(VariableInstanceEntity)"})
   public void testAddWithVariableInstanceEntity_thenVariableInitializingListSizeIsTwo() {
     // Arrange
     ArrayList<VariableInstanceEntity> c = new ArrayList<>();
@@ -139,13 +113,14 @@ public class VariableInitializingListDiffblueTest {
    * Test {@link VariableInitializingList#addAll(Collection)} with {@code c}.
    * <ul>
    *   <li>Given {@code null}.</li>
-   *   <li>Then {@link VariableInitializingList} (default constructor) size is
-   * one.</li>
+   *   <li>Then {@link VariableInitializingList} (default constructor) size is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link VariableInitializingList#addAll(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean VariableInitializingList.addAll(Collection)"})
   public void testAddAllWithC_givenNull_thenVariableInitializingListSizeIsOne() {
     // Arrange
     VariableInitializingList variableInitializingList = new VariableInitializingList();
@@ -159,20 +134,20 @@ public class VariableInitializingListDiffblueTest {
     // Assert
     assertEquals(1, variableInitializingList.size());
     assertNull(variableInitializingList.get(0));
-    assertEquals(1, c.size());
     assertTrue(actualAddAllResult);
   }
 
   /**
    * Test {@link VariableInitializingList#addAll(Collection)} with {@code c}.
    * <ul>
-   *   <li>Then {@link VariableInitializingList} (default constructor) size is
-   * two.</li>
+   *   <li>Then {@link VariableInitializingList} (default constructor) size is two.</li>
    * </ul>
    * <p>
    * Method under test: {@link VariableInitializingList#addAll(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean VariableInitializingList.addAll(Collection)"})
   public void testAddAllWithC_thenVariableInitializingListSizeIsTwo() {
     // Arrange
     VariableInitializingList variableInitializingList = new VariableInitializingList();
@@ -203,6 +178,8 @@ public class VariableInitializingListDiffblueTest {
    * Method under test: {@link VariableInitializingList#addAll(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean VariableInitializingList.addAll(Collection)"})
   public void testAddAllWithC_whenArrayList_thenReturnFalse() {
     // Arrange
     VariableInitializingList variableInitializingList = new VariableInitializingList();
@@ -215,8 +192,7 @@ public class VariableInitializingListDiffblueTest {
   }
 
   /**
-   * Test {@link VariableInitializingList#addAll(int, Collection)} with
-   * {@code index}, {@code c}.
+   * Test {@link VariableInitializingList#addAll(int, Collection)} with {@code index}, {@code c}.
    * <ul>
    *   <li>Given {@link VariableInstanceEntityImpl} (default constructor).</li>
    *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
@@ -225,6 +201,8 @@ public class VariableInitializingListDiffblueTest {
    * Method under test: {@link VariableInitializingList#addAll(int, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean VariableInitializingList.addAll(int, Collection)"})
   public void testAddAllWithIndexC_givenVariableInstanceEntityImpl_thenArrayListSizeIsOne() {
     // Arrange
     VariableInitializingList variableInitializingList = new VariableInitializingList();
@@ -244,37 +222,39 @@ public class VariableInitializingListDiffblueTest {
   }
 
   /**
-   * Test {@link VariableInitializingList#addAll(int, Collection)} with
-   * {@code index}, {@code c}.
+   * Test {@link VariableInitializingList#addAll(int, Collection)} with {@code index}, {@code c}.
    * <ul>
-   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor).</li>
-   *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
+   *   <li>Then {@link VariableInitializingList} (default constructor) size is two.</li>
    * </ul>
    * <p>
    * Method under test: {@link VariableInitializingList#addAll(int, Collection)}
    */
   @Test
-  public void testAddAllWithIndexC_givenVariableInstanceEntityImpl_thenArrayListSizeIsTwo() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean VariableInitializingList.addAll(int, Collection)"})
+  public void testAddAllWithIndexC_thenVariableInitializingListSizeIsTwo() {
     // Arrange
     VariableInitializingList variableInitializingList = new VariableInitializingList();
 
     ArrayList<VariableInstanceEntity> c = new ArrayList<>();
-    c.add(new VariableInstanceEntityImpl());
     VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
     c.add(variableInstanceEntityImpl);
+    VariableInstanceEntityImpl variableInstanceEntityImpl2 = new VariableInstanceEntityImpl();
+    c.add(variableInstanceEntityImpl2);
 
     // Act
-    variableInitializingList.addAll(0, c);
+    boolean actualAddAllResult = variableInitializingList.addAll(0, c);
 
     // Assert
-    assertEquals(2, c.size());
     assertEquals(2, variableInitializingList.size());
-    assertSame(variableInstanceEntityImpl, variableInitializingList.get(1));
+    assertTrue(actualAddAllResult);
+    assertEquals(variableInitializingList, c);
+    assertSame(variableInstanceEntityImpl, variableInitializingList.get(0));
+    assertSame(variableInstanceEntityImpl2, variableInitializingList.get(1));
   }
 
   /**
-   * Test {@link VariableInitializingList#addAll(int, Collection)} with
-   * {@code index}, {@code c}.
+   * Test {@link VariableInitializingList#addAll(int, Collection)} with {@code index}, {@code c}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    *   <li>Then return {@code false}.</li>
@@ -283,6 +263,8 @@ public class VariableInitializingListDiffblueTest {
    * Method under test: {@link VariableInitializingList#addAll(int, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean VariableInitializingList.addAll(int, Collection)"})
   public void testAddAllWithIndexC_whenArrayList_thenReturnFalse() {
     // Arrange
     VariableInitializingList variableInitializingList = new VariableInitializingList();
@@ -297,10 +279,11 @@ public class VariableInitializingListDiffblueTest {
   /**
    * Test new {@link VariableInitializingList} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link VariableInitializingList}
+   * Method under test: default or parameterless constructor of {@link VariableInitializingList}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableInitializingList.<init>()"})
   public void testNewVariableInitializingList() {
     // Arrange, Act and Assert
     assertTrue((new VariableInitializingList()).isEmpty());

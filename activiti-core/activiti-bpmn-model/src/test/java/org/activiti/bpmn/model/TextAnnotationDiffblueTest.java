@@ -18,57 +18,21 @@ package org.activiti.bpmn.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import java.util.HashMap;
-import java.util.List;
-import java.util.function.BiFunction;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class TextAnnotationDiffblueTest {
   /**
    * Test {@link TextAnnotation#clone()}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@code foo} and
-   * {@link BiFunction}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link TextAnnotation#clone()}
    */
   @Test
-  public void testClone_givenHashMapComputeIfPresentFooAndBiFunction() {
-    // Arrange
-    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
-    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
-
-    TextAnnotation textAnnotation = new TextAnnotation();
-    textAnnotation.setExtensionElements(extensionElements);
-
-    // Act
-    TextAnnotation actualCloneResult = textAnnotation.clone();
-
-    // Assert
-    assertNull(actualCloneResult.getId());
-    assertNull(actualCloneResult.getText());
-    assertNull(actualCloneResult.getTextFormat());
-    assertEquals(0, actualCloneResult.getXmlColumnNumber());
-    assertEquals(0, actualCloneResult.getXmlRowNumber());
-    assertTrue(actualCloneResult.getAttributes().isEmpty());
-    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link TextAnnotation#clone()}.
-   * <ul>
-   *   <li>Given {@link TextAnnotation} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TextAnnotation#clone()}
-   */
-  @Test
-  public void testClone_givenTextAnnotation() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TextAnnotation TextAnnotation.clone()"})
+  public void testClone() {
     // Arrange and Act
     TextAnnotation actualCloneResult = (new TextAnnotation()).clone();
 
@@ -80,31 +44,6 @@ public class TextAnnotationDiffblueTest {
     assertEquals(0, actualCloneResult.getXmlRowNumber());
     assertTrue(actualCloneResult.getAttributes().isEmpty());
     assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link TextAnnotation#setValues(TextAnnotation)} with
-   * {@code TextAnnotation}.
-   * <ul>
-   *   <li>Then calls {@link ExtensionElement#getName()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TextAnnotation#setValues(TextAnnotation)}
-   */
-  @Test
-  public void testSetValuesWithTextAnnotation_thenCallsGetName() {
-    // Arrange
-    ExtensionElement extensionElement = mock(ExtensionElement.class);
-    when(extensionElement.getName()).thenReturn("Name");
-
-    TextAnnotation textAnnotation = new TextAnnotation();
-    textAnnotation.addExtensionElement(extensionElement);
-
-    // Act
-    textAnnotation.setValues(new TextAnnotation());
-
-    // Assert
-    verify(extensionElement, atLeast(1)).getName();
   }
 
   /**
@@ -120,6 +59,10 @@ public class TextAnnotationDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TextAnnotation.<init>()", "String TextAnnotation.getText()",
+      "String TextAnnotation.getTextFormat()", "void TextAnnotation.setText(String)",
+      "void TextAnnotation.setTextFormat(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     TextAnnotation actualTextAnnotation = new TextAnnotation();
@@ -127,9 +70,10 @@ public class TextAnnotationDiffblueTest {
     actualTextAnnotation.setTextFormat("Text Format");
     String actualText = actualTextAnnotation.getText();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Text Format", actualTextAnnotation.getTextFormat());
     assertEquals("Text", actualText);
+    assertNull(actualTextAnnotation.getId());
     assertEquals(0, actualTextAnnotation.getXmlColumnNumber());
     assertEquals(0, actualTextAnnotation.getXmlRowNumber());
     assertTrue(actualTextAnnotation.getAttributes().isEmpty());

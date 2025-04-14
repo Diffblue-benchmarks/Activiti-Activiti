@@ -17,28 +17,45 @@ package org.activiti.engine.impl.bpmn.parser.handler;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.HashMap;
+import java.util.List;
 import org.activiti.bpmn.model.BaseElement;
+import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.CancelEventDefinition;
 import org.activiti.bpmn.model.EndEvent;
+import org.activiti.bpmn.model.EventDefinition;
+import org.activiti.bpmn.model.Message;
+import org.activiti.bpmn.model.Message.Builder;
+import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.bpmn.model.TerminateEventDefinition;
 import org.activiti.engine.impl.bpmn.behavior.CancelEndEventActivityBehavior;
 import org.activiti.engine.impl.bpmn.behavior.NoneEndEventActivityBehavior;
 import org.activiti.engine.impl.bpmn.behavior.TerminateEndEventActivityBehavior;
+import org.activiti.engine.impl.bpmn.behavior.ThrowMessageEndEventActivityBehavior;
 import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
+import org.activiti.engine.impl.bpmn.parser.factory.DefaultMessageExecutionContext;
+import org.activiti.engine.impl.bpmn.parser.factory.MessageExecutionContext;
+import org.activiti.engine.impl.delegate.BpmnMessagePayloadMappingProvider;
+import org.activiti.engine.impl.delegate.DefaultThrowMessageJavaDelegate;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class EndEventParseHandlerDiffblueTest {
   /**
-   * Test {@link EndEventParseHandler#executeParse(BpmnParse, EndEvent)} with
-   * {@code BpmnParse}, {@code EndEvent}.
+   * Test {@link EndEventParseHandler#executeParse(BpmnParse, EndEvent)} with {@code BpmnParse}, {@code EndEvent}.
    * <p>
-   * Method under test:
-   * {@link EndEventParseHandler#executeParse(BpmnParse, EndEvent)}
+   * Method under test: {@link EndEventParseHandler#executeParse(BpmnParse, EndEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EndEventParseHandler.executeParse(BpmnParse, EndEvent)"})
   public void testExecuteParseWithBpmnParseEndEvent() {
     // Arrange
     EndEventParseHandler endEventParseHandler = new EndEventParseHandler();
@@ -56,13 +73,13 @@ public class EndEventParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link EndEventParseHandler#executeParse(BpmnParse, EndEvent)} with
-   * {@code BpmnParse}, {@code EndEvent}.
+   * Test {@link EndEventParseHandler#executeParse(BpmnParse, EndEvent)} with {@code BpmnParse}, {@code EndEvent}.
    * <p>
-   * Method under test:
-   * {@link EndEventParseHandler#executeParse(BpmnParse, EndEvent)}
+   * Method under test: {@link EndEventParseHandler#executeParse(BpmnParse, EndEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EndEventParseHandler.executeParse(BpmnParse, EndEvent)"})
   public void testExecuteParseWithBpmnParseEndEvent2() {
     // Arrange
     EndEventParseHandler endEventParseHandler = new EndEventParseHandler();
@@ -82,13 +99,13 @@ public class EndEventParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link EndEventParseHandler#executeParse(BpmnParse, EndEvent)} with
-   * {@code BpmnParse}, {@code EndEvent}.
+   * Test {@link EndEventParseHandler#executeParse(BpmnParse, EndEvent)} with {@code BpmnParse}, {@code EndEvent}.
    * <p>
-   * Method under test:
-   * {@link EndEventParseHandler#executeParse(BpmnParse, EndEvent)}
+   * Method under test: {@link EndEventParseHandler#executeParse(BpmnParse, EndEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EndEventParseHandler.executeParse(BpmnParse, EndEvent)"})
   public void testExecuteParseWithBpmnParseEndEvent3() {
     // Arrange
     EndEventParseHandler endEventParseHandler = new EndEventParseHandler();
@@ -111,13 +128,13 @@ public class EndEventParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link EndEventParseHandler#executeParse(BpmnParse, EndEvent)} with
-   * {@code BpmnParse}, {@code EndEvent}.
+   * Test {@link EndEventParseHandler#executeParse(BpmnParse, EndEvent)} with {@code BpmnParse}, {@code EndEvent}.
    * <p>
-   * Method under test:
-   * {@link EndEventParseHandler#executeParse(BpmnParse, EndEvent)}
+   * Method under test: {@link EndEventParseHandler#executeParse(BpmnParse, EndEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EndEventParseHandler.executeParse(BpmnParse, EndEvent)"})
   public void testExecuteParseWithBpmnParseEndEvent4() {
     // Arrange
     EndEventParseHandler endEventParseHandler = new EndEventParseHandler();
@@ -137,6 +154,68 @@ public class EndEventParseHandlerDiffblueTest {
   }
 
   /**
+   * Test {@link EndEventParseHandler#executeParse(BpmnParse, EndEvent)} with {@code BpmnParse}, {@code EndEvent}.
+   * <ul>
+   *   <li>Then {@link EndEvent} (default constructor) EventDefinitions size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link EndEventParseHandler#executeParse(BpmnParse, EndEvent)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EndEventParseHandler.executeParse(BpmnParse, EndEvent)"})
+  public void testExecuteParseWithBpmnParseEndEvent_thenEndEventEventDefinitionsSizeIsOne() {
+    // Arrange
+    EndEventParseHandler endEventParseHandler = new EndEventParseHandler();
+
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    BpmnModel bpmnModel = new BpmnModel();
+    Builder builderResult = Message.builder();
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
+    Message message = attributesResult.extensionElements(new HashMap<>())
+        .id("42")
+        .itemRef("Item Ref")
+        .name("Name")
+        .xmlColumnNumber(10)
+        .xmlRowNumber(10)
+        .build();
+    bpmnModel.addMessage(message);
+
+    BpmnParse bpmnParse = new BpmnParse(parser);
+    bpmnParse.setBpmnModel(bpmnModel);
+
+    MessageEventDefinition eventDefinition = new MessageEventDefinition();
+    eventDefinition.setMessageRef("42");
+
+    EndEvent endEvent = new EndEvent();
+    endEvent.addEventDefinition(eventDefinition);
+
+    // Act
+    endEventParseHandler.executeParse(bpmnParse, endEvent);
+
+    // Assert
+    List<EventDefinition> eventDefinitions = endEvent.getEventDefinitions();
+    assertEquals(1, eventDefinitions.size());
+    EventDefinition getResult = eventDefinitions.get(0);
+    assertTrue(getResult instanceof MessageEventDefinition);
+    Object behavior = endEvent.getBehavior();
+    assertTrue(behavior instanceof ThrowMessageEndEventActivityBehavior);
+    MessageExecutionContext messageExecutionContext = ((ThrowMessageEndEventActivityBehavior) behavior)
+        .getMessageExecutionContext();
+    assertTrue(messageExecutionContext instanceof DefaultMessageExecutionContext);
+    assertTrue(((DefaultMessageExecutionContext) messageExecutionContext)
+        .getMessagePayloadMappingProvider() instanceof BpmnMessagePayloadMappingProvider);
+    assertTrue(
+        ((ThrowMessageEndEventActivityBehavior) behavior).getDelegate() instanceof DefaultThrowMessageJavaDelegate);
+    assertEquals("Name", ((MessageEventDefinition) getResult).getMessageRef());
+    assertNull(((DefaultMessageExecutionContext) messageExecutionContext).getExpressionManager());
+    assertSame(endEvent, ((ThrowMessageEndEventActivityBehavior) behavior).getEndEvent());
+    assertSame(eventDefinition, ((ThrowMessageEndEventActivityBehavior) behavior).getMessageEventDefinition());
+  }
+
+  /**
    * Test getters and setters.
    * <p>
    * Methods under test:
@@ -146,6 +225,8 @@ public class EndEventParseHandlerDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EndEventParseHandler.<init>()", "Class EndEventParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends BaseElement> actualHandledType = (new EndEventParseHandler()).getHandledType();

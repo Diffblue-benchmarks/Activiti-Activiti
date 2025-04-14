@@ -22,7 +22,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.AbstractMap;
@@ -32,8 +33,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.function.BiFunction;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class JSONObjectDiffblueTest {
   /**
@@ -42,9 +43,23 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#JSONObject()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONObject.<init>()"})
   public void testNewJSONObject() {
     // Arrange, Act and Assert
     assertEquals(0, (new JSONObject()).length());
+  }
+
+  /**
+   * Test {@link JSONObject#JSONObject(Object, String[])}.
+   * <p>
+   * Method under test: {@link JSONObject#JSONObject(Object, String[])}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONObject.<init>(Object, String[])"})
+  public void testNewJSONObject2() {
+    // Arrange, Act and Assert
     assertEquals(0, (new JSONObject(JSONObject.NULL, new String[]{"Names"})).length());
   }
 
@@ -59,6 +74,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#JSONObject(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONObject.<init>(Map)"})
   public void testNewJSONObject_givenA_whenHashMapNullIsA_thenReturnLengthIsOne() {
     // Arrange
     HashMap<Object, Object> map = new HashMap<>();
@@ -71,35 +88,15 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#JSONObject(Map)}.
    * <ul>
-   *   <li>Given {@link BiFunction}.</li>
-   *   <li>When {@link HashMap#HashMap()} computeIfPresent {@link JSONObject#NULL}
-   * and {@link BiFunction}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JSONObject#JSONObject(Map)}
-   */
-  @Test
-  public void testNewJSONObject_givenBiFunction_whenHashMapComputeIfPresentNullAndBiFunction() {
-    // Arrange
-    HashMap<Object, Object> map = new HashMap<>();
-    map.computeIfPresent(JSONObject.NULL, mock(BiFunction.class));
-    map.put(JSONObject.NULL, JSONObject.NULL);
-
-    // Act and Assert
-    assertEquals(1, (new JSONObject((Map) map)).length());
-  }
-
-  /**
-   * Test {@link JSONObject#JSONObject(Map)}.
-   * <ul>
    *   <li>Given {@link JSONArray#JSONArray()}.</li>
-   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is
-   * {@link JSONArray#JSONArray()}.</li>
+   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@link JSONArray#JSONArray()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#JSONObject(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONObject.<init>(Map)"})
   public void testNewJSONObject_givenJSONArray_whenHashMapNullIsJSONArray() {
     // Arrange
     HashMap<Object, Object> map = new HashMap<>();
@@ -113,13 +110,14 @@ public class JSONObjectDiffblueTest {
    * Test {@link JSONObject#JSONObject(Map)}.
    * <ul>
    *   <li>Given {@link JSONObject#JSONObject()}.</li>
-   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is
-   * {@link JSONObject#JSONObject()}.</li>
+   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@link JSONObject#JSONObject()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#JSONObject(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONObject.<init>(Map)"})
   public void testNewJSONObject_givenJSONObject_whenHashMapNullIsJSONObject() {
     // Arrange
     HashMap<Object, Object> map = new HashMap<>();
@@ -133,14 +131,15 @@ public class JSONObjectDiffblueTest {
    * Test {@link JSONObject#JSONObject(Map)}.
    * <ul>
    *   <li>Given {@link JSONObject#NULL}.</li>
-   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is
-   * {@link JSONObject#NULL}.</li>
+   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@link JSONObject#NULL}.</li>
    *   <li>Then return length is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#JSONObject(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONObject.<init>(Map)"})
   public void testNewJSONObject_givenNull_whenHashMapNullIsNull_thenReturnLengthIsOne() {
     // Arrange
     HashMap<Object, Object> map = new HashMap<>();
@@ -154,14 +153,15 @@ public class JSONObjectDiffblueTest {
    * Test {@link JSONObject#JSONObject(Map)}.
    * <ul>
    *   <li>Given {@code null}.</li>
-   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is
-   * {@code null}.</li>
+   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@code null}.</li>
    *   <li>Then return length is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#JSONObject(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONObject.<init>(Map)"})
   public void testNewJSONObject_givenNull_whenHashMapNullIsNull_thenReturnLengthIsOne2() {
     // Arrange
     HashMap<Object, Object> map = new HashMap<>();
@@ -182,6 +182,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#JSONObject(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONObject.<init>(Map)"})
   public void testNewJSONObject_givenOne_whenHashMapNullIsOne_thenReturnLengthIsOne() {
     // Arrange
     HashMap<Object, Object> map = new HashMap<>();
@@ -202,6 +204,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#JSONObject(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONObject.<init>(Map)"})
   public void testNewJSONObject_givenOne_whenHashMapNullIsOne_thenReturnLengthIsOne2() {
     // Arrange
     HashMap<Object, Object> map = new HashMap<>();
@@ -222,6 +226,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#JSONObject(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONObject.<init>(Map)"})
   public void testNewJSONObject_givenOne_whenHashMapNullIsOne_thenReturnLengthIsOne3() {
     // Arrange
     HashMap<Object, Object> map = new HashMap<>();
@@ -234,17 +240,78 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#JSONObject(Map)}.
    * <ul>
-   *   <li>Given {@link SimpleEntry#SimpleEntry(Object, Object)} with
-   * {@link JSONObject#NULL} and {@link JSONObject#NULL}.</li>
+   *   <li>Given {@link AbstractMap.SimpleEntry#SimpleEntry(Object, Object)} with {@link JSONArray#JSONArray()} and {@link JSONObject#NULL}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#JSONObject(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONObject.<init>(Map)"})
+  public void testNewJSONObject_givenSimpleEntryWithJSONArrayAndNull() {
+    // Arrange
+    HashMap<Object, Object> map = new HashMap<>();
+    map.put(JSONObject.NULL, new SimpleEntry<>(new JSONArray(), JSONObject.NULL));
+
+    // Act and Assert
+    assertEquals(1, (new JSONObject((Map) map)).length());
+  }
+
+  /**
+   * Test {@link JSONObject#JSONObject(Map)}.
+   * <ul>
+   *   <li>Given {@link AbstractMap.SimpleEntry#SimpleEntry(Object, Object)} with {@link JSONObject#JSONObject()} and {@link JSONObject#NULL}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#JSONObject(Map)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONObject.<init>(Map)"})
+  public void testNewJSONObject_givenSimpleEntryWithJSONObjectAndNull() {
+    // Arrange
+    HashMap<Object, Object> map = new HashMap<>();
+    map.put(JSONObject.NULL, new SimpleEntry<>(new JSONObject(), JSONObject.NULL));
+
+    // Act and Assert
+    assertEquals(1, (new JSONObject((Map) map)).length());
+  }
+
+  /**
+   * Test {@link JSONObject#JSONObject(Map)}.
+   * <ul>
+   *   <li>Given {@link AbstractMap.SimpleEntry#SimpleEntry(Object, Object)} with {@link JSONObject#NULL} and {@link JSONObject#NULL}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#JSONObject(Map)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONObject.<init>(Map)"})
   public void testNewJSONObject_givenSimpleEntryWithNullAndNull() {
     // Arrange
     HashMap<Object, Object> map = new HashMap<>();
-    map.put(JSONObject.NULL, new AbstractMap.SimpleEntry<>(JSONObject.NULL, JSONObject.NULL));
+    map.put(JSONObject.NULL, new SimpleEntry<>(JSONObject.NULL, JSONObject.NULL));
+
+    // Act and Assert
+    assertEquals(1, (new JSONObject((Map) map)).length());
+  }
+
+  /**
+   * Test {@link JSONObject#JSONObject(Map)}.
+   * <ul>
+   *   <li>Given {@link AbstractMap.SimpleEntry#SimpleEntry(Object, Object)} with toJSONObject {@code https://example.org/example} and {@link JSONObject#NULL}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#JSONObject(Map)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONObject.<init>(Map)"})
+  public void testNewJSONObject_givenSimpleEntryWithToJSONObjectHttpsExampleOrgExampleAndNull() throws JSONException {
+    // Arrange
+    HashMap<Object, Object> map = new HashMap<>();
+    map.put(JSONObject.NULL, new SimpleEntry<>(HTTP.toJSONObject("https://example.org/example"), JSONObject.NULL));
 
     // Act and Assert
     assertEquals(1, (new JSONObject((Map) map)).length());
@@ -254,13 +321,14 @@ public class JSONObjectDiffblueTest {
    * Test {@link JSONObject#JSONObject(Map)}.
    * <ul>
    *   <li>Given start of heading.</li>
-   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is start of
-   * heading.</li>
+   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is start of heading.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#JSONObject(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONObject.<init>(Map)"})
   public void testNewJSONObject_givenStartOfHeading_whenHashMapNullIsStartOfHeading() {
     // Arrange
     HashMap<Object, Object> map = new HashMap<>();
@@ -281,6 +349,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#JSONObject(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONObject.<init>(Map)"})
   public void testNewJSONObject_givenTen_whenHashMapNullIsTen_thenReturnLengthIsOne() {
     // Arrange
     HashMap<Object, Object> map = new HashMap<>();
@@ -294,14 +364,15 @@ public class JSONObjectDiffblueTest {
    * Test {@link JSONObject#JSONObject(Map)}.
    * <ul>
    *   <li>Given {@code true}.</li>
-   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is
-   * {@code true}.</li>
+   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@code true}.</li>
    *   <li>Then return length is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#JSONObject(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONObject.<init>(Map)"})
   public void testNewJSONObject_givenTrue_whenHashMapNullIsTrue_thenReturnLengthIsOne() {
     // Arrange
     HashMap<Object, Object> map = new HashMap<>();
@@ -321,6 +392,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#JSONObject(JSONObject, String[])}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONObject.<init>(JSONObject, String[])"})
   public void testNewJSONObject_whenArrayOfStringWithNull_thenReturnLengthIsZero() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(0, (new JSONObject(Cookie.toJSONObject("=;"), new String[]{null})).length());
@@ -336,6 +409,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#JSONObject(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONObject.<init>(Object)"})
   public void testNewJSONObject_whenBean_thenReturnLengthIsThree() {
     // Arrange, Act and Assert
     assertEquals(3, (new JSONObject((Object) "Bean")).length());
@@ -351,6 +426,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#JSONObject(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONObject.<init>(Map)"})
   public void testNewJSONObject_whenHashMap_thenReturnLengthIsZero() {
     // Arrange, Act and Assert
     assertEquals(0, (new JSONObject((Map) new HashMap<>())).length());
@@ -366,9 +443,27 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#JSONObject(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONObject.<init>(Object)"})
   public void testNewJSONObject_whenNull_thenReturnLengthIsZero() {
     // Arrange, Act and Assert
     assertEquals(0, (new JSONObject(JSONObject.NULL)).length());
+  }
+
+  /**
+   * Test {@link JSONObject#JSONObject(JSONObject, String[])}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   *   <li>Then return length is zero.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#JSONObject(JSONObject, String[])}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONObject.<init>(JSONObject, String[])"})
+  public void testNewJSONObject_whenNull_thenReturnLengthIsZero2() {
+    // Arrange, Act and Assert
     assertEquals(0, (new JSONObject((JSONObject) null, new String[]{"Names"})).length());
   }
 
@@ -382,6 +477,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#JSONObject(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONObject.<init>(Object)"})
   public void testNewJSONObject_whenOne_thenReturnLengthIsZero() {
     // Arrange, Act and Assert
     assertEquals(0, (new JSONObject(1)).length());
@@ -397,6 +494,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#JSONObject(JSONObject, String[])}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONObject.<init>(JSONObject, String[])"})
   public void testNewJSONObject_whenToJSONObjectEqualsSignSemicolon_thenReturnLengthIsZero() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(0, (new JSONObject(Cookie.toJSONObject("=;"), new String[]{"Names"})).length());
@@ -405,14 +504,15 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#accumulate(String, Object)}.
    * <ul>
-   *   <li>Given toJSONObject {@code =;} append {@code Key} and
-   * {@link JSONObject#NULL}.</li>
+   *   <li>Given toJSONObject {@code =;} append {@code Key} and {@link JSONObject#NULL}.</li>
    *   <li>When {@link JSONObject#NULL}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#accumulate(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.accumulate(String, Object)"})
   public void testAccumulate_givenToJSONObjectEqualsSignSemicolonAppendKeyAndNull_whenNull() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -436,6 +536,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#accumulate(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.accumulate(String, Object)"})
   public void testAccumulate_givenToJSONObjectEqualsSignSemicolonIncrementKey_whenNull() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -459,34 +561,14 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#accumulate(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.accumulate(String, Object)"})
   public void testAccumulate_whenJSONArray_thenToJSONObjectEqualsSignSemicolonLengthIsThree() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
 
     // Act
     JSONObject actualAccumulateResult = toJSONObjectResult.accumulate("Key", new JSONArray());
-
-    // Assert
-    assertEquals(3, toJSONObjectResult.length());
-    assertSame(toJSONObjectResult, actualAccumulateResult);
-  }
-
-  /**
-   * Test {@link JSONObject#accumulate(String, Object)}.
-   * <ul>
-   *   <li>When {@link JSONArray}.</li>
-   *   <li>Then toJSONObject {@code =;} length is three.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JSONObject#accumulate(String, Object)}
-   */
-  @Test
-  public void testAccumulate_whenJSONArray_thenToJSONObjectEqualsSignSemicolonLengthIsThree2() throws JSONException {
-    // Arrange
-    JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
-
-    // Act
-    JSONObject actualAccumulateResult = toJSONObjectResult.accumulate("Key", mock(JSONArray.class));
 
     // Assert
     assertEquals(3, toJSONObjectResult.length());
@@ -503,9 +585,27 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#accumulate(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.accumulate(String, Object)"})
   public void testAccumulate_whenNaN_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").accumulate("Key", Double.NaN));
+  }
+
+  /**
+   * Test {@link JSONObject#accumulate(String, Object)}.
+   * <ul>
+   *   <li>When {@link Float#NaN}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#accumulate(String, Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.accumulate(String, Object)"})
+  public void testAccumulate_whenNaN_thenThrowJSONException2() throws JSONException {
+    // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").accumulate("Key", Float.NaN));
   }
 
@@ -519,6 +619,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#accumulate(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.accumulate(String, Object)"})
   public void testAccumulate_whenNull_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").accumulate(null, JSONObject.NULL));
@@ -534,6 +636,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#accumulate(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.accumulate(String, Object)"})
   public void testAccumulate_whenNull_thenToJSONObjectEqualsSignSemicolonLengthIsThree() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -556,6 +660,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#accumulate(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.accumulate(String, Object)"})
   public void testAccumulate_whenNull_thenToJSONObjectEqualsSignSemicolonLengthIsTwo() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -578,6 +684,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#accumulate(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.accumulate(String, Object)"})
   public void testAccumulate_whenTen_thenToJSONObjectEqualsSignSemicolonLengthIsThree() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -600,6 +708,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#accumulate(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.accumulate(String, Object)"})
   public void testAccumulate_whenTen_thenToJSONObjectEqualsSignSemicolonLengthIsThree2() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -615,36 +725,14 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#append(String, Object)}.
    * <ul>
-   *   <li>Given toJSONObject {@code =;} append {@code Key} and
-   * {@link JSONArray}.</li>
+   *   <li>Given toJSONObject {@code =;} append {@code Key} and {@link JSONObject#NULL}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#append(String, Object)}
    */
   @Test
-  public void testAppend_givenToJSONObjectEqualsSignSemicolonAppendKeyAndJSONArray() throws JSONException {
-    // Arrange
-    JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
-    toJSONObjectResult.append("Key", mock(JSONArray.class));
-
-    // Act
-    JSONObject actualAppendResult = toJSONObjectResult.append("Key", JSONObject.NULL);
-
-    // Assert
-    assertEquals(3, toJSONObjectResult.length());
-    assertSame(toJSONObjectResult, actualAppendResult);
-  }
-
-  /**
-   * Test {@link JSONObject#append(String, Object)}.
-   * <ul>
-   *   <li>Given toJSONObject {@code =;} append {@code Key} and
-   * {@link JSONObject#NULL}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JSONObject#append(String, Object)}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.append(String, Object)"})
   public void testAppend_givenToJSONObjectEqualsSignSemicolonAppendKeyAndNull() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -667,6 +755,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#append(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.append(String, Object)"})
   public void testAppend_givenToJSONObjectEqualsSignSemicolonIncrementKey() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -687,9 +777,28 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#append(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.append(String, Object)"})
   public void testAppend_givenToJSONObjectEqualsSignSemicolon_whenNaN_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").append("Key", Double.NaN));
+  }
+
+  /**
+   * Test {@link JSONObject#append(String, Object)}.
+   * <ul>
+   *   <li>Given toJSONObject {@code =;}.</li>
+   *   <li>When {@link Float#NaN}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#append(String, Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.append(String, Object)"})
+  public void testAppend_givenToJSONObjectEqualsSignSemicolon_whenNaN_thenThrowJSONException2() throws JSONException {
+    // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").append("Key", Float.NaN));
   }
 
@@ -704,6 +813,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#append(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.append(String, Object)"})
   public void testAppend_givenToJSONObjectEqualsSignSemicolon_whenNull_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").append(null, JSONObject.NULL));
@@ -719,6 +830,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#append(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.append(String, Object)"})
   public void testAppend_whenNull_thenToJSONObjectEqualsSignSemicolonLengthIsThree() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -741,6 +854,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#append(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.append(String, Object)"})
   public void testAppend_whenNull_thenToJSONObjectEqualsSignSemicolonLengthIsThree2() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -763,6 +878,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#append(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.append(String, Object)"})
   public void testAppend_whenTen_thenToJSONObjectEqualsSignSemicolonLengthIsThree() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -785,6 +902,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#append(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.append(String, Object)"})
   public void testAppend_whenTen_thenToJSONObjectEqualsSignSemicolonLengthIsThree2() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -807,6 +926,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#doubleToString(double)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.doubleToString(double)"})
   public void testDoubleToString_when05_thenReturn05() {
     // Arrange, Act and Assert
     assertEquals("0.5", JSONObject.doubleToString(0.5d));
@@ -822,6 +943,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#doubleToString(double)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.doubleToString(double)"})
   public void testDoubleToString_whenNaN_thenReturnNull() {
     // Arrange, Act and Assert
     assertEquals("null", JSONObject.doubleToString(Double.NaN));
@@ -837,6 +960,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#doubleToString(double)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.doubleToString(double)"})
   public void testDoubleToString_whenTen_thenReturn10() {
     // Arrange, Act and Assert
     assertEquals("10", JSONObject.doubleToString(10.0d));
@@ -845,14 +970,15 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#get(String)}.
    * <ul>
-   *   <li>Given toJSONObject {@code =;} append {@code Key} and
-   * {@link JSONObject#NULL}.</li>
+   *   <li>Given toJSONObject {@code =;} append {@code Key} and {@link JSONObject#NULL}.</li>
    *   <li>Then return {@link JSONArray}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#get(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.get(String)"})
   public void testGet_givenToJSONObjectEqualsSignSemicolonAppendKeyAndNull_thenReturnJSONArray() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -869,6 +995,50 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#get(String)}.
    * <ul>
+   *   <li>Given toJSONObject {@code =;} {@code Key} is {@code false}.</li>
+   *   <li>When {@code Key}.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#get(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.get(String)"})
+  public void testGet_givenToJSONObjectEqualsSignSemicolonKeyIsFalse_whenKey_thenReturnFalse() throws JSONException {
+    // Arrange
+    JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
+    toJSONObjectResult.put("Key", false);
+
+    // Act and Assert
+    assertFalse((Boolean) toJSONObjectResult.get("Key"));
+  }
+
+  /**
+   * Test {@link JSONObject#get(String)}.
+   * <ul>
+   *   <li>Given toJSONObject {@code =;} {@code Key} is {@code true}.</li>
+   *   <li>When {@code Key}.</li>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#get(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.get(String)"})
+  public void testGet_givenToJSONObjectEqualsSignSemicolonKeyIsTrue_whenKey_thenReturnTrue() throws JSONException {
+    // Arrange
+    JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
+    toJSONObjectResult.put("Key", true);
+
+    // Act and Assert
+    assertTrue((Boolean) toJSONObjectResult.get("Key"));
+  }
+
+  /**
+   * Test {@link JSONObject#get(String)}.
+   * <ul>
    *   <li>Given toJSONObject {@code =;}.</li>
    *   <li>When {@code Key}.</li>
    *   <li>Then throw {@link JSONException}.</li>
@@ -877,6 +1047,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#get(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.get(String)"})
   public void testGet_givenToJSONObjectEqualsSignSemicolon_whenKey_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").get("Key"));
@@ -893,6 +1065,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#get(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.get(String)"})
   public void testGet_givenToJSONObjectEqualsSignSemicolon_whenNull_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").get(null));
@@ -908,6 +1082,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#get(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.get(String)"})
   public void testGet_whenEmptyString_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").get(""));
@@ -916,13 +1092,14 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#getBoolean(String)}.
    * <ul>
-   *   <li>Given toJSONObject {@code =;} append {@code Key} and
-   * {@link JSONObject#NULL}.</li>
+   *   <li>Given toJSONObject {@code =;} append {@code Key} and {@link JSONObject#NULL}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#getBoolean(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONObject.getBoolean(String)"})
   public void testGetBoolean_givenToJSONObjectEqualsSignSemicolonAppendKeyAndNull() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -942,6 +1119,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getBoolean(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONObject.getBoolean(String)"})
   public void testGetBoolean_givenToJSONObjectEqualsSignSemicolonKeyIsFalse_thenReturnFalse() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -961,6 +1140,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getBoolean(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONObject.getBoolean(String)"})
   public void testGetBoolean_givenToJSONObjectEqualsSignSemicolonKeyIsTrue_thenReturnTrue() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -980,6 +1161,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getBoolean(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONObject.getBoolean(String)"})
   public void testGetBoolean_givenToJSONObjectEqualsSignSemicolon_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").getBoolean("Key"));
@@ -995,6 +1178,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getBoolean(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONObject.getBoolean(String)"})
   public void testGetBoolean_givenToJSONObjectEqualsSignSemicolon_whenEmptyString() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").getBoolean(""));
@@ -1010,6 +1195,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getBoolean(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONObject.getBoolean(String)"})
   public void testGetBoolean_givenToJSONObjectEqualsSignSemicolon_whenNull() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").getBoolean(null));
@@ -1018,13 +1205,14 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#getDouble(String)}.
    * <ul>
-   *   <li>Given toJSONObject {@code =;} append {@code Key} and
-   * {@link JSONObject#NULL}.</li>
+   *   <li>Given toJSONObject {@code =;} append {@code Key} and {@link JSONObject#NULL}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#getDouble(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double JSONObject.getDouble(String)"})
   public void testGetDouble_givenToJSONObjectEqualsSignSemicolonAppendKeyAndNull() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -1044,6 +1232,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getDouble(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double JSONObject.getDouble(String)"})
   public void testGetDouble_givenToJSONObjectEqualsSignSemicolonIncrementKey_thenReturnOne() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -1063,6 +1253,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getDouble(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double JSONObject.getDouble(String)"})
   public void testGetDouble_givenToJSONObjectEqualsSignSemicolon_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").getDouble("Key"));
@@ -1078,6 +1270,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getDouble(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double JSONObject.getDouble(String)"})
   public void testGetDouble_givenToJSONObjectEqualsSignSemicolon_whenEmptyString() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").getDouble(""));
@@ -1093,6 +1287,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getDouble(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double JSONObject.getDouble(String)"})
   public void testGetDouble_givenToJSONObjectEqualsSignSemicolon_whenNull() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").getDouble(null));
@@ -1101,13 +1297,14 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#getInt(String)}.
    * <ul>
-   *   <li>Given toJSONObject {@code =;} append {@code Key} and
-   * {@link JSONObject#NULL}.</li>
+   *   <li>Given toJSONObject {@code =;} append {@code Key} and {@link JSONObject#NULL}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#getInt(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONObject.getInt(String)"})
   public void testGetInt_givenToJSONObjectEqualsSignSemicolonAppendKeyAndNull() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -1127,6 +1324,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getInt(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONObject.getInt(String)"})
   public void testGetInt_givenToJSONObjectEqualsSignSemicolonIncrementKey_thenReturnOne() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -1146,6 +1345,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getInt(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONObject.getInt(String)"})
   public void testGetInt_givenToJSONObjectEqualsSignSemicolon_whenEmptyString() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").getInt(""));
@@ -1162,6 +1363,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getInt(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONObject.getInt(String)"})
   public void testGetInt_givenToJSONObjectEqualsSignSemicolon_whenKey_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").getInt("Key"));
@@ -1178,47 +1381,11 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getInt(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONObject.getInt(String)"})
   public void testGetInt_givenToJSONObjectEqualsSignSemicolon_whenNull_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").getInt(null));
-  }
-
-  /**
-   * Test {@link JSONObject#getJSONArray(String)}.
-   * <ul>
-   *   <li>Given toJSONObject {@code =;} append {@code Key} and
-   * {@link JSONArray}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JSONObject#getJSONArray(String)}
-   */
-  @Test
-  public void testGetJSONArray_givenToJSONObjectEqualsSignSemicolonAppendKeyAndJSONArray() throws JSONException {
-    // Arrange
-    JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
-    toJSONObjectResult.append("Key", mock(JSONArray.class));
-
-    // Act and Assert
-    assertEquals(1, toJSONObjectResult.getJSONArray("Key").length());
-  }
-
-  /**
-   * Test {@link JSONObject#getJSONArray(String)}.
-   * <ul>
-   *   <li>Given toJSONObject {@code =;} append {@code Key} and
-   * {@link JSONObject#NULL}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JSONObject#getJSONArray(String)}
-   */
-  @Test
-  public void testGetJSONArray_givenToJSONObjectEqualsSignSemicolonAppendKeyAndNull() throws JSONException {
-    // Arrange
-    JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
-    toJSONObjectResult.append("Key", JSONObject.NULL);
-
-    // Act and Assert
-    assertEquals(1, toJSONObjectResult.getJSONArray("Key").length());
   }
 
   /**
@@ -1230,6 +1397,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getJSONArray(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONObject.getJSONArray(String)"})
   public void testGetJSONArray_givenToJSONObjectEqualsSignSemicolonIncrementKey() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -1249,6 +1418,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getJSONArray(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONObject.getJSONArray(String)"})
   public void testGetJSONArray_givenToJSONObjectEqualsSignSemicolon_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").getJSONArray("Key"));
@@ -1264,6 +1435,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getJSONArray(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONObject.getJSONArray(String)"})
   public void testGetJSONArray_givenToJSONObjectEqualsSignSemicolon_whenEmptyString() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").getJSONArray(""));
@@ -1279,42 +1452,44 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getJSONArray(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONObject.getJSONArray(String)"})
   public void testGetJSONArray_givenToJSONObjectEqualsSignSemicolon_whenNull() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").getJSONArray(null));
   }
 
   /**
-   * Test {@link JSONObject#getJSONObject(String)}.
+   * Test {@link JSONObject#getJSONArray(String)}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@link JSONObject#NULL}
-   * and {@link BiFunction}.</li>
+   *   <li>Then return length is one.</li>
    * </ul>
    * <p>
-   * Method under test: {@link JSONObject#getJSONObject(String)}
+   * Method under test: {@link JSONObject#getJSONArray(String)}
    */
   @Test
-  public void testGetJSONObject_givenHashMapComputeIfPresentNullAndBiFunction() throws JSONException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONObject.getJSONArray(String)"})
+  public void testGetJSONArray_thenReturnLengthIsOne() throws JSONException {
     // Arrange
-    HashMap<Object, Object> value = new HashMap<>();
-    value.computeIfPresent(JSONObject.NULL, mock(BiFunction.class));
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
-    toJSONObjectResult.put("Key", (Map) value);
+    toJSONObjectResult.append("Key", JSONObject.NULL);
 
     // Act and Assert
-    assertEquals(0, toJSONObjectResult.getJSONObject("Key").length());
+    assertEquals(1, toJSONObjectResult.getJSONArray("Key").length());
   }
 
   /**
    * Test {@link JSONObject#getJSONObject(String)}.
    * <ul>
-   *   <li>Given toJSONObject {@code =;} append {@code Key} and
-   * {@link JSONObject#NULL}.</li>
+   *   <li>Given toJSONObject {@code =;} append {@code Key} and {@link JSONObject#NULL}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#getJSONObject(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.getJSONObject(String)"})
   public void testGetJSONObject_givenToJSONObjectEqualsSignSemicolonAppendKeyAndNull() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -1334,6 +1509,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getJSONObject(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.getJSONObject(String)"})
   public void testGetJSONObject_givenToJSONObjectEqualsSignSemicolon_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").getJSONObject("Key"));
@@ -1349,6 +1526,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getJSONObject(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.getJSONObject(String)"})
   public void testGetJSONObject_givenToJSONObjectEqualsSignSemicolon_whenEmptyString() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").getJSONObject(""));
@@ -1364,6 +1543,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getJSONObject(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.getJSONObject(String)"})
   public void testGetJSONObject_givenToJSONObjectEqualsSignSemicolon_whenNull() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").getJSONObject(null));
@@ -1378,6 +1559,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getJSONObject(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.getJSONObject(String)"})
   public void testGetJSONObject_thenReturnLengthIsZero() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -1390,13 +1573,14 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#getLong(String)}.
    * <ul>
-   *   <li>Given toJSONObject {@code =;} append {@code Key} and
-   * {@link JSONObject#NULL}.</li>
+   *   <li>Given toJSONObject {@code =;} append {@code Key} and {@link JSONObject#NULL}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#getLong(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long JSONObject.getLong(String)"})
   public void testGetLong_givenToJSONObjectEqualsSignSemicolonAppendKeyAndNull() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -1416,6 +1600,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getLong(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long JSONObject.getLong(String)"})
   public void testGetLong_givenToJSONObjectEqualsSignSemicolonIncrementKey_thenReturnOne() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -1435,6 +1621,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getLong(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long JSONObject.getLong(String)"})
   public void testGetLong_givenToJSONObjectEqualsSignSemicolon_whenEmptyString() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").getLong(""));
@@ -1451,6 +1639,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getLong(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long JSONObject.getLong(String)"})
   public void testGetLong_givenToJSONObjectEqualsSignSemicolon_whenKey_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").getLong("Key"));
@@ -1467,6 +1657,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getLong(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long JSONObject.getLong(String)"})
   public void testGetLong_givenToJSONObjectEqualsSignSemicolon_whenNull_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").getLong(null));
@@ -1475,13 +1667,14 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#getNames(JSONObject)} with {@code jo}.
    * <ul>
-   *   <li>Then return array of {@link String} with {@code name} and
-   * {@code value}.</li>
+   *   <li>Then return array of {@link String} with {@code name} and {@code value}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#getNames(JSONObject)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String[] JSONObject.getNames(JSONObject)"})
   public void testGetNamesWithJo_thenReturnArrayOfStringWithNameAndValue() throws JSONException {
     // Arrange, Act and Assert
     assertArrayEquals(new String[]{"name", "value"}, JSONObject.getNames(Cookie.toJSONObject("=;")));
@@ -1497,6 +1690,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getNames(JSONObject)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String[] JSONObject.getNames(JSONObject)"})
   public void testGetNamesWithJo_whenJSONObject_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(JSONObject.getNames(new JSONObject()));
@@ -1505,13 +1700,14 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#getNames(Object)} with {@code object}.
    * <ul>
-   *   <li>Then return array of {@link String} with
-   * {@code CASE_INSENSITIVE_ORDER}.</li>
+   *   <li>Then return array of {@link String} with {@code CASE_INSENSITIVE_ORDER}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#getNames(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String[] JSONObject.getNames(Object)"})
   public void testGetNamesWithObject_thenReturnArrayOfStringWithCaseInsensitiveOrder() {
     // Arrange, Act and Assert
     assertArrayEquals(new String[]{"CASE_INSENSITIVE_ORDER"}, JSONObject.getNames("Object"));
@@ -1527,40 +1723,34 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getNames(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String[] JSONObject.getNames(Object)"})
   public void testGetNamesWithObject_whenNull_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(JSONObject.getNames(JSONObject.NULL));
+  }
+
+  /**
+   * Test {@link JSONObject#getNames(Object)} with {@code object}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#getNames(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String[] JSONObject.getNames(Object)"})
+  public void testGetNamesWithObject_whenNull_thenReturnNull2() {
+    // Arrange, Act and Assert
     assertNull(JSONObject.getNames((Object) null));
   }
 
   /**
    * Test {@link JSONObject#getString(String)}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@link JSONObject#NULL}
-   * and {@link BiFunction}.</li>
-   *   <li>Then return {@code {"null":null}}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JSONObject#getString(String)}
-   */
-  @Test
-  public void testGetString_givenHashMapComputeIfPresentNullAndBiFunction_thenReturnNullNull() throws JSONException {
-    // Arrange
-    HashMap<Object, Object> value = new HashMap<>();
-    value.computeIfPresent(JSONObject.NULL, mock(BiFunction.class));
-    value.put(JSONObject.NULL, JSONObject.NULL);
-    JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
-    toJSONObjectResult.put("Key", (Map) value);
-
-    // Act and Assert
-    assertEquals("{\"null\":null}", toJSONObjectResult.getString("Key"));
-  }
-
-  /**
-   * Test {@link JSONObject#getString(String)}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@link JSONObject#NULL} is
-   * {@link JSONObject#NULL}.</li>
+   *   <li>Given {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@link JSONObject#NULL}.</li>
    *   <li>When {@code Key}.</li>
    *   <li>Then return {@code {"null":null}}.</li>
    * </ul>
@@ -1568,6 +1758,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getString(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.getString(String)"})
   public void testGetString_givenHashMapNullIsNull_whenKey_thenReturnNullNull() throws JSONException {
     // Arrange
     HashMap<Object, Object> value = new HashMap<>();
@@ -1589,6 +1781,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getString(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.getString(String)"})
   public void testGetString_givenToJSONObjectEqualsSignSemicolonAppendKeyAnd42_thenReturn42() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -1607,6 +1801,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getString(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.getString(String)"})
   public void testGetString_givenToJSONObjectEqualsSignSemicolonAppendKeyAndNull() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -1626,6 +1822,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getString(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.getString(String)"})
   public void testGetString_givenToJSONObjectEqualsSignSemicolonIncrementKey_thenReturn1() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -1645,6 +1843,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getString(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.getString(String)"})
   public void testGetString_givenToJSONObjectEqualsSignSemicolon_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").getString("Key"));
@@ -1659,6 +1859,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getString(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.getString(String)"})
   public void testGetString_thenReturn42() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -1677,6 +1879,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getString(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.getString(String)"})
   public void testGetString_thenReturnLeftCurlyBracketRightCurlyBracket() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -1695,6 +1899,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getString(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.getString(String)"})
   public void testGetString_thenReturnNull() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -1713,6 +1919,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getString(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.getString(String)"})
   public void testGetString_thenReturnNullNull() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -1733,6 +1941,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getString(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.getString(String)"})
   public void testGetString_whenEmptyString_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").getString(""));
@@ -1748,6 +1958,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#getString(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.getString(String)"})
   public void testGetString_whenNull_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").getString(null));
@@ -1756,14 +1968,15 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#has(String)}.
    * <ul>
-   *   <li>Given toJSONObject {@code =;} append {@code Key} and
-   * {@link JSONObject#NULL}.</li>
+   *   <li>Given toJSONObject {@code =;} append {@code Key} and {@link JSONObject#NULL}.</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#has(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONObject.has(String)"})
   public void testHas_givenToJSONObjectEqualsSignSemicolonAppendKeyAndNull_thenReturnTrue() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -1783,6 +1996,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#has(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONObject.has(String)"})
   public void testHas_givenToJSONObjectEqualsSignSemicolon_thenReturnFalse() throws JSONException {
     // Arrange, Act and Assert
     assertFalse(Cookie.toJSONObject("=;").has("Key"));
@@ -1797,6 +2012,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#increment(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.increment(String)"})
   public void testIncrement_givenToJSONObjectEqualsSignSemicolon() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -1812,13 +2029,14 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#increment(String)}.
    * <ul>
-   *   <li>Given toJSONObject {@code =;} append {@code Key} and
-   * {@link JSONObject#NULL}.</li>
+   *   <li>Given toJSONObject {@code =;} append {@code Key} and {@link JSONObject#NULL}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#increment(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.increment(String)"})
   public void testIncrement_givenToJSONObjectEqualsSignSemicolonAppendKeyAndNull() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -1837,6 +2055,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#increment(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.increment(String)"})
   public void testIncrement_givenToJSONObjectEqualsSignSemicolonIncrementKey() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -1859,6 +2079,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#increment(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.increment(String)"})
   public void testIncrement_givenToJSONObjectEqualsSignSemicolonKeyIs05() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -1881,6 +2103,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#increment(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.increment(String)"})
   public void testIncrement_givenToJSONObjectEqualsSignSemicolonKeyIsOne() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -1904,6 +2128,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#increment(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.increment(String)"})
   public void testIncrement_whenNull_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").increment(null));
@@ -1912,14 +2138,15 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#isNull(String)}.
    * <ul>
-   *   <li>Given toJSONObject {@code =;} append {@code Key} and
-   * {@link JSONObject#NULL}.</li>
+   *   <li>Given toJSONObject {@code =;} append {@code Key} and {@link JSONObject#NULL}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#isNull(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONObject.isNull(String)"})
   public void testIsNull_givenToJSONObjectEqualsSignSemicolonAppendKeyAndNull_thenReturnFalse() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -1940,6 +2167,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#isNull(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONObject.isNull(String)"})
   public void testIsNull_givenToJSONObjectEqualsSignSemicolon_whenKey_thenReturnTrue() throws JSONException {
     // Arrange, Act and Assert
     assertTrue(Cookie.toJSONObject("=;").isNull("Key"));
@@ -1956,6 +2185,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#isNull(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONObject.isNull(String)"})
   public void testIsNull_givenToJSONObjectEqualsSignSemicolon_whenNull_thenReturnTrue() throws JSONException {
     // Arrange, Act and Assert
     assertTrue(Cookie.toJSONObject("=;").isNull(null));
@@ -1971,6 +2202,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#keys()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Iterator JSONObject.keys()"})
   public void testKeys_givenToJSONObjectEqualsSignSemicolon_thenReturnNextIsName() throws JSONException {
     // Arrange and Act
     Iterator actualKeysResult = Cookie.toJSONObject("=;").keys();
@@ -1991,6 +2224,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#length()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONObject.length()"})
   public void testLength_givenToJSONObjectEqualsSignSemicolon_thenReturnTwo() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(2, Cookie.toJSONObject("=;").length());
@@ -2006,6 +2241,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#names()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONObject.names()"})
   public void testNames_givenJSONObject_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new JSONObject()).names());
@@ -2021,6 +2258,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#names()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONObject.names()"})
   public void testNames_givenToJSONObjectEqualsSignSemicolon_thenReturnLengthIsTwo() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(2, Cookie.toJSONObject("=;").names().length());
@@ -2036,6 +2275,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#numberToString(Number)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.numberToString(Number)"})
   public void testNumberToString_when05_thenReturn05() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("0.5", JSONObject.numberToString(0.5d));
@@ -2051,9 +2292,27 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#numberToString(Number)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.numberToString(Number)"})
   public void testNumberToString_whenNaN_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> JSONObject.numberToString(Double.NaN));
+  }
+
+  /**
+   * Test {@link JSONObject#numberToString(Number)}.
+   * <ul>
+   *   <li>When {@link Float#NaN}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#numberToString(Number)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.numberToString(Number)"})
+  public void testNumberToString_whenNaN_thenThrowJSONException2() throws JSONException {
+    // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> JSONObject.numberToString(Float.NaN));
   }
 
@@ -2067,6 +2326,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#numberToString(Number)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.numberToString(Number)"})
   public void testNumberToString_whenNull_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> JSONObject.numberToString(null));
@@ -2082,9 +2343,27 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#numberToString(Number)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.numberToString(Number)"})
   public void testNumberToString_whenTen_thenReturn10() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("10", JSONObject.numberToString(10.0d));
+  }
+
+  /**
+   * Test {@link JSONObject#numberToString(Number)}.
+   * <ul>
+   *   <li>When ten.</li>
+   *   <li>Then return {@code 10}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#numberToString(Number)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.numberToString(Number)"})
+  public void testNumberToString_whenTen_thenReturn102() throws JSONException {
+    // Arrange, Act and Assert
     assertEquals("10", JSONObject.numberToString(10.0f));
   }
 
@@ -2098,9 +2377,55 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#numberToString(Number)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.numberToString(Number)"})
   public void testNumberToString_whenValueOfOne_thenReturn1() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("1", JSONObject.numberToString(Integer.valueOf(1)));
+  }
+
+  /**
+   * Test {@link JSONObject#opt(String)}.
+   * <ul>
+   *   <li>Given toJSONObject {@code =;} {@code Key} is {@code false}.</li>
+   *   <li>When {@code Key}.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#opt(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.opt(String)"})
+  public void testOpt_givenToJSONObjectEqualsSignSemicolonKeyIsFalse_whenKey_thenReturnFalse() throws JSONException {
+    // Arrange
+    JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
+    toJSONObjectResult.put("Key", false);
+
+    // Act and Assert
+    assertFalse((Boolean) toJSONObjectResult.opt("Key"));
+  }
+
+  /**
+   * Test {@link JSONObject#opt(String)}.
+   * <ul>
+   *   <li>Given toJSONObject {@code =;} {@code Key} is {@code true}.</li>
+   *   <li>When {@code Key}.</li>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#opt(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.opt(String)"})
+  public void testOpt_givenToJSONObjectEqualsSignSemicolonKeyIsTrue_whenKey_thenReturnTrue() throws JSONException {
+    // Arrange
+    JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
+    toJSONObjectResult.put("Key", true);
+
+    // Act and Assert
+    assertTrue((Boolean) toJSONObjectResult.opt("Key"));
   }
 
   /**
@@ -2114,6 +2439,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#opt(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.opt(String)"})
   public void testOpt_givenToJSONObjectEqualsSignSemicolon_whenKey_thenReturnNull() throws JSONException {
     // Arrange, Act and Assert
     assertNull(Cookie.toJSONObject("=;").opt("Key"));
@@ -2130,18 +2457,21 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#opt(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.opt(String)"})
   public void testOpt_givenToJSONObjectEqualsSignSemicolon_whenNull_thenReturnNull() throws JSONException {
     // Arrange, Act and Assert
     assertNull(Cookie.toJSONObject("=;").opt(null));
   }
 
   /**
-   * Test {@link JSONObject#optBoolean(String, boolean)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optBoolean(String, boolean)} with {@code key}, {@code defaultValue}.
    * <p>
    * Method under test: {@link JSONObject#optBoolean(String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONObject.optBoolean(String, boolean)"})
   public void testOptBooleanWithKeyDefaultValue() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -2152,8 +2482,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#optBoolean(String, boolean)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optBoolean(String, boolean)} with {@code key}, {@code defaultValue}.
    * <ul>
    *   <li>Given toJSONObject {@code =;}.</li>
    * </ul>
@@ -2161,14 +2490,15 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optBoolean(String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONObject.optBoolean(String, boolean)"})
   public void testOptBooleanWithKeyDefaultValue_givenToJSONObjectEqualsSignSemicolon() throws JSONException {
     // Arrange, Act and Assert
     assertTrue(Cookie.toJSONObject("=;").optBoolean("Key", true));
   }
 
   /**
-   * Test {@link JSONObject#optBoolean(String, boolean)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optBoolean(String, boolean)} with {@code key}, {@code defaultValue}.
    * <ul>
    *   <li>Given toJSONObject {@code =;} {@code Key} is {@code true}.</li>
    * </ul>
@@ -2176,6 +2506,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optBoolean(String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONObject.optBoolean(String, boolean)"})
   public void testOptBooleanWithKeyDefaultValue_givenToJSONObjectEqualsSignSemicolonKeyIsTrue() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -2186,8 +2518,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#optBoolean(String, boolean)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optBoolean(String, boolean)} with {@code key}, {@code defaultValue}.
    * <ul>
    *   <li>Given toJSONObject {@code =;}.</li>
    *   <li>When {@code null}.</li>
@@ -2196,14 +2527,15 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optBoolean(String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONObject.optBoolean(String, boolean)"})
   public void testOptBooleanWithKeyDefaultValue_givenToJSONObjectEqualsSignSemicolon_whenNull() throws JSONException {
     // Arrange, Act and Assert
     assertTrue(Cookie.toJSONObject("=;").optBoolean(null, true));
   }
 
   /**
-   * Test {@link JSONObject#optBoolean(String, boolean)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optBoolean(String, boolean)} with {@code key}, {@code defaultValue}.
    * <ul>
    *   <li>Then return {@code false}.</li>
    * </ul>
@@ -2211,6 +2543,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optBoolean(String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONObject.optBoolean(String, boolean)"})
   public void testOptBooleanWithKeyDefaultValue_thenReturnFalse() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -2221,8 +2555,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#optBoolean(String, boolean)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optBoolean(String, boolean)} with {@code key}, {@code defaultValue}.
    * <ul>
    *   <li>When empty string.</li>
    * </ul>
@@ -2230,6 +2563,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optBoolean(String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONObject.optBoolean(String, boolean)"})
   public void testOptBooleanWithKeyDefaultValue_whenEmptyString() throws JSONException {
     // Arrange, Act and Assert
     assertTrue(Cookie.toJSONObject("=;").optBoolean("", true));
@@ -2238,13 +2573,14 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#optBoolean(String)} with {@code key}.
    * <ul>
-   *   <li>Given toJSONObject {@code =;} append {@code Key} and
-   * {@link JSONObject#NULL}.</li>
+   *   <li>Given toJSONObject {@code =;} append {@code Key} and {@link JSONObject#NULL}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#optBoolean(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONObject.optBoolean(String)"})
   public void testOptBooleanWithKey_givenToJSONObjectEqualsSignSemicolonAppendKeyAndNull() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -2263,6 +2599,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optBoolean(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONObject.optBoolean(String)"})
   public void testOptBooleanWithKey_givenToJSONObjectEqualsSignSemicolonKeyIsFalse() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -2282,6 +2620,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optBoolean(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONObject.optBoolean(String)"})
   public void testOptBooleanWithKey_givenToJSONObjectEqualsSignSemicolon_thenReturnFalse() throws JSONException {
     // Arrange, Act and Assert
     assertFalse(Cookie.toJSONObject("=;").optBoolean("Key"));
@@ -2297,6 +2637,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optBoolean(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONObject.optBoolean(String)"})
   public void testOptBooleanWithKey_givenToJSONObjectEqualsSignSemicolon_whenEmptyString() throws JSONException {
     // Arrange, Act and Assert
     assertFalse(Cookie.toJSONObject("=;").optBoolean(""));
@@ -2312,6 +2654,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optBoolean(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONObject.optBoolean(String)"})
   public void testOptBooleanWithKey_givenToJSONObjectEqualsSignSemicolon_whenNull() throws JSONException {
     // Arrange, Act and Assert
     assertFalse(Cookie.toJSONObject("=;").optBoolean(null));
@@ -2326,6 +2670,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optBoolean(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JSONObject.optBoolean(String)"})
   public void testOptBooleanWithKey_thenReturnTrue() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -2336,17 +2682,17 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#optDouble(String, double)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optDouble(String, double)} with {@code key}, {@code defaultValue}.
    * <ul>
-   *   <li>Given {@link JSONObject#JSONObject()} append {@code Key} and
-   * {@link JSONObject#NULL}.</li>
+   *   <li>Given {@link JSONObject#JSONObject()} append {@code Key} and {@link JSONObject#NULL}.</li>
    *   <li>Then return ten.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#optDouble(String, double)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double JSONObject.optDouble(String, double)"})
   public void testOptDoubleWithKeyDefaultValue_givenJSONObjectAppendKeyAndNull_thenReturnTen() throws JSONException {
     // Arrange
     JSONObject jsonObject = new JSONObject();
@@ -2357,17 +2703,17 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#optDouble(String, double)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optDouble(String, double)} with {@code key}, {@code defaultValue}.
    * <ul>
-   *   <li>Given {@link JSONObject#JSONObject()} append {@code Key} and
-   * {@link JSONObject#NULL}.</li>
+   *   <li>Given {@link JSONObject#JSONObject()} append {@code Key} and {@link JSONObject#NULL}.</li>
    *   <li>When {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#optDouble(String, double)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double JSONObject.optDouble(String, double)"})
   public void testOptDoubleWithKeyDefaultValue_givenJSONObjectAppendKeyAndNull_whenNull() throws JSONException {
     // Arrange
     JSONObject jsonObject = new JSONObject();
@@ -2378,8 +2724,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#optDouble(String, double)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optDouble(String, double)} with {@code key}, {@code defaultValue}.
    * <ul>
    *   <li>Given {@link JSONObject#JSONObject()} increment {@code Key}.</li>
    *   <li>Then return one.</li>
@@ -2388,6 +2733,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optDouble(String, double)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double JSONObject.optDouble(String, double)"})
   public void testOptDoubleWithKeyDefaultValue_givenJSONObjectIncrementKey_thenReturnOne() throws JSONException {
     // Arrange
     JSONObject jsonObject = new JSONObject();
@@ -2398,8 +2745,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#optDouble(String, double)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optDouble(String, double)} with {@code key}, {@code defaultValue}.
    * <ul>
    *   <li>Given toJSONObject {@code =;}.</li>
    * </ul>
@@ -2407,6 +2753,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optDouble(String, double)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double JSONObject.optDouble(String, double)"})
   public void testOptDoubleWithKeyDefaultValue_givenToJSONObjectEqualsSignSemicolon() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(10.0d, Cookie.toJSONObject("=;").optDouble("Key", 10.0d), 0.0);
@@ -2415,8 +2763,7 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#optDouble(String)} with {@code key}.
    * <ul>
-   *   <li>Given {@link JSONObject#JSONObject()} append {@code Key} and
-   * {@link JSONObject#NULL}.</li>
+   *   <li>Given {@link JSONObject#JSONObject()} append {@code Key} and {@link JSONObject#NULL}.</li>
    *   <li>When {@code Key}.</li>
    *   <li>Then return {@link Double#NaN}.</li>
    * </ul>
@@ -2424,6 +2771,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optDouble(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double JSONObject.optDouble(String)"})
   public void testOptDoubleWithKey_givenJSONObjectAppendKeyAndNull_whenKey_thenReturnNaN() throws JSONException {
     // Arrange
     JSONObject jsonObject = new JSONObject();
@@ -2436,8 +2785,7 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#optDouble(String)} with {@code key}.
    * <ul>
-   *   <li>Given {@link JSONObject#JSONObject()} append {@code Key} and
-   * {@link JSONObject#NULL}.</li>
+   *   <li>Given {@link JSONObject#JSONObject()} append {@code Key} and {@link JSONObject#NULL}.</li>
    *   <li>When {@code null}.</li>
    *   <li>Then return {@link Double#NaN}.</li>
    * </ul>
@@ -2445,6 +2793,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optDouble(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double JSONObject.optDouble(String)"})
   public void testOptDoubleWithKey_givenJSONObjectAppendKeyAndNull_whenNull_thenReturnNaN() throws JSONException {
     // Arrange
     JSONObject jsonObject = new JSONObject();
@@ -2465,6 +2815,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optDouble(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double JSONObject.optDouble(String)"})
   public void testOptDoubleWithKey_givenJSONObjectIncrementKey_whenKey_thenReturnOne() throws JSONException {
     // Arrange
     JSONObject jsonObject = new JSONObject();
@@ -2485,18 +2837,21 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optDouble(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"double JSONObject.optDouble(String)"})
   public void testOptDoubleWithKey_givenToJSONObjectEqualsSignSemicolon_whenKey_thenReturnNaN() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(Double.NaN, Cookie.toJSONObject("=;").optDouble("Key"), 0.0);
   }
 
   /**
-   * Test {@link JSONObject#optInt(String, int)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optInt(String, int)} with {@code key}, {@code defaultValue}.
    * <p>
    * Method under test: {@link JSONObject#optInt(String, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONObject.optInt(String, int)"})
   public void testOptIntWithKeyDefaultValue() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -2507,8 +2862,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#optInt(String, int)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optInt(String, int)} with {@code key}, {@code defaultValue}.
    * <ul>
    *   <li>Given toJSONObject {@code =;}.</li>
    * </ul>
@@ -2516,14 +2870,15 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optInt(String, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONObject.optInt(String, int)"})
   public void testOptIntWithKeyDefaultValue_givenToJSONObjectEqualsSignSemicolon() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(42, Cookie.toJSONObject("=;").optInt("Key", 42));
   }
 
   /**
-   * Test {@link JSONObject#optInt(String, int)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optInt(String, int)} with {@code key}, {@code defaultValue}.
    * <ul>
    *   <li>Given toJSONObject {@code =;}.</li>
    *   <li>When {@code null}.</li>
@@ -2532,14 +2887,15 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optInt(String, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONObject.optInt(String, int)"})
   public void testOptIntWithKeyDefaultValue_givenToJSONObjectEqualsSignSemicolon_whenNull() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(42, Cookie.toJSONObject("=;").optInt(null, 42));
   }
 
   /**
-   * Test {@link JSONObject#optInt(String, int)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optInt(String, int)} with {@code key}, {@code defaultValue}.
    * <ul>
    *   <li>Then return one.</li>
    * </ul>
@@ -2547,6 +2903,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optInt(String, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONObject.optInt(String, int)"})
   public void testOptIntWithKeyDefaultValue_thenReturnOne() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -2557,8 +2915,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#optInt(String, int)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optInt(String, int)} with {@code key}, {@code defaultValue}.
    * <ul>
    *   <li>When empty string.</li>
    * </ul>
@@ -2566,6 +2923,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optInt(String, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONObject.optInt(String, int)"})
   public void testOptIntWithKeyDefaultValue_whenEmptyString() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(42, Cookie.toJSONObject("=;").optInt("", 42));
@@ -2574,13 +2933,14 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#optInt(String)} with {@code key}.
    * <ul>
-   *   <li>Given toJSONObject {@code =;} append {@code Key} and
-   * {@link JSONObject#NULL}.</li>
+   *   <li>Given toJSONObject {@code =;} append {@code Key} and {@link JSONObject#NULL}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#optInt(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONObject.optInt(String)"})
   public void testOptIntWithKey_givenToJSONObjectEqualsSignSemicolonAppendKeyAndNull() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -2600,6 +2960,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optInt(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONObject.optInt(String)"})
   public void testOptIntWithKey_givenToJSONObjectEqualsSignSemicolonIncrementKey_thenReturnOne() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -2619,6 +2981,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optInt(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONObject.optInt(String)"})
   public void testOptIntWithKey_givenToJSONObjectEqualsSignSemicolon_whenEmptyString() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(0, Cookie.toJSONObject("=;").optInt(""));
@@ -2635,6 +2999,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optInt(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONObject.optInt(String)"})
   public void testOptIntWithKey_givenToJSONObjectEqualsSignSemicolon_whenKey_thenReturnZero() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(0, Cookie.toJSONObject("=;").optInt("Key"));
@@ -2651,47 +3017,11 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optInt(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int JSONObject.optInt(String)"})
   public void testOptIntWithKey_givenToJSONObjectEqualsSignSemicolon_whenNull_thenReturnZero() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(0, Cookie.toJSONObject("=;").optInt(null));
-  }
-
-  /**
-   * Test {@link JSONObject#optJSONArray(String)}.
-   * <ul>
-   *   <li>Given toJSONObject {@code =;} append {@code Key} and
-   * {@link JSONArray}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JSONObject#optJSONArray(String)}
-   */
-  @Test
-  public void testOptJSONArray_givenToJSONObjectEqualsSignSemicolonAppendKeyAndJSONArray() throws JSONException {
-    // Arrange
-    JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
-    toJSONObjectResult.append("Key", mock(JSONArray.class));
-
-    // Act and Assert
-    assertEquals(1, toJSONObjectResult.optJSONArray("Key").length());
-  }
-
-  /**
-   * Test {@link JSONObject#optJSONArray(String)}.
-   * <ul>
-   *   <li>Given toJSONObject {@code =;} append {@code Key} and
-   * {@link JSONObject#NULL}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JSONObject#optJSONArray(String)}
-   */
-  @Test
-  public void testOptJSONArray_givenToJSONObjectEqualsSignSemicolonAppendKeyAndNull() throws JSONException {
-    // Arrange
-    JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
-    toJSONObjectResult.append("Key", JSONObject.NULL);
-
-    // Act and Assert
-    assertEquals(1, toJSONObjectResult.optJSONArray("Key").length());
   }
 
   /**
@@ -2705,6 +3035,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optJSONArray(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONObject.optJSONArray(String)"})
   public void testOptJSONArray_givenToJSONObjectEqualsSignSemicolon_whenKey_thenReturnNull() throws JSONException {
     // Arrange, Act and Assert
     assertNull(Cookie.toJSONObject("=;").optJSONArray("Key"));
@@ -2721,30 +3053,31 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optJSONArray(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONObject.optJSONArray(String)"})
   public void testOptJSONArray_givenToJSONObjectEqualsSignSemicolon_whenNull_thenReturnNull() throws JSONException {
     // Arrange, Act and Assert
     assertNull(Cookie.toJSONObject("=;").optJSONArray(null));
   }
 
   /**
-   * Test {@link JSONObject#optJSONObject(String)}.
+   * Test {@link JSONObject#optJSONArray(String)}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@link JSONObject#NULL}
-   * and {@link BiFunction}.</li>
+   *   <li>Then return length is one.</li>
    * </ul>
    * <p>
-   * Method under test: {@link JSONObject#optJSONObject(String)}
+   * Method under test: {@link JSONObject#optJSONArray(String)}
    */
   @Test
-  public void testOptJSONObject_givenHashMapComputeIfPresentNullAndBiFunction() throws JSONException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONObject.optJSONArray(String)"})
+  public void testOptJSONArray_thenReturnLengthIsOne() throws JSONException {
     // Arrange
-    HashMap<Object, Object> value = new HashMap<>();
-    value.computeIfPresent(JSONObject.NULL, mock(BiFunction.class));
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
-    toJSONObjectResult.put("Key", (Map) value);
+    toJSONObjectResult.append("Key", JSONObject.NULL);
 
     // Act and Assert
-    assertEquals(0, toJSONObjectResult.optJSONObject("Key").length());
+    assertEquals(1, toJSONObjectResult.optJSONArray("Key").length());
   }
 
   /**
@@ -2758,6 +3091,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optJSONObject(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.optJSONObject(String)"})
   public void testOptJSONObject_givenToJSONObjectEqualsSignSemicolon_whenKey_thenReturnNull() throws JSONException {
     // Arrange, Act and Assert
     assertNull(Cookie.toJSONObject("=;").optJSONObject("Key"));
@@ -2774,6 +3109,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optJSONObject(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.optJSONObject(String)"})
   public void testOptJSONObject_givenToJSONObjectEqualsSignSemicolon_whenNull_thenReturnNull() throws JSONException {
     // Arrange, Act and Assert
     assertNull(Cookie.toJSONObject("=;").optJSONObject(null));
@@ -2788,6 +3125,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optJSONObject(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.optJSONObject(String)"})
   public void testOptJSONObject_thenReturnLengthIsZero() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -2798,12 +3137,13 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#optLong(String, long)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optLong(String, long)} with {@code key}, {@code defaultValue}.
    * <p>
    * Method under test: {@link JSONObject#optLong(String, long)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long JSONObject.optLong(String, long)"})
   public void testOptLongWithKeyDefaultValue() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -2814,8 +3154,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#optLong(String, long)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optLong(String, long)} with {@code key}, {@code defaultValue}.
    * <ul>
    *   <li>Given toJSONObject {@code =;}.</li>
    * </ul>
@@ -2823,14 +3162,15 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optLong(String, long)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long JSONObject.optLong(String, long)"})
   public void testOptLongWithKeyDefaultValue_givenToJSONObjectEqualsSignSemicolon() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(42L, Cookie.toJSONObject("=;").optLong("Key", 42L));
   }
 
   /**
-   * Test {@link JSONObject#optLong(String, long)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optLong(String, long)} with {@code key}, {@code defaultValue}.
    * <ul>
    *   <li>Given toJSONObject {@code =;}.</li>
    *   <li>When {@code null}.</li>
@@ -2839,14 +3179,15 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optLong(String, long)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long JSONObject.optLong(String, long)"})
   public void testOptLongWithKeyDefaultValue_givenToJSONObjectEqualsSignSemicolon_whenNull() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(42L, Cookie.toJSONObject("=;").optLong(null, 42L));
   }
 
   /**
-   * Test {@link JSONObject#optLong(String, long)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optLong(String, long)} with {@code key}, {@code defaultValue}.
    * <ul>
    *   <li>Then return one.</li>
    * </ul>
@@ -2854,6 +3195,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optLong(String, long)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long JSONObject.optLong(String, long)"})
   public void testOptLongWithKeyDefaultValue_thenReturnOne() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -2864,8 +3207,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#optLong(String, long)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optLong(String, long)} with {@code key}, {@code defaultValue}.
    * <ul>
    *   <li>When empty string.</li>
    * </ul>
@@ -2873,6 +3215,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optLong(String, long)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long JSONObject.optLong(String, long)"})
   public void testOptLongWithKeyDefaultValue_whenEmptyString() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(42L, Cookie.toJSONObject("=;").optLong("", 42L));
@@ -2881,13 +3225,14 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#optLong(String)} with {@code key}.
    * <ul>
-   *   <li>Given toJSONObject {@code =;} append {@code Key} and
-   * {@link JSONObject#NULL}.</li>
+   *   <li>Given toJSONObject {@code =;} append {@code Key} and {@link JSONObject#NULL}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#optLong(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long JSONObject.optLong(String)"})
   public void testOptLongWithKey_givenToJSONObjectEqualsSignSemicolonAppendKeyAndNull() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -2907,6 +3252,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optLong(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long JSONObject.optLong(String)"})
   public void testOptLongWithKey_givenToJSONObjectEqualsSignSemicolon_whenEmptyString() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(0L, Cookie.toJSONObject("=;").optLong(""));
@@ -2923,6 +3270,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optLong(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long JSONObject.optLong(String)"})
   public void testOptLongWithKey_givenToJSONObjectEqualsSignSemicolon_whenKey_thenReturnZero() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(0L, Cookie.toJSONObject("=;").optLong("Key"));
@@ -2939,6 +3288,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optLong(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long JSONObject.optLong(String)"})
   public void testOptLongWithKey_givenToJSONObjectEqualsSignSemicolon_whenNull_thenReturnZero() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(0L, Cookie.toJSONObject("=;").optLong(null));
@@ -2953,6 +3304,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optLong(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long JSONObject.optLong(String)"})
   public void testOptLongWithKey_thenReturnOne() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -2968,6 +3321,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optString(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.optString(String)"})
   public void testOptStringWithKey() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -2978,12 +3333,13 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#optString(String, String)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optString(String, String)} with {@code key}, {@code defaultValue}.
    * <p>
    * Method under test: {@link JSONObject#optString(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.optString(String, String)"})
   public void testOptStringWithKeyDefaultValue() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -2994,12 +3350,13 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#optString(String, String)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optString(String, String)} with {@code key}, {@code defaultValue}.
    * <p>
    * Method under test: {@link JSONObject#optString(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.optString(String, String)"})
   public void testOptStringWithKeyDefaultValue2() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -3010,40 +3367,17 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#optString(String, String)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optString(String, String)} with {@code key}, {@code defaultValue}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@link JSONObject#NULL}
-   * and {@link BiFunction}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JSONObject#optString(String, String)}
-   */
-  @Test
-  public void testOptStringWithKeyDefaultValue_givenHashMapComputeIfPresentNullAndBiFunction() throws JSONException {
-    // Arrange
-    HashMap<Object, Object> value = new HashMap<>();
-    value.computeIfPresent(JSONObject.NULL, mock(BiFunction.class));
-    value.put(JSONObject.NULL, JSONObject.NULL);
-    JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
-    toJSONObjectResult.put("Key", (Map) value);
-
-    // Act and Assert
-    assertEquals("{\"null\":null}", toJSONObjectResult.optString("Key", "42"));
-  }
-
-  /**
-   * Test {@link JSONObject#optString(String, String)} with {@code key},
-   * {@code defaultValue}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@link JSONObject#NULL} is
-   * {@link JSONObject#NULL}.</li>
+   *   <li>Given {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@link JSONObject#NULL}.</li>
    *   <li>Then return {@code {"null":null}}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#optString(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.optString(String, String)"})
   public void testOptStringWithKeyDefaultValue_givenHashMapNullIsNull_thenReturnNullNull() throws JSONException {
     // Arrange
     HashMap<Object, Object> value = new HashMap<>();
@@ -3056,8 +3390,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#optString(String, String)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optString(String, String)} with {@code key}, {@code defaultValue}.
    * <ul>
    *   <li>Then return {@code 1}.</li>
    * </ul>
@@ -3065,6 +3398,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optString(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.optString(String, String)"})
   public void testOptStringWithKeyDefaultValue_thenReturn1() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -3075,8 +3410,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#optString(String, String)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optString(String, String)} with {@code key}, {@code defaultValue}.
    * <ul>
    *   <li>Then return {@code 42}.</li>
    * </ul>
@@ -3084,14 +3418,15 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optString(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.optString(String, String)"})
   public void testOptStringWithKeyDefaultValue_thenReturn42() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("42", Cookie.toJSONObject("=;").optString("Key", "42"));
   }
 
   /**
-   * Test {@link JSONObject#optString(String, String)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optString(String, String)} with {@code key}, {@code defaultValue}.
    * <ul>
    *   <li>Then return {@code [42]}.</li>
    * </ul>
@@ -3099,6 +3434,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optString(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.optString(String, String)"})
   public void testOptStringWithKeyDefaultValue_thenReturn422() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -3109,8 +3446,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#optString(String, String)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optString(String, String)} with {@code key}, {@code defaultValue}.
    * <ul>
    *   <li>Then return {@code ["42"]}.</li>
    * </ul>
@@ -3118,6 +3454,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optString(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.optString(String, String)"})
   public void testOptStringWithKeyDefaultValue_thenReturn423() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -3128,8 +3466,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#optString(String, String)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optString(String, String)} with {@code key}, {@code defaultValue}.
    * <ul>
    *   <li>Then return {@code {}}.</li>
    * </ul>
@@ -3137,6 +3474,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optString(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.optString(String, String)"})
   public void testOptStringWithKeyDefaultValue_thenReturnLeftCurlyBracketRightCurlyBracket() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -3147,8 +3486,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#optString(String, String)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optString(String, String)} with {@code key}, {@code defaultValue}.
    * <ul>
    *   <li>Then return {@code [null]}.</li>
    * </ul>
@@ -3156,6 +3494,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optString(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.optString(String, String)"})
   public void testOptStringWithKeyDefaultValue_thenReturnNull() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -3166,8 +3506,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#optString(String, String)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optString(String, String)} with {@code key}, {@code defaultValue}.
    * <ul>
    *   <li>Then return {@code [null,null]}.</li>
    * </ul>
@@ -3175,6 +3514,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optString(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.optString(String, String)"})
   public void testOptStringWithKeyDefaultValue_thenReturnNullNull() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -3186,8 +3527,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#optString(String, String)} with {@code key},
-   * {@code defaultValue}.
+   * Test {@link JSONObject#optString(String, String)} with {@code key}, {@code defaultValue}.
    * <ul>
    *   <li>When {@code null}.</li>
    *   <li>Then return {@code 42}.</li>
@@ -3196,6 +3536,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optString(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.optString(String, String)"})
   public void testOptStringWithKeyDefaultValue_whenNull_thenReturn42() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("42", Cookie.toJSONObject("=;").optString(null, "42"));
@@ -3204,30 +3546,7 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#optString(String)} with {@code key}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@link JSONObject#NULL}
-   * and {@link BiFunction}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JSONObject#optString(String)}
-   */
-  @Test
-  public void testOptStringWithKey_givenHashMapComputeIfPresentNullAndBiFunction() throws JSONException {
-    // Arrange
-    HashMap<Object, Object> value = new HashMap<>();
-    value.computeIfPresent(JSONObject.NULL, mock(BiFunction.class));
-    value.put(JSONObject.NULL, JSONObject.NULL);
-    JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
-    toJSONObjectResult.put("Key", (Map) value);
-
-    // Act and Assert
-    assertEquals("{\"null\":null}", toJSONObjectResult.optString("Key"));
-  }
-
-  /**
-   * Test {@link JSONObject#optString(String)} with {@code key}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@link JSONObject#NULL} is
-   * {@link JSONObject#NULL}.</li>
+   *   <li>Given {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@link JSONObject#NULL}.</li>
    *   <li>When {@code Key}.</li>
    *   <li>Then return {@code {"null":null}}.</li>
    * </ul>
@@ -3235,6 +3554,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optString(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.optString(String)"})
   public void testOptStringWithKey_givenHashMapNullIsNull_whenKey_thenReturnNullNull() throws JSONException {
     // Arrange
     HashMap<Object, Object> value = new HashMap<>();
@@ -3255,6 +3576,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optString(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.optString(String)"})
   public void testOptStringWithKey_givenToJSONObjectEqualsSignSemicolonAppendKeyAndNull() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -3274,6 +3597,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optString(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.optString(String)"})
   public void testOptStringWithKey_givenToJSONObjectEqualsSignSemicolon_thenReturnEmptyString() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("", Cookie.toJSONObject("=;").optString("Key"));
@@ -3288,6 +3613,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optString(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.optString(String)"})
   public void testOptStringWithKey_thenReturn1() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -3306,6 +3633,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optString(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.optString(String)"})
   public void testOptStringWithKey_thenReturn42() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -3324,6 +3653,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optString(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.optString(String)"})
   public void testOptStringWithKey_thenReturn422() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -3342,6 +3673,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optString(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.optString(String)"})
   public void testOptStringWithKey_thenReturnLeftCurlyBracketRightCurlyBracket() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -3360,6 +3693,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optString(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.optString(String)"})
   public void testOptStringWithKey_thenReturnNull() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -3378,6 +3713,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optString(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.optString(String)"})
   public void testOptStringWithKey_thenReturnNullNull() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -3398,14 +3735,15 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#optString(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.optString(String)"})
   public void testOptStringWithKey_whenNull_thenReturnEmptyString() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("", Cookie.toJSONObject("=;").optString(null));
   }
 
   /**
-   * Test {@link JSONObject#put(String, boolean)} with {@code String},
-   * {@code boolean}.
+   * Test {@link JSONObject#put(String, boolean)} with {@code String}, {@code boolean}.
    * <ul>
    *   <li>Then toJSONObject {@code =;} length is three.</li>
    * </ul>
@@ -3413,6 +3751,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, boolean)"})
   public void testPutWithStringBoolean_thenToJSONObjectEqualsSignSemicolonLengthIsThree() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -3426,8 +3766,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#put(String, boolean)} with {@code String},
-   * {@code boolean}.
+   * Test {@link JSONObject#put(String, boolean)} with {@code String}, {@code boolean}.
    * <ul>
    *   <li>When {@code false}.</li>
    * </ul>
@@ -3435,6 +3774,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, boolean)"})
   public void testPutWithStringBoolean_whenFalse() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -3448,8 +3789,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#put(String, boolean)} with {@code String},
-   * {@code boolean}.
+   * Test {@link JSONObject#put(String, boolean)} with {@code String}, {@code boolean}.
    * <ul>
    *   <li>When {@code null}.</li>
    *   <li>Then throw {@link JSONException}.</li>
@@ -3458,23 +3798,26 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, boolean)"})
   public void testPutWithStringBoolean_whenNull_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").put(null, true));
   }
 
   /**
-   * Test {@link JSONObject#put(String, Collection)} with {@code String},
-   * {@code Collection}.
+   * Test {@link JSONObject#put(String, Collection)} with {@code String}, {@code Collection}.
    * <ul>
    *   <li>Given {@code A}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@code A}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} first byteValue is {@code A}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#put(String, Collection)}
    */
   @Test
-  public void testPutWithStringCollection_givenA_whenArrayListAddA() throws JSONException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Collection)"})
+  public void testPutWithStringCollection_givenA_thenArrayListFirstByteValueIsA() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
 
@@ -3485,13 +3828,14 @@ public class JSONObjectDiffblueTest {
     JSONObject actualPutResult = toJSONObjectResult.put("Key", (Collection) value);
 
     // Assert
+    assertEquals(1, value.size());
     assertEquals(3, toJSONObjectResult.length());
+    assertEquals('A', ((Byte) value.get(0)).byteValue());
     assertSame(toJSONObjectResult, actualPutResult);
   }
 
   /**
-   * Test {@link JSONObject#put(String, Collection)} with {@code String},
-   * {@code Collection}.
+   * Test {@link JSONObject#put(String, Collection)} with {@code String}, {@code Collection}.
    * <ul>
    *   <li>Given {@link JSONArray#JSONArray()}.</li>
    *   <li>Then {@link ArrayList#ArrayList()} first {@link JSONArray}.</li>
@@ -3500,6 +3844,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Collection)"})
   public void testPutWithStringCollection_givenJSONArray_thenArrayListFirstJSONArray() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -3521,34 +3867,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#put(String, Collection)} with {@code String},
-   * {@code Collection}.
-   * <ul>
-   *   <li>Given {@link JSONArray}.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@link JSONArray}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JSONObject#put(String, Collection)}
-   */
-  @Test
-  public void testPutWithStringCollection_givenJSONArray_whenArrayListAddJSONArray() throws JSONException {
-    // Arrange
-    JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
-
-    ArrayList<Object> value = new ArrayList<>();
-    value.add(mock(JSONArray.class));
-
-    // Act
-    JSONObject actualPutResult = toJSONObjectResult.put("Key", (Collection) value);
-
-    // Assert
-    assertEquals(3, toJSONObjectResult.length());
-    assertSame(toJSONObjectResult, actualPutResult);
-  }
-
-  /**
-   * Test {@link JSONObject#put(String, Collection)} with {@code String},
-   * {@code Collection}.
+   * Test {@link JSONObject#put(String, Collection)} with {@code String}, {@code Collection}.
    * <ul>
    *   <li>Given {@link JSONObject#JSONObject()}.</li>
    *   <li>Then {@link ArrayList#ArrayList()} first {@link JSONObject}.</li>
@@ -3557,6 +3876,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Collection)"})
   public void testPutWithStringCollection_givenJSONObject_thenArrayListFirstJSONObject() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -3578,8 +3899,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#put(String, Collection)} with {@code String},
-   * {@code Collection}.
+   * Test {@link JSONObject#put(String, Collection)} with {@code String}, {@code Collection}.
    * <ul>
    *   <li>Given {@link JSONObject#NULL}.</li>
    *   <li>Then {@link ArrayList#ArrayList()} first is {@link JSONObject#NULL}.</li>
@@ -3588,6 +3908,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Collection)"})
   public void testPutWithStringCollection_givenNull_thenArrayListFirstIsNull() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -3607,8 +3929,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#put(String, Collection)} with {@code String},
-   * {@code Collection}.
+   * Test {@link JSONObject#put(String, Collection)} with {@code String}, {@code Collection}.
    * <ul>
    *   <li>Given {@code null}.</li>
    *   <li>Then {@link ArrayList#ArrayList()} first is {@code null}.</li>
@@ -3617,6 +3938,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Collection)"})
   public void testPutWithStringCollection_givenNull_thenArrayListFirstIsNull2() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -3635,8 +3958,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#put(String, Collection)} with {@code String},
-   * {@code Collection}.
+   * Test {@link JSONObject#put(String, Collection)} with {@code String}, {@code Collection}.
    * <ul>
    *   <li>Given {@link JSONObject#NULL}.</li>
    *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
@@ -3645,6 +3967,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Collection)"})
   public void testPutWithStringCollection_givenNull_thenArrayListSizeIsTwo() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -3664,43 +3988,18 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#put(String, Collection)} with {@code String},
-   * {@code Collection}.
+   * Test {@link JSONObject#put(String, Collection)} with {@code String}, {@code Collection}.
    * <ul>
    *   <li>Given one.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add one.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} first longValue is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#put(String, Collection)}
    */
   @Test
-  public void testPutWithStringCollection_givenOne_whenArrayListAddOne() throws JSONException {
-    // Arrange
-    JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
-
-    ArrayList<Object> value = new ArrayList<>();
-    value.add((short) 1);
-
-    // Act
-    JSONObject actualPutResult = toJSONObjectResult.put("Key", (Collection) value);
-
-    // Assert
-    assertEquals(3, toJSONObjectResult.length());
-    assertSame(toJSONObjectResult, actualPutResult);
-  }
-
-  /**
-   * Test {@link JSONObject#put(String, Collection)} with {@code String},
-   * {@code Collection}.
-   * <ul>
-   *   <li>Given one.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JSONObject#put(String, Collection)}
-   */
-  @Test
-  public void testPutWithStringCollection_givenOne_whenArrayListAddOne2() throws JSONException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Collection)"})
+  public void testPutWithStringCollection_givenOne_thenArrayListFirstLongValueIsOne() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
 
@@ -3711,39 +4010,43 @@ public class JSONObjectDiffblueTest {
     JSONObject actualPutResult = toJSONObjectResult.put("Key", (Collection) value);
 
     // Assert
+    assertEquals(1, value.size());
+    assertEquals(1L, ((Long) value.get(0)).longValue());
     assertEquals(3, toJSONObjectResult.length());
     assertSame(toJSONObjectResult, actualPutResult);
   }
 
   /**
-   * Test {@link JSONObject#put(String, Collection)} with {@code String},
-   * {@code Collection}.
+   * Test {@link JSONObject#put(String, Collection)} with {@code String}, {@code Collection}.
    * <ul>
-   *   <li>Given start of heading.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add start of heading.</li>
+   *   <li>Given one.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} first shortValue is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#put(String, Collection)}
    */
   @Test
-  public void testPutWithStringCollection_givenStartOfHeading_whenArrayListAddStartOfHeading() throws JSONException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Collection)"})
+  public void testPutWithStringCollection_givenOne_thenArrayListFirstShortValueIsOne() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
 
     ArrayList<Object> value = new ArrayList<>();
-    value.add('\u0001');
+    value.add((short) 1);
 
     // Act
     JSONObject actualPutResult = toJSONObjectResult.put("Key", (Collection) value);
 
     // Assert
+    assertEquals(1, value.size());
+    assertEquals((short) 1, ((Short) value.get(0)).shortValue());
     assertEquals(3, toJSONObjectResult.length());
     assertSame(toJSONObjectResult, actualPutResult);
   }
 
   /**
-   * Test {@link JSONObject#put(String, Collection)} with {@code String},
-   * {@code Collection}.
+   * Test {@link JSONObject#put(String, Collection)} with {@code String}, {@code Collection}.
    * <ul>
    *   <li>Given ten.</li>
    *   <li>Then {@link ArrayList#ArrayList()} first doubleValue is ten.</li>
@@ -3752,6 +4055,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Collection)"})
   public void testPutWithStringCollection_givenTen_thenArrayListFirstDoubleValueIsTen() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -3770,8 +4075,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#put(String, Collection)} with {@code String},
-   * {@code Collection}.
+   * Test {@link JSONObject#put(String, Collection)} with {@code String}, {@code Collection}.
    * <ul>
    *   <li>Given ten.</li>
    *   <li>Then {@link ArrayList#ArrayList()} first floatValue is ten.</li>
@@ -3780,6 +4084,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Collection)"})
   public void testPutWithStringCollection_givenTen_thenArrayListFirstFloatValueIsTen() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -3798,17 +4104,19 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#put(String, Collection)} with {@code String},
-   * {@code Collection}.
+   * Test {@link JSONObject#put(String, Collection)} with {@code String}, {@code Collection}.
    * <ul>
    *   <li>Given {@code true}.</li>
    *   <li>When {@link ArrayList#ArrayList()} add {@code true}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} first.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#put(String, Collection)}
    */
   @Test
-  public void testPutWithStringCollection_givenTrue_whenArrayListAddTrue() throws JSONException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Collection)"})
+  public void testPutWithStringCollection_givenTrue_whenArrayListAddTrue_thenArrayListFirst() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
 
@@ -3819,22 +4127,25 @@ public class JSONObjectDiffblueTest {
     JSONObject actualPutResult = toJSONObjectResult.put("Key", (Collection) value);
 
     // Assert
+    assertEquals(1, value.size());
     assertEquals(3, toJSONObjectResult.length());
+    assertTrue((Boolean) value.get(0));
     assertSame(toJSONObjectResult, actualPutResult);
   }
 
   /**
-   * Test {@link JSONObject#put(String, Collection)} with {@code String},
-   * {@code Collection}.
+   * Test {@link JSONObject#put(String, Collection)} with {@code String}, {@code Collection}.
    * <ul>
    *   <li>Given two.</li>
-   *   <li>When {@link ArrayList#ArrayList()} add two.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} first intValue is two.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#put(String, Collection)}
    */
   @Test
-  public void testPutWithStringCollection_givenTwo_whenArrayListAddTwo() throws JSONException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Collection)"})
+  public void testPutWithStringCollection_givenTwo_thenArrayListFirstIntValueIsTwo() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
 
@@ -3845,13 +4156,42 @@ public class JSONObjectDiffblueTest {
     JSONObject actualPutResult = toJSONObjectResult.put("Key", (Collection) value);
 
     // Assert
+    assertEquals(1, value.size());
+    assertEquals(2, ((Integer) value.get(0)).intValue());
     assertEquals(3, toJSONObjectResult.length());
     assertSame(toJSONObjectResult, actualPutResult);
   }
 
   /**
-   * Test {@link JSONObject#put(String, Collection)} with {@code String},
-   * {@code Collection}.
+   * Test {@link JSONObject#put(String, Collection)} with {@code String}, {@code Collection}.
+   * <ul>
+   *   <li>Then {@link ArrayList#ArrayList()} first charValue is start of heading.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#put(String, Collection)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Collection)"})
+  public void testPutWithStringCollection_thenArrayListFirstCharValueIsStartOfHeading() throws JSONException {
+    // Arrange
+    JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
+
+    ArrayList<Object> value = new ArrayList<>();
+    value.add('\u0001');
+
+    // Act
+    JSONObject actualPutResult = toJSONObjectResult.put("Key", (Collection) value);
+
+    // Assert
+    assertEquals(1, value.size());
+    assertEquals('\u0001', ((Character) value.get(0)).charValue());
+    assertEquals(3, toJSONObjectResult.length());
+    assertSame(toJSONObjectResult, actualPutResult);
+  }
+
+  /**
+   * Test {@link JSONObject#put(String, Collection)} with {@code String}, {@code Collection}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
@@ -3859,6 +4199,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Collection)"})
   public void testPutWithStringCollection_whenArrayList() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -3872,8 +4214,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#put(String, Collection)} with {@code String},
-   * {@code Collection}.
+   * Test {@link JSONObject#put(String, Collection)} with {@code String}, {@code Collection}.
    * <ul>
    *   <li>When {@code null}.</li>
    *   <li>Then throw {@link JSONException}.</li>
@@ -3882,6 +4223,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Collection)"})
   public void testPutWithStringCollection_whenNull_thenThrowJSONException() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -3891,8 +4234,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#put(String, double)} with {@code String},
-   * {@code double}.
+   * Test {@link JSONObject#put(String, double)} with {@code String}, {@code double}.
    * <ul>
    *   <li>Then toJSONObject {@code =;} length is three.</li>
    * </ul>
@@ -3900,6 +4242,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, double)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, double)"})
   public void testPutWithStringDouble_thenToJSONObjectEqualsSignSemicolonLengthIsThree() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -3913,8 +4257,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#put(String, double)} with {@code String},
-   * {@code double}.
+   * Test {@link JSONObject#put(String, double)} with {@code String}, {@code double}.
    * <ul>
    *   <li>When {@link Double#NaN}.</li>
    *   <li>Then throw {@link JSONException}.</li>
@@ -3923,14 +4266,15 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, double)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, double)"})
   public void testPutWithStringDouble_whenNaN_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").put("Key", Double.NaN));
   }
 
   /**
-   * Test {@link JSONObject#put(String, double)} with {@code String},
-   * {@code double}.
+   * Test {@link JSONObject#put(String, double)} with {@code String}, {@code double}.
    * <ul>
    *   <li>When {@code null}.</li>
    *   <li>Then throw {@link JSONException}.</li>
@@ -3939,6 +4283,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, double)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, double)"})
   public void testPutWithStringDouble_whenNull_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").put(null, 10.0d));
@@ -3953,6 +4299,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, int)"})
   public void testPutWithStringInt_thenToJSONObjectEqualsSignSemicolonLengthIsThree() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -3975,6 +4323,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, int)"})
   public void testPutWithStringInt_whenNull_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").put(null, 42));
@@ -3989,6 +4339,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, long)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, long)"})
   public void testPutWithStringLong_thenToJSONObjectEqualsSignSemicolonLengthIsThree() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -4011,6 +4363,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, long)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, long)"})
   public void testPutWithStringLong_whenNull_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").put(null, 42L));
@@ -4026,6 +4380,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Map)"})
   public void testPutWithStringMap_givenA_whenHashMapNullIsA() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -4044,39 +4400,15 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#put(String, Map)} with {@code String}, {@code Map}.
    * <ul>
-   *   <li>Given {@link BiFunction}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JSONObject#put(String, Map)}
-   */
-  @Test
-  public void testPutWithStringMap_givenBiFunction() throws JSONException {
-    // Arrange
-    JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
-
-    HashMap<Object, Object> value = new HashMap<>();
-    value.computeIfPresent(JSONObject.NULL, mock(BiFunction.class));
-    value.put(JSONObject.NULL, JSONObject.NULL);
-
-    // Act
-    JSONObject actualPutResult = toJSONObjectResult.put("Key", (Map) value);
-
-    // Assert
-    assertEquals(3, toJSONObjectResult.length());
-    assertSame(toJSONObjectResult, actualPutResult);
-  }
-
-  /**
-   * Test {@link JSONObject#put(String, Map)} with {@code String}, {@code Map}.
-   * <ul>
    *   <li>Given {@link JSONArray#JSONArray()}.</li>
-   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is
-   * {@link JSONArray#JSONArray()}.</li>
+   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@link JSONArray#JSONArray()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#put(String, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Map)"})
   public void testPutWithStringMap_givenJSONArray_whenHashMapNullIsJSONArray() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -4096,13 +4428,14 @@ public class JSONObjectDiffblueTest {
    * Test {@link JSONObject#put(String, Map)} with {@code String}, {@code Map}.
    * <ul>
    *   <li>Given {@link JSONObject#JSONObject()}.</li>
-   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is
-   * {@link JSONObject#JSONObject()}.</li>
+   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@link JSONObject#JSONObject()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#put(String, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Map)"})
   public void testPutWithStringMap_givenJSONObject_whenHashMapNullIsJSONObject() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -4122,13 +4455,14 @@ public class JSONObjectDiffblueTest {
    * Test {@link JSONObject#put(String, Map)} with {@code String}, {@code Map}.
    * <ul>
    *   <li>Given {@link JSONObject#NULL}.</li>
-   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is
-   * {@link JSONObject#NULL}.</li>
+   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@link JSONObject#NULL}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#put(String, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Map)"})
   public void testPutWithStringMap_givenNull_whenHashMapNullIsNull() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -4148,13 +4482,14 @@ public class JSONObjectDiffblueTest {
    * Test {@link JSONObject#put(String, Map)} with {@code String}, {@code Map}.
    * <ul>
    *   <li>Given {@code null}.</li>
-   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is
-   * {@code null}.</li>
+   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#put(String, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Map)"})
   public void testPutWithStringMap_givenNull_whenHashMapNullIsNull2() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -4180,6 +4515,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Map)"})
   public void testPutWithStringMap_givenOne_whenHashMapNullIsOne() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -4205,6 +4542,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Map)"})
   public void testPutWithStringMap_givenOne_whenHashMapNullIsOne2() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -4230,6 +4569,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Map)"})
   public void testPutWithStringMap_givenOne_whenHashMapNullIsOne3() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -4248,19 +4589,20 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#put(String, Map)} with {@code String}, {@code Map}.
    * <ul>
-   *   <li>Given {@link SimpleEntry#SimpleEntry(Object, Object)} with
-   * {@link JSONObject#NULL} and {@link JSONObject#NULL}.</li>
+   *   <li>Given {@link AbstractMap.SimpleEntry#SimpleEntry(Object, Object)} with {@link JSONObject#NULL} and {@link JSONObject#NULL}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#put(String, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Map)"})
   public void testPutWithStringMap_givenSimpleEntryWithNullAndNull() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
 
     HashMap<Object, Object> value = new HashMap<>();
-    value.put(JSONObject.NULL, new AbstractMap.SimpleEntry<>(JSONObject.NULL, JSONObject.NULL));
+    value.put(JSONObject.NULL, new SimpleEntry<>(JSONObject.NULL, JSONObject.NULL));
 
     // Act
     JSONObject actualPutResult = toJSONObjectResult.put("Key", (Map) value);
@@ -4274,13 +4616,14 @@ public class JSONObjectDiffblueTest {
    * Test {@link JSONObject#put(String, Map)} with {@code String}, {@code Map}.
    * <ul>
    *   <li>Given start of heading.</li>
-   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is start of
-   * heading.</li>
+   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is start of heading.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#put(String, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Map)"})
   public void testPutWithStringMap_givenStartOfHeading_whenHashMapNullIsStartOfHeading() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -4306,6 +4649,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Map)"})
   public void testPutWithStringMap_givenTen_whenHashMapNullIsTen() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -4325,13 +4670,14 @@ public class JSONObjectDiffblueTest {
    * Test {@link JSONObject#put(String, Map)} with {@code String}, {@code Map}.
    * <ul>
    *   <li>Given {@code true}.</li>
-   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is
-   * {@code true}.</li>
+   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#put(String, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Map)"})
   public void testPutWithStringMap_givenTrue_whenHashMapNullIsTrue() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -4356,6 +4702,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Map)"})
   public void testPutWithStringMap_whenHashMap() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -4378,6 +4726,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Map)"})
   public void testPutWithStringMap_whenNull_thenThrowJSONException() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -4387,8 +4737,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#put(String, Object)} with {@code String},
-   * {@code Object}.
+   * Test {@link JSONObject#put(String, Object)} with {@code String}, {@code Object}.
    * <ul>
    *   <li>Then toJSONObject {@code =;} length is three.</li>
    * </ul>
@@ -4396,6 +4745,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Object)"})
   public void testPutWithStringObject_thenToJSONObjectEqualsSignSemicolonLengthIsThree() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -4409,8 +4760,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#put(String, Object)} with {@code String},
-   * {@code Object}.
+   * Test {@link JSONObject#put(String, Object)} with {@code String}, {@code Object}.
    * <ul>
    *   <li>When {@link Double#NaN}.</li>
    *   <li>Then throw {@link JSONException}.</li>
@@ -4419,15 +4769,32 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Object)"})
   public void testPutWithStringObject_whenNaN_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").put("Key", (Object) Double.NaN));
+  }
+
+  /**
+   * Test {@link JSONObject#put(String, Object)} with {@code String}, {@code Object}.
+   * <ul>
+   *   <li>When {@link Float#NaN}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#put(String, Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Object)"})
+  public void testPutWithStringObject_whenNaN_thenThrowJSONException2() throws JSONException {
+    // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").put("Key", Float.NaN));
   }
 
   /**
-   * Test {@link JSONObject#put(String, Object)} with {@code String},
-   * {@code Object}.
+   * Test {@link JSONObject#put(String, Object)} with {@code String}, {@code Object}.
    * <ul>
    *   <li>When {@code null}.</li>
    *   <li>Then throw {@link JSONException}.</li>
@@ -4436,14 +4803,15 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Object)"})
   public void testPutWithStringObject_whenNull_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").put(null, JSONObject.NULL));
   }
 
   /**
-   * Test {@link JSONObject#put(String, Object)} with {@code String},
-   * {@code Object}.
+   * Test {@link JSONObject#put(String, Object)} with {@code String}, {@code Object}.
    * <ul>
    *   <li>When {@code null}.</li>
    *   <li>Then toJSONObject {@code =;} length is two.</li>
@@ -4452,6 +4820,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Object)"})
   public void testPutWithStringObject_whenNull_thenToJSONObjectEqualsSignSemicolonLengthIsTwo() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -4465,8 +4835,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#put(String, Object)} with {@code String},
-   * {@code Object}.
+   * Test {@link JSONObject#put(String, Object)} with {@code String}, {@code Object}.
    * <ul>
    *   <li>When ten.</li>
    *   <li>Then toJSONObject {@code =;} length is three.</li>
@@ -4475,6 +4844,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Object)"})
   public void testPutWithStringObject_whenTen_thenToJSONObjectEqualsSignSemicolonLengthIsThree() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -4488,8 +4859,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#put(String, Object)} with {@code String},
-   * {@code Object}.
+   * Test {@link JSONObject#put(String, Object)} with {@code String}, {@code Object}.
    * <ul>
    *   <li>When ten.</li>
    *   <li>Then toJSONObject {@code =;} length is three.</li>
@@ -4498,6 +4868,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#put(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.put(String, Object)"})
   public void testPutWithStringObject_whenTen_thenToJSONObjectEqualsSignSemicolonLengthIsThree2() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -4513,13 +4885,14 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#putOnce(String, Object)}.
    * <ul>
-   *   <li>Given toJSONObject {@code =;} append {@code Key} and
-   * {@link JSONObject#NULL}.</li>
+   *   <li>Given toJSONObject {@code =;} append {@code Key} and {@link JSONObject#NULL}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#putOnce(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.putOnce(String, Object)"})
   public void testPutOnce_givenToJSONObjectEqualsSignSemicolonAppendKeyAndNull() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -4540,9 +4913,28 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#putOnce(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.putOnce(String, Object)"})
   public void testPutOnce_givenToJSONObjectEqualsSignSemicolon_whenNaN_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").putOnce("Key", Double.NaN));
+  }
+
+  /**
+   * Test {@link JSONObject#putOnce(String, Object)}.
+   * <ul>
+   *   <li>Given toJSONObject {@code =;}.</li>
+   *   <li>When {@link Float#NaN}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#putOnce(String, Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.putOnce(String, Object)"})
+  public void testPutOnce_givenToJSONObjectEqualsSignSemicolon_whenNaN_thenThrowJSONException2() throws JSONException {
+    // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").putOnce("Key", Float.NaN));
   }
 
@@ -4556,6 +4948,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#putOnce(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.putOnce(String, Object)"})
   public void testPutOnce_whenNull_thenToJSONObjectEqualsSignSemicolonLengthIsThree() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -4578,6 +4972,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#putOnce(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.putOnce(String, Object)"})
   public void testPutOnce_whenNull_thenToJSONObjectEqualsSignSemicolonLengthIsTwo() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -4600,6 +4996,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#putOnce(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.putOnce(String, Object)"})
   public void testPutOnce_whenNull_thenToJSONObjectEqualsSignSemicolonLengthIsTwo2() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -4622,6 +5020,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#putOnce(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.putOnce(String, Object)"})
   public void testPutOnce_whenTen_thenToJSONObjectEqualsSignSemicolonLengthIsThree() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -4644,6 +5044,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#putOnce(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.putOnce(String, Object)"})
   public void testPutOnce_whenTen_thenToJSONObjectEqualsSignSemicolonLengthIsThree2() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -4667,9 +5069,28 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#putOpt(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.putOpt(String, Object)"})
   public void testPutOpt_givenToJSONObjectEqualsSignSemicolon_whenNaN_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").putOpt("Key", Double.NaN));
+  }
+
+  /**
+   * Test {@link JSONObject#putOpt(String, Object)}.
+   * <ul>
+   *   <li>Given toJSONObject {@code =;}.</li>
+   *   <li>When {@link Float#NaN}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#putOpt(String, Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.putOpt(String, Object)"})
+  public void testPutOpt_givenToJSONObjectEqualsSignSemicolon_whenNaN_thenThrowJSONException2() throws JSONException {
+    // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> Cookie.toJSONObject("=;").putOpt("Key", Float.NaN));
   }
 
@@ -4683,6 +5104,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#putOpt(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.putOpt(String, Object)"})
   public void testPutOpt_whenNull_thenToJSONObjectEqualsSignSemicolonLengthIsThree() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -4705,6 +5128,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#putOpt(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.putOpt(String, Object)"})
   public void testPutOpt_whenNull_thenToJSONObjectEqualsSignSemicolonLengthIsTwo() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -4727,6 +5152,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#putOpt(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.putOpt(String, Object)"})
   public void testPutOpt_whenNull_thenToJSONObjectEqualsSignSemicolonLengthIsTwo2() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -4749,6 +5176,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#putOpt(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.putOpt(String, Object)"})
   public void testPutOpt_whenTen_thenToJSONObjectEqualsSignSemicolonLengthIsThree() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -4771,6 +5200,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#putOpt(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONObject JSONObject.putOpt(String, Object)"})
   public void testPutOpt_whenTen_thenToJSONObjectEqualsSignSemicolonLengthIsThree2() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -4785,6 +5216,19 @@ public class JSONObjectDiffblueTest {
 
   /**
    * Test {@link JSONObject#quote(String)}.
+   * <p>
+   * Method under test: {@link JSONObject#quote(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.quote(String)"})
+  public void testQuote() {
+    // Arrange, Act and Assert
+    assertEquals("\"\\\"\\\"\"", JSONObject.quote("\"\""));
+  }
+
+  /**
+   * Test {@link JSONObject#quote(String)}.
    * <ul>
    *   <li>When empty string.</li>
    *   <li>Then return {@code ""}.</li>
@@ -4793,6 +5237,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#quote(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.quote(String)"})
   public void testQuote_whenEmptyString_thenReturnQuotationMarkQuotationMark() {
     // Arrange, Act and Assert
     assertEquals("\"\"", JSONObject.quote(""));
@@ -4808,6 +5254,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#quote(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.quote(String)"})
   public void testQuote_whenNull_thenReturnQuotationMarkQuotationMark() {
     // Arrange, Act and Assert
     assertEquals("\"\"", JSONObject.quote(null));
@@ -4823,6 +5271,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#quote(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.quote(String)"})
   public void testQuote_whenString_thenReturnString() {
     // Arrange, Act and Assert
     assertEquals("\"String\"", JSONObject.quote("String"));
@@ -4832,42 +5282,50 @@ public class JSONObjectDiffblueTest {
    * Test {@link JSONObject#remove(String)}.
    * <ul>
    *   <li>Given toJSONObject {@code =;} {@code Key} is {@code false}.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#remove(String)}
    */
   @Test
-  public void testRemove_givenToJSONObjectEqualsSignSemicolonKeyIsFalse() throws JSONException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.remove(String)"})
+  public void testRemove_givenToJSONObjectEqualsSignSemicolonKeyIsFalse_thenReturnFalse() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
     toJSONObjectResult.put("Key", false);
 
     // Act
-    toJSONObjectResult.remove("Key");
+    Object actualRemoveResult = toJSONObjectResult.remove("Key");
 
     // Assert
     assertEquals(2, toJSONObjectResult.length());
+    assertFalse((Boolean) actualRemoveResult);
   }
 
   /**
    * Test {@link JSONObject#remove(String)}.
    * <ul>
    *   <li>Given toJSONObject {@code =;} {@code Key} is {@code true}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#remove(String)}
    */
   @Test
-  public void testRemove_givenToJSONObjectEqualsSignSemicolonKeyIsTrue() throws JSONException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.remove(String)"})
+  public void testRemove_givenToJSONObjectEqualsSignSemicolonKeyIsTrue_thenReturnTrue() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
     toJSONObjectResult.put("Key", true);
 
     // Act
-    toJSONObjectResult.remove("Key");
+    Object actualRemoveResult = toJSONObjectResult.remove("Key");
 
     // Assert
     assertEquals(2, toJSONObjectResult.length());
+    assertTrue((Boolean) actualRemoveResult);
   }
 
   /**
@@ -4880,6 +5338,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#remove(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.remove(String)"})
   public void testRemove_givenToJSONObjectEqualsSignSemicolon_thenReturnNull() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -4899,6 +5359,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#sortedKeys()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Iterator JSONObject.sortedKeys()"})
   public void testSortedKeys_givenToJSONObjectEqualsSignSemicolon_thenReturnNextIsName() throws JSONException {
     // Arrange and Act
     Iterator actualSortedKeysResult = Cookie.toJSONObject("=;").sortedKeys();
@@ -4912,6 +5374,23 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#stringToValue(String)}.
    * <ul>
+   *   <li>When {@code 0}.</li>
+   *   <li>Then return intValue is zero.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#stringToValue(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.stringToValue(String)"})
+  public void testStringToValue_when0_thenReturnIntValueIsZero() {
+    // Arrange, Act and Assert
+    assertEquals(0, ((Integer) JSONObject.stringToValue("0")).intValue());
+  }
+
+  /**
+   * Test {@link JSONObject#stringToValue(String)}.
+   * <ul>
    *   <li>When {@code 0foo}.</li>
    *   <li>Then return {@code 0foo}.</li>
    * </ul>
@@ -4919,6 +5398,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#stringToValue(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.stringToValue(String)"})
   public void testStringToValue_when0foo_thenReturn0foo() {
     // Arrange, Act and Assert
     assertEquals("0foo", JSONObject.stringToValue("0foo"));
@@ -4934,9 +5415,28 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#stringToValue(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.stringToValue(String)"})
   public void testStringToValue_when42_thenReturnDoubleValueIsFortyTwo() {
     // Arrange, Act and Assert
     assertEquals(42.0d, ((Double) JSONObject.stringToValue("42.")).doubleValue(), 0.0);
+  }
+
+  /**
+   * Test {@link JSONObject#stringToValue(String)}.
+   * <ul>
+   *   <li>When {@code 42}.</li>
+   *   <li>Then return intValue is forty-two.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#stringToValue(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.stringToValue(String)"})
+  public void testStringToValue_when42_thenReturnIntValueIsFortyTwo() {
+    // Arrange, Act and Assert
+    assertEquals(42, ((Integer) JSONObject.stringToValue("42")).intValue());
   }
 
   /**
@@ -4949,6 +5449,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#stringToValue(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.stringToValue(String)"})
   public void testStringToValue_when42foo_thenReturn42foo() {
     // Arrange, Act and Assert
     assertEquals("42foo", JSONObject.stringToValue("42foo"));
@@ -4964,6 +5466,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#stringToValue(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.stringToValue(String)"})
   public void testStringToValue_when42true_thenReturn42true() {
     // Arrange, Act and Assert
     assertEquals("42true", JSONObject.stringToValue("42true"));
@@ -4979,6 +5483,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#stringToValue(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.stringToValue(String)"})
   public void testStringToValue_whenDot_thenReturnDot() {
     // Arrange, Act and Assert
     assertEquals(".", JSONObject.stringToValue("."));
@@ -4994,9 +5500,28 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#stringToValue(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.stringToValue(String)"})
   public void testStringToValue_whenEmptyString_thenReturnEmptyString() {
     // Arrange, Act and Assert
     assertEquals("", JSONObject.stringToValue(""));
+  }
+
+  /**
+   * Test {@link JSONObject#stringToValue(String)}.
+   * <ul>
+   *   <li>When {@link Boolean#FALSE} toString.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#stringToValue(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.stringToValue(String)"})
+  public void testStringToValue_whenFalseToString_thenReturnFalse() {
+    // Arrange, Act and Assert
+    assertFalse((Boolean) JSONObject.stringToValue(Boolean.FALSE.toString()));
   }
 
   /**
@@ -5009,9 +5534,28 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#stringToValue(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.stringToValue(String)"})
   public void testStringToValue_whenFoo_thenReturnFoo() {
     // Arrange, Act and Assert
     assertEquals("foo", JSONObject.stringToValue("foo"));
+  }
+
+  /**
+   * Test {@link JSONObject#stringToValue(String)}.
+   * <ul>
+   *   <li>When {@link Boolean#TRUE} toString.</li>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#stringToValue(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.stringToValue(String)"})
+  public void testStringToValue_whenTrueToString_thenReturnTrue() {
+    // Arrange, Act and Assert
+    assertTrue((Boolean) JSONObject.stringToValue(Boolean.TRUE.toString()));
   }
 
   /**
@@ -5024,9 +5568,27 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#testValidity(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONObject.testValidity(Object)"})
   public void testTestValidity_whenNaN_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> JSONObject.testValidity(Double.NaN));
+  }
+
+  /**
+   * Test {@link JSONObject#testValidity(Object)}.
+   * <ul>
+   *   <li>When {@link Float#NaN}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#testValidity(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONObject.testValidity(Object)"})
+  public void testTestValidity_whenNaN_thenThrowJSONException2() throws JSONException {
+    // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> JSONObject.testValidity(Float.NaN));
   }
 
@@ -5041,6 +5603,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toJSONArray(JSONArray)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONObject.toJSONArray(JSONArray)"})
   public void testToJSONArray_givenArrayList_whenJSONArrayArrayList_thenReturnLengthIsTwo() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -5064,6 +5628,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toJSONArray(JSONArray)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONObject.toJSONArray(JSONArray)"})
   public void testToJSONArray_givenHashMap_whenJSONArrayHashMap_thenReturnLengthIsTwo() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -5087,6 +5653,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toJSONArray(JSONArray)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONObject.toJSONArray(JSONArray)"})
   public void testToJSONArray_givenToJSONObjectEqualsSignSemicolon_whenNull_thenReturnNull() throws JSONException {
     // Arrange, Act and Assert
     assertNull(Cookie.toJSONObject("=;").toJSONArray(null));
@@ -5103,6 +5671,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toJSONArray(JSONArray)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONObject.toJSONArray(JSONArray)"})
   public void testToJSONArray_givenTrue_whenJSONArrayTrue_thenReturnLengthIsOne() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -5124,6 +5694,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toJSONArray(JSONArray)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONArray JSONObject.toJSONArray(JSONArray)"})
   public void testToJSONArray_whenJSONArray_thenReturnNull() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -5138,6 +5710,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString(int)"})
   public void testToStringWithIndentFactor() throws JSONException {
     // Arrange, Act and Assert
     assertEquals(
@@ -5146,12 +5720,13 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#toString(int, int)} with {@code indentFactor},
-   * {@code indent}.
+   * Test {@link JSONObject#toString(int, int)} with {@code indentFactor}, {@code indent}.
    * <p>
    * Method under test: {@link JSONObject#toString(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString(int, int)"})
   public void testToStringWithIndentFactorIndent() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("{\n" + "    \"HTTP-Version\": \"https://example.org/example\",\n" + "    \"Reason-Phrase\": \"\",\n"
@@ -5159,8 +5734,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#toString(int, int)} with {@code indentFactor},
-   * {@code indent}.
+   * Test {@link JSONObject#toString(int, int)} with {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>Then return {@code { ": ": 1, "name": "", "value": "" }}.</li>
    * </ul>
@@ -5168,6 +5742,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString(int, int)"})
   public void testToStringWithIndentFactorIndent_thenReturn1NameValue() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -5178,8 +5754,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#toString(int, int)} with {@code indentFactor},
-   * {@code indent}.
+   * Test {@link JSONObject#toString(int, int)} with {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>Then return {@code { ": ": 1, "name": "", "value": "", "{": 10 }}.</li>
    * </ul>
@@ -5187,6 +5762,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString(int, int)"})
   public void testToStringWithIndentFactorIndent_thenReturn1NameValue10() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -5199,8 +5776,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#toString(int, int)} with {@code indentFactor},
-   * {@code indent}.
+   * Test {@link JSONObject#toString(int, int)} with {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>Then return {@code { ": ": 0.5, "name": "", "value": "" }}.</li>
    * </ul>
@@ -5208,6 +5784,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString(int, int)"})
   public void testToStringWithIndentFactorIndent_thenReturn05NameValue() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -5219,8 +5797,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#toString(int, int)} with {@code indentFactor},
-   * {@code indent}.
+   * Test {@link JSONObject#toString(int, int)} with {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>Then return {@code { ": ": false, "name": "", "value": "" }}.</li>
    * </ul>
@@ -5228,6 +5805,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString(int, int)"})
   public void testToStringWithIndentFactorIndent_thenReturnFalseNameValue() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -5239,8 +5818,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#toString(int, int)} with {@code indentFactor},
-   * {@code indent}.
+   * Test {@link JSONObject#toString(int, int)} with {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>Then return {@code {}}.</li>
    * </ul>
@@ -5248,14 +5826,15 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString(int, int)"})
   public void testToStringWithIndentFactorIndent_thenReturnLeftCurlyBracketRightCurlyBracket() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("{}", (new JSONObject()).toString(3, 1));
   }
 
   /**
-   * Test {@link JSONObject#toString(int, int)} with {@code indentFactor},
-   * {@code indent}.
+   * Test {@link JSONObject#toString(int, int)} with {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>Then return {@code { ",\n": [null], "name": "", "value": "" }}.</li>
    * </ul>
@@ -5263,6 +5842,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString(int, int)"})
   public void testToStringWithIndentFactorIndent_thenReturnNNullNameValue() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -5274,8 +5855,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#toString(int, int)} with {@code indentFactor},
-   * {@code indent}.
+   * Test {@link JSONObject#toString(int, int)} with {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>Then return {@code { "name": "", "value": "" }}.</li>
    * </ul>
@@ -5283,14 +5863,15 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString(int, int)"})
   public void testToStringWithIndentFactorIndent_thenReturnNameValue() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("{\n    \"name\": \"\",\n    \"value\": \"\"\n }", Cookie.toJSONObject("=;").toString(3, 1));
   }
 
   /**
-   * Test {@link JSONObject#toString(int, int)} with {@code indentFactor},
-   * {@code indent}.
+   * Test {@link JSONObject#toString(int, int)} with {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>Then return {@code { ": ": [], "name": "", "value": "" }}.</li>
    * </ul>
@@ -5298,6 +5879,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString(int, int)"})
   public void testToStringWithIndentFactorIndent_thenReturnNameValue2() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -5308,8 +5891,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#toString(int, int)} with {@code indentFactor},
-   * {@code indent}.
+   * Test {@link JSONObject#toString(int, int)} with {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>Then return {@code { ": ": {}, "name": "", "value": "" }}.</li>
    * </ul>
@@ -5317,6 +5899,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString(int, int)"})
   public void testToStringWithIndentFactorIndent_thenReturnNameValue3() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -5327,8 +5911,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#toString(int, int)} with {@code indentFactor},
-   * {@code indent}.
+   * Test {@link JSONObject#toString(int, int)} with {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>Then return {@code {": ": [null]}}.</li>
    * </ul>
@@ -5336,6 +5919,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString(int, int)"})
   public void testToStringWithIndentFactorIndent_thenReturnNull() throws JSONException {
     // Arrange
     JSONObject jsonObject = new JSONObject();
@@ -5346,8 +5931,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#toString(int, int)} with {@code indentFactor},
-   * {@code indent}.
+   * Test {@link JSONObject#toString(int, int)} with {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>Then return {@code { ": ": [null], "name": "", "value": "" }}.</li>
    * </ul>
@@ -5355,6 +5939,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString(int, int)"})
   public void testToStringWithIndentFactorIndent_thenReturnNullNameValue() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -5366,8 +5952,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#toString(int, int)} with {@code indentFactor},
-   * {@code indent}.
+   * Test {@link JSONObject#toString(int, int)} with {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>Then return {@code { "\"\"": [null], "name": "", "value": "" }}.</li>
    * </ul>
@@ -5375,6 +5960,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString(int, int)"})
   public void testToStringWithIndentFactorIndent_thenReturnNullNameValue2() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -5388,14 +5975,15 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#toString(int)} with {@code indentFactor}.
    * <ul>
-   *   <li>Given {@link JSONObject#JSONObject()} append {@code :} and
-   * {@link JSONObject#NULL}.</li>
+   *   <li>Given {@link JSONObject#JSONObject()} append {@code :} and {@link JSONObject#NULL}.</li>
    *   <li>Then return {@code {": ": [null]}}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#toString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString(int)"})
   public void testToStringWithIndentFactor_givenJSONObjectAppendColonAndNull_thenReturnNull() throws JSONException {
     // Arrange
     JSONObject jsonObject = new JSONObject();
@@ -5414,6 +6002,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString(int)"})
   public void testToStringWithIndentFactor_thenReturn1NameValue() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -5432,6 +6022,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString(int)"})
   public void testToStringWithIndentFactor_thenReturn1NameValue10() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -5452,6 +6044,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString(int)"})
   public void testToStringWithIndentFactor_thenReturn05NameValue() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -5470,6 +6064,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString(int)"})
   public void testToStringWithIndentFactor_thenReturnFalseNameValue() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -5488,6 +6084,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString(int)"})
   public void testToStringWithIndentFactor_thenReturnLeftCurlyBracketRightCurlyBracket() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("{}", (new JSONObject()).toString(3));
@@ -5502,6 +6100,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString(int)"})
   public void testToStringWithIndentFactor_thenReturnNNullNameValue() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -5520,6 +6120,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString(int)"})
   public void testToStringWithIndentFactor_thenReturnNameValue() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("{\n   \"name\": \"\",\n   \"value\": \"\"\n}", Cookie.toJSONObject("=;").toString(3));
@@ -5534,6 +6136,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString(int)"})
   public void testToStringWithIndentFactor_thenReturnNameValue2() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -5552,6 +6156,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString(int)"})
   public void testToStringWithIndentFactor_thenReturnNameValue3() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -5570,6 +6176,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString(int)"})
   public void testToStringWithIndentFactor_thenReturnNullNameValue() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -5588,6 +6196,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString(int)"})
   public void testToStringWithIndentFactor_thenReturnNullNameValue2() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -5608,6 +6218,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString()"})
   public void testToString_givenToJSONObjectEqualsSignSemicolon_thenReturnNameValue() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("{\"name\":\"\",\"value\":\"\"}", Cookie.toJSONObject("=;").toString());
@@ -5622,6 +6234,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString()"})
   public void testToString_thenReturn1Name10Value() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -5641,6 +6255,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString()"})
   public void testToString_thenReturn1NameValue() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -5659,6 +6275,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString()"})
   public void testToString_thenReturn05NameValue() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -5677,6 +6295,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString()"})
   public void testToString_thenReturnFalseNameValue() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -5689,13 +6309,14 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#toString()}.
    * <ul>
-   *   <li>Then return
-   * {@code {"HTTP-Version":"https://example.org/example","Status-Code":"","Reason-Phrase":""}}.</li>
+   *   <li>Then return {@code {"HTTP-Version":"https://example.org/example","Status-Code":"","Reason-Phrase":""}}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString()"})
   public void testToString_thenReturnHttpVersionHttpsExampleOrgExampleStatusCodeReasonPhrase() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("{\"HTTP-Version\":\"https://example.org/example\",\"Status-Code\":\"\",\"Reason-Phrase\":\"\"}",
@@ -5711,6 +6332,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString()"})
   public void testToString_thenReturnNameValue() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -5729,6 +6352,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.toString()"})
   public void testToString_thenReturnNullNameValue() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -5744,6 +6369,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#valueToString(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object)"})
   public void testValueToStringWithValue() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("{\"HTTP-Version\":\"https://example.org/example\",\"Status-Code\":\"\",\"Reason-Phrase\":\"\"}",
@@ -5756,6 +6383,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#valueToString(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object)"})
   public void testValueToStringWithValue2() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = HTTP.toJSONObject("https://example.org/example");
@@ -5768,15 +6397,28 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value},
-   * {@code indentFactor}, {@code indent}.
+   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value}, {@code indentFactor}, {@code indent}.
    * <p>
    * Method under test: {@link JSONObject#valueToString(Object, int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object, int, int)"})
   public void testValueToStringWithValueIndentFactorIndent() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("\"\"", JSONObject.valueToString("", 3, 1));
+  }
+
+  /**
+   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value}, {@code indentFactor}, {@code indent}.
+   * <p>
+   * Method under test: {@link JSONObject#valueToString(Object, int, int)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object, int, int)"})
+  public void testValueToStringWithValueIndentFactorIndent2() throws JSONException {
+    // Arrange, Act and Assert
     assertEquals(
         "{\n" + "    \"HTTP-Version\": \"https://example.org/example\",\n" + "    \"Reason-Phrase\": \"\",\n"
             + "    \"Status-Code\": \"\"\n" + " }",
@@ -5784,8 +6426,28 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value},
-   * {@code indentFactor}, {@code indent}.
+   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value}, {@code indentFactor}, {@code indent}.
+   * <ul>
+   *   <li>Given one.</li>
+   *   <li>Then return {@code [ null, true ]}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#valueToString(Object, int, int)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object, int, int)"})
+  public void testValueToStringWithValueIndentFactorIndent_givenOne_thenReturnNullTrue() throws JSONException {
+    // Arrange
+    JSONArray jsonArray = new JSONArray();
+    jsonArray.put(1, true);
+
+    // Act and Assert
+    assertEquals("[\n    null,\n    true\n ]", JSONObject.valueToString(jsonArray, 3, 1));
+  }
+
+  /**
+   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value}, {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>Then return {@code {"{}": [null]}}.</li>
    * </ul>
@@ -5793,6 +6455,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#valueToString(Object, int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object, int, int)"})
   public void testValueToStringWithValueIndentFactorIndent_thenReturnNull() throws JSONException {
     // Arrange
     JSONObject jsonObject = new JSONObject();
@@ -5803,8 +6467,7 @@ public class JSONObjectDiffblueTest {
   }
 
   /**
-   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value},
-   * {@code indentFactor}, {@code indent}.
+   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value}, {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>When {@code 0.5}.</li>
    *   <li>Then return {@code 0.5}.</li>
@@ -5813,14 +6476,15 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#valueToString(Object, int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object, int, int)"})
   public void testValueToStringWithValueIndentFactorIndent_when05_thenReturn05() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("0.5", JSONObject.valueToString(0.5d, 3, 1));
   }
 
   /**
-   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value},
-   * {@code indentFactor}, {@code indent}.
+   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value}, {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>When {@code 42}.</li>
    *   <li>Then return {@code "42"}.</li>
@@ -5829,14 +6493,15 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#valueToString(Object, int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object, int, int)"})
   public void testValueToStringWithValueIndentFactorIndent_when42_thenReturn42() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("\"42\"", JSONObject.valueToString("42", 3, 1));
   }
 
   /**
-   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value},
-   * {@code indentFactor}, {@code indent}.
+   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value}, {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
@@ -5844,14 +6509,15 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#valueToString(Object, int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object, int, int)"})
   public void testValueToStringWithValueIndentFactorIndent_whenArrayList() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("[]", JSONObject.valueToString(new ArrayList<>(), 3, 1));
   }
 
   /**
-   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value},
-   * {@code indentFactor}, {@code indent}.
+   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value}, {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>When forty-two.</li>
    *   <li>Then return {@code 42}.</li>
@@ -5860,14 +6526,15 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#valueToString(Object, int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object, int, int)"})
   public void testValueToStringWithValueIndentFactorIndent_whenFortyTwo_thenReturn42() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("42", JSONObject.valueToString(42, 3, 1));
   }
 
   /**
-   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value},
-   * {@code indentFactor}, {@code indent}.
+   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value}, {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>When {@link HashMap#HashMap()}.</li>
    * </ul>
@@ -5875,14 +6542,15 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#valueToString(Object, int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object, int, int)"})
   public void testValueToStringWithValueIndentFactorIndent_whenHashMap() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("{}", JSONObject.valueToString(new HashMap<>(), 3, 1));
   }
 
   /**
-   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value},
-   * {@code indentFactor}, {@code indent}.
+   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value}, {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>When {@link JSONArray#JSONArray()}.</li>
    * </ul>
@@ -5890,14 +6558,15 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#valueToString(Object, int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object, int, int)"})
   public void testValueToStringWithValueIndentFactorIndent_whenJSONArray() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("[]", JSONObject.valueToString(new JSONArray(), 3, 1));
   }
 
   /**
-   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value},
-   * {@code indentFactor}, {@code indent}.
+   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value}, {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>When {@link JSONObject#JSONObject()}.</li>
    * </ul>
@@ -5905,14 +6574,15 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#valueToString(Object, int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object, int, int)"})
   public void testValueToStringWithValueIndentFactorIndent_whenJSONObject() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("{}", JSONObject.valueToString(new JSONObject(), 3, 1));
   }
 
   /**
-   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value},
-   * {@code indentFactor}, {@code indent}.
+   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value}, {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>When {@link Double#NaN}.</li>
    *   <li>Then throw {@link JSONException}.</li>
@@ -5921,15 +6591,32 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#valueToString(Object, int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object, int, int)"})
   public void testValueToStringWithValueIndentFactorIndent_whenNaN_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> JSONObject.valueToString(Double.NaN, 3, 1));
+  }
+
+  /**
+   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value}, {@code indentFactor}, {@code indent}.
+   * <ul>
+   *   <li>When {@link Float#NaN}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#valueToString(Object, int, int)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object, int, int)"})
+  public void testValueToStringWithValueIndentFactorIndent_whenNaN_thenThrowJSONException2() throws JSONException {
+    // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> JSONObject.valueToString(Float.NaN, 3, 1));
   }
 
   /**
-   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value},
-   * {@code indentFactor}, {@code indent}.
+   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value}, {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>When {@link JSONObject#NULL}.</li>
    *   <li>Then return {@code null}.</li>
@@ -5938,15 +6625,32 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#valueToString(Object, int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object, int, int)"})
   public void testValueToStringWithValueIndentFactorIndent_whenNull_thenReturnNull() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("null", JSONObject.valueToString(JSONObject.NULL, 3, 1));
+  }
+
+  /**
+   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value}, {@code indentFactor}, {@code indent}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#valueToString(Object, int, int)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object, int, int)"})
+  public void testValueToStringWithValueIndentFactorIndent_whenNull_thenReturnNull2() throws JSONException {
+    // Arrange, Act and Assert
     assertEquals("null", JSONObject.valueToString(null, 3, 0));
   }
 
   /**
-   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value},
-   * {@code indentFactor}, {@code indent}.
+   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value}, {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>When ten.</li>
    *   <li>Then return {@code 10}.</li>
@@ -5955,15 +6659,32 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#valueToString(Object, int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object, int, int)"})
   public void testValueToStringWithValueIndentFactorIndent_whenTen_thenReturn10() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("10", JSONObject.valueToString(10.0d, 3, 1));
+  }
+
+  /**
+   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value}, {@code indentFactor}, {@code indent}.
+   * <ul>
+   *   <li>When ten.</li>
+   *   <li>Then return {@code 10}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#valueToString(Object, int, int)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object, int, int)"})
+  public void testValueToStringWithValueIndentFactorIndent_whenTen_thenReturn102() throws JSONException {
+    // Arrange, Act and Assert
     assertEquals("10", JSONObject.valueToString(10.0f, 3, 1));
   }
 
   /**
-   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value},
-   * {@code indentFactor}, {@code indent}.
+   * Test {@link JSONObject#valueToString(Object, int, int)} with {@code value}, {@code indentFactor}, {@code indent}.
    * <ul>
    *   <li>When {@code true}.</li>
    *   <li>Then return {@link Boolean#TRUE} toString.</li>
@@ -5972,31 +6693,14 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#valueToString(Object, int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object, int, int)"})
   public void testValueToStringWithValueIndentFactorIndent_whenTrue_thenReturnTrueToString() throws JSONException {
     // Arrange and Act
     String actualValueToStringResult = JSONObject.valueToString(true, 3, 1);
 
     // Assert
     assertEquals(Boolean.TRUE.toString(), actualValueToStringResult);
-  }
-
-  /**
-   * Test {@link JSONObject#valueToString(Object)} with {@code value}.
-   * <ul>
-   *   <li>Given {@link BiFunction}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JSONObject#valueToString(Object)}
-   */
-  @Test
-  public void testValueToStringWithValue_givenBiFunction() throws JSONException {
-    // Arrange
-    HashMap<Object, Object> objectObjectMap = new HashMap<>();
-    objectObjectMap.computeIfPresent(JSONObject.NULL, mock(BiFunction.class));
-    objectObjectMap.put(JSONObject.NULL, JSONObject.NULL);
-
-    // Act and Assert
-    assertEquals("{\"null\":null}", JSONObject.valueToString(objectObjectMap));
   }
 
   /**
@@ -6009,6 +6713,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#valueToString(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object)"})
   public void testValueToStringWithValue_givenLeftCurlyBracket_thenReturnNull() throws JSONException {
     // Arrange
     JSONObject jsonObject = new JSONObject();
@@ -6029,6 +6735,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#valueToString(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object)"})
   public void testValueToStringWithValue_givenNull_whenArrayListAddNull_thenReturnNull() throws JSONException {
     // Arrange
     ArrayList<Object> objectList = new ArrayList<>();
@@ -6042,14 +6750,15 @@ public class JSONObjectDiffblueTest {
    * Test {@link JSONObject#valueToString(Object)} with {@code value}.
    * <ul>
    *   <li>Given {@link JSONObject#NULL}.</li>
-   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is
-   * {@link JSONObject#NULL}.</li>
+   *   <li>When {@link HashMap#HashMap()} {@link JSONObject#NULL} is {@link JSONObject#NULL}.</li>
    *   <li>Then return {@code {"null":null}}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#valueToString(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object)"})
   public void testValueToStringWithValue_givenNull_whenHashMapNullIsNull_thenReturnNullNull() throws JSONException {
     // Arrange
     HashMap<Object, Object> objectObjectMap = new HashMap<>();
@@ -6070,6 +6779,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#valueToString(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object)"})
   public void testValueToStringWithValue_givenOne_whenJSONArrayOneIsTrue_thenReturnNullTrue() throws JSONException {
     // Arrange
     JSONArray jsonArray = new JSONArray();
@@ -6089,6 +6800,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#valueToString(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object)"})
   public void testValueToStringWithValue_when05_thenReturn05() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("0.5", JSONObject.valueToString(0.5d));
@@ -6104,6 +6817,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#valueToString(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object)"})
   public void testValueToStringWithValue_when42_thenReturn42() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("\"42\"", JSONObject.valueToString("42"));
@@ -6118,6 +6833,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#valueToString(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object)"})
   public void testValueToStringWithValue_whenArrayList() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("[]", JSONObject.valueToString(new ArrayList<>()));
@@ -6133,6 +6850,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#valueToString(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object)"})
   public void testValueToStringWithValue_whenEmptyString_thenReturnQuotationMarkQuotationMark() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("\"\"", JSONObject.valueToString(""));
@@ -6148,6 +6867,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#valueToString(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object)"})
   public void testValueToStringWithValue_whenFortyTwo_thenReturn42() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("42", JSONObject.valueToString(42));
@@ -6162,6 +6883,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#valueToString(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object)"})
   public void testValueToStringWithValue_whenHashMap() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("{}", JSONObject.valueToString(new HashMap<>()));
@@ -6176,6 +6899,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#valueToString(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object)"})
   public void testValueToStringWithValue_whenJSONArray() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("[]", JSONObject.valueToString(new JSONArray()));
@@ -6190,6 +6915,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#valueToString(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object)"})
   public void testValueToStringWithValue_whenJSONObject() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("{}", JSONObject.valueToString(new JSONObject()));
@@ -6205,9 +6932,27 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#valueToString(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object)"})
   public void testValueToStringWithValue_whenNaN_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> JSONObject.valueToString(Double.NaN));
+  }
+
+  /**
+   * Test {@link JSONObject#valueToString(Object)} with {@code value}.
+   * <ul>
+   *   <li>When {@link Float#NaN}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#valueToString(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object)"})
+  public void testValueToStringWithValue_whenNaN_thenThrowJSONException2() throws JSONException {
+    // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> JSONObject.valueToString(Float.NaN));
   }
 
@@ -6221,9 +6966,27 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#valueToString(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object)"})
   public void testValueToStringWithValue_whenNull_thenReturnNull() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("null", JSONObject.valueToString(JSONObject.NULL));
+  }
+
+  /**
+   * Test {@link JSONObject#valueToString(Object)} with {@code value}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#valueToString(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object)"})
+  public void testValueToStringWithValue_whenNull_thenReturnNull2() throws JSONException {
+    // Arrange, Act and Assert
     assertEquals("null", JSONObject.valueToString(null));
   }
 
@@ -6237,9 +7000,27 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#valueToString(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object)"})
   public void testValueToStringWithValue_whenTen_thenReturn10() throws JSONException {
     // Arrange, Act and Assert
     assertEquals("10", JSONObject.valueToString(10.0d));
+  }
+
+  /**
+   * Test {@link JSONObject#valueToString(Object)} with {@code value}.
+   * <ul>
+   *   <li>When ten.</li>
+   *   <li>Then return {@code 10}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#valueToString(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object)"})
+  public void testValueToStringWithValue_whenTen_thenReturn102() throws JSONException {
+    // Arrange, Act and Assert
     assertEquals("10", JSONObject.valueToString(10.0f));
   }
 
@@ -6253,12 +7034,48 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#valueToString(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JSONObject.valueToString(Object)"})
   public void testValueToStringWithValue_whenTrue_thenReturnTrueToString() throws JSONException {
     // Arrange and Act
     String actualValueToStringResult = JSONObject.valueToString(true);
 
     // Assert
     assertEquals(Boolean.TRUE.toString(), actualValueToStringResult);
+  }
+
+  /**
+   * Test {@link JSONObject#wrap(Object)}.
+   * <ul>
+   *   <li>When {@code A}.</li>
+   *   <li>Then return byteValue is {@code A}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#wrap(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.wrap(Object)"})
+  public void testWrap_whenA_thenReturnByteValueIsA() {
+    // Arrange, Act and Assert
+    assertEquals('A', ((Byte) JSONObject.wrap((byte) 'A')).byteValue());
+  }
+
+  /**
+   * Test {@link JSONObject#wrap(Object)}.
+   * <ul>
+   *   <li>When {@code false}.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#wrap(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.wrap(Object)"})
+  public void testWrap_whenFalse_thenReturnFalse() {
+    // Arrange, Act and Assert
+    assertFalse((Boolean) JSONObject.wrap(false));
   }
 
   /**
@@ -6271,6 +7088,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#wrap(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.wrap(Object)"})
   public void testWrap_whenJSONArray_thenReturnJSONArray() {
     // Arrange and Act
     Object actualWrapResult = JSONObject.wrap(new JSONArray());
@@ -6290,6 +7109,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#wrap(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.wrap(Object)"})
   public void testWrap_whenJSONObject_thenReturnJSONObject() {
     // Arrange and Act
     Object actualWrapResult = JSONObject.wrap(new JSONObject());
@@ -6302,6 +7123,74 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#wrap(Object)}.
    * <ul>
+   *   <li>When one.</li>
+   *   <li>Then return intValue is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#wrap(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.wrap(Object)"})
+  public void testWrap_whenOne_thenReturnIntValueIsOne() {
+    // Arrange, Act and Assert
+    assertEquals(1, ((Integer) JSONObject.wrap(1)).intValue());
+  }
+
+  /**
+   * Test {@link JSONObject#wrap(Object)}.
+   * <ul>
+   *   <li>When one.</li>
+   *   <li>Then return longValue is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#wrap(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.wrap(Object)"})
+  public void testWrap_whenOne_thenReturnLongValueIsOne() {
+    // Arrange, Act and Assert
+    assertEquals(1L, ((Long) JSONObject.wrap(1L)).longValue());
+  }
+
+  /**
+   * Test {@link JSONObject#wrap(Object)}.
+   * <ul>
+   *   <li>When one.</li>
+   *   <li>Then return shortValue is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#wrap(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.wrap(Object)"})
+  public void testWrap_whenOne_thenReturnShortValueIsOne() {
+    // Arrange, Act and Assert
+    assertEquals((short) 1, ((Short) JSONObject.wrap((short) 1)).shortValue());
+  }
+
+  /**
+   * Test {@link JSONObject#wrap(Object)}.
+   * <ul>
+   *   <li>When start of heading.</li>
+   *   <li>Then return charValue is start of heading.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#wrap(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.wrap(Object)"})
+  public void testWrap_whenStartOfHeading_thenReturnCharValueIsStartOfHeading() {
+    // Arrange, Act and Assert
+    assertEquals('\u0001', ((Character) JSONObject.wrap('\u0001')).charValue());
+  }
+
+  /**
+   * Test {@link JSONObject#wrap(Object)}.
+   * <ul>
    *   <li>When ten.</li>
    *   <li>Then return doubleValue is ten.</li>
    * </ul>
@@ -6309,6 +7198,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#wrap(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.wrap(Object)"})
   public void testWrap_whenTen_thenReturnDoubleValueIsTen() {
     // Arrange, Act and Assert
     assertEquals(10.0d, ((Double) JSONObject.wrap(10.0d)).doubleValue(), 0.0);
@@ -6324,9 +7215,28 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#wrap(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.wrap(Object)"})
   public void testWrap_whenTen_thenReturnFloatValueIsTen() {
     // Arrange, Act and Assert
     assertEquals(10.0f, ((Float) JSONObject.wrap(10.0f)).floatValue(), 0.0f);
+  }
+
+  /**
+   * Test {@link JSONObject#wrap(Object)}.
+   * <ul>
+   *   <li>When {@code true}.</li>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONObject#wrap(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JSONObject.wrap(Object)"})
+  public void testWrap_whenTrue_thenReturnTrue() {
+    // Arrange, Act and Assert
+    assertTrue((Boolean) JSONObject.wrap(true));
   }
 
   /**
@@ -6335,6 +7245,8 @@ public class JSONObjectDiffblueTest {
    * Method under test: {@link JSONObject#write(Writer)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Writer JSONObject.write(Writer)"})
   public void testWrite() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = HTTP.toJSONObject("https://example.org/example");
@@ -6352,13 +7264,14 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#write(Writer)}.
    * <ul>
-   *   <li>Then {@link StringWriter#StringWriter()} toString is
-   * {@code {"\"\"":10,"name":"","value":"","Key":1}}.</li>
+   *   <li>Then {@link StringWriter#StringWriter()} toString is {@code {"\"\"":10,"name":"","value":"","Key":1}}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#write(Writer)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Writer JSONObject.write(Writer)"})
   public void testWrite_thenStringWriterToStringIs10NameValueKey1() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -6377,13 +7290,14 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#write(Writer)}.
    * <ul>
-   *   <li>Then {@link StringWriter#StringWriter()} toString is
-   * {@code {"name":"","value":""}}.</li>
+   *   <li>Then {@link StringWriter#StringWriter()} toString is {@code {"name":"","value":""}}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#write(Writer)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Writer JSONObject.write(Writer)"})
   public void testWrite_thenStringWriterToStringIsNameValue() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -6400,13 +7314,14 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#write(Writer)}.
    * <ul>
-   *   <li>Then {@link StringWriter#StringWriter()} toString is
-   * {@code {"name":"","value":"","Key":{}}}.</li>
+   *   <li>Then {@link StringWriter#StringWriter()} toString is {@code {"name":"","value":"","Key":{}}}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#write(Writer)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Writer JSONObject.write(Writer)"})
   public void testWrite_thenStringWriterToStringIsNameValueKey() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -6424,13 +7339,14 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#write(Writer)}.
    * <ul>
-   *   <li>Then {@link StringWriter#StringWriter()} toString is
-   * {@code {"name":"","value":"","Key":1}}.</li>
+   *   <li>Then {@link StringWriter#StringWriter()} toString is {@code {"name":"","value":"","Key":1}}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#write(Writer)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Writer JSONObject.write(Writer)"})
   public void testWrite_thenStringWriterToStringIsNameValueKey1() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -6448,13 +7364,14 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#write(Writer)}.
    * <ul>
-   *   <li>Then {@link StringWriter#StringWriter()} toString is
-   * {@code {"name":"","value":"","Key":0.5}}.</li>
+   *   <li>Then {@link StringWriter#StringWriter()} toString is {@code {"name":"","value":"","Key":0.5}}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#write(Writer)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Writer JSONObject.write(Writer)"})
   public void testWrite_thenStringWriterToStringIsNameValueKey05() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -6472,13 +7389,14 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#write(Writer)}.
    * <ul>
-   *   <li>Then {@link StringWriter#StringWriter()} toString is
-   * {@code {"name":"","value":"","Key":false}}.</li>
+   *   <li>Then {@link StringWriter#StringWriter()} toString is {@code {"name":"","value":"","Key":false}}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#write(Writer)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Writer JSONObject.write(Writer)"})
   public void testWrite_thenStringWriterToStringIsNameValueKeyFalse() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -6496,13 +7414,14 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#write(Writer)}.
    * <ul>
-   *   <li>Then {@link StringWriter#StringWriter()} toString is
-   * {@code {"name":"","value":"","Key":[null]}}.</li>
+   *   <li>Then {@link StringWriter#StringWriter()} toString is {@code {"name":"","value":"","Key":[null]}}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#write(Writer)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Writer JSONObject.write(Writer)"})
   public void testWrite_thenStringWriterToStringIsNameValueKeyNull() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -6520,13 +7439,14 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#write(Writer)}.
    * <ul>
-   *   <li>Then {@link StringWriter#StringWriter()} toString is
-   * {@code {"name":"","value":"","Key":[null,null]}}.</li>
+   *   <li>Then {@link StringWriter#StringWriter()} toString is {@code {"name":"","value":"","Key":[null,null]}}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#write(Writer)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Writer JSONObject.write(Writer)"})
   public void testWrite_thenStringWriterToStringIsNameValueKeyNullNull() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");
@@ -6545,13 +7465,14 @@ public class JSONObjectDiffblueTest {
   /**
    * Test {@link JSONObject#write(Writer)}.
    * <ul>
-   *   <li>Then {@link StringWriter#StringWriter()} toString is
-   * {@code {"\"\"":[null],"name":"","value":""}}.</li>
+   *   <li>Then {@link StringWriter#StringWriter()} toString is {@code {"\"\"":[null],"name":"","value":""}}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONObject#write(Writer)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Writer JSONObject.write(Writer)"})
   public void testWrite_thenStringWriterToStringIsNullNameValue() throws JSONException {
     // Arrange
     JSONObject toJSONObjectResult = Cookie.toJSONObject("=;");

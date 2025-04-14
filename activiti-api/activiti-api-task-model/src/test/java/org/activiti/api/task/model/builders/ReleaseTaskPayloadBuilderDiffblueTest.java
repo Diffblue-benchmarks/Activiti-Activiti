@@ -16,10 +16,21 @@
 package org.activiti.api.task.model.builders;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+@ContextConfiguration(classes = {ReleaseTaskPayloadBuilder.class})
+@ExtendWith(SpringExtension.class)
 class ReleaseTaskPayloadBuilderDiffblueTest {
+  @Autowired
+  private ReleaseTaskPayloadBuilder releaseTaskPayloadBuilder;
+
   /**
    * Test {@link ReleaseTaskPayloadBuilder#build()}.
    * <p>
@@ -32,6 +43,10 @@ class ReleaseTaskPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test build()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ReleaseTaskPayloadBuilder.<init>()",
+      "org.activiti.api.task.model.payloads.ReleaseTaskPayload ReleaseTaskPayloadBuilder.build()",
+      "ReleaseTaskPayloadBuilder ReleaseTaskPayloadBuilder.withTaskId(String)"})
   void testBuild() {
     // Arrange, Act and Assert
     assertEquals("42", (new ReleaseTaskPayloadBuilder()).withTaskId("42").build().getTaskId());

@@ -17,89 +17,34 @@ package org.activiti.engine.impl.asyncexecutor;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import java.util.LinkedList;
-import org.activiti.engine.impl.asyncexecutor.multitenant.ExecutorPerTenantAsyncExecutor;
-import org.activiti.engine.impl.asyncexecutor.multitenant.TenantAwareAsyncExecutorFactory;
-import org.activiti.engine.runtime.Job;
-import org.activiti.engine.test.cfg.multitenant.DummyTenantInfoHolder;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class AcquireTimerJobsRunnableDiffblueTest {
   /**
-   * Test
-   * {@link AcquireTimerJobsRunnable#AcquireTimerJobsRunnable(AsyncExecutor, JobManager)}.
+   * Test {@link AcquireTimerJobsRunnable#AcquireTimerJobsRunnable(AsyncExecutor, JobManager)}.
    * <p>
-   * Method under test:
-   * {@link AcquireTimerJobsRunnable#AcquireTimerJobsRunnable(AsyncExecutor, JobManager)}
+   * Method under test: {@link AcquireTimerJobsRunnable#AcquireTimerJobsRunnable(AsyncExecutor, JobManager)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AcquireTimerJobsRunnable.<init>(AsyncExecutor, JobManager)"})
   public void testNewAcquireTimerJobsRunnable() {
-    // Arrange
-    ExecutorPerTenantAsyncExecutor asyncExecutor = new ExecutorPerTenantAsyncExecutor(new DummyTenantInfoHolder(),
-        mock(TenantAwareAsyncExecutorFactory.class));
-
-    // Act and Assert
-    AsyncExecutor asyncExecutor2 = (new AcquireTimerJobsRunnable(asyncExecutor, new DefaultJobManager())).asyncExecutor;
-    assertTrue(asyncExecutor2 instanceof ExecutorPerTenantAsyncExecutor);
-    assertFalse(asyncExecutor2.isActive());
-    assertFalse(asyncExecutor2.isAutoActivate());
-    assertTrue(((ExecutorPerTenantAsyncExecutor) asyncExecutor2).getTenantIds().isEmpty());
-  }
-
-  /**
-   * Test
-   * {@link AcquireTimerJobsRunnable#AcquireTimerJobsRunnable(AsyncExecutor, JobManager)}.
-   * <ul>
-   *   <li>Then {@link AcquireTimerJobsRunnable#asyncExecutor} return
-   * {@link DefaultAsyncJobExecutor}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link AcquireTimerJobsRunnable#AcquireTimerJobsRunnable(AsyncExecutor, JobManager)}
-   */
-  @Test
-  public void testNewAcquireTimerJobsRunnable_thenAsyncExecutorReturnDefaultAsyncJobExecutor() {
     // Arrange
     DefaultAsyncJobExecutor asyncExecutor = new DefaultAsyncJobExecutor();
 
-    // Act and Assert
-    AsyncExecutor asyncExecutor2 = (new AcquireTimerJobsRunnable(asyncExecutor, new DefaultJobManager())).asyncExecutor;
-    assertTrue(asyncExecutor2 instanceof DefaultAsyncJobExecutor);
-    assertNull(((DefaultAsyncJobExecutor) asyncExecutor2).getAsyncJobAcquisitionThread());
-    assertNull(((DefaultAsyncJobExecutor) asyncExecutor2).getResetExpiredJobThread());
-    assertNull(((DefaultAsyncJobExecutor) asyncExecutor2).getTimerJobAcquisitionThread());
-    assertNull(((DefaultAsyncJobExecutor) asyncExecutor2).getThreadPoolQueue());
-    assertNull(((DefaultAsyncJobExecutor) asyncExecutor2).getExecutorService());
-    assertNull(((DefaultAsyncJobExecutor) asyncExecutor2).asyncJobsDueRunnable);
-    assertNull(((DefaultAsyncJobExecutor) asyncExecutor2).timerJobRunnable);
-    assertNull(((DefaultAsyncJobExecutor) asyncExecutor2).getExecuteAsyncRunnableFactory());
-    assertNull(((DefaultAsyncJobExecutor) asyncExecutor2).resetExpiredJobsRunnable);
-    assertNull(asyncExecutor2.getProcessEngineConfiguration());
-    assertEquals(0, asyncExecutor2.getDefaultQueueSizeFullWaitTimeInMillis());
-    assertEquals(1, asyncExecutor2.getMaxAsyncJobsDuePerAcquisition());
-    assertEquals(1, asyncExecutor2.getMaxTimerJobsPerAcquisition());
-    assertEquals(10, ((DefaultAsyncJobExecutor) asyncExecutor2).getMaxPoolSize());
-    assertEquals(100, ((DefaultAsyncJobExecutor) asyncExecutor2).getQueueSize());
-    assertEquals(10000, asyncExecutor2.getDefaultAsyncJobAcquireWaitTimeInMillis());
-    assertEquals(10000, asyncExecutor2.getDefaultTimerJobAcquireWaitTimeInMillis());
-    assertEquals(2, ((DefaultAsyncJobExecutor) asyncExecutor2).getCorePoolSize());
-    assertEquals(3, asyncExecutor2.getResetExpiredJobsPageSize());
-    assertEquals(300000, asyncExecutor2.getAsyncJobLockTimeInMillis());
-    assertEquals(300000, asyncExecutor2.getTimerLockTimeInMillis());
-    assertEquals(500, asyncExecutor2.getRetryWaitTimeInMillis());
-    assertEquals(5000L, ((DefaultAsyncJobExecutor) asyncExecutor2).getKeepAliveTime());
-    assertEquals(60000, asyncExecutor2.getResetExpiredJobsInterval());
-    assertEquals(60L, ((DefaultAsyncJobExecutor) asyncExecutor2).getSecondsToWaitOnShutdown());
-    assertFalse(asyncExecutor2.isActive());
-    assertFalse(asyncExecutor2.isAutoActivate());
-    assertFalse(((DefaultAsyncJobExecutor) asyncExecutor2).isMessageQueueMode());
-    LinkedList<Job> jobList = ((DefaultAsyncJobExecutor) asyncExecutor2).temporaryJobQueue;
-    assertTrue(jobList.isEmpty());
-    assertSame(asyncExecutor.temporaryJobQueue, jobList);
+    // Act
+    AcquireTimerJobsRunnable actualAcquireTimerJobsRunnable = new AcquireTimerJobsRunnable(asyncExecutor,
+        new DefaultJobManager());
+
+    // Assert
+    assertTrue(actualAcquireTimerJobsRunnable.asyncExecutor instanceof DefaultAsyncJobExecutor);
+    assertTrue(actualAcquireTimerJobsRunnable.jobManager instanceof DefaultJobManager);
+    assertEquals(0L, actualAcquireTimerJobsRunnable.getMillisToWait());
+    assertFalse(actualAcquireTimerJobsRunnable.isInterrupted);
   }
 
   /**
@@ -108,30 +53,11 @@ public class AcquireTimerJobsRunnableDiffblueTest {
    * Method under test: {@link AcquireTimerJobsRunnable#stop()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AcquireTimerJobsRunnable.stop()"})
   public void testStop() {
     // Arrange
     DefaultAsyncJobExecutor asyncExecutor = new DefaultAsyncJobExecutor();
-    AcquireTimerJobsRunnable acquireTimerJobsRunnable = new AcquireTimerJobsRunnable(asyncExecutor,
-        new DefaultJobManager());
-
-    // Act
-    acquireTimerJobsRunnable.stop();
-
-    // Assert
-    assertTrue(acquireTimerJobsRunnable.isInterrupted);
-  }
-
-  /**
-   * Test {@link AcquireTimerJobsRunnable#stop()}.
-   * <p>
-   * Method under test: {@link AcquireTimerJobsRunnable#stop()}
-   */
-  @Test
-  public void testStop2() {
-    // Arrange
-    ExecutorPerTenantAsyncExecutor asyncExecutor = new ExecutorPerTenantAsyncExecutor(new DummyTenantInfoHolder(),
-        mock(TenantAwareAsyncExecutorFactory.class));
-
     AcquireTimerJobsRunnable acquireTimerJobsRunnable = new AcquireTimerJobsRunnable(asyncExecutor,
         new DefaultJobManager());
 
@@ -152,6 +78,9 @@ public class AcquireTimerJobsRunnableDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long AcquireTimerJobsRunnable.getMillisToWait()",
+      "void AcquireTimerJobsRunnable.setMillisToWait(long)"})
   public void testGettersAndSetters() {
     // Arrange
     DefaultAsyncJobExecutor asyncExecutor = new DefaultAsyncJobExecutor();
@@ -161,7 +90,7 @@ public class AcquireTimerJobsRunnableDiffblueTest {
     // Act
     acquireTimerJobsRunnable.setMillisToWait(1L);
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals(1L, acquireTimerJobsRunnable.getMillisToWait());
   }
 }

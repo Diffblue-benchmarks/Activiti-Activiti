@@ -20,8 +20,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import org.activiti.core.el.CustomFunctionProvider;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.persistence.entity.HistoricDetailAssignmentEntity;
@@ -33,6 +33,7 @@ import org.activiti.engine.impl.persistence.entity.HistoricDetailTransitionInsta
 import org.activiti.engine.impl.persistence.entity.HistoricDetailVariableInstanceUpdateEntity;
 import org.activiti.engine.impl.persistence.entity.HistoricDetailVariableInstanceUpdateEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class MybatisHistoricDetailDataManagerDiffblueTest {
   /**
@@ -40,12 +41,14 @@ public class MybatisHistoricDetailDataManagerDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link MybatisHistoricDetailDataManager#MybatisHistoricDetailDataManager(ProcessEngineConfigurationImpl)}
+   *   <li>{@link MybatisHistoricDetailDataManager#MybatisHistoricDetailDataManager(ProcessEngineConfigurationImpl)}
    *   <li>{@link MybatisHistoricDetailDataManager#getManagedEntityClass()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MybatisHistoricDetailDataManager.<init>(ProcessEngineConfigurationImpl)",
+      "Class MybatisHistoricDetailDataManager.getManagedEntityClass()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends HistoricDetailEntity> actualManagedEntityClass = (new MybatisHistoricDetailDataManager(
@@ -62,6 +65,8 @@ public class MybatisHistoricDetailDataManagerDiffblueTest {
    * Method under test: {@link MybatisHistoricDetailDataManager#create()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricDetailEntity MybatisHistoricDetailDataManager.create()"})
   public void testCreate() {
     // Arrange, Act and Assert
     assertThrows(UnsupportedOperationException.class,
@@ -69,13 +74,14 @@ public class MybatisHistoricDetailDataManagerDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link MybatisHistoricDetailDataManager#createHistoricDetailAssignment()}.
+   * Test {@link MybatisHistoricDetailDataManager#createHistoricDetailAssignment()}.
    * <p>
-   * Method under test:
-   * {@link MybatisHistoricDetailDataManager#createHistoricDetailAssignment()}
+   * Method under test: {@link MybatisHistoricDetailDataManager#createHistoricDetailAssignment()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "HistoricDetailAssignmentEntity MybatisHistoricDetailDataManager.createHistoricDetailAssignment()"})
   public void testCreateHistoricDetailAssignment() {
     // Arrange and Act
     HistoricDetailAssignmentEntity actualCreateHistoricDetailAssignmentResult = (new MybatisHistoricDetailDataManager(
@@ -96,44 +102,14 @@ public class MybatisHistoricDetailDataManagerDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link MybatisHistoricDetailDataManager#createHistoricDetailAssignment()}.
+   * Test {@link MybatisHistoricDetailDataManager#createHistoricDetailTransitionInstance()}.
    * <p>
-   * Method under test:
-   * {@link MybatisHistoricDetailDataManager#createHistoricDetailAssignment()}
+   * Method under test: {@link MybatisHistoricDetailDataManager#createHistoricDetailTransitionInstance()}
    */
   @Test
-  public void testCreateHistoricDetailAssignment2() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    HistoricDetailAssignmentEntity actualCreateHistoricDetailAssignmentResult = (new MybatisHistoricDetailDataManager(
-        processEngineConfiguration)).createHistoricDetailAssignment();
-
-    // Assert
-    assertTrue(actualCreateHistoricDetailAssignmentResult instanceof HistoricDetailAssignmentEntityImpl);
-    assertNull(actualCreateHistoricDetailAssignmentResult.getActivityInstanceId());
-    assertNull(actualCreateHistoricDetailAssignmentResult.getExecutionId());
-    assertNull(actualCreateHistoricDetailAssignmentResult.getId());
-    assertNull(actualCreateHistoricDetailAssignmentResult.getProcessInstanceId());
-    assertNull(actualCreateHistoricDetailAssignmentResult.getTaskId());
-    assertNull(actualCreateHistoricDetailAssignmentResult.getDetailType());
-    assertNull(actualCreateHistoricDetailAssignmentResult.getTime());
-    assertFalse(actualCreateHistoricDetailAssignmentResult.isDeleted());
-    assertFalse(actualCreateHistoricDetailAssignmentResult.isInserted());
-    assertFalse(actualCreateHistoricDetailAssignmentResult.isUpdated());
-  }
-
-  /**
-   * Test
-   * {@link MybatisHistoricDetailDataManager#createHistoricDetailTransitionInstance()}.
-   * <p>
-   * Method under test:
-   * {@link MybatisHistoricDetailDataManager#createHistoricDetailTransitionInstance()}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "HistoricDetailTransitionInstanceEntity MybatisHistoricDetailDataManager.createHistoricDetailTransitionInstance()"})
   public void testCreateHistoricDetailTransitionInstance() {
     // Arrange and Act
     HistoricDetailTransitionInstanceEntity actualCreateHistoricDetailTransitionInstanceResult = (new MybatisHistoricDetailDataManager(
@@ -155,94 +131,18 @@ public class MybatisHistoricDetailDataManagerDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link MybatisHistoricDetailDataManager#createHistoricDetailTransitionInstance()}.
+   * Test {@link MybatisHistoricDetailDataManager#createHistoricDetailVariableInstanceUpdate()}.
    * <p>
-   * Method under test:
-   * {@link MybatisHistoricDetailDataManager#createHistoricDetailTransitionInstance()}
+   * Method under test: {@link MybatisHistoricDetailDataManager#createHistoricDetailVariableInstanceUpdate()}
    */
   @Test
-  public void testCreateHistoricDetailTransitionInstance2() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    HistoricDetailTransitionInstanceEntity actualCreateHistoricDetailTransitionInstanceResult = (new MybatisHistoricDetailDataManager(
-        processEngineConfiguration)).createHistoricDetailTransitionInstance();
-
-    // Assert
-    assertTrue(
-        actualCreateHistoricDetailTransitionInstanceResult instanceof HistoricDetailTransitionInstanceEntityImpl);
-    assertNull(actualCreateHistoricDetailTransitionInstanceResult.getActivityInstanceId());
-    assertNull(actualCreateHistoricDetailTransitionInstanceResult.getExecutionId());
-    assertNull(actualCreateHistoricDetailTransitionInstanceResult.getId());
-    assertNull(actualCreateHistoricDetailTransitionInstanceResult.getProcessInstanceId());
-    assertNull(actualCreateHistoricDetailTransitionInstanceResult.getTaskId());
-    assertNull(actualCreateHistoricDetailTransitionInstanceResult.getDetailType());
-    assertNull(actualCreateHistoricDetailTransitionInstanceResult.getTime());
-    assertFalse(actualCreateHistoricDetailTransitionInstanceResult.isDeleted());
-    assertFalse(actualCreateHistoricDetailTransitionInstanceResult.isInserted());
-    assertFalse(actualCreateHistoricDetailTransitionInstanceResult.isUpdated());
-  }
-
-  /**
-   * Test
-   * {@link MybatisHistoricDetailDataManager#createHistoricDetailVariableInstanceUpdate()}.
-   * <p>
-   * Method under test:
-   * {@link MybatisHistoricDetailDataManager#createHistoricDetailVariableInstanceUpdate()}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "HistoricDetailVariableInstanceUpdateEntity MybatisHistoricDetailDataManager.createHistoricDetailVariableInstanceUpdate()"})
   public void testCreateHistoricDetailVariableInstanceUpdate() {
     // Arrange and Act
     HistoricDetailVariableInstanceUpdateEntity actualCreateHistoricDetailVariableInstanceUpdateResult = (new MybatisHistoricDetailDataManager(
         new JtaProcessEngineConfiguration())).createHistoricDetailVariableInstanceUpdate();
-
-    // Assert
-    assertTrue(
-        actualCreateHistoricDetailVariableInstanceUpdateResult instanceof HistoricDetailVariableInstanceUpdateEntityImpl);
-    assertEquals("VariableUpdate", actualCreateHistoricDetailVariableInstanceUpdateResult.getDetailType());
-    assertNull(actualCreateHistoricDetailVariableInstanceUpdateResult.getBytes());
-    assertNull(actualCreateHistoricDetailVariableInstanceUpdateResult.getDoubleValue());
-    assertNull(actualCreateHistoricDetailVariableInstanceUpdateResult.getLongValue());
-    assertNull(actualCreateHistoricDetailVariableInstanceUpdateResult.getCachedValue());
-    assertNull(actualCreateHistoricDetailVariableInstanceUpdateResult.getActivityInstanceId());
-    assertNull(actualCreateHistoricDetailVariableInstanceUpdateResult.getExecutionId());
-    assertNull(actualCreateHistoricDetailVariableInstanceUpdateResult.getId());
-    assertNull(actualCreateHistoricDetailVariableInstanceUpdateResult.getProcessInstanceId());
-    assertNull(actualCreateHistoricDetailVariableInstanceUpdateResult.getTaskId());
-    assertNull(actualCreateHistoricDetailVariableInstanceUpdateResult.getVariableName());
-    assertNull(actualCreateHistoricDetailVariableInstanceUpdateResult.getVariableTypeName());
-    assertNull(actualCreateHistoricDetailVariableInstanceUpdateResult.getName());
-    assertNull(actualCreateHistoricDetailVariableInstanceUpdateResult.getTextValue());
-    assertNull(actualCreateHistoricDetailVariableInstanceUpdateResult.getTextValue2());
-    assertNull(actualCreateHistoricDetailVariableInstanceUpdateResult.getTime());
-    assertNull(actualCreateHistoricDetailVariableInstanceUpdateResult.getByteArrayRef());
-    assertNull(actualCreateHistoricDetailVariableInstanceUpdateResult.getVariableType());
-    assertEquals(0, actualCreateHistoricDetailVariableInstanceUpdateResult.getRevision());
-    assertEquals(1, actualCreateHistoricDetailVariableInstanceUpdateResult.getRevisionNext());
-    assertFalse(actualCreateHistoricDetailVariableInstanceUpdateResult.isDeleted());
-    assertFalse(actualCreateHistoricDetailVariableInstanceUpdateResult.isInserted());
-    assertFalse(actualCreateHistoricDetailVariableInstanceUpdateResult.isUpdated());
-  }
-
-  /**
-   * Test
-   * {@link MybatisHistoricDetailDataManager#createHistoricDetailVariableInstanceUpdate()}.
-   * <p>
-   * Method under test:
-   * {@link MybatisHistoricDetailDataManager#createHistoricDetailVariableInstanceUpdate()}
-   */
-  @Test
-  public void testCreateHistoricDetailVariableInstanceUpdate2() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    HistoricDetailVariableInstanceUpdateEntity actualCreateHistoricDetailVariableInstanceUpdateResult = (new MybatisHistoricDetailDataManager(
-        processEngineConfiguration)).createHistoricDetailVariableInstanceUpdate();
 
     // Assert
     assertTrue(

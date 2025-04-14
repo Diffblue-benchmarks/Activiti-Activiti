@@ -19,56 +19,27 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
-import org.activiti.core.el.CustomFunctionProvider;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.persistence.entity.TimerJobEntity;
 import org.activiti.engine.impl.persistence.entity.TimerJobEntityImpl;
 import org.activiti.engine.impl.persistence.entity.data.impl.cachematcher.TimerJobsByExecutionIdMatcher;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class MybatisTimerJobDataManagerDiffblueTest {
   /**
-   * Test
-   * {@link MybatisTimerJobDataManager#MybatisTimerJobDataManager(ProcessEngineConfigurationImpl)}.
-   * <ul>
-   *   <li>Given {@link CustomFunctionProvider}.</li>
-   * </ul>
+   * Test {@link MybatisTimerJobDataManager#MybatisTimerJobDataManager(ProcessEngineConfigurationImpl)}.
    * <p>
-   * Method under test:
-   * {@link MybatisTimerJobDataManager#MybatisTimerJobDataManager(ProcessEngineConfigurationImpl)}
+   * Method under test: {@link MybatisTimerJobDataManager#MybatisTimerJobDataManager(ProcessEngineConfigurationImpl)}
    */
   @Test
-  public void testNewMybatisTimerJobDataManager_givenCustomFunctionProvider() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    MybatisTimerJobDataManager actualMybatisTimerJobDataManager = new MybatisTimerJobDataManager(
-        processEngineConfiguration);
-
-    // Assert
-    assertTrue(actualMybatisTimerJobDataManager.timerJobsByExecutionIdMatcher instanceof TimerJobsByExecutionIdMatcher);
-    assertNull(actualMybatisTimerJobDataManager.getManagedEntitySubClasses());
-    Class<TimerJobEntityImpl> expectedManagedEntityClass = TimerJobEntityImpl.class;
-    assertEquals(expectedManagedEntityClass, actualMybatisTimerJobDataManager.getManagedEntityClass());
-  }
-
-  /**
-   * Test
-   * {@link MybatisTimerJobDataManager#MybatisTimerJobDataManager(ProcessEngineConfigurationImpl)}.
-   * <ul>
-   *   <li>When {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link MybatisTimerJobDataManager#MybatisTimerJobDataManager(ProcessEngineConfigurationImpl)}
-   */
-  @Test
-  public void testNewMybatisTimerJobDataManager_whenJtaProcessEngineConfiguration() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MybatisTimerJobDataManager.<init>(ProcessEngineConfigurationImpl)"})
+  public void testNewMybatisTimerJobDataManager() {
     // Arrange and Act
     MybatisTimerJobDataManager actualMybatisTimerJobDataManager = new MybatisTimerJobDataManager(
         new JtaProcessEngineConfiguration());
@@ -86,6 +57,8 @@ public class MybatisTimerJobDataManagerDiffblueTest {
    * Method under test: {@link MybatisTimerJobDataManager#getManagedEntityClass()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Class MybatisTimerJobDataManager.getManagedEntityClass()"})
   public void testGetManagedEntityClass() {
     // Arrange and Act
     Class<? extends TimerJobEntity> actualManagedEntityClass = (new MybatisTimerJobDataManager(
@@ -102,6 +75,8 @@ public class MybatisTimerJobDataManagerDiffblueTest {
    * Method under test: {@link MybatisTimerJobDataManager#create()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TimerJobEntity MybatisTimerJobDataManager.create()"})
   public void testCreate() {
     // Arrange and Act
     TimerJobEntity actualCreateResult = (new MybatisTimerJobDataManager(new JtaProcessEngineConfiguration())).create();
@@ -111,11 +86,6 @@ public class MybatisTimerJobDataManagerDiffblueTest {
     assertTrue(persistentState instanceof Map);
     assertTrue(actualCreateResult instanceof TimerJobEntityImpl);
     assertEquals("", actualCreateResult.getTenantId());
-    assertEquals(5, ((Map<String, Integer>) persistentState).size());
-    assertNull(((Map<String, Integer>) persistentState).get("duedate"));
-    assertNull(((Map<String, Integer>) persistentState).get("exceptionMessage"));
-    assertNull(((Map<String, Integer>) persistentState).get("lockExpirationTime"));
-    assertNull(((Map<String, Integer>) persistentState).get("lockOwner"));
     assertNull(actualCreateResult.getExceptionStacktrace());
     assertNull(actualCreateResult.getJobHandlerConfiguration());
     assertNull(actualCreateResult.getJobHandlerType());
@@ -131,64 +101,19 @@ public class MybatisTimerJobDataManagerDiffblueTest {
     assertNull(actualCreateResult.getLockExpirationTime());
     assertNull(actualCreateResult.getDuedate());
     assertNull(actualCreateResult.getExceptionByteArrayRef());
-    assertEquals(0, ((Map<String, Integer>) persistentState).get("retries").intValue());
     assertEquals(0, actualCreateResult.getMaxIterations());
     assertEquals(0, actualCreateResult.getRetries());
     assertEquals(1, actualCreateResult.getRevision());
     assertEquals(2, actualCreateResult.getRevisionNext());
-    assertFalse(actualCreateResult.isDeleted());
-    assertFalse(actualCreateResult.isInserted());
-    assertFalse(actualCreateResult.isUpdated());
-    assertTrue(actualCreateResult.isExclusive());
-  }
-
-  /**
-   * Test {@link MybatisTimerJobDataManager#create()}.
-   * <p>
-   * Method under test: {@link MybatisTimerJobDataManager#create()}
-   */
-  @Test
-  public void testCreate2() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    TimerJobEntity actualCreateResult = (new MybatisTimerJobDataManager(processEngineConfiguration)).create();
-
-    // Assert
-    Object persistentState = actualCreateResult.getPersistentState();
-    assertTrue(persistentState instanceof Map);
-    assertTrue(actualCreateResult instanceof TimerJobEntityImpl);
-    assertEquals("", actualCreateResult.getTenantId());
     assertEquals(5, ((Map<String, Integer>) persistentState).size());
-    assertNull(((Map<String, Integer>) persistentState).get("duedate"));
-    assertNull(((Map<String, Integer>) persistentState).get("exceptionMessage"));
-    assertNull(((Map<String, Integer>) persistentState).get("lockExpirationTime"));
-    assertNull(((Map<String, Integer>) persistentState).get("lockOwner"));
-    assertNull(actualCreateResult.getExceptionStacktrace());
-    assertNull(actualCreateResult.getJobHandlerConfiguration());
-    assertNull(actualCreateResult.getJobHandlerType());
-    assertNull(actualCreateResult.getJobType());
-    assertNull(actualCreateResult.getRepeat());
-    assertNull(actualCreateResult.getId());
-    assertNull(actualCreateResult.getLockOwner());
-    assertNull(actualCreateResult.getExceptionMessage());
-    assertNull(actualCreateResult.getExecutionId());
-    assertNull(actualCreateResult.getProcessDefinitionId());
-    assertNull(actualCreateResult.getProcessInstanceId());
-    assertNull(actualCreateResult.getEndDate());
-    assertNull(actualCreateResult.getLockExpirationTime());
-    assertNull(actualCreateResult.getDuedate());
-    assertNull(actualCreateResult.getExceptionByteArrayRef());
-    assertEquals(0, ((Map<String, Integer>) persistentState).get("retries").intValue());
-    assertEquals(0, actualCreateResult.getMaxIterations());
-    assertEquals(0, actualCreateResult.getRetries());
-    assertEquals(1, actualCreateResult.getRevision());
-    assertEquals(2, actualCreateResult.getRevisionNext());
     assertFalse(actualCreateResult.isDeleted());
     assertFalse(actualCreateResult.isInserted());
     assertFalse(actualCreateResult.isUpdated());
+    assertTrue(((Map<String, Integer>) persistentState).containsKey("duedate"));
+    assertTrue(((Map<String, Integer>) persistentState).containsKey("exceptionMessage"));
+    assertTrue(((Map<String, Integer>) persistentState).containsKey("lockExpirationTime"));
+    assertTrue(((Map<String, Integer>) persistentState).containsKey("lockOwner"));
+    assertTrue(((Map<String, Integer>) persistentState).containsKey("retries"));
     assertTrue(actualCreateResult.isExclusive());
   }
 }

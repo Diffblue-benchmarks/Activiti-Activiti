@@ -17,6 +17,8 @@ package org.activiti.engine.impl.bpmn.parser.handler;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.engine.impl.bpmn.behavior.AdhocSubProcessActivityBehavior;
@@ -24,20 +26,22 @@ import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class AbstractActivityBpmnParseHandlerDiffblueTest {
   /**
    * Test {@link AbstractActivityBpmnParseHandler#parse(BpmnParse, BaseElement)}.
    * <ul>
-   *   <li>Then {@link AdhocSubProcess} (default constructor) Behavior
-   * {@link AdhocSubProcessActivityBehavior}.</li>
+   *   <li>Given {@code null}.</li>
+   *   <li>Then {@link AdhocSubProcess} (default constructor) Behavior {@link AdhocSubProcessActivityBehavior}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractActivityBpmnParseHandler#parse(BpmnParse, BaseElement)}
+   * Method under test: {@link AbstractActivityBpmnParseHandler#parse(BpmnParse, BaseElement)}
    */
   @Test
-  public void testParse_thenAdhocSubProcessBehaviorAdhocSubProcessActivityBehavior() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractActivityBpmnParseHandler.parse(BpmnParse, BaseElement)"})
+  public void testParse_givenNull_thenAdhocSubProcessBehaviorAdhocSubProcessActivityBehavior() {
     // Arrange
     AdhocSubProcessParseHandler adhocSubProcessParseHandler = new AdhocSubProcessParseHandler();
 

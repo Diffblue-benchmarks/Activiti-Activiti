@@ -21,6 +21,8 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import jakarta.el.ELException;
 import jakarta.el.ValueExpression;
@@ -29,17 +31,18 @@ import org.activiti.core.el.juel.misc.TypeConverter;
 import org.activiti.engine.impl.el.ParsingElContext;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class ExpressionGetInvocationDiffblueTest {
   /**
-   * Test
-   * {@link ExpressionGetInvocation#ExpressionGetInvocation(ValueExpression, ELContext)}.
+   * Test {@link ExpressionGetInvocation#ExpressionGetInvocation(ValueExpression, ELContext)}.
    * <p>
-   * Method under test:
-   * {@link ExpressionGetInvocation#ExpressionGetInvocation(ValueExpression, ELContext)}
+   * Method under test: {@link ExpressionGetInvocation#ExpressionGetInvocation(ValueExpression, ELContext)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExpressionGetInvocation.<init>(ValueExpression, ELContext)"})
   public void testNewExpressionGetInvocation() {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);
@@ -51,22 +54,23 @@ public class ExpressionGetInvocationDiffblueTest {
         new ParsingElContext());
 
     // Assert
-    assertNull(actualExpressionGetInvocation.getInvocationParameters());
     assertNull(actualExpressionGetInvocation.getInvocationResult());
+    assertNull(actualExpressionGetInvocation.getInvocationParameters());
     assertSame(valueExpression, actualExpressionGetInvocation.getTarget());
   }
 
   /**
    * Test {@link ExpressionGetInvocation#invoke()}.
    * <ul>
-   *   <li>Given {@link TypeConverter} {@link TypeConverter#convert(Object, Class)}
-   * return {@link JSONObject#NULL}.</li>
+   *   <li>Given {@link TypeConverter} {@link TypeConverter#convert(Object, Class)} return {@link JSONObject#NULL}.</li>
    *   <li>Then calls {@link TypeConverter#convert(Object, Class)}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ExpressionGetInvocation#invoke()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExpressionGetInvocation.invoke()"})
   public void testInvoke_givenTypeConverterConvertReturnNull_thenCallsConvert() throws ELException {
     // Arrange
     TypeConverter converter = mock(TypeConverter.class);

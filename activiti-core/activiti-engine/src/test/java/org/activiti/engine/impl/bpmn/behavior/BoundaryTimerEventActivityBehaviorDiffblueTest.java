@@ -19,65 +19,25 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import java.util.HashMap;
-import java.util.List;
-import java.util.function.BiFunction;
-import org.activiti.bpmn.model.ExtensionElement;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.TimerEventDefinition;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class BoundaryTimerEventActivityBehaviorDiffblueTest {
   /**
-   * Test
-   * {@link BoundaryTimerEventActivityBehavior#BoundaryTimerEventActivityBehavior(TimerEventDefinition, boolean)}.
+   * Test {@link BoundaryTimerEventActivityBehavior#BoundaryTimerEventActivityBehavior(TimerEventDefinition, boolean)}.
    * <p>
-   * Method under test:
-   * {@link BoundaryTimerEventActivityBehavior#BoundaryTimerEventActivityBehavior(TimerEventDefinition, boolean)}
+   * Method under test: {@link BoundaryTimerEventActivityBehavior#BoundaryTimerEventActivityBehavior(TimerEventDefinition, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BoundaryTimerEventActivityBehavior.<init>(TimerEventDefinition, boolean)"})
   public void testNewBoundaryTimerEventActivityBehavior() {
-    // Arrange
-    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
-    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
-
-    TimerEventDefinition timerEventDefinition = new TimerEventDefinition();
-    timerEventDefinition.setExtensionElements(extensionElements);
-
-    // Act
-    BoundaryTimerEventActivityBehavior actualBoundaryTimerEventActivityBehavior = new BoundaryTimerEventActivityBehavior(
-        timerEventDefinition, true);
-
-    // Assert
-    TimerEventDefinition timerEventDefinition2 = actualBoundaryTimerEventActivityBehavior.timerEventDefinition;
-    assertNull(timerEventDefinition2.getId());
-    assertNull(timerEventDefinition2.getCalendarName());
-    assertNull(timerEventDefinition2.getEndDate());
-    assertNull(timerEventDefinition2.getTimeCycle());
-    assertNull(timerEventDefinition2.getTimeDate());
-    assertNull(timerEventDefinition2.getTimeDuration());
-    assertEquals(0, timerEventDefinition2.getXmlColumnNumber());
-    assertEquals(0, timerEventDefinition2.getXmlRowNumber());
-    assertTrue(timerEventDefinition2.getAttributes().isEmpty());
-    assertTrue(timerEventDefinition2.getExtensionElements().isEmpty());
-    assertTrue(actualBoundaryTimerEventActivityBehavior.isInterrupting());
-  }
-
-  /**
-   * Test
-   * {@link BoundaryTimerEventActivityBehavior#BoundaryTimerEventActivityBehavior(TimerEventDefinition, boolean)}.
-   * <ul>
-   *   <li>When {@link TimerEventDefinition} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link BoundaryTimerEventActivityBehavior#BoundaryTimerEventActivityBehavior(TimerEventDefinition, boolean)}
-   */
-  @Test
-  public void testNewBoundaryTimerEventActivityBehavior_whenTimerEventDefinition() {
     // Arrange and Act
     BoundaryTimerEventActivityBehavior actualBoundaryTimerEventActivityBehavior = new BoundaryTimerEventActivityBehavior(
         new TimerEventDefinition(), true);
@@ -103,10 +63,11 @@ public class BoundaryTimerEventActivityBehaviorDiffblueTest {
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BoundaryTimerEventActivityBehavior#execute(DelegateExecution)}
+   * Method under test: {@link BoundaryTimerEventActivityBehavior#execute(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BoundaryTimerEventActivityBehavior.execute(DelegateExecution)"})
   public void testExecute_thenThrowActivitiException() {
     // Arrange
     BoundaryTimerEventActivityBehavior boundaryTimerEventActivityBehavior = new BoundaryTimerEventActivityBehavior(

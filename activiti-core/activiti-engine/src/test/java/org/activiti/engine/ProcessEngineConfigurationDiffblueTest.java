@@ -21,11 +21,12 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import groovy.lang.GroovyClassLoader;
 import java.util.HashMap;
 import java.util.Map;
 import javax.sql.DataSource;
-import org.activiti.core.el.CustomFunctionProvider;
 import org.activiti.engine.impl.asyncexecutor.AsyncExecutor;
 import org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
@@ -34,40 +35,18 @@ import org.activiti.engine.impl.util.DefaultClockImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.activiti.engine.runtime.Clock;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ProcessEngineConfigurationDiffblueTest {
-  @InjectMocks
-  private JtaProcessEngineConfiguration jtaProcessEngineConfiguration;
-
   /**
    * Test {@link ProcessEngineConfiguration#getProcessEngineName()}.
    * <p>
    * Method under test: {@link ProcessEngineConfiguration#getProcessEngineName()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ProcessEngineConfiguration.getProcessEngineName()"})
   public void testGetProcessEngineName() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertEquals(ProcessEngines.NAME_DEFAULT, jtaProcessEngineConfiguration.getProcessEngineName());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getProcessEngineName()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#getProcessEngineName()}
-   */
-  @Test
-  public void testGetProcessEngineName_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertEquals(ProcessEngines.NAME_DEFAULT, (new JtaProcessEngineConfiguration()).getProcessEngineName());
   }
@@ -75,12 +54,16 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setProcessEngineName(String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setProcessEngineName(String)}
+   * Method under test: {@link ProcessEngineConfiguration#setProcessEngineName(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setProcessEngineName(String)"})
   public void testSetProcessEngineName() {
-    // Arrange and Act
+    // Arrange
+    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
+
+    // Act
     ProcessEngineConfiguration actualSetProcessEngineNameResult = jtaProcessEngineConfiguration
         .setProcessEngineName("Process Engine Name");
 
@@ -95,25 +78,9 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#getIdBlockSize()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int ProcessEngineConfiguration.getIdBlockSize()"})
   public void testGetIdBlockSize() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertEquals(2500, jtaProcessEngineConfiguration.getIdBlockSize());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getIdBlockSize()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#getIdBlockSize()}
-   */
-  @Test
-  public void testGetIdBlockSize_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertEquals(2500, (new JtaProcessEngineConfiguration()).getIdBlockSize());
   }
@@ -124,31 +91,11 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#setIdBlockSize(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setIdBlockSize(int)"})
   public void testSetIdBlockSize() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    ProcessEngineConfiguration actualSetIdBlockSizeResult = jtaProcessEngineConfiguration.setIdBlockSize(1);
-
-    // Assert
-    assertEquals(1, jtaProcessEngineConfiguration.getIdBlockSize());
-    assertSame(jtaProcessEngineConfiguration, actualSetIdBlockSizeResult);
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#setIdBlockSize(int)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#setIdBlockSize(int)}
-   */
-  @Test
-  public void testSetIdBlockSize_givenJtaProcessEngineConfiguration() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act
     ProcessEngineConfiguration actualSetIdBlockSizeResult = jtaProcessEngineConfiguration.setIdBlockSize(1);
@@ -164,25 +111,9 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#getHistory()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ProcessEngineConfiguration.getHistory()"})
   public void testGetHistory() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertEquals("audit", jtaProcessEngineConfiguration.getHistory());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getHistory()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#getHistory()}
-   */
-  @Test
-  public void testGetHistory_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertEquals("audit", (new JtaProcessEngineConfiguration()).getHistory());
   }
@@ -193,8 +124,13 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#setHistory(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setHistory(String)"})
   public void testSetHistory() {
-    // Arrange and Act
+    // Arrange
+    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
+
+    // Act
     ProcessEngineConfiguration actualSetHistoryResult = jtaProcessEngineConfiguration.setHistory("History");
 
     // Assert
@@ -208,25 +144,9 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#getMailServerHost()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ProcessEngineConfiguration.getMailServerHost()"})
   public void testGetMailServerHost() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertEquals("localhost", jtaProcessEngineConfiguration.getMailServerHost());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getMailServerHost()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#getMailServerHost()}
-   */
-  @Test
-  public void testGetMailServerHost_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertEquals("localhost", (new JtaProcessEngineConfiguration()).getMailServerHost());
   }
@@ -234,12 +154,16 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setMailServerHost(String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setMailServerHost(String)}
+   * Method under test: {@link ProcessEngineConfiguration#setMailServerHost(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setMailServerHost(String)"})
   public void testSetMailServerHost() {
-    // Arrange, Act and Assert
+    // Arrange
+    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
+
+    // Act and Assert
     assertSame(jtaProcessEngineConfiguration, jtaProcessEngineConfiguration.setMailServerHost("localhost"));
   }
 
@@ -249,25 +173,9 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#getMailServerUsername()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ProcessEngineConfiguration.getMailServerUsername()"})
   public void testGetMailServerUsername() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull(jtaProcessEngineConfiguration.getMailServerUsername());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getMailServerUsername()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#getMailServerUsername()}
-   */
-  @Test
-  public void testGetMailServerUsername_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertNull((new JtaProcessEngineConfiguration()).getMailServerUsername());
   }
@@ -275,12 +183,16 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setMailServerUsername(String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setMailServerUsername(String)}
+   * Method under test: {@link ProcessEngineConfiguration#setMailServerUsername(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setMailServerUsername(String)"})
   public void testSetMailServerUsername() {
-    // Arrange and Act
+    // Arrange
+    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
+
+    // Act
     ProcessEngineConfiguration actualSetMailServerUsernameResult = jtaProcessEngineConfiguration
         .setMailServerUsername("janedoe");
 
@@ -295,25 +207,9 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#getMailServerPassword()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ProcessEngineConfiguration.getMailServerPassword()"})
   public void testGetMailServerPassword() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull(jtaProcessEngineConfiguration.getMailServerPassword());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getMailServerPassword()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#getMailServerPassword()}
-   */
-  @Test
-  public void testGetMailServerPassword_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertNull((new JtaProcessEngineConfiguration()).getMailServerPassword());
   }
@@ -321,12 +217,16 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setMailServerPassword(String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setMailServerPassword(String)}
+   * Method under test: {@link ProcessEngineConfiguration#setMailServerPassword(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setMailServerPassword(String)"})
   public void testSetMailServerPassword() {
-    // Arrange and Act
+    // Arrange
+    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
+
+    // Act
     ProcessEngineConfiguration actualSetMailServerPasswordResult = jtaProcessEngineConfiguration
         .setMailServerPassword("iloveyou");
 
@@ -341,51 +241,39 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#getMailSessionJndi()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ProcessEngineConfiguration.getMailSessionJndi()"})
   public void testGetMailSessionJndi() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull(jtaProcessEngineConfiguration.getMailSessionJndi());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getMailSessionJndi(String)} with
-   * {@code String}.
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getMailSessionJndi(String)}
-   */
-  @Test
-  public void testGetMailSessionJndiWithString() {
-    // Arrange, Act and Assert
-    assertNull(jtaProcessEngineConfiguration.getMailSessionJndi("42"));
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getMailSessionJndi()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#getMailSessionJndi()}
-   */
-  @Test
-  public void testGetMailSessionJndi_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertNull((new JtaProcessEngineConfiguration()).getMailSessionJndi());
   }
 
   /**
-   * Test {@link ProcessEngineConfiguration#setMailSessionJndi(String)}.
+   * Test {@link ProcessEngineConfiguration#getMailSessionJndi(String)} with {@code String}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setMailSessionJndi(String)}
+   * Method under test: {@link ProcessEngineConfiguration#getMailSessionJndi(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ProcessEngineConfiguration.getMailSessionJndi(String)"})
+  public void testGetMailSessionJndiWithString() {
+    // Arrange, Act and Assert
+    assertNull((new JtaProcessEngineConfiguration()).getMailSessionJndi("42"));
+  }
+
+  /**
+   * Test {@link ProcessEngineConfiguration#setMailSessionJndi(String)}.
+   * <p>
+   * Method under test: {@link ProcessEngineConfiguration#setMailSessionJndi(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setMailSessionJndi(String)"})
   public void testSetMailSessionJndi() {
-    // Arrange and Act
+    // Arrange
+    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
+
+    // Act
     ProcessEngineConfiguration actualSetMailSessionJndiResult = jtaProcessEngineConfiguration
         .setMailSessionJndi("Mail Session Jndi");
 
@@ -400,25 +288,9 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#getMailSessionsJndi()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map ProcessEngineConfiguration.getMailSessionsJndi()"})
   public void testGetMailSessionsJndi() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertTrue(jtaProcessEngineConfiguration.getMailSessionsJndi().isEmpty());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getMailSessionsJndi()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#getMailSessionsJndi()}
-   */
-  @Test
-  public void testGetMailSessionsJndi_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertTrue((new JtaProcessEngineConfiguration()).getMailSessionsJndi().isEmpty());
   }
@@ -426,32 +298,14 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setMailSessionsJndi(Map)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setMailSessionsJndi(Map)}
+   * Method under test: {@link ProcessEngineConfiguration#setMailSessionsJndi(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setMailSessionsJndi(Map)"})
   public void testSetMailSessionsJndi() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertSame(jtaProcessEngineConfiguration, jtaProcessEngineConfiguration.setMailSessionsJndi(new HashMap<>()));
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#setMailSessionsJndi(Map)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setMailSessionsJndi(Map)}
-   */
-  @Test
-  public void testSetMailSessionsJndi_givenJtaProcessEngineConfiguration() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act and Assert
     assertSame(jtaProcessEngineConfiguration, jtaProcessEngineConfiguration.setMailSessionsJndi(new HashMap<>()));
@@ -463,25 +317,9 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#getMailServerPort()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int ProcessEngineConfiguration.getMailServerPort()"})
   public void testGetMailServerPort() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertEquals(25, jtaProcessEngineConfiguration.getMailServerPort());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getMailServerPort()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#getMailServerPort()}
-   */
-  @Test
-  public void testGetMailServerPort_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertEquals(25, (new JtaProcessEngineConfiguration()).getMailServerPort());
   }
@@ -492,29 +330,9 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#setMailServerPort(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setMailServerPort(int)"})
   public void testSetMailServerPort() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    ProcessEngineConfiguration actualSetMailServerPortResult = jtaProcessEngineConfiguration.setMailServerPort(8080);
-
-    // Assert
-    assertEquals(8080, jtaProcessEngineConfiguration.getMailServerPort());
-    assertSame(jtaProcessEngineConfiguration, actualSetMailServerPortResult);
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#setMailServerPort(int)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#setMailServerPort(int)}
-   */
-  @Test
-  public void testSetMailServerPort_givenJtaProcessEngineConfiguration() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
 
@@ -536,6 +354,8 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#getMailServerUseSSL()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ProcessEngineConfiguration.getMailServerUseSSL()"})
   public void testGetMailServerUseSSL_givenJtaProcessEngineConfiguration_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new JtaProcessEngineConfiguration()).getMailServerUseSSL());
@@ -544,35 +364,18 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#getMailServerUseSSL()}.
    * <ul>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#getMailServerUseSSL()}
-   */
-  @Test
-  public void testGetMailServerUseSSL_thenReturnFalse() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertFalse(jtaProcessEngineConfiguration.getMailServerUseSSL());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getMailServerUseSSL()}.
-   * <ul>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ProcessEngineConfiguration#getMailServerUseSSL()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ProcessEngineConfiguration.getMailServerUseSSL()"})
   public void testGetMailServerUseSSL_thenReturnTrue() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
     jtaProcessEngineConfiguration.setMailServerUseSSL(true);
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
 
     // Act and Assert
     assertTrue(jtaProcessEngineConfiguration.getMailServerUseSSL());
@@ -581,35 +384,12 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setMailServerUseSSL(boolean)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setMailServerUseSSL(boolean)}
+   * Method under test: {@link ProcessEngineConfiguration#setMailServerUseSSL(boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setMailServerUseSSL(boolean)"})
   public void testSetMailServerUseSSL() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    ProcessEngineConfiguration actualSetMailServerUseSSLResult = jtaProcessEngineConfiguration
-        .setMailServerUseSSL(true);
-
-    // Assert
-    assertTrue(jtaProcessEngineConfiguration.getMailServerUseSSL());
-    assertSame(jtaProcessEngineConfiguration, actualSetMailServerUseSSLResult);
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#setMailServerUseSSL(boolean)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setMailServerUseSSL(boolean)}
-   */
-  @Test
-  public void testSetMailServerUseSSL_givenJtaProcessEngineConfiguration() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
 
@@ -632,6 +412,8 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#getMailServerUseTLS()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ProcessEngineConfiguration.getMailServerUseTLS()"})
   public void testGetMailServerUseTLS_givenJtaProcessEngineConfiguration_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new JtaProcessEngineConfiguration()).getMailServerUseTLS());
@@ -640,35 +422,18 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#getMailServerUseTLS()}.
    * <ul>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#getMailServerUseTLS()}
-   */
-  @Test
-  public void testGetMailServerUseTLS_thenReturnFalse() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertFalse(jtaProcessEngineConfiguration.getMailServerUseTLS());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getMailServerUseTLS()}.
-   * <ul>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ProcessEngineConfiguration#getMailServerUseTLS()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ProcessEngineConfiguration.getMailServerUseTLS()"})
   public void testGetMailServerUseTLS_thenReturnTrue() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
     jtaProcessEngineConfiguration.setMailServerUseTLS(true);
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
 
     // Act and Assert
     assertTrue(jtaProcessEngineConfiguration.getMailServerUseTLS());
@@ -677,37 +442,14 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setMailServerUseTLS(boolean)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setMailServerUseTLS(boolean)}
+   * Method under test: {@link ProcessEngineConfiguration#setMailServerUseTLS(boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setMailServerUseTLS(boolean)"})
   public void testSetMailServerUseTLS() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    ProcessEngineConfiguration actualSetMailServerUseTLSResult = jtaProcessEngineConfiguration
-        .setMailServerUseTLS(true);
-
-    // Assert
-    assertTrue(jtaProcessEngineConfiguration.getMailServerUseTLS());
-    assertSame(jtaProcessEngineConfiguration, actualSetMailServerUseTLSResult);
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#setMailServerUseTLS(boolean)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setMailServerUseTLS(boolean)}
-   */
-  @Test
-  public void testSetMailServerUseTLS_givenJtaProcessEngineConfiguration() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act
     ProcessEngineConfiguration actualSetMailServerUseTLSResult = jtaProcessEngineConfiguration
@@ -721,30 +463,12 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#getMailServerDefaultFrom()}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getMailServerDefaultFrom()}
+   * Method under test: {@link ProcessEngineConfiguration#getMailServerDefaultFrom()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ProcessEngineConfiguration.getMailServerDefaultFrom()"})
   public void testGetMailServerDefaultFrom() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertEquals("activiti@localhost", jtaProcessEngineConfiguration.getMailServerDefaultFrom());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getMailServerDefaultFrom()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getMailServerDefaultFrom()}
-   */
-  @Test
-  public void testGetMailServerDefaultFrom_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertEquals("activiti@localhost", (new JtaProcessEngineConfiguration()).getMailServerDefaultFrom());
   }
@@ -752,12 +476,16 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setMailServerDefaultFrom(String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setMailServerDefaultFrom(String)}
+   * Method under test: {@link ProcessEngineConfiguration#setMailServerDefaultFrom(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setMailServerDefaultFrom(String)"})
   public void testSetMailServerDefaultFrom() {
-    // Arrange and Act
+    // Arrange
+    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
+
+    // Act
     ProcessEngineConfiguration actualSetMailServerDefaultFromResult = jtaProcessEngineConfiguration
         .setMailServerDefaultFrom("jane.doe@example.org");
 
@@ -772,9 +500,11 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#getMailServer(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.cfg.MailServerInfo ProcessEngineConfiguration.getMailServer(String)"})
   public void testGetMailServer() {
     // Arrange, Act and Assert
-    assertNull(jtaProcessEngineConfiguration.getMailServer("42"));
+    assertNull((new JtaProcessEngineConfiguration()).getMailServer("42"));
   }
 
   /**
@@ -783,25 +513,9 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#getMailServers()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map ProcessEngineConfiguration.getMailServers()"})
   public void testGetMailServers() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertTrue(jtaProcessEngineConfiguration.getMailServers().isEmpty());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getMailServers()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#getMailServers()}
-   */
-  @Test
-  public void testGetMailServers_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertTrue((new JtaProcessEngineConfiguration()).getMailServers().isEmpty());
   }
@@ -812,27 +526,11 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#setMailServers(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setMailServers(Map)"})
   public void testSetMailServers() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertSame(jtaProcessEngineConfiguration, jtaProcessEngineConfiguration.setMailServers(new HashMap<>()));
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#setMailServers(Map)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#setMailServers(Map)}
-   */
-  @Test
-  public void testSetMailServers_givenJtaProcessEngineConfiguration() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act and Assert
     assertSame(jtaProcessEngineConfiguration, jtaProcessEngineConfiguration.setMailServers(new HashMap<>()));
@@ -844,25 +542,9 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#getDatabaseType()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ProcessEngineConfiguration.getDatabaseType()"})
   public void testGetDatabaseType() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull(jtaProcessEngineConfiguration.getDatabaseType());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getDatabaseType()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#getDatabaseType()}
-   */
-  @Test
-  public void testGetDatabaseType_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertNull((new JtaProcessEngineConfiguration()).getDatabaseType());
   }
@@ -873,8 +555,13 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#setDatabaseType(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setDatabaseType(String)"})
   public void testSetDatabaseType() {
-    // Arrange and Act
+    // Arrange
+    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
+
+    // Act
     ProcessEngineConfiguration actualSetDatabaseTypeResult = jtaProcessEngineConfiguration
         .setDatabaseType("Database Type");
 
@@ -886,33 +573,12 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#getDatabaseSchemaUpdate()}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getDatabaseSchemaUpdate()}
+   * Method under test: {@link ProcessEngineConfiguration#getDatabaseSchemaUpdate()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ProcessEngineConfiguration.getDatabaseSchemaUpdate()"})
   public void testGetDatabaseSchemaUpdate() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    String actualDatabaseSchemaUpdate = jtaProcessEngineConfiguration.getDatabaseSchemaUpdate();
-
-    // Assert
-    assertEquals(Boolean.FALSE.toString(), actualDatabaseSchemaUpdate);
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getDatabaseSchemaUpdate()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getDatabaseSchemaUpdate()}
-   */
-  @Test
-  public void testGetDatabaseSchemaUpdate_givenJtaProcessEngineConfiguration() {
     // Arrange and Act
     String actualDatabaseSchemaUpdate = (new JtaProcessEngineConfiguration()).getDatabaseSchemaUpdate();
 
@@ -923,12 +589,16 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setDatabaseSchemaUpdate(String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setDatabaseSchemaUpdate(String)}
+   * Method under test: {@link ProcessEngineConfiguration#setDatabaseSchemaUpdate(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setDatabaseSchemaUpdate(String)"})
   public void testSetDatabaseSchemaUpdate() {
-    // Arrange and Act
+    // Arrange
+    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
+
+    // Act
     ProcessEngineConfiguration actualSetDatabaseSchemaUpdateResult = jtaProcessEngineConfiguration
         .setDatabaseSchemaUpdate("2020-03-01");
 
@@ -943,25 +613,9 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#getDataSource()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DataSource ProcessEngineConfiguration.getDataSource()"})
   public void testGetDataSource() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull(jtaProcessEngineConfiguration.getDataSource());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getDataSource()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#getDataSource()}
-   */
-  @Test
-  public void testGetDataSource_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertNull((new JtaProcessEngineConfiguration()).getDataSource());
   }
@@ -969,10 +623,11 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setDataSource(DataSource)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setDataSource(DataSource)}
+   * Method under test: {@link ProcessEngineConfiguration#setDataSource(DataSource)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setDataSource(DataSource)"})
   public void testSetDataSource() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
@@ -989,25 +644,9 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#getJdbcDriver()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ProcessEngineConfiguration.getJdbcDriver()"})
   public void testGetJdbcDriver() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertEquals("org.h2.Driver", jtaProcessEngineConfiguration.getJdbcDriver());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getJdbcDriver()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#getJdbcDriver()}
-   */
-  @Test
-  public void testGetJdbcDriver_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertEquals("org.h2.Driver", (new JtaProcessEngineConfiguration()).getJdbcDriver());
   }
@@ -1018,8 +657,13 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#setJdbcDriver(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setJdbcDriver(String)"})
   public void testSetJdbcDriver() {
-    // Arrange and Act
+    // Arrange
+    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
+
+    // Act
     ProcessEngineConfiguration actualSetJdbcDriverResult = jtaProcessEngineConfiguration.setJdbcDriver("Jdbc Driver");
 
     // Assert
@@ -1033,25 +677,9 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#getJdbcUrl()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ProcessEngineConfiguration.getJdbcUrl()"})
   public void testGetJdbcUrl() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertEquals("jdbc:h2:tcp://localhost/~/activiti", jtaProcessEngineConfiguration.getJdbcUrl());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getJdbcUrl()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#getJdbcUrl()}
-   */
-  @Test
-  public void testGetJdbcUrl_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertEquals("jdbc:h2:tcp://localhost/~/activiti", (new JtaProcessEngineConfiguration()).getJdbcUrl());
   }
@@ -1062,8 +690,13 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#setJdbcUrl(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setJdbcUrl(String)"})
   public void testSetJdbcUrl() {
-    // Arrange and Act
+    // Arrange
+    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
+
+    // Act
     ProcessEngineConfiguration actualSetJdbcUrlResult = jtaProcessEngineConfiguration
         .setJdbcUrl("https://example.org/example");
 
@@ -1078,25 +711,9 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#getJdbcUsername()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ProcessEngineConfiguration.getJdbcUsername()"})
   public void testGetJdbcUsername() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertEquals("sa", jtaProcessEngineConfiguration.getJdbcUsername());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getJdbcUsername()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#getJdbcUsername()}
-   */
-  @Test
-  public void testGetJdbcUsername_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertEquals("sa", (new JtaProcessEngineConfiguration()).getJdbcUsername());
   }
@@ -1107,8 +724,13 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#setJdbcUsername(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setJdbcUsername(String)"})
   public void testSetJdbcUsername() {
-    // Arrange and Act
+    // Arrange
+    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
+
+    // Act
     ProcessEngineConfiguration actualSetJdbcUsernameResult = jtaProcessEngineConfiguration.setJdbcUsername("janedoe");
 
     // Assert
@@ -1122,25 +744,9 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#getJdbcPassword()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ProcessEngineConfiguration.getJdbcPassword()"})
   public void testGetJdbcPassword() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertEquals(ProcessEngineConfiguration.NO_TENANT_ID, jtaProcessEngineConfiguration.getJdbcPassword());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getJdbcPassword()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#getJdbcPassword()}
-   */
-  @Test
-  public void testGetJdbcPassword_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertEquals(ProcessEngineConfiguration.NO_TENANT_ID, (new JtaProcessEngineConfiguration()).getJdbcPassword());
   }
@@ -1151,8 +757,13 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#setJdbcPassword(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setJdbcPassword(String)"})
   public void testSetJdbcPassword() {
-    // Arrange and Act
+    // Arrange
+    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
+
+    // Act
     ProcessEngineConfiguration actualSetJdbcPasswordResult = jtaProcessEngineConfiguration.setJdbcPassword("iloveyou");
 
     // Assert
@@ -1163,65 +774,27 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#isTransactionsExternallyManaged()}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#isTransactionsExternallyManaged()}
+   * Method under test: {@link ProcessEngineConfiguration#isTransactionsExternallyManaged()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ProcessEngineConfiguration.isTransactionsExternallyManaged()"})
   public void testIsTransactionsExternallyManaged() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertTrue(jtaProcessEngineConfiguration.isTransactionsExternallyManaged());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#isTransactionsExternallyManaged()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#isTransactionsExternallyManaged()}
-   */
-  @Test
-  public void testIsTransactionsExternallyManaged_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertTrue((new JtaProcessEngineConfiguration()).isTransactionsExternallyManaged());
   }
 
   /**
-   * Test
-   * {@link ProcessEngineConfiguration#setTransactionsExternallyManaged(boolean)}.
+   * Test {@link ProcessEngineConfiguration#setTransactionsExternallyManaged(boolean)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setTransactionsExternallyManaged(boolean)}
+   * Method under test: {@link ProcessEngineConfiguration#setTransactionsExternallyManaged(boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setTransactionsExternallyManaged(boolean)"})
   public void testSetTransactionsExternallyManaged() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertSame(jtaProcessEngineConfiguration, jtaProcessEngineConfiguration.setTransactionsExternallyManaged(true));
-  }
-
-  /**
-   * Test
-   * {@link ProcessEngineConfiguration#setTransactionsExternallyManaged(boolean)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setTransactionsExternallyManaged(boolean)}
-   */
-  @Test
-  public void testSetTransactionsExternallyManaged_givenJtaProcessEngineConfiguration() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act and Assert
     assertSame(jtaProcessEngineConfiguration, jtaProcessEngineConfiguration.setTransactionsExternallyManaged(true));
@@ -1233,25 +806,9 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#getHistoryLevel()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoryLevel ProcessEngineConfiguration.getHistoryLevel()"})
   public void testGetHistoryLevel() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull(jtaProcessEngineConfiguration.getHistoryLevel());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getHistoryLevel()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#getHistoryLevel()}
-   */
-  @Test
-  public void testGetHistoryLevel_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertNull((new JtaProcessEngineConfiguration()).getHistoryLevel());
   }
@@ -1259,37 +816,14 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setHistoryLevel(HistoryLevel)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setHistoryLevel(HistoryLevel)}
+   * Method under test: {@link ProcessEngineConfiguration#setHistoryLevel(HistoryLevel)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setHistoryLevel(HistoryLevel)"})
   public void testSetHistoryLevel() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    ProcessEngineConfiguration actualSetHistoryLevelResult = jtaProcessEngineConfiguration
-        .setHistoryLevel(HistoryLevel.NONE);
-
-    // Assert
-    assertEquals(HistoryLevel.NONE, jtaProcessEngineConfiguration.getHistoryLevel());
-    assertSame(jtaProcessEngineConfiguration, actualSetHistoryLevelResult);
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#setHistoryLevel(HistoryLevel)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setHistoryLevel(HistoryLevel)}
-   */
-  @Test
-  public void testSetHistoryLevel_givenJtaProcessEngineConfiguration() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act
     ProcessEngineConfiguration actualSetHistoryLevelResult = jtaProcessEngineConfiguration
@@ -1306,25 +840,9 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#isDbHistoryUsed()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ProcessEngineConfiguration.isDbHistoryUsed()"})
   public void testIsDbHistoryUsed() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertTrue(jtaProcessEngineConfiguration.isDbHistoryUsed());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#isDbHistoryUsed()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#isDbHistoryUsed()}
-   */
-  @Test
-  public void testIsDbHistoryUsed_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertTrue((new JtaProcessEngineConfiguration()).isDbHistoryUsed());
   }
@@ -1332,32 +850,14 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setDbHistoryUsed(boolean)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setDbHistoryUsed(boolean)}
+   * Method under test: {@link ProcessEngineConfiguration#setDbHistoryUsed(boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setDbHistoryUsed(boolean)"})
   public void testSetDbHistoryUsed() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertSame(jtaProcessEngineConfiguration, jtaProcessEngineConfiguration.setDbHistoryUsed(true));
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#setDbHistoryUsed(boolean)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setDbHistoryUsed(boolean)}
-   */
-  @Test
-  public void testSetDbHistoryUsed_givenJtaProcessEngineConfiguration() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act and Assert
     assertSame(jtaProcessEngineConfiguration, jtaProcessEngineConfiguration.setDbHistoryUsed(true));
@@ -1366,30 +866,12 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#getJdbcMaxActiveConnections()}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getJdbcMaxActiveConnections()}
+   * Method under test: {@link ProcessEngineConfiguration#getJdbcMaxActiveConnections()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int ProcessEngineConfiguration.getJdbcMaxActiveConnections()"})
   public void testGetJdbcMaxActiveConnections() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertEquals(0, jtaProcessEngineConfiguration.getJdbcMaxActiveConnections());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getJdbcMaxActiveConnections()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getJdbcMaxActiveConnections()}
-   */
-  @Test
-  public void testGetJdbcMaxActiveConnections_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertEquals(0, (new JtaProcessEngineConfiguration()).getJdbcMaxActiveConnections());
   }
@@ -1397,37 +879,14 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setJdbcMaxActiveConnections(int)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setJdbcMaxActiveConnections(int)}
+   * Method under test: {@link ProcessEngineConfiguration#setJdbcMaxActiveConnections(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setJdbcMaxActiveConnections(int)"})
   public void testSetJdbcMaxActiveConnections() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    ProcessEngineConfiguration actualSetJdbcMaxActiveConnectionsResult = jtaProcessEngineConfiguration
-        .setJdbcMaxActiveConnections(1);
-
-    // Assert
-    assertEquals(1, jtaProcessEngineConfiguration.getJdbcMaxActiveConnections());
-    assertSame(jtaProcessEngineConfiguration, actualSetJdbcMaxActiveConnectionsResult);
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#setJdbcMaxActiveConnections(int)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setJdbcMaxActiveConnections(int)}
-   */
-  @Test
-  public void testSetJdbcMaxActiveConnections_givenJtaProcessEngineConfiguration() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act
     ProcessEngineConfiguration actualSetJdbcMaxActiveConnectionsResult = jtaProcessEngineConfiguration
@@ -1441,30 +900,12 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#getJdbcMaxIdleConnections()}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getJdbcMaxIdleConnections()}
+   * Method under test: {@link ProcessEngineConfiguration#getJdbcMaxIdleConnections()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int ProcessEngineConfiguration.getJdbcMaxIdleConnections()"})
   public void testGetJdbcMaxIdleConnections() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertEquals(0, jtaProcessEngineConfiguration.getJdbcMaxIdleConnections());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getJdbcMaxIdleConnections()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getJdbcMaxIdleConnections()}
-   */
-  @Test
-  public void testGetJdbcMaxIdleConnections_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertEquals(0, (new JtaProcessEngineConfiguration()).getJdbcMaxIdleConnections());
   }
@@ -1472,37 +913,14 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setJdbcMaxIdleConnections(int)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setJdbcMaxIdleConnections(int)}
+   * Method under test: {@link ProcessEngineConfiguration#setJdbcMaxIdleConnections(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setJdbcMaxIdleConnections(int)"})
   public void testSetJdbcMaxIdleConnections() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    ProcessEngineConfiguration actualSetJdbcMaxIdleConnectionsResult = jtaProcessEngineConfiguration
-        .setJdbcMaxIdleConnections(1);
-
-    // Assert
-    assertEquals(1, jtaProcessEngineConfiguration.getJdbcMaxIdleConnections());
-    assertSame(jtaProcessEngineConfiguration, actualSetJdbcMaxIdleConnectionsResult);
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#setJdbcMaxIdleConnections(int)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setJdbcMaxIdleConnections(int)}
-   */
-  @Test
-  public void testSetJdbcMaxIdleConnections_givenJtaProcessEngineConfiguration() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act
     ProcessEngineConfiguration actualSetJdbcMaxIdleConnectionsResult = jtaProcessEngineConfiguration
@@ -1516,30 +934,12 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#getJdbcMaxCheckoutTime()}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getJdbcMaxCheckoutTime()}
+   * Method under test: {@link ProcessEngineConfiguration#getJdbcMaxCheckoutTime()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int ProcessEngineConfiguration.getJdbcMaxCheckoutTime()"})
   public void testGetJdbcMaxCheckoutTime() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertEquals(0, jtaProcessEngineConfiguration.getJdbcMaxCheckoutTime());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getJdbcMaxCheckoutTime()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getJdbcMaxCheckoutTime()}
-   */
-  @Test
-  public void testGetJdbcMaxCheckoutTime_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertEquals(0, (new JtaProcessEngineConfiguration()).getJdbcMaxCheckoutTime());
   }
@@ -1547,37 +947,14 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setJdbcMaxCheckoutTime(int)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setJdbcMaxCheckoutTime(int)}
+   * Method under test: {@link ProcessEngineConfiguration#setJdbcMaxCheckoutTime(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setJdbcMaxCheckoutTime(int)"})
   public void testSetJdbcMaxCheckoutTime() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    ProcessEngineConfiguration actualSetJdbcMaxCheckoutTimeResult = jtaProcessEngineConfiguration
-        .setJdbcMaxCheckoutTime(1);
-
-    // Assert
-    assertEquals(1, jtaProcessEngineConfiguration.getJdbcMaxCheckoutTime());
-    assertSame(jtaProcessEngineConfiguration, actualSetJdbcMaxCheckoutTimeResult);
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#setJdbcMaxCheckoutTime(int)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setJdbcMaxCheckoutTime(int)}
-   */
-  @Test
-  public void testSetJdbcMaxCheckoutTime_givenJtaProcessEngineConfiguration() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act
     ProcessEngineConfiguration actualSetJdbcMaxCheckoutTimeResult = jtaProcessEngineConfiguration
@@ -1594,25 +971,9 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#getJdbcMaxWaitTime()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int ProcessEngineConfiguration.getJdbcMaxWaitTime()"})
   public void testGetJdbcMaxWaitTime() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertEquals(0, jtaProcessEngineConfiguration.getJdbcMaxWaitTime());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getJdbcMaxWaitTime()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#getJdbcMaxWaitTime()}
-   */
-  @Test
-  public void testGetJdbcMaxWaitTime_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertEquals(0, (new JtaProcessEngineConfiguration()).getJdbcMaxWaitTime());
   }
@@ -1623,31 +984,11 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#setJdbcMaxWaitTime(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setJdbcMaxWaitTime(int)"})
   public void testSetJdbcMaxWaitTime() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    ProcessEngineConfiguration actualSetJdbcMaxWaitTimeResult = jtaProcessEngineConfiguration.setJdbcMaxWaitTime(1);
-
-    // Assert
-    assertEquals(1, jtaProcessEngineConfiguration.getJdbcMaxWaitTime());
-    assertSame(jtaProcessEngineConfiguration, actualSetJdbcMaxWaitTimeResult);
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#setJdbcMaxWaitTime(int)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#setJdbcMaxWaitTime(int)}
-   */
-  @Test
-  public void testSetJdbcMaxWaitTime_givenJtaProcessEngineConfiguration() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act
     ProcessEngineConfiguration actualSetJdbcMaxWaitTimeResult = jtaProcessEngineConfiguration.setJdbcMaxWaitTime(1);
@@ -1667,27 +1008,11 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#isJdbcPingEnabled()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ProcessEngineConfiguration.isJdbcPingEnabled()"})
   public void testIsJdbcPingEnabled_givenJtaProcessEngineConfiguration_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new JtaProcessEngineConfiguration()).isJdbcPingEnabled());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#isJdbcPingEnabled()}.
-   * <ul>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#isJdbcPingEnabled()}
-   */
-  @Test
-  public void testIsJdbcPingEnabled_thenReturnFalse() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertFalse(jtaProcessEngineConfiguration.isJdbcPingEnabled());
   }
 
   /**
@@ -1699,11 +1024,12 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#isJdbcPingEnabled()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ProcessEngineConfiguration.isJdbcPingEnabled()"})
   public void testIsJdbcPingEnabled_thenReturnTrue() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
     jtaProcessEngineConfiguration.setJdbcPingEnabled(true);
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
 
     // Act and Assert
     assertTrue(jtaProcessEngineConfiguration.isJdbcPingEnabled());
@@ -1712,36 +1038,14 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setJdbcPingEnabled(boolean)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setJdbcPingEnabled(boolean)}
+   * Method under test: {@link ProcessEngineConfiguration#setJdbcPingEnabled(boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setJdbcPingEnabled(boolean)"})
   public void testSetJdbcPingEnabled() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    ProcessEngineConfiguration actualSetJdbcPingEnabledResult = jtaProcessEngineConfiguration.setJdbcPingEnabled(true);
-
-    // Assert
-    assertTrue(jtaProcessEngineConfiguration.isJdbcPingEnabled());
-    assertSame(jtaProcessEngineConfiguration, actualSetJdbcPingEnabledResult);
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#setJdbcPingEnabled(boolean)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setJdbcPingEnabled(boolean)}
-   */
-  @Test
-  public void testSetJdbcPingEnabled_givenJtaProcessEngineConfiguration() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act
     ProcessEngineConfiguration actualSetJdbcPingEnabledResult = jtaProcessEngineConfiguration.setJdbcPingEnabled(true);
@@ -1757,25 +1061,9 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#getJdbcPingQuery()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ProcessEngineConfiguration.getJdbcPingQuery()"})
   public void testGetJdbcPingQuery() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull(jtaProcessEngineConfiguration.getJdbcPingQuery());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getJdbcPingQuery()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#getJdbcPingQuery()}
-   */
-  @Test
-  public void testGetJdbcPingQuery_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertNull((new JtaProcessEngineConfiguration()).getJdbcPingQuery());
   }
@@ -1783,12 +1071,16 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setJdbcPingQuery(String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setJdbcPingQuery(String)}
+   * Method under test: {@link ProcessEngineConfiguration#setJdbcPingQuery(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setJdbcPingQuery(String)"})
   public void testSetJdbcPingQuery() {
-    // Arrange and Act
+    // Arrange
+    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
+
+    // Act
     ProcessEngineConfiguration actualSetJdbcPingQueryResult = jtaProcessEngineConfiguration
         .setJdbcPingQuery("Jdbc Ping Query");
 
@@ -1800,30 +1092,12 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#getJdbcPingConnectionNotUsedFor()}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getJdbcPingConnectionNotUsedFor()}
+   * Method under test: {@link ProcessEngineConfiguration#getJdbcPingConnectionNotUsedFor()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int ProcessEngineConfiguration.getJdbcPingConnectionNotUsedFor()"})
   public void testGetJdbcPingConnectionNotUsedFor() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertEquals(0, jtaProcessEngineConfiguration.getJdbcPingConnectionNotUsedFor());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getJdbcPingConnectionNotUsedFor()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getJdbcPingConnectionNotUsedFor()}
-   */
-  @Test
-  public void testGetJdbcPingConnectionNotUsedFor_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertEquals(0, (new JtaProcessEngineConfiguration()).getJdbcPingConnectionNotUsedFor());
   }
@@ -1831,14 +1105,14 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setJdbcPingConnectionNotUsedFor(int)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setJdbcPingConnectionNotUsedFor(int)}
+   * Method under test: {@link ProcessEngineConfiguration#setJdbcPingConnectionNotUsedFor(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setJdbcPingConnectionNotUsedFor(int)"})
   public void testSetJdbcPingConnectionNotUsedFor() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
 
     // Act
     ProcessEngineConfiguration actualSetJdbcPingConnectionNotUsedForResult = jtaProcessEngineConfiguration
@@ -1850,95 +1124,28 @@ public class ProcessEngineConfigurationDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessEngineConfiguration#setJdbcPingConnectionNotUsedFor(int)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
+   * Test {@link ProcessEngineConfiguration#getJdbcDefaultTransactionIsolationLevel()}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setJdbcPingConnectionNotUsedFor(int)}
+   * Method under test: {@link ProcessEngineConfiguration#getJdbcDefaultTransactionIsolationLevel()}
    */
   @Test
-  public void testSetJdbcPingConnectionNotUsedFor_givenJtaProcessEngineConfiguration() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-
-    // Act
-    ProcessEngineConfiguration actualSetJdbcPingConnectionNotUsedForResult = jtaProcessEngineConfiguration
-        .setJdbcPingConnectionNotUsedFor(1);
-
-    // Assert
-    assertEquals(1, jtaProcessEngineConfiguration.getJdbcPingConnectionNotUsedFor());
-    assertSame(jtaProcessEngineConfiguration, actualSetJdbcPingConnectionNotUsedForResult);
-  }
-
-  /**
-   * Test
-   * {@link ProcessEngineConfiguration#getJdbcDefaultTransactionIsolationLevel()}.
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getJdbcDefaultTransactionIsolationLevel()}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int ProcessEngineConfiguration.getJdbcDefaultTransactionIsolationLevel()"})
   public void testGetJdbcDefaultTransactionIsolationLevel() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertEquals(0, jtaProcessEngineConfiguration.getJdbcDefaultTransactionIsolationLevel());
-  }
-
-  /**
-   * Test
-   * {@link ProcessEngineConfiguration#getJdbcDefaultTransactionIsolationLevel()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getJdbcDefaultTransactionIsolationLevel()}
-   */
-  @Test
-  public void testGetJdbcDefaultTransactionIsolationLevel_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertEquals(0, (new JtaProcessEngineConfiguration()).getJdbcDefaultTransactionIsolationLevel());
   }
 
   /**
-   * Test
-   * {@link ProcessEngineConfiguration#setJdbcDefaultTransactionIsolationLevel(int)}.
+   * Test {@link ProcessEngineConfiguration#setJdbcDefaultTransactionIsolationLevel(int)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setJdbcDefaultTransactionIsolationLevel(int)}
+   * Method under test: {@link ProcessEngineConfiguration#setJdbcDefaultTransactionIsolationLevel(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ProcessEngineConfiguration ProcessEngineConfiguration.setJdbcDefaultTransactionIsolationLevel(int)"})
   public void testSetJdbcDefaultTransactionIsolationLevel() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    ProcessEngineConfiguration actualSetJdbcDefaultTransactionIsolationLevelResult = jtaProcessEngineConfiguration
-        .setJdbcDefaultTransactionIsolationLevel(1);
-
-    // Assert
-    assertEquals(1, jtaProcessEngineConfiguration.getJdbcDefaultTransactionIsolationLevel());
-    assertSame(jtaProcessEngineConfiguration, actualSetJdbcDefaultTransactionIsolationLevelResult);
-  }
-
-  /**
-   * Test
-   * {@link ProcessEngineConfiguration#setJdbcDefaultTransactionIsolationLevel(int)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setJdbcDefaultTransactionIsolationLevel(int)}
-   */
-  @Test
-  public void testSetJdbcDefaultTransactionIsolationLevel_givenJtaProcessEngineConfiguration() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
 
@@ -1958,10 +1165,11 @@ public class ProcessEngineConfigurationDiffblueTest {
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#isAsyncExecutorActivate()}
+   * Method under test: {@link ProcessEngineConfiguration#isAsyncExecutorActivate()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ProcessEngineConfiguration.isAsyncExecutorActivate()"})
   public void testIsAsyncExecutorActivate_givenJtaProcessEngineConfiguration_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new JtaProcessEngineConfiguration()).isAsyncExecutorActivate());
@@ -1970,37 +1178,18 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#isAsyncExecutorActivate()}.
    * <ul>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#isAsyncExecutorActivate()}
-   */
-  @Test
-  public void testIsAsyncExecutorActivate_thenReturnFalse() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertFalse(jtaProcessEngineConfiguration.isAsyncExecutorActivate());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#isAsyncExecutorActivate()}.
-   * <ul>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#isAsyncExecutorActivate()}
+   * Method under test: {@link ProcessEngineConfiguration#isAsyncExecutorActivate()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ProcessEngineConfiguration.isAsyncExecutorActivate()"})
   public void testIsAsyncExecutorActivate_thenReturnTrue() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
     jtaProcessEngineConfiguration.setAsyncExecutorActivate(true);
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
 
     // Act and Assert
     assertTrue(jtaProcessEngineConfiguration.isAsyncExecutorActivate());
@@ -2009,37 +1198,14 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setAsyncExecutorActivate(boolean)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setAsyncExecutorActivate(boolean)}
+   * Method under test: {@link ProcessEngineConfiguration#setAsyncExecutorActivate(boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setAsyncExecutorActivate(boolean)"})
   public void testSetAsyncExecutorActivate() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    ProcessEngineConfiguration actualSetAsyncExecutorActivateResult = jtaProcessEngineConfiguration
-        .setAsyncExecutorActivate(true);
-
-    // Assert
-    assertTrue(jtaProcessEngineConfiguration.isAsyncExecutorActivate());
-    assertSame(jtaProcessEngineConfiguration, actualSetAsyncExecutorActivateResult);
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#setAsyncExecutorActivate(boolean)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setAsyncExecutorActivate(boolean)}
-   */
-  @Test
-  public void testSetAsyncExecutorActivate_givenJtaProcessEngineConfiguration() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act
     ProcessEngineConfiguration actualSetAsyncExecutorActivateResult = jtaProcessEngineConfiguration
@@ -2056,25 +1222,9 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#getClassLoader()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ClassLoader ProcessEngineConfiguration.getClassLoader()"})
   public void testGetClassLoader() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull(jtaProcessEngineConfiguration.getClassLoader());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getClassLoader()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#getClassLoader()}
-   */
-  @Test
-  public void testGetClassLoader_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertNull((new JtaProcessEngineConfiguration()).getClassLoader());
   }
@@ -2082,37 +1232,14 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setClassLoader(ClassLoader)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setClassLoader(ClassLoader)}
+   * Method under test: {@link ProcessEngineConfiguration#setClassLoader(ClassLoader)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setClassLoader(ClassLoader)"})
   public void testSetClassLoader() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-    GroovyClassLoader classLoader = new GroovyClassLoader();
-
-    // Act
-    ProcessEngineConfiguration actualSetClassLoaderResult = jtaProcessEngineConfiguration.setClassLoader(classLoader);
-
-    // Assert
-    assertSame(classLoader, jtaProcessEngineConfiguration.getClassLoader());
-    assertSame(jtaProcessEngineConfiguration, actualSetClassLoaderResult);
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#setClassLoader(ClassLoader)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setClassLoader(ClassLoader)}
-   */
-  @Test
-  public void testSetClassLoader_givenJtaProcessEngineConfiguration() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
     GroovyClassLoader classLoader = new GroovyClassLoader();
 
     // Act
@@ -2126,65 +1253,27 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#isUseClassForNameClassLoading()}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#isUseClassForNameClassLoading()}
+   * Method under test: {@link ProcessEngineConfiguration#isUseClassForNameClassLoading()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ProcessEngineConfiguration.isUseClassForNameClassLoading()"})
   public void testIsUseClassForNameClassLoading() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertTrue(jtaProcessEngineConfiguration.isUseClassForNameClassLoading());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#isUseClassForNameClassLoading()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#isUseClassForNameClassLoading()}
-   */
-  @Test
-  public void testIsUseClassForNameClassLoading_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertTrue((new JtaProcessEngineConfiguration()).isUseClassForNameClassLoading());
   }
 
   /**
-   * Test
-   * {@link ProcessEngineConfiguration#setUseClassForNameClassLoading(boolean)}.
+   * Test {@link ProcessEngineConfiguration#setUseClassForNameClassLoading(boolean)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setUseClassForNameClassLoading(boolean)}
+   * Method under test: {@link ProcessEngineConfiguration#setUseClassForNameClassLoading(boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setUseClassForNameClassLoading(boolean)"})
   public void testSetUseClassForNameClassLoading() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertSame(jtaProcessEngineConfiguration, jtaProcessEngineConfiguration.setUseClassForNameClassLoading(true));
-  }
-
-  /**
-   * Test
-   * {@link ProcessEngineConfiguration#setUseClassForNameClassLoading(boolean)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setUseClassForNameClassLoading(boolean)}
-   */
-  @Test
-  public void testSetUseClassForNameClassLoading_givenJtaProcessEngineConfiguration() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act and Assert
     assertSame(jtaProcessEngineConfiguration, jtaProcessEngineConfiguration.setUseClassForNameClassLoading(true));
@@ -2193,30 +1282,12 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#getJpaEntityManagerFactory()}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getJpaEntityManagerFactory()}
+   * Method under test: {@link ProcessEngineConfiguration#getJpaEntityManagerFactory()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object ProcessEngineConfiguration.getJpaEntityManagerFactory()"})
   public void testGetJpaEntityManagerFactory() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull(jtaProcessEngineConfiguration.getJpaEntityManagerFactory());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getJpaEntityManagerFactory()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getJpaEntityManagerFactory()}
-   */
-  @Test
-  public void testGetJpaEntityManagerFactory_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertNull((new JtaProcessEngineConfiguration()).getJpaEntityManagerFactory());
   }
@@ -2224,32 +1295,12 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setJpaEntityManagerFactory(Object)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setJpaEntityManagerFactory(Object)}
+   * Method under test: {@link ProcessEngineConfiguration#setJpaEntityManagerFactory(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setJpaEntityManagerFactory(Object)"})
   public void testSetJpaEntityManagerFactory() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-    Object object = JSONObject.NULL;
-
-    // Act and Assert
-    assertSame(jtaProcessEngineConfiguration, jtaProcessEngineConfiguration.setJpaEntityManagerFactory(object));
-    assertSame(object, jtaProcessEngineConfiguration.getJpaEntityManagerFactory());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#setJpaEntityManagerFactory(Object)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setJpaEntityManagerFactory(Object)}
-   */
-  @Test
-  public void testSetJpaEntityManagerFactory_givenJtaProcessEngineConfiguration() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
     Object object = JSONObject.NULL;
@@ -2266,10 +1317,11 @@ public class ProcessEngineConfigurationDiffblueTest {
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#isJpaHandleTransaction()}
+   * Method under test: {@link ProcessEngineConfiguration#isJpaHandleTransaction()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ProcessEngineConfiguration.isJpaHandleTransaction()"})
   public void testIsJpaHandleTransaction_givenJtaProcessEngineConfiguration_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new JtaProcessEngineConfiguration()).isJpaHandleTransaction());
@@ -2278,37 +1330,18 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#isJpaHandleTransaction()}.
    * <ul>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#isJpaHandleTransaction()}
-   */
-  @Test
-  public void testIsJpaHandleTransaction_thenReturnFalse() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertFalse(jtaProcessEngineConfiguration.isJpaHandleTransaction());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#isJpaHandleTransaction()}.
-   * <ul>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#isJpaHandleTransaction()}
+   * Method under test: {@link ProcessEngineConfiguration#isJpaHandleTransaction()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ProcessEngineConfiguration.isJpaHandleTransaction()"})
   public void testIsJpaHandleTransaction_thenReturnTrue() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
     jtaProcessEngineConfiguration.setJpaHandleTransaction(true);
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
 
     // Act and Assert
     assertTrue(jtaProcessEngineConfiguration.isJpaHandleTransaction());
@@ -2317,35 +1350,12 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setJpaHandleTransaction(boolean)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setJpaHandleTransaction(boolean)}
+   * Method under test: {@link ProcessEngineConfiguration#setJpaHandleTransaction(boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setJpaHandleTransaction(boolean)"})
   public void testSetJpaHandleTransaction() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    ProcessEngineConfiguration actualSetJpaHandleTransactionResult = jtaProcessEngineConfiguration
-        .setJpaHandleTransaction(true);
-
-    // Assert
-    assertTrue(jtaProcessEngineConfiguration.isJpaHandleTransaction());
-    assertSame(jtaProcessEngineConfiguration, actualSetJpaHandleTransactionResult);
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#setJpaHandleTransaction(boolean)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setJpaHandleTransaction(boolean)}
-   */
-  @Test
-  public void testSetJpaHandleTransaction_givenJtaProcessEngineConfiguration() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
 
@@ -2365,10 +1375,11 @@ public class ProcessEngineConfigurationDiffblueTest {
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#isJpaCloseEntityManager()}
+   * Method under test: {@link ProcessEngineConfiguration#isJpaCloseEntityManager()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ProcessEngineConfiguration.isJpaCloseEntityManager()"})
   public void testIsJpaCloseEntityManager_givenJtaProcessEngineConfiguration_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new JtaProcessEngineConfiguration()).isJpaCloseEntityManager());
@@ -2377,37 +1388,18 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#isJpaCloseEntityManager()}.
    * <ul>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#isJpaCloseEntityManager()}
-   */
-  @Test
-  public void testIsJpaCloseEntityManager_thenReturnFalse() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertFalse(jtaProcessEngineConfiguration.isJpaCloseEntityManager());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#isJpaCloseEntityManager()}.
-   * <ul>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#isJpaCloseEntityManager()}
+   * Method under test: {@link ProcessEngineConfiguration#isJpaCloseEntityManager()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ProcessEngineConfiguration.isJpaCloseEntityManager()"})
   public void testIsJpaCloseEntityManager_thenReturnTrue() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
     jtaProcessEngineConfiguration.setJpaCloseEntityManager(true);
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
 
     // Act and Assert
     assertTrue(jtaProcessEngineConfiguration.isJpaCloseEntityManager());
@@ -2416,37 +1408,14 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setJpaCloseEntityManager(boolean)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setJpaCloseEntityManager(boolean)}
+   * Method under test: {@link ProcessEngineConfiguration#setJpaCloseEntityManager(boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setJpaCloseEntityManager(boolean)"})
   public void testSetJpaCloseEntityManager() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    ProcessEngineConfiguration actualSetJpaCloseEntityManagerResult = jtaProcessEngineConfiguration
-        .setJpaCloseEntityManager(true);
-
-    // Assert
-    assertTrue(jtaProcessEngineConfiguration.isJpaCloseEntityManager());
-    assertSame(jtaProcessEngineConfiguration, actualSetJpaCloseEntityManagerResult);
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#setJpaCloseEntityManager(boolean)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setJpaCloseEntityManager(boolean)}
-   */
-  @Test
-  public void testSetJpaCloseEntityManager_givenJtaProcessEngineConfiguration() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act
     ProcessEngineConfiguration actualSetJpaCloseEntityManagerResult = jtaProcessEngineConfiguration
@@ -2460,30 +1429,12 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#getJpaPersistenceUnitName()}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getJpaPersistenceUnitName()}
+   * Method under test: {@link ProcessEngineConfiguration#getJpaPersistenceUnitName()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ProcessEngineConfiguration.getJpaPersistenceUnitName()"})
   public void testGetJpaPersistenceUnitName() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull(jtaProcessEngineConfiguration.getJpaPersistenceUnitName());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getJpaPersistenceUnitName()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getJpaPersistenceUnitName()}
-   */
-  @Test
-  public void testGetJpaPersistenceUnitName_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertNull((new JtaProcessEngineConfiguration()).getJpaPersistenceUnitName());
   }
@@ -2491,12 +1442,16 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setJpaPersistenceUnitName(String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setJpaPersistenceUnitName(String)}
+   * Method under test: {@link ProcessEngineConfiguration#setJpaPersistenceUnitName(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setJpaPersistenceUnitName(String)"})
   public void testSetJpaPersistenceUnitName() {
-    // Arrange and Act
+    // Arrange
+    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
+
+    // Act
     ProcessEngineConfiguration actualSetJpaPersistenceUnitNameResult = jtaProcessEngineConfiguration
         .setJpaPersistenceUnitName("Jpa Persistence Unit Name");
 
@@ -2511,25 +1466,9 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#getDataSourceJndiName()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ProcessEngineConfiguration.getDataSourceJndiName()"})
   public void testGetDataSourceJndiName() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull(jtaProcessEngineConfiguration.getDataSourceJndiName());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getDataSourceJndiName()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#getDataSourceJndiName()}
-   */
-  @Test
-  public void testGetDataSourceJndiName_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertNull((new JtaProcessEngineConfiguration()).getDataSourceJndiName());
   }
@@ -2537,12 +1476,16 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setDataSourceJndiName(String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setDataSourceJndiName(String)}
+   * Method under test: {@link ProcessEngineConfiguration#setDataSourceJndiName(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setDataSourceJndiName(String)"})
   public void testSetDataSourceJndiName() {
-    // Arrange and Act
+    // Arrange
+    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
+
+    // Act
     ProcessEngineConfiguration actualSetDataSourceJndiNameResult = jtaProcessEngineConfiguration
         .setDataSourceJndiName("Data Source Jndi Name");
 
@@ -2554,30 +1497,12 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#getDefaultCamelContext()}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getDefaultCamelContext()}
+   * Method under test: {@link ProcessEngineConfiguration#getDefaultCamelContext()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ProcessEngineConfiguration.getDefaultCamelContext()"})
   public void testGetDefaultCamelContext() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertEquals("camelContext", jtaProcessEngineConfiguration.getDefaultCamelContext());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getDefaultCamelContext()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getDefaultCamelContext()}
-   */
-  @Test
-  public void testGetDefaultCamelContext_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertEquals("camelContext", (new JtaProcessEngineConfiguration()).getDefaultCamelContext());
   }
@@ -2585,12 +1510,16 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setDefaultCamelContext(String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setDefaultCamelContext(String)}
+   * Method under test: {@link ProcessEngineConfiguration#setDefaultCamelContext(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setDefaultCamelContext(String)"})
   public void testSetDefaultCamelContext() {
-    // Arrange and Act
+    // Arrange
+    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
+
+    // Act
     ProcessEngineConfiguration actualSetDefaultCamelContextResult = jtaProcessEngineConfiguration
         .setDefaultCamelContext("Default Camel Context");
 
@@ -2600,13 +1529,14 @@ public class ProcessEngineConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessEngineConfiguration#setProcessEngineLifecycleListener(ProcessEngineLifecycleListener)}.
+   * Test {@link ProcessEngineConfiguration#setProcessEngineLifecycleListener(ProcessEngineLifecycleListener)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setProcessEngineLifecycleListener(ProcessEngineLifecycleListener)}
+   * Method under test: {@link ProcessEngineConfiguration#setProcessEngineLifecycleListener(ProcessEngineLifecycleListener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ProcessEngineConfiguration ProcessEngineConfiguration.setProcessEngineLifecycleListener(ProcessEngineLifecycleListener)"})
   public void testSetProcessEngineLifecycleListener() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
@@ -2621,30 +1551,12 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#getProcessEngineLifecycleListener()}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getProcessEngineLifecycleListener()}
+   * Method under test: {@link ProcessEngineConfiguration#getProcessEngineLifecycleListener()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineLifecycleListener ProcessEngineConfiguration.getProcessEngineLifecycleListener()"})
   public void testGetProcessEngineLifecycleListener() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull(jtaProcessEngineConfiguration.getProcessEngineLifecycleListener());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getProcessEngineLifecycleListener()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getProcessEngineLifecycleListener()}
-   */
-  @Test
-  public void testGetProcessEngineLifecycleListener_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertNull((new JtaProcessEngineConfiguration()).getProcessEngineLifecycleListener());
   }
@@ -2652,30 +1564,12 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#getDatabaseTablePrefix()}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getDatabaseTablePrefix()}
+   * Method under test: {@link ProcessEngineConfiguration#getDatabaseTablePrefix()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ProcessEngineConfiguration.getDatabaseTablePrefix()"})
   public void testGetDatabaseTablePrefix() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertEquals(ProcessEngineConfiguration.NO_TENANT_ID, jtaProcessEngineConfiguration.getDatabaseTablePrefix());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getDatabaseTablePrefix()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getDatabaseTablePrefix()}
-   */
-  @Test
-  public void testGetDatabaseTablePrefix_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertEquals(ProcessEngineConfiguration.NO_TENANT_ID,
         (new JtaProcessEngineConfiguration()).getDatabaseTablePrefix());
@@ -2684,12 +1578,16 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setDatabaseTablePrefix(String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setDatabaseTablePrefix(String)}
+   * Method under test: {@link ProcessEngineConfiguration#setDatabaseTablePrefix(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setDatabaseTablePrefix(String)"})
   public void testSetDatabaseTablePrefix() {
-    // Arrange and Act
+    // Arrange
+    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
+
+    // Act
     ProcessEngineConfiguration actualSetDatabaseTablePrefixResult = jtaProcessEngineConfiguration
         .setDatabaseTablePrefix("Database Table Prefix");
 
@@ -2701,37 +1599,14 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setTablePrefixIsSchema(boolean)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setTablePrefixIsSchema(boolean)}
+   * Method under test: {@link ProcessEngineConfiguration#setTablePrefixIsSchema(boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setTablePrefixIsSchema(boolean)"})
   public void testSetTablePrefixIsSchema() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    ProcessEngineConfiguration actualSetTablePrefixIsSchemaResult = jtaProcessEngineConfiguration
-        .setTablePrefixIsSchema(true);
-
-    // Assert
-    assertTrue(jtaProcessEngineConfiguration.isTablePrefixIsSchema());
-    assertSame(jtaProcessEngineConfiguration, actualSetTablePrefixIsSchemaResult);
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#setTablePrefixIsSchema(boolean)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setTablePrefixIsSchema(boolean)}
-   */
-  @Test
-  public void testSetTablePrefixIsSchema_givenJtaProcessEngineConfiguration() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act
     ProcessEngineConfiguration actualSetTablePrefixIsSchemaResult = jtaProcessEngineConfiguration
@@ -2752,27 +1627,11 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#isTablePrefixIsSchema()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ProcessEngineConfiguration.isTablePrefixIsSchema()"})
   public void testIsTablePrefixIsSchema_givenJtaProcessEngineConfiguration_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new JtaProcessEngineConfiguration()).isTablePrefixIsSchema());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#isTablePrefixIsSchema()}.
-   * <ul>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#isTablePrefixIsSchema()}
-   */
-  @Test
-  public void testIsTablePrefixIsSchema_thenReturnFalse() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertFalse(jtaProcessEngineConfiguration.isTablePrefixIsSchema());
   }
 
   /**
@@ -2784,11 +1643,12 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#isTablePrefixIsSchema()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ProcessEngineConfiguration.isTablePrefixIsSchema()"})
   public void testIsTablePrefixIsSchema_thenReturnTrue() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
     jtaProcessEngineConfiguration.setTablePrefixIsSchema(true);
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
 
     // Act and Assert
     assertTrue(jtaProcessEngineConfiguration.isTablePrefixIsSchema());
@@ -2797,44 +1657,30 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#getDatabaseWildcardEscapeCharacter()}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getDatabaseWildcardEscapeCharacter()}
+   * Method under test: {@link ProcessEngineConfiguration#getDatabaseWildcardEscapeCharacter()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ProcessEngineConfiguration.getDatabaseWildcardEscapeCharacter()"})
   public void testGetDatabaseWildcardEscapeCharacter() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull(jtaProcessEngineConfiguration.getDatabaseWildcardEscapeCharacter());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getDatabaseWildcardEscapeCharacter()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getDatabaseWildcardEscapeCharacter()}
-   */
-  @Test
-  public void testGetDatabaseWildcardEscapeCharacter_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertNull((new JtaProcessEngineConfiguration()).getDatabaseWildcardEscapeCharacter());
   }
 
   /**
-   * Test
-   * {@link ProcessEngineConfiguration#setDatabaseWildcardEscapeCharacter(String)}.
+   * Test {@link ProcessEngineConfiguration#setDatabaseWildcardEscapeCharacter(String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setDatabaseWildcardEscapeCharacter(String)}
+   * Method under test: {@link ProcessEngineConfiguration#setDatabaseWildcardEscapeCharacter(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ProcessEngineConfiguration ProcessEngineConfiguration.setDatabaseWildcardEscapeCharacter(String)"})
   public void testSetDatabaseWildcardEscapeCharacter() {
-    // Arrange and Act
+    // Arrange
+    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
+
+    // Act
     ProcessEngineConfiguration actualSetDatabaseWildcardEscapeCharacterResult = jtaProcessEngineConfiguration
         .setDatabaseWildcardEscapeCharacter("Database Wildcard Escape Character");
 
@@ -2850,25 +1696,9 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#getDatabaseCatalog()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ProcessEngineConfiguration.getDatabaseCatalog()"})
   public void testGetDatabaseCatalog() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertEquals(ProcessEngineConfiguration.NO_TENANT_ID, jtaProcessEngineConfiguration.getDatabaseCatalog());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getDatabaseCatalog()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#getDatabaseCatalog()}
-   */
-  @Test
-  public void testGetDatabaseCatalog_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertEquals(ProcessEngineConfiguration.NO_TENANT_ID, (new JtaProcessEngineConfiguration()).getDatabaseCatalog());
   }
@@ -2876,12 +1706,16 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setDatabaseCatalog(String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setDatabaseCatalog(String)}
+   * Method under test: {@link ProcessEngineConfiguration#setDatabaseCatalog(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setDatabaseCatalog(String)"})
   public void testSetDatabaseCatalog() {
-    // Arrange and Act
+    // Arrange
+    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
+
+    // Act
     ProcessEngineConfiguration actualSetDatabaseCatalogResult = jtaProcessEngineConfiguration
         .setDatabaseCatalog("Database Catalog");
 
@@ -2896,25 +1730,9 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#getDatabaseSchema()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ProcessEngineConfiguration.getDatabaseSchema()"})
   public void testGetDatabaseSchema() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull(jtaProcessEngineConfiguration.getDatabaseSchema());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getDatabaseSchema()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#getDatabaseSchema()}
-   */
-  @Test
-  public void testGetDatabaseSchema_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertNull((new JtaProcessEngineConfiguration()).getDatabaseSchema());
   }
@@ -2922,12 +1740,16 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setDatabaseSchema(String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setDatabaseSchema(String)}
+   * Method under test: {@link ProcessEngineConfiguration#setDatabaseSchema(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setDatabaseSchema(String)"})
   public void testSetDatabaseSchema() {
-    // Arrange and Act
+    // Arrange
+    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
+
+    // Act
     ProcessEngineConfiguration actualSetDatabaseSchemaResult = jtaProcessEngineConfiguration
         .setDatabaseSchema("Database Schema");
 
@@ -2942,25 +1764,9 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#getXmlEncoding()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ProcessEngineConfiguration.getXmlEncoding()"})
   public void testGetXmlEncoding() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertEquals("UTF-8", jtaProcessEngineConfiguration.getXmlEncoding());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getXmlEncoding()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#getXmlEncoding()}
-   */
-  @Test
-  public void testGetXmlEncoding_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertEquals("UTF-8", (new JtaProcessEngineConfiguration()).getXmlEncoding());
   }
@@ -2971,8 +1777,13 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#setXmlEncoding(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setXmlEncoding(String)"})
   public void testSetXmlEncoding() {
-    // Arrange, Act and Assert
+    // Arrange
+    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
+
+    // Act and Assert
     assertSame(jtaProcessEngineConfiguration, jtaProcessEngineConfiguration.setXmlEncoding("UTF-8"));
   }
 
@@ -2982,25 +1793,9 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#getClock()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Clock ProcessEngineConfiguration.getClock()"})
   public void testGetClock() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull(jtaProcessEngineConfiguration.getClock());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getClock()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#getClock()}
-   */
-  @Test
-  public void testGetClock_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertNull((new JtaProcessEngineConfiguration()).getClock());
   }
@@ -3011,29 +1806,11 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#setClock(Clock)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setClock(Clock)"})
   public void testSetClock() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-    DefaultClockImpl clock = new DefaultClockImpl();
-
-    // Act and Assert
-    assertSame(jtaProcessEngineConfiguration, jtaProcessEngineConfiguration.setClock(clock));
-    assertSame(clock, jtaProcessEngineConfiguration.getClock());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#setClock(Clock)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#setClock(Clock)}
-   */
-  @Test
-  public void testSetClock_givenJtaProcessEngineConfiguration() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
     DefaultClockImpl clock = new DefaultClockImpl();
 
     // Act and Assert
@@ -3047,25 +1824,9 @@ public class ProcessEngineConfigurationDiffblueTest {
    * Method under test: {@link ProcessEngineConfiguration#getAsyncExecutor()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"AsyncExecutor ProcessEngineConfiguration.getAsyncExecutor()"})
   public void testGetAsyncExecutor() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull(jtaProcessEngineConfiguration.getAsyncExecutor());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getAsyncExecutor()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessEngineConfiguration#getAsyncExecutor()}
-   */
-  @Test
-  public void testGetAsyncExecutor_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertNull((new JtaProcessEngineConfiguration()).getAsyncExecutor());
   }
@@ -3073,38 +1834,14 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setAsyncExecutor(AsyncExecutor)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setAsyncExecutor(AsyncExecutor)}
+   * Method under test: {@link ProcessEngineConfiguration#setAsyncExecutor(AsyncExecutor)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setAsyncExecutor(AsyncExecutor)"})
   public void testSetAsyncExecutor() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-    DefaultAsyncJobExecutor asyncExecutor = new DefaultAsyncJobExecutor();
-
-    // Act
-    ProcessEngineConfiguration actualSetAsyncExecutorResult = jtaProcessEngineConfiguration
-        .setAsyncExecutor(asyncExecutor);
-
-    // Assert
-    assertSame(asyncExecutor, jtaProcessEngineConfiguration.getAsyncExecutor());
-    assertSame(jtaProcessEngineConfiguration, actualSetAsyncExecutorResult);
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#setAsyncExecutor(AsyncExecutor)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setAsyncExecutor(AsyncExecutor)}
-   */
-  @Test
-  public void testSetAsyncExecutor_givenJtaProcessEngineConfiguration() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
     DefaultAsyncJobExecutor asyncExecutor = new DefaultAsyncJobExecutor();
 
     // Act
@@ -3119,30 +1856,12 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#getLockTimeAsyncJobWaitTime()}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getLockTimeAsyncJobWaitTime()}
+   * Method under test: {@link ProcessEngineConfiguration#getLockTimeAsyncJobWaitTime()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int ProcessEngineConfiguration.getLockTimeAsyncJobWaitTime()"})
   public void testGetLockTimeAsyncJobWaitTime() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertEquals(60, jtaProcessEngineConfiguration.getLockTimeAsyncJobWaitTime());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getLockTimeAsyncJobWaitTime()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getLockTimeAsyncJobWaitTime()}
-   */
-  @Test
-  public void testGetLockTimeAsyncJobWaitTime_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertEquals(60, (new JtaProcessEngineConfiguration()).getLockTimeAsyncJobWaitTime());
   }
@@ -3150,37 +1869,14 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setLockTimeAsyncJobWaitTime(int)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setLockTimeAsyncJobWaitTime(int)}
+   * Method under test: {@link ProcessEngineConfiguration#setLockTimeAsyncJobWaitTime(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setLockTimeAsyncJobWaitTime(int)"})
   public void testSetLockTimeAsyncJobWaitTime() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    ProcessEngineConfiguration actualSetLockTimeAsyncJobWaitTimeResult = jtaProcessEngineConfiguration
-        .setLockTimeAsyncJobWaitTime(1);
-
-    // Assert
-    assertEquals(1, jtaProcessEngineConfiguration.getLockTimeAsyncJobWaitTime());
-    assertSame(jtaProcessEngineConfiguration, actualSetLockTimeAsyncJobWaitTimeResult);
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#setLockTimeAsyncJobWaitTime(int)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setLockTimeAsyncJobWaitTime(int)}
-   */
-  @Test
-  public void testSetLockTimeAsyncJobWaitTime_givenJtaProcessEngineConfiguration() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act
     ProcessEngineConfiguration actualSetLockTimeAsyncJobWaitTimeResult = jtaProcessEngineConfiguration
@@ -3194,30 +1890,12 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#getDefaultFailedJobWaitTime()}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getDefaultFailedJobWaitTime()}
+   * Method under test: {@link ProcessEngineConfiguration#getDefaultFailedJobWaitTime()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int ProcessEngineConfiguration.getDefaultFailedJobWaitTime()"})
   public void testGetDefaultFailedJobWaitTime() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertEquals(10, jtaProcessEngineConfiguration.getDefaultFailedJobWaitTime());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getDefaultFailedJobWaitTime()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getDefaultFailedJobWaitTime()}
-   */
-  @Test
-  public void testGetDefaultFailedJobWaitTime_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertEquals(10, (new JtaProcessEngineConfiguration()).getDefaultFailedJobWaitTime());
   }
@@ -3225,37 +1903,14 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setDefaultFailedJobWaitTime(int)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setDefaultFailedJobWaitTime(int)}
+   * Method under test: {@link ProcessEngineConfiguration#setDefaultFailedJobWaitTime(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setDefaultFailedJobWaitTime(int)"})
   public void testSetDefaultFailedJobWaitTime() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    ProcessEngineConfiguration actualSetDefaultFailedJobWaitTimeResult = jtaProcessEngineConfiguration
-        .setDefaultFailedJobWaitTime(1);
-
-    // Assert
-    assertEquals(1, jtaProcessEngineConfiguration.getDefaultFailedJobWaitTime());
-    assertSame(jtaProcessEngineConfiguration, actualSetDefaultFailedJobWaitTimeResult);
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#setDefaultFailedJobWaitTime(int)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setDefaultFailedJobWaitTime(int)}
-   */
-  @Test
-  public void testSetDefaultFailedJobWaitTime_givenJtaProcessEngineConfiguration() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
 
     // Act
     ProcessEngineConfiguration actualSetDefaultFailedJobWaitTimeResult = jtaProcessEngineConfiguration
@@ -3269,30 +1924,12 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#getAsyncFailedJobWaitTime()}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getAsyncFailedJobWaitTime()}
+   * Method under test: {@link ProcessEngineConfiguration#getAsyncFailedJobWaitTime()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int ProcessEngineConfiguration.getAsyncFailedJobWaitTime()"})
   public void testGetAsyncFailedJobWaitTime() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertEquals(10, jtaProcessEngineConfiguration.getAsyncFailedJobWaitTime());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#getAsyncFailedJobWaitTime()}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#getAsyncFailedJobWaitTime()}
-   */
-  @Test
-  public void testGetAsyncFailedJobWaitTime_givenJtaProcessEngineConfiguration() {
     // Arrange, Act and Assert
     assertEquals(10, (new JtaProcessEngineConfiguration()).getAsyncFailedJobWaitTime());
   }
@@ -3300,35 +1937,12 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#setAsyncFailedJobWaitTime(int)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setAsyncFailedJobWaitTime(int)}
+   * Method under test: {@link ProcessEngineConfiguration#setAsyncFailedJobWaitTime(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setAsyncFailedJobWaitTime(int)"})
   public void testSetAsyncFailedJobWaitTime() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    ProcessEngineConfiguration actualSetAsyncFailedJobWaitTimeResult = jtaProcessEngineConfiguration
-        .setAsyncFailedJobWaitTime(1);
-
-    // Assert
-    assertEquals(1, jtaProcessEngineConfiguration.getAsyncFailedJobWaitTime());
-    assertSame(jtaProcessEngineConfiguration, actualSetAsyncFailedJobWaitTimeResult);
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#setAsyncFailedJobWaitTime(int)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setAsyncFailedJobWaitTime(int)}
-   */
-  @Test
-  public void testSetAsyncFailedJobWaitTime_givenJtaProcessEngineConfiguration() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
 
@@ -3344,14 +1958,15 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#isEnableProcessDefinitionInfoCache()}.
    * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#isEnableProcessDefinitionInfoCache()}
+   * Method under test: {@link ProcessEngineConfiguration#isEnableProcessDefinitionInfoCache()}
    */
   @Test
-  public void testIsEnableProcessDefinitionInfoCache_givenJtaProcessEngineConfiguration() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ProcessEngineConfiguration.isEnableProcessDefinitionInfoCache()"})
+  public void testIsEnableProcessDefinitionInfoCache_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new JtaProcessEngineConfiguration()).isEnableProcessDefinitionInfoCache());
   }
@@ -3359,54 +1974,35 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#isEnableProcessDefinitionInfoCache()}.
    * <ul>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#isEnableProcessDefinitionInfoCache()}
-   */
-  @Test
-  public void testIsEnableProcessDefinitionInfoCache_thenReturnFalse() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertFalse(jtaProcessEngineConfiguration.isEnableProcessDefinitionInfoCache());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#isEnableProcessDefinitionInfoCache()}.
-   * <ul>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#isEnableProcessDefinitionInfoCache()}
+   * Method under test: {@link ProcessEngineConfiguration#isEnableProcessDefinitionInfoCache()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ProcessEngineConfiguration.isEnableProcessDefinitionInfoCache()"})
   public void testIsEnableProcessDefinitionInfoCache_thenReturnTrue() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
     jtaProcessEngineConfiguration.setEnableProcessDefinitionInfoCache(true);
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
 
     // Act and Assert
     assertTrue(jtaProcessEngineConfiguration.isEnableProcessDefinitionInfoCache());
   }
 
   /**
-   * Test
-   * {@link ProcessEngineConfiguration#setEnableProcessDefinitionInfoCache(boolean)}.
+   * Test {@link ProcessEngineConfiguration#setEnableProcessDefinitionInfoCache(boolean)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setEnableProcessDefinitionInfoCache(boolean)}
+   * Method under test: {@link ProcessEngineConfiguration#setEnableProcessDefinitionInfoCache(boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ProcessEngineConfiguration ProcessEngineConfiguration.setEnableProcessDefinitionInfoCache(boolean)"})
   public void testSetEnableProcessDefinitionInfoCache() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
 
     // Act
     ProcessEngineConfiguration actualSetEnableProcessDefinitionInfoCacheResult = jtaProcessEngineConfiguration
@@ -3418,63 +2014,14 @@ public class ProcessEngineConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessEngineConfiguration#setEnableProcessDefinitionInfoCache(boolean)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
+   * Test {@link ProcessEngineConfiguration#setCopyVariablesToLocalForTasks(boolean)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setEnableProcessDefinitionInfoCache(boolean)}
+   * Method under test: {@link ProcessEngineConfiguration#setCopyVariablesToLocalForTasks(boolean)}
    */
   @Test
-  public void testSetEnableProcessDefinitionInfoCache_givenJtaProcessEngineConfiguration() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-
-    // Act
-    ProcessEngineConfiguration actualSetEnableProcessDefinitionInfoCacheResult = jtaProcessEngineConfiguration
-        .setEnableProcessDefinitionInfoCache(true);
-
-    // Assert
-    assertTrue(jtaProcessEngineConfiguration.isEnableProcessDefinitionInfoCache());
-    assertSame(jtaProcessEngineConfiguration, actualSetEnableProcessDefinitionInfoCacheResult);
-  }
-
-  /**
-   * Test
-   * {@link ProcessEngineConfiguration#setCopyVariablesToLocalForTasks(boolean)}.
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setCopyVariablesToLocalForTasks(boolean)}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineConfiguration ProcessEngineConfiguration.setCopyVariablesToLocalForTasks(boolean)"})
   public void testSetCopyVariablesToLocalForTasks() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    ProcessEngineConfiguration actualSetCopyVariablesToLocalForTasksResult = jtaProcessEngineConfiguration
-        .setCopyVariablesToLocalForTasks(true);
-
-    // Assert
-    assertTrue(jtaProcessEngineConfiguration.isCopyVariablesToLocalForTasks());
-    assertSame(jtaProcessEngineConfiguration, actualSetCopyVariablesToLocalForTasksResult);
-  }
-
-  /**
-   * Test
-   * {@link ProcessEngineConfiguration#setCopyVariablesToLocalForTasks(boolean)}.
-   * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setCopyVariablesToLocalForTasks(boolean)}
-   */
-  @Test
-  public void testSetCopyVariablesToLocalForTasks_givenJtaProcessEngineConfiguration() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
 
@@ -3490,14 +2037,15 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#isCopyVariablesToLocalForTasks()}.
    * <ul>
-   *   <li>Given {@link JtaProcessEngineConfiguration} (default constructor).</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#isCopyVariablesToLocalForTasks()}
+   * Method under test: {@link ProcessEngineConfiguration#isCopyVariablesToLocalForTasks()}
    */
   @Test
-  public void testIsCopyVariablesToLocalForTasks_givenJtaProcessEngineConfiguration() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ProcessEngineConfiguration.isCopyVariablesToLocalForTasks()"})
+  public void testIsCopyVariablesToLocalForTasks_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new JtaProcessEngineConfiguration()).isCopyVariablesToLocalForTasks());
   }
@@ -3505,50 +2053,31 @@ public class ProcessEngineConfigurationDiffblueTest {
   /**
    * Test {@link ProcessEngineConfiguration#isCopyVariablesToLocalForTasks()}.
    * <ul>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#isCopyVariablesToLocalForTasks()}
-   */
-  @Test
-  public void testIsCopyVariablesToLocalForTasks_thenReturnFalse() {
-    // Arrange
-    JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertFalse(jtaProcessEngineConfiguration.isCopyVariablesToLocalForTasks());
-  }
-
-  /**
-   * Test {@link ProcessEngineConfiguration#isCopyVariablesToLocalForTasks()}.
-   * <ul>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#isCopyVariablesToLocalForTasks()}
+   * Method under test: {@link ProcessEngineConfiguration#isCopyVariablesToLocalForTasks()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ProcessEngineConfiguration.isCopyVariablesToLocalForTasks()"})
   public void testIsCopyVariablesToLocalForTasks_thenReturnTrue() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();
     jtaProcessEngineConfiguration.setCopyVariablesToLocalForTasks(true);
-    jtaProcessEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
 
     // Act and Assert
     assertTrue(jtaProcessEngineConfiguration.isCopyVariablesToLocalForTasks());
   }
 
   /**
-   * Test
-   * {@link ProcessEngineConfiguration#setEngineAgendaFactory(ActivitiEngineAgendaFactory)}.
+   * Test {@link ProcessEngineConfiguration#setEngineAgendaFactory(ActivitiEngineAgendaFactory)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngineConfiguration#setEngineAgendaFactory(ActivitiEngineAgendaFactory)}
+   * Method under test: {@link ProcessEngineConfiguration#setEngineAgendaFactory(ActivitiEngineAgendaFactory)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ProcessEngineConfiguration.setEngineAgendaFactory(ActivitiEngineAgendaFactory)"})
   public void testSetEngineAgendaFactory() {
     // Arrange
     JtaProcessEngineConfiguration jtaProcessEngineConfiguration = new JtaProcessEngineConfiguration();

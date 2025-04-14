@@ -20,16 +20,12 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import java.time.LocalDate;
-import java.time.ZoneOffset;
-import java.util.Date;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.BooleanDataObject;
 import org.activiti.bpmn.model.FlowElement;
@@ -48,10 +44,8 @@ import org.activiti.engine.delegate.event.ActivitiProcessCancelledEvent;
 import org.activiti.engine.delegate.event.ActivitiSequenceFlowTakenEvent;
 import org.activiti.engine.delegate.event.ActivitiSignalEvent;
 import org.activiti.engine.delegate.event.ActivitiVariableEvent;
-import org.activiti.engine.impl.persistence.entity.DeadLetterJobEntityImpl;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
-import org.activiti.engine.impl.persistence.entity.IdentityLinkEntityImpl;
 import org.activiti.engine.impl.persistence.entity.VariableInstanceEntity;
 import org.activiti.engine.impl.persistence.entity.VariableInstanceEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
@@ -59,16 +53,9 @@ import org.activiti.engine.impl.variable.BigDecimalType;
 import org.activiti.engine.impl.variable.VariableType;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ActivitiEventBuilderDiffblueTest {
-  @InjectMocks
-  private ActivitiEventBuilder activitiEventBuilder;
-
   /**
    * Test {@link ActivitiEventBuilder#createGlobalEvent(ActivitiEventType)}.
    * <ul>
@@ -76,10 +63,11 @@ public class ActivitiEventBuilderDiffblueTest {
    *   <li>Then return {@link ActivitiEventImpl}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createGlobalEvent(ActivitiEventType)}
+   * Method under test: {@link ActivitiEventBuilder#createGlobalEvent(ActivitiEventType)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ActivitiEvent ActivitiEventBuilder.createGlobalEvent(ActivitiEventType)"})
   public void testCreateGlobalEvent_whenEntityCreated_thenReturnActivitiEventImpl() {
     // Arrange and Act
     ActivitiEvent actualCreateGlobalEventResult = ActivitiEventBuilder
@@ -95,14 +83,18 @@ public class ActivitiEventBuilderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventBuilder#createEvent(ActivitiEventType, String, String, String)}.
+   * Test {@link ActivitiEventBuilder#createEvent(ActivitiEventType, String, String, String)}.
+   * <ul>
+   *   <li>When {@code ENTITY_CREATED}.</li>
+   *   <li>Then return {@link ActivitiEventImpl}.</li>
+   * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createEvent(ActivitiEventType, String, String, String)}
+   * Method under test: {@link ActivitiEventBuilder#createEvent(ActivitiEventType, String, String, String)}
    */
   @Test
-  public void testCreateEvent() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ActivitiEvent ActivitiEventBuilder.createEvent(ActivitiEventType, String, String, String)"})
+  public void testCreateEvent_whenEntityCreated_thenReturnActivitiEventImpl() {
     // Arrange and Act
     ActivitiEvent actualCreateEventResult = ActivitiEventBuilder.createEvent(ActivitiEventType.ENTITY_CREATED, "42",
         "42", "42");
@@ -117,15 +109,14 @@ public class ActivitiEventBuilderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventBuilder#createEntityEvent(ActivitiEventType, Object, String, String, String)}
-   * with {@code type}, {@code entity}, {@code executionId},
-   * {@code processInstanceId}, {@code processDefinitionId}.
+   * Test {@link ActivitiEventBuilder#createEntityEvent(ActivitiEventType, Object, String, String, String)} with {@code type}, {@code entity}, {@code executionId}, {@code processInstanceId}, {@code processDefinitionId}.
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createEntityEvent(ActivitiEventType, Object, String, String, String)}
+   * Method under test: {@link ActivitiEventBuilder#createEntityEvent(ActivitiEventType, Object, String, String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiEntityEvent ActivitiEventBuilder.createEntityEvent(ActivitiEventType, Object, String, String, String)"})
   public void testCreateEntityEventWithTypeEntityExecutionIdProcessInstanceIdProcessDefinitionId() {
     // Arrange
     Object object = JSONObject.NULL;
@@ -145,126 +136,15 @@ public class ActivitiEventBuilderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventBuilder#createSequenceFlowTakenEvent(ExecutionEntity, ActivitiEventType, String, String, String, String, Object, String, String, String, Object)}.
-   * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>Then return ExecutionId is {@code 42}.</li>
-   * </ul>
+   * Test {@link ActivitiEventBuilder#createSequenceFlowTakenEvent(ExecutionEntity, ActivitiEventType, String, String, String, String, Object, String, String, String, Object)}.
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createSequenceFlowTakenEvent(ExecutionEntity, ActivitiEventType, String, String, String, String, Object, String, String, String, Object)}
+   * Method under test: {@link ActivitiEventBuilder#createSequenceFlowTakenEvent(ExecutionEntity, ActivitiEventType, String, String, String, String, Object, String, String, String, Object)}
    */
   @Test
-  public void testCreateSequenceFlowTakenEvent_given42_thenReturnExecutionIdIs42() {
-    // Arrange
-    ExecutionEntityImpl executionEntity = mock(ExecutionEntityImpl.class);
-    when(executionEntity.getId()).thenReturn("42");
-    when(executionEntity.getProcessDefinitionId()).thenReturn("42");
-    when(executionEntity.getProcessInstanceId()).thenReturn("42");
-
-    // Act
-    ActivitiSequenceFlowTakenEvent actualCreateSequenceFlowTakenEventResult = ActivitiEventBuilder
-        .createSequenceFlowTakenEvent(executionEntity, ActivitiEventType.ENTITY_CREATED, "42", "42",
-            "Source Activity Name", "Source Activity Type", JSONObject.NULL, "42", "Target Activity Name",
-            "Target Activity Type", JSONObject.NULL);
-
-    // Assert
-    verify(executionEntity).getId();
-    verify(executionEntity).getProcessDefinitionId();
-    verify(executionEntity).getProcessInstanceId();
-    assertTrue(actualCreateSequenceFlowTakenEventResult instanceof ActivitiSequenceFlowTakenEventImpl);
-    assertEquals("42", actualCreateSequenceFlowTakenEventResult.getExecutionId());
-    assertEquals("42", actualCreateSequenceFlowTakenEventResult.getProcessDefinitionId());
-    assertEquals("42", actualCreateSequenceFlowTakenEventResult.getProcessInstanceId());
-    assertEquals("org.activiti.engine.impl.util.json.JSONObject.Null",
-        actualCreateSequenceFlowTakenEventResult.getSourceActivityBehaviorClass());
-    assertEquals("org.activiti.engine.impl.util.json.JSONObject.Null",
-        actualCreateSequenceFlowTakenEventResult.getTargetActivityBehaviorClass());
-  }
-
-  /**
-   * Test
-   * {@link ActivitiEventBuilder#createSequenceFlowTakenEvent(ExecutionEntity, ActivitiEventType, String, String, String, String, Object, String, String, String, Object)}.
-   * <ul>
-   *   <li>Then return SourceActivityBehaviorClass is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createSequenceFlowTakenEvent(ExecutionEntity, ActivitiEventType, String, String, String, String, Object, String, String, String, Object)}
-   */
-  @Test
-  public void testCreateSequenceFlowTakenEvent_thenReturnSourceActivityBehaviorClassIsNull() {
-    // Arrange
-    ExecutionEntityImpl executionEntity = mock(ExecutionEntityImpl.class);
-    when(executionEntity.getId()).thenReturn("42");
-    when(executionEntity.getProcessDefinitionId()).thenReturn("42");
-    when(executionEntity.getProcessInstanceId()).thenReturn("42");
-
-    // Act
-    ActivitiSequenceFlowTakenEvent actualCreateSequenceFlowTakenEventResult = ActivitiEventBuilder
-        .createSequenceFlowTakenEvent(executionEntity, ActivitiEventType.ENTITY_CREATED, "42", "42",
-            "Source Activity Name", "Source Activity Type", null, "42", "Target Activity Name", "Target Activity Type",
-            JSONObject.NULL);
-
-    // Assert
-    verify(executionEntity).getId();
-    verify(executionEntity).getProcessDefinitionId();
-    verify(executionEntity).getProcessInstanceId();
-    assertTrue(actualCreateSequenceFlowTakenEventResult instanceof ActivitiSequenceFlowTakenEventImpl);
-    assertEquals("42", actualCreateSequenceFlowTakenEventResult.getExecutionId());
-    assertEquals("42", actualCreateSequenceFlowTakenEventResult.getProcessDefinitionId());
-    assertEquals("42", actualCreateSequenceFlowTakenEventResult.getProcessInstanceId());
-    assertNull(actualCreateSequenceFlowTakenEventResult.getSourceActivityBehaviorClass());
-  }
-
-  /**
-   * Test
-   * {@link ActivitiEventBuilder#createSequenceFlowTakenEvent(ExecutionEntity, ActivitiEventType, String, String, String, String, Object, String, String, String, Object)}.
-   * <ul>
-   *   <li>Then return TargetActivityBehaviorClass is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createSequenceFlowTakenEvent(ExecutionEntity, ActivitiEventType, String, String, String, String, Object, String, String, String, Object)}
-   */
-  @Test
-  public void testCreateSequenceFlowTakenEvent_thenReturnTargetActivityBehaviorClassIsNull() {
-    // Arrange
-    ExecutionEntityImpl executionEntity = mock(ExecutionEntityImpl.class);
-    when(executionEntity.getId()).thenReturn("42");
-    when(executionEntity.getProcessDefinitionId()).thenReturn("42");
-    when(executionEntity.getProcessInstanceId()).thenReturn("42");
-
-    // Act
-    ActivitiSequenceFlowTakenEvent actualCreateSequenceFlowTakenEventResult = ActivitiEventBuilder
-        .createSequenceFlowTakenEvent(executionEntity, ActivitiEventType.ENTITY_CREATED, "42", "42",
-            "Source Activity Name", "Source Activity Type", JSONObject.NULL, "42", "Target Activity Name",
-            "Target Activity Type", null);
-
-    // Assert
-    verify(executionEntity).getId();
-    verify(executionEntity).getProcessDefinitionId();
-    verify(executionEntity).getProcessInstanceId();
-    assertTrue(actualCreateSequenceFlowTakenEventResult instanceof ActivitiSequenceFlowTakenEventImpl);
-    assertEquals("42", actualCreateSequenceFlowTakenEventResult.getExecutionId());
-    assertEquals("42", actualCreateSequenceFlowTakenEventResult.getProcessDefinitionId());
-    assertEquals("42", actualCreateSequenceFlowTakenEventResult.getProcessInstanceId());
-    assertNull(actualCreateSequenceFlowTakenEventResult.getTargetActivityBehaviorClass());
-  }
-
-  /**
-   * Test
-   * {@link ActivitiEventBuilder#createSequenceFlowTakenEvent(ExecutionEntity, ActivitiEventType, String, String, String, String, Object, String, String, String, Object)}.
-   * <ul>
-   *   <li>When createWithEmptyRelationshipCollections.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createSequenceFlowTakenEvent(ExecutionEntity, ActivitiEventType, String, String, String, String, Object, String, String, String, Object)}
-   */
-  @Test
-  public void testCreateSequenceFlowTakenEvent_whenCreateWithEmptyRelationshipCollections() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiSequenceFlowTakenEvent ActivitiEventBuilder.createSequenceFlowTakenEvent(ExecutionEntity, ActivitiEventType, String, String, String, String, Object, String, String, String, Object)"})
+  public void testCreateSequenceFlowTakenEvent() {
     // Arrange and Act
     ActivitiSequenceFlowTakenEvent actualCreateSequenceFlowTakenEventResult = ActivitiEventBuilder
         .createSequenceFlowTakenEvent(ExecutionEntityImpl.createWithEmptyRelationshipCollections(),
@@ -273,6 +153,13 @@ public class ActivitiEventBuilderDiffblueTest {
 
     // Assert
     assertTrue(actualCreateSequenceFlowTakenEventResult instanceof ActivitiSequenceFlowTakenEventImpl);
+    assertEquals("42", actualCreateSequenceFlowTakenEventResult.getId());
+    assertEquals("42", actualCreateSequenceFlowTakenEventResult.getSourceActivityId());
+    assertEquals("42", actualCreateSequenceFlowTakenEventResult.getTargetActivityId());
+    assertEquals("Source Activity Name", actualCreateSequenceFlowTakenEventResult.getSourceActivityName());
+    assertEquals("Source Activity Type", actualCreateSequenceFlowTakenEventResult.getSourceActivityType());
+    assertEquals("Target Activity Name", actualCreateSequenceFlowTakenEventResult.getTargetActivityName());
+    assertEquals("Target Activity Type", actualCreateSequenceFlowTakenEventResult.getTargetActivityType());
     assertEquals("org.activiti.engine.impl.util.json.JSONObject.Null",
         actualCreateSequenceFlowTakenEventResult.getSourceActivityBehaviorClass());
     assertEquals("org.activiti.engine.impl.util.json.JSONObject.Null",
@@ -280,48 +167,55 @@ public class ActivitiEventBuilderDiffblueTest {
     assertNull(actualCreateSequenceFlowTakenEventResult.getExecutionId());
     assertNull(actualCreateSequenceFlowTakenEventResult.getProcessDefinitionId());
     assertNull(actualCreateSequenceFlowTakenEventResult.getProcessInstanceId());
+    assertNull(((ActivitiSequenceFlowTakenEventImpl) actualCreateSequenceFlowTakenEventResult).getReason());
+    assertEquals(ActivitiEventType.ENTITY_CREATED, actualCreateSequenceFlowTakenEventResult.getType());
   }
 
   /**
-   * Test
-   * {@link ActivitiEventBuilder#createSequenceFlowTakenEvent(ExecutionEntity, ActivitiEventType, String, String, String, String, Object, String, String, String, Object)}.
+   * Test {@link ActivitiEventBuilder#createSequenceFlowTakenEvent(ExecutionEntity, ActivitiEventType, String, String, String, String, Object, String, String, String, Object)}.
    * <ul>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return ExecutionId is {@code null}.</li>
+   *   <li>Then return SourceActivityBehaviorClass is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createSequenceFlowTakenEvent(ExecutionEntity, ActivitiEventType, String, String, String, String, Object, String, String, String, Object)}
+   * Method under test: {@link ActivitiEventBuilder#createSequenceFlowTakenEvent(ExecutionEntity, ActivitiEventType, String, String, String, String, Object, String, String, String, Object)}
    */
   @Test
-  public void testCreateSequenceFlowTakenEvent_whenNull_thenReturnExecutionIdIsNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiSequenceFlowTakenEvent ActivitiEventBuilder.createSequenceFlowTakenEvent(ExecutionEntity, ActivitiEventType, String, String, String, String, Object, String, String, String, Object)"})
+  public void testCreateSequenceFlowTakenEvent_thenReturnSourceActivityBehaviorClassIsNull() {
     // Arrange and Act
     ActivitiSequenceFlowTakenEvent actualCreateSequenceFlowTakenEventResult = ActivitiEventBuilder
         .createSequenceFlowTakenEvent(null, ActivitiEventType.ENTITY_CREATED, "42", "42", "Source Activity Name",
-            "Source Activity Type", JSONObject.NULL, "42", "Target Activity Name", "Target Activity Type",
-            JSONObject.NULL);
+            "Source Activity Type", null, "42", "Target Activity Name", "Target Activity Type", null);
 
     // Assert
     assertTrue(actualCreateSequenceFlowTakenEventResult instanceof ActivitiSequenceFlowTakenEventImpl);
-    assertEquals("org.activiti.engine.impl.util.json.JSONObject.Null",
-        actualCreateSequenceFlowTakenEventResult.getSourceActivityBehaviorClass());
-    assertEquals("org.activiti.engine.impl.util.json.JSONObject.Null",
-        actualCreateSequenceFlowTakenEventResult.getTargetActivityBehaviorClass());
+    assertEquals("42", actualCreateSequenceFlowTakenEventResult.getId());
+    assertEquals("42", actualCreateSequenceFlowTakenEventResult.getSourceActivityId());
+    assertEquals("42", actualCreateSequenceFlowTakenEventResult.getTargetActivityId());
+    assertEquals("Source Activity Name", actualCreateSequenceFlowTakenEventResult.getSourceActivityName());
+    assertEquals("Source Activity Type", actualCreateSequenceFlowTakenEventResult.getSourceActivityType());
+    assertEquals("Target Activity Name", actualCreateSequenceFlowTakenEventResult.getTargetActivityName());
+    assertEquals("Target Activity Type", actualCreateSequenceFlowTakenEventResult.getTargetActivityType());
     assertNull(actualCreateSequenceFlowTakenEventResult.getExecutionId());
     assertNull(actualCreateSequenceFlowTakenEventResult.getProcessDefinitionId());
     assertNull(actualCreateSequenceFlowTakenEventResult.getProcessInstanceId());
+    assertNull(actualCreateSequenceFlowTakenEventResult.getSourceActivityBehaviorClass());
+    assertNull(actualCreateSequenceFlowTakenEventResult.getTargetActivityBehaviorClass());
+    assertNull(((ActivitiSequenceFlowTakenEventImpl) actualCreateSequenceFlowTakenEventResult).getReason());
+    assertEquals(ActivitiEventType.ENTITY_CREATED, actualCreateSequenceFlowTakenEventResult.getType());
   }
 
   /**
-   * Test
-   * {@link ActivitiEventBuilder#createEntityExceptionEvent(ActivitiEventType, Object, Throwable, String, String, String)}
-   * with {@code type}, {@code entity}, {@code cause}, {@code executionId},
-   * {@code processInstanceId}, {@code processDefinitionId}.
+   * Test {@link ActivitiEventBuilder#createEntityExceptionEvent(ActivitiEventType, Object, Throwable, String, String, String)} with {@code type}, {@code entity}, {@code cause}, {@code executionId}, {@code processInstanceId}, {@code processDefinitionId}.
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createEntityExceptionEvent(ActivitiEventType, Object, Throwable, String, String, String)}
+   * Method under test: {@link ActivitiEventBuilder#createEntityExceptionEvent(ActivitiEventType, Object, Throwable, String, String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiEntityEvent ActivitiEventBuilder.createEntityExceptionEvent(ActivitiEventType, Object, Throwable, String, String, String)"})
   public void testCreateEntityExceptionEventWithTypeEntityCauseExecutionIdProcessInstanceIdProcessDefinitionId() {
     // Arrange
     Object object = JSONObject.NULL;
@@ -343,16 +237,14 @@ public class ActivitiEventBuilderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventBuilder#createActivityEvent(ActivitiEventType, String, String, String, String, String, FlowElement)}
-   * with {@code type}, {@code activityId}, {@code activityName},
-   * {@code executionId}, {@code processInstanceId}, {@code processDefinitionId},
-   * {@code flowElement}.
+   * Test {@link ActivitiEventBuilder#createActivityEvent(ActivitiEventType, String, String, String, String, String, FlowElement)} with {@code type}, {@code activityId}, {@code activityName}, {@code executionId}, {@code processInstanceId}, {@code processDefinitionId}, {@code flowElement}.
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createActivityEvent(ActivitiEventType, String, String, String, String, String, FlowElement)}
+   * Method under test: {@link ActivitiEventBuilder#createActivityEvent(ActivitiEventType, String, String, String, String, String, FlowElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiActivityEvent ActivitiEventBuilder.createActivityEvent(ActivitiEventType, String, String, String, String, String, FlowElement)"})
   public void testCreateActivityEventWithTypeActivityIdActivityNameExecutionIdProcessInstanceIdProcessDefinitionIdFlowElement() {
     // Arrange and Act
     ActivitiActivityEvent actualCreateActivityEventResult = ActivitiEventBuilder.createActivityEvent(
@@ -372,17 +264,47 @@ public class ActivitiEventBuilderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventBuilder#createActivityEvent(ActivitiEventType, String, String, String, String, String, FlowElement)}
-   * with {@code type}, {@code activityId}, {@code activityName},
-   * {@code executionId}, {@code processInstanceId}, {@code processDefinitionId},
-   * {@code flowElement}.
+   * Test {@link ActivitiEventBuilder#createActivityEvent(ActivitiEventType, String, String, String, String, String, FlowElement)} with {@code type}, {@code activityId}, {@code activityName}, {@code executionId}, {@code processInstanceId}, {@code processDefinitionId}, {@code flowElement}.
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createActivityEvent(ActivitiEventType, String, String, String, String, String, FlowElement)}
+   * Method under test: {@link ActivitiEventBuilder#createActivityEvent(ActivitiEventType, String, String, String, String, String, FlowElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiActivityEvent ActivitiEventBuilder.createActivityEvent(ActivitiEventType, String, String, String, String, String, FlowElement)"})
   public void testCreateActivityEventWithTypeActivityIdActivityNameExecutionIdProcessInstanceIdProcessDefinitionIdFlowElement2() {
+    // Arrange
+    AdhocSubProcess flowElement = new AdhocSubProcess();
+    flowElement.setBehavior(JSONObject.NULL);
+
+    // Act
+    ActivitiActivityEvent actualCreateActivityEventResult = ActivitiEventBuilder
+        .createActivityEvent(ActivitiEventType.ENTITY_CREATED, "42", "Activity Name", "42", "42", "42", flowElement);
+
+    // Assert
+    assertTrue(actualCreateActivityEventResult instanceof ActivitiActivityEventImpl);
+    assertEquals("42", actualCreateActivityEventResult.getActivityId());
+    assertEquals("42", actualCreateActivityEventResult.getExecutionId());
+    assertEquals("42", actualCreateActivityEventResult.getProcessDefinitionId());
+    assertEquals("42", actualCreateActivityEventResult.getProcessInstanceId());
+    assertEquals("Activity Name", actualCreateActivityEventResult.getActivityName());
+    assertEquals("adhocSubProcess", actualCreateActivityEventResult.getActivityType());
+    assertEquals("org.activiti.engine.impl.util.json.JSONObject.Null",
+        actualCreateActivityEventResult.getBehaviorClass());
+    assertNull(((ActivitiActivityEventImpl) actualCreateActivityEventResult).getReason());
+    assertEquals(ActivitiEventType.ENTITY_CREATED, actualCreateActivityEventResult.getType());
+  }
+
+  /**
+   * Test {@link ActivitiEventBuilder#createActivityEvent(ActivitiEventType, String, String, String, String, String, FlowElement)} with {@code type}, {@code activityId}, {@code activityName}, {@code executionId}, {@code processInstanceId}, {@code processDefinitionId}, {@code flowElement}.
+   * <p>
+   * Method under test: {@link ActivitiEventBuilder#createActivityEvent(ActivitiEventType, String, String, String, String, String, FlowElement)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiActivityEvent ActivitiEventBuilder.createActivityEvent(ActivitiEventType, String, String, String, String, String, FlowElement)"})
+  public void testCreateActivityEventWithTypeActivityIdActivityNameExecutionIdProcessInstanceIdProcessDefinitionIdFlowElement3() {
     // Arrange and Act
     ActivitiActivityEvent actualCreateActivityEventResult = ActivitiEventBuilder
         .createActivityEvent(ActivitiEventType.ENTITY_CREATED, "42", "Activity Name", "42", "42", "42", null);
@@ -401,14 +323,14 @@ public class ActivitiEventBuilderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventBuilder#createActivityEvent(ActivitiEventType, DelegateExecution, FlowElement)}
-   * with {@code type}, {@code execution}, {@code flowElement}.
+   * Test {@link ActivitiEventBuilder#createActivityEvent(ActivitiEventType, DelegateExecution, FlowElement)} with {@code type}, {@code execution}, {@code flowElement}.
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createActivityEvent(ActivitiEventType, DelegateExecution, FlowElement)}
+   * Method under test: {@link ActivitiEventBuilder#createActivityEvent(ActivitiEventType, DelegateExecution, FlowElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiActivityEvent ActivitiEventBuilder.createActivityEvent(ActivitiEventType, DelegateExecution, FlowElement)"})
   public void testCreateActivityEventWithTypeExecutionFlowElement() {
     // Arrange
     ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
@@ -431,14 +353,14 @@ public class ActivitiEventBuilderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventBuilder#createActivityEvent(ActivitiEventType, DelegateExecution, FlowElement)}
-   * with {@code type}, {@code execution}, {@code flowElement}.
+   * Test {@link ActivitiEventBuilder#createActivityEvent(ActivitiEventType, DelegateExecution, FlowElement)} with {@code type}, {@code execution}, {@code flowElement}.
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createActivityEvent(ActivitiEventType, DelegateExecution, FlowElement)}
+   * Method under test: {@link ActivitiEventBuilder#createActivityEvent(ActivitiEventType, DelegateExecution, FlowElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiActivityEvent ActivitiEventBuilder.createActivityEvent(ActivitiEventType, DelegateExecution, FlowElement)"})
   public void testCreateActivityEventWithTypeExecutionFlowElement2() {
     // Arrange
     ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
@@ -465,17 +387,17 @@ public class ActivitiEventBuilderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventBuilder#createActivityEvent(ActivitiEventType, DelegateExecution, FlowElement)}
-   * with {@code type}, {@code execution}, {@code flowElement}.
+   * Test {@link ActivitiEventBuilder#createActivityEvent(ActivitiEventType, DelegateExecution, FlowElement)} with {@code type}, {@code execution}, {@code flowElement}.
    * <ul>
    *   <li>Then return ActivityType is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createActivityEvent(ActivitiEventType, DelegateExecution, FlowElement)}
+   * Method under test: {@link ActivitiEventBuilder#createActivityEvent(ActivitiEventType, DelegateExecution, FlowElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiActivityEvent ActivitiEventBuilder.createActivityEvent(ActivitiEventType, DelegateExecution, FlowElement)"})
   public void testCreateActivityEventWithTypeExecutionFlowElement_thenReturnActivityTypeIsNull() {
     // Arrange
     ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
@@ -498,21 +420,39 @@ public class ActivitiEventBuilderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventBuilder#mayBeResolveExpression(String, DelegateExecution)}.
+   * Test {@link ActivitiEventBuilder#mayBeResolveExpression(String, DelegateExecution)}.
    * <ul>
    *   <li>When empty string.</li>
    *   <li>Then return empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#mayBeResolveExpression(String, DelegateExecution)}
+   * Method under test: {@link ActivitiEventBuilder#mayBeResolveExpression(String, DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ActivitiEventBuilder.mayBeResolveExpression(String, DelegateExecution)"})
   public void testMayBeResolveExpression_whenEmptyString_thenReturnEmptyString() {
     // Arrange, Act and Assert
     assertEquals("",
         ActivitiEventBuilder.mayBeResolveExpression("", ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+  }
+
+  /**
+   * Test {@link ActivitiEventBuilder#mayBeResolveExpression(String, DelegateExecution)}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ActivitiEventBuilder#mayBeResolveExpression(String, DelegateExecution)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ActivitiEventBuilder.mayBeResolveExpression(String, DelegateExecution)"})
+  public void testMayBeResolveExpression_whenNull_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull(ActivitiEventBuilder.mayBeResolveExpression(null,
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
   }
 
   /**
@@ -525,6 +465,8 @@ public class ActivitiEventBuilderDiffblueTest {
    * Method under test: {@link ActivitiEventBuilder#parseActivityType(FlowNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ActivitiEventBuilder.parseActivityType(FlowNode)"})
   public void testParseActivityType_whenAdhocSubProcess_thenReturnAdhocSubProcess() {
     // Arrange, Act and Assert
     assertEquals("adhocSubProcess", ActivitiEventBuilder.parseActivityType(new AdhocSubProcess()));
@@ -533,14 +475,14 @@ public class ActivitiEventBuilderDiffblueTest {
   /**
    * Test {@link ActivitiEventBuilder#parseActivityBehavior(FlowNode)}.
    * <ul>
-   *   <li>Then return
-   * {@code org.activiti.engine.impl.util.json.JSONObject.Null}.</li>
+   *   <li>Then return {@code JSONObject.Null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#parseActivityBehavior(FlowNode)}
+   * Method under test: {@link ActivitiEventBuilder#parseActivityBehavior(FlowNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ActivitiEventBuilder.parseActivityBehavior(FlowNode)"})
   public void testParseActivityBehavior_thenReturnOrgActivitiEngineImplUtilJsonJSONObjectNull() {
     // Arrange
     AdhocSubProcess flowNode = new AdhocSubProcess();
@@ -558,26 +500,25 @@ public class ActivitiEventBuilderDiffblueTest {
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#parseActivityBehavior(FlowNode)}
+   * Method under test: {@link ActivitiEventBuilder#parseActivityBehavior(FlowNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ActivitiEventBuilder.parseActivityBehavior(FlowNode)"})
   public void testParseActivityBehavior_whenAdhocSubProcess_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(ActivitiEventBuilder.parseActivityBehavior(new AdhocSubProcess()));
   }
 
   /**
-   * Test
-   * {@link ActivitiEventBuilder#createActivityCancelledEvent(String, String, String, String, String, String, Object)}
-   * with {@code activityId}, {@code activityName}, {@code executionId},
-   * {@code processInstanceId}, {@code processDefinitionId}, {@code activityType},
-   * {@code cause}.
+   * Test {@link ActivitiEventBuilder#createActivityCancelledEvent(String, String, String, String, String, String, Object)} with {@code activityId}, {@code activityName}, {@code executionId}, {@code processInstanceId}, {@code processDefinitionId}, {@code activityType}, {@code cause}.
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createActivityCancelledEvent(String, String, String, String, String, String, Object)}
+   * Method under test: {@link ActivitiEventBuilder#createActivityCancelledEvent(String, String, String, String, String, String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiActivityCancelledEvent ActivitiEventBuilder.createActivityCancelledEvent(String, String, String, String, String, String, Object)"})
   public void testCreateActivityCancelledEventWithActivityIdActivityNameExecutionIdProcessInstanceIdProcessDefinitionIdActivityTypeCause() {
     // Arrange
     Object object = JSONObject.NULL;
@@ -601,14 +542,14 @@ public class ActivitiEventBuilderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventBuilder#createActivityCancelledEvent(ExecutionEntity, Object)}
-   * with {@code execution}, {@code cause}.
+   * Test {@link ActivitiEventBuilder#createActivityCancelledEvent(ExecutionEntity, Object)} with {@code execution}, {@code cause}.
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createActivityCancelledEvent(ExecutionEntity, Object)}
+   * Method under test: {@link ActivitiEventBuilder#createActivityCancelledEvent(ExecutionEntity, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiActivityCancelledEvent ActivitiEventBuilder.createActivityCancelledEvent(ExecutionEntity, Object)"})
   public void testCreateActivityCancelledEventWithExecutionCause() {
     // Arrange
     ExecutionEntity execution = mock(ExecutionEntity.class);
@@ -643,17 +584,17 @@ public class ActivitiEventBuilderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventBuilder#createActivityCancelledEvent(ExecutionEntity, Object)}
-   * with {@code execution}, {@code cause}.
+   * Test {@link ActivitiEventBuilder#createActivityCancelledEvent(ExecutionEntity, Object)} with {@code execution}, {@code cause}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createActivityCancelledEvent(ExecutionEntity, Object)}
+   * Method under test: {@link ActivitiEventBuilder#createActivityCancelledEvent(ExecutionEntity, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiActivityCancelledEvent ActivitiEventBuilder.createActivityCancelledEvent(ExecutionEntity, Object)"})
   public void testCreateActivityCancelledEventWithExecutionCause_thenThrowActivitiException() {
     // Arrange
     ExecutionEntity execution = mock(ExecutionEntity.class);
@@ -670,77 +611,51 @@ public class ActivitiEventBuilderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventBuilder#createProcessCancelledEvent(ProcessInstance, Object)}.
+   * Test {@link ActivitiEventBuilder#createProcessCancelledEvent(ProcessInstance, Object)}.
    * <ul>
-   *   <li>Given {@code 42}.</li>
-   *   <li>Then return ExecutionId is {@code 42}.</li>
+   *   <li>Then return {@link ActivitiProcessCancelledEventImpl}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createProcessCancelledEvent(ProcessInstance, Object)}
+   * Method under test: {@link ActivitiEventBuilder#createProcessCancelledEvent(ProcessInstance, Object)}
    */
   @Test
-  public void testCreateProcessCancelledEvent_given42_thenReturnExecutionIdIs42() {
-    // Arrange
-    ProcessInstance processInstance = mock(ProcessInstance.class);
-    when(processInstance.getId()).thenReturn("42");
-    when(processInstance.getProcessInstanceId()).thenReturn("42");
-    when(processInstance.getProcessDefinitionId()).thenReturn("42");
-
-    // Act
-    ActivitiProcessCancelledEvent actualCreateProcessCancelledEventResult = ActivitiEventBuilder
-        .createProcessCancelledEvent(processInstance, JSONObject.NULL);
-
-    // Assert
-    verify(processInstance).getId();
-    verify(processInstance).getProcessInstanceId();
-    verify(processInstance).getProcessDefinitionId();
-    assertTrue(actualCreateProcessCancelledEventResult instanceof ActivitiProcessCancelledEventImpl);
-    assertEquals("42", actualCreateProcessCancelledEventResult.getExecutionId());
-    assertEquals("42", actualCreateProcessCancelledEventResult.getProcessDefinitionId());
-    assertEquals("42", actualCreateProcessCancelledEventResult.getProcessInstanceId());
-    assertSame(processInstance, actualCreateProcessCancelledEventResult.getEntity());
-  }
-
-  /**
-   * Test
-   * {@link ActivitiEventBuilder#createProcessCancelledEvent(ProcessInstance, Object)}.
-   * <ul>
-   *   <li>Then return ExecutionId is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createProcessCancelledEvent(ProcessInstance, Object)}
-   */
-  @Test
-  public void testCreateProcessCancelledEvent_thenReturnExecutionIdIsNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiProcessCancelledEvent ActivitiEventBuilder.createProcessCancelledEvent(ProcessInstance, Object)"})
+  public void testCreateProcessCancelledEvent_thenReturnActivitiProcessCancelledEventImpl() {
     // Arrange
     ExecutionEntityImpl processInstance = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
+    Object object = JSONObject.NULL;
 
     // Act
     ActivitiProcessCancelledEvent actualCreateProcessCancelledEventResult = ActivitiEventBuilder
-        .createProcessCancelledEvent(processInstance, JSONObject.NULL);
+        .createProcessCancelledEvent(processInstance, object);
 
     // Assert
     assertTrue(actualCreateProcessCancelledEventResult instanceof ActivitiProcessCancelledEventImpl);
+    Object entity = actualCreateProcessCancelledEventResult.getEntity();
+    assertTrue(entity instanceof ExecutionEntityImpl);
+    assertNull(actualCreateProcessCancelledEventResult.getReason());
     assertNull(actualCreateProcessCancelledEventResult.getExecutionId());
     assertNull(actualCreateProcessCancelledEventResult.getProcessDefinitionId());
     assertNull(actualCreateProcessCancelledEventResult.getProcessInstanceId());
-    assertSame(processInstance, actualCreateProcessCancelledEventResult.getEntity());
+    assertEquals(ActivitiEventType.PROCESS_CANCELLED, actualCreateProcessCancelledEventResult.getType());
+    assertSame(processInstance, entity);
+    assertSame(object, actualCreateProcessCancelledEventResult.getCause());
   }
 
   /**
-   * Test
-   * {@link ActivitiEventBuilder#createProcessCancelledEvent(ProcessInstance, Object)}.
+   * Test {@link ActivitiEventBuilder#createProcessCancelledEvent(ProcessInstance, Object)}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createProcessCancelledEvent(ProcessInstance, Object)}
+   * Method under test: {@link ActivitiEventBuilder#createProcessCancelledEvent(ProcessInstance, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiProcessCancelledEvent ActivitiEventBuilder.createProcessCancelledEvent(ProcessInstance, Object)"})
   public void testCreateProcessCancelledEvent_thenThrowActivitiException() {
     // Arrange
     ProcessInstance processInstance = mock(ProcessInstance.class);
@@ -753,16 +668,17 @@ public class ActivitiEventBuilderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventBuilder#createActivitiySignalledEvent(DelegateExecution, String, Object)}.
+   * Test {@link ActivitiEventBuilder#createActivitiySignalledEvent(DelegateExecution, String, Object)}.
    * <ul>
    *   <li>Then return ActivityType is {@code adhocSubProcess}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createActivitiySignalledEvent(DelegateExecution, String, Object)}
+   * Method under test: {@link ActivitiEventBuilder#createActivitiySignalledEvent(DelegateExecution, String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiSignalEvent ActivitiEventBuilder.createActivitiySignalledEvent(DelegateExecution, String, Object)"})
   public void testCreateActivitiySignalledEvent_thenReturnActivityTypeIsAdhocSubProcess() {
     // Arrange
     DelegateExecution execution = mock(DelegateExecution.class);
@@ -791,16 +707,17 @@ public class ActivitiEventBuilderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventBuilder#createActivitiySignalledEvent(DelegateExecution, String, Object)}.
+   * Test {@link ActivitiEventBuilder#createActivitiySignalledEvent(DelegateExecution, String, Object)}.
    * <ul>
    *   <li>When createWithEmptyRelationshipCollections.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createActivitiySignalledEvent(DelegateExecution, String, Object)}
+   * Method under test: {@link ActivitiEventBuilder#createActivitiySignalledEvent(DelegateExecution, String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiSignalEvent ActivitiEventBuilder.createActivitiySignalledEvent(DelegateExecution, String, Object)"})
   public void testCreateActivitiySignalledEvent_whenCreateWithEmptyRelationshipCollections() {
     // Arrange and Act
     ActivitiSignalEvent actualCreateActivitiySignalledEventResult = ActivitiEventBuilder.createActivitiySignalledEvent(
@@ -816,17 +733,18 @@ public class ActivitiEventBuilderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventBuilder#createActivitiySignalledEvent(DelegateExecution, String, Object)}.
+   * Test {@link ActivitiEventBuilder#createActivitiySignalledEvent(DelegateExecution, String, Object)}.
    * <ul>
    *   <li>When {@code null}.</li>
    *   <li>Then return ActivityId is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createActivitiySignalledEvent(DelegateExecution, String, Object)}
+   * Method under test: {@link ActivitiEventBuilder#createActivitiySignalledEvent(DelegateExecution, String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiSignalEvent ActivitiEventBuilder.createActivitiySignalledEvent(DelegateExecution, String, Object)"})
   public void testCreateActivitiySignalledEvent_whenNull_thenReturnActivityIdIsNull() {
     // Arrange and Act
     ActivitiSignalEvent actualCreateActivitiySignalledEventResult = ActivitiEventBuilder
@@ -842,17 +760,18 @@ public class ActivitiEventBuilderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventBuilder#createMessageReceivedEvent(DelegateExecution, String, String, Object)}.
+   * Test {@link ActivitiEventBuilder#createMessageReceivedEvent(DelegateExecution, String, String, Object)}.
    * <ul>
    *   <li>Given {@code null}.</li>
    *   <li>Then return ActivityType is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createMessageReceivedEvent(DelegateExecution, String, String, Object)}
+   * Method under test: {@link ActivitiEventBuilder#createMessageReceivedEvent(DelegateExecution, String, String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiMessageEvent ActivitiEventBuilder.createMessageReceivedEvent(DelegateExecution, String, String, Object)"})
   public void testCreateMessageReceivedEvent_givenNull_thenReturnActivityTypeIsNull() {
     // Arrange
     ExecutionEntityImpl execution = mock(ExecutionEntityImpl.class);
@@ -892,16 +811,17 @@ public class ActivitiEventBuilderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventBuilder#createMessageReceivedEvent(DelegateExecution, String, String, Object)}.
+   * Test {@link ActivitiEventBuilder#createMessageReceivedEvent(DelegateExecution, String, String, Object)}.
    * <ul>
    *   <li>Then return ActivityType is {@code adhocSubProcess}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createMessageReceivedEvent(DelegateExecution, String, String, Object)}
+   * Method under test: {@link ActivitiEventBuilder#createMessageReceivedEvent(DelegateExecution, String, String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiMessageEvent ActivitiEventBuilder.createMessageReceivedEvent(DelegateExecution, String, String, Object)"})
   public void testCreateMessageReceivedEvent_thenReturnActivityTypeIsAdhocSubProcess() {
     // Arrange
     ExecutionEntityImpl execution = mock(ExecutionEntityImpl.class);
@@ -941,17 +861,18 @@ public class ActivitiEventBuilderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventBuilder#createMessageWaitingEvent(DelegateExecution, String, String)}.
+   * Test {@link ActivitiEventBuilder#createMessageWaitingEvent(DelegateExecution, String, String)}.
    * <ul>
    *   <li>Given {@code null}.</li>
    *   <li>Then return ActivityType is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createMessageWaitingEvent(DelegateExecution, String, String)}
+   * Method under test: {@link ActivitiEventBuilder#createMessageWaitingEvent(DelegateExecution, String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiMessageEvent ActivitiEventBuilder.createMessageWaitingEvent(DelegateExecution, String, String)"})
   public void testCreateMessageWaitingEvent_givenNull_thenReturnActivityTypeIsNull() {
     // Arrange
     ExecutionEntityImpl execution = mock(ExecutionEntityImpl.class);
@@ -990,16 +911,17 @@ public class ActivitiEventBuilderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventBuilder#createMessageWaitingEvent(DelegateExecution, String, String)}.
+   * Test {@link ActivitiEventBuilder#createMessageWaitingEvent(DelegateExecution, String, String)}.
    * <ul>
    *   <li>Then return ActivityType is {@code adhocSubProcess}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createMessageWaitingEvent(DelegateExecution, String, String)}
+   * Method under test: {@link ActivitiEventBuilder#createMessageWaitingEvent(DelegateExecution, String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiMessageEvent ActivitiEventBuilder.createMessageWaitingEvent(DelegateExecution, String, String)"})
   public void testCreateMessageWaitingEvent_thenReturnActivityTypeIsAdhocSubProcess() {
     // Arrange
     ExecutionEntityImpl execution = mock(ExecutionEntityImpl.class);
@@ -1038,17 +960,18 @@ public class ActivitiEventBuilderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventBuilder#createMessageSentEvent(DelegateExecution, String, String, Object)}.
+   * Test {@link ActivitiEventBuilder#createMessageSentEvent(DelegateExecution, String, String, Object)}.
    * <ul>
    *   <li>Given {@code null}.</li>
    *   <li>Then return ActivityType is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createMessageSentEvent(DelegateExecution, String, String, Object)}
+   * Method under test: {@link ActivitiEventBuilder#createMessageSentEvent(DelegateExecution, String, String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiMessageEvent ActivitiEventBuilder.createMessageSentEvent(DelegateExecution, String, String, Object)"})
   public void testCreateMessageSentEvent_givenNull_thenReturnActivityTypeIsNull() {
     // Arrange
     ExecutionEntityImpl execution = mock(ExecutionEntityImpl.class);
@@ -1088,16 +1011,17 @@ public class ActivitiEventBuilderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventBuilder#createMessageSentEvent(DelegateExecution, String, String, Object)}.
+   * Test {@link ActivitiEventBuilder#createMessageSentEvent(DelegateExecution, String, String, Object)}.
    * <ul>
    *   <li>Then return ActivityType is {@code adhocSubProcess}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createMessageSentEvent(DelegateExecution, String, String, Object)}
+   * Method under test: {@link ActivitiEventBuilder#createMessageSentEvent(DelegateExecution, String, String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiMessageEvent ActivitiEventBuilder.createMessageSentEvent(DelegateExecution, String, String, Object)"})
   public void testCreateMessageSentEvent_thenReturnActivityTypeIsAdhocSubProcess() {
     // Arrange
     ExecutionEntityImpl execution = mock(ExecutionEntityImpl.class);
@@ -1137,14 +1061,19 @@ public class ActivitiEventBuilderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventBuilder#createErrorEvent(ActivitiEventType, String, String, String, String, String, String)}.
+   * Test {@link ActivitiEventBuilder#createErrorEvent(ActivitiEventType, String, String, String, String, String, String)}.
+   * <ul>
+   *   <li>When {@code ENTITY_CREATED}.</li>
+   *   <li>Then return {@link ActivitiErrorEventImpl}.</li>
+   * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createErrorEvent(ActivitiEventType, String, String, String, String, String, String)}
+   * Method under test: {@link ActivitiEventBuilder#createErrorEvent(ActivitiEventType, String, String, String, String, String, String)}
    */
   @Test
-  public void testCreateErrorEvent() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiErrorEvent ActivitiEventBuilder.createErrorEvent(ActivitiEventType, String, String, String, String, String, String)"})
+  public void testCreateErrorEvent_whenEntityCreated_thenReturnActivitiErrorEventImpl() {
     // Arrange and Act
     ActivitiErrorEvent actualCreateErrorEventResult = ActivitiEventBuilder.createErrorEvent(
         ActivitiEventType.ENTITY_CREATED, "42", "An error occurred", "An error occurred", "42", "42", "42");
@@ -1165,46 +1094,22 @@ public class ActivitiEventBuilderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventBuilder#createVariableEvent(ActivitiEventType, String, Object, VariableType, String, String, String, String)}.
+   * Test {@link ActivitiEventBuilder#createVariableEvent(ActivitiEventType, String, Object, VariableType, String, String, String, String)}.
    * <ul>
-   *   <li>Then return VariableType is {@link BigDecimalType} (default
-   * constructor).</li>
+   *   <li>When {@code ENTITY_CREATED}.</li>
+   *   <li>Then return {@link ActivitiVariableEventImpl}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createVariableEvent(ActivitiEventType, String, Object, VariableType, String, String, String, String)}
+   * Method under test: {@link ActivitiEventBuilder#createVariableEvent(ActivitiEventType, String, Object, VariableType, String, String, String, String)}
    */
   @Test
-  public void testCreateVariableEvent_thenReturnVariableTypeIsBigDecimalType() {
-    // Arrange
-    BigDecimalType variableType = new BigDecimalType();
-
-    // Act
-    ActivitiVariableEvent actualCreateVariableEventResult = ActivitiEventBuilder.createVariableEvent(
-        ActivitiEventType.ENTITY_CREATED, "Variable Name", JSONObject.NULL, variableType, "42", "42", "42", "42");
-
-    // Assert
-    assertTrue(actualCreateVariableEventResult instanceof ActivitiVariableEventImpl);
-    assertSame(variableType, actualCreateVariableEventResult.getVariableType());
-  }
-
-  /**
-   * Test
-   * {@link ActivitiEventBuilder#createVariableEvent(ActivitiEventType, String, Object, VariableType, String, String, String, String)}.
-   * <ul>
-   *   <li>When {@link BigDecimalType}.</li>
-   *   <li>Then return ProcessDefinitionId is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createVariableEvent(ActivitiEventType, String, Object, VariableType, String, String, String, String)}
-   */
-  @Test
-  public void testCreateVariableEvent_whenBigDecimalType_thenReturnProcessDefinitionIdIs42() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiVariableEvent ActivitiEventBuilder.createVariableEvent(ActivitiEventType, String, Object, VariableType, String, String, String, String)"})
+  public void testCreateVariableEvent_whenEntityCreated_thenReturnActivitiVariableEventImpl() {
     // Arrange
     Object object = JSONObject.NULL;
-    BigDecimalType variableType = mock(BigDecimalType.class);
+    BigDecimalType variableType = new BigDecimalType();
 
     // Act
     ActivitiVariableEvent actualCreateVariableEventResult = ActivitiEventBuilder.createVariableEvent(
@@ -1219,30 +1124,27 @@ public class ActivitiEventBuilderDiffblueTest {
     assertEquals("Variable Name", actualCreateVariableEventResult.getVariableName());
     assertNull(((ActivitiVariableEventImpl) actualCreateVariableEventResult).getReason());
     assertEquals(ActivitiEventType.ENTITY_CREATED, actualCreateVariableEventResult.getType());
-    assertSame(object, actualCreateVariableEventResult.getVariableValue());
     assertSame(variableType, actualCreateVariableEventResult.getVariableType());
+    assertSame(object, actualCreateVariableEventResult.getVariableValue());
   }
 
   /**
-   * Test
-   * {@link ActivitiEventBuilder#createVariableUpdateEvent(VariableInstanceEntity, Object, String, String)}.
+   * Test {@link ActivitiEventBuilder#createVariableUpdateEvent(VariableInstanceEntity, Object, String, String)}.
    * <ul>
-   *   <li>Given {@link JSONObject#NULL}.</li>
-   *   <li>Then return ExecutionId is {@code 42}.</li>
+   *   <li>Then return ProcessDefinitionId is {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createVariableUpdateEvent(VariableInstanceEntity, Object, String, String)}
+   * Method under test: {@link ActivitiEventBuilder#createVariableUpdateEvent(VariableInstanceEntity, Object, String, String)}
    */
   @Test
-  public void testCreateVariableUpdateEvent_givenNull_thenReturnExecutionIdIs42() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiVariableUpdatedEventImpl ActivitiEventBuilder.createVariableUpdateEvent(VariableInstanceEntity, Object, String, String)"})
+  public void testCreateVariableUpdateEvent_thenReturnProcessDefinitionIdIs42() {
     // Arrange
-    VariableInstanceEntityImpl variableInstance = mock(VariableInstanceEntityImpl.class);
-    when(variableInstance.getValue()).thenReturn(JSONObject.NULL);
-    when(variableInstance.getExecutionId()).thenReturn("42");
-    when(variableInstance.getName()).thenReturn("Name");
-    when(variableInstance.getTaskId()).thenReturn("42");
-    when(variableInstance.getType()).thenReturn(new BigDecimalType());
+    VariableInstanceEntityImpl variableInstance = new VariableInstanceEntityImpl();
+    BigDecimalType type = new BigDecimalType();
+    variableInstance.setType(type);
     Object object = JSONObject.NULL;
 
     // Act
@@ -1250,53 +1152,31 @@ public class ActivitiEventBuilderDiffblueTest {
         .createVariableUpdateEvent(variableInstance, object, "42", "42");
 
     // Assert
-    verify(variableInstance).getExecutionId();
-    verify(variableInstance).getName();
-    verify(variableInstance).getTaskId();
-    verify(variableInstance).getType();
-    verify(variableInstance).getValue();
-    assertEquals("42", actualCreateVariableUpdateEventResult.getExecutionId());
-    assertEquals("42", actualCreateVariableUpdateEventResult.getTaskId());
-    assertEquals("Name", actualCreateVariableUpdateEventResult.getVariableName());
-    assertSame(object, actualCreateVariableUpdateEventResult.getVariableValue());
-  }
-
-  /**
-   * Test
-   * {@link ActivitiEventBuilder#createVariableUpdateEvent(VariableInstanceEntity, Object, String, String)}.
-   * <ul>
-   *   <li>Then return VariableValue is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createVariableUpdateEvent(VariableInstanceEntity, Object, String, String)}
-   */
-  @Test
-  public void testCreateVariableUpdateEvent_thenReturnVariableValueIsNull() {
-    // Arrange
-    VariableInstanceEntityImpl variableInstance = new VariableInstanceEntityImpl();
-    variableInstance.setType(new BigDecimalType());
-
-    // Act
-    ActivitiVariableUpdatedEventImpl actualCreateVariableUpdateEventResult = ActivitiEventBuilder
-        .createVariableUpdateEvent(variableInstance, JSONObject.NULL, "42", "42");
-
-    // Assert
+    assertEquals("42", actualCreateVariableUpdateEventResult.getProcessDefinitionId());
+    assertEquals("42", actualCreateVariableUpdateEventResult.getProcessInstanceId());
     assertNull(actualCreateVariableUpdateEventResult.getVariableValue());
     assertNull(actualCreateVariableUpdateEventResult.getExecutionId());
+    assertNull(actualCreateVariableUpdateEventResult.getReason());
     assertNull(actualCreateVariableUpdateEventResult.getTaskId());
     assertNull(actualCreateVariableUpdateEventResult.getVariableName());
+    assertEquals(ActivitiEventType.VARIABLE_UPDATED, actualCreateVariableUpdateEventResult.getType());
+    assertSame(type, actualCreateVariableUpdateEventResult.getVariableType());
+    assertSame(object, actualCreateVariableUpdateEventResult.getVariablePreviousValue());
   }
 
   /**
-   * Test
-   * {@link ActivitiEventBuilder#createMembershipEvent(ActivitiEventType, String, String)}.
+   * Test {@link ActivitiEventBuilder#createMembershipEvent(ActivitiEventType, String, String)}.
+   * <ul>
+   *   <li>Then return {@link ActivitiMembershipEventImpl}.</li>
+   * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#createMembershipEvent(ActivitiEventType, String, String)}
+   * Method under test: {@link ActivitiEventBuilder#createMembershipEvent(ActivitiEventType, String, String)}
    */
   @Test
-  public void testCreateMembershipEvent() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ActivitiMembershipEvent ActivitiEventBuilder.createMembershipEvent(ActivitiEventType, String, String)"})
+  public void testCreateMembershipEvent_thenReturnActivitiMembershipEventImpl() {
     // Arrange and Act
     ActivitiMembershipEvent actualCreateMembershipEventResult = ActivitiEventBuilder
         .createMembershipEvent(ActivitiEventType.ENTITY_CREATED, "42", "42");
@@ -1310,131 +1190,5 @@ public class ActivitiEventBuilderDiffblueTest {
     assertNull(actualCreateMembershipEventResult.getProcessInstanceId());
     assertNull(((ActivitiMembershipEventImpl) actualCreateMembershipEventResult).getReason());
     assertEquals(ActivitiEventType.ENTITY_CREATED, actualCreateMembershipEventResult.getType());
-  }
-
-  /**
-   * Test
-   * {@link ActivitiEventBuilder#populateEventWithCurrentContext(ActivitiEventImpl)}.
-   * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#populateEventWithCurrentContext(ActivitiEventImpl)}
-   */
-  @Test
-  public void testPopulateEventWithCurrentContext_givenCreateWithEmptyRelationshipCollections() {
-    // Arrange
-    ActivitiEntityEventImpl event = mock(ActivitiEntityEventImpl.class);
-    doNothing().when(event).setExecutionId(Mockito.<String>any());
-    doNothing().when(event).setProcessDefinitionId(Mockito.<String>any());
-    doNothing().when(event).setProcessInstanceId(Mockito.<String>any());
-    when(event.getEntity()).thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-
-    // Act
-    ActivitiEventBuilder.populateEventWithCurrentContext(event);
-
-    // Assert that nothing has changed
-    verify(event).getEntity();
-    verify(event).setExecutionId(isNull());
-    verify(event).setProcessDefinitionId(isNull());
-    verify(event).setProcessInstanceId(isNull());
-  }
-
-  /**
-   * Test
-   * {@link ActivitiEventBuilder#populateEventWithCurrentContext(ActivitiEventImpl)}.
-   * <ul>
-   *   <li>Given {@link IdentityLinkEntityImpl} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#populateEventWithCurrentContext(ActivitiEventImpl)}
-   */
-  @Test
-  public void testPopulateEventWithCurrentContext_givenIdentityLinkEntityImpl() {
-    // Arrange
-    ActivitiEntityEventImpl event = mock(ActivitiEntityEventImpl.class);
-    when(event.getEntity()).thenReturn(new IdentityLinkEntityImpl());
-
-    // Act
-    ActivitiEventBuilder.populateEventWithCurrentContext(event);
-
-    // Assert that nothing has changed
-    verify(event).getEntity();
-  }
-
-  /**
-   * Test
-   * {@link ActivitiEventBuilder#populateEventWithCurrentContext(ActivitiEventImpl)}.
-   * <ul>
-   *   <li>Given {@link JSONObject#NULL}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#populateEventWithCurrentContext(ActivitiEventImpl)}
-   */
-  @Test
-  public void testPopulateEventWithCurrentContext_givenNull() {
-    // Arrange
-    ActivitiEntityEventImpl event = mock(ActivitiEntityEventImpl.class);
-    when(event.getEntity()).thenReturn(JSONObject.NULL);
-
-    // Act
-    ActivitiEventBuilder.populateEventWithCurrentContext(event);
-
-    // Assert that nothing has changed
-    verify(event).getEntity();
-  }
-
-  /**
-   * Test
-   * {@link ActivitiEventBuilder#populateEventWithCurrentContext(ActivitiEventImpl)}.
-   * <ul>
-   *   <li>Then calls {@link ActivitiEventImpl#setExecutionId(String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ActivitiEventBuilder#populateEventWithCurrentContext(ActivitiEventImpl)}
-   */
-  @Test
-  public void testPopulateEventWithCurrentContext_thenCallsSetExecutionId() {
-    // Arrange
-    DeadLetterJobEntityImpl deadLetterJobEntityImpl = new DeadLetterJobEntityImpl();
-    deadLetterJobEntityImpl.setDeleted(true);
-    deadLetterJobEntityImpl
-        .setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    deadLetterJobEntityImpl
-        .setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    deadLetterJobEntityImpl.setExceptionMessage("An error occurred");
-    deadLetterJobEntityImpl.setExclusive(true);
-    deadLetterJobEntityImpl.setExecutionId("42");
-    deadLetterJobEntityImpl.setId("42");
-    deadLetterJobEntityImpl.setInserted(true);
-    deadLetterJobEntityImpl.setJobHandlerConfiguration("Job Handler Configuration");
-    deadLetterJobEntityImpl.setJobHandlerType("Job Handler Type");
-    deadLetterJobEntityImpl.setJobType("Job Type");
-    deadLetterJobEntityImpl.setMaxIterations(3);
-    deadLetterJobEntityImpl.setProcessDefinitionId("42");
-    deadLetterJobEntityImpl.setProcessInstanceId("42");
-    deadLetterJobEntityImpl.setRepeat("Repeat");
-    deadLetterJobEntityImpl.setRetries(1);
-    deadLetterJobEntityImpl.setRevision(1);
-    deadLetterJobEntityImpl.setTenantId("42");
-    deadLetterJobEntityImpl.setUpdated(true);
-    ActivitiEntityEventImpl event = mock(ActivitiEntityEventImpl.class);
-    doNothing().when(event).setExecutionId(Mockito.<String>any());
-    doNothing().when(event).setProcessDefinitionId(Mockito.<String>any());
-    doNothing().when(event).setProcessInstanceId(Mockito.<String>any());
-    when(event.getEntity()).thenReturn(deadLetterJobEntityImpl);
-
-    // Act
-    ActivitiEventBuilder.populateEventWithCurrentContext(event);
-
-    // Assert that nothing has changed
-    verify(event).getEntity();
-    verify(event).setExecutionId(eq("42"));
-    verify(event).setProcessDefinitionId(eq("42"));
-    verify(event).setProcessInstanceId(eq("42"));
   }
 }

@@ -20,6 +20,7 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.api.process.model.events.BPMNActivityCompletedEvent;
@@ -30,6 +31,7 @@ import org.activiti.engine.delegate.event.impl.ActivitiActivityCancelledEventImp
 import org.activiti.runtime.api.event.impl.ToActivityCompletedConverter;
 import org.activiti.runtime.api.model.impl.ToActivityConverter;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -39,13 +41,15 @@ class ActivityCompletedListenerDelegateDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link ActivityCompletedListenerDelegate#ActivityCompletedListenerDelegate(List, ToActivityCompletedConverter)}
+   *   <li>{@link ActivityCompletedListenerDelegate#ActivityCompletedListenerDelegate(List, ToActivityCompletedConverter)}
    *   <li>{@link ActivityCompletedListenerDelegate#isFailOnException()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ActivityCompletedListenerDelegate.<init>(List, ToActivityCompletedConverter)",
+      "boolean ActivityCompletedListenerDelegate.isFailOnException()"})
   void testGettersAndSetters() {
     // Arrange
     ArrayList<BPMNElementEventListener<BPMNActivityCompletedEvent>> processRuntimeEventListeners = new ArrayList<>();
@@ -58,17 +62,16 @@ class ActivityCompletedListenerDelegateDiffblueTest {
   /**
    * Test {@link ActivityCompletedListenerDelegate#onEvent(ActivitiEvent)}.
    * <ul>
-   *   <li>Given {@link BPMNElementEventListener}
-   * {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)} does nothing.</li>
-   *   <li>Then calls
-   * {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)}.</li>
+   *   <li>Given {@link BPMNElementEventListener} {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)} does nothing.</li>
+   *   <li>Then calls {@link ProcessRuntimeEventListener#onEvent(RuntimeEvent)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivityCompletedListenerDelegate#onEvent(ActivitiEvent)}
+   * Method under test: {@link ActivityCompletedListenerDelegate#onEvent(ActivitiEvent)}
    */
   @Test
   @DisplayName("Test onEvent(ActivitiEvent); given BPMNElementEventListener onEvent(RuntimeEvent) does nothing; then calls onEvent(RuntimeEvent)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ActivityCompletedListenerDelegate.onEvent(ActivitiEvent)"})
   void testOnEvent_givenBPMNElementEventListenerOnEventDoesNothing_thenCallsOnEvent() {
     // Arrange
     BPMNElementEventListener<BPMNActivityCompletedEvent> bpmnElementEventListener = mock(

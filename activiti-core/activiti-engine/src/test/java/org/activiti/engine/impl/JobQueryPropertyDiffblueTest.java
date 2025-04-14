@@ -17,25 +17,20 @@ package org.activiti.engine.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class JobQueryPropertyDiffblueTest {
-  @InjectMocks
-  private JobQueryProperty jobQueryProperty;
-
-  @InjectMocks
-  private String string;
-
   /**
    * Test {@link JobQueryProperty#JobQueryProperty(String)}.
    * <p>
    * Method under test: {@link JobQueryProperty#JobQueryProperty(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobQueryProperty.<init>(String)"})
   public void testNewJobQueryProperty() {
     // Arrange, Act and Assert
     assertEquals("Name", (new JobQueryProperty("Name")).getName());
@@ -47,6 +42,8 @@ public class JobQueryPropertyDiffblueTest {
    * Method under test: {@link JobQueryProperty#getName()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JobQueryProperty.getName()"})
   public void testGetName() {
     // Arrange, Act and Assert
     assertEquals("Name", (new JobQueryProperty("Name")).getName());
@@ -58,6 +55,8 @@ public class JobQueryPropertyDiffblueTest {
    * Method under test: {@link JobQueryProperty#findByName(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JobQueryProperty JobQueryProperty.findByName(String)"})
   public void testFindByName() {
     // Arrange, Act and Assert
     assertNull(JobQueryProperty.findByName("Property Name"));

@@ -19,16 +19,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import java.util.Collection;
-import java.util.List;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.AdhocSubProcess;
-import org.activiti.bpmn.model.Artifact;
 import org.activiti.bpmn.model.Association;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BooleanDataObject;
 import org.activiti.bpmn.model.BoundaryEvent;
 import org.activiti.bpmn.model.BpmnModel;
-import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.Process;
 import org.activiti.bpmn.model.Transaction;
 import org.activiti.engine.impl.bpmn.behavior.TransactionActivityBehavior;
@@ -37,16 +35,17 @@ import org.activiti.engine.impl.bpmn.parser.BpmnParseHandlers;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class TransactionParseHandlerDiffblueTest {
   /**
-   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
-   * with {@code BpmnParse}, {@code Transaction}.
+   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)} with {@code BpmnParse}, {@code Transaction}.
    * <p>
-   * Method under test:
-   * {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
+   * Method under test: {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TransactionParseHandler.executeParse(BpmnParse, Transaction)"})
   public void testExecuteParseWithBpmnParseTransaction() {
     // Arrange
     TransactionParseHandler transactionParseHandler = new TransactionParseHandler();
@@ -68,13 +67,13 @@ public class TransactionParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
-   * with {@code BpmnParse}, {@code Transaction}.
+   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)} with {@code BpmnParse}, {@code Transaction}.
    * <p>
-   * Method under test:
-   * {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
+   * Method under test: {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TransactionParseHandler.executeParse(BpmnParse, Transaction)"})
   public void testExecuteParseWithBpmnParseTransaction2() {
     // Arrange
     TransactionParseHandler transactionParseHandler = new TransactionParseHandler();
@@ -99,13 +98,13 @@ public class TransactionParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
-   * with {@code BpmnParse}, {@code Transaction}.
+   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)} with {@code BpmnParse}, {@code Transaction}.
    * <p>
-   * Method under test:
-   * {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
+   * Method under test: {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TransactionParseHandler.executeParse(BpmnParse, Transaction)"})
   public void testExecuteParseWithBpmnParseTransaction3() {
     // Arrange
     TransactionParseHandler transactionParseHandler = new TransactionParseHandler();
@@ -127,16 +126,49 @@ public class TransactionParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
-   * with {@code BpmnParse}, {@code Transaction}.
+   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)} with {@code BpmnParse}, {@code Transaction}.
+   * <ul>
+   *   <li>Given {@link BooleanDataObject} (default constructor).</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TransactionParseHandler.executeParse(BpmnParse, Transaction)"})
+  public void testExecuteParseWithBpmnParseTransaction_givenBooleanDataObject() {
+    // Arrange
+    TransactionParseHandler transactionParseHandler = new TransactionParseHandler();
+
+    BpmnParser parser = new BpmnParser();
+    parser.setBpmnParserHandlers(new BpmnParseHandlers());
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+    BpmnParse bpmnParse = new BpmnParse(parser);
+
+    Transaction transaction = new Transaction();
+    transaction.addFlowElement(new BooleanDataObject());
+
+    // Act
+    transactionParseHandler.executeParse(bpmnParse, transaction);
+
+    // Assert
+    Object behavior = transaction.getBehavior();
+    assertTrue(behavior instanceof TransactionActivityBehavior);
+    assertNull(bpmnParse.getCurrentFlowElement());
+    assertNull(((TransactionActivityBehavior) behavior).getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)} with {@code BpmnParse}, {@code Transaction}.
    * <ul>
    *   <li>Given {@link BpmnModel} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
+   * Method under test: {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TransactionParseHandler.executeParse(BpmnParse, Transaction)"})
   public void testExecuteParseWithBpmnParseTransaction_givenBpmnModel() {
     // Arrange
     TransactionParseHandler transactionParseHandler = new TransactionParseHandler();
@@ -154,41 +186,58 @@ public class TransactionParseHandlerDiffblueTest {
     transactionParseHandler.executeParse(bpmnParse, transaction);
 
     // Assert
-    Collection<Artifact> artifacts = transaction.getArtifacts();
-    assertEquals(1, artifacts.size());
-    assertTrue(artifacts instanceof List);
-    Collection<FlowElement> flowElements = transaction.getFlowElements();
-    assertTrue(flowElements instanceof List);
     Object behavior = transaction.getBehavior();
     assertTrue(behavior instanceof TransactionActivityBehavior);
     assertNull(bpmnParse.getCurrentFlowElement());
     assertNull(((TransactionActivityBehavior) behavior).getMultiInstanceActivityBehavior());
-    assertTrue(flowElements.isEmpty());
-    assertTrue(transaction.getBoundaryEvents().isEmpty());
-    assertTrue(transaction.getDataInputAssociations().isEmpty());
-    assertTrue(transaction.getDataOutputAssociations().isEmpty());
-    assertTrue(transaction.getMapExceptions().isEmpty());
-    assertTrue(transaction.getExecutionListeners().isEmpty());
-    assertTrue(transaction.getIncomingFlows().isEmpty());
-    assertTrue(transaction.getOutgoingFlows().isEmpty());
-    assertTrue(transaction.getDataObjects().isEmpty());
-    assertTrue(transaction.getAttributes().isEmpty());
-    assertTrue(transaction.getExtensionElements().isEmpty());
-    assertTrue(transaction.getFlowElementMap().isEmpty());
   }
 
   /**
-   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
-   * with {@code BpmnParse}, {@code Transaction}.
+   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)} with {@code BpmnParse}, {@code Transaction}.
    * <ul>
-   *   <li>Given {@link BpmnModel} (default constructor) addProcess {@link Process}
-   * (default constructor).</li>
+   *   <li>Given {@link BpmnModel} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
+   * Method under test: {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TransactionParseHandler.executeParse(BpmnParse, Transaction)"})
+  public void testExecuteParseWithBpmnParseTransaction_givenBpmnModel2() {
+    // Arrange
+    TransactionParseHandler transactionParseHandler = new TransactionParseHandler();
+
+    BpmnParser parser = new BpmnParser();
+    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
+
+    BpmnParse bpmnParse = new BpmnParse(parser);
+    bpmnParse.setBpmnModel(new BpmnModel());
+
+    Transaction transaction = new Transaction();
+    transaction.addArtifact(new Association());
+    transaction.addArtifact(new Association());
+
+    // Act
+    transactionParseHandler.executeParse(bpmnParse, transaction);
+
+    // Assert
+    Object behavior = transaction.getBehavior();
+    assertTrue(behavior instanceof TransactionActivityBehavior);
+    assertNull(bpmnParse.getCurrentFlowElement());
+    assertNull(((TransactionActivityBehavior) behavior).getMultiInstanceActivityBehavior());
+  }
+
+  /**
+   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)} with {@code BpmnParse}, {@code Transaction}.
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor) addProcess {@link Process} (default constructor).</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TransactionParseHandler.executeParse(BpmnParse, Transaction)"})
   public void testExecuteParseWithBpmnParseTransaction_givenBpmnModelAddProcessProcess() {
     // Arrange
     TransactionParseHandler transactionParseHandler = new TransactionParseHandler();
@@ -209,41 +258,24 @@ public class TransactionParseHandlerDiffblueTest {
     transactionParseHandler.executeParse(bpmnParse, transaction);
 
     // Assert
-    Collection<Artifact> artifacts = transaction.getArtifacts();
-    assertEquals(1, artifacts.size());
-    assertTrue(artifacts instanceof List);
-    Collection<FlowElement> flowElements = transaction.getFlowElements();
-    assertTrue(flowElements instanceof List);
     Object behavior = transaction.getBehavior();
     assertTrue(behavior instanceof TransactionActivityBehavior);
     assertNull(bpmnParse.getCurrentFlowElement());
     assertNull(((TransactionActivityBehavior) behavior).getMultiInstanceActivityBehavior());
-    assertTrue(flowElements.isEmpty());
-    assertTrue(transaction.getBoundaryEvents().isEmpty());
-    assertTrue(transaction.getDataInputAssociations().isEmpty());
-    assertTrue(transaction.getDataOutputAssociations().isEmpty());
-    assertTrue(transaction.getMapExceptions().isEmpty());
-    assertTrue(transaction.getExecutionListeners().isEmpty());
-    assertTrue(transaction.getIncomingFlows().isEmpty());
-    assertTrue(transaction.getOutgoingFlows().isEmpty());
-    assertTrue(transaction.getDataObjects().isEmpty());
-    assertTrue(transaction.getAttributes().isEmpty());
-    assertTrue(transaction.getExtensionElements().isEmpty());
-    assertTrue(transaction.getFlowElementMap().isEmpty());
   }
 
   /**
-   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
-   * with {@code BpmnParse}, {@code Transaction}.
+   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)} with {@code BpmnParse}, {@code Transaction}.
    * <ul>
-   *   <li>Then {@link Transaction} (default constructor) Artifacts Empty.</li>
+   *   <li>When {@link Transaction} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
+   * Method under test: {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
    */
   @Test
-  public void testExecuteParseWithBpmnParseTransaction_thenTransactionArtifactsEmpty() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TransactionParseHandler.executeParse(BpmnParse, Transaction)"})
+  public void testExecuteParseWithBpmnParseTransaction_whenTransaction() {
     // Arrange
     TransactionParseHandler transactionParseHandler = new TransactionParseHandler();
 
@@ -256,78 +288,10 @@ public class TransactionParseHandlerDiffblueTest {
     transactionParseHandler.executeParse(bpmnParse, transaction);
 
     // Assert
-    Collection<Artifact> artifacts = transaction.getArtifacts();
-    assertTrue(artifacts instanceof List);
-    Collection<FlowElement> flowElements = transaction.getFlowElements();
-    assertTrue(flowElements instanceof List);
     Object behavior = transaction.getBehavior();
     assertTrue(behavior instanceof TransactionActivityBehavior);
     assertNull(bpmnParse.getCurrentFlowElement());
     assertNull(((TransactionActivityBehavior) behavior).getMultiInstanceActivityBehavior());
-    assertTrue(artifacts.isEmpty());
-    assertTrue(flowElements.isEmpty());
-    assertTrue(transaction.getBoundaryEvents().isEmpty());
-    assertTrue(transaction.getDataInputAssociations().isEmpty());
-    assertTrue(transaction.getDataOutputAssociations().isEmpty());
-    assertTrue(transaction.getMapExceptions().isEmpty());
-    assertTrue(transaction.getExecutionListeners().isEmpty());
-    assertTrue(transaction.getIncomingFlows().isEmpty());
-    assertTrue(transaction.getOutgoingFlows().isEmpty());
-    assertTrue(transaction.getDataObjects().isEmpty());
-    assertTrue(transaction.getAttributes().isEmpty());
-    assertTrue(transaction.getExtensionElements().isEmpty());
-    assertTrue(transaction.getFlowElementMap().isEmpty());
-  }
-
-  /**
-   * Test {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
-   * with {@code BpmnParse}, {@code Transaction}.
-   * <ul>
-   *   <li>Then {@link Transaction} (default constructor) FlowElements size is
-   * one.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link TransactionParseHandler#executeParse(BpmnParse, Transaction)}
-   */
-  @Test
-  public void testExecuteParseWithBpmnParseTransaction_thenTransactionFlowElementsSizeIsOne() {
-    // Arrange
-    TransactionParseHandler transactionParseHandler = new TransactionParseHandler();
-
-    BpmnParser parser = new BpmnParser();
-    parser.setBpmnParserHandlers(new BpmnParseHandlers());
-    parser.setActivityBehaviorFactory(new DefaultActivityBehaviorFactory());
-    BpmnParse bpmnParse = new BpmnParse(parser);
-
-    Transaction transaction = new Transaction();
-    transaction.addFlowElement(new BooleanDataObject());
-
-    // Act
-    transactionParseHandler.executeParse(bpmnParse, transaction);
-
-    // Assert
-    Collection<Artifact> artifacts = transaction.getArtifacts();
-    assertTrue(artifacts instanceof List);
-    Collection<FlowElement> flowElements = transaction.getFlowElements();
-    assertEquals(1, flowElements.size());
-    assertTrue(flowElements instanceof List);
-    Object behavior = transaction.getBehavior();
-    assertTrue(behavior instanceof TransactionActivityBehavior);
-    assertNull(bpmnParse.getCurrentFlowElement());
-    assertNull(((TransactionActivityBehavior) behavior).getMultiInstanceActivityBehavior());
-    assertTrue(artifacts.isEmpty());
-    assertTrue(transaction.getBoundaryEvents().isEmpty());
-    assertTrue(transaction.getDataInputAssociations().isEmpty());
-    assertTrue(transaction.getDataOutputAssociations().isEmpty());
-    assertTrue(transaction.getMapExceptions().isEmpty());
-    assertTrue(transaction.getExecutionListeners().isEmpty());
-    assertTrue(transaction.getIncomingFlows().isEmpty());
-    assertTrue(transaction.getOutgoingFlows().isEmpty());
-    assertTrue(transaction.getDataObjects().isEmpty());
-    assertTrue(transaction.getAttributes().isEmpty());
-    assertTrue(transaction.getExtensionElements().isEmpty());
-    assertTrue(transaction.getFlowElementMap().isEmpty());
   }
 
   /**
@@ -340,6 +304,8 @@ public class TransactionParseHandlerDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TransactionParseHandler.<init>()", "Class TransactionParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends BaseElement> actualHandledType = (new TransactionParseHandler()).getHandledType();

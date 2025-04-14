@@ -17,19 +17,21 @@ package org.activiti.image.exception;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ActivitiInterchangeInfoNotFoundExceptionDiffblueTest {
   /**
-   * Test
-   * {@link ActivitiInterchangeInfoNotFoundException#ActivitiInterchangeInfoNotFoundException(String)}.
+   * Test {@link ActivitiInterchangeInfoNotFoundException#ActivitiInterchangeInfoNotFoundException(String)}.
    * <p>
-   * Method under test:
-   * {@link ActivitiInterchangeInfoNotFoundException#ActivitiInterchangeInfoNotFoundException(String)}
+   * Method under test: {@link ActivitiInterchangeInfoNotFoundException#ActivitiInterchangeInfoNotFoundException(String)}
    */
   @Test
   @DisplayName("Test new ActivitiInterchangeInfoNotFoundException(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ActivitiInterchangeInfoNotFoundException.<init>(String)"})
   void testNewActivitiInterchangeInfoNotFoundException() {
     // Arrange and Act
     ActivitiInterchangeInfoNotFoundException actualActivitiInterchangeInfoNotFoundException = new ActivitiInterchangeInfoNotFoundException(

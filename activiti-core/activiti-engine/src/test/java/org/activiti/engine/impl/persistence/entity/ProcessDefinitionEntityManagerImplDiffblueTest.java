@@ -25,6 +25,8 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,6 +40,7 @@ import org.activiti.engine.impl.persistence.entity.data.ProcessDefinitionDataMan
 import org.activiti.engine.impl.persistence.entity.data.impl.MybatisProcessDefinitionDataManager;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -60,16 +63,19 @@ public class ProcessDefinitionEntityManagerImplDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link ProcessDefinitionEntityManagerImpl#ProcessDefinitionEntityManagerImpl(ProcessEngineConfigurationImpl, ProcessDefinitionDataManager)}
-   *   <li>
-   * {@link ProcessDefinitionEntityManagerImpl#setProcessDefinitionDataManager(ProcessDefinitionDataManager)}
+   *   <li>{@link ProcessDefinitionEntityManagerImpl#ProcessDefinitionEntityManagerImpl(ProcessEngineConfigurationImpl, ProcessDefinitionDataManager)}
+   *   <li>{@link ProcessDefinitionEntityManagerImpl#setProcessDefinitionDataManager(ProcessDefinitionDataManager)}
    *   <li>{@link ProcessDefinitionEntityManagerImpl#getDataManager()}
-   *   <li>
-   * {@link ProcessDefinitionEntityManagerImpl#getProcessDefinitionDataManager()}
+   *   <li>{@link ProcessDefinitionEntityManagerImpl#getProcessDefinitionDataManager()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "void ProcessDefinitionEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, ProcessDefinitionDataManager)",
+      "DataManager ProcessDefinitionEntityManagerImpl.getDataManager()",
+      "ProcessDefinitionDataManager ProcessDefinitionEntityManagerImpl.getProcessDefinitionDataManager()",
+      "void ProcessDefinitionEntityManagerImpl.setProcessDefinitionDataManager(ProcessDefinitionDataManager)"})
   public void testGettersAndSetters() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
@@ -82,20 +88,21 @@ public class ProcessDefinitionEntityManagerImplDiffblueTest {
     actualProcessDefinitionEntityManagerImpl.setProcessDefinitionDataManager(processDefinitionDataManager);
     DataManager<ProcessDefinitionEntity> actualDataManager = actualProcessDefinitionEntityManagerImpl.getDataManager();
 
-    // Assert that nothing has changed
+    // Assert
     assertSame(processDefinitionDataManager, actualDataManager);
     assertSame(processDefinitionDataManager,
         actualProcessDefinitionEntityManagerImpl.getProcessDefinitionDataManager());
   }
 
   /**
-   * Test
-   * {@link ProcessDefinitionEntityManagerImpl#findLatestProcessDefinitionByKey(String)}.
+   * Test {@link ProcessDefinitionEntityManagerImpl#findLatestProcessDefinitionByKey(String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessDefinitionEntityManagerImpl#findLatestProcessDefinitionByKey(String)}
+   * Method under test: {@link ProcessDefinitionEntityManagerImpl#findLatestProcessDefinitionByKey(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ProcessDefinitionEntity ProcessDefinitionEntityManagerImpl.findLatestProcessDefinitionByKey(String)"})
   public void testFindLatestProcessDefinitionByKey() {
     // Arrange
     ProcessDefinitionEntityImpl processDefinitionEntityImpl = new ProcessDefinitionEntityImpl();
@@ -112,13 +119,14 @@ public class ProcessDefinitionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessDefinitionEntityManagerImpl#findLatestProcessDefinitionByKeyAndTenantId(String, String)}.
+   * Test {@link ProcessDefinitionEntityManagerImpl#findLatestProcessDefinitionByKeyAndTenantId(String, String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessDefinitionEntityManagerImpl#findLatestProcessDefinitionByKeyAndTenantId(String, String)}
+   * Method under test: {@link ProcessDefinitionEntityManagerImpl#findLatestProcessDefinitionByKeyAndTenantId(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ProcessDefinitionEntity ProcessDefinitionEntityManagerImpl.findLatestProcessDefinitionByKeyAndTenantId(String, String)"})
   public void testFindLatestProcessDefinitionByKeyAndTenantId() {
     // Arrange
     ProcessDefinitionEntityImpl processDefinitionEntityImpl = new ProcessDefinitionEntityImpl();
@@ -136,13 +144,13 @@ public class ProcessDefinitionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessDefinitionEntityManagerImpl#deleteProcessDefinitionsByDeploymentId(String)}.
+   * Test {@link ProcessDefinitionEntityManagerImpl#deleteProcessDefinitionsByDeploymentId(String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessDefinitionEntityManagerImpl#deleteProcessDefinitionsByDeploymentId(String)}
+   * Method under test: {@link ProcessDefinitionEntityManagerImpl#deleteProcessDefinitionsByDeploymentId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ProcessDefinitionEntityManagerImpl.deleteProcessDefinitionsByDeploymentId(String)"})
   public void testDeleteProcessDefinitionsByDeploymentId() {
     // Arrange
     doNothing().when(processDefinitionDataManager).deleteProcessDefinitionsByDeploymentId(Mockito.<String>any());
@@ -155,16 +163,17 @@ public class ProcessDefinitionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionsByQueryCriteria(ProcessDefinitionQueryImpl, Page)}.
+   * Test {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionsByQueryCriteria(ProcessDefinitionQueryImpl, Page)}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionsByQueryCriteria(ProcessDefinitionQueryImpl, Page)}
+   * Method under test: {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionsByQueryCriteria(ProcessDefinitionQueryImpl, Page)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "List ProcessDefinitionEntityManagerImpl.findProcessDefinitionsByQueryCriteria(ProcessDefinitionQueryImpl, Page)"})
   public void testFindProcessDefinitionsByQueryCriteria_thenReturnEmpty() {
     // Arrange
     ProcessDefinitionDataManager processDefinitionDataManager = mock(ProcessDefinitionDataManager.class);
@@ -185,16 +194,17 @@ public class ProcessDefinitionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionCountByQueryCriteria(ProcessDefinitionQueryImpl)}.
+   * Test {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionCountByQueryCriteria(ProcessDefinitionQueryImpl)}.
    * <ul>
    *   <li>Then return three.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionCountByQueryCriteria(ProcessDefinitionQueryImpl)}
+   * Method under test: {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionCountByQueryCriteria(ProcessDefinitionQueryImpl)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "long ProcessDefinitionEntityManagerImpl.findProcessDefinitionCountByQueryCriteria(ProcessDefinitionQueryImpl)"})
   public void testFindProcessDefinitionCountByQueryCriteria_thenReturnThree() {
     // Arrange
     ProcessDefinitionDataManager processDefinitionDataManager = mock(ProcessDefinitionDataManager.class);
@@ -214,13 +224,14 @@ public class ProcessDefinitionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionByDeploymentAndKey(String, String)}.
+   * Test {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionByDeploymentAndKey(String, String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionByDeploymentAndKey(String, String)}
+   * Method under test: {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionByDeploymentAndKey(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ProcessDefinitionEntity ProcessDefinitionEntityManagerImpl.findProcessDefinitionByDeploymentAndKey(String, String)"})
   public void testFindProcessDefinitionByDeploymentAndKey() {
     // Arrange
     ProcessDefinitionEntityImpl processDefinitionEntityImpl = new ProcessDefinitionEntityImpl();
@@ -238,13 +249,14 @@ public class ProcessDefinitionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionByDeploymentAndKeyAndTenantId(String, String, String)}.
+   * Test {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionByDeploymentAndKeyAndTenantId(String, String, String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionByDeploymentAndKeyAndTenantId(String, String, String)}
+   * Method under test: {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionByDeploymentAndKeyAndTenantId(String, String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ProcessDefinitionEntity ProcessDefinitionEntityManagerImpl.findProcessDefinitionByDeploymentAndKeyAndTenantId(String, String, String)"})
   public void testFindProcessDefinitionByDeploymentAndKeyAndTenantId() {
     // Arrange
     ProcessDefinitionEntityImpl processDefinitionEntityImpl = new ProcessDefinitionEntityImpl();
@@ -262,13 +274,14 @@ public class ProcessDefinitionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionByKeyAndVersionAndTenantId(String, Integer, String)}.
+   * Test {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionByKeyAndVersionAndTenantId(String, Integer, String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionByKeyAndVersionAndTenantId(String, Integer, String)}
+   * Method under test: {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionByKeyAndVersionAndTenantId(String, Integer, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ProcessDefinition ProcessDefinitionEntityManagerImpl.findProcessDefinitionByKeyAndVersionAndTenantId(String, Integer, String)"})
   public void testFindProcessDefinitionByKeyAndVersionAndTenantId() {
     // Arrange
     ProcessDefinitionEntityImpl processDefinitionEntityImpl = new ProcessDefinitionEntityImpl();
@@ -286,16 +299,17 @@ public class ProcessDefinitionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionByKeyAndVersionAndTenantId(String, Integer, String)}.
+   * Test {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionByKeyAndVersionAndTenantId(String, Integer, String)}.
    * <ul>
    *   <li>When empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionByKeyAndVersionAndTenantId(String, Integer, String)}
+   * Method under test: {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionByKeyAndVersionAndTenantId(String, Integer, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ProcessDefinition ProcessDefinitionEntityManagerImpl.findProcessDefinitionByKeyAndVersionAndTenantId(String, Integer, String)"})
   public void testFindProcessDefinitionByKeyAndVersionAndTenantId_whenEmptyString() {
     // Arrange
     ProcessDefinitionEntityImpl processDefinitionEntityImpl = new ProcessDefinitionEntityImpl();
@@ -312,16 +326,17 @@ public class ProcessDefinitionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionByKeyAndVersionAndTenantId(String, Integer, String)}.
+   * Test {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionByKeyAndVersionAndTenantId(String, Integer, String)}.
    * <ul>
    *   <li>When {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionByKeyAndVersionAndTenantId(String, Integer, String)}
+   * Method under test: {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionByKeyAndVersionAndTenantId(String, Integer, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ProcessDefinition ProcessDefinitionEntityManagerImpl.findProcessDefinitionByKeyAndVersionAndTenantId(String, Integer, String)"})
   public void testFindProcessDefinitionByKeyAndVersionAndTenantId_whenNull() {
     // Arrange
     ProcessDefinitionEntityImpl processDefinitionEntityImpl = new ProcessDefinitionEntityImpl();
@@ -338,16 +353,16 @@ public class ProcessDefinitionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionsByNativeQuery(Map, int, int)}.
+   * Test {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionsByNativeQuery(Map, int, int)}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionsByNativeQuery(Map, int, int)}
+   * Method under test: {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionsByNativeQuery(Map, int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List ProcessDefinitionEntityManagerImpl.findProcessDefinitionsByNativeQuery(Map, int, int)"})
   public void testFindProcessDefinitionsByNativeQuery_thenReturnEmpty() {
     // Arrange
     ProcessDefinitionDataManager processDefinitionDataManager = mock(ProcessDefinitionDataManager.class);
@@ -366,16 +381,16 @@ public class ProcessDefinitionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionCountByNativeQuery(Map)}.
+   * Test {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionCountByNativeQuery(Map)}.
    * <ul>
    *   <li>Then return three.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionCountByNativeQuery(Map)}
+   * Method under test: {@link ProcessDefinitionEntityManagerImpl#findProcessDefinitionCountByNativeQuery(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long ProcessDefinitionEntityManagerImpl.findProcessDefinitionCountByNativeQuery(Map)"})
   public void testFindProcessDefinitionCountByNativeQuery_thenReturnThree() {
     // Arrange
     ProcessDefinitionDataManager processDefinitionDataManager = mock(ProcessDefinitionDataManager.class);
@@ -394,13 +409,14 @@ public class ProcessDefinitionEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessDefinitionEntityManagerImpl#updateProcessDefinitionTenantIdForDeployment(String, String)}.
+   * Test {@link ProcessDefinitionEntityManagerImpl#updateProcessDefinitionTenantIdForDeployment(String, String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessDefinitionEntityManagerImpl#updateProcessDefinitionTenantIdForDeployment(String, String)}
+   * Method under test: {@link ProcessDefinitionEntityManagerImpl#updateProcessDefinitionTenantIdForDeployment(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "void ProcessDefinitionEntityManagerImpl.updateProcessDefinitionTenantIdForDeployment(String, String)"})
   public void testUpdateProcessDefinitionTenantIdForDeployment() {
     // Arrange
     doNothing().when(processDefinitionDataManager)

@@ -18,8 +18,11 @@ package org.activiti.engine.impl.interceptor;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.cfg.TransactionPropagation;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class CommandConfigDiffblueTest {
   /**
@@ -33,6 +36,10 @@ public class CommandConfigDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CommandConfig.<init>(boolean, TransactionPropagation)",
+      "TransactionPropagation CommandConfig.getTransactionPropagation()",
+      "boolean CommandConfig.isContextReusePossible()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     CommandConfig actualCommandConfig = new CommandConfig(true, TransactionPropagation.REQUIRED);
@@ -49,6 +56,8 @@ public class CommandConfigDiffblueTest {
    * Method under test: {@link CommandConfig#CommandConfig()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CommandConfig.<init>()"})
   public void testNewCommandConfig() {
     // Arrange and Act
     CommandConfig actualCommandConfig = new CommandConfig();
@@ -64,6 +73,8 @@ public class CommandConfigDiffblueTest {
    * Method under test: {@link CommandConfig#CommandConfig(boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CommandConfig.<init>(boolean)"})
   public void testNewCommandConfig2() {
     // Arrange and Act
     CommandConfig actualCommandConfig = new CommandConfig(true);
@@ -82,6 +93,8 @@ public class CommandConfigDiffblueTest {
    * Method under test: {@link CommandConfig#CommandConfig(CommandConfig)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CommandConfig.<init>(CommandConfig)"})
   public void testNewCommandConfig_thenReturnTransactionPropagationIsRequired() {
     // Arrange and Act
     CommandConfig actualCommandConfig = new CommandConfig(new CommandConfig());
@@ -97,6 +110,8 @@ public class CommandConfigDiffblueTest {
    * Method under test: {@link CommandConfig#setContextReusePossible(boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CommandConfig CommandConfig.setContextReusePossible(boolean)"})
   public void testSetContextReusePossible() {
     // Arrange and Act
     CommandConfig actualSetContextReusePossibleResult = (new CommandConfig()).setContextReusePossible(true);
@@ -112,6 +127,8 @@ public class CommandConfigDiffblueTest {
    * Method under test: {@link CommandConfig#transactionRequired()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CommandConfig CommandConfig.transactionRequired()"})
   public void testTransactionRequired() {
     // Arrange and Act
     CommandConfig actualTransactionRequiredResult = (new CommandConfig()).transactionRequired();
@@ -127,6 +144,8 @@ public class CommandConfigDiffblueTest {
    * Method under test: {@link CommandConfig#transactionRequiresNew()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CommandConfig CommandConfig.transactionRequiresNew()"})
   public void testTransactionRequiresNew() {
     // Arrange and Act
     CommandConfig actualTransactionRequiresNewResult = (new CommandConfig()).transactionRequiresNew();
@@ -142,6 +161,8 @@ public class CommandConfigDiffblueTest {
    * Method under test: {@link CommandConfig#transactionNotSupported()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CommandConfig CommandConfig.transactionNotSupported()"})
   public void testTransactionNotSupported() {
     // Arrange and Act
     CommandConfig actualTransactionNotSupportedResult = (new CommandConfig()).transactionNotSupported();

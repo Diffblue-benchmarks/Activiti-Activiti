@@ -19,14 +19,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
-import org.activiti.core.el.CustomFunctionProvider;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.persistence.entity.integration.IntegrationContextEntity;
 import org.activiti.engine.impl.persistence.entity.integration.IntegrationContextEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class MybatisIntegrationContextDataManagerDiffblueTest {
   /**
@@ -34,12 +35,14 @@ public class MybatisIntegrationContextDataManagerDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link MybatisIntegrationContextDataManager#MybatisIntegrationContextDataManager(ProcessEngineConfigurationImpl)}
+   *   <li>{@link MybatisIntegrationContextDataManager#MybatisIntegrationContextDataManager(ProcessEngineConfigurationImpl)}
    *   <li>{@link MybatisIntegrationContextDataManager#getManagedEntityClass()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MybatisIntegrationContextDataManager.<init>(ProcessEngineConfigurationImpl)",
+      "Class MybatisIntegrationContextDataManager.getManagedEntityClass()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends IntegrationContextEntity> actualManagedEntityClass = (new MybatisIntegrationContextDataManager(
@@ -56,43 +59,12 @@ public class MybatisIntegrationContextDataManagerDiffblueTest {
    * Method under test: {@link MybatisIntegrationContextDataManager#create()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"IntegrationContextEntity MybatisIntegrationContextDataManager.create()"})
   public void testCreate() {
     // Arrange and Act
     IntegrationContextEntity actualCreateResult = (new MybatisIntegrationContextDataManager(
         new JtaProcessEngineConfiguration())).create();
-
-    // Assert
-    Object persistentState = actualCreateResult.getPersistentState();
-    assertTrue(persistentState instanceof Map);
-    assertTrue(actualCreateResult instanceof IntegrationContextEntityImpl);
-    assertNull(actualCreateResult.getId());
-    assertNull(actualCreateResult.getExecutionId());
-    assertNull(actualCreateResult.getFlowNodeId());
-    assertNull(actualCreateResult.getProcessDefinitionId());
-    assertNull(actualCreateResult.getProcessInstanceId());
-    assertNull(actualCreateResult.getCreatedDate());
-    assertEquals(1, ((IntegrationContextEntityImpl) actualCreateResult).getRevision());
-    assertEquals(2, ((IntegrationContextEntityImpl) actualCreateResult).getRevisionNext());
-    assertFalse(actualCreateResult.isDeleted());
-    assertFalse(actualCreateResult.isInserted());
-    assertFalse(actualCreateResult.isUpdated());
-    assertTrue(((Map<Object, Object>) persistentState).isEmpty());
-  }
-
-  /**
-   * Test {@link MybatisIntegrationContextDataManager#create()}.
-   * <p>
-   * Method under test: {@link MybatisIntegrationContextDataManager#create()}
-   */
-  @Test
-  public void testCreate2() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    IntegrationContextEntity actualCreateResult = (new MybatisIntegrationContextDataManager(processEngineConfiguration))
-        .create();
 
     // Assert
     Object persistentState = actualCreateResult.getPersistentState();

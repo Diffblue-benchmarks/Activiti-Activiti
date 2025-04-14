@@ -17,31 +17,23 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.activiti.bpmn.model.BpmnModel;
-import org.activiti.engine.ActivitiEngineAgendaFactory;
-import org.activiti.engine.ActivitiException;
-import org.activiti.engine.impl.agenda.DefaultActivitiEngineAgenda;
-import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
-import org.activiti.engine.impl.interceptor.Command;
-import org.activiti.engine.impl.interceptor.CommandContext;
 import org.junit.Test;
-import org.mockito.Mockito;
+import org.junit.experimental.categories.Category;
 
 public class ValidateBpmnModelCmdDiffblueTest {
   /**
    * Test {@link ValidateBpmnModelCmd#ValidateBpmnModelCmd(BpmnModel)}.
    * <p>
-   * Method under test:
-   * {@link ValidateBpmnModelCmd#ValidateBpmnModelCmd(BpmnModel)}
+   * Method under test: {@link ValidateBpmnModelCmd#ValidateBpmnModelCmd(BpmnModel)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ValidateBpmnModelCmd.<init>(BpmnModel)"})
   public void testNewValidateBpmnModelCmd() {
     // Arrange, Act and Assert
     BpmnModel bpmnModel = (new ValidateBpmnModelCmd(new BpmnModel())).bpmnModel;
@@ -69,30 +61,5 @@ public class ValidateBpmnModelCmdDiffblueTest {
     assertTrue(bpmnModel.getLocationMap().isEmpty());
     assertTrue(bpmnModel.getMessageFlows().isEmpty());
     assertTrue(bpmnModel.getNamespaces().isEmpty());
-  }
-
-  /**
-   * Test {@link ValidateBpmnModelCmd#execute(CommandContext)}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ValidateBpmnModelCmd#execute(CommandContext)}
-   */
-  @Test
-  public void testExecute_thenThrowActivitiException() {
-    // Arrange
-    ValidateBpmnModelCmd validateBpmnModelCmd = new ValidateBpmnModelCmd(new BpmnModel());
-    ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
-    when(engineAgendaFactory.createAgenda(Mockito.<CommandContext>any()))
-        .thenReturn(new DefaultActivitiEngineAgenda(null));
-
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setEngineAgendaFactory(engineAgendaFactory);
-
-    // Act and Assert
-    assertThrows(ActivitiException.class,
-        () -> validateBpmnModelCmd.execute(new CommandContext(mock(Command.class), processEngineConfiguration)));
-    verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
   }
 }

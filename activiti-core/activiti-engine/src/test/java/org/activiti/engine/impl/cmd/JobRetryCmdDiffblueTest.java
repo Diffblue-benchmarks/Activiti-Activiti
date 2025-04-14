@@ -17,7 +17,10 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class JobRetryCmdDiffblueTest {
   /**
@@ -26,6 +29,8 @@ public class JobRetryCmdDiffblueTest {
    * Method under test: {@link JobRetryCmd#JobRetryCmd(String, Throwable)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobRetryCmd.<init>(String, Throwable)"})
   public void testNewJobRetryCmd() {
     // Arrange, Act and Assert
     Throwable throwable = (new JobRetryCmd("42", new Throwable())).exception;

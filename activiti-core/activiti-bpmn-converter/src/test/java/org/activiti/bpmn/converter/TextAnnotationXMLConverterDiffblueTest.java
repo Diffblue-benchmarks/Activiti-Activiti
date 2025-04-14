@@ -21,6 +21,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import javax.xml.stream.XMLStreamWriter;
 import org.activiti.bpmn.converter.child.BaseChildElementParser;
@@ -29,6 +30,7 @@ import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.TextAnnotation;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -36,11 +38,12 @@ class TextAnnotationXMLConverterDiffblueTest {
   /**
    * Test new {@link TextAnnotationXMLConverter} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link TextAnnotationXMLConverter}
+   * Method under test: default or parameterless constructor of {@link TextAnnotationXMLConverter}
    */
   @Test
   @DisplayName("Test new TextAnnotationXMLConverter (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TextAnnotationXMLConverter.<init>()"})
   void testNewTextAnnotationXMLConverter() {
     // Arrange and Act
     TextAnnotationXMLConverter actualTextAnnotationXMLConverter = new TextAnnotationXMLConverter();
@@ -67,6 +70,9 @@ class TextAnnotationXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Class TextAnnotationXMLConverter.getBpmnElementType()",
+      "String TextAnnotationXMLConverter.getXMLElementName()"})
   void testGettersAndSetters() {
     // Arrange
     TextAnnotationXMLConverter textAnnotationXMLConverter = new TextAnnotationXMLConverter();
@@ -81,24 +87,25 @@ class TextAnnotationXMLConverterDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TextAnnotationXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}.
+   * Test {@link TextAnnotationXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@code Text}.</li>
+   *   <li>Given {@code bpmn2}.</li>
    *   <li>Then calls {@link IndentingXMLStreamWriter#writeCharacters(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TextAnnotationXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
+   * Method under test: {@link TextAnnotationXMLConverter#writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)}
    */
   @Test
-  @DisplayName("Test writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter); given 'Text'; then calls writeCharacters(String)")
-  void testWriteAdditionalChildElements_givenText_thenCallsWriteCharacters() throws Exception {
+  @DisplayName("Test writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter); given 'bpmn2'; then calls writeCharacters(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void TextAnnotationXMLConverter.writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)"})
+  void testWriteAdditionalChildElements_givenBpmn2_thenCallsWriteCharacters() throws Exception {
     // Arrange
     TextAnnotationXMLConverter textAnnotationXMLConverter = new TextAnnotationXMLConverter();
 
     TextAnnotation element = new TextAnnotation();
-    element.setText("Text");
+    element.setText("bpmn2");
     BpmnModel model = new BpmnModel();
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeCharacters(Mockito.<String>any());
@@ -109,7 +116,7 @@ class TextAnnotationXMLConverterDiffblueTest {
     textAnnotationXMLConverter.writeAdditionalChildElements(element, model, new IndentingXMLStreamWriter(writer));
 
     // Assert
-    verify(writer).writeCharacters(eq("Text"));
+    verify(writer).writeCharacters(eq("bpmn2"));
     verify(writer).writeEndElement();
     verify(writer).writeStartElement(eq("bpmn2"), eq("text"), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
   }

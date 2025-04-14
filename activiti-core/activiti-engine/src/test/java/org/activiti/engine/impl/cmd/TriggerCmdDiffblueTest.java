@@ -17,11 +17,14 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
 import org.activiti.engine.impl.bpmn.behavior.CopyVariablesCalculator;
 import org.activiti.engine.impl.bpmn.behavior.VariablesPropagator;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class TriggerCmdDiffblueTest {
   /**
@@ -34,6 +37,9 @@ public class TriggerCmdDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TriggerCmd.<init>(String, Map)", "void TriggerCmd.<init>(String, Map, Map)",
+      "void TriggerCmd.<init>(String, Map, VariablesPropagator)", "String TriggerCmd.getSuspendedExceptionMessage()"})
   public void testGettersAndSetters() {
     // Arrange
     HashMap<String, Object> availableVariables = new HashMap<>();
@@ -58,6 +64,9 @@ public class TriggerCmdDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TriggerCmd.<init>(String, Map)", "void TriggerCmd.<init>(String, Map, Map)",
+      "void TriggerCmd.<init>(String, Map, VariablesPropagator)", "String TriggerCmd.getSuspendedExceptionMessage()"})
   public void testGettersAndSetters_whenHashMap_thenReturnProcessVariablesEmpty() {
     // Arrange and Act
     TriggerCmd actualTriggerCmd = new TriggerCmd("42", new HashMap<>());
@@ -81,6 +90,9 @@ public class TriggerCmdDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TriggerCmd.<init>(String, Map)", "void TriggerCmd.<init>(String, Map, Map)",
+      "void TriggerCmd.<init>(String, Map, VariablesPropagator)", "String TriggerCmd.getSuspendedExceptionMessage()"})
   public void testGettersAndSetters_whenHashMap_thenReturnTransientVariablesEmpty() {
     // Arrange
     HashMap<String, Object> processVariables = new HashMap<>();

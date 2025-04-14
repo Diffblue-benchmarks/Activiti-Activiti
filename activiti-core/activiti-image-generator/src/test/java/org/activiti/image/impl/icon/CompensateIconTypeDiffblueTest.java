@@ -17,7 +17,9 @@ package org.activiti.image.impl.icon;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class CompensateIconTypeDiffblueTest {
@@ -28,6 +30,8 @@ class CompensateIconTypeDiffblueTest {
    */
   @Test
   @DisplayName("Test getWidth()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.lang.Integer CompensateIconType.getWidth()"})
   void testGetWidth() {
     // Arrange, Act and Assert
     assertEquals(15, (new CompensateIconType()).getWidth().intValue());
@@ -40,6 +44,8 @@ class CompensateIconTypeDiffblueTest {
    */
   @Test
   @DisplayName("Test getHeight()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.lang.Integer CompensateIconType.getHeight()"})
   void testGetHeight() {
     // Arrange, Act and Assert
     assertEquals(Short.SIZE, (new CompensateIconType()).getHeight().intValue());
@@ -61,6 +67,11 @@ class CompensateIconTypeDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void CompensateIconType.<init>()", "String CompensateIconType.getAnchorValue()",
+      "String CompensateIconType.getDValue()", "String CompensateIconType.getFillValue()",
+      "String CompensateIconType.getStrokeValue()", "String CompensateIconType.getStrokeWidth()",
+      "String CompensateIconType.getStyleValue()"})
   void testGettersAndSetters() {
     // Arrange and Act
     CompensateIconType actualCompensateIconType = new CompensateIconType();

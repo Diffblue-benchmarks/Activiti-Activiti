@@ -21,6 +21,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,24 +30,23 @@ import org.activiti.bpmn.converter.IndentingXMLStreamWriter;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.ExtensionAttribute;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class DefinitionsRootExportDiffblueTest {
   /**
-   * Test
-   * {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
+   * Test {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add
-   * {@link ExtensionAttribute#ExtensionAttribute(String)} with name is
-   * {@code 1.0}.</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link ExtensionAttribute#ExtensionAttribute(String)} with name is {@code 1.0}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}
+   * Method under test: {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}
    */
   @Test
   @DisplayName("Test writeRootElement(BpmnModel, XMLStreamWriter, String); given ArrayList() add ExtensionAttribute(String) with name is '1.0'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DefinitionsRootExport.writeRootElement(BpmnModel, XMLStreamWriter, String)"})
   void testWriteRootElement_givenArrayListAddExtensionAttributeWithNameIs10() throws Exception {
     // Arrange
     ArrayList<ExtensionAttribute> extensionAttributeList = new ArrayList<>();
@@ -82,17 +82,17 @@ class DefinitionsRootExportDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
+   * Test {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
    * <ul>
    *   <li>Given empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}
+   * Method under test: {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}
    */
   @Test
   @DisplayName("Test writeRootElement(BpmnModel, XMLStreamWriter, String); given empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DefinitionsRootExport.writeRootElement(BpmnModel, XMLStreamWriter, String)"})
   void testWriteRootElement_givenEmptyString() throws Exception {
     // Arrange
     BpmnModel model = mock(BpmnModel.class);
@@ -123,18 +123,17 @@ class DefinitionsRootExportDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
+   * Test {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
    * <ul>
-   *   <li>Given {@link ExtensionAttribute} {@link ExtensionAttribute#getName()}
-   * return {@code Name}.</li>
+   *   <li>Given {@link ExtensionAttribute} {@link ExtensionAttribute#getName()} return {@code Name}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}
+   * Method under test: {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}
    */
   @Test
   @DisplayName("Test writeRootElement(BpmnModel, XMLStreamWriter, String); given ExtensionAttribute getName() return 'Name'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DefinitionsRootExport.writeRootElement(BpmnModel, XMLStreamWriter, String)"})
   void testWriteRootElement_givenExtensionAttributeGetNameReturnName() throws Exception {
     // Arrange
     ExtensionAttribute extensionAttribute = mock(ExtensionAttribute.class);
@@ -183,18 +182,17 @@ class DefinitionsRootExportDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
+   * Test {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
    * <ul>
-   *   <li>Given {@link ExtensionAttribute} {@link ExtensionAttribute#getName()}
-   * return {@code typeLanguage}.</li>
+   *   <li>Given {@link ExtensionAttribute} {@link ExtensionAttribute#getName()} return {@code typeLanguage}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}
+   * Method under test: {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}
    */
   @Test
   @DisplayName("Test writeRootElement(BpmnModel, XMLStreamWriter, String); given ExtensionAttribute getName() return 'typeLanguage'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DefinitionsRootExport.writeRootElement(BpmnModel, XMLStreamWriter, String)"})
   void testWriteRootElement_givenExtensionAttributeGetNameReturnTypeLanguage() throws Exception {
     // Arrange
     ExtensionAttribute extensionAttribute = mock(ExtensionAttribute.class);
@@ -243,18 +241,18 @@ class DefinitionsRootExportDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
+   * Test {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
    * <ul>
    *   <li>Given {@link HashMap#HashMap()} {@code 1.0} is {@code 1.0}.</li>
    *   <li>Then calls {@link BpmnModel#getDefinitionsAttributes()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}
+   * Method under test: {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}
    */
   @Test
   @DisplayName("Test writeRootElement(BpmnModel, XMLStreamWriter, String); given HashMap() '1.0' is '1.0'; then calls getDefinitionsAttributes()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DefinitionsRootExport.writeRootElement(BpmnModel, XMLStreamWriter, String)"})
   void testWriteRootElement_givenHashMap10Is10_thenCallsGetDefinitionsAttributes() throws Exception {
     // Arrange
     HashMap<String, String> stringStringMap = new HashMap<>();
@@ -287,19 +285,18 @@ class DefinitionsRootExportDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
+   * Test {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code 1.0} is
-   * {@link ArrayList#ArrayList()}.</li>
+   *   <li>Given {@link HashMap#HashMap()} {@code 1.0} is {@link ArrayList#ArrayList()}.</li>
    *   <li>Then calls {@link BpmnModel#getDefinitionsAttributes()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}
+   * Method under test: {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}
    */
   @Test
   @DisplayName("Test writeRootElement(BpmnModel, XMLStreamWriter, String); given HashMap() '1.0' is ArrayList(); then calls getDefinitionsAttributes()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DefinitionsRootExport.writeRootElement(BpmnModel, XMLStreamWriter, String)"})
   void testWriteRootElement_givenHashMap10IsArrayList_thenCallsGetDefinitionsAttributes() throws Exception {
     // Arrange
     HashMap<String, List<ExtensionAttribute>> stringListMap = new HashMap<>();
@@ -332,18 +329,18 @@ class DefinitionsRootExportDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
+   * Test {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
    * <ul>
    *   <li>Given {@link HashMap#HashMap()} {@code bpmn2} is {@code bpmn2}.</li>
    *   <li>Then calls {@link BpmnModel#getDefinitionsAttributes()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}
+   * Method under test: {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}
    */
   @Test
   @DisplayName("Test writeRootElement(BpmnModel, XMLStreamWriter, String); given HashMap() 'bpmn2' is 'bpmn2'; then calls getDefinitionsAttributes()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DefinitionsRootExport.writeRootElement(BpmnModel, XMLStreamWriter, String)"})
   void testWriteRootElement_givenHashMapBpmn2IsBpmn2_thenCallsGetDefinitionsAttributes() throws Exception {
     // Arrange
     HashMap<String, String> stringStringMap = new HashMap<>();
@@ -377,17 +374,17 @@ class DefinitionsRootExportDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
+   * Test {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
    * <ul>
    *   <li>Given {@link HashMap#HashMap()} empty string is {@code 1.0}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}
+   * Method under test: {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}
    */
   @Test
   @DisplayName("Test writeRootElement(BpmnModel, XMLStreamWriter, String); given HashMap() empty string is '1.0'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DefinitionsRootExport.writeRootElement(BpmnModel, XMLStreamWriter, String)"})
   void testWriteRootElement_givenHashMapEmptyStringIs10() throws Exception {
     // Arrange
     HashMap<String, String> stringStringMap = new HashMap<>();
@@ -421,18 +418,18 @@ class DefinitionsRootExportDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
+   * Test {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}.
    * <ul>
    *   <li>Given {@code Target Namespace}.</li>
    *   <li>Then calls {@link BpmnModel#getDefinitionsAttributes()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}
+   * Method under test: {@link DefinitionsRootExport#writeRootElement(BpmnModel, XMLStreamWriter, String)}
    */
   @Test
   @DisplayName("Test writeRootElement(BpmnModel, XMLStreamWriter, String); given 'Target Namespace'; then calls getDefinitionsAttributes()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void DefinitionsRootExport.writeRootElement(BpmnModel, XMLStreamWriter, String)"})
   void testWriteRootElement_givenTargetNamespace_thenCallsGetDefinitionsAttributes() throws Exception {
     // Arrange
     BpmnModel model = mock(BpmnModel.class);

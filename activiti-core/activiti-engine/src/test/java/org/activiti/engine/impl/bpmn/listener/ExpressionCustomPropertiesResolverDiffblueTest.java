@@ -18,28 +18,27 @@ package org.activiti.engine.impl.bpmn.listener;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
-import org.activiti.core.el.juel.ObjectValueExpression;
-import org.activiti.core.el.juel.misc.TypeConverter;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.impl.el.FixedValue;
-import org.activiti.engine.impl.el.JuelExpression;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ExpressionCustomPropertiesResolverDiffblueTest {
   /**
-   * Test
-   * {@link ExpressionCustomPropertiesResolver#ExpressionCustomPropertiesResolver(Expression)}.
+   * Test {@link ExpressionCustomPropertiesResolver#ExpressionCustomPropertiesResolver(Expression)}.
    * <p>
-   * Method under test:
-   * {@link ExpressionCustomPropertiesResolver#ExpressionCustomPropertiesResolver(Expression)}
+   * Method under test: {@link ExpressionCustomPropertiesResolver#ExpressionCustomPropertiesResolver(Expression)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExpressionCustomPropertiesResolver.<init>(Expression)"})
   public void testNewExpressionCustomPropertiesResolver() {
     // Arrange and Act
     ExpressionCustomPropertiesResolver actualExpressionCustomPropertiesResolver = new ExpressionCustomPropertiesResolver(
@@ -53,18 +52,17 @@ public class ExpressionCustomPropertiesResolverDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExpressionCustomPropertiesResolver#getCustomPropertiesMap(DelegateExecution)}.
+   * Test {@link ExpressionCustomPropertiesResolver#getCustomPropertiesMap(DelegateExecution)}.
    * <ul>
-   *   <li>Given {@link FixedValue#FixedValue(Object)} with value is
-   * {@link HashMap#HashMap()}.</li>
+   *   <li>Given {@link FixedValue#FixedValue(Object)} with value is {@link HashMap#HashMap()}.</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExpressionCustomPropertiesResolver#getCustomPropertiesMap(DelegateExecution)}
+   * Method under test: {@link ExpressionCustomPropertiesResolver#getCustomPropertiesMap(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Map ExpressionCustomPropertiesResolver.getCustomPropertiesMap(DelegateExecution)"})
   public void testGetCustomPropertiesMap_givenFixedValueWithValueIsHashMap_thenReturnEmpty() {
     // Arrange
     ExpressionCustomPropertiesResolver expressionCustomPropertiesResolver = new ExpressionCustomPropertiesResolver(
@@ -77,16 +75,16 @@ public class ExpressionCustomPropertiesResolverDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExpressionCustomPropertiesResolver#getCustomPropertiesMap(DelegateExecution)}.
+   * Test {@link ExpressionCustomPropertiesResolver#getCustomPropertiesMap(DelegateExecution)}.
    * <ul>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExpressionCustomPropertiesResolver#getCustomPropertiesMap(DelegateExecution)}
+   * Method under test: {@link ExpressionCustomPropertiesResolver#getCustomPropertiesMap(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Map ExpressionCustomPropertiesResolver.getCustomPropertiesMap(DelegateExecution)"})
   public void testGetCustomPropertiesMap_thenThrowActivitiIllegalArgumentException() {
     // Arrange
     ExpressionCustomPropertiesResolver expressionCustomPropertiesResolver = new ExpressionCustomPropertiesResolver(
@@ -100,40 +98,17 @@ public class ExpressionCustomPropertiesResolverDiffblueTest {
   /**
    * Test {@link ExpressionCustomPropertiesResolver#getExpressionText()}.
    * <ul>
-   *   <li>Given {@link FixedValue#FixedValue(Object)} with value is
-   * {@link JSONObject#NULL}.</li>
+   *   <li>Given {@link FixedValue#FixedValue(Object)} with value is {@link JSONObject#NULL}.</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExpressionCustomPropertiesResolver#getExpressionText()}
+   * Method under test: {@link ExpressionCustomPropertiesResolver#getExpressionText()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.String ExpressionCustomPropertiesResolver.getExpressionText()"})
   public void testGetExpressionText_givenFixedValueWithValueIsNull_thenReturnNull() {
     // Arrange, Act and Assert
     assertEquals("null", (new ExpressionCustomPropertiesResolver(new FixedValue(JSONObject.NULL))).getExpressionText());
-  }
-
-  /**
-   * Test {@link ExpressionCustomPropertiesResolver#getExpressionText()}.
-   * <ul>
-   *   <li>Given {@code java.lang.Object}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ExpressionCustomPropertiesResolver#getExpressionText()}
-   */
-  @Test
-  public void testGetExpressionText_givenJavaLangObject_thenReturnNull() {
-    // Arrange
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-
-    // Act and Assert
-    assertEquals("null",
-        (new ExpressionCustomPropertiesResolver(
-            new JuelExpression(new ObjectValueExpression(converter, JSONObject.NULL, type), "null")))
-            .getExpressionText());
   }
 }

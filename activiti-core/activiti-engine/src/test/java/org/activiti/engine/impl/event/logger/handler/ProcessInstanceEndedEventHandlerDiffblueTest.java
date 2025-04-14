@@ -16,16 +16,20 @@
 package org.activiti.engine.impl.event.logger.handler;
 
 import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ProcessInstanceEndedEventHandlerDiffblueTest {
   /**
    * Test new {@link ProcessInstanceEndedEventHandler} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link ProcessInstanceEndedEventHandler}
+   * Method under test: default or parameterless constructor of {@link ProcessInstanceEndedEventHandler}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ProcessInstanceEndedEventHandler.<init>()"})
   public void testNewProcessInstanceEndedEventHandler() {
     // Arrange and Act
     ProcessInstanceEndedEventHandler actualProcessInstanceEndedEventHandler = new ProcessInstanceEndedEventHandler();

@@ -17,16 +17,17 @@ package org.activiti.engine.delegate.event;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.event.impl.ActivitiActivityCancelledEventImpl;
 import org.activiti.engine.delegate.event.impl.ActivitiEntityEventImpl;
 import org.activiti.engine.delegate.event.impl.ActivitiEntityExceptionEventImpl;
 import org.activiti.engine.delegate.event.impl.ActivitiProcessCancelledEventImpl;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
-import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.test.api.event.TestBaseEntityEventListener;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class BaseEntityEventListenerDiffblueTest {
   /**
@@ -44,6 +45,13 @@ public class BaseEntityEventListenerDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BaseEntityEventListener.<init>()", "void BaseEntityEventListener.<init>(boolean)",
+      "void BaseEntityEventListener.<init>(boolean, Class)", "boolean BaseEntityEventListener.isFailOnException()",
+      "void BaseEntityEventListener.onCreate(ActivitiEvent)", "void BaseEntityEventListener.onDelete(ActivitiEvent)",
+      "void BaseEntityEventListener.onEntityEvent(ActivitiEvent)",
+      "void BaseEntityEventListener.onInitialized(ActivitiEvent)",
+      "void BaseEntityEventListener.onUpdate(ActivitiEvent)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     BaseEntityEventListener actualBaseEntityEventListener = new BaseEntityEventListener();
@@ -53,14 +61,14 @@ public class BaseEntityEventListenerDiffblueTest {
     actualBaseEntityEventListener.onInitialized(new ActivitiActivityCancelledEventImpl());
     actualBaseEntityEventListener.onUpdate(new ActivitiActivityCancelledEventImpl());
 
-    // Assert that nothing has changed
+    // Assert
     assertTrue(actualBaseEntityEventListener.isFailOnException());
   }
 
   /**
    * Test getters and setters.
    * <ul>
-   *   <li>When {@code java.lang.Object}.</li>
+   *   <li>When {@code Object}.</li>
    * </ul>
    * <p>
    * Methods under test:
@@ -75,6 +83,13 @@ public class BaseEntityEventListenerDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BaseEntityEventListener.<init>()", "void BaseEntityEventListener.<init>(boolean)",
+      "void BaseEntityEventListener.<init>(boolean, Class)", "boolean BaseEntityEventListener.isFailOnException()",
+      "void BaseEntityEventListener.onCreate(ActivitiEvent)", "void BaseEntityEventListener.onDelete(ActivitiEvent)",
+      "void BaseEntityEventListener.onEntityEvent(ActivitiEvent)",
+      "void BaseEntityEventListener.onInitialized(ActivitiEvent)",
+      "void BaseEntityEventListener.onUpdate(ActivitiEvent)"})
   public void testGettersAndSetters_whenJavaLangObject() {
     // Arrange
     Class<Object> entityClass = Object.class;
@@ -87,7 +102,7 @@ public class BaseEntityEventListenerDiffblueTest {
     actualBaseEntityEventListener.onInitialized(new ActivitiActivityCancelledEventImpl());
     actualBaseEntityEventListener.onUpdate(new ActivitiActivityCancelledEventImpl());
 
-    // Assert that nothing has changed
+    // Assert
     assertTrue(actualBaseEntityEventListener.isFailOnException());
   }
 
@@ -109,6 +124,13 @@ public class BaseEntityEventListenerDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BaseEntityEventListener.<init>()", "void BaseEntityEventListener.<init>(boolean)",
+      "void BaseEntityEventListener.<init>(boolean, Class)", "boolean BaseEntityEventListener.isFailOnException()",
+      "void BaseEntityEventListener.onCreate(ActivitiEvent)", "void BaseEntityEventListener.onDelete(ActivitiEvent)",
+      "void BaseEntityEventListener.onEntityEvent(ActivitiEvent)",
+      "void BaseEntityEventListener.onInitialized(ActivitiEvent)",
+      "void BaseEntityEventListener.onUpdate(ActivitiEvent)"})
   public void testGettersAndSetters_whenTrue() {
     // Arrange and Act
     BaseEntityEventListener actualBaseEntityEventListener = new BaseEntityEventListener(true);
@@ -118,20 +140,21 @@ public class BaseEntityEventListenerDiffblueTest {
     actualBaseEntityEventListener.onInitialized(new ActivitiActivityCancelledEventImpl());
     actualBaseEntityEventListener.onUpdate(new ActivitiActivityCancelledEventImpl());
 
-    // Assert that nothing has changed
+    // Assert
     assertTrue(actualBaseEntityEventListener.isFailOnException());
   }
 
   /**
    * Test {@link BaseEntityEventListener#onEvent(ActivitiEvent)}.
    * <ul>
-   *   <li>Then {@link TestBaseEntityEventListener#TestBaseEntityEventListener()}
-   * CreateReceived.</li>
+   *   <li>Then {@link TestBaseEntityEventListener#TestBaseEntityEventListener()} CreateReceived.</li>
    * </ul>
    * <p>
    * Method under test: {@link BaseEntityEventListener#onEvent(ActivitiEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BaseEntityEventListener.onEvent(ActivitiEvent)"})
   public void testOnEvent_thenTestBaseEntityEventListenerCreateReceived() {
     // Arrange
     TestBaseEntityEventListener testBaseEntityEventListener = new TestBaseEntityEventListener();
@@ -151,13 +174,14 @@ public class BaseEntityEventListenerDiffblueTest {
   /**
    * Test {@link BaseEntityEventListener#onEvent(ActivitiEvent)}.
    * <ul>
-   *   <li>Then {@link TestBaseEntityEventListener#TestBaseEntityEventListener()}
-   * CustomReceived.</li>
+   *   <li>Then {@link TestBaseEntityEventListener#TestBaseEntityEventListener()} CustomReceived.</li>
    * </ul>
    * <p>
    * Method under test: {@link BaseEntityEventListener#onEvent(ActivitiEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BaseEntityEventListener.onEvent(ActivitiEvent)"})
   public void testOnEvent_thenTestBaseEntityEventListenerCustomReceived() {
     // Arrange
     TestBaseEntityEventListener testBaseEntityEventListener = new TestBaseEntityEventListener();
@@ -177,13 +201,14 @@ public class BaseEntityEventListenerDiffblueTest {
   /**
    * Test {@link BaseEntityEventListener#onEvent(ActivitiEvent)}.
    * <ul>
-   *   <li>Then {@link TestBaseEntityEventListener#TestBaseEntityEventListener()}
-   * DeleteReceived.</li>
+   *   <li>Then {@link TestBaseEntityEventListener#TestBaseEntityEventListener()} DeleteReceived.</li>
    * </ul>
    * <p>
    * Method under test: {@link BaseEntityEventListener#onEvent(ActivitiEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BaseEntityEventListener.onEvent(ActivitiEvent)"})
   public void testOnEvent_thenTestBaseEntityEventListenerDeleteReceived() {
     // Arrange
     TestBaseEntityEventListener testBaseEntityEventListener = new TestBaseEntityEventListener();
@@ -203,13 +228,14 @@ public class BaseEntityEventListenerDiffblueTest {
   /**
    * Test {@link BaseEntityEventListener#onEvent(ActivitiEvent)}.
    * <ul>
-   *   <li>Then {@link TestBaseEntityEventListener#TestBaseEntityEventListener()}
-   * InitializeReceived.</li>
+   *   <li>Then {@link TestBaseEntityEventListener#TestBaseEntityEventListener()} InitializeReceived.</li>
    * </ul>
    * <p>
    * Method under test: {@link BaseEntityEventListener#onEvent(ActivitiEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BaseEntityEventListener.onEvent(ActivitiEvent)"})
   public void testOnEvent_thenTestBaseEntityEventListenerInitializeReceived() {
     // Arrange
     TestBaseEntityEventListener testBaseEntityEventListener = new TestBaseEntityEventListener();
@@ -229,13 +255,14 @@ public class BaseEntityEventListenerDiffblueTest {
   /**
    * Test {@link BaseEntityEventListener#onEvent(ActivitiEvent)}.
    * <ul>
-   *   <li>Then {@link TestBaseEntityEventListener#TestBaseEntityEventListener()}
-   * UpdateReceived.</li>
+   *   <li>Then {@link TestBaseEntityEventListener#TestBaseEntityEventListener()} UpdateReceived.</li>
    * </ul>
    * <p>
    * Method under test: {@link BaseEntityEventListener#onEvent(ActivitiEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BaseEntityEventListener.onEvent(ActivitiEvent)"})
   public void testOnEvent_thenTestBaseEntityEventListenerUpdateReceived() {
     // Arrange
     TestBaseEntityEventListener testBaseEntityEventListener = new TestBaseEntityEventListener();
@@ -254,31 +281,17 @@ public class BaseEntityEventListenerDiffblueTest {
 
   /**
    * Test {@link BaseEntityEventListener#isValidEvent(ActivitiEvent)}.
-   * <p>
-   * Method under test:
-   * {@link BaseEntityEventListener#isValidEvent(ActivitiEvent)}
-   */
-  @Test
-  public void testIsValidEvent() {
-    // Arrange
-    BaseEntityEventListener baseEntityEventListener = new BaseEntityEventListener(true);
-
-    // Act and Assert
-    assertTrue(baseEntityEventListener
-        .isValidEvent(new ActivitiEntityEventImpl(JSONObject.NULL, ActivitiEventType.ENTITY_CREATED)));
-  }
-
-  /**
-   * Test {@link BaseEntityEventListener#isValidEvent(ActivitiEvent)}.
    * <ul>
-   *   <li>Given {@code java.lang.Object}.</li>
+   *   <li>Given {@code Object}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseEntityEventListener#isValidEvent(ActivitiEvent)}
+   * Method under test: {@link BaseEntityEventListener#isValidEvent(ActivitiEvent)}
    */
   @Test
-  public void testIsValidEvent_givenJavaLangObject() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean BaseEntityEventListener.isValidEvent(ActivitiEvent)"})
+  public void testIsValidEvent_givenJavaLangObject_thenReturnTrue() {
     // Arrange
     Class<Object> entityClass = Object.class;
     BaseEntityEventListener baseEntityEventListener = new BaseEntityEventListener(true, entityClass);
@@ -291,41 +304,40 @@ public class BaseEntityEventListenerDiffblueTest {
   /**
    * Test {@link BaseEntityEventListener#isValidEvent(ActivitiEvent)}.
    * <ul>
-   *   <li>When {@link ActivitiActivityCancelledEventImpl} (default
-   * constructor).</li>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BaseEntityEventListener#isValidEvent(ActivitiEvent)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean BaseEntityEventListener.isValidEvent(ActivitiEvent)"})
+  public void testIsValidEvent_thenReturnTrue() {
+    // Arrange
+    BaseEntityEventListener baseEntityEventListener = new BaseEntityEventListener(true);
+
+    // Act and Assert
+    assertTrue(baseEntityEventListener
+        .isValidEvent(new ActivitiEntityEventImpl(JSONObject.NULL, ActivitiEventType.ENTITY_CREATED)));
+  }
+
+  /**
+   * Test {@link BaseEntityEventListener#isValidEvent(ActivitiEvent)}.
+   * <ul>
+   *   <li>When {@link ActivitiActivityCancelledEventImpl} (default constructor).</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BaseEntityEventListener#isValidEvent(ActivitiEvent)}
+   * Method under test: {@link BaseEntityEventListener#isValidEvent(ActivitiEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean BaseEntityEventListener.isValidEvent(ActivitiEvent)"})
   public void testIsValidEvent_whenActivitiActivityCancelledEventImpl_thenReturnFalse() {
     // Arrange
     BaseEntityEventListener baseEntityEventListener = new BaseEntityEventListener(true);
 
     // Act and Assert
     assertFalse(baseEntityEventListener.isValidEvent(new ActivitiActivityCancelledEventImpl()));
-  }
-
-  /**
-   * Test {@link BaseEntityEventListener#isValidEvent(ActivitiEvent)}.
-   * <ul>
-   *   <li>When
-   * {@link ActivitiProcessCancelledEventImpl#ActivitiProcessCancelledEventImpl(ProcessInstance)}
-   * with {@link ProcessInstance}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link BaseEntityEventListener#isValidEvent(ActivitiEvent)}
-   */
-  @Test
-  public void testIsValidEvent_whenActivitiProcessCancelledEventImplWithProcessInstance() {
-    // Arrange
-    BaseEntityEventListener baseEntityEventListener = new BaseEntityEventListener(true);
-
-    // Act and Assert
-    assertTrue(
-        baseEntityEventListener.isValidEvent(new ActivitiProcessCancelledEventImpl(mock(ProcessInstance.class))));
   }
 }

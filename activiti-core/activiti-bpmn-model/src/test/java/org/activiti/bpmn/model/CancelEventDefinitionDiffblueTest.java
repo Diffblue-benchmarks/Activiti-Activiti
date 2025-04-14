@@ -18,26 +18,21 @@ package org.activiti.bpmn.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import java.util.HashMap;
-import java.util.List;
-import java.util.function.BiFunction;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class CancelEventDefinitionDiffblueTest {
   /**
    * Test {@link CancelEventDefinition#clone()}.
-   * <ul>
-   *   <li>Given {@link CancelEventDefinition} (default constructor).</li>
-   * </ul>
    * <p>
    * Method under test: {@link CancelEventDefinition#clone()}
    */
   @Test
-  public void testClone_givenCancelEventDefinition() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CancelEventDefinition CancelEventDefinition.clone()"})
+  public void testClone() {
     // Arrange and Act
     CancelEventDefinition actualCloneResult = (new CancelEventDefinition()).clone();
 
@@ -50,67 +45,13 @@ public class CancelEventDefinitionDiffblueTest {
   }
 
   /**
-   * Test {@link CancelEventDefinition#clone()}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@code foo} and
-   * {@link BiFunction}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CancelEventDefinition#clone()}
-   */
-  @Test
-  public void testClone_givenHashMapComputeIfPresentFooAndBiFunction() {
-    // Arrange
-    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
-    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
-
-    CancelEventDefinition cancelEventDefinition = new CancelEventDefinition();
-    cancelEventDefinition.setExtensionElements(extensionElements);
-
-    // Act
-    CancelEventDefinition actualCloneResult = cancelEventDefinition.clone();
-
-    // Assert
-    assertNull(actualCloneResult.getId());
-    assertEquals(0, actualCloneResult.getXmlColumnNumber());
-    assertEquals(0, actualCloneResult.getXmlRowNumber());
-    assertTrue(actualCloneResult.getAttributes().isEmpty());
-    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link CancelEventDefinition#setValues(CancelEventDefinition)} with
-   * {@code otherDefinition}.
-   * <ul>
-   *   <li>Then calls {@link ExtensionElement#getName()}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link CancelEventDefinition#setValues(CancelEventDefinition)}
-   */
-  @Test
-  public void testSetValuesWithOtherDefinition_thenCallsGetName() {
-    // Arrange
-    ExtensionElement extensionElement = mock(ExtensionElement.class);
-    when(extensionElement.getName()).thenReturn("Name");
-
-    CancelEventDefinition cancelEventDefinition = new CancelEventDefinition();
-    cancelEventDefinition.addExtensionElement(extensionElement);
-
-    // Act
-    cancelEventDefinition.setValues(new CancelEventDefinition());
-
-    // Assert
-    verify(extensionElement, atLeast(1)).getName();
-  }
-
-  /**
    * Test new {@link CancelEventDefinition} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link CancelEventDefinition}
+   * Method under test: default or parameterless constructor of {@link CancelEventDefinition}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CancelEventDefinition.<init>()"})
   public void testNewCancelEventDefinition() {
     // Arrange and Act
     CancelEventDefinition actualCancelEventDefinition = new CancelEventDefinition();

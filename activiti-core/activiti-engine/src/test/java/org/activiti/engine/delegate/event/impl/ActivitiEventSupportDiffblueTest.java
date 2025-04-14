@@ -19,31 +19,30 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import java.util.Map;
-import org.activiti.core.el.juel.ObjectValueExpression;
-import org.activiti.core.el.juel.misc.TypeConverter;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.delegate.event.ActivitiEvent;
 import org.activiti.engine.delegate.event.ActivitiEventListener;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.delegate.event.BaseEntityEventListener;
-import org.activiti.engine.impl.bpmn.helper.DelegateExpressionActivitiEventListener;
 import org.activiti.engine.impl.bpmn.helper.ErrorThrowingEventListener;
-import org.activiti.engine.impl.el.JuelExpression;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ActivitiEventSupportDiffblueTest {
   /**
    * Test new {@link ActivitiEventSupport} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link ActivitiEventSupport}
+   * Method under test: default or parameterless constructor of {@link ActivitiEventSupport}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiEventSupport.<init>()"})
   public void testNewActivitiEventSupport() {
     // Arrange and Act
     ActivitiEventSupport actualActivitiEventSupport = new ActivitiEventSupport();
@@ -54,13 +53,13 @@ public class ActivitiEventSupportDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiEventSupport#addEventListener(ActivitiEventListener)}
-   * with {@code listenerToAdd}.
+   * Test {@link ActivitiEventSupport#addEventListener(ActivitiEventListener)} with {@code listenerToAdd}.
    * <p>
-   * Method under test:
-   * {@link ActivitiEventSupport#addEventListener(ActivitiEventListener)}
+   * Method under test: {@link ActivitiEventSupport#addEventListener(ActivitiEventListener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiEventSupport.addEventListener(ActivitiEventListener)"})
   public void testAddEventListenerWithListenerToAdd() {
     // Arrange
     ActivitiEventSupport activitiEventSupport = new ActivitiEventSupport();
@@ -76,43 +75,13 @@ public class ActivitiEventSupportDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiEventSupport#addEventListener(ActivitiEventListener)}
-   * with {@code listenerToAdd}.
+   * Test {@link ActivitiEventSupport#addEventListener(ActivitiEventListener, ActivitiEventType[])} with {@code listenerToAdd}, {@code types}.
    * <p>
-   * Method under test:
-   * {@link ActivitiEventSupport#addEventListener(ActivitiEventListener)}
+   * Method under test: {@link ActivitiEventSupport#addEventListener(ActivitiEventListener, ActivitiEventType[])}
    */
   @Test
-  public void testAddEventListenerWithListenerToAdd2() {
-    // Arrange
-    ActivitiEventSupport activitiEventSupport = new ActivitiEventSupport();
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-    JuelExpression expression = new JuelExpression(new ObjectValueExpression(converter, JSONObject.NULL, type),
-        "Expression Text");
-
-    Class<Object> entityClass = Object.class;
-    DelegateExpressionActivitiEventListener listenerToAdd = new DelegateExpressionActivitiEventListener(expression,
-        entityClass);
-
-    // Act
-    activitiEventSupport.addEventListener(listenerToAdd);
-
-    // Assert
-    List<ActivitiEventListener> activitiEventListenerList = activitiEventSupport.eventListeners;
-    assertEquals(1, activitiEventListenerList.size());
-    assertSame(listenerToAdd, activitiEventListenerList.get(0));
-  }
-
-  /**
-   * Test
-   * {@link ActivitiEventSupport#addEventListener(ActivitiEventListener, ActivitiEventType[])}
-   * with {@code listenerToAdd}, {@code types}.
-   * <p>
-   * Method under test:
-   * {@link ActivitiEventSupport#addEventListener(ActivitiEventListener, ActivitiEventType[])}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiEventSupport.addEventListener(ActivitiEventListener, ActivitiEventType[])"})
   public void testAddEventListenerWithListenerToAddTypes() {
     // Arrange
     ActivitiEventSupport activitiEventSupport = new ActivitiEventSupport();
@@ -131,14 +100,13 @@ public class ActivitiEventSupportDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventSupport#addEventListener(ActivitiEventListener, ActivitiEventType[])}
-   * with {@code listenerToAdd}, {@code types}.
+   * Test {@link ActivitiEventSupport#addEventListener(ActivitiEventListener, ActivitiEventType[])} with {@code listenerToAdd}, {@code types}.
    * <p>
-   * Method under test:
-   * {@link ActivitiEventSupport#addEventListener(ActivitiEventListener, ActivitiEventType[])}
+   * Method under test: {@link ActivitiEventSupport#addEventListener(ActivitiEventListener, ActivitiEventType[])}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiEventSupport.addEventListener(ActivitiEventListener, ActivitiEventType[])"})
   public void testAddEventListenerWithListenerToAddTypes2() {
     // Arrange
     ActivitiEventSupport activitiEventSupport = new ActivitiEventSupport();
@@ -158,14 +126,13 @@ public class ActivitiEventSupportDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventSupport#addEventListener(ActivitiEventListener, ActivitiEventType[])}
-   * with {@code listenerToAdd}, {@code types}.
+   * Test {@link ActivitiEventSupport#addEventListener(ActivitiEventListener, ActivitiEventType[])} with {@code listenerToAdd}, {@code types}.
    * <p>
-   * Method under test:
-   * {@link ActivitiEventSupport#addEventListener(ActivitiEventListener, ActivitiEventType[])}
+   * Method under test: {@link ActivitiEventSupport#addEventListener(ActivitiEventListener, ActivitiEventType[])}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiEventSupport.addEventListener(ActivitiEventListener, ActivitiEventType[])"})
   public void testAddEventListenerWithListenerToAddTypes3() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
@@ -173,14 +140,13 @@ public class ActivitiEventSupportDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventSupport#addEventListener(ActivitiEventListener, ActivitiEventType[])}
-   * with {@code listenerToAdd}, {@code types}.
+   * Test {@link ActivitiEventSupport#addEventListener(ActivitiEventListener, ActivitiEventType[])} with {@code listenerToAdd}, {@code types}.
    * <p>
-   * Method under test:
-   * {@link ActivitiEventSupport#addEventListener(ActivitiEventListener, ActivitiEventType[])}
+   * Method under test: {@link ActivitiEventSupport#addEventListener(ActivitiEventListener, ActivitiEventType[])}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiEventSupport.addEventListener(ActivitiEventListener, ActivitiEventType[])"})
   public void testAddEventListenerWithListenerToAddTypes4() {
     // Arrange
     ActivitiEventSupport activitiEventSupport = new ActivitiEventSupport();
@@ -197,21 +163,20 @@ public class ActivitiEventSupportDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventSupport#addEventListener(ActivitiEventListener, ActivitiEventType[])}
-   * with {@code listenerToAdd}, {@code types}.
+   * Test {@link ActivitiEventSupport#addEventListener(ActivitiEventListener, ActivitiEventType[])} with {@code listenerToAdd}, {@code types}.
    * <p>
-   * Method under test:
-   * {@link ActivitiEventSupport#addEventListener(ActivitiEventListener, ActivitiEventType[])}
+   * Method under test: {@link ActivitiEventSupport#addEventListener(ActivitiEventListener, ActivitiEventType[])}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiEventSupport.addEventListener(ActivitiEventListener, ActivitiEventType[])"})
   public void testAddEventListenerWithListenerToAddTypes5() {
     // Arrange
     ActivitiEventSupport activitiEventSupport = new ActivitiEventSupport();
     BaseEntityEventListener listenerToAdd = new BaseEntityEventListener(true);
 
     // Act
-    activitiEventSupport.addEventListener(listenerToAdd);
+    activitiEventSupport.addEventListener(listenerToAdd, new ActivitiEventType[]{});
 
     // Assert
     List<ActivitiEventListener> activitiEventListenerList = activitiEventSupport.eventListeners;
@@ -221,14 +186,13 @@ public class ActivitiEventSupportDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventSupport#addEventListener(ActivitiEventListener, ActivitiEventType[])}
-   * with {@code listenerToAdd}, {@code types}.
+   * Test {@link ActivitiEventSupport#addEventListener(ActivitiEventListener, ActivitiEventType[])} with {@code listenerToAdd}, {@code types}.
    * <p>
-   * Method under test:
-   * {@link ActivitiEventSupport#addEventListener(ActivitiEventListener, ActivitiEventType[])}
+   * Method under test: {@link ActivitiEventSupport#addEventListener(ActivitiEventListener, ActivitiEventType[])}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiEventSupport.addEventListener(ActivitiEventListener, ActivitiEventType[])"})
   public void testAddEventListenerWithListenerToAddTypes6() {
     // Arrange
     ActivitiEventSupport activitiEventSupport = new ActivitiEventSupport();
@@ -248,28 +212,29 @@ public class ActivitiEventSupportDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiEventSupport#addEventListener(ActivitiEventListener)}
-   * with {@code listenerToAdd}.
+   * Test {@link ActivitiEventSupport#addEventListener(ActivitiEventListener)} with {@code listenerToAdd}.
    * <ul>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiEventSupport#addEventListener(ActivitiEventListener)}
+   * Method under test: {@link ActivitiEventSupport#addEventListener(ActivitiEventListener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiEventSupport.addEventListener(ActivitiEventListener)"})
   public void testAddEventListenerWithListenerToAdd_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> (new ActivitiEventSupport()).addEventListener(null));
   }
 
   /**
-   * Test {@link ActivitiEventSupport#dispatchEvent(ActivitiEvent)} with
-   * {@code event}.
+   * Test {@link ActivitiEventSupport#dispatchEvent(ActivitiEvent)} with {@code event}.
    * <p>
    * Method under test: {@link ActivitiEventSupport#dispatchEvent(ActivitiEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiEventSupport.dispatchEvent(ActivitiEvent)"})
   public void testDispatchEventWithEvent() {
     // Arrange
     ActivitiEventSupport activitiEventSupport = new ActivitiEventSupport();
@@ -281,17 +246,16 @@ public class ActivitiEventSupportDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventSupport#dispatchEvent(ActivitiEvent, ActivitiEventListener)}
-   * with {@code event}, {@code listener}.
+   * Test {@link ActivitiEventSupport#dispatchEvent(ActivitiEvent, ActivitiEventListener)} with {@code event}, {@code listener}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiEventSupport#dispatchEvent(ActivitiEvent, ActivitiEventListener)}
+   * Method under test: {@link ActivitiEventSupport#dispatchEvent(ActivitiEvent, ActivitiEventListener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiEventSupport.dispatchEvent(ActivitiEvent, ActivitiEventListener)"})
   public void testDispatchEventWithEventListener_thenThrowActivitiException() {
     // Arrange
     ActivitiEventSupport activitiEventSupport = new ActivitiEventSupport();
@@ -303,8 +267,7 @@ public class ActivitiEventSupportDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiEventSupport#dispatchEvent(ActivitiEvent)} with
-   * {@code event}.
+   * Test {@link ActivitiEventSupport#dispatchEvent(ActivitiEvent)} with {@code event}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    * </ul>
@@ -312,6 +275,8 @@ public class ActivitiEventSupportDiffblueTest {
    * Method under test: {@link ActivitiEventSupport#dispatchEvent(ActivitiEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiEventSupport.dispatchEvent(ActivitiEvent)"})
   public void testDispatchEventWithEvent_given42() {
     // Arrange
     ActivitiEventSupport activitiEventSupport = new ActivitiEventSupport();
@@ -341,8 +306,7 @@ public class ActivitiEventSupportDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiEventSupport#dispatchEvent(ActivitiEvent)} with
-   * {@code event}.
+   * Test {@link ActivitiEventSupport#dispatchEvent(ActivitiEvent)} with {@code event}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
@@ -350,6 +314,8 @@ public class ActivitiEventSupportDiffblueTest {
    * Method under test: {@link ActivitiEventSupport#dispatchEvent(ActivitiEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiEventSupport.dispatchEvent(ActivitiEvent)"})
   public void testDispatchEventWithEvent_thenThrowActivitiException() {
     // Arrange
     ActivitiEventSupport activitiEventSupport = new ActivitiEventSupport();
@@ -362,8 +328,7 @@ public class ActivitiEventSupportDiffblueTest {
   }
 
   /**
-   * Test {@link ActivitiEventSupport#dispatchEvent(ActivitiEvent)} with
-   * {@code event}.
+   * Test {@link ActivitiEventSupport#dispatchEvent(ActivitiEvent)} with {@code event}.
    * <ul>
    *   <li>When {@code null}.</li>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
@@ -372,19 +337,21 @@ public class ActivitiEventSupportDiffblueTest {
    * Method under test: {@link ActivitiEventSupport#dispatchEvent(ActivitiEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiEventSupport.dispatchEvent(ActivitiEvent)"})
   public void testDispatchEventWithEvent_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class, () -> (new ActivitiEventSupport()).dispatchEvent(null));
   }
 
   /**
-   * Test
-   * {@link ActivitiEventSupport#addTypedEventListener(ActivitiEventListener, ActivitiEventType)}.
+   * Test {@link ActivitiEventSupport#addTypedEventListener(ActivitiEventListener, ActivitiEventType)}.
    * <p>
-   * Method under test:
-   * {@link ActivitiEventSupport#addTypedEventListener(ActivitiEventListener, ActivitiEventType)}
+   * Method under test: {@link ActivitiEventSupport#addTypedEventListener(ActivitiEventListener, ActivitiEventType)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiEventSupport.addTypedEventListener(ActivitiEventListener, ActivitiEventType)"})
   public void testAddTypedEventListener() {
     // Arrange
     ActivitiEventSupport activitiEventSupport = new ActivitiEventSupport();
@@ -402,13 +369,13 @@ public class ActivitiEventSupportDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEventSupport#addTypedEventListener(ActivitiEventListener, ActivitiEventType)}.
+   * Test {@link ActivitiEventSupport#addTypedEventListener(ActivitiEventListener, ActivitiEventType)}.
    * <p>
-   * Method under test:
-   * {@link ActivitiEventSupport#addTypedEventListener(ActivitiEventListener, ActivitiEventType)}
+   * Method under test: {@link ActivitiEventSupport#addTypedEventListener(ActivitiEventListener, ActivitiEventType)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiEventSupport.addTypedEventListener(ActivitiEventListener, ActivitiEventType)"})
   public void testAddTypedEventListener2() {
     // Arrange
     ActivitiEventSupport activitiEventSupport = new ActivitiEventSupport();

@@ -16,7 +16,9 @@
 package org.activiti.api.task.model.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class TaskCandidateImplDiffblueTest {
@@ -27,6 +29,8 @@ class TaskCandidateImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getTaskId()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.lang.String TaskCandidateImpl.getTaskId()"})
   void testGetTaskId() {
     // Arrange, Act and Assert
     assertEquals("42", (new TaskCandidateGroupImpl("42", "42")).getTaskId());

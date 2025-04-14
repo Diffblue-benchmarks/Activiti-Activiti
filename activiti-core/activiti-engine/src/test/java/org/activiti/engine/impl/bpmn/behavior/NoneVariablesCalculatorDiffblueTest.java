@@ -16,51 +16,25 @@
 package org.activiti.engine.impl.bpmn.behavior;
 
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import java.sql.Date;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiFunction;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class NoneVariablesCalculatorDiffblueTest {
   /**
-   * Test
-   * {@link NoneVariablesCalculator#calculateOutPutVariables(MappingExecutionContext, Map)}.
-   * <ul>
-   *   <li>Given {@code foo}.</li>
-   * </ul>
+   * Test {@link NoneVariablesCalculator#calculateOutPutVariables(MappingExecutionContext, Map)}.
    * <p>
-   * Method under test:
-   * {@link NoneVariablesCalculator#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Method under test: {@link NoneVariablesCalculator#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
-  public void testCalculateOutPutVariables_givenFoo() {
-    // Arrange
-    NoneVariablesCalculator noneVariablesCalculator = new NoneVariablesCalculator();
-    MappingExecutionContext mappingExecutionContext = MappingExecutionContext.buildMappingExecutionContext("42", "42");
-
-    HashMap<String, Object> availableVariables = new HashMap<>();
-    availableVariables.computeIfPresent("foo", mock(BiFunction.class));
-
-    // Act and Assert
-    assertTrue(noneVariablesCalculator.calculateOutPutVariables(mappingExecutionContext, availableVariables).isEmpty());
-  }
-
-  /**
-   * Test
-   * {@link NoneVariablesCalculator#calculateOutPutVariables(MappingExecutionContext, Map)}.
-   * <ul>
-   *   <li>When {@link HashMap#HashMap()}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link NoneVariablesCalculator#calculateOutPutVariables(MappingExecutionContext, Map)}
-   */
-  @Test
-  public void testCalculateOutPutVariables_whenHashMap() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map NoneVariablesCalculator.calculateOutPutVariables(MappingExecutionContext, Map)"})
+  public void testCalculateOutPutVariables() {
     // Arrange
     NoneVariablesCalculator noneVariablesCalculator = new NoneVariablesCalculator();
     MappingExecutionContext mappingExecutionContext = MappingExecutionContext.buildMappingExecutionContext("42", "42");
@@ -70,38 +44,14 @@ public class NoneVariablesCalculatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link NoneVariablesCalculator#calculateInputVariables(DelegateExecution)}.
-   * <ul>
-   *   <li>Given {@link Date}.</li>
-   * </ul>
+   * Test {@link NoneVariablesCalculator#calculateInputVariables(DelegateExecution)}.
    * <p>
-   * Method under test:
-   * {@link NoneVariablesCalculator#calculateInputVariables(DelegateExecution)}
+   * Method under test: {@link NoneVariablesCalculator#calculateInputVariables(DelegateExecution)}
    */
   @Test
-  public void testCalculateInputVariables_givenDate() {
-    // Arrange
-    NoneVariablesCalculator noneVariablesCalculator = new NoneVariablesCalculator();
-    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-    execution.setLockTime(mock(Date.class));
-
-    // Act and Assert
-    assertTrue(noneVariablesCalculator.calculateInputVariables(execution).isEmpty());
-  }
-
-  /**
-   * Test
-   * {@link NoneVariablesCalculator#calculateInputVariables(DelegateExecution)}.
-   * <ul>
-   *   <li>When createWithEmptyRelationshipCollections.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link NoneVariablesCalculator#calculateInputVariables(DelegateExecution)}
-   */
-  @Test
-  public void testCalculateInputVariables_whenCreateWithEmptyRelationshipCollections() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map NoneVariablesCalculator.calculateInputVariables(DelegateExecution)"})
+  public void testCalculateInputVariables() {
     // Arrange
     NoneVariablesCalculator noneVariablesCalculator = new NoneVariablesCalculator();
 

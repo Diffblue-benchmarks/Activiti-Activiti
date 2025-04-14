@@ -19,9 +19,12 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class LogMDCDiffblueTest {
   /**
@@ -30,6 +33,8 @@ public class LogMDCDiffblueTest {
    * Method under test: {@link LogMDC#putMDCExecution(ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void LogMDC.putMDCExecution(ExecutionEntity)"})
   public void testPutMDCExecution() {
     // Arrange
     ExecutionEntityImpl e = mock(ExecutionEntityImpl.class);
@@ -57,6 +62,8 @@ public class LogMDCDiffblueTest {
    * Method under test: {@link LogMDC#putMDCExecution(ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void LogMDC.putMDCExecution(ExecutionEntity)"})
   public void testPutMDCExecution_givenProcessInstanceBusinessKey() {
     // Arrange
     ExecutionEntityImpl e = mock(ExecutionEntityImpl.class);

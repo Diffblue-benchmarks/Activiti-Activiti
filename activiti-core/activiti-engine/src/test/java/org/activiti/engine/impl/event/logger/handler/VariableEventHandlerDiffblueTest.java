@@ -17,6 +17,8 @@ package org.activiti.engine.impl.event.logger.handler;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.delegate.event.ActivitiVariableEvent;
@@ -33,20 +35,21 @@ import org.activiti.engine.impl.variable.ShortType;
 import org.activiti.engine.impl.variable.StringType;
 import org.activiti.engine.impl.variable.UUIDType;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class VariableEventHandlerDiffblueTest {
   /**
    * Test {@link VariableEventHandler#createData(ActivitiVariableEvent)}.
    * <ul>
    *   <li>Given {@link BooleanType} (default constructor).</li>
-   *   <li>Then return {@link Fields#VARIABLE_TYPE} is
-   * {@link VariableEventHandler#TYPE_BOOLEAN}.</li>
+   *   <li>Then return {@link Fields#VARIABLE_TYPE} is {@link VariableEventHandler#TYPE_BOOLEAN}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableEventHandler#createData(ActivitiVariableEvent)}
+   * Method under test: {@link VariableEventHandler#createData(ActivitiVariableEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableEventHandler.createData(ActivitiVariableEvent)"})
   public void testCreateData_givenBooleanType_thenReturnVariable_typeIsType_boolean() {
     // Arrange
     VariableCreatedEventHandler variableCreatedEventHandler = new VariableCreatedEventHandler();
@@ -67,14 +70,14 @@ public class VariableEventHandlerDiffblueTest {
    * Test {@link VariableEventHandler#createData(ActivitiVariableEvent)}.
    * <ul>
    *   <li>Given {@link DateType} (default constructor).</li>
-   *   <li>Then return {@link Fields#VARIABLE_TYPE} is
-   * {@link VariableEventHandler#TYPE_DATE}.</li>
+   *   <li>Then return {@link Fields#VARIABLE_TYPE} is {@link VariableEventHandler#TYPE_DATE}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableEventHandler#createData(ActivitiVariableEvent)}
+   * Method under test: {@link VariableEventHandler#createData(ActivitiVariableEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableEventHandler.createData(ActivitiVariableEvent)"})
   public void testCreateData_givenDateType_thenReturnVariable_typeIsType_date() {
     // Arrange
     VariableCreatedEventHandler variableCreatedEventHandler = new VariableCreatedEventHandler();
@@ -95,14 +98,14 @@ public class VariableEventHandlerDiffblueTest {
    * Test {@link VariableEventHandler#createData(ActivitiVariableEvent)}.
    * <ul>
    *   <li>Given {@link DoubleType} (default constructor).</li>
-   *   <li>Then return {@link Fields#VARIABLE_TYPE} is
-   * {@link VariableEventHandler#TYPE_DOUBLE}.</li>
+   *   <li>Then return {@link Fields#VARIABLE_TYPE} is {@link VariableEventHandler#TYPE_DOUBLE}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableEventHandler#createData(ActivitiVariableEvent)}
+   * Method under test: {@link VariableEventHandler#createData(ActivitiVariableEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableEventHandler.createData(ActivitiVariableEvent)"})
   public void testCreateData_givenDoubleType_thenReturnVariable_typeIsType_double() {
     // Arrange
     VariableCreatedEventHandler variableCreatedEventHandler = new VariableCreatedEventHandler();
@@ -126,10 +129,11 @@ public class VariableEventHandlerDiffblueTest {
    *   <li>Then return size is five.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableEventHandler#createData(ActivitiVariableEvent)}
+   * Method under test: {@link VariableEventHandler#createData(ActivitiVariableEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableEventHandler.createData(ActivitiVariableEvent)"})
   public void testCreateData_givenFortyTwo_thenReturnSizeIsFive() {
     // Arrange
     VariableCreatedEventHandler variableCreatedEventHandler = new VariableCreatedEventHandler();
@@ -143,25 +147,25 @@ public class VariableEventHandlerDiffblueTest {
 
     // Assert
     assertEquals(5, actualCreateDataResult.size());
+    assertEquals(42, ((Integer) actualCreateDataResult.get(Fields.VALUE)).intValue());
+    assertEquals(42, ((Integer) actualCreateDataResult.get(Fields.VALUE_INTEGER)).intValue());
     assertEquals(42.0d, ((Double) actualCreateDataResult.get(Fields.VALUE_DOUBLE)).doubleValue(), 0.0);
-    assertTrue(actualCreateDataResult.containsKey(Fields.VALUE));
-    assertTrue(actualCreateDataResult.containsKey(Fields.VALUE_INTEGER));
-    assertTrue(actualCreateDataResult.containsKey(Fields.VALUE_LONG));
-    assertEquals(VariableEventHandler.TYPE_INTEGER, actualCreateDataResult.get(Fields.VARIABLE_TYPE));
+    assertEquals(42L, ((Long) actualCreateDataResult.get(Fields.VALUE_LONG)).longValue());
+    assertTrue(actualCreateDataResult.containsKey(Fields.VARIABLE_TYPE));
   }
 
   /**
    * Test {@link VariableEventHandler#createData(ActivitiVariableEvent)}.
    * <ul>
    *   <li>Given {@link IntegerType} (default constructor).</li>
-   *   <li>Then return {@link Fields#VARIABLE_TYPE} is
-   * {@link VariableEventHandler#TYPE_INTEGER}.</li>
+   *   <li>Then return {@link Fields#VARIABLE_TYPE} is {@link VariableEventHandler#TYPE_INTEGER}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableEventHandler#createData(ActivitiVariableEvent)}
+   * Method under test: {@link VariableEventHandler#createData(ActivitiVariableEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableEventHandler.createData(ActivitiVariableEvent)"})
   public void testCreateData_givenIntegerType_thenReturnVariable_typeIsType_integer() {
     // Arrange
     VariableCreatedEventHandler variableCreatedEventHandler = new VariableCreatedEventHandler();
@@ -181,14 +185,14 @@ public class VariableEventHandlerDiffblueTest {
   /**
    * Test {@link VariableEventHandler#createData(ActivitiVariableEvent)}.
    * <ul>
-   *   <li>Given {@link LongStringType#LongStringType(int)} with minLength is
-   * three.</li>
+   *   <li>Given {@link LongStringType#LongStringType(int)} with minLength is three.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableEventHandler#createData(ActivitiVariableEvent)}
+   * Method under test: {@link VariableEventHandler#createData(ActivitiVariableEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableEventHandler.createData(ActivitiVariableEvent)"})
   public void testCreateData_givenLongStringTypeWithMinLengthIsThree() {
     // Arrange
     VariableCreatedEventHandler variableCreatedEventHandler = new VariableCreatedEventHandler();
@@ -209,14 +213,14 @@ public class VariableEventHandlerDiffblueTest {
    * Test {@link VariableEventHandler#createData(ActivitiVariableEvent)}.
    * <ul>
    *   <li>Given {@link LongType} (default constructor).</li>
-   *   <li>Then return {@link Fields#VARIABLE_TYPE} is
-   * {@link VariableEventHandler#TYPE_LONG}.</li>
+   *   <li>Then return {@link Fields#VARIABLE_TYPE} is {@link VariableEventHandler#TYPE_LONG}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableEventHandler#createData(ActivitiVariableEvent)}
+   * Method under test: {@link VariableEventHandler#createData(ActivitiVariableEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableEventHandler.createData(ActivitiVariableEvent)"})
   public void testCreateData_givenLongType_thenReturnVariable_typeIsType_long() {
     // Arrange
     VariableCreatedEventHandler variableCreatedEventHandler = new VariableCreatedEventHandler();
@@ -237,13 +241,15 @@ public class VariableEventHandlerDiffblueTest {
    * Test {@link VariableEventHandler#createData(ActivitiVariableEvent)}.
    * <ul>
    *   <li>Given {@link JSONObject#NULL}.</li>
+   *   <li>Then return containsKey {@link Fields#VALUE}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableEventHandler#createData(ActivitiVariableEvent)}
+   * Method under test: {@link VariableEventHandler#createData(ActivitiVariableEvent)}
    */
   @Test
-  public void testCreateData_givenNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableEventHandler.createData(ActivitiVariableEvent)"})
+  public void testCreateData_givenNull_thenReturnContainsKeyValue() {
     // Arrange
     VariableCreatedEventHandler variableCreatedEventHandler = new VariableCreatedEventHandler();
 
@@ -266,10 +272,11 @@ public class VariableEventHandlerDiffblueTest {
    *   <li>Then return size is six.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableEventHandler#createData(ActivitiVariableEvent)}
+   * Method under test: {@link VariableEventHandler#createData(ActivitiVariableEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableEventHandler.createData(ActivitiVariableEvent)"})
   public void testCreateData_givenOne_thenReturnSizeIsSix() {
     // Arrange
     VariableCreatedEventHandler variableCreatedEventHandler = new VariableCreatedEventHandler();
@@ -283,26 +290,26 @@ public class VariableEventHandlerDiffblueTest {
 
     // Assert
     assertEquals(6, actualCreateDataResult.size());
+    assertEquals(1, ((Integer) actualCreateDataResult.get(Fields.VALUE_INTEGER)).intValue());
     assertEquals(1.0d, ((Double) actualCreateDataResult.get(Fields.VALUE_DOUBLE)).doubleValue(), 0.0);
-    assertTrue(actualCreateDataResult.containsKey(Fields.VALUE));
-    assertTrue(actualCreateDataResult.containsKey(Fields.VALUE_INTEGER));
-    assertTrue(actualCreateDataResult.containsKey(Fields.VALUE_LONG));
-    assertTrue(actualCreateDataResult.containsKey(Fields.VALUE_SHORT));
-    assertEquals(VariableEventHandler.TYPE_SHORT, actualCreateDataResult.get(Fields.VARIABLE_TYPE));
+    assertEquals(1L, ((Long) actualCreateDataResult.get(Fields.VALUE_LONG)).longValue());
+    assertEquals((short) 1, ((Short) actualCreateDataResult.get(Fields.VALUE)).shortValue());
+    assertEquals((short) 1, ((Short) actualCreateDataResult.get(Fields.VALUE_SHORT)).shortValue());
+    assertTrue(actualCreateDataResult.containsKey(Fields.VARIABLE_TYPE));
   }
 
   /**
    * Test {@link VariableEventHandler#createData(ActivitiVariableEvent)}.
    * <ul>
    *   <li>Given {@link ShortType} (default constructor).</li>
-   *   <li>Then return {@link Fields#VARIABLE_TYPE} is
-   * {@link VariableEventHandler#TYPE_SHORT}.</li>
+   *   <li>Then return {@link Fields#VARIABLE_TYPE} is {@link VariableEventHandler#TYPE_SHORT}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableEventHandler#createData(ActivitiVariableEvent)}
+   * Method under test: {@link VariableEventHandler#createData(ActivitiVariableEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableEventHandler.createData(ActivitiVariableEvent)"})
   public void testCreateData_givenShortType_thenReturnVariable_typeIsType_short() {
     // Arrange
     VariableCreatedEventHandler variableCreatedEventHandler = new VariableCreatedEventHandler();
@@ -325,10 +332,11 @@ public class VariableEventHandlerDiffblueTest {
    *   <li>Given {@link StringType#StringType(int)} with maxLength is three.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableEventHandler#createData(ActivitiVariableEvent)}
+   * Method under test: {@link VariableEventHandler#createData(ActivitiVariableEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableEventHandler.createData(ActivitiVariableEvent)"})
   public void testCreateData_givenStringTypeWithMaxLengthIsThree() {
     // Arrange
     VariableCreatedEventHandler variableCreatedEventHandler = new VariableCreatedEventHandler();
@@ -349,14 +357,14 @@ public class VariableEventHandlerDiffblueTest {
    * Test {@link VariableEventHandler#createData(ActivitiVariableEvent)}.
    * <ul>
    *   <li>Given {@link UUIDType} (default constructor).</li>
-   *   <li>Then return {@link Fields#VARIABLE_TYPE} is
-   * {@link VariableEventHandler#TYPE_UUID}.</li>
+   *   <li>Then return {@link Fields#VARIABLE_TYPE} is {@link VariableEventHandler#TYPE_UUID}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableEventHandler#createData(ActivitiVariableEvent)}
+   * Method under test: {@link VariableEventHandler#createData(ActivitiVariableEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableEventHandler.createData(ActivitiVariableEvent)"})
   public void testCreateData_givenUUIDType_thenReturnVariable_typeIsType_uuid() {
     // Arrange
     VariableCreatedEventHandler variableCreatedEventHandler = new VariableCreatedEventHandler();
@@ -379,10 +387,11 @@ public class VariableEventHandlerDiffblueTest {
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableEventHandler#createData(ActivitiVariableEvent)}
+   * Method under test: {@link VariableEventHandler#createData(ActivitiVariableEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableEventHandler.createData(ActivitiVariableEvent)"})
   public void testCreateData_thenReturnEmpty() {
     // Arrange
     VariableCreatedEventHandler variableCreatedEventHandler = new VariableCreatedEventHandler();
@@ -401,10 +410,11 @@ public class VariableEventHandlerDiffblueTest {
    *   <li>Then return size is three.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableEventHandler#createData(ActivitiVariableEvent)}
+   * Method under test: {@link VariableEventHandler#createData(ActivitiVariableEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableEventHandler.createData(ActivitiVariableEvent)"})
   public void testCreateData_thenReturnSizeIsThree() {
     // Arrange
     VariableCreatedEventHandler variableCreatedEventHandler = new VariableCreatedEventHandler();

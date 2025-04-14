@@ -22,8 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import java.util.HashMap;
-import java.util.function.BiFunction;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.payloads.CreateProcessInstancePayload;
 import org.activiti.api.process.model.payloads.DeleteProcessPayload;
@@ -37,6 +36,7 @@ import org.activiti.api.process.model.payloads.StartProcessPayload;
 import org.activiti.api.process.model.payloads.SuspendProcessPayload;
 import org.activiti.api.process.model.payloads.UpdateProcessPayload;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ProcessPayloadBuilderDiffblueTest {
@@ -47,6 +47,9 @@ class ProcessPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test start()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.model.builders.StartProcessPayloadBuilder ProcessPayloadBuilder.start()"})
   void testStart() {
     // Arrange, Act and Assert
     StartProcessPayload buildResult = ProcessPayloadBuilder.start().build();
@@ -58,35 +61,7 @@ class ProcessPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessPayloadBuilder#start(StartProcessPayload)} with
-   * {@code StartProcessPayload}.
-   * <ul>
-   *   <li>Given {@code foo}.</li>
-   *   <li>Then return build ProcessDefinitionId is {@code 42}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ProcessPayloadBuilder#start(StartProcessPayload)}
-   */
-  @Test
-  @DisplayName("Test start(StartProcessPayload) with 'StartProcessPayload'; given 'foo'; then return build ProcessDefinitionId is '42'")
-  void testStartWithStartProcessPayload_givenFoo_thenReturnBuildProcessDefinitionIdIs42() {
-    // Arrange
-    HashMap<String, Object> variables = new HashMap<>();
-    variables.computeIfPresent("foo", mock(BiFunction.class));
-
-    // Act and Assert
-    StartProcessPayload buildResult = ProcessPayloadBuilder
-        .start(new StartProcessPayload("42", "Process Definition Key", "Name", "Business Key", variables))
-        .build();
-    assertEquals("42", buildResult.getProcessDefinitionId());
-    assertEquals("Business Key", buildResult.getBusinessKey());
-    assertEquals("Name", buildResult.getName());
-    assertEquals("Process Definition Key", buildResult.getProcessDefinitionKey());
-  }
-
-  /**
-   * Test {@link ProcessPayloadBuilder#start(StartProcessPayload)} with
-   * {@code StartProcessPayload}.
+   * Test {@link ProcessPayloadBuilder#start(StartProcessPayload)} with {@code StartProcessPayload}.
    * <ul>
    *   <li>Then return build BusinessKey is {@code null}.</li>
    * </ul>
@@ -95,6 +70,9 @@ class ProcessPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test start(StartProcessPayload) with 'StartProcessPayload'; then return build BusinessKey is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.model.builders.StartProcessPayloadBuilder ProcessPayloadBuilder.start(StartProcessPayload)"})
   void testStartWithStartProcessPayload_thenReturnBuildBusinessKeyIsNull() {
     // Arrange, Act and Assert
     StartProcessPayload buildResult = ProcessPayloadBuilder.start(new StartProcessPayload()).build();
@@ -102,6 +80,7 @@ class ProcessPayloadBuilderDiffblueTest {
     assertNull(buildResult.getName());
     assertNull(buildResult.getProcessDefinitionId());
     assertNull(buildResult.getProcessDefinitionKey());
+    assertTrue(buildResult.getVariables().isEmpty());
   }
 
   /**
@@ -111,6 +90,9 @@ class ProcessPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test create()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.model.builders.CreateProcessPayloadBuilder ProcessPayloadBuilder.create()"})
   void testCreate() {
     // Arrange, Act and Assert
     CreateProcessInstancePayload buildResult = ProcessPayloadBuilder.create().build();
@@ -121,17 +103,18 @@ class ProcessPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessPayloadBuilder#create(CreateProcessInstancePayload)} with
-   * {@code CreateProcessInstancePayload}.
+   * Test {@link ProcessPayloadBuilder#create(CreateProcessInstancePayload)} with {@code CreateProcessInstancePayload}.
    * <ul>
    *   <li>Then return build BusinessKey is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessPayloadBuilder#create(CreateProcessInstancePayload)}
+   * Method under test: {@link ProcessPayloadBuilder#create(CreateProcessInstancePayload)}
    */
   @Test
   @DisplayName("Test create(CreateProcessInstancePayload) with 'CreateProcessInstancePayload'; then return build BusinessKey is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.model.builders.CreateProcessPayloadBuilder ProcessPayloadBuilder.create(CreateProcessInstancePayload)"})
   void testCreateWithCreateProcessInstancePayload_thenReturnBuildBusinessKeyIsNull() {
     // Arrange, Act and Assert
     CreateProcessInstancePayload buildResult = ProcessPayloadBuilder.create(new CreateProcessInstancePayload()).build();
@@ -148,6 +131,9 @@ class ProcessPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test delete()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.model.builders.DeleteProcessPayloadBuilder ProcessPayloadBuilder.delete()"})
   void testDelete() {
     // Arrange, Act and Assert
     DeleteProcessPayload buildResult = ProcessPayloadBuilder.delete().build();
@@ -156,13 +142,14 @@ class ProcessPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessPayloadBuilder#delete(ProcessInstance)} with
-   * {@code processInstance}.
+   * Test {@link ProcessPayloadBuilder#delete(ProcessInstance)} with {@code processInstance}.
    * <p>
    * Method under test: {@link ProcessPayloadBuilder#delete(ProcessInstance)}
    */
   @Test
   @DisplayName("Test delete(ProcessInstance) with 'processInstance'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"DeleteProcessPayload ProcessPayloadBuilder.delete(ProcessInstance)"})
   void testDeleteWithProcessInstance() {
     // Arrange
     ProcessInstance processInstance = mock(ProcessInstance.class);
@@ -178,13 +165,14 @@ class ProcessPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessPayloadBuilder#delete(String)} with
-   * {@code processInstanceId}.
+   * Test {@link ProcessPayloadBuilder#delete(String)} with {@code processInstanceId}.
    * <p>
    * Method under test: {@link ProcessPayloadBuilder#delete(String)}
    */
   @Test
   @DisplayName("Test delete(String) with 'processInstanceId'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"DeleteProcessPayload ProcessPayloadBuilder.delete(String)"})
   void testDeleteWithProcessInstanceId() {
     // Arrange and Act
     DeleteProcessPayload actualDeleteResult = ProcessPayloadBuilder.delete("42");
@@ -201,6 +189,9 @@ class ProcessPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test suspend()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.model.builders.SuspendProcessPayloadBuilder ProcessPayloadBuilder.suspend()"})
   void testSuspend() {
     // Arrange, Act and Assert
     SuspendProcessPayload buildResult = ProcessPayloadBuilder.suspend().build();
@@ -209,13 +200,14 @@ class ProcessPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessPayloadBuilder#suspend(ProcessInstance)} with
-   * {@code processInstance}.
+   * Test {@link ProcessPayloadBuilder#suspend(ProcessInstance)} with {@code processInstance}.
    * <p>
    * Method under test: {@link ProcessPayloadBuilder#suspend(ProcessInstance)}
    */
   @Test
   @DisplayName("Test suspend(ProcessInstance) with 'processInstance'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"SuspendProcessPayload ProcessPayloadBuilder.suspend(ProcessInstance)"})
   void testSuspendWithProcessInstance() {
     // Arrange
     ProcessInstance processInstance = mock(ProcessInstance.class);
@@ -231,13 +223,14 @@ class ProcessPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessPayloadBuilder#suspend(String)} with
-   * {@code processInstanceId}.
+   * Test {@link ProcessPayloadBuilder#suspend(String)} with {@code processInstanceId}.
    * <p>
    * Method under test: {@link ProcessPayloadBuilder#suspend(String)}
    */
   @Test
   @DisplayName("Test suspend(String) with 'processInstanceId'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"SuspendProcessPayload ProcessPayloadBuilder.suspend(String)"})
   void testSuspendWithProcessInstanceId() {
     // Arrange and Act
     SuspendProcessPayload actualSuspendResult = ProcessPayloadBuilder.suspend("42");
@@ -254,6 +247,9 @@ class ProcessPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test resume()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.model.builders.ResumeProcessPayloadBuilder ProcessPayloadBuilder.resume()"})
   void testResume() {
     // Arrange, Act and Assert
     ResumeProcessPayload buildResult = ProcessPayloadBuilder.resume().build();
@@ -262,13 +258,14 @@ class ProcessPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessPayloadBuilder#resume(ProcessInstance)} with
-   * {@code processInstance}.
+   * Test {@link ProcessPayloadBuilder#resume(ProcessInstance)} with {@code processInstance}.
    * <p>
    * Method under test: {@link ProcessPayloadBuilder#resume(ProcessInstance)}
    */
   @Test
   @DisplayName("Test resume(ProcessInstance) with 'processInstance'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ResumeProcessPayload ProcessPayloadBuilder.resume(ProcessInstance)"})
   void testResumeWithProcessInstance() {
     // Arrange
     ProcessInstance processInstance = mock(ProcessInstance.class);
@@ -284,13 +281,14 @@ class ProcessPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessPayloadBuilder#resume(String)} with
-   * {@code processInstanceId}.
+   * Test {@link ProcessPayloadBuilder#resume(String)} with {@code processInstanceId}.
    * <p>
    * Method under test: {@link ProcessPayloadBuilder#resume(String)}
    */
   @Test
   @DisplayName("Test resume(String) with 'processInstanceId'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ResumeProcessPayload ProcessPayloadBuilder.resume(String)"})
   void testResumeWithProcessInstanceId() {
     // Arrange and Act
     ResumeProcessPayload actualResumeResult = ProcessPayloadBuilder.resume("42");
@@ -307,6 +305,9 @@ class ProcessPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test update()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.model.builders.UpdateProcessPayloadBuilder ProcessPayloadBuilder.update()"})
   void testUpdate() {
     // Arrange, Act and Assert
     UpdateProcessPayload buildResult = ProcessPayloadBuilder.update().build();
@@ -323,6 +324,9 @@ class ProcessPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test variables()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.model.builders.GetVariablesPayloadBuilder ProcessPayloadBuilder.variables()"})
   void testVariables() {
     // Arrange, Act and Assert
     assertNull(ProcessPayloadBuilder.variables().build().getProcessInstanceId());
@@ -335,6 +339,8 @@ class ProcessPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test setVariables()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"SetVariablesPayloadBuilder ProcessPayloadBuilder.setVariables()"})
   void testSetVariables() {
     // Arrange, Act and Assert
     SetProcessVariablesPayload buildResult = ProcessPayloadBuilder.setVariables().build();
@@ -343,14 +349,14 @@ class ProcessPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessPayloadBuilder#setVariables(ProcessInstance)} with
-   * {@code processInstance}.
+   * Test {@link ProcessPayloadBuilder#setVariables(ProcessInstance)} with {@code processInstance}.
    * <p>
-   * Method under test:
-   * {@link ProcessPayloadBuilder#setVariables(ProcessInstance)}
+   * Method under test: {@link ProcessPayloadBuilder#setVariables(ProcessInstance)}
    */
   @Test
   @DisplayName("Test setVariables(ProcessInstance) with 'processInstance'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"SetVariablesPayloadBuilder ProcessPayloadBuilder.setVariables(ProcessInstance)"})
   void testSetVariablesWithProcessInstance() {
     // Arrange
     ProcessInstance processInstance = mock(ProcessInstance.class);
@@ -367,13 +373,14 @@ class ProcessPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessPayloadBuilder#setVariables(String)} with
-   * {@code processInstanceId}.
+   * Test {@link ProcessPayloadBuilder#setVariables(String)} with {@code processInstanceId}.
    * <p>
    * Method under test: {@link ProcessPayloadBuilder#setVariables(String)}
    */
   @Test
   @DisplayName("Test setVariables(String) with 'processInstanceId'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"SetVariablesPayloadBuilder ProcessPayloadBuilder.setVariables(String)"})
   void testSetVariablesWithProcessInstanceId() {
     // Arrange, Act and Assert
     SetProcessVariablesPayload buildResult = ProcessPayloadBuilder.setVariables("42").build();
@@ -388,6 +395,9 @@ class ProcessPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test removeVariables()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.model.builders.RemoveVariablesPayloadBuilder ProcessPayloadBuilder.removeVariables()"})
   void testRemoveVariables() {
     // Arrange, Act and Assert
     RemoveProcessVariablesPayload buildResult = ProcessPayloadBuilder.removeVariables().build();
@@ -402,6 +412,8 @@ class ProcessPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test signal()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.api.process.model.builders.SignalPayloadBuilder ProcessPayloadBuilder.signal()"})
   void testSignal() {
     // Arrange, Act and Assert
     SignalPayload buildResult = ProcessPayloadBuilder.signal().build();
@@ -416,6 +428,9 @@ class ProcessPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test processDefinitions()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.model.builders.GetProcessDefinitionsPayloadBuilder ProcessPayloadBuilder.processDefinitions()"})
   void testProcessDefinitions() {
     // Arrange, Act and Assert
     GetProcessDefinitionsPayload buildResult = ProcessPayloadBuilder.processDefinitions().build();
@@ -431,6 +446,9 @@ class ProcessPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test processInstances()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.model.builders.GetProcessInstancesPayloadBuilder ProcessPayloadBuilder.processInstances()"})
   void testProcessInstances() {
     // Arrange, Act and Assert
     GetProcessInstancesPayload buildResult = ProcessPayloadBuilder.processInstances().build();
@@ -442,14 +460,14 @@ class ProcessPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessPayloadBuilder#subprocesses(ProcessInstance)} with
-   * {@code parentProcessInstance}.
+   * Test {@link ProcessPayloadBuilder#subprocesses(ProcessInstance)} with {@code parentProcessInstance}.
    * <p>
-   * Method under test:
-   * {@link ProcessPayloadBuilder#subprocesses(ProcessInstance)}
+   * Method under test: {@link ProcessPayloadBuilder#subprocesses(ProcessInstance)}
    */
   @Test
   @DisplayName("Test subprocesses(ProcessInstance) with 'parentProcessInstance'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"GetProcessInstancesPayload ProcessPayloadBuilder.subprocesses(ProcessInstance)"})
   void testSubprocessesWithParentProcessInstance() {
     // Arrange
     ProcessInstance parentProcessInstance = mock(ProcessInstance.class);
@@ -468,13 +486,14 @@ class ProcessPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessPayloadBuilder#subprocesses(String)} with
-   * {@code parentProcessInstanceId}.
+   * Test {@link ProcessPayloadBuilder#subprocesses(String)} with {@code parentProcessInstanceId}.
    * <p>
    * Method under test: {@link ProcessPayloadBuilder#subprocesses(String)}
    */
   @Test
   @DisplayName("Test subprocesses(String) with 'parentProcessInstanceId'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"GetProcessInstancesPayload ProcessPayloadBuilder.subprocesses(String)"})
   void testSubprocessesWithParentProcessInstanceId() {
     // Arrange and Act
     GetProcessInstancesPayload actualSubprocessesResult = ProcessPayloadBuilder.subprocesses("42");

@@ -22,14 +22,17 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import jakarta.el.ValueExpression;
 import java.lang.reflect.Method;
 import org.activiti.core.el.juel.ObjectValueExpression;
 import org.activiti.core.el.juel.misc.TypeConverter;
 import org.activiti.core.el.juel.tree.Bindings;
+import org.activiti.core.el.juel.tree.impl.ast.AstBinary.Operator;
 import org.activiti.core.el.juel.util.SimpleContext;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -39,7 +42,7 @@ class AstBinaryDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>{@link AstBinary#AstBinary(AstNode, AstNode, AstBinary.Operator)}
+   *   <li>{@link AstBinary#AstBinary(AstNode, AstNode, Operator)}
    *   <li>{@link AstBinary#toString()}
    *   <li>{@link AstBinary#getCardinality()}
    *   <li>{@link AstBinary#getOperator()}
@@ -47,10 +50,13 @@ class AstBinaryDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstBinary.<init>(AstNode, AstNode, Operator)", "int AstBinary.getCardinality()",
+      "Operator AstBinary.getOperator()", "java.lang.String AstBinary.toString()"})
   void testGettersAndSetters() {
     // Arrange
     AstNull left = new AstNull();
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
 
     // Act
     AstBinary actualAstBinary = new AstBinary(left, new AstNull(), operator);
@@ -69,9 +75,11 @@ class AstBinaryDiffblueTest {
    */
   @Test
   @DisplayName("Test eval(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object AstBinary.eval(Bindings, ELContext)"})
   void testEval() {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -100,12 +108,14 @@ class AstBinaryDiffblueTest {
    */
   @Test
   @DisplayName("Test getChild(int); when minus one; then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"AstNode AstBinary.getChild(int)"})
   void testGetChild_whenMinusOne_thenReturnNull() {
     // Arrange
     AstNull left = new AstNull();
 
     // Act and Assert
-    assertNull((new AstBinary(left, new AstNull(), mock(AstBinary.Operator.class))).getChild(-1));
+    assertNull((new AstBinary(left, new AstNull(), mock(Operator.class))).getChild(-1));
   }
 
   /**
@@ -119,13 +129,15 @@ class AstBinaryDiffblueTest {
    */
   @Test
   @DisplayName("Test getChild(int); when one; then return AstNull (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"AstNode AstBinary.getChild(int)"})
   void testGetChild_whenOne_thenReturnAstNull() {
     // Arrange
     AstNull left = new AstNull();
     AstNull right = new AstNull();
 
     // Act and Assert
-    assertSame(right, (new AstBinary(left, right, mock(AstBinary.Operator.class))).getChild(1));
+    assertSame(right, (new AstBinary(left, right, mock(Operator.class))).getChild(1));
   }
 
   /**
@@ -139,11 +151,13 @@ class AstBinaryDiffblueTest {
    */
   @Test
   @DisplayName("Test getChild(int); when zero; then return AstNull (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"AstNode AstBinary.getChild(int)"})
   void testGetChild_whenZero_thenReturnAstNull() {
     // Arrange
     AstNull left = new AstNull();
 
     // Act and Assert
-    assertSame(left, (new AstBinary(left, new AstNull(), mock(AstBinary.Operator.class))).getChild(0));
+    assertSame(left, (new AstBinary(left, new AstNull(), mock(Operator.class))).getChild(0));
   }
 }

@@ -21,12 +21,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.sun.security.auth.UserPrincipal;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -56,11 +58,12 @@ class AuthenticationPrincipalGroupsProviderDiffblueTest {
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AuthenticationPrincipalGroupsProvider#getGroups(Principal)}
+   * Method under test: {@link AuthenticationPrincipalGroupsProvider#getGroups(Principal)}
    */
   @Test
   @DisplayName("Test getGroups(Principal); then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List AuthenticationPrincipalGroupsProvider.getGroups(Principal)"})
   void testGetGroups_thenReturnEmpty() {
     // Arrange
     Mockito
@@ -82,11 +85,12 @@ class AuthenticationPrincipalGroupsProviderDiffblueTest {
   /**
    * Test {@link AuthenticationPrincipalGroupsProvider#securityException()}.
    * <p>
-   * Method under test:
-   * {@link AuthenticationPrincipalGroupsProvider#securityException()}
+   * Method under test: {@link AuthenticationPrincipalGroupsProvider#securityException()}
    */
   @Test
   @DisplayName("Test securityException()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"SecurityException AuthenticationPrincipalGroupsProvider.securityException()"})
   void testSecurityException() {
     // Arrange and Act
     SecurityException actualSecurityExceptionResult = authenticationPrincipalGroupsProvider.securityException();

@@ -21,11 +21,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.payloads.SetProcessVariablesPayload;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class SetVariablesPayloadBuilderDiffblueTest {
@@ -42,6 +44,11 @@ class SetVariablesPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test build()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SetVariablesPayloadBuilder.<init>()", "void SetVariablesPayloadBuilder.<init>(String)",
+      "SetProcessVariablesPayload SetVariablesPayloadBuilder.build()",
+      "SetVariablesPayloadBuilder SetVariablesPayloadBuilder.withProcessInstanceId(String)",
+      "SetVariablesPayloadBuilder SetVariablesPayloadBuilder.withVariables(Map)"})
   void testBuild() {
     // Arrange
     SetVariablesPayloadBuilder withVariableResult = (new SetVariablesPayloadBuilder("42"))
@@ -61,14 +68,14 @@ class SetVariablesPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link SetVariablesPayloadBuilder#SetVariablesPayloadBuilder(ProcessInstance)}.
+   * Test {@link SetVariablesPayloadBuilder#SetVariablesPayloadBuilder(ProcessInstance)}.
    * <p>
-   * Method under test:
-   * {@link SetVariablesPayloadBuilder#SetVariablesPayloadBuilder(ProcessInstance)}
+   * Method under test: {@link SetVariablesPayloadBuilder#SetVariablesPayloadBuilder(ProcessInstance)}
    */
   @Test
   @DisplayName("Test new SetVariablesPayloadBuilder(ProcessInstance)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SetVariablesPayloadBuilder.<init>(ProcessInstance)"})
   void testNewSetVariablesPayloadBuilder() {
     // Arrange
     ProcessInstance processInstance = mock(ProcessInstance.class);
@@ -87,11 +94,12 @@ class SetVariablesPayloadBuilderDiffblueTest {
   /**
    * Test {@link SetVariablesPayloadBuilder#withProcessInstance(ProcessInstance)}.
    * <p>
-   * Method under test:
-   * {@link SetVariablesPayloadBuilder#withProcessInstance(ProcessInstance)}
+   * Method under test: {@link SetVariablesPayloadBuilder#withProcessInstance(ProcessInstance)}
    */
   @Test
   @DisplayName("Test withProcessInstance(ProcessInstance)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"SetVariablesPayloadBuilder SetVariablesPayloadBuilder.withProcessInstance(ProcessInstance)"})
   void testWithProcessInstance() {
     // Arrange
     SetVariablesPayloadBuilder setVariablesResult = ProcessPayloadBuilder.setVariables();
@@ -111,42 +119,15 @@ class SetVariablesPayloadBuilderDiffblueTest {
   /**
    * Test {@link SetVariablesPayloadBuilder#withVariable(String, Object)}.
    * <ul>
-   *   <li>Given {@link ProcessInstance} {@link ProcessInstance#getId()} return
-   * {@code 42}.</li>
-   *   <li>Then calls {@link ProcessInstance#getId()}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link SetVariablesPayloadBuilder#withVariable(String, Object)}
-   */
-  @Test
-  @DisplayName("Test withVariable(String, Object); given ProcessInstance getId() return '42'; then calls getId()")
-  void testWithVariable_givenProcessInstanceGetIdReturn42_thenCallsGetId() {
-    // Arrange
-    ProcessInstance processInstance = mock(ProcessInstance.class);
-    when(processInstance.getId()).thenReturn("42");
-    SetVariablesPayloadBuilder setVariablesResult = ProcessPayloadBuilder.setVariables();
-    setVariablesResult.withProcessInstance(processInstance);
-
-    // Act
-    SetVariablesPayloadBuilder actualWithVariableResult = setVariablesResult.withVariable("Name", "Value");
-
-    // Assert
-    verify(processInstance).getId();
-    assertSame(setVariablesResult, actualWithVariableResult);
-  }
-
-  /**
-   * Test {@link SetVariablesPayloadBuilder#withVariable(String, Object)}.
-   * <ul>
    *   <li>Given Variables.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SetVariablesPayloadBuilder#withVariable(String, Object)}
+   * Method under test: {@link SetVariablesPayloadBuilder#withVariable(String, Object)}
    */
   @Test
   @DisplayName("Test withVariable(String, Object); given Variables")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"SetVariablesPayloadBuilder SetVariablesPayloadBuilder.withVariable(String, Object)"})
   void testWithVariable_givenVariables() {
     // Arrange
     SetVariablesPayloadBuilder setVariablesResult = ProcessPayloadBuilder.setVariables();
@@ -161,11 +142,12 @@ class SetVariablesPayloadBuilderDiffblueTest {
    *   <li>Given Variables withVariables {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SetVariablesPayloadBuilder#withVariable(String, Object)}
+   * Method under test: {@link SetVariablesPayloadBuilder#withVariable(String, Object)}
    */
   @Test
   @DisplayName("Test withVariable(String, Object); given Variables withVariables 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"SetVariablesPayloadBuilder SetVariablesPayloadBuilder.withVariable(String, Object)"})
   void testWithVariable_givenVariablesWithVariablesNull() {
     // Arrange
     SetVariablesPayloadBuilder setVariablesResult = ProcessPayloadBuilder.setVariables();

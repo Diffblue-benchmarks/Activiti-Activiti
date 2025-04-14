@@ -18,17 +18,13 @@ package org.activiti.editor.language.json.converter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import com.fasterxml.jackson.core.JsonLocation;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonStreamContext;
-import com.fasterxml.jackson.core.Version;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.BigIntegerNode;
@@ -36,7 +32,6 @@ import com.fasterxml.jackson.databind.node.BinaryNode;
 import com.fasterxml.jackson.databind.node.BooleanNode;
 import com.fasterxml.jackson.databind.node.ContainerNode;
 import com.fasterxml.jackson.databind.node.DecimalNode;
-import com.fasterxml.jackson.databind.node.DoubleNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.JsonNodeType;
 import com.fasterxml.jackson.databind.node.MissingNode;
@@ -44,7 +39,6 @@ import com.fasterxml.jackson.databind.node.NullNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 import com.fasterxml.jackson.databind.node.TreeTraversingParser;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -62,88 +56,35 @@ import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.EventListener;
 import org.activiti.bpmn.model.ItemDefinition;
 import org.activiti.bpmn.model.Message;
+import org.activiti.bpmn.model.Message.Builder;
 import org.activiti.bpmn.model.Process;
 import org.activiti.bpmn.model.SequenceFlow;
 import org.activiti.bpmn.model.Signal;
 import org.activiti.bpmn.model.UserTask;
 import org.activiti.bpmn.model.ValuedDataObject;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class BpmnJsonConverterUtilDiffblueTest {
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#createChildShape(String, String, double, double, double, double)}.
-   * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#createChildShape(String, String, double, double, double, double)}
-   */
-  @Test
-  @DisplayName("Test createChildShape(String, String, double, double, double, double)")
-  void testCreateChildShape() {
-    // Arrange and Act
-    ObjectNode actualCreateChildShapeResult = BpmnJsonConverterUtil.createChildShape("", "Type", 10.0d, 10.0d, 10.0d,
-        10.0d);
-
-    // Assert
-    Iterator<JsonNode> iteratorResult = actualCreateChildShapeResult.iterator();
-    JsonNode nextResult = iteratorResult.next();
-    JsonNode nextResult2 = iteratorResult.next();
-    JsonNode nextResult3 = iteratorResult.next();
-    JsonNode nextResult4 = iteratorResult.next();
-    boolean actualHasNextResult = iteratorResult.hasNext();
-    assertTrue(nextResult3 instanceof ArrayNode);
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult5 = iteratorResult2.next();
-    Iterator<JsonNode> iteratorResult3 = nextResult5.iterator();
-    JsonNode nextResult6 = iteratorResult3.next();
-    assertTrue(nextResult6 instanceof DoubleNode);
-    assertTrue(iteratorResult3.next() instanceof DoubleNode);
-    assertTrue(nextResult5 instanceof ObjectNode);
-    assertTrue(iteratorResult2.next() instanceof ObjectNode);
-    assertTrue(nextResult instanceof ObjectNode);
-    assertTrue(nextResult4 instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult4 = nextResult4.iterator();
-    JsonNode nextResult7 = iteratorResult4.next();
-    assertTrue(nextResult7 instanceof TextNode);
-    assertTrue(nextResult2 instanceof TextNode);
-    assertTrue(nextResult6.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult5.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult7.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult2.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult3.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult4.traverse() instanceof TreeTraversingParser);
-    assertTrue(actualCreateChildShapeResult.traverse() instanceof TreeTraversingParser);
-    assertEquals("\"\"", nextResult2.toPrettyString());
-    assertEquals("{\n" + "  \"bounds\" : {\n" + "    \"lowerRight\" : {\n" + "      \"x\" : 10.0,\n"
-        + "      \"y\" : 10.0\n" + "    },\n" + "    \"upperLeft\" : {\n" + "      \"x\" : 10.0,\n"
-        + "      \"y\" : 10.0\n" + "    }\n" + "  },\n" + "  \"resourceId\" : \"\",\n" + "  \"childShapes\" : [ ],\n"
-        + "  \"stencil\" : {\n" + "    \"id\" : \"Type\"\n" + "  }\n" + "}",
-        actualCreateChildShapeResult.toPrettyString());
-    assertFalse(iteratorResult3.hasNext());
-    assertFalse(iteratorResult2.hasNext());
-    assertFalse(iteratorResult4.hasNext());
-    assertFalse(actualHasNextResult);
-  }
-
-  /**
-   * Test
-   * {@link BpmnJsonConverterUtil#createChildShape(String, String, double, double, double, double)}.
+   * Test {@link BpmnJsonConverterUtil#createChildShape(String, String, double, double, double, double)}.
    * <ul>
-   *   <li>When {@code 42}.</li>
-   *   <li>Then return iterator next toPrettyString is {@code "42"}.</li>
+   *   <li>When {@code null}.</li>
+   *   <li>Then iterator next return {@link NullNode}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#createChildShape(String, String, double, double, double, double)}
+   * Method under test: {@link BpmnJsonConverterUtil#createChildShape(String, String, double, double, double, double)}
    */
   @Test
-  @DisplayName("Test createChildShape(String, String, double, double, double, double); when '42'; then return iterator next toPrettyString is '\"42\"'")
-  void testCreateChildShape_when42_thenReturnIteratorNextToPrettyStringIs42() {
+  @DisplayName("Test createChildShape(String, String, double, double, double, double); when 'null'; then iterator next return NullNode")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "ObjectNode BpmnJsonConverterUtil.createChildShape(String, String, double, double, double, double)"})
+  void testCreateChildShape_whenNull_thenIteratorNextReturnNullNode() {
     // Arrange and Act
-    ObjectNode actualCreateChildShapeResult = BpmnJsonConverterUtil.createChildShape("42", "Type", 10.0d, 10.0d, 10.0d,
+    ObjectNode actualCreateChildShapeResult = BpmnJsonConverterUtil.createChildShape(null, null, 10.0d, 10.0d, 10.0d,
         10.0d);
 
     // Assert
@@ -154,523 +95,15 @@ class BpmnJsonConverterUtilDiffblueTest {
     JsonNode nextResult4 = iteratorResult.next();
     boolean actualHasNextResult = iteratorResult.hasNext();
     assertTrue(nextResult3 instanceof ArrayNode);
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult5 = iteratorResult2.next();
-    Iterator<JsonNode> iteratorResult3 = nextResult5.iterator();
-    JsonNode nextResult6 = iteratorResult3.next();
-    assertTrue(nextResult6 instanceof DoubleNode);
-    assertTrue(iteratorResult3.next() instanceof DoubleNode);
-    assertTrue(nextResult5 instanceof ObjectNode);
-    assertTrue(iteratorResult2.next() instanceof ObjectNode);
+    assertTrue(nextResult2 instanceof NullNode);
     assertTrue(nextResult instanceof ObjectNode);
     assertTrue(nextResult4 instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult4 = nextResult4.iterator();
-    JsonNode nextResult7 = iteratorResult4.next();
-    assertTrue(nextResult7 instanceof TextNode);
-    assertTrue(nextResult2 instanceof TextNode);
-    assertTrue(nextResult6.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult5.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult7.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult2.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult3.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult4.traverse() instanceof TreeTraversingParser);
     assertTrue(actualCreateChildShapeResult.traverse() instanceof TreeTraversingParser);
-    assertEquals("\"42\"", nextResult2.toPrettyString());
     assertEquals("{\n" + "  \"bounds\" : {\n" + "    \"lowerRight\" : {\n" + "      \"x\" : 10.0,\n"
         + "      \"y\" : 10.0\n" + "    },\n" + "    \"upperLeft\" : {\n" + "      \"x\" : 10.0,\n"
-        + "      \"y\" : 10.0\n" + "    }\n" + "  },\n" + "  \"resourceId\" : \"42\",\n" + "  \"childShapes\" : [ ],\n"
-        + "  \"stencil\" : {\n" + "    \"id\" : \"Type\"\n" + "  }\n" + "}",
-        actualCreateChildShapeResult.toPrettyString());
-    assertFalse(iteratorResult3.hasNext());
-    assertFalse(iteratorResult2.hasNext());
-    assertFalse(iteratorResult4.hasNext());
+        + "      \"y\" : 10.0\n" + "    }\n" + "  },\n" + "  \"resourceId\" : null,\n" + "  \"childShapes\" : [ ],\n"
+        + "  \"stencil\" : {\n" + "    \"id\" : null\n" + "  }\n" + "}", actualCreateChildShapeResult.toPrettyString());
     assertFalse(actualHasNextResult);
-  }
-
-  /**
-   * Test
-   * {@link BpmnJsonConverterUtil#createBoundsNode(double, double, double, double)}.
-   * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#createBoundsNode(double, double, double, double)}
-   */
-  @Test
-  @DisplayName("Test createBoundsNode(double, double, double, double)")
-  void testCreateBoundsNode() throws IOException {
-    // Arrange and Act
-    ObjectNode actualCreateBoundsNodeResult = BpmnJsonConverterUtil.createBoundsNode(10.0d, 10.0d, 10.0d, 10.0d);
-
-    // Assert
-    Iterator<JsonNode> iteratorResult = actualCreateBoundsNodeResult.iterator();
-    JsonNode nextResult = iteratorResult.next();
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof DoubleNode);
-    assertTrue(iteratorResult2.next() instanceof DoubleNode);
-    assertTrue(nextResult instanceof ObjectNode);
-    assertTrue(iteratorResult.next() instanceof ObjectNode);
-    JsonParser traverseResult = nextResult2.traverse();
-    assertTrue(traverseResult instanceof TreeTraversingParser);
-    JsonParser traverseResult2 = nextResult.traverse();
-    assertTrue(traverseResult2 instanceof TreeTraversingParser);
-    JsonParser traverseResult3 = actualCreateBoundsNodeResult.traverse();
-    assertTrue(traverseResult3 instanceof TreeTraversingParser);
-    assertEquals("10.0", nextResult2.toPrettyString());
-    JsonStreamContext parsingContext = traverseResult.getParsingContext();
-    assertEquals("ROOT", parsingContext.getTypeDesc());
-    JsonStreamContext parsingContext2 = traverseResult2.getParsingContext();
-    assertEquals("ROOT", parsingContext2.getTypeDesc());
-    JsonStreamContext parsingContext3 = traverseResult3.getParsingContext();
-    assertEquals("ROOT", parsingContext3.getTypeDesc());
-    Version versionResult = traverseResult3.version();
-    assertEquals("com.fasterxml.jackson.core", versionResult.getGroupId());
-    assertEquals("com.fasterxml.jackson.core/jackson-databind/2.17.2", versionResult.toFullString());
-    assertEquals("jackson-databind", versionResult.getArtifactId());
-    assertEquals(
-        "{\n" + "  \"lowerRight\" : {\n" + "    \"x\" : 10.0,\n" + "    \"y\" : 10.0\n" + "  },\n"
-            + "  \"upperLeft\" : {\n" + "    \"x\" : 10.0,\n" + "    \"y\" : 10.0\n" + "  }\n" + "}",
-        actualCreateBoundsNodeResult.toPrettyString());
-    assertEquals("{\n  \"x\" : 10.0,\n  \"y\" : 10.0\n}", nextResult.toPrettyString());
-    assertNull(traverseResult.getBinaryValue());
-    assertNull(traverseResult2.getBinaryValue());
-    assertNull(traverseResult3.getBinaryValue());
-    assertNull(traverseResult.getSchema());
-    assertNull(traverseResult2.getSchema());
-    assertNull(traverseResult3.getSchema());
-    assertNull(traverseResult.getCurrentToken());
-    assertNull(traverseResult2.getCurrentToken());
-    assertNull(traverseResult3.getCurrentToken());
-    assertNull(traverseResult.getLastClearedToken());
-    assertNull(traverseResult2.getLastClearedToken());
-    assertNull(traverseResult3.getLastClearedToken());
-    assertNull(traverseResult.getCodec());
-    assertNull(traverseResult2.getCodec());
-    assertNull(traverseResult3.getCodec());
-    assertNull(traverseResult.getNonBlockingInputFeeder());
-    assertNull(traverseResult2.getNonBlockingInputFeeder());
-    assertNull(traverseResult3.getNonBlockingInputFeeder());
-    JsonLocation currentLocation = traverseResult3.getCurrentLocation();
-    assertNull(currentLocation.getSourceRef());
-    assertNull(traverseResult.getCurrentValue());
-    assertNull(traverseResult2.getCurrentValue());
-    assertNull(traverseResult3.getCurrentValue());
-    assertNull(traverseResult.getEmbeddedObject());
-    assertNull(traverseResult2.getEmbeddedObject());
-    assertNull(traverseResult3.getEmbeddedObject());
-    assertNull(traverseResult.getInputSource());
-    assertNull(traverseResult2.getInputSource());
-    assertNull(traverseResult3.getInputSource());
-    assertNull(traverseResult.getObjectId());
-    assertNull(traverseResult2.getObjectId());
-    assertNull(traverseResult3.getObjectId());
-    assertNull(traverseResult.getTypeId());
-    assertNull(traverseResult2.getTypeId());
-    assertNull(traverseResult3.getTypeId());
-    assertNull(parsingContext.getCurrentValue());
-    assertNull(parsingContext2.getCurrentValue());
-    assertNull(parsingContext3.getCurrentValue());
-    assertNull(traverseResult.getCurrentName());
-    assertNull(traverseResult2.getCurrentName());
-    assertNull(traverseResult3.getCurrentName());
-    assertNull(traverseResult.getText());
-    assertNull(traverseResult2.getText());
-    assertNull(traverseResult3.getText());
-    assertNull(traverseResult.getValueAsString());
-    assertNull(traverseResult2.getValueAsString());
-    assertNull(traverseResult3.getValueAsString());
-    assertEquals(-1, currentLocation.getColumnNr());
-    assertEquals(-1, currentLocation.getLineNr());
-    assertEquals(-1L, currentLocation.getByteOffset());
-    assertEquals(-1L, currentLocation.getCharOffset());
-    assertEquals(0, traverseResult.getCurrentTokenId());
-    assertEquals(0, traverseResult2.getCurrentTokenId());
-    assertEquals(0, traverseResult3.getCurrentTokenId());
-    assertEquals(0, traverseResult.getFeatureMask());
-    assertEquals(0, traverseResult2.getFeatureMask());
-    assertEquals(0, traverseResult3.getFeatureMask());
-    assertEquals(0, traverseResult.getFormatFeatures());
-    assertEquals(0, traverseResult2.getFormatFeatures());
-    assertEquals(0, traverseResult3.getFormatFeatures());
-    assertEquals(0, traverseResult.getTextOffset());
-    assertEquals(0, traverseResult2.getTextOffset());
-    assertEquals(0, traverseResult3.getTextOffset());
-    assertEquals(0, traverseResult.getValueAsInt());
-    assertEquals(0, traverseResult2.getValueAsInt());
-    assertEquals(0, traverseResult3.getValueAsInt());
-    assertEquals(0, parsingContext.getCurrentIndex());
-    assertEquals(0, parsingContext2.getCurrentIndex());
-    assertEquals(0, parsingContext3.getCurrentIndex());
-    assertEquals(0, parsingContext.getEntryCount());
-    assertEquals(0, parsingContext2.getEntryCount());
-    assertEquals(0, parsingContext3.getEntryCount());
-    assertEquals(0, parsingContext.getNestingDepth());
-    assertEquals(0, parsingContext2.getNestingDepth());
-    assertEquals(0, parsingContext3.getNestingDepth());
-    assertEquals(0, nextResult2.size());
-    assertEquals(0.0d, traverseResult.getValueAsDouble());
-    assertEquals(0.0d, traverseResult2.getValueAsDouble());
-    assertEquals(0.0d, traverseResult3.getValueAsDouble());
-    assertEquals(0L, traverseResult.getValueAsLong());
-    assertEquals(0L, traverseResult2.getValueAsLong());
-    assertEquals(0L, traverseResult3.getValueAsLong());
-    assertEquals(17, versionResult.getMinorVersion());
-    assertEquals(2, versionResult.getMajorVersion());
-    assertEquals(2, versionResult.getPatchLevel());
-    assertEquals(2, nextResult.size());
-    assertEquals(2, actualCreateBoundsNodeResult.size());
-    assertEquals(JsonNodeType.NUMBER, nextResult2.getNodeType());
-    assertEquals(JsonNodeType.OBJECT, nextResult.getNodeType());
-    assertEquals(JsonNodeType.OBJECT, actualCreateBoundsNodeResult.getNodeType());
-    assertFalse(traverseResult.getValueAsBoolean());
-    assertFalse(traverseResult2.getValueAsBoolean());
-    assertFalse(traverseResult3.getValueAsBoolean());
-    assertFalse(traverseResult.hasCurrentToken());
-    assertFalse(traverseResult2.hasCurrentToken());
-    assertFalse(traverseResult3.hasCurrentToken());
-    assertFalse(traverseResult.hasTextCharacters());
-    assertFalse(traverseResult2.hasTextCharacters());
-    assertFalse(traverseResult3.hasTextCharacters());
-    assertFalse(traverseResult.isClosed());
-    assertFalse(traverseResult2.isClosed());
-    assertFalse(traverseResult3.isClosed());
-    assertFalse(traverseResult.isExpectedNumberIntToken());
-    assertFalse(traverseResult2.isExpectedNumberIntToken());
-    assertFalse(traverseResult3.isExpectedNumberIntToken());
-    assertFalse(traverseResult.isExpectedStartArrayToken());
-    assertFalse(traverseResult2.isExpectedStartArrayToken());
-    assertFalse(traverseResult3.isExpectedStartArrayToken());
-    assertFalse(traverseResult.isExpectedStartObjectToken());
-    assertFalse(traverseResult2.isExpectedStartObjectToken());
-    assertFalse(traverseResult3.isExpectedStartObjectToken());
-    assertFalse(traverseResult.isNaN());
-    assertFalse(traverseResult2.isNaN());
-    assertFalse(traverseResult3.isNaN());
-    assertFalse(parsingContext.hasCurrentIndex());
-    assertFalse(parsingContext2.hasCurrentIndex());
-    assertFalse(parsingContext3.hasCurrentIndex());
-    assertFalse(parsingContext.hasCurrentName());
-    assertFalse(parsingContext2.hasCurrentName());
-    assertFalse(parsingContext3.hasCurrentName());
-    assertFalse(parsingContext.hasPathSegment());
-    assertFalse(parsingContext2.hasPathSegment());
-    assertFalse(parsingContext3.hasPathSegment());
-    assertFalse(versionResult.isSnapshot());
-    assertFalse(versionResult.isUknownVersion());
-    assertFalse(versionResult.isUnknownVersion());
-    assertFalse(nextResult2.isArray());
-    assertFalse(nextResult.isArray());
-    assertFalse(actualCreateBoundsNodeResult.isArray());
-    assertFalse(nextResult2.isBigDecimal());
-    assertFalse(nextResult.isBigDecimal());
-    assertFalse(actualCreateBoundsNodeResult.isBigDecimal());
-    assertFalse(nextResult2.isBigInteger());
-    assertFalse(nextResult.isBigInteger());
-    assertFalse(actualCreateBoundsNodeResult.isBigInteger());
-    assertFalse(nextResult2.isBinary());
-    assertFalse(nextResult.isBinary());
-    assertFalse(actualCreateBoundsNodeResult.isBinary());
-    assertFalse(nextResult2.isBoolean());
-    assertFalse(nextResult.isBoolean());
-    assertFalse(actualCreateBoundsNodeResult.isBoolean());
-    assertFalse(nextResult2.isContainerNode());
-    assertFalse(nextResult.isDouble());
-    assertFalse(actualCreateBoundsNodeResult.isDouble());
-    assertFalse(nextResult.isEmpty());
-    assertFalse(nextResult2.isFloat());
-    assertFalse(nextResult.isFloat());
-    assertFalse(actualCreateBoundsNodeResult.isFloat());
-    assertFalse(nextResult.isFloatingPointNumber());
-    assertFalse(actualCreateBoundsNodeResult.isFloatingPointNumber());
-    assertFalse(nextResult2.isInt());
-    assertFalse(nextResult.isInt());
-    assertFalse(actualCreateBoundsNodeResult.isInt());
-    assertFalse(nextResult2.isIntegralNumber());
-    assertFalse(nextResult.isIntegralNumber());
-    assertFalse(actualCreateBoundsNodeResult.isIntegralNumber());
-    assertFalse(nextResult2.isLong());
-    assertFalse(nextResult.isLong());
-    assertFalse(actualCreateBoundsNodeResult.isLong());
-    assertFalse(nextResult2.isMissingNode());
-    assertFalse(nextResult.isMissingNode());
-    assertFalse(actualCreateBoundsNodeResult.isMissingNode());
-    assertFalse(nextResult2.isNull());
-    assertFalse(nextResult.isNull());
-    assertFalse(actualCreateBoundsNodeResult.isNull());
-    assertFalse(nextResult.isNumber());
-    assertFalse(actualCreateBoundsNodeResult.isNumber());
-    assertFalse(nextResult2.isObject());
-    assertFalse(nextResult2.isPojo());
-    assertFalse(nextResult.isPojo());
-    assertFalse(actualCreateBoundsNodeResult.isPojo());
-    assertFalse(nextResult2.isShort());
-    assertFalse(nextResult.isShort());
-    assertFalse(actualCreateBoundsNodeResult.isShort());
-    assertFalse(nextResult2.isTextual());
-    assertFalse(nextResult.isTextual());
-    assertFalse(actualCreateBoundsNodeResult.isTextual());
-    assertFalse(nextResult.isValueNode());
-    assertFalse(actualCreateBoundsNodeResult.isValueNode());
-    assertFalse(((DoubleNode) nextResult2).isNaN());
-    assertFalse(actualCreateBoundsNodeResult.isEmpty());
-    assertFalse(nextResult2.iterator().hasNext());
-    assertFalse(iteratorResult2.hasNext());
-    assertFalse(iteratorResult.hasNext());
-    assertTrue(nextResult.isContainerNode());
-    assertTrue(actualCreateBoundsNodeResult.isContainerNode());
-    assertTrue(nextResult2.isDouble());
-    assertTrue(nextResult2.isEmpty());
-    assertTrue(nextResult2.isFloatingPointNumber());
-    assertTrue(nextResult2.isNumber());
-    assertTrue(nextResult.isObject());
-    assertTrue(nextResult2.isValueNode());
-    assertTrue(actualCreateBoundsNodeResult.isObject());
-    assertSame(currentLocation, traverseResult.getCurrentLocation());
-    assertSame(currentLocation, traverseResult2.getCurrentLocation());
-    assertSame(currentLocation, traverseResult.getTokenLocation());
-    assertSame(currentLocation, traverseResult2.getTokenLocation());
-    assertSame(currentLocation, traverseResult3.getTokenLocation());
-    assertSame(versionResult, traverseResult.version());
-    assertSame(versionResult, traverseResult2.version());
-  }
-
-  /**
-   * Test {@link BpmnJsonConverterUtil#createPositionNode(double, double)}.
-   * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#createPositionNode(double, double)}
-   */
-  @Test
-  @DisplayName("Test createPositionNode(double, double)")
-  void testCreatePositionNode() throws IOException {
-    // Arrange and Act
-    ObjectNode actualCreatePositionNodeResult = BpmnJsonConverterUtil.createPositionNode(2.0d, 3.0d);
-
-    // Assert
-    Iterator<JsonNode> iteratorResult = actualCreatePositionNodeResult.iterator();
-    JsonNode nextResult = iteratorResult.next();
-    assertTrue(nextResult instanceof DoubleNode);
-    JsonNode nextResult2 = iteratorResult.next();
-    assertTrue(nextResult2 instanceof DoubleNode);
-    JsonParser traverseResult = nextResult.traverse();
-    assertTrue(traverseResult instanceof TreeTraversingParser);
-    JsonParser traverseResult2 = nextResult2.traverse();
-    assertTrue(traverseResult2 instanceof TreeTraversingParser);
-    JsonParser traverseResult3 = actualCreatePositionNodeResult.traverse();
-    assertTrue(traverseResult3 instanceof TreeTraversingParser);
-    assertEquals("2.0", nextResult.toPrettyString());
-    assertEquals("3.0", nextResult2.toPrettyString());
-    JsonStreamContext parsingContext = traverseResult.getParsingContext();
-    assertEquals("ROOT", parsingContext.getTypeDesc());
-    JsonStreamContext parsingContext2 = traverseResult2.getParsingContext();
-    assertEquals("ROOT", parsingContext2.getTypeDesc());
-    JsonStreamContext parsingContext3 = traverseResult3.getParsingContext();
-    assertEquals("ROOT", parsingContext3.getTypeDesc());
-    Version versionResult = traverseResult3.version();
-    assertEquals("com.fasterxml.jackson.core", versionResult.getGroupId());
-    assertEquals("com.fasterxml.jackson.core/jackson-databind/2.17.2", versionResult.toFullString());
-    assertEquals("jackson-databind", versionResult.getArtifactId());
-    assertEquals("{\n  \"x\" : 2.0,\n  \"y\" : 3.0\n}", actualCreatePositionNodeResult.toPrettyString());
-    assertNull(traverseResult.getBinaryValue());
-    assertNull(traverseResult2.getBinaryValue());
-    assertNull(traverseResult3.getBinaryValue());
-    assertNull(traverseResult.getSchema());
-    assertNull(traverseResult2.getSchema());
-    assertNull(traverseResult3.getSchema());
-    assertNull(traverseResult.getCurrentToken());
-    assertNull(traverseResult2.getCurrentToken());
-    assertNull(traverseResult3.getCurrentToken());
-    assertNull(traverseResult.getLastClearedToken());
-    assertNull(traverseResult2.getLastClearedToken());
-    assertNull(traverseResult3.getLastClearedToken());
-    assertNull(traverseResult.getCodec());
-    assertNull(traverseResult2.getCodec());
-    assertNull(traverseResult3.getCodec());
-    assertNull(traverseResult.getNonBlockingInputFeeder());
-    assertNull(traverseResult2.getNonBlockingInputFeeder());
-    assertNull(traverseResult3.getNonBlockingInputFeeder());
-    JsonLocation currentLocation = traverseResult3.getCurrentLocation();
-    assertNull(currentLocation.getSourceRef());
-    assertNull(traverseResult.getCurrentValue());
-    assertNull(traverseResult2.getCurrentValue());
-    assertNull(traverseResult3.getCurrentValue());
-    assertNull(traverseResult.getEmbeddedObject());
-    assertNull(traverseResult2.getEmbeddedObject());
-    assertNull(traverseResult3.getEmbeddedObject());
-    assertNull(traverseResult.getInputSource());
-    assertNull(traverseResult2.getInputSource());
-    assertNull(traverseResult3.getInputSource());
-    assertNull(traverseResult.getObjectId());
-    assertNull(traverseResult2.getObjectId());
-    assertNull(traverseResult3.getObjectId());
-    assertNull(traverseResult.getTypeId());
-    assertNull(traverseResult2.getTypeId());
-    assertNull(traverseResult3.getTypeId());
-    assertNull(parsingContext.getCurrentValue());
-    assertNull(parsingContext2.getCurrentValue());
-    assertNull(parsingContext3.getCurrentValue());
-    assertNull(traverseResult.getCurrentName());
-    assertNull(traverseResult2.getCurrentName());
-    assertNull(traverseResult3.getCurrentName());
-    assertNull(traverseResult.getText());
-    assertNull(traverseResult2.getText());
-    assertNull(traverseResult3.getText());
-    assertNull(traverseResult.getValueAsString());
-    assertNull(traverseResult2.getValueAsString());
-    assertNull(traverseResult3.getValueAsString());
-    assertEquals(-1, currentLocation.getColumnNr());
-    assertEquals(-1, currentLocation.getLineNr());
-    assertEquals(-1L, currentLocation.getByteOffset());
-    assertEquals(-1L, currentLocation.getCharOffset());
-    assertEquals(0, traverseResult.getCurrentTokenId());
-    assertEquals(0, traverseResult2.getCurrentTokenId());
-    assertEquals(0, traverseResult3.getCurrentTokenId());
-    assertEquals(0, traverseResult.getFeatureMask());
-    assertEquals(0, traverseResult2.getFeatureMask());
-    assertEquals(0, traverseResult3.getFeatureMask());
-    assertEquals(0, traverseResult.getFormatFeatures());
-    assertEquals(0, traverseResult2.getFormatFeatures());
-    assertEquals(0, traverseResult3.getFormatFeatures());
-    assertEquals(0, traverseResult.getTextOffset());
-    assertEquals(0, traverseResult2.getTextOffset());
-    assertEquals(0, traverseResult3.getTextOffset());
-    assertEquals(0, traverseResult.getValueAsInt());
-    assertEquals(0, traverseResult2.getValueAsInt());
-    assertEquals(0, traverseResult3.getValueAsInt());
-    assertEquals(0, parsingContext.getCurrentIndex());
-    assertEquals(0, parsingContext2.getCurrentIndex());
-    assertEquals(0, parsingContext3.getCurrentIndex());
-    assertEquals(0, parsingContext.getEntryCount());
-    assertEquals(0, parsingContext2.getEntryCount());
-    assertEquals(0, parsingContext3.getEntryCount());
-    assertEquals(0, parsingContext.getNestingDepth());
-    assertEquals(0, parsingContext2.getNestingDepth());
-    assertEquals(0, parsingContext3.getNestingDepth());
-    assertEquals(0, nextResult.size());
-    assertEquals(0, nextResult2.size());
-    assertEquals(0.0d, traverseResult.getValueAsDouble());
-    assertEquals(0.0d, traverseResult2.getValueAsDouble());
-    assertEquals(0.0d, traverseResult3.getValueAsDouble());
-    assertEquals(0L, traverseResult.getValueAsLong());
-    assertEquals(0L, traverseResult2.getValueAsLong());
-    assertEquals(0L, traverseResult3.getValueAsLong());
-    assertEquals(17, versionResult.getMinorVersion());
-    assertEquals(2, versionResult.getMajorVersion());
-    assertEquals(2, versionResult.getPatchLevel());
-    assertEquals(2, actualCreatePositionNodeResult.size());
-    assertEquals(JsonNodeType.NUMBER, nextResult.getNodeType());
-    assertEquals(JsonNodeType.NUMBER, nextResult2.getNodeType());
-    assertEquals(JsonNodeType.OBJECT, actualCreatePositionNodeResult.getNodeType());
-    assertFalse(traverseResult.getValueAsBoolean());
-    assertFalse(traverseResult2.getValueAsBoolean());
-    assertFalse(traverseResult3.getValueAsBoolean());
-    assertFalse(traverseResult.hasCurrentToken());
-    assertFalse(traverseResult2.hasCurrentToken());
-    assertFalse(traverseResult3.hasCurrentToken());
-    assertFalse(traverseResult.hasTextCharacters());
-    assertFalse(traverseResult2.hasTextCharacters());
-    assertFalse(traverseResult3.hasTextCharacters());
-    assertFalse(traverseResult.isClosed());
-    assertFalse(traverseResult2.isClosed());
-    assertFalse(traverseResult3.isClosed());
-    assertFalse(traverseResult.isExpectedNumberIntToken());
-    assertFalse(traverseResult2.isExpectedNumberIntToken());
-    assertFalse(traverseResult3.isExpectedNumberIntToken());
-    assertFalse(traverseResult.isExpectedStartArrayToken());
-    assertFalse(traverseResult2.isExpectedStartArrayToken());
-    assertFalse(traverseResult3.isExpectedStartArrayToken());
-    assertFalse(traverseResult.isExpectedStartObjectToken());
-    assertFalse(traverseResult2.isExpectedStartObjectToken());
-    assertFalse(traverseResult3.isExpectedStartObjectToken());
-    assertFalse(traverseResult.isNaN());
-    assertFalse(traverseResult2.isNaN());
-    assertFalse(traverseResult3.isNaN());
-    assertFalse(parsingContext.hasCurrentIndex());
-    assertFalse(parsingContext2.hasCurrentIndex());
-    assertFalse(parsingContext3.hasCurrentIndex());
-    assertFalse(parsingContext.hasCurrentName());
-    assertFalse(parsingContext2.hasCurrentName());
-    assertFalse(parsingContext3.hasCurrentName());
-    assertFalse(parsingContext.hasPathSegment());
-    assertFalse(parsingContext2.hasPathSegment());
-    assertFalse(parsingContext3.hasPathSegment());
-    assertFalse(versionResult.isSnapshot());
-    assertFalse(versionResult.isUknownVersion());
-    assertFalse(versionResult.isUnknownVersion());
-    assertFalse(nextResult.isArray());
-    assertFalse(nextResult2.isArray());
-    assertFalse(actualCreatePositionNodeResult.isArray());
-    assertFalse(nextResult.isBigDecimal());
-    assertFalse(nextResult2.isBigDecimal());
-    assertFalse(actualCreatePositionNodeResult.isBigDecimal());
-    assertFalse(nextResult.isBigInteger());
-    assertFalse(nextResult2.isBigInteger());
-    assertFalse(actualCreatePositionNodeResult.isBigInteger());
-    assertFalse(nextResult.isBinary());
-    assertFalse(nextResult2.isBinary());
-    assertFalse(actualCreatePositionNodeResult.isBinary());
-    assertFalse(nextResult.isBoolean());
-    assertFalse(nextResult2.isBoolean());
-    assertFalse(actualCreatePositionNodeResult.isBoolean());
-    assertFalse(nextResult.isContainerNode());
-    assertFalse(nextResult2.isContainerNode());
-    assertFalse(actualCreatePositionNodeResult.isDouble());
-    assertFalse(nextResult.isFloat());
-    assertFalse(nextResult2.isFloat());
-    assertFalse(actualCreatePositionNodeResult.isFloat());
-    assertFalse(actualCreatePositionNodeResult.isFloatingPointNumber());
-    assertFalse(nextResult.isInt());
-    assertFalse(nextResult2.isInt());
-    assertFalse(actualCreatePositionNodeResult.isInt());
-    assertFalse(nextResult.isIntegralNumber());
-    assertFalse(nextResult2.isIntegralNumber());
-    assertFalse(actualCreatePositionNodeResult.isIntegralNumber());
-    assertFalse(nextResult.isLong());
-    assertFalse(nextResult2.isLong());
-    assertFalse(actualCreatePositionNodeResult.isLong());
-    assertFalse(nextResult.isMissingNode());
-    assertFalse(nextResult2.isMissingNode());
-    assertFalse(actualCreatePositionNodeResult.isMissingNode());
-    assertFalse(nextResult.isNull());
-    assertFalse(nextResult2.isNull());
-    assertFalse(actualCreatePositionNodeResult.isNull());
-    assertFalse(actualCreatePositionNodeResult.isNumber());
-    assertFalse(nextResult.isObject());
-    assertFalse(nextResult2.isObject());
-    assertFalse(nextResult.isPojo());
-    assertFalse(nextResult2.isPojo());
-    assertFalse(actualCreatePositionNodeResult.isPojo());
-    assertFalse(nextResult.isShort());
-    assertFalse(nextResult2.isShort());
-    assertFalse(actualCreatePositionNodeResult.isShort());
-    assertFalse(nextResult.isTextual());
-    assertFalse(nextResult2.isTextual());
-    assertFalse(actualCreatePositionNodeResult.isTextual());
-    assertFalse(actualCreatePositionNodeResult.isValueNode());
-    assertFalse(((DoubleNode) nextResult).isNaN());
-    assertFalse(((DoubleNode) nextResult2).isNaN());
-    assertFalse(actualCreatePositionNodeResult.isEmpty());
-    assertFalse(nextResult.iterator().hasNext());
-    assertFalse(iteratorResult.hasNext());
-    assertTrue(actualCreatePositionNodeResult.isContainerNode());
-    assertTrue(nextResult.isDouble());
-    assertTrue(nextResult2.isDouble());
-    assertTrue(nextResult.isEmpty());
-    assertTrue(nextResult2.isEmpty());
-    assertTrue(nextResult.isFloatingPointNumber());
-    assertTrue(nextResult2.isFloatingPointNumber());
-    assertTrue(nextResult.isNumber());
-    assertTrue(nextResult2.isNumber());
-    assertTrue(nextResult.isValueNode());
-    assertTrue(nextResult2.isValueNode());
-    assertTrue(actualCreatePositionNodeResult.isObject());
-    assertSame(currentLocation, traverseResult.getCurrentLocation());
-    assertSame(currentLocation, traverseResult2.getCurrentLocation());
-    assertSame(currentLocation, traverseResult.getTokenLocation());
-    assertSame(currentLocation, traverseResult2.getTokenLocation());
-    assertSame(currentLocation, traverseResult3.getTokenLocation());
-    assertSame(versionResult, traverseResult.version());
-    assertSame(versionResult, traverseResult2.version());
   }
 
   /**
@@ -680,6 +113,8 @@ class BpmnJsonConverterUtilDiffblueTest {
    */
   @Test
   @DisplayName("Test createResourceNode(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ObjectNode BpmnJsonConverterUtil.createResourceNode(String)"})
   void testCreateResourceNode() {
     // Arrange and Act
     ObjectNode actualCreateResourceNodeResult = BpmnJsonConverterUtil.createResourceNode("");
@@ -706,6 +141,8 @@ class BpmnJsonConverterUtilDiffblueTest {
    */
   @Test
   @DisplayName("Test createResourceNode(String); when '42'; then return iterator next toPrettyString is '\"42\"'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ObjectNode BpmnJsonConverterUtil.createResourceNode(String)"})
   void testCreateResourceNode_when42_thenReturnIteratorNextToPrettyStringIs42() {
     // Arrange and Act
     ObjectNode actualCreateResourceNodeResult = BpmnJsonConverterUtil.createResourceNode("42");
@@ -732,6 +169,8 @@ class BpmnJsonConverterUtilDiffblueTest {
    */
   @Test
   @DisplayName("Test createResourceNode(String); when 'null'; then iterator next return NullNode")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ObjectNode BpmnJsonConverterUtil.createResourceNode(String)"})
   void testCreateResourceNode_whenNull_thenIteratorNextReturnNullNode() {
     // Arrange and Act
     ObjectNode actualCreateResourceNodeResult = BpmnJsonConverterUtil.createResourceNode(null);
@@ -740,7 +179,6 @@ class BpmnJsonConverterUtilDiffblueTest {
     Iterator<JsonNode> iteratorResult = actualCreateResourceNodeResult.iterator();
     JsonNode nextResult = iteratorResult.next();
     assertTrue(nextResult instanceof NullNode);
-    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
     assertTrue(actualCreateResourceNodeResult.traverse() instanceof TreeTraversingParser);
     assertEquals("null", nextResult.toPrettyString());
     assertEquals("{\n  \"resourceId\" : null\n}", actualCreateResourceNodeResult.toPrettyString());
@@ -753,8 +191,7 @@ class BpmnJsonConverterUtilDiffblueTest {
   /**
    * Test {@link BpmnJsonConverterUtil#getStencilId(JsonNode)}.
    * <ul>
-   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is
-   * withExactBigDecimals {@code true}.</li>
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
@@ -762,6 +199,8 @@ class BpmnJsonConverterUtilDiffblueTest {
    */
   @Test
   @DisplayName("Test getStencilId(JsonNode); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'; then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String BpmnJsonConverterUtil.getStencilId(JsonNode)"})
   void testGetStencilId_whenArrayNodeWithNfIsWithExactBigDecimalsTrue_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(BpmnJsonConverterUtil.getStencilId(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true))));
@@ -778,6 +217,8 @@ class BpmnJsonConverterUtilDiffblueTest {
    */
   @Test
   @DisplayName("Test getStencilId(JsonNode); when Instance; then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String BpmnJsonConverterUtil.getStencilId(JsonNode)"})
   void testGetStencilId_whenInstance_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(BpmnJsonConverterUtil.getStencilId(MissingNode.getInstance()));
@@ -790,6 +231,8 @@ class BpmnJsonConverterUtilDiffblueTest {
    */
   @Test
   @DisplayName("Test getElementId(JsonNode)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String BpmnJsonConverterUtil.getElementId(JsonNode)"})
   void testGetElementId() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -811,8 +254,7 @@ class BpmnJsonConverterUtilDiffblueTest {
   /**
    * Test {@link BpmnJsonConverterUtil#getElementId(JsonNode)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return
-   * Instance.</li>
+   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.</li>
    *   <li>Then return {@code As Text}.</li>
    * </ul>
    * <p>
@@ -820,6 +262,8 @@ class BpmnJsonConverterUtilDiffblueTest {
    */
   @Test
   @DisplayName("Test getElementId(JsonNode); given ArrayNode get(String) return Instance; then return 'As Text'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String BpmnJsonConverterUtil.getElementId(JsonNode)"})
   void testGetElementId_givenArrayNodeGetReturnInstance_thenReturnAsText() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -841,8 +285,7 @@ class BpmnJsonConverterUtilDiffblueTest {
   /**
    * Test {@link BpmnJsonConverterUtil#getElementId(JsonNode)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return
-   * Instance.</li>
+   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.</li>
    *   <li>Then return {@code As Text}.</li>
    * </ul>
    * <p>
@@ -850,6 +293,8 @@ class BpmnJsonConverterUtilDiffblueTest {
    */
   @Test
   @DisplayName("Test getElementId(JsonNode); given ArrayNode get(String) return Instance; then return 'As Text'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String BpmnJsonConverterUtil.getElementId(JsonNode)"})
   void testGetElementId_givenArrayNodeGetReturnInstance_thenReturnAsText2() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -871,8 +316,7 @@ class BpmnJsonConverterUtilDiffblueTest {
   /**
    * Test {@link BpmnJsonConverterUtil#getElementId(JsonNode)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link JsonNode#isNull()} return
-   * {@code true}.</li>
+   *   <li>Given {@link ArrayNode} {@link JsonNode#isNull()} return {@code true}.</li>
    *   <li>Then calls {@link JsonNode#isNull()}.</li>
    * </ul>
    * <p>
@@ -880,11 +324,12 @@ class BpmnJsonConverterUtilDiffblueTest {
    */
   @Test
   @DisplayName("Test getElementId(JsonNode); given ArrayNode isNull() return 'true'; then calls isNull()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String BpmnJsonConverterUtil.getElementId(JsonNode)"})
   void testGetElementId_givenArrayNodeIsNullReturnTrue_thenCallsIsNull() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.isNull()).thenReturn(true);
-    when(arrayNode.asText()).thenReturn("As Text");
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
     when(arrayNode2.asText()).thenReturn("As Text");
@@ -905,14 +350,15 @@ class BpmnJsonConverterUtilDiffblueTest {
   /**
    * Test {@link BpmnJsonConverterUtil#getElementId(JsonNode)}.
    * <ul>
-   *   <li>Given {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is
-   * withExactBigDecimals {@code true}.</li>
+   *   <li>Given {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnJsonConverterUtil#getElementId(JsonNode)}
    */
   @Test
   @DisplayName("Test getElementId(JsonNode); given ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String BpmnJsonConverterUtil.getElementId(JsonNode)"})
   void testGetElementId_givenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
     // Arrange
     ArrayNode objectNode = mock(ArrayNode.class);
@@ -930,14 +376,15 @@ class BpmnJsonConverterUtilDiffblueTest {
    * Test {@link BpmnJsonConverterUtil#getElementId(JsonNode)}.
    * <ul>
    *   <li>Given Instance.</li>
-   *   <li>When {@link ArrayNode} {@link ArrayNode#get(String)} return
-   * Instance.</li>
+   *   <li>When {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.</li>
    * </ul>
    * <p>
    * Method under test: {@link BpmnJsonConverterUtil#getElementId(JsonNode)}
    */
   @Test
   @DisplayName("Test getElementId(JsonNode); given Instance; when ArrayNode get(String) return Instance")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String BpmnJsonConverterUtil.getElementId(JsonNode)"})
   void testGetElementId_givenInstance_whenArrayNodeGetReturnInstance() {
     // Arrange
     ArrayNode objectNode = mock(ArrayNode.class);
@@ -961,6 +408,8 @@ class BpmnJsonConverterUtilDiffblueTest {
    */
   @Test
   @DisplayName("Test getElementId(JsonNode); then return '1'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String BpmnJsonConverterUtil.getElementId(JsonNode)"})
   void testGetElementId_thenReturn1() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -978,15 +427,14 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertMessagesToJson(BpmnModel, ObjectNode)}
-   * with {@code bpmnModel}, {@code propertiesNode}.
+   * Test {@link BpmnJsonConverterUtil#convertMessagesToJson(BpmnModel, ObjectNode)} with {@code bpmnModel}, {@code propertiesNode}.
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertMessagesToJson(BpmnModel, ObjectNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertMessagesToJson(BpmnModel, ObjectNode)}
    */
   @Test
   @DisplayName("Test convertMessagesToJson(BpmnModel, ObjectNode) with 'bpmnModel', 'propertiesNode'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertMessagesToJson(BpmnModel, ObjectNode)"})
   void testConvertMessagesToJsonWithBpmnModelPropertiesNode() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -1009,15 +457,14 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertMessagesToJson(Collection, ObjectNode)}
-   * with {@code messages}, {@code propertiesNode}.
+   * Test {@link BpmnJsonConverterUtil#convertMessagesToJson(Collection, ObjectNode)} with {@code messages}, {@code propertiesNode}.
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertMessagesToJson(Collection, ObjectNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertMessagesToJson(Collection, ObjectNode)}
    */
   @Test
   @DisplayName("Test convertMessagesToJson(Collection, ObjectNode) with 'messages', 'propertiesNode'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertMessagesToJson(Collection, ObjectNode)"})
   void testConvertMessagesToJsonWithMessagesPropertiesNode() {
     // Arrange
     ArrayList<Message> messages = new ArrayList<>();
@@ -1040,24 +487,18 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertMessagesToJson(Collection, ObjectNode)}
-   * with {@code messages}, {@code propertiesNode}.
+   * Test {@link BpmnJsonConverterUtil#convertMessagesToJson(Collection, ObjectNode)} with {@code messages}, {@code propertiesNode}.
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertMessagesToJson(Collection, ObjectNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertMessagesToJson(Collection, ObjectNode)}
    */
   @Test
   @DisplayName("Test convertMessagesToJson(Collection, ObjectNode) with 'messages', 'propertiesNode'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertMessagesToJson(Collection, ObjectNode)"})
   void testConvertMessagesToJsonWithMessagesPropertiesNode2() {
     // Arrange
-    Message message = new Message("42", "Name", "Item Ref");
-    message.setId(null);
-    message.setItemRef(null);
-    message.setName(null);
-
     LinkedHashSet<Message> messages = new LinkedHashSet<>();
-    messages.add(message);
+    messages.add(new Message(null, null, null));
     ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
 
     // Act
@@ -1082,20 +523,59 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertMessagesToJson(Collection, ObjectNode)}
-   * with {@code messages}, {@code propertiesNode}.
+   * Test {@link BpmnJsonConverterUtil#convertMessagesToJson(Collection, ObjectNode)} with {@code messages}, {@code propertiesNode}.
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertMessagesToJson(Collection, ObjectNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertMessagesToJson(Collection, ObjectNode)}
    */
   @Test
   @DisplayName("Test convertMessagesToJson(Collection, ObjectNode) with 'messages', 'propertiesNode'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertMessagesToJson(Collection, ObjectNode)"})
   void testConvertMessagesToJsonWithMessagesPropertiesNode3() {
     // Arrange
+    LinkedHashSet<Message> messages = new LinkedHashSet<>();
+    messages.add(new Message(null, "Name", null));
+    ObjectNode propertiesNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    // Act
+    BpmnJsonConverterUtil.convertMessagesToJson(messages, propertiesNode);
+
+    // Assert
+    Iterator<JsonNode> iteratorResult = propertiesNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ArrayNode);
+    Iterator<JsonNode> elementsResult = nextResult.elements();
+    JsonNode nextResult2 = elementsResult.next();
+    Iterator<JsonNode> iteratorResult2 = nextResult2.iterator();
+    assertTrue(iteratorResult2.next() instanceof NullNode);
+    assertTrue(nextResult2 instanceof ObjectNode);
+    assertTrue(iteratorResult2.next() instanceof TextNode);
+    assertEquals("[ {\n  \"message_id\" : null,\n  \"message_name\" : \"Name\",\n  \"message_item_ref\" : null\n} ]",
+        nextResult.toPrettyString());
+    assertEquals("{\n  \"message_id\" : null,\n  \"message_name\" : \"Name\",\n  \"message_item_ref\" : null\n}",
+        nextResult2.toPrettyString());
+    assertEquals("{\n" + "  \"messages\" : [ {\n" + "    \"message_id\" : null,\n"
+        + "    \"message_name\" : \"Name\",\n" + "    \"message_item_ref\" : null\n" + "  } ]\n" + "}",
+        propertiesNode.toPrettyString());
+    assertFalse(elementsResult.hasNext());
+    assertFalse(iteratorResult.hasNext());
+    assertTrue(iteratorResult2.hasNext());
+  }
+
+  /**
+   * Test {@link BpmnJsonConverterUtil#convertMessagesToJson(Collection, ObjectNode)} with {@code messages}, {@code propertiesNode}.
+   * <p>
+   * Method under test: {@link BpmnJsonConverterUtil#convertMessagesToJson(Collection, ObjectNode)}
+   */
+  @Test
+  @DisplayName("Test convertMessagesToJson(Collection, ObjectNode) with 'messages', 'propertiesNode'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertMessagesToJson(Collection, ObjectNode)"})
+  void testConvertMessagesToJsonWithMessagesPropertiesNode4() {
+    // Arrange
     ArrayList<Message> messages = new ArrayList<>();
-    Message.Builder builderResult = Message.builder();
-    Message.Builder attributesResult = builderResult.attributes(new HashMap<>());
+    Builder builderResult = Message.builder();
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
     Message buildResult = attributesResult.extensionElements(new HashMap<>())
         .id("")
         .itemRef("Item Ref")
@@ -1119,12 +599,9 @@ class BpmnJsonConverterUtilDiffblueTest {
     Iterator<JsonNode> iteratorResult2 = nextResult2.iterator();
     JsonNode nextResult3 = iteratorResult2.next();
     assertTrue(nextResult3 instanceof TextNode);
-    JsonNode nextResult4 = iteratorResult2.next();
-    assertTrue(nextResult4 instanceof TextNode);
     assertEquals(
         "[ {\n  \"message_id\" : \"\",\n  \"message_name\" : \"Name\",\n  \"message_item_ref\" : \"Item Ref\"\n} ]",
         nextResult.toPrettyString());
-    assertEquals("\"Name\"", nextResult4.toPrettyString());
     assertEquals("\"\"", nextResult3.toPrettyString());
     assertEquals(
         "{\n  \"message_id\" : \"\",\n  \"message_name\" : \"Name\",\n  \"message_item_ref\" : \"Item Ref\"\n}",
@@ -1141,14 +618,14 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertListenersToJson(List, boolean, ObjectNode)}.
+   * Test {@link BpmnJsonConverterUtil#convertListenersToJson(List, boolean, ObjectNode)}.
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertListenersToJson(List, boolean, ObjectNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertListenersToJson(List, boolean, ObjectNode)}
    */
   @Test
   @DisplayName("Test convertListenersToJson(List, boolean, ObjectNode)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertListenersToJson(List, boolean, ObjectNode)"})
   void testConvertListenersToJson() {
     // Arrange
     ArrayList<ActivitiListener> listeners = new ArrayList<>();
@@ -1177,14 +654,14 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertListenersToJson(List, boolean, ObjectNode)}.
+   * Test {@link BpmnJsonConverterUtil#convertListenersToJson(List, boolean, ObjectNode)}.
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertListenersToJson(List, boolean, ObjectNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertListenersToJson(List, boolean, ObjectNode)}
    */
   @Test
   @DisplayName("Test convertListenersToJson(List, boolean, ObjectNode)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertListenersToJson(List, boolean, ObjectNode)"})
   void testConvertListenersToJson2() {
     // Arrange
     ArrayList<ActivitiListener> listeners = new ArrayList<>();
@@ -1212,14 +689,14 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertListenersToJson(List, boolean, ObjectNode)}.
+   * Test {@link BpmnJsonConverterUtil#convertListenersToJson(List, boolean, ObjectNode)}.
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertListenersToJson(List, boolean, ObjectNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertListenersToJson(List, boolean, ObjectNode)}
    */
   @Test
   @DisplayName("Test convertListenersToJson(List, boolean, ObjectNode)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertListenersToJson(List, boolean, ObjectNode)"})
   void testConvertListenersToJson3() {
     // Arrange
     ActivitiListener activitiListener = new ActivitiListener();
@@ -1243,10 +720,8 @@ class BpmnJsonConverterUtilDiffblueTest {
     assertTrue(nextResult3 instanceof ObjectNode);
     assertTrue(nextResult instanceof ObjectNode);
     Iterator<JsonNode> iteratorResult3 = nextResult3.iterator();
-    JsonNode nextResult4 = iteratorResult3.next();
-    assertTrue(nextResult4 instanceof TextNode);
+    assertTrue(iteratorResult3.next() instanceof TextNode);
     assertEquals("[ {\n  \"event\" : \"executionlisteners\"\n} ]", nextResult2.toPrettyString());
-    assertEquals("\"executionlisteners\"", nextResult4.toPrettyString());
     assertEquals("{\n  \"event\" : \"executionlisteners\"\n}", nextResult3.toPrettyString());
     assertEquals("{\n  \"executionListeners\" : [ {\n    \"event\" : \"executionlisteners\"\n  } ]\n}",
         nextResult.toPrettyString());
@@ -1254,24 +729,21 @@ class BpmnJsonConverterUtilDiffblueTest {
         "{\n" + "  \"executionlisteners\" : {\n" + "    \"executionListeners\" : [ {\n"
             + "      \"event\" : \"executionlisteners\"\n" + "    } ]\n" + "  }\n" + "}",
         propertiesNode.toPrettyString());
-    assertEquals(JsonNodeType.STRING, nextResult4.getNodeType());
-    assertFalse(nextResult4.isNull());
     assertFalse(elementsResult.hasNext());
     assertFalse(iteratorResult.hasNext());
     assertFalse(iteratorResult3.hasNext());
     assertFalse(iteratorResult2.hasNext());
-    assertTrue(nextResult4.isTextual());
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertEventListenersToJson(List, ObjectNode)}.
+   * Test {@link BpmnJsonConverterUtil#convertEventListenersToJson(List, ObjectNode)}.
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertEventListenersToJson(List, ObjectNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertEventListenersToJson(List, ObjectNode)}
    */
   @Test
   @DisplayName("Test convertEventListenersToJson(List, ObjectNode)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertEventListenersToJson(List, ObjectNode)"})
   void testConvertEventListenersToJson() {
     // Arrange
     ArrayList<EventListener> listeners = new ArrayList<>();
@@ -1299,14 +771,14 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertSignalDefinitionsToJson(BpmnModel, ObjectNode)}.
+   * Test {@link BpmnJsonConverterUtil#convertSignalDefinitionsToJson(BpmnModel, ObjectNode)}.
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertSignalDefinitionsToJson(BpmnModel, ObjectNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertSignalDefinitionsToJson(BpmnModel, ObjectNode)}
    */
   @Test
   @DisplayName("Test convertSignalDefinitionsToJson(BpmnModel, ObjectNode)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertSignalDefinitionsToJson(BpmnModel, ObjectNode)"})
   void testConvertSignalDefinitionsToJson() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -1329,14 +801,14 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertSignalDefinitionsToJson(BpmnModel, ObjectNode)}.
+   * Test {@link BpmnJsonConverterUtil#convertSignalDefinitionsToJson(BpmnModel, ObjectNode)}.
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertSignalDefinitionsToJson(BpmnModel, ObjectNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertSignalDefinitionsToJson(BpmnModel, ObjectNode)}
    */
   @Test
   @DisplayName("Test convertSignalDefinitionsToJson(BpmnModel, ObjectNode)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertSignalDefinitionsToJson(BpmnModel, ObjectNode)"})
   void testConvertSignalDefinitionsToJson2() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -1370,14 +842,14 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertSignalDefinitionsToJson(BpmnModel, ObjectNode)}.
+   * Test {@link BpmnJsonConverterUtil#convertSignalDefinitionsToJson(BpmnModel, ObjectNode)}.
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertSignalDefinitionsToJson(BpmnModel, ObjectNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertSignalDefinitionsToJson(BpmnModel, ObjectNode)}
    */
   @Test
   @DisplayName("Test convertSignalDefinitionsToJson(BpmnModel, ObjectNode)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertSignalDefinitionsToJson(BpmnModel, ObjectNode)"})
   void testConvertSignalDefinitionsToJson3() {
     // Arrange
     BpmnModel bpmnModel = new BpmnModel();
@@ -1411,18 +883,18 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}.
    * <ul>
    *   <li>Given {@link ArrayList#ArrayList()} add Instance.</li>
    *   <li>Then calls {@link JsonNode#asText()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}
    */
   @Test
   @DisplayName("Test convertJsonToListeners(JsonNode, BaseElement); given ArrayList() add Instance; then calls asText()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToListeners(JsonNode, BaseElement)"})
   void testConvertJsonToListeners_givenArrayListAddInstance_thenCallsAsText() {
     // Arrange
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
@@ -1436,7 +908,6 @@ class BpmnJsonConverterUtilDiffblueTest {
     JsonNode jsonNode2 = mock(JsonNode.class);
     when(jsonNode2.get(Mockito.<String>any())).thenReturn(jsonNode);
     when(jsonNode2.isNull()).thenReturn(true);
-    when(jsonNode2.isTextual()).thenReturn(true);
     JsonNode jsonNode3 = mock(JsonNode.class);
     when(jsonNode3.get(Mockito.<String>any())).thenReturn(jsonNode2);
     JsonNode objectNode = mock(JsonNode.class);
@@ -1457,18 +928,18 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}.
    * <ul>
    *   <li>Given Instance.</li>
    *   <li>When {@link JsonNode} {@link JsonNode#get(String)} return Instance.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}
    */
   @Test
   @DisplayName("Test convertJsonToListeners(JsonNode, BaseElement); given Instance; when JsonNode get(String) return Instance")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToListeners(JsonNode, BaseElement)"})
   void testConvertJsonToListeners_givenInstance_whenJsonNodeGetReturnInstance() {
     // Arrange
     JsonNode objectNode = mock(JsonNode.class);
@@ -1477,23 +948,23 @@ class BpmnJsonConverterUtilDiffblueTest {
     // Act
     BpmnJsonConverterUtil.convertJsonToListeners(objectNode, new ActivitiListener());
 
-    // Assert that nothing has changed
+    // Assert
     verify(objectNode, atLeast(1)).get(eq("properties"));
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}.
    * <ul>
    *   <li>Given {@link JsonNode} {@link JsonNode#asText()} return {@code 42}.</li>
    *   <li>Then calls {@link JsonNode#asText()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}
    */
   @Test
   @DisplayName("Test convertJsonToListeners(JsonNode, BaseElement); given JsonNode asText() return '42'; then calls asText()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToListeners(JsonNode, BaseElement)"})
   void testConvertJsonToListeners_givenJsonNodeAsTextReturn42_thenCallsAsText() {
     // Arrange
     JsonNode jsonNode = mock(JsonNode.class);
@@ -1503,7 +974,6 @@ class BpmnJsonConverterUtilDiffblueTest {
     JsonNode jsonNode2 = mock(JsonNode.class);
     when(jsonNode2.get(Mockito.<String>any())).thenReturn(jsonNode);
     when(jsonNode2.isNull()).thenReturn(true);
-    when(jsonNode2.isTextual()).thenReturn(true);
     JsonNode jsonNode3 = mock(JsonNode.class);
     when(jsonNode3.get(Mockito.<String>any())).thenReturn(jsonNode2);
     JsonNode objectNode = mock(JsonNode.class);
@@ -1523,19 +993,18 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}.
    * <ul>
-   *   <li>Given {@link JsonNode} {@link JsonNode#asText()} return
-   * {@code As Text}.</li>
+   *   <li>Given {@link JsonNode} {@link JsonNode#asText()} return {@code As Text}.</li>
    *   <li>Then calls {@link JsonNode#asText()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}
    */
   @Test
   @DisplayName("Test convertJsonToListeners(JsonNode, BaseElement); given JsonNode asText() return 'As Text'; then calls asText()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToListeners(JsonNode, BaseElement)"})
   void testConvertJsonToListeners_givenJsonNodeAsTextReturnAsText_thenCallsAsText() {
     // Arrange
     JsonNode jsonNode = mock(JsonNode.class);
@@ -1548,7 +1017,6 @@ class BpmnJsonConverterUtilDiffblueTest {
     JsonNode jsonNode2 = mock(JsonNode.class);
     when(jsonNode2.get(Mockito.<String>any())).thenReturn(jsonNode);
     when(jsonNode2.isNull()).thenReturn(true);
-    when(jsonNode2.isTextual()).thenReturn(true);
     JsonNode jsonNode3 = mock(JsonNode.class);
     when(jsonNode3.get(Mockito.<String>any())).thenReturn(jsonNode2);
     JsonNode objectNode = mock(JsonNode.class);
@@ -1569,19 +1037,18 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}.
    * <ul>
-   *   <li>Given {@link JsonNode} {@link JsonNode#asText()} return
-   * {@code As Text}.</li>
+   *   <li>Given {@link JsonNode} {@link JsonNode#asText()} return {@code As Text}.</li>
    *   <li>Then calls {@link JsonNode#asText()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}
    */
   @Test
   @DisplayName("Test convertJsonToListeners(JsonNode, BaseElement); given JsonNode asText() return 'As Text'; then calls asText()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToListeners(JsonNode, BaseElement)"})
   void testConvertJsonToListeners_givenJsonNodeAsTextReturnAsText_thenCallsAsText2() {
     // Arrange
     JsonNode jsonNode = mock(JsonNode.class);
@@ -1618,19 +1085,18 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}.
    * <ul>
-   *   <li>Given {@link JsonNode} {@link JsonNode#asText()} return
-   * {@code As Text}.</li>
+   *   <li>Given {@link JsonNode} {@link JsonNode#asText()} return {@code As Text}.</li>
    *   <li>When {@link UserTask} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}
    */
   @Test
   @DisplayName("Test convertJsonToListeners(JsonNode, BaseElement); given JsonNode asText() return 'As Text'; when UserTask (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToListeners(JsonNode, BaseElement)"})
   void testConvertJsonToListeners_givenJsonNodeAsTextReturnAsText_whenUserTask() {
     // Arrange
     JsonNode jsonNode = mock(JsonNode.class);
@@ -1667,19 +1133,18 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}.
    * <ul>
-   *   <li>Given {@link JsonNode} {@link JsonNode#asText()} return empty
-   * string.</li>
+   *   <li>Given {@link JsonNode} {@link JsonNode#asText()} return empty string.</li>
    *   <li>Then calls {@link JsonNode#asText()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}
    */
   @Test
   @DisplayName("Test convertJsonToListeners(JsonNode, BaseElement); given JsonNode asText() return empty string; then calls asText()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToListeners(JsonNode, BaseElement)"})
   void testConvertJsonToListeners_givenJsonNodeAsTextReturnEmptyString_thenCallsAsText() {
     // Arrange
     JsonNode jsonNode = mock(JsonNode.class);
@@ -1692,7 +1157,6 @@ class BpmnJsonConverterUtilDiffblueTest {
     JsonNode jsonNode2 = mock(JsonNode.class);
     when(jsonNode2.get(Mockito.<String>any())).thenReturn(jsonNode);
     when(jsonNode2.isNull()).thenReturn(true);
-    when(jsonNode2.isTextual()).thenReturn(true);
     JsonNode jsonNode3 = mock(JsonNode.class);
     when(jsonNode3.get(Mockito.<String>any())).thenReturn(jsonNode2);
     JsonNode objectNode = mock(JsonNode.class);
@@ -1701,7 +1165,7 @@ class BpmnJsonConverterUtilDiffblueTest {
     // Act
     BpmnJsonConverterUtil.convertJsonToListeners(objectNode, new ActivitiListener());
 
-    // Assert that nothing has changed
+    // Assert
     verify(jsonNode).asText();
     verify(jsonNode2).get(eq("executionListeners"));
     verify(jsonNode3).get(eq("executionlisteners"));
@@ -1713,19 +1177,18 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}.
    * <ul>
-   *   <li>Given {@link JsonNode} {@link JsonNode#asText()} return
-   * {@code null}.</li>
+   *   <li>Given {@link JsonNode} {@link JsonNode#asText()} return {@code null}.</li>
    *   <li>Then calls {@link JsonNode#asText()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}
    */
   @Test
   @DisplayName("Test convertJsonToListeners(JsonNode, BaseElement); given JsonNode asText() return 'null'; then calls asText()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToListeners(JsonNode, BaseElement)"})
   void testConvertJsonToListeners_givenJsonNodeAsTextReturnNull_thenCallsAsText() {
     // Arrange
     JsonNode jsonNode = mock(JsonNode.class);
@@ -1738,7 +1201,6 @@ class BpmnJsonConverterUtilDiffblueTest {
     JsonNode jsonNode2 = mock(JsonNode.class);
     when(jsonNode2.get(Mockito.<String>any())).thenReturn(jsonNode);
     when(jsonNode2.isNull()).thenReturn(true);
-    when(jsonNode2.isTextual()).thenReturn(true);
     JsonNode jsonNode3 = mock(JsonNode.class);
     when(jsonNode3.get(Mockito.<String>any())).thenReturn(jsonNode2);
     JsonNode objectNode = mock(JsonNode.class);
@@ -1747,7 +1209,7 @@ class BpmnJsonConverterUtilDiffblueTest {
     // Act
     BpmnJsonConverterUtil.convertJsonToListeners(objectNode, new ActivitiListener());
 
-    // Assert that nothing has changed
+    // Assert
     verify(jsonNode).asText();
     verify(jsonNode2).get(eq("executionListeners"));
     verify(jsonNode3).get(eq("executionlisteners"));
@@ -1759,17 +1221,17 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}.
    * <ul>
    *   <li>Given {@link JsonNode} {@link JsonNode#get(String)} return False.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}
    */
   @Test
   @DisplayName("Test convertJsonToListeners(JsonNode, BaseElement); given JsonNode get(String) return False")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToListeners(JsonNode, BaseElement)"})
   void testConvertJsonToListeners_givenJsonNodeGetReturnFalse() {
     // Arrange
     JsonNode jsonNode = mock(JsonNode.class);
@@ -1780,23 +1242,23 @@ class BpmnJsonConverterUtilDiffblueTest {
     // Act
     BpmnJsonConverterUtil.convertJsonToListeners(objectNode, new ActivitiListener());
 
-    // Assert that nothing has changed
+    // Assert
     verify(jsonNode).get(eq("executionlisteners"));
     verify(objectNode, atLeast(1)).get(eq("properties"));
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}.
    * <ul>
    *   <li>Given {@link JsonNode} {@link JsonNode#get(String)} return Instance.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}
    */
   @Test
   @DisplayName("Test convertJsonToListeners(JsonNode, BaseElement); given JsonNode get(String) return Instance")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToListeners(JsonNode, BaseElement)"})
   void testConvertJsonToListeners_givenJsonNodeGetReturnInstance() {
     // Arrange
     JsonNode jsonNode = mock(JsonNode.class);
@@ -1807,23 +1269,23 @@ class BpmnJsonConverterUtilDiffblueTest {
     // Act
     BpmnJsonConverterUtil.convertJsonToListeners(objectNode, new ActivitiListener());
 
-    // Assert that nothing has changed
+    // Assert
     verify(jsonNode).get(eq("executionlisteners"));
     verify(objectNode, atLeast(1)).get(eq("properties"));
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}.
    * <ul>
    *   <li>Given {@link JsonNode} {@link JsonNode#get(String)} return Instance.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}
    */
   @Test
   @DisplayName("Test convertJsonToListeners(JsonNode, BaseElement); given JsonNode get(String) return Instance")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToListeners(JsonNode, BaseElement)"})
   void testConvertJsonToListeners_givenJsonNodeGetReturnInstance2() {
     // Arrange
     JsonNode jsonNode = mock(JsonNode.class);
@@ -1834,24 +1296,24 @@ class BpmnJsonConverterUtilDiffblueTest {
     // Act
     BpmnJsonConverterUtil.convertJsonToListeners(objectNode, new ActivitiListener());
 
-    // Assert that nothing has changed
+    // Assert
     verify(jsonNode).get(eq("executionlisteners"));
     verify(objectNode, atLeast(1)).get(eq("properties"));
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}.
    * <ul>
    *   <li>Given {@link JsonNode} {@link JsonNode#get(String)} return Instance.</li>
    *   <li>Then calls {@link JsonNode#isNull()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}
    */
   @Test
   @DisplayName("Test convertJsonToListeners(JsonNode, BaseElement); given JsonNode get(String) return Instance; then calls isNull()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToListeners(JsonNode, BaseElement)"})
   void testConvertJsonToListeners_givenJsonNodeGetReturnInstance_thenCallsIsNull() {
     // Arrange
     JsonNode jsonNode = mock(JsonNode.class);
@@ -1865,7 +1327,7 @@ class BpmnJsonConverterUtilDiffblueTest {
     // Act
     BpmnJsonConverterUtil.convertJsonToListeners(objectNode, new ActivitiListener());
 
-    // Assert that nothing has changed
+    // Assert
     verify(jsonNode).get(eq("executionListeners"));
     verify(jsonNode2).get(eq("executionlisteners"));
     verify(objectNode, atLeast(1)).get(eq("properties"));
@@ -1873,19 +1335,18 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}.
    * <ul>
-   *   <li>Given {@link JsonNode} {@link JsonNode#isNull()} return
-   * {@code true}.</li>
+   *   <li>Given {@link JsonNode} {@link JsonNode#isNull()} return {@code true}.</li>
    *   <li>Then calls {@link JsonNode#iterator()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToListeners(JsonNode, BaseElement)}
    */
   @Test
   @DisplayName("Test convertJsonToListeners(JsonNode, BaseElement); given JsonNode isNull() return 'true'; then calls iterator()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToListeners(JsonNode, BaseElement)"})
   void testConvertJsonToListeners_givenJsonNodeIsNullReturnTrue_thenCallsIterator() {
     // Arrange
     JsonNode jsonNode = mock(JsonNode.class);
@@ -1904,7 +1365,7 @@ class BpmnJsonConverterUtilDiffblueTest {
     // Act
     BpmnJsonConverterUtil.convertJsonToListeners(objectNode, new ActivitiListener());
 
-    // Assert that nothing has changed
+    // Assert
     verify(jsonNode2).get(eq("executionListeners"));
     verify(jsonNode3).get(eq("executionlisteners"));
     verify(objectNode, atLeast(1)).get(eq("properties"));
@@ -1914,14 +1375,14 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
    */
   @Test
   @DisplayName("Test convertJsonToMessages(JsonNode, BpmnModel)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToMessages(JsonNode, BpmnModel)"})
   void testConvertJsonToMessages() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -1940,14 +1401,14 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
    */
   @Test
   @DisplayName("Test convertJsonToMessages(JsonNode, BpmnModel)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToMessages(JsonNode, BpmnModel)"})
   void testConvertJsonToMessages2() {
     // Arrange
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
@@ -1967,7 +1428,7 @@ class BpmnJsonConverterUtilDiffblueTest {
     // Act
     BpmnJsonConverterUtil.convertJsonToMessages(objectNode, element);
 
-    // Assert
+    // Assert that nothing has changed
     verify(arrayNode).isNull();
     verify(arrayNode).isTextual();
     verify(arrayNode).iterator();
@@ -1978,14 +1439,14 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
    */
   @Test
   @DisplayName("Test convertJsonToMessages(JsonNode, BpmnModel)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToMessages(JsonNode, BpmnModel)"})
   void testConvertJsonToMessages3() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -2008,7 +1469,7 @@ class BpmnJsonConverterUtilDiffblueTest {
     // Act
     BpmnJsonConverterUtil.convertJsonToMessages(objectNode, element);
 
-    // Assert
+    // Assert that nothing has changed
     verify(arrayNode2).isNull();
     verify(arrayNode2).isTextual();
     verify(arrayNode2).iterator();
@@ -2020,18 +1481,18 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
    * <ul>
    *   <li>Given {@link ArrayList#ArrayList()} add Instance.</li>
    *   <li>Then calls {@link JsonNode#isTextual()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
    */
   @Test
   @DisplayName("Test convertJsonToMessages(JsonNode, BpmnModel); given ArrayList() add Instance; then calls isTextual()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToMessages(JsonNode, BpmnModel)"})
   void testConvertJsonToMessages_givenArrayListAddInstance_thenCallsIsTextual() {
     // Arrange
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
@@ -2051,7 +1512,7 @@ class BpmnJsonConverterUtilDiffblueTest {
     // Act
     BpmnJsonConverterUtil.convertJsonToMessages(objectNode, element);
 
-    // Assert
+    // Assert that nothing has changed
     verify(arrayNode).isNull();
     verify(arrayNode).isTextual();
     verify(arrayNode).iterator();
@@ -2062,19 +1523,18 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ContainerNode#asText()} return
-   * {@code 42}.</li>
+   *   <li>Given {@link ArrayNode} {@link ContainerNode#asText()} return {@code 42}.</li>
    *   <li>Then calls {@link JsonNode#isTextual()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
    */
   @Test
   @DisplayName("Test convertJsonToMessages(JsonNode, BpmnModel); given ArrayNode asText() return '42'; then calls isTextual()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToMessages(JsonNode, BpmnModel)"})
   void testConvertJsonToMessages_givenArrayNodeAsTextReturn42_thenCallsIsTextual() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -2090,7 +1550,7 @@ class BpmnJsonConverterUtilDiffblueTest {
     // Act
     BpmnJsonConverterUtil.convertJsonToMessages(objectNode, element);
 
-    // Assert
+    // Assert that nothing has changed
     verify(arrayNode).isNull();
     verify(arrayNode).isTextual();
     verify(arrayNode2).get(eq("messagedefinitions"));
@@ -2100,19 +1560,18 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ContainerNode#asText()} return
-   * {@code As Text}.</li>
+   *   <li>Given {@link ArrayNode} {@link ContainerNode#asText()} return {@code As Text}.</li>
    *   <li>Then calls {@link JsonNode#isTextual()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
    */
   @Test
   @DisplayName("Test convertJsonToMessages(JsonNode, BpmnModel); given ArrayNode asText() return 'As Text'; then calls isTextual()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToMessages(JsonNode, BpmnModel)"})
   void testConvertJsonToMessages_givenArrayNodeAsTextReturnAsText_thenCallsIsTextual() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -2131,7 +1590,7 @@ class BpmnJsonConverterUtilDiffblueTest {
     // Act
     BpmnJsonConverterUtil.convertJsonToMessages(objectNode, element);
 
-    // Assert
+    // Assert that nothing has changed
     verify(arrayNode).isNull();
     verify(arrayNode).isTextual();
     verify(arrayNode).iterator();
@@ -2142,18 +1601,17 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ContainerNode#asText()} return empty
-   * string.</li>
+   *   <li>Given {@link ArrayNode} {@link ContainerNode#asText()} return empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
    */
   @Test
   @DisplayName("Test convertJsonToMessages(JsonNode, BpmnModel); given ArrayNode asText() return empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToMessages(JsonNode, BpmnModel)"})
   void testConvertJsonToMessages_givenArrayNodeAsTextReturnEmptyString() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -2183,19 +1641,18 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ContainerNode#asText()} return
-   * {@code null}.</li>
+   *   <li>Given {@link ArrayNode} {@link ContainerNode#asText()} return {@code null}.</li>
    *   <li>Then calls {@link JsonNode#isTextual()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
    */
   @Test
   @DisplayName("Test convertJsonToMessages(JsonNode, BpmnModel); given ArrayNode asText() return 'null'; then calls isTextual()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToMessages(JsonNode, BpmnModel)"})
   void testConvertJsonToMessages_givenArrayNodeAsTextReturnNull_thenCallsIsTextual() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -2225,18 +1682,17 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return
-   * {@link BigIntegerNode#BigIntegerNode(BigInteger)} with v is valueOf one.</li>
+   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return {@link BigIntegerNode#BigIntegerNode(BigInteger)} with v is valueOf one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
    */
   @Test
   @DisplayName("Test convertJsonToMessages(JsonNode, BpmnModel); given ArrayNode get(String) return BigIntegerNode(BigInteger) with v is valueOf one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToMessages(JsonNode, BpmnModel)"})
   void testConvertJsonToMessages_givenArrayNodeGetReturnBigIntegerNodeWithVIsValueOfOne() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -2255,18 +1711,17 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return
-   * Instance.</li>
+   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
    */
   @Test
   @DisplayName("Test convertJsonToMessages(JsonNode, BpmnModel); given ArrayNode get(String) return Instance")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToMessages(JsonNode, BpmnModel)"})
   void testConvertJsonToMessages_givenArrayNodeGetReturnInstance() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -2285,19 +1740,18 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return
-   * Instance.</li>
+   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.</li>
    *   <li>Then calls {@link JsonNode#isTextual()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
    */
   @Test
   @DisplayName("Test convertJsonToMessages(JsonNode, BpmnModel); given ArrayNode get(String) return Instance; then calls isTextual()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToMessages(JsonNode, BpmnModel)"})
   void testConvertJsonToMessages_givenArrayNodeGetReturnInstance_thenCallsIsTextual() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -2320,7 +1774,7 @@ class BpmnJsonConverterUtilDiffblueTest {
     // Act
     BpmnJsonConverterUtil.convertJsonToMessages(objectNode, element);
 
-    // Assert
+    // Assert that nothing has changed
     verify(arrayNode2).isNull();
     verify(arrayNode2).isTextual();
     verify(arrayNode2).iterator();
@@ -2332,24 +1786,22 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link JsonNode#isNull()} return
-   * {@code true}.</li>
+   *   <li>Given {@link ArrayNode} {@link JsonNode#isNull()} return {@code true}.</li>
    *   <li>Then calls {@link JsonNode#isTextual()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
    */
   @Test
   @DisplayName("Test convertJsonToMessages(JsonNode, BpmnModel); given ArrayNode isNull() return 'true'; then calls isTextual()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToMessages(JsonNode, BpmnModel)"})
   void testConvertJsonToMessages_givenArrayNodeIsNullReturnTrue_thenCallsIsTextual() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.isNull()).thenReturn(true);
-    when(arrayNode.asText()).thenReturn("As Text");
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
 
@@ -2370,7 +1822,7 @@ class BpmnJsonConverterUtilDiffblueTest {
     // Act
     BpmnJsonConverterUtil.convertJsonToMessages(objectNode, element);
 
-    // Assert
+    // Assert that nothing has changed
     verify(arrayNode3).isNull();
     verify(arrayNode, atLeast(1)).isNull();
     verify(arrayNode3).isTextual();
@@ -2383,19 +1835,18 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link JsonNode#isNull()} return
-   * {@code true}.</li>
+   *   <li>Given {@link ArrayNode} {@link JsonNode#isNull()} return {@code true}.</li>
    *   <li>Then calls {@link JsonNode#iterator()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
    */
   @Test
   @DisplayName("Test convertJsonToMessages(JsonNode, BpmnModel); given ArrayNode isNull() return 'true'; then calls iterator()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToMessages(JsonNode, BpmnModel)"})
   void testConvertJsonToMessages_givenArrayNodeIsNullReturnTrue_thenCallsIterator() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -2421,18 +1872,17 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
    * <ul>
-   *   <li>Given {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is
-   * withExactBigDecimals {@code true}.</li>
+   *   <li>Given {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
    */
   @Test
   @DisplayName("Test convertJsonToMessages(JsonNode, BpmnModel); given ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToMessages(JsonNode, BpmnModel)"})
   void testConvertJsonToMessages_givenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
     // Arrange
     ArrayNode objectNode = mock(ArrayNode.class);
@@ -2448,19 +1898,18 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
    * <ul>
    *   <li>Given Instance.</li>
-   *   <li>When {@link ArrayNode} {@link ArrayNode#get(String)} return
-   * Instance.</li>
+   *   <li>When {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
    */
   @Test
   @DisplayName("Test convertJsonToMessages(JsonNode, BpmnModel); given Instance; when ArrayNode get(String) return Instance")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToMessages(JsonNode, BpmnModel)"})
   void testConvertJsonToMessages_givenInstance_whenArrayNodeGetReturnInstance() {
     // Arrange
     ArrayNode objectNode = mock(ArrayNode.class);
@@ -2476,17 +1925,17 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
    * <ul>
    *   <li>Then {@link BpmnModel} (default constructor) Messages size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
    */
   @Test
   @DisplayName("Test convertJsonToMessages(JsonNode, BpmnModel); then BpmnModel (default constructor) Messages size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToMessages(JsonNode, BpmnModel)"})
   void testConvertJsonToMessages_thenBpmnModelMessagesSizeIsOne() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -2521,18 +1970,17 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
    * <ul>
-   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is
-   * withExactBigDecimals {@code true}.</li>
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
    */
   @Test
   @DisplayName("Test convertJsonToMessages(JsonNode, BpmnModel); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToMessages(JsonNode, BpmnModel)"})
   void testConvertJsonToMessages_whenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
     // Arrange
     ArrayNode objectNode = new ArrayNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -2546,18 +1994,18 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}.
    * <ul>
    *   <li>When Instance.</li>
    *   <li>Then {@link BpmnModel} (default constructor) Messages Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToMessages(JsonNode, BpmnModel)}
    */
   @Test
   @DisplayName("Test convertJsonToMessages(JsonNode, BpmnModel); when Instance; then BpmnModel (default constructor) Messages Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertJsonToMessages(JsonNode, BpmnModel)"})
   void testConvertJsonToMessages_whenInstance_thenBpmnModelMessagesEmpty() {
     // Arrange
     MissingNode objectNode = MissingNode.getInstance();
@@ -2571,20 +2019,19 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
+   * Test {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
    */
   @Test
   @DisplayName("Test parseListeners(JsonNode, BaseElement, boolean)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseListeners(JsonNode, BaseElement, boolean)"})
   void testParseListeners() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.get(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
     when(arrayNode.isNull()).thenReturn(true);
-    when(arrayNode.isTextual()).thenReturn(true);
 
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     jsonNodeList.add(arrayNode);
@@ -2608,14 +2055,14 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
+   * Test {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
    */
   @Test
   @DisplayName("Test parseListeners(JsonNode, BaseElement, boolean)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseListeners(JsonNode, BaseElement, boolean)"})
   void testParseListeners2() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -2674,20 +2121,19 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
+   * Test {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
    * <ul>
    *   <li>Given {@code 42}.</li>
-   *   <li>When {@link ArrayNode} {@link ContainerNode#asText()} return
-   * {@code 42}.</li>
+   *   <li>When {@link ArrayNode} {@link ContainerNode#asText()} return {@code 42}.</li>
    *   <li>Then calls {@link JsonNode#isTextual()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
    */
   @Test
   @DisplayName("Test parseListeners(JsonNode, BaseElement, boolean); given '42'; when ArrayNode asText() return '42'; then calls isTextual()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseListeners(JsonNode, BaseElement, boolean)"})
   void testParseListeners_given42_whenArrayNodeAsTextReturn42_thenCallsIsTextual() {
     // Arrange
     ArrayNode listenersNode = mock(ArrayNode.class);
@@ -2705,19 +2151,17 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
+   * Test {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add
-   * {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals
-   * {@code true}.</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
    */
   @Test
   @DisplayName("Test parseListeners(JsonNode, BaseElement, boolean); given ArrayList() add ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseListeners(JsonNode, BaseElement, boolean)"})
   void testParseListeners_givenArrayListAddArrayNodeWithNfIsWithExactBigDecimalsTrue() {
     // Arrange
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
@@ -2740,18 +2184,18 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
+   * Test {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
    * <ul>
    *   <li>Given {@link ArrayList#ArrayList()} add Instance.</li>
    *   <li>Then calls {@link ArrayNode#get(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
    */
   @Test
   @DisplayName("Test parseListeners(JsonNode, BaseElement, boolean); given ArrayList() add Instance; then calls get(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseListeners(JsonNode, BaseElement, boolean)"})
   void testParseListeners_givenArrayListAddInstance_thenCallsGet() {
     // Arrange
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
@@ -2763,7 +2207,6 @@ class BpmnJsonConverterUtilDiffblueTest {
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
     when(arrayNode2.isNull()).thenReturn(true);
-    when(arrayNode2.isTextual()).thenReturn(true);
 
     ArrayList<JsonNode> jsonNodeList2 = new ArrayList<>();
     jsonNodeList2.add(arrayNode2);
@@ -2790,19 +2233,18 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
+   * Test {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
    * <ul>
    *   <li>Given {@link ArrayList#ArrayList()} add Instance.</li>
-   *   <li>When {@link ArrayNode} {@link ContainerNode#asText()} return
-   * {@code As Text}.</li>
+   *   <li>When {@link ArrayNode} {@link ContainerNode#asText()} return {@code As Text}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
    */
   @Test
   @DisplayName("Test parseListeners(JsonNode, BaseElement, boolean); given ArrayList() add Instance; when ArrayNode asText() return 'As Text'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseListeners(JsonNode, BaseElement, boolean)"})
   void testParseListeners_givenArrayListAddInstance_whenArrayNodeAsTextReturnAsText() {
     // Arrange
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
@@ -2825,24 +2267,22 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
+   * Test {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return
-   * {@link BigIntegerNode#BigIntegerNode(BigInteger)} with v is valueOf one.</li>
+   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return {@link BigIntegerNode#BigIntegerNode(BigInteger)} with v is valueOf one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
    */
   @Test
   @DisplayName("Test parseListeners(JsonNode, BaseElement, boolean); given ArrayNode get(String) return BigIntegerNode(BigInteger) with v is valueOf one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseListeners(JsonNode, BaseElement, boolean)"})
   void testParseListeners_givenArrayNodeGetReturnBigIntegerNodeWithVIsValueOfOne() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.get(Mockito.<String>any())).thenReturn(new BigIntegerNode(BigInteger.valueOf(1L)));
     when(arrayNode.isNull()).thenReturn(true);
-    when(arrayNode.isTextual()).thenReturn(true);
 
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     jsonNodeList.add(arrayNode);
@@ -2866,25 +2306,23 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
+   * Test {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return
-   * Instance.</li>
+   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.</li>
    *   <li>Then calls {@link ArrayNode#get(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
    */
   @Test
   @DisplayName("Test parseListeners(JsonNode, BaseElement, boolean); given ArrayNode get(String) return Instance; then calls get(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseListeners(JsonNode, BaseElement, boolean)"})
   void testParseListeners_givenArrayNodeGetReturnInstance_thenCallsGet() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
     when(arrayNode.isNull()).thenReturn(true);
-    when(arrayNode.isTextual()).thenReturn(true);
 
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     jsonNodeList.add(arrayNode);
@@ -2908,28 +2346,25 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
+   * Test {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link JsonNode#isNull()} return
-   * {@code true}.</li>
+   *   <li>Given {@link ArrayNode} {@link JsonNode#isNull()} return {@code true}.</li>
    *   <li>Then calls {@link ArrayNode#get(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
    */
   @Test
   @DisplayName("Test parseListeners(JsonNode, BaseElement, boolean); given ArrayNode isNull() return 'true'; then calls get(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseListeners(JsonNode, BaseElement, boolean)"})
   void testParseListeners_givenArrayNodeIsNullReturnTrue_thenCallsGet() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.isNull()).thenReturn(true);
-    when(arrayNode.asText()).thenReturn("As Text");
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
     when(arrayNode2.isNull()).thenReturn(true);
-    when(arrayNode2.isTextual()).thenReturn(true);
 
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
     jsonNodeList.add(arrayNode2);
@@ -2954,19 +2389,18 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
+   * Test {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link JsonNode#isNull()} return
-   * {@code true}.</li>
+   *   <li>Given {@link ArrayNode} {@link JsonNode#isNull()} return {@code true}.</li>
    *   <li>Then calls {@link ArrayNode#get(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
    */
   @Test
   @DisplayName("Test parseListeners(JsonNode, BaseElement, boolean); given ArrayNode isNull() return 'true'; then calls get(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseListeners(JsonNode, BaseElement, boolean)"})
   void testParseListeners_givenArrayNodeIsNullReturnTrue_thenCallsGet2() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -2978,7 +2412,6 @@ class BpmnJsonConverterUtilDiffblueTest {
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
     when(arrayNode2.isNull()).thenReturn(true);
-    when(arrayNode2.isTextual()).thenReturn(true);
 
     ArrayList<JsonNode> jsonNodeList2 = new ArrayList<>();
     jsonNodeList2.add(arrayNode2);
@@ -3005,20 +2438,19 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
+   * Test {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link JsonNode#iterator()} return
-   * {@link ArrayList#ArrayList()} iterator.</li>
+   *   <li>Given {@link ArrayNode} {@link JsonNode#isTextual()} return {@code true}.</li>
    *   <li>Then calls {@link ArrayNode#get(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
    */
   @Test
-  @DisplayName("Test parseListeners(JsonNode, BaseElement, boolean); given ArrayNode iterator() return ArrayList() iterator; then calls get(String)")
-  void testParseListeners_givenArrayNodeIteratorReturnArrayListIterator_thenCallsGet() {
+  @DisplayName("Test parseListeners(JsonNode, BaseElement, boolean); given ArrayNode isTextual() return 'true'; then calls get(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseListeners(JsonNode, BaseElement, boolean)"})
+  void testParseListeners_givenArrayNodeIsTextualReturnTrue_thenCallsGet() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
 
@@ -3059,19 +2491,18 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
+   * Test {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
    * <ul>
    *   <li>Given {@code As Text}.</li>
-   *   <li>When {@link ArrayNode} {@link ContainerNode#asText()} return
-   * {@code As Text}.</li>
+   *   <li>When {@link ArrayNode} {@link ContainerNode#asText()} return {@code As Text}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
    */
   @Test
   @DisplayName("Test parseListeners(JsonNode, BaseElement, boolean); given 'As Text'; when ArrayNode asText() return 'As Text'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseListeners(JsonNode, BaseElement, boolean)"})
   void testParseListeners_givenAsText_whenArrayNodeAsTextReturnAsText() {
     // Arrange
     ArrayNode listenersNode = mock(ArrayNode.class);
@@ -3093,19 +2524,18 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
+   * Test {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
    * <ul>
    *   <li>Given empty string.</li>
-   *   <li>When {@link ArrayNode} {@link ContainerNode#asText()} return empty
-   * string.</li>
+   *   <li>When {@link ArrayNode} {@link ContainerNode#asText()} return empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
    */
   @Test
   @DisplayName("Test parseListeners(JsonNode, BaseElement, boolean); given empty string; when ArrayNode asText() return empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseListeners(JsonNode, BaseElement, boolean)"})
   void testParseListeners_givenEmptyString_whenArrayNodeAsTextReturnEmptyString() {
     // Arrange
     ArrayNode listenersNode = mock(ArrayNode.class);
@@ -3119,7 +2549,7 @@ class BpmnJsonConverterUtilDiffblueTest {
     // Act
     BpmnJsonConverterUtil.parseListeners(listenersNode, new ActivitiListener(), true);
 
-    // Assert that nothing has changed
+    // Assert
     verify(listenersNode).isNull();
     verify(listenersNode).isTextual();
     verify(listenersNode).iterator();
@@ -3127,20 +2557,19 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
+   * Test {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
    * <ul>
    *   <li>Given {@code null}.</li>
-   *   <li>When {@link ArrayNode} {@link ContainerNode#asText()} return
-   * {@code null}.</li>
+   *   <li>When {@link ArrayNode} {@link ContainerNode#asText()} return {@code null}.</li>
    *   <li>Then calls {@link JsonNode#isTextual()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
    */
   @Test
   @DisplayName("Test parseListeners(JsonNode, BaseElement, boolean); given 'null'; when ArrayNode asText() return 'null'; then calls isTextual()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseListeners(JsonNode, BaseElement, boolean)"})
   void testParseListeners_givenNull_whenArrayNodeAsTextReturnNull_thenCallsIsTextual() {
     // Arrange
     ArrayNode listenersNode = mock(ArrayNode.class);
@@ -3154,7 +2583,7 @@ class BpmnJsonConverterUtilDiffblueTest {
     // Act
     BpmnJsonConverterUtil.parseListeners(listenersNode, new ActivitiListener(), true);
 
-    // Assert that nothing has changed
+    // Assert
     verify(listenersNode).isNull();
     verify(listenersNode).isTextual();
     verify(listenersNode).iterator();
@@ -3162,18 +2591,17 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
+   * Test {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
    * <ul>
-   *   <li>Then {@link AdhocSubProcess} (default constructor) ExecutionListeners
-   * size is one.</li>
+   *   <li>Then {@link AdhocSubProcess} (default constructor) ExecutionListeners size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
    */
   @Test
   @DisplayName("Test parseListeners(JsonNode, BaseElement, boolean); then AdhocSubProcess (default constructor) ExecutionListeners size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseListeners(JsonNode, BaseElement, boolean)"})
   void testParseListeners_thenAdhocSubProcessExecutionListenersSizeIsOne() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -3232,19 +2660,18 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
+   * Test {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
    * <ul>
-   *   <li>When {@link ArrayNode} {@link JsonNode#isNull()} return
-   * {@code true}.</li>
+   *   <li>When {@link ArrayNode} {@link JsonNode#isNull()} return {@code true}.</li>
    *   <li>Then calls {@link JsonNode#iterator()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
    */
   @Test
   @DisplayName("Test parseListeners(JsonNode, BaseElement, boolean); when ArrayNode isNull() return 'true'; then calls iterator()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseListeners(JsonNode, BaseElement, boolean)"})
   void testParseListeners_whenArrayNodeIsNullReturnTrue_thenCallsIterator() {
     // Arrange
     ArrayNode listenersNode = mock(ArrayNode.class);
@@ -3256,24 +2683,24 @@ class BpmnJsonConverterUtilDiffblueTest {
     // Act
     BpmnJsonConverterUtil.parseListeners(listenersNode, new ActivitiListener(), true);
 
-    // Assert that nothing has changed
+    // Assert
     verify(listenersNode).isNull();
     verify(listenersNode).iterator();
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
+   * Test {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
    * <ul>
    *   <li>When {@code null}.</li>
    *   <li>Then {@link Process} (default constructor) ExecutionListeners Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
    */
   @Test
   @DisplayName("Test parseListeners(JsonNode, BaseElement, boolean); when 'null'; then Process (default constructor) ExecutionListeners Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseListeners(JsonNode, BaseElement, boolean)"})
   void testParseListeners_whenNull_thenProcessExecutionListenersEmpty() {
     // Arrange
     Process element = new Process();
@@ -3286,19 +2713,18 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
+   * Test {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
    * <ul>
    *   <li>When {@link Process} (default constructor).</li>
-   *   <li>Then {@link Process} (default constructor) ExecutionListeners size is
-   * one.</li>
+   *   <li>Then {@link Process} (default constructor) ExecutionListeners size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
    */
   @Test
   @DisplayName("Test parseListeners(JsonNode, BaseElement, boolean); when Process (default constructor); then Process (default constructor) ExecutionListeners size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseListeners(JsonNode, BaseElement, boolean)"})
   void testParseListeners_whenProcess_thenProcessExecutionListenersSizeIsOne() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -3357,19 +2783,18 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
+   * Test {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
    * <ul>
    *   <li>When {@link UserTask} (default constructor).</li>
-   *   <li>Then {@link UserTask} (default constructor) ExecutionListeners size is
-   * one.</li>
+   *   <li>Then {@link UserTask} (default constructor) ExecutionListeners size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
    */
   @Test
   @DisplayName("Test parseListeners(JsonNode, BaseElement, boolean); when UserTask (default constructor); then UserTask (default constructor) ExecutionListeners size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseListeners(JsonNode, BaseElement, boolean)"})
   void testParseListeners_whenUserTask_thenUserTaskExecutionListenersSizeIsOne() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -3428,19 +2853,18 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
+   * Test {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}.
    * <ul>
    *   <li>When {@link UserTask} (default constructor).</li>
-   *   <li>Then {@link UserTask} (default constructor) TaskListeners size is
-   * one.</li>
+   *   <li>Then {@link UserTask} (default constructor) TaskListeners size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseListeners(JsonNode, BaseElement, boolean)}
    */
   @Test
   @DisplayName("Test parseListeners(JsonNode, BaseElement, boolean); when UserTask (default constructor); then UserTask (default constructor) TaskListeners size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseListeners(JsonNode, BaseElement, boolean)"})
   void testParseListeners_whenUserTask_thenUserTaskTaskListenersSizeIsOne() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -3501,11 +2925,12 @@ class BpmnJsonConverterUtilDiffblueTest {
   /**
    * Test {@link BpmnJsonConverterUtil#parseMessages(JsonNode, BpmnModel)}.
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseMessages(JsonNode, BpmnModel)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseMessages(JsonNode, BpmnModel)}
    */
   @Test
   @DisplayName("Test parseMessages(JsonNode, BpmnModel)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseMessages(JsonNode, BpmnModel)"})
   void testParseMessages() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -3520,7 +2945,7 @@ class BpmnJsonConverterUtilDiffblueTest {
     // Act
     BpmnJsonConverterUtil.parseMessages(messagesNode, element);
 
-    // Assert
+    // Assert that nothing has changed
     verify(messagesNode).iterator();
     verify(arrayNode, atLeast(1)).get(Mockito.<String>any());
     assertTrue(element.getMessages().isEmpty());
@@ -3529,16 +2954,15 @@ class BpmnJsonConverterUtilDiffblueTest {
   /**
    * Test {@link BpmnJsonConverterUtil#parseMessages(JsonNode, BpmnModel)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add
-   * {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals
-   * {@code true}.</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseMessages(JsonNode, BpmnModel)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseMessages(JsonNode, BpmnModel)}
    */
   @Test
   @DisplayName("Test parseMessages(JsonNode, BpmnModel); given ArrayList() add ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseMessages(JsonNode, BpmnModel)"})
   void testParseMessages_givenArrayListAddArrayNodeWithNfIsWithExactBigDecimalsTrue() {
     // Arrange
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
@@ -3550,7 +2974,7 @@ class BpmnJsonConverterUtilDiffblueTest {
     // Act
     BpmnJsonConverterUtil.parseMessages(messagesNode, element);
 
-    // Assert
+    // Assert that nothing has changed
     verify(messagesNode).iterator();
     assertTrue(element.getMessages().isEmpty());
   }
@@ -3562,11 +2986,12 @@ class BpmnJsonConverterUtilDiffblueTest {
    *   <li>Then calls {@link JsonNode#iterator()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseMessages(JsonNode, BpmnModel)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseMessages(JsonNode, BpmnModel)}
    */
   @Test
   @DisplayName("Test parseMessages(JsonNode, BpmnModel); given ArrayList() add Instance; then calls iterator()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseMessages(JsonNode, BpmnModel)"})
   void testParseMessages_givenArrayListAddInstance_thenCallsIterator() {
     // Arrange
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
@@ -3578,7 +3003,7 @@ class BpmnJsonConverterUtilDiffblueTest {
     // Act
     BpmnJsonConverterUtil.parseMessages(messagesNode, element);
 
-    // Assert
+    // Assert that nothing has changed
     verify(messagesNode).iterator();
     assertTrue(element.getMessages().isEmpty());
   }
@@ -3590,11 +3015,12 @@ class BpmnJsonConverterUtilDiffblueTest {
    *   <li>Then calls {@link JsonNode#iterator()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseMessages(JsonNode, BpmnModel)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseMessages(JsonNode, BpmnModel)}
    */
   @Test
   @DisplayName("Test parseMessages(JsonNode, BpmnModel); given ArrayList() iterator; then calls iterator()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseMessages(JsonNode, BpmnModel)"})
   void testParseMessages_givenArrayListIterator_thenCallsIterator() {
     // Arrange
     ArrayNode messagesNode = mock(ArrayNode.class);
@@ -3614,16 +3040,16 @@ class BpmnJsonConverterUtilDiffblueTest {
   /**
    * Test {@link BpmnJsonConverterUtil#parseMessages(JsonNode, BpmnModel)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return
-   * Instance.</li>
+   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.</li>
    *   <li>Then calls {@link ArrayNode#get(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseMessages(JsonNode, BpmnModel)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseMessages(JsonNode, BpmnModel)}
    */
   @Test
   @DisplayName("Test parseMessages(JsonNode, BpmnModel); given ArrayNode get(String) return Instance; then calls get(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseMessages(JsonNode, BpmnModel)"})
   void testParseMessages_givenArrayNodeGetReturnInstance_thenCallsGet() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -3638,7 +3064,7 @@ class BpmnJsonConverterUtilDiffblueTest {
     // Act
     BpmnJsonConverterUtil.parseMessages(messagesNode, element);
 
-    // Assert
+    // Assert that nothing has changed
     verify(messagesNode).iterator();
     verify(arrayNode, atLeast(1)).get(Mockito.<String>any());
     assertTrue(element.getMessages().isEmpty());
@@ -3647,16 +3073,16 @@ class BpmnJsonConverterUtilDiffblueTest {
   /**
    * Test {@link BpmnJsonConverterUtil#parseMessages(JsonNode, BpmnModel)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link JsonNode#isNull()} return
-   * {@code true}.</li>
+   *   <li>Given {@link ArrayNode} {@link JsonNode#isNull()} return {@code true}.</li>
    *   <li>Then calls {@link JsonNode#isNull()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseMessages(JsonNode, BpmnModel)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseMessages(JsonNode, BpmnModel)}
    */
   @Test
   @DisplayName("Test parseMessages(JsonNode, BpmnModel); given ArrayNode isNull() return 'true'; then calls isNull()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseMessages(JsonNode, BpmnModel)"})
   void testParseMessages_givenArrayNodeIsNullReturnTrue_thenCallsIsNull() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -3673,7 +3099,7 @@ class BpmnJsonConverterUtilDiffblueTest {
     // Act
     BpmnJsonConverterUtil.parseMessages(messagesNode, element);
 
-    // Assert
+    // Assert that nothing has changed
     verify(arrayNode, atLeast(1)).isNull();
     verify(messagesNode).iterator();
     verify(arrayNode2, atLeast(1)).get(Mockito.<String>any());
@@ -3686,11 +3112,12 @@ class BpmnJsonConverterUtilDiffblueTest {
    *   <li>Then {@link BpmnModel} (default constructor) Messages size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseMessages(JsonNode, BpmnModel)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseMessages(JsonNode, BpmnModel)}
    */
   @Test
   @DisplayName("Test parseMessages(JsonNode, BpmnModel); then BpmnModel (default constructor) Messages size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseMessages(JsonNode, BpmnModel)"})
   void testParseMessages_thenBpmnModelMessagesSizeIsOne() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -3714,15 +3141,15 @@ class BpmnJsonConverterUtilDiffblueTest {
   /**
    * Test {@link BpmnJsonConverterUtil#parseMessages(JsonNode, BpmnModel)}.
    * <ul>
-   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is
-   * withExactBigDecimals {@code true}.</li>
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseMessages(JsonNode, BpmnModel)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseMessages(JsonNode, BpmnModel)}
    */
   @Test
   @DisplayName("Test parseMessages(JsonNode, BpmnModel); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseMessages(JsonNode, BpmnModel)"})
   void testParseMessages_whenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
     // Arrange
     ArrayNode messagesNode = new ArrayNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -3742,11 +3169,12 @@ class BpmnJsonConverterUtilDiffblueTest {
    *   <li>Then {@link BpmnModel} (default constructor) Messages Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseMessages(JsonNode, BpmnModel)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseMessages(JsonNode, BpmnModel)}
    */
   @Test
   @DisplayName("Test parseMessages(JsonNode, BpmnModel); when Instance; then BpmnModel (default constructor) Messages Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseMessages(JsonNode, BpmnModel)"})
   void testParseMessages_whenInstance_thenBpmnModelMessagesEmpty() {
     // Arrange
     MissingNode messagesNode = MissingNode.getInstance();
@@ -3766,11 +3194,12 @@ class BpmnJsonConverterUtilDiffblueTest {
    *   <li>Then {@link BpmnModel} (default constructor) Messages Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseMessages(JsonNode, BpmnModel)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseMessages(JsonNode, BpmnModel)}
    */
   @Test
   @DisplayName("Test parseMessages(JsonNode, BpmnModel); when 'null'; then BpmnModel (default constructor) Messages Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseMessages(JsonNode, BpmnModel)"})
   void testParseMessages_whenNull_thenBpmnModelMessagesEmpty() {
     // Arrange
     BpmnModel element = new BpmnModel();
@@ -3785,11 +3214,12 @@ class BpmnJsonConverterUtilDiffblueTest {
   /**
    * Test {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}.
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
    */
   @Test
   @DisplayName("Test parseEventListeners(JsonNode, Process)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseEventListeners(JsonNode, Process)"})
   void testParseEventListeners() {
     // Arrange
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
@@ -3814,11 +3244,12 @@ class BpmnJsonConverterUtilDiffblueTest {
   /**
    * Test {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}.
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
    */
   @Test
   @DisplayName("Test parseEventListeners(JsonNode, Process)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseEventListeners(JsonNode, Process)"})
   void testParseEventListeners2() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -3847,11 +3278,12 @@ class BpmnJsonConverterUtilDiffblueTest {
   /**
    * Test {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}.
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
    */
   @Test
   @DisplayName("Test parseEventListeners(JsonNode, Process)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseEventListeners(JsonNode, Process)"})
   void testParseEventListeners3() {
     // Arrange
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
@@ -3889,11 +3321,12 @@ class BpmnJsonConverterUtilDiffblueTest {
   /**
    * Test {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}.
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
    */
   @Test
   @DisplayName("Test parseEventListeners(JsonNode, Process)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseEventListeners(JsonNode, Process)"})
   void testParseEventListeners4() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -3936,16 +3369,16 @@ class BpmnJsonConverterUtilDiffblueTest {
    * Test {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}.
    * <ul>
    *   <li>Given {@code 42}.</li>
-   *   <li>When {@link ArrayNode} {@link ContainerNode#asText()} return
-   * {@code 42}.</li>
+   *   <li>When {@link ArrayNode} {@link ContainerNode#asText()} return {@code 42}.</li>
    *   <li>Then calls {@link JsonNode#isTextual()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
    */
   @Test
   @DisplayName("Test parseEventListeners(JsonNode, Process); given '42'; when ArrayNode asText() return '42'; then calls isTextual()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseEventListeners(JsonNode, Process)"})
   void testParseEventListeners_given42_whenArrayNodeAsTextReturn42_thenCallsIsTextual() {
     // Arrange
     ArrayNode listenersNode = mock(ArrayNode.class);
@@ -3969,11 +3402,12 @@ class BpmnJsonConverterUtilDiffblueTest {
    *   <li>Then calls {@link ArrayNode#isArray()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
    */
   @Test
   @DisplayName("Test parseEventListeners(JsonNode, Process); given ArrayList() add Instance; then calls isArray()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseEventListeners(JsonNode, Process)"})
   void testParseEventListeners_givenArrayListAddInstance_thenCallsIsArray() {
     // Arrange
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
@@ -4015,11 +3449,12 @@ class BpmnJsonConverterUtilDiffblueTest {
    *   <li>Then calls {@link JsonNode#isTextual()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
    */
   @Test
   @DisplayName("Test parseEventListeners(JsonNode, Process); given ArrayList() add Instance; then calls isTextual()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseEventListeners(JsonNode, Process)"})
   void testParseEventListeners_givenArrayListAddInstance_thenCallsIsTextual() {
     // Arrange
     ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
@@ -4044,16 +3479,16 @@ class BpmnJsonConverterUtilDiffblueTest {
   /**
    * Test {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link JsonNode#asBoolean()} return
-   * {@code false}.</li>
+   *   <li>Given {@link ArrayNode} {@link JsonNode#asBoolean()} return {@code false}.</li>
    *   <li>Then calls {@link JsonNode#asBoolean()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
    */
   @Test
   @DisplayName("Test parseEventListeners(JsonNode, Process); given ArrayNode asBoolean() return 'false'; then calls asBoolean()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseEventListeners(JsonNode, Process)"})
   void testParseEventListeners_givenArrayNodeAsBooleanReturnFalse_thenCallsAsBoolean() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -4065,7 +3500,6 @@ class BpmnJsonConverterUtilDiffblueTest {
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.asBoolean()).thenReturn(false);
     when(arrayNode2.isNull()).thenReturn(true);
-    when(arrayNode2.asText()).thenReturn("As Text");
     when(arrayNode2.iterator()).thenReturn(iteratorResult);
     when(arrayNode2.size()).thenReturn(3);
     when(arrayNode2.isArray()).thenReturn(true);
@@ -4101,16 +3535,16 @@ class BpmnJsonConverterUtilDiffblueTest {
   /**
    * Test {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ContainerNode#asText()} return
-   * {@code As Text}.</li>
+   *   <li>Given {@link ArrayNode} {@link ContainerNode#asText()} return {@code As Text}.</li>
    *   <li>Then calls {@link JsonNode#asBoolean()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
    */
   @Test
   @DisplayName("Test parseEventListeners(JsonNode, Process); given ArrayNode asText() return 'As Text'; then calls asBoolean()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseEventListeners(JsonNode, Process)"})
   void testParseEventListeners_givenArrayNodeAsTextReturnAsText_thenCallsAsBoolean() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -4121,7 +3555,6 @@ class BpmnJsonConverterUtilDiffblueTest {
     Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
     ArrayNode arrayNode2 = mock(ArrayNode.class);
     when(arrayNode2.asBoolean()).thenReturn(true);
-    when(arrayNode2.isNull()).thenReturn(true);
     when(arrayNode2.asText()).thenReturn("As Text");
     when(arrayNode2.iterator()).thenReturn(iteratorResult);
     when(arrayNode2.size()).thenReturn(3);
@@ -4158,74 +3591,16 @@ class BpmnJsonConverterUtilDiffblueTest {
   /**
    * Test {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ContainerNode#asText()} return
-   * {@code As Text}.</li>
-   *   <li>Then calls {@link ArrayNode#isArray()}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
-   */
-  @Test
-  @DisplayName("Test parseEventListeners(JsonNode, Process); given ArrayNode asText() return 'As Text'; then calls isArray()")
-  void testParseEventListeners_givenArrayNodeAsTextReturnAsText_thenCallsIsArray() {
-    // Arrange
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.isNull()).thenReturn(true);
-    when(arrayNode.asText()).thenReturn("As Text");
-    ArrayNode arrayNode2 = mock(ArrayNode.class);
-    when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
-
-    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
-    jsonNodeList.add(arrayNode2);
-    Iterator<JsonNode> iteratorResult = jsonNodeList.iterator();
-    ArrayNode arrayNode3 = mock(ArrayNode.class);
-    when(arrayNode3.isNull()).thenReturn(true);
-    when(arrayNode3.asText()).thenReturn("As Text");
-    when(arrayNode3.iterator()).thenReturn(iteratorResult);
-    when(arrayNode3.size()).thenReturn(3);
-    when(arrayNode3.isArray()).thenReturn(true);
-    ArrayNode arrayNode4 = mock(ArrayNode.class);
-    when(arrayNode4.get(Mockito.<String>any())).thenReturn(arrayNode3);
-
-    ArrayList<JsonNode> jsonNodeList2 = new ArrayList<>();
-    jsonNodeList2.add(arrayNode4);
-    Iterator<JsonNode> iteratorResult2 = jsonNodeList2.iterator();
-    ArrayNode listenersNode = mock(ArrayNode.class);
-    when(listenersNode.asText()).thenReturn("As Text");
-    when(listenersNode.isNull()).thenReturn(false);
-    when(listenersNode.isTextual()).thenReturn(true);
-    when(listenersNode.iterator()).thenReturn(iteratorResult2);
-
-    // Act
-    BpmnJsonConverterUtil.parseEventListeners(listenersNode, new Process());
-
-    // Assert
-    verify(listenersNode).isNull();
-    verify(arrayNode).isNull();
-    verify(listenersNode).isTextual();
-    verify(listenersNode).iterator();
-    verify(arrayNode3).iterator();
-    verify(arrayNode2).get(eq("event"));
-    verify(arrayNode4).get(eq("events"));
-    verify(arrayNode3).isArray();
-    verify(arrayNode3).size();
-    verify(listenersNode, atLeast(1)).asText();
-  }
-
-  /**
-   * Test {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}.
-   * <ul>
-   *   <li>Given {@link ArrayNode} {@link ContainerNode#asText()} return
-   * {@code error}.</li>
+   *   <li>Given {@link ArrayNode} {@link ContainerNode#asText()} return {@code error}.</li>
    *   <li>Then calls {@link JsonNode#asBoolean()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
    */
   @Test
   @DisplayName("Test parseEventListeners(JsonNode, Process); given ArrayNode asText() return 'error'; then calls asBoolean()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseEventListeners(JsonNode, Process)"})
   void testParseEventListeners_givenArrayNodeAsTextReturnError_thenCallsAsBoolean() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -4274,15 +3649,15 @@ class BpmnJsonConverterUtilDiffblueTest {
   /**
    * Test {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ContainerNode#asText()} return
-   * {@code globalSignal}.</li>
+   *   <li>Given {@link ArrayNode} {@link ContainerNode#asText()} return {@code globalSignal}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
    */
   @Test
   @DisplayName("Test parseEventListeners(JsonNode, Process); given ArrayNode asText() return 'globalSignal'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseEventListeners(JsonNode, Process)"})
   void testParseEventListeners_givenArrayNodeAsTextReturnGlobalSignal() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -4331,16 +3706,16 @@ class BpmnJsonConverterUtilDiffblueTest {
   /**
    * Test {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ContainerNode#asText()} return
-   * {@code message}.</li>
+   *   <li>Given {@link ArrayNode} {@link ContainerNode#asText()} return {@code message}.</li>
    *   <li>Then calls {@link JsonNode#asBoolean()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
    */
   @Test
   @DisplayName("Test parseEventListeners(JsonNode, Process); given ArrayNode asText() return 'message'; then calls asBoolean()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseEventListeners(JsonNode, Process)"})
   void testParseEventListeners_givenArrayNodeAsTextReturnMessage_thenCallsAsBoolean() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -4389,16 +3764,16 @@ class BpmnJsonConverterUtilDiffblueTest {
   /**
    * Test {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ContainerNode#asText()} return
-   * {@code signal}.</li>
+   *   <li>Given {@link ArrayNode} {@link ContainerNode#asText()} return {@code signal}.</li>
    *   <li>Then calls {@link JsonNode#asBoolean()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
    */
   @Test
   @DisplayName("Test parseEventListeners(JsonNode, Process); given ArrayNode asText() return 'signal'; then calls asBoolean()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseEventListeners(JsonNode, Process)"})
   void testParseEventListeners_givenArrayNodeAsTextReturnSignal_thenCallsAsBoolean() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -4447,16 +3822,16 @@ class BpmnJsonConverterUtilDiffblueTest {
   /**
    * Test {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return
-   * Instance.</li>
+   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.</li>
    *   <li>Then calls {@link ArrayNode#get(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
    */
   @Test
   @DisplayName("Test parseEventListeners(JsonNode, Process); given ArrayNode get(String) return Instance; then calls get(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseEventListeners(JsonNode, Process)"})
   void testParseEventListeners_givenArrayNodeGetReturnInstance_thenCallsGet() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -4485,16 +3860,16 @@ class BpmnJsonConverterUtilDiffblueTest {
   /**
    * Test {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return
-   * Instance.</li>
+   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.</li>
    *   <li>Then calls {@link ArrayNode#isArray()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
    */
   @Test
   @DisplayName("Test parseEventListeners(JsonNode, Process); given ArrayNode get(String) return Instance; then calls isArray()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseEventListeners(JsonNode, Process)"})
   void testParseEventListeners_givenArrayNodeGetReturnInstance_thenCallsIsArray() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -4536,15 +3911,70 @@ class BpmnJsonConverterUtilDiffblueTest {
   /**
    * Test {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}.
    * <ul>
+   *   <li>Given {@link ArrayNode} {@link JsonNode#isNull()} return {@code true}.</li>
+   *   <li>Then calls {@link ArrayNode#isArray()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
+   */
+  @Test
+  @DisplayName("Test parseEventListeners(JsonNode, Process); given ArrayNode isNull() return 'true'; then calls isArray()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseEventListeners(JsonNode, Process)"})
+  void testParseEventListeners_givenArrayNodeIsNullReturnTrue_thenCallsIsArray() {
+    // Arrange
+    ArrayNode arrayNode = mock(ArrayNode.class);
+    when(arrayNode.isNull()).thenReturn(true);
+    ArrayNode arrayNode2 = mock(ArrayNode.class);
+    when(arrayNode2.get(Mockito.<String>any())).thenReturn(arrayNode);
+
+    ArrayList<JsonNode> jsonNodeList = new ArrayList<>();
+    jsonNodeList.add(arrayNode2);
+    ArrayNode arrayNode3 = mock(ArrayNode.class);
+    when(arrayNode3.iterator()).thenReturn(jsonNodeList.iterator());
+    when(arrayNode3.size()).thenReturn(3);
+    when(arrayNode3.isArray()).thenReturn(true);
+    ArrayNode arrayNode4 = mock(ArrayNode.class);
+    when(arrayNode4.get(Mockito.<String>any())).thenReturn(arrayNode3);
+
+    ArrayList<JsonNode> jsonNodeList2 = new ArrayList<>();
+    jsonNodeList2.add(arrayNode4);
+    Iterator<JsonNode> iteratorResult = jsonNodeList2.iterator();
+    ArrayNode listenersNode = mock(ArrayNode.class);
+    when(listenersNode.asText()).thenReturn("As Text");
+    when(listenersNode.isNull()).thenReturn(false);
+    when(listenersNode.isTextual()).thenReturn(true);
+    when(listenersNode.iterator()).thenReturn(iteratorResult);
+
+    // Act
+    BpmnJsonConverterUtil.parseEventListeners(listenersNode, new Process());
+
+    // Assert
+    verify(listenersNode).isNull();
+    verify(arrayNode).isNull();
+    verify(listenersNode).isTextual();
+    verify(listenersNode).iterator();
+    verify(arrayNode3).iterator();
+    verify(arrayNode2).get(eq("event"));
+    verify(arrayNode4).get(eq("events"));
+    verify(arrayNode3).isArray();
+    verify(arrayNode3).size();
+    verify(listenersNode, atLeast(1)).asText();
+  }
+
+  /**
+   * Test {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}.
+   * <ul>
    *   <li>Given {@code As Text}.</li>
    *   <li>Then calls {@link JsonNode#isTextual()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
    */
   @Test
   @DisplayName("Test parseEventListeners(JsonNode, Process); given 'As Text'; then calls isTextual()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseEventListeners(JsonNode, Process)"})
   void testParseEventListeners_givenAsText_thenCallsIsTextual() {
     // Arrange
     ArrayNode listenersNode = mock(ArrayNode.class);
@@ -4569,15 +3999,15 @@ class BpmnJsonConverterUtilDiffblueTest {
    * Test {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}.
    * <ul>
    *   <li>Given empty string.</li>
-   *   <li>When {@link ArrayNode} {@link ContainerNode#asText()} return empty
-   * string.</li>
+   *   <li>When {@link ArrayNode} {@link ContainerNode#asText()} return empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
    */
   @Test
   @DisplayName("Test parseEventListeners(JsonNode, Process); given empty string; when ArrayNode asText() return empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseEventListeners(JsonNode, Process)"})
   void testParseEventListeners_givenEmptyString_whenArrayNodeAsTextReturnEmptyString() {
     // Arrange
     ArrayNode listenersNode = mock(ArrayNode.class);
@@ -4591,7 +4021,7 @@ class BpmnJsonConverterUtilDiffblueTest {
     // Act
     BpmnJsonConverterUtil.parseEventListeners(listenersNode, new Process());
 
-    // Assert that nothing has changed
+    // Assert
     verify(listenersNode).isNull();
     verify(listenersNode).isTextual();
     verify(listenersNode).iterator();
@@ -4602,15 +4032,15 @@ class BpmnJsonConverterUtilDiffblueTest {
    * Test {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}.
    * <ul>
    *   <li>Given {@code null}.</li>
-   *   <li>When {@link ArrayNode} {@link ContainerNode#asText()} return
-   * {@code null}.</li>
+   *   <li>When {@link ArrayNode} {@link ContainerNode#asText()} return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
    */
   @Test
   @DisplayName("Test parseEventListeners(JsonNode, Process); given 'null'; when ArrayNode asText() return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseEventListeners(JsonNode, Process)"})
   void testParseEventListeners_givenNull_whenArrayNodeAsTextReturnNull() {
     // Arrange
     ArrayNode listenersNode = mock(ArrayNode.class);
@@ -4624,7 +4054,7 @@ class BpmnJsonConverterUtilDiffblueTest {
     // Act
     BpmnJsonConverterUtil.parseEventListeners(listenersNode, new Process());
 
-    // Assert that nothing has changed
+    // Assert
     verify(listenersNode).isNull();
     verify(listenersNode).isTextual();
     verify(listenersNode).iterator();
@@ -4637,11 +4067,12 @@ class BpmnJsonConverterUtilDiffblueTest {
    *   <li>Then calls {@link ArrayNode#isArray()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
    */
   @Test
   @DisplayName("Test parseEventListeners(JsonNode, Process); then calls isArray()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseEventListeners(JsonNode, Process)"})
   void testParseEventListeners_thenCallsIsArray() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -4679,16 +4110,16 @@ class BpmnJsonConverterUtilDiffblueTest {
   /**
    * Test {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}.
    * <ul>
-   *   <li>When {@link ArrayNode} {@link JsonNode#isNull()} return
-   * {@code true}.</li>
+   *   <li>When {@link ArrayNode} {@link JsonNode#isNull()} return {@code true}.</li>
    *   <li>Then calls {@link JsonNode#iterator()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
+   * Method under test: {@link BpmnJsonConverterUtil#parseEventListeners(JsonNode, Process)}
    */
   @Test
   @DisplayName("Test parseEventListeners(JsonNode, Process); when ArrayNode isNull() return 'true'; then calls iterator()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.parseEventListeners(JsonNode, Process)"})
   void testParseEventListeners_whenArrayNodeIsNullReturnTrue_thenCallsIterator() {
     // Arrange
     ArrayNode listenersNode = mock(ArrayNode.class);
@@ -4700,7 +4131,7 @@ class BpmnJsonConverterUtilDiffblueTest {
     // Act
     BpmnJsonConverterUtil.parseEventListeners(listenersNode, new Process());
 
-    // Assert that nothing has changed
+    // Assert
     verify(listenersNode).isNull();
     verify(listenersNode).iterator();
   }
@@ -4711,11 +4142,12 @@ class BpmnJsonConverterUtilDiffblueTest {
    *   <li>Given Instance.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#lookForSourceRef(String, JsonNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#lookForSourceRef(String, JsonNode)}
    */
   @Test
   @DisplayName("Test lookForSourceRef(String, JsonNode); given Instance")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String BpmnJsonConverterUtil.lookForSourceRef(String, JsonNode)"})
   void testLookForSourceRef_givenInstance() {
     // Arrange
     ArrayNode childShapesNode = new ArrayNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -4728,15 +4160,15 @@ class BpmnJsonConverterUtilDiffblueTest {
   /**
    * Test {@link BpmnJsonConverterUtil#lookForSourceRef(String, JsonNode)}.
    * <ul>
-   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is
-   * withExactBigDecimals {@code true}.</li>
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#lookForSourceRef(String, JsonNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#lookForSourceRef(String, JsonNode)}
    */
   @Test
   @DisplayName("Test lookForSourceRef(String, JsonNode); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String BpmnJsonConverterUtil.lookForSourceRef(String, JsonNode)"})
   void testLookForSourceRef_whenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
     // Arrange, Act and Assert
     assertNull(BpmnJsonConverterUtil.lookForSourceRef("42", new ArrayNode(JsonNodeFactory.withExactBigDecimals(true))));
@@ -4745,15 +4177,15 @@ class BpmnJsonConverterUtilDiffblueTest {
   /**
    * Test {@link BpmnJsonConverterUtil#lookForSourceRef(String, JsonNode)}.
    * <ul>
-   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is
-   * withExactBigDecimals {@code true} addArray.</li>
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true} addArray.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#lookForSourceRef(String, JsonNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#lookForSourceRef(String, JsonNode)}
    */
   @Test
   @DisplayName("Test lookForSourceRef(String, JsonNode); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true' addArray")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String BpmnJsonConverterUtil.lookForSourceRef(String, JsonNode)"})
   void testLookForSourceRef_whenArrayNodeWithNfIsWithExactBigDecimalsTrueAddArray() {
     // Arrange
     ArrayNode childShapesNode = new ArrayNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -4767,15 +4199,15 @@ class BpmnJsonConverterUtilDiffblueTest {
   /**
    * Test {@link BpmnJsonConverterUtil#lookForSourceRef(String, JsonNode)}.
    * <ul>
-   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is
-   * withExactBigDecimals {@code true} addObject.</li>
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true} addObject.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#lookForSourceRef(String, JsonNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#lookForSourceRef(String, JsonNode)}
    */
   @Test
   @DisplayName("Test lookForSourceRef(String, JsonNode); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true' addObject")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String BpmnJsonConverterUtil.lookForSourceRef(String, JsonNode)"})
   void testLookForSourceRef_whenArrayNodeWithNfIsWithExactBigDecimalsTrueAddObject() {
     // Arrange
     ArrayNode childShapesNode = new ArrayNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -4792,11 +4224,12 @@ class BpmnJsonConverterUtilDiffblueTest {
    *   <li>When Instance.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#lookForSourceRef(String, JsonNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#lookForSourceRef(String, JsonNode)}
    */
   @Test
   @DisplayName("Test lookForSourceRef(String, JsonNode); when Instance")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String BpmnJsonConverterUtil.lookForSourceRef(String, JsonNode)"})
   void testLookForSourceRef_whenInstance() {
     // Arrange, Act and Assert
     assertNull(BpmnJsonConverterUtil.lookForSourceRef("42", MissingNode.getInstance()));
@@ -4808,29 +4241,29 @@ class BpmnJsonConverterUtilDiffblueTest {
    *   <li>When {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#lookForSourceRef(String, JsonNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#lookForSourceRef(String, JsonNode)}
    */
   @Test
   @DisplayName("Test lookForSourceRef(String, JsonNode); when 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String BpmnJsonConverterUtil.lookForSourceRef(String, JsonNode)"})
   void testLookForSourceRef_whenNull() {
     // Arrange, Act and Assert
     assertNull(BpmnJsonConverterUtil.lookForSourceRef("42", null));
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}.
    * <ul>
-   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is
-   * withExactBigDecimals {@code true}.</li>
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}
    */
   @Test
   @DisplayName("Test convertJsonToDataProperties(JsonNode, BaseElement); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List BpmnJsonConverterUtil.convertJsonToDataProperties(JsonNode, BaseElement)"})
   void testConvertJsonToDataProperties_whenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
     // Arrange
     ArrayNode objectNode = new ArrayNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -4844,17 +4277,17 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}.
    * <ul>
    *   <li>When {@link BigDecimal#BigDecimal(String)} with {@code 2.3}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}
    */
   @Test
   @DisplayName("Test convertJsonToDataProperties(JsonNode, BaseElement); when BigDecimal(String) with '2.3'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List BpmnJsonConverterUtil.convertJsonToDataProperties(JsonNode, BaseElement)"})
   void testConvertJsonToDataProperties_whenBigDecimalWith23() {
     // Arrange
     DecimalNode objectNode = new DecimalNode(new BigDecimal("2.3"));
@@ -4868,18 +4301,17 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}.
    * <ul>
-   *   <li>When {@link BigIntegerNode#BigIntegerNode(BigInteger)} with v is valueOf
-   * one.</li>
+   *   <li>When {@link BigIntegerNode#BigIntegerNode(BigInteger)} with v is valueOf one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}
    */
   @Test
   @DisplayName("Test convertJsonToDataProperties(JsonNode, BaseElement); when BigIntegerNode(BigInteger) with v is valueOf one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List BpmnJsonConverterUtil.convertJsonToDataProperties(JsonNode, BaseElement)"})
   void testConvertJsonToDataProperties_whenBigIntegerNodeWithVIsValueOfOne() {
     // Arrange
     BigIntegerNode objectNode = new BigIntegerNode(BigInteger.valueOf(1L));
@@ -4893,18 +4325,17 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}.
    * <ul>
-   *   <li>When {@link BinaryNode#BinaryNode(byte[])} with data is {@code AXAXAXAX}
-   * Bytes is {@code UTF-8}.</li>
+   *   <li>When {@link BinaryNode#BinaryNode(byte[])} with data is {@code AXAXAXAX} Bytes is {@code UTF-8}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}
    */
   @Test
   @DisplayName("Test convertJsonToDataProperties(JsonNode, BaseElement); when BinaryNode(byte[]) with data is 'AXAXAXAX' Bytes is 'UTF-8'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List BpmnJsonConverterUtil.convertJsonToDataProperties(JsonNode, BaseElement)"})
   void testConvertJsonToDataProperties_whenBinaryNodeWithDataIsAxaxaxaxBytesIsUtf8()
       throws UnsupportedEncodingException {
     // Arrange
@@ -4919,17 +4350,17 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}.
    * <ul>
    *   <li>When False.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}
    */
   @Test
   @DisplayName("Test convertJsonToDataProperties(JsonNode, BaseElement); when False")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List BpmnJsonConverterUtil.convertJsonToDataProperties(JsonNode, BaseElement)"})
   void testConvertJsonToDataProperties_whenFalse() {
     // Arrange
     BooleanNode objectNode = BooleanNode.getFalse();
@@ -4943,17 +4374,17 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}.
    * <ul>
    *   <li>When Instance.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}
    */
   @Test
   @DisplayName("Test convertJsonToDataProperties(JsonNode, BaseElement); when Instance")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List BpmnJsonConverterUtil.convertJsonToDataProperties(JsonNode, BaseElement)"})
   void testConvertJsonToDataProperties_whenInstance() {
     // Arrange
     MissingNode objectNode = MissingNode.getInstance();
@@ -4967,17 +4398,17 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}.
    * <ul>
    *   <li>When Instance.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}
    */
   @Test
   @DisplayName("Test convertJsonToDataProperties(JsonNode, BaseElement); when Instance")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List BpmnJsonConverterUtil.convertJsonToDataProperties(JsonNode, BaseElement)"})
   void testConvertJsonToDataProperties_whenInstance2() {
     // Arrange
     NullNode objectNode = NullNode.getInstance();
@@ -4991,17 +4422,17 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}.
    * <ul>
    *   <li>When {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}
    */
   @Test
   @DisplayName("Test convertJsonToDataProperties(JsonNode, BaseElement); when 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List BpmnJsonConverterUtil.convertJsonToDataProperties(JsonNode, BaseElement)"})
   void testConvertJsonToDataProperties_whenNull() {
     // Arrange and Act
     List<ValuedDataObject> actualConvertJsonToDataPropertiesResult = BpmnJsonConverterUtil
@@ -5012,17 +4443,17 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}.
+   * Test {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}.
    * <ul>
    *   <li>When True.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertJsonToDataProperties(JsonNode, BaseElement)}
    */
   @Test
   @DisplayName("Test convertJsonToDataProperties(JsonNode, BaseElement); when True")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List BpmnJsonConverterUtil.convertJsonToDataProperties(JsonNode, BaseElement)"})
   void testConvertJsonToDataProperties_whenTrue() {
     // Arrange
     BooleanNode objectNode = BooleanNode.getTrue();
@@ -5036,14 +4467,14 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertDataPropertiesToJson(List, ObjectNode)}.
+   * Test {@link BpmnJsonConverterUtil#convertDataPropertiesToJson(List, ObjectNode)}.
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertDataPropertiesToJson(List, ObjectNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertDataPropertiesToJson(List, ObjectNode)}
    */
   @Test
   @DisplayName("Test convertDataPropertiesToJson(List, ObjectNode)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertDataPropertiesToJson(List, ObjectNode)"})
   void testConvertDataPropertiesToJson() {
     // Arrange
     ArrayList<ValuedDataObject> dataObjects = new ArrayList<>();
@@ -5071,14 +4502,14 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertDataPropertiesToJson(List, ObjectNode)}.
+   * Test {@link BpmnJsonConverterUtil#convertDataPropertiesToJson(List, ObjectNode)}.
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertDataPropertiesToJson(List, ObjectNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertDataPropertiesToJson(List, ObjectNode)}
    */
   @Test
   @DisplayName("Test convertDataPropertiesToJson(List, ObjectNode)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertDataPropertiesToJson(List, ObjectNode)"})
   void testConvertDataPropertiesToJson2() {
     // Arrange
     ItemDefinition itemSubjectRef = new ItemDefinition();
@@ -5126,14 +4557,14 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#convertDataPropertiesToJson(List, ObjectNode)}.
+   * Test {@link BpmnJsonConverterUtil#convertDataPropertiesToJson(List, ObjectNode)}.
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#convertDataPropertiesToJson(List, ObjectNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#convertDataPropertiesToJson(List, ObjectNode)}
    */
   @Test
   @DisplayName("Test convertDataPropertiesToJson(List, ObjectNode)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnJsonConverterUtil.convertDataPropertiesToJson(List, ObjectNode)"})
   void testConvertDataPropertiesToJson3() {
     // Arrange
     ItemDefinition itemSubjectRef = new ItemDefinition();
@@ -5189,11 +4620,12 @@ class BpmnJsonConverterUtilDiffblueTest {
    *   <li>Then return {@link ArrayNode}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#validateIfNodeIsTextual(JsonNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#validateIfNodeIsTextual(JsonNode)}
    */
   @Test
   @DisplayName("Test validateIfNodeIsTextual(JsonNode); then return ArrayNode")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"JsonNode BpmnJsonConverterUtil.validateIfNodeIsTextual(JsonNode)"})
   void testValidateIfNodeIsTextual_thenReturnArrayNode() {
     // Arrange and Act
     JsonNode actualValidateIfNodeIsTextualResult = BpmnJsonConverterUtil
@@ -5217,11 +4649,12 @@ class BpmnJsonConverterUtilDiffblueTest {
    *   <li>Then return {@link BigIntegerNode}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#validateIfNodeIsTextual(JsonNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#validateIfNodeIsTextual(JsonNode)}
    */
   @Test
   @DisplayName("Test validateIfNodeIsTextual(JsonNode); then return BigIntegerNode")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"JsonNode BpmnJsonConverterUtil.validateIfNodeIsTextual(JsonNode)"})
   void testValidateIfNodeIsTextual_thenReturnBigIntegerNode() {
     // Arrange and Act
     JsonNode actualValidateIfNodeIsTextualResult = BpmnJsonConverterUtil
@@ -5245,11 +4678,12 @@ class BpmnJsonConverterUtilDiffblueTest {
    *   <li>Then return {@link MissingNode}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#validateIfNodeIsTextual(JsonNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#validateIfNodeIsTextual(JsonNode)}
    */
   @Test
   @DisplayName("Test validateIfNodeIsTextual(JsonNode); when Instance; then return MissingNode")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"JsonNode BpmnJsonConverterUtil.validateIfNodeIsTextual(JsonNode)"})
   void testValidateIfNodeIsTextual_whenInstance_thenReturnMissingNode() {
     // Arrange and Act
     JsonNode actualValidateIfNodeIsTextualResult = BpmnJsonConverterUtil
@@ -5270,11 +4704,12 @@ class BpmnJsonConverterUtilDiffblueTest {
    *   <li>Then return {@link NullNode}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#validateIfNodeIsTextual(JsonNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#validateIfNodeIsTextual(JsonNode)}
    */
   @Test
   @DisplayName("Test validateIfNodeIsTextual(JsonNode); when Instance; then return NullNode")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"JsonNode BpmnJsonConverterUtil.validateIfNodeIsTextual(JsonNode)"})
   void testValidateIfNodeIsTextual_whenInstance_thenReturnNullNode() {
     // Arrange and Act
     JsonNode actualValidateIfNodeIsTextualResult = BpmnJsonConverterUtil
@@ -5295,11 +4730,12 @@ class BpmnJsonConverterUtilDiffblueTest {
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#validateIfNodeIsTextual(JsonNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#validateIfNodeIsTextual(JsonNode)}
    */
   @Test
   @DisplayName("Test validateIfNodeIsTextual(JsonNode); when 'null'; then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"JsonNode BpmnJsonConverterUtil.validateIfNodeIsTextual(JsonNode)"})
   void testValidateIfNodeIsTextual_whenNull_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(BpmnJsonConverterUtil.validateIfNodeIsTextual(null));
@@ -5308,15 +4744,15 @@ class BpmnJsonConverterUtilDiffblueTest {
   /**
    * Test {@link BpmnJsonConverterUtil#getValueAsString(String, JsonNode)}.
    * <ul>
-   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is
-   * withExactBigDecimals {@code true}.</li>
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#getValueAsString(String, JsonNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#getValueAsString(String, JsonNode)}
    */
   @Test
   @DisplayName("Test getValueAsString(String, JsonNode); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String BpmnJsonConverterUtil.getValueAsString(String, JsonNode)"})
   void testGetValueAsString_whenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
     // Arrange, Act and Assert
     assertNull(
@@ -5330,29 +4766,29 @@ class BpmnJsonConverterUtilDiffblueTest {
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#getValueAsString(String, JsonNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#getValueAsString(String, JsonNode)}
    */
   @Test
   @DisplayName("Test getValueAsString(String, JsonNode); when Instance; then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String BpmnJsonConverterUtil.getValueAsString(String, JsonNode)"})
   void testGetValueAsString_whenInstance_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(BpmnJsonConverterUtil.getValueAsString("Name", MissingNode.getInstance()));
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#getPropertyValueAsString(String, JsonNode)}.
+   * Test {@link BpmnJsonConverterUtil#getPropertyValueAsString(String, JsonNode)}.
    * <ul>
-   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is
-   * withExactBigDecimals {@code true}.</li>
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#getPropertyValueAsString(String, JsonNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#getPropertyValueAsString(String, JsonNode)}
    */
   @Test
   @DisplayName("Test getPropertyValueAsString(String, JsonNode); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String BpmnJsonConverterUtil.getPropertyValueAsString(String, JsonNode)"})
   void testGetPropertyValueAsString_whenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
     // Arrange, Act and Assert
     assertNull(BpmnJsonConverterUtil.getPropertyValueAsString("Name",
@@ -5360,18 +4796,18 @@ class BpmnJsonConverterUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnJsonConverterUtil#getPropertyValueAsString(String, JsonNode)}.
+   * Test {@link BpmnJsonConverterUtil#getPropertyValueAsString(String, JsonNode)}.
    * <ul>
    *   <li>When Instance.</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#getPropertyValueAsString(String, JsonNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#getPropertyValueAsString(String, JsonNode)}
    */
   @Test
   @DisplayName("Test getPropertyValueAsString(String, JsonNode); when Instance; then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String BpmnJsonConverterUtil.getPropertyValueAsString(String, JsonNode)"})
   void testGetPropertyValueAsString_whenInstance_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(BpmnJsonConverterUtil.getPropertyValueAsString("Name", MissingNode.getInstance()));
@@ -5380,16 +4816,16 @@ class BpmnJsonConverterUtilDiffblueTest {
   /**
    * Test {@link BpmnJsonConverterUtil#getProperty(String, JsonNode)}.
    * <ul>
-   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is
-   * withExactBigDecimals {@code true}.</li>
+   *   <li>When {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#getProperty(String, JsonNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#getProperty(String, JsonNode)}
    */
   @Test
   @DisplayName("Test getProperty(String, JsonNode); when ArrayNode(JsonNodeFactory) with nf is withExactBigDecimals 'true'; then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"JsonNode BpmnJsonConverterUtil.getProperty(String, JsonNode)"})
   void testGetProperty_whenArrayNodeWithNfIsWithExactBigDecimalsTrue_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(BpmnJsonConverterUtil.getProperty("Name", new ArrayNode(JsonNodeFactory.withExactBigDecimals(true))));
@@ -5402,11 +4838,12 @@ class BpmnJsonConverterUtilDiffblueTest {
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnJsonConverterUtil#getProperty(String, JsonNode)}
+   * Method under test: {@link BpmnJsonConverterUtil#getProperty(String, JsonNode)}
    */
   @Test
   @DisplayName("Test getProperty(String, JsonNode); when Instance; then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"JsonNode BpmnJsonConverterUtil.getProperty(String, JsonNode)"})
   void testGetProperty_whenInstance_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(BpmnJsonConverterUtil.getProperty("Name", MissingNode.getInstance()));

@@ -20,12 +20,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.Map;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ModelEntityImplDiffblueTest {
   /**
@@ -59,6 +61,19 @@ public class ModelEntityImplDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ModelEntityImpl.<init>()", "String ModelEntityImpl.getCategory()",
+      "Date ModelEntityImpl.getCreateTime()", "String ModelEntityImpl.getDeploymentId()",
+      "String ModelEntityImpl.getEditorSourceExtraValueId()", "String ModelEntityImpl.getEditorSourceValueId()",
+      "String ModelEntityImpl.getKey()", "Date ModelEntityImpl.getLastUpdateTime()",
+      "String ModelEntityImpl.getMetaInfo()", "String ModelEntityImpl.getName()",
+      "String ModelEntityImpl.getTenantId()", "Integer ModelEntityImpl.getVersion()",
+      "void ModelEntityImpl.setCategory(String)", "void ModelEntityImpl.setCreateTime(Date)",
+      "void ModelEntityImpl.setDeploymentId(String)", "void ModelEntityImpl.setEditorSourceExtraValueId(String)",
+      "void ModelEntityImpl.setEditorSourceValueId(String)", "void ModelEntityImpl.setKey(String)",
+      "void ModelEntityImpl.setLastUpdateTime(Date)", "void ModelEntityImpl.setMetaInfo(String)",
+      "void ModelEntityImpl.setName(String)", "void ModelEntityImpl.setTenantId(String)",
+      "void ModelEntityImpl.setVersion(Integer)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ModelEntityImpl actualModelEntityImpl = new ModelEntityImpl();
@@ -85,8 +100,9 @@ public class ModelEntityImplDiffblueTest {
     String actualMetaInfo = actualModelEntityImpl.getMetaInfo();
     String actualName = actualModelEntityImpl.getName();
     String actualTenantId = actualModelEntityImpl.getTenantId();
+    Integer actualVersion = actualModelEntityImpl.getVersion();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualDeploymentId);
     assertEquals("42", actualEditorSourceExtraValueId);
     assertEquals("42", actualEditorSourceValueId);
@@ -95,7 +111,8 @@ public class ModelEntityImplDiffblueTest {
     assertEquals("Key", actualKey);
     assertEquals("Meta Info", actualMetaInfo);
     assertEquals("Name", actualName);
-    assertEquals(1, actualModelEntityImpl.getVersion().intValue());
+    assertNull(actualModelEntityImpl.getId());
+    assertEquals(1, actualVersion.intValue());
     assertEquals(1, actualModelEntityImpl.getRevision());
     assertFalse(actualModelEntityImpl.isDeleted());
     assertFalse(actualModelEntityImpl.isInserted());
@@ -106,15 +123,13 @@ public class ModelEntityImplDiffblueTest {
 
   /**
    * Test {@link ModelEntityImpl#getPersistentState()}.
-   * <ul>
-   *   <li>Given {@link ModelEntityImpl} (default constructor).</li>
-   *   <li>Then return {@code createTime} is {@code null}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link ModelEntityImpl#getPersistentState()}
    */
   @Test
-  public void testGetPersistentState_givenModelEntityImpl_thenReturnCreateTimeIsNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object ModelEntityImpl.getPersistentState()"})
+  public void testGetPersistentState() {
     // Arrange and Act
     Object actualPersistentState = (new ModelEntityImpl()).getPersistentState();
 
@@ -134,68 +149,17 @@ public class ModelEntityImplDiffblueTest {
   }
 
   /**
-   * Test {@link ModelEntityImpl#getPersistentState()}.
-   * <ul>
-   *   <li>Then return containsKey {@code createTime}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ModelEntityImpl#getPersistentState()}
-   */
-  @Test
-  public void testGetPersistentState_thenReturnContainsKeyCreateTime() {
-    // Arrange
-    ModelEntityImpl modelEntityImpl = new ModelEntityImpl();
-    modelEntityImpl.setCreateTime(mock(java.sql.Date.class));
-
-    // Act
-    Object actualPersistentState = modelEntityImpl.getPersistentState();
-
-    // Assert
-    assertTrue(actualPersistentState instanceof Map);
-    assertEquals(10, ((Map<String, Object>) actualPersistentState).size());
-    assertNull(((Map<String, Object>) actualPersistentState).get("category"));
-    assertNull(((Map<String, Object>) actualPersistentState).get("deploymentId"));
-    assertNull(((Map<String, Object>) actualPersistentState).get("editorSourceExtraValueId"));
-    assertNull(((Map<String, Object>) actualPersistentState).get("editorSourceValueId"));
-    assertNull(((Map<String, Object>) actualPersistentState).get("key"));
-    assertNull(((Map<String, Object>) actualPersistentState).get("lastUpdateTime"));
-    assertNull(((Map<String, Object>) actualPersistentState).get("metaInfo"));
-    assertNull(((Map<String, Object>) actualPersistentState).get("name"));
-    assertTrue(((Map<String, Object>) actualPersistentState).containsKey("createTime"));
-    assertTrue(((Map<String, Object>) actualPersistentState).containsKey("version"));
-  }
-
-  /**
    * Test {@link ModelEntityImpl#hasEditorSource()}.
    * <ul>
-   *   <li>Given {@link ModelEntityImpl} (default constructor) CreateTime is
-   * {@link Date}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ModelEntityImpl#hasEditorSource()}
-   */
-  @Test
-  public void testHasEditorSource_givenModelEntityImplCreateTimeIsDate_thenReturnFalse() {
-    // Arrange
-    ModelEntityImpl modelEntityImpl = new ModelEntityImpl();
-    modelEntityImpl.setCreateTime(mock(java.sql.Date.class));
-
-    // Act and Assert
-    assertFalse(modelEntityImpl.hasEditorSource());
-  }
-
-  /**
-   * Test {@link ModelEntityImpl#hasEditorSource()}.
-   * <ul>
-   *   <li>Given {@link ModelEntityImpl} (default constructor) EditorSourceValueId
-   * is {@code foo}.</li>
+   *   <li>Given {@link ModelEntityImpl} (default constructor) EditorSourceValueId is {@code foo}.</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ModelEntityImpl#hasEditorSource()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ModelEntityImpl.hasEditorSource()"})
   public void testHasEditorSource_givenModelEntityImplEditorSourceValueIdIsFoo_thenReturnTrue() {
     // Arrange
     ModelEntityImpl modelEntityImpl = new ModelEntityImpl();
@@ -215,29 +179,11 @@ public class ModelEntityImplDiffblueTest {
    * Method under test: {@link ModelEntityImpl#hasEditorSource()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ModelEntityImpl.hasEditorSource()"})
   public void testHasEditorSource_givenModelEntityImpl_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new ModelEntityImpl()).hasEditorSource());
-  }
-
-  /**
-   * Test {@link ModelEntityImpl#hasEditorSourceExtra()}.
-   * <ul>
-   *   <li>Given {@link ModelEntityImpl} (default constructor) CreateTime is
-   * {@link Date}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ModelEntityImpl#hasEditorSourceExtra()}
-   */
-  @Test
-  public void testHasEditorSourceExtra_givenModelEntityImplCreateTimeIsDate_thenReturnFalse() {
-    // Arrange
-    ModelEntityImpl modelEntityImpl = new ModelEntityImpl();
-    modelEntityImpl.setCreateTime(mock(java.sql.Date.class));
-
-    // Act and Assert
-    assertFalse(modelEntityImpl.hasEditorSourceExtra());
   }
 
   /**
@@ -250,6 +196,8 @@ public class ModelEntityImplDiffblueTest {
    * Method under test: {@link ModelEntityImpl#hasEditorSourceExtra()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ModelEntityImpl.hasEditorSourceExtra()"})
   public void testHasEditorSourceExtra_givenModelEntityImpl_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new ModelEntityImpl()).hasEditorSourceExtra());
@@ -264,6 +212,8 @@ public class ModelEntityImplDiffblueTest {
    * Method under test: {@link ModelEntityImpl#hasEditorSourceExtra()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ModelEntityImpl.hasEditorSourceExtra()"})
   public void testHasEditorSourceExtra_thenReturnTrue() {
     // Arrange
     ModelEntityImpl modelEntityImpl = new ModelEntityImpl();

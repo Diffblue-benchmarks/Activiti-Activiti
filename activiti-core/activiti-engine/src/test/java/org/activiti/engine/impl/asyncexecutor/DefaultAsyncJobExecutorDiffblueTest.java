@@ -19,193 +19,224 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.atLeast;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import ch.qos.logback.classic.net.SimpleSSLSocketServer;
-import java.time.LocalDate;
-import java.time.ZoneOffset;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Map;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.net.MalformedURLException;
+import java.nio.file.Paths;
+import java.util.LinkedList;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
+import javax.enterprise.concurrent.ManagedThreadFactory;
+import javax.xml.namespace.QName;
 import org.activiti.engine.impl.asyncexecutor.multitenant.SharedExecutorServiceAsyncExecutor;
+import org.activiti.engine.impl.asyncexecutor.multitenant.TenantAwareExecuteAsyncRunnable;
+import org.activiti.engine.impl.cfg.CommandExecutorImpl;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
+import org.activiti.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration;
+import org.activiti.engine.impl.interceptor.Command;
+import org.activiti.engine.impl.interceptor.CommandConfig;
+import org.activiti.engine.impl.interceptor.CommandContextInterceptor;
+import org.activiti.engine.impl.interceptor.CommandExecutor;
 import org.activiti.engine.impl.persistence.entity.DeadLetterJobEntityImpl;
-import org.activiti.engine.impl.persistence.entity.JobEntityImpl;
 import org.activiti.engine.runtime.Job;
 import org.activiti.engine.test.cfg.multitenant.DummyTenantInfoHolder;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
+import org.mockito.Mockito;
 
-@RunWith(MockitoJUnitRunner.class)
 public class DefaultAsyncJobExecutorDiffblueTest {
-  @InjectMocks
-  private DefaultAsyncJobExecutor defaultAsyncJobExecutor;
-
   /**
    * Test {@link DefaultAsyncJobExecutor#executeAsyncJob(Job)}.
    * <ul>
-   *   <li>When {@link DeadLetterJobEntityImpl} (default constructor).</li>
+   *   <li>Then {@link DefaultAsyncJobExecutor} (default constructor) {@link DefaultAsyncJobExecutor#temporaryJobQueue} Empty.</li>
    * </ul>
    * <p>
    * Method under test: {@link DefaultAsyncJobExecutor#executeAsyncJob(Job)}
    */
   @Test
-  public void testExecuteAsyncJob_whenDeadLetterJobEntityImpl() {
-    // Arrange, Act and Assert
-    assertTrue(defaultAsyncJobExecutor.executeAsyncJob(new DeadLetterJobEntityImpl()));
-    assertTrue(defaultAsyncJobExecutor.executeAsyncJob(mock(DeadLetterJobEntityImpl.class)));
-  }
-
-  /**
-   * Test {@link DefaultAsyncJobExecutor#createRunnableForJob(Job)}.
-   * <ul>
-   *   <li>Given {@code true}.</li>
-   *   <li>Then {@link ExecuteAsyncRunnable#job} return {@link JobEntityImpl}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DefaultAsyncJobExecutor#createRunnableForJob(Job)}
-   */
-  @Test
-  public void testCreateRunnableForJob_givenTrue_thenJobReturnJobEntityImpl() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean DefaultAsyncJobExecutor.executeAsyncJob(Job)"})
+  public void testExecuteAsyncJob_thenDefaultAsyncJobExecutorTemporaryJobQueueEmpty() {
     // Arrange
-    JobEntityImpl job = new JobEntityImpl();
-    job.setDeleted(true);
-    Date duedate = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
-    job.setDuedate(duedate);
-    job.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    job.setExceptionMessage("An error occurred");
-    job.setExclusive(true);
-    job.setExecutionId("42");
-    job.setId("42");
-    job.setInserted(true);
-    job.setJobHandlerConfiguration("Job Handler Configuration");
-    job.setJobHandlerType("Job Handler Type");
-    job.setJobType("Job Type");
-    Date claimedUntil = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
-    job.setLockExpirationTime(claimedUntil);
-    job.setLockOwner("Claimed By");
-    job.setMaxIterations(3);
-    job.setProcessDefinitionId("42");
-    job.setProcessInstanceId("42");
-    job.setRepeat("Repeat");
-    job.setRetries(1);
-    job.setRevision(1);
-    job.setTenantId("42");
-    job.setUpdated(true);
+    DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
+    defaultAsyncJobExecutor.setMessageQueueMode(true);
 
     // Act
-    Runnable actualCreateRunnableForJobResult = defaultAsyncJobExecutor.createRunnableForJob(job);
+    boolean actualExecuteAsyncJobResult = defaultAsyncJobExecutor.executeAsyncJob(new DeadLetterJobEntityImpl());
 
     // Assert
-    Job job2 = ((ExecuteAsyncRunnable) actualCreateRunnableForJobResult).job;
-    Object persistentState = ((JobEntityImpl) job2).getPersistentState();
-    assertTrue(persistentState instanceof Map);
-    assertTrue(actualCreateRunnableForJobResult instanceof ExecuteAsyncRunnable);
-    assertTrue(job2 instanceof JobEntityImpl);
-    assertEquals("42", job2.getExecutionId());
-    assertEquals("42", job2.getId());
-    assertEquals("42", job2.getProcessDefinitionId());
-    assertEquals("42", job2.getProcessInstanceId());
-    assertEquals("42", job2.getTenantId());
-    assertEquals("An error occurred", job2.getExceptionMessage());
-    assertEquals("Claimed By", ((JobEntityImpl) job2).getLockOwner());
-    assertEquals(5, ((Map<String, Object>) persistentState).size());
-    assertEquals("Claimed By", ((Map<String, Object>) persistentState).get("lockOwner"));
-    assertEquals("Job Handler Configuration", job2.getJobHandlerConfiguration());
-    assertEquals("Job Handler Type", job2.getJobHandlerType());
-    assertEquals("Job Type", job2.getJobType());
-    assertEquals("Repeat", ((JobEntityImpl) job2).getRepeat());
-    assertEquals(1, job2.getRetries());
-    assertEquals(3, ((JobEntityImpl) job2).getMaxIterations());
-    assertTrue(((Map<String, Object>) persistentState).containsKey("retries"));
-    assertTrue(((JobEntityImpl) job2).isDeleted());
-    assertTrue(((JobEntityImpl) job2).isInserted());
-    assertTrue(((JobEntityImpl) job2).isUpdated());
-    assertSame(duedate, ((Map<String, Object>) persistentState).get("duedate"));
-    assertSame(claimedUntil, ((Map<String, Object>) persistentState).get("lockExpirationTime"));
+    assertTrue(defaultAsyncJobExecutor.temporaryJobQueue.isEmpty());
+    assertTrue(actualExecuteAsyncJobResult);
+  }
+
+  /**
+   * Test {@link DefaultAsyncJobExecutor#executeAsyncJob(Job)}.
+   * <ul>
+   *   <li>Then {@link DefaultAsyncJobExecutor} (default constructor) {@link DefaultAsyncJobExecutor#temporaryJobQueue} size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DefaultAsyncJobExecutor#executeAsyncJob(Job)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean DefaultAsyncJobExecutor.executeAsyncJob(Job)"})
+  public void testExecuteAsyncJob_thenDefaultAsyncJobExecutorTemporaryJobQueueSizeIsOne() {
+    // Arrange
+    DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
+    DeadLetterJobEntityImpl job = new DeadLetterJobEntityImpl();
+
+    // Act
+    boolean actualExecuteAsyncJobResult = defaultAsyncJobExecutor.executeAsyncJob(job);
+
+    // Assert
+    LinkedList<Job> jobList = defaultAsyncJobExecutor.temporaryJobQueue;
+    assertEquals(1, jobList.size());
+    assertTrue(actualExecuteAsyncJobResult);
+    assertSame(job, jobList.get(0));
   }
 
   /**
    * Test {@link DefaultAsyncJobExecutor#createRunnableForJob(Job)}.
-   * <ul>
-   *   <li>Then {@link ExecuteAsyncRunnable#job} return
-   * {@link DeadLetterJobEntityImpl}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link DefaultAsyncJobExecutor#createRunnableForJob(Job)}
    */
   @Test
-  public void testCreateRunnableForJob_thenJobReturnDeadLetterJobEntityImpl() {
-    // Arrange and Act
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Runnable DefaultAsyncJobExecutor.createRunnableForJob(Job)"})
+  public void testCreateRunnableForJob() {
+    // Arrange
+    DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
+    defaultAsyncJobExecutor.setExecuteAsyncRunnableFactory(null);
+
+    // Act
     Runnable actualCreateRunnableForJobResult = defaultAsyncJobExecutor
         .createRunnableForJob(new DeadLetterJobEntityImpl());
 
     // Assert
-    Job job = ((ExecuteAsyncRunnable) actualCreateRunnableForJobResult).job;
-    Object persistentState = ((DeadLetterJobEntityImpl) job).getPersistentState();
-    assertTrue(persistentState instanceof Map);
     assertTrue(actualCreateRunnableForJobResult instanceof ExecuteAsyncRunnable);
-    assertTrue(job instanceof DeadLetterJobEntityImpl);
-    assertEquals("", job.getTenantId());
-    assertEquals(3, ((Map<String, Integer>) persistentState).size());
-    assertNull(((Map<String, Integer>) persistentState).get("duedate"));
-    assertNull(((Map<String, Integer>) persistentState).get("exceptionMessage"));
-    assertNull(((DeadLetterJobEntityImpl) job).getRepeat());
-    assertNull(job.getExceptionMessage());
-    assertNull(job.getExecutionId());
-    assertNull(job.getId());
-    assertNull(job.getJobHandlerConfiguration());
-    assertNull(job.getJobHandlerType());
-    assertNull(job.getJobType());
-    assertNull(job.getProcessDefinitionId());
-    assertNull(job.getProcessInstanceId());
+    assertTrue(((ExecuteAsyncRunnable) actualCreateRunnableForJobResult).job instanceof DeadLetterJobEntityImpl);
     assertNull(((ExecuteAsyncRunnable) actualCreateRunnableForJobResult).jobId);
-    assertNull(((DeadLetterJobEntityImpl) job).getEndDate());
-    assertNull(job.getDuedate());
-    assertEquals(0, ((Map<String, Integer>) persistentState).get("retries").intValue());
-    assertEquals(0, ((DeadLetterJobEntityImpl) job).getMaxIterations());
-    assertEquals(0, job.getRetries());
-    assertFalse(((DeadLetterJobEntityImpl) job).isDeleted());
-    assertFalse(((DeadLetterJobEntityImpl) job).isInserted());
-    assertFalse(((DeadLetterJobEntityImpl) job).isUpdated());
+    assertNull(((ExecuteAsyncRunnable) actualCreateRunnableForJobResult).processEngineConfiguration);
+  }
+
+  /**
+   * Test {@link DefaultAsyncJobExecutor#createRunnableForJob(Job)}.
+   * <p>
+   * Method under test: {@link DefaultAsyncJobExecutor#createRunnableForJob(Job)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Runnable DefaultAsyncJobExecutor.createRunnableForJob(Job)"})
+  public void testCreateRunnableForJob2() {
+    // Arrange
+    ExecuteAsyncRunnableFactory executeAsyncRunnableFactory = mock(ExecuteAsyncRunnableFactory.class);
+    when(executeAsyncRunnableFactory.createExecuteAsyncRunnable(Mockito.<Job>any(),
+        Mockito.<ProcessEngineConfigurationImpl>any())).thenReturn(mock(Runnable.class));
+
+    DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
+    defaultAsyncJobExecutor.setExecuteAsyncRunnableFactory(executeAsyncRunnableFactory);
+
+    // Act
+    defaultAsyncJobExecutor.createRunnableForJob(new DeadLetterJobEntityImpl());
+
+    // Assert
+    verify(executeAsyncRunnableFactory).createExecuteAsyncRunnable(isA(Job.class), isNull());
   }
 
   /**
    * Test {@link DefaultAsyncJobExecutor#createRunnableForJob(Job)}.
    * <ul>
-   *   <li>Then return {@link ExecuteAsyncRunnable#jobId} is {@code 42}.</li>
+   *   <li>Then return {@link ExecuteAsyncRunnable}.</li>
    * </ul>
    * <p>
    * Method under test: {@link DefaultAsyncJobExecutor#createRunnableForJob(Job)}
    */
   @Test
-  public void testCreateRunnableForJob_thenReturnJobIdIs42() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Runnable DefaultAsyncJobExecutor.createRunnableForJob(Job)"})
+  public void testCreateRunnableForJob_thenReturnExecuteAsyncRunnable() {
     // Arrange
-    DeadLetterJobEntityImpl job = mock(DeadLetterJobEntityImpl.class);
-    when(job.getId()).thenReturn("42");
+    DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
 
     // Act
-    Runnable actualCreateRunnableForJobResult = defaultAsyncJobExecutor.createRunnableForJob(job);
+    Runnable actualCreateRunnableForJobResult = defaultAsyncJobExecutor
+        .createRunnableForJob(new DeadLetterJobEntityImpl());
 
     // Assert
-    verify(job).getId();
     assertTrue(actualCreateRunnableForJobResult instanceof ExecuteAsyncRunnable);
-    assertEquals("42", ((ExecuteAsyncRunnable) actualCreateRunnableForJobResult).jobId);
+    assertTrue(((ExecuteAsyncRunnable) actualCreateRunnableForJobResult).job instanceof DeadLetterJobEntityImpl);
+    assertNull(((ExecuteAsyncRunnable) actualCreateRunnableForJobResult).jobId);
     assertNull(((ExecuteAsyncRunnable) actualCreateRunnableForJobResult).processEngineConfiguration);
+  }
+
+  /**
+   * Test {@link DefaultAsyncJobExecutor#createRunnableForJob(Job)}.
+   * <ul>
+   *   <li>Then return {@link TenantAwareExecuteAsyncRunnable}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DefaultAsyncJobExecutor#createRunnableForJob(Job)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Runnable DefaultAsyncJobExecutor.createRunnableForJob(Job)"})
+  public void testCreateRunnableForJob_thenReturnTenantAwareExecuteAsyncRunnable() {
+    // Arrange
+    SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
+        new DummyTenantInfoHolder());
+
+    // Act
+    Runnable actualCreateRunnableForJobResult = sharedExecutorServiceAsyncExecutor
+        .createRunnableForJob(new DeadLetterJobEntityImpl());
+
+    // Assert
+    assertTrue(actualCreateRunnableForJobResult instanceof TenantAwareExecuteAsyncRunnable);
+    assertTrue(
+        ((TenantAwareExecuteAsyncRunnable) actualCreateRunnableForJobResult).job instanceof DeadLetterJobEntityImpl);
+    assertNull(((TenantAwareExecuteAsyncRunnable) actualCreateRunnableForJobResult).jobId);
+    assertNull(((TenantAwareExecuteAsyncRunnable) actualCreateRunnableForJobResult).processEngineConfiguration);
+  }
+
+  /**
+   * Test {@link DefaultAsyncJobExecutor#createRunnableForJob(Job)}.
+   * <ul>
+   *   <li>Then throw {@link RejectedExecutionException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DefaultAsyncJobExecutor#createRunnableForJob(Job)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Runnable DefaultAsyncJobExecutor.createRunnableForJob(Job)"})
+  public void testCreateRunnableForJob_thenThrowRejectedExecutionException() {
+    // Arrange
+    ExecuteAsyncRunnableFactory executeAsyncRunnableFactory = mock(ExecuteAsyncRunnableFactory.class);
+    when(executeAsyncRunnableFactory.createExecuteAsyncRunnable(Mockito.<Job>any(),
+        Mockito.<ProcessEngineConfigurationImpl>any())).thenThrow(new RejectedExecutionException("foo"));
+
+    DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
+    defaultAsyncJobExecutor.setExecuteAsyncRunnableFactory(executeAsyncRunnableFactory);
+
+    // Act and Assert
+    assertThrows(RejectedExecutionException.class,
+        () -> defaultAsyncJobExecutor.createRunnableForJob(new DeadLetterJobEntityImpl()));
+    verify(executeAsyncRunnableFactory).createExecuteAsyncRunnable(isA(Job.class), isNull());
   }
 
   /**
@@ -214,6 +245,8 @@ public class DefaultAsyncJobExecutorDiffblueTest {
    * Method under test: {@link DefaultAsyncJobExecutor#start()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.start()"})
   public void testStart() {
     // Arrange
     SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
@@ -225,18 +258,12 @@ public class DefaultAsyncJobExecutorDiffblueTest {
     // Assert
     ExecutorService executorService = sharedExecutorServiceAsyncExecutor.getExecutorService();
     assertTrue(executorService instanceof ThreadPoolExecutor);
-    ThreadFactory threadFactory = ((ThreadPoolExecutor) executorService).getThreadFactory();
-    assertTrue(threadFactory instanceof BasicThreadFactory);
-    assertEquals("activiti-async-job-executor-thread-%d", ((BasicThreadFactory) threadFactory).getNamingPattern());
-    assertNull(((BasicThreadFactory) threadFactory).getDaemonFlag());
-    assertNull(((BasicThreadFactory) threadFactory).getPriority());
-    assertNull(((BasicThreadFactory) threadFactory).getUncaughtExceptionHandler());
+    assertTrue(((ThreadPoolExecutor) executorService).getThreadFactory() instanceof BasicThreadFactory);
     assertEquals(0, ((ThreadPoolExecutor) executorService).getActiveCount());
     assertEquals(0, ((ThreadPoolExecutor) executorService).getLargestPoolSize());
     assertEquals(0, ((ThreadPoolExecutor) executorService).getPoolSize());
     assertEquals(0L, ((ThreadPoolExecutor) executorService).getCompletedTaskCount());
     assertEquals(0L, ((ThreadPoolExecutor) executorService).getTaskCount());
-    assertEquals(0L, ((BasicThreadFactory) threadFactory).getThreadCount());
     assertEquals(10, ((ThreadPoolExecutor) executorService).getMaximumPoolSize());
     assertEquals(2, ((ThreadPoolExecutor) executorService).getCorePoolSize());
   }
@@ -247,6 +274,8 @@ public class DefaultAsyncJobExecutorDiffblueTest {
    * Method under test: {@link DefaultAsyncJobExecutor#start()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.start()"})
   public void testStart2() {
     // Arrange
     DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
@@ -258,14 +287,12 @@ public class DefaultAsyncJobExecutorDiffblueTest {
     // Act
     defaultAsyncJobExecutor.start();
 
-    // Assert
+    // Assert that nothing has changed
     AcquireTimerJobsRunnable acquireTimerJobsRunnable = defaultAsyncJobExecutor.timerJobRunnable;
     AsyncExecutor asyncExecutor2 = acquireTimerJobsRunnable.asyncExecutor;
     assertTrue(asyncExecutor2 instanceof DefaultAsyncJobExecutor);
     JobManager jobManager = acquireTimerJobsRunnable.jobManager;
     assertTrue(jobManager instanceof DefaultJobManager);
-    assertEquals(0L, defaultAsyncJobExecutor.asyncJobsDueRunnable.getMillisToWait());
-    assertEquals(0L, acquireTimerJobsRunnable.getMillisToWait());
     assertFalse(acquireTimerJobsRunnable.isWaiting.get());
     assertFalse(acquireTimerJobsRunnable.isInterrupted);
     assertSame(timerJobRunnable.asyncExecutor, asyncExecutor2);
@@ -273,14 +300,248 @@ public class DefaultAsyncJobExecutorDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultAsyncJobExecutor#initAsyncJobExecutionThreadPool()}.
+   * Test {@link DefaultAsyncJobExecutor#start()}.
    * <p>
-   * Method under test:
-   * {@link DefaultAsyncJobExecutor#initAsyncJobExecutionThreadPool()}
+   * Method under test: {@link DefaultAsyncJobExecutor#start()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.start()"})
+  public void testStart3() {
+    // Arrange
+    DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
+    defaultAsyncJobExecutor.setProcessEngineConfiguration(new StandaloneInMemProcessEngineConfiguration());
+
+    // Act
+    defaultAsyncJobExecutor.start();
+
+    // Assert
+    AcquireTimerJobsRunnable acquireTimerJobsRunnable = defaultAsyncJobExecutor.timerJobRunnable;
+    assertNull(acquireTimerJobsRunnable.jobManager);
+    assertFalse(acquireTimerJobsRunnable.isInterrupted);
+    assertSame(defaultAsyncJobExecutor, acquireTimerJobsRunnable.asyncExecutor);
+  }
+
+  /**
+   * Test {@link DefaultAsyncJobExecutor#start()}.
+   * <p>
+   * Method under test: {@link DefaultAsyncJobExecutor#start()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.start()"})
+  public void testStart4() throws MalformedURLException {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.setHistory("Starting up the default async job executor [{}].");
+    processEngineConfiguration.addWsEndpointAddress(QName.valueOf("Starting up the default async job executor [{}]."),
+        Paths.get(System.getProperty("java.io.tmpdir"), "test.txt").toUri().toURL());
+
+    DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
+    defaultAsyncJobExecutor.setProcessEngineConfiguration(processEngineConfiguration);
+
+    // Act
+    defaultAsyncJobExecutor.start();
+
+    // Assert
+    AcquireTimerJobsRunnable acquireTimerJobsRunnable = defaultAsyncJobExecutor.timerJobRunnable;
+    assertNull(acquireTimerJobsRunnable.jobManager);
+    assertFalse(acquireTimerJobsRunnable.isInterrupted);
+    assertSame(defaultAsyncJobExecutor, acquireTimerJobsRunnable.asyncExecutor);
+  }
+
+  /**
+   * Test {@link DefaultAsyncJobExecutor#start()}.
+   * <p>
+   * Method under test: {@link DefaultAsyncJobExecutor#start()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.start()"})
+  public void testStart5() throws MalformedURLException {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.setJdbcDriver("Starting up the default async job executor [{}].");
+    processEngineConfiguration.addWsEndpointAddress(QName.valueOf("Starting up the default async job executor [{}]."),
+        Paths.get(System.getProperty("java.io.tmpdir"), "test.txt").toUri().toURL());
+
+    DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
+    defaultAsyncJobExecutor.setProcessEngineConfiguration(processEngineConfiguration);
+
+    // Act
+    defaultAsyncJobExecutor.start();
+
+    // Assert
+    AcquireTimerJobsRunnable acquireTimerJobsRunnable = defaultAsyncJobExecutor.timerJobRunnable;
+    assertNull(acquireTimerJobsRunnable.jobManager);
+    assertFalse(acquireTimerJobsRunnable.isInterrupted);
+    assertSame(defaultAsyncJobExecutor, acquireTimerJobsRunnable.asyncExecutor);
+  }
+
+  /**
+   * Test {@link DefaultAsyncJobExecutor#start()}.
+   * <p>
+   * Method under test: {@link DefaultAsyncJobExecutor#start()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.start()"})
+  public void testStart6() {
+    // Arrange
+    DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
+    AcquireTimerJobsRunnable timerJobRunnable = new AcquireTimerJobsRunnable(null, new DefaultJobManager());
+
+    defaultAsyncJobExecutor.setTimerJobRunnable(timerJobRunnable);
+
+    // Act
+    defaultAsyncJobExecutor.start();
+
+    // Assert that nothing has changed
+    AcquireTimerJobsRunnable acquireTimerJobsRunnable = defaultAsyncJobExecutor.timerJobRunnable;
+    JobManager jobManager = acquireTimerJobsRunnable.jobManager;
+    assertTrue(jobManager instanceof DefaultJobManager);
+    assertFalse(acquireTimerJobsRunnable.isWaiting.get());
+    assertFalse(acquireTimerJobsRunnable.isInterrupted);
+    assertSame(timerJobRunnable.jobManager, jobManager);
+  }
+
+  /**
+   * Test {@link DefaultAsyncJobExecutor#start()}.
+   * <p>
+   * Method under test: {@link DefaultAsyncJobExecutor#start()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.start()"})
+  public void testStart7() {
+    // Arrange
+    SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor = new SharedExecutorServiceAsyncExecutor(
+        new DummyTenantInfoHolder());
+    ForkJoinPool executorService = ForkJoinPool.commonPool();
+    sharedExecutorServiceAsyncExecutor.setExecutorService(executorService);
+
+    // Act
+    sharedExecutorServiceAsyncExecutor.start();
+
+    // Assert
+    ExecutorService executorService2 = sharedExecutorServiceAsyncExecutor.getExecutorService();
+    assertTrue(executorService2 instanceof ForkJoinPool);
+    assertTrue(sharedExecutorServiceAsyncExecutor.getThreadPoolQueue().isEmpty());
+    assertSame(executorService, executorService2);
+  }
+
+  /**
+   * Test {@link DefaultAsyncJobExecutor#start()}.
+   * <p>
+   * Method under test: {@link DefaultAsyncJobExecutor#start()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.start()"})
+  public void testStart8() {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    CommandConfig defaultConfig = new CommandConfig();
+    processEngineConfiguration
+        .setCommandExecutor(new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor()));
+
+    DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
+    AcquireAsyncJobsDueRunnable asyncJobsDueRunnable = new AcquireAsyncJobsDueRunnable(new DefaultAsyncJobExecutor());
+    defaultAsyncJobExecutor.setAsyncJobsDueRunnable(asyncJobsDueRunnable);
+    defaultAsyncJobExecutor.setProcessEngineConfiguration(processEngineConfiguration);
+
+    // Act
+    defaultAsyncJobExecutor.start();
+
+    // Assert that nothing has changed
+    AcquireAsyncJobsDueRunnable acquireAsyncJobsDueRunnable = defaultAsyncJobExecutor.asyncJobsDueRunnable;
+    AsyncExecutor asyncExecutor = acquireAsyncJobsDueRunnable.asyncExecutor;
+    assertTrue(asyncExecutor instanceof DefaultAsyncJobExecutor);
+    assertFalse(acquireAsyncJobsDueRunnable.isWaiting.get());
+    assertFalse(acquireAsyncJobsDueRunnable.isInterrupted);
+    assertSame(asyncJobsDueRunnable.asyncExecutor, asyncExecutor);
+  }
+
+  /**
+   * Test {@link DefaultAsyncJobExecutor#start()}.
+   * <p>
+   * Method under test: {@link DefaultAsyncJobExecutor#start()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.start()"})
+  public void testStart9() {
+    // Arrange
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    CommandConfig defaultConfig = new CommandConfig();
+    processEngineConfiguration
+        .setCommandExecutor(new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor()));
+
+    DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
+    ResetExpiredJobsRunnable resetExpiredJobsRunnable = new ResetExpiredJobsRunnable(new DefaultAsyncJobExecutor());
+    defaultAsyncJobExecutor.setResetExpiredJobsRunnable(resetExpiredJobsRunnable);
+    defaultAsyncJobExecutor.setProcessEngineConfiguration(processEngineConfiguration);
+
+    // Act
+    defaultAsyncJobExecutor.start();
+
+    // Assert that nothing has changed
+    ResetExpiredJobsRunnable resetExpiredJobsRunnable2 = defaultAsyncJobExecutor.resetExpiredJobsRunnable;
+    AsyncExecutor asyncExecutor = resetExpiredJobsRunnable2.asyncExecutor;
+    assertTrue(asyncExecutor instanceof DefaultAsyncJobExecutor);
+    assertFalse(resetExpiredJobsRunnable2.isInterrupted);
+    assertSame(resetExpiredJobsRunnable.asyncExecutor, asyncExecutor);
+  }
+
+  /**
+   * Test {@link DefaultAsyncJobExecutor#start()}.
+   * <ul>
+   *   <li>Given {@link DefaultAsyncJobExecutor} (default constructor) TimerJobAcquisitionThread is {@link Thread#Thread()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DefaultAsyncJobExecutor#start()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.start()"})
+  public void testStart_givenDefaultAsyncJobExecutorTimerJobAcquisitionThreadIsThread() {
+    // Arrange
+    DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
+    defaultAsyncJobExecutor.setTimerJobAcquisitionThread(new Thread());
+    CommandExecutor commandExecutor = mock(CommandExecutor.class);
+    when(commandExecutor.execute(Mockito.<Command<AcquiredJobEntities>>any())).thenReturn(new AcquiredJobEntities());
+
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.setCommandExecutor(commandExecutor);
+    defaultAsyncJobExecutor.setProcessEngineConfiguration(processEngineConfiguration);
+
+    // Act
+    defaultAsyncJobExecutor.start();
+
+    // Assert
+    verify(commandExecutor).execute(isA(Command.class));
+    AcquireTimerJobsRunnable acquireTimerJobsRunnable = defaultAsyncJobExecutor.timerJobRunnable;
+    assertNull(acquireTimerJobsRunnable.jobManager);
+    assertEquals(0L, acquireTimerJobsRunnable.getMillisToWait());
+    assertEquals(10000L, defaultAsyncJobExecutor.asyncJobsDueRunnable.getMillisToWait());
+    assertFalse(acquireTimerJobsRunnable.isWaiting.get());
+    assertFalse(acquireTimerJobsRunnable.isInterrupted);
+    assertSame(defaultAsyncJobExecutor, acquireTimerJobsRunnable.asyncExecutor);
+  }
+
+  /**
+   * Test {@link DefaultAsyncJobExecutor#initAsyncJobExecutionThreadPool()}.
+   * <p>
+   * Method under test: {@link DefaultAsyncJobExecutor#initAsyncJobExecutionThreadPool()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.initAsyncJobExecutionThreadPool()"})
   public void testInitAsyncJobExecutionThreadPool() {
-    // Arrange and Act
+    // Arrange
+    DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
+
+    // Act
     defaultAsyncJobExecutor.initAsyncJobExecutionThreadPool();
 
     // Assert
@@ -292,17 +553,117 @@ public class DefaultAsyncJobExecutorDiffblueTest {
     assertNull(((BasicThreadFactory) threadFactory).getDaemonFlag());
     assertNull(((BasicThreadFactory) threadFactory).getPriority());
     assertNull(((BasicThreadFactory) threadFactory).getUncaughtExceptionHandler());
+    assertEquals(0L, ((BasicThreadFactory) threadFactory).getThreadCount());
+  }
+
+  /**
+   * Test {@link DefaultAsyncJobExecutor#initAsyncJobExecutionThreadPool()}.
+   * <p>
+   * Method under test: {@link DefaultAsyncJobExecutor#initAsyncJobExecutionThreadPool()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.initAsyncJobExecutionThreadPool()"})
+  public void testInitAsyncJobExecutionThreadPool2() {
+    // Arrange
+    DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
+    defaultAsyncJobExecutor.setThreadPoolQueue(null);
+    ForkJoinPool executorService = ForkJoinPool.commonPool();
+    defaultAsyncJobExecutor.setExecutorService(executorService);
+
+    // Act
+    defaultAsyncJobExecutor.initAsyncJobExecutionThreadPool();
+
+    // Assert
+    ExecutorService executorService2 = defaultAsyncJobExecutor.getExecutorService();
+    assertTrue(executorService2 instanceof ForkJoinPool);
+    assertTrue(defaultAsyncJobExecutor.getThreadPoolQueue().isEmpty());
+    assertSame(executorService, executorService2);
+  }
+
+  /**
+   * Test {@link DefaultAsyncJobExecutor#initAsyncJobExecutionThreadPool()}.
+   * <p>
+   * Method under test: {@link DefaultAsyncJobExecutor#initAsyncJobExecutionThreadPool()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.initAsyncJobExecutionThreadPool()"})
+  public void testInitAsyncJobExecutionThreadPool3() {
+    // Arrange
+    DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
+    LinkedBlockingDeque<Runnable> threadPoolQueue = new LinkedBlockingDeque<>();
+    defaultAsyncJobExecutor.setThreadPoolQueue(threadPoolQueue);
+    ForkJoinPool executorService = ForkJoinPool.commonPool();
+    defaultAsyncJobExecutor.setExecutorService(executorService);
+
+    // Act
+    defaultAsyncJobExecutor.initAsyncJobExecutionThreadPool();
+
+    // Assert that nothing has changed
+    ExecutorService executorService2 = defaultAsyncJobExecutor.getExecutorService();
+    assertTrue(executorService2 instanceof ForkJoinPool);
+    BlockingQueue<Runnable> threadPoolQueue2 = defaultAsyncJobExecutor.getThreadPoolQueue();
+    assertTrue(threadPoolQueue2.isEmpty());
+    assertSame(threadPoolQueue, threadPoolQueue2);
+    assertSame(executorService, executorService2);
+  }
+
+  /**
+   * Test {@link DefaultAsyncJobExecutor#initAsyncJobExecutionThreadPool()}.
+   * <p>
+   * Method under test: {@link DefaultAsyncJobExecutor#initAsyncJobExecutionThreadPool()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.initAsyncJobExecutionThreadPool()"})
+  public void testInitAsyncJobExecutionThreadPool4() {
+    // Arrange
+    ManagedAsyncJobExecutor managedAsyncJobExecutor = new ManagedAsyncJobExecutor();
+    managedAsyncJobExecutor.setThreadFactory(mock(ManagedThreadFactory.class));
+
+    // Act
+    managedAsyncJobExecutor.initAsyncJobExecutionThreadPool();
+
+    // Assert
+    ExecutorService executorService = managedAsyncJobExecutor.getExecutorService();
+    assertTrue(executorService instanceof ThreadPoolExecutor);
     assertEquals(0, ((ThreadPoolExecutor) executorService).getActiveCount());
     assertEquals(0, ((ThreadPoolExecutor) executorService).getLargestPoolSize());
     assertEquals(0, ((ThreadPoolExecutor) executorService).getPoolSize());
     assertEquals(0L, ((ThreadPoolExecutor) executorService).getCompletedTaskCount());
     assertEquals(0L, ((ThreadPoolExecutor) executorService).getTaskCount());
-    assertEquals(0L, ((BasicThreadFactory) threadFactory).getThreadCount());
     assertEquals(10, ((ThreadPoolExecutor) executorService).getMaximumPoolSize());
     assertEquals(2, ((ThreadPoolExecutor) executorService).getCorePoolSize());
-    BlockingQueue<Runnable> threadPoolQueue = defaultAsyncJobExecutor.getThreadPoolQueue();
-    assertTrue(threadPoolQueue.isEmpty());
-    assertSame(threadPoolQueue, ((ThreadPoolExecutor) executorService).getQueue());
+  }
+
+  /**
+   * Test {@link DefaultAsyncJobExecutor#initAsyncJobExecutionThreadPool()}.
+   * <p>
+   * Method under test: {@link DefaultAsyncJobExecutor#initAsyncJobExecutionThreadPool()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.initAsyncJobExecutionThreadPool()"})
+  public void testInitAsyncJobExecutionThreadPool5() {
+    // Arrange
+    ManagedAsyncJobExecutor managedAsyncJobExecutor = new ManagedAsyncJobExecutor();
+    managedAsyncJobExecutor.setAsyncJobAcquisitionThread(new Thread());
+    managedAsyncJobExecutor.setThreadFactory(mock(ManagedThreadFactory.class));
+
+    // Act
+    managedAsyncJobExecutor.initAsyncJobExecutionThreadPool();
+
+    // Assert
+    ExecutorService executorService = managedAsyncJobExecutor.getExecutorService();
+    assertTrue(executorService instanceof ThreadPoolExecutor);
+    assertEquals(0, ((ThreadPoolExecutor) executorService).getActiveCount());
+    assertEquals(0, ((ThreadPoolExecutor) executorService).getLargestPoolSize());
+    assertEquals(0, ((ThreadPoolExecutor) executorService).getPoolSize());
+    assertEquals(0L, ((ThreadPoolExecutor) executorService).getCompletedTaskCount());
+    assertEquals(0L, ((ThreadPoolExecutor) executorService).getTaskCount());
+    assertEquals(10, ((ThreadPoolExecutor) executorService).getMaximumPoolSize());
+    assertEquals(2, ((ThreadPoolExecutor) executorService).getCorePoolSize());
   }
 
   /**
@@ -311,6 +672,8 @@ public class DefaultAsyncJobExecutorDiffblueTest {
    * Method under test: {@link DefaultAsyncJobExecutor#stopExecutingAsyncJobs()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.stopExecutingAsyncJobs()"})
   public void testStopExecutingAsyncJobs() {
     // Arrange
     DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
@@ -329,25 +692,9 @@ public class DefaultAsyncJobExecutorDiffblueTest {
    * Method under test: {@link DefaultAsyncJobExecutor#stopExecutingAsyncJobs()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.stopExecutingAsyncJobs()"})
   public void testStopExecutingAsyncJobs2() {
-    // Arrange
-    DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
-    defaultAsyncJobExecutor.setExecuteAsyncRunnableFactory(mock(ExecuteAsyncRunnableFactory.class));
-
-    // Act
-    defaultAsyncJobExecutor.stopExecutingAsyncJobs();
-
-    // Assert that nothing has changed
-    assertNull(defaultAsyncJobExecutor.getExecutorService());
-  }
-
-  /**
-   * Test {@link DefaultAsyncJobExecutor#stopExecutingAsyncJobs()}.
-   * <p>
-   * Method under test: {@link DefaultAsyncJobExecutor#stopExecutingAsyncJobs()}
-   */
-  @Test
-  public void testStopExecutingAsyncJobs3() {
     // Arrange
     DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
     defaultAsyncJobExecutor.setExecutorService(new ForkJoinPool());
@@ -368,6 +715,8 @@ public class DefaultAsyncJobExecutorDiffblueTest {
    * Method under test: {@link DefaultAsyncJobExecutor#stopExecutingAsyncJobs()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.stopExecutingAsyncJobs()"})
   public void testStopExecutingAsyncJobs_givenDefaultAsyncJobExecutor() {
     // Arrange
     DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
@@ -385,6 +734,8 @@ public class DefaultAsyncJobExecutorDiffblueTest {
    * Method under test: {@link DefaultAsyncJobExecutor#stopJobAcquisitionThread()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.stopJobAcquisitionThread()"})
   public void testStopJobAcquisitionThread() {
     // Arrange
     DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
@@ -399,24 +750,6 @@ public class DefaultAsyncJobExecutorDiffblueTest {
 
   /**
    * Test {@link DefaultAsyncJobExecutor#stopJobAcquisitionThread()}.
-   * <p>
-   * Method under test: {@link DefaultAsyncJobExecutor#stopJobAcquisitionThread()}
-   */
-  @Test
-  public void testStopJobAcquisitionThread2() {
-    // Arrange
-    DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
-    defaultAsyncJobExecutor.setExecuteAsyncRunnableFactory(mock(ExecuteAsyncRunnableFactory.class));
-
-    // Act
-    defaultAsyncJobExecutor.stopJobAcquisitionThread();
-
-    // Assert that nothing has changed
-    assertNull(defaultAsyncJobExecutor.getAsyncJobAcquisitionThread());
-  }
-
-  /**
-   * Test {@link DefaultAsyncJobExecutor#stopJobAcquisitionThread()}.
    * <ul>
    *   <li>Given {@link DefaultAsyncJobExecutor} (default constructor).</li>
    * </ul>
@@ -424,6 +757,8 @@ public class DefaultAsyncJobExecutorDiffblueTest {
    * Method under test: {@link DefaultAsyncJobExecutor#stopJobAcquisitionThread()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.stopJobAcquisitionThread()"})
   public void testStopJobAcquisitionThread_givenDefaultAsyncJobExecutor() {
     // Arrange
     DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
@@ -444,6 +779,8 @@ public class DefaultAsyncJobExecutorDiffblueTest {
    * Method under test: {@link DefaultAsyncJobExecutor#stopJobAcquisitionThread()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.stopJobAcquisitionThread()"})
   public void testStopJobAcquisitionThread_thenCallsJoin() throws InterruptedException {
     // Arrange
     SimpleSSLSocketServer asyncJobAcquisitionThread = mock(SimpleSSLSocketServer.class);
@@ -463,10 +800,11 @@ public class DefaultAsyncJobExecutorDiffblueTest {
   /**
    * Test {@link DefaultAsyncJobExecutor#stopTimerAcquisitionThread()}.
    * <p>
-   * Method under test:
-   * {@link DefaultAsyncJobExecutor#stopTimerAcquisitionThread()}
+   * Method under test: {@link DefaultAsyncJobExecutor#stopTimerAcquisitionThread()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.stopTimerAcquisitionThread()"})
   public void testStopTimerAcquisitionThread() {
     // Arrange
     DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
@@ -481,33 +819,15 @@ public class DefaultAsyncJobExecutorDiffblueTest {
 
   /**
    * Test {@link DefaultAsyncJobExecutor#stopTimerAcquisitionThread()}.
-   * <p>
-   * Method under test:
-   * {@link DefaultAsyncJobExecutor#stopTimerAcquisitionThread()}
-   */
-  @Test
-  public void testStopTimerAcquisitionThread2() {
-    // Arrange
-    DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
-    defaultAsyncJobExecutor.setExecuteAsyncRunnableFactory(mock(ExecuteAsyncRunnableFactory.class));
-
-    // Act
-    defaultAsyncJobExecutor.stopTimerAcquisitionThread();
-
-    // Assert that nothing has changed
-    assertNull(defaultAsyncJobExecutor.getTimerJobAcquisitionThread());
-  }
-
-  /**
-   * Test {@link DefaultAsyncJobExecutor#stopTimerAcquisitionThread()}.
    * <ul>
    *   <li>Given {@link DefaultAsyncJobExecutor} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultAsyncJobExecutor#stopTimerAcquisitionThread()}
+   * Method under test: {@link DefaultAsyncJobExecutor#stopTimerAcquisitionThread()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.stopTimerAcquisitionThread()"})
   public void testStopTimerAcquisitionThread_givenDefaultAsyncJobExecutor() {
     // Arrange
     DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
@@ -525,10 +845,11 @@ public class DefaultAsyncJobExecutorDiffblueTest {
    *   <li>Then calls {@link Thread#join()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultAsyncJobExecutor#stopTimerAcquisitionThread()}
+   * Method under test: {@link DefaultAsyncJobExecutor#stopTimerAcquisitionThread()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.stopTimerAcquisitionThread()"})
   public void testStopTimerAcquisitionThread_thenCallsJoin() throws InterruptedException {
     // Arrange
     SimpleSSLSocketServer timerJobAcquisitionThread = mock(SimpleSSLSocketServer.class);
@@ -548,10 +869,11 @@ public class DefaultAsyncJobExecutorDiffblueTest {
   /**
    * Test {@link DefaultAsyncJobExecutor#stopResetExpiredJobsThread()}.
    * <p>
-   * Method under test:
-   * {@link DefaultAsyncJobExecutor#stopResetExpiredJobsThread()}
+   * Method under test: {@link DefaultAsyncJobExecutor#stopResetExpiredJobsThread()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.stopResetExpiredJobsThread()"})
   public void testStopResetExpiredJobsThread() {
     // Arrange
     DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
@@ -566,33 +888,15 @@ public class DefaultAsyncJobExecutorDiffblueTest {
 
   /**
    * Test {@link DefaultAsyncJobExecutor#stopResetExpiredJobsThread()}.
-   * <p>
-   * Method under test:
-   * {@link DefaultAsyncJobExecutor#stopResetExpiredJobsThread()}
-   */
-  @Test
-  public void testStopResetExpiredJobsThread2() {
-    // Arrange
-    DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
-    defaultAsyncJobExecutor.setExecuteAsyncRunnableFactory(mock(ExecuteAsyncRunnableFactory.class));
-
-    // Act
-    defaultAsyncJobExecutor.stopResetExpiredJobsThread();
-
-    // Assert that nothing has changed
-    assertNull(defaultAsyncJobExecutor.getResetExpiredJobThread());
-  }
-
-  /**
-   * Test {@link DefaultAsyncJobExecutor#stopResetExpiredJobsThread()}.
    * <ul>
    *   <li>Given {@link DefaultAsyncJobExecutor} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultAsyncJobExecutor#stopResetExpiredJobsThread()}
+   * Method under test: {@link DefaultAsyncJobExecutor#stopResetExpiredJobsThread()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.stopResetExpiredJobsThread()"})
   public void testStopResetExpiredJobsThread_givenDefaultAsyncJobExecutor() {
     // Arrange
     DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
@@ -610,10 +914,11 @@ public class DefaultAsyncJobExecutorDiffblueTest {
    *   <li>Then calls {@link Thread#join()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultAsyncJobExecutor#stopResetExpiredJobsThread()}
+   * Method under test: {@link DefaultAsyncJobExecutor#stopResetExpiredJobsThread()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.stopResetExpiredJobsThread()"})
   public void testStopResetExpiredJobsThread_thenCallsJoin() throws InterruptedException {
     // Arrange
     SimpleSSLSocketServer resetExpiredJobThread = mock(SimpleSSLSocketServer.class);
@@ -631,180 +936,83 @@ public class DefaultAsyncJobExecutorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultAsyncJobExecutor#applyConfig(ProcessEngineConfigurationImpl)}.
+   * Test {@link DefaultAsyncJobExecutor#applyConfig(ProcessEngineConfigurationImpl)}.
+   * <ul>
+   *   <li>Given {@code null}.</li>
+   * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultAsyncJobExecutor#applyConfig(ProcessEngineConfigurationImpl)}
+   * Method under test: {@link DefaultAsyncJobExecutor#applyConfig(ProcessEngineConfigurationImpl)}
    */
   @Test
-  public void testApplyConfig() {
-    // Arrange and Act
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.applyConfig(ProcessEngineConfigurationImpl)"})
+  public void testApplyConfig_givenNull() {
+    // Arrange
+    DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
+
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    processEngineConfiguration.setAsyncExecutorThreadPoolQueue(null);
+    processEngineConfiguration.setAsyncExecutorLockOwner("Process Engine Configuration");
+
+    // Act
+    defaultAsyncJobExecutor.applyConfig(processEngineConfiguration);
+
+    // Assert
+    assertEquals("Process Engine Configuration", defaultAsyncJobExecutor.getLockOwner());
+    assertNull(defaultAsyncJobExecutor.getThreadPoolQueue());
+    assertEquals(10, defaultAsyncJobExecutor.getRetryWaitTimeInMillis());
+  }
+
+  /**
+   * Test {@link DefaultAsyncJobExecutor#applyConfig(ProcessEngineConfigurationImpl)}.
+   * <ul>
+   *   <li>Then {@link DefaultAsyncJobExecutor} (default constructor) ThreadPoolQueue is {@link LinkedBlockingDeque#LinkedBlockingDeque()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DefaultAsyncJobExecutor#applyConfig(ProcessEngineConfigurationImpl)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.applyConfig(ProcessEngineConfigurationImpl)"})
+  public void testApplyConfig_thenDefaultAsyncJobExecutorThreadPoolQueueIsLinkedBlockingDeque() {
+    // Arrange
+    DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
+
+    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
+    LinkedBlockingDeque<Runnable> asyncExecutorThreadPoolQueue = new LinkedBlockingDeque<>();
+    processEngineConfiguration.setAsyncExecutorThreadPoolQueue(asyncExecutorThreadPoolQueue);
+    processEngineConfiguration.setAsyncExecutorLockOwner("Process Engine Configuration");
+
+    // Act
+    defaultAsyncJobExecutor.applyConfig(processEngineConfiguration);
+
+    // Assert
+    assertEquals("Process Engine Configuration", defaultAsyncJobExecutor.getLockOwner());
+    assertEquals(10, defaultAsyncJobExecutor.getRetryWaitTimeInMillis());
+    assertSame(asyncExecutorThreadPoolQueue, defaultAsyncJobExecutor.getThreadPoolQueue());
+  }
+
+  /**
+   * Test {@link DefaultAsyncJobExecutor#applyConfig(ProcessEngineConfigurationImpl)}.
+   * <ul>
+   *   <li>When {@link JtaProcessEngineConfiguration} (default constructor).</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DefaultAsyncJobExecutor#applyConfig(ProcessEngineConfigurationImpl)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.applyConfig(ProcessEngineConfigurationImpl)"})
+  public void testApplyConfig_whenJtaProcessEngineConfiguration() {
+    // Arrange
+    DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
+
+    // Act
     defaultAsyncJobExecutor.applyConfig(new JtaProcessEngineConfiguration());
 
     // Assert
-    assertEquals(0, defaultAsyncJobExecutor.getDefaultQueueSizeFullWaitTimeInMillis());
-    assertEquals(10, defaultAsyncJobExecutor.getMaxPoolSize());
-    assertEquals(10, defaultAsyncJobExecutor.getRetryWaitTimeInMillis());
-    assertEquals(100, defaultAsyncJobExecutor.getQueueSize());
-    assertEquals(10000, defaultAsyncJobExecutor.getDefaultAsyncJobAcquireWaitTimeInMillis());
-    assertEquals(10000, defaultAsyncJobExecutor.getDefaultTimerJobAcquireWaitTimeInMillis());
-    assertEquals(2, defaultAsyncJobExecutor.getCorePoolSize());
-    assertEquals(300000, defaultAsyncJobExecutor.getAsyncJobLockTimeInMillis());
-    assertEquals(300000, defaultAsyncJobExecutor.getTimerLockTimeInMillis());
-    assertEquals(5000L, defaultAsyncJobExecutor.getKeepAliveTime());
-    assertEquals(60000, defaultAsyncJobExecutor.getResetExpiredJobsInterval());
-    assertEquals(60L, defaultAsyncJobExecutor.getSecondsToWaitOnShutdown());
-    assertFalse(defaultAsyncJobExecutor.isMessageQueueMode());
-  }
-
-  /**
-   * Test
-   * {@link DefaultAsyncJobExecutor#applyConfig(ProcessEngineConfigurationImpl)}.
-   * <ul>
-   *   <li>Given {@code null}.</li>
-   *   <li>Then {@link DefaultAsyncJobExecutor} ThreadPoolQueue is
-   * {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link DefaultAsyncJobExecutor#applyConfig(ProcessEngineConfigurationImpl)}
-   */
-  @Test
-  public void testApplyConfig_givenNull_thenDefaultAsyncJobExecutorThreadPoolQueueIsNull() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.isAsyncExecutorIsMessageQueueMode()).thenReturn(true);
-    when(processEngineConfiguration.getAsyncFailedJobWaitTime()).thenReturn(1);
-    when(processEngineConfiguration.getAsyncExecutorAsyncJobLockTimeInMillis()).thenReturn(1);
-    when(processEngineConfiguration.getAsyncExecutorCorePoolSize()).thenReturn(3);
-    when(processEngineConfiguration.getAsyncExecutorDefaultAsyncJobAcquireWaitTime()).thenReturn(1);
-    when(processEngineConfiguration.getAsyncExecutorDefaultQueueSizeFullWaitTime()).thenReturn(3);
-    when(processEngineConfiguration.getAsyncExecutorDefaultTimerJobAcquireWaitTime()).thenReturn(1);
-    when(processEngineConfiguration.getAsyncExecutorMaxAsyncJobsDuePerAcquisition()).thenReturn(1);
-    when(processEngineConfiguration.getAsyncExecutorMaxPoolSize()).thenReturn(3);
-    when(processEngineConfiguration.getAsyncExecutorMaxTimerJobsPerAcquisition()).thenReturn(1);
-    when(processEngineConfiguration.getAsyncExecutorResetExpiredJobsInterval()).thenReturn(42);
-    when(processEngineConfiguration.getAsyncExecutorResetExpiredJobsPageSize()).thenReturn(3);
-    when(processEngineConfiguration.getAsyncExecutorThreadPoolQueueSize()).thenReturn(3);
-    when(processEngineConfiguration.getAsyncExecutorTimerLockTimeInMillis()).thenReturn(1);
-    when(processEngineConfiguration.getAsyncExecutorLockOwner()).thenReturn("Async Executor Lock Owner");
-    when(processEngineConfiguration.getAsyncExecutorThreadPoolQueue()).thenReturn(null);
-    when(processEngineConfiguration.getAsyncExecutorSecondsToWaitOnShutdown()).thenReturn(1L);
-    when(processEngineConfiguration.getAsyncExecutorThreadKeepAliveTime()).thenReturn(1L);
-
-    // Act
-    defaultAsyncJobExecutor.applyConfig(processEngineConfiguration);
-
-    // Assert
-    verify(processEngineConfiguration).getAsyncFailedJobWaitTime();
-    verify(processEngineConfiguration).getAsyncExecutorAsyncJobLockTimeInMillis();
-    verify(processEngineConfiguration).getAsyncExecutorCorePoolSize();
-    verify(processEngineConfiguration).getAsyncExecutorDefaultAsyncJobAcquireWaitTime();
-    verify(processEngineConfiguration).getAsyncExecutorDefaultQueueSizeFullWaitTime();
-    verify(processEngineConfiguration).getAsyncExecutorDefaultTimerJobAcquireWaitTime();
-    verify(processEngineConfiguration, atLeast(1)).getAsyncExecutorLockOwner();
-    verify(processEngineConfiguration).getAsyncExecutorMaxAsyncJobsDuePerAcquisition();
-    verify(processEngineConfiguration).getAsyncExecutorMaxPoolSize();
-    verify(processEngineConfiguration).getAsyncExecutorMaxTimerJobsPerAcquisition();
-    verify(processEngineConfiguration).getAsyncExecutorResetExpiredJobsInterval();
-    verify(processEngineConfiguration).getAsyncExecutorResetExpiredJobsPageSize();
-    verify(processEngineConfiguration).getAsyncExecutorSecondsToWaitOnShutdown();
-    verify(processEngineConfiguration).getAsyncExecutorThreadKeepAliveTime();
-    verify(processEngineConfiguration).getAsyncExecutorThreadPoolQueue();
-    verify(processEngineConfiguration).getAsyncExecutorThreadPoolQueueSize();
-    verify(processEngineConfiguration).getAsyncExecutorTimerLockTimeInMillis();
-    verify(processEngineConfiguration).isAsyncExecutorIsMessageQueueMode();
-    assertEquals("Async Executor Lock Owner", defaultAsyncJobExecutor.getLockOwner());
     assertNull(defaultAsyncJobExecutor.getThreadPoolQueue());
-    assertEquals(1, defaultAsyncJobExecutor.getAsyncJobLockTimeInMillis());
-    assertEquals(1, defaultAsyncJobExecutor.getDefaultAsyncJobAcquireWaitTimeInMillis());
-    assertEquals(1, defaultAsyncJobExecutor.getDefaultTimerJobAcquireWaitTimeInMillis());
-    assertEquals(1, defaultAsyncJobExecutor.getRetryWaitTimeInMillis());
-    assertEquals(1, defaultAsyncJobExecutor.getTimerLockTimeInMillis());
-    assertEquals(1L, defaultAsyncJobExecutor.getKeepAliveTime());
-    assertEquals(1L, defaultAsyncJobExecutor.getSecondsToWaitOnShutdown());
-    assertEquals(3, defaultAsyncJobExecutor.getCorePoolSize());
-    assertEquals(3, defaultAsyncJobExecutor.getDefaultQueueSizeFullWaitTimeInMillis());
-    assertEquals(3, defaultAsyncJobExecutor.getMaxPoolSize());
-    assertEquals(3, defaultAsyncJobExecutor.getQueueSize());
-    assertEquals(42, defaultAsyncJobExecutor.getResetExpiredJobsInterval());
-    assertTrue(defaultAsyncJobExecutor.isMessageQueueMode());
-  }
-
-  /**
-   * Test
-   * {@link DefaultAsyncJobExecutor#applyConfig(ProcessEngineConfigurationImpl)}.
-   * <ul>
-   *   <li>Then {@link DefaultAsyncJobExecutor} ThreadPoolQueue Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link DefaultAsyncJobExecutor#applyConfig(ProcessEngineConfigurationImpl)}
-   */
-  @Test
-  public void testApplyConfig_thenDefaultAsyncJobExecutorThreadPoolQueueEmpty() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.isAsyncExecutorIsMessageQueueMode()).thenReturn(true);
-    when(processEngineConfiguration.getAsyncFailedJobWaitTime()).thenReturn(1);
-    when(processEngineConfiguration.getAsyncExecutorAsyncJobLockTimeInMillis()).thenReturn(1);
-    when(processEngineConfiguration.getAsyncExecutorCorePoolSize()).thenReturn(3);
-    when(processEngineConfiguration.getAsyncExecutorDefaultAsyncJobAcquireWaitTime()).thenReturn(1);
-    when(processEngineConfiguration.getAsyncExecutorDefaultQueueSizeFullWaitTime()).thenReturn(3);
-    when(processEngineConfiguration.getAsyncExecutorDefaultTimerJobAcquireWaitTime()).thenReturn(1);
-    when(processEngineConfiguration.getAsyncExecutorMaxAsyncJobsDuePerAcquisition()).thenReturn(1);
-    when(processEngineConfiguration.getAsyncExecutorMaxPoolSize()).thenReturn(3);
-    when(processEngineConfiguration.getAsyncExecutorMaxTimerJobsPerAcquisition()).thenReturn(1);
-    when(processEngineConfiguration.getAsyncExecutorResetExpiredJobsInterval()).thenReturn(42);
-    when(processEngineConfiguration.getAsyncExecutorResetExpiredJobsPageSize()).thenReturn(3);
-    when(processEngineConfiguration.getAsyncExecutorThreadPoolQueueSize()).thenReturn(3);
-    when(processEngineConfiguration.getAsyncExecutorTimerLockTimeInMillis()).thenReturn(1);
-    when(processEngineConfiguration.getAsyncExecutorLockOwner()).thenReturn("Async Executor Lock Owner");
-    LinkedBlockingDeque<Runnable> linkedBlockingDeque = new LinkedBlockingDeque<>();
-    when(processEngineConfiguration.getAsyncExecutorThreadPoolQueue()).thenReturn(linkedBlockingDeque);
-    when(processEngineConfiguration.getAsyncExecutorSecondsToWaitOnShutdown()).thenReturn(1L);
-    when(processEngineConfiguration.getAsyncExecutorThreadKeepAliveTime()).thenReturn(1L);
-
-    // Act
-    defaultAsyncJobExecutor.applyConfig(processEngineConfiguration);
-
-    // Assert
-    verify(processEngineConfiguration).getAsyncFailedJobWaitTime();
-    verify(processEngineConfiguration).getAsyncExecutorAsyncJobLockTimeInMillis();
-    verify(processEngineConfiguration).getAsyncExecutorCorePoolSize();
-    verify(processEngineConfiguration).getAsyncExecutorDefaultAsyncJobAcquireWaitTime();
-    verify(processEngineConfiguration).getAsyncExecutorDefaultQueueSizeFullWaitTime();
-    verify(processEngineConfiguration).getAsyncExecutorDefaultTimerJobAcquireWaitTime();
-    verify(processEngineConfiguration, atLeast(1)).getAsyncExecutorLockOwner();
-    verify(processEngineConfiguration).getAsyncExecutorMaxAsyncJobsDuePerAcquisition();
-    verify(processEngineConfiguration).getAsyncExecutorMaxPoolSize();
-    verify(processEngineConfiguration).getAsyncExecutorMaxTimerJobsPerAcquisition();
-    verify(processEngineConfiguration).getAsyncExecutorResetExpiredJobsInterval();
-    verify(processEngineConfiguration).getAsyncExecutorResetExpiredJobsPageSize();
-    verify(processEngineConfiguration).getAsyncExecutorSecondsToWaitOnShutdown();
-    verify(processEngineConfiguration).getAsyncExecutorThreadKeepAliveTime();
-    verify(processEngineConfiguration, atLeast(1)).getAsyncExecutorThreadPoolQueue();
-    verify(processEngineConfiguration).getAsyncExecutorThreadPoolQueueSize();
-    verify(processEngineConfiguration).getAsyncExecutorTimerLockTimeInMillis();
-    verify(processEngineConfiguration).isAsyncExecutorIsMessageQueueMode();
-    assertEquals("Async Executor Lock Owner", defaultAsyncJobExecutor.getLockOwner());
-    assertEquals(1, defaultAsyncJobExecutor.getAsyncJobLockTimeInMillis());
-    assertEquals(1, defaultAsyncJobExecutor.getDefaultAsyncJobAcquireWaitTimeInMillis());
-    assertEquals(1, defaultAsyncJobExecutor.getDefaultTimerJobAcquireWaitTimeInMillis());
-    assertEquals(1, defaultAsyncJobExecutor.getRetryWaitTimeInMillis());
-    assertEquals(1, defaultAsyncJobExecutor.getTimerLockTimeInMillis());
-    assertEquals(1L, defaultAsyncJobExecutor.getKeepAliveTime());
-    assertEquals(1L, defaultAsyncJobExecutor.getSecondsToWaitOnShutdown());
-    assertEquals(3, defaultAsyncJobExecutor.getCorePoolSize());
-    assertEquals(3, defaultAsyncJobExecutor.getDefaultQueueSizeFullWaitTimeInMillis());
-    assertEquals(3, defaultAsyncJobExecutor.getMaxPoolSize());
-    assertEquals(3, defaultAsyncJobExecutor.getQueueSize());
-    assertEquals(42, defaultAsyncJobExecutor.getResetExpiredJobsInterval());
-    BlockingQueue<Runnable> threadPoolQueue = defaultAsyncJobExecutor.getThreadPoolQueue();
-    assertTrue(threadPoolQueue.isEmpty());
-    assertTrue(defaultAsyncJobExecutor.isMessageQueueMode());
-    assertSame(linkedBlockingDeque, threadPoolQueue);
+    assertEquals(10, defaultAsyncJobExecutor.getRetryWaitTimeInMillis());
   }
 
   /**
@@ -814,17 +1022,12 @@ public class DefaultAsyncJobExecutorDiffblueTest {
    * <ul>
    *   <li>{@link DefaultAsyncJobExecutor#setAsyncJobAcquisitionThread(Thread)}
    *   <li>{@link DefaultAsyncJobExecutor#setAsyncJobLockTimeInMillis(int)}
-   *   <li>
-   * {@link DefaultAsyncJobExecutor#setAsyncJobsDueRunnable(AcquireAsyncJobsDueRunnable)}
+   *   <li>{@link DefaultAsyncJobExecutor#setAsyncJobsDueRunnable(AcquireAsyncJobsDueRunnable)}
    *   <li>{@link DefaultAsyncJobExecutor#setCorePoolSize(int)}
-   *   <li>
-   * {@link DefaultAsyncJobExecutor#setDefaultAsyncJobAcquireWaitTimeInMillis(int)}
-   *   <li>
-   * {@link DefaultAsyncJobExecutor#setDefaultQueueSizeFullWaitTimeInMillis(int)}
-   *   <li>
-   * {@link DefaultAsyncJobExecutor#setDefaultTimerJobAcquireWaitTimeInMillis(int)}
-   *   <li>
-   * {@link DefaultAsyncJobExecutor#setExecuteAsyncRunnableFactory(ExecuteAsyncRunnableFactory)}
+   *   <li>{@link DefaultAsyncJobExecutor#setDefaultAsyncJobAcquireWaitTimeInMillis(int)}
+   *   <li>{@link DefaultAsyncJobExecutor#setDefaultQueueSizeFullWaitTimeInMillis(int)}
+   *   <li>{@link DefaultAsyncJobExecutor#setDefaultTimerJobAcquireWaitTimeInMillis(int)}
+   *   <li>{@link DefaultAsyncJobExecutor#setExecuteAsyncRunnableFactory(ExecuteAsyncRunnableFactory)}
    *   <li>{@link DefaultAsyncJobExecutor#setExecutorService(ExecutorService)}
    *   <li>{@link DefaultAsyncJobExecutor#setKeepAliveTime(long)}
    *   <li>{@link DefaultAsyncJobExecutor#setLockOwner(String)}
@@ -832,30 +1035,25 @@ public class DefaultAsyncJobExecutorDiffblueTest {
    *   <li>{@link DefaultAsyncJobExecutor#setMaxPoolSize(int)}
    *   <li>{@link DefaultAsyncJobExecutor#setMaxTimerJobsPerAcquisition(int)}
    *   <li>{@link DefaultAsyncJobExecutor#setMessageQueueMode(boolean)}
-   *   <li>
-   * {@link DefaultAsyncJobExecutor#setProcessEngineConfiguration(ProcessEngineConfigurationImpl)}
+   *   <li>{@link DefaultAsyncJobExecutor#setProcessEngineConfiguration(ProcessEngineConfigurationImpl)}
    *   <li>{@link DefaultAsyncJobExecutor#setQueueSize(int)}
    *   <li>{@link DefaultAsyncJobExecutor#setResetExpiredJobThread(Thread)}
    *   <li>{@link DefaultAsyncJobExecutor#setResetExpiredJobsInterval(int)}
    *   <li>{@link DefaultAsyncJobExecutor#setResetExpiredJobsPageSize(int)}
-   *   <li>
-   * {@link DefaultAsyncJobExecutor#setResetExpiredJobsRunnable(ResetExpiredJobsRunnable)}
+   *   <li>{@link DefaultAsyncJobExecutor#setResetExpiredJobsRunnable(ResetExpiredJobsRunnable)}
    *   <li>{@link DefaultAsyncJobExecutor#setRetryWaitTimeInMillis(int)}
    *   <li>{@link DefaultAsyncJobExecutor#setSecondsToWaitOnShutdown(long)}
    *   <li>{@link DefaultAsyncJobExecutor#setThreadPoolQueue(BlockingQueue)}
    *   <li>{@link DefaultAsyncJobExecutor#setTimerJobAcquisitionThread(Thread)}
-   *   <li>
-   * {@link DefaultAsyncJobExecutor#setTimerJobRunnable(AcquireTimerJobsRunnable)}
+   *   <li>{@link DefaultAsyncJobExecutor#setTimerJobRunnable(AcquireTimerJobsRunnable)}
    *   <li>{@link DefaultAsyncJobExecutor#setTimerLockTimeInMillis(int)}
    *   <li>{@link DefaultAsyncJobExecutor#setAutoActivate(boolean)}
    *   <li>{@link DefaultAsyncJobExecutor#getAsyncJobAcquisitionThread()}
    *   <li>{@link DefaultAsyncJobExecutor#getAsyncJobLockTimeInMillis()}
    *   <li>{@link DefaultAsyncJobExecutor#getCorePoolSize()}
-   *   <li>
-   * {@link DefaultAsyncJobExecutor#getDefaultAsyncJobAcquireWaitTimeInMillis()}
+   *   <li>{@link DefaultAsyncJobExecutor#getDefaultAsyncJobAcquireWaitTimeInMillis()}
    *   <li>{@link DefaultAsyncJobExecutor#getDefaultQueueSizeFullWaitTimeInMillis()}
-   *   <li>
-   * {@link DefaultAsyncJobExecutor#getDefaultTimerJobAcquireWaitTimeInMillis()}
+   *   <li>{@link DefaultAsyncJobExecutor#getDefaultTimerJobAcquireWaitTimeInMillis()}
    *   <li>{@link DefaultAsyncJobExecutor#getExecuteAsyncRunnableFactory()}
    *   <li>{@link DefaultAsyncJobExecutor#getExecutorService()}
    *   <li>{@link DefaultAsyncJobExecutor#getKeepAliveTime()}
@@ -879,6 +1077,51 @@ public class DefaultAsyncJobExecutorDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Thread DefaultAsyncJobExecutor.getAsyncJobAcquisitionThread()",
+      "int DefaultAsyncJobExecutor.getAsyncJobLockTimeInMillis()", "int DefaultAsyncJobExecutor.getCorePoolSize()",
+      "int DefaultAsyncJobExecutor.getDefaultAsyncJobAcquireWaitTimeInMillis()",
+      "int DefaultAsyncJobExecutor.getDefaultQueueSizeFullWaitTimeInMillis()",
+      "int DefaultAsyncJobExecutor.getDefaultTimerJobAcquireWaitTimeInMillis()",
+      "ExecuteAsyncRunnableFactory DefaultAsyncJobExecutor.getExecuteAsyncRunnableFactory()",
+      "ExecutorService DefaultAsyncJobExecutor.getExecutorService()", "long DefaultAsyncJobExecutor.getKeepAliveTime()",
+      "String DefaultAsyncJobExecutor.getLockOwner()", "int DefaultAsyncJobExecutor.getMaxAsyncJobsDuePerAcquisition()",
+      "int DefaultAsyncJobExecutor.getMaxPoolSize()", "int DefaultAsyncJobExecutor.getMaxTimerJobsPerAcquisition()",
+      "ProcessEngineConfigurationImpl DefaultAsyncJobExecutor.getProcessEngineConfiguration()",
+      "int DefaultAsyncJobExecutor.getQueueSize()", "Thread DefaultAsyncJobExecutor.getResetExpiredJobThread()",
+      "int DefaultAsyncJobExecutor.getResetExpiredJobsInterval()",
+      "int DefaultAsyncJobExecutor.getResetExpiredJobsPageSize()",
+      "int DefaultAsyncJobExecutor.getRetryWaitTimeInMillis()",
+      "long DefaultAsyncJobExecutor.getSecondsToWaitOnShutdown()",
+      "BlockingQueue DefaultAsyncJobExecutor.getThreadPoolQueue()",
+      "Thread DefaultAsyncJobExecutor.getTimerJobAcquisitionThread()",
+      "int DefaultAsyncJobExecutor.getTimerLockTimeInMillis()", "boolean DefaultAsyncJobExecutor.isActive()",
+      "boolean DefaultAsyncJobExecutor.isAutoActivate()", "boolean DefaultAsyncJobExecutor.isMessageQueueMode()",
+      "void DefaultAsyncJobExecutor.setAsyncJobAcquisitionThread(Thread)",
+      "void DefaultAsyncJobExecutor.setAsyncJobLockTimeInMillis(int)",
+      "void DefaultAsyncJobExecutor.setAsyncJobsDueRunnable(AcquireAsyncJobsDueRunnable)",
+      "void DefaultAsyncJobExecutor.setAutoActivate(boolean)", "void DefaultAsyncJobExecutor.setCorePoolSize(int)",
+      "void DefaultAsyncJobExecutor.setDefaultAsyncJobAcquireWaitTimeInMillis(int)",
+      "void DefaultAsyncJobExecutor.setDefaultQueueSizeFullWaitTimeInMillis(int)",
+      "void DefaultAsyncJobExecutor.setDefaultTimerJobAcquireWaitTimeInMillis(int)",
+      "void DefaultAsyncJobExecutor.setExecuteAsyncRunnableFactory(ExecuteAsyncRunnableFactory)",
+      "void DefaultAsyncJobExecutor.setExecutorService(ExecutorService)",
+      "void DefaultAsyncJobExecutor.setKeepAliveTime(long)", "void DefaultAsyncJobExecutor.setLockOwner(String)",
+      "void DefaultAsyncJobExecutor.setMaxAsyncJobsDuePerAcquisition(int)",
+      "void DefaultAsyncJobExecutor.setMaxPoolSize(int)",
+      "void DefaultAsyncJobExecutor.setMaxTimerJobsPerAcquisition(int)",
+      "void DefaultAsyncJobExecutor.setMessageQueueMode(boolean)",
+      "void DefaultAsyncJobExecutor.setProcessEngineConfiguration(ProcessEngineConfigurationImpl)",
+      "void DefaultAsyncJobExecutor.setQueueSize(int)", "void DefaultAsyncJobExecutor.setResetExpiredJobThread(Thread)",
+      "void DefaultAsyncJobExecutor.setResetExpiredJobsInterval(int)",
+      "void DefaultAsyncJobExecutor.setResetExpiredJobsPageSize(int)",
+      "void DefaultAsyncJobExecutor.setResetExpiredJobsRunnable(ResetExpiredJobsRunnable)",
+      "void DefaultAsyncJobExecutor.setRetryWaitTimeInMillis(int)",
+      "void DefaultAsyncJobExecutor.setSecondsToWaitOnShutdown(long)",
+      "void DefaultAsyncJobExecutor.setThreadPoolQueue(BlockingQueue)",
+      "void DefaultAsyncJobExecutor.setTimerJobAcquisitionThread(Thread)",
+      "void DefaultAsyncJobExecutor.setTimerJobRunnable(AcquireTimerJobsRunnable)",
+      "void DefaultAsyncJobExecutor.setTimerLockTimeInMillis(int)"})
   public void testGettersAndSetters() {
     // Arrange
     DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
@@ -943,14 +1186,15 @@ public class DefaultAsyncJobExecutorDiffblueTest {
     int actualResetExpiredJobsPageSize = defaultAsyncJobExecutor.getResetExpiredJobsPageSize();
     int actualRetryWaitTimeInMillis = defaultAsyncJobExecutor.getRetryWaitTimeInMillis();
     long actualSecondsToWaitOnShutdown = defaultAsyncJobExecutor.getSecondsToWaitOnShutdown();
-    defaultAsyncJobExecutor.getThreadPoolQueue();
+    BlockingQueue<Runnable> actualThreadPoolQueue = defaultAsyncJobExecutor.getThreadPoolQueue();
     Thread actualTimerJobAcquisitionThread = defaultAsyncJobExecutor.getTimerJobAcquisitionThread();
     int actualTimerLockTimeInMillis = defaultAsyncJobExecutor.getTimerLockTimeInMillis();
     boolean actualIsActiveResult = defaultAsyncJobExecutor.isActive();
     boolean actualIsAutoActivateResult = defaultAsyncJobExecutor.isAutoActivate();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Lock Owner", actualLockOwner);
+    assertNull(actualThreadPoolQueue);
     assertEquals(1, actualAsyncJobLockTimeInMillis);
     assertEquals(1, actualDefaultAsyncJobAcquireWaitTimeInMillis);
     assertEquals(1, actualDefaultTimerJobAcquireWaitTimeInMillis);
@@ -980,10 +1224,11 @@ public class DefaultAsyncJobExecutorDiffblueTest {
   /**
    * Test new {@link DefaultAsyncJobExecutor} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link DefaultAsyncJobExecutor}
+   * Method under test: default or parameterless constructor of {@link DefaultAsyncJobExecutor}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultAsyncJobExecutor.<init>()"})
   public void testNewDefaultAsyncJobExecutor() {
     // Arrange and Act
     DefaultAsyncJobExecutor actualDefaultAsyncJobExecutor = new DefaultAsyncJobExecutor();

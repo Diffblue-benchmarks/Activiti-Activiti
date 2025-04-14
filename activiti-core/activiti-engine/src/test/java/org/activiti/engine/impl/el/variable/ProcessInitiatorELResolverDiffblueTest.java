@@ -21,19 +21,15 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.VariableScope;
 import org.activiti.engine.impl.el.NoExecutionVariableScope;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ProcessInitiatorELResolverDiffblueTest {
-  @InjectMocks
-  private ProcessInitiatorELResolver processInitiatorELResolver;
-
   /**
    * Test {@link ProcessInitiatorELResolver#canResolve(String, VariableScope)}.
    * <ul>
@@ -41,30 +37,18 @@ public class ProcessInitiatorELResolverDiffblueTest {
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessInitiatorELResolver#canResolve(String, VariableScope)}
+   * Method under test: {@link ProcessInitiatorELResolver#canResolve(String, VariableScope)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ProcessInitiatorELResolver.canResolve(String, VariableScope)"})
   public void testCanResolve_whenCreateWithEmptyRelationshipCollections_thenReturnTrue() {
-    // Arrange, Act and Assert
+    // Arrange
+    ProcessInitiatorELResolver processInitiatorELResolver = new ProcessInitiatorELResolver();
+
+    // Act and Assert
     assertTrue(processInitiatorELResolver.canResolve("initiator",
         ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
-  }
-
-  /**
-   * Test {@link ProcessInitiatorELResolver#canResolve(String, VariableScope)}.
-   * <ul>
-   *   <li>When {@link ExecutionEntityImpl}.</li>
-   *   <li>Then return {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ProcessInitiatorELResolver#canResolve(String, VariableScope)}
-   */
-  @Test
-  public void testCanResolve_whenExecutionEntityImpl_thenReturnFalse() {
-    // Arrange, Act and Assert
-    assertFalse(processInitiatorELResolver.canResolve("Property", mock(ExecutionEntityImpl.class)));
   }
 
   /**
@@ -74,12 +58,16 @@ public class ProcessInitiatorELResolverDiffblueTest {
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessInitiatorELResolver#canResolve(String, VariableScope)}
+   * Method under test: {@link ProcessInitiatorELResolver#canResolve(String, VariableScope)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ProcessInitiatorELResolver.canResolve(String, VariableScope)"})
   public void testCanResolve_whenInitiator_thenReturnFalse() {
-    // Arrange, Act and Assert
+    // Arrange
+    ProcessInitiatorELResolver processInitiatorELResolver = new ProcessInitiatorELResolver();
+
+    // Act and Assert
     assertFalse(processInitiatorELResolver.canResolve("initiator", NoExecutionVariableScope.getSharedInstance()));
   }
 
@@ -90,12 +78,16 @@ public class ProcessInitiatorELResolverDiffblueTest {
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessInitiatorELResolver#canResolve(String, VariableScope)}
+   * Method under test: {@link ProcessInitiatorELResolver#canResolve(String, VariableScope)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ProcessInitiatorELResolver.canResolve(String, VariableScope)"})
   public void testCanResolve_whenProperty_thenReturnFalse() {
-    // Arrange, Act and Assert
+    // Arrange
+    ProcessInitiatorELResolver processInitiatorELResolver = new ProcessInitiatorELResolver();
+
+    // Act and Assert
     assertFalse(processInitiatorELResolver.canResolve("Property", NoExecutionVariableScope.getSharedInstance()));
   }
 
@@ -105,12 +97,14 @@ public class ProcessInitiatorELResolverDiffblueTest {
    *   <li>Then calls {@link ExecutionEntityImpl#getProcessInstance()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessInitiatorELResolver#resolve(String, VariableScope)}
+   * Method under test: {@link ProcessInitiatorELResolver#resolve(String, VariableScope)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object ProcessInitiatorELResolver.resolve(String, VariableScope)"})
   public void testResolve_thenCallsGetProcessInstance() {
     // Arrange
+    ProcessInitiatorELResolver processInitiatorELResolver = new ProcessInitiatorELResolver();
     ExecutionEntityImpl variableScope = mock(ExecutionEntityImpl.class);
     when(variableScope.getProcessInstance()).thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
@@ -129,12 +123,16 @@ public class ProcessInitiatorELResolverDiffblueTest {
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessInitiatorELResolver#resolve(String, VariableScope)}
+   * Method under test: {@link ProcessInitiatorELResolver#resolve(String, VariableScope)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object ProcessInitiatorELResolver.resolve(String, VariableScope)"})
   public void testResolve_whenCreateWithEmptyRelationshipCollections_thenReturnNull() {
-    // Arrange, Act and Assert
+    // Arrange
+    ProcessInitiatorELResolver processInitiatorELResolver = new ProcessInitiatorELResolver();
+
+    // Act and Assert
     assertNull(
         processInitiatorELResolver.resolve("Property", ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
   }

@@ -25,6 +25,7 @@ import static org.mockito.Mockito.anyBoolean;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -41,6 +42,7 @@ import org.activiti.bpmn.model.StartEvent;
 import org.activiti.bpmn.model.TimerEventDefinition;
 import org.activiti.validation.ValidationError;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -52,11 +54,12 @@ class StartEventValidatorDiffblueTest {
    *   <li>Then calls {@link Process#findFlowElementsOfType(Class, boolean)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link StartEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link StartEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList(); then calls findFlowElementsOfType(Class, boolean)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void StartEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenArrayList_thenCallsFindFlowElementsOfType() {
     // Arrange
     StartEventValidator startEventValidator = new StartEventValidator();
@@ -67,22 +70,22 @@ class StartEventValidatorDiffblueTest {
     // Act
     startEventValidator.executeValidation(bpmnModel, process, new ArrayList<>());
 
-    // Assert that nothing has changed
+    // Assert
     verify(process).findFlowElementsOfType(isA(Class.class), eq(false));
   }
 
   /**
    * Test {@link StartEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link ValidationError} (default constructor) ActivityId is
-   * {@code 42}.</li>
+   *   <li>Given {@link ValidationError} (default constructor) ActivityId is {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link StartEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link StartEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given ValidationError (default constructor) ActivityId is '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void StartEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenValidationErrorActivityIdIs42() {
     // Arrange
     StartEventValidator startEventValidator = new StartEventValidator();
@@ -110,22 +113,22 @@ class StartEventValidatorDiffblueTest {
     // Act
     startEventValidator.executeValidation(bpmnModel, process, errors);
 
-    // Assert that nothing has changed
+    // Assert
     verify(process).findFlowElementsOfType(isA(Class.class), eq(false));
   }
 
   /**
    * Test {@link StartEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link ValidationError} (default constructor) ActivityId is
-   * {@code Activity Id}.</li>
+   *   <li>Given {@link ValidationError} (default constructor) ActivityId is {@code Activity Id}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link StartEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link StartEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given ValidationError (default constructor) ActivityId is 'Activity Id'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void StartEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenValidationErrorActivityIdIsActivityId() {
     // Arrange
     StartEventValidator startEventValidator = new StartEventValidator();
@@ -168,23 +171,22 @@ class StartEventValidatorDiffblueTest {
     // Act
     startEventValidator.executeValidation(bpmnModel, process, errors);
 
-    // Assert that nothing has changed
+    // Assert
     verify(process).findFlowElementsOfType(isA(Class.class), eq(false));
   }
 
   /**
-   * Test
-   * {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}.
+   * Test {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link MessageEventDefinition}
-   * (default constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link MessageEventDefinition} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}
+   * Method under test: {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}
    */
   @Test
   @DisplayName("Test validateEventDefinitionTypes(List, Process, List); given ArrayList() add MessageEventDefinition (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void StartEventValidator.validateEventDefinitionTypes(List, Process, List)"})
   void testValidateEventDefinitionTypes_givenArrayListAddMessageEventDefinition() {
     // Arrange
     StartEventValidator startEventValidator = new StartEventValidator();
@@ -214,18 +216,17 @@ class StartEventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}.
+   * Test {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link SignalEventDefinition}
-   * (default constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link SignalEventDefinition} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}
+   * Method under test: {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}
    */
   @Test
   @DisplayName("Test validateEventDefinitionTypes(List, Process, List); given ArrayList() add SignalEventDefinition (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void StartEventValidator.validateEventDefinitionTypes(List, Process, List)"})
   void testValidateEventDefinitionTypes_givenArrayListAddSignalEventDefinition() {
     // Arrange
     StartEventValidator startEventValidator = new StartEventValidator();
@@ -255,18 +256,17 @@ class StartEventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}.
+   * Test {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link TimerEventDefinition}
-   * (default constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link TimerEventDefinition} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}
+   * Method under test: {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}
    */
   @Test
   @DisplayName("Test validateEventDefinitionTypes(List, Process, List); given ArrayList() add TimerEventDefinition (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void StartEventValidator.validateEventDefinitionTypes(List, Process, List)"})
   void testValidateEventDefinitionTypes_givenArrayListAddTimerEventDefinition() {
     // Arrange
     StartEventValidator startEventValidator = new StartEventValidator();
@@ -296,18 +296,17 @@ class StartEventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}.
+   * Test {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}.
    * <ul>
-   *   <li>Given {@link StartEvent} (default constructor) EventDefinitions is
-   * {@link ArrayList#ArrayList()}.</li>
+   *   <li>Given {@link StartEvent} (default constructor) EventDefinitions is {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}
+   * Method under test: {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}
    */
   @Test
   @DisplayName("Test validateEventDefinitionTypes(List, Process, List); given StartEvent (default constructor) EventDefinitions is ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void StartEventValidator.validateEventDefinitionTypes(List, Process, List)"})
   void testValidateEventDefinitionTypes_givenStartEventEventDefinitionsIsArrayList() {
     // Arrange
     StartEventValidator startEventValidator = new StartEventValidator();
@@ -334,18 +333,17 @@ class StartEventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}.
+   * Test {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}.
    * <ul>
-   *   <li>Given {@link StartEvent} (default constructor) EventDefinitions is
-   * {@code null}.</li>
+   *   <li>Given {@link StartEvent} (default constructor) EventDefinitions is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}
+   * Method under test: {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}
    */
   @Test
   @DisplayName("Test validateEventDefinitionTypes(List, Process, List); given StartEvent (default constructor) EventDefinitions is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void StartEventValidator.validateEventDefinitionTypes(List, Process, List)"})
   void testValidateEventDefinitionTypes_givenStartEventEventDefinitionsIsNull() {
     // Arrange
     StartEventValidator startEventValidator = new StartEventValidator();
@@ -372,17 +370,17 @@ class StartEventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}.
+   * Test {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}
+   * Method under test: {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}
    */
   @Test
   @DisplayName("Test validateEventDefinitionTypes(List, Process, List); then ArrayList() size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void StartEventValidator.validateEventDefinitionTypes(List, Process, List)"})
   void testValidateEventDefinitionTypes_thenArrayListSizeIsOne() {
     // Arrange
     StartEventValidator startEventValidator = new StartEventValidator();
@@ -425,18 +423,18 @@ class StartEventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}.
+   * Test {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}.
    * <ul>
    *   <li>When {@link Process} (default constructor).</li>
    *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}
+   * Method under test: {@link StartEventValidator#validateEventDefinitionTypes(List, Process, List)}
    */
   @Test
   @DisplayName("Test validateEventDefinitionTypes(List, Process, List); when Process (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void StartEventValidator.validateEventDefinitionTypes(List, Process, List)"})
   void testValidateEventDefinitionTypes_whenProcess_thenArrayListEmpty() {
     // Arrange
     StartEventValidator startEventValidator = new StartEventValidator();

@@ -23,19 +23,23 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.transaction.SystemException;
 import jakarta.transaction.TransactionManager;
 import org.activiti.engine.ActivitiException;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class JtaRetryInterceptorDiffblueTest {
   /**
    * Test {@link JtaRetryInterceptor#JtaRetryInterceptor(TransactionManager)}.
    * <p>
-   * Method under test:
-   * {@link JtaRetryInterceptor#JtaRetryInterceptor(TransactionManager)}
+   * Method under test: {@link JtaRetryInterceptor#JtaRetryInterceptor(TransactionManager)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JtaRetryInterceptor.<init>(TransactionManager)"})
   public void testNewJtaRetryInterceptor() {
     // Arrange and Act
     JtaRetryInterceptor actualJtaRetryInterceptor = new JtaRetryInterceptor(mock(TransactionManager.class));
@@ -50,10 +54,11 @@ public class JtaRetryInterceptorDiffblueTest {
   /**
    * Test {@link JtaRetryInterceptor#execute(CommandConfig, Command)}.
    * <p>
-   * Method under test:
-   * {@link JtaRetryInterceptor#execute(CommandConfig, Command)}
+   * Method under test: {@link JtaRetryInterceptor#execute(CommandConfig, Command)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JtaRetryInterceptor.execute(CommandConfig, Command)"})
   public void testExecute() throws SystemException {
     // Arrange
     TransactionManager transactionManager = mock(TransactionManager.class);
@@ -69,14 +74,14 @@ public class JtaRetryInterceptorDiffblueTest {
   /**
    * Test {@link JtaRetryInterceptor#execute(CommandConfig, Command)}.
    * <ul>
-   *   <li>Given {@link TransactionManager} {@link TransactionManager#getStatus()}
-   * throw {@link SystemException#SystemException(int)} with errcode is six.</li>
+   *   <li>Given {@link TransactionManager} {@link TransactionManager#getStatus()} throw {@link SystemException#SystemException(int)} with errcode is six.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JtaRetryInterceptor#execute(CommandConfig, Command)}
+   * Method under test: {@link JtaRetryInterceptor#execute(CommandConfig, Command)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JtaRetryInterceptor.execute(CommandConfig, Command)"})
   public void testExecute_givenTransactionManagerGetStatusThrowSystemExceptionWithErrcodeIsSix()
       throws SystemException {
     // Arrange
@@ -96,6 +101,8 @@ public class JtaRetryInterceptorDiffblueTest {
    * Method under test: {@link JtaRetryInterceptor#calledInsideTransaction()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JtaRetryInterceptor.calledInsideTransaction()"})
   public void testCalledInsideTransaction() throws SystemException {
     // Arrange
     TransactionManager transactionManager = mock(TransactionManager.class);
@@ -113,6 +120,8 @@ public class JtaRetryInterceptorDiffblueTest {
    * Method under test: {@link JtaRetryInterceptor#calledInsideTransaction()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JtaRetryInterceptor.calledInsideTransaction()"})
   public void testCalledInsideTransaction2() throws SystemException {
     // Arrange
     TransactionManager transactionManager = mock(TransactionManager.class);
@@ -133,6 +142,8 @@ public class JtaRetryInterceptorDiffblueTest {
    * Method under test: {@link JtaRetryInterceptor#calledInsideTransaction()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JtaRetryInterceptor.calledInsideTransaction()"})
   public void testCalledInsideTransaction_thenReturnFalse() throws SystemException {
     // Arrange
     TransactionManager transactionManager = mock(TransactionManager.class);
@@ -156,6 +167,8 @@ public class JtaRetryInterceptorDiffblueTest {
    * Method under test: {@link JtaRetryInterceptor#calledInsideTransaction()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JtaRetryInterceptor.calledInsideTransaction()"})
   public void testCalledInsideTransaction_thenReturnTrue() throws SystemException {
     // Arrange
     TransactionManager transactionManager = mock(TransactionManager.class);

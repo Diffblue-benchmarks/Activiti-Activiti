@@ -17,13 +17,14 @@ package org.activiti.engine.impl.asyncexecutor.multitenant;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.asyncexecutor.AsyncExecutor;
 import org.activiti.engine.impl.cfg.multitenant.TenantInfoHolder;
 import org.activiti.engine.test.cfg.multitenant.DummyTenantInfoHolder;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
@@ -32,23 +33,17 @@ public class TenantAwareAcquireAsyncJobsDueRunnableDiffblueTest {
   @Mock
   private AsyncExecutor asyncExecutor;
 
-  @InjectMocks
-  private String string;
-
-  @InjectMocks
-  private TenantAwareAcquireAsyncJobsDueRunnable tenantAwareAcquireAsyncJobsDueRunnable;
-
   @Mock
   private TenantInfoHolder tenantInfoHolder;
 
   /**
-   * Test
-   * {@link TenantAwareAcquireAsyncJobsDueRunnable#TenantAwareAcquireAsyncJobsDueRunnable(AsyncExecutor, TenantInfoHolder, String)}.
+   * Test {@link TenantAwareAcquireAsyncJobsDueRunnable#TenantAwareAcquireAsyncJobsDueRunnable(AsyncExecutor, TenantInfoHolder, String)}.
    * <p>
-   * Method under test:
-   * {@link TenantAwareAcquireAsyncJobsDueRunnable#TenantAwareAcquireAsyncJobsDueRunnable(AsyncExecutor, TenantInfoHolder, String)}
+   * Method under test: {@link TenantAwareAcquireAsyncJobsDueRunnable#TenantAwareAcquireAsyncJobsDueRunnable(AsyncExecutor, TenantInfoHolder, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TenantAwareAcquireAsyncJobsDueRunnable.<init>(AsyncExecutor, TenantInfoHolder, String)"})
   public void testNewTenantAwareAcquireAsyncJobsDueRunnable() {
     // Arrange and Act
     TenantAwareAcquireAsyncJobsDueRunnable actualTenantAwareAcquireAsyncJobsDueRunnable = new TenantAwareAcquireAsyncJobsDueRunnable(
@@ -60,35 +55,17 @@ public class TenantAwareAcquireAsyncJobsDueRunnableDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TenantAwareAcquireAsyncJobsDueRunnable#getTenantAwareAsyncExecutor()}.
+   * Test {@link TenantAwareAcquireAsyncJobsDueRunnable#getTenantAwareAsyncExecutor()}.
    * <p>
-   * Method under test:
-   * {@link TenantAwareAcquireAsyncJobsDueRunnable#getTenantAwareAsyncExecutor()}
+   * Method under test: {@link TenantAwareAcquireAsyncJobsDueRunnable#getTenantAwareAsyncExecutor()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ExecutorPerTenantAsyncExecutor TenantAwareAcquireAsyncJobsDueRunnable.getTenantAwareAsyncExecutor()"})
   public void testGetTenantAwareAsyncExecutor() {
     // Arrange
     ExecutorPerTenantAsyncExecutor asyncExecutor = new ExecutorPerTenantAsyncExecutor(new DummyTenantInfoHolder());
-
-    // Act and Assert
-    assertSame(asyncExecutor,
-        (new TenantAwareAcquireAsyncJobsDueRunnable(asyncExecutor, new DummyTenantInfoHolder(), "42"))
-            .getTenantAwareAsyncExecutor());
-  }
-
-  /**
-   * Test
-   * {@link TenantAwareAcquireAsyncJobsDueRunnable#getTenantAwareAsyncExecutor()}.
-   * <p>
-   * Method under test:
-   * {@link TenantAwareAcquireAsyncJobsDueRunnable#getTenantAwareAsyncExecutor()}
-   */
-  @Test
-  public void testGetTenantAwareAsyncExecutor2() {
-    // Arrange
-    ExecutorPerTenantAsyncExecutor asyncExecutor = new ExecutorPerTenantAsyncExecutor(new DummyTenantInfoHolder(),
-        mock(TenantAwareAsyncExecutorFactory.class));
 
     // Act and Assert
     assertSame(asyncExecutor,

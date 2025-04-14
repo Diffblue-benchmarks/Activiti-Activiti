@@ -17,22 +17,25 @@ package org.activiti.engine.delegate.event.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ActivitiActivityEventImplDiffblueTest {
   /**
-   * Test
-   * {@link ActivitiActivityEventImpl#ActivitiActivityEventImpl(ActivitiEventType)}.
+   * Test {@link ActivitiActivityEventImpl#ActivitiActivityEventImpl(ActivitiEventType)}.
    * <ul>
    *   <li>When {@code ENTITY_CREATED}.</li>
    *   <li>Then return ActivityId is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiActivityEventImpl#ActivitiActivityEventImpl(ActivitiEventType)}
+   * Method under test: {@link ActivitiActivityEventImpl#ActivitiActivityEventImpl(ActivitiEventType)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiActivityEventImpl.<init>(ActivitiEventType)"})
   public void testNewActivitiActivityEventImpl_whenEntityCreated_thenReturnActivityIdIsNull() {
     // Arrange and Act
     ActivitiActivityEventImpl actualActivitiActivityEventImpl = new ActivitiActivityEventImpl(
@@ -66,6 +69,13 @@ public class ActivitiActivityEventImplDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ActivitiActivityEventImpl.getActivityId()",
+      "String ActivitiActivityEventImpl.getActivityName()", "String ActivitiActivityEventImpl.getActivityType()",
+      "String ActivitiActivityEventImpl.getBehaviorClass()", "void ActivitiActivityEventImpl.setActivityId(String)",
+      "void ActivitiActivityEventImpl.setActivityName(String)",
+      "void ActivitiActivityEventImpl.setActivityType(String)",
+      "void ActivitiActivityEventImpl.setBehaviorClass(String)"})
   public void testGettersAndSetters() {
     // Arrange
     ActivitiActivityEventImpl activitiActivityEventImpl = new ActivitiActivityEventImpl(
@@ -80,7 +90,7 @@ public class ActivitiActivityEventImplDiffblueTest {
     String actualActivityName = activitiActivityEventImpl.getActivityName();
     String actualActivityType = activitiActivityEventImpl.getActivityType();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualActivityId);
     assertEquals("Activity Name", actualActivityName);
     assertEquals("Activity Type", actualActivityType);

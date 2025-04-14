@@ -20,51 +20,25 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.Map;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class TimerJobEntityImplDiffblueTest {
   /**
    * Test {@link TimerJobEntityImpl#getPersistentState()}.
-   * <ul>
-   *   <li>Then return containsKey {@code lockExpirationTime}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link TimerJobEntityImpl#getPersistentState()}
    */
   @Test
-  public void testGetPersistentState_thenReturnContainsKeyLockExpirationTime() {
-    // Arrange
-    TimerJobEntityImpl timerJobEntityImpl = new TimerJobEntityImpl();
-    timerJobEntityImpl.setLockExpirationTime(mock(java.sql.Date.class));
-
-    // Act
-    Object actualPersistentState = timerJobEntityImpl.getPersistentState();
-
-    // Assert
-    assertTrue(actualPersistentState instanceof Map);
-    assertEquals(5, ((Map<String, Object>) actualPersistentState).size());
-    assertNull(((Map<String, Object>) actualPersistentState).get("duedate"));
-    assertNull(((Map<String, Object>) actualPersistentState).get("exceptionMessage"));
-    assertNull(((Map<String, Object>) actualPersistentState).get("lockOwner"));
-    assertTrue(((Map<String, Object>) actualPersistentState).containsKey("lockExpirationTime"));
-    assertTrue(((Map<String, Object>) actualPersistentState).containsKey("retries"));
-  }
-
-  /**
-   * Test {@link TimerJobEntityImpl#getPersistentState()}.
-   * <ul>
-   *   <li>Then return {@code lockExpirationTime} is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link TimerJobEntityImpl#getPersistentState()}
-   */
-  @Test
-  public void testGetPersistentState_thenReturnLockExpirationTimeIsNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object TimerJobEntityImpl.getPersistentState()"})
+  public void testGetPersistentState() {
     // Arrange and Act
     Object actualPersistentState = (new TimerJobEntityImpl()).getPersistentState();
 
@@ -92,6 +66,10 @@ public class TimerJobEntityImplDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TimerJobEntityImpl.<init>()", "Date TimerJobEntityImpl.getLockExpirationTime()",
+      "String TimerJobEntityImpl.getLockOwner()", "void TimerJobEntityImpl.setLockExpirationTime(Date)",
+      "void TimerJobEntityImpl.setLockOwner(String)", "String TimerJobEntityImpl.toString()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     TimerJobEntityImpl actualTimerJobEntityImpl = new TimerJobEntityImpl();
@@ -102,10 +80,22 @@ public class TimerJobEntityImplDiffblueTest {
     Date actualLockExpirationTime = actualTimerJobEntityImpl.getLockExpirationTime();
     String actualLockOwner = actualTimerJobEntityImpl.getLockOwner();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("", actualTimerJobEntityImpl.getTenantId());
     assertEquals("Claimed By", actualLockOwner);
     assertEquals("TimerJobEntity [id=null]", actualToStringResult);
+    assertNull(actualTimerJobEntityImpl.getId());
+    assertNull(actualTimerJobEntityImpl.getExceptionMessage());
+    assertNull(actualTimerJobEntityImpl.getExecutionId());
+    assertNull(actualTimerJobEntityImpl.getJobHandlerConfiguration());
+    assertNull(actualTimerJobEntityImpl.getJobHandlerType());
+    assertNull(actualTimerJobEntityImpl.getJobType());
+    assertNull(actualTimerJobEntityImpl.getProcessDefinitionId());
+    assertNull(actualTimerJobEntityImpl.getProcessInstanceId());
+    assertNull(actualTimerJobEntityImpl.getRepeat());
+    assertNull(actualTimerJobEntityImpl.getDuedate());
+    assertNull(actualTimerJobEntityImpl.getEndDate());
+    assertNull(actualTimerJobEntityImpl.getExceptionByteArrayRef());
     assertEquals(0, actualTimerJobEntityImpl.getMaxIterations());
     assertEquals(0, actualTimerJobEntityImpl.getRetries());
     assertEquals(1, actualTimerJobEntityImpl.getRevision());

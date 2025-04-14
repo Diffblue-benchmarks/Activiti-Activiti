@@ -22,24 +22,26 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.function.BiFunction;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class DataAssociationDiffblueTest {
   /**
    * Test {@link DataAssociation#clone()}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link Assignment} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link Assignment} (default constructor).</li>
    *   <li>Then return Assignments size is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link DataAssociation#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DataAssociation DataAssociation.clone()"})
   public void testClone_givenArrayListAddAssignment_thenReturnAssignmentsSizeIsOne() {
     // Arrange
     ArrayList<Assignment> assignments = new ArrayList<>();
@@ -64,14 +66,15 @@ public class DataAssociationDiffblueTest {
   /**
    * Test {@link DataAssociation#clone()}.
    * <ul>
-   *   <li>Given {@link DataAssociation} (default constructor) Assignments is
-   * {@code null}.</li>
+   *   <li>Given {@link DataAssociation} (default constructor) Assignments is {@code null}.</li>
    *   <li>Then return Id is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link DataAssociation#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DataAssociation DataAssociation.clone()"})
   public void testClone_givenDataAssociationAssignmentsIsNull_thenReturnIdIsNull() {
     // Arrange
     DataAssociation dataAssociation = new DataAssociation();
@@ -102,6 +105,8 @@ public class DataAssociationDiffblueTest {
    * Method under test: {@link DataAssociation#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"DataAssociation DataAssociation.clone()"})
   public void testClone_givenDataAssociation_thenReturnIdIsNull() {
     // Arrange and Act
     DataAssociation actualCloneResult = (new DataAssociation()).clone();
@@ -119,42 +124,7 @@ public class DataAssociationDiffblueTest {
   }
 
   /**
-   * Test {@link DataAssociation#clone()}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@code foo} and
-   * {@link BiFunction}.</li>
-   *   <li>Then return Id is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DataAssociation#clone()}
-   */
-  @Test
-  public void testClone_givenHashMapComputeIfPresentFooAndBiFunction_thenReturnIdIsNull() {
-    // Arrange
-    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
-    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
-
-    DataAssociation dataAssociation = new DataAssociation();
-    dataAssociation.setExtensionElements(extensionElements);
-
-    // Act
-    DataAssociation actualCloneResult = dataAssociation.clone();
-
-    // Assert
-    assertNull(actualCloneResult.getId());
-    assertNull(actualCloneResult.getSourceRef());
-    assertNull(actualCloneResult.getTargetRef());
-    assertNull(actualCloneResult.getTransformation());
-    assertEquals(0, actualCloneResult.getXmlColumnNumber());
-    assertEquals(0, actualCloneResult.getXmlRowNumber());
-    assertTrue(actualCloneResult.getAssignments().isEmpty());
-    assertTrue(actualCloneResult.getAttributes().isEmpty());
-    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link DataAssociation#setValues(DataAssociation)} with
-   * {@code otherAssociation}.
+   * Test {@link DataAssociation#setValues(DataAssociation)} with {@code otherAssociation}.
    * <ul>
    *   <li>Then calls {@link Assignment#clone()}.</li>
    * </ul>
@@ -162,6 +132,8 @@ public class DataAssociationDiffblueTest {
    * Method under test: {@link DataAssociation#setValues(DataAssociation)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DataAssociation.setValues(DataAssociation)"})
   public void testSetValuesWithOtherAssociation_thenCallsClone() {
     // Arrange
     DataAssociation dataAssociation = new DataAssociation();
@@ -198,6 +170,12 @@ public class DataAssociationDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DataAssociation.<init>()", "List DataAssociation.getAssignments()",
+      "String DataAssociation.getSourceRef()", "String DataAssociation.getTargetRef()",
+      "String DataAssociation.getTransformation()", "void DataAssociation.setAssignments(List)",
+      "void DataAssociation.setSourceRef(String)", "void DataAssociation.setTargetRef(String)",
+      "void DataAssociation.setTransformation(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     DataAssociation actualDataAssociation = new DataAssociation();
@@ -210,10 +188,11 @@ public class DataAssociationDiffblueTest {
     String actualSourceRef = actualDataAssociation.getSourceRef();
     String actualTargetRef = actualDataAssociation.getTargetRef();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Source Ref", actualSourceRef);
     assertEquals("Target Ref", actualTargetRef);
     assertEquals("Transformation", actualDataAssociation.getTransformation());
+    assertNull(actualDataAssociation.getId());
     assertEquals(0, actualDataAssociation.getXmlColumnNumber());
     assertEquals(0, actualDataAssociation.getXmlRowNumber());
     assertTrue(actualAssignments.isEmpty());

@@ -24,16 +24,15 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.Process;
-import org.activiti.bpmn.model.Resource;
 import org.activiti.bpmn.model.ScriptTask;
-import org.activiti.bpmn.model.Signal;
 import org.activiti.validation.ValidationError;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -41,16 +40,16 @@ class ScriptTaskValidatorDiffblueTest {
   /**
    * Test {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link ScriptTask} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link ScriptTask} (default constructor).</li>
    *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList() add ScriptTask (default constructor); then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ScriptTaskValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenArrayListAddScriptTask_thenArrayListSizeIsTwo() {
     // Arrange
     ScriptTaskValidator scriptTaskValidator = new ScriptTaskValidator();
@@ -92,15 +91,16 @@ class ScriptTaskValidatorDiffblueTest {
    * Test {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
    *   <li>Given {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then {@link BpmnModel} (default constructor) Resources {@link List}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList(); then BpmnModel (default constructor) Resources List")
-  void testExecuteValidation_givenArrayList_thenBpmnModelResourcesList() {
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList(); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ScriptTaskValidator.executeValidation(BpmnModel, Process, List)"})
+  void testExecuteValidation_givenArrayList_thenArrayListEmpty() {
     // Arrange
     ScriptTaskValidator scriptTaskValidator = new ScriptTaskValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -113,28 +113,22 @@ class ScriptTaskValidatorDiffblueTest {
 
     // Assert that nothing has changed
     verify(process).findFlowElementsOfType(isA(Class.class));
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
     assertTrue(errors.isEmpty());
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
   }
 
   /**
    * Test {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link ScriptTask} {@link ScriptTask#getScript()} return
-   * {@code Script}.</li>
+   *   <li>Given {@link ScriptTask} {@link ScriptTask#getScript()} return {@code Script}.</li>
    *   <li>Then calls {@link ScriptTask#getScript()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given ScriptTask getScript() return 'Script'; then calls getScript()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ScriptTaskValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenScriptTaskGetScriptReturnScript_thenCallsGetScript() {
     // Arrange
     ScriptTaskValidator scriptTaskValidator = new ScriptTaskValidator();
@@ -154,13 +148,7 @@ class ScriptTaskValidatorDiffblueTest {
     // Assert that nothing has changed
     verify(process).findFlowElementsOfType(isA(Class.class));
     verify(scriptTask).getScript();
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
     assertTrue(errors.isEmpty());
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
   }
 
   /**
@@ -169,11 +157,12 @@ class ScriptTaskValidatorDiffblueTest {
    *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityId is '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ScriptTaskValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListFirstActivityIdIs42() {
     // Arrange
     ScriptTaskValidator scriptTaskValidator = new ScriptTaskValidator();
@@ -219,11 +208,12 @@ class ScriptTaskValidatorDiffblueTest {
    *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityId is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ScriptTaskValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListFirstActivityIdIsNull() {
     // Arrange
     ScriptTaskValidator scriptTaskValidator = new ScriptTaskValidator();
@@ -255,42 +245,17 @@ class ScriptTaskValidatorDiffblueTest {
   /**
    * Test {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>When {@link BpmnModel}.</li>
+   *   <li>When {@link Process} (default constructor).</li>
    *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); when BpmnModel; then ArrayList() Empty")
-  void testExecuteValidation_whenBpmnModel_thenArrayListEmpty() {
-    // Arrange
-    ScriptTaskValidator scriptTaskValidator = new ScriptTaskValidator();
-    BpmnModel bpmnModel = mock(BpmnModel.class);
-    Process process = new Process();
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    scriptTaskValidator.executeValidation(bpmnModel, process, errors);
-
-    // Assert that nothing has changed
-    assertTrue(errors.isEmpty());
-  }
-
-  /**
-   * Test {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}.
-   * <ul>
-   *   <li>When {@link Process} (default constructor).</li>
-   *   <li>Then {@link BpmnModel} (default constructor) Resources {@link List}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ScriptTaskValidator#executeValidation(BpmnModel, Process, List)}
-   */
-  @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); when Process (default constructor); then BpmnModel (default constructor) Resources List")
-  void testExecuteValidation_whenProcess_thenBpmnModelResourcesList() {
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); when Process (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ScriptTaskValidator.executeValidation(BpmnModel, Process, List)"})
+  void testExecuteValidation_whenProcess_thenArrayListEmpty() {
     // Arrange
     ScriptTaskValidator scriptTaskValidator = new ScriptTaskValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -301,12 +266,6 @@ class ScriptTaskValidatorDiffblueTest {
     scriptTaskValidator.executeValidation(bpmnModel, process, errors);
 
     // Assert that nothing has changed
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
     assertTrue(errors.isEmpty());
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
   }
 }

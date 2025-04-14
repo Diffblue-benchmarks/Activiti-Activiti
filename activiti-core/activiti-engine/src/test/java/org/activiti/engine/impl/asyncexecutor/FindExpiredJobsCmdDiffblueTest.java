@@ -16,7 +16,10 @@
 package org.activiti.engine.impl.asyncexecutor;
 
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class FindExpiredJobsCmdDiffblueTest {
   /**
@@ -25,6 +28,8 @@ public class FindExpiredJobsCmdDiffblueTest {
    * Method under test: {@link FindExpiredJobsCmd#FindExpiredJobsCmd(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void FindExpiredJobsCmd.<init>(int)"})
   public void testNewFindExpiredJobsCmd() {
     // Arrange, Act and Assert
     assertEquals(3, (new FindExpiredJobsCmd(3)).pageSize);

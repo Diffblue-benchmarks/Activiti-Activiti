@@ -22,6 +22,8 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
@@ -29,6 +31,7 @@ import org.activiti.engine.delegate.VariableScope;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -46,10 +49,11 @@ public class UelExpressionConditionDiffblueTest {
   /**
    * Test {@link UelExpressionCondition#UelExpressionCondition(Expression)}.
    * <p>
-   * Method under test:
-   * {@link UelExpressionCondition#UelExpressionCondition(Expression)}
+   * Method under test: {@link UelExpressionCondition#UelExpressionCondition(Expression)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UelExpressionCondition.<init>(Expression)"})
   public void testNewUelExpressionCondition() {
     // Arrange, Act and Assert
     Expression expression = (new UelExpressionCondition(new FixedValue(JSONObject.NULL))).expression;
@@ -60,10 +64,11 @@ public class UelExpressionConditionDiffblueTest {
   /**
    * Test {@link UelExpressionCondition#evaluate(String, DelegateExecution)}.
    * <p>
-   * Method under test:
-   * {@link UelExpressionCondition#evaluate(String, DelegateExecution)}
+   * Method under test: {@link UelExpressionCondition#evaluate(String, DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean UelExpressionCondition.evaluate(String, DelegateExecution)"})
   public void testEvaluate() {
     // Arrange
     when(expression.getValue(Mockito.<VariableScope>any())).thenThrow(new ActivitiException("An error occurred"));
@@ -77,15 +82,15 @@ public class UelExpressionConditionDiffblueTest {
   /**
    * Test {@link UelExpressionCondition#evaluate(String, DelegateExecution)}.
    * <ul>
-   *   <li>Given {@link Expression} {@link Expression#getValue(VariableScope)}
-   * return {@code false}.</li>
+   *   <li>Given {@link Expression} {@link Expression#getValue(VariableScope)} return {@code false}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link UelExpressionCondition#evaluate(String, DelegateExecution)}
+   * Method under test: {@link UelExpressionCondition#evaluate(String, DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean UelExpressionCondition.evaluate(String, DelegateExecution)"})
   public void testEvaluate_givenExpressionGetValueReturnFalse_thenReturnFalse() {
     // Arrange
     when(expression.getValue(Mockito.<VariableScope>any())).thenReturn(false);
@@ -102,15 +107,15 @@ public class UelExpressionConditionDiffblueTest {
   /**
    * Test {@link UelExpressionCondition#evaluate(String, DelegateExecution)}.
    * <ul>
-   *   <li>Given {@link Expression} {@link Expression#getValue(VariableScope)}
-   * return {@link JSONObject#NULL}.</li>
+   *   <li>Given {@link Expression} {@link Expression#getValue(VariableScope)} return {@link JSONObject#NULL}.</li>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link UelExpressionCondition#evaluate(String, DelegateExecution)}
+   * Method under test: {@link UelExpressionCondition#evaluate(String, DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean UelExpressionCondition.evaluate(String, DelegateExecution)"})
   public void testEvaluate_givenExpressionGetValueReturnNull_thenThrowActivitiException() {
     // Arrange
     when(expression.getValue(Mockito.<VariableScope>any())).thenReturn(JSONObject.NULL);
@@ -124,15 +129,15 @@ public class UelExpressionConditionDiffblueTest {
   /**
    * Test {@link UelExpressionCondition#evaluate(String, DelegateExecution)}.
    * <ul>
-   *   <li>Given {@link Expression} {@link Expression#getValue(VariableScope)}
-   * return {@code null}.</li>
+   *   <li>Given {@link Expression} {@link Expression#getValue(VariableScope)} return {@code null}.</li>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link UelExpressionCondition#evaluate(String, DelegateExecution)}
+   * Method under test: {@link UelExpressionCondition#evaluate(String, DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean UelExpressionCondition.evaluate(String, DelegateExecution)"})
   public void testEvaluate_givenExpressionGetValueReturnNull_thenThrowActivitiException2() {
     // Arrange
     when(expression.getValue(Mockito.<VariableScope>any())).thenReturn(null);
@@ -146,15 +151,15 @@ public class UelExpressionConditionDiffblueTest {
   /**
    * Test {@link UelExpressionCondition#evaluate(String, DelegateExecution)}.
    * <ul>
-   *   <li>Given {@link Expression} {@link Expression#getValue(VariableScope)}
-   * return {@code true}.</li>
+   *   <li>Given {@link Expression} {@link Expression#getValue(VariableScope)} return {@code true}.</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link UelExpressionCondition#evaluate(String, DelegateExecution)}
+   * Method under test: {@link UelExpressionCondition#evaluate(String, DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean UelExpressionCondition.evaluate(String, DelegateExecution)"})
   public void testEvaluate_givenExpressionGetValueReturnTrue_thenReturnTrue() {
     // Arrange
     when(expression.getValue(Mockito.<VariableScope>any())).thenReturn(true);

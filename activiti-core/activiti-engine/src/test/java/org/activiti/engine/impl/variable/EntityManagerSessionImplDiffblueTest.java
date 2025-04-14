@@ -16,8 +16,11 @@
 package org.activiti.engine.impl.variable;
 
 import static org.junit.Assert.assertFalse;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.hibernate.engine.spi.SessionFactoryDelegatingImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class EntityManagerSessionImplDiffblueTest {
   /**
@@ -29,6 +32,8 @@ public class EntityManagerSessionImplDiffblueTest {
    * Method under test: {@link EntityManagerSessionImpl#isTransactionActive()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean EntityManagerSessionImpl.isTransactionActive()"})
   public void testIsTransactionActive_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(

@@ -23,6 +23,8 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -44,16 +46,18 @@ import org.activiti.engine.impl.interceptor.CommandConfig;
 import org.activiti.engine.impl.interceptor.CommandContextInterceptor;
 import org.activiti.engine.impl.interceptor.SessionFactory;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class ProcessEnginesDiffblueTest {
   /**
    * Test {@link ProcessEngines#initProcessEngineFromSpringResource(URL)}.
    * <p>
-   * Method under test:
-   * {@link ProcessEngines#initProcessEngineFromSpringResource(URL)}
+   * Method under test: {@link ProcessEngines#initProcessEngineFromSpringResource(URL)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ProcessEngines.initProcessEngineFromSpringResource(URL)"})
   public void testInitProcessEngineFromSpringResource() throws MalformedURLException {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> ProcessEngines.initProcessEngineFromSpringResource(
@@ -66,10 +70,11 @@ public class ProcessEnginesDiffblueTest {
    *   <li>Then calls {@link ProcessEngineConfiguration#getAsyncExecutor()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessEngines#registerProcessEngine(ProcessEngine)}
+   * Method under test: {@link ProcessEngines#registerProcessEngine(ProcessEngine)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ProcessEngines.registerProcessEngine(ProcessEngine)"})
   public void testRegisterProcessEngine_thenCallsGetAsyncExecutor() {
     // Arrange
     ProcessEngineLifecycleListener processEngineLifecycleListener = mock(ProcessEngineLifecycleListener.class);
@@ -126,6 +131,8 @@ public class ProcessEnginesDiffblueTest {
    * Method under test: {@link ProcessEngines#unregister(ProcessEngine)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ProcessEngines.unregister(ProcessEngine)"})
   public void testUnregister_thenCallsGetAsyncExecutor() {
     // Arrange
     ProcessEngineLifecycleListener processEngineLifecycleListener = mock(ProcessEngineLifecycleListener.class);
@@ -179,6 +186,8 @@ public class ProcessEnginesDiffblueTest {
    * Method under test: {@link ProcessEngines#getProcessEngineInfo(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineInfo ProcessEngines.getProcessEngineInfo(String)"})
   public void testGetProcessEngineInfo() {
     // Arrange, Act and Assert
     assertNull(ProcessEngines.getProcessEngineInfo("Process Engine Name"));
@@ -190,6 +199,8 @@ public class ProcessEnginesDiffblueTest {
    * Method under test: {@link ProcessEngines#getProcessEngine(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngine ProcessEngines.getProcessEngine(String)"})
   public void testGetProcessEngine() {
     // Arrange, Act and Assert
     assertNull(ProcessEngines.getProcessEngine("Process Engine Name"));
@@ -204,6 +215,8 @@ public class ProcessEnginesDiffblueTest {
    * Method under test: {@link ProcessEngines#retry(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessEngineInfo ProcessEngines.retry(String)"})
   public void testRetry_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,

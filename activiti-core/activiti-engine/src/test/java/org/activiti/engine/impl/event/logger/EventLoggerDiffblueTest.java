@@ -21,12 +21,10 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.cfg.SerializerFactoryConfig;
-import com.fasterxml.jackson.databind.ser.BeanSerializerFactory;
-import com.fasterxml.jackson.databind.ser.SerializerFactory;
-import com.fasterxml.jackson.databind.ser.Serializers;
-import com.fasterxml.jackson.databind.util.ArrayIterator;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -36,16 +34,16 @@ import org.activiti.engine.delegate.event.impl.ActivitiActivityCancelledEventImp
 import org.activiti.engine.delegate.event.impl.ActivitiActivityEventImpl;
 import org.activiti.engine.delegate.event.impl.ActivitiVariableUpdatedEventImpl;
 import org.activiti.engine.impl.event.logger.handler.ActivityErrorReceivedEventHandler;
-import org.activiti.engine.impl.event.logger.handler.ActivityMessageEventHandler;
 import org.activiti.engine.impl.event.logger.handler.EventLoggerEventHandler;
-import org.activiti.engine.impl.event.logger.handler.TaskAssignedEventHandler;
-import org.activiti.engine.impl.event.logger.handler.TaskCreatedEventHandler;
+import org.activiti.engine.impl.event.logger.handler.SequenceFlowTakenEventHandler;
+import org.activiti.engine.impl.event.logger.handler.TaskCompletedEventHandler;
 import org.activiti.engine.impl.event.logger.handler.VariableCreatedEventHandler;
 import org.activiti.engine.impl.event.logger.handler.VariableDeletedEventHandler;
 import org.activiti.engine.impl.event.logger.handler.VariableUpdatedEventHandler;
 import org.activiti.engine.impl.util.DefaultClockImpl;
 import org.activiti.engine.runtime.Clock;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class EventLoggerDiffblueTest {
   /**
@@ -54,6 +52,8 @@ public class EventLoggerDiffblueTest {
    * Method under test: {@link EventLogger#EventLogger()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventLogger.<init>()"})
   public void testNewEventLogger() {
     // Arrange and Act
     EventLogger actualEventLogger = new EventLogger();
@@ -67,84 +67,51 @@ public class EventLoggerDiffblueTest {
     assertFalse(actualEventLogger.isFailOnException());
     Class<ActivityErrorReceivedEventHandler> expectedGetResult = ActivityErrorReceivedEventHandler.class;
     assertEquals(expectedGetResult, activitiEventTypeResultClassMap.get(ActivitiEventType.ACTIVITY_ERROR_RECEIVED));
-    Class<ActivityMessageEventHandler> expectedGetResult2 = ActivityMessageEventHandler.class;
-    assertEquals(expectedGetResult2, activitiEventTypeResultClassMap.get(ActivitiEventType.ACTIVITY_MESSAGE_RECEIVED));
-    Class<TaskAssignedEventHandler> expectedGetResult3 = TaskAssignedEventHandler.class;
-    assertEquals(expectedGetResult3, activitiEventTypeResultClassMap.get(ActivitiEventType.TASK_ASSIGNED));
-    Class<TaskCreatedEventHandler> expectedGetResult4 = TaskCreatedEventHandler.class;
-    assertEquals(expectedGetResult4, activitiEventTypeResultClassMap.get(ActivitiEventType.TASK_CREATED));
-    Class<VariableCreatedEventHandler> expectedGetResult5 = VariableCreatedEventHandler.class;
-    assertEquals(expectedGetResult5, activitiEventTypeResultClassMap.get(ActivitiEventType.VARIABLE_CREATED));
-    Class<VariableDeletedEventHandler> expectedGetResult6 = VariableDeletedEventHandler.class;
-    assertEquals(expectedGetResult6, activitiEventTypeResultClassMap.get(ActivitiEventType.VARIABLE_DELETED));
+    Class<SequenceFlowTakenEventHandler> expectedGetResult2 = SequenceFlowTakenEventHandler.class;
+    assertEquals(expectedGetResult2, activitiEventTypeResultClassMap.get(ActivitiEventType.SEQUENCEFLOW_TAKEN));
+    Class<TaskCompletedEventHandler> expectedGetResult3 = TaskCompletedEventHandler.class;
+    assertEquals(expectedGetResult3, activitiEventTypeResultClassMap.get(ActivitiEventType.TASK_COMPLETED));
+    Class<VariableCreatedEventHandler> expectedGetResult4 = VariableCreatedEventHandler.class;
+    assertEquals(expectedGetResult4, activitiEventTypeResultClassMap.get(ActivitiEventType.VARIABLE_CREATED));
+    Class<VariableDeletedEventHandler> expectedGetResult5 = VariableDeletedEventHandler.class;
+    assertEquals(expectedGetResult5, activitiEventTypeResultClassMap.get(ActivitiEventType.VARIABLE_DELETED));
+    Class<VariableUpdatedEventHandler> expectedGetResult6 = VariableUpdatedEventHandler.class;
+    assertEquals(expectedGetResult6, activitiEventTypeResultClassMap.get(ActivitiEventType.VARIABLE_UPDATED));
   }
 
   /**
    * Test {@link EventLogger#EventLogger(Clock, ObjectMapper)}.
-   * <ul>
-   *   <li>Given {@link SerializerFactory}.</li>
-   *   <li>Then return Listeners is {@code null}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link EventLogger#EventLogger(Clock, ObjectMapper)}
    */
   @Test
-  public void testNewEventLogger_givenSerializerFactory_thenReturnListenersIsNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventLogger.<init>(Clock, ObjectMapper)"})
+  public void testNewEventLogger2() {
     // Arrange
     DefaultClockImpl clock = new DefaultClockImpl();
-
-    ObjectMapper objectMapper = new ObjectMapper();
-    objectMapper.setSerializerFactory(mock(SerializerFactory.class));
+    JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
 
     // Act
     EventLogger actualEventLogger = new EventLogger(clock, objectMapper);
 
     // Assert
+    ObjectMapper objectMapper2 = actualEventLogger.getObjectMapper();
+    assertTrue(objectMapper2 instanceof JsonMapper);
+    Clock clock2 = actualEventLogger.getClock();
+    assertTrue(clock2 instanceof DefaultClockImpl);
     assertNull(actualEventLogger.getListeners());
     Map<ActivitiEventType, Class<? extends EventLoggerEventHandler>> activitiEventTypeResultClassMap = actualEventLogger.eventHandlers;
     assertEquals(13, activitiEventTypeResultClassMap.size());
     assertFalse(actualEventLogger.isFailOnException());
-    Class<ActivityErrorReceivedEventHandler> expectedGetResult = ActivityErrorReceivedEventHandler.class;
-    assertEquals(expectedGetResult, activitiEventTypeResultClassMap.get(ActivitiEventType.ACTIVITY_ERROR_RECEIVED));
-    Class<ActivityMessageEventHandler> expectedGetResult2 = ActivityMessageEventHandler.class;
-    assertEquals(expectedGetResult2, activitiEventTypeResultClassMap.get(ActivitiEventType.ACTIVITY_MESSAGE_RECEIVED));
-    Class<TaskAssignedEventHandler> expectedGetResult3 = TaskAssignedEventHandler.class;
-    assertEquals(expectedGetResult3, activitiEventTypeResultClassMap.get(ActivitiEventType.TASK_ASSIGNED));
-    Class<TaskCreatedEventHandler> expectedGetResult4 = TaskCreatedEventHandler.class;
-    assertEquals(expectedGetResult4, activitiEventTypeResultClassMap.get(ActivitiEventType.TASK_CREATED));
-    Class<VariableCreatedEventHandler> expectedGetResult5 = VariableCreatedEventHandler.class;
-    assertEquals(expectedGetResult5, activitiEventTypeResultClassMap.get(ActivitiEventType.VARIABLE_CREATED));
-    Class<VariableDeletedEventHandler> expectedGetResult6 = VariableDeletedEventHandler.class;
-    assertEquals(expectedGetResult6, activitiEventTypeResultClassMap.get(ActivitiEventType.VARIABLE_DELETED));
-    assertSame(objectMapper, actualEventLogger.getObjectMapper());
-    assertSame(clock, actualEventLogger.getClock());
-  }
-
-  /**
-   * Test {@link EventLogger#EventLogger(Clock, ObjectMapper)}.
-   * <ul>
-   *   <li>Then ObjectMapper SerializerFactory return
-   * {@link BeanSerializerFactory}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EventLogger#EventLogger(Clock, ObjectMapper)}
-   */
-  @Test
-  public void testNewEventLogger_thenObjectMapperSerializerFactoryReturnBeanSerializerFactory() {
-    // Arrange
-    DefaultClockImpl clock = new DefaultClockImpl();
-
-    // Act and Assert
-    SerializerFactory serializerFactory = (new EventLogger(clock, new ObjectMapper())).getObjectMapper()
-        .getSerializerFactory();
-    assertTrue(serializerFactory instanceof BeanSerializerFactory);
-    SerializerFactoryConfig factoryConfig = ((BeanSerializerFactory) serializerFactory).getFactoryConfig();
-    Iterable<Serializers> serializersResult = factoryConfig.serializers();
-    assertTrue(serializersResult instanceof ArrayIterator);
-    assertFalse(factoryConfig.hasKeySerializers());
-    assertFalse(factoryConfig.hasSerializerModifiers());
-    assertFalse(factoryConfig.hasSerializers());
-    assertFalse(((ArrayIterator<Serializers>) serializersResult).hasNext());
+    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.ACTIVITY_ERROR_RECEIVED));
+    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.SEQUENCEFLOW_TAKEN));
+    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.TASK_COMPLETED));
+    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.VARIABLE_CREATED));
+    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.VARIABLE_DELETED));
+    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.VARIABLE_UPDATED));
+    assertSame(clock, clock2);
+    assertSame(objectMapper, objectMapper2);
   }
 
   /**
@@ -153,6 +120,8 @@ public class EventLoggerDiffblueTest {
    * Method under test: {@link EventLogger#getEventHandler(ActivitiEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"EventLoggerEventHandler EventLogger.getEventHandler(ActivitiEvent)"})
   public void testGetEventHandler() {
     // Arrange
     EventLogger eventLogger = new EventLogger();
@@ -166,33 +135,15 @@ public class EventLoggerDiffblueTest {
   /**
    * Test {@link EventLogger#getEventHandler(ActivitiEvent)}.
    * <ul>
-   *   <li>Given {@link EventLogger#EventLogger()} addEventLoggerListener
-   * {@link EventLoggerListener}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EventLogger#getEventHandler(ActivitiEvent)}
-   */
-  @Test
-  public void testGetEventHandler_givenEventLoggerAddEventLoggerListenerEventLoggerListener() {
-    // Arrange
-    EventLogger eventLogger = new EventLogger();
-    eventLogger.addEventLoggerListener(mock(EventLoggerListener.class));
-
-    // Act and Assert
-    assertNull(eventLogger.getEventHandler(new ActivitiActivityCancelledEventImpl()));
-  }
-
-  /**
-   * Test {@link EventLogger#getEventHandler(ActivitiEvent)}.
-   * <ul>
    *   <li>Given {@link EventLogger#EventLogger()}.</li>
-   *   <li>When {@link ActivitiActivityCancelledEventImpl} (default
-   * constructor).</li>
+   *   <li>When {@link ActivitiActivityCancelledEventImpl} (default constructor).</li>
    * </ul>
    * <p>
    * Method under test: {@link EventLogger#getEventHandler(ActivitiEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"EventLoggerEventHandler EventLogger.getEventHandler(ActivitiEvent)"})
   public void testGetEventHandler_givenEventLogger_whenActivitiActivityCancelledEventImpl() {
     // Arrange
     EventLogger eventLogger = new EventLogger();
@@ -211,6 +162,8 @@ public class EventLoggerDiffblueTest {
    * Method under test: {@link EventLogger#getEventHandler(ActivitiEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"EventLoggerEventHandler EventLogger.getEventHandler(ActivitiEvent)"})
   public void testGetEventHandler_givenEventLogger_whenActivitiVariableUpdatedEventImpl() {
     // Arrange
     EventLogger eventLogger = new EventLogger();
@@ -228,6 +181,8 @@ public class EventLoggerDiffblueTest {
    * Method under test: {@link EventLogger#getEventHandler(ActivitiEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"EventLoggerEventHandler EventLogger.getEventHandler(ActivitiEvent)"})
   public void testGetEventHandler_thenReturnVariableUpdatedEventHandler() {
     // Arrange
     EventLogger eventLogger = new EventLogger();
@@ -241,10 +196,11 @@ public class EventLoggerDiffblueTest {
   /**
    * Test {@link EventLogger#instantiateEventHandler(ActivitiEvent, Class)}.
    * <p>
-   * Method under test:
-   * {@link EventLogger#instantiateEventHandler(ActivitiEvent, Class)}
+   * Method under test: {@link EventLogger#instantiateEventHandler(ActivitiEvent, Class)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"EventLoggerEventHandler EventLogger.instantiateEventHandler(ActivitiEvent, Class)"})
   public void testInstantiateEventHandler() {
     // Arrange
     EventLogger eventLogger = new EventLogger();
@@ -253,34 +209,26 @@ public class EventLoggerDiffblueTest {
 
     // Act and Assert
     assertNull(eventLogger.instantiateEventHandler(event, eventHandlerClass));
+    Map<ActivitiEventType, Class<? extends EventLoggerEventHandler>> activitiEventTypeResultClassMap = eventLogger.eventHandlers;
+    assertEquals(13, activitiEventTypeResultClassMap.size());
+    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.ACTIVITY_ERROR_RECEIVED));
+    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.SEQUENCEFLOW_TAKEN));
+    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.TASK_COMPLETED));
+    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.VARIABLE_CREATED));
+    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.VARIABLE_DELETED));
+    Class<VariableUpdatedEventHandler> expectedGetResult = VariableUpdatedEventHandler.class;
+    assertEquals(expectedGetResult, activitiEventTypeResultClassMap.get(ActivitiEventType.VARIABLE_UPDATED));
   }
 
   /**
    * Test {@link EventLogger#instantiateEventHandler(ActivitiEvent, Class)}.
    * <p>
-   * Method under test:
-   * {@link EventLogger#instantiateEventHandler(ActivitiEvent, Class)}
+   * Method under test: {@link EventLogger#instantiateEventHandler(ActivitiEvent, Class)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"EventLoggerEventHandler EventLogger.instantiateEventHandler(ActivitiEvent, Class)"})
   public void testInstantiateEventHandler2() {
-    // Arrange
-    EventLogger eventLogger = new EventLogger();
-    eventLogger.addEventLoggerListener(mock(EventLoggerListener.class));
-    ActivitiActivityCancelledEventImpl event = new ActivitiActivityCancelledEventImpl();
-    Class<EventLoggerEventHandler> eventHandlerClass = EventLoggerEventHandler.class;
-
-    // Act and Assert
-    assertNull(eventLogger.instantiateEventHandler(event, eventHandlerClass));
-  }
-
-  /**
-   * Test {@link EventLogger#instantiateEventHandler(ActivitiEvent, Class)}.
-   * <p>
-   * Method under test:
-   * {@link EventLogger#instantiateEventHandler(ActivitiEvent, Class)}
-   */
-  @Test
-  public void testInstantiateEventHandler3() {
     // Arrange
     EventLogger eventLogger = new EventLogger();
     ActivitiActivityCancelledEventImpl event = new ActivitiActivityCancelledEventImpl();
@@ -288,6 +236,15 @@ public class EventLoggerDiffblueTest {
 
     // Act and Assert
     assertNull(eventLogger.instantiateEventHandler(event, eventHandlerClass));
+    Map<ActivitiEventType, Class<? extends EventLoggerEventHandler>> activitiEventTypeResultClassMap = eventLogger.eventHandlers;
+    assertEquals(13, activitiEventTypeResultClassMap.size());
+    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.ACTIVITY_ERROR_RECEIVED));
+    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.SEQUENCEFLOW_TAKEN));
+    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.TASK_COMPLETED));
+    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.VARIABLE_CREATED));
+    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.VARIABLE_DELETED));
+    Class<VariableUpdatedEventHandler> expectedGetResult = VariableUpdatedEventHandler.class;
+    assertEquals(expectedGetResult, activitiEventTypeResultClassMap.get(ActivitiEventType.VARIABLE_UPDATED));
   }
 
   /**
@@ -296,10 +253,11 @@ public class EventLoggerDiffblueTest {
    *   <li>Then return {@link VariableUpdatedEventHandler}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventLogger#instantiateEventHandler(ActivitiEvent, Class)}
+   * Method under test: {@link EventLogger#instantiateEventHandler(ActivitiEvent, Class)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"EventLoggerEventHandler EventLogger.instantiateEventHandler(ActivitiEvent, Class)"})
   public void testInstantiateEventHandler_thenReturnVariableUpdatedEventHandler() {
     // Arrange
     EventLogger eventLogger = new EventLogger();
@@ -309,19 +267,26 @@ public class EventLoggerDiffblueTest {
 
     // Act and Assert
     assertTrue(eventLogger.instantiateEventHandler(event, eventHandlerClass) instanceof VariableUpdatedEventHandler);
+    Map<ActivitiEventType, Class<? extends EventLoggerEventHandler>> activitiEventTypeResultClassMap = eventLogger.eventHandlers;
+    assertEquals(13, activitiEventTypeResultClassMap.size());
+    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.ACTIVITY_ERROR_RECEIVED));
+    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.SEQUENCEFLOW_TAKEN));
+    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.TASK_COMPLETED));
+    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.VARIABLE_CREATED));
+    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.VARIABLE_DELETED));
+    Class<VariableUpdatedEventHandler> expectedGetResult = VariableUpdatedEventHandler.class;
+    assertEquals(expectedGetResult, activitiEventTypeResultClassMap.get(ActivitiEventType.VARIABLE_UPDATED));
   }
 
   /**
    * Test {@link EventLogger#addEventHandler(ActivitiEventType, Class)}.
-   * <ul>
-   *   <li>Given {@link EventLogger#EventLogger()}.</li>
-   * </ul>
    * <p>
-   * Method under test:
-   * {@link EventLogger#addEventHandler(ActivitiEventType, Class)}
+   * Method under test: {@link EventLogger#addEventHandler(ActivitiEventType, Class)}
    */
   @Test
-  public void testAddEventHandler_givenEventLogger() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventLogger.addEventHandler(ActivitiEventType, Class)"})
+  public void testAddEventHandler() {
     // Arrange
     EventLogger eventLogger = new EventLogger();
     Class<EventLoggerEventHandler> eventHandlerClass = EventLoggerEventHandler.class;
@@ -333,42 +298,12 @@ public class EventLoggerDiffblueTest {
     Map<ActivitiEventType, Class<? extends EventLoggerEventHandler>> activitiEventTypeResultClassMap = eventLogger.eventHandlers;
     assertEquals(14, activitiEventTypeResultClassMap.size());
     assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.ACTIVITY_ERROR_RECEIVED));
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.ACTIVITY_MESSAGE_RECEIVED));
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.TASK_ASSIGNED));
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.TASK_CREATED));
+    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.TASK_COMPLETED));
     assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.VARIABLE_CREATED));
     assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.VARIABLE_DELETED));
-  }
-
-  /**
-   * Test {@link EventLogger#addEventHandler(ActivitiEventType, Class)}.
-   * <ul>
-   *   <li>Given {@link EventLogger#EventLogger()} addEventLoggerListener
-   * {@link EventLoggerListener}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link EventLogger#addEventHandler(ActivitiEventType, Class)}
-   */
-  @Test
-  public void testAddEventHandler_givenEventLoggerAddEventLoggerListenerEventLoggerListener() {
-    // Arrange
-    EventLogger eventLogger = new EventLogger();
-    eventLogger.addEventLoggerListener(mock(EventLoggerListener.class));
-    Class<EventLoggerEventHandler> eventHandlerClass = EventLoggerEventHandler.class;
-
-    // Act
-    eventLogger.addEventHandler(ActivitiEventType.ENTITY_CREATED, eventHandlerClass);
-
-    // Assert
-    Map<ActivitiEventType, Class<? extends EventLoggerEventHandler>> activitiEventTypeResultClassMap = eventLogger.eventHandlers;
-    assertEquals(14, activitiEventTypeResultClassMap.size());
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.ACTIVITY_ERROR_RECEIVED));
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.ACTIVITY_MESSAGE_RECEIVED));
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.TASK_ASSIGNED));
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.TASK_CREATED));
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.VARIABLE_CREATED));
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.VARIABLE_DELETED));
+    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.VARIABLE_UPDATED));
+    Class<EventLoggerEventHandler> expectedGetResult = EventLoggerEventHandler.class;
+    assertEquals(expectedGetResult, activitiEventTypeResultClassMap.get(ActivitiEventType.ENTITY_CREATED));
   }
 
   /**
@@ -377,10 +312,11 @@ public class EventLoggerDiffblueTest {
    *   <li>Given {@link EventLogger#EventLogger()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventLogger#addEventLoggerListener(EventLoggerListener)}
+   * Method under test: {@link EventLogger#addEventLoggerListener(EventLoggerListener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventLogger.addEventLoggerListener(EventLoggerListener)"})
   public void testAddEventLoggerListener_givenEventLogger() {
     // Arrange
     EventLogger eventLogger = new EventLogger();
@@ -398,14 +334,14 @@ public class EventLoggerDiffblueTest {
   /**
    * Test {@link EventLogger#addEventLoggerListener(EventLoggerListener)}.
    * <ul>
-   *   <li>Then {@link EventLogger#EventLogger()} Listeners is
-   * {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then {@link EventLogger#EventLogger()} Listeners is {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventLogger#addEventLoggerListener(EventLoggerListener)}
+   * Method under test: {@link EventLogger#addEventLoggerListener(EventLoggerListener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventLogger.addEventLoggerListener(EventLoggerListener)"})
   public void testAddEventLoggerListener_thenEventLoggerListenersIsArrayList() {
     // Arrange
     EventLogger eventLogger = new EventLogger();
@@ -425,35 +361,15 @@ public class EventLoggerDiffblueTest {
 
   /**
    * Test {@link EventLogger#createEventFlusher()}.
-   * <ul>
-   *   <li>Given {@link EventLogger#EventLogger()}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link EventLogger#createEventFlusher()}
    */
   @Test
-  public void testCreateEventFlusher_givenEventLogger() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.impl.event.logger.EventFlusher EventLogger.createEventFlusher()"})
+  public void testCreateEventFlusher() {
     // Arrange, Act and Assert
     assertNull((new EventLogger()).createEventFlusher());
-  }
-
-  /**
-   * Test {@link EventLogger#createEventFlusher()}.
-   * <ul>
-   *   <li>Given {@link EventLogger#EventLogger()} addEventLoggerListener
-   * {@link EventLoggerListener}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link EventLogger#createEventFlusher()}
-   */
-  @Test
-  public void testCreateEventFlusher_givenEventLoggerAddEventLoggerListenerEventLoggerListener() {
-    // Arrange
-    EventLogger eventLogger = new EventLogger();
-    eventLogger.addEventLoggerListener(mock(EventLoggerListener.class));
-
-    // Act and Assert
-    assertNull(eventLogger.createEventFlusher());
   }
 
   /**
@@ -471,6 +387,11 @@ public class EventLoggerDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Clock EventLogger.getClock()", "List EventLogger.getListeners()",
+      "ObjectMapper EventLogger.getObjectMapper()", "boolean EventLogger.isFailOnException()",
+      "void EventLogger.setClock(Clock)", "void EventLogger.setListeners(List)",
+      "void EventLogger.setObjectMapper(ObjectMapper)"})
   public void testGettersAndSetters() {
     // Arrange
     EventLogger eventLogger = new EventLogger();
@@ -480,17 +401,17 @@ public class EventLoggerDiffblueTest {
     eventLogger.setClock(clock);
     ArrayList<EventLoggerListener> listeners = new ArrayList<>();
     eventLogger.setListeners(listeners);
-    ObjectMapper objectMapper = new ObjectMapper();
+    JsonMapper objectMapper = JsonMapper.builder().findAndAddModules().build();
     eventLogger.setObjectMapper(objectMapper);
     Clock actualClock = eventLogger.getClock();
     List<EventLoggerListener> actualListeners = eventLogger.getListeners();
     ObjectMapper actualObjectMapper = eventLogger.getObjectMapper();
 
-    // Assert that nothing has changed
+    // Assert
     assertFalse(eventLogger.isFailOnException());
     assertTrue(actualListeners.isEmpty());
-    assertSame(objectMapper, actualObjectMapper);
     assertSame(listeners, actualListeners);
     assertSame(clock, actualClock);
+    assertSame(objectMapper, actualObjectMapper);
   }
 }

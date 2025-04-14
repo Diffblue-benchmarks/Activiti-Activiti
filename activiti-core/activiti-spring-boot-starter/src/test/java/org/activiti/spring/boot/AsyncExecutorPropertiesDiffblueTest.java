@@ -1,23 +1,10 @@
-/*
- * Copyright 2010-2020 Alfresco Software, Ltd.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package org.activiti.spring.boot;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class AsyncExecutorPropertiesDiffblueTest {
@@ -29,11 +16,9 @@ class AsyncExecutorPropertiesDiffblueTest {
    *   <li>default or parameterless constructor of {@link AsyncExecutorProperties}
    *   <li>{@link AsyncExecutorProperties#setAsyncJobLockTimeInMillis(int)}
    *   <li>{@link AsyncExecutorProperties#setCorePoolSize(int)}
-   *   <li>
-   * {@link AsyncExecutorProperties#setDefaultAsyncJobAcquireWaitTimeInMillis(int)}
+   *   <li>{@link AsyncExecutorProperties#setDefaultAsyncJobAcquireWaitTimeInMillis(int)}
    *   <li>{@link AsyncExecutorProperties#setDefaultQueueSizeFullWaitTime(int)}
-   *   <li>
-   * {@link AsyncExecutorProperties#setDefaultTimerJobAcquireWaitTimeInMillis(int)}
+   *   <li>{@link AsyncExecutorProperties#setDefaultTimerJobAcquireWaitTimeInMillis(int)}
    *   <li>{@link AsyncExecutorProperties#setKeepAliveTime(long)}
    *   <li>{@link AsyncExecutorProperties#setMaxAsyncJobsDuePerAcquisition(int)}
    *   <li>{@link AsyncExecutorProperties#setMaxPoolSize(int)}
@@ -48,11 +33,9 @@ class AsyncExecutorPropertiesDiffblueTest {
    *   <li>{@link AsyncExecutorProperties#setTimerLockTimeInMillis(int)}
    *   <li>{@link AsyncExecutorProperties#getAsyncJobLockTimeInMillis()}
    *   <li>{@link AsyncExecutorProperties#getCorePoolSize()}
-   *   <li>
-   * {@link AsyncExecutorProperties#getDefaultAsyncJobAcquireWaitTimeInMillis()}
+   *   <li>{@link AsyncExecutorProperties#getDefaultAsyncJobAcquireWaitTimeInMillis()}
    *   <li>{@link AsyncExecutorProperties#getDefaultQueueSizeFullWaitTime()}
-   *   <li>
-   * {@link AsyncExecutorProperties#getDefaultTimerJobAcquireWaitTimeInMillis()}
+   *   <li>{@link AsyncExecutorProperties#getDefaultTimerJobAcquireWaitTimeInMillis()}
    *   <li>{@link AsyncExecutorProperties#getKeepAliveTime()}
    *   <li>{@link AsyncExecutorProperties#getMaxAsyncJobsDuePerAcquisition()}
    *   <li>{@link AsyncExecutorProperties#getMaxPoolSize()}
@@ -69,6 +52,36 @@ class AsyncExecutorPropertiesDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AsyncExecutorProperties.<init>()",
+      "int AsyncExecutorProperties.getAsyncJobLockTimeInMillis()", "int AsyncExecutorProperties.getCorePoolSize()",
+      "int AsyncExecutorProperties.getDefaultAsyncJobAcquireWaitTimeInMillis()",
+      "int AsyncExecutorProperties.getDefaultQueueSizeFullWaitTime()",
+      "int AsyncExecutorProperties.getDefaultTimerJobAcquireWaitTimeInMillis()",
+      "long AsyncExecutorProperties.getKeepAliveTime()",
+      "int AsyncExecutorProperties.getMaxAsyncJobsDuePerAcquisition()", "int AsyncExecutorProperties.getMaxPoolSize()",
+      "int AsyncExecutorProperties.getMaxTimerJobsPerAcquisition()", "int AsyncExecutorProperties.getNumberOfRetries()",
+      "int AsyncExecutorProperties.getQueueSize()", "int AsyncExecutorProperties.getResetExpiredJobsInterval()",
+      "int AsyncExecutorProperties.getResetExpiredJobsPageSize()",
+      "int AsyncExecutorProperties.getRetryWaitTimeInMillis()",
+      "long AsyncExecutorProperties.getSecondsToWaitOnShutdown()",
+      "int AsyncExecutorProperties.getTimerLockTimeInMillis()", "boolean AsyncExecutorProperties.isMessageQueueMode()",
+      "void AsyncExecutorProperties.setAsyncJobLockTimeInMillis(int)",
+      "void AsyncExecutorProperties.setCorePoolSize(int)",
+      "void AsyncExecutorProperties.setDefaultAsyncJobAcquireWaitTimeInMillis(int)",
+      "void AsyncExecutorProperties.setDefaultQueueSizeFullWaitTime(int)",
+      "void AsyncExecutorProperties.setDefaultTimerJobAcquireWaitTimeInMillis(int)",
+      "void AsyncExecutorProperties.setKeepAliveTime(long)",
+      "void AsyncExecutorProperties.setMaxAsyncJobsDuePerAcquisition(int)",
+      "void AsyncExecutorProperties.setMaxPoolSize(int)",
+      "void AsyncExecutorProperties.setMaxTimerJobsPerAcquisition(int)",
+      "void AsyncExecutorProperties.setMessageQueueMode(boolean)",
+      "void AsyncExecutorProperties.setNumberOfRetries(int)", "void AsyncExecutorProperties.setQueueSize(int)",
+      "void AsyncExecutorProperties.setResetExpiredJobsInterval(int)",
+      "void AsyncExecutorProperties.setResetExpiredJobsPageSize(int)",
+      "void AsyncExecutorProperties.setRetryWaitTimeInMillis(int)",
+      "void AsyncExecutorProperties.setSecondsToWaitOnShutdown(long)",
+      "void AsyncExecutorProperties.setTimerLockTimeInMillis(int)"})
   void testGettersAndSetters() {
     // Arrange and Act
     AsyncExecutorProperties actualAsyncExecutorProperties = new AsyncExecutorProperties();
@@ -108,7 +121,7 @@ class AsyncExecutorPropertiesDiffblueTest {
     long actualSecondsToWaitOnShutdown = actualAsyncExecutorProperties.getSecondsToWaitOnShutdown();
     int actualTimerLockTimeInMillis = actualAsyncExecutorProperties.getTimerLockTimeInMillis();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals(1, actualAsyncJobLockTimeInMillis);
     assertEquals(1, actualDefaultAsyncJobAcquireWaitTimeInMillis);
     assertEquals(1, actualDefaultTimerJobAcquireWaitTimeInMillis);

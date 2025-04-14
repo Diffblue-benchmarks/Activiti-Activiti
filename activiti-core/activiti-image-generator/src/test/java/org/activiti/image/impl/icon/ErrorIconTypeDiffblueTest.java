@@ -17,7 +17,9 @@ package org.activiti.image.impl.icon;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ErrorIconTypeDiffblueTest {
@@ -28,6 +30,8 @@ class ErrorIconTypeDiffblueTest {
    */
   @Test
   @DisplayName("Test getWidth()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.lang.Integer ErrorIconType.getWidth()"})
   void testGetWidth() {
     // Arrange, Act and Assert
     assertEquals(17, (new ErrorIconType()).getWidth().intValue());
@@ -40,6 +44,8 @@ class ErrorIconTypeDiffblueTest {
    */
   @Test
   @DisplayName("Test getHeight()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.lang.Integer ErrorIconType.getHeight()"})
   void testGetHeight() {
     // Arrange, Act and Assert
     assertEquals(22, (new ErrorIconType()).getHeight().intValue());
@@ -61,6 +67,11 @@ class ErrorIconTypeDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ErrorIconType.<init>()", "String ErrorIconType.getAnchorValue()",
+      "String ErrorIconType.getDValue()", "String ErrorIconType.getFillValue()",
+      "String ErrorIconType.getStrokeValue()", "String ErrorIconType.getStrokeWidth()",
+      "String ErrorIconType.getStyleValue()"})
   void testGettersAndSetters() {
     // Arrange and Act
     ErrorIconType actualErrorIconType = new ErrorIconType();

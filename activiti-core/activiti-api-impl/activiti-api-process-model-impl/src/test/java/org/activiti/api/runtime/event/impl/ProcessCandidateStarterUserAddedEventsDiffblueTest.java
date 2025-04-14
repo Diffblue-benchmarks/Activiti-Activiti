@@ -17,10 +17,12 @@ package org.activiti.api.runtime.event.impl;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.api.process.runtime.events.ProcessCandidateStarterUserAddedEvent;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ProcessCandidateStarterUserAddedEventsDiffblueTest {
@@ -29,13 +31,15 @@ class ProcessCandidateStarterUserAddedEventsDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link ProcessCandidateStarterUserAddedEvents#ProcessCandidateStarterUserAddedEvents(List)}
+   *   <li>{@link ProcessCandidateStarterUserAddedEvents#ProcessCandidateStarterUserAddedEvents(List)}
    *   <li>{@link ProcessCandidateStarterUserAddedEvents#getEvents()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessCandidateStarterUserAddedEvents.<init>(List)",
+      "List ProcessCandidateStarterUserAddedEvents.getEvents()"})
   void testGettersAndSetters() {
     // Arrange
     ArrayList<ProcessCandidateStarterUserAddedEvent> events = new ArrayList<>();

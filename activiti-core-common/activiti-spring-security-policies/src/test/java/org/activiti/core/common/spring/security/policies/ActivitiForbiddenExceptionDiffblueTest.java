@@ -18,7 +18,9 @@ package org.activiti.core.common.spring.security.policies;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ActivitiForbiddenExceptionDiffblueTest {
@@ -29,11 +31,13 @@ class ActivitiForbiddenExceptionDiffblueTest {
    *   <li>Then return Cause is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiForbiddenException#ActivitiForbiddenException(String)}
+   * Method under test: {@link ActivitiForbiddenException#ActivitiForbiddenException(String)}
    */
   @Test
   @DisplayName("Test new ActivitiForbiddenException(String); when 'An error occurred'; then return Cause is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ActivitiForbiddenException.<init>(String)",
+      "void ActivitiForbiddenException.<init>(String, Throwable)"})
   void testNewActivitiForbiddenException_whenAnErrorOccurred_thenReturnCauseIsNull() {
     // Arrange and Act
     ActivitiForbiddenException actualActivitiForbiddenException = new ActivitiForbiddenException("An error occurred");
@@ -45,18 +49,19 @@ class ActivitiForbiddenExceptionDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiForbiddenException#ActivitiForbiddenException(String, Throwable)}.
+   * Test {@link ActivitiForbiddenException#ActivitiForbiddenException(String, Throwable)}.
    * <ul>
    *   <li>When {@link Throwable#Throwable()}.</li>
    *   <li>Then return Cause is {@link Throwable#Throwable()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiForbiddenException#ActivitiForbiddenException(String, Throwable)}
+   * Method under test: {@link ActivitiForbiddenException#ActivitiForbiddenException(String, Throwable)}
    */
   @Test
   @DisplayName("Test new ActivitiForbiddenException(String, Throwable); when Throwable(); then return Cause is Throwable()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ActivitiForbiddenException.<init>(String)",
+      "void ActivitiForbiddenException.<init>(String, Throwable)"})
   void testNewActivitiForbiddenException_whenThrowable_thenReturnCauseIsThrowable() {
     // Arrange
     Throwable cause = new Throwable();

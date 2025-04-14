@@ -19,26 +19,69 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.util.Date;
 import org.activiti.engine.impl.persistence.entity.HistoricDetailVariableInstanceUpdateEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ShortTypeDiffblueTest {
   /**
    * Test {@link ShortType#getValue(ValueFields)}.
    * <ul>
-   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default
-   * constructor).</li>
+   *   <li>Given {@code 42}.</li>
+   *   <li>Then return shortValue is forty-two.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ShortType#getValue(ValueFields)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object ShortType.getValue(ValueFields)"})
+  public void testGetValue_given42_thenReturnShortValueIsFortyTwo() {
+    // Arrange
+    ShortType shortType = new ShortType();
+
+    HistoricDetailVariableInstanceUpdateEntityImpl valueFields = new HistoricDetailVariableInstanceUpdateEntityImpl();
+    valueFields.setActivityInstanceId("42");
+    valueFields.setCachedValue(JSONObject.NULL);
+    valueFields.setDeleted(true);
+    valueFields.setDetailType("Detail Type");
+    valueFields.setDoubleValue(10.0d);
+    valueFields.setExecutionId("42");
+    valueFields.setId("42");
+    valueFields.setInserted(true);
+    valueFields.setName("Name");
+    valueFields.setProcessInstanceId("42");
+    valueFields.setRevision(1);
+    valueFields.setTaskId("42");
+    valueFields.setTextValue("42");
+    valueFields.setTextValue2("42");
+    valueFields.setTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    valueFields.setUpdated(true);
+    valueFields.setVariableType(new BigDecimalType());
+    valueFields.setLongValue(42L);
+
+    // Act and Assert
+    assertEquals((short) 42, ((Short) shortType.getValue(valueFields)).shortValue());
+  }
+
+  /**
+   * Test {@link ShortType#getValue(ValueFields)}.
+   * <ul>
+   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor).</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ShortType#getValue(ValueFields)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object ShortType.getValue(ValueFields)"})
   public void testGetValue_whenHistoricDetailVariableInstanceUpdateEntityImpl_thenReturnNull() {
     // Arrange
     ShortType shortType = new ShortType();
@@ -48,39 +91,16 @@ public class ShortTypeDiffblueTest {
   }
 
   /**
-   * Test {@link ShortType#getValue(ValueFields)}.
-   * <ul>
-   *   <li>When {@link ValueFields} {@link ValueFields#getLongValue()} return
-   * forty-two.</li>
-   *   <li>Then calls {@link ValueFields#getLongValue()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ShortType#getValue(ValueFields)}
-   */
-  @Test
-  public void testGetValue_whenValueFieldsGetLongValueReturnFortyTwo_thenCallsGetLongValue() {
-    // Arrange
-    ShortType shortType = new ShortType();
-    ValueFields valueFields = mock(ValueFields.class);
-    when(valueFields.getLongValue()).thenReturn(42L);
-
-    // Act
-    shortType.getValue(valueFields);
-
-    // Assert
-    verify(valueFields, atLeast(1)).getLongValue();
-  }
-
-  /**
    * Test {@link ShortType#setValue(Object, ValueFields)}.
    * <ul>
-   *   <li>Then {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default
-   * constructor) LongValue is {@code null}.</li>
+   *   <li>Then {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor) LongValue is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ShortType#setValue(Object, ValueFields)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ShortType.setValue(Object, ValueFields)"})
   public void testSetValue_thenHistoricDetailVariableInstanceUpdateEntityImplLongValueIsNull() {
     // Arrange
     ShortType shortType = new ShortType();
@@ -89,7 +109,7 @@ public class ShortTypeDiffblueTest {
     // Act
     shortType.setValue(null, valueFields);
 
-    // Assert
+    // Assert that nothing has changed
     assertNull(valueFields.getLongValue());
     assertNull(valueFields.getTextValue());
   }
@@ -97,13 +117,14 @@ public class ShortTypeDiffblueTest {
   /**
    * Test {@link ShortType#setValue(Object, ValueFields)}.
    * <ul>
-   *   <li>Then {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default
-   * constructor) TextValue is {@code 1}.</li>
+   *   <li>Then {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor) TextValue is {@code 1}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ShortType#setValue(Object, ValueFields)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ShortType.setValue(Object, ValueFields)"})
   public void testSetValue_thenHistoricDetailVariableInstanceUpdateEntityImplTextValueIs1() {
     // Arrange
     ShortType shortType = new ShortType();
@@ -127,6 +148,8 @@ public class ShortTypeDiffblueTest {
    * Method under test: {@link ShortType#isAbleToStore(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ShortType.isAbleToStore(Object)"})
   public void testIsAbleToStore_whenNull_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new ShortType()).isAbleToStore(JSONObject.NULL));
@@ -142,6 +165,8 @@ public class ShortTypeDiffblueTest {
    * Method under test: {@link ShortType#isAbleToStore(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ShortType.isAbleToStore(Object)"})
   public void testIsAbleToStore_whenNull_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue((new ShortType()).isAbleToStore(null));
@@ -158,6 +183,8 @@ public class ShortTypeDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ShortType.<init>()", "String ShortType.getTypeName()", "boolean ShortType.isCachable()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ShortType actualShortType = new ShortType();

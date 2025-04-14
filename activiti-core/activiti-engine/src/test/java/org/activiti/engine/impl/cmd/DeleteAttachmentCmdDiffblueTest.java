@@ -16,7 +16,10 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class DeleteAttachmentCmdDiffblueTest {
   /**
@@ -25,6 +28,8 @@ public class DeleteAttachmentCmdDiffblueTest {
    * Method under test: {@link DeleteAttachmentCmd#DeleteAttachmentCmd(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeleteAttachmentCmd.<init>(String)"})
   public void testNewDeleteAttachmentCmd() {
     // Arrange, Act and Assert
     assertEquals("42", (new DeleteAttachmentCmd("42")).attachmentId);

@@ -17,7 +17,10 @@ package org.activiti.engine.impl.bpmn.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class EventSubscriptionDeclarationDiffblueTest {
   /**
@@ -25,8 +28,7 @@ public class EventSubscriptionDeclarationDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link EventSubscriptionDeclaration#EventSubscriptionDeclaration(String, String)}
+   *   <li>{@link EventSubscriptionDeclaration#EventSubscriptionDeclaration(String, String)}
    *   <li>{@link EventSubscriptionDeclaration#setActivityId(String)}
    *   <li>{@link EventSubscriptionDeclaration#setAsync(boolean)}
    *   <li>{@link EventSubscriptionDeclaration#setConfiguration(String)}
@@ -40,6 +42,14 @@ public class EventSubscriptionDeclarationDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventSubscriptionDeclaration.<init>(String, String)",
+      "String EventSubscriptionDeclaration.getActivityId()", "String EventSubscriptionDeclaration.getConfiguration()",
+      "String EventSubscriptionDeclaration.getEventName()", "String EventSubscriptionDeclaration.getEventType()",
+      "boolean EventSubscriptionDeclaration.isAsync()", "boolean EventSubscriptionDeclaration.isStartEvent()",
+      "void EventSubscriptionDeclaration.setActivityId(String)", "void EventSubscriptionDeclaration.setAsync(boolean)",
+      "void EventSubscriptionDeclaration.setConfiguration(String)",
+      "void EventSubscriptionDeclaration.setStartEvent(boolean)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     EventSubscriptionDeclaration actualEventSubscriptionDeclaration = new EventSubscriptionDeclaration("Event Name",
@@ -54,7 +64,7 @@ public class EventSubscriptionDeclarationDiffblueTest {
     String actualEventType = actualEventSubscriptionDeclaration.getEventType();
     boolean actualIsAsyncResult = actualEventSubscriptionDeclaration.isAsync();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualActivityId);
     assertEquals("Configuration", actualConfiguration);
     assertEquals("Event Name", actualEventName);

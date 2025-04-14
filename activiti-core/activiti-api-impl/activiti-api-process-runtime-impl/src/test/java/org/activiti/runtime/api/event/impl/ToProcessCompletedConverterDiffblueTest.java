@@ -22,15 +22,19 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Optional;
 import org.activiti.api.process.model.events.ProcessRuntimeEvent;
+import org.activiti.api.process.model.events.ProcessRuntimeEvent.ProcessEvents;
 import org.activiti.api.process.runtime.events.ProcessCompletedEvent;
 import org.activiti.api.runtime.model.impl.ProcessInstanceImpl;
 import org.activiti.engine.delegate.event.ActivitiEntityEvent;
 import org.activiti.engine.delegate.event.impl.ActivitiProcessCancelledEventImpl;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.runtime.api.model.impl.APIProcessInstanceConverter;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -51,30 +55,31 @@ class ToProcessCompletedConverterDiffblueTest {
   private ToProcessCompletedConverter toProcessCompletedConverter;
 
   /**
-   * Test {@link ToProcessCompletedConverter#from(ActivitiEntityEvent)} with
-   * {@code ActivitiEntityEvent}.
+   * Test {@link ToProcessCompletedConverter#from(ActivitiEntityEvent)} with {@code ActivitiEntityEvent}.
    * <ul>
-   *   <li>Then {@link Optional#get()} return {@link ProcessCompletedImpl}.</li>
+   *   <li>Then {@link Optional#get()} Entity return {@link ProcessInstanceImpl}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ToProcessCompletedConverter#from(ActivitiEntityEvent)}
+   * Method under test: {@link ToProcessCompletedConverter#from(ActivitiEntityEvent)}
    */
   @Test
-  @DisplayName("Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'; then get() return ProcessCompletedImpl")
-  void testFromWithActivitiEntityEvent_thenGetReturnProcessCompletedImpl() {
+  @DisplayName("Test from(ActivitiEntityEvent) with 'ActivitiEntityEvent'; then get() Entity return ProcessInstanceImpl")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Optional ToProcessCompletedConverter.from(ActivitiEntityEvent)"})
+  void testFromWithActivitiEntityEvent_thenGetEntityReturnProcessInstanceImpl() {
     // Arrange
     ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
-    when(aPIProcessInstanceConverter.from(Mockito.<org.activiti.engine.runtime.ProcessInstance>any()))
-        .thenReturn(processInstanceImpl);
+    when(aPIProcessInstanceConverter.from(Mockito.<ProcessInstance>any())).thenReturn(processInstanceImpl);
 
     // Act
     Optional<ProcessCompletedEvent> actualFromResult = toProcessCompletedConverter
         .from(new ActivitiProcessCancelledEventImpl(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
 
     // Assert
-    verify(aPIProcessInstanceConverter).from((org.activiti.engine.runtime.ProcessInstance) isNull());
+    verify(aPIProcessInstanceConverter).from((ProcessInstance) isNull());
     ProcessCompletedEvent getResult = actualFromResult.get();
+    org.activiti.api.process.model.ProcessInstance entity = getResult.getEntity();
+    assertTrue(entity instanceof ProcessInstanceImpl);
     assertTrue(getResult instanceof ProcessCompletedImpl);
     assertNull(getResult.getProcessDefinitionVersion());
     assertNull(getResult.getBusinessKey());
@@ -82,8 +87,8 @@ class ToProcessCompletedConverterDiffblueTest {
     assertNull(getResult.getProcessDefinitionId());
     assertNull(getResult.getProcessDefinitionKey());
     assertNull(getResult.getProcessInstanceId());
-    assertEquals(ProcessRuntimeEvent.ProcessEvents.PROCESS_COMPLETED, getResult.getEventType());
+    assertEquals(ProcessEvents.PROCESS_COMPLETED, getResult.getEventType());
     assertTrue(actualFromResult.isPresent());
-    assertSame(processInstanceImpl, getResult.getEntity());
+    assertSame(processInstanceImpl, entity);
   }
 }

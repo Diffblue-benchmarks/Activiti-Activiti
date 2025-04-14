@@ -19,26 +19,26 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class SendTaskDiffblueTest {
   /**
    * Test {@link SendTask#clone()}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default constructor).</li>
    *   <li>Then return FieldExtensions size is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link SendTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"SendTask SendTask.clone()"})
   public void testClone_givenArrayListAddFieldExtension_thenReturnFieldExtensionsSizeIsOne() {
     // Arrange
     ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
@@ -71,6 +71,8 @@ public class SendTaskDiffblueTest {
    * Method under test: {@link SendTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"SendTask SendTask.clone()"})
   public void testClone_givenSendTask_thenReturnBehaviorIsNull() {
     // Arrange and Act
     SendTask actualCloneResult = (new SendTask()).clone();
@@ -109,30 +111,6 @@ public class SendTaskDiffblueTest {
   }
 
   /**
-   * Test {@link SendTask#setValues(SendTask)} with {@code SendTask}.
-   * <ul>
-   *   <li>Then calls {@link ExtensionElement#getName()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SendTask#setValues(SendTask)}
-   */
-  @Test
-  public void testSetValuesWithSendTask_thenCallsGetName() {
-    // Arrange
-    ExtensionElement extensionElement = mock(ExtensionElement.class);
-    when(extensionElement.getName()).thenReturn("Name");
-
-    SendTask sendTask = new SendTask();
-    sendTask.addExtensionElement(extensionElement);
-
-    // Act
-    sendTask.setValues(new SendTask());
-
-    // Assert
-    verify(extensionElement, atLeast(1)).getName();
-  }
-
-  /**
    * Test getters and setters.
    * <p>
    * Methods under test:
@@ -147,6 +125,10 @@ public class SendTaskDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SendTask.<init>()", "String SendTask.getImplementationType()",
+      "String SendTask.getOperationRef()", "String SendTask.getType()", "void SendTask.setImplementationType(String)",
+      "void SendTask.setOperationRef(String)", "void SendTask.setType(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     SendTask actualSendTask = new SendTask();
@@ -156,10 +138,19 @@ public class SendTaskDiffblueTest {
     String actualImplementationType = actualSendTask.getImplementationType();
     String actualOperationRef = actualSendTask.getOperationRef();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Implementation Type", actualImplementationType);
     assertEquals("Operation Ref", actualOperationRef);
     assertEquals("Type", actualSendTask.getType());
+    assertNull(actualSendTask.getBehavior());
+    assertNull(actualSendTask.getDefaultFlow());
+    assertNull(actualSendTask.getFailedJobRetryTimeCycleValue());
+    assertNull(actualSendTask.getId());
+    assertNull(actualSendTask.getDocumentation());
+    assertNull(actualSendTask.getName());
+    assertNull(actualSendTask.getParentContainer());
+    assertNull(actualSendTask.getIoSpecification());
+    assertNull(actualSendTask.getLoopCharacteristics());
     assertEquals(0, actualSendTask.getXmlColumnNumber());
     assertEquals(0, actualSendTask.getXmlRowNumber());
     assertFalse(actualSendTask.isForCompensation());

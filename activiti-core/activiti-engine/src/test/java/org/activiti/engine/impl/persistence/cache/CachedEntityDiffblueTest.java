@@ -20,10 +20,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
@@ -33,32 +31,9 @@ import org.activiti.engine.impl.persistence.entity.Entity;
 import org.activiti.engine.impl.persistence.entity.EventLogEntryEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class CachedEntityDiffblueTest {
-  /**
-   * Test {@link CachedEntity#CachedEntity(Entity, boolean)}.
-   * <ul>
-   *   <li>Given {@link JSONObject#NULL}.</li>
-   *   <li>Then return not hasChanged.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CachedEntity#CachedEntity(Entity, boolean)}
-   */
-  @Test
-  public void testNewCachedEntity_givenNull_thenReturnNotHasChanged() {
-    // Arrange
-    Entity entity = mock(Entity.class);
-    when(entity.getPersistentState()).thenReturn(JSONObject.NULL);
-
-    // Act
-    CachedEntity actualCachedEntity = new CachedEntity(entity, true);
-
-    // Assert
-    verify(entity).getPersistentState();
-    assertFalse(actualCachedEntity.hasChanged());
-    assertSame(entity, actualCachedEntity.getEntity());
-  }
-
   /**
    * Test {@link CachedEntity#CachedEntity(Entity, boolean)}.
    * <ul>
@@ -68,6 +43,8 @@ public class CachedEntityDiffblueTest {
    * Method under test: {@link CachedEntity#CachedEntity(Entity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CachedEntity.<init>(Entity, boolean)"})
   public void testNewCachedEntity_thenOriginalPersistentStateReturnMap() {
     // Arrange and Act
     CachedEntity actualCachedEntity = new CachedEntity(new AttachmentEntityImpl(), true);
@@ -80,6 +57,7 @@ public class CachedEntityDiffblueTest {
     assertEquals(2, ((Map<String, Object>) originalPersistentState).size());
     assertNull(((Map<String, Object>) originalPersistentState).get("description"));
     assertNull(((Map<String, Object>) originalPersistentState).get("name"));
+    assertFalse(actualCachedEntity.hasChanged());
     assertEquals(originalPersistentState, entity.getPersistentState());
   }
 
@@ -87,23 +65,28 @@ public class CachedEntityDiffblueTest {
    * Test {@link CachedEntity#CachedEntity(Entity, boolean)}.
    * <ul>
    *   <li>When {@code false}.</li>
-   *   <li>Then return OriginalPersistentState is {@code null}.</li>
+   *   <li>Then Entity PersistentState return {@link Map}.</li>
    * </ul>
    * <p>
    * Method under test: {@link CachedEntity#CachedEntity(Entity, boolean)}
    */
   @Test
-  public void testNewCachedEntity_whenFalse_thenReturnOriginalPersistentStateIsNull() {
-    // Arrange
-    AttachmentEntityImpl entity = new AttachmentEntityImpl();
-
-    // Act
-    CachedEntity actualCachedEntity = new CachedEntity(entity, false);
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CachedEntity.<init>(Entity, boolean)"})
+  public void testNewCachedEntity_whenFalse_thenEntityPersistentStateReturnMap() {
+    // Arrange and Act
+    CachedEntity actualCachedEntity = new CachedEntity(new AttachmentEntityImpl(), false);
 
     // Assert
+    Entity entity = actualCachedEntity.getEntity();
+    Object persistentState = entity.getPersistentState();
+    assertTrue(persistentState instanceof Map);
+    assertTrue(entity instanceof AttachmentEntityImpl);
+    assertEquals(2, ((Map<String, Object>) persistentState).size());
+    assertNull(((Map<String, Object>) persistentState).get("description"));
+    assertNull(((Map<String, Object>) persistentState).get("name"));
     assertNull(actualCachedEntity.getOriginalPersistentState());
     assertTrue(actualCachedEntity.hasChanged());
-    assertSame(entity, actualCachedEntity.getEntity());
   }
 
   /**
@@ -118,6 +101,9 @@ public class CachedEntityDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Entity CachedEntity.getEntity()", "Object CachedEntity.getOriginalPersistentState()",
+      "void CachedEntity.setEntity(Entity)", "void CachedEntity.setOriginalPersistentState(Object)"})
   public void testGettersAndSetters() {
     // Arrange
     CachedEntity cachedEntity = new CachedEntity(new AttachmentEntityImpl(), true);
@@ -129,7 +115,7 @@ public class CachedEntityDiffblueTest {
     cachedEntity.setOriginalPersistentState(object);
     Entity actualEntity = cachedEntity.getEntity();
 
-    // Assert that nothing has changed
+    // Assert
     assertSame(entity, actualEntity);
     assertSame(object, cachedEntity.getOriginalPersistentState());
   }
@@ -140,6 +126,8 @@ public class CachedEntityDiffblueTest {
    * Method under test: {@link CachedEntity#hasChanged()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean CachedEntity.hasChanged()"})
   public void testHasChanged() {
     // Arrange, Act and Assert
     assertFalse((new CachedEntity(new AttachmentEntityImpl(), true)).hasChanged());
@@ -155,6 +143,8 @@ public class CachedEntityDiffblueTest {
    * Method under test: {@link CachedEntity#hasChanged()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean CachedEntity.hasChanged()"})
   public void testHasChanged_givenA_thenReturnFalse() {
     // Arrange
     EventLogEntryEntityImpl entity = new EventLogEntryEntityImpl();
@@ -182,48 +172,16 @@ public class CachedEntityDiffblueTest {
   /**
    * Test {@link CachedEntity#hasChanged()}.
    * <ul>
-   *   <li>Given {@link CachedEntity#CachedEntity(Entity, boolean)} with
-   * {@link Entity} and storeState is {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CachedEntity#hasChanged()}
-   */
-  @Test
-  public void testHasChanged_givenCachedEntityWithEntityAndStoreStateIsTrue() {
-    // Arrange
-    Entity entity = mock(Entity.class);
-    when(entity.getPersistentState()).thenReturn(JSONObject.NULL);
-
-    // Act
-    boolean actualHasChangedResult = (new CachedEntity(entity, true)).hasChanged();
-
-    // Assert
-    verify(entity, atLeast(1)).getPersistentState();
-    assertFalse(actualHasChangedResult);
-  }
-
-  /**
-   * Test {@link CachedEntity#hasChanged()}.
-   * <ul>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link CachedEntity#hasChanged()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean CachedEntity.hasChanged()"})
   public void testHasChanged_thenReturnTrue() {
-    // Arrange
-    Entity entity = mock(Entity.class);
-    when(entity.getPersistentState()).thenReturn(JSONObject.NULL);
-
-    CachedEntity cachedEntity = new CachedEntity(entity, true);
-    cachedEntity.setEntity(new AttachmentEntityImpl());
-
-    // Act
-    boolean actualHasChangedResult = cachedEntity.hasChanged();
-
-    // Assert
-    verify(entity).getPersistentState();
-    assertTrue(actualHasChangedResult);
+    // Arrange, Act and Assert
+    assertTrue((new CachedEntity(new AttachmentEntityImpl(), false)).hasChanged());
   }
 }

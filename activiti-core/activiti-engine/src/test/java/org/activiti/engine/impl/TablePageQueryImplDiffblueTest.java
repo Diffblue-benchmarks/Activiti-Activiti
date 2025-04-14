@@ -22,25 +22,20 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import org.activiti.engine.impl.cfg.CommandExecutorImpl;
 import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandConfig;
 import org.activiti.engine.impl.interceptor.CommandContextInterceptor;
 import org.activiti.engine.impl.interceptor.CommandExecutor;
-import org.activiti.engine.impl.interceptor.CommandInterceptor;
 import org.activiti.engine.management.TablePage;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class)
 public class TablePageQueryImplDiffblueTest {
-  @InjectMocks
-  private TablePageQueryImpl tablePageQueryImpl;
-
   /**
    * Test getters and setters.
    * <p>
@@ -52,6 +47,9 @@ public class TablePageQueryImplDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TablePageQueryImpl.<init>()", "void TablePageQueryImpl.<init>(CommandExecutor)",
+      "String TablePageQueryImpl.getOrder()", "String TablePageQueryImpl.getTableName()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     TablePageQueryImpl actualTablePageQueryImpl = new TablePageQueryImpl();
@@ -73,6 +71,9 @@ public class TablePageQueryImplDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TablePageQueryImpl.<init>()", "void TablePageQueryImpl.<init>(CommandExecutor)",
+      "String TablePageQueryImpl.getOrder()", "String TablePageQueryImpl.getTableName()"})
   public void testGettersAndSetters2() {
     // Arrange
     CommandConfig defaultConfig = new CommandConfig();
@@ -93,8 +94,13 @@ public class TablePageQueryImplDiffblueTest {
    * Method under test: {@link TablePageQueryImpl#tableName(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TablePageQueryImpl TablePageQueryImpl.tableName(String)"})
   public void testTableName() {
-    // Arrange and Act
+    // Arrange
+    TablePageQueryImpl tablePageQueryImpl = new TablePageQueryImpl();
+
+    // Act
     TablePageQueryImpl actualTableNameResult = tablePageQueryImpl.tableName("Table Name");
 
     // Assert
@@ -104,56 +110,112 @@ public class TablePageQueryImplDiffblueTest {
 
   /**
    * Test {@link TablePageQueryImpl#orderAsc(String)}.
+   * <ul>
+   *   <li>Given {@link TablePageQueryImpl#TablePageQueryImpl()}.</li>
+   *   <li>Then {@link TablePageQueryImpl#TablePageQueryImpl()} Order is {@code Column asc}.</li>
+   * </ul>
    * <p>
    * Method under test: {@link TablePageQueryImpl#orderAsc(String)}
    */
   @Test
-  public void testOrderAsc() {
-    // Arrange, Act and Assert
-    assertSame(tablePageQueryImpl, tablePageQueryImpl.orderAsc("Column"));
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TablePageQueryImpl TablePageQueryImpl.orderAsc(String)"})
+  public void testOrderAsc_givenTablePageQueryImpl_thenTablePageQueryImplOrderIsColumnAsc() {
+    // Arrange
+    TablePageQueryImpl tablePageQueryImpl = new TablePageQueryImpl();
+
+    // Act
+    TablePageQueryImpl actualOrderAscResult = tablePageQueryImpl.orderAsc("Column");
+
+    // Assert
+    assertEquals("Column asc", tablePageQueryImpl.getOrder());
+    assertSame(tablePageQueryImpl, actualOrderAscResult);
+  }
+
+  /**
+   * Test {@link TablePageQueryImpl#orderAsc(String)}.
+   * <ul>
+   *   <li>Then {@link TablePageQueryImpl#TablePageQueryImpl()} Order is {@code asc asc, Column asc}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link TablePageQueryImpl#orderAsc(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TablePageQueryImpl TablePageQueryImpl.orderAsc(String)"})
+  public void testOrderAsc_thenTablePageQueryImplOrderIsAscAscColumnAsc() {
+    // Arrange
+    TablePageQueryImpl tablePageQueryImpl = new TablePageQueryImpl();
+    tablePageQueryImpl.addOrder(AbstractQuery.SORTORDER_ASC, AbstractQuery.SORTORDER_ASC);
+
+    // Act
+    TablePageQueryImpl actualOrderAscResult = tablePageQueryImpl.orderAsc("Column");
+
+    // Assert
+    assertEquals("asc asc, Column asc", tablePageQueryImpl.getOrder());
+    assertSame(tablePageQueryImpl, actualOrderAscResult);
   }
 
   /**
    * Test {@link TablePageQueryImpl#orderDesc(String)}.
+   * <ul>
+   *   <li>Given {@link TablePageQueryImpl#TablePageQueryImpl()}.</li>
+   *   <li>Then {@link TablePageQueryImpl#TablePageQueryImpl()} Order is {@code Column desc}.</li>
+   * </ul>
    * <p>
    * Method under test: {@link TablePageQueryImpl#orderDesc(String)}
    */
   @Test
-  public void testOrderDesc() {
-    // Arrange, Act and Assert
-    assertSame(tablePageQueryImpl, tablePageQueryImpl.orderDesc("Column"));
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TablePageQueryImpl TablePageQueryImpl.orderDesc(String)"})
+  public void testOrderDesc_givenTablePageQueryImpl_thenTablePageQueryImplOrderIsColumnDesc() {
+    // Arrange
+    TablePageQueryImpl tablePageQueryImpl = new TablePageQueryImpl();
+
+    // Act
+    TablePageQueryImpl actualOrderDescResult = tablePageQueryImpl.orderDesc("Column");
+
+    // Assert
+    assertEquals("Column desc", tablePageQueryImpl.getOrder());
+    assertSame(tablePageQueryImpl, actualOrderDescResult);
   }
 
   /**
-   * Test {@link TablePageQueryImpl#addOrder(String, String)}.
+   * Test {@link TablePageQueryImpl#orderDesc(String)}.
+   * <ul>
+   *   <li>Then {@link TablePageQueryImpl#TablePageQueryImpl()} Order is {@code desc asc, Column desc}.</li>
+   * </ul>
    * <p>
-   * Method under test: {@link TablePageQueryImpl#addOrder(String, String)}
+   * Method under test: {@link TablePageQueryImpl#orderDesc(String)}
    */
   @Test
-  public void testAddOrder() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TablePageQueryImpl TablePageQueryImpl.orderDesc(String)"})
+  public void testOrderDesc_thenTablePageQueryImplOrderIsDescAscColumnDesc() {
     // Arrange
-    CommandConfig defaultConfig = mock(CommandConfig.class);
-    TablePageQueryImpl tablePageQueryImpl = new TablePageQueryImpl(
-        new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor()));
+    TablePageQueryImpl tablePageQueryImpl = new TablePageQueryImpl();
+    tablePageQueryImpl.addOrder(AbstractQuery.SORTORDER_DESC, AbstractQuery.SORTORDER_ASC);
 
     // Act
-    tablePageQueryImpl.addOrder("Column", AbstractQuery.SORTORDER_ASC);
+    TablePageQueryImpl actualOrderDescResult = tablePageQueryImpl.orderDesc("Column");
 
     // Assert
-    assertEquals("Column asc", tablePageQueryImpl.getOrder());
+    assertEquals("desc asc, Column desc", tablePageQueryImpl.getOrder());
+    assertSame(tablePageQueryImpl, actualOrderDescResult);
   }
 
   /**
    * Test {@link TablePageQueryImpl#addOrder(String, String)}.
    * <ul>
    *   <li>Given {@link TablePageQueryImpl#TablePageQueryImpl()}.</li>
-   *   <li>Then {@link TablePageQueryImpl#TablePageQueryImpl()} Order is
-   * {@code Column asc}.</li>
+   *   <li>Then {@link TablePageQueryImpl#TablePageQueryImpl()} Order is {@code Column asc}.</li>
    * </ul>
    * <p>
    * Method under test: {@link TablePageQueryImpl#addOrder(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TablePageQueryImpl.addOrder(String, String)"})
   public void testAddOrder_givenTablePageQueryImpl_thenTablePageQueryImplOrderIsColumnAsc() {
     // Arrange
     TablePageQueryImpl tablePageQueryImpl = new TablePageQueryImpl();
@@ -168,13 +230,14 @@ public class TablePageQueryImplDiffblueTest {
   /**
    * Test {@link TablePageQueryImpl#addOrder(String, String)}.
    * <ul>
-   *   <li>Then {@link TablePageQueryImpl#TablePageQueryImpl()} Order is
-   * {@code Column asc, Column asc}.</li>
+   *   <li>Then {@link TablePageQueryImpl#TablePageQueryImpl()} Order is {@code Column asc, Column asc}.</li>
    * </ul>
    * <p>
    * Method under test: {@link TablePageQueryImpl#addOrder(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TablePageQueryImpl.addOrder(String, String)"})
   public void testAddOrder_thenTablePageQueryImplOrderIsColumnAscColumnAsc() {
     // Arrange
     TablePageQueryImpl tablePageQueryImpl = new TablePageQueryImpl();
@@ -193,17 +256,18 @@ public class TablePageQueryImplDiffblueTest {
    * Method under test: {@link TablePageQueryImpl#listPage(int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"TablePage TablePageQueryImpl.listPage(int, int)"})
   public void testListPage() {
     // Arrange
     TablePage tablePage = new TablePage();
-    tablePage.setFirstResult(2L);
+    tablePage.setFirstResult(1L);
     tablePage.setRows(new ArrayList<>());
     tablePage.setTableName("Table Name");
-    tablePage.setTotal(2L);
-    CommandInterceptor first = mock(CommandInterceptor.class);
-    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(tablePage);
-    TablePageQueryImpl tablePageQueryImpl = new TablePageQueryImpl(
-        new CommandExecutorImpl(mock(CommandConfig.class), first));
+    tablePage.setTotal(1L);
+    CommandContextInterceptor first = mock(CommandContextInterceptor.class);
+    when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<TablePage>>any())).thenReturn(tablePage);
+    TablePageQueryImpl tablePageQueryImpl = new TablePageQueryImpl(new CommandExecutorImpl(new CommandConfig(), first));
 
     // Act
     TablePage actualListPageResult = tablePageQueryImpl.listPage(1, 3);

@@ -17,7 +17,9 @@ package org.activiti.image.impl.icon;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ErrorThrowIconTypeDiffblueTest {
@@ -36,6 +38,10 @@ class ErrorThrowIconTypeDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ErrorThrowIconType.<init>()", "String ErrorThrowIconType.getAnchorValue()",
+      "String ErrorThrowIconType.getDValue()", "String ErrorThrowIconType.getFillValue()",
+      "String ErrorThrowIconType.getStrokeWidth()", "String ErrorThrowIconType.getStyleValue()"})
   void testGettersAndSetters() {
     // Arrange and Act
     ErrorThrowIconType actualErrorThrowIconType = new ErrorThrowIconType();

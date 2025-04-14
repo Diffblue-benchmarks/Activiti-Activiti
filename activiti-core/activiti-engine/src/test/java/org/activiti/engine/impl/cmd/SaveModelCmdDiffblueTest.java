@@ -19,10 +19,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.impl.persistence.entity.ModelEntity;
 import org.activiti.engine.impl.persistence.entity.ModelEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class SaveModelCmdDiffblueTest {
   /**
@@ -31,6 +34,8 @@ public class SaveModelCmdDiffblueTest {
    * Method under test: {@link SaveModelCmd#SaveModelCmd(ModelEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SaveModelCmd.<init>(ModelEntity)"})
   public void testNewSaveModelCmd() {
     // Arrange, Act and Assert
     ModelEntity modelEntity = (new SaveModelCmd(new ModelEntityImpl())).model;

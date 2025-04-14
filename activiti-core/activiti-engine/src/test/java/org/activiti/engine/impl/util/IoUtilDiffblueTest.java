@@ -19,12 +19,13 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import ch.qos.logback.core.net.SyslogOutputStream;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.FilterInputStream;
@@ -33,22 +34,18 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import org.activiti.engine.ActivitiException;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class)
 public class IoUtilDiffblueTest {
-  @InjectMocks
-  private IoUtil ioUtil;
-
   /**
    * Test {@link IoUtil#readInputStream(InputStream, String)}.
    * <p>
    * Method under test: {@link IoUtil#readInputStream(InputStream, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"byte[] IoUtil.readInputStream(InputStream, String)"})
   public void testReadInputStream() throws IOException {
     // Arrange
     ByteArrayInputStream inputStream = new ByteArrayInputStream("AXAXAXAX".getBytes("UTF-8"));
@@ -70,6 +67,8 @@ public class IoUtilDiffblueTest {
    * Method under test: {@link IoUtil#readInputStream(InputStream, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"byte[] IoUtil.readInputStream(InputStream, String)"})
   public void testReadInputStream_thenThrowActivitiException() throws IOException {
     // Arrange
     DataInputStream inputStream = mock(DataInputStream.class);
@@ -89,6 +88,8 @@ public class IoUtilDiffblueTest {
    * Method under test: {@link IoUtil#readFileAsString(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String IoUtil.readFileAsString(String)"})
   public void testReadFileAsString_whenDirectoryFooTxt() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> IoUtil.readFileAsString("/directory/foo.txt"));
@@ -103,6 +104,8 @@ public class IoUtilDiffblueTest {
    * Method under test: {@link IoUtil#readFileAsString(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String IoUtil.readFileAsString(String)"})
   public void testReadFileAsString_whenEmptyString() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> IoUtil.readFileAsString(""));
@@ -117,9 +120,27 @@ public class IoUtilDiffblueTest {
    * Method under test: {@link IoUtil#getFile(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.io.File IoUtil.getFile(String)"})
   public void testGetFile_whenDirectoryFooTxt() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> IoUtil.getFile("/directory/foo.txt"));
+  }
+
+  /**
+   * Test {@link IoUtil#getFile(String)}.
+   * <ul>
+   *   <li>When empty string.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link IoUtil#getFile(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.io.File IoUtil.getFile(String)"})
+  public void testGetFile_whenEmptyString() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiException.class, () -> IoUtil.getFile(""));
   }
 
   /**
@@ -132,6 +153,8 @@ public class IoUtilDiffblueTest {
    * Method under test: {@link IoUtil#writeStringToFile(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IoUtil.writeStringToFile(String, String)"})
   public void testWriteStringToFile_whenDirectoryFooTxt_thenThrowActivitiException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class,
@@ -148,6 +171,8 @@ public class IoUtilDiffblueTest {
    * Method under test: {@link IoUtil#writeStringToFile(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IoUtil.writeStringToFile(String, String)"})
   public void testWriteStringToFile_whenEmptyString_thenThrowActivitiException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> IoUtil.writeStringToFile("Not all who wander are lost", ""));
@@ -157,12 +182,15 @@ public class IoUtilDiffblueTest {
    * Test {@link IoUtil#closeSilently(InputStream)} with {@code inputStream}.
    * <ul>
    *   <li>Given {@link IOException#IOException(String)} with {@code foo}.</li>
+   *   <li>Then calls {@link FilterInputStream#close()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link IoUtil#closeSilently(InputStream)}
    */
   @Test
-  public void testCloseSilentlyWithInputStream_givenIOExceptionWithFoo() throws IOException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IoUtil.closeSilently(InputStream)"})
+  public void testCloseSilentlyWithInputStream_givenIOExceptionWithFoo_thenCallsClose() throws IOException {
     // Arrange
     DataInputStream inputStream = mock(DataInputStream.class);
     doThrow(new IOException("foo")).when(inputStream).close();
@@ -170,29 +198,7 @@ public class IoUtilDiffblueTest {
     // Act
     IoUtil.closeSilently(inputStream);
 
-    // Assert that nothing has changed
-    verify(inputStream).close();
-  }
-
-  /**
-   * Test {@link IoUtil#closeSilently(InputStream)} with {@code inputStream}.
-   * <ul>
-   *   <li>When {@link DataInputStream} {@link FilterInputStream#close()} does
-   * nothing.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IoUtil#closeSilently(InputStream)}
-   */
-  @Test
-  public void testCloseSilentlyWithInputStream_whenDataInputStreamCloseDoesNothing() throws IOException {
-    // Arrange
-    DataInputStream inputStream = mock(DataInputStream.class);
-    doNothing().when(inputStream).close();
-
-    // Act
-    IoUtil.closeSilently(inputStream);
-
-    // Assert that nothing has changed
+    // Assert
     verify(inputStream).close();
   }
 
@@ -205,6 +211,8 @@ public class IoUtilDiffblueTest {
    * Method under test: {@link IoUtil#closeSilently(OutputStream)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IoUtil.closeSilently(OutputStream)"})
   public void testCloseSilentlyWithOutputStream_thenThrowActivitiException() {
     // Arrange
     SyslogOutputStream outputStream = mock(SyslogOutputStream.class);
@@ -212,28 +220,6 @@ public class IoUtilDiffblueTest {
 
     // Act and Assert
     assertThrows(ActivitiException.class, () -> IoUtil.closeSilently(outputStream));
-    verify(outputStream).close();
-  }
-
-  /**
-   * Test {@link IoUtil#closeSilently(OutputStream)} with {@code outputStream}.
-   * <ul>
-   *   <li>When {@link SyslogOutputStream} {@link SyslogOutputStream#close()} does
-   * nothing.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link IoUtil#closeSilently(OutputStream)}
-   */
-  @Test
-  public void testCloseSilentlyWithOutputStream_whenSyslogOutputStreamCloseDoesNothing() {
-    // Arrange
-    SyslogOutputStream outputStream = mock(SyslogOutputStream.class);
-    doNothing().when(outputStream).close();
-
-    // Act
-    IoUtil.closeSilently(outputStream);
-
-    // Assert that nothing has changed
     verify(outputStream).close();
   }
 }

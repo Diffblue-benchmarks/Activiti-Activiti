@@ -16,11 +16,22 @@
 package org.activiti.api.task.model.builders;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.task.model.payloads.AssignTaskPayload;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+@ContextConfiguration(classes = {AssignTaskPayloadBuilder.class})
+@ExtendWith(SpringExtension.class)
 class AssignTaskPayloadBuilderDiffblueTest {
+  @Autowired
+  private AssignTaskPayloadBuilder assignTaskPayloadBuilder;
+
   /**
    * Test {@link AssignTaskPayloadBuilder#build()}.
    * <p>
@@ -34,6 +45,10 @@ class AssignTaskPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test build()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AssignTaskPayloadBuilder.<init>()", "AssignTaskPayload AssignTaskPayloadBuilder.build()",
+      "AssignTaskPayloadBuilder AssignTaskPayloadBuilder.withAssignee(String)",
+      "AssignTaskPayloadBuilder AssignTaskPayloadBuilder.withTaskId(String)"})
   void testBuild() {
     // Arrange and Act
     AssignTaskPayload actualBuildResult = (new AssignTaskPayloadBuilder()).withAssignee("Assignee")

@@ -20,22 +20,23 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class HistoricVariableInitializingListDiffblueTest {
   /**
-   * Test
-   * {@link HistoricVariableInitializingList#add(HistoricVariableInstanceEntity)}
-   * with {@code HistoricVariableInstanceEntity}.
+   * Test {@link HistoricVariableInitializingList#add(HistoricVariableInstanceEntity)} with {@code HistoricVariableInstanceEntity}.
    * <p>
-   * Method under test:
-   * {@link HistoricVariableInitializingList#add(HistoricVariableInstanceEntity)}
+   * Method under test: {@link HistoricVariableInitializingList#add(HistoricVariableInstanceEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean HistoricVariableInitializingList.add(HistoricVariableInstanceEntity)"})
   public void testAddWithHistoricVariableInstanceEntity() {
     // Arrange
     HistoricVariableInitializingList historicVariableInitializingList = new HistoricVariableInitializingList();
@@ -51,65 +52,13 @@ public class HistoricVariableInitializingListDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link HistoricVariableInitializingList#add(HistoricVariableInstanceEntity)}
-   * with {@code HistoricVariableInstanceEntity}.
+   * Test {@link HistoricVariableInitializingList#add(int, HistoricVariableInstanceEntity)} with {@code int}, {@code HistoricVariableInstanceEntity}.
    * <p>
-   * Method under test:
-   * {@link HistoricVariableInitializingList#add(HistoricVariableInstanceEntity)}
+   * Method under test: {@link HistoricVariableInitializingList#add(int, HistoricVariableInstanceEntity)}
    */
   @Test
-  public void testAddWithHistoricVariableInstanceEntity2() {
-    // Arrange
-    HistoricVariableInitializingList historicVariableInitializingList = new HistoricVariableInitializingList();
-    HistoricVariableInstanceEntity e = mock(HistoricVariableInstanceEntity.class);
-
-    // Act
-    boolean actualAddResult = historicVariableInitializingList.add(e);
-
-    // Assert
-    assertEquals(1, historicVariableInitializingList.size());
-    assertTrue(actualAddResult);
-    assertSame(e, historicVariableInitializingList.get(0));
-  }
-
-  /**
-   * Test
-   * {@link HistoricVariableInitializingList#add(HistoricVariableInstanceEntity)}
-   * with {@code HistoricVariableInstanceEntity}.
-   * <p>
-   * Method under test:
-   * {@link HistoricVariableInitializingList#add(HistoricVariableInstanceEntity)}
-   */
-  @Test
-  public void testAddWithHistoricVariableInstanceEntity3() {
-    // Arrange
-    ArrayList<HistoricVariableInstanceEntity> c = new ArrayList<>();
-    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
-    c.add(historicVariableInstanceEntityImpl);
-
-    HistoricVariableInitializingList historicVariableInitializingList = new HistoricVariableInitializingList();
-    historicVariableInitializingList.addAll(c);
-    HistoricVariableInstanceEntityImpl e = new HistoricVariableInstanceEntityImpl();
-
-    // Act
-    historicVariableInitializingList.add(e);
-
-    // Assert
-    assertEquals(2, historicVariableInitializingList.size());
-    assertSame(historicVariableInstanceEntityImpl, historicVariableInitializingList.get(0));
-    assertSame(e, historicVariableInitializingList.get(1));
-  }
-
-  /**
-   * Test
-   * {@link HistoricVariableInitializingList#add(int, HistoricVariableInstanceEntity)}
-   * with {@code int}, {@code HistoricVariableInstanceEntity}.
-   * <p>
-   * Method under test:
-   * {@link HistoricVariableInitializingList#add(int, HistoricVariableInstanceEntity)}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HistoricVariableInitializingList.add(int, HistoricVariableInstanceEntity)"})
   public void testAddWithIntHistoricVariableInstanceEntity() {
     // Arrange
     HistoricVariableInitializingList historicVariableInitializingList = new HistoricVariableInitializingList();
@@ -124,19 +73,18 @@ public class HistoricVariableInitializingListDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricVariableInitializingList#addAll(Collection)} with
-   * {@code c}.
+   * Test {@link HistoricVariableInitializingList#addAll(Collection)} with {@code c}.
    * <ul>
    *   <li>Given {@code null}.</li>
-   *   <li>Then {@link HistoricVariableInitializingList} (default constructor) first
-   * is {@code null}.</li>
+   *   <li>Then {@link HistoricVariableInitializingList} (default constructor) size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricVariableInitializingList#addAll(Collection)}
+   * Method under test: {@link HistoricVariableInitializingList#addAll(Collection)}
    */
   @Test
-  public void testAddAllWithC_givenNull_thenHistoricVariableInitializingListFirstIsNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean HistoricVariableInitializingList.addAll(Collection)"})
+  public void testAddAllWithC_givenNull_thenHistoricVariableInitializingListSizeIsOne() {
     // Arrange
     HistoricVariableInitializingList historicVariableInitializingList = new HistoricVariableInitializingList();
 
@@ -149,22 +97,20 @@ public class HistoricVariableInitializingListDiffblueTest {
     // Assert
     assertEquals(1, historicVariableInitializingList.size());
     assertNull(historicVariableInitializingList.get(0));
-    assertEquals(1, c.size());
     assertTrue(actualAddAllResult);
   }
 
   /**
-   * Test {@link HistoricVariableInitializingList#addAll(Collection)} with
-   * {@code c}.
+   * Test {@link HistoricVariableInitializingList#addAll(Collection)} with {@code c}.
    * <ul>
-   *   <li>Then {@link HistoricVariableInitializingList} (default constructor) size
-   * is two.</li>
+   *   <li>Then {@link HistoricVariableInitializingList} (default constructor) size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricVariableInitializingList#addAll(Collection)}
+   * Method under test: {@link HistoricVariableInitializingList#addAll(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean HistoricVariableInitializingList.addAll(Collection)"})
   public void testAddAllWithC_thenHistoricVariableInitializingListSizeIsTwo() {
     // Arrange
     HistoricVariableInitializingList historicVariableInitializingList = new HistoricVariableInitializingList();
@@ -186,17 +132,17 @@ public class HistoricVariableInitializingListDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricVariableInitializingList#addAll(Collection)} with
-   * {@code c}.
+   * Test {@link HistoricVariableInitializingList#addAll(Collection)} with {@code c}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricVariableInitializingList#addAll(Collection)}
+   * Method under test: {@link HistoricVariableInitializingList#addAll(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean HistoricVariableInitializingList.addAll(Collection)"})
   public void testAddAllWithC_whenArrayList_thenReturnFalse() {
     // Arrange
     HistoricVariableInitializingList historicVariableInitializingList = new HistoricVariableInitializingList();
@@ -209,48 +155,23 @@ public class HistoricVariableInitializingListDiffblueTest {
   }
 
   /**
-   * Test {@link HistoricVariableInitializingList#addAll(int, Collection)} with
-   * {@code index}, {@code c}.
+   * Test {@link HistoricVariableInitializingList#addAll(int, Collection)} with {@code index}, {@code c}.
+   * <ul>
+   *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
+   * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricVariableInitializingList#addAll(int, Collection)}
+   * Method under test: {@link HistoricVariableInitializingList#addAll(int, Collection)}
    */
   @Test
-  public void testAddAllWithIndexC() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean HistoricVariableInitializingList.addAll(int, Collection)"})
+  public void testAddAllWithIndexC_thenArrayListSizeIsOne() {
     // Arrange
     HistoricVariableInitializingList historicVariableInitializingList = new HistoricVariableInitializingList();
 
     ArrayList<HistoricVariableInstanceEntity> c = new ArrayList<>();
     HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
     c.add(historicVariableInstanceEntityImpl);
-
-    // Act
-    historicVariableInitializingList.addAll(0, c);
-
-    // Assert
-    assertEquals(1, c.size());
-    assertEquals(1, historicVariableInitializingList.size());
-    assertSame(historicVariableInstanceEntityImpl, historicVariableInitializingList.get(0));
-  }
-
-  /**
-   * Test {@link HistoricVariableInitializingList#addAll(int, Collection)} with
-   * {@code index}, {@code c}.
-   * <ul>
-   *   <li>Given {@link HistoricVariableInstanceEntity}.</li>
-   *   <li>Then return {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link HistoricVariableInitializingList#addAll(int, Collection)}
-   */
-  @Test
-  public void testAddAllWithIndexC_givenHistoricVariableInstanceEntity_thenReturnTrue() {
-    // Arrange
-    HistoricVariableInitializingList historicVariableInitializingList = new HistoricVariableInitializingList();
-
-    ArrayList<HistoricVariableInstanceEntity> c = new ArrayList<>();
-    c.add(mock(HistoricVariableInstanceEntity.class));
 
     // Act
     boolean actualAddAllResult = historicVariableInitializingList.addAll(0, c);
@@ -259,51 +180,53 @@ public class HistoricVariableInitializingListDiffblueTest {
     assertEquals(1, c.size());
     assertEquals(1, historicVariableInitializingList.size());
     assertTrue(actualAddAllResult);
-    HistoricVariableInstanceEntity expectedGetResult = c.get(0);
-    assertSame(expectedGetResult, historicVariableInitializingList.get(0));
+    assertSame(historicVariableInstanceEntityImpl, historicVariableInitializingList.get(0));
   }
 
   /**
-   * Test {@link HistoricVariableInitializingList#addAll(int, Collection)} with
-   * {@code index}, {@code c}.
+   * Test {@link HistoricVariableInitializingList#addAll(int, Collection)} with {@code index}, {@code c}.
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
+   *   <li>Then {@link HistoricVariableInitializingList} (default constructor) size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricVariableInitializingList#addAll(int, Collection)}
+   * Method under test: {@link HistoricVariableInitializingList#addAll(int, Collection)}
    */
   @Test
-  public void testAddAllWithIndexC_thenArrayListSizeIsTwo() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean HistoricVariableInitializingList.addAll(int, Collection)"})
+  public void testAddAllWithIndexC_thenHistoricVariableInitializingListSizeIsTwo() {
     // Arrange
     HistoricVariableInitializingList historicVariableInitializingList = new HistoricVariableInitializingList();
 
     ArrayList<HistoricVariableInstanceEntity> c = new ArrayList<>();
-    c.add(new HistoricVariableInstanceEntityImpl());
     HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl = new HistoricVariableInstanceEntityImpl();
     c.add(historicVariableInstanceEntityImpl);
+    HistoricVariableInstanceEntityImpl historicVariableInstanceEntityImpl2 = new HistoricVariableInstanceEntityImpl();
+    c.add(historicVariableInstanceEntityImpl2);
 
     // Act
-    historicVariableInitializingList.addAll(0, c);
+    boolean actualAddAllResult = historicVariableInitializingList.addAll(0, c);
 
     // Assert
-    assertEquals(2, c.size());
     assertEquals(2, historicVariableInitializingList.size());
-    assertSame(historicVariableInstanceEntityImpl, historicVariableInitializingList.get(1));
+    assertTrue(actualAddAllResult);
+    assertEquals(historicVariableInitializingList, c);
+    assertSame(historicVariableInstanceEntityImpl, historicVariableInitializingList.get(0));
+    assertSame(historicVariableInstanceEntityImpl2, historicVariableInitializingList.get(1));
   }
 
   /**
-   * Test {@link HistoricVariableInitializingList#addAll(int, Collection)} with
-   * {@code index}, {@code c}.
+   * Test {@link HistoricVariableInitializingList#addAll(int, Collection)} with {@code index}, {@code c}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricVariableInitializingList#addAll(int, Collection)}
+   * Method under test: {@link HistoricVariableInitializingList#addAll(int, Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean HistoricVariableInitializingList.addAll(int, Collection)"})
   public void testAddAllWithIndexC_whenArrayList_thenReturnFalse() {
     // Arrange
     HistoricVariableInitializingList historicVariableInitializingList = new HistoricVariableInitializingList();
@@ -318,10 +241,11 @@ public class HistoricVariableInitializingListDiffblueTest {
   /**
    * Test new {@link HistoricVariableInitializingList} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link HistoricVariableInitializingList}
+   * Method under test: default or parameterless constructor of {@link HistoricVariableInitializingList}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HistoricVariableInitializingList.<init>()"})
   public void testNewHistoricVariableInitializingList() {
     // Arrange, Act and Assert
     assertTrue((new HistoricVariableInitializingList()).isEmpty());

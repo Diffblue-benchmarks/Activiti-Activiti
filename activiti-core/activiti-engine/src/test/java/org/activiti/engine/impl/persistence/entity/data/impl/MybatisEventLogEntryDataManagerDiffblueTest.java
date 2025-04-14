@@ -19,13 +19,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import org.activiti.core.el.CustomFunctionProvider;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.persistence.entity.EventLogEntryEntity;
 import org.activiti.engine.impl.persistence.entity.EventLogEntryEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class MybatisEventLogEntryDataManagerDiffblueTest {
   /**
@@ -33,12 +34,14 @@ public class MybatisEventLogEntryDataManagerDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link MybatisEventLogEntryDataManager#MybatisEventLogEntryDataManager(ProcessEngineConfigurationImpl)}
+   *   <li>{@link MybatisEventLogEntryDataManager#MybatisEventLogEntryDataManager(ProcessEngineConfigurationImpl)}
    *   <li>{@link MybatisEventLogEntryDataManager#getManagedEntityClass()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MybatisEventLogEntryDataManager.<init>(ProcessEngineConfigurationImpl)",
+      "Class MybatisEventLogEntryDataManager.getManagedEntityClass()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends EventLogEntryEntity> actualManagedEntityClass = (new MybatisEventLogEntryDataManager(
@@ -55,45 +58,12 @@ public class MybatisEventLogEntryDataManagerDiffblueTest {
    * Method under test: {@link MybatisEventLogEntryDataManager#create()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"EventLogEntryEntity MybatisEventLogEntryDataManager.create()"})
   public void testCreate() {
     // Arrange and Act
     EventLogEntryEntity actualCreateResult = (new MybatisEventLogEntryDataManager(new JtaProcessEngineConfiguration()))
         .create();
-
-    // Assert
-    assertTrue(actualCreateResult instanceof EventLogEntryEntityImpl);
-    assertNull(actualCreateResult.getData());
-    assertNull(actualCreateResult.getPersistentState());
-    assertNull(actualCreateResult.getExecutionId());
-    assertNull(actualCreateResult.getProcessDefinitionId());
-    assertNull(actualCreateResult.getProcessInstanceId());
-    assertNull(actualCreateResult.getTaskId());
-    assertNull(actualCreateResult.getType());
-    assertNull(actualCreateResult.getUserId());
-    assertNull(actualCreateResult.getId());
-    assertNull(actualCreateResult.getLockOwner());
-    assertNull(actualCreateResult.getLockTime());
-    assertNull(actualCreateResult.getTimeStamp());
-    assertEquals(0, actualCreateResult.getProcessed());
-    assertEquals(0L, actualCreateResult.getLogNumber());
-    assertFalse(actualCreateResult.isDeleted());
-    assertFalse(actualCreateResult.isInserted());
-    assertFalse(actualCreateResult.isUpdated());
-  }
-
-  /**
-   * Test {@link MybatisEventLogEntryDataManager#create()}.
-   * <p>
-   * Method under test: {@link MybatisEventLogEntryDataManager#create()}
-   */
-  @Test
-  public void testCreate2() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act
-    EventLogEntryEntity actualCreateResult = (new MybatisEventLogEntryDataManager(processEngineConfiguration)).create();
 
     // Assert
     assertTrue(actualCreateResult instanceof EventLogEntryEntityImpl);

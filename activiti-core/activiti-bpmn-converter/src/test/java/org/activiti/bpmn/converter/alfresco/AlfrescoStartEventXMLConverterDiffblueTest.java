@@ -16,9 +16,11 @@
 package org.activiti.bpmn.converter.alfresco;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.alfresco.AlfrescoStartEvent;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class AlfrescoStartEventXMLConverterDiffblueTest {
@@ -27,13 +29,15 @@ class AlfrescoStartEventXMLConverterDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of
-   * {@link AlfrescoStartEventXMLConverter}
+   *   <li>default or parameterless constructor of {@link AlfrescoStartEventXMLConverter}
    *   <li>{@link AlfrescoStartEventXMLConverter#getBpmnElementType()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AlfrescoStartEventXMLConverter.<init>()",
+      "Class AlfrescoStartEventXMLConverter.getBpmnElementType()"})
   void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends BaseElement> actualBpmnElementType = (new AlfrescoStartEventXMLConverter()).getBpmnElementType();

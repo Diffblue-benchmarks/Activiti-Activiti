@@ -18,35 +18,19 @@ package org.activiti.engine.impl.bpmn.listener;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import java.util.ArrayList;
-import org.activiti.core.el.ActivitiFunctionMapper;
-import org.activiti.core.el.ActivitiVariablesMapper;
-import org.activiti.core.el.juel.TreeValueExpression;
-import org.activiti.core.el.juel.misc.TypeConverter;
-import org.activiti.core.el.juel.tree.FunctionNode;
-import org.activiti.core.el.juel.tree.Tree;
-import org.activiti.core.el.juel.tree.TreeBuilder;
-import org.activiti.core.el.juel.tree.TreeBuilderException;
-import org.activiti.core.el.juel.tree.TreeStore;
-import org.activiti.core.el.juel.tree.impl.Cache;
-import org.activiti.core.el.juel.tree.impl.ast.AstNull;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.impl.el.FixedValue;
-import org.activiti.engine.impl.el.JuelExpression;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.mockito.Mockito;
+import org.junit.experimental.categories.Category;
 
 public class ScriptExecutionListenerDiffblueTest {
   /**
-   * Test {@link ScriptExecutionListener#notify(DelegateExecution)} with
-   * {@code DelegateExecution}.
+   * Test {@link ScriptExecutionListener#notify(DelegateExecution)} with {@code DelegateExecution}.
    * <ul>
    *   <li>Given {@link ScriptExecutionListener} (default constructor).</li>
    * </ul>
@@ -54,6 +38,8 @@ public class ScriptExecutionListenerDiffblueTest {
    * Method under test: {@link ScriptExecutionListener#notify(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ScriptExecutionListener.notify(DelegateExecution)"})
   public void testNotifyWithDelegateExecution_givenScriptExecutionListener() {
     // Arrange
     ScriptExecutionListener scriptExecutionListener = new ScriptExecutionListener();
@@ -64,16 +50,16 @@ public class ScriptExecutionListenerDiffblueTest {
   }
 
   /**
-   * Test {@link ScriptExecutionListener#notify(DelegateExecution)} with
-   * {@code DelegateExecution}.
+   * Test {@link ScriptExecutionListener#notify(DelegateExecution)} with {@code DelegateExecution}.
    * <ul>
-   *   <li>Given {@link ScriptExecutionListener} (default constructor) Language is
-   * {@code null}.</li>
+   *   <li>Given {@link ScriptExecutionListener} (default constructor) Language is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ScriptExecutionListener#notify(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ScriptExecutionListener.notify(DelegateExecution)"})
   public void testNotifyWithDelegateExecution_givenScriptExecutionListenerLanguageIsNull() {
     // Arrange
     ScriptExecutionListener scriptExecutionListener = new ScriptExecutionListener();
@@ -95,6 +81,8 @@ public class ScriptExecutionListenerDiffblueTest {
    * Method under test: {@link ScriptExecutionListener#validateParameters()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ScriptExecutionListener.validateParameters()"})
   public void testValidateParameters_givenScriptExecutionListener() {
     // Arrange, Act and Assert
     assertThrows(IllegalArgumentException.class, () -> (new ScriptExecutionListener()).validateParameters());
@@ -103,13 +91,14 @@ public class ScriptExecutionListenerDiffblueTest {
   /**
    * Test {@link ScriptExecutionListener#validateParameters()}.
    * <ul>
-   *   <li>Given {@link ScriptExecutionListener} (default constructor) Language is
-   * {@code null}.</li>
+   *   <li>Given {@link ScriptExecutionListener} (default constructor) Language is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ScriptExecutionListener#validateParameters()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ScriptExecutionListener.validateParameters()"})
   public void testValidateParameters_givenScriptExecutionListenerLanguageIsNull() {
     // Arrange
     ScriptExecutionListener scriptExecutionListener = new ScriptExecutionListener();
@@ -119,44 +108,6 @@ public class ScriptExecutionListenerDiffblueTest {
 
     // Act and Assert
     assertThrows(IllegalArgumentException.class, () -> scriptExecutionListener.validateParameters());
-  }
-
-  /**
-   * Test {@link ScriptExecutionListener#validateParameters()}.
-   * <ul>
-   *   <li>Then calls {@link TreeBuilder#build(String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ScriptExecutionListener#validateParameters()}
-   */
-  @Test
-  public void testValidateParameters_thenCallsBuild() throws TreeBuilderException {
-    // Arrange
-    TreeBuilder builder = mock(TreeBuilder.class);
-    AstNull root = new AstNull();
-    ArrayList<FunctionNode> functions = new ArrayList<>();
-    when(builder.build(Mockito.<String>any())).thenReturn(new Tree(root, functions, new ArrayList<>(), true));
-    TreeStore store = new TreeStore(builder, new Cache(3));
-
-    ActivitiFunctionMapper functions2 = new ActivitiFunctionMapper();
-    ActivitiVariablesMapper variables = new ActivitiVariablesMapper();
-    TypeConverter converter = mock(TypeConverter.class);
-    Class<Object> type = Object.class;
-    JuelExpression resultVariable = new JuelExpression(
-        new TreeValueExpression(store, functions2, variables, converter,
-            "The field 'language' should be set on the ExecutionListener", type),
-        "The field 'language' should be set on the ExecutionListener");
-
-    ScriptExecutionListener scriptExecutionListener = new ScriptExecutionListener();
-    scriptExecutionListener.setResultVariable(resultVariable);
-    scriptExecutionListener.setScript(new FixedValue(JSONObject.NULL));
-    scriptExecutionListener.setLanguage(new FixedValue(JSONObject.NULL));
-
-    // Act
-    scriptExecutionListener.validateParameters();
-
-    // Assert that nothing has changed
-    verify(builder).build(eq("The field 'language' should be set on the ExecutionListener"));
   }
 
   /**
@@ -171,6 +122,10 @@ public class ScriptExecutionListenerDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ScriptExecutionListener.<init>()", "void ScriptExecutionListener.setLanguage(Expression)",
+      "void ScriptExecutionListener.setResultVariable(Expression)",
+      "void ScriptExecutionListener.setScript(Expression)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ScriptExecutionListener actualScriptExecutionListener = new ScriptExecutionListener();

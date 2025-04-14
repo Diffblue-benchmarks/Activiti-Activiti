@@ -19,203 +19,94 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import java.sql.Date;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
+import java.util.Date;
 import java.util.Map;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class HistoricScopeInstanceEntityImplDiffblueTest {
-  @InjectMocks
-  private HistoricActivityInstanceEntityImpl historicActivityInstanceEntityImpl;
-
   /**
    * Test {@link HistoricScopeInstanceEntityImpl#getProcessInstanceId()}.
-   * <ul>
-   *   <li>Given {@link HistoricActivityInstanceEntityImpl} (default
-   * constructor).</li>
-   * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricScopeInstanceEntityImpl#getProcessInstanceId()}
+   * Method under test: {@link HistoricScopeInstanceEntityImpl#getProcessInstanceId()}
    */
   @Test
-  public void testGetProcessInstanceId_givenHistoricActivityInstanceEntityImpl() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String HistoricScopeInstanceEntityImpl.getProcessInstanceId()"})
+  public void testGetProcessInstanceId() {
     // Arrange, Act and Assert
     assertNull((new HistoricActivityInstanceEntityImpl()).getProcessInstanceId());
   }
 
   /**
-   * Test {@link HistoricScopeInstanceEntityImpl#getProcessInstanceId()}.
-   * <ul>
-   *   <li>Given {@link HistoricActivityInstanceEntityImpl} (default constructor)
-   * StartTime is {@link Date}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link HistoricScopeInstanceEntityImpl#getProcessInstanceId()}
-   */
-  @Test
-  public void testGetProcessInstanceId_givenHistoricActivityInstanceEntityImplStartTimeIsDate() {
-    // Arrange
-    HistoricActivityInstanceEntityImpl historicActivityInstanceEntityImpl = new HistoricActivityInstanceEntityImpl();
-    historicActivityInstanceEntityImpl.setStartTime(mock(Date.class));
-
-    // Act and Assert
-    assertNull(historicActivityInstanceEntityImpl.getProcessInstanceId());
-  }
-
-  /**
    * Test {@link HistoricScopeInstanceEntityImpl#getProcessDefinitionId()}.
    * <p>
-   * Method under test:
-   * {@link HistoricScopeInstanceEntityImpl#getProcessDefinitionId()}
+   * Method under test: {@link HistoricScopeInstanceEntityImpl#getProcessDefinitionId()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String HistoricScopeInstanceEntityImpl.getProcessDefinitionId()"})
   public void testGetProcessDefinitionId() {
-    // Arrange
-    HistoricActivityInstanceEntityImpl historicActivityInstanceEntityImpl = new HistoricActivityInstanceEntityImpl();
-    historicActivityInstanceEntityImpl.setStartTime(mock(Date.class));
-
-    // Act and Assert
-    assertNull(historicActivityInstanceEntityImpl.getProcessDefinitionId());
-  }
-
-  /**
-   * Test {@link HistoricScopeInstanceEntityImpl#getProcessDefinitionId()}.
-   * <ul>
-   *   <li>Given {@link HistoricActivityInstanceEntityImpl} (default
-   * constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link HistoricScopeInstanceEntityImpl#getProcessDefinitionId()}
-   */
-  @Test
-  public void testGetProcessDefinitionId_givenHistoricActivityInstanceEntityImpl() {
     // Arrange, Act and Assert
     assertNull((new HistoricActivityInstanceEntityImpl()).getProcessDefinitionId());
   }
 
   /**
    * Test {@link HistoricScopeInstanceEntityImpl#getStartTime()}.
-   * <ul>
-   *   <li>Given {@link HistoricActivityInstanceEntityImpl} (default
-   * constructor).</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link HistoricScopeInstanceEntityImpl#getStartTime()}
    */
   @Test
-  public void testGetStartTime_givenHistoricActivityInstanceEntityImpl_thenReturnNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Date HistoricScopeInstanceEntityImpl.getStartTime()"})
+  public void testGetStartTime() {
     // Arrange, Act and Assert
     assertNull((new HistoricActivityInstanceEntityImpl()).getStartTime());
   }
 
   /**
-   * Test {@link HistoricScopeInstanceEntityImpl#getStartTime()}.
-   * <ul>
-   *   <li>Then return {@link HistoricActivityInstanceEntityImpl} (default
-   * constructor) {@link HistoricScopeInstanceEntityImpl#startTime}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricScopeInstanceEntityImpl#getStartTime()}
-   */
-  @Test
-  public void testGetStartTime_thenReturnHistoricActivityInstanceEntityImplStartTime() {
-    // Arrange
-    HistoricActivityInstanceEntityImpl historicActivityInstanceEntityImpl = new HistoricActivityInstanceEntityImpl();
-    historicActivityInstanceEntityImpl.setStartTime(mock(java.sql.Date.class));
-
-    // Act and Assert
-    assertSame(historicActivityInstanceEntityImpl.startTime, historicActivityInstanceEntityImpl.getStartTime());
-  }
-
-  /**
    * Test {@link HistoricScopeInstanceEntityImpl#getEndTime()}.
-   * <ul>
-   *   <li>Given {@link HistoricActivityInstanceEntityImpl} (default
-   * constructor).</li>
-   * </ul>
    * <p>
    * Method under test: {@link HistoricScopeInstanceEntityImpl#getEndTime()}
    */
   @Test
-  public void testGetEndTime_givenHistoricActivityInstanceEntityImpl() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Date HistoricScopeInstanceEntityImpl.getEndTime()"})
+  public void testGetEndTime() {
     // Arrange, Act and Assert
     assertNull((new HistoricActivityInstanceEntityImpl()).getEndTime());
   }
 
   /**
-   * Test {@link HistoricScopeInstanceEntityImpl#getEndTime()}.
-   * <ul>
-   *   <li>Given {@link HistoricActivityInstanceEntityImpl} (default constructor)
-   * StartTime is {@link java.sql.Date}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricScopeInstanceEntityImpl#getEndTime()}
-   */
-  @Test
-  public void testGetEndTime_givenHistoricActivityInstanceEntityImplStartTimeIsDate() {
-    // Arrange
-    HistoricActivityInstanceEntityImpl historicActivityInstanceEntityImpl = new HistoricActivityInstanceEntityImpl();
-    historicActivityInstanceEntityImpl.setStartTime(mock(java.sql.Date.class));
-
-    // Act and Assert
-    assertNull(historicActivityInstanceEntityImpl.getEndTime());
-  }
-
-  /**
    * Test {@link HistoricScopeInstanceEntityImpl#getDurationInMillis()}.
-   * <ul>
-   *   <li>Given {@link HistoricActivityInstanceEntityImpl} (default
-   * constructor).</li>
-   * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricScopeInstanceEntityImpl#getDurationInMillis()}
+   * Method under test: {@link HistoricScopeInstanceEntityImpl#getDurationInMillis()}
    */
   @Test
-  public void testGetDurationInMillis_givenHistoricActivityInstanceEntityImpl() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Long HistoricScopeInstanceEntityImpl.getDurationInMillis()"})
+  public void testGetDurationInMillis() {
     // Arrange, Act and Assert
     assertNull((new HistoricActivityInstanceEntityImpl()).getDurationInMillis());
   }
 
   /**
-   * Test {@link HistoricScopeInstanceEntityImpl#getDurationInMillis()}.
-   * <ul>
-   *   <li>Given {@link HistoricActivityInstanceEntityImpl} (default constructor)
-   * StartTime is {@link Date}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link HistoricScopeInstanceEntityImpl#getDurationInMillis()}
-   */
-  @Test
-  public void testGetDurationInMillis_givenHistoricActivityInstanceEntityImplStartTimeIsDate() {
-    // Arrange
-    HistoricActivityInstanceEntityImpl historicActivityInstanceEntityImpl = new HistoricActivityInstanceEntityImpl();
-    historicActivityInstanceEntityImpl.setStartTime(mock(Date.class));
-
-    // Act and Assert
-    assertNull(historicActivityInstanceEntityImpl.getDurationInMillis());
-  }
-
-  /**
    * Test {@link HistoricScopeInstanceEntityImpl#setProcessInstanceId(String)}.
    * <p>
-   * Method under test:
-   * {@link HistoricScopeInstanceEntityImpl#setProcessInstanceId(String)}
+   * Method under test: {@link HistoricScopeInstanceEntityImpl#setProcessInstanceId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HistoricScopeInstanceEntityImpl.setProcessInstanceId(String)"})
   public void testSetProcessInstanceId() {
-    // Arrange and Act
+    // Arrange
+    HistoricActivityInstanceEntityImpl historicActivityInstanceEntityImpl = new HistoricActivityInstanceEntityImpl();
+
+    // Act
     historicActivityInstanceEntityImpl.setProcessInstanceId("42");
 
     // Assert
@@ -225,12 +116,16 @@ public class HistoricScopeInstanceEntityImplDiffblueTest {
   /**
    * Test {@link HistoricScopeInstanceEntityImpl#setProcessDefinitionId(String)}.
    * <p>
-   * Method under test:
-   * {@link HistoricScopeInstanceEntityImpl#setProcessDefinitionId(String)}
+   * Method under test: {@link HistoricScopeInstanceEntityImpl#setProcessDefinitionId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HistoricScopeInstanceEntityImpl.setProcessDefinitionId(String)"})
   public void testSetProcessDefinitionId() {
-    // Arrange and Act
+    // Arrange
+    HistoricActivityInstanceEntityImpl historicActivityInstanceEntityImpl = new HistoricActivityInstanceEntityImpl();
+
+    // Act
     historicActivityInstanceEntityImpl.setProcessDefinitionId("42");
 
     // Assert
@@ -243,36 +138,12 @@ public class HistoricScopeInstanceEntityImplDiffblueTest {
    * Method under test: {@link HistoricScopeInstanceEntityImpl#setStartTime(Date)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HistoricScopeInstanceEntityImpl.setStartTime(Date)"})
   public void testSetStartTime() {
     // Arrange
     HistoricActivityInstanceEntityImpl historicActivityInstanceEntityImpl = new HistoricActivityInstanceEntityImpl();
-    java.util.Date startTime = java.util.Date
-        .from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
-
-    // Act
-    historicActivityInstanceEntityImpl.setStartTime(startTime);
-
-    // Assert
-    assertSame(startTime, historicActivityInstanceEntityImpl.getTime());
-    assertSame(startTime, historicActivityInstanceEntityImpl.getStartTime());
-  }
-
-  /**
-   * Test {@link HistoricScopeInstanceEntityImpl#setStartTime(Date)}.
-   * <ul>
-   *   <li>When {@link java.sql.Date}.</li>
-   *   <li>Then {@link HistoricActivityInstanceEntityImpl} (default constructor)
-   * Time is {@link java.sql.Date}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link HistoricScopeInstanceEntityImpl#setStartTime(java.util.Date)}
-   */
-  @Test
-  public void testSetStartTime_whenDate_thenHistoricActivityInstanceEntityImplTimeIsDate() {
-    // Arrange
-    HistoricActivityInstanceEntityImpl historicActivityInstanceEntityImpl = new HistoricActivityInstanceEntityImpl();
-    java.sql.Date startTime = mock(java.sql.Date.class);
+    Date startTime = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act
     historicActivityInstanceEntityImpl.setStartTime(startTime);
@@ -288,11 +159,12 @@ public class HistoricScopeInstanceEntityImplDiffblueTest {
    * Method under test: {@link HistoricScopeInstanceEntityImpl#setEndTime(Date)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HistoricScopeInstanceEntityImpl.setEndTime(Date)"})
   public void testSetEndTime() {
     // Arrange
     HistoricActivityInstanceEntityImpl historicActivityInstanceEntityImpl = new HistoricActivityInstanceEntityImpl();
-    java.util.Date endTime = java.util.Date
-        .from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    Date endTime = Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
 
     // Act
     historicActivityInstanceEntityImpl.setEndTime(endTime);
@@ -300,60 +172,26 @@ public class HistoricScopeInstanceEntityImplDiffblueTest {
     // Assert
     Object persistentState = historicActivityInstanceEntityImpl.getPersistentState();
     assertTrue(persistentState instanceof Map);
-    assertEquals(5, ((Map<String, java.util.Date>) persistentState).size());
-    assertTrue(((Map<String, java.util.Date>) persistentState).containsKey("assignee"));
-    assertTrue(((Map<String, java.util.Date>) persistentState).containsKey("deleteReason"));
-    assertTrue(((Map<String, java.util.Date>) persistentState).containsKey("durationInMillis"));
-    assertTrue(((Map<String, java.util.Date>) persistentState).containsKey("executionId"));
-    assertSame(endTime, ((Map<String, java.util.Date>) persistentState).get("endTime"));
+    assertEquals(5, ((Map<String, Date>) persistentState).size());
+    assertTrue(((Map<String, Date>) persistentState).containsKey("assignee"));
+    assertTrue(((Map<String, Date>) persistentState).containsKey("deleteReason"));
+    assertTrue(((Map<String, Date>) persistentState).containsKey("durationInMillis"));
+    assertTrue(((Map<String, Date>) persistentState).containsKey("executionId"));
+    assertSame(endTime, ((Map<String, Date>) persistentState).get("endTime"));
     assertSame(endTime, historicActivityInstanceEntityImpl.getEndTime());
   }
 
   /**
    * Test {@link HistoricScopeInstanceEntityImpl#setDurationInMillis(Long)}.
-   * <ul>
-   *   <li>Given {@link HistoricActivityInstanceEntityImpl} (default
-   * constructor).</li>
-   * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricScopeInstanceEntityImpl#setDurationInMillis(Long)}
+   * Method under test: {@link HistoricScopeInstanceEntityImpl#setDurationInMillis(Long)}
    */
   @Test
-  public void testSetDurationInMillis_givenHistoricActivityInstanceEntityImpl() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HistoricScopeInstanceEntityImpl.setDurationInMillis(Long)"})
+  public void testSetDurationInMillis() {
     // Arrange
     HistoricActivityInstanceEntityImpl historicActivityInstanceEntityImpl = new HistoricActivityInstanceEntityImpl();
-
-    // Act
-    historicActivityInstanceEntityImpl.setDurationInMillis(1L);
-
-    // Assert
-    Object persistentState = historicActivityInstanceEntityImpl.getPersistentState();
-    assertTrue(persistentState instanceof Map);
-    assertEquals(5, ((Map<String, Long>) persistentState).size());
-    assertEquals(1L, ((Map<String, Long>) persistentState).get("durationInMillis").longValue());
-    assertEquals(1L, historicActivityInstanceEntityImpl.getDurationInMillis().longValue());
-    assertTrue(((Map<String, Long>) persistentState).containsKey("assignee"));
-    assertTrue(((Map<String, Long>) persistentState).containsKey("deleteReason"));
-    assertTrue(((Map<String, Long>) persistentState).containsKey("endTime"));
-    assertTrue(((Map<String, Long>) persistentState).containsKey("executionId"));
-  }
-
-  /**
-   * Test {@link HistoricScopeInstanceEntityImpl#setDurationInMillis(Long)}.
-   * <ul>
-   *   <li>Given {@link HistoricActivityInstanceEntityImpl} (default constructor)
-   * StartTime is {@link Date}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link HistoricScopeInstanceEntityImpl#setDurationInMillis(Long)}
-   */
-  @Test
-  public void testSetDurationInMillis_givenHistoricActivityInstanceEntityImplStartTimeIsDate() {
-    // Arrange
-    HistoricActivityInstanceEntityImpl historicActivityInstanceEntityImpl = new HistoricActivityInstanceEntityImpl();
-    historicActivityInstanceEntityImpl.setStartTime(mock(Date.class));
 
     // Act
     historicActivityInstanceEntityImpl.setDurationInMillis(1L);
@@ -372,47 +210,30 @@ public class HistoricScopeInstanceEntityImplDiffblueTest {
 
   /**
    * Test {@link HistoricScopeInstanceEntityImpl#getDeleteReason()}.
-   * <ul>
-   *   <li>Given {@link HistoricActivityInstanceEntityImpl} (default
-   * constructor).</li>
-   * </ul>
    * <p>
    * Method under test: {@link HistoricScopeInstanceEntityImpl#getDeleteReason()}
    */
   @Test
-  public void testGetDeleteReason_givenHistoricActivityInstanceEntityImpl() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String HistoricScopeInstanceEntityImpl.getDeleteReason()"})
+  public void testGetDeleteReason() {
     // Arrange, Act and Assert
     assertNull((new HistoricActivityInstanceEntityImpl()).getDeleteReason());
   }
 
   /**
-   * Test {@link HistoricScopeInstanceEntityImpl#getDeleteReason()}.
-   * <ul>
-   *   <li>Given {@link HistoricActivityInstanceEntityImpl} (default constructor)
-   * StartTime is {@link Date}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link HistoricScopeInstanceEntityImpl#getDeleteReason()}
-   */
-  @Test
-  public void testGetDeleteReason_givenHistoricActivityInstanceEntityImplStartTimeIsDate() {
-    // Arrange
-    HistoricActivityInstanceEntityImpl historicActivityInstanceEntityImpl = new HistoricActivityInstanceEntityImpl();
-    historicActivityInstanceEntityImpl.setStartTime(mock(Date.class));
-
-    // Act and Assert
-    assertNull(historicActivityInstanceEntityImpl.getDeleteReason());
-  }
-
-  /**
    * Test {@link HistoricScopeInstanceEntityImpl#setDeleteReason(String)}.
    * <p>
-   * Method under test:
-   * {@link HistoricScopeInstanceEntityImpl#setDeleteReason(String)}
+   * Method under test: {@link HistoricScopeInstanceEntityImpl#setDeleteReason(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HistoricScopeInstanceEntityImpl.setDeleteReason(String)"})
   public void testSetDeleteReason() {
-    // Arrange and Act
+    // Arrange
+    HistoricActivityInstanceEntityImpl historicActivityInstanceEntityImpl = new HistoricActivityInstanceEntityImpl();
+
+    // Act
     historicActivityInstanceEntityImpl.setDeleteReason("Just cause");
 
     // Assert

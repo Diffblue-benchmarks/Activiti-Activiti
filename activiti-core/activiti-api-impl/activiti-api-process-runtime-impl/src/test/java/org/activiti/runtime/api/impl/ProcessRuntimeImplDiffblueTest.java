@@ -30,6 +30,7 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -73,6 +74,7 @@ import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandConfig;
 import org.activiti.engine.impl.interceptor.CommandContextInterceptor;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
+import org.activiti.engine.impl.persistence.entity.VariableInstance;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.runtime.ProcessInstanceQuery;
 import org.activiti.runtime.api.model.impl.APIDeploymentConverter;
@@ -81,6 +83,7 @@ import org.activiti.runtime.api.model.impl.APIProcessInstanceConverter;
 import org.activiti.runtime.api.model.impl.APIVariableInstanceConverter;
 import org.activiti.runtime.api.query.impl.PageImpl;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -88,14 +91,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.aot.DisabledInAotMode;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @ContextConfiguration(classes = {ProcessRuntimeImpl.class})
 @ExtendWith(SpringExtension.class)
 @DisabledInAotMode
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 class ProcessRuntimeImplDiffblueTest {
   @MockBean
   private APIDeploymentConverter aPIDeploymentConverter;
@@ -146,6 +150,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test processDefinition(String); then throw ActivitiObjectNotFoundException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.api.process.model.ProcessDefinition ProcessRuntimeImpl.processDefinition(String)"})
   void testProcessDefinition_thenThrowActivitiObjectNotFoundException() throws SecurityException {
     // Arrange
     when(repositoryService.createProcessDefinitionQuery()).thenReturn(new ProcessDefinitionQueryImpl());
@@ -161,16 +167,30 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessRuntimeImpl#processDefinitions(Pageable, GetProcessDefinitionsPayload)}
-   * with {@code pageable}, {@code getProcessDefinitionsPayload}.
+   * Test {@link ProcessRuntimeImpl#processDefinitions(Pageable, GetProcessDefinitionsPayload)} with {@code pageable}, {@code getProcessDefinitionsPayload}.
    * <p>
-   * Method under test:
-   * {@link ProcessRuntimeImpl#processDefinitions(Pageable, GetProcessDefinitionsPayload)}
+   * Method under test: {@link ProcessRuntimeImpl#processDefinitions(Pageable, GetProcessDefinitionsPayload)}
    */
   @Test
   @DisplayName("Test processDefinitions(Pageable, GetProcessDefinitionsPayload) with 'pageable', 'getProcessDefinitionsPayload'")
-  void testProcessDefinitionsWithPageableGetProcessDefinitionsPayload() throws SecurityException {
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Page ProcessRuntimeImpl.processDefinitions(Pageable, GetProcessDefinitionsPayload)"})
+  void testProcessDefinitionsWithPageableGetProcessDefinitionsPayload() {
+    // Arrange, Act and Assert
+    assertThrows(IllegalStateException.class,
+        () -> processRuntimeImpl.processDefinitions(Pageable.of(1, 3), (GetProcessDefinitionsPayload) null));
+  }
+
+  /**
+   * Test {@link ProcessRuntimeImpl#processDefinitions(Pageable, GetProcessDefinitionsPayload)} with {@code pageable}, {@code getProcessDefinitionsPayload}.
+   * <p>
+   * Method under test: {@link ProcessRuntimeImpl#processDefinitions(Pageable, GetProcessDefinitionsPayload)}
+   */
+  @Test
+  @DisplayName("Test processDefinitions(Pageable, GetProcessDefinitionsPayload) with 'pageable', 'getProcessDefinitionsPayload'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Page ProcessRuntimeImpl.processDefinitions(Pageable, GetProcessDefinitionsPayload)"})
+  void testProcessDefinitionsWithPageableGetProcessDefinitionsPayload2() throws SecurityException {
     // Arrange
     when(repositoryService.createProcessDefinitionQuery()).thenReturn(new ProcessDefinitionQueryImpl());
 
@@ -196,40 +216,33 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessRuntimeImpl#processDefinitions(Pageable, GetProcessDefinitionsPayload)}
-   * with {@code pageable}, {@code getProcessDefinitionsPayload}.
+   * Test {@link ProcessRuntimeImpl#processDefinitions(Pageable, GetProcessDefinitionsPayload, List)} with {@code pageable}, {@code getProcessDefinitionsPayload}, {@code include}.
    * <p>
-   * Method under test:
-   * {@link ProcessRuntimeImpl#processDefinitions(Pageable, GetProcessDefinitionsPayload)}
-   */
-  @Test
-  @DisplayName("Test processDefinitions(Pageable, GetProcessDefinitionsPayload) with 'pageable', 'getProcessDefinitionsPayload'")
-  void testProcessDefinitionsWithPageableGetProcessDefinitionsPayload2() {
-    // Arrange
-    HashSet<String> processDefinitionKeys = new HashSet<>();
-    processDefinitionKeys.add("foo");
-    GetProcessDefinitionsPayload getProcessDefinitionsPayload = mock(GetProcessDefinitionsPayload.class);
-    doNothing().when(getProcessDefinitionsPayload).setProcessDefinitionKeys(Mockito.<Set<String>>any());
-    getProcessDefinitionsPayload.setProcessDefinitionKeys(processDefinitionKeys);
-
-    // Act and Assert
-    assertThrows(IllegalStateException.class,
-        () -> processRuntimeImpl.processDefinitions(Pageable.of(1, 3), (GetProcessDefinitionsPayload) null));
-    verify(getProcessDefinitionsPayload).setProcessDefinitionKeys(isA(Set.class));
-  }
-
-  /**
-   * Test
-   * {@link ProcessRuntimeImpl#processDefinitions(Pageable, GetProcessDefinitionsPayload, List)}
-   * with {@code pageable}, {@code getProcessDefinitionsPayload}, {@code include}.
-   * <p>
-   * Method under test:
-   * {@link ProcessRuntimeImpl#processDefinitions(Pageable, GetProcessDefinitionsPayload, List)}
+   * Method under test: {@link ProcessRuntimeImpl#processDefinitions(Pageable, GetProcessDefinitionsPayload, List)}
    */
   @Test
   @DisplayName("Test processDefinitions(Pageable, GetProcessDefinitionsPayload, List) with 'pageable', 'getProcessDefinitionsPayload', 'include'")
-  void testProcessDefinitionsWithPageableGetProcessDefinitionsPayloadInclude() throws SecurityException {
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Page ProcessRuntimeImpl.processDefinitions(Pageable, GetProcessDefinitionsPayload, List)"})
+  void testProcessDefinitionsWithPageableGetProcessDefinitionsPayloadInclude() {
+    // Arrange
+    Pageable pageable = Pageable.of(1, 3);
+
+    // Act and Assert
+    assertThrows(IllegalStateException.class,
+        () -> processRuntimeImpl.processDefinitions(pageable, null, new ArrayList<>()));
+  }
+
+  /**
+   * Test {@link ProcessRuntimeImpl#processDefinitions(Pageable, GetProcessDefinitionsPayload, List)} with {@code pageable}, {@code getProcessDefinitionsPayload}, {@code include}.
+   * <p>
+   * Method under test: {@link ProcessRuntimeImpl#processDefinitions(Pageable, GetProcessDefinitionsPayload, List)}
+   */
+  @Test
+  @DisplayName("Test processDefinitions(Pageable, GetProcessDefinitionsPayload, List) with 'pageable', 'getProcessDefinitionsPayload', 'include'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Page ProcessRuntimeImpl.processDefinitions(Pageable, GetProcessDefinitionsPayload, List)"})
+  void testProcessDefinitionsWithPageableGetProcessDefinitionsPayloadInclude2() throws SecurityException {
     // Arrange
     when(repositoryService.createProcessDefinitionQuery()).thenReturn(new ProcessDefinitionQueryImpl());
 
@@ -256,39 +269,14 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessRuntimeImpl#processDefinitions(Pageable, GetProcessDefinitionsPayload, List)}
-   * with {@code pageable}, {@code getProcessDefinitionsPayload}, {@code include}.
+   * Test {@link ProcessRuntimeImpl#processDefinitions(Pageable, List)} with {@code pageable}, {@code include}.
    * <p>
-   * Method under test:
-   * {@link ProcessRuntimeImpl#processDefinitions(Pageable, GetProcessDefinitionsPayload, List)}
-   */
-  @Test
-  @DisplayName("Test processDefinitions(Pageable, GetProcessDefinitionsPayload, List) with 'pageable', 'getProcessDefinitionsPayload', 'include'")
-  void testProcessDefinitionsWithPageableGetProcessDefinitionsPayloadInclude2() {
-    // Arrange
-    HashSet<String> processDefinitionKeys = new HashSet<>();
-    processDefinitionKeys.add("foo");
-    GetProcessDefinitionsPayload getProcessDefinitionsPayload = mock(GetProcessDefinitionsPayload.class);
-    doNothing().when(getProcessDefinitionsPayload).setProcessDefinitionKeys(Mockito.<Set<String>>any());
-    getProcessDefinitionsPayload.setProcessDefinitionKeys(processDefinitionKeys);
-    Pageable pageable = Pageable.of(1, 3);
-
-    // Act and Assert
-    assertThrows(IllegalStateException.class,
-        () -> processRuntimeImpl.processDefinitions(pageable, null, new ArrayList<>()));
-    verify(getProcessDefinitionsPayload).setProcessDefinitionKeys(isA(Set.class));
-  }
-
-  /**
-   * Test {@link ProcessRuntimeImpl#processDefinitions(Pageable, List)} with
-   * {@code pageable}, {@code include}.
-   * <p>
-   * Method under test:
-   * {@link ProcessRuntimeImpl#processDefinitions(Pageable, List)}
+   * Method under test: {@link ProcessRuntimeImpl#processDefinitions(Pageable, List)}
    */
   @Test
   @DisplayName("Test processDefinitions(Pageable, List) with 'pageable', 'include'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Page ProcessRuntimeImpl.processDefinitions(Pageable, List)"})
   void testProcessDefinitionsWithPageableInclude() throws SecurityException {
     // Arrange
     when(repositoryService.createProcessDefinitionQuery()).thenReturn(new ProcessDefinitionQueryImpl());
@@ -315,8 +303,7 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#processDefinitions(Pageable)} with
-   * {@code pageable}.
+   * Test {@link ProcessRuntimeImpl#processDefinitions(Pageable)} with {@code pageable}.
    * <ul>
    *   <li>Then throw {@link ActivitiObjectNotFoundException}.</li>
    * </ul>
@@ -325,6 +312,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test processDefinitions(Pageable) with 'pageable'; then throw ActivitiObjectNotFoundException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Page ProcessRuntimeImpl.processDefinitions(Pageable)"})
   void testProcessDefinitionsWithPageable_thenThrowActivitiObjectNotFoundException() throws SecurityException {
     // Arrange
     when(repositoryService.createProcessDefinitionQuery()).thenReturn(new ProcessDefinitionQueryImpl());
@@ -349,13 +338,14 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#processInstances(Pageable)} with
-   * {@code pageable}.
+   * Test {@link ProcessRuntimeImpl#processInstances(Pageable)} with {@code pageable}.
    * <p>
    * Method under test: {@link ProcessRuntimeImpl#processInstances(Pageable)}
    */
   @Test
   @DisplayName("Test processInstances(Pageable) with 'pageable'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Page ProcessRuntimeImpl.processInstances(Pageable)"})
   void testProcessInstancesWithPageable() {
     // Arrange
     when(runtimeService.createProcessInstanceQuery()).thenReturn(new ProcessInstanceQueryImpl());
@@ -378,13 +368,14 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#processInstances(Pageable)} with
-   * {@code pageable}.
+   * Test {@link ProcessRuntimeImpl#processInstances(Pageable)} with {@code pageable}.
    * <p>
    * Method under test: {@link ProcessRuntimeImpl#processInstances(Pageable)}
    */
   @Test
   @DisplayName("Test processInstances(Pageable) with 'pageable'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Page ProcessRuntimeImpl.processInstances(Pageable)"})
   void testProcessInstancesWithPageable2() {
     // Arrange
     ProcessInstanceQuery processInstanceQuery = mock(ProcessInstanceQuery.class);
@@ -427,16 +418,29 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)}
-   * with {@code pageable}, {@code getProcessInstancesPayload}.
+   * Test {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)} with {@code pageable}, {@code getProcessInstancesPayload}.
    * <p>
-   * Method under test:
-   * {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)}
+   * Method under test: {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)}
    */
   @Test
   @DisplayName("Test processInstances(Pageable, GetProcessInstancesPayload) with 'pageable', 'getProcessInstancesPayload'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Page ProcessRuntimeImpl.processInstances(Pageable, GetProcessInstancesPayload)"})
   void testProcessInstancesWithPageableGetProcessInstancesPayload() {
+    // Arrange, Act and Assert
+    assertThrows(IllegalStateException.class, () -> processRuntimeImpl.processInstances(Pageable.of(1, 3), null));
+  }
+
+  /**
+   * Test {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)} with {@code pageable}, {@code getProcessInstancesPayload}.
+   * <p>
+   * Method under test: {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)}
+   */
+  @Test
+  @DisplayName("Test processInstances(Pageable, GetProcessInstancesPayload) with 'pageable', 'getProcessInstancesPayload'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Page ProcessRuntimeImpl.processInstances(Pageable, GetProcessInstancesPayload)"})
+  void testProcessInstancesWithPageableGetProcessInstancesPayload2() {
     // Arrange
     when(runtimeService.createProcessInstanceQuery()).thenReturn(new ProcessInstanceQueryImpl());
 
@@ -467,16 +471,15 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)}
-   * with {@code pageable}, {@code getProcessInstancesPayload}.
+   * Test {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)} with {@code pageable}, {@code getProcessInstancesPayload}.
    * <p>
-   * Method under test:
-   * {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)}
+   * Method under test: {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)}
    */
   @Test
   @DisplayName("Test processInstances(Pageable, GetProcessInstancesPayload) with 'pageable', 'getProcessInstancesPayload'")
-  void testProcessInstancesWithPageableGetProcessInstancesPayload2() {
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Page ProcessRuntimeImpl.processInstances(Pageable, GetProcessInstancesPayload)"})
+  void testProcessInstancesWithPageableGetProcessInstancesPayload3() {
     // Arrange
     ProcessInstanceQuery processInstanceQuery = mock(ProcessInstanceQuery.class);
     when(processInstanceQuery.listPage(anyInt(), anyInt())).thenReturn(new ArrayList<>());
@@ -497,8 +500,7 @@ class ProcessRuntimeImplDiffblueTest {
     getProcessInstancesPayload.setSuspendedOnly(true);
     when(processSecurityPoliciesManager.restrictProcessInstQuery(Mockito.<SecurityPolicyAccess>any()))
         .thenReturn(getProcessInstancesPayload);
-    when(aPIProcessInstanceConverter.from(Mockito.<Collection<org.activiti.engine.runtime.ProcessInstance>>any()))
-        .thenReturn(new ArrayList<>());
+    when(aPIProcessInstanceConverter.from(Mockito.<Collection<ProcessInstance>>any())).thenReturn(new ArrayList<>());
     when(securityManager.getAuthenticatedUserId()).thenReturn("42");
     Pageable pageable = Pageable.of(1, 3);
 
@@ -532,16 +534,15 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)}
-   * with {@code pageable}, {@code getProcessInstancesPayload}.
+   * Test {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)} with {@code pageable}, {@code getProcessInstancesPayload}.
    * <p>
-   * Method under test:
-   * {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)}
+   * Method under test: {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)}
    */
   @Test
   @DisplayName("Test processInstances(Pageable, GetProcessInstancesPayload) with 'pageable', 'getProcessInstancesPayload'")
-  void testProcessInstancesWithPageableGetProcessInstancesPayload3() {
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Page ProcessRuntimeImpl.processInstances(Pageable, GetProcessInstancesPayload)"})
+  void testProcessInstancesWithPageableGetProcessInstancesPayload4() {
     // Arrange
     ProcessInstanceQuery processInstanceQuery = mock(ProcessInstanceQuery.class);
     when(processInstanceQuery.listPage(anyInt(), anyInt())).thenReturn(new ArrayList<>());
@@ -567,8 +568,7 @@ class ProcessRuntimeImplDiffblueTest {
     getProcessInstancesPayload.setSuspendedOnly(true);
     when(processSecurityPoliciesManager.restrictProcessInstQuery(Mockito.<SecurityPolicyAccess>any()))
         .thenReturn(getProcessInstancesPayload);
-    when(aPIProcessInstanceConverter.from(Mockito.<Collection<org.activiti.engine.runtime.ProcessInstance>>any()))
-        .thenReturn(new ArrayList<>());
+    when(aPIProcessInstanceConverter.from(Mockito.<Collection<ProcessInstance>>any())).thenReturn(new ArrayList<>());
     when(securityManager.getAuthenticatedUserId()).thenReturn("42");
     Pageable pageable = Pageable.of(1, 3);
 
@@ -608,16 +608,15 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)}
-   * with {@code pageable}, {@code getProcessInstancesPayload}.
+   * Test {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)} with {@code pageable}, {@code getProcessInstancesPayload}.
    * <p>
-   * Method under test:
-   * {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)}
+   * Method under test: {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)}
    */
   @Test
   @DisplayName("Test processInstances(Pageable, GetProcessInstancesPayload) with 'pageable', 'getProcessInstancesPayload'")
-  void testProcessInstancesWithPageableGetProcessInstancesPayload4() {
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Page ProcessRuntimeImpl.processInstances(Pageable, GetProcessInstancesPayload)"})
+  void testProcessInstancesWithPageableGetProcessInstancesPayload5() {
     // Arrange
     ProcessInstanceQuery processInstanceQuery = mock(ProcessInstanceQuery.class);
     when(processInstanceQuery.processDefinitionKeys(Mockito.<Set<String>>any()))
@@ -648,8 +647,7 @@ class ProcessRuntimeImplDiffblueTest {
     getProcessInstancesPayload.setSuspendedOnly(true);
     when(processSecurityPoliciesManager.restrictProcessInstQuery(Mockito.<SecurityPolicyAccess>any()))
         .thenReturn(getProcessInstancesPayload);
-    when(aPIProcessInstanceConverter.from(Mockito.<Collection<org.activiti.engine.runtime.ProcessInstance>>any()))
-        .thenReturn(new ArrayList<>());
+    when(aPIProcessInstanceConverter.from(Mockito.<Collection<ProcessInstance>>any())).thenReturn(new ArrayList<>());
     when(securityManager.getAuthenticatedUserId()).thenReturn("42");
     Pageable pageable = Pageable.of(1, 3);
 
@@ -661,7 +659,8 @@ class ProcessRuntimeImplDiffblueTest {
     getProcessInstancesPayload2.setSuspendedOnly(true);
 
     // Act
-    processRuntimeImpl.processInstances(pageable, getProcessInstancesPayload2);
+    Page<org.activiti.api.process.model.ProcessInstance> actualProcessInstancesResult = processRuntimeImpl
+        .processInstances(pageable, getProcessInstancesPayload2);
 
     // Assert
     verify(getProcessInstancesPayload, atLeast(1)).getProcessDefinitionKeys();
@@ -682,23 +681,25 @@ class ProcessRuntimeImplDiffblueTest {
     verify(processInstanceQuery).superProcessInstanceId(eq("42"));
     verify(processInstanceQuery).suspended();
     verify(aPIProcessInstanceConverter).from(isA(Collection.class));
+    assertTrue(actualProcessInstancesResult instanceof PageImpl);
     Set<String> processDefinitionKeys = getProcessInstancesPayload2.getProcessDefinitionKeys();
     assertEquals(1, processDefinitionKeys.size());
+    assertEquals(3, actualProcessInstancesResult.getTotalItems());
+    assertTrue(actualProcessInstancesResult.getContent().isEmpty());
     assertTrue(processDefinitionKeys.contains("foo"));
     assertSame(stringSet, processDefinitionKeys);
   }
 
   /**
-   * Test
-   * {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)}
-   * with {@code pageable}, {@code getProcessInstancesPayload}.
+   * Test {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)} with {@code pageable}, {@code getProcessInstancesPayload}.
    * <p>
-   * Method under test:
-   * {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)}
+   * Method under test: {@link ProcessRuntimeImpl#processInstances(Pageable, GetProcessInstancesPayload)}
    */
   @Test
   @DisplayName("Test processInstances(Pageable, GetProcessInstancesPayload) with 'pageable', 'getProcessInstancesPayload'")
-  void testProcessInstancesWithPageableGetProcessInstancesPayload5() {
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Page ProcessRuntimeImpl.processInstances(Pageable, GetProcessInstancesPayload)"})
+  void testProcessInstancesWithPageableGetProcessInstancesPayload6() {
     // Arrange
     ProcessInstanceQuery processInstanceQuery = mock(ProcessInstanceQuery.class);
     when(processInstanceQuery.listPage(anyInt(), anyInt())).thenReturn(new ArrayList<>());
@@ -727,8 +728,7 @@ class ProcessRuntimeImplDiffblueTest {
     getProcessInstancesPayload.setSuspendedOnly(true);
     when(processSecurityPoliciesManager.restrictProcessInstQuery(Mockito.<SecurityPolicyAccess>any()))
         .thenReturn(getProcessInstancesPayload);
-    when(aPIProcessInstanceConverter.from(Mockito.<Collection<org.activiti.engine.runtime.ProcessInstance>>any()))
-        .thenReturn(new ArrayList<>());
+    when(aPIProcessInstanceConverter.from(Mockito.<Collection<ProcessInstance>>any())).thenReturn(new ArrayList<>());
     when(securityManager.getAuthenticatedUserId()).thenReturn("42");
     Pageable pageable = Pageable.of(1, 3);
     GetProcessInstancesPayload getProcessInstancesPayload2 = mock(GetProcessInstancesPayload.class);
@@ -786,8 +786,7 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#processInstances(Pageable)} with
-   * {@code pageable}.
+   * Test {@link ProcessRuntimeImpl#processInstances(Pageable)} with {@code pageable}.
    * <ul>
    *   <li>Then calls {@link ProcessInstanceQuery#processDefinitionKeys(Set)}.</li>
    * </ul>
@@ -796,6 +795,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test processInstances(Pageable) with 'pageable'; then calls processDefinitionKeys(Set)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Page ProcessRuntimeImpl.processInstances(Pageable)"})
   void testProcessInstancesWithPageable_thenCallsProcessDefinitionKeys() {
     // Arrange
     ProcessInstanceQuery processInstanceQuery = mock(ProcessInstanceQuery.class);
@@ -822,8 +823,7 @@ class ProcessRuntimeImplDiffblueTest {
     getProcessInstancesPayload.setSuspendedOnly(true);
     when(processSecurityPoliciesManager.restrictProcessInstQuery(Mockito.<SecurityPolicyAccess>any()))
         .thenReturn(getProcessInstancesPayload);
-    when(aPIProcessInstanceConverter.from(Mockito.<Collection<org.activiti.engine.runtime.ProcessInstance>>any()))
-        .thenReturn(new ArrayList<>());
+    when(aPIProcessInstanceConverter.from(Mockito.<Collection<ProcessInstance>>any())).thenReturn(new ArrayList<>());
     when(securityManager.getAuthenticatedUserId()).thenReturn("42");
 
     // Act
@@ -851,8 +851,7 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#processInstances(Pageable)} with
-   * {@code pageable}.
+   * Test {@link ProcessRuntimeImpl#processInstances(Pageable)} with {@code pageable}.
    * <ul>
    *   <li>Then return {@link PageImpl}.</li>
    * </ul>
@@ -861,6 +860,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test processInstances(Pageable) with 'pageable'; then return PageImpl")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Page ProcessRuntimeImpl.processInstances(Pageable)"})
   void testProcessInstancesWithPageable_thenReturnPageImpl() {
     // Arrange
     ProcessInstanceQuery processInstanceQuery = mock(ProcessInstanceQuery.class);
@@ -877,8 +878,7 @@ class ProcessRuntimeImplDiffblueTest {
     getProcessInstancesPayload.setSuspendedOnly(true);
     when(processSecurityPoliciesManager.restrictProcessInstQuery(Mockito.<SecurityPolicyAccess>any()))
         .thenReturn(getProcessInstancesPayload);
-    when(aPIProcessInstanceConverter.from(Mockito.<Collection<org.activiti.engine.runtime.ProcessInstance>>any()))
-        .thenReturn(new ArrayList<>());
+    when(aPIProcessInstanceConverter.from(Mockito.<Collection<ProcessInstance>>any())).thenReturn(new ArrayList<>());
     when(securityManager.getAuthenticatedUserId()).thenReturn("42");
 
     // Act
@@ -899,8 +899,7 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#processInstances(Pageable)} with
-   * {@code pageable}.
+   * Test {@link ProcessRuntimeImpl#processInstances(Pageable)} with {@code pageable}.
    * <ul>
    *   <li>Then return {@link PageImpl}.</li>
    * </ul>
@@ -909,6 +908,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test processInstances(Pageable) with 'pageable'; then return PageImpl")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Page ProcessRuntimeImpl.processInstances(Pageable)"})
   void testProcessInstancesWithPageable_thenReturnPageImpl2() {
     // Arrange
     ProcessInstanceQuery processInstanceQuery = mock(ProcessInstanceQuery.class);
@@ -930,8 +931,7 @@ class ProcessRuntimeImplDiffblueTest {
     getProcessInstancesPayload.setSuspendedOnly(true);
     when(processSecurityPoliciesManager.restrictProcessInstQuery(Mockito.<SecurityPolicyAccess>any()))
         .thenReturn(getProcessInstancesPayload);
-    when(aPIProcessInstanceConverter.from(Mockito.<Collection<org.activiti.engine.runtime.ProcessInstance>>any()))
-        .thenReturn(new ArrayList<>());
+    when(aPIProcessInstanceConverter.from(Mockito.<Collection<ProcessInstance>>any())).thenReturn(new ArrayList<>());
     when(securityManager.getAuthenticatedUserId()).thenReturn("42");
 
     // Act
@@ -958,8 +958,7 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#start(StartMessagePayload)} with
-   * {@code messagePayload}.
+   * Test {@link ProcessRuntimeImpl#start(StartMessagePayload)} with {@code messagePayload}.
    * <ul>
    *   <li>Then return {@link ProcessInstanceImpl} (default constructor).</li>
    * </ul>
@@ -968,13 +967,14 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test start(StartMessagePayload) with 'messagePayload'; then return ProcessInstanceImpl (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.start(StartMessagePayload)"})
   void testStartWithMessagePayload_thenReturnProcessInstanceImpl() {
     // Arrange
     when(runtimeService.startProcessInstanceByMessage(Mockito.<String>any(), Mockito.<String>any(),
         Mockito.<Map<String, Object>>any())).thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
     ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
-    when(aPIProcessInstanceConverter.from(Mockito.<org.activiti.engine.runtime.ProcessInstance>any()))
-        .thenReturn(processInstanceImpl);
+    when(aPIProcessInstanceConverter.from(Mockito.<ProcessInstance>any())).thenReturn(processInstanceImpl);
     doNothing().when(processVariablesPayloadValidator)
         .checkStartMessagePayloadVariables(Mockito.<StartMessagePayload>any(), Mockito.<String>any());
 
@@ -986,13 +986,12 @@ class ProcessRuntimeImplDiffblueTest {
     verify(runtimeService).startProcessInstanceByMessage(isNull(), isNull(), isA(Map.class));
     verify(processVariablesPayloadValidator).checkStartMessagePayloadVariables(isA(StartMessagePayload.class),
         isNull());
-    verify(aPIProcessInstanceConverter).from(isA(org.activiti.engine.runtime.ProcessInstance.class));
+    verify(aPIProcessInstanceConverter).from(isA(ProcessInstance.class));
     assertSame(processInstanceImpl, actualStartResult);
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#start(StartMessagePayload)} with
-   * {@code messagePayload}.
+   * Test {@link ProcessRuntimeImpl#start(StartMessagePayload)} with {@code messagePayload}.
    * <ul>
    *   <li>Then throw {@link ActivitiObjectNotFoundException}.</li>
    * </ul>
@@ -1001,6 +1000,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test start(StartMessagePayload) with 'messagePayload'; then throw ActivitiObjectNotFoundException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.start(StartMessagePayload)"})
   void testStartWithMessagePayload_thenThrowActivitiObjectNotFoundException() {
     // Arrange
     doThrow(new ActivitiObjectNotFoundException("An error occurred")).when(processVariablesPayloadValidator)
@@ -1013,8 +1014,7 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessRuntimeImpl#start(StartProcessPayload)} with
-   * {@code startProcessPayload}.
+   * Test {@link ProcessRuntimeImpl#start(StartProcessPayload)} with {@code startProcessPayload}.
    * <ul>
    *   <li>Then throw {@link ActivitiObjectNotFoundException}.</li>
    * </ul>
@@ -1023,6 +1023,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test start(StartProcessPayload) with 'startProcessPayload'; then throw ActivitiObjectNotFoundException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.start(StartProcessPayload)"})
   void testStartWithStartProcessPayload_thenThrowActivitiObjectNotFoundException() throws SecurityException {
     // Arrange
     when(repositoryService.createProcessDefinitionQuery()).thenReturn(new ProcessDefinitionQueryImpl());
@@ -1038,22 +1040,22 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessRuntimeImpl#startCreatedProcess(String, StartProcessPayload)}.
+   * Test {@link ProcessRuntimeImpl#startCreatedProcess(String, StartProcessPayload)}.
    * <p>
-   * Method under test:
-   * {@link ProcessRuntimeImpl#startCreatedProcess(String, StartProcessPayload)}
+   * Method under test: {@link ProcessRuntimeImpl#startCreatedProcess(String, StartProcessPayload)}
    */
   @Test
   @DisplayName("Test startCreatedProcess(String, StartProcessPayload)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.startCreatedProcess(String, StartProcessPayload)"})
   void testStartCreatedProcess() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
     when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
         .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl(
-        new CommandExecutorImpl(new CommandConfig(), first));
-    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl);
+    when(runtimeService.createProcessInstanceQuery())
+        .thenReturn(new ProcessInstanceQueryImpl(new CommandExecutorImpl(new CommandConfig(), first)));
     when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
     when(securityManager.getAuthenticatedUserId()).thenThrow(new ActivitiObjectNotFoundException("An error occurred"));
 
@@ -1067,26 +1069,25 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessRuntimeImpl#startCreatedProcess(String, StartProcessPayload)}.
+   * Test {@link ProcessRuntimeImpl#startCreatedProcess(String, StartProcessPayload)}.
    * <ul>
-   *   <li>Given {@link SecurityManager}
-   * {@link SecurityManager#getAuthenticatedUserId()} return {@code 42}.</li>
+   *   <li>Given {@link SecurityManager} {@link SecurityManager#getAuthenticatedUserId()} return {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessRuntimeImpl#startCreatedProcess(String, StartProcessPayload)}
+   * Method under test: {@link ProcessRuntimeImpl#startCreatedProcess(String, StartProcessPayload)}
    */
   @Test
   @DisplayName("Test startCreatedProcess(String, StartProcessPayload); given SecurityManager getAuthenticatedUserId() return '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.startCreatedProcess(String, StartProcessPayload)"})
   void testStartCreatedProcess_givenSecurityManagerGetAuthenticatedUserIdReturn42() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
     when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
         .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl(
-        new CommandExecutorImpl(new CommandConfig(), first));
-    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl);
+    when(runtimeService.createProcessInstanceQuery())
+        .thenReturn(new ProcessInstanceQueryImpl(new CommandExecutorImpl(new CommandConfig(), first)));
     when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
     when(securityManager.getAuthenticatedUserId()).thenReturn("42");
 
@@ -1100,24 +1101,24 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessRuntimeImpl#startCreatedProcess(String, StartProcessPayload)}.
+   * Test {@link ProcessRuntimeImpl#startCreatedProcess(String, StartProcessPayload)}.
    * <ul>
    *   <li>Then throw {@link NotFoundException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessRuntimeImpl#startCreatedProcess(String, StartProcessPayload)}
+   * Method under test: {@link ProcessRuntimeImpl#startCreatedProcess(String, StartProcessPayload)}
    */
   @Test
   @DisplayName("Test startCreatedProcess(String, StartProcessPayload); then throw NotFoundException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.startCreatedProcess(String, StartProcessPayload)"})
   void testStartCreatedProcess_thenThrowNotFoundException() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
     when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(null);
-    ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl(
-        new CommandExecutorImpl(new CommandConfig(), first));
-    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl);
+    when(runtimeService.createProcessInstanceQuery())
+        .thenReturn(new ProcessInstanceQueryImpl(new CommandExecutorImpl(new CommandConfig(), first)));
 
     // Act and Assert
     assertThrows(NotFoundException.class,
@@ -1132,11 +1133,13 @@ class ProcessRuntimeImplDiffblueTest {
    *   <li>Then throw {@link ActivitiObjectNotFoundException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessRuntimeImpl#create(CreateProcessInstancePayload)}
+   * Method under test: {@link ProcessRuntimeImpl#create(CreateProcessInstancePayload)}
    */
   @Test
   @DisplayName("Test create(CreateProcessInstancePayload); then throw ActivitiObjectNotFoundException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.create(CreateProcessInstancePayload)"})
   void testCreate_thenThrowActivitiObjectNotFoundException() throws SecurityException {
     // Arrange
     when(repositoryService.createProcessDefinitionQuery()).thenReturn(new ProcessDefinitionQueryImpl());
@@ -1159,6 +1162,9 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test suspend(SuspendProcessPayload)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.suspend(SuspendProcessPayload)"})
   void testSuspend() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
@@ -1186,6 +1192,9 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test suspend(SuspendProcessPayload)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.suspend(SuspendProcessPayload)"})
   void testSuspend2() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
@@ -1198,7 +1207,7 @@ class ProcessRuntimeImplDiffblueTest {
     doNothing().when(runtimeService).suspendProcessInstanceById(Mockito.<String>any());
     when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
     when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
-    when(aPIProcessInstanceConverter.from(Mockito.<org.activiti.engine.runtime.ProcessInstance>any()))
+    when(aPIProcessInstanceConverter.from(Mockito.<ProcessInstance>any()))
         .thenThrow(new ActivitiObjectNotFoundException("An error occurred"));
     when(securityManager.getAuthenticatedUserId()).thenReturn("42");
 
@@ -1212,7 +1221,7 @@ class ProcessRuntimeImplDiffblueTest {
     verify(processInstanceQueryImpl2, atLeast(1)).processInstanceId(isNull());
     verify(executionEntityImpl).getProcessDefinitionKey();
     verify(executionEntityImpl).getStartUserId();
-    verify(aPIProcessInstanceConverter).from(isA(org.activiti.engine.runtime.ProcessInstance.class));
+    verify(aPIProcessInstanceConverter).from(isA(ProcessInstance.class));
   }
 
   /**
@@ -1225,6 +1234,9 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test suspend(SuspendProcessPayload); then calls getProcessInstanceId()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.suspend(SuspendProcessPayload)"})
   void testSuspend_thenCallsGetProcessInstanceId() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
@@ -1257,6 +1269,9 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test suspend(SuspendProcessPayload); then return ProcessInstanceImpl (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.suspend(SuspendProcessPayload)"})
   void testSuspend_thenReturnProcessInstanceImpl() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
@@ -1270,8 +1285,7 @@ class ProcessRuntimeImplDiffblueTest {
     when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
     when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
     ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
-    when(aPIProcessInstanceConverter.from(Mockito.<org.activiti.engine.runtime.ProcessInstance>any()))
-        .thenReturn(processInstanceImpl);
+    when(aPIProcessInstanceConverter.from(Mockito.<ProcessInstance>any())).thenReturn(processInstanceImpl);
     when(securityManager.getAuthenticatedUserId()).thenReturn("42");
 
     // Act
@@ -1287,7 +1301,7 @@ class ProcessRuntimeImplDiffblueTest {
     verify(processInstanceQueryImpl2, atLeast(1)).processInstanceId(isNull());
     verify(executionEntityImpl).getProcessDefinitionKey();
     verify(executionEntityImpl).getStartUserId();
-    verify(aPIProcessInstanceConverter).from(isA(org.activiti.engine.runtime.ProcessInstance.class));
+    verify(aPIProcessInstanceConverter).from(isA(ProcessInstance.class));
     assertSame(processInstanceImpl, actualSuspendResult);
   }
 
@@ -1301,6 +1315,9 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test suspend(SuspendProcessPayload); then throw ActivitiForbiddenException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.suspend(SuspendProcessPayload)"})
   void testSuspend_thenThrowActivitiForbiddenException() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
@@ -1331,6 +1348,9 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test suspend(SuspendProcessPayload); then throw NotFoundException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.suspend(SuspendProcessPayload)"})
   void testSuspend_thenThrowNotFoundException() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
@@ -1353,6 +1373,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test resume(ResumeProcessPayload)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.resume(ResumeProcessPayload)"})
   void testResume() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
@@ -1380,6 +1402,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test resume(ResumeProcessPayload)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.resume(ResumeProcessPayload)"})
   void testResume2() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
@@ -1392,7 +1416,7 @@ class ProcessRuntimeImplDiffblueTest {
     doNothing().when(runtimeService).activateProcessInstanceById(Mockito.<String>any());
     when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
     when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
-    when(aPIProcessInstanceConverter.from(Mockito.<org.activiti.engine.runtime.ProcessInstance>any()))
+    when(aPIProcessInstanceConverter.from(Mockito.<ProcessInstance>any()))
         .thenThrow(new ActivitiObjectNotFoundException("An error occurred"));
     when(securityManager.getAuthenticatedUserId()).thenReturn("42");
 
@@ -1406,7 +1430,7 @@ class ProcessRuntimeImplDiffblueTest {
     verify(processInstanceQueryImpl2, atLeast(1)).processInstanceId(isNull());
     verify(executionEntityImpl).getProcessDefinitionKey();
     verify(executionEntityImpl).getStartUserId();
-    verify(aPIProcessInstanceConverter).from(isA(org.activiti.engine.runtime.ProcessInstance.class));
+    verify(aPIProcessInstanceConverter).from(isA(ProcessInstance.class));
   }
 
   /**
@@ -1419,6 +1443,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test resume(ResumeProcessPayload); then calls getProcessInstanceId()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.resume(ResumeProcessPayload)"})
   void testResume_thenCallsGetProcessInstanceId() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
@@ -1451,6 +1477,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test resume(ResumeProcessPayload); then return ProcessInstanceImpl (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.resume(ResumeProcessPayload)"})
   void testResume_thenReturnProcessInstanceImpl() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
@@ -1464,8 +1492,7 @@ class ProcessRuntimeImplDiffblueTest {
     when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
     when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
     ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
-    when(aPIProcessInstanceConverter.from(Mockito.<org.activiti.engine.runtime.ProcessInstance>any()))
-        .thenReturn(processInstanceImpl);
+    when(aPIProcessInstanceConverter.from(Mockito.<ProcessInstance>any())).thenReturn(processInstanceImpl);
     when(securityManager.getAuthenticatedUserId()).thenReturn("42");
 
     // Act
@@ -1481,7 +1508,7 @@ class ProcessRuntimeImplDiffblueTest {
     verify(processInstanceQueryImpl2, atLeast(1)).processInstanceId(isNull());
     verify(executionEntityImpl).getProcessDefinitionKey();
     verify(executionEntityImpl).getStartUserId();
-    verify(aPIProcessInstanceConverter).from(isA(org.activiti.engine.runtime.ProcessInstance.class));
+    verify(aPIProcessInstanceConverter).from(isA(ProcessInstance.class));
     assertSame(processInstanceImpl, actualResumeResult);
   }
 
@@ -1495,6 +1522,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test resume(ResumeProcessPayload); then throw ActivitiForbiddenException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.resume(ResumeProcessPayload)"})
   void testResume_thenThrowActivitiForbiddenException() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
@@ -1525,6 +1554,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test resume(ResumeProcessPayload); then throw NotFoundException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.resume(ResumeProcessPayload)"})
   void testResume_thenThrowNotFoundException() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
@@ -1547,6 +1578,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test delete(DeleteProcessPayload)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.delete(DeleteProcessPayload)"})
   void testDelete() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
@@ -1574,6 +1607,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test delete(DeleteProcessPayload)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.delete(DeleteProcessPayload)"})
   void testDelete2() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
@@ -1586,7 +1621,7 @@ class ProcessRuntimeImplDiffblueTest {
     doNothing().when(runtimeService).deleteProcessInstance(Mockito.<String>any(), Mockito.<String>any());
     when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
     when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
-    when(aPIProcessInstanceConverter.from(Mockito.<org.activiti.engine.runtime.ProcessInstance>any()))
+    when(aPIProcessInstanceConverter.from(Mockito.<ProcessInstance>any()))
         .thenThrow(new ActivitiObjectNotFoundException("An error occurred"));
     when(securityManager.getAuthenticatedUserId()).thenReturn("42");
 
@@ -1600,7 +1635,7 @@ class ProcessRuntimeImplDiffblueTest {
     verify(processInstanceQueryImpl2).processInstanceId(isNull());
     verify(executionEntityImpl).getProcessDefinitionKey();
     verify(executionEntityImpl).getStartUserId();
-    verify(aPIProcessInstanceConverter).from(isA(org.activiti.engine.runtime.ProcessInstance.class));
+    verify(aPIProcessInstanceConverter).from(isA(ProcessInstance.class));
   }
 
   /**
@@ -1613,6 +1648,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test delete(DeleteProcessPayload); then calls getProcessInstanceId()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.delete(DeleteProcessPayload)"})
   void testDelete_thenCallsGetProcessInstanceId() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
@@ -1645,6 +1682,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test delete(DeleteProcessPayload); then return ProcessInstanceImpl (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.delete(DeleteProcessPayload)"})
   void testDelete_thenReturnProcessInstanceImpl() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
@@ -1658,8 +1697,7 @@ class ProcessRuntimeImplDiffblueTest {
     when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
     when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
     ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
-    when(aPIProcessInstanceConverter.from(Mockito.<org.activiti.engine.runtime.ProcessInstance>any()))
-        .thenReturn(processInstanceImpl);
+    when(aPIProcessInstanceConverter.from(Mockito.<ProcessInstance>any())).thenReturn(processInstanceImpl);
     when(securityManager.getAuthenticatedUserId()).thenReturn("42");
 
     // Act
@@ -1675,7 +1713,7 @@ class ProcessRuntimeImplDiffblueTest {
     verify(processInstanceQueryImpl2).processInstanceId(isNull());
     verify(executionEntityImpl).getProcessDefinitionKey();
     verify(executionEntityImpl).getStartUserId();
-    verify(aPIProcessInstanceConverter).from(isA(org.activiti.engine.runtime.ProcessInstance.class));
+    verify(aPIProcessInstanceConverter).from(isA(ProcessInstance.class));
     assertSame(processInstanceImpl, actualDeleteResult);
   }
 
@@ -1689,6 +1727,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test delete(DeleteProcessPayload); then throw ActivitiForbiddenException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.delete(DeleteProcessPayload)"})
   void testDelete_thenThrowActivitiForbiddenException() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
@@ -1719,6 +1759,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test delete(DeleteProcessPayload); then throw NotFoundException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.delete(DeleteProcessPayload)"})
   void testDelete_thenThrowNotFoundException() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
@@ -1737,8 +1779,7 @@ class ProcessRuntimeImplDiffblueTest {
   /**
    * Test {@link ProcessRuntimeImpl#variables(GetVariablesPayload)}.
    * <ul>
-   *   <li>Given {@link ExecutionEntityImpl}
-   * {@link ExecutionEntityImpl#getStartUserId()} return {@code 42}.</li>
+   *   <li>Given {@link ExecutionEntityImpl} {@link ExecutionEntityImpl#getStartUserId()} return {@code 42}.</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
@@ -1746,6 +1787,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test variables(GetVariablesPayload); given ExecutionEntityImpl getStartUserId() return '42'; then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List ProcessRuntimeImpl.variables(GetVariablesPayload)"})
   void testVariables_givenExecutionEntityImplGetStartUserIdReturn42_thenReturnEmpty() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
@@ -1758,11 +1801,8 @@ class ProcessRuntimeImplDiffblueTest {
     when(runtimeService.getVariableInstances(Mockito.<String>any())).thenReturn(new HashMap<>());
     when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
     when(processSecurityPoliciesManager.canRead(Mockito.<String>any())).thenReturn(true);
-    when(aPIProcessInstanceConverter.from(Mockito.<org.activiti.engine.runtime.ProcessInstance>any()))
-        .thenReturn(new ProcessInstanceImpl());
-    when(aPIVariableInstanceConverter
-        .from(Mockito.<Collection<org.activiti.engine.impl.persistence.entity.VariableInstance>>any()))
-        .thenReturn(new ArrayList<>());
+    when(aPIProcessInstanceConverter.from(Mockito.<ProcessInstance>any())).thenReturn(new ProcessInstanceImpl());
+    when(aPIVariableInstanceConverter.from(Mockito.<Collection<VariableInstance>>any())).thenReturn(new ArrayList<>());
     when(securityManager.getAuthenticatedUserId()).thenReturn("42");
 
     // Act
@@ -1778,7 +1818,7 @@ class ProcessRuntimeImplDiffblueTest {
     verify(processInstanceQueryImpl2).processInstanceId(isNull());
     verify(executionEntityImpl).getProcessDefinitionKey();
     verify(executionEntityImpl).getStartUserId();
-    verify(aPIProcessInstanceConverter).from(isA(org.activiti.engine.runtime.ProcessInstance.class));
+    verify(aPIProcessInstanceConverter).from(isA(ProcessInstance.class));
     verify(aPIVariableInstanceConverter).from(isA(Collection.class));
     assertTrue(actualVariablesResult.isEmpty());
   }
@@ -1786,14 +1826,15 @@ class ProcessRuntimeImplDiffblueTest {
   /**
    * Test {@link ProcessRuntimeImpl#variables(GetVariablesPayload)}.
    * <ul>
-   *   <li>Given {@link ProcessSecurityPoliciesManager}
-   * {@link SecurityPoliciesManager#canRead(String)} return {@code false}.</li>
+   *   <li>Given {@link ProcessSecurityPoliciesManager} {@link SecurityPoliciesManager#canRead(String)} return {@code false}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ProcessRuntimeImpl#variables(GetVariablesPayload)}
    */
   @Test
   @DisplayName("Test variables(GetVariablesPayload); given ProcessSecurityPoliciesManager canRead(String) return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List ProcessRuntimeImpl.variables(GetVariablesPayload)"})
   void testVariables_givenProcessSecurityPoliciesManagerCanReadReturnFalse() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
@@ -1824,6 +1865,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test variables(GetVariablesPayload); then calls getAuthenticatedUserGroups()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List ProcessRuntimeImpl.variables(GetVariablesPayload)"})
   void testVariables_thenCallsGetAuthenticatedUserGroups() throws SecurityException {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
@@ -1859,6 +1902,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test variables(GetVariablesPayload); then throw NotFoundException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List ProcessRuntimeImpl.variables(GetVariablesPayload)"})
   void testVariables_thenThrowNotFoundException() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
@@ -1875,14 +1920,14 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}.
+   * Test {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}.
    * <p>
-   * Method under test:
-   * {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}
+   * Method under test: {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}
    */
   @Test
   @DisplayName("Test removeVariables(RemoveProcessVariablesPayload)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessRuntimeImpl.removeVariables(RemoveProcessVariablesPayload)"})
   void testRemoveVariables() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
@@ -1905,14 +1950,14 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}.
+   * Test {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}.
    * <p>
-   * Method under test:
-   * {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}
+   * Method under test: {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}
    */
   @Test
   @DisplayName("Test removeVariables(RemoveProcessVariablesPayload)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessRuntimeImpl.removeVariables(RemoveProcessVariablesPayload)"})
   void testRemoveVariables2() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
@@ -1942,17 +1987,17 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}.
+   * Test {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}.
    * <ul>
    *   <li>Then calls {@link ExecutionEntityImpl#getProcessInstanceId()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}
+   * Method under test: {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}
    */
   @Test
   @DisplayName("Test removeVariables(RemoveProcessVariablesPayload); then calls getProcessInstanceId()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessRuntimeImpl.removeVariables(RemoveProcessVariablesPayload)"})
   void testRemoveVariables_thenCallsGetProcessInstanceId() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
@@ -1977,18 +2022,17 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}.
+   * Test {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}.
    * <ul>
-   *   <li>Then calls
-   * {@link RuntimeService#removeVariables(String, Collection)}.</li>
+   *   <li>Then calls {@link RuntimeService#removeVariables(String, Collection)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}
+   * Method under test: {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}
    */
   @Test
   @DisplayName("Test removeVariables(RemoveProcessVariablesPayload); then calls removeVariables(String, Collection)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessRuntimeImpl.removeVariables(RemoveProcessVariablesPayload)"})
   void testRemoveVariables_thenCallsRemoveVariables() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
@@ -2006,7 +2050,7 @@ class ProcessRuntimeImplDiffblueTest {
     // Act
     processRuntimeImpl.removeVariables(new RemoveProcessVariablesPayload());
 
-    // Assert that nothing has changed
+    // Assert
     verify(securityManager).getAuthenticatedUserId();
     verify(processSecurityPoliciesManager).canWrite(eq("Process Definition Key"));
     verify(runtimeService).createProcessInstanceQuery();
@@ -2018,17 +2062,17 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}.
+   * Test {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}.
    * <ul>
    *   <li>Then throw {@link ActivitiForbiddenException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}
+   * Method under test: {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}
    */
   @Test
   @DisplayName("Test removeVariables(RemoveProcessVariablesPayload); then throw ActivitiForbiddenException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessRuntimeImpl.removeVariables(RemoveProcessVariablesPayload)"})
   void testRemoveVariables_thenThrowActivitiForbiddenException() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
@@ -2051,17 +2095,17 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}.
+   * Test {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}.
    * <ul>
    *   <li>Then throw {@link NotFoundException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}
+   * Method under test: {@link ProcessRuntimeImpl#removeVariables(RemoveProcessVariablesPayload)}
    */
   @Test
   @DisplayName("Test removeVariables(RemoveProcessVariablesPayload); then throw NotFoundException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessRuntimeImpl.removeVariables(RemoveProcessVariablesPayload)"})
   void testRemoveVariables_thenThrowNotFoundException() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
@@ -2081,11 +2125,12 @@ class ProcessRuntimeImplDiffblueTest {
   /**
    * Test {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}.
    * <p>
-   * Method under test:
-   * {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}
+   * Method under test: {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}
    */
   @Test
   @DisplayName("Test setVariables(SetProcessVariablesPayload)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessRuntimeImpl.setVariables(SetProcessVariablesPayload)"})
   void testSetVariables() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
@@ -2110,11 +2155,12 @@ class ProcessRuntimeImplDiffblueTest {
   /**
    * Test {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}.
    * <p>
-   * Method under test:
-   * {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}
+   * Method under test: {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}
    */
   @Test
   @DisplayName("Test setVariables(SetProcessVariablesPayload)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessRuntimeImpl.setVariables(SetProcessVariablesPayload)"})
   void testSetVariables2() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
@@ -2151,11 +2197,12 @@ class ProcessRuntimeImplDiffblueTest {
    *   <li>Then calls {@link ExecutionEntityImpl#getProcessInstanceId()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}
+   * Method under test: {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}
    */
   @Test
   @DisplayName("Test setVariables(SetProcessVariablesPayload); then calls getProcessInstanceId()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessRuntimeImpl.setVariables(SetProcessVariablesPayload)"})
   void testSetVariables_thenCallsGetProcessInstanceId() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
@@ -2185,11 +2232,12 @@ class ProcessRuntimeImplDiffblueTest {
    *   <li>Then calls {@link RuntimeService#setVariables(String, Map)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}
+   * Method under test: {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}
    */
   @Test
   @DisplayName("Test setVariables(SetProcessVariablesPayload); then calls setVariables(String, Map)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessRuntimeImpl.setVariables(SetProcessVariablesPayload)"})
   void testSetVariables_thenCallsSetVariables() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
@@ -2210,7 +2258,7 @@ class ProcessRuntimeImplDiffblueTest {
     // Act
     processRuntimeImpl.setVariables(new SetProcessVariablesPayload());
 
-    // Assert that nothing has changed
+    // Assert
     verify(securityManager).getAuthenticatedUserId();
     verify(processSecurityPoliciesManager).canWrite(eq("Process Definition Key"));
     verify(runtimeService).createProcessInstanceQuery();
@@ -2229,11 +2277,12 @@ class ProcessRuntimeImplDiffblueTest {
    *   <li>Then throw {@link ActivitiForbiddenException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}
+   * Method under test: {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}
    */
   @Test
   @DisplayName("Test setVariables(SetProcessVariablesPayload); then throw ActivitiForbiddenException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessRuntimeImpl.setVariables(SetProcessVariablesPayload)"})
   void testSetVariables_thenThrowActivitiForbiddenException() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
@@ -2261,11 +2310,12 @@ class ProcessRuntimeImplDiffblueTest {
    *   <li>Then throw {@link NotFoundException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}
+   * Method under test: {@link ProcessRuntimeImpl#setVariables(SetProcessVariablesPayload)}
    */
   @Test
   @DisplayName("Test setVariables(SetProcessVariablesPayload); then throw NotFoundException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessRuntimeImpl.setVariables(SetProcessVariablesPayload)"})
   void testSetVariables_thenThrowNotFoundException() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
@@ -2284,14 +2334,15 @@ class ProcessRuntimeImplDiffblueTest {
   /**
    * Test {@link ProcessRuntimeImpl#signal(SignalPayload)}.
    * <ul>
-   *   <li>Then calls
-   * {@link ProcessVariablesPayloadValidator#checkSignalPayloadVariables(SignalPayload, String)}.</li>
+   *   <li>Then calls {@link ProcessVariablesPayloadValidator#checkSignalPayloadVariables(SignalPayload, String)}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ProcessRuntimeImpl#signal(SignalPayload)}
    */
   @Test
   @DisplayName("Test signal(SignalPayload); then calls checkSignalPayloadVariables(SignalPayload, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessRuntimeImpl.signal(SignalPayload)"})
   void testSignal_thenCallsCheckSignalPayloadVariables() {
     // Arrange
     doNothing().when(processVariablesPayloadValidator)
@@ -2314,6 +2365,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test signal(SignalPayload); then throw ActivitiObjectNotFoundException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessRuntimeImpl.signal(SignalPayload)"})
   void testSignal_thenThrowActivitiObjectNotFoundException() {
     // Arrange
     doThrow(new ActivitiObjectNotFoundException("An error occurred")).when(processVariablesPayloadValidator)
@@ -2334,6 +2387,9 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test processDefinitionMeta(String); then throw ActivitiObjectNotFoundException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.model.ProcessDefinitionMeta ProcessRuntimeImpl.processDefinitionMeta(String)"})
   void testProcessDefinitionMeta_thenThrowActivitiObjectNotFoundException() throws SecurityException {
     // Arrange
     when(repositoryService.createProcessDefinitionQuery()).thenReturn(new ProcessDefinitionQueryImpl());
@@ -2356,6 +2412,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test update(UpdateProcessPayload)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.update(UpdateProcessPayload)"})
   void testUpdate() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
@@ -2383,6 +2441,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test update(UpdateProcessPayload)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.update(UpdateProcessPayload)"})
   void testUpdate2() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
@@ -2410,6 +2470,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test update(UpdateProcessPayload)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.update(UpdateProcessPayload)"})
   void testUpdate3() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
@@ -2421,7 +2483,7 @@ class ProcessRuntimeImplDiffblueTest {
     when(processInstanceQueryImpl2.processInstanceId(Mockito.<String>any())).thenReturn(processInstanceQueryImpl);
     when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
     when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
-    when(aPIProcessInstanceConverter.from(Mockito.<org.activiti.engine.runtime.ProcessInstance>any()))
+    when(aPIProcessInstanceConverter.from(Mockito.<ProcessInstance>any()))
         .thenThrow(new ActivitiObjectNotFoundException("An error occurred"));
     when(securityManager.getAuthenticatedUserId()).thenReturn("42");
 
@@ -2434,7 +2496,7 @@ class ProcessRuntimeImplDiffblueTest {
     verify(processInstanceQueryImpl2, atLeast(1)).processInstanceId(isNull());
     verify(executionEntityImpl).getProcessDefinitionKey();
     verify(executionEntityImpl).getStartUserId();
-    verify(aPIProcessInstanceConverter).from(isA(org.activiti.engine.runtime.ProcessInstance.class));
+    verify(aPIProcessInstanceConverter).from(isA(ProcessInstance.class));
   }
 
   /**
@@ -2444,6 +2506,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test update(UpdateProcessPayload)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.update(UpdateProcessPayload)"})
   void testUpdate4() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
@@ -2479,6 +2543,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test update(UpdateProcessPayload)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.update(UpdateProcessPayload)"})
   void testUpdate5() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
@@ -2510,15 +2576,15 @@ class ProcessRuntimeImplDiffblueTest {
   /**
    * Test {@link ProcessRuntimeImpl#update(UpdateProcessPayload)}.
    * <ul>
-   *   <li>Given {@link RuntimeService}
-   * {@link RuntimeService#setProcessInstanceName(String, String)} does
-   * nothing.</li>
+   *   <li>Given {@link RuntimeService} {@link RuntimeService#setProcessInstanceName(String, String)} does nothing.</li>
    * </ul>
    * <p>
    * Method under test: {@link ProcessRuntimeImpl#update(UpdateProcessPayload)}
    */
   @Test
   @DisplayName("Test update(UpdateProcessPayload); given RuntimeService setProcessInstanceName(String, String) does nothing")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.update(UpdateProcessPayload)"})
   void testUpdate_givenRuntimeServiceSetProcessInstanceNameDoesNothing() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
@@ -2533,8 +2599,7 @@ class ProcessRuntimeImplDiffblueTest {
     when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
     when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
     ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
-    when(aPIProcessInstanceConverter.from(Mockito.<org.activiti.engine.runtime.ProcessInstance>any()))
-        .thenReturn(processInstanceImpl);
+    when(aPIProcessInstanceConverter.from(Mockito.<ProcessInstance>any())).thenReturn(processInstanceImpl);
     when(securityManager.getAuthenticatedUserId()).thenReturn("42");
 
     // Act
@@ -2551,7 +2616,7 @@ class ProcessRuntimeImplDiffblueTest {
     verify(processInstanceQueryImpl2, atLeast(1)).processInstanceId(eq("42"));
     verify(executionEntityImpl).getProcessDefinitionKey();
     verify(executionEntityImpl).getStartUserId();
-    verify(aPIProcessInstanceConverter).from(isA(org.activiti.engine.runtime.ProcessInstance.class));
+    verify(aPIProcessInstanceConverter).from(isA(ProcessInstance.class));
     assertSame(processInstanceImpl, actualUpdateResult);
   }
 
@@ -2565,6 +2630,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test update(UpdateProcessPayload); then calls getProcessInstanceId()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.update(UpdateProcessPayload)"})
   void testUpdate_thenCallsGetProcessInstanceId() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
@@ -2597,6 +2664,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test update(UpdateProcessPayload); then return ProcessInstanceImpl (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.update(UpdateProcessPayload)"})
   void testUpdate_thenReturnProcessInstanceImpl() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
@@ -2609,8 +2678,7 @@ class ProcessRuntimeImplDiffblueTest {
     when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl2);
     when(processSecurityPoliciesManager.canWrite(Mockito.<String>any())).thenReturn(true);
     ProcessInstanceImpl processInstanceImpl = new ProcessInstanceImpl();
-    when(aPIProcessInstanceConverter.from(Mockito.<org.activiti.engine.runtime.ProcessInstance>any()))
-        .thenReturn(processInstanceImpl);
+    when(aPIProcessInstanceConverter.from(Mockito.<ProcessInstance>any())).thenReturn(processInstanceImpl);
     when(securityManager.getAuthenticatedUserId()).thenReturn("42");
 
     // Act
@@ -2625,7 +2693,7 @@ class ProcessRuntimeImplDiffblueTest {
     verify(processInstanceQueryImpl2, atLeast(1)).processInstanceId(isNull());
     verify(executionEntityImpl).getProcessDefinitionKey();
     verify(executionEntityImpl).getStartUserId();
-    verify(aPIProcessInstanceConverter).from(isA(org.activiti.engine.runtime.ProcessInstance.class));
+    verify(aPIProcessInstanceConverter).from(isA(ProcessInstance.class));
     assertSame(processInstanceImpl, actualUpdateResult);
   }
 
@@ -2639,6 +2707,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test update(UpdateProcessPayload); then throw NotFoundException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.api.process.model.ProcessInstance ProcessRuntimeImpl.update(UpdateProcessPayload)"})
   void testUpdate_thenThrowNotFoundException() {
     // Arrange
     ProcessInstanceQueryImpl processInstanceQueryImpl = mock(ProcessInstanceQueryImpl.class);
@@ -2657,14 +2727,15 @@ class ProcessRuntimeImplDiffblueTest {
   /**
    * Test {@link ProcessRuntimeImpl#receive(ReceiveMessagePayload)}.
    * <ul>
-   *   <li>Then calls
-   * {@link ProcessVariablesPayloadValidator#checkReceiveMessagePayloadVariables(ReceiveMessagePayload, String)}.</li>
+   *   <li>Then calls {@link ProcessVariablesPayloadValidator#checkReceiveMessagePayloadVariables(ReceiveMessagePayload, String)}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ProcessRuntimeImpl#receive(ReceiveMessagePayload)}
    */
   @Test
   @DisplayName("Test receive(ReceiveMessagePayload); then calls checkReceiveMessagePayloadVariables(ReceiveMessagePayload, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessRuntimeImpl.receive(ReceiveMessagePayload)"})
   void testReceive_thenCallsCheckReceiveMessagePayloadVariables() {
     // Arrange
     doNothing().when(processVariablesPayloadValidator)
@@ -2688,6 +2759,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test receive(ReceiveMessagePayload); then throw ActivitiObjectNotFoundException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessRuntimeImpl.receive(ReceiveMessagePayload)"})
   void testReceive_thenThrowActivitiObjectNotFoundException() {
     // Arrange
     doThrow(new ActivitiObjectNotFoundException("An error occurred")).when(processVariablesPayloadValidator)
@@ -2700,14 +2773,15 @@ class ProcessRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessRuntimeImpl#getProcessDefinitionAndCheckUserHasRights(String, String)}.
+   * Test {@link ProcessRuntimeImpl#getProcessDefinitionAndCheckUserHasRights(String, String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessRuntimeImpl#getProcessDefinitionAndCheckUserHasRights(String, String)}
+   * Method under test: {@link ProcessRuntimeImpl#getProcessDefinitionAndCheckUserHasRights(String, String)}
    */
   @Test
   @DisplayName("Test getProcessDefinitionAndCheckUserHasRights(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.process.model.ProcessDefinition ProcessRuntimeImpl.getProcessDefinitionAndCheckUserHasRights(String, String)"})
   void testGetProcessDefinitionAndCheckUserHasRights() throws SecurityException {
     // Arrange
     when(repositoryService.createProcessDefinitionQuery()).thenReturn(new ProcessDefinitionQueryImpl());
@@ -2733,6 +2807,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test selectLatestDeployment(); then throw ActivitiObjectNotFoundException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"org.activiti.api.process.model.Deployment ProcessRuntimeImpl.selectLatestDeployment()"})
   void testSelectLatestDeployment_thenThrowActivitiObjectNotFoundException() {
     // Arrange
     when(repositoryService.createDeploymentQuery()).thenThrow(new ActivitiObjectNotFoundException("An error occurred"));
@@ -2752,6 +2828,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test internalProcessInstance(String); then return createWithEmptyRelationshipCollections")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ProcessInstance ProcessRuntimeImpl.internalProcessInstance(String)"})
   void testInternalProcessInstance_thenReturnCreateWithEmptyRelationshipCollections() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
@@ -2759,9 +2837,8 @@ class ProcessRuntimeImplDiffblueTest {
         .createWithEmptyRelationshipCollections();
     when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
         .thenReturn(createWithEmptyRelationshipCollectionsResult);
-    ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl(
-        new CommandExecutorImpl(new CommandConfig(), first));
-    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl);
+    when(runtimeService.createProcessInstanceQuery())
+        .thenReturn(new ProcessInstanceQueryImpl(new CommandExecutorImpl(new CommandConfig(), first)));
 
     // Act
     ProcessInstance actualInternalProcessInstanceResult = processRuntimeImpl.internalProcessInstance("42");
@@ -2782,6 +2859,8 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test internalProcessInstance(String); then throw ActivitiObjectNotFoundException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ProcessInstance ProcessRuntimeImpl.internalProcessInstance(String)"})
   void testInternalProcessInstance_thenThrowActivitiObjectNotFoundException() {
     // Arrange
     when(runtimeService.createProcessInstanceQuery())
@@ -2802,13 +2881,14 @@ class ProcessRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test internalProcessInstance(String); then throw NotFoundException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ProcessInstance ProcessRuntimeImpl.internalProcessInstance(String)"})
   void testInternalProcessInstance_thenThrowNotFoundException() {
     // Arrange
     CommandContextInterceptor first = mock(CommandContextInterceptor.class);
     when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any())).thenReturn(null);
-    ProcessInstanceQueryImpl processInstanceQueryImpl = new ProcessInstanceQueryImpl(
-        new CommandExecutorImpl(new CommandConfig(), first));
-    when(runtimeService.createProcessInstanceQuery()).thenReturn(processInstanceQueryImpl);
+    when(runtimeService.createProcessInstanceQuery())
+        .thenReturn(new ProcessInstanceQueryImpl(new CommandExecutorImpl(new CommandConfig(), first)));
 
     // Act and Assert
     assertThrows(NotFoundException.class, () -> processRuntimeImpl.internalProcessInstance("42"));

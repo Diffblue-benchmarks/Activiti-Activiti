@@ -19,8 +19,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.task.model.Task;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class TaskMatchersDiffblueTest {
@@ -31,6 +33,8 @@ class TaskMatchersDiffblueTest {
    */
   @Test
   @DisplayName("Test assignee(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"TaskResultMatcher TaskMatchers.assignee(String)"})
   void testAssignee() {
     // Arrange and Act
     TaskResultMatcher actualAssigneeResult = TaskMatchers.task().assignee("Assignee");
@@ -52,6 +56,8 @@ class TaskMatchersDiffblueTest {
    */
   @Test
   @DisplayName("Test assignee(String); then throw RuntimeException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"TaskResultMatcher TaskMatchers.assignee(String)"})
   void testAssignee_thenThrowRuntimeException() {
     // Arrange and Act
     TaskResultMatcher actualAssigneeResult = TaskMatchers.task().assignee("Assignee");
@@ -70,6 +76,8 @@ class TaskMatchersDiffblueTest {
    */
   @Test
   @DisplayName("Test withAssignee(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"TaskResultMatcher TaskMatchers.withAssignee(String)"})
   void testWithAssignee() {
     // Arrange and Act
     TaskResultMatcher actualWithAssigneeResult = TaskMatchers.withAssignee("Assignee");
@@ -91,6 +99,8 @@ class TaskMatchersDiffblueTest {
    */
   @Test
   @DisplayName("Test withAssignee(String); then throw RuntimeException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"TaskResultMatcher TaskMatchers.withAssignee(String)"})
   void testWithAssignee_thenThrowRuntimeException() {
     // Arrange and Act
     TaskResultMatcher actualWithAssigneeResult = TaskMatchers.withAssignee("Assignee");

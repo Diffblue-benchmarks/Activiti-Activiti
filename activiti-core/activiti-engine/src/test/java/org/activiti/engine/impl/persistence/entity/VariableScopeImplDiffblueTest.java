@@ -21,59 +21,50 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import jakarta.el.BeanNameELResolver;
-import jakarta.el.BeanNameResolver;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.BiFunction;
-import org.activiti.core.el.ActivitiElContext;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.impl.el.ParsingElContext;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class VariableScopeImplDiffblueTest {
-  @InjectMocks
-  private ExecutionEntityImpl executionEntityImpl;
-
   /**
    * Test {@link VariableScopeImpl#ensureVariableInstancesInitialized()}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#ensureVariableInstancesInitialized()}
+   * Method under test: {@link VariableScopeImpl#ensureVariableInstancesInitialized()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.ensureVariableInstancesInitialized()"})
   public void testEnsureVariableInstancesInitialized_thenThrowActivitiException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> (new ExecutionEntityImpl()).ensureVariableInstancesInitialized());
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariables(Collection, boolean)} with
-   * {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#getVariables(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    *   <li>Then return size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariables(Collection, boolean)}
+   * Method under test: {@link VariableScopeImpl#getVariables(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariables(Collection, boolean)"})
   public void testGetVariablesWithVariableNamesFetchAllVariables_given42_thenReturnSizeIsTwo() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -94,17 +85,17 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariables(Collection, boolean)} with
-   * {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#getVariables(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <ul>
    *   <li>Given {@code foo}.</li>
    *   <li>Then return size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariables(Collection, boolean)}
+   * Method under test: {@link VariableScopeImpl#getVariables(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariables(Collection, boolean)"})
   public void testGetVariablesWithVariableNamesFetchAllVariables_givenFoo_thenReturnSizeIsOne() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -123,16 +114,16 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariables(Collection, boolean)} with
-   * {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#getVariables(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariables(Collection, boolean)}
+   * Method under test: {@link VariableScopeImpl#getVariables(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariables(Collection, boolean)"})
   public void testGetVariablesWithVariableNamesFetchAllVariables_thenReturnEmpty() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -143,16 +134,16 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariables(Collection, boolean)} with
-   * {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#getVariables(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariables(Collection, boolean)}
+   * Method under test: {@link VariableScopeImpl#getVariables(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariables(Collection, boolean)"})
   public void testGetVariablesWithVariableNamesFetchAllVariables_thenReturnEmpty2() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -164,16 +155,16 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariables(Collection, boolean)} with
-   * {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#getVariables(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <ul>
    *   <li>Then return size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariables(Collection, boolean)}
+   * Method under test: {@link VariableScopeImpl#getVariables(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariables(Collection, boolean)"})
   public void testGetVariablesWithVariableNamesFetchAllVariables_thenReturnSizeIsOne() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -193,16 +184,16 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariables(Collection, boolean)} with
-   * {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#getVariables(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariables(Collection, boolean)}
+   * Method under test: {@link VariableScopeImpl#getVariables(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariables(Collection, boolean)"})
   public void testGetVariablesWithVariableNamesFetchAllVariables_thenThrowActivitiException() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = new ExecutionEntityImpl();
@@ -212,8 +203,7 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariables(Collection)} with
-   * {@code variableNames}.
+   * Test {@link VariableScopeImpl#getVariables(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
@@ -223,6 +213,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariables(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariables(Collection)"})
   public void testGetVariablesWithVariableNames_given42_whenArrayListAdd42_thenReturnSizeIsTwo() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -242,8 +234,7 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariables(Collection)} with
-   * {@code variableNames}.
+   * Test {@link VariableScopeImpl#getVariables(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Given {@code foo}.</li>
    *   <li>Then return {@code foo} is {@code null}.</li>
@@ -252,6 +243,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariables(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariables(Collection)"})
   public void testGetVariablesWithVariableNames_givenFoo_thenReturnFooIsNull() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -269,8 +262,7 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariables(Collection)} with
-   * {@code variableNames}.
+   * Test {@link VariableScopeImpl#getVariables(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Then return containsKey empty string.</li>
    * </ul>
@@ -278,6 +270,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariables(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariables(Collection)"})
   public void testGetVariablesWithVariableNames_thenReturnContainsKeyEmptyString() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -296,8 +290,7 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariables(Collection)} with
-   * {@code variableNames}.
+   * Test {@link VariableScopeImpl#getVariables(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
@@ -305,6 +298,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariables(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariables(Collection)"})
   public void testGetVariablesWithVariableNames_thenReturnEmpty() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -315,8 +310,7 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariables(Collection)} with
-   * {@code variableNames}.
+   * Test {@link VariableScopeImpl#getVariables(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
@@ -324,6 +318,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariables(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariables(Collection)"})
   public void testGetVariablesWithVariableNames_thenReturnEmpty2() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -335,8 +331,7 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariables(Collection)} with
-   * {@code variableNames}.
+   * Test {@link VariableScopeImpl#getVariables(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Then return empty string is {@code null}.</li>
    * </ul>
@@ -344,6 +339,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariables(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariables(Collection)"})
   public void testGetVariablesWithVariableNames_thenReturnEmptyStringIsNull() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -362,8 +359,7 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariables(Collection)} with
-   * {@code variableNames}.
+   * Test {@link VariableScopeImpl#getVariables(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
@@ -371,6 +367,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariables(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariables(Collection)"})
   public void testGetVariablesWithVariableNames_thenThrowActivitiException() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = new ExecutionEntityImpl();
@@ -389,6 +387,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariables()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariables()"})
   public void testGetVariables_givenCreateWithEmptyRelationshipCollections_thenReturnEmpty() {
     // Arrange, Act and Assert
     assertTrue(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getVariables().isEmpty());
@@ -404,6 +404,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariables()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariables()"})
   public void testGetVariables_givenExecutionEntityImpl_thenThrowActivitiException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> (new ExecutionEntityImpl()).getVariables());
@@ -418,6 +420,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariables()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariables()"})
   public void testGetVariables_thenReturnSizeIsOne() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -438,6 +442,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariableInstances()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstances()"})
   public void testGetVariableInstances() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -450,12 +456,13 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstances(Collection)} with
-   * {@code variableNames}.
+   * Test {@link VariableScopeImpl#getVariableInstances(Collection)} with {@code variableNames}.
    * <p>
    * Method under test: {@link VariableScopeImpl#getVariableInstances(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstances(Collection)"})
   public void testGetVariableInstancesWithVariableNames() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -471,13 +478,13 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstances(Collection, boolean)} with
-   * {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#getVariableInstances(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariableInstances(Collection, boolean)}
+   * Method under test: {@link VariableScopeImpl#getVariableInstances(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstances(Collection, boolean)"})
   public void testGetVariableInstancesWithVariableNamesFetchAllVariables() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = new ExecutionEntityImpl();
@@ -487,16 +494,16 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstances(Collection, boolean)} with
-   * {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#getVariableInstances(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariableInstances(Collection, boolean)}
+   * Method under test: {@link VariableScopeImpl#getVariableInstances(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstances(Collection, boolean)"})
   public void testGetVariableInstancesWithVariableNamesFetchAllVariables_thenReturnEmpty() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -507,16 +514,16 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstances(Collection, boolean)} with
-   * {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#getVariableInstances(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariableInstances(Collection, boolean)}
+   * Method under test: {@link VariableScopeImpl#getVariableInstances(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstances(Collection, boolean)"})
   public void testGetVariableInstancesWithVariableNamesFetchAllVariables_thenReturnEmpty2() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -528,16 +535,16 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstances(Collection, boolean)} with
-   * {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#getVariableInstances(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <ul>
    *   <li>Then return size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariableInstances(Collection, boolean)}
+   * Method under test: {@link VariableScopeImpl#getVariableInstances(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstances(Collection, boolean)"})
   public void testGetVariableInstancesWithVariableNamesFetchAllVariables_thenReturnSizeIsOne() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -556,16 +563,16 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstances(Collection, boolean)} with
-   * {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#getVariableInstances(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <ul>
    *   <li>Then return size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariableInstances(Collection, boolean)}
+   * Method under test: {@link VariableScopeImpl#getVariableInstances(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstances(Collection, boolean)"})
   public void testGetVariableInstancesWithVariableNamesFetchAllVariables_thenReturnSizeIsOne2() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -585,16 +592,16 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstances(Collection, boolean)} with
-   * {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#getVariableInstances(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <ul>
    *   <li>Then return size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariableInstances(Collection, boolean)}
+   * Method under test: {@link VariableScopeImpl#getVariableInstances(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstances(Collection, boolean)"})
   public void testGetVariableInstancesWithVariableNamesFetchAllVariables_thenReturnSizeIsTwo() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -615,8 +622,7 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstances(Collection)} with
-   * {@code variableNames}.
+   * Test {@link VariableScopeImpl#getVariableInstances(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    *   <li>Then return size is two.</li>
@@ -625,6 +631,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariableInstances(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstances(Collection)"})
   public void testGetVariableInstancesWithVariableNames_given42_thenReturnSizeIsTwo() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -645,8 +653,7 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstances(Collection)} with
-   * {@code variableNames}.
+   * Test {@link VariableScopeImpl#getVariableInstances(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Given {@code foo}.</li>
    *   <li>Then return size is one.</li>
@@ -655,6 +662,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariableInstances(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstances(Collection)"})
   public void testGetVariableInstancesWithVariableNames_givenFoo_thenReturnSizeIsOne() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -673,8 +682,7 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstances(Collection)} with
-   * {@code variableNames}.
+   * Test {@link VariableScopeImpl#getVariableInstances(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
@@ -682,6 +690,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariableInstances(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstances(Collection)"})
   public void testGetVariableInstancesWithVariableNames_thenReturnEmpty() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -692,8 +702,7 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstances(Collection)} with
-   * {@code variableNames}.
+   * Test {@link VariableScopeImpl#getVariableInstances(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
@@ -701,6 +710,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariableInstances(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstances(Collection)"})
   public void testGetVariableInstancesWithVariableNames_thenReturnEmpty2() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -712,8 +723,7 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstances(Collection)} with
-   * {@code variableNames}.
+   * Test {@link VariableScopeImpl#getVariableInstances(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Then return empty string is {@code null}.</li>
    * </ul>
@@ -721,6 +731,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariableInstances(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstances(Collection)"})
   public void testGetVariableInstancesWithVariableNames_thenReturnEmptyStringIsNull() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -740,8 +752,7 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstances(Collection)} with
-   * {@code variableNames}.
+   * Test {@link VariableScopeImpl#getVariableInstances(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
@@ -749,6 +760,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariableInstances(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstances(Collection)"})
   public void testGetVariableInstancesWithVariableNames_thenThrowActivitiException() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = new ExecutionEntityImpl();
@@ -767,6 +780,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariableInstances()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstances()"})
   public void testGetVariableInstances_givenExecutionEntityImpl_thenThrowActivitiException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> (new ExecutionEntityImpl()).getVariableInstances());
@@ -781,6 +796,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariableInstances()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstances()"})
   public void testGetVariableInstances_thenReturnEmpty() {
     // Arrange, Act and Assert
     assertTrue(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getVariableInstances().isEmpty());
@@ -796,6 +813,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#collectVariables(HashMap)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.collectVariables(HashMap)"})
   public void testCollectVariables_givenExecutionEntityImpl_thenThrowActivitiException() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = new ExecutionEntityImpl();
@@ -807,44 +826,14 @@ public class VariableScopeImplDiffblueTest {
   /**
    * Test {@link VariableScopeImpl#collectVariables(HashMap)}.
    * <ul>
-   *   <li>Given {@code foo}.</li>
-   *   <li>When {@link HashMap#HashMap()} computeIfPresent {@code foo} and
-   * {@link BiFunction}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableScopeImpl#collectVariables(HashMap)}
-   */
-  @Test
-  public void testCollectVariables_givenFoo_whenHashMapComputeIfPresentFooAndBiFunction() {
-    // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-
-    HashMap<String, Object> variables = new HashMap<>();
-    variables.computeIfPresent("foo", mock(BiFunction.class));
-
-    // Act
-    Map<String, Object> actualCollectVariablesResult = createWithEmptyRelationshipCollectionsResult
-        .collectVariables(variables);
-
-    // Assert
-    assertTrue(variables.isEmpty());
-    assertTrue(actualCollectVariablesResult.isEmpty());
-    assertTrue(createWithEmptyRelationshipCollectionsResult.getTransientVariables().isEmpty());
-    assertTrue(createWithEmptyRelationshipCollectionsResult.getTransientVariablesLocal().isEmpty());
-    assertTrue(createWithEmptyRelationshipCollectionsResult.getVariables().isEmpty());
-    assertTrue(createWithEmptyRelationshipCollectionsResult.getVariablesLocal().isEmpty());
-  }
-
-  /**
-   * Test {@link VariableScopeImpl#collectVariables(HashMap)}.
-   * <ul>
    *   <li>Then {@link HashMap#HashMap()} Empty.</li>
    * </ul>
    * <p>
    * Method under test: {@link VariableScopeImpl#collectVariables(HashMap)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.collectVariables(HashMap)"})
   public void testCollectVariables_thenHashMapEmpty() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -873,6 +862,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#collectVariables(HashMap)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.collectVariables(HashMap)"})
   public void testCollectVariables_thenHashMapSizeIsOne() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -886,22 +877,11 @@ public class VariableScopeImplDiffblueTest {
 
     // Assert
     assertEquals(1, variables.size());
-    assertEquals(1, actualCollectVariablesResult.size());
-    Map<String, Object> transientVariables = createWithEmptyRelationshipCollectionsResult.getTransientVariables();
-    assertEquals(1, transientVariables.size());
-    Map<String, Object> transientVariablesLocal = createWithEmptyRelationshipCollectionsResult
-        .getTransientVariablesLocal();
-    assertEquals(1, transientVariablesLocal.size());
-    Map<String, Object> variables2 = createWithEmptyRelationshipCollectionsResult.getVariables();
-    assertEquals(1, variables2.size());
-    Map<String, Object> variablesLocal = createWithEmptyRelationshipCollectionsResult.getVariablesLocal();
-    assertEquals(1, variablesLocal.size());
     assertTrue(variables.containsKey("Variable Name"));
-    assertTrue(actualCollectVariablesResult.containsKey("Variable Name"));
-    assertTrue(transientVariables.containsKey("Variable Name"));
-    assertTrue(transientVariablesLocal.containsKey("Variable Name"));
-    assertTrue(variables2.containsKey("Variable Name"));
-    assertTrue(variablesLocal.containsKey("Variable Name"));
+    assertEquals(variables, createWithEmptyRelationshipCollectionsResult.getTransientVariables());
+    assertEquals(variables, createWithEmptyRelationshipCollectionsResult.getTransientVariablesLocal());
+    assertEquals(variables, createWithEmptyRelationshipCollectionsResult.getVariables());
+    assertEquals(variables, createWithEmptyRelationshipCollectionsResult.getVariablesLocal());
     assertSame(variables, actualCollectVariablesResult);
   }
 
@@ -912,10 +892,11 @@ public class VariableScopeImplDiffblueTest {
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#collectVariableInstances(HashMap)}
+   * Method under test: {@link VariableScopeImpl#collectVariableInstances(HashMap)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.collectVariableInstances(HashMap)"})
   public void testCollectVariableInstances_givenExecutionEntityImpl_thenThrowActivitiException() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = new ExecutionEntityImpl();
@@ -927,40 +908,14 @@ public class VariableScopeImplDiffblueTest {
   /**
    * Test {@link VariableScopeImpl#collectVariableInstances(HashMap)}.
    * <ul>
-   *   <li>Given {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#collectVariableInstances(HashMap)}
-   */
-  @Test
-  public void testCollectVariableInstances_givenFoo() {
-    // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-
-    HashMap<String, VariableInstance> variables = new HashMap<>();
-    variables.computeIfPresent("foo", mock(BiFunction.class));
-
-    // Act
-    Map<String, VariableInstance> actualCollectVariableInstancesResult = createWithEmptyRelationshipCollectionsResult
-        .collectVariableInstances(variables);
-
-    // Assert
-    assertTrue(variables.isEmpty());
-    assertTrue(actualCollectVariableInstancesResult.isEmpty());
-  }
-
-  /**
-   * Test {@link VariableScopeImpl#collectVariableInstances(HashMap)}.
-   * <ul>
    *   <li>Then {@link HashMap#HashMap()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#collectVariableInstances(HashMap)}
+   * Method under test: {@link VariableScopeImpl#collectVariableInstances(HashMap)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.collectVariableInstances(HashMap)"})
   public void testCollectVariableInstances_thenHashMapEmpty() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -982,10 +937,11 @@ public class VariableScopeImplDiffblueTest {
    *   <li>Then {@link HashMap#HashMap()} size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#collectVariableInstances(HashMap)}
+   * Method under test: {@link VariableScopeImpl#collectVariableInstances(HashMap)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.collectVariableInstances(HashMap)"})
   public void testCollectVariableInstances_thenHashMapSizeIsOne() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -999,6 +955,8 @@ public class VariableScopeImplDiffblueTest {
 
     // Assert
     assertEquals(1, variables.size());
+    assertEquals(1, actualCollectVariableInstancesResult.size());
+    assertTrue(actualCollectVariableInstancesResult.get("Variable Name") instanceof TransientVariableInstance);
     assertTrue(variables.containsKey("Variable Name"));
     assertSame(variables, actualCollectVariableInstancesResult);
   }
@@ -1009,14 +967,54 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariable(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object VariableScopeImpl.getVariable(String)"})
   public void testGetVariableWithVariableName() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiException.class, () -> executionEntityImpl.getVariable("Variable Name"));
+    // Arrange
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
+    createWithEmptyRelationshipCollectionsResult.setTransientVariableLocal(null, JSONObject.NULL);
+
+    // Act and Assert
+    assertNull(createWithEmptyRelationshipCollectionsResult.getVariable("Variable Name"));
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariable(String, boolean)} with
-   * {@code variableName}, {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#getVariable(String, boolean)} with {@code variableName}, {@code fetchAllVariables}.
+   * <p>
+   * Method under test: {@link VariableScopeImpl#getVariable(String, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object VariableScopeImpl.getVariable(String, boolean)"})
+  public void testGetVariableWithVariableNameFetchAllVariables() {
+    // Arrange
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
+    createWithEmptyRelationshipCollectionsResult.setTransientVariableLocal(null, JSONObject.NULL);
+
+    // Act and Assert
+    assertNull(createWithEmptyRelationshipCollectionsResult.getVariable("Variable Name", true));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#getVariable(String, boolean)} with {@code variableName}, {@code fetchAllVariables}.
+   * <ul>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableScopeImpl#getVariable(String, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object VariableScopeImpl.getVariable(String, boolean)"})
+  public void testGetVariableWithVariableNameFetchAllVariables_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getVariable("Variable Name", true));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#getVariable(String, boolean)} with {@code variableName}, {@code fetchAllVariables}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
@@ -1024,20 +1022,67 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariable(String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object VariableScopeImpl.getVariable(String, boolean)"})
   public void testGetVariableWithVariableNameFetchAllVariables_thenThrowActivitiException() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiException.class, () -> executionEntityImpl.getVariable("Variable Name", true));
+    assertThrows(ActivitiException.class, () -> (new ExecutionEntityImpl()).getVariable("Variable Name", true));
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariable(String, Class)} with
-   * {@code variableName}, {@code variableClass}.
+   * Test {@link VariableScopeImpl#getVariable(String, Class)} with {@code variableName}, {@code variableClass}.
    * <p>
    * Method under test: {@link VariableScopeImpl#getVariable(String, Class)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object VariableScopeImpl.getVariable(String, Class)"})
   public void testGetVariableWithVariableNameVariableClass() {
     // Arrange
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
+    createWithEmptyRelationshipCollectionsResult.setTransientVariableLocal(null, JSONObject.NULL);
+    Class<Object> variableClass = Object.class;
+
+    // Act and Assert
+    assertNull(createWithEmptyRelationshipCollectionsResult.getVariable("Variable Name", variableClass));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#getVariable(String, Class)} with {@code variableName}, {@code variableClass}.
+   * <ul>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableScopeImpl#getVariable(String, Class)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object VariableScopeImpl.getVariable(String, Class)"})
+  public void testGetVariableWithVariableNameVariableClass_thenReturnNull() {
+    // Arrange
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
+    Class<Object> variableClass = Object.class;
+
+    // Act and Assert
+    assertNull(createWithEmptyRelationshipCollectionsResult.getVariable("Variable Name", variableClass));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#getVariable(String, Class)} with {@code variableName}, {@code variableClass}.
+   * <ul>
+   *   <li>Then throw {@link ActivitiException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableScopeImpl#getVariable(String, Class)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object VariableScopeImpl.getVariable(String, Class)"})
+  public void testGetVariableWithVariableNameVariableClass_thenThrowActivitiException() {
+    // Arrange
+    ExecutionEntityImpl executionEntityImpl = new ExecutionEntityImpl();
     Class<Object> variableClass = Object.class;
 
     // Act and Assert
@@ -1045,67 +1090,336 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstance(String)} with
-   * {@code variableName}.
+   * Test {@link VariableScopeImpl#getVariable(String)} with {@code variableName}.
+   * <ul>
+   *   <li>Given createWithEmptyRelationshipCollections.</li>
+   * </ul>
    * <p>
-   * Method under test: {@link VariableScopeImpl#getVariableInstance(String)}
+   * Method under test: {@link VariableScopeImpl#getVariable(String)}
    */
   @Test
-  public void testGetVariableInstanceWithVariableName() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object VariableScopeImpl.getVariable(String)"})
+  public void testGetVariableWithVariableName_givenCreateWithEmptyRelationshipCollections() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiException.class, () -> executionEntityImpl.getVariableInstance("Variable Name"));
+    assertNull(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getVariable("Variable Name"));
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstance(String, boolean)} with
-   * {@code variableName}, {@code fetchAllVariables}.
-   * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariableInstance(String, boolean)}
-   */
-  @Test
-  public void testGetVariableInstanceWithVariableNameFetchAllVariables() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiException.class, () -> executionEntityImpl.getVariableInstance("Variable Name", true));
-  }
-
-  /**
-   * Test {@link VariableScopeImpl#getVariableLocal(String)} with
-   * {@code variableName}.
-   * <p>
-   * Method under test: {@link VariableScopeImpl#getVariableLocal(String)}
-   */
-  @Test
-  public void testGetVariableLocalWithVariableName() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiException.class, () -> executionEntityImpl.getVariableLocal("Variable Name"));
-  }
-
-  /**
-   * Test {@link VariableScopeImpl#getVariableLocal(String, boolean)} with
-   * {@code variableName}, {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#getVariable(String)} with {@code variableName}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariableLocal(String, boolean)}
+   * Method under test: {@link VariableScopeImpl#getVariable(String)}
    */
   @Test
-  public void testGetVariableLocalWithVariableNameFetchAllVariables_thenThrowActivitiException() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object VariableScopeImpl.getVariable(String)"})
+  public void testGetVariableWithVariableName_thenThrowActivitiException() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiException.class, () -> executionEntityImpl.getVariableLocal("Variable Name", true));
+    assertThrows(ActivitiException.class, () -> (new ExecutionEntityImpl()).getVariable("Variable Name"));
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableLocal(String, Class)} with
-   * {@code variableName}, {@code variableClass}.
+   * Test {@link VariableScopeImpl#getVariableInstance(String)} with {@code variableName}.
+   * <p>
+   * Method under test: {@link VariableScopeImpl#getVariableInstance(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"VariableInstance VariableScopeImpl.getVariableInstance(String)"})
+  public void testGetVariableInstanceWithVariableName() {
+    // Arrange, Act and Assert
+    assertNull(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getVariableInstance("Variable Name"));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#getVariableInstance(String)} with {@code variableName}.
+   * <p>
+   * Method under test: {@link VariableScopeImpl#getVariableInstance(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"VariableInstance VariableScopeImpl.getVariableInstance(String)"})
+  public void testGetVariableInstanceWithVariableName2() {
+    // Arrange
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
+    createWithEmptyRelationshipCollectionsResult.setTransientVariableLocal(null, JSONObject.NULL);
+
+    // Act and Assert
+    assertNull(createWithEmptyRelationshipCollectionsResult.getVariableInstance("Variable Name"));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#getVariableInstance(String, boolean)} with {@code variableName}, {@code fetchAllVariables}.
+   * <p>
+   * Method under test: {@link VariableScopeImpl#getVariableInstance(String, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"VariableInstance VariableScopeImpl.getVariableInstance(String, boolean)"})
+  public void testGetVariableInstanceWithVariableNameFetchAllVariables() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiException.class, () -> (new ExecutionEntityImpl()).getVariableInstance("Variable Name", true));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#getVariableInstance(String, boolean)} with {@code variableName}, {@code fetchAllVariables}.
+   * <p>
+   * Method under test: {@link VariableScopeImpl#getVariableInstance(String, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"VariableInstance VariableScopeImpl.getVariableInstance(String, boolean)"})
+  public void testGetVariableInstanceWithVariableNameFetchAllVariables2() {
+    // Arrange
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
+    createWithEmptyRelationshipCollectionsResult.setTransientVariableLocal("Variable Name", JSONObject.NULL);
+
+    // Act
+    VariableInstance actualVariableInstance = createWithEmptyRelationshipCollectionsResult
+        .getVariableInstance("Variable Name", true);
+
+    // Assert
+    assertTrue(actualVariableInstance instanceof TransientVariableInstance);
+    assertEquals("Variable Name", actualVariableInstance.getName());
+    assertEquals("transient", actualVariableInstance.getTypeName());
+    assertNull(actualVariableInstance.getBytes());
+    assertNull(actualVariableInstance.getDoubleValue());
+    assertNull(actualVariableInstance.getLongValue());
+    assertNull(actualVariableInstance.getPersistentState());
+    assertNull(actualVariableInstance.getCachedValue());
+    assertNull(actualVariableInstance.getId());
+    assertNull(actualVariableInstance.getExecutionId());
+    assertNull(actualVariableInstance.getProcessInstanceId());
+    assertNull(actualVariableInstance.getTaskId());
+    assertNull(actualVariableInstance.getTextValue());
+    assertNull(actualVariableInstance.getTextValue2());
+    assertEquals(0, actualVariableInstance.getRevision());
+    assertEquals(0, actualVariableInstance.getRevisionNext());
+    assertFalse(actualVariableInstance.isDeleted());
+    assertFalse(actualVariableInstance.isInserted());
+    assertFalse(actualVariableInstance.isUpdated());
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#getVariableInstance(String, boolean)} with {@code variableName}, {@code fetchAllVariables}.
+   * <p>
+   * Method under test: {@link VariableScopeImpl#getVariableInstance(String, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"VariableInstance VariableScopeImpl.getVariableInstance(String, boolean)"})
+  public void testGetVariableInstanceWithVariableNameFetchAllVariables3() {
+    // Arrange
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
+    createWithEmptyRelationshipCollectionsResult.setTransientVariableLocal(null, JSONObject.NULL);
+
+    // Act and Assert
+    assertNull(createWithEmptyRelationshipCollectionsResult.getVariableInstance("Variable Name", true));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#getVariableInstance(String, boolean)} with {@code variableName}, {@code fetchAllVariables}.
+   * <ul>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableScopeImpl#getVariableInstance(String, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"VariableInstance VariableScopeImpl.getVariableInstance(String, boolean)"})
+  public void testGetVariableInstanceWithVariableNameFetchAllVariables_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getVariableInstance("Variable Name", true));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#getVariableInstance(String)} with {@code variableName}.
+   * <ul>
+   *   <li>Then return {@link TransientVariableInstance}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableScopeImpl#getVariableInstance(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"VariableInstance VariableScopeImpl.getVariableInstance(String)"})
+  public void testGetVariableInstanceWithVariableName_thenReturnTransientVariableInstance() {
+    // Arrange
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
+    createWithEmptyRelationshipCollectionsResult.setTransientVariableLocal("Variable Name", JSONObject.NULL);
+
+    // Act
+    VariableInstance actualVariableInstance = createWithEmptyRelationshipCollectionsResult
+        .getVariableInstance("Variable Name");
+
+    // Assert
+    assertTrue(actualVariableInstance instanceof TransientVariableInstance);
+    assertEquals("Variable Name", actualVariableInstance.getName());
+    assertEquals("transient", actualVariableInstance.getTypeName());
+    assertNull(actualVariableInstance.getBytes());
+    assertNull(actualVariableInstance.getDoubleValue());
+    assertNull(actualVariableInstance.getLongValue());
+    assertNull(actualVariableInstance.getPersistentState());
+    assertNull(actualVariableInstance.getCachedValue());
+    assertNull(actualVariableInstance.getId());
+    assertNull(actualVariableInstance.getExecutionId());
+    assertNull(actualVariableInstance.getProcessInstanceId());
+    assertNull(actualVariableInstance.getTaskId());
+    assertNull(actualVariableInstance.getTextValue());
+    assertNull(actualVariableInstance.getTextValue2());
+    assertEquals(0, actualVariableInstance.getRevision());
+    assertEquals(0, actualVariableInstance.getRevisionNext());
+    assertFalse(actualVariableInstance.isDeleted());
+    assertFalse(actualVariableInstance.isInserted());
+    assertFalse(actualVariableInstance.isUpdated());
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#getVariableInstance(String)} with {@code variableName}.
+   * <ul>
+   *   <li>Then throw {@link ActivitiException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableScopeImpl#getVariableInstance(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"VariableInstance VariableScopeImpl.getVariableInstance(String)"})
+  public void testGetVariableInstanceWithVariableName_thenThrowActivitiException() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiException.class, () -> (new ExecutionEntityImpl()).getVariableInstance("Variable Name"));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#getVariableLocal(String)} with {@code variableName}.
+   * <p>
+   * Method under test: {@link VariableScopeImpl#getVariableLocal(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object VariableScopeImpl.getVariableLocal(String)"})
+  public void testGetVariableLocalWithVariableName() {
+    // Arrange
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
+    createWithEmptyRelationshipCollectionsResult.setTransientVariableLocal(null, JSONObject.NULL);
+
+    // Act and Assert
+    assertNull(createWithEmptyRelationshipCollectionsResult.getVariableLocal("Variable Name"));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#getVariableLocal(String, boolean)} with {@code variableName}, {@code fetchAllVariables}.
+   * <p>
+   * Method under test: {@link VariableScopeImpl#getVariableLocal(String, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object VariableScopeImpl.getVariableLocal(String, boolean)"})
+  public void testGetVariableLocalWithVariableNameFetchAllVariables() {
+    // Arrange
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
+    createWithEmptyRelationshipCollectionsResult.setTransientVariableLocal(null, JSONObject.NULL);
+
+    // Act and Assert
+    assertNull(createWithEmptyRelationshipCollectionsResult.getVariableLocal("Variable Name", true));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#getVariableLocal(String, boolean)} with {@code variableName}, {@code fetchAllVariables}.
+   * <ul>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableScopeImpl#getVariableLocal(String, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object VariableScopeImpl.getVariableLocal(String, boolean)"})
+  public void testGetVariableLocalWithVariableNameFetchAllVariables_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getVariableLocal("Variable Name", true));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#getVariableLocal(String, boolean)} with {@code variableName}, {@code fetchAllVariables}.
+   * <ul>
+   *   <li>Then throw {@link ActivitiException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableScopeImpl#getVariableLocal(String, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object VariableScopeImpl.getVariableLocal(String, boolean)"})
+  public void testGetVariableLocalWithVariableNameFetchAllVariables_thenThrowActivitiException() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiException.class, () -> (new ExecutionEntityImpl()).getVariableLocal("Variable Name", true));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#getVariableLocal(String, Class)} with {@code variableName}, {@code variableClass}.
    * <p>
    * Method under test: {@link VariableScopeImpl#getVariableLocal(String, Class)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object VariableScopeImpl.getVariableLocal(String, Class)"})
   public void testGetVariableLocalWithVariableNameVariableClass() {
     // Arrange
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
+    createWithEmptyRelationshipCollectionsResult.setTransientVariableLocal(null, JSONObject.NULL);
+    Class<Object> variableClass = Object.class;
+
+    // Act and Assert
+    assertNull(createWithEmptyRelationshipCollectionsResult.getVariableLocal("Variable Name", variableClass));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#getVariableLocal(String, Class)} with {@code variableName}, {@code variableClass}.
+   * <ul>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableScopeImpl#getVariableLocal(String, Class)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object VariableScopeImpl.getVariableLocal(String, Class)"})
+  public void testGetVariableLocalWithVariableNameVariableClass_thenReturnNull() {
+    // Arrange
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
+    Class<Object> variableClass = Object.class;
+
+    // Act and Assert
+    assertNull(createWithEmptyRelationshipCollectionsResult.getVariableLocal("Variable Name", variableClass));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#getVariableLocal(String, Class)} with {@code variableName}, {@code variableClass}.
+   * <ul>
+   *   <li>Then throw {@link ActivitiException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableScopeImpl#getVariableLocal(String, Class)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object VariableScopeImpl.getVariableLocal(String, Class)"})
+  public void testGetVariableLocalWithVariableNameVariableClass_thenThrowActivitiException() {
+    // Arrange
+    ExecutionEntityImpl executionEntityImpl = new ExecutionEntityImpl();
     Class<Object> variableClass = Object.class;
 
     // Act and Assert
@@ -1113,28 +1427,214 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstanceLocal(String)} with
-   * {@code variableName}.
+   * Test {@link VariableScopeImpl#getVariableLocal(String)} with {@code variableName}.
+   * <ul>
+   *   <li>Given createWithEmptyRelationshipCollections.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableScopeImpl#getVariableLocal(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object VariableScopeImpl.getVariableLocal(String)"})
+  public void testGetVariableLocalWithVariableName_givenCreateWithEmptyRelationshipCollections() {
+    // Arrange, Act and Assert
+    assertNull(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getVariableLocal("Variable Name"));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#getVariableLocal(String)} with {@code variableName}.
+   * <ul>
+   *   <li>Then throw {@link ActivitiException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableScopeImpl#getVariableLocal(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object VariableScopeImpl.getVariableLocal(String)"})
+  public void testGetVariableLocalWithVariableName_thenThrowActivitiException() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiException.class, () -> (new ExecutionEntityImpl()).getVariableLocal("Variable Name"));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#getVariableInstanceLocal(String)} with {@code variableName}.
    * <p>
    * Method under test: {@link VariableScopeImpl#getVariableInstanceLocal(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"VariableInstance VariableScopeImpl.getVariableInstanceLocal(String)"})
   public void testGetVariableInstanceLocalWithVariableName() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiException.class, () -> executionEntityImpl.getVariableInstanceLocal("Variable Name"));
+    assertNull(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getVariableInstanceLocal("Variable Name"));
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstanceLocal(String, boolean)} with
-   * {@code variableName}, {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#getVariableInstanceLocal(String)} with {@code variableName}.
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariableInstanceLocal(String, boolean)}
+   * Method under test: {@link VariableScopeImpl#getVariableInstanceLocal(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"VariableInstance VariableScopeImpl.getVariableInstanceLocal(String)"})
+  public void testGetVariableInstanceLocalWithVariableName2() {
+    // Arrange
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
+    createWithEmptyRelationshipCollectionsResult.setTransientVariableLocal(null, JSONObject.NULL);
+
+    // Act and Assert
+    assertNull(createWithEmptyRelationshipCollectionsResult.getVariableInstanceLocal("Variable Name"));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#getVariableInstanceLocal(String, boolean)} with {@code variableName}, {@code fetchAllVariables}.
+   * <p>
+   * Method under test: {@link VariableScopeImpl#getVariableInstanceLocal(String, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"VariableInstance VariableScopeImpl.getVariableInstanceLocal(String, boolean)"})
   public void testGetVariableInstanceLocalWithVariableNameFetchAllVariables() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiException.class, () -> executionEntityImpl.getVariableInstanceLocal("Variable Name", true));
+    assertThrows(ActivitiException.class,
+        () -> (new ExecutionEntityImpl()).getVariableInstanceLocal("Variable Name", true));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#getVariableInstanceLocal(String, boolean)} with {@code variableName}, {@code fetchAllVariables}.
+   * <p>
+   * Method under test: {@link VariableScopeImpl#getVariableInstanceLocal(String, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"VariableInstance VariableScopeImpl.getVariableInstanceLocal(String, boolean)"})
+  public void testGetVariableInstanceLocalWithVariableNameFetchAllVariables2() {
+    // Arrange
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
+    createWithEmptyRelationshipCollectionsResult.setTransientVariableLocal("Variable Name", JSONObject.NULL);
+
+    // Act
+    VariableInstance actualVariableInstanceLocal = createWithEmptyRelationshipCollectionsResult
+        .getVariableInstanceLocal("Variable Name", true);
+
+    // Assert
+    assertTrue(actualVariableInstanceLocal instanceof TransientVariableInstance);
+    assertEquals("Variable Name", actualVariableInstanceLocal.getName());
+    assertEquals("transient", actualVariableInstanceLocal.getTypeName());
+    assertNull(actualVariableInstanceLocal.getBytes());
+    assertNull(actualVariableInstanceLocal.getDoubleValue());
+    assertNull(actualVariableInstanceLocal.getLongValue());
+    assertNull(actualVariableInstanceLocal.getPersistentState());
+    assertNull(actualVariableInstanceLocal.getCachedValue());
+    assertNull(actualVariableInstanceLocal.getId());
+    assertNull(actualVariableInstanceLocal.getExecutionId());
+    assertNull(actualVariableInstanceLocal.getProcessInstanceId());
+    assertNull(actualVariableInstanceLocal.getTaskId());
+    assertNull(actualVariableInstanceLocal.getTextValue());
+    assertNull(actualVariableInstanceLocal.getTextValue2());
+    assertEquals(0, actualVariableInstanceLocal.getRevision());
+    assertEquals(0, actualVariableInstanceLocal.getRevisionNext());
+    assertFalse(actualVariableInstanceLocal.isDeleted());
+    assertFalse(actualVariableInstanceLocal.isInserted());
+    assertFalse(actualVariableInstanceLocal.isUpdated());
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#getVariableInstanceLocal(String, boolean)} with {@code variableName}, {@code fetchAllVariables}.
+   * <p>
+   * Method under test: {@link VariableScopeImpl#getVariableInstanceLocal(String, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"VariableInstance VariableScopeImpl.getVariableInstanceLocal(String, boolean)"})
+  public void testGetVariableInstanceLocalWithVariableNameFetchAllVariables3() {
+    // Arrange
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
+    createWithEmptyRelationshipCollectionsResult.setTransientVariableLocal(null, JSONObject.NULL);
+
+    // Act and Assert
+    assertNull(createWithEmptyRelationshipCollectionsResult.getVariableInstanceLocal("Variable Name", true));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#getVariableInstanceLocal(String, boolean)} with {@code variableName}, {@code fetchAllVariables}.
+   * <ul>
+   *   <li>Then return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableScopeImpl#getVariableInstanceLocal(String, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"VariableInstance VariableScopeImpl.getVariableInstanceLocal(String, boolean)"})
+  public void testGetVariableInstanceLocalWithVariableNameFetchAllVariables_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull(
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections().getVariableInstanceLocal("Variable Name", true));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#getVariableInstanceLocal(String)} with {@code variableName}.
+   * <ul>
+   *   <li>Then return {@link TransientVariableInstance}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableScopeImpl#getVariableInstanceLocal(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"VariableInstance VariableScopeImpl.getVariableInstanceLocal(String)"})
+  public void testGetVariableInstanceLocalWithVariableName_thenReturnTransientVariableInstance() {
+    // Arrange
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
+    createWithEmptyRelationshipCollectionsResult.setTransientVariableLocal("Variable Name", JSONObject.NULL);
+
+    // Act
+    VariableInstance actualVariableInstanceLocal = createWithEmptyRelationshipCollectionsResult
+        .getVariableInstanceLocal("Variable Name");
+
+    // Assert
+    assertTrue(actualVariableInstanceLocal instanceof TransientVariableInstance);
+    assertEquals("Variable Name", actualVariableInstanceLocal.getName());
+    assertEquals("transient", actualVariableInstanceLocal.getTypeName());
+    assertNull(actualVariableInstanceLocal.getBytes());
+    assertNull(actualVariableInstanceLocal.getDoubleValue());
+    assertNull(actualVariableInstanceLocal.getLongValue());
+    assertNull(actualVariableInstanceLocal.getPersistentState());
+    assertNull(actualVariableInstanceLocal.getCachedValue());
+    assertNull(actualVariableInstanceLocal.getId());
+    assertNull(actualVariableInstanceLocal.getExecutionId());
+    assertNull(actualVariableInstanceLocal.getProcessInstanceId());
+    assertNull(actualVariableInstanceLocal.getTaskId());
+    assertNull(actualVariableInstanceLocal.getTextValue());
+    assertNull(actualVariableInstanceLocal.getTextValue2());
+    assertEquals(0, actualVariableInstanceLocal.getRevision());
+    assertEquals(0, actualVariableInstanceLocal.getRevisionNext());
+    assertFalse(actualVariableInstanceLocal.isDeleted());
+    assertFalse(actualVariableInstanceLocal.isInserted());
+    assertFalse(actualVariableInstanceLocal.isUpdated());
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#getVariableInstanceLocal(String)} with {@code variableName}.
+   * <ul>
+   *   <li>Then throw {@link ActivitiException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableScopeImpl#getVariableInstanceLocal(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"VariableInstance VariableScopeImpl.getVariableInstanceLocal(String)"})
+  public void testGetVariableInstanceLocalWithVariableName_thenThrowActivitiException() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiException.class, () -> (new ExecutionEntityImpl()).getVariableInstanceLocal("Variable Name"));
   }
 
   /**
@@ -1147,6 +1647,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#hasVariables()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean VariableScopeImpl.hasVariables()"})
   public void testHasVariables_givenCreateWithEmptyRelationshipCollections_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(ExecutionEntityImpl.createWithEmptyRelationshipCollections().hasVariables());
@@ -1162,6 +1664,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#hasVariables()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean VariableScopeImpl.hasVariables()"})
   public void testHasVariables_givenExecutionEntityImpl_thenThrowActivitiException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> (new ExecutionEntityImpl()).hasVariables());
@@ -1176,6 +1680,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#hasVariables()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean VariableScopeImpl.hasVariables()"})
   public void testHasVariables_thenReturnTrue() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1196,6 +1702,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#hasVariablesLocal()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean VariableScopeImpl.hasVariablesLocal()"})
   public void testHasVariablesLocal_givenExecutionEntityImpl_thenThrowActivitiException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> (new ExecutionEntityImpl()).hasVariablesLocal());
@@ -1210,6 +1718,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#hasVariablesLocal()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean VariableScopeImpl.hasVariablesLocal()"})
   public void testHasVariablesLocal_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(ExecutionEntityImpl.createWithEmptyRelationshipCollections().hasVariablesLocal());
@@ -1224,6 +1734,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#hasVariablesLocal()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean VariableScopeImpl.hasVariablesLocal()"})
   public void testHasVariablesLocal_thenReturnTrue() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1240,9 +1752,71 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#hasVariable(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean VariableScopeImpl.hasVariable(String)"})
   public void testHasVariable() {
+    // Arrange
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
+    createWithEmptyRelationshipCollectionsResult.setTransientVariableLocal(null, JSONObject.NULL);
+
+    // Act and Assert
+    assertFalse(createWithEmptyRelationshipCollectionsResult.hasVariable("Variable Name"));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#hasVariable(String)}.
+   * <ul>
+   *   <li>Given createWithEmptyRelationshipCollections.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableScopeImpl#hasVariable(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean VariableScopeImpl.hasVariable(String)"})
+  public void testHasVariable_givenCreateWithEmptyRelationshipCollections_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiException.class, () -> executionEntityImpl.hasVariable("Variable Name"));
+    assertFalse(ExecutionEntityImpl.createWithEmptyRelationshipCollections().hasVariable("Variable Name"));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#hasVariable(String)}.
+   * <ul>
+   *   <li>Given {@link ExecutionEntityImpl} (default constructor).</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableScopeImpl#hasVariable(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean VariableScopeImpl.hasVariable(String)"})
+  public void testHasVariable_givenExecutionEntityImpl_thenThrowActivitiException() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiException.class, () -> (new ExecutionEntityImpl()).hasVariable("Variable Name"));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#hasVariable(String)}.
+   * <ul>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableScopeImpl#hasVariable(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean VariableScopeImpl.hasVariable(String)"})
+  public void testHasVariable_thenReturnTrue() {
+    // Arrange
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
+    createWithEmptyRelationshipCollectionsResult.setTransientVariableLocal("Variable Name", JSONObject.NULL);
+
+    // Act and Assert
+    assertTrue(createWithEmptyRelationshipCollectionsResult.hasVariable("Variable Name"));
   }
 
   /**
@@ -1251,9 +1825,71 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#hasVariableLocal(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean VariableScopeImpl.hasVariableLocal(String)"})
   public void testHasVariableLocal() {
+    // Arrange
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
+    createWithEmptyRelationshipCollectionsResult.setTransientVariableLocal(null, JSONObject.NULL);
+
+    // Act and Assert
+    assertFalse(createWithEmptyRelationshipCollectionsResult.hasVariableLocal("Variable Name"));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#hasVariableLocal(String)}.
+   * <ul>
+   *   <li>Given createWithEmptyRelationshipCollections.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableScopeImpl#hasVariableLocal(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean VariableScopeImpl.hasVariableLocal(String)"})
+  public void testHasVariableLocal_givenCreateWithEmptyRelationshipCollections_thenReturnFalse() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiException.class, () -> executionEntityImpl.hasVariableLocal("Variable Name"));
+    assertFalse(ExecutionEntityImpl.createWithEmptyRelationshipCollections().hasVariableLocal("Variable Name"));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#hasVariableLocal(String)}.
+   * <ul>
+   *   <li>Given {@link ExecutionEntityImpl} (default constructor).</li>
+   *   <li>Then throw {@link ActivitiException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableScopeImpl#hasVariableLocal(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean VariableScopeImpl.hasVariableLocal(String)"})
+  public void testHasVariableLocal_givenExecutionEntityImpl_thenThrowActivitiException() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiException.class, () -> (new ExecutionEntityImpl()).hasVariableLocal("Variable Name"));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#hasVariableLocal(String)}.
+   * <ul>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableScopeImpl#hasVariableLocal(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean VariableScopeImpl.hasVariableLocal(String)"})
+  public void testHasVariableLocal_thenReturnTrue() {
+    // Arrange
+    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+        .createWithEmptyRelationshipCollections();
+    createWithEmptyRelationshipCollectionsResult.setTransientVariableLocal("Variable Name", JSONObject.NULL);
+
+    // Act and Assert
+    assertTrue(createWithEmptyRelationshipCollectionsResult.hasVariableLocal("Variable Name"));
   }
 
   /**
@@ -1267,6 +1903,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#collectVariableNames(Set)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Set VariableScopeImpl.collectVariableNames(Set)"})
   public void testCollectVariableNames_given42_whenHashSetAdd42_thenHashSetSizeIsTwo() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1297,6 +1935,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#collectVariableNames(Set)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Set VariableScopeImpl.collectVariableNames(Set)"})
   public void testCollectVariableNames_givenExecutionEntityImpl_thenThrowActivitiException() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = new ExecutionEntityImpl();
@@ -1316,6 +1956,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#collectVariableNames(Set)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Set VariableScopeImpl.collectVariableNames(Set)"})
   public void testCollectVariableNames_givenFoo_whenHashSetAddFoo_thenHashSetSizeIsOne() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1344,6 +1986,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#collectVariableNames(Set)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Set VariableScopeImpl.collectVariableNames(Set)"})
   public void testCollectVariableNames_thenHashSetContainsVariableName() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1370,6 +2014,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#collectVariableNames(Set)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Set VariableScopeImpl.collectVariableNames(Set)"})
   public void testCollectVariableNames_thenHashSetEmpty() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1397,6 +2043,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariableNames()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Set VariableScopeImpl.getVariableNames()"})
   public void testGetVariableNames_givenCreateWithEmptyRelationshipCollections_thenReturnEmpty() {
     // Arrange, Act and Assert
     assertTrue(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getVariableNames().isEmpty());
@@ -1412,6 +2060,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariableNames()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Set VariableScopeImpl.getVariableNames()"})
   public void testGetVariableNames_givenExecutionEntityImpl_thenThrowActivitiException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> (new ExecutionEntityImpl()).getVariableNames());
@@ -1426,6 +2076,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariableNames()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Set VariableScopeImpl.getVariableNames()"})
   public void testGetVariableNames_thenReturnSizeIsOne() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1441,13 +2093,13 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariablesLocal(Collection, boolean)} with
-   * {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#getVariablesLocal(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariablesLocal(Collection, boolean)}
+   * Method under test: {@link VariableScopeImpl#getVariablesLocal(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariablesLocal(Collection, boolean)"})
   public void testGetVariablesLocalWithVariableNamesFetchAllVariables() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = new ExecutionEntityImpl();
@@ -1457,13 +2109,13 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariablesLocal(Collection, boolean)} with
-   * {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#getVariablesLocal(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariablesLocal(Collection, boolean)}
+   * Method under test: {@link VariableScopeImpl#getVariablesLocal(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariablesLocal(Collection, boolean)"})
   public void testGetVariablesLocalWithVariableNamesFetchAllVariables2() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1483,13 +2135,13 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariablesLocal(Collection, boolean)} with
-   * {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#getVariablesLocal(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariablesLocal(Collection, boolean)}
+   * Method under test: {@link VariableScopeImpl#getVariablesLocal(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariablesLocal(Collection, boolean)"})
   public void testGetVariablesLocalWithVariableNamesFetchAllVariables3() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1509,16 +2161,16 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariablesLocal(Collection, boolean)} with
-   * {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#getVariablesLocal(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariablesLocal(Collection, boolean)}
+   * Method under test: {@link VariableScopeImpl#getVariablesLocal(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariablesLocal(Collection, boolean)"})
   public void testGetVariablesLocalWithVariableNamesFetchAllVariables_thenReturnEmpty() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1529,16 +2181,16 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariablesLocal(Collection, boolean)} with
-   * {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#getVariablesLocal(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariablesLocal(Collection, boolean)}
+   * Method under test: {@link VariableScopeImpl#getVariablesLocal(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariablesLocal(Collection, boolean)"})
   public void testGetVariablesLocalWithVariableNamesFetchAllVariables_thenReturnEmpty2() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1550,16 +2202,16 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariablesLocal(Collection, boolean)} with
-   * {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#getVariablesLocal(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <ul>
    *   <li>Then return {@code foo} is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariablesLocal(Collection, boolean)}
+   * Method under test: {@link VariableScopeImpl#getVariablesLocal(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariablesLocal(Collection, boolean)"})
   public void testGetVariablesLocalWithVariableNamesFetchAllVariables_thenReturnFooIsNull() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1578,16 +2230,16 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariablesLocal(Collection, boolean)} with
-   * {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#getVariablesLocal(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <ul>
    *   <li>Then return size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariablesLocal(Collection, boolean)}
+   * Method under test: {@link VariableScopeImpl#getVariablesLocal(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariablesLocal(Collection, boolean)"})
   public void testGetVariablesLocalWithVariableNamesFetchAllVariables_thenReturnSizeIsTwo() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1608,8 +2260,7 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariablesLocal(Collection)} with
-   * {@code variableNames}.
+   * Test {@link VariableScopeImpl#getVariablesLocal(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Given {@code foo}.</li>
    *   <li>Then return {@code foo} is {@code null}.</li>
@@ -1618,6 +2269,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariablesLocal(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariablesLocal(Collection)"})
   public void testGetVariablesLocalWithVariableNames_givenFoo_thenReturnFooIsNull() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1636,8 +2289,7 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariablesLocal(Collection)} with
-   * {@code variableNames}.
+   * Test {@link VariableScopeImpl#getVariablesLocal(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Given {@code foo}.</li>
    *   <li>Then return size is two.</li>
@@ -1646,6 +2298,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariablesLocal(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariablesLocal(Collection)"})
   public void testGetVariablesLocalWithVariableNames_givenFoo_thenReturnSizeIsTwo() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1666,8 +2320,7 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariablesLocal(Collection)} with
-   * {@code variableNames}.
+   * Test {@link VariableScopeImpl#getVariablesLocal(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Then return {@code 42} is {@code null}.</li>
    * </ul>
@@ -1675,6 +2328,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariablesLocal(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariablesLocal(Collection)"})
   public void testGetVariablesLocalWithVariableNames_thenReturn42IsNull() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1694,8 +2349,7 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariablesLocal(Collection)} with
-   * {@code variableNames}.
+   * Test {@link VariableScopeImpl#getVariablesLocal(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Then return containsKey {@code 42}.</li>
    * </ul>
@@ -1703,6 +2357,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariablesLocal(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariablesLocal(Collection)"})
   public void testGetVariablesLocalWithVariableNames_thenReturnContainsKey42() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1722,8 +2378,7 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariablesLocal(Collection)} with
-   * {@code variableNames}.
+   * Test {@link VariableScopeImpl#getVariablesLocal(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
@@ -1731,6 +2386,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariablesLocal(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariablesLocal(Collection)"})
   public void testGetVariablesLocalWithVariableNames_thenReturnEmpty() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1741,8 +2398,7 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariablesLocal(Collection)} with
-   * {@code variableNames}.
+   * Test {@link VariableScopeImpl#getVariablesLocal(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
@@ -1750,6 +2406,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariablesLocal(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariablesLocal(Collection)"})
   public void testGetVariablesLocalWithVariableNames_thenReturnEmpty2() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1761,8 +2419,7 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariablesLocal(Collection)} with
-   * {@code variableNames}.
+   * Test {@link VariableScopeImpl#getVariablesLocal(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
@@ -1770,6 +2427,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariablesLocal(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariablesLocal(Collection)"})
   public void testGetVariablesLocalWithVariableNames_thenThrowActivitiException() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = new ExecutionEntityImpl();
@@ -1788,6 +2447,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariablesLocal()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariablesLocal()"})
   public void testGetVariablesLocal_givenExecutionEntityImpl_thenThrowActivitiException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> (new ExecutionEntityImpl()).getVariablesLocal());
@@ -1802,6 +2463,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariablesLocal()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariablesLocal()"})
   public void testGetVariablesLocal_thenReturnEmpty() {
     // Arrange, Act and Assert
     assertTrue(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getVariablesLocal().isEmpty());
@@ -1816,6 +2479,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariablesLocal()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariablesLocal()"})
   public void testGetVariablesLocal_thenReturnSizeIsOne() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1836,6 +2501,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariableInstancesLocal()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstancesLocal()"})
   public void testGetVariableInstancesLocal() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1848,13 +2515,13 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstancesLocal(Collection)} with
-   * {@code variableNames}.
+   * Test {@link VariableScopeImpl#getVariableInstancesLocal(Collection)} with {@code variableNames}.
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariableInstancesLocal(Collection)}
+   * Method under test: {@link VariableScopeImpl#getVariableInstancesLocal(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstancesLocal(Collection)"})
   public void testGetVariableInstancesLocalWithVariableNames() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1870,13 +2537,13 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstancesLocal(Collection, boolean)}
-   * with {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#getVariableInstancesLocal(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariableInstancesLocal(Collection, boolean)}
+   * Method under test: {@link VariableScopeImpl#getVariableInstancesLocal(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstancesLocal(Collection, boolean)"})
   public void testGetVariableInstancesLocalWithVariableNamesFetchAllVariables() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = new ExecutionEntityImpl();
@@ -1886,13 +2553,13 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstancesLocal(Collection, boolean)}
-   * with {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#getVariableInstancesLocal(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariableInstancesLocal(Collection, boolean)}
+   * Method under test: {@link VariableScopeImpl#getVariableInstancesLocal(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstancesLocal(Collection, boolean)"})
   public void testGetVariableInstancesLocalWithVariableNamesFetchAllVariables2() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1911,13 +2578,13 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstancesLocal(Collection, boolean)}
-   * with {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#getVariableInstancesLocal(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariableInstancesLocal(Collection, boolean)}
+   * Method under test: {@link VariableScopeImpl#getVariableInstancesLocal(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstancesLocal(Collection, boolean)"})
   public void testGetVariableInstancesLocalWithVariableNamesFetchAllVariables3() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1938,13 +2605,13 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstancesLocal(Collection, boolean)}
-   * with {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#getVariableInstancesLocal(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariableInstancesLocal(Collection, boolean)}
+   * Method under test: {@link VariableScopeImpl#getVariableInstancesLocal(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstancesLocal(Collection, boolean)"})
   public void testGetVariableInstancesLocalWithVariableNamesFetchAllVariables4() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1964,13 +2631,13 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstancesLocal(Collection, boolean)}
-   * with {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#getVariableInstancesLocal(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariableInstancesLocal(Collection, boolean)}
+   * Method under test: {@link VariableScopeImpl#getVariableInstancesLocal(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstancesLocal(Collection, boolean)"})
   public void testGetVariableInstancesLocalWithVariableNamesFetchAllVariables5() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1986,16 +2653,16 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstancesLocal(Collection, boolean)}
-   * with {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#getVariableInstancesLocal(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariableInstancesLocal(Collection, boolean)}
+   * Method under test: {@link VariableScopeImpl#getVariableInstancesLocal(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstancesLocal(Collection, boolean)"})
   public void testGetVariableInstancesLocalWithVariableNamesFetchAllVariables_thenReturnEmpty() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -2007,16 +2674,16 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstancesLocal(Collection, boolean)}
-   * with {@code variableNames}, {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#getVariableInstancesLocal(Collection, boolean)} with {@code variableNames}, {@code fetchAllVariables}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariableInstancesLocal(Collection, boolean)}
+   * Method under test: {@link VariableScopeImpl#getVariableInstancesLocal(Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstancesLocal(Collection, boolean)"})
   public void testGetVariableInstancesLocalWithVariableNamesFetchAllVariables_thenReturnEmpty2() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -2029,17 +2696,17 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstancesLocal(Collection)} with
-   * {@code variableNames}.
+   * Test {@link VariableScopeImpl#getVariableInstancesLocal(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Given {@code foo}.</li>
    *   <li>Then return size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariableInstancesLocal(Collection)}
+   * Method under test: {@link VariableScopeImpl#getVariableInstancesLocal(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstancesLocal(Collection)"})
   public void testGetVariableInstancesLocalWithVariableNames_givenFoo_thenReturnSizeIsOne() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -2058,17 +2725,17 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstancesLocal(Collection)} with
-   * {@code variableNames}.
+   * Test {@link VariableScopeImpl#getVariableInstancesLocal(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Given {@code foo}.</li>
    *   <li>Then return size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariableInstancesLocal(Collection)}
+   * Method under test: {@link VariableScopeImpl#getVariableInstancesLocal(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstancesLocal(Collection)"})
   public void testGetVariableInstancesLocalWithVariableNames_givenFoo_thenReturnSizeIsTwo() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -2089,16 +2756,16 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstancesLocal(Collection)} with
-   * {@code variableNames}.
+   * Test {@link VariableScopeImpl#getVariableInstancesLocal(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariableInstancesLocal(Collection)}
+   * Method under test: {@link VariableScopeImpl#getVariableInstancesLocal(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstancesLocal(Collection)"})
   public void testGetVariableInstancesLocalWithVariableNames_thenReturnEmpty() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -2109,16 +2776,16 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstancesLocal(Collection)} with
-   * {@code variableNames}.
+   * Test {@link VariableScopeImpl#getVariableInstancesLocal(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariableInstancesLocal(Collection)}
+   * Method under test: {@link VariableScopeImpl#getVariableInstancesLocal(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstancesLocal(Collection)"})
   public void testGetVariableInstancesLocalWithVariableNames_thenReturnEmpty2() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -2130,16 +2797,16 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstancesLocal(Collection)} with
-   * {@code variableNames}.
+   * Test {@link VariableScopeImpl#getVariableInstancesLocal(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Then return size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariableInstancesLocal(Collection)}
+   * Method under test: {@link VariableScopeImpl#getVariableInstancesLocal(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstancesLocal(Collection)"})
   public void testGetVariableInstancesLocalWithVariableNames_thenReturnSizeIsOne() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -2159,16 +2826,16 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#getVariableInstancesLocal(Collection)} with
-   * {@code variableNames}.
+   * Test {@link VariableScopeImpl#getVariableInstancesLocal(Collection)} with {@code variableNames}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getVariableInstancesLocal(Collection)}
+   * Method under test: {@link VariableScopeImpl#getVariableInstancesLocal(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstancesLocal(Collection)"})
   public void testGetVariableInstancesLocalWithVariableNames_thenThrowActivitiException() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = new ExecutionEntityImpl();
@@ -2186,6 +2853,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariableInstancesLocal()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstancesLocal()"})
   public void testGetVariableInstancesLocal_thenReturnEmpty() {
     // Arrange, Act and Assert
     assertTrue(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getVariableInstancesLocal().isEmpty());
@@ -2200,6 +2869,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariableInstancesLocal()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstancesLocal()"})
   public void testGetVariableInstancesLocal_thenThrowActivitiException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> (new ExecutionEntityImpl()).getVariableInstancesLocal());
@@ -2215,6 +2886,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariableNamesLocal()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Set VariableScopeImpl.getVariableNamesLocal()"})
   public void testGetVariableNamesLocal_givenExecutionEntityImpl_thenThrowActivitiException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> (new ExecutionEntityImpl()).getVariableNamesLocal());
@@ -2229,6 +2902,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariableNamesLocal()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Set VariableScopeImpl.getVariableNamesLocal()"})
   public void testGetVariableNamesLocal_thenReturnEmpty() {
     // Arrange, Act and Assert
     assertTrue(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getVariableNamesLocal().isEmpty());
@@ -2243,6 +2918,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariableNamesLocal()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Set VariableScopeImpl.getVariableNamesLocal()"})
   public void testGetVariableNamesLocal_thenReturnSizeIsOne() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -2259,30 +2936,16 @@ public class VariableScopeImplDiffblueTest {
 
   /**
    * Test {@link VariableScopeImpl#getVariableInstanceEntities()}.
-   * <p>
-   * Method under test: {@link VariableScopeImpl#getVariableInstanceEntities()}
-   */
-  @Test
-  public void testGetVariableInstanceEntities() {
-    // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    createWithEmptyRelationshipCollectionsResult.setLockTime(mock(Date.class));
-
-    // Act and Assert
-    assertTrue(createWithEmptyRelationshipCollectionsResult.getVariableInstanceEntities().isEmpty());
-  }
-
-  /**
-   * Test {@link VariableScopeImpl#getVariableInstanceEntities()}.
    * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
    * <p>
    * Method under test: {@link VariableScopeImpl#getVariableInstanceEntities()}
    */
   @Test
-  public void testGetVariableInstanceEntities_givenCreateWithEmptyRelationshipCollections() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstanceEntities()"})
+  public void testGetVariableInstanceEntities_thenReturnEmpty() {
     // Arrange, Act and Assert
     assertTrue(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getVariableInstanceEntities().isEmpty());
   }
@@ -2296,6 +2959,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getVariableInstanceEntities()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getVariableInstanceEntities()"})
   public void testGetVariableInstanceEntities_thenThrowActivitiException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> (new ExecutionEntityImpl()).getVariableInstanceEntities());
@@ -2307,26 +2972,9 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getUsedVariablesCache()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getUsedVariablesCache()"})
   public void testGetUsedVariablesCache() {
-    // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    createWithEmptyRelationshipCollectionsResult.setLockTime(mock(Date.class));
-
-    // Act and Assert
-    assertTrue(createWithEmptyRelationshipCollectionsResult.getUsedVariablesCache().isEmpty());
-  }
-
-  /**
-   * Test {@link VariableScopeImpl#getUsedVariablesCache()}.
-   * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableScopeImpl#getUsedVariablesCache()}
-   */
-  @Test
-  public void testGetUsedVariablesCache_givenCreateWithEmptyRelationshipCollections() {
     // Arrange, Act and Assert
     assertTrue(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getUsedVariablesCache().isEmpty());
   }
@@ -2341,6 +2989,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#createVariablesLocal(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.createVariablesLocal(Map)"})
   public void testCreateVariablesLocal_givenExecutionEntityImpl_thenThrowActivitiException() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = new ExecutionEntityImpl();
@@ -2362,6 +3012,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#setVariables(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.setVariables(Map)"})
   public void testSetVariables_givenExecutionEntityImpl_thenThrowActivitiException() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = new ExecutionEntityImpl();
@@ -2383,6 +3035,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#setVariablesLocal(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.setVariablesLocal(Map)"})
   public void testSetVariablesLocal_givenExecutionEntityImpl_thenThrowActivitiException() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = new ExecutionEntityImpl();
@@ -2395,8 +3049,7 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#removeVariables(Collection)} with
-   * {@code Collection}.
+   * Test {@link VariableScopeImpl#removeVariables(Collection)} with {@code Collection}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
@@ -2404,6 +3057,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#removeVariables(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.removeVariables(Collection)"})
   public void testRemoveVariablesWithCollection_thenThrowActivitiException() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = new ExecutionEntityImpl();
@@ -2425,14 +3080,15 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#removeVariables()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.removeVariables()"})
   public void testRemoveVariables_givenExecutionEntityImpl_thenThrowActivitiException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> (new ExecutionEntityImpl()).removeVariables());
   }
 
   /**
-   * Test {@link VariableScopeImpl#removeVariablesLocal(Collection)} with
-   * {@code Collection}.
+   * Test {@link VariableScopeImpl#removeVariablesLocal(Collection)} with {@code Collection}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
@@ -2440,6 +3096,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#removeVariablesLocal(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.removeVariablesLocal(Collection)"})
   public void testRemoveVariablesLocalWithCollection_thenThrowActivitiException() {
     // Arrange
     ExecutionEntityImpl executionEntityImpl = new ExecutionEntityImpl();
@@ -2461,177 +3119,316 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#removeVariablesLocal()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.removeVariablesLocal()"})
   public void testRemoveVariablesLocal_givenExecutionEntityImpl_thenThrowActivitiException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class, () -> (new ExecutionEntityImpl()).removeVariablesLocal());
   }
 
   /**
-   * Test {@link VariableScopeImpl#setVariable(String, Object)} with
-   * {@code variableName}, {@code value}.
+   * Test {@link VariableScopeImpl#setVariable(String, Object)} with {@code variableName}, {@code value}.
    * <p>
    * Method under test: {@link VariableScopeImpl#setVariable(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.setVariable(String, Object)"})
   public void testSetVariableWithVariableNameValue() {
-    // Arrange, Act and Assert
+    // Arrange
+    ExecutionEntityImpl executionEntityImpl = new ExecutionEntityImpl();
+    executionEntityImpl.setTransientVariableLocal("lazy loading outside command context", JSONObject.NULL);
+
+    // Act and Assert
     assertThrows(ActivitiException.class, () -> executionEntityImpl.setVariable("Variable Name", JSONObject.NULL));
   }
 
   /**
-   * Test {@link VariableScopeImpl#setVariable(String, Object, boolean)} with
-   * {@code variableName}, {@code value}, {@code fetchAllVariables}.
-   * <ul>
-   *   <li>Then throw {@link ActivitiException}.</li>
-   * </ul>
+   * Test {@link VariableScopeImpl#setVariable(String, Object)} with {@code variableName}, {@code value}.
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#setVariable(String, Object, boolean)}
+   * Method under test: {@link VariableScopeImpl#setVariable(String, Object)}
    */
   @Test
-  public void testSetVariableWithVariableNameValueFetchAllVariables_thenThrowActivitiException() {
-    // Arrange, Act and Assert
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.setVariable(String, Object)"})
+  public void testSetVariableWithVariableNameValue2() {
+    // Arrange
+    ExecutionEntityImpl executionEntityImpl = new ExecutionEntityImpl();
+    executionEntityImpl.setTransientVariableLocal("Variable Name", JSONObject.NULL);
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> executionEntityImpl.setVariable("Variable Name", JSONObject.NULL));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#setVariable(String, Object, boolean)} with {@code variableName}, {@code value}, {@code fetchAllVariables}.
+   * <p>
+   * Method under test: {@link VariableScopeImpl#setVariable(String, Object, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.setVariable(String, Object, boolean)"})
+  public void testSetVariableWithVariableNameValueFetchAllVariables() {
+    // Arrange
+    ExecutionEntityImpl executionEntityImpl = new ExecutionEntityImpl();
+    executionEntityImpl.setTransientVariableLocal("lazy loading outside command context", JSONObject.NULL);
+
+    // Act and Assert
     assertThrows(ActivitiException.class,
         () -> executionEntityImpl.setVariable("Variable Name", JSONObject.NULL, true));
   }
 
   /**
-   * Test
-   * {@link VariableScopeImpl#setVariable(String, Object, ExecutionEntity, boolean)}
-   * with {@code variableName}, {@code value}, {@code sourceExecution},
-   * {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#setVariable(String, Object, boolean)} with {@code variableName}, {@code value}, {@code fetchAllVariables}.
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#setVariable(String, Object, ExecutionEntity, boolean)}
+   * Method under test: {@link VariableScopeImpl#setVariable(String, Object, boolean)}
    */
   @Test
-  public void testSetVariableWithVariableNameValueSourceExecutionFetchAllVariables() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.setVariable(String, Object, boolean)"})
+  public void testSetVariableWithVariableNameValueFetchAllVariables2() {
+    // Arrange
+    ExecutionEntityImpl executionEntityImpl = new ExecutionEntityImpl();
+    executionEntityImpl.setTransientVariableLocal("Variable Name", JSONObject.NULL);
+
+    // Act and Assert
+    assertThrows(ActivitiException.class,
+        () -> executionEntityImpl.setVariable("Variable Name", JSONObject.NULL, true));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#setVariable(String, Object, boolean)} with {@code variableName}, {@code value}, {@code fetchAllVariables}.
+   * <ul>
+   *   <li>Given {@link ExecutionEntityImpl} (default constructor).</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableScopeImpl#setVariable(String, Object, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.setVariable(String, Object, boolean)"})
+  public void testSetVariableWithVariableNameValueFetchAllVariables_givenExecutionEntityImpl() {
     // Arrange, Act and Assert
+    assertThrows(ActivitiException.class,
+        () -> (new ExecutionEntityImpl()).setVariable("Variable Name", JSONObject.NULL, true));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#setVariable(String, Object, ExecutionEntity, boolean)} with {@code variableName}, {@code value}, {@code sourceExecution}, {@code fetchAllVariables}.
+   * <p>
+   * Method under test: {@link VariableScopeImpl#setVariable(String, Object, ExecutionEntity, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.setVariable(String, Object, ExecutionEntity, boolean)"})
+  public void testSetVariableWithVariableNameValueSourceExecutionFetchAllVariables() {
+    // Arrange
+    ExecutionEntityImpl executionEntityImpl = new ExecutionEntityImpl();
+
+    // Act and Assert
     assertThrows(ActivitiException.class, () -> executionEntityImpl.setVariable("Variable Name", JSONObject.NULL,
         ExecutionEntityImpl.createWithEmptyRelationshipCollections(), true));
   }
 
   /**
-   * Test {@link VariableScopeImpl#setVariableLocal(String, Object)} with
-   * {@code variableName}, {@code value}.
+   * Test {@link VariableScopeImpl#setVariable(String, Object, ExecutionEntity, boolean)} with {@code variableName}, {@code value}, {@code sourceExecution}, {@code fetchAllVariables}.
    * <p>
-   * Method under test: {@link VariableScopeImpl#setVariableLocal(String, Object)}
+   * Method under test: {@link VariableScopeImpl#setVariable(String, Object, ExecutionEntity, boolean)}
    */
   @Test
-  public void testSetVariableLocalWithVariableNameValue() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiException.class, () -> executionEntityImpl.setVariableLocal("Variable Name", JSONObject.NULL));
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.setVariable(String, Object, ExecutionEntity, boolean)"})
+  public void testSetVariableWithVariableNameValueSourceExecutionFetchAllVariables2() {
+    // Arrange
+    ExecutionEntityImpl executionEntityImpl = new ExecutionEntityImpl();
+    executionEntityImpl.setTransientVariableLocal("lazy loading outside command context", JSONObject.NULL);
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> executionEntityImpl.setVariable("Variable Name", JSONObject.NULL,
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections(), true));
   }
 
   /**
-   * Test {@link VariableScopeImpl#setVariableLocal(String, Object, boolean)} with
-   * {@code variableName}, {@code value}, {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#setVariable(String, Object, ExecutionEntity, boolean)} with {@code variableName}, {@code value}, {@code sourceExecution}, {@code fetchAllVariables}.
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#setVariableLocal(String, Object, boolean)}
+   * Method under test: {@link VariableScopeImpl#setVariable(String, Object, ExecutionEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.setVariable(String, Object, ExecutionEntity, boolean)"})
+  public void testSetVariableWithVariableNameValueSourceExecutionFetchAllVariables3() {
+    // Arrange
+    ExecutionEntityImpl executionEntityImpl = new ExecutionEntityImpl();
+    executionEntityImpl.setTransientVariableLocal("Variable Name", JSONObject.NULL);
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> executionEntityImpl.setVariable("Variable Name", JSONObject.NULL,
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections(), true));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#setVariable(String, Object)} with {@code variableName}, {@code value}.
+   * <ul>
+   *   <li>Given {@link ExecutionEntityImpl} (default constructor).</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableScopeImpl#setVariable(String, Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.setVariable(String, Object)"})
+  public void testSetVariableWithVariableNameValue_givenExecutionEntityImpl() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiException.class,
+        () -> (new ExecutionEntityImpl()).setVariable("Variable Name", JSONObject.NULL));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#setVariableLocal(String, Object, boolean)} with {@code variableName}, {@code value}, {@code fetchAllVariables}.
+   * <p>
+   * Method under test: {@link VariableScopeImpl#setVariableLocal(String, Object, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object VariableScopeImpl.setVariableLocal(String, Object, boolean)"})
   public void testSetVariableLocalWithVariableNameValueFetchAllVariables() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class,
-        () -> executionEntityImpl.setVariableLocal("Variable Name", JSONObject.NULL, true));
+        () -> (new ExecutionEntityImpl()).setVariableLocal("Variable Name", JSONObject.NULL, true));
   }
 
   /**
-   * Test
-   * {@link VariableScopeImpl#setVariableLocal(String, Object, ExecutionEntity, boolean)}
-   * with {@code variableName}, {@code value}, {@code sourceActivityExecution},
-   * {@code fetchAllVariables}.
+   * Test {@link VariableScopeImpl#setVariableLocal(String, Object, ExecutionEntity, boolean)} with {@code variableName}, {@code value}, {@code sourceActivityExecution}, {@code fetchAllVariables}.
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#setVariableLocal(String, Object, ExecutionEntity, boolean)}
+   * Method under test: {@link VariableScopeImpl#setVariableLocal(String, Object, ExecutionEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object VariableScopeImpl.setVariableLocal(String, Object, ExecutionEntity, boolean)"})
   public void testSetVariableLocalWithVariableNameValueSourceActivityExecutionFetchAllVariables() {
-    // Arrange, Act and Assert
+    // Arrange
+    ExecutionEntityImpl executionEntityImpl = new ExecutionEntityImpl();
+
+    // Act and Assert
     assertThrows(ActivitiException.class, () -> executionEntityImpl.setVariableLocal("Variable Name", JSONObject.NULL,
         ExecutionEntityImpl.createWithEmptyRelationshipCollections(), true));
   }
 
   /**
-   * Test {@link VariableScopeImpl#createVariableLocal(String, Object)} with
-   * {@code variableName}, {@code value}.
+   * Test {@link VariableScopeImpl#setVariableLocal(String, Object)} with {@code variableName}, {@code value}.
+   * <ul>
+   *   <li>Then throw {@link ActivitiException}.</li>
+   * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#createVariableLocal(String, Object)}
+   * Method under test: {@link VariableScopeImpl#setVariableLocal(String, Object)}
    */
   @Test
-  public void testCreateVariableLocalWithVariableNameValue() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object VariableScopeImpl.setVariableLocal(String, Object)"})
+  public void testSetVariableLocalWithVariableNameValue_thenThrowActivitiException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class,
-        () -> executionEntityImpl.createVariableLocal("Variable Name", JSONObject.NULL));
+        () -> (new ExecutionEntityImpl()).setVariableLocal("Variable Name", JSONObject.NULL));
   }
 
   /**
-   * Test
-   * {@link VariableScopeImpl#createVariableLocal(String, Object, ExecutionEntity)}
-   * with {@code variableName}, {@code value}, {@code sourceActivityExecution}.
+   * Test {@link VariableScopeImpl#createVariableLocal(String, Object, ExecutionEntity)} with {@code variableName}, {@code value}, {@code sourceActivityExecution}.
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#createVariableLocal(String, Object, ExecutionEntity)}
+   * Method under test: {@link VariableScopeImpl#createVariableLocal(String, Object, ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.createVariableLocal(String, Object, ExecutionEntity)"})
   public void testCreateVariableLocalWithVariableNameValueSourceActivityExecution() {
-    // Arrange, Act and Assert
+    // Arrange
+    ExecutionEntityImpl executionEntityImpl = new ExecutionEntityImpl();
+
+    // Act and Assert
     assertThrows(ActivitiException.class, () -> executionEntityImpl.createVariableLocal("Variable Name",
         JSONObject.NULL, ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
   }
 
   /**
-   * Test {@link VariableScopeImpl#removeVariable(String)} with
-   * {@code variableName}.
+   * Test {@link VariableScopeImpl#createVariableLocal(String, Object)} with {@code variableName}, {@code value}.
+   * <ul>
+   *   <li>Then throw {@link ActivitiException}.</li>
+   * </ul>
    * <p>
-   * Method under test: {@link VariableScopeImpl#removeVariable(String)}
+   * Method under test: {@link VariableScopeImpl#createVariableLocal(String, Object)}
    */
   @Test
-  public void testRemoveVariableWithVariableName() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.createVariableLocal(String, Object)"})
+  public void testCreateVariableLocalWithVariableNameValue_thenThrowActivitiException() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiException.class, () -> executionEntityImpl.removeVariable("Variable Name"));
+    assertThrows(ActivitiException.class,
+        () -> (new ExecutionEntityImpl()).createVariableLocal("Variable Name", JSONObject.NULL));
   }
 
   /**
-   * Test {@link VariableScopeImpl#removeVariable(String, ExecutionEntity)} with
-   * {@code variableName}, {@code sourceActivityExecution}.
+   * Test {@link VariableScopeImpl#removeVariable(String, ExecutionEntity)} with {@code variableName}, {@code sourceActivityExecution}.
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#removeVariable(String, ExecutionEntity)}
+   * Method under test: {@link VariableScopeImpl#removeVariable(String, ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.removeVariable(String, ExecutionEntity)"})
   public void testRemoveVariableWithVariableNameSourceActivityExecution() {
-    // Arrange, Act and Assert
+    // Arrange
+    ExecutionEntityImpl executionEntityImpl = new ExecutionEntityImpl();
+
+    // Act and Assert
     assertThrows(ActivitiException.class, () -> executionEntityImpl.removeVariable("Variable Name",
         ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
   }
 
   /**
-   * Test {@link VariableScopeImpl#removeVariableLocal(String)} with
-   * {@code variableName}.
+   * Test {@link VariableScopeImpl#removeVariable(String)} with {@code variableName}.
+   * <ul>
+   *   <li>Then throw {@link ActivitiException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link VariableScopeImpl#removeVariable(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.removeVariable(String)"})
+  public void testRemoveVariableWithVariableName_thenThrowActivitiException() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiException.class, () -> (new ExecutionEntityImpl()).removeVariable("Variable Name"));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#removeVariableLocal(String, ExecutionEntity)} with {@code variableName}, {@code sourceActivityExecution}.
+   * <p>
+   * Method under test: {@link VariableScopeImpl#removeVariableLocal(String, ExecutionEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.removeVariableLocal(String, ExecutionEntity)"})
+  public void testRemoveVariableLocalWithVariableNameSourceActivityExecution() {
+    // Arrange
+    ExecutionEntityImpl executionEntityImpl = new ExecutionEntityImpl();
+
+    // Act and Assert
+    assertThrows(ActivitiException.class, () -> executionEntityImpl.removeVariableLocal("Variable Name",
+        ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+  }
+
+  /**
+   * Test {@link VariableScopeImpl#removeVariableLocal(String)} with {@code variableName}.
+   * <ul>
+   *   <li>Then throw {@link ActivitiException}.</li>
+   * </ul>
    * <p>
    * Method under test: {@link VariableScopeImpl#removeVariableLocal(String)}
    */
   @Test
-  public void testRemoveVariableLocalWithVariableName() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.removeVariableLocal(String)"})
+  public void testRemoveVariableLocalWithVariableName_thenThrowActivitiException() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiException.class, () -> executionEntityImpl.removeVariableLocal("Variable Name"));
-  }
-
-  /**
-   * Test {@link VariableScopeImpl#removeVariableLocal(String, ExecutionEntity)}
-   * with {@code variableName}, {@code sourceActivityExecution}.
-   * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#removeVariableLocal(String, ExecutionEntity)}
-   */
-  @Test
-  public void testRemoveVariableLocalWithVariableNameSourceActivityExecution() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiException.class, () -> executionEntityImpl.removeVariableLocal("Variable Name",
-        ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    assertThrows(ActivitiException.class, () -> (new ExecutionEntityImpl()).removeVariableLocal("Variable Name"));
   }
 
   /**
@@ -2640,6 +3437,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#setTransientVariablesLocal(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.setTransientVariablesLocal(Map)"})
   public void testSetTransientVariablesLocal() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -2664,6 +3463,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#setTransientVariablesLocal(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.setTransientVariablesLocal(Map)"})
   public void testSetTransientVariablesLocal2() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -2676,17 +3477,30 @@ public class VariableScopeImplDiffblueTest {
     createWithEmptyRelationshipCollectionsResult.setTransientVariablesLocal(transientVariables);
 
     // Assert
+    Map<String, Object> transientVariables2 = createWithEmptyRelationshipCollectionsResult.getTransientVariables();
+    assertEquals(1, transientVariables2.size());
+    Map<String, Object> transientVariablesLocal = createWithEmptyRelationshipCollectionsResult
+        .getTransientVariablesLocal();
+    assertEquals(1, transientVariablesLocal.size());
     Map<String, VariableInstance> variableInstances = createWithEmptyRelationshipCollectionsResult
         .getVariableInstances();
     assertEquals(1, variableInstances.size());
     Map<String, VariableInstance> variableInstancesLocal = createWithEmptyRelationshipCollectionsResult
         .getVariableInstancesLocal();
     assertEquals(1, variableInstancesLocal.size());
+    Map<String, Object> variables = createWithEmptyRelationshipCollectionsResult.getVariables();
+    assertEquals(1, variables.size());
+    Map<String, Object> variablesLocal = createWithEmptyRelationshipCollectionsResult.getVariablesLocal();
+    assertEquals(1, variablesLocal.size());
     Map<String, VariableInstance> stringVariableInstanceMap = createWithEmptyRelationshipCollectionsResult.transientVariabes;
     assertEquals(1, stringVariableInstanceMap.size());
     assertEquals(1, createWithEmptyRelationshipCollectionsResult.getVariableNames().size());
+    assertTrue(transientVariables2.containsKey("foo"));
+    assertTrue(transientVariablesLocal.containsKey("foo"));
     assertTrue(variableInstances.containsKey("foo"));
     assertTrue(variableInstancesLocal.containsKey("foo"));
+    assertTrue(variables.containsKey("foo"));
+    assertTrue(variablesLocal.containsKey("foo"));
     assertTrue(stringVariableInstanceMap.containsKey("foo"));
   }
 
@@ -2696,6 +3510,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#setTransientVariablesLocal(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.setTransientVariablesLocal(Map)"})
   public void testSetTransientVariablesLocal3() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -2714,37 +3530,32 @@ public class VariableScopeImplDiffblueTest {
     assertEquals(2, variableInstances.size());
     VariableInstance getResult = variableInstances.get("42");
     assertTrue(getResult instanceof TransientVariableInstance);
-    assertEquals("42", getResult.getName());
-    assertEquals("transient", getResult.getTypeName());
-    assertNull(getResult.getBytes());
-    assertNull(getResult.getDoubleValue());
-    assertNull(getResult.getLongValue());
-    assertNull(getResult.getPersistentState());
-    assertNull(getResult.getCachedValue());
-    assertNull(getResult.getId());
-    assertNull(getResult.getExecutionId());
-    assertNull(getResult.getProcessInstanceId());
-    assertNull(getResult.getTaskId());
-    assertNull(getResult.getTextValue());
-    assertNull(getResult.getTextValue2());
-    assertEquals(0, getResult.getRevision());
-    assertEquals(0, getResult.getRevisionNext());
-    assertEquals(2, createWithEmptyRelationshipCollectionsResult.getTransientVariables().size());
-    assertEquals(2, createWithEmptyRelationshipCollectionsResult.getTransientVariablesLocal().size());
+    Map<String, Object> transientVariables2 = createWithEmptyRelationshipCollectionsResult.getTransientVariables();
+    assertEquals(2, transientVariables2.size());
+    Map<String, Object> transientVariablesLocal = createWithEmptyRelationshipCollectionsResult
+        .getTransientVariablesLocal();
+    assertEquals(2, transientVariablesLocal.size());
     Map<String, VariableInstance> variableInstancesLocal = createWithEmptyRelationshipCollectionsResult
         .getVariableInstancesLocal();
     assertEquals(2, variableInstancesLocal.size());
-    assertEquals(2, createWithEmptyRelationshipCollectionsResult.getVariables().size());
-    assertEquals(2, createWithEmptyRelationshipCollectionsResult.getVariablesLocal().size());
+    Map<String, Object> variables = createWithEmptyRelationshipCollectionsResult.getVariables();
+    assertEquals(2, variables.size());
+    Map<String, Object> variablesLocal = createWithEmptyRelationshipCollectionsResult.getVariablesLocal();
+    assertEquals(2, variablesLocal.size());
     Map<String, VariableInstance> stringVariableInstanceMap = createWithEmptyRelationshipCollectionsResult.transientVariabes;
     assertEquals(2, stringVariableInstanceMap.size());
     Set<String> variableNames = createWithEmptyRelationshipCollectionsResult.getVariableNames();
     assertEquals(2, variableNames.size());
-    assertFalse(getResult.isDeleted());
-    assertFalse(getResult.isInserted());
-    assertFalse(getResult.isUpdated());
+    assertTrue(transientVariables2.containsKey("42"));
+    assertTrue(transientVariables2.containsKey("foo"));
+    assertTrue(transientVariablesLocal.containsKey("42"));
+    assertTrue(transientVariablesLocal.containsKey("foo"));
     assertTrue(variableInstances.containsKey("foo"));
     assertTrue(variableInstancesLocal.containsKey("foo"));
+    assertTrue(variables.containsKey("42"));
+    assertTrue(variables.containsKey("foo"));
+    assertTrue(variablesLocal.containsKey("42"));
+    assertTrue(variablesLocal.containsKey("foo"));
     assertTrue(stringVariableInstanceMap.containsKey("foo"));
     assertTrue(variableNames.contains("42"));
     assertSame(getResult, variableInstancesLocal.get("42"));
@@ -2752,48 +3563,13 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#setTransientVariablesLocal(Map)}.
-   * <ul>
-   *   <li>Given {@link BiFunction}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableScopeImpl#setTransientVariablesLocal(Map)}
-   */
-  @Test
-  public void testSetTransientVariablesLocal_givenBiFunction() {
-    // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-
-    HashMap<String, Object> transientVariables = new HashMap<>();
-    transientVariables.computeIfPresent("foo", mock(BiFunction.class));
-    transientVariables.put("foo", JSONObject.NULL);
-
-    // Act
-    createWithEmptyRelationshipCollectionsResult.setTransientVariablesLocal(transientVariables);
-
-    // Assert
-    Map<String, VariableInstance> variableInstances = createWithEmptyRelationshipCollectionsResult
-        .getVariableInstances();
-    assertEquals(1, variableInstances.size());
-    Map<String, VariableInstance> variableInstancesLocal = createWithEmptyRelationshipCollectionsResult
-        .getVariableInstancesLocal();
-    assertEquals(1, variableInstancesLocal.size());
-    Map<String, VariableInstance> stringVariableInstanceMap = createWithEmptyRelationshipCollectionsResult.transientVariabes;
-    assertEquals(1, stringVariableInstanceMap.size());
-    assertEquals(1, createWithEmptyRelationshipCollectionsResult.getVariableNames().size());
-    assertTrue(variableInstances.containsKey("foo"));
-    assertTrue(variableInstancesLocal.containsKey("foo"));
-    assertTrue(stringVariableInstanceMap.containsKey("foo"));
-  }
-
-  /**
    * Test {@link VariableScopeImpl#setTransientVariableLocal(String, Object)}.
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#setTransientVariableLocal(String, Object)}
+   * Method under test: {@link VariableScopeImpl#setTransientVariableLocal(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.setTransientVariableLocal(String, Object)"})
   public void testSetTransientVariableLocal() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -2804,26 +3580,27 @@ public class VariableScopeImplDiffblueTest {
     createWithEmptyRelationshipCollectionsResult.setTransientVariableLocal("Variable Name", object);
 
     // Assert
+    Map<String, VariableInstance> variableInstances = createWithEmptyRelationshipCollectionsResult
+        .getVariableInstances();
+    assertEquals(1, variableInstances.size());
+    VariableInstance getResult = variableInstances.get("Variable Name");
+    assertTrue(getResult instanceof TransientVariableInstance);
     Map<String, Object> transientVariables = createWithEmptyRelationshipCollectionsResult.getTransientVariables();
     assertEquals(1, transientVariables.size());
-    Map<String, Object> transientVariablesLocal = createWithEmptyRelationshipCollectionsResult
-        .getTransientVariablesLocal();
-    assertEquals(1, transientVariablesLocal.size());
-    assertEquals(1, createWithEmptyRelationshipCollectionsResult.getVariableInstancesLocal().size());
-    Map<String, Object> variables = createWithEmptyRelationshipCollectionsResult.getVariables();
-    assertEquals(1, variables.size());
-    Map<String, Object> variablesLocal = createWithEmptyRelationshipCollectionsResult.getVariablesLocal();
-    assertEquals(1, variablesLocal.size());
-    assertEquals(1, createWithEmptyRelationshipCollectionsResult.transientVariabes.size());
+    Map<String, VariableInstance> variableInstancesLocal = createWithEmptyRelationshipCollectionsResult
+        .getVariableInstancesLocal();
+    assertEquals(1, variableInstancesLocal.size());
+    Map<String, VariableInstance> stringVariableInstanceMap = createWithEmptyRelationshipCollectionsResult.transientVariabes;
+    assertEquals(1, stringVariableInstanceMap.size());
     Set<String> variableNames = createWithEmptyRelationshipCollectionsResult.getVariableNames();
     assertEquals(1, variableNames.size());
     assertTrue(variableNames.contains("Variable Name"));
-    Map<String, VariableInstance> expectedVariableInstances = createWithEmptyRelationshipCollectionsResult.transientVariabes;
-    assertEquals(expectedVariableInstances, createWithEmptyRelationshipCollectionsResult.getVariableInstances());
+    assertEquals(transientVariables, createWithEmptyRelationshipCollectionsResult.getTransientVariablesLocal());
+    assertEquals(transientVariables, createWithEmptyRelationshipCollectionsResult.getVariables());
+    assertEquals(transientVariables, createWithEmptyRelationshipCollectionsResult.getVariablesLocal());
     assertSame(object, transientVariables.get("Variable Name"));
-    assertSame(object, transientVariablesLocal.get("Variable Name"));
-    assertSame(object, variables.get("Variable Name"));
-    assertSame(object, variablesLocal.get("Variable Name"));
+    assertSame(getResult, variableInstancesLocal.get("Variable Name"));
+    assertSame(getResult, stringVariableInstanceMap.get("Variable Name"));
   }
 
   /**
@@ -2832,6 +3609,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#setTransientVariables(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.setTransientVariables(Map)"})
   public void testSetTransientVariables() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -2856,6 +3635,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#setTransientVariables(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.setTransientVariables(Map)"})
   public void testSetTransientVariables2() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -2868,17 +3649,30 @@ public class VariableScopeImplDiffblueTest {
     createWithEmptyRelationshipCollectionsResult.setTransientVariables(transientVariables);
 
     // Assert
+    Map<String, Object> transientVariables2 = createWithEmptyRelationshipCollectionsResult.getTransientVariables();
+    assertEquals(1, transientVariables2.size());
+    Map<String, Object> transientVariablesLocal = createWithEmptyRelationshipCollectionsResult
+        .getTransientVariablesLocal();
+    assertEquals(1, transientVariablesLocal.size());
     Map<String, VariableInstance> variableInstances = createWithEmptyRelationshipCollectionsResult
         .getVariableInstances();
     assertEquals(1, variableInstances.size());
     Map<String, VariableInstance> variableInstancesLocal = createWithEmptyRelationshipCollectionsResult
         .getVariableInstancesLocal();
     assertEquals(1, variableInstancesLocal.size());
+    Map<String, Object> variables = createWithEmptyRelationshipCollectionsResult.getVariables();
+    assertEquals(1, variables.size());
+    Map<String, Object> variablesLocal = createWithEmptyRelationshipCollectionsResult.getVariablesLocal();
+    assertEquals(1, variablesLocal.size());
     Map<String, VariableInstance> stringVariableInstanceMap = createWithEmptyRelationshipCollectionsResult.transientVariabes;
     assertEquals(1, stringVariableInstanceMap.size());
     assertEquals(1, createWithEmptyRelationshipCollectionsResult.getVariableNames().size());
+    assertTrue(transientVariables2.containsKey("foo"));
+    assertTrue(transientVariablesLocal.containsKey("foo"));
     assertTrue(variableInstances.containsKey("foo"));
     assertTrue(variableInstancesLocal.containsKey("foo"));
+    assertTrue(variables.containsKey("foo"));
+    assertTrue(variablesLocal.containsKey("foo"));
     assertTrue(stringVariableInstanceMap.containsKey("foo"));
   }
 
@@ -2888,6 +3682,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#setTransientVariables(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.setTransientVariables(Map)"})
   public void testSetTransientVariables3() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -2906,37 +3702,32 @@ public class VariableScopeImplDiffblueTest {
     assertEquals(2, variableInstances.size());
     VariableInstance getResult = variableInstances.get("42");
     assertTrue(getResult instanceof TransientVariableInstance);
-    assertEquals("42", getResult.getName());
-    assertEquals("transient", getResult.getTypeName());
-    assertNull(getResult.getBytes());
-    assertNull(getResult.getDoubleValue());
-    assertNull(getResult.getLongValue());
-    assertNull(getResult.getPersistentState());
-    assertNull(getResult.getCachedValue());
-    assertNull(getResult.getId());
-    assertNull(getResult.getExecutionId());
-    assertNull(getResult.getProcessInstanceId());
-    assertNull(getResult.getTaskId());
-    assertNull(getResult.getTextValue());
-    assertNull(getResult.getTextValue2());
-    assertEquals(0, getResult.getRevision());
-    assertEquals(0, getResult.getRevisionNext());
-    assertEquals(2, createWithEmptyRelationshipCollectionsResult.getTransientVariables().size());
-    assertEquals(2, createWithEmptyRelationshipCollectionsResult.getTransientVariablesLocal().size());
+    Map<String, Object> transientVariables2 = createWithEmptyRelationshipCollectionsResult.getTransientVariables();
+    assertEquals(2, transientVariables2.size());
+    Map<String, Object> transientVariablesLocal = createWithEmptyRelationshipCollectionsResult
+        .getTransientVariablesLocal();
+    assertEquals(2, transientVariablesLocal.size());
     Map<String, VariableInstance> variableInstancesLocal = createWithEmptyRelationshipCollectionsResult
         .getVariableInstancesLocal();
     assertEquals(2, variableInstancesLocal.size());
-    assertEquals(2, createWithEmptyRelationshipCollectionsResult.getVariables().size());
-    assertEquals(2, createWithEmptyRelationshipCollectionsResult.getVariablesLocal().size());
+    Map<String, Object> variables = createWithEmptyRelationshipCollectionsResult.getVariables();
+    assertEquals(2, variables.size());
+    Map<String, Object> variablesLocal = createWithEmptyRelationshipCollectionsResult.getVariablesLocal();
+    assertEquals(2, variablesLocal.size());
     Map<String, VariableInstance> stringVariableInstanceMap = createWithEmptyRelationshipCollectionsResult.transientVariabes;
     assertEquals(2, stringVariableInstanceMap.size());
     Set<String> variableNames = createWithEmptyRelationshipCollectionsResult.getVariableNames();
     assertEquals(2, variableNames.size());
-    assertFalse(getResult.isDeleted());
-    assertFalse(getResult.isInserted());
-    assertFalse(getResult.isUpdated());
+    assertTrue(transientVariables2.containsKey("42"));
+    assertTrue(transientVariables2.containsKey("foo"));
+    assertTrue(transientVariablesLocal.containsKey("42"));
+    assertTrue(transientVariablesLocal.containsKey("foo"));
     assertTrue(variableInstances.containsKey("foo"));
     assertTrue(variableInstancesLocal.containsKey("foo"));
+    assertTrue(variables.containsKey("42"));
+    assertTrue(variables.containsKey("foo"));
+    assertTrue(variablesLocal.containsKey("42"));
+    assertTrue(variablesLocal.containsKey("foo"));
     assertTrue(stringVariableInstanceMap.containsKey("foo"));
     assertTrue(variableNames.contains("42"));
     assertSame(getResult, variableInstancesLocal.get("42"));
@@ -2944,48 +3735,13 @@ public class VariableScopeImplDiffblueTest {
   }
 
   /**
-   * Test {@link VariableScopeImpl#setTransientVariables(Map)}.
-   * <ul>
-   *   <li>Given {@link BiFunction}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableScopeImpl#setTransientVariables(Map)}
-   */
-  @Test
-  public void testSetTransientVariables_givenBiFunction() {
-    // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-
-    HashMap<String, Object> transientVariables = new HashMap<>();
-    transientVariables.computeIfPresent("foo", mock(BiFunction.class));
-    transientVariables.put("foo", JSONObject.NULL);
-
-    // Act
-    createWithEmptyRelationshipCollectionsResult.setTransientVariables(transientVariables);
-
-    // Assert
-    Map<String, VariableInstance> variableInstances = createWithEmptyRelationshipCollectionsResult
-        .getVariableInstances();
-    assertEquals(1, variableInstances.size());
-    Map<String, VariableInstance> variableInstancesLocal = createWithEmptyRelationshipCollectionsResult
-        .getVariableInstancesLocal();
-    assertEquals(1, variableInstancesLocal.size());
-    Map<String, VariableInstance> stringVariableInstanceMap = createWithEmptyRelationshipCollectionsResult.transientVariabes;
-    assertEquals(1, stringVariableInstanceMap.size());
-    assertEquals(1, createWithEmptyRelationshipCollectionsResult.getVariableNames().size());
-    assertTrue(variableInstances.containsKey("foo"));
-    assertTrue(variableInstancesLocal.containsKey("foo"));
-    assertTrue(stringVariableInstanceMap.containsKey("foo"));
-  }
-
-  /**
    * Test {@link VariableScopeImpl#setTransientVariable(String, Object)}.
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#setTransientVariable(String, Object)}
+   * Method under test: {@link VariableScopeImpl#setTransientVariable(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.setTransientVariable(String, Object)"})
   public void testSetTransientVariable() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -2996,27 +3752,28 @@ public class VariableScopeImplDiffblueTest {
     // Act
     createWithEmptyRelationshipCollectionsResult.setTransientVariable("Variable Name", object);
 
-    // Assert
+    // Assert that nothing has changed
+    Map<String, VariableInstance> variableInstances = createWithEmptyRelationshipCollectionsResult
+        .getVariableInstances();
+    assertEquals(1, variableInstances.size());
+    VariableInstance getResult = variableInstances.get("Variable Name");
+    assertTrue(getResult instanceof TransientVariableInstance);
     Map<String, Object> transientVariables = createWithEmptyRelationshipCollectionsResult.getTransientVariables();
     assertEquals(1, transientVariables.size());
-    Map<String, Object> transientVariablesLocal = createWithEmptyRelationshipCollectionsResult
-        .getTransientVariablesLocal();
-    assertEquals(1, transientVariablesLocal.size());
-    assertEquals(1, createWithEmptyRelationshipCollectionsResult.getVariableInstancesLocal().size());
-    Map<String, Object> variables = createWithEmptyRelationshipCollectionsResult.getVariables();
-    assertEquals(1, variables.size());
-    Map<String, Object> variablesLocal = createWithEmptyRelationshipCollectionsResult.getVariablesLocal();
-    assertEquals(1, variablesLocal.size());
-    assertEquals(1, createWithEmptyRelationshipCollectionsResult.transientVariabes.size());
+    Map<String, VariableInstance> variableInstancesLocal = createWithEmptyRelationshipCollectionsResult
+        .getVariableInstancesLocal();
+    assertEquals(1, variableInstancesLocal.size());
+    Map<String, VariableInstance> stringVariableInstanceMap = createWithEmptyRelationshipCollectionsResult.transientVariabes;
+    assertEquals(1, stringVariableInstanceMap.size());
     Set<String> variableNames = createWithEmptyRelationshipCollectionsResult.getVariableNames();
     assertEquals(1, variableNames.size());
     assertTrue(variableNames.contains("Variable Name"));
-    Map<String, VariableInstance> expectedVariableInstances = createWithEmptyRelationshipCollectionsResult.transientVariabes;
-    assertEquals(expectedVariableInstances, createWithEmptyRelationshipCollectionsResult.getVariableInstances());
+    assertEquals(transientVariables, createWithEmptyRelationshipCollectionsResult.getTransientVariablesLocal());
+    assertEquals(transientVariables, createWithEmptyRelationshipCollectionsResult.getVariables());
+    assertEquals(transientVariables, createWithEmptyRelationshipCollectionsResult.getVariablesLocal());
     assertSame(object, transientVariables.get("Variable Name"));
-    assertSame(object, transientVariablesLocal.get("Variable Name"));
-    assertSame(object, variables.get("Variable Name"));
-    assertSame(object, variablesLocal.get("Variable Name"));
+    assertSame(getResult, variableInstancesLocal.get("Variable Name"));
+    assertSame(getResult, stringVariableInstanceMap.get("Variable Name"));
   }
 
   /**
@@ -3025,10 +3782,11 @@ public class VariableScopeImplDiffblueTest {
    *   <li>Given createWithEmptyRelationshipCollections.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#setTransientVariable(String, Object)}
+   * Method under test: {@link VariableScopeImpl#setTransientVariable(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.setTransientVariable(String, Object)"})
   public void testSetTransientVariable_givenCreateWithEmptyRelationshipCollections() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -3039,26 +3797,27 @@ public class VariableScopeImplDiffblueTest {
     createWithEmptyRelationshipCollectionsResult.setTransientVariable("Variable Name", object);
 
     // Assert
+    Map<String, VariableInstance> variableInstances = createWithEmptyRelationshipCollectionsResult
+        .getVariableInstances();
+    assertEquals(1, variableInstances.size());
+    VariableInstance getResult = variableInstances.get("Variable Name");
+    assertTrue(getResult instanceof TransientVariableInstance);
     Map<String, Object> transientVariables = createWithEmptyRelationshipCollectionsResult.getTransientVariables();
     assertEquals(1, transientVariables.size());
-    Map<String, Object> transientVariablesLocal = createWithEmptyRelationshipCollectionsResult
-        .getTransientVariablesLocal();
-    assertEquals(1, transientVariablesLocal.size());
-    assertEquals(1, createWithEmptyRelationshipCollectionsResult.getVariableInstancesLocal().size());
-    Map<String, Object> variables = createWithEmptyRelationshipCollectionsResult.getVariables();
-    assertEquals(1, variables.size());
-    Map<String, Object> variablesLocal = createWithEmptyRelationshipCollectionsResult.getVariablesLocal();
-    assertEquals(1, variablesLocal.size());
-    assertEquals(1, createWithEmptyRelationshipCollectionsResult.transientVariabes.size());
+    Map<String, VariableInstance> variableInstancesLocal = createWithEmptyRelationshipCollectionsResult
+        .getVariableInstancesLocal();
+    assertEquals(1, variableInstancesLocal.size());
+    Map<String, VariableInstance> stringVariableInstanceMap = createWithEmptyRelationshipCollectionsResult.transientVariabes;
+    assertEquals(1, stringVariableInstanceMap.size());
     Set<String> variableNames = createWithEmptyRelationshipCollectionsResult.getVariableNames();
     assertEquals(1, variableNames.size());
     assertTrue(variableNames.contains("Variable Name"));
-    Map<String, VariableInstance> expectedVariableInstances = createWithEmptyRelationshipCollectionsResult.transientVariabes;
-    assertEquals(expectedVariableInstances, createWithEmptyRelationshipCollectionsResult.getVariableInstances());
+    assertEquals(transientVariables, createWithEmptyRelationshipCollectionsResult.getTransientVariablesLocal());
+    assertEquals(transientVariables, createWithEmptyRelationshipCollectionsResult.getVariables());
+    assertEquals(transientVariables, createWithEmptyRelationshipCollectionsResult.getVariablesLocal());
     assertSame(object, transientVariables.get("Variable Name"));
-    assertSame(object, transientVariablesLocal.get("Variable Name"));
-    assertSame(object, variables.get("Variable Name"));
-    assertSame(object, variablesLocal.get("Variable Name"));
+    assertSame(getResult, variableInstancesLocal.get("Variable Name"));
+    assertSame(getResult, stringVariableInstanceMap.get("Variable Name"));
   }
 
   /**
@@ -3067,10 +3826,11 @@ public class VariableScopeImplDiffblueTest {
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#getTransientVariableLocal(String)}
+   * Method under test: {@link VariableScopeImpl#getTransientVariableLocal(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object VariableScopeImpl.getTransientVariableLocal(String)"})
   public void testGetTransientVariableLocal_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getTransientVariableLocal("Variable Name"));
@@ -3078,30 +3838,16 @@ public class VariableScopeImplDiffblueTest {
 
   /**
    * Test {@link VariableScopeImpl#getTransientVariablesLocal()}.
-   * <p>
-   * Method under test: {@link VariableScopeImpl#getTransientVariablesLocal()}
-   */
-  @Test
-  public void testGetTransientVariablesLocal() {
-    // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    createWithEmptyRelationshipCollectionsResult.setLockTime(mock(Date.class));
-
-    // Act and Assert
-    assertTrue(createWithEmptyRelationshipCollectionsResult.getTransientVariablesLocal().isEmpty());
-  }
-
-  /**
-   * Test {@link VariableScopeImpl#getTransientVariablesLocal()}.
    * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
    * <p>
    * Method under test: {@link VariableScopeImpl#getTransientVariablesLocal()}
    */
   @Test
-  public void testGetTransientVariablesLocal_givenCreateWithEmptyRelationshipCollections() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getTransientVariablesLocal()"})
+  public void testGetTransientVariablesLocal_thenReturnEmpty() {
     // Arrange, Act and Assert
     assertTrue(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getTransientVariablesLocal().isEmpty());
   }
@@ -3115,6 +3861,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getTransientVariablesLocal()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getTransientVariablesLocal()"})
   public void testGetTransientVariablesLocal_thenReturnSizeIsOne() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -3136,6 +3884,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getTransientVariable(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object VariableScopeImpl.getTransientVariable(String)"})
   public void testGetTransientVariable() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -3155,6 +3905,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getTransientVariable(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object VariableScopeImpl.getTransientVariable(String)"})
   public void testGetTransientVariable_givenCreateWithEmptyRelationshipCollections() {
     // Arrange, Act and Assert
     assertNull(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getTransientVariable("Variable Name"));
@@ -3169,6 +3921,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getTransientVariables()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getTransientVariables()"})
   public void testGetTransientVariables_thenReturnEmpty() {
     // Arrange, Act and Assert
     assertTrue(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getTransientVariables().isEmpty());
@@ -3183,6 +3937,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#getTransientVariables()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.getTransientVariables()"})
   public void testGetTransientVariables_thenReturnSizeIsOne() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -3200,44 +3956,14 @@ public class VariableScopeImplDiffblueTest {
   /**
    * Test {@link VariableScopeImpl#collectTransientVariables(HashMap)}.
    * <ul>
-   *   <li>Given {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#collectTransientVariables(HashMap)}
-   */
-  @Test
-  public void testCollectTransientVariables_givenFoo() {
-    // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-
-    HashMap<String, Object> variables = new HashMap<>();
-    variables.computeIfPresent("foo", mock(BiFunction.class));
-
-    // Act
-    Map<String, Object> actualCollectTransientVariablesResult = createWithEmptyRelationshipCollectionsResult
-        .collectTransientVariables(variables);
-
-    // Assert
-    assertTrue(variables.isEmpty());
-    assertTrue(actualCollectTransientVariablesResult.isEmpty());
-    assertTrue(createWithEmptyRelationshipCollectionsResult.getTransientVariables().isEmpty());
-    assertTrue(createWithEmptyRelationshipCollectionsResult.getTransientVariablesLocal().isEmpty());
-    assertTrue(createWithEmptyRelationshipCollectionsResult.getVariables().isEmpty());
-    assertTrue(createWithEmptyRelationshipCollectionsResult.getVariablesLocal().isEmpty());
-  }
-
-  /**
-   * Test {@link VariableScopeImpl#collectTransientVariables(HashMap)}.
-   * <ul>
    *   <li>Then {@link HashMap#HashMap()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#collectTransientVariables(HashMap)}
+   * Method under test: {@link VariableScopeImpl#collectTransientVariables(HashMap)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.collectTransientVariables(HashMap)"})
   public void testCollectTransientVariables_thenHashMapEmpty() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -3263,10 +3989,11 @@ public class VariableScopeImplDiffblueTest {
    *   <li>Then {@link HashMap#HashMap()} size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#collectTransientVariables(HashMap)}
+   * Method under test: {@link VariableScopeImpl#collectTransientVariables(HashMap)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map VariableScopeImpl.collectTransientVariables(HashMap)"})
   public void testCollectTransientVariables_thenHashMapSizeIsOne() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -3280,32 +4007,22 @@ public class VariableScopeImplDiffblueTest {
 
     // Assert
     assertEquals(1, variables.size());
-    assertEquals(1, actualCollectTransientVariablesResult.size());
-    Map<String, Object> transientVariables = createWithEmptyRelationshipCollectionsResult.getTransientVariables();
-    assertEquals(1, transientVariables.size());
-    Map<String, Object> transientVariablesLocal = createWithEmptyRelationshipCollectionsResult
-        .getTransientVariablesLocal();
-    assertEquals(1, transientVariablesLocal.size());
-    Map<String, Object> variables2 = createWithEmptyRelationshipCollectionsResult.getVariables();
-    assertEquals(1, variables2.size());
-    Map<String, Object> variablesLocal = createWithEmptyRelationshipCollectionsResult.getVariablesLocal();
-    assertEquals(1, variablesLocal.size());
     assertTrue(variables.containsKey("Variable Name"));
-    assertTrue(actualCollectTransientVariablesResult.containsKey("Variable Name"));
-    assertTrue(transientVariables.containsKey("Variable Name"));
-    assertTrue(transientVariablesLocal.containsKey("Variable Name"));
-    assertTrue(variables2.containsKey("Variable Name"));
-    assertTrue(variablesLocal.containsKey("Variable Name"));
+    assertEquals(variables, createWithEmptyRelationshipCollectionsResult.getTransientVariables());
+    assertEquals(variables, createWithEmptyRelationshipCollectionsResult.getTransientVariablesLocal());
+    assertEquals(variables, createWithEmptyRelationshipCollectionsResult.getVariables());
+    assertEquals(variables, createWithEmptyRelationshipCollectionsResult.getVariablesLocal());
     assertSame(variables, actualCollectTransientVariablesResult);
   }
 
   /**
    * Test {@link VariableScopeImpl#removeTransientVariableLocal(String)}.
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#removeTransientVariableLocal(String)}
+   * Method under test: {@link VariableScopeImpl#removeTransientVariableLocal(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.removeTransientVariableLocal(String)"})
   public void testRemoveTransientVariableLocal() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -3333,10 +4050,11 @@ public class VariableScopeImplDiffblueTest {
    *   <li>Given createWithEmptyRelationshipCollections.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link VariableScopeImpl#removeTransientVariableLocal(String)}
+   * Method under test: {@link VariableScopeImpl#removeTransientVariableLocal(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.removeTransientVariableLocal(String)"})
   public void testRemoveTransientVariableLocal_givenCreateWithEmptyRelationshipCollections() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -3362,6 +4080,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#removeTransientVariablesLocal()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.removeTransientVariablesLocal()"})
   public void testRemoveTransientVariablesLocal() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -3385,32 +4105,6 @@ public class VariableScopeImplDiffblueTest {
 
   /**
    * Test {@link VariableScopeImpl#removeTransientVariablesLocal()}.
-   * <p>
-   * Method under test: {@link VariableScopeImpl#removeTransientVariablesLocal()}
-   */
-  @Test
-  public void testRemoveTransientVariablesLocal2() {
-    // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    createWithEmptyRelationshipCollectionsResult.setLockTime(mock(Date.class));
-
-    // Act
-    createWithEmptyRelationshipCollectionsResult.removeTransientVariablesLocal();
-
-    // Assert that nothing has changed
-    assertTrue(createWithEmptyRelationshipCollectionsResult.getTransientVariables().isEmpty());
-    assertTrue(createWithEmptyRelationshipCollectionsResult.getTransientVariablesLocal().isEmpty());
-    assertTrue(createWithEmptyRelationshipCollectionsResult.getVariableInstances().isEmpty());
-    assertTrue(createWithEmptyRelationshipCollectionsResult.getVariableInstancesLocal().isEmpty());
-    assertTrue(createWithEmptyRelationshipCollectionsResult.getVariables().isEmpty());
-    assertTrue(createWithEmptyRelationshipCollectionsResult.getVariablesLocal().isEmpty());
-    assertTrue(createWithEmptyRelationshipCollectionsResult.getVariableNames().isEmpty());
-    assertTrue(createWithEmptyRelationshipCollectionsResult.getVariableNamesLocal().isEmpty());
-  }
-
-  /**
-   * Test {@link VariableScopeImpl#removeTransientVariablesLocal()}.
    * <ul>
    *   <li>Given createWithEmptyRelationshipCollections.</li>
    * </ul>
@@ -3418,6 +4112,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#removeTransientVariablesLocal()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.removeTransientVariablesLocal()"})
   public void testRemoveTransientVariablesLocal_givenCreateWithEmptyRelationshipCollections() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -3443,6 +4139,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#removeTransientVariable(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.removeTransientVariable(String)"})
   public void testRemoveTransientVariable() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -3470,6 +4168,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#removeTransientVariable(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.removeTransientVariable(String)"})
   public void testRemoveTransientVariable2() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -3511,6 +4211,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#removeTransientVariable(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.removeTransientVariable(String)"})
   public void testRemoveTransientVariable_givenCreateWithEmptyRelationshipCollections() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -3536,6 +4238,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#removeTransientVariables()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.removeTransientVariables()"})
   public void testRemoveTransientVariables() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -3566,6 +4270,8 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#removeTransientVariables()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.removeTransientVariables()"})
   public void testRemoveTransientVariables_givenCreateWithEmptyRelationshipCollections() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -3591,94 +4297,39 @@ public class VariableScopeImplDiffblueTest {
    * Method under test: {@link VariableScopeImpl#isActivityIdUsedForDetails()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean VariableScopeImpl.isActivityIdUsedForDetails()"})
   public void testIsActivityIdUsedForDetails() {
-    // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    createWithEmptyRelationshipCollectionsResult.setLockTime(mock(Date.class));
-
-    // Act and Assert
-    assertTrue(createWithEmptyRelationshipCollectionsResult.isActivityIdUsedForDetails());
-  }
-
-  /**
-   * Test {@link VariableScopeImpl#isActivityIdUsedForDetails()}.
-   * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableScopeImpl#isActivityIdUsedForDetails()}
-   */
-  @Test
-  public void testIsActivityIdUsedForDetails_givenCreateWithEmptyRelationshipCollections() {
     // Arrange, Act and Assert
     assertTrue(ExecutionEntityImpl.createWithEmptyRelationshipCollections().isActivityIdUsedForDetails());
   }
 
   /**
    * Test {@link VariableScopeImpl#getCachedElContext()}.
-   * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections.</li>
-   * </ul>
    * <p>
    * Method under test: {@link VariableScopeImpl#getCachedElContext()}
    */
   @Test
-  public void testGetCachedElContext_givenCreateWithEmptyRelationshipCollections() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ELContext VariableScopeImpl.getCachedElContext()"})
+  public void testGetCachedElContext() {
     // Arrange, Act and Assert
     assertNull(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getCachedElContext());
   }
 
   /**
-   * Test {@link VariableScopeImpl#getCachedElContext()}.
-   * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections LockTime is
-   * {@link Date}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link VariableScopeImpl#getCachedElContext()}
-   */
-  @Test
-  public void testGetCachedElContext_givenCreateWithEmptyRelationshipCollectionsLockTimeIsDate() {
-    // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    createWithEmptyRelationshipCollectionsResult.setLockTime(mock(Date.class));
-
-    // Act and Assert
-    assertNull(createWithEmptyRelationshipCollectionsResult.getCachedElContext());
-  }
-
-  /**
    * Test {@link VariableScopeImpl#setCachedElContext(ELContext)}.
    * <p>
    * Method under test: {@link VariableScopeImpl#setCachedElContext(ELContext)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void VariableScopeImpl.setCachedElContext(ELContext)"})
   public void testSetCachedElContext() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
         .createWithEmptyRelationshipCollections();
     ParsingElContext cachedElContext = new ParsingElContext();
-
-    // Act
-    createWithEmptyRelationshipCollectionsResult.setCachedElContext(cachedElContext);
-
-    // Assert
-    assertSame(cachedElContext, createWithEmptyRelationshipCollectionsResult.getCachedElContext());
-  }
-
-  /**
-   * Test {@link VariableScopeImpl#setCachedElContext(ELContext)}.
-   * <p>
-   * Method under test: {@link VariableScopeImpl#setCachedElContext(ELContext)}
-   */
-  @Test
-  public void testSetCachedElContext2() {
-    // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    ActivitiElContext cachedElContext = new ActivitiElContext(new BeanNameELResolver(mock(BeanNameResolver.class)));
 
     // Act
     createWithEmptyRelationshipCollectionsResult.setCachedElContext(cachedElContext);

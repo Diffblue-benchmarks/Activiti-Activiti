@@ -24,10 +24,13 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ActivityDiffblueTest {
   /**
@@ -36,6 +39,8 @@ public class ActivityDiffblueTest {
    * Method under test: {@link Activity#getFailedJobRetryTimeCycleValue()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String Activity.getFailedJobRetryTimeCycleValue()"})
   public void testGetFailedJobRetryTimeCycleValue() {
     // Arrange, Act and Assert
     assertNull((new AdhocSubProcess()).getFailedJobRetryTimeCycleValue());
@@ -47,6 +52,8 @@ public class ActivityDiffblueTest {
    * Method under test: {@link Activity#setFailedJobRetryTimeCycleValue(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setFailedJobRetryTimeCycleValue(String)"})
   public void testSetFailedJobRetryTimeCycleValue() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -61,14 +68,15 @@ public class ActivityDiffblueTest {
   /**
    * Test {@link Activity#isForCompensation()}.
    * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor) ForCompensation is
-   * {@code true}.</li>
+   *   <li>Given {@link AdhocSubProcess} (default constructor) ForCompensation is {@code true}.</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Activity#isForCompensation()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean Activity.isForCompensation()"})
   public void testIsForCompensation_givenAdhocSubProcessForCompensationIsTrue_thenReturnTrue() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -88,6 +96,8 @@ public class ActivityDiffblueTest {
    * Method under test: {@link Activity#isForCompensation()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean Activity.isForCompensation()"})
   public void testIsForCompensation_givenAdhocSubProcess_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new AdhocSubProcess()).isForCompensation());
@@ -99,6 +109,8 @@ public class ActivityDiffblueTest {
    * Method under test: {@link Activity#setForCompensation(boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setForCompensation(boolean)"})
   public void testSetForCompensation() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -116,6 +128,8 @@ public class ActivityDiffblueTest {
    * Method under test: {@link Activity#getBoundaryEvents()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Activity.getBoundaryEvents()"})
   public void testGetBoundaryEvents() {
     // Arrange, Act and Assert
     assertTrue((new AdhocSubProcess()).getBoundaryEvents().isEmpty());
@@ -125,13 +139,14 @@ public class ActivityDiffblueTest {
    * Test {@link Activity#setBoundaryEvents(List)}.
    * <ul>
    *   <li>Given {@link BoundaryEvent} (default constructor).</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@link BoundaryEvent} (default
-   * constructor).</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link BoundaryEvent} (default constructor).</li>
    * </ul>
    * <p>
    * Method under test: {@link Activity#setBoundaryEvents(List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setBoundaryEvents(List)"})
   public void testSetBoundaryEvents_givenBoundaryEvent_whenArrayListAddBoundaryEvent() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -150,13 +165,14 @@ public class ActivityDiffblueTest {
    * Test {@link Activity#setBoundaryEvents(List)}.
    * <ul>
    *   <li>Given {@link BoundaryEvent} (default constructor).</li>
-   *   <li>When {@link ArrayList#ArrayList()} add {@link BoundaryEvent} (default
-   * constructor).</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link BoundaryEvent} (default constructor).</li>
    * </ul>
    * <p>
    * Method under test: {@link Activity#setBoundaryEvents(List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setBoundaryEvents(List)"})
   public void testSetBoundaryEvents_givenBoundaryEvent_whenArrayListAddBoundaryEvent2() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -181,6 +197,8 @@ public class ActivityDiffblueTest {
    * Method under test: {@link Activity#setBoundaryEvents(List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setBoundaryEvents(List)"})
   public void testSetBoundaryEvents_whenArrayList() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -199,6 +217,8 @@ public class ActivityDiffblueTest {
    * Method under test: {@link Activity#getDefaultFlow()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String Activity.getDefaultFlow()"})
   public void testGetDefaultFlow() {
     // Arrange, Act and Assert
     assertNull((new AdhocSubProcess()).getDefaultFlow());
@@ -210,6 +230,8 @@ public class ActivityDiffblueTest {
    * Method under test: {@link Activity#setDefaultFlow(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setDefaultFlow(String)"})
   public void testSetDefaultFlow() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -227,19 +249,21 @@ public class ActivityDiffblueTest {
    * Method under test: {@link Activity#getLoopCharacteristics()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"MultiInstanceLoopCharacteristics Activity.getLoopCharacteristics()"})
   public void testGetLoopCharacteristics() {
     // Arrange, Act and Assert
     assertNull((new AdhocSubProcess()).getLoopCharacteristics());
   }
 
   /**
-   * Test
-   * {@link Activity#setLoopCharacteristics(MultiInstanceLoopCharacteristics)}.
+   * Test {@link Activity#setLoopCharacteristics(MultiInstanceLoopCharacteristics)}.
    * <p>
-   * Method under test:
-   * {@link Activity#setLoopCharacteristics(MultiInstanceLoopCharacteristics)}
+   * Method under test: {@link Activity#setLoopCharacteristics(MultiInstanceLoopCharacteristics)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setLoopCharacteristics(MultiInstanceLoopCharacteristics)"})
   public void testSetLoopCharacteristics() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -263,6 +287,8 @@ public class ActivityDiffblueTest {
    * Method under test: {@link Activity#hasMultiInstanceLoopCharacteristics()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean Activity.hasMultiInstanceLoopCharacteristics()"})
   public void testHasMultiInstanceLoopCharacteristics_givenAdhocSubProcess_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new AdhocSubProcess()).hasMultiInstanceLoopCharacteristics());
@@ -277,6 +303,8 @@ public class ActivityDiffblueTest {
    * Method under test: {@link Activity#hasMultiInstanceLoopCharacteristics()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean Activity.hasMultiInstanceLoopCharacteristics()"})
   public void testHasMultiInstanceLoopCharacteristics_thenReturnTrue() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -292,6 +320,8 @@ public class ActivityDiffblueTest {
    * Method under test: {@link Activity#getIoSpecification()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"IOSpecification Activity.getIoSpecification()"})
   public void testGetIoSpecification() {
     // Arrange, Act and Assert
     assertNull((new AdhocSubProcess()).getIoSpecification());
@@ -303,6 +333,8 @@ public class ActivityDiffblueTest {
    * Method under test: {@link Activity#setIoSpecification(IOSpecification)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setIoSpecification(IOSpecification)"})
   public void testSetIoSpecification() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -321,6 +353,8 @@ public class ActivityDiffblueTest {
    * Method under test: {@link Activity#getDataInputAssociations()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Activity.getDataInputAssociations()"})
   public void testGetDataInputAssociations() {
     // Arrange, Act and Assert
     assertTrue((new AdhocSubProcess()).getDataInputAssociations().isEmpty());
@@ -335,6 +369,8 @@ public class ActivityDiffblueTest {
    * Method under test: {@link Activity#setDataInputAssociations(List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setDataInputAssociations(List)"})
   public void testSetDataInputAssociations_givenDataAssociation() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -358,6 +394,8 @@ public class ActivityDiffblueTest {
    * Method under test: {@link Activity#setDataInputAssociations(List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setDataInputAssociations(List)"})
   public void testSetDataInputAssociations_givenDataAssociation2() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -382,6 +420,8 @@ public class ActivityDiffblueTest {
    * Method under test: {@link Activity#setDataInputAssociations(List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setDataInputAssociations(List)"})
   public void testSetDataInputAssociations_whenArrayList() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -400,6 +440,8 @@ public class ActivityDiffblueTest {
    * Method under test: {@link Activity#getDataOutputAssociations()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Activity.getDataOutputAssociations()"})
   public void testGetDataOutputAssociations() {
     // Arrange, Act and Assert
     assertTrue((new AdhocSubProcess()).getDataOutputAssociations().isEmpty());
@@ -414,6 +456,8 @@ public class ActivityDiffblueTest {
    * Method under test: {@link Activity#setDataOutputAssociations(List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setDataOutputAssociations(List)"})
   public void testSetDataOutputAssociations_givenDataAssociation() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -437,6 +481,8 @@ public class ActivityDiffblueTest {
    * Method under test: {@link Activity#setDataOutputAssociations(List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setDataOutputAssociations(List)"})
   public void testSetDataOutputAssociations_givenDataAssociation2() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -461,6 +507,8 @@ public class ActivityDiffblueTest {
    * Method under test: {@link Activity#setDataOutputAssociations(List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setDataOutputAssociations(List)"})
   public void testSetDataOutputAssociations_whenArrayList() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -479,6 +527,8 @@ public class ActivityDiffblueTest {
    * Method under test: {@link Activity#getMapExceptions()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Activity.getMapExceptions()"})
   public void testGetMapExceptions() {
     // Arrange, Act and Assert
     assertTrue((new AdhocSubProcess()).getMapExceptions().isEmpty());
@@ -490,6 +540,8 @@ public class ActivityDiffblueTest {
    * Method under test: {@link Activity#setMapExceptions(List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setMapExceptions(List)"})
   public void testSetMapExceptions() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -510,6 +562,8 @@ public class ActivityDiffblueTest {
    * Method under test: {@link Activity#setMapExceptions(List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setMapExceptions(List)"})
   public void testSetMapExceptions2() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -534,6 +588,8 @@ public class ActivityDiffblueTest {
    * Method under test: {@link Activity#setMapExceptions(List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setMapExceptions(List)"})
   public void testSetMapExceptions_whenArrayList() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -552,6 +608,8 @@ public class ActivityDiffblueTest {
    * Method under test: {@link Activity#setValues(Activity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setValues(Activity)"})
   public void testSetValuesWithActivity() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -570,13 +628,7 @@ public class ActivityDiffblueTest {
     // Act
     adhocSubProcess.setValues((Activity) otherActivity);
 
-    // Assert
-    assertNull(otherActivity.getDefaultFlow());
-    assertNull(otherActivity.getFailedJobRetryTimeCycleValue());
-    assertNull(otherActivity.getId());
-    assertNull(otherActivity.getDocumentation());
-    assertNull(otherActivity.getName());
-    assertNull(otherActivity.getIoSpecification());
+    // Assert that nothing has changed
     assertFalse(otherActivity.isForCompensation());
     assertFalse(otherActivity.isAsynchronous());
     assertFalse(otherActivity.isNotExclusive());
@@ -588,13 +640,14 @@ public class ActivityDiffblueTest {
   /**
    * Test {@link Activity#setValues(Activity)} with {@code Activity}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link DataSpec} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link DataSpec} (default constructor).</li>
    * </ul>
    * <p>
    * Method under test: {@link Activity#setValues(Activity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setValues(Activity)"})
   public void testSetValuesWithActivity_givenArrayListAddDataSpec() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -619,13 +672,7 @@ public class ActivityDiffblueTest {
     // Act
     adhocSubProcess.setValues((Activity) otherActivity);
 
-    // Assert
-    assertNull(otherActivity.getDefaultFlow());
-    assertNull(otherActivity.getFailedJobRetryTimeCycleValue());
-    assertNull(otherActivity.getId());
-    assertNull(otherActivity.getDocumentation());
-    assertNull(otherActivity.getName());
-    assertNull(otherActivity.getLoopCharacteristics());
+    // Assert that nothing has changed
     assertFalse(otherActivity.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherActivity.isForCompensation());
     assertFalse(otherActivity.isAsynchronous());
@@ -637,13 +684,14 @@ public class ActivityDiffblueTest {
   /**
    * Test {@link Activity#setValues(Activity)} with {@code Activity}.
    * <ul>
-   *   <li>Given {@link IOSpecification} (default constructor) DataOutputs is
-   * {@code null}.</li>
+   *   <li>Given {@link IOSpecification} (default constructor) DataOutputs is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Activity#setValues(Activity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setValues(Activity)"})
   public void testSetValuesWithActivity_givenIOSpecificationDataOutputsIsNull() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -665,13 +713,7 @@ public class ActivityDiffblueTest {
     // Act
     adhocSubProcess.setValues((Activity) otherActivity);
 
-    // Assert
-    assertNull(otherActivity.getDefaultFlow());
-    assertNull(otherActivity.getFailedJobRetryTimeCycleValue());
-    assertNull(otherActivity.getId());
-    assertNull(otherActivity.getDocumentation());
-    assertNull(otherActivity.getName());
-    assertNull(otherActivity.getLoopCharacteristics());
+    // Assert that nothing has changed
     assertFalse(otherActivity.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherActivity.isForCompensation());
     assertFalse(otherActivity.isAsynchronous());
@@ -683,13 +725,14 @@ public class ActivityDiffblueTest {
   /**
    * Test {@link Activity#setValues(Activity)} with {@code Activity}.
    * <ul>
-   *   <li>Then {@link AdhocSubProcess} (default constructor) DataInputAssociations
-   * size is one.</li>
+   *   <li>Then {@link AdhocSubProcess} (default constructor) DataInputAssociations size is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link Activity#setValues(Activity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setValues(Activity)"})
   public void testSetValuesWithActivity_thenAdhocSubProcessDataInputAssociationsSizeIsOne() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -751,13 +794,14 @@ public class ActivityDiffblueTest {
   /**
    * Test {@link Activity#setValues(Activity)} with {@code Activity}.
    * <ul>
-   *   <li>Then {@link AdhocSubProcess} (default constructor) DataOutputAssociations
-   * size is one.</li>
+   *   <li>Then {@link AdhocSubProcess} (default constructor) DataOutputAssociations size is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link Activity#setValues(Activity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setValues(Activity)"})
   public void testSetValuesWithActivity_thenAdhocSubProcessDataOutputAssociationsSizeIsOne() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -819,14 +863,15 @@ public class ActivityDiffblueTest {
   /**
    * Test {@link Activity#setValues(Activity)} with {@code Activity}.
    * <ul>
-   *   <li>Then {@link AdhocSubProcess} (default constructor) IoSpecification Id is
-   * {@code null}.</li>
+   *   <li>Then {@link AdhocSubProcess} (default constructor) FailedJobRetryTimeCycleValue is {@code 42}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Activity#setValues(Activity)}
    */
   @Test
-  public void testSetValuesWithActivity_thenAdhocSubProcessIoSpecificationIdIsNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setValues(Activity)"})
+  public void testSetValuesWithActivity_thenAdhocSubProcessFailedJobRetryTimeCycleValueIs42() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
     BusinessRuleTask otherActivity = mock(BusinessRuleTask.class);
@@ -872,31 +917,7 @@ public class ActivityDiffblueTest {
     assertEquals("Default Flow", adhocSubProcess.getDefaultFlow());
     assertEquals("Documentation", adhocSubProcess.getDocumentation());
     assertEquals("Name", adhocSubProcess.getName());
-    IOSpecification ioSpecification = adhocSubProcess.getIoSpecification();
-    assertNull(ioSpecification.getId());
-    MultiInstanceLoopCharacteristics loopCharacteristics = adhocSubProcess.getLoopCharacteristics();
-    assertNull(loopCharacteristics.getId());
-    assertNull(loopCharacteristics.getCompletionCondition());
-    assertNull(loopCharacteristics.getElementIndexVariable());
-    assertNull(loopCharacteristics.getElementVariable());
-    assertNull(loopCharacteristics.getInputDataItem());
-    assertNull(loopCharacteristics.getLoopCardinality());
-    assertNull(loopCharacteristics.getLoopDataOutputRef());
-    assertNull(loopCharacteristics.getOutputDataItem());
-    assertEquals(0, ioSpecification.getXmlColumnNumber());
-    assertEquals(0, loopCharacteristics.getXmlColumnNumber());
-    assertEquals(0, ioSpecification.getXmlRowNumber());
-    assertEquals(0, loopCharacteristics.getXmlRowNumber());
     assertFalse(adhocSubProcess.isExclusive());
-    assertFalse(loopCharacteristics.isSequential());
-    assertTrue(ioSpecification.getDataInputRefs().isEmpty());
-    assertTrue(ioSpecification.getDataInputs().isEmpty());
-    assertTrue(ioSpecification.getDataOutputRefs().isEmpty());
-    assertTrue(ioSpecification.getDataOutputs().isEmpty());
-    assertTrue(ioSpecification.getAttributes().isEmpty());
-    assertTrue(loopCharacteristics.getAttributes().isEmpty());
-    assertTrue(ioSpecification.getExtensionElements().isEmpty());
-    assertTrue(loopCharacteristics.getExtensionElements().isEmpty());
     assertTrue(adhocSubProcess.hasMultiInstanceLoopCharacteristics());
     assertTrue(adhocSubProcess.isForCompensation());
     assertTrue(adhocSubProcess.isAsynchronous());
@@ -906,56 +927,15 @@ public class ActivityDiffblueTest {
   /**
    * Test {@link Activity#setValues(Activity)} with {@code Activity}.
    * <ul>
-   *   <li>Then {@link AdhocSubProcess} (default constructor) IoSpecification is
-   * {@code null}.</li>
+   *   <li>Then calls {@link IOSpecification#clone()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Activity#setValues(Activity)}
    */
   @Test
-  public void testSetValuesWithActivity_thenAdhocSubProcessIoSpecificationIsNull() {
-    // Arrange
-    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
-
-    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
-    boundaryEvents.add(new BoundaryEvent());
-
-    AdhocSubProcess otherActivity = new AdhocSubProcess();
-    otherActivity.setLoopCharacteristics(null);
-    otherActivity.setIoSpecification(null);
-    otherActivity.setDataInputAssociations(null);
-    otherActivity.setDataOutputAssociations(null);
-    otherActivity.setBoundaryEvents(boundaryEvents);
-
-    // Act
-    adhocSubProcess.setValues((Activity) otherActivity);
-
-    // Assert
-    assertNull(otherActivity.getDefaultFlow());
-    assertNull(otherActivity.getFailedJobRetryTimeCycleValue());
-    assertNull(otherActivity.getId());
-    assertNull(otherActivity.getDocumentation());
-    assertNull(otherActivity.getName());
-    assertNull(otherActivity.getIoSpecification());
-    assertNull(otherActivity.getLoopCharacteristics());
-    assertFalse(otherActivity.hasMultiInstanceLoopCharacteristics());
-    assertFalse(otherActivity.isForCompensation());
-    assertFalse(otherActivity.isAsynchronous());
-    assertFalse(otherActivity.isNotExclusive());
-    assertTrue(otherActivity.isExclusive());
-  }
-
-  /**
-   * Test {@link Activity#setValues(Activity)} with {@code Activity}.
-   * <ul>
-   *   <li>Then {@link AdhocSubProcess} (default constructor) LoopCharacteristics Id
-   * is {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Activity#setValues(Activity)}
-   */
-  @Test
-  public void testSetValuesWithActivity_thenAdhocSubProcessLoopCharacteristicsIdIsNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setValues(Activity)"})
+  public void testSetValuesWithActivity_thenCallsClone() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
     IOSpecification ioSpecification = mock(IOSpecification.class);
@@ -1005,21 +985,7 @@ public class ActivityDiffblueTest {
     assertEquals("Default Flow", adhocSubProcess.getDefaultFlow());
     assertEquals("Documentation", adhocSubProcess.getDocumentation());
     assertEquals("Name", adhocSubProcess.getName());
-    MultiInstanceLoopCharacteristics loopCharacteristics = adhocSubProcess.getLoopCharacteristics();
-    assertNull(loopCharacteristics.getId());
-    assertNull(loopCharacteristics.getCompletionCondition());
-    assertNull(loopCharacteristics.getElementIndexVariable());
-    assertNull(loopCharacteristics.getElementVariable());
-    assertNull(loopCharacteristics.getInputDataItem());
-    assertNull(loopCharacteristics.getLoopCardinality());
-    assertNull(loopCharacteristics.getLoopDataOutputRef());
-    assertNull(loopCharacteristics.getOutputDataItem());
-    assertEquals(0, loopCharacteristics.getXmlColumnNumber());
-    assertEquals(0, loopCharacteristics.getXmlRowNumber());
     assertFalse(adhocSubProcess.isExclusive());
-    assertFalse(loopCharacteristics.isSequential());
-    assertTrue(loopCharacteristics.getAttributes().isEmpty());
-    assertTrue(loopCharacteristics.getExtensionElements().isEmpty());
     assertTrue(adhocSubProcess.hasMultiInstanceLoopCharacteristics());
     assertTrue(adhocSubProcess.isForCompensation());
     assertTrue(adhocSubProcess.isAsynchronous());
@@ -1036,7 +1002,9 @@ public class ActivityDiffblueTest {
    * Method under test: {@link Activity#setValues(Activity)}
    */
   @Test
-  public void testSetValuesWithActivity_thenCallsClone() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setValues(Activity)"})
+  public void testSetValuesWithActivity_thenCallsClone2() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
     IOSpecification ioSpecification = mock(IOSpecification.class);
@@ -1108,7 +1076,9 @@ public class ActivityDiffblueTest {
    * Method under test: {@link Activity#setValues(Activity)}
    */
   @Test
-  public void testSetValuesWithActivity_thenCallsClone2() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setValues(Activity)"})
+  public void testSetValuesWithActivity_thenCallsClone3() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
     DataAssociation dataAssociation = mock(DataAssociation.class);
@@ -1130,15 +1100,8 @@ public class ActivityDiffblueTest {
     // Act
     adhocSubProcess.setValues((Activity) otherActivity);
 
-    // Assert
+    // Assert that nothing has changed
     verify(dataAssociation).clone();
-    assertNull(otherActivity.getDefaultFlow());
-    assertNull(otherActivity.getFailedJobRetryTimeCycleValue());
-    assertNull(otherActivity.getId());
-    assertNull(otherActivity.getDocumentation());
-    assertNull(otherActivity.getName());
-    assertNull(otherActivity.getIoSpecification());
-    assertNull(otherActivity.getLoopCharacteristics());
     assertFalse(otherActivity.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherActivity.isForCompensation());
     assertFalse(otherActivity.isAsynchronous());
@@ -1155,7 +1118,9 @@ public class ActivityDiffblueTest {
    * Method under test: {@link Activity#setValues(Activity)}
    */
   @Test
-  public void testSetValuesWithActivity_thenCallsClone3() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setValues(Activity)"})
+  public void testSetValuesWithActivity_thenCallsClone4() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
     DataAssociation dataAssociation = mock(DataAssociation.class);
@@ -1177,15 +1142,8 @@ public class ActivityDiffblueTest {
     // Act
     adhocSubProcess.setValues((Activity) otherActivity);
 
-    // Assert
+    // Assert that nothing has changed
     verify(dataAssociation).clone();
-    assertNull(otherActivity.getDefaultFlow());
-    assertNull(otherActivity.getFailedJobRetryTimeCycleValue());
-    assertNull(otherActivity.getId());
-    assertNull(otherActivity.getDocumentation());
-    assertNull(otherActivity.getName());
-    assertNull(otherActivity.getIoSpecification());
-    assertNull(otherActivity.getLoopCharacteristics());
     assertFalse(otherActivity.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherActivity.isForCompensation());
     assertFalse(otherActivity.isAsynchronous());
@@ -1202,6 +1160,8 @@ public class ActivityDiffblueTest {
    * Method under test: {@link Activity#setValues(Activity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setValues(Activity)"})
   public void testSetValuesWithActivity_whenAdhocSubProcess() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -1210,14 +1170,7 @@ public class ActivityDiffblueTest {
     // Act
     adhocSubProcess.setValues((Activity) otherActivity);
 
-    // Assert
-    assertNull(otherActivity.getDefaultFlow());
-    assertNull(otherActivity.getFailedJobRetryTimeCycleValue());
-    assertNull(otherActivity.getId());
-    assertNull(otherActivity.getDocumentation());
-    assertNull(otherActivity.getName());
-    assertNull(otherActivity.getIoSpecification());
-    assertNull(otherActivity.getLoopCharacteristics());
+    // Assert that nothing has changed
     assertFalse(otherActivity.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherActivity.isForCompensation());
     assertFalse(otherActivity.isAsynchronous());
@@ -1228,13 +1181,14 @@ public class ActivityDiffblueTest {
   /**
    * Test {@link Activity#setValues(Activity)} with {@code Activity}.
    * <ul>
-   *   <li>When {@link AdhocSubProcess} (default constructor) DataInputAssociations
-   * is {@link ArrayList#ArrayList()}.</li>
+   *   <li>When {@link AdhocSubProcess} (default constructor) DataInputAssociations is {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Activity#setValues(Activity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setValues(Activity)"})
   public void testSetValuesWithActivity_whenAdhocSubProcessDataInputAssociationsIsArrayList() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -1255,14 +1209,7 @@ public class ActivityDiffblueTest {
     // Act
     adhocSubProcess.setValues((Activity) otherActivity);
 
-    // Assert
-    assertNull(otherActivity.getDefaultFlow());
-    assertNull(otherActivity.getFailedJobRetryTimeCycleValue());
-    assertNull(otherActivity.getId());
-    assertNull(otherActivity.getDocumentation());
-    assertNull(otherActivity.getName());
-    assertNull(otherActivity.getIoSpecification());
-    assertNull(otherActivity.getLoopCharacteristics());
+    // Assert that nothing has changed
     assertFalse(otherActivity.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherActivity.isForCompensation());
     assertFalse(otherActivity.isAsynchronous());
@@ -1273,13 +1220,14 @@ public class ActivityDiffblueTest {
   /**
    * Test {@link Activity#setValues(Activity)} with {@code Activity}.
    * <ul>
-   *   <li>When {@link AdhocSubProcess} (default constructor) DataOutputAssociations
-   * is {@link ArrayList#ArrayList()}.</li>
+   *   <li>When {@link AdhocSubProcess} (default constructor) DataOutputAssociations is {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Activity#setValues(Activity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setValues(Activity)"})
   public void testSetValuesWithActivity_whenAdhocSubProcessDataOutputAssociationsIsArrayList() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -1300,14 +1248,7 @@ public class ActivityDiffblueTest {
     // Act
     adhocSubProcess.setValues((Activity) otherActivity);
 
-    // Assert
-    assertNull(otherActivity.getDefaultFlow());
-    assertNull(otherActivity.getFailedJobRetryTimeCycleValue());
-    assertNull(otherActivity.getId());
-    assertNull(otherActivity.getDocumentation());
-    assertNull(otherActivity.getName());
-    assertNull(otherActivity.getIoSpecification());
-    assertNull(otherActivity.getLoopCharacteristics());
+    // Assert that nothing has changed
     assertFalse(otherActivity.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherActivity.isForCompensation());
     assertFalse(otherActivity.isAsynchronous());
@@ -1318,13 +1259,14 @@ public class ActivityDiffblueTest {
   /**
    * Test {@link Activity#setValues(Activity)} with {@code Activity}.
    * <ul>
-   *   <li>When {@link AdhocSubProcess} (default constructor) IoSpecification is
-   * {@link IOSpecification} (default constructor).</li>
+   *   <li>When {@link AdhocSubProcess} (default constructor) IoSpecification is {@link IOSpecification} (default constructor).</li>
    * </ul>
    * <p>
    * Method under test: {@link Activity#setValues(Activity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setValues(Activity)"})
   public void testSetValuesWithActivity_whenAdhocSubProcessIoSpecificationIsIOSpecification() {
     // Arrange
     AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
@@ -1343,18 +1285,48 @@ public class ActivityDiffblueTest {
     // Act
     adhocSubProcess.setValues((Activity) otherActivity);
 
-    // Assert
-    assertNull(otherActivity.getDefaultFlow());
-    assertNull(otherActivity.getFailedJobRetryTimeCycleValue());
-    assertNull(otherActivity.getId());
-    assertNull(otherActivity.getDocumentation());
-    assertNull(otherActivity.getName());
-    assertNull(otherActivity.getLoopCharacteristics());
+    // Assert that nothing has changed
     assertFalse(otherActivity.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherActivity.isForCompensation());
     assertFalse(otherActivity.isAsynchronous());
     assertFalse(otherActivity.isNotExclusive());
     assertTrue(otherActivity.isExclusive());
     assertSame(ioSpecification, otherActivity.getIoSpecification());
+  }
+
+  /**
+   * Test {@link Activity#setValues(Activity)} with {@code Activity}.
+   * <ul>
+   *   <li>When {@link AdhocSubProcess} (default constructor) IoSpecification is {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link Activity#setValues(Activity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Activity.setValues(Activity)"})
+  public void testSetValuesWithActivity_whenAdhocSubProcessIoSpecificationIsNull() {
+    // Arrange
+    AdhocSubProcess adhocSubProcess = new AdhocSubProcess();
+
+    ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
+    boundaryEvents.add(new BoundaryEvent());
+
+    AdhocSubProcess otherActivity = new AdhocSubProcess();
+    otherActivity.setLoopCharacteristics(null);
+    otherActivity.setIoSpecification(null);
+    otherActivity.setDataInputAssociations(null);
+    otherActivity.setDataOutputAssociations(null);
+    otherActivity.setBoundaryEvents(boundaryEvents);
+
+    // Act
+    adhocSubProcess.setValues((Activity) otherActivity);
+
+    // Assert that nothing has changed
+    assertFalse(otherActivity.hasMultiInstanceLoopCharacteristics());
+    assertFalse(otherActivity.isForCompensation());
+    assertFalse(otherActivity.isAsynchronous());
+    assertFalse(otherActivity.isNotExclusive());
+    assertTrue(otherActivity.isExclusive());
   }
 }

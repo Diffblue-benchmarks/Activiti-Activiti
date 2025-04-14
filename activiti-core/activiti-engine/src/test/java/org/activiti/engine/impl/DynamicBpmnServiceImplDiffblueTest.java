@@ -27,8 +27,10 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.BigIntegerNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
@@ -39,12 +41,12 @@ import com.fasterxml.jackson.databind.node.TextNode;
 import com.fasterxml.jackson.databind.node.TreeTraversingParser;
 import java.math.BigInteger;
 import java.util.Iterator;
-import org.activiti.core.el.CustomFunctionProvider;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.db.DbSqlSessionFactory;
 import org.activiti.engine.impl.interceptor.SessionFactory;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -60,13 +62,13 @@ public class DynamicBpmnServiceImplDiffblueTest {
   private ProcessEngineConfigurationImpl processEngineConfigurationImpl;
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#DynamicBpmnServiceImpl(ProcessEngineConfigurationImpl)}.
+   * Test {@link DynamicBpmnServiceImpl#DynamicBpmnServiceImpl(ProcessEngineConfigurationImpl)}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#DynamicBpmnServiceImpl(ProcessEngineConfigurationImpl)}
+   * Method under test: {@link DynamicBpmnServiceImpl#DynamicBpmnServiceImpl(ProcessEngineConfigurationImpl)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.<init>(ProcessEngineConfigurationImpl)"})
   public void testNewDynamicBpmnServiceImpl() {
     // Arrange and Act
     DynamicBpmnServiceImpl actualDynamicBpmnServiceImpl = new DynamicBpmnServiceImpl(
@@ -80,17 +82,16 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskClassName(String, String)}
-   * with {@code id}, {@code className}.
+   * Test {@link DynamicBpmnServiceImpl#changeServiceTaskClassName(String, String)} with {@code id}, {@code className}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskClassName(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeServiceTaskClassName(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeServiceTaskClassName(String, String)"})
   public void testChangeServiceTaskClassNameWithIdClassName() {
     // Arrange
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(new ObjectMapper());
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
     ObjectNode actualChangeServiceTaskClassNameResult = dynamicBpmnServiceImpl.changeServiceTaskClassName("42",
@@ -100,87 +101,79 @@ public class DynamicBpmnServiceImplDiffblueTest {
     verify(processEngineConfigurationImpl).getObjectMapper();
     Iterator<JsonNode> iteratorResult = actualChangeServiceTaskClassNameResult.iterator();
     JsonNode nextResult = iteratorResult.next();
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof TextNode);
-    assertEquals("\"Class Name\"", nextResult3.toPrettyString());
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeServiceTaskClassNameResult.traverse() instanceof TreeTraversingParser);
     assertEquals("{\n  \"42\" : {\n    \"serviceTaskClassName\" : \"Class Name\"\n  }\n}", nextResult.toPrettyString());
     assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"serviceTaskClassName\" : \"Class Name\"\n    }\n  }\n}",
         actualChangeServiceTaskClassNameResult.toPrettyString());
-    assertEquals("{\n  \"serviceTaskClassName\" : \"Class Name\"\n}", nextResult2.toPrettyString());
-    assertFalse(iteratorResult3.hasNext());
-    assertFalse(iteratorResult2.hasNext());
     assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskClassName(String, String)}
-   * with {@code id}, {@code className}.
+   * Test {@link DynamicBpmnServiceImpl#changeServiceTaskClassName(String, String)} with {@code id}, {@code className}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskClassName(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeServiceTaskClassName(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeServiceTaskClassName(String, String)"})
   public void testChangeServiceTaskClassNameWithIdClassName2() {
     // Arrange
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    ObjectNode objectNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
-    ObjectNode actualChangeServiceTaskClassNameResult = dynamicBpmnServiceImpl.changeServiceTaskClassName("42",
-        "Class Name");
+    ObjectNode actualChangeServiceTaskClassNameResult = dynamicBpmnServiceImpl.changeServiceTaskClassName("42", "");
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeServiceTaskClassNameResult);
+    Iterator<JsonNode> iteratorResult = actualChangeServiceTaskClassNameResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeServiceTaskClassNameResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"serviceTaskClassName\" : \"\"\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"serviceTaskClassName\" : \"\"\n    }\n  }\n}",
+        actualChangeServiceTaskClassNameResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskClassName(String, String)}
-   * with {@code id}, {@code className}.
+   * Test {@link DynamicBpmnServiceImpl#changeServiceTaskClassName(String, String)} with {@code id}, {@code className}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskClassName(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeServiceTaskClassName(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeServiceTaskClassName(String, String)"})
   public void testChangeServiceTaskClassNameWithIdClassName3() {
     // Arrange
-    JsonNodeFactory nc = mock(JsonNodeFactory.class);
-    when(nc.objectNode()).thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
-    ObjectNode objectNode = new ObjectNode(nc);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
-    ObjectNode actualChangeServiceTaskClassNameResult = dynamicBpmnServiceImpl.changeServiceTaskClassName("42",
-        "Class Name");
+    ObjectNode actualChangeServiceTaskClassNameResult = dynamicBpmnServiceImpl.changeServiceTaskClassName("42", null);
 
     // Assert
-    verify(objectMapper).createObjectNode();
-    verify(nc).objectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeServiceTaskClassNameResult);
+    Iterator<JsonNode> iteratorResult = actualChangeServiceTaskClassNameResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeServiceTaskClassNameResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"serviceTaskClassName\" : null\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"serviceTaskClassName\" : null\n    }\n  }\n}",
+        actualChangeServiceTaskClassNameResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskClassName(String, String, ObjectNode)}
-   * with {@code id}, {@code className}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeServiceTaskClassName(String, String, ObjectNode)} with {@code id}, {@code className}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskClassName(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeServiceTaskClassName(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeServiceTaskClassName(String, String, ObjectNode)"})
   public void testChangeServiceTaskClassNameWithIdClassNameInfoNode() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -192,34 +185,21 @@ public class DynamicBpmnServiceImplDiffblueTest {
     Iterator<JsonNode> iteratorResult = infoNode.iterator();
     JsonNode nextResult = iteratorResult.next();
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof TextNode);
     assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult2.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult3.traverse() instanceof TreeTraversingParser);
-    assertEquals("\"Class Name\"", nextResult3.toPrettyString());
     assertEquals("{\n  \"42\" : {\n    \"serviceTaskClassName\" : \"Class Name\"\n  }\n}", nextResult.toPrettyString());
     assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"serviceTaskClassName\" : \"Class Name\"\n    }\n  }\n}",
         infoNode.toPrettyString());
-    assertEquals("{\n  \"serviceTaskClassName\" : \"Class Name\"\n}", nextResult2.toPrettyString());
     assertFalse(iteratorResult.hasNext());
-    assertFalse(iteratorResult2.hasNext());
-    assertFalse(iteratorResult3.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskClassName(String, String, ObjectNode)}
-   * with {@code id}, {@code className}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeServiceTaskClassName(String, String, ObjectNode)} with {@code id}, {@code className}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskClassName(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeServiceTaskClassName(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeServiceTaskClassName(String, String, ObjectNode)"})
   public void testChangeServiceTaskClassNameWithIdClassNameInfoNode2() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -248,56 +228,52 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskClassName(String, String)}
-   * with {@code id}, {@code className}.
-   * <ul>
-   *   <li>Then calls {@link ObjectNode#put(String, String)}.</li>
-   * </ul>
+   * Test {@link DynamicBpmnServiceImpl#changeServiceTaskClassName(String, String, ObjectNode)} with {@code id}, {@code className}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskClassName(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeServiceTaskClassName(String, String, ObjectNode)}
    */
   @Test
-  public void testChangeServiceTaskClassNameWithIdClassName_thenCallsPut() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeServiceTaskClassName(String, String, ObjectNode)"})
+  public void testChangeServiceTaskClassNameWithIdClassNameInfoNode3() {
     // Arrange
     ObjectNode objectNode = mock(ObjectNode.class);
     when(objectNode.put(Mockito.<String>any(), Mockito.<String>any()))
         .thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
     JsonNodeFactory nc = mock(JsonNodeFactory.class);
     when(nc.objectNode()).thenReturn(objectNode);
+    ObjectNode objectNode2 = new ObjectNode(nc);
     JsonNodeFactory nc2 = mock(JsonNodeFactory.class);
-    when(nc2.objectNode()).thenReturn(new ObjectNode(nc));
-    ObjectNode objectNode2 = new ObjectNode(nc2);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode2);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(nc2.objectNode()).thenReturn(objectNode2);
+    ObjectNode infoNode = new ObjectNode(nc2);
 
     // Act
-    ObjectNode actualChangeServiceTaskClassNameResult = dynamicBpmnServiceImpl.changeServiceTaskClassName("42",
-        "Class Name");
+    dynamicBpmnServiceImpl.changeServiceTaskClassName("42", "Class Name", infoNode);
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(nc2).objectNode();
     verify(nc).objectNode();
     verify(objectNode).put(eq("serviceTaskClassName"), eq("Class Name"));
-    verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode2, actualChangeServiceTaskClassNameResult);
+    Iterator<JsonNode> iteratorResult = infoNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertEquals(1, infoNode.size());
+    assertFalse(infoNode.isEmpty());
+    assertFalse(iteratorResult.hasNext());
+    assertSame(objectNode2, nextResult);
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskExpression(String, String)}
-   * with {@code id}, {@code expression}.
+   * Test {@link DynamicBpmnServiceImpl#changeServiceTaskExpression(String, String)} with {@code id}, {@code expression}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskExpression(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeServiceTaskExpression(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeServiceTaskExpression(String, String)"})
   public void testChangeServiceTaskExpressionWithIdExpression() {
     // Arrange
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(new ObjectMapper());
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
     ObjectNode actualChangeServiceTaskExpressionResult = dynamicBpmnServiceImpl.changeServiceTaskExpression("42",
@@ -307,88 +283,80 @@ public class DynamicBpmnServiceImplDiffblueTest {
     verify(processEngineConfigurationImpl).getObjectMapper();
     Iterator<JsonNode> iteratorResult = actualChangeServiceTaskExpressionResult.iterator();
     JsonNode nextResult = iteratorResult.next();
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof TextNode);
-    assertEquals("\"Expression\"", nextResult3.toPrettyString());
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeServiceTaskExpressionResult.traverse() instanceof TreeTraversingParser);
     assertEquals("{\n  \"42\" : {\n    \"serviceTaskExpression\" : \"Expression\"\n  }\n}",
         nextResult.toPrettyString());
     assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"serviceTaskExpression\" : \"Expression\"\n    }\n  }\n}",
         actualChangeServiceTaskExpressionResult.toPrettyString());
-    assertEquals("{\n  \"serviceTaskExpression\" : \"Expression\"\n}", nextResult2.toPrettyString());
-    assertFalse(iteratorResult3.hasNext());
-    assertFalse(iteratorResult2.hasNext());
     assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskExpression(String, String)}
-   * with {@code id}, {@code expression}.
+   * Test {@link DynamicBpmnServiceImpl#changeServiceTaskExpression(String, String)} with {@code id}, {@code expression}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskExpression(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeServiceTaskExpression(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeServiceTaskExpression(String, String)"})
   public void testChangeServiceTaskExpressionWithIdExpression2() {
     // Arrange
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    ObjectNode objectNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
-    ObjectNode actualChangeServiceTaskExpressionResult = dynamicBpmnServiceImpl.changeServiceTaskExpression("42",
-        "Expression");
+    ObjectNode actualChangeServiceTaskExpressionResult = dynamicBpmnServiceImpl.changeServiceTaskExpression("42", "");
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeServiceTaskExpressionResult);
+    Iterator<JsonNode> iteratorResult = actualChangeServiceTaskExpressionResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeServiceTaskExpressionResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"serviceTaskExpression\" : \"\"\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"serviceTaskExpression\" : \"\"\n    }\n  }\n}",
+        actualChangeServiceTaskExpressionResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskExpression(String, String)}
-   * with {@code id}, {@code expression}.
+   * Test {@link DynamicBpmnServiceImpl#changeServiceTaskExpression(String, String)} with {@code id}, {@code expression}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskExpression(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeServiceTaskExpression(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeServiceTaskExpression(String, String)"})
   public void testChangeServiceTaskExpressionWithIdExpression3() {
     // Arrange
-    JsonNodeFactory nc = mock(JsonNodeFactory.class);
-    when(nc.objectNode()).thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
-    ObjectNode objectNode = new ObjectNode(nc);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
-    ObjectNode actualChangeServiceTaskExpressionResult = dynamicBpmnServiceImpl.changeServiceTaskExpression("42",
-        "Expression");
+    ObjectNode actualChangeServiceTaskExpressionResult = dynamicBpmnServiceImpl.changeServiceTaskExpression("42", null);
 
     // Assert
-    verify(objectMapper).createObjectNode();
-    verify(nc).objectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeServiceTaskExpressionResult);
+    Iterator<JsonNode> iteratorResult = actualChangeServiceTaskExpressionResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeServiceTaskExpressionResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"serviceTaskExpression\" : null\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"serviceTaskExpression\" : null\n    }\n  }\n}",
+        actualChangeServiceTaskExpressionResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskExpression(String, String, ObjectNode)}
-   * with {@code id}, {@code expression}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeServiceTaskExpression(String, String, ObjectNode)} with {@code id}, {@code expression}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskExpression(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeServiceTaskExpression(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeServiceTaskExpression(String, String, ObjectNode)"})
   public void testChangeServiceTaskExpressionWithIdExpressionInfoNode() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -400,35 +368,22 @@ public class DynamicBpmnServiceImplDiffblueTest {
     Iterator<JsonNode> iteratorResult = infoNode.iterator();
     JsonNode nextResult = iteratorResult.next();
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof TextNode);
     assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult2.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult3.traverse() instanceof TreeTraversingParser);
-    assertEquals("\"Expression\"", nextResult3.toPrettyString());
     assertEquals("{\n  \"42\" : {\n    \"serviceTaskExpression\" : \"Expression\"\n  }\n}",
         nextResult.toPrettyString());
     assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"serviceTaskExpression\" : \"Expression\"\n    }\n  }\n}",
         infoNode.toPrettyString());
-    assertEquals("{\n  \"serviceTaskExpression\" : \"Expression\"\n}", nextResult2.toPrettyString());
     assertFalse(iteratorResult.hasNext());
-    assertFalse(iteratorResult2.hasNext());
-    assertFalse(iteratorResult3.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskExpression(String, String, ObjectNode)}
-   * with {@code id}, {@code expression}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeServiceTaskExpression(String, String, ObjectNode)} with {@code id}, {@code expression}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskExpression(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeServiceTaskExpression(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeServiceTaskExpression(String, String, ObjectNode)"})
   public void testChangeServiceTaskExpressionWithIdExpressionInfoNode2() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -457,56 +412,52 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskExpression(String, String)}
-   * with {@code id}, {@code expression}.
-   * <ul>
-   *   <li>Then calls {@link ObjectNode#put(String, String)}.</li>
-   * </ul>
+   * Test {@link DynamicBpmnServiceImpl#changeServiceTaskExpression(String, String, ObjectNode)} with {@code id}, {@code expression}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskExpression(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeServiceTaskExpression(String, String, ObjectNode)}
    */
   @Test
-  public void testChangeServiceTaskExpressionWithIdExpression_thenCallsPut() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeServiceTaskExpression(String, String, ObjectNode)"})
+  public void testChangeServiceTaskExpressionWithIdExpressionInfoNode3() {
     // Arrange
     ObjectNode objectNode = mock(ObjectNode.class);
     when(objectNode.put(Mockito.<String>any(), Mockito.<String>any()))
         .thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
     JsonNodeFactory nc = mock(JsonNodeFactory.class);
     when(nc.objectNode()).thenReturn(objectNode);
+    ObjectNode objectNode2 = new ObjectNode(nc);
     JsonNodeFactory nc2 = mock(JsonNodeFactory.class);
-    when(nc2.objectNode()).thenReturn(new ObjectNode(nc));
-    ObjectNode objectNode2 = new ObjectNode(nc2);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode2);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(nc2.objectNode()).thenReturn(objectNode2);
+    ObjectNode infoNode = new ObjectNode(nc2);
 
     // Act
-    ObjectNode actualChangeServiceTaskExpressionResult = dynamicBpmnServiceImpl.changeServiceTaskExpression("42",
-        "Expression");
+    dynamicBpmnServiceImpl.changeServiceTaskExpression("42", "Expression", infoNode);
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(nc2).objectNode();
     verify(nc).objectNode();
     verify(objectNode).put(eq("serviceTaskExpression"), eq("Expression"));
-    verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode2, actualChangeServiceTaskExpressionResult);
+    Iterator<JsonNode> iteratorResult = infoNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertEquals(1, infoNode.size());
+    assertFalse(infoNode.isEmpty());
+    assertFalse(iteratorResult.hasNext());
+    assertSame(objectNode2, nextResult);
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskDelegateExpression(String, String)}
-   * with {@code id}, {@code expression}.
+   * Test {@link DynamicBpmnServiceImpl#changeServiceTaskDelegateExpression(String, String)} with {@code id}, {@code expression}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskDelegateExpression(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeServiceTaskDelegateExpression(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeServiceTaskDelegateExpression(String, String)"})
   public void testChangeServiceTaskDelegateExpressionWithIdExpression() {
     // Arrange
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(new ObjectMapper());
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
     ObjectNode actualChangeServiceTaskDelegateExpressionResult = dynamicBpmnServiceImpl
@@ -516,89 +467,83 @@ public class DynamicBpmnServiceImplDiffblueTest {
     verify(processEngineConfigurationImpl).getObjectMapper();
     Iterator<JsonNode> iteratorResult = actualChangeServiceTaskDelegateExpressionResult.iterator();
     JsonNode nextResult = iteratorResult.next();
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof TextNode);
-    assertEquals("\"Expression\"", nextResult3.toPrettyString());
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeServiceTaskDelegateExpressionResult.traverse() instanceof TreeTraversingParser);
     assertEquals("{\n  \"42\" : {\n    \"serviceTaskDelegateExpression\" : \"Expression\"\n  }\n}",
         nextResult.toPrettyString());
     assertEquals(
         "{\n  \"bpmn\" : {\n    \"42\" : {\n      \"serviceTaskDelegateExpression\" : \"Expression\"\n    }\n  }\n}",
         actualChangeServiceTaskDelegateExpressionResult.toPrettyString());
-    assertEquals("{\n  \"serviceTaskDelegateExpression\" : \"Expression\"\n}", nextResult2.toPrettyString());
-    assertFalse(iteratorResult3.hasNext());
-    assertFalse(iteratorResult2.hasNext());
     assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskDelegateExpression(String, String)}
-   * with {@code id}, {@code expression}.
+   * Test {@link DynamicBpmnServiceImpl#changeServiceTaskDelegateExpression(String, String)} with {@code id}, {@code expression}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskDelegateExpression(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeServiceTaskDelegateExpression(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeServiceTaskDelegateExpression(String, String)"})
   public void testChangeServiceTaskDelegateExpressionWithIdExpression2() {
     // Arrange
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    ObjectNode objectNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
     ObjectNode actualChangeServiceTaskDelegateExpressionResult = dynamicBpmnServiceImpl
-        .changeServiceTaskDelegateExpression("42", "Expression");
+        .changeServiceTaskDelegateExpression("42", "");
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeServiceTaskDelegateExpressionResult);
+    Iterator<JsonNode> iteratorResult = actualChangeServiceTaskDelegateExpressionResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeServiceTaskDelegateExpressionResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"serviceTaskDelegateExpression\" : \"\"\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"serviceTaskDelegateExpression\" : \"\"\n    }\n  }\n}",
+        actualChangeServiceTaskDelegateExpressionResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskDelegateExpression(String, String)}
-   * with {@code id}, {@code expression}.
+   * Test {@link DynamicBpmnServiceImpl#changeServiceTaskDelegateExpression(String, String)} with {@code id}, {@code expression}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskDelegateExpression(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeServiceTaskDelegateExpression(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeServiceTaskDelegateExpression(String, String)"})
   public void testChangeServiceTaskDelegateExpressionWithIdExpression3() {
     // Arrange
-    JsonNodeFactory nc = mock(JsonNodeFactory.class);
-    when(nc.objectNode()).thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
-    ObjectNode objectNode = new ObjectNode(nc);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
     ObjectNode actualChangeServiceTaskDelegateExpressionResult = dynamicBpmnServiceImpl
-        .changeServiceTaskDelegateExpression("42", "Expression");
+        .changeServiceTaskDelegateExpression("42", null);
 
     // Assert
-    verify(objectMapper).createObjectNode();
-    verify(nc).objectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeServiceTaskDelegateExpressionResult);
+    Iterator<JsonNode> iteratorResult = actualChangeServiceTaskDelegateExpressionResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeServiceTaskDelegateExpressionResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"serviceTaskDelegateExpression\" : null\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"serviceTaskDelegateExpression\" : null\n    }\n  }\n}",
+        actualChangeServiceTaskDelegateExpressionResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskDelegateExpression(String, String, ObjectNode)}
-   * with {@code id}, {@code expression}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeServiceTaskDelegateExpression(String, String, ObjectNode)} with {@code id}, {@code expression}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskDelegateExpression(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeServiceTaskDelegateExpression(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeServiceTaskDelegateExpression(String, String, ObjectNode)"})
   public void testChangeServiceTaskDelegateExpressionWithIdExpressionInfoNode() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -610,36 +555,23 @@ public class DynamicBpmnServiceImplDiffblueTest {
     Iterator<JsonNode> iteratorResult = infoNode.iterator();
     JsonNode nextResult = iteratorResult.next();
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof TextNode);
     assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult2.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult3.traverse() instanceof TreeTraversingParser);
-    assertEquals("\"Expression\"", nextResult3.toPrettyString());
     assertEquals("{\n  \"42\" : {\n    \"serviceTaskDelegateExpression\" : \"Expression\"\n  }\n}",
         nextResult.toPrettyString());
     assertEquals(
         "{\n  \"bpmn\" : {\n    \"42\" : {\n      \"serviceTaskDelegateExpression\" : \"Expression\"\n    }\n  }\n}",
         infoNode.toPrettyString());
-    assertEquals("{\n  \"serviceTaskDelegateExpression\" : \"Expression\"\n}", nextResult2.toPrettyString());
     assertFalse(iteratorResult.hasNext());
-    assertFalse(iteratorResult2.hasNext());
-    assertFalse(iteratorResult3.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskDelegateExpression(String, String, ObjectNode)}
-   * with {@code id}, {@code expression}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeServiceTaskDelegateExpression(String, String, ObjectNode)} with {@code id}, {@code expression}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskDelegateExpression(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeServiceTaskDelegateExpression(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeServiceTaskDelegateExpression(String, String, ObjectNode)"})
   public void testChangeServiceTaskDelegateExpressionWithIdExpressionInfoNode2() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -668,55 +600,52 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskDelegateExpression(String, String)}
-   * with {@code id}, {@code expression}.
-   * <ul>
-   *   <li>Then calls {@link ObjectNode#put(String, String)}.</li>
-   * </ul>
+   * Test {@link DynamicBpmnServiceImpl#changeServiceTaskDelegateExpression(String, String, ObjectNode)} with {@code id}, {@code expression}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeServiceTaskDelegateExpression(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeServiceTaskDelegateExpression(String, String, ObjectNode)}
    */
   @Test
-  public void testChangeServiceTaskDelegateExpressionWithIdExpression_thenCallsPut() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeServiceTaskDelegateExpression(String, String, ObjectNode)"})
+  public void testChangeServiceTaskDelegateExpressionWithIdExpressionInfoNode3() {
     // Arrange
     ObjectNode objectNode = mock(ObjectNode.class);
     when(objectNode.put(Mockito.<String>any(), Mockito.<String>any()))
         .thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
     JsonNodeFactory nc = mock(JsonNodeFactory.class);
     when(nc.objectNode()).thenReturn(objectNode);
+    ObjectNode objectNode2 = new ObjectNode(nc);
     JsonNodeFactory nc2 = mock(JsonNodeFactory.class);
-    when(nc2.objectNode()).thenReturn(new ObjectNode(nc));
-    ObjectNode objectNode2 = new ObjectNode(nc2);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode2);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(nc2.objectNode()).thenReturn(objectNode2);
+    ObjectNode infoNode = new ObjectNode(nc2);
 
     // Act
-    ObjectNode actualChangeServiceTaskDelegateExpressionResult = dynamicBpmnServiceImpl
-        .changeServiceTaskDelegateExpression("42", "Expression");
+    dynamicBpmnServiceImpl.changeServiceTaskDelegateExpression("42", "Expression", infoNode);
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(nc2).objectNode();
     verify(nc).objectNode();
     verify(objectNode).put(eq("serviceTaskDelegateExpression"), eq("Expression"));
-    verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode2, actualChangeServiceTaskDelegateExpressionResult);
+    Iterator<JsonNode> iteratorResult = infoNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertEquals(1, infoNode.size());
+    assertFalse(infoNode.isEmpty());
+    assertFalse(iteratorResult.hasNext());
+    assertSame(objectNode2, nextResult);
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeScriptTaskScript(String, String)}
-   * with {@code id}, {@code script}.
+   * Test {@link DynamicBpmnServiceImpl#changeScriptTaskScript(String, String)} with {@code id}, {@code script}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeScriptTaskScript(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeScriptTaskScript(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeScriptTaskScript(String, String)"})
   public void testChangeScriptTaskScriptWithIdScript() {
     // Arrange
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(new ObjectMapper());
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
     ObjectNode actualChangeScriptTaskScriptResult = dynamicBpmnServiceImpl.changeScriptTaskScript("42", "Script");
@@ -725,83 +654,79 @@ public class DynamicBpmnServiceImplDiffblueTest {
     verify(processEngineConfigurationImpl).getObjectMapper();
     Iterator<JsonNode> iteratorResult = actualChangeScriptTaskScriptResult.iterator();
     JsonNode nextResult = iteratorResult.next();
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof TextNode);
-    assertEquals("\"Script\"", nextResult3.toPrettyString());
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeScriptTaskScriptResult.traverse() instanceof TreeTraversingParser);
     assertEquals("{\n  \"42\" : {\n    \"scriptTaskScript\" : \"Script\"\n  }\n}", nextResult.toPrettyString());
     assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"scriptTaskScript\" : \"Script\"\n    }\n  }\n}",
         actualChangeScriptTaskScriptResult.toPrettyString());
-    assertEquals("{\n  \"scriptTaskScript\" : \"Script\"\n}", nextResult2.toPrettyString());
-    assertFalse(iteratorResult3.hasNext());
-    assertFalse(iteratorResult2.hasNext());
     assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeScriptTaskScript(String, String)}
-   * with {@code id}, {@code script}.
+   * Test {@link DynamicBpmnServiceImpl#changeScriptTaskScript(String, String)} with {@code id}, {@code script}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeScriptTaskScript(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeScriptTaskScript(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeScriptTaskScript(String, String)"})
   public void testChangeScriptTaskScriptWithIdScript2() {
     // Arrange
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    ObjectNode objectNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
-    ObjectNode actualChangeScriptTaskScriptResult = dynamicBpmnServiceImpl.changeScriptTaskScript("42", "Script");
+    ObjectNode actualChangeScriptTaskScriptResult = dynamicBpmnServiceImpl.changeScriptTaskScript("42", "");
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeScriptTaskScriptResult);
+    Iterator<JsonNode> iteratorResult = actualChangeScriptTaskScriptResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeScriptTaskScriptResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"scriptTaskScript\" : \"\"\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"scriptTaskScript\" : \"\"\n    }\n  }\n}",
+        actualChangeScriptTaskScriptResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeScriptTaskScript(String, String)}
-   * with {@code id}, {@code script}.
+   * Test {@link DynamicBpmnServiceImpl#changeScriptTaskScript(String, String)} with {@code id}, {@code script}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeScriptTaskScript(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeScriptTaskScript(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeScriptTaskScript(String, String)"})
   public void testChangeScriptTaskScriptWithIdScript3() {
     // Arrange
-    JsonNodeFactory nc = mock(JsonNodeFactory.class);
-    when(nc.objectNode()).thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
-    ObjectNode objectNode = new ObjectNode(nc);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
-    ObjectNode actualChangeScriptTaskScriptResult = dynamicBpmnServiceImpl.changeScriptTaskScript("42", "Script");
+    ObjectNode actualChangeScriptTaskScriptResult = dynamicBpmnServiceImpl.changeScriptTaskScript("42", null);
 
     // Assert
-    verify(objectMapper).createObjectNode();
-    verify(nc).objectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeScriptTaskScriptResult);
+    Iterator<JsonNode> iteratorResult = actualChangeScriptTaskScriptResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeScriptTaskScriptResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"scriptTaskScript\" : null\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"scriptTaskScript\" : null\n    }\n  }\n}",
+        actualChangeScriptTaskScriptResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeScriptTaskScript(String, String, ObjectNode)}
-   * with {@code id}, {@code script}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeScriptTaskScript(String, String, ObjectNode)} with {@code id}, {@code script}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeScriptTaskScript(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeScriptTaskScript(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeScriptTaskScript(String, String, ObjectNode)"})
   public void testChangeScriptTaskScriptWithIdScriptInfoNode() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -813,34 +738,21 @@ public class DynamicBpmnServiceImplDiffblueTest {
     Iterator<JsonNode> iteratorResult = infoNode.iterator();
     JsonNode nextResult = iteratorResult.next();
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof TextNode);
     assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult2.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult3.traverse() instanceof TreeTraversingParser);
-    assertEquals("\"Script\"", nextResult3.toPrettyString());
     assertEquals("{\n  \"42\" : {\n    \"scriptTaskScript\" : \"Script\"\n  }\n}", nextResult.toPrettyString());
     assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"scriptTaskScript\" : \"Script\"\n    }\n  }\n}",
         infoNode.toPrettyString());
-    assertEquals("{\n  \"scriptTaskScript\" : \"Script\"\n}", nextResult2.toPrettyString());
     assertFalse(iteratorResult.hasNext());
-    assertFalse(iteratorResult2.hasNext());
-    assertFalse(iteratorResult3.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeScriptTaskScript(String, String, ObjectNode)}
-   * with {@code id}, {@code script}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeScriptTaskScript(String, String, ObjectNode)} with {@code id}, {@code script}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeScriptTaskScript(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeScriptTaskScript(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeScriptTaskScript(String, String, ObjectNode)"})
   public void testChangeScriptTaskScriptWithIdScriptInfoNode2() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -869,102 +781,133 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeScriptTaskScript(String, String)}
-   * with {@code id}, {@code script}.
-   * <ul>
-   *   <li>Then calls {@link ObjectNode#put(String, String)}.</li>
-   * </ul>
+   * Test {@link DynamicBpmnServiceImpl#changeScriptTaskScript(String, String, ObjectNode)} with {@code id}, {@code script}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeScriptTaskScript(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeScriptTaskScript(String, String, ObjectNode)}
    */
   @Test
-  public void testChangeScriptTaskScriptWithIdScript_thenCallsPut() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeScriptTaskScript(String, String, ObjectNode)"})
+  public void testChangeScriptTaskScriptWithIdScriptInfoNode3() {
     // Arrange
     ObjectNode objectNode = mock(ObjectNode.class);
     when(objectNode.put(Mockito.<String>any(), Mockito.<String>any()))
         .thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
     JsonNodeFactory nc = mock(JsonNodeFactory.class);
     when(nc.objectNode()).thenReturn(objectNode);
+    ObjectNode objectNode2 = new ObjectNode(nc);
     JsonNodeFactory nc2 = mock(JsonNodeFactory.class);
-    when(nc2.objectNode()).thenReturn(new ObjectNode(nc));
-    ObjectNode objectNode2 = new ObjectNode(nc2);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode2);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(nc2.objectNode()).thenReturn(objectNode2);
+    ObjectNode infoNode = new ObjectNode(nc2);
 
     // Act
-    ObjectNode actualChangeScriptTaskScriptResult = dynamicBpmnServiceImpl.changeScriptTaskScript("42", "Script");
+    dynamicBpmnServiceImpl.changeScriptTaskScript("42", "Script", infoNode);
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(nc2).objectNode();
     verify(nc).objectNode();
     verify(objectNode).put(eq("scriptTaskScript"), eq("Script"));
-    verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode2, actualChangeScriptTaskScriptResult);
+    Iterator<JsonNode> iteratorResult = infoNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertEquals(1, infoNode.size());
+    assertFalse(infoNode.isEmpty());
+    assertFalse(iteratorResult.hasNext());
+    assertSame(objectNode2, nextResult);
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskName(String, String)} with
-   * {@code id}, {@code name}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskName(String, String)} with {@code id}, {@code name}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskName(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskName(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskName(String, String)"})
   public void testChangeUserTaskNameWithIdName() {
     // Arrange
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    ObjectNode objectNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
     ObjectNode actualChangeUserTaskNameResult = dynamicBpmnServiceImpl.changeUserTaskName("42", "Name");
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeUserTaskNameResult);
+    Iterator<JsonNode> iteratorResult = actualChangeUserTaskNameResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskNameResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"userTaskName\" : \"Name\"\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskName\" : \"Name\"\n    }\n  }\n}",
+        actualChangeUserTaskNameResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskName(String, String)} with
-   * {@code id}, {@code name}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskName(String, String)} with {@code id}, {@code name}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskName(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskName(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskName(String, String)"})
   public void testChangeUserTaskNameWithIdName2() {
     // Arrange
-    JsonNodeFactory nc = mock(JsonNodeFactory.class);
-    when(nc.objectNode()).thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
-    ObjectNode objectNode = new ObjectNode(nc);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
-    ObjectNode actualChangeUserTaskNameResult = dynamicBpmnServiceImpl.changeUserTaskName("42", "Name");
+    ObjectNode actualChangeUserTaskNameResult = dynamicBpmnServiceImpl.changeUserTaskName("42", "");
 
     // Assert
-    verify(objectMapper).createObjectNode();
-    verify(nc).objectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeUserTaskNameResult);
+    Iterator<JsonNode> iteratorResult = actualChangeUserTaskNameResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskNameResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"userTaskName\" : \"\"\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskName\" : \"\"\n    }\n  }\n}",
+        actualChangeUserTaskNameResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeUserTaskName(String, String, ObjectNode)}
-   * with {@code id}, {@code name}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskName(String, String)} with {@code id}, {@code name}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskName(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskName(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskName(String, String)"})
+  public void testChangeUserTaskNameWithIdName3() {
+    // Arrange
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
+
+    // Act
+    ObjectNode actualChangeUserTaskNameResult = dynamicBpmnServiceImpl.changeUserTaskName("42", null);
+
+    // Assert
+    verify(processEngineConfigurationImpl).getObjectMapper();
+    Iterator<JsonNode> iteratorResult = actualChangeUserTaskNameResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskNameResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"userTaskName\" : null\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskName\" : null\n    }\n  }\n}",
+        actualChangeUserTaskNameResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
+  }
+
+  /**
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskName(String, String, ObjectNode)} with {@code id}, {@code name}, {@code infoNode}.
+   * <p>
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskName(String, String, ObjectNode)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskName(String, String, ObjectNode)"})
   public void testChangeUserTaskNameWithIdNameInfoNode() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -976,34 +919,21 @@ public class DynamicBpmnServiceImplDiffblueTest {
     Iterator<JsonNode> iteratorResult = infoNode.iterator();
     JsonNode nextResult = iteratorResult.next();
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof TextNode);
     assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult2.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult3.traverse() instanceof TreeTraversingParser);
-    assertEquals("\"Name\"", nextResult3.toPrettyString());
     assertEquals("{\n  \"42\" : {\n    \"userTaskName\" : \"Name\"\n  }\n}", nextResult.toPrettyString());
     assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskName\" : \"Name\"\n    }\n  }\n}",
         infoNode.toPrettyString());
-    assertEquals("{\n  \"userTaskName\" : \"Name\"\n}", nextResult2.toPrettyString());
     assertFalse(iteratorResult.hasNext());
-    assertFalse(iteratorResult2.hasNext());
-    assertFalse(iteratorResult3.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeUserTaskName(String, String, ObjectNode)}
-   * with {@code id}, {@code name}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskName(String, String, ObjectNode)} with {@code id}, {@code name}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskName(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskName(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskName(String, String, ObjectNode)"})
   public void testChangeUserTaskNameWithIdNameInfoNode2() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -1032,92 +962,52 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskName(String, String)} with
-   * {@code id}, {@code name}.
-   * <ul>
-   *   <li>Then calls {@link ObjectNode#put(String, String)}.</li>
-   * </ul>
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskName(String, String, ObjectNode)} with {@code id}, {@code name}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskName(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskName(String, String, ObjectNode)}
    */
   @Test
-  public void testChangeUserTaskNameWithIdName_thenCallsPut() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskName(String, String, ObjectNode)"})
+  public void testChangeUserTaskNameWithIdNameInfoNode3() {
     // Arrange
     ObjectNode objectNode = mock(ObjectNode.class);
     when(objectNode.put(Mockito.<String>any(), Mockito.<String>any()))
         .thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
     JsonNodeFactory nc = mock(JsonNodeFactory.class);
     when(nc.objectNode()).thenReturn(objectNode);
+    ObjectNode objectNode2 = new ObjectNode(nc);
     JsonNodeFactory nc2 = mock(JsonNodeFactory.class);
-    when(nc2.objectNode()).thenReturn(new ObjectNode(nc));
-    ObjectNode objectNode2 = new ObjectNode(nc2);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode2);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(nc2.objectNode()).thenReturn(objectNode2);
+    ObjectNode infoNode = new ObjectNode(nc2);
 
     // Act
-    ObjectNode actualChangeUserTaskNameResult = dynamicBpmnServiceImpl.changeUserTaskName("42", "Name");
+    dynamicBpmnServiceImpl.changeUserTaskName("42", "Name", infoNode);
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(nc2).objectNode();
     verify(nc).objectNode();
     verify(objectNode).put(eq("userTaskName"), eq("Name"));
-    verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode2, actualChangeUserTaskNameResult);
-  }
-
-  /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskName(String, String)} with
-   * {@code id}, {@code name}.
-   * <ul>
-   *   <li>Then iterator next iterator next return {@link ObjectNode}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskName(String, String)}
-   */
-  @Test
-  public void testChangeUserTaskNameWithIdName_thenIteratorNextIteratorNextReturnObjectNode() {
-    // Arrange
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(new ObjectMapper());
-
-    // Act
-    ObjectNode actualChangeUserTaskNameResult = dynamicBpmnServiceImpl.changeUserTaskName("42", "Name");
-
-    // Assert
-    verify(processEngineConfigurationImpl).getObjectMapper();
-    Iterator<JsonNode> iteratorResult = actualChangeUserTaskNameResult.iterator();
+    Iterator<JsonNode> iteratorResult = infoNode.iterator();
     JsonNode nextResult = iteratorResult.next();
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof TextNode);
-    assertEquals("\"Name\"", nextResult3.toPrettyString());
-    assertEquals("{\n  \"42\" : {\n    \"userTaskName\" : \"Name\"\n  }\n}", nextResult.toPrettyString());
-    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskName\" : \"Name\"\n    }\n  }\n}",
-        actualChangeUserTaskNameResult.toPrettyString());
-    assertEquals("{\n  \"userTaskName\" : \"Name\"\n}", nextResult2.toPrettyString());
-    assertFalse(iteratorResult3.hasNext());
-    assertFalse(iteratorResult2.hasNext());
+    assertEquals(1, infoNode.size());
+    assertFalse(infoNode.isEmpty());
     assertFalse(iteratorResult.hasNext());
+    assertSame(objectNode2, nextResult);
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskDescription(String, String)}
-   * with {@code id}, {@code description}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskDescription(String, String)} with {@code id}, {@code description}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskDescription(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskDescription(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskDescription(String, String)"})
   public void testChangeUserTaskDescriptionWithIdDescription() {
     // Arrange
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(new ObjectMapper());
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
     ObjectNode actualChangeUserTaskDescriptionResult = dynamicBpmnServiceImpl.changeUserTaskDescription("42",
@@ -1127,89 +1017,82 @@ public class DynamicBpmnServiceImplDiffblueTest {
     verify(processEngineConfigurationImpl).getObjectMapper();
     Iterator<JsonNode> iteratorResult = actualChangeUserTaskDescriptionResult.iterator();
     JsonNode nextResult = iteratorResult.next();
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof TextNode);
-    assertEquals("\"The characteristics of someone or something\"", nextResult3.toPrettyString());
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskDescriptionResult.traverse() instanceof TreeTraversingParser);
     assertEquals(
         "{\n  \"42\" : {\n    \"userTaskDescription\" : \"The characteristics of someone or something\"\n  }\n}",
         nextResult.toPrettyString());
     assertEquals("{\n" + "  \"bpmn\" : {\n" + "    \"42\" : {\n"
         + "      \"userTaskDescription\" : \"The characteristics of someone or something\"\n" + "    }\n" + "  }\n"
         + "}", actualChangeUserTaskDescriptionResult.toPrettyString());
-    assertEquals("{\n  \"userTaskDescription\" : \"The characteristics of someone or something\"\n}",
-        nextResult2.toPrettyString());
-    assertFalse(iteratorResult3.hasNext());
-    assertFalse(iteratorResult2.hasNext());
     assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskDescription(String, String)}
-   * with {@code id}, {@code description}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskDescription(String, String)} with {@code id}, {@code description}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskDescription(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskDescription(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskDescription(String, String)"})
   public void testChangeUserTaskDescriptionWithIdDescription2() {
     // Arrange
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    ObjectNode objectNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
-    ObjectNode actualChangeUserTaskDescriptionResult = dynamicBpmnServiceImpl.changeUserTaskDescription("42",
-        "The characteristics of someone or something");
+    ObjectNode actualChangeUserTaskDescriptionResult = dynamicBpmnServiceImpl.changeUserTaskDescription("42", "");
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeUserTaskDescriptionResult);
+    Iterator<JsonNode> iteratorResult = actualChangeUserTaskDescriptionResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskDescriptionResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"userTaskDescription\" : \"\"\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskDescription\" : \"\"\n    }\n  }\n}",
+        actualChangeUserTaskDescriptionResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskDescription(String, String)}
-   * with {@code id}, {@code description}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskDescription(String, String)} with {@code id}, {@code description}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskDescription(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskDescription(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskDescription(String, String)"})
   public void testChangeUserTaskDescriptionWithIdDescription3() {
     // Arrange
-    JsonNodeFactory nc = mock(JsonNodeFactory.class);
-    when(nc.objectNode()).thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
-    ObjectNode objectNode = new ObjectNode(nc);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
-    ObjectNode actualChangeUserTaskDescriptionResult = dynamicBpmnServiceImpl.changeUserTaskDescription("42",
-        "The characteristics of someone or something");
+    ObjectNode actualChangeUserTaskDescriptionResult = dynamicBpmnServiceImpl.changeUserTaskDescription("42", null);
 
     // Assert
-    verify(objectMapper).createObjectNode();
-    verify(nc).objectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeUserTaskDescriptionResult);
+    Iterator<JsonNode> iteratorResult = actualChangeUserTaskDescriptionResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskDescriptionResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"userTaskDescription\" : null\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskDescription\" : null\n    }\n  }\n}",
+        actualChangeUserTaskDescriptionResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeUserTaskDescription(String, String, ObjectNode)}
-   * with {@code id}, {@code description}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskDescription(String, String, ObjectNode)} with {@code id}, {@code description}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskDescription(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskDescription(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskDescription(String, String, ObjectNode)"})
   public void testChangeUserTaskDescriptionWithIdDescriptionInfoNode() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -1221,38 +1104,24 @@ public class DynamicBpmnServiceImplDiffblueTest {
     Iterator<JsonNode> iteratorResult = infoNode.iterator();
     JsonNode nextResult = iteratorResult.next();
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof TextNode);
     assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult2.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult3.traverse() instanceof TreeTraversingParser);
-    assertEquals("\"The characteristics of someone or something\"", nextResult3.toPrettyString());
     assertEquals(
         "{\n  \"42\" : {\n    \"userTaskDescription\" : \"The characteristics of someone or something\"\n  }\n}",
         nextResult.toPrettyString());
     assertEquals("{\n" + "  \"bpmn\" : {\n" + "    \"42\" : {\n"
         + "      \"userTaskDescription\" : \"The characteristics of someone or something\"\n" + "    }\n" + "  }\n"
         + "}", infoNode.toPrettyString());
-    assertEquals("{\n  \"userTaskDescription\" : \"The characteristics of someone or something\"\n}",
-        nextResult2.toPrettyString());
     assertFalse(iteratorResult.hasNext());
-    assertFalse(iteratorResult2.hasNext());
-    assertFalse(iteratorResult3.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeUserTaskDescription(String, String, ObjectNode)}
-   * with {@code id}, {@code description}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskDescription(String, String, ObjectNode)} with {@code id}, {@code description}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskDescription(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskDescription(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskDescription(String, String, ObjectNode)"})
   public void testChangeUserTaskDescriptionWithIdDescriptionInfoNode2() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -1281,54 +1150,52 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskDescription(String, String)}
-   * with {@code id}, {@code description}.
-   * <ul>
-   *   <li>Then calls {@link ObjectNode#put(String, String)}.</li>
-   * </ul>
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskDescription(String, String, ObjectNode)} with {@code id}, {@code description}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskDescription(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskDescription(String, String, ObjectNode)}
    */
   @Test
-  public void testChangeUserTaskDescriptionWithIdDescription_thenCallsPut() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskDescription(String, String, ObjectNode)"})
+  public void testChangeUserTaskDescriptionWithIdDescriptionInfoNode3() {
     // Arrange
     ObjectNode objectNode = mock(ObjectNode.class);
     when(objectNode.put(Mockito.<String>any(), Mockito.<String>any()))
         .thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
     JsonNodeFactory nc = mock(JsonNodeFactory.class);
     when(nc.objectNode()).thenReturn(objectNode);
+    ObjectNode objectNode2 = new ObjectNode(nc);
     JsonNodeFactory nc2 = mock(JsonNodeFactory.class);
-    when(nc2.objectNode()).thenReturn(new ObjectNode(nc));
-    ObjectNode objectNode2 = new ObjectNode(nc2);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode2);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(nc2.objectNode()).thenReturn(objectNode2);
+    ObjectNode infoNode = new ObjectNode(nc2);
 
     // Act
-    ObjectNode actualChangeUserTaskDescriptionResult = dynamicBpmnServiceImpl.changeUserTaskDescription("42",
-        "The characteristics of someone or something");
+    dynamicBpmnServiceImpl.changeUserTaskDescription("42", "The characteristics of someone or something", infoNode);
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(nc2).objectNode();
     verify(nc).objectNode();
     verify(objectNode).put(eq("userTaskDescription"), eq("The characteristics of someone or something"));
-    verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode2, actualChangeUserTaskDescriptionResult);
+    Iterator<JsonNode> iteratorResult = infoNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertEquals(1, infoNode.size());
+    assertFalse(infoNode.isEmpty());
+    assertFalse(iteratorResult.hasNext());
+    assertSame(objectNode2, nextResult);
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskDueDate(String, String)}
-   * with {@code id}, {@code dueDate}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskDueDate(String, String)} with {@code id}, {@code dueDate}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskDueDate(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskDueDate(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskDueDate(String, String)"})
   public void testChangeUserTaskDueDateWithIdDueDate() {
     // Arrange
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(new ObjectMapper());
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
     ObjectNode actualChangeUserTaskDueDateResult = dynamicBpmnServiceImpl.changeUserTaskDueDate("42", "2020-03-01");
@@ -1337,83 +1204,79 @@ public class DynamicBpmnServiceImplDiffblueTest {
     verify(processEngineConfigurationImpl).getObjectMapper();
     Iterator<JsonNode> iteratorResult = actualChangeUserTaskDueDateResult.iterator();
     JsonNode nextResult = iteratorResult.next();
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof TextNode);
-    assertEquals("\"2020-03-01\"", nextResult3.toPrettyString());
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskDueDateResult.traverse() instanceof TreeTraversingParser);
     assertEquals("{\n  \"42\" : {\n    \"userTaskDueDate\" : \"2020-03-01\"\n  }\n}", nextResult.toPrettyString());
     assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskDueDate\" : \"2020-03-01\"\n    }\n  }\n}",
         actualChangeUserTaskDueDateResult.toPrettyString());
-    assertEquals("{\n  \"userTaskDueDate\" : \"2020-03-01\"\n}", nextResult2.toPrettyString());
-    assertFalse(iteratorResult3.hasNext());
-    assertFalse(iteratorResult2.hasNext());
     assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskDueDate(String, String)}
-   * with {@code id}, {@code dueDate}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskDueDate(String, String)} with {@code id}, {@code dueDate}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskDueDate(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskDueDate(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskDueDate(String, String)"})
   public void testChangeUserTaskDueDateWithIdDueDate2() {
     // Arrange
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    ObjectNode objectNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
-    ObjectNode actualChangeUserTaskDueDateResult = dynamicBpmnServiceImpl.changeUserTaskDueDate("42", "2020-03-01");
+    ObjectNode actualChangeUserTaskDueDateResult = dynamicBpmnServiceImpl.changeUserTaskDueDate("42", "");
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeUserTaskDueDateResult);
+    Iterator<JsonNode> iteratorResult = actualChangeUserTaskDueDateResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskDueDateResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"userTaskDueDate\" : \"\"\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskDueDate\" : \"\"\n    }\n  }\n}",
+        actualChangeUserTaskDueDateResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskDueDate(String, String)}
-   * with {@code id}, {@code dueDate}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskDueDate(String, String)} with {@code id}, {@code dueDate}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskDueDate(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskDueDate(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskDueDate(String, String)"})
   public void testChangeUserTaskDueDateWithIdDueDate3() {
     // Arrange
-    JsonNodeFactory nc = mock(JsonNodeFactory.class);
-    when(nc.objectNode()).thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
-    ObjectNode objectNode = new ObjectNode(nc);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
-    ObjectNode actualChangeUserTaskDueDateResult = dynamicBpmnServiceImpl.changeUserTaskDueDate("42", "2020-03-01");
+    ObjectNode actualChangeUserTaskDueDateResult = dynamicBpmnServiceImpl.changeUserTaskDueDate("42", null);
 
     // Assert
-    verify(objectMapper).createObjectNode();
-    verify(nc).objectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeUserTaskDueDateResult);
+    Iterator<JsonNode> iteratorResult = actualChangeUserTaskDueDateResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskDueDateResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"userTaskDueDate\" : null\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskDueDate\" : null\n    }\n  }\n}",
+        actualChangeUserTaskDueDateResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeUserTaskDueDate(String, String, ObjectNode)}
-   * with {@code id}, {@code dueDate}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskDueDate(String, String, ObjectNode)} with {@code id}, {@code dueDate}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskDueDate(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskDueDate(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskDueDate(String, String, ObjectNode)"})
   public void testChangeUserTaskDueDateWithIdDueDateInfoNode() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -1425,34 +1288,21 @@ public class DynamicBpmnServiceImplDiffblueTest {
     Iterator<JsonNode> iteratorResult = infoNode.iterator();
     JsonNode nextResult = iteratorResult.next();
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof TextNode);
     assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult2.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult3.traverse() instanceof TreeTraversingParser);
-    assertEquals("\"2020-03-01\"", nextResult3.toPrettyString());
     assertEquals("{\n  \"42\" : {\n    \"userTaskDueDate\" : \"2020-03-01\"\n  }\n}", nextResult.toPrettyString());
     assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskDueDate\" : \"2020-03-01\"\n    }\n  }\n}",
         infoNode.toPrettyString());
-    assertEquals("{\n  \"userTaskDueDate\" : \"2020-03-01\"\n}", nextResult2.toPrettyString());
     assertFalse(iteratorResult.hasNext());
-    assertFalse(iteratorResult2.hasNext());
-    assertFalse(iteratorResult3.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeUserTaskDueDate(String, String, ObjectNode)}
-   * with {@code id}, {@code dueDate}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskDueDate(String, String, ObjectNode)} with {@code id}, {@code dueDate}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskDueDate(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskDueDate(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskDueDate(String, String, ObjectNode)"})
   public void testChangeUserTaskDueDateWithIdDueDateInfoNode2() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -1481,53 +1331,52 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskDueDate(String, String)}
-   * with {@code id}, {@code dueDate}.
-   * <ul>
-   *   <li>Then calls {@link ObjectNode#put(String, String)}.</li>
-   * </ul>
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskDueDate(String, String, ObjectNode)} with {@code id}, {@code dueDate}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskDueDate(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskDueDate(String, String, ObjectNode)}
    */
   @Test
-  public void testChangeUserTaskDueDateWithIdDueDate_thenCallsPut() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskDueDate(String, String, ObjectNode)"})
+  public void testChangeUserTaskDueDateWithIdDueDateInfoNode3() {
     // Arrange
     ObjectNode objectNode = mock(ObjectNode.class);
     when(objectNode.put(Mockito.<String>any(), Mockito.<String>any()))
         .thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
     JsonNodeFactory nc = mock(JsonNodeFactory.class);
     when(nc.objectNode()).thenReturn(objectNode);
+    ObjectNode objectNode2 = new ObjectNode(nc);
     JsonNodeFactory nc2 = mock(JsonNodeFactory.class);
-    when(nc2.objectNode()).thenReturn(new ObjectNode(nc));
-    ObjectNode objectNode2 = new ObjectNode(nc2);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode2);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(nc2.objectNode()).thenReturn(objectNode2);
+    ObjectNode infoNode = new ObjectNode(nc2);
 
     // Act
-    ObjectNode actualChangeUserTaskDueDateResult = dynamicBpmnServiceImpl.changeUserTaskDueDate("42", "2020-03-01");
+    dynamicBpmnServiceImpl.changeUserTaskDueDate("42", "2020-03-01", infoNode);
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(nc2).objectNode();
     verify(nc).objectNode();
     verify(objectNode).put(eq("userTaskDueDate"), eq("2020-03-01"));
-    verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode2, actualChangeUserTaskDueDateResult);
+    Iterator<JsonNode> iteratorResult = infoNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertEquals(1, infoNode.size());
+    assertFalse(infoNode.isEmpty());
+    assertFalse(iteratorResult.hasNext());
+    assertSame(objectNode2, nextResult);
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskPriority(String, String)}
-   * with {@code id}, {@code priority}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskPriority(String, String)} with {@code id}, {@code priority}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskPriority(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskPriority(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskPriority(String, String)"})
   public void testChangeUserTaskPriorityWithIdPriority() {
     // Arrange
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(new ObjectMapper());
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
     ObjectNode actualChangeUserTaskPriorityResult = dynamicBpmnServiceImpl.changeUserTaskPriority("42", "Priority");
@@ -1536,83 +1385,79 @@ public class DynamicBpmnServiceImplDiffblueTest {
     verify(processEngineConfigurationImpl).getObjectMapper();
     Iterator<JsonNode> iteratorResult = actualChangeUserTaskPriorityResult.iterator();
     JsonNode nextResult = iteratorResult.next();
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof TextNode);
-    assertEquals("\"Priority\"", nextResult3.toPrettyString());
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskPriorityResult.traverse() instanceof TreeTraversingParser);
     assertEquals("{\n  \"42\" : {\n    \"userTaskPriority\" : \"Priority\"\n  }\n}", nextResult.toPrettyString());
     assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskPriority\" : \"Priority\"\n    }\n  }\n}",
         actualChangeUserTaskPriorityResult.toPrettyString());
-    assertEquals("{\n  \"userTaskPriority\" : \"Priority\"\n}", nextResult2.toPrettyString());
-    assertFalse(iteratorResult3.hasNext());
-    assertFalse(iteratorResult2.hasNext());
     assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskPriority(String, String)}
-   * with {@code id}, {@code priority}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskPriority(String, String)} with {@code id}, {@code priority}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskPriority(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskPriority(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskPriority(String, String)"})
   public void testChangeUserTaskPriorityWithIdPriority2() {
     // Arrange
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    ObjectNode objectNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
-    ObjectNode actualChangeUserTaskPriorityResult = dynamicBpmnServiceImpl.changeUserTaskPriority("42", "Priority");
+    ObjectNode actualChangeUserTaskPriorityResult = dynamicBpmnServiceImpl.changeUserTaskPriority("42", "");
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeUserTaskPriorityResult);
+    Iterator<JsonNode> iteratorResult = actualChangeUserTaskPriorityResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskPriorityResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"userTaskPriority\" : \"\"\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskPriority\" : \"\"\n    }\n  }\n}",
+        actualChangeUserTaskPriorityResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskPriority(String, String)}
-   * with {@code id}, {@code priority}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskPriority(String, String)} with {@code id}, {@code priority}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskPriority(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskPriority(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskPriority(String, String)"})
   public void testChangeUserTaskPriorityWithIdPriority3() {
     // Arrange
-    JsonNodeFactory nc = mock(JsonNodeFactory.class);
-    when(nc.objectNode()).thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
-    ObjectNode objectNode = new ObjectNode(nc);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
-    ObjectNode actualChangeUserTaskPriorityResult = dynamicBpmnServiceImpl.changeUserTaskPriority("42", "Priority");
+    ObjectNode actualChangeUserTaskPriorityResult = dynamicBpmnServiceImpl.changeUserTaskPriority("42", null);
 
     // Assert
-    verify(objectMapper).createObjectNode();
-    verify(nc).objectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeUserTaskPriorityResult);
+    Iterator<JsonNode> iteratorResult = actualChangeUserTaskPriorityResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskPriorityResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"userTaskPriority\" : null\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskPriority\" : null\n    }\n  }\n}",
+        actualChangeUserTaskPriorityResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeUserTaskPriority(String, String, ObjectNode)}
-   * with {@code id}, {@code priority}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskPriority(String, String, ObjectNode)} with {@code id}, {@code priority}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskPriority(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskPriority(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskPriority(String, String, ObjectNode)"})
   public void testChangeUserTaskPriorityWithIdPriorityInfoNode() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -1624,34 +1469,21 @@ public class DynamicBpmnServiceImplDiffblueTest {
     Iterator<JsonNode> iteratorResult = infoNode.iterator();
     JsonNode nextResult = iteratorResult.next();
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof TextNode);
     assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult2.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult3.traverse() instanceof TreeTraversingParser);
-    assertEquals("\"Priority\"", nextResult3.toPrettyString());
     assertEquals("{\n  \"42\" : {\n    \"userTaskPriority\" : \"Priority\"\n  }\n}", nextResult.toPrettyString());
     assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskPriority\" : \"Priority\"\n    }\n  }\n}",
         infoNode.toPrettyString());
-    assertEquals("{\n  \"userTaskPriority\" : \"Priority\"\n}", nextResult2.toPrettyString());
     assertFalse(iteratorResult.hasNext());
-    assertFalse(iteratorResult2.hasNext());
-    assertFalse(iteratorResult3.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeUserTaskPriority(String, String, ObjectNode)}
-   * with {@code id}, {@code priority}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskPriority(String, String, ObjectNode)} with {@code id}, {@code priority}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskPriority(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskPriority(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskPriority(String, String, ObjectNode)"})
   public void testChangeUserTaskPriorityWithIdPriorityInfoNode2() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -1680,53 +1512,52 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskPriority(String, String)}
-   * with {@code id}, {@code priority}.
-   * <ul>
-   *   <li>Then calls {@link ObjectNode#put(String, String)}.</li>
-   * </ul>
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskPriority(String, String, ObjectNode)} with {@code id}, {@code priority}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskPriority(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskPriority(String, String, ObjectNode)}
    */
   @Test
-  public void testChangeUserTaskPriorityWithIdPriority_thenCallsPut() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskPriority(String, String, ObjectNode)"})
+  public void testChangeUserTaskPriorityWithIdPriorityInfoNode3() {
     // Arrange
     ObjectNode objectNode = mock(ObjectNode.class);
     when(objectNode.put(Mockito.<String>any(), Mockito.<String>any()))
         .thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
     JsonNodeFactory nc = mock(JsonNodeFactory.class);
     when(nc.objectNode()).thenReturn(objectNode);
+    ObjectNode objectNode2 = new ObjectNode(nc);
     JsonNodeFactory nc2 = mock(JsonNodeFactory.class);
-    when(nc2.objectNode()).thenReturn(new ObjectNode(nc));
-    ObjectNode objectNode2 = new ObjectNode(nc2);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode2);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(nc2.objectNode()).thenReturn(objectNode2);
+    ObjectNode infoNode = new ObjectNode(nc2);
 
     // Act
-    ObjectNode actualChangeUserTaskPriorityResult = dynamicBpmnServiceImpl.changeUserTaskPriority("42", "Priority");
+    dynamicBpmnServiceImpl.changeUserTaskPriority("42", "Priority", infoNode);
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(nc2).objectNode();
     verify(nc).objectNode();
     verify(objectNode).put(eq("userTaskPriority"), eq("Priority"));
-    verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode2, actualChangeUserTaskPriorityResult);
+    Iterator<JsonNode> iteratorResult = infoNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertEquals(1, infoNode.size());
+    assertFalse(infoNode.isEmpty());
+    assertFalse(iteratorResult.hasNext());
+    assertSame(objectNode2, nextResult);
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskCategory(String, String)}
-   * with {@code id}, {@code category}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskCategory(String, String)} with {@code id}, {@code category}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCategory(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskCategory(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskCategory(String, String)"})
   public void testChangeUserTaskCategoryWithIdCategory() {
     // Arrange
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(new ObjectMapper());
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
     ObjectNode actualChangeUserTaskCategoryResult = dynamicBpmnServiceImpl.changeUserTaskCategory("42", "Category");
@@ -1735,83 +1566,79 @@ public class DynamicBpmnServiceImplDiffblueTest {
     verify(processEngineConfigurationImpl).getObjectMapper();
     Iterator<JsonNode> iteratorResult = actualChangeUserTaskCategoryResult.iterator();
     JsonNode nextResult = iteratorResult.next();
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof TextNode);
-    assertEquals("\"Category\"", nextResult3.toPrettyString());
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskCategoryResult.traverse() instanceof TreeTraversingParser);
     assertEquals("{\n  \"42\" : {\n    \"userTaskCategory\" : \"Category\"\n  }\n}", nextResult.toPrettyString());
     assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskCategory\" : \"Category\"\n    }\n  }\n}",
         actualChangeUserTaskCategoryResult.toPrettyString());
-    assertEquals("{\n  \"userTaskCategory\" : \"Category\"\n}", nextResult2.toPrettyString());
-    assertFalse(iteratorResult3.hasNext());
-    assertFalse(iteratorResult2.hasNext());
     assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskCategory(String, String)}
-   * with {@code id}, {@code category}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskCategory(String, String)} with {@code id}, {@code category}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCategory(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskCategory(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskCategory(String, String)"})
   public void testChangeUserTaskCategoryWithIdCategory2() {
     // Arrange
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    ObjectNode objectNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
-    ObjectNode actualChangeUserTaskCategoryResult = dynamicBpmnServiceImpl.changeUserTaskCategory("42", "Category");
+    ObjectNode actualChangeUserTaskCategoryResult = dynamicBpmnServiceImpl.changeUserTaskCategory("42", "");
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeUserTaskCategoryResult);
+    Iterator<JsonNode> iteratorResult = actualChangeUserTaskCategoryResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskCategoryResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"userTaskCategory\" : \"\"\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskCategory\" : \"\"\n    }\n  }\n}",
+        actualChangeUserTaskCategoryResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskCategory(String, String)}
-   * with {@code id}, {@code category}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskCategory(String, String)} with {@code id}, {@code category}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCategory(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskCategory(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskCategory(String, String)"})
   public void testChangeUserTaskCategoryWithIdCategory3() {
     // Arrange
-    JsonNodeFactory nc = mock(JsonNodeFactory.class);
-    when(nc.objectNode()).thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
-    ObjectNode objectNode = new ObjectNode(nc);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
-    ObjectNode actualChangeUserTaskCategoryResult = dynamicBpmnServiceImpl.changeUserTaskCategory("42", "Category");
+    ObjectNode actualChangeUserTaskCategoryResult = dynamicBpmnServiceImpl.changeUserTaskCategory("42", null);
 
     // Assert
-    verify(objectMapper).createObjectNode();
-    verify(nc).objectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeUserTaskCategoryResult);
+    Iterator<JsonNode> iteratorResult = actualChangeUserTaskCategoryResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskCategoryResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"userTaskCategory\" : null\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskCategory\" : null\n    }\n  }\n}",
+        actualChangeUserTaskCategoryResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCategory(String, String, ObjectNode)}
-   * with {@code id}, {@code category}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskCategory(String, String, ObjectNode)} with {@code id}, {@code category}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCategory(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskCategory(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskCategory(String, String, ObjectNode)"})
   public void testChangeUserTaskCategoryWithIdCategoryInfoNode() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -1823,34 +1650,21 @@ public class DynamicBpmnServiceImplDiffblueTest {
     Iterator<JsonNode> iteratorResult = infoNode.iterator();
     JsonNode nextResult = iteratorResult.next();
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof TextNode);
     assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult2.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult3.traverse() instanceof TreeTraversingParser);
-    assertEquals("\"Category\"", nextResult3.toPrettyString());
     assertEquals("{\n  \"42\" : {\n    \"userTaskCategory\" : \"Category\"\n  }\n}", nextResult.toPrettyString());
     assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskCategory\" : \"Category\"\n    }\n  }\n}",
         infoNode.toPrettyString());
-    assertEquals("{\n  \"userTaskCategory\" : \"Category\"\n}", nextResult2.toPrettyString());
     assertFalse(iteratorResult.hasNext());
-    assertFalse(iteratorResult2.hasNext());
-    assertFalse(iteratorResult3.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCategory(String, String, ObjectNode)}
-   * with {@code id}, {@code category}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskCategory(String, String, ObjectNode)} with {@code id}, {@code category}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCategory(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskCategory(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskCategory(String, String, ObjectNode)"})
   public void testChangeUserTaskCategoryWithIdCategoryInfoNode2() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -1879,53 +1693,52 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskCategory(String, String)}
-   * with {@code id}, {@code category}.
-   * <ul>
-   *   <li>Then calls {@link ObjectNode#put(String, String)}.</li>
-   * </ul>
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskCategory(String, String, ObjectNode)} with {@code id}, {@code category}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCategory(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskCategory(String, String, ObjectNode)}
    */
   @Test
-  public void testChangeUserTaskCategoryWithIdCategory_thenCallsPut() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskCategory(String, String, ObjectNode)"})
+  public void testChangeUserTaskCategoryWithIdCategoryInfoNode3() {
     // Arrange
     ObjectNode objectNode = mock(ObjectNode.class);
     when(objectNode.put(Mockito.<String>any(), Mockito.<String>any()))
         .thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
     JsonNodeFactory nc = mock(JsonNodeFactory.class);
     when(nc.objectNode()).thenReturn(objectNode);
+    ObjectNode objectNode2 = new ObjectNode(nc);
     JsonNodeFactory nc2 = mock(JsonNodeFactory.class);
-    when(nc2.objectNode()).thenReturn(new ObjectNode(nc));
-    ObjectNode objectNode2 = new ObjectNode(nc2);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode2);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(nc2.objectNode()).thenReturn(objectNode2);
+    ObjectNode infoNode = new ObjectNode(nc2);
 
     // Act
-    ObjectNode actualChangeUserTaskCategoryResult = dynamicBpmnServiceImpl.changeUserTaskCategory("42", "Category");
+    dynamicBpmnServiceImpl.changeUserTaskCategory("42", "Category", infoNode);
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(nc2).objectNode();
     verify(nc).objectNode();
     verify(objectNode).put(eq("userTaskCategory"), eq("Category"));
-    verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode2, actualChangeUserTaskCategoryResult);
+    Iterator<JsonNode> iteratorResult = infoNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertEquals(1, infoNode.size());
+    assertFalse(infoNode.isEmpty());
+    assertFalse(iteratorResult.hasNext());
+    assertSame(objectNode2, nextResult);
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskFormKey(String, String)}
-   * with {@code id}, {@code formKey}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskFormKey(String, String)} with {@code id}, {@code formKey}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskFormKey(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskFormKey(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskFormKey(String, String)"})
   public void testChangeUserTaskFormKeyWithIdFormKey() {
     // Arrange
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(new ObjectMapper());
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
     ObjectNode actualChangeUserTaskFormKeyResult = dynamicBpmnServiceImpl.changeUserTaskFormKey("42", "Form Key");
@@ -1934,83 +1747,79 @@ public class DynamicBpmnServiceImplDiffblueTest {
     verify(processEngineConfigurationImpl).getObjectMapper();
     Iterator<JsonNode> iteratorResult = actualChangeUserTaskFormKeyResult.iterator();
     JsonNode nextResult = iteratorResult.next();
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof TextNode);
-    assertEquals("\"Form Key\"", nextResult3.toPrettyString());
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskFormKeyResult.traverse() instanceof TreeTraversingParser);
     assertEquals("{\n  \"42\" : {\n    \"userTaskFormKey\" : \"Form Key\"\n  }\n}", nextResult.toPrettyString());
     assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskFormKey\" : \"Form Key\"\n    }\n  }\n}",
         actualChangeUserTaskFormKeyResult.toPrettyString());
-    assertEquals("{\n  \"userTaskFormKey\" : \"Form Key\"\n}", nextResult2.toPrettyString());
-    assertFalse(iteratorResult3.hasNext());
-    assertFalse(iteratorResult2.hasNext());
     assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskFormKey(String, String)}
-   * with {@code id}, {@code formKey}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskFormKey(String, String)} with {@code id}, {@code formKey}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskFormKey(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskFormKey(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskFormKey(String, String)"})
   public void testChangeUserTaskFormKeyWithIdFormKey2() {
     // Arrange
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    ObjectNode objectNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
-    ObjectNode actualChangeUserTaskFormKeyResult = dynamicBpmnServiceImpl.changeUserTaskFormKey("42", "Form Key");
+    ObjectNode actualChangeUserTaskFormKeyResult = dynamicBpmnServiceImpl.changeUserTaskFormKey("42", "");
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeUserTaskFormKeyResult);
+    Iterator<JsonNode> iteratorResult = actualChangeUserTaskFormKeyResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskFormKeyResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"userTaskFormKey\" : \"\"\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskFormKey\" : \"\"\n    }\n  }\n}",
+        actualChangeUserTaskFormKeyResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskFormKey(String, String)}
-   * with {@code id}, {@code formKey}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskFormKey(String, String)} with {@code id}, {@code formKey}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskFormKey(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskFormKey(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskFormKey(String, String)"})
   public void testChangeUserTaskFormKeyWithIdFormKey3() {
     // Arrange
-    JsonNodeFactory nc = mock(JsonNodeFactory.class);
-    when(nc.objectNode()).thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
-    ObjectNode objectNode = new ObjectNode(nc);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
-    ObjectNode actualChangeUserTaskFormKeyResult = dynamicBpmnServiceImpl.changeUserTaskFormKey("42", "Form Key");
+    ObjectNode actualChangeUserTaskFormKeyResult = dynamicBpmnServiceImpl.changeUserTaskFormKey("42", null);
 
     // Assert
-    verify(objectMapper).createObjectNode();
-    verify(nc).objectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeUserTaskFormKeyResult);
+    Iterator<JsonNode> iteratorResult = actualChangeUserTaskFormKeyResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskFormKeyResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"userTaskFormKey\" : null\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskFormKey\" : null\n    }\n  }\n}",
+        actualChangeUserTaskFormKeyResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeUserTaskFormKey(String, String, ObjectNode)}
-   * with {@code id}, {@code formKey}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskFormKey(String, String, ObjectNode)} with {@code id}, {@code formKey}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskFormKey(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskFormKey(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskFormKey(String, String, ObjectNode)"})
   public void testChangeUserTaskFormKeyWithIdFormKeyInfoNode() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -2022,34 +1831,21 @@ public class DynamicBpmnServiceImplDiffblueTest {
     Iterator<JsonNode> iteratorResult = infoNode.iterator();
     JsonNode nextResult = iteratorResult.next();
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof TextNode);
     assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult2.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult3.traverse() instanceof TreeTraversingParser);
-    assertEquals("\"Form Key\"", nextResult3.toPrettyString());
     assertEquals("{\n  \"42\" : {\n    \"userTaskFormKey\" : \"Form Key\"\n  }\n}", nextResult.toPrettyString());
     assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskFormKey\" : \"Form Key\"\n    }\n  }\n}",
         infoNode.toPrettyString());
-    assertEquals("{\n  \"userTaskFormKey\" : \"Form Key\"\n}", nextResult2.toPrettyString());
     assertFalse(iteratorResult.hasNext());
-    assertFalse(iteratorResult2.hasNext());
-    assertFalse(iteratorResult3.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeUserTaskFormKey(String, String, ObjectNode)}
-   * with {@code id}, {@code formKey}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskFormKey(String, String, ObjectNode)} with {@code id}, {@code formKey}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskFormKey(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskFormKey(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskFormKey(String, String, ObjectNode)"})
   public void testChangeUserTaskFormKeyWithIdFormKeyInfoNode2() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -2078,53 +1874,52 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskFormKey(String, String)}
-   * with {@code id}, {@code formKey}.
-   * <ul>
-   *   <li>Then calls {@link ObjectNode#put(String, String)}.</li>
-   * </ul>
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskFormKey(String, String, ObjectNode)} with {@code id}, {@code formKey}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskFormKey(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskFormKey(String, String, ObjectNode)}
    */
   @Test
-  public void testChangeUserTaskFormKeyWithIdFormKey_thenCallsPut() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskFormKey(String, String, ObjectNode)"})
+  public void testChangeUserTaskFormKeyWithIdFormKeyInfoNode3() {
     // Arrange
     ObjectNode objectNode = mock(ObjectNode.class);
     when(objectNode.put(Mockito.<String>any(), Mockito.<String>any()))
         .thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
     JsonNodeFactory nc = mock(JsonNodeFactory.class);
     when(nc.objectNode()).thenReturn(objectNode);
+    ObjectNode objectNode2 = new ObjectNode(nc);
     JsonNodeFactory nc2 = mock(JsonNodeFactory.class);
-    when(nc2.objectNode()).thenReturn(new ObjectNode(nc));
-    ObjectNode objectNode2 = new ObjectNode(nc2);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode2);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(nc2.objectNode()).thenReturn(objectNode2);
+    ObjectNode infoNode = new ObjectNode(nc2);
 
     // Act
-    ObjectNode actualChangeUserTaskFormKeyResult = dynamicBpmnServiceImpl.changeUserTaskFormKey("42", "Form Key");
+    dynamicBpmnServiceImpl.changeUserTaskFormKey("42", "Form Key", infoNode);
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(nc2).objectNode();
     verify(nc).objectNode();
     verify(objectNode).put(eq("userTaskFormKey"), eq("Form Key"));
-    verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode2, actualChangeUserTaskFormKeyResult);
+    Iterator<JsonNode> iteratorResult = infoNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertEquals(1, infoNode.size());
+    assertFalse(infoNode.isEmpty());
+    assertFalse(iteratorResult.hasNext());
+    assertSame(objectNode2, nextResult);
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskAssignee(String, String)}
-   * with {@code id}, {@code assignee}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskAssignee(String, String)} with {@code id}, {@code assignee}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskAssignee(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskAssignee(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskAssignee(String, String)"})
   public void testChangeUserTaskAssigneeWithIdAssignee() {
     // Arrange
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(new ObjectMapper());
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
     ObjectNode actualChangeUserTaskAssigneeResult = dynamicBpmnServiceImpl.changeUserTaskAssignee("42", "Assignee");
@@ -2133,83 +1928,79 @@ public class DynamicBpmnServiceImplDiffblueTest {
     verify(processEngineConfigurationImpl).getObjectMapper();
     Iterator<JsonNode> iteratorResult = actualChangeUserTaskAssigneeResult.iterator();
     JsonNode nextResult = iteratorResult.next();
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof TextNode);
-    assertEquals("\"Assignee\"", nextResult3.toPrettyString());
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskAssigneeResult.traverse() instanceof TreeTraversingParser);
     assertEquals("{\n  \"42\" : {\n    \"userTaskAssignee\" : \"Assignee\"\n  }\n}", nextResult.toPrettyString());
     assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskAssignee\" : \"Assignee\"\n    }\n  }\n}",
         actualChangeUserTaskAssigneeResult.toPrettyString());
-    assertEquals("{\n  \"userTaskAssignee\" : \"Assignee\"\n}", nextResult2.toPrettyString());
-    assertFalse(iteratorResult3.hasNext());
-    assertFalse(iteratorResult2.hasNext());
     assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskAssignee(String, String)}
-   * with {@code id}, {@code assignee}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskAssignee(String, String)} with {@code id}, {@code assignee}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskAssignee(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskAssignee(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskAssignee(String, String)"})
   public void testChangeUserTaskAssigneeWithIdAssignee2() {
     // Arrange
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    ObjectNode objectNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
-    ObjectNode actualChangeUserTaskAssigneeResult = dynamicBpmnServiceImpl.changeUserTaskAssignee("42", "Assignee");
+    ObjectNode actualChangeUserTaskAssigneeResult = dynamicBpmnServiceImpl.changeUserTaskAssignee("42", "");
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeUserTaskAssigneeResult);
+    Iterator<JsonNode> iteratorResult = actualChangeUserTaskAssigneeResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskAssigneeResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"userTaskAssignee\" : \"\"\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskAssignee\" : \"\"\n    }\n  }\n}",
+        actualChangeUserTaskAssigneeResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskAssignee(String, String)}
-   * with {@code id}, {@code assignee}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskAssignee(String, String)} with {@code id}, {@code assignee}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskAssignee(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskAssignee(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskAssignee(String, String)"})
   public void testChangeUserTaskAssigneeWithIdAssignee3() {
     // Arrange
-    JsonNodeFactory nc = mock(JsonNodeFactory.class);
-    when(nc.objectNode()).thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
-    ObjectNode objectNode = new ObjectNode(nc);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
-    ObjectNode actualChangeUserTaskAssigneeResult = dynamicBpmnServiceImpl.changeUserTaskAssignee("42", "Assignee");
+    ObjectNode actualChangeUserTaskAssigneeResult = dynamicBpmnServiceImpl.changeUserTaskAssignee("42", null);
 
     // Assert
-    verify(objectMapper).createObjectNode();
-    verify(nc).objectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeUserTaskAssigneeResult);
+    Iterator<JsonNode> iteratorResult = actualChangeUserTaskAssigneeResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskAssigneeResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"userTaskAssignee\" : null\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskAssignee\" : null\n    }\n  }\n}",
+        actualChangeUserTaskAssigneeResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeUserTaskAssignee(String, String, ObjectNode)}
-   * with {@code id}, {@code assignee}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskAssignee(String, String, ObjectNode)} with {@code id}, {@code assignee}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskAssignee(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskAssignee(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskAssignee(String, String, ObjectNode)"})
   public void testChangeUserTaskAssigneeWithIdAssigneeInfoNode() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -2221,34 +2012,21 @@ public class DynamicBpmnServiceImplDiffblueTest {
     Iterator<JsonNode> iteratorResult = infoNode.iterator();
     JsonNode nextResult = iteratorResult.next();
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof TextNode);
     assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult2.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult3.traverse() instanceof TreeTraversingParser);
-    assertEquals("\"Assignee\"", nextResult3.toPrettyString());
     assertEquals("{\n  \"42\" : {\n    \"userTaskAssignee\" : \"Assignee\"\n  }\n}", nextResult.toPrettyString());
     assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskAssignee\" : \"Assignee\"\n    }\n  }\n}",
         infoNode.toPrettyString());
-    assertEquals("{\n  \"userTaskAssignee\" : \"Assignee\"\n}", nextResult2.toPrettyString());
     assertFalse(iteratorResult.hasNext());
-    assertFalse(iteratorResult2.hasNext());
-    assertFalse(iteratorResult3.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeUserTaskAssignee(String, String, ObjectNode)}
-   * with {@code id}, {@code assignee}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskAssignee(String, String, ObjectNode)} with {@code id}, {@code assignee}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskAssignee(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskAssignee(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskAssignee(String, String, ObjectNode)"})
   public void testChangeUserTaskAssigneeWithIdAssigneeInfoNode2() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -2277,102 +2055,133 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskAssignee(String, String)}
-   * with {@code id}, {@code assignee}.
-   * <ul>
-   *   <li>Then calls {@link ObjectNode#put(String, String)}.</li>
-   * </ul>
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskAssignee(String, String, ObjectNode)} with {@code id}, {@code assignee}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskAssignee(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskAssignee(String, String, ObjectNode)}
    */
   @Test
-  public void testChangeUserTaskAssigneeWithIdAssignee_thenCallsPut() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskAssignee(String, String, ObjectNode)"})
+  public void testChangeUserTaskAssigneeWithIdAssigneeInfoNode3() {
     // Arrange
     ObjectNode objectNode = mock(ObjectNode.class);
     when(objectNode.put(Mockito.<String>any(), Mockito.<String>any()))
         .thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
     JsonNodeFactory nc = mock(JsonNodeFactory.class);
     when(nc.objectNode()).thenReturn(objectNode);
+    ObjectNode objectNode2 = new ObjectNode(nc);
     JsonNodeFactory nc2 = mock(JsonNodeFactory.class);
-    when(nc2.objectNode()).thenReturn(new ObjectNode(nc));
-    ObjectNode objectNode2 = new ObjectNode(nc2);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode2);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(nc2.objectNode()).thenReturn(objectNode2);
+    ObjectNode infoNode = new ObjectNode(nc2);
 
     // Act
-    ObjectNode actualChangeUserTaskAssigneeResult = dynamicBpmnServiceImpl.changeUserTaskAssignee("42", "Assignee");
+    dynamicBpmnServiceImpl.changeUserTaskAssignee("42", "Assignee", infoNode);
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(nc2).objectNode();
     verify(nc).objectNode();
     verify(objectNode).put(eq("userTaskAssignee"), eq("Assignee"));
-    verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode2, actualChangeUserTaskAssigneeResult);
+    Iterator<JsonNode> iteratorResult = infoNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertEquals(1, infoNode.size());
+    assertFalse(infoNode.isEmpty());
+    assertFalse(iteratorResult.hasNext());
+    assertSame(objectNode2, nextResult);
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskOwner(String, String)} with
-   * {@code id}, {@code owner}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskOwner(String, String)} with {@code id}, {@code owner}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskOwner(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskOwner(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskOwner(String, String)"})
   public void testChangeUserTaskOwnerWithIdOwner() {
     // Arrange
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    ObjectNode objectNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
     ObjectNode actualChangeUserTaskOwnerResult = dynamicBpmnServiceImpl.changeUserTaskOwner("42", "Owner");
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeUserTaskOwnerResult);
+    Iterator<JsonNode> iteratorResult = actualChangeUserTaskOwnerResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskOwnerResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"userTaskOwner\" : \"Owner\"\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskOwner\" : \"Owner\"\n    }\n  }\n}",
+        actualChangeUserTaskOwnerResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskOwner(String, String)} with
-   * {@code id}, {@code owner}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskOwner(String, String)} with {@code id}, {@code owner}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskOwner(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskOwner(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskOwner(String, String)"})
   public void testChangeUserTaskOwnerWithIdOwner2() {
     // Arrange
-    JsonNodeFactory nc = mock(JsonNodeFactory.class);
-    when(nc.objectNode()).thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
-    ObjectNode objectNode = new ObjectNode(nc);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
-    ObjectNode actualChangeUserTaskOwnerResult = dynamicBpmnServiceImpl.changeUserTaskOwner("42", "Owner");
+    ObjectNode actualChangeUserTaskOwnerResult = dynamicBpmnServiceImpl.changeUserTaskOwner("42", "");
 
     // Assert
-    verify(objectMapper).createObjectNode();
-    verify(nc).objectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeUserTaskOwnerResult);
+    Iterator<JsonNode> iteratorResult = actualChangeUserTaskOwnerResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskOwnerResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"userTaskOwner\" : \"\"\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskOwner\" : \"\"\n    }\n  }\n}",
+        actualChangeUserTaskOwnerResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeUserTaskOwner(String, String, ObjectNode)}
-   * with {@code id}, {@code owner}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskOwner(String, String)} with {@code id}, {@code owner}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskOwner(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskOwner(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskOwner(String, String)"})
+  public void testChangeUserTaskOwnerWithIdOwner3() {
+    // Arrange
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
+
+    // Act
+    ObjectNode actualChangeUserTaskOwnerResult = dynamicBpmnServiceImpl.changeUserTaskOwner("42", null);
+
+    // Assert
+    verify(processEngineConfigurationImpl).getObjectMapper();
+    Iterator<JsonNode> iteratorResult = actualChangeUserTaskOwnerResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskOwnerResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"userTaskOwner\" : null\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskOwner\" : null\n    }\n  }\n}",
+        actualChangeUserTaskOwnerResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
+  }
+
+  /**
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskOwner(String, String, ObjectNode)} with {@code id}, {@code owner}, {@code infoNode}.
+   * <p>
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskOwner(String, String, ObjectNode)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskOwner(String, String, ObjectNode)"})
   public void testChangeUserTaskOwnerWithIdOwnerInfoNode() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -2384,34 +2193,21 @@ public class DynamicBpmnServiceImplDiffblueTest {
     Iterator<JsonNode> iteratorResult = infoNode.iterator();
     JsonNode nextResult = iteratorResult.next();
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof TextNode);
     assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult2.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult3.traverse() instanceof TreeTraversingParser);
-    assertEquals("\"Owner\"", nextResult3.toPrettyString());
     assertEquals("{\n  \"42\" : {\n    \"userTaskOwner\" : \"Owner\"\n  }\n}", nextResult.toPrettyString());
     assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskOwner\" : \"Owner\"\n    }\n  }\n}",
         infoNode.toPrettyString());
-    assertEquals("{\n  \"userTaskOwner\" : \"Owner\"\n}", nextResult2.toPrettyString());
     assertFalse(iteratorResult.hasNext());
-    assertFalse(iteratorResult2.hasNext());
-    assertFalse(iteratorResult3.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeUserTaskOwner(String, String, ObjectNode)}
-   * with {@code id}, {@code owner}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskOwner(String, String, ObjectNode)} with {@code id}, {@code owner}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskOwner(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskOwner(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskOwner(String, String, ObjectNode)"})
   public void testChangeUserTaskOwnerWithIdOwnerInfoNode2() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -2440,93 +2236,52 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskOwner(String, String)} with
-   * {@code id}, {@code owner}.
-   * <ul>
-   *   <li>Then calls {@link ObjectNode#put(String, String)}.</li>
-   * </ul>
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskOwner(String, String, ObjectNode)} with {@code id}, {@code owner}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskOwner(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskOwner(String, String, ObjectNode)}
    */
   @Test
-  public void testChangeUserTaskOwnerWithIdOwner_thenCallsPut() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskOwner(String, String, ObjectNode)"})
+  public void testChangeUserTaskOwnerWithIdOwnerInfoNode3() {
     // Arrange
     ObjectNode objectNode = mock(ObjectNode.class);
     when(objectNode.put(Mockito.<String>any(), Mockito.<String>any()))
         .thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
     JsonNodeFactory nc = mock(JsonNodeFactory.class);
     when(nc.objectNode()).thenReturn(objectNode);
+    ObjectNode objectNode2 = new ObjectNode(nc);
     JsonNodeFactory nc2 = mock(JsonNodeFactory.class);
-    when(nc2.objectNode()).thenReturn(new ObjectNode(nc));
-    ObjectNode objectNode2 = new ObjectNode(nc2);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode2);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(nc2.objectNode()).thenReturn(objectNode2);
+    ObjectNode infoNode = new ObjectNode(nc2);
 
     // Act
-    ObjectNode actualChangeUserTaskOwnerResult = dynamicBpmnServiceImpl.changeUserTaskOwner("42", "Owner");
+    dynamicBpmnServiceImpl.changeUserTaskOwner("42", "Owner", infoNode);
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(nc2).objectNode();
     verify(nc).objectNode();
     verify(objectNode).put(eq("userTaskOwner"), eq("Owner"));
-    verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode2, actualChangeUserTaskOwnerResult);
-  }
-
-  /**
-   * Test {@link DynamicBpmnServiceImpl#changeUserTaskOwner(String, String)} with
-   * {@code id}, {@code owner}.
-   * <ul>
-   *   <li>Then iterator next iterator next return {@link ObjectNode}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskOwner(String, String)}
-   */
-  @Test
-  public void testChangeUserTaskOwnerWithIdOwner_thenIteratorNextIteratorNextReturnObjectNode() {
-    // Arrange
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(new ObjectMapper());
-
-    // Act
-    ObjectNode actualChangeUserTaskOwnerResult = dynamicBpmnServiceImpl.changeUserTaskOwner("42", "Owner");
-
-    // Assert
-    verify(processEngineConfigurationImpl).getObjectMapper();
-    Iterator<JsonNode> iteratorResult = actualChangeUserTaskOwnerResult.iterator();
+    Iterator<JsonNode> iteratorResult = infoNode.iterator();
     JsonNode nextResult = iteratorResult.next();
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof TextNode);
-    assertEquals("\"Owner\"", nextResult3.toPrettyString());
-    assertEquals("{\n  \"42\" : {\n    \"userTaskOwner\" : \"Owner\"\n  }\n}", nextResult.toPrettyString());
-    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskOwner\" : \"Owner\"\n    }\n  }\n}",
-        actualChangeUserTaskOwnerResult.toPrettyString());
-    assertEquals("{\n  \"userTaskOwner\" : \"Owner\"\n}", nextResult2.toPrettyString());
-    assertFalse(iteratorResult3.hasNext());
-    assertFalse(iteratorResult2.hasNext());
+    assertEquals(1, infoNode.size());
+    assertFalse(infoNode.isEmpty());
     assertFalse(iteratorResult.hasNext());
+    assertSame(objectNode2, nextResult);
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCandidateUser(String, String, boolean)}
-   * with {@code id}, {@code candidateUser}, {@code overwriteOtherChangedEntries}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskCandidateUser(String, String, boolean)} with {@code id}, {@code candidateUser}, {@code overwriteOtherChangedEntries}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCandidateUser(String, String, boolean)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskCandidateUser(String, String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskCandidateUser(String, String, boolean)"})
   public void testChangeUserTaskCandidateUserWithIdCandidateUserOverwriteOtherChangedEntries() {
     // Arrange
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(new ObjectMapper());
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
     ObjectNode actualChangeUserTaskCandidateUserResult = dynamicBpmnServiceImpl.changeUserTaskCandidateUser("42",
@@ -2536,148 +2291,107 @@ public class DynamicBpmnServiceImplDiffblueTest {
     verify(processEngineConfigurationImpl, atLeast(1)).getObjectMapper();
     Iterator<JsonNode> iteratorResult = actualChangeUserTaskCandidateUserResult.iterator();
     JsonNode nextResult = iteratorResult.next();
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof ArrayNode);
-    assertTrue(nextResult2 instanceof ObjectNode);
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> elementsResult = nextResult3.elements();
-    JsonNode nextResult4 = elementsResult.next();
-    assertTrue(nextResult4 instanceof TextNode);
-    assertEquals("[ \"2020-03-01\" ]", nextResult3.toPrettyString());
-    assertEquals("\"2020-03-01\"", nextResult4.toPrettyString());
-    assertEquals("{\n  \"42\" : {\n    \"userTaskCandidateUsers\" : [ \"2020-03-01\" ]\n  }\n}",
-        nextResult.toPrettyString());
-    assertEquals(
-        "{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskCandidateUsers\" : [ \"2020-03-01\" ]\n    }\n  }\n}",
-        actualChangeUserTaskCandidateUserResult.toPrettyString());
-    assertEquals("{\n  \"userTaskCandidateUsers\" : [ \"2020-03-01\" ]\n}", nextResult2.toPrettyString());
-    assertFalse(elementsResult.hasNext());
-    assertFalse(iteratorResult3.hasNext());
-    assertFalse(iteratorResult2.hasNext());
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskCandidateUserResult.traverse() instanceof TreeTraversingParser);
     assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCandidateUser(String, String, boolean)}
-   * with {@code id}, {@code candidateUser}, {@code overwriteOtherChangedEntries}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskCandidateUser(String, String, boolean)} with {@code id}, {@code candidateUser}, {@code overwriteOtherChangedEntries}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCandidateUser(String, String, boolean)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskCandidateUser(String, String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskCandidateUser(String, String, boolean)"})
   public void testChangeUserTaskCandidateUserWithIdCandidateUserOverwriteOtherChangedEntries2() {
     // Arrange
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.add(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createArrayNode()).thenReturn(arrayNode);
-    ObjectNode objectNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
-    ObjectNode actualChangeUserTaskCandidateUserResult = dynamicBpmnServiceImpl.changeUserTaskCandidateUser("42",
-        "2020-03-01", true);
+    ObjectNode actualChangeUserTaskCandidateUserResult = dynamicBpmnServiceImpl.changeUserTaskCandidateUser("42", "",
+        true);
 
     // Assert
-    verify(objectMapper).createArrayNode();
-    verify(objectMapper).createObjectNode();
-    verify(arrayNode).add(eq("2020-03-01"));
     verify(processEngineConfigurationImpl, atLeast(1)).getObjectMapper();
-    assertSame(objectNode, actualChangeUserTaskCandidateUserResult);
+    Iterator<JsonNode> iteratorResult = actualChangeUserTaskCandidateUserResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskCandidateUserResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"userTaskCandidateUsers\" : [ \"\" ]\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskCandidateUsers\" : [ \"\" ]\n    }\n  }\n}",
+        actualChangeUserTaskCandidateUserResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCandidateUser(String, String, boolean)}
-   * with {@code id}, {@code candidateUser}, {@code overwriteOtherChangedEntries}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskCandidateUser(String, String, boolean)} with {@code id}, {@code candidateUser}, {@code overwriteOtherChangedEntries}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCandidateUser(String, String, boolean)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskCandidateUser(String, String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskCandidateUser(String, String, boolean)"})
   public void testChangeUserTaskCandidateUserWithIdCandidateUserOverwriteOtherChangedEntries3() {
     // Arrange
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.add(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
-    JsonNodeFactory nc = mock(JsonNodeFactory.class);
-    when(nc.objectNode()).thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
-    ObjectNode objectNode = new ObjectNode(nc);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createArrayNode()).thenReturn(arrayNode);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
     ObjectNode actualChangeUserTaskCandidateUserResult = dynamicBpmnServiceImpl.changeUserTaskCandidateUser("42",
-        "2020-03-01", true);
+        "2020-03-01", false);
 
     // Assert
-    verify(objectMapper).createArrayNode();
-    verify(objectMapper).createObjectNode();
-    verify(arrayNode).add(eq("2020-03-01"));
-    verify(nc).objectNode();
     verify(processEngineConfigurationImpl, atLeast(1)).getObjectMapper();
-    assertSame(objectNode, actualChangeUserTaskCandidateUserResult);
+    Iterator<JsonNode> iteratorResult = actualChangeUserTaskCandidateUserResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskCandidateUserResult.traverse() instanceof TreeTraversingParser);
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCandidateUser(String, String, boolean)}
-   * with {@code id}, {@code candidateUser}, {@code overwriteOtherChangedEntries}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskCandidateUser(String, String, boolean)} with {@code id}, {@code candidateUser}, {@code overwriteOtherChangedEntries}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCandidateUser(String, String, boolean)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskCandidateUser(String, String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskCandidateUser(String, String, boolean)"})
   public void testChangeUserTaskCandidateUserWithIdCandidateUserOverwriteOtherChangedEntries4() {
     // Arrange
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.add(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
-    ObjectNode objectNode = mock(ObjectNode.class);
-    when(objectNode.set(Mockito.<String>any(), Mockito.<JsonNode>any())).thenReturn(MissingNode.getInstance());
-    JsonNodeFactory nc = mock(JsonNodeFactory.class);
-    when(nc.objectNode()).thenReturn(objectNode);
-    JsonNodeFactory nc2 = mock(JsonNodeFactory.class);
-    when(nc2.objectNode()).thenReturn(new ObjectNode(nc));
-    ObjectNode objectNode2 = new ObjectNode(nc2);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createArrayNode()).thenReturn(arrayNode);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode2);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
-    ObjectNode actualChangeUserTaskCandidateUserResult = dynamicBpmnServiceImpl.changeUserTaskCandidateUser("42",
-        "2020-03-01", true);
+    ObjectNode actualChangeUserTaskCandidateUserResult = dynamicBpmnServiceImpl.changeUserTaskCandidateUser("42", null,
+        false);
 
     // Assert
-    verify(objectMapper).createArrayNode();
-    verify(objectMapper).createObjectNode();
-    verify(arrayNode).add(eq("2020-03-01"));
-    verify(nc2).objectNode();
-    verify(nc).objectNode();
-    verify(objectNode).set(eq("userTaskCandidateUsers"), isA(JsonNode.class));
     verify(processEngineConfigurationImpl, atLeast(1)).getObjectMapper();
-    assertSame(objectNode2, actualChangeUserTaskCandidateUserResult);
+    Iterator<JsonNode> iteratorResult = actualChangeUserTaskCandidateUserResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskCandidateUserResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"userTaskCandidateUsers\" : [ null ]\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskCandidateUsers\" : [ null ]\n    }\n  }\n}",
+        actualChangeUserTaskCandidateUserResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCandidateUser(String, String, boolean, ObjectNode)}
-   * with {@code id}, {@code candidateUser}, {@code overwriteOtherChangedEntries},
-   * {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskCandidateUser(String, String, boolean, ObjectNode)} with {@code id}, {@code candidateUser}, {@code overwriteOtherChangedEntries}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCandidateUser(String, String, boolean, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskCandidateUser(String, String, boolean, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskCandidateUser(String, String, boolean, ObjectNode)"})
   public void testChangeUserTaskCandidateUserWithIdCandidateUserOverwriteOtherChangedEntriesInfoNode() {
     // Arrange
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(new ObjectMapper());
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
 
     // Act
@@ -2687,24 +2401,50 @@ public class DynamicBpmnServiceImplDiffblueTest {
     verify(processEngineConfigurationImpl).getObjectMapper();
     Iterator<JsonNode> iteratorResult = infoNode.iterator();
     JsonNode nextResult = iteratorResult.next();
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof ArrayNode);
     assertTrue(nextResult instanceof ObjectNode);
-    assertTrue(nextResult2 instanceof ObjectNode);
-    Iterator<JsonNode> elementsResult = nextResult3.elements();
-    JsonNode nextResult4 = elementsResult.next();
-    assertTrue(nextResult4 instanceof TextNode);
-    assertEquals("[ \"2020-03-01\" ]", nextResult3.toPrettyString());
-    assertEquals("\"2020-03-01\"", nextResult4.toPrettyString());
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
     assertEquals("{\n  \"42\" : {\n    \"userTaskCandidateUsers\" : [ \"2020-03-01\" ]\n  }\n}",
         nextResult.toPrettyString());
     assertEquals(
         "{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskCandidateUsers\" : [ \"2020-03-01\" ]\n    }\n  }\n}",
         infoNode.toPrettyString());
-    assertEquals("{\n  \"userTaskCandidateUsers\" : [ \"2020-03-01\" ]\n}", nextResult2.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
+  }
+
+  /**
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskCandidateUser(String, String, boolean, ObjectNode)} with {@code id}, {@code candidateUser}, {@code overwriteOtherChangedEntries}, {@code infoNode}.
+   * <p>
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskCandidateUser(String, String, boolean, ObjectNode)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskCandidateUser(String, String, boolean, ObjectNode)"})
+  public void testChangeUserTaskCandidateUserWithIdCandidateUserOverwriteOtherChangedEntriesInfoNode2() {
+    // Arrange
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
+    ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    // Act
+    dynamicBpmnServiceImpl.changeUserTaskCandidateUser("42", "", true, infoNode);
+
+    // Assert
+    verify(processEngineConfigurationImpl).getObjectMapper();
+    Iterator<JsonNode> iteratorResult = infoNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
+    JsonNode nextResult2 = iteratorResult2.next();
+    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
+    JsonNode nextResult3 = iteratorResult3.next();
+    assertTrue(nextResult3 instanceof ArrayNode);
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult2 instanceof ObjectNode);
+    Iterator<JsonNode> elementsResult = nextResult3.elements();
+    assertTrue(elementsResult.next() instanceof TextNode);
+    assertEquals("[ \"\" ]", nextResult3.toPrettyString());
+    assertEquals("{\n  \"42\" : {\n    \"userTaskCandidateUsers\" : [ \"\" ]\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskCandidateUsers\" : [ \"\" ]\n    }\n  }\n}",
+        infoNode.toPrettyString());
+    assertEquals("{\n  \"userTaskCandidateUsers\" : [ \"\" ]\n}", nextResult2.toPrettyString());
     assertFalse(elementsResult.hasNext());
     assertFalse(iteratorResult.hasNext());
     assertFalse(iteratorResult2.hasNext());
@@ -2712,94 +2452,83 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCandidateUser(String, String, boolean, ObjectNode)}
-   * with {@code id}, {@code candidateUser}, {@code overwriteOtherChangedEntries},
-   * {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskCandidateUser(String, String, boolean, ObjectNode)} with {@code id}, {@code candidateUser}, {@code overwriteOtherChangedEntries}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCandidateUser(String, String, boolean, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskCandidateUser(String, String, boolean, ObjectNode)}
    */
   @Test
-  public void testChangeUserTaskCandidateUserWithIdCandidateUserOverwriteOtherChangedEntriesInfoNode2() {
-    // Arrange
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.add(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createArrayNode()).thenReturn(arrayNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
-    ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
-
-    // Act
-    dynamicBpmnServiceImpl.changeUserTaskCandidateUser("42", "2020-03-01", true, infoNode);
-
-    // Assert
-    verify(objectMapper).createArrayNode();
-    verify(arrayNode).add(eq("2020-03-01"));
-    verify(processEngineConfigurationImpl).getObjectMapper();
-    Iterator<JsonNode> iteratorResult = infoNode.iterator();
-    JsonNode nextResult = iteratorResult.next();
-    assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
-    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult2.traverse() instanceof TreeTraversingParser);
-    assertFalse(iteratorResult.hasNext());
-    assertFalse(iteratorResult2.hasNext());
-  }
-
-  /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCandidateUser(String, String, boolean, ObjectNode)}
-   * with {@code id}, {@code candidateUser}, {@code overwriteOtherChangedEntries},
-   * {@code infoNode}.
-   * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCandidateUser(String, String, boolean, ObjectNode)}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskCandidateUser(String, String, boolean, ObjectNode)"})
   public void testChangeUserTaskCandidateUserWithIdCandidateUserOverwriteOtherChangedEntriesInfoNode3() {
     // Arrange
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.add(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createArrayNode()).thenReturn(arrayNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
 
     // Act
     dynamicBpmnServiceImpl.changeUserTaskCandidateUser("42", "2020-03-01", false, infoNode);
 
     // Assert
-    verify(objectMapper).createArrayNode();
-    verify(arrayNode).add(eq("2020-03-01"));
     verify(processEngineConfigurationImpl).getObjectMapper();
     Iterator<JsonNode> iteratorResult = infoNode.iterator();
     JsonNode nextResult = iteratorResult.next();
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
     assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult2.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"userTaskCandidateUsers\" : [ \"2020-03-01\" ]\n  }\n}",
+        nextResult.toPrettyString());
+    assertEquals(
+        "{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskCandidateUsers\" : [ \"2020-03-01\" ]\n    }\n  }\n}",
+        infoNode.toPrettyString());
     assertFalse(iteratorResult.hasNext());
-    assertFalse(iteratorResult2.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCandidateGroup(String, String, boolean)}
-   * with {@code id}, {@code candidateGroup},
-   * {@code overwriteOtherChangedEntries}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskCandidateUser(String, String, boolean, ObjectNode)} with {@code id}, {@code candidateUser}, {@code overwriteOtherChangedEntries}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCandidateGroup(String, String, boolean)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskCandidateUser(String, String, boolean, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskCandidateUser(String, String, boolean, ObjectNode)"})
+  public void testChangeUserTaskCandidateUserWithIdCandidateUserOverwriteOtherChangedEntriesInfoNode4() {
+    // Arrange
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
+    ObjectNode objectNode = mock(ObjectNode.class);
+    when(objectNode.set(Mockito.<String>any(), Mockito.<JsonNode>any())).thenReturn(MissingNode.getInstance());
+    JsonNodeFactory nc = mock(JsonNodeFactory.class);
+    when(nc.objectNode()).thenReturn(objectNode);
+    ObjectNode objectNode2 = new ObjectNode(nc);
+    JsonNodeFactory nc2 = mock(JsonNodeFactory.class);
+    when(nc2.objectNode()).thenReturn(objectNode2);
+    ObjectNode infoNode = new ObjectNode(nc2);
+
+    // Act
+    dynamicBpmnServiceImpl.changeUserTaskCandidateUser("42", "2020-03-01", true, infoNode);
+
+    // Assert
+    verify(nc2).objectNode();
+    verify(nc).objectNode();
+    verify(objectNode).set(eq("userTaskCandidateUsers"), isA(JsonNode.class));
+    verify(processEngineConfigurationImpl).getObjectMapper();
+    Iterator<JsonNode> iteratorResult = infoNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertEquals(1, infoNode.size());
+    assertFalse(infoNode.isEmpty());
+    assertFalse(iteratorResult.hasNext());
+    assertSame(objectNode2, nextResult);
+  }
+
+  /**
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskCandidateGroup(String, String, boolean)} with {@code id}, {@code candidateGroup}, {@code overwriteOtherChangedEntries}.
+   * <p>
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskCandidateGroup(String, String, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskCandidateGroup(String, String, boolean)"})
   public void testChangeUserTaskCandidateGroupWithIdCandidateGroupOverwriteOtherChangedEntries() {
     // Arrange
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(new ObjectMapper());
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
     ObjectNode actualChangeUserTaskCandidateGroupResult = dynamicBpmnServiceImpl.changeUserTaskCandidateGroup("42",
@@ -2809,151 +2538,107 @@ public class DynamicBpmnServiceImplDiffblueTest {
     verify(processEngineConfigurationImpl, atLeast(1)).getObjectMapper();
     Iterator<JsonNode> iteratorResult = actualChangeUserTaskCandidateGroupResult.iterator();
     JsonNode nextResult = iteratorResult.next();
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof ArrayNode);
-    assertTrue(nextResult2 instanceof ObjectNode);
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> elementsResult = nextResult3.elements();
-    JsonNode nextResult4 = elementsResult.next();
-    assertTrue(nextResult4 instanceof TextNode);
-    assertEquals("[ \"2020-03-01\" ]", nextResult3.toPrettyString());
-    assertEquals("\"2020-03-01\"", nextResult4.toPrettyString());
-    assertEquals("{\n  \"42\" : {\n    \"userTaskCandidateGroups\" : [ \"2020-03-01\" ]\n  }\n}",
-        nextResult.toPrettyString());
-    assertEquals(
-        "{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskCandidateGroups\" : [ \"2020-03-01\" ]\n    }\n  }\n}",
-        actualChangeUserTaskCandidateGroupResult.toPrettyString());
-    assertEquals("{\n  \"userTaskCandidateGroups\" : [ \"2020-03-01\" ]\n}", nextResult2.toPrettyString());
-    assertFalse(elementsResult.hasNext());
-    assertFalse(iteratorResult3.hasNext());
-    assertFalse(iteratorResult2.hasNext());
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskCandidateGroupResult.traverse() instanceof TreeTraversingParser);
     assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCandidateGroup(String, String, boolean)}
-   * with {@code id}, {@code candidateGroup},
-   * {@code overwriteOtherChangedEntries}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskCandidateGroup(String, String, boolean)} with {@code id}, {@code candidateGroup}, {@code overwriteOtherChangedEntries}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCandidateGroup(String, String, boolean)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskCandidateGroup(String, String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskCandidateGroup(String, String, boolean)"})
   public void testChangeUserTaskCandidateGroupWithIdCandidateGroupOverwriteOtherChangedEntries2() {
     // Arrange
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.add(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createArrayNode()).thenReturn(arrayNode);
-    ObjectNode objectNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
-    ObjectNode actualChangeUserTaskCandidateGroupResult = dynamicBpmnServiceImpl.changeUserTaskCandidateGroup("42",
-        "2020-03-01", true);
+    ObjectNode actualChangeUserTaskCandidateGroupResult = dynamicBpmnServiceImpl.changeUserTaskCandidateGroup("42", "",
+        true);
 
     // Assert
-    verify(objectMapper).createArrayNode();
-    verify(objectMapper).createObjectNode();
-    verify(arrayNode).add(eq("2020-03-01"));
     verify(processEngineConfigurationImpl, atLeast(1)).getObjectMapper();
-    assertSame(objectNode, actualChangeUserTaskCandidateGroupResult);
+    Iterator<JsonNode> iteratorResult = actualChangeUserTaskCandidateGroupResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskCandidateGroupResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"userTaskCandidateGroups\" : [ \"\" ]\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskCandidateGroups\" : [ \"\" ]\n    }\n  }\n}",
+        actualChangeUserTaskCandidateGroupResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCandidateGroup(String, String, boolean)}
-   * with {@code id}, {@code candidateGroup},
-   * {@code overwriteOtherChangedEntries}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskCandidateGroup(String, String, boolean)} with {@code id}, {@code candidateGroup}, {@code overwriteOtherChangedEntries}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCandidateGroup(String, String, boolean)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskCandidateGroup(String, String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskCandidateGroup(String, String, boolean)"})
   public void testChangeUserTaskCandidateGroupWithIdCandidateGroupOverwriteOtherChangedEntries3() {
     // Arrange
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.add(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
-    JsonNodeFactory nc = mock(JsonNodeFactory.class);
-    when(nc.objectNode()).thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
-    ObjectNode objectNode = new ObjectNode(nc);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createArrayNode()).thenReturn(arrayNode);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
     ObjectNode actualChangeUserTaskCandidateGroupResult = dynamicBpmnServiceImpl.changeUserTaskCandidateGroup("42",
-        "2020-03-01", true);
+        "2020-03-01", false);
 
     // Assert
-    verify(objectMapper).createArrayNode();
-    verify(objectMapper).createObjectNode();
-    verify(arrayNode).add(eq("2020-03-01"));
-    verify(nc).objectNode();
     verify(processEngineConfigurationImpl, atLeast(1)).getObjectMapper();
-    assertSame(objectNode, actualChangeUserTaskCandidateGroupResult);
+    Iterator<JsonNode> iteratorResult = actualChangeUserTaskCandidateGroupResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskCandidateGroupResult.traverse() instanceof TreeTraversingParser);
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCandidateGroup(String, String, boolean)}
-   * with {@code id}, {@code candidateGroup},
-   * {@code overwriteOtherChangedEntries}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskCandidateGroup(String, String, boolean)} with {@code id}, {@code candidateGroup}, {@code overwriteOtherChangedEntries}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCandidateGroup(String, String, boolean)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskCandidateGroup(String, String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeUserTaskCandidateGroup(String, String, boolean)"})
   public void testChangeUserTaskCandidateGroupWithIdCandidateGroupOverwriteOtherChangedEntries4() {
     // Arrange
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.add(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
-    ObjectNode objectNode = mock(ObjectNode.class);
-    when(objectNode.set(Mockito.<String>any(), Mockito.<JsonNode>any())).thenReturn(MissingNode.getInstance());
-    JsonNodeFactory nc = mock(JsonNodeFactory.class);
-    when(nc.objectNode()).thenReturn(objectNode);
-    JsonNodeFactory nc2 = mock(JsonNodeFactory.class);
-    when(nc2.objectNode()).thenReturn(new ObjectNode(nc));
-    ObjectNode objectNode2 = new ObjectNode(nc2);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createArrayNode()).thenReturn(arrayNode);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode2);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
     ObjectNode actualChangeUserTaskCandidateGroupResult = dynamicBpmnServiceImpl.changeUserTaskCandidateGroup("42",
-        "2020-03-01", true);
+        null, false);
 
     // Assert
-    verify(objectMapper).createArrayNode();
-    verify(objectMapper).createObjectNode();
-    verify(arrayNode).add(eq("2020-03-01"));
-    verify(nc2).objectNode();
-    verify(nc).objectNode();
-    verify(objectNode).set(eq("userTaskCandidateGroups"), isA(JsonNode.class));
     verify(processEngineConfigurationImpl, atLeast(1)).getObjectMapper();
-    assertSame(objectNode2, actualChangeUserTaskCandidateGroupResult);
+    Iterator<JsonNode> iteratorResult = actualChangeUserTaskCandidateGroupResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeUserTaskCandidateGroupResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"userTaskCandidateGroups\" : [ null ]\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskCandidateGroups\" : [ null ]\n    }\n  }\n}",
+        actualChangeUserTaskCandidateGroupResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCandidateGroup(String, String, boolean, ObjectNode)}
-   * with {@code id}, {@code candidateGroup},
-   * {@code overwriteOtherChangedEntries}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskCandidateGroup(String, String, boolean, ObjectNode)} with {@code id}, {@code candidateGroup}, {@code overwriteOtherChangedEntries}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCandidateGroup(String, String, boolean, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskCandidateGroup(String, String, boolean, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskCandidateGroup(String, String, boolean, ObjectNode)"})
   public void testChangeUserTaskCandidateGroupWithIdCandidateGroupOverwriteOtherChangedEntriesInfoNode() {
     // Arrange
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(new ObjectMapper());
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
 
     // Act
@@ -2963,24 +2648,50 @@ public class DynamicBpmnServiceImplDiffblueTest {
     verify(processEngineConfigurationImpl).getObjectMapper();
     Iterator<JsonNode> iteratorResult = infoNode.iterator();
     JsonNode nextResult = iteratorResult.next();
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof ArrayNode);
     assertTrue(nextResult instanceof ObjectNode);
-    assertTrue(nextResult2 instanceof ObjectNode);
-    Iterator<JsonNode> elementsResult = nextResult3.elements();
-    JsonNode nextResult4 = elementsResult.next();
-    assertTrue(nextResult4 instanceof TextNode);
-    assertEquals("[ \"2020-03-01\" ]", nextResult3.toPrettyString());
-    assertEquals("\"2020-03-01\"", nextResult4.toPrettyString());
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
     assertEquals("{\n  \"42\" : {\n    \"userTaskCandidateGroups\" : [ \"2020-03-01\" ]\n  }\n}",
         nextResult.toPrettyString());
     assertEquals(
         "{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskCandidateGroups\" : [ \"2020-03-01\" ]\n    }\n  }\n}",
         infoNode.toPrettyString());
-    assertEquals("{\n  \"userTaskCandidateGroups\" : [ \"2020-03-01\" ]\n}", nextResult2.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
+  }
+
+  /**
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskCandidateGroup(String, String, boolean, ObjectNode)} with {@code id}, {@code candidateGroup}, {@code overwriteOtherChangedEntries}, {@code infoNode}.
+   * <p>
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskCandidateGroup(String, String, boolean, ObjectNode)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskCandidateGroup(String, String, boolean, ObjectNode)"})
+  public void testChangeUserTaskCandidateGroupWithIdCandidateGroupOverwriteOtherChangedEntriesInfoNode2() {
+    // Arrange
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
+    ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
+
+    // Act
+    dynamicBpmnServiceImpl.changeUserTaskCandidateGroup("42", "", true, infoNode);
+
+    // Assert
+    verify(processEngineConfigurationImpl).getObjectMapper();
+    Iterator<JsonNode> iteratorResult = infoNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
+    JsonNode nextResult2 = iteratorResult2.next();
+    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
+    JsonNode nextResult3 = iteratorResult3.next();
+    assertTrue(nextResult3 instanceof ArrayNode);
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult2 instanceof ObjectNode);
+    Iterator<JsonNode> elementsResult = nextResult3.elements();
+    assertTrue(elementsResult.next() instanceof TextNode);
+    assertEquals("[ \"\" ]", nextResult3.toPrettyString());
+    assertEquals("{\n  \"42\" : {\n    \"userTaskCandidateGroups\" : [ \"\" ]\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskCandidateGroups\" : [ \"\" ]\n    }\n  }\n}",
+        infoNode.toPrettyString());
+    assertEquals("{\n  \"userTaskCandidateGroups\" : [ \"\" ]\n}", nextResult2.toPrettyString());
     assertFalse(elementsResult.hasNext());
     assertFalse(iteratorResult.hasNext());
     assertFalse(iteratorResult2.hasNext());
@@ -2988,93 +2699,83 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCandidateGroup(String, String, boolean, ObjectNode)}
-   * with {@code id}, {@code candidateGroup},
-   * {@code overwriteOtherChangedEntries}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskCandidateGroup(String, String, boolean, ObjectNode)} with {@code id}, {@code candidateGroup}, {@code overwriteOtherChangedEntries}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCandidateGroup(String, String, boolean, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskCandidateGroup(String, String, boolean, ObjectNode)}
    */
   @Test
-  public void testChangeUserTaskCandidateGroupWithIdCandidateGroupOverwriteOtherChangedEntriesInfoNode2() {
-    // Arrange
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.add(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createArrayNode()).thenReturn(arrayNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
-    ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
-
-    // Act
-    dynamicBpmnServiceImpl.changeUserTaskCandidateGroup("42", "2020-03-01", true, infoNode);
-
-    // Assert
-    verify(objectMapper).createArrayNode();
-    verify(arrayNode).add(eq("2020-03-01"));
-    verify(processEngineConfigurationImpl).getObjectMapper();
-    Iterator<JsonNode> iteratorResult = infoNode.iterator();
-    JsonNode nextResult = iteratorResult.next();
-    assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
-    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult2.traverse() instanceof TreeTraversingParser);
-    assertFalse(iteratorResult.hasNext());
-    assertFalse(iteratorResult2.hasNext());
-  }
-
-  /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCandidateGroup(String, String, boolean, ObjectNode)}
-   * with {@code id}, {@code candidateGroup},
-   * {@code overwriteOtherChangedEntries}, {@code infoNode}.
-   * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeUserTaskCandidateGroup(String, String, boolean, ObjectNode)}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskCandidateGroup(String, String, boolean, ObjectNode)"})
   public void testChangeUserTaskCandidateGroupWithIdCandidateGroupOverwriteOtherChangedEntriesInfoNode3() {
     // Arrange
-    ArrayNode arrayNode = mock(ArrayNode.class);
-    when(arrayNode.add(Mockito.<String>any())).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createArrayNode()).thenReturn(arrayNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
 
     // Act
     dynamicBpmnServiceImpl.changeUserTaskCandidateGroup("42", "2020-03-01", false, infoNode);
 
     // Assert
-    verify(objectMapper).createArrayNode();
-    verify(arrayNode).add(eq("2020-03-01"));
     verify(processEngineConfigurationImpl).getObjectMapper();
     Iterator<JsonNode> iteratorResult = infoNode.iterator();
     JsonNode nextResult = iteratorResult.next();
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
     assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult2.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"userTaskCandidateGroups\" : [ \"2020-03-01\" ]\n  }\n}",
+        nextResult.toPrettyString());
+    assertEquals(
+        "{\n  \"bpmn\" : {\n    \"42\" : {\n      \"userTaskCandidateGroups\" : [ \"2020-03-01\" ]\n    }\n  }\n}",
+        infoNode.toPrettyString());
     assertFalse(iteratorResult.hasNext());
-    assertFalse(iteratorResult2.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeDmnTaskDecisionTableKey(String, String)}
-   * with {@code id}, {@code decisionTableKey}.
+   * Test {@link DynamicBpmnServiceImpl#changeUserTaskCandidateGroup(String, String, boolean, ObjectNode)} with {@code id}, {@code candidateGroup}, {@code overwriteOtherChangedEntries}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeDmnTaskDecisionTableKey(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeUserTaskCandidateGroup(String, String, boolean, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeUserTaskCandidateGroup(String, String, boolean, ObjectNode)"})
+  public void testChangeUserTaskCandidateGroupWithIdCandidateGroupOverwriteOtherChangedEntriesInfoNode4() {
+    // Arrange
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
+    ObjectNode objectNode = mock(ObjectNode.class);
+    when(objectNode.set(Mockito.<String>any(), Mockito.<JsonNode>any())).thenReturn(MissingNode.getInstance());
+    JsonNodeFactory nc = mock(JsonNodeFactory.class);
+    when(nc.objectNode()).thenReturn(objectNode);
+    ObjectNode objectNode2 = new ObjectNode(nc);
+    JsonNodeFactory nc2 = mock(JsonNodeFactory.class);
+    when(nc2.objectNode()).thenReturn(objectNode2);
+    ObjectNode infoNode = new ObjectNode(nc2);
+
+    // Act
+    dynamicBpmnServiceImpl.changeUserTaskCandidateGroup("42", "2020-03-01", true, infoNode);
+
+    // Assert
+    verify(nc2).objectNode();
+    verify(nc).objectNode();
+    verify(objectNode).set(eq("userTaskCandidateGroups"), isA(JsonNode.class));
+    verify(processEngineConfigurationImpl).getObjectMapper();
+    Iterator<JsonNode> iteratorResult = infoNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertEquals(1, infoNode.size());
+    assertFalse(infoNode.isEmpty());
+    assertFalse(iteratorResult.hasNext());
+    assertSame(objectNode2, nextResult);
+  }
+
+  /**
+   * Test {@link DynamicBpmnServiceImpl#changeDmnTaskDecisionTableKey(String, String)} with {@code id}, {@code decisionTableKey}.
+   * <p>
+   * Method under test: {@link DynamicBpmnServiceImpl#changeDmnTaskDecisionTableKey(String, String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeDmnTaskDecisionTableKey(String, String)"})
   public void testChangeDmnTaskDecisionTableKeyWithIdDecisionTableKey() {
     // Arrange
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(new ObjectMapper());
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
     ObjectNode actualChangeDmnTaskDecisionTableKeyResult = dynamicBpmnServiceImpl.changeDmnTaskDecisionTableKey("42",
@@ -3084,89 +2785,83 @@ public class DynamicBpmnServiceImplDiffblueTest {
     verify(processEngineConfigurationImpl).getObjectMapper();
     Iterator<JsonNode> iteratorResult = actualChangeDmnTaskDecisionTableKeyResult.iterator();
     JsonNode nextResult = iteratorResult.next();
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof TextNode);
-    assertEquals("\"Decision Table Key\"", nextResult3.toPrettyString());
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeDmnTaskDecisionTableKeyResult.traverse() instanceof TreeTraversingParser);
     assertEquals("{\n  \"42\" : {\n    \"dmnTaskDecisionTableKey\" : \"Decision Table Key\"\n  }\n}",
         nextResult.toPrettyString());
     assertEquals(
         "{\n  \"bpmn\" : {\n    \"42\" : {\n      \"dmnTaskDecisionTableKey\" : \"Decision Table Key\"\n    }\n  }\n}",
         actualChangeDmnTaskDecisionTableKeyResult.toPrettyString());
-    assertEquals("{\n  \"dmnTaskDecisionTableKey\" : \"Decision Table Key\"\n}", nextResult2.toPrettyString());
-    assertFalse(iteratorResult3.hasNext());
-    assertFalse(iteratorResult2.hasNext());
     assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeDmnTaskDecisionTableKey(String, String)}
-   * with {@code id}, {@code decisionTableKey}.
+   * Test {@link DynamicBpmnServiceImpl#changeDmnTaskDecisionTableKey(String, String)} with {@code id}, {@code decisionTableKey}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeDmnTaskDecisionTableKey(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeDmnTaskDecisionTableKey(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeDmnTaskDecisionTableKey(String, String)"})
   public void testChangeDmnTaskDecisionTableKeyWithIdDecisionTableKey2() {
     // Arrange
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    ObjectNode objectNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
     ObjectNode actualChangeDmnTaskDecisionTableKeyResult = dynamicBpmnServiceImpl.changeDmnTaskDecisionTableKey("42",
-        "Decision Table Key");
+        "");
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeDmnTaskDecisionTableKeyResult);
+    Iterator<JsonNode> iteratorResult = actualChangeDmnTaskDecisionTableKeyResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeDmnTaskDecisionTableKeyResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"dmnTaskDecisionTableKey\" : \"\"\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"dmnTaskDecisionTableKey\" : \"\"\n    }\n  }\n}",
+        actualChangeDmnTaskDecisionTableKeyResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeDmnTaskDecisionTableKey(String, String)}
-   * with {@code id}, {@code decisionTableKey}.
+   * Test {@link DynamicBpmnServiceImpl#changeDmnTaskDecisionTableKey(String, String)} with {@code id}, {@code decisionTableKey}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeDmnTaskDecisionTableKey(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeDmnTaskDecisionTableKey(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeDmnTaskDecisionTableKey(String, String)"})
   public void testChangeDmnTaskDecisionTableKeyWithIdDecisionTableKey3() {
     // Arrange
-    JsonNodeFactory nc = mock(JsonNodeFactory.class);
-    when(nc.objectNode()).thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
-    ObjectNode objectNode = new ObjectNode(nc);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
     ObjectNode actualChangeDmnTaskDecisionTableKeyResult = dynamicBpmnServiceImpl.changeDmnTaskDecisionTableKey("42",
-        "Decision Table Key");
+        null);
 
     // Assert
-    verify(objectMapper).createObjectNode();
-    verify(nc).objectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeDmnTaskDecisionTableKeyResult);
+    Iterator<JsonNode> iteratorResult = actualChangeDmnTaskDecisionTableKeyResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeDmnTaskDecisionTableKeyResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"dmnTaskDecisionTableKey\" : null\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"dmnTaskDecisionTableKey\" : null\n    }\n  }\n}",
+        actualChangeDmnTaskDecisionTableKeyResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeDmnTaskDecisionTableKey(String, String, ObjectNode)}
-   * with {@code id}, {@code decisionTableKey}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeDmnTaskDecisionTableKey(String, String, ObjectNode)} with {@code id}, {@code decisionTableKey}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeDmnTaskDecisionTableKey(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeDmnTaskDecisionTableKey(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeDmnTaskDecisionTableKey(String, String, ObjectNode)"})
   public void testChangeDmnTaskDecisionTableKeyWithIdDecisionTableKeyInfoNode() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -3178,36 +2873,23 @@ public class DynamicBpmnServiceImplDiffblueTest {
     Iterator<JsonNode> iteratorResult = infoNode.iterator();
     JsonNode nextResult = iteratorResult.next();
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof TextNode);
     assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult2.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult3.traverse() instanceof TreeTraversingParser);
-    assertEquals("\"Decision Table Key\"", nextResult3.toPrettyString());
     assertEquals("{\n  \"42\" : {\n    \"dmnTaskDecisionTableKey\" : \"Decision Table Key\"\n  }\n}",
         nextResult.toPrettyString());
     assertEquals(
         "{\n  \"bpmn\" : {\n    \"42\" : {\n      \"dmnTaskDecisionTableKey\" : \"Decision Table Key\"\n    }\n  }\n}",
         infoNode.toPrettyString());
-    assertEquals("{\n  \"dmnTaskDecisionTableKey\" : \"Decision Table Key\"\n}", nextResult2.toPrettyString());
     assertFalse(iteratorResult.hasNext());
-    assertFalse(iteratorResult2.hasNext());
-    assertFalse(iteratorResult3.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeDmnTaskDecisionTableKey(String, String, ObjectNode)}
-   * with {@code id}, {@code decisionTableKey}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeDmnTaskDecisionTableKey(String, String, ObjectNode)} with {@code id}, {@code decisionTableKey}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeDmnTaskDecisionTableKey(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeDmnTaskDecisionTableKey(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeDmnTaskDecisionTableKey(String, String, ObjectNode)"})
   public void testChangeDmnTaskDecisionTableKeyWithIdDecisionTableKeyInfoNode2() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -3236,56 +2918,52 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeDmnTaskDecisionTableKey(String, String)}
-   * with {@code id}, {@code decisionTableKey}.
-   * <ul>
-   *   <li>Then calls {@link ObjectNode#put(String, String)}.</li>
-   * </ul>
+   * Test {@link DynamicBpmnServiceImpl#changeDmnTaskDecisionTableKey(String, String, ObjectNode)} with {@code id}, {@code decisionTableKey}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeDmnTaskDecisionTableKey(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeDmnTaskDecisionTableKey(String, String, ObjectNode)}
    */
   @Test
-  public void testChangeDmnTaskDecisionTableKeyWithIdDecisionTableKey_thenCallsPut() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeDmnTaskDecisionTableKey(String, String, ObjectNode)"})
+  public void testChangeDmnTaskDecisionTableKeyWithIdDecisionTableKeyInfoNode3() {
     // Arrange
     ObjectNode objectNode = mock(ObjectNode.class);
     when(objectNode.put(Mockito.<String>any(), Mockito.<String>any()))
         .thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
     JsonNodeFactory nc = mock(JsonNodeFactory.class);
     when(nc.objectNode()).thenReturn(objectNode);
+    ObjectNode objectNode2 = new ObjectNode(nc);
     JsonNodeFactory nc2 = mock(JsonNodeFactory.class);
-    when(nc2.objectNode()).thenReturn(new ObjectNode(nc));
-    ObjectNode objectNode2 = new ObjectNode(nc2);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode2);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(nc2.objectNode()).thenReturn(objectNode2);
+    ObjectNode infoNode = new ObjectNode(nc2);
 
     // Act
-    ObjectNode actualChangeDmnTaskDecisionTableKeyResult = dynamicBpmnServiceImpl.changeDmnTaskDecisionTableKey("42",
-        "Decision Table Key");
+    dynamicBpmnServiceImpl.changeDmnTaskDecisionTableKey("42", "Decision Table Key", infoNode);
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(nc2).objectNode();
     verify(nc).objectNode();
     verify(objectNode).put(eq("dmnTaskDecisionTableKey"), eq("Decision Table Key"));
-    verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode2, actualChangeDmnTaskDecisionTableKeyResult);
+    Iterator<JsonNode> iteratorResult = infoNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertEquals(1, infoNode.size());
+    assertFalse(infoNode.isEmpty());
+    assertFalse(iteratorResult.hasNext());
+    assertSame(objectNode2, nextResult);
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeSequenceFlowCondition(String, String)}
-   * with {@code id}, {@code condition}.
+   * Test {@link DynamicBpmnServiceImpl#changeSequenceFlowCondition(String, String)} with {@code id}, {@code condition}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeSequenceFlowCondition(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeSequenceFlowCondition(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeSequenceFlowCondition(String, String)"})
   public void testChangeSequenceFlowConditionWithIdCondition() {
     // Arrange
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(new ObjectMapper());
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
     ObjectNode actualChangeSequenceFlowConditionResult = dynamicBpmnServiceImpl.changeSequenceFlowCondition("42",
@@ -3295,87 +2973,79 @@ public class DynamicBpmnServiceImplDiffblueTest {
     verify(processEngineConfigurationImpl).getObjectMapper();
     Iterator<JsonNode> iteratorResult = actualChangeSequenceFlowConditionResult.iterator();
     JsonNode nextResult = iteratorResult.next();
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof TextNode);
-    assertEquals("\"Condition\"", nextResult3.toPrettyString());
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeSequenceFlowConditionResult.traverse() instanceof TreeTraversingParser);
     assertEquals("{\n  \"42\" : {\n    \"sequenceFlowCondition\" : \"Condition\"\n  }\n}", nextResult.toPrettyString());
     assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"sequenceFlowCondition\" : \"Condition\"\n    }\n  }\n}",
         actualChangeSequenceFlowConditionResult.toPrettyString());
-    assertEquals("{\n  \"sequenceFlowCondition\" : \"Condition\"\n}", nextResult2.toPrettyString());
-    assertFalse(iteratorResult3.hasNext());
-    assertFalse(iteratorResult2.hasNext());
     assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeSequenceFlowCondition(String, String)}
-   * with {@code id}, {@code condition}.
+   * Test {@link DynamicBpmnServiceImpl#changeSequenceFlowCondition(String, String)} with {@code id}, {@code condition}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeSequenceFlowCondition(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeSequenceFlowCondition(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeSequenceFlowCondition(String, String)"})
   public void testChangeSequenceFlowConditionWithIdCondition2() {
     // Arrange
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    ObjectNode objectNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
-    ObjectNode actualChangeSequenceFlowConditionResult = dynamicBpmnServiceImpl.changeSequenceFlowCondition("42",
-        "Condition");
+    ObjectNode actualChangeSequenceFlowConditionResult = dynamicBpmnServiceImpl.changeSequenceFlowCondition("42", "");
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeSequenceFlowConditionResult);
+    Iterator<JsonNode> iteratorResult = actualChangeSequenceFlowConditionResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeSequenceFlowConditionResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"sequenceFlowCondition\" : \"\"\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"sequenceFlowCondition\" : \"\"\n    }\n  }\n}",
+        actualChangeSequenceFlowConditionResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeSequenceFlowCondition(String, String)}
-   * with {@code id}, {@code condition}.
+   * Test {@link DynamicBpmnServiceImpl#changeSequenceFlowCondition(String, String)} with {@code id}, {@code condition}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeSequenceFlowCondition(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeSequenceFlowCondition(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeSequenceFlowCondition(String, String)"})
   public void testChangeSequenceFlowConditionWithIdCondition3() {
     // Arrange
-    JsonNodeFactory nc = mock(JsonNodeFactory.class);
-    when(nc.objectNode()).thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
-    ObjectNode objectNode = new ObjectNode(nc);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
-    ObjectNode actualChangeSequenceFlowConditionResult = dynamicBpmnServiceImpl.changeSequenceFlowCondition("42",
-        "Condition");
+    ObjectNode actualChangeSequenceFlowConditionResult = dynamicBpmnServiceImpl.changeSequenceFlowCondition("42", null);
 
     // Assert
-    verify(objectMapper).createObjectNode();
-    verify(nc).objectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeSequenceFlowConditionResult);
+    Iterator<JsonNode> iteratorResult = actualChangeSequenceFlowConditionResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeSequenceFlowConditionResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"42\" : {\n    \"sequenceFlowCondition\" : null\n  }\n}", nextResult.toPrettyString());
+    assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"sequenceFlowCondition\" : null\n    }\n  }\n}",
+        actualChangeSequenceFlowConditionResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeSequenceFlowCondition(String, String, ObjectNode)}
-   * with {@code id}, {@code condition}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeSequenceFlowCondition(String, String, ObjectNode)} with {@code id}, {@code condition}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeSequenceFlowCondition(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeSequenceFlowCondition(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeSequenceFlowCondition(String, String, ObjectNode)"})
   public void testChangeSequenceFlowConditionWithIdConditionInfoNode() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -3387,34 +3057,21 @@ public class DynamicBpmnServiceImplDiffblueTest {
     Iterator<JsonNode> iteratorResult = infoNode.iterator();
     JsonNode nextResult = iteratorResult.next();
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof TextNode);
     assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult2.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult3.traverse() instanceof TreeTraversingParser);
-    assertEquals("\"Condition\"", nextResult3.toPrettyString());
     assertEquals("{\n  \"42\" : {\n    \"sequenceFlowCondition\" : \"Condition\"\n  }\n}", nextResult.toPrettyString());
     assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"sequenceFlowCondition\" : \"Condition\"\n    }\n  }\n}",
         infoNode.toPrettyString());
-    assertEquals("{\n  \"sequenceFlowCondition\" : \"Condition\"\n}", nextResult2.toPrettyString());
     assertFalse(iteratorResult.hasNext());
-    assertFalse(iteratorResult2.hasNext());
-    assertFalse(iteratorResult3.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeSequenceFlowCondition(String, String, ObjectNode)}
-   * with {@code id}, {@code condition}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeSequenceFlowCondition(String, String, ObjectNode)} with {@code id}, {@code condition}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeSequenceFlowCondition(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeSequenceFlowCondition(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeSequenceFlowCondition(String, String, ObjectNode)"})
   public void testChangeSequenceFlowConditionWithIdConditionInfoNode2() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -3443,58 +3100,54 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeSequenceFlowCondition(String, String)}
-   * with {@code id}, {@code condition}.
-   * <ul>
-   *   <li>Then calls {@link ObjectNode#put(String, String)}.</li>
-   * </ul>
+   * Test {@link DynamicBpmnServiceImpl#changeSequenceFlowCondition(String, String, ObjectNode)} with {@code id}, {@code condition}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeSequenceFlowCondition(String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeSequenceFlowCondition(String, String, ObjectNode)}
    */
   @Test
-  public void testChangeSequenceFlowConditionWithIdCondition_thenCallsPut() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeSequenceFlowCondition(String, String, ObjectNode)"})
+  public void testChangeSequenceFlowConditionWithIdConditionInfoNode3() {
     // Arrange
     ObjectNode objectNode = mock(ObjectNode.class);
     when(objectNode.put(Mockito.<String>any(), Mockito.<String>any()))
         .thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
     JsonNodeFactory nc = mock(JsonNodeFactory.class);
     when(nc.objectNode()).thenReturn(objectNode);
+    ObjectNode objectNode2 = new ObjectNode(nc);
     JsonNodeFactory nc2 = mock(JsonNodeFactory.class);
-    when(nc2.objectNode()).thenReturn(new ObjectNode(nc));
-    ObjectNode objectNode2 = new ObjectNode(nc2);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode2);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(nc2.objectNode()).thenReturn(objectNode2);
+    ObjectNode infoNode = new ObjectNode(nc2);
 
     // Act
-    ObjectNode actualChangeSequenceFlowConditionResult = dynamicBpmnServiceImpl.changeSequenceFlowCondition("42",
-        "Condition");
+    dynamicBpmnServiceImpl.changeSequenceFlowCondition("42", "Condition", infoNode);
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(nc2).objectNode();
     verify(nc).objectNode();
     verify(objectNode).put(eq("sequenceFlowCondition"), eq("Condition"));
-    verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode2, actualChangeSequenceFlowConditionResult);
+    Iterator<JsonNode> iteratorResult = infoNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertEquals(1, infoNode.size());
+    assertFalse(infoNode.isEmpty());
+    assertFalse(iteratorResult.hasNext());
+    assertSame(objectNode2, nextResult);
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#getBpmnElementProperties(String, ObjectNode)}.
+   * Test {@link DynamicBpmnServiceImpl#getBpmnElementProperties(String, ObjectNode)}.
    * <ul>
    *   <li>Given {@code null}.</li>
-   *   <li>When {@link ObjectNode} {@link ObjectNode#get(String)} return
-   * {@code null}.</li>
+   *   <li>When {@link ObjectNode} {@link ObjectNode#get(String)} return {@code null}.</li>
    *   <li>Then calls {@link ObjectNode#get(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#getBpmnElementProperties(String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#getBpmnElementProperties(String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.getBpmnElementProperties(String, ObjectNode)"})
   public void testGetBpmnElementProperties_givenNull_whenObjectNodeGetReturnNull_thenCallsGet() {
     // Arrange
     ObjectNode infoNode = mock(ObjectNode.class);
@@ -3509,34 +3162,16 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#getBpmnElementProperties(String, ObjectNode)}.
+   * Test {@link DynamicBpmnServiceImpl#getBpmnElementProperties(String, ObjectNode)}.
    * <ul>
-   *   <li>When {@link ObjectNode#ObjectNode(JsonNodeFactory)} with nc is
-   * {@link JsonNodeFactory}.</li>
+   *   <li>When {@link ObjectNode#ObjectNode(JsonNodeFactory)} with nc is withExactBigDecimals {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#getBpmnElementProperties(String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#getBpmnElementProperties(String, ObjectNode)}
    */
   @Test
-  public void testGetBpmnElementProperties_whenObjectNodeWithNcIsJsonNodeFactory() {
-    // Arrange, Act and Assert
-    assertNull(dynamicBpmnServiceImpl.getBpmnElementProperties("42", new ObjectNode(mock(JsonNodeFactory.class))));
-  }
-
-  /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#getBpmnElementProperties(String, ObjectNode)}.
-   * <ul>
-   *   <li>When {@link ObjectNode#ObjectNode(JsonNodeFactory)} with nc is
-   * withExactBigDecimals {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#getBpmnElementProperties(String, ObjectNode)}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.getBpmnElementProperties(String, ObjectNode)"})
   public void testGetBpmnElementProperties_whenObjectNodeWithNcIsWithExactBigDecimalsTrue() {
     // Arrange, Act and Assert
     assertNull(dynamicBpmnServiceImpl.getBpmnElementProperties("42",
@@ -3544,17 +3179,16 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeLocalizationName(String, String, String)}
-   * with {@code language}, {@code id}, {@code value}.
+   * Test {@link DynamicBpmnServiceImpl#changeLocalizationName(String, String, String)} with {@code language}, {@code id}, {@code value}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeLocalizationName(String, String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeLocalizationName(String, String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeLocalizationName(String, String, String)"})
   public void testChangeLocalizationNameWithLanguageIdValue() {
     // Arrange
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(new ObjectMapper());
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
     ObjectNode actualChangeLocalizationNameResult = dynamicBpmnServiceImpl.changeLocalizationName("en", "42", "42");
@@ -3563,92 +3197,83 @@ public class DynamicBpmnServiceImplDiffblueTest {
     verify(processEngineConfigurationImpl).getObjectMapper();
     Iterator<JsonNode> iteratorResult = actualChangeLocalizationNameResult.iterator();
     JsonNode nextResult = iteratorResult.next();
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof ObjectNode);
-    assertTrue(nextResult2 instanceof ObjectNode);
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult4 = nextResult3.iterator();
-    JsonNode nextResult4 = iteratorResult4.next();
-    assertTrue(nextResult4 instanceof TextNode);
-    assertEquals("\"42\"", nextResult4.toPrettyString());
-    assertEquals("{\n  \"42\" : {\n    \"name\" : \"42\"\n  }\n}", nextResult2.toPrettyString());
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeLocalizationNameResult.traverse() instanceof TreeTraversingParser);
     assertEquals("{\n  \"en\" : {\n    \"42\" : {\n      \"name\" : \"42\"\n    }\n  }\n}",
         nextResult.toPrettyString());
     assertEquals(
         "{\n  \"localization\" : {\n    \"en\" : {\n      \"42\" : {\n        \"name\" : \"42\"\n      }\n    }\n  }\n}",
         actualChangeLocalizationNameResult.toPrettyString());
-    assertEquals("{\n  \"name\" : \"42\"\n}", nextResult3.toPrettyString());
-    assertFalse(iteratorResult4.hasNext());
-    assertFalse(iteratorResult3.hasNext());
-    assertFalse(iteratorResult2.hasNext());
     assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeLocalizationName(String, String, String)}
-   * with {@code language}, {@code id}, {@code value}.
+   * Test {@link DynamicBpmnServiceImpl#changeLocalizationName(String, String, String)} with {@code language}, {@code id}, {@code value}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeLocalizationName(String, String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeLocalizationName(String, String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeLocalizationName(String, String, String)"})
   public void testChangeLocalizationNameWithLanguageIdValue2() {
     // Arrange
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    ObjectNode objectNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
-    ObjectNode actualChangeLocalizationNameResult = dynamicBpmnServiceImpl.changeLocalizationName("en", "42", "42");
+    ObjectNode actualChangeLocalizationNameResult = dynamicBpmnServiceImpl.changeLocalizationName("en", "42", "");
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeLocalizationNameResult);
+    Iterator<JsonNode> iteratorResult = actualChangeLocalizationNameResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeLocalizationNameResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"en\" : {\n    \"42\" : {\n      \"name\" : \"\"\n    }\n  }\n}", nextResult.toPrettyString());
+    assertEquals(
+        "{\n  \"localization\" : {\n    \"en\" : {\n      \"42\" : {\n        \"name\" : \"\"\n      }\n    }\n  }\n}",
+        actualChangeLocalizationNameResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeLocalizationName(String, String, String)}
-   * with {@code language}, {@code id}, {@code value}.
+   * Test {@link DynamicBpmnServiceImpl#changeLocalizationName(String, String, String)} with {@code language}, {@code id}, {@code value}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeLocalizationName(String, String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeLocalizationName(String, String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeLocalizationName(String, String, String)"})
   public void testChangeLocalizationNameWithLanguageIdValue3() {
     // Arrange
-    JsonNodeFactory nc = mock(JsonNodeFactory.class);
-    when(nc.objectNode()).thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
-    ObjectNode objectNode = new ObjectNode(nc);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
-    ObjectNode actualChangeLocalizationNameResult = dynamicBpmnServiceImpl.changeLocalizationName("en", "42", "42");
+    ObjectNode actualChangeLocalizationNameResult = dynamicBpmnServiceImpl.changeLocalizationName("en", "42", null);
 
     // Assert
-    verify(objectMapper).createObjectNode();
-    verify(nc).objectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeLocalizationNameResult);
+    Iterator<JsonNode> iteratorResult = actualChangeLocalizationNameResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeLocalizationNameResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"en\" : {\n    \"42\" : {\n      \"name\" : null\n    }\n  }\n}", nextResult.toPrettyString());
+    assertEquals(
+        "{\n  \"localization\" : {\n    \"en\" : {\n      \"42\" : {\n        \"name\" : null\n      }\n    }\n  }\n}",
+        actualChangeLocalizationNameResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeLocalizationName(String, String, String, ObjectNode)}
-   * with {@code language}, {@code id}, {@code value}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeLocalizationName(String, String, String, ObjectNode)} with {@code language}, {@code id}, {@code value}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeLocalizationName(String, String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeLocalizationName(String, String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeLocalizationName(String, String, String, ObjectNode)"})
   public void testChangeLocalizationNameWithLanguageIdValueInfoNode() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -3660,42 +3285,23 @@ public class DynamicBpmnServiceImplDiffblueTest {
     Iterator<JsonNode> iteratorResult = infoNode.iterator();
     JsonNode nextResult = iteratorResult.next();
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult4 = nextResult3.iterator();
-    JsonNode nextResult4 = iteratorResult4.next();
-    assertTrue(nextResult4 instanceof TextNode);
     assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult2.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult3.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult4.traverse() instanceof TreeTraversingParser);
-    assertEquals("\"42\"", nextResult4.toPrettyString());
-    assertEquals("{\n  \"42\" : {\n    \"name\" : \"42\"\n  }\n}", nextResult2.toPrettyString());
     assertEquals("{\n  \"en\" : {\n    \"42\" : {\n      \"name\" : \"42\"\n    }\n  }\n}",
         nextResult.toPrettyString());
     assertEquals(
         "{\n  \"localization\" : {\n    \"en\" : {\n      \"42\" : {\n        \"name\" : \"42\"\n      }\n    }\n  }\n}",
         infoNode.toPrettyString());
-    assertEquals("{\n  \"name\" : \"42\"\n}", nextResult3.toPrettyString());
     assertFalse(iteratorResult.hasNext());
-    assertFalse(iteratorResult2.hasNext());
-    assertFalse(iteratorResult3.hasNext());
-    assertFalse(iteratorResult4.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeLocalizationName(String, String, String, ObjectNode)}
-   * with {@code language}, {@code id}, {@code value}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeLocalizationName(String, String, String, ObjectNode)} with {@code language}, {@code id}, {@code value}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeLocalizationName(String, String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeLocalizationName(String, String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeLocalizationName(String, String, String, ObjectNode)"})
   public void testChangeLocalizationNameWithLanguageIdValueInfoNode2() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -3713,10 +3319,6 @@ public class DynamicBpmnServiceImplDiffblueTest {
     Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
     JsonNode nextResult3 = iteratorResult3.next();
     assertTrue(nextResult3 instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult4 = nextResult3.iterator();
-    JsonNode nextResult4 = iteratorResult4.next();
-    assertTrue(nextResult4 instanceof TextNode);
-    assertEquals("\"\"", nextResult4.toPrettyString());
     assertEquals("{\n  \"42\" : {\n    \"name\" : \"\"\n  }\n}", nextResult2.toPrettyString());
     assertEquals("{\n  \"en\" : {\n    \"42\" : {\n      \"name\" : \"\"\n    }\n  }\n}", nextResult.toPrettyString());
     assertEquals(
@@ -3726,22 +3328,17 @@ public class DynamicBpmnServiceImplDiffblueTest {
     assertFalse(iteratorResult.hasNext());
     assertFalse(iteratorResult2.hasNext());
     assertFalse(iteratorResult3.hasNext());
-    assertFalse(iteratorResult4.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeLocalizationName(String, String, String)}
-   * with {@code language}, {@code id}, {@code value}.
-   * <ul>
-   *   <li>Then calls {@link ObjectNode#put(String, String)}.</li>
-   * </ul>
+   * Test {@link DynamicBpmnServiceImpl#changeLocalizationName(String, String, String, ObjectNode)} with {@code language}, {@code id}, {@code value}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeLocalizationName(String, String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeLocalizationName(String, String, String, ObjectNode)}
    */
   @Test
-  public void testChangeLocalizationNameWithLanguageIdValue_thenCallsPut() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeLocalizationName(String, String, String, ObjectNode)"})
+  public void testChangeLocalizationNameWithLanguageIdValueInfoNode3() {
     // Arrange
     ObjectNode objectNode = mock(ObjectNode.class);
     when(objectNode.put(Mockito.<String>any(), Mockito.<String>any()))
@@ -3750,38 +3347,39 @@ public class DynamicBpmnServiceImplDiffblueTest {
     when(nc.objectNode()).thenReturn(objectNode);
     JsonNodeFactory nc2 = mock(JsonNodeFactory.class);
     when(nc2.objectNode()).thenReturn(new ObjectNode(nc));
+    ObjectNode objectNode2 = new ObjectNode(nc2);
     JsonNodeFactory nc3 = mock(JsonNodeFactory.class);
-    when(nc3.objectNode()).thenReturn(new ObjectNode(nc2));
-    ObjectNode objectNode2 = new ObjectNode(nc3);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode2);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(nc3.objectNode()).thenReturn(objectNode2);
+    ObjectNode infoNode = new ObjectNode(nc3);
 
     // Act
-    ObjectNode actualChangeLocalizationNameResult = dynamicBpmnServiceImpl.changeLocalizationName("en", "42", "42");
+    dynamicBpmnServiceImpl.changeLocalizationName("en", "42", "42", infoNode);
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(nc3).objectNode();
     verify(nc2).objectNode();
     verify(nc).objectNode();
     verify(objectNode).put(eq("name"), eq("42"));
-    verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode2, actualChangeLocalizationNameResult);
+    Iterator<JsonNode> iteratorResult = infoNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertEquals(1, infoNode.size());
+    assertFalse(infoNode.isEmpty());
+    assertFalse(iteratorResult.hasNext());
+    assertSame(objectNode2, nextResult);
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeLocalizationDescription(String, String, String)}
-   * with {@code language}, {@code id}, {@code value}.
+   * Test {@link DynamicBpmnServiceImpl#changeLocalizationDescription(String, String, String)} with {@code language}, {@code id}, {@code value}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeLocalizationDescription(String, String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeLocalizationDescription(String, String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeLocalizationDescription(String, String, String)"})
   public void testChangeLocalizationDescriptionWithLanguageIdValue() {
     // Arrange
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(new ObjectMapper());
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
     ObjectNode actualChangeLocalizationDescriptionResult = dynamicBpmnServiceImpl.changeLocalizationDescription("en",
@@ -3791,94 +3389,87 @@ public class DynamicBpmnServiceImplDiffblueTest {
     verify(processEngineConfigurationImpl).getObjectMapper();
     Iterator<JsonNode> iteratorResult = actualChangeLocalizationDescriptionResult.iterator();
     JsonNode nextResult = iteratorResult.next();
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof ObjectNode);
-    assertTrue(nextResult2 instanceof ObjectNode);
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult4 = nextResult3.iterator();
-    JsonNode nextResult4 = iteratorResult4.next();
-    assertTrue(nextResult4 instanceof TextNode);
-    assertEquals("\"42\"", nextResult4.toPrettyString());
-    assertEquals("{\n  \"42\" : {\n    \"description\" : \"42\"\n  }\n}", nextResult2.toPrettyString());
-    assertEquals("{\n  \"description\" : \"42\"\n}", nextResult3.toPrettyString());
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeLocalizationDescriptionResult.traverse() instanceof TreeTraversingParser);
     assertEquals("{\n  \"en\" : {\n    \"42\" : {\n      \"description\" : \"42\"\n    }\n  }\n}",
         nextResult.toPrettyString());
     assertEquals(
         "{\n  \"localization\" : {\n    \"en\" : {\n      \"42\" : {\n        \"description\" : \"42\"\n      }\n    }\n  }\n}",
         actualChangeLocalizationDescriptionResult.toPrettyString());
-    assertFalse(iteratorResult4.hasNext());
-    assertFalse(iteratorResult3.hasNext());
-    assertFalse(iteratorResult2.hasNext());
     assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeLocalizationDescription(String, String, String)}
-   * with {@code language}, {@code id}, {@code value}.
+   * Test {@link DynamicBpmnServiceImpl#changeLocalizationDescription(String, String, String)} with {@code language}, {@code id}, {@code value}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeLocalizationDescription(String, String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeLocalizationDescription(String, String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeLocalizationDescription(String, String, String)"})
   public void testChangeLocalizationDescriptionWithLanguageIdValue2() {
     // Arrange
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    ObjectNode objectNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
     ObjectNode actualChangeLocalizationDescriptionResult = dynamicBpmnServiceImpl.changeLocalizationDescription("en",
-        "42", "42");
+        "42", "");
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeLocalizationDescriptionResult);
+    Iterator<JsonNode> iteratorResult = actualChangeLocalizationDescriptionResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeLocalizationDescriptionResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"en\" : {\n    \"42\" : {\n      \"description\" : \"\"\n    }\n  }\n}",
+        nextResult.toPrettyString());
+    assertEquals(
+        "{\n  \"localization\" : {\n    \"en\" : {\n      \"42\" : {\n        \"description\" : \"\"\n      }\n    }\n  }\n}",
+        actualChangeLocalizationDescriptionResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeLocalizationDescription(String, String, String)}
-   * with {@code language}, {@code id}, {@code value}.
+   * Test {@link DynamicBpmnServiceImpl#changeLocalizationDescription(String, String, String)} with {@code language}, {@code id}, {@code value}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeLocalizationDescription(String, String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeLocalizationDescription(String, String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.changeLocalizationDescription(String, String, String)"})
   public void testChangeLocalizationDescriptionWithLanguageIdValue3() {
     // Arrange
-    JsonNodeFactory nc = mock(JsonNodeFactory.class);
-    when(nc.objectNode()).thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
-    ObjectNode objectNode = new ObjectNode(nc);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(JsonMapper.builder().findAndAddModules().build());
 
     // Act
     ObjectNode actualChangeLocalizationDescriptionResult = dynamicBpmnServiceImpl.changeLocalizationDescription("en",
-        "42", "42");
+        "42", null);
 
     // Assert
-    verify(objectMapper).createObjectNode();
-    verify(nc).objectNode();
     verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode, actualChangeLocalizationDescriptionResult);
+    Iterator<JsonNode> iteratorResult = actualChangeLocalizationDescriptionResult.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
+    assertTrue(actualChangeLocalizationDescriptionResult.traverse() instanceof TreeTraversingParser);
+    assertEquals("{\n  \"en\" : {\n    \"42\" : {\n      \"description\" : null\n    }\n  }\n}",
+        nextResult.toPrettyString());
+    assertEquals(
+        "{\n  \"localization\" : {\n    \"en\" : {\n      \"42\" : {\n        \"description\" : null\n      }\n    }\n  }\n}",
+        actualChangeLocalizationDescriptionResult.toPrettyString());
+    assertFalse(iteratorResult.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeLocalizationDescription(String, String, String, ObjectNode)}
-   * with {@code language}, {@code id}, {@code value}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeLocalizationDescription(String, String, String, ObjectNode)} with {@code language}, {@code id}, {@code value}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeLocalizationDescription(String, String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeLocalizationDescription(String, String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeLocalizationDescription(String, String, String, ObjectNode)"})
   public void testChangeLocalizationDescriptionWithLanguageIdValueInfoNode() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -3890,42 +3481,23 @@ public class DynamicBpmnServiceImplDiffblueTest {
     Iterator<JsonNode> iteratorResult = infoNode.iterator();
     JsonNode nextResult = iteratorResult.next();
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult4 = nextResult3.iterator();
-    JsonNode nextResult4 = iteratorResult4.next();
-    assertTrue(nextResult4 instanceof TextNode);
     assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult2.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult3.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult4.traverse() instanceof TreeTraversingParser);
-    assertEquals("\"42\"", nextResult4.toPrettyString());
-    assertEquals("{\n  \"42\" : {\n    \"description\" : \"42\"\n  }\n}", nextResult2.toPrettyString());
-    assertEquals("{\n  \"description\" : \"42\"\n}", nextResult3.toPrettyString());
     assertEquals("{\n  \"en\" : {\n    \"42\" : {\n      \"description\" : \"42\"\n    }\n  }\n}",
         nextResult.toPrettyString());
     assertEquals(
         "{\n  \"localization\" : {\n    \"en\" : {\n      \"42\" : {\n        \"description\" : \"42\"\n      }\n    }\n  }\n}",
         infoNode.toPrettyString());
     assertFalse(iteratorResult.hasNext());
-    assertFalse(iteratorResult2.hasNext());
-    assertFalse(iteratorResult3.hasNext());
-    assertFalse(iteratorResult4.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeLocalizationDescription(String, String, String, ObjectNode)}
-   * with {@code language}, {@code id}, {@code value}, {@code infoNode}.
+   * Test {@link DynamicBpmnServiceImpl#changeLocalizationDescription(String, String, String, ObjectNode)} with {@code language}, {@code id}, {@code value}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeLocalizationDescription(String, String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeLocalizationDescription(String, String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeLocalizationDescription(String, String, String, ObjectNode)"})
   public void testChangeLocalizationDescriptionWithLanguageIdValueInfoNode2() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -3943,10 +3515,6 @@ public class DynamicBpmnServiceImplDiffblueTest {
     Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
     JsonNode nextResult3 = iteratorResult3.next();
     assertTrue(nextResult3 instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult4 = nextResult3.iterator();
-    JsonNode nextResult4 = iteratorResult4.next();
-    assertTrue(nextResult4 instanceof TextNode);
-    assertEquals("\"\"", nextResult4.toPrettyString());
     assertEquals("{\n  \"42\" : {\n    \"description\" : \"\"\n  }\n}", nextResult2.toPrettyString());
     assertEquals("{\n  \"description\" : \"\"\n}", nextResult3.toPrettyString());
     assertEquals("{\n  \"en\" : {\n    \"42\" : {\n      \"description\" : \"\"\n    }\n  }\n}",
@@ -3957,22 +3525,17 @@ public class DynamicBpmnServiceImplDiffblueTest {
     assertFalse(iteratorResult.hasNext());
     assertFalse(iteratorResult2.hasNext());
     assertFalse(iteratorResult3.hasNext());
-    assertFalse(iteratorResult4.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#changeLocalizationDescription(String, String, String)}
-   * with {@code language}, {@code id}, {@code value}.
-   * <ul>
-   *   <li>Then calls {@link ObjectNode#put(String, String)}.</li>
-   * </ul>
+   * Test {@link DynamicBpmnServiceImpl#changeLocalizationDescription(String, String, String, ObjectNode)} with {@code language}, {@code id}, {@code value}, {@code infoNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#changeLocalizationDescription(String, String, String)}
+   * Method under test: {@link DynamicBpmnServiceImpl#changeLocalizationDescription(String, String, String, ObjectNode)}
    */
   @Test
-  public void testChangeLocalizationDescriptionWithLanguageIdValue_thenCallsPut() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.changeLocalizationDescription(String, String, String, ObjectNode)"})
+  public void testChangeLocalizationDescriptionWithLanguageIdValueInfoNode3() {
     // Arrange
     ObjectNode objectNode = mock(ObjectNode.class);
     when(objectNode.put(Mockito.<String>any(), Mockito.<String>any()))
@@ -3981,35 +3544,36 @@ public class DynamicBpmnServiceImplDiffblueTest {
     when(nc.objectNode()).thenReturn(objectNode);
     JsonNodeFactory nc2 = mock(JsonNodeFactory.class);
     when(nc2.objectNode()).thenReturn(new ObjectNode(nc));
+    ObjectNode objectNode2 = new ObjectNode(nc2);
     JsonNodeFactory nc3 = mock(JsonNodeFactory.class);
-    when(nc3.objectNode()).thenReturn(new ObjectNode(nc2));
-    ObjectNode objectNode2 = new ObjectNode(nc3);
-    ObjectMapper objectMapper = mock(ObjectMapper.class);
-    when(objectMapper.createObjectNode()).thenReturn(objectNode2);
-    when(processEngineConfigurationImpl.getObjectMapper()).thenReturn(objectMapper);
+    when(nc3.objectNode()).thenReturn(objectNode2);
+    ObjectNode infoNode = new ObjectNode(nc3);
 
     // Act
-    ObjectNode actualChangeLocalizationDescriptionResult = dynamicBpmnServiceImpl.changeLocalizationDescription("en",
-        "42", "42");
+    dynamicBpmnServiceImpl.changeLocalizationDescription("en", "42", "42", infoNode);
 
     // Assert
-    verify(objectMapper).createObjectNode();
     verify(nc3).objectNode();
     verify(nc2).objectNode();
     verify(nc).objectNode();
     verify(objectNode).put(eq("description"), eq("42"));
-    verify(processEngineConfigurationImpl).getObjectMapper();
-    assertSame(objectNode2, actualChangeLocalizationDescriptionResult);
+    Iterator<JsonNode> iteratorResult = infoNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertEquals(1, infoNode.size());
+    assertFalse(infoNode.isEmpty());
+    assertFalse(iteratorResult.hasNext());
+    assertSame(objectNode2, nextResult);
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#getLocalizationElementProperties(String, String, ObjectNode)}.
+   * Test {@link DynamicBpmnServiceImpl#getLocalizationElementProperties(String, String, ObjectNode)}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#getLocalizationElementProperties(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#getLocalizationElementProperties(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.getLocalizationElementProperties(String, String, ObjectNode)"})
   public void testGetLocalizationElementProperties() {
     // Arrange, Act and Assert
     assertNull(dynamicBpmnServiceImpl.getLocalizationElementProperties("en", "42",
@@ -4017,17 +3581,17 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#getLocalizationElementProperties(String, String, ObjectNode)}.
+   * Test {@link DynamicBpmnServiceImpl#getLocalizationElementProperties(String, String, ObjectNode)}.
    * <ul>
    *   <li>Given {@code null}.</li>
    *   <li>Then calls {@link ObjectNode#get(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#getLocalizationElementProperties(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#getLocalizationElementProperties(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.getLocalizationElementProperties(String, String, ObjectNode)"})
   public void testGetLocalizationElementProperties_givenNull_thenCallsGet() {
     // Arrange
     ObjectNode infoNode = mock(ObjectNode.class);
@@ -4043,31 +3607,13 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#getLocalizationElementProperties(String, String, ObjectNode)}.
-   * <ul>
-   *   <li>When {@link ObjectNode#ObjectNode(JsonNodeFactory)} with nc is
-   * {@link JsonNodeFactory}.</li>
-   * </ul>
+   * Test {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#getLocalizationElementProperties(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}
    */
   @Test
-  public void testGetLocalizationElementProperties_whenObjectNodeWithNcIsJsonNodeFactory() {
-    // Arrange, Act and Assert
-    assertNull(dynamicBpmnServiceImpl.getLocalizationElementProperties("en", "42",
-        new ObjectNode(mock(JsonNodeFactory.class))));
-  }
-
-  /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}.
-   * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean DynamicBpmnServiceImpl.doesElementPropertyExist(String, String, ObjectNode)"})
   public void testDoesElementPropertyExist() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -4086,13 +3632,13 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}.
+   * Test {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean DynamicBpmnServiceImpl.doesElementPropertyExist(String, String, ObjectNode)"})
   public void testDoesElementPropertyExist2() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -4114,13 +3660,13 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}.
+   * Test {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean DynamicBpmnServiceImpl.doesElementPropertyExist(String, String, ObjectNode)"})
   public void testDoesElementPropertyExist3() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -4142,19 +3688,18 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}.
+   * Test {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return
-   * Instance.</li>
-   *   <li>Then calls {@link ArrayNode#get(String)}.</li>
+   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}
    */
   @Test
-  public void testDoesElementPropertyExist_givenArrayNodeGetReturnInstance_thenCallsGet() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean DynamicBpmnServiceImpl.doesElementPropertyExist(String, String, ObjectNode)"})
+  public void testDoesElementPropertyExist_givenArrayNodeGetReturnInstance_thenReturnFalse() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.get(Mockito.<String>any())).thenReturn(MissingNode.getInstance());
@@ -4172,19 +3717,18 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}.
+   * Test {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return
-   * Instance.</li>
-   *   <li>Then calls {@link ArrayNode#get(String)}.</li>
+   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.</li>
+   *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}
    */
   @Test
-  public void testDoesElementPropertyExist_givenArrayNodeGetReturnInstance_thenCallsGet2() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean DynamicBpmnServiceImpl.doesElementPropertyExist(String, String, ObjectNode)"})
+  public void testDoesElementPropertyExist_givenArrayNodeGetReturnInstance_thenReturnFalse2() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
     when(arrayNode.get(Mockito.<String>any())).thenReturn(NullNode.getInstance());
@@ -4205,18 +3749,17 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}.
+   * Test {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return
-   * Instance.</li>
+   *   <li>Given {@link ArrayNode} {@link ArrayNode#get(String)} return Instance.</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean DynamicBpmnServiceImpl.doesElementPropertyExist(String, String, ObjectNode)"})
   public void testDoesElementPropertyExist_givenArrayNodeGetReturnInstance_thenReturnTrue() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -4238,18 +3781,17 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}.
+   * Test {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}.
    * <ul>
-   *   <li>Given {@link ArrayNode} {@link JsonNode#isNull()} return
-   * {@code true}.</li>
+   *   <li>Given {@link ArrayNode} {@link JsonNode#isNull()} return {@code true}.</li>
    *   <li>Then calls {@link JsonNode#isNull()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean DynamicBpmnServiceImpl.doesElementPropertyExist(String, String, ObjectNode)"})
   public void testDoesElementPropertyExist_givenArrayNodeIsNullReturnTrue_thenCallsIsNull() {
     // Arrange
     ArrayNode arrayNode = mock(ArrayNode.class);
@@ -4274,17 +3816,16 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}.
+   * Test {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}.
    * <ul>
-   *   <li>Given {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is
-   * withExactBigDecimals {@code true}.</li>
+   *   <li>Given {@link ArrayNode#ArrayNode(JsonNodeFactory)} with nf is withExactBigDecimals {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean DynamicBpmnServiceImpl.doesElementPropertyExist(String, String, ObjectNode)"})
   public void testDoesElementPropertyExist_givenArrayNodeWithNfIsWithExactBigDecimalsTrue() {
     // Arrange
     ObjectNode infoNode = mock(ObjectNode.class);
@@ -4300,18 +3841,17 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}.
+   * Test {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}.
    * <ul>
    *   <li>Given Instance.</li>
-   *   <li>When {@link ObjectNode} {@link ObjectNode#get(String)} return
-   * Instance.</li>
+   *   <li>When {@link ObjectNode} {@link ObjectNode#get(String)} return Instance.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean DynamicBpmnServiceImpl.doesElementPropertyExist(String, String, ObjectNode)"})
   public void testDoesElementPropertyExist_givenInstance_whenObjectNodeGetReturnInstance() {
     // Arrange
     ObjectNode infoNode = mock(ObjectNode.class);
@@ -4327,35 +3867,16 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}.
+   * Test {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}.
    * <ul>
-   *   <li>When {@link ObjectNode#ObjectNode(JsonNodeFactory)} with nc is
-   * {@link JsonNodeFactory}.</li>
+   *   <li>When {@link ObjectNode#ObjectNode(JsonNodeFactory)} with nc is withExactBigDecimals {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}
    */
   @Test
-  public void testDoesElementPropertyExist_whenObjectNodeWithNcIsJsonNodeFactory() {
-    // Arrange, Act and Assert
-    assertFalse(dynamicBpmnServiceImpl.doesElementPropertyExist("42", "Property Name",
-        new ObjectNode(mock(JsonNodeFactory.class))));
-  }
-
-  /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}.
-   * <ul>
-   *   <li>When {@link ObjectNode#ObjectNode(JsonNodeFactory)} with nc is
-   * withExactBigDecimals {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#doesElementPropertyExist(String, String, ObjectNode)}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean DynamicBpmnServiceImpl.doesElementPropertyExist(String, String, ObjectNode)"})
   public void testDoesElementPropertyExist_whenObjectNodeWithNcIsWithExactBigDecimalsTrue() {
     // Arrange, Act and Assert
     assertFalse(dynamicBpmnServiceImpl.doesElementPropertyExist("42", "Property Name",
@@ -4363,14 +3884,13 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#setElementProperty(String, String, String, ObjectNode)}
-   * with {@code String}, {@code String}, {@code String}, {@code ObjectNode}.
+   * Test {@link DynamicBpmnServiceImpl#setElementProperty(String, String, String, ObjectNode)} with {@code String}, {@code String}, {@code String}, {@code ObjectNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#setElementProperty(String, String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#setElementProperty(String, String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.setElementProperty(String, String, String, ObjectNode)"})
   public void testSetElementPropertyWithStringStringStringObjectNode() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -4382,34 +3902,21 @@ public class DynamicBpmnServiceImplDiffblueTest {
     Iterator<JsonNode> iteratorResult = infoNode.iterator();
     JsonNode nextResult = iteratorResult.next();
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof TextNode);
     assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult2.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult3.traverse() instanceof TreeTraversingParser);
-    assertEquals("\"42\"", nextResult3.toPrettyString());
     assertEquals("{\n  \"42\" : {\n    \"Property Name\" : \"42\"\n  }\n}", nextResult.toPrettyString());
-    assertEquals("{\n  \"Property Name\" : \"42\"\n}", nextResult2.toPrettyString());
     assertEquals("{\n  \"bpmn\" : {\n    \"42\" : {\n      \"Property Name\" : \"42\"\n    }\n  }\n}",
         infoNode.toPrettyString());
     assertFalse(iteratorResult.hasNext());
-    assertFalse(iteratorResult2.hasNext());
-    assertFalse(iteratorResult3.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#setElementProperty(String, String, String, ObjectNode)}
-   * with {@code String}, {@code String}, {@code String}, {@code ObjectNode}.
+   * Test {@link DynamicBpmnServiceImpl#setElementProperty(String, String, String, ObjectNode)} with {@code String}, {@code String}, {@code String}, {@code ObjectNode}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#setElementProperty(String, String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#setElementProperty(String, String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.setElementProperty(String, String, String, ObjectNode)"})
   public void testSetElementPropertyWithStringStringStringObjectNode2() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -4438,15 +3945,52 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
+   * Test {@link DynamicBpmnServiceImpl#setElementProperty(String, String, String, ObjectNode)} with {@code String}, {@code String}, {@code String}, {@code ObjectNode}.
+   * <p>
+   * Method under test: {@link DynamicBpmnServiceImpl#setElementProperty(String, String, String, ObjectNode)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.setElementProperty(String, String, String, ObjectNode)"})
+  public void testSetElementPropertyWithStringStringStringObjectNode3() {
+    // Arrange
+    ObjectNode objectNode = mock(ObjectNode.class);
+    when(objectNode.put(Mockito.<String>any(), Mockito.<String>any()))
+        .thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
+    JsonNodeFactory nc = mock(JsonNodeFactory.class);
+    when(nc.objectNode()).thenReturn(objectNode);
+    ObjectNode objectNode2 = new ObjectNode(nc);
+    JsonNodeFactory nc2 = mock(JsonNodeFactory.class);
+    when(nc2.objectNode()).thenReturn(objectNode2);
+    ObjectNode infoNode = new ObjectNode(nc2);
+
+    // Act
+    dynamicBpmnServiceImpl.setElementProperty("42", "Property Name", "42", infoNode);
+
+    // Assert
+    verify(nc2).objectNode();
+    verify(nc).objectNode();
+    verify(objectNode).put(eq("Property Name"), eq("42"));
+    Iterator<JsonNode> iteratorResult = infoNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertEquals(1, infoNode.size());
+    assertFalse(infoNode.isEmpty());
+    assertFalse(iteratorResult.hasNext());
+    assertSame(objectNode2, nextResult);
+  }
+
+  /**
    * Test {@link DynamicBpmnServiceImpl#createOrGetBpmnNode(ObjectNode)}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#createOrGetBpmnNode(ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#createOrGetBpmnNode(ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.createOrGetBpmnNode(ObjectNode)"})
   public void testCreateOrGetBpmnNode_thenReturnNull() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
@@ -4469,31 +4013,16 @@ public class DynamicBpmnServiceImplDiffblueTest {
 
   /**
    * Test {@link DynamicBpmnServiceImpl#getBpmnNode(ObjectNode)}.
-   * <p>
-   * Method under test: {@link DynamicBpmnServiceImpl#getBpmnNode(ObjectNode)}
-   */
-  @Test
-  public void testGetBpmnNode() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-    DynamicBpmnServiceImpl dynamicBpmnServiceImpl = new DynamicBpmnServiceImpl(processEngineConfiguration);
-
-    // Act and Assert
-    assertNull(dynamicBpmnServiceImpl.getBpmnNode(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true))));
-  }
-
-  /**
-   * Test {@link DynamicBpmnServiceImpl#getBpmnNode(ObjectNode)}.
    * <ul>
-   *   <li>When {@link ObjectNode#ObjectNode(JsonNodeFactory)} with nc is
-   * withExactBigDecimals {@code true}.</li>
+   *   <li>When {@link ObjectNode#ObjectNode(JsonNodeFactory)} with nc is withExactBigDecimals {@code true}.</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link DynamicBpmnServiceImpl#getBpmnNode(ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.getBpmnNode(ObjectNode)"})
   public void testGetBpmnNode_whenObjectNodeWithNcIsWithExactBigDecimalsTrue_thenReturnNull() {
     // Arrange
     DynamicBpmnServiceImpl dynamicBpmnServiceImpl = new DynamicBpmnServiceImpl(new JtaProcessEngineConfiguration());
@@ -4503,13 +4032,13 @@ public class DynamicBpmnServiceImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#setLocalizationProperty(String, String, String, String, ObjectNode)}.
+   * Test {@link DynamicBpmnServiceImpl#setLocalizationProperty(String, String, String, String, ObjectNode)}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#setLocalizationProperty(String, String, String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#setLocalizationProperty(String, String, String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.setLocalizationProperty(String, String, String, String, ObjectNode)"})
   public void testSetLocalizationProperty() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -4521,22 +4050,7 @@ public class DynamicBpmnServiceImplDiffblueTest {
     Iterator<JsonNode> iteratorResult = infoNode.iterator();
     JsonNode nextResult = iteratorResult.next();
     assertTrue(nextResult instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult2 = nextResult.iterator();
-    JsonNode nextResult2 = iteratorResult2.next();
-    assertTrue(nextResult2 instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
-    JsonNode nextResult3 = iteratorResult3.next();
-    assertTrue(nextResult3 instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult4 = nextResult3.iterator();
-    JsonNode nextResult4 = iteratorResult4.next();
-    assertTrue(nextResult4 instanceof TextNode);
     assertTrue(nextResult.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult2.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult3.traverse() instanceof TreeTraversingParser);
-    assertTrue(nextResult4.traverse() instanceof TreeTraversingParser);
-    assertEquals("\"42\"", nextResult4.toPrettyString());
-    assertEquals("{\n  \"42\" : {\n    \"Property Name\" : \"42\"\n  }\n}", nextResult2.toPrettyString());
-    assertEquals("{\n  \"Property Name\" : \"42\"\n}", nextResult3.toPrettyString());
     assertEquals("{\n  \"en\" : {\n    \"42\" : {\n      \"Property Name\" : \"42\"\n    }\n  }\n}",
         nextResult.toPrettyString());
     assertEquals(
@@ -4544,19 +4058,16 @@ public class DynamicBpmnServiceImplDiffblueTest {
             + "        \"Property Name\" : \"42\"\n" + "      }\n" + "    }\n" + "  }\n" + "}",
         infoNode.toPrettyString());
     assertFalse(iteratorResult.hasNext());
-    assertFalse(iteratorResult2.hasNext());
-    assertFalse(iteratorResult3.hasNext());
-    assertFalse(iteratorResult4.hasNext());
   }
 
   /**
-   * Test
-   * {@link DynamicBpmnServiceImpl#setLocalizationProperty(String, String, String, String, ObjectNode)}.
+   * Test {@link DynamicBpmnServiceImpl#setLocalizationProperty(String, String, String, String, ObjectNode)}.
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#setLocalizationProperty(String, String, String, String, ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#setLocalizationProperty(String, String, String, String, ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.setLocalizationProperty(String, String, String, String, ObjectNode)"})
   public void testSetLocalizationProperty2() {
     // Arrange
     ObjectNode infoNode = new ObjectNode(JsonNodeFactory.withExactBigDecimals(true));
@@ -4574,10 +4085,6 @@ public class DynamicBpmnServiceImplDiffblueTest {
     Iterator<JsonNode> iteratorResult3 = nextResult2.iterator();
     JsonNode nextResult3 = iteratorResult3.next();
     assertTrue(nextResult3 instanceof ObjectNode);
-    Iterator<JsonNode> iteratorResult4 = nextResult3.iterator();
-    JsonNode nextResult4 = iteratorResult4.next();
-    assertTrue(nextResult4 instanceof TextNode);
-    assertEquals("\"\"", nextResult4.toPrettyString());
     assertEquals("{\n  \"42\" : {\n    \"Property Name\" : \"\"\n  }\n}", nextResult2.toPrettyString());
     assertEquals("{\n  \"Property Name\" : \"\"\n}", nextResult3.toPrettyString());
     assertEquals("{\n  \"en\" : {\n    \"42\" : {\n      \"Property Name\" : \"\"\n    }\n  }\n}",
@@ -4588,7 +4095,48 @@ public class DynamicBpmnServiceImplDiffblueTest {
     assertFalse(iteratorResult.hasNext());
     assertFalse(iteratorResult2.hasNext());
     assertFalse(iteratorResult3.hasNext());
-    assertFalse(iteratorResult4.hasNext());
+  }
+
+  /**
+   * Test {@link DynamicBpmnServiceImpl#setLocalizationProperty(String, String, String, String, ObjectNode)}.
+   * <ul>
+   *   <li>Then {@link ObjectNode#ObjectNode(JsonNodeFactory)} with nc is {@link JsonNodeFactory} size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link DynamicBpmnServiceImpl#setLocalizationProperty(String, String, String, String, ObjectNode)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DynamicBpmnServiceImpl.setLocalizationProperty(String, String, String, String, ObjectNode)"})
+  public void testSetLocalizationProperty_thenObjectNodeWithNcIsJsonNodeFactorySizeIsOne() {
+    // Arrange
+    ObjectNode objectNode = mock(ObjectNode.class);
+    when(objectNode.put(Mockito.<String>any(), Mockito.<String>any()))
+        .thenReturn(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true)));
+    JsonNodeFactory nc = mock(JsonNodeFactory.class);
+    when(nc.objectNode()).thenReturn(objectNode);
+    JsonNodeFactory nc2 = mock(JsonNodeFactory.class);
+    when(nc2.objectNode()).thenReturn(new ObjectNode(nc));
+    ObjectNode objectNode2 = new ObjectNode(nc2);
+    JsonNodeFactory nc3 = mock(JsonNodeFactory.class);
+    when(nc3.objectNode()).thenReturn(objectNode2);
+    ObjectNode infoNode = new ObjectNode(nc3);
+
+    // Act
+    dynamicBpmnServiceImpl.setLocalizationProperty("en", "42", "Property Name", "42", infoNode);
+
+    // Assert
+    verify(nc3).objectNode();
+    verify(nc2).objectNode();
+    verify(nc).objectNode();
+    verify(objectNode).put(eq("Property Name"), eq("42"));
+    Iterator<JsonNode> iteratorResult = infoNode.iterator();
+    JsonNode nextResult = iteratorResult.next();
+    assertTrue(nextResult instanceof ObjectNode);
+    assertEquals(1, infoNode.size());
+    assertFalse(infoNode.isEmpty());
+    assertFalse(iteratorResult.hasNext());
+    assertSame(objectNode2, nextResult);
   }
 
   /**
@@ -4597,10 +4145,11 @@ public class DynamicBpmnServiceImplDiffblueTest {
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#createOrGetLocalizationNode(ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#createOrGetLocalizationNode(ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.createOrGetLocalizationNode(ObjectNode)"})
   public void testCreateOrGetLocalizationNode_thenReturnNull() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = mock(JtaProcessEngineConfiguration.class);
@@ -4623,31 +4172,15 @@ public class DynamicBpmnServiceImplDiffblueTest {
 
   /**
    * Test {@link DynamicBpmnServiceImpl#getLocalizationNode(ObjectNode)}.
-   * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#getLocalizationNode(ObjectNode)}
-   */
-  @Test
-  public void testGetLocalizationNode() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-    DynamicBpmnServiceImpl dynamicBpmnServiceImpl = new DynamicBpmnServiceImpl(processEngineConfiguration);
-
-    // Act and Assert
-    assertNull(dynamicBpmnServiceImpl.getLocalizationNode(new ObjectNode(JsonNodeFactory.withExactBigDecimals(true))));
-  }
-
-  /**
-   * Test {@link DynamicBpmnServiceImpl#getLocalizationNode(ObjectNode)}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DynamicBpmnServiceImpl#getLocalizationNode(ObjectNode)}
+   * Method under test: {@link DynamicBpmnServiceImpl#getLocalizationNode(ObjectNode)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ObjectNode DynamicBpmnServiceImpl.getLocalizationNode(ObjectNode)"})
   public void testGetLocalizationNode_thenReturnNull() {
     // Arrange
     DynamicBpmnServiceImpl dynamicBpmnServiceImpl = new DynamicBpmnServiceImpl(new JtaProcessEngineConfiguration());

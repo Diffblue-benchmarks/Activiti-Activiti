@@ -17,15 +17,22 @@ package org.activiti.engine.repository;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class DiagramEdgeDiffblueTest {
   /**
    * Test getters and setters.
+   * <ul>
+   *   <li>Then return Id is {@code null}.</li>
+   * </ul>
    * <p>
    * Methods under test:
    * <ul>
@@ -37,16 +44,22 @@ public class DiagramEdgeDiffblueTest {
    * </ul>
    */
   @Test
-  public void testGettersAndSetters() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DiagramEdge.<init>()", "void DiagramEdge.<init>(String, List)",
+      "List DiagramEdge.getWaypoints()", "boolean DiagramEdge.isEdge()", "boolean DiagramEdge.isNode()",
+      "void DiagramEdge.setWaypoints(List)"})
+  public void testGettersAndSetters_thenReturnIdIsNull() {
     // Arrange and Act
     DiagramEdge actualDiagramEdge = new DiagramEdge();
     ArrayList<DiagramEdgeWaypoint> waypoints = new ArrayList<>();
     actualDiagramEdge.setWaypoints(waypoints);
     List<DiagramEdgeWaypoint> actualWaypoints = actualDiagramEdge.getWaypoints();
     boolean actualIsEdgeResult = actualDiagramEdge.isEdge();
+    boolean actualIsNodeResult = actualDiagramEdge.isNode();
 
-    // Assert that nothing has changed
-    assertFalse(actualDiagramEdge.isNode());
+    // Assert
+    assertNull(actualDiagramEdge.getId());
+    assertFalse(actualIsNodeResult);
     assertTrue(actualWaypoints.isEmpty());
     assertTrue(actualIsEdgeResult);
     assertSame(waypoints, actualWaypoints);
@@ -69,6 +82,10 @@ public class DiagramEdgeDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DiagramEdge.<init>()", "void DiagramEdge.<init>(String, List)",
+      "List DiagramEdge.getWaypoints()", "boolean DiagramEdge.isEdge()", "boolean DiagramEdge.isNode()",
+      "void DiagramEdge.setWaypoints(List)"})
   public void testGettersAndSetters_when42_thenReturnIdIs42() {
     // Arrange and Act
     DiagramEdge actualDiagramEdge = new DiagramEdge("42", new ArrayList<>());
@@ -78,7 +95,7 @@ public class DiagramEdgeDiffblueTest {
     boolean actualIsEdgeResult = actualDiagramEdge.isEdge();
     boolean actualIsNodeResult = actualDiagramEdge.isNode();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualDiagramEdge.getId());
     assertFalse(actualIsNodeResult);
     assertTrue(actualWaypoints.isEmpty());

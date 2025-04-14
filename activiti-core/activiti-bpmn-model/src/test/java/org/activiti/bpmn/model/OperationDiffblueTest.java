@@ -19,27 +19,27 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class OperationDiffblueTest {
   /**
    * Test {@link Operation#clone()}.
    * <ul>
-   *   <li>Given {@link Operation} (default constructor) ErrorMessageRef is
-   * {@code null}.</li>
+   *   <li>Given {@link Operation} (default constructor) ErrorMessageRef is {@code null}.</li>
    *   <li>Then return Id is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Operation#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Operation Operation.clone()"})
   public void testClone_givenOperationErrorMessageRefIsNull_thenReturnIdIsNull() {
     // Arrange
     Operation operation = new Operation();
@@ -64,14 +64,15 @@ public class OperationDiffblueTest {
   /**
    * Test {@link Operation#clone()}.
    * <ul>
-   *   <li>Given {@link Operation} (default constructor) ExtensionElements is
-   * {@code null}.</li>
+   *   <li>Given {@link Operation} (default constructor) ExtensionElements is {@code null}.</li>
    *   <li>Then return Id is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Operation#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Operation Operation.clone()"})
   public void testClone_givenOperationExtensionElementsIsNull_thenReturnIdIsNull() {
     // Arrange
     Operation operation = new Operation();
@@ -104,6 +105,8 @@ public class OperationDiffblueTest {
    * Method under test: {@link Operation#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Operation Operation.clone()"})
   public void testClone_givenOperation_thenReturnIdIsNull() {
     // Arrange and Act
     Operation actualCloneResult = (new Operation()).clone();
@@ -130,6 +133,8 @@ public class OperationDiffblueTest {
    * Method under test: {@link Operation#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Operation Operation.clone()"})
   public void testClone_thenReturnAttributesSizeIsOne() {
     // Arrange
     Operation operation = new Operation();
@@ -153,6 +158,8 @@ public class OperationDiffblueTest {
    * Method under test: {@link Operation#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Operation Operation.clone()"})
   public void testClone_thenReturnAttributesSizeIsTwo() {
     // Arrange
     Operation operation = new Operation();
@@ -167,31 +174,6 @@ public class OperationDiffblueTest {
     assertEquals(1, getResult.size());
     assertTrue(attributes.containsKey("Name"));
     assertSame(attribute, getResult.get(0));
-  }
-
-  /**
-   * Test {@link Operation#setValues(Operation)} with {@code Operation}.
-   * <ul>
-   *   <li>Then calls {@link ExtensionAttribute#getName()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Operation#setValues(Operation)}
-   */
-  @Test
-  public void testSetValuesWithOperation_thenCallsGetName() {
-    // Arrange
-    Operation operation = new Operation();
-    ExtensionAttribute attribute = mock(ExtensionAttribute.class);
-    when(attribute.getName()).thenReturn("Name");
-
-    Operation otherElement = new Operation();
-    otherElement.addAttribute(attribute);
-
-    // Act
-    operation.setValues(otherElement);
-
-    // Assert
-    verify(attribute, atLeast(1)).getName();
   }
 
   /**
@@ -213,6 +195,12 @@ public class OperationDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Operation.<init>()", "List Operation.getErrorMessageRef()",
+      "String Operation.getImplementationRef()", "String Operation.getInMessageRef()", "String Operation.getName()",
+      "String Operation.getOutMessageRef()", "void Operation.setErrorMessageRef(List)",
+      "void Operation.setImplementationRef(String)", "void Operation.setInMessageRef(String)",
+      "void Operation.setName(String)", "void Operation.setOutMessageRef(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Operation actualOperation = new Operation();
@@ -227,11 +215,12 @@ public class OperationDiffblueTest {
     String actualInMessageRef = actualOperation.getInMessageRef();
     String actualName = actualOperation.getName();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Implementation Ref", actualImplementationRef);
     assertEquals("In Message Ref", actualInMessageRef);
     assertEquals("Name", actualName);
     assertEquals("Out Message Ref", actualOperation.getOutMessageRef());
+    assertNull(actualOperation.getId());
     assertEquals(0, actualOperation.getXmlColumnNumber());
     assertEquals(0, actualOperation.getXmlRowNumber());
     assertTrue(actualErrorMessageRef.isEmpty());

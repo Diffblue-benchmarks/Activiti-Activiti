@@ -18,7 +18,9 @@ package org.activiti.api.runtime.model.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ProcessCandidateStarterUserImplDiffblueTest {
@@ -36,6 +38,10 @@ class ProcessCandidateStarterUserImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters; then return ProcessDefinitionId is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessCandidateStarterUserImpl.<init>()",
+      "void ProcessCandidateStarterUserImpl.<init>(String, String)",
+      "String ProcessCandidateStarterUserImpl.getUserId()"})
   void testGettersAndSetters_thenReturnProcessDefinitionIdIsNull() {
     // Arrange and Act
     ProcessCandidateStarterUserImpl actualProcessCandidateStarterUserImpl = new ProcessCandidateStarterUserImpl();
@@ -55,13 +61,16 @@ class ProcessCandidateStarterUserImplDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link ProcessCandidateStarterUserImpl#ProcessCandidateStarterUserImpl(String, String)}
+   *   <li>{@link ProcessCandidateStarterUserImpl#ProcessCandidateStarterUserImpl(String, String)}
    *   <li>{@link ProcessCandidateStarterUserImpl#getUserId()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters; when '42'; then return ProcessDefinitionId is '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessCandidateStarterUserImpl.<init>()",
+      "void ProcessCandidateStarterUserImpl.<init>(String, String)",
+      "String ProcessCandidateStarterUserImpl.getUserId()"})
   void testGettersAndSetters_when42_thenReturnProcessDefinitionIdIs42() {
     // Arrange and Act
     ProcessCandidateStarterUserImpl actualProcessCandidateStarterUserImpl = new ProcessCandidateStarterUserImpl("42",
@@ -74,8 +83,7 @@ class ProcessCandidateStarterUserImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessCandidateStarterUserImpl#equals(Object)}, and
-   * {@link ProcessCandidateStarterUserImpl#hashCode()}.
+   * Test {@link ProcessCandidateStarterUserImpl#equals(Object)}, and {@link ProcessCandidateStarterUserImpl#hashCode()}.
    * <ul>
    *   <li>When other is equal.</li>
    *   <li>Then return equal.</li>
@@ -89,6 +97,9 @@ class ProcessCandidateStarterUserImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is equal; then return equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessCandidateStarterUserImpl.equals(Object)",
+      "int ProcessCandidateStarterUserImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
     // Arrange
     ProcessCandidateStarterUserImpl processCandidateStarterUserImpl = new ProcessCandidateStarterUserImpl("42", "42");
@@ -101,8 +112,7 @@ class ProcessCandidateStarterUserImplDiffblueTest {
   }
 
   /**
-   * Test {@link ProcessCandidateStarterUserImpl#equals(Object)}, and
-   * {@link ProcessCandidateStarterUserImpl#hashCode()}.
+   * Test {@link ProcessCandidateStarterUserImpl#equals(Object)}, and {@link ProcessCandidateStarterUserImpl#hashCode()}.
    * <ul>
    *   <li>When other is same.</li>
    *   <li>Then return equal.</li>
@@ -116,6 +126,9 @@ class ProcessCandidateStarterUserImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessCandidateStarterUserImpl.equals(Object)",
+      "int ProcessCandidateStarterUserImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
     ProcessCandidateStarterUserImpl processCandidateStarterUserImpl = new ProcessCandidateStarterUserImpl("42", "42");
@@ -137,6 +150,9 @@ class ProcessCandidateStarterUserImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessCandidateStarterUserImpl.equals(Object)",
+      "int ProcessCandidateStarterUserImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
     ProcessCandidateStarterUserImpl processCandidateStarterUserImpl = new ProcessCandidateStarterUserImpl(
@@ -157,6 +173,9 @@ class ProcessCandidateStarterUserImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessCandidateStarterUserImpl.equals(Object)",
+      "int ProcessCandidateStarterUserImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
     // Arrange
     ProcessCandidateStarterUserImpl processCandidateStarterUserImpl = new ProcessCandidateStarterUserImpl("42",
@@ -177,6 +196,9 @@ class ProcessCandidateStarterUserImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessCandidateStarterUserImpl.equals(Object)",
+      "int ProcessCandidateStarterUserImpl.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new ProcessCandidateStarterUserImpl("42", "42"), null);
@@ -193,6 +215,9 @@ class ProcessCandidateStarterUserImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean ProcessCandidateStarterUserImpl.equals(Object)",
+      "int ProcessCandidateStarterUserImpl.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new ProcessCandidateStarterUserImpl("42", "42"),

@@ -19,9 +19,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class AssignTasksPayloadDiffblueTest {
@@ -32,6 +34,8 @@ class AssignTasksPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test new AssignTasksPayload()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AssignTasksPayload.<init>()"})
   void testNewAssignTasksPayload() {
     // Arrange and Act
     AssignTasksPayload actualAssignTasksPayload = new AssignTasksPayload();
@@ -48,11 +52,12 @@ class AssignTasksPayloadDiffblueTest {
    *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AssignTasksPayload#AssignTasksPayload(List, String)}
+   * Method under test: {@link AssignTasksPayload#AssignTasksPayload(List, String)}
    */
   @Test
   @DisplayName("Test new AssignTasksPayload(List, String); given '42'; when ArrayList() add '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AssignTasksPayload.<init>(List, String)"})
   void testNewAssignTasksPayload_given42_whenArrayListAdd42() {
     // Arrange
     ArrayList<String> taskIds = new ArrayList<>();
@@ -74,11 +79,12 @@ class AssignTasksPayloadDiffblueTest {
    *   <li>Then return TaskIds is {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AssignTasksPayload#AssignTasksPayload(List, String)}
+   * Method under test: {@link AssignTasksPayload#AssignTasksPayload(List, String)}
    */
   @Test
   @DisplayName("Test new AssignTasksPayload(List, String); given 'foo'; then return TaskIds is ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AssignTasksPayload.<init>(List, String)"})
   void testNewAssignTasksPayload_givenFoo_thenReturnTaskIdsIsArrayList() {
     // Arrange
     ArrayList<String> taskIds = new ArrayList<>();
@@ -99,11 +105,12 @@ class AssignTasksPayloadDiffblueTest {
    *   <li>Then return TaskIds Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AssignTasksPayload#AssignTasksPayload(List, String)}
+   * Method under test: {@link AssignTasksPayload#AssignTasksPayload(List, String)}
    */
   @Test
   @DisplayName("Test new AssignTasksPayload(List, String); when ArrayList(); then return TaskIds Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AssignTasksPayload.<init>(List, String)"})
   void testNewAssignTasksPayload_whenArrayList_thenReturnTaskIdsEmpty() {
     // Arrange and Act
     AssignTasksPayload actualAssignTasksPayload = new AssignTasksPayload(new ArrayList<>(), "Assignee");
@@ -127,6 +134,10 @@ class AssignTasksPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String AssignTasksPayload.getAssignee()", "String AssignTasksPayload.getId()",
+      "List AssignTasksPayload.getTaskIds()", "void AssignTasksPayload.setAssignee(String)",
+      "void AssignTasksPayload.setTaskIds(List)"})
   void testGettersAndSetters() {
     // Arrange
     AssignTasksPayload assignTasksPayload = new AssignTasksPayload();
@@ -139,7 +150,7 @@ class AssignTasksPayloadDiffblueTest {
     assignTasksPayload.getId();
     List<String> actualTaskIds = assignTasksPayload.getTaskIds();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Assignee", actualAssignee);
     assertTrue(actualTaskIds.isEmpty());
     assertSame(taskIds, actualTaskIds);

@@ -20,19 +20,18 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.junit.Test;
-import org.mockito.Mockito;
+import org.junit.experimental.categories.Category;
 
 public class ProcessDiffblueTest {
   /**
@@ -74,6 +73,21 @@ public class ProcessDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Process.<init>()", "Collection Process.getArtifacts()",
+      "List Process.getCandidateStarterGroups()", "List Process.getCandidateStarterUsers()",
+      "List Process.getDataObjects()", "String Process.getDocumentation()", "List Process.getEventListeners()",
+      "List Process.getExecutionListeners()", "Map Process.getFlowElementMap()", "Collection Process.getFlowElements()",
+      "FlowElement Process.getInitialFlowElement()", "IOSpecification Process.getIoSpecification()",
+      "List Process.getLanes()", "String Process.getName()", "boolean Process.isCandidateStarterGroupsDefined()",
+      "boolean Process.isCandidateStarterUsersDefined()", "boolean Process.isExecutable()",
+      "void Process.setCandidateStarterGroups(List)", "void Process.setCandidateStarterGroupsDefined(boolean)",
+      "void Process.setCandidateStarterUsers(List)", "void Process.setCandidateStarterUsersDefined(boolean)",
+      "void Process.setDataObjects(List)", "void Process.setDocumentation(String)",
+      "void Process.setEventListeners(List)", "void Process.setExecutable(boolean)",
+      "void Process.setExecutionListeners(List)", "void Process.setFlowElementMap(Map)",
+      "void Process.setInitialFlowElement(FlowElement)", "void Process.setIoSpecification(IOSpecification)",
+      "void Process.setLanes(List)", "void Process.setName(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Process actualProcess = new Process();
@@ -117,11 +131,12 @@ public class ProcessDiffblueTest {
     boolean actualIsCandidateStarterUsersDefinedResult = actualProcess.isCandidateStarterUsersDefined();
     boolean actualIsExecutableResult = actualProcess.isExecutable();
 
-    // Assert that nothing has changed
+    // Assert
     assertTrue(actualArtifacts instanceof List);
     assertTrue(actualFlowElements instanceof List);
     assertEquals("Documentation", actualDocumentation);
     assertEquals("Name", actualName);
+    assertNull(actualProcess.getId());
     assertEquals(0, actualProcess.getXmlColumnNumber());
     assertEquals(0, actualProcess.getXmlRowNumber());
     assertTrue(actualCandidateStarterGroups.isEmpty());
@@ -153,18 +168,21 @@ public class ProcessDiffblueTest {
    * Method under test: {@link Process#containsFlowElementId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean Process.containsFlowElementId(String)"})
   public void testContainsFlowElementId() {
     // Arrange, Act and Assert
     assertFalse((new Process()).containsFlowElementId("42"));
   }
 
   /**
-   * Test {@link Process#getFlowElement(String, boolean)} with
-   * {@code flowElementId}, {@code searchRecurive}.
+   * Test {@link Process#getFlowElement(String, boolean)} with {@code flowElementId}, {@code searchRecurive}.
    * <p>
    * Method under test: {@link Process#getFlowElement(String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElement Process.getFlowElement(String, boolean)"})
   public void testGetFlowElementWithFlowElementIdSearchRecurive() {
     // Arrange
     Process process = new Process();
@@ -175,16 +193,16 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#getFlowElement(String, boolean)} with
-   * {@code flowElementId}, {@code searchRecurive}.
+   * Test {@link Process#getFlowElement(String, boolean)} with {@code flowElementId}, {@code searchRecurive}.
    * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor) Id is
-   * {@code Id}.</li>
+   *   <li>Given {@link AdhocSubProcess} (default constructor) Id is {@code Id}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Process#getFlowElement(String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElement Process.getFlowElement(String, boolean)"})
   public void testGetFlowElementWithFlowElementIdSearchRecurive_givenAdhocSubProcessIdIsId() {
     // Arrange
     AdhocSubProcess element = new AdhocSubProcess();
@@ -198,8 +216,7 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#getFlowElement(String, boolean)} with
-   * {@code flowElementId}, {@code searchRecurive}.
+   * Test {@link Process#getFlowElement(String, boolean)} with {@code flowElementId}, {@code searchRecurive}.
    * <ul>
    *   <li>Given {@link Process} (default constructor).</li>
    *   <li>Then return {@code null}.</li>
@@ -208,14 +225,15 @@ public class ProcessDiffblueTest {
    * Method under test: {@link Process#getFlowElement(String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElement Process.getFlowElement(String, boolean)"})
   public void testGetFlowElementWithFlowElementIdSearchRecurive_givenProcess_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new Process()).getFlowElement("42", false));
   }
 
   /**
-   * Test {@link Process#getFlowElement(String, boolean)} with
-   * {@code flowElementId}, {@code searchRecurive}.
+   * Test {@link Process#getFlowElement(String, boolean)} with {@code flowElementId}, {@code searchRecurive}.
    * <ul>
    *   <li>Given {@link Process} (default constructor).</li>
    *   <li>When {@code true}.</li>
@@ -224,14 +242,15 @@ public class ProcessDiffblueTest {
    * Method under test: {@link Process#getFlowElement(String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElement Process.getFlowElement(String, boolean)"})
   public void testGetFlowElementWithFlowElementIdSearchRecurive_givenProcess_whenTrue() {
     // Arrange, Act and Assert
     assertNull((new Process()).getFlowElement("42", true));
   }
 
   /**
-   * Test {@link Process#getFlowElement(String, boolean)} with
-   * {@code flowElementId}, {@code searchRecurive}.
+   * Test {@link Process#getFlowElement(String, boolean)} with {@code flowElementId}, {@code searchRecurive}.
    * <ul>
    *   <li>Then return {@link AdhocSubProcess} (default constructor).</li>
    * </ul>
@@ -239,6 +258,8 @@ public class ProcessDiffblueTest {
    * Method under test: {@link Process#getFlowElement(String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElement Process.getFlowElement(String, boolean)"})
   public void testGetFlowElementWithFlowElementIdSearchRecurive_thenReturnAdhocSubProcess() {
     // Arrange
     AdhocSubProcess element = new AdhocSubProcess();
@@ -254,14 +275,15 @@ public class ProcessDiffblueTest {
   /**
    * Test {@link Process#getFlowElement(String)} with {@code flowElementId}.
    * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor) Id is
-   * {@code Id}.</li>
+   *   <li>Given {@link AdhocSubProcess} (default constructor) Id is {@code Id}.</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Process#getFlowElement(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElement Process.getFlowElement(String)"})
   public void testGetFlowElementWithFlowElementId_givenAdhocSubProcessIdIsId_thenReturnNull() {
     // Arrange
     AdhocSubProcess element = new AdhocSubProcess();
@@ -284,6 +306,8 @@ public class ProcessDiffblueTest {
    * Method under test: {@link Process#getFlowElement(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElement Process.getFlowElement(String)"})
   public void testGetFlowElementWithFlowElementId_givenProcess_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new Process()).getFlowElement("42"));
@@ -298,6 +322,8 @@ public class ProcessDiffblueTest {
    * Method under test: {@link Process#getFlowElement(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElement Process.getFlowElement(String)"})
   public void testGetFlowElementWithFlowElementId_thenReturnAdhocSubProcess() {
     // Arrange
     AdhocSubProcess element = new AdhocSubProcess();
@@ -319,6 +345,8 @@ public class ProcessDiffblueTest {
    * Method under test: {@link Process#getFlowElement(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElement Process.getFlowElement(String)"})
   public void testGetFlowElementWithFlowElementId_thenReturnNull() {
     // Arrange
     Process process = new Process();
@@ -329,14 +357,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)}
-   * with {@code flowElementsContainer}, {@code sourceRef}.
+   * Test {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)} with {@code flowElementsContainer}, {@code sourceRef}.
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)}
+   * Method under test: {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)"})
   public void testFindAssociationsWithSourceRefRecursiveWithFlowElementsContainerSourceRef() {
     // Arrange
     Process process = new Process();
@@ -346,14 +373,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)}
-   * with {@code flowElementsContainer}, {@code sourceRef}.
+   * Test {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)} with {@code flowElementsContainer}, {@code sourceRef}.
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)}
+   * Method under test: {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)"})
   public void testFindAssociationsWithSourceRefRecursiveWithFlowElementsContainerSourceRef2() {
     // Arrange
     Process process = new Process();
@@ -363,14 +389,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)}
-   * with {@code flowElementsContainer}, {@code sourceRef}.
+   * Test {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)} with {@code flowElementsContainer}, {@code sourceRef}.
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)}
+   * Method under test: {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)"})
   public void testFindAssociationsWithSourceRefRecursiveWithFlowElementsContainerSourceRef3() {
     // Arrange
     Process process = new Process();
@@ -383,14 +408,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)}
-   * with {@code flowElementsContainer}, {@code sourceRef}.
+   * Test {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)} with {@code flowElementsContainer}, {@code sourceRef}.
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)}
+   * Method under test: {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)"})
   public void testFindAssociationsWithSourceRefRecursiveWithFlowElementsContainerSourceRef4() {
     // Arrange
     Process process = new Process();
@@ -404,14 +428,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)}
-   * with {@code flowElementsContainer}, {@code sourceRef}.
+   * Test {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)} with {@code flowElementsContainer}, {@code sourceRef}.
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)}
+   * Method under test: {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)"})
   public void testFindAssociationsWithSourceRefRecursiveWithFlowElementsContainerSourceRef5() {
     // Arrange
     Process process = new Process();
@@ -424,14 +447,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)}
-   * with {@code flowElementsContainer}, {@code sourceRef}.
+   * Test {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)} with {@code flowElementsContainer}, {@code sourceRef}.
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)}
+   * Method under test: {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)"})
   public void testFindAssociationsWithSourceRefRecursiveWithFlowElementsContainerSourceRef6() {
     // Arrange
     Process process = new Process();
@@ -445,14 +467,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)}
-   * with {@code flowElementsContainer}, {@code sourceRef}.
+   * Test {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)} with {@code flowElementsContainer}, {@code sourceRef}.
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)}
+   * Method under test: {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)"})
   public void testFindAssociationsWithSourceRefRecursiveWithFlowElementsContainerSourceRef7() {
     // Arrange
     Process process = new Process();
@@ -469,14 +490,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)}
-   * with {@code flowElementsContainer}, {@code sourceRef}.
+   * Test {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)} with {@code flowElementsContainer}, {@code sourceRef}.
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)}
+   * Method under test: {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)"})
   public void testFindAssociationsWithSourceRefRecursiveWithFlowElementsContainerSourceRef8() {
     // Arrange
     Process process = new Process();
@@ -499,13 +519,37 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#findAssociationsWithSourceRefRecursive(String)} with
-   * {@code sourceRef}.
+   * Test {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)} with {@code flowElementsContainer}, {@code sourceRef}.
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithSourceRefRecursive(String)}
+   * Method under test: {@link Process#findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithSourceRefRecursive(FlowElementsContainer, String)"})
+  public void testFindAssociationsWithSourceRefRecursiveWithFlowElementsContainerSourceRef9() {
+    // Arrange
+    Process process = new Process();
+
+    Association artifact = new Association();
+    artifact.setTargetRef("Target Ref");
+    artifact.setSourceRef("42");
+
+    AdhocSubProcess flowElementsContainer = new AdhocSubProcess();
+    flowElementsContainer.addArtifact(artifact);
+    flowElementsContainer.addFlowElement(new AdhocSubProcess());
+
+    // Act and Assert
+    assertTrue(process.findAssociationsWithSourceRefRecursive(flowElementsContainer, "Source Ref").isEmpty());
+  }
+
+  /**
+   * Test {@link Process#findAssociationsWithSourceRefRecursive(String)} with {@code sourceRef}.
+   * <p>
+   * Method under test: {@link Process#findAssociationsWithSourceRefRecursive(String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithSourceRefRecursive(String)"})
   public void testFindAssociationsWithSourceRefRecursiveWithSourceRef() {
     // Arrange
     Process process = new Process();
@@ -516,13 +560,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#findAssociationsWithSourceRefRecursive(String)} with
-   * {@code sourceRef}.
+   * Test {@link Process#findAssociationsWithSourceRefRecursive(String)} with {@code sourceRef}.
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithSourceRefRecursive(String)}
+   * Method under test: {@link Process#findAssociationsWithSourceRefRecursive(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithSourceRefRecursive(String)"})
   public void testFindAssociationsWithSourceRefRecursiveWithSourceRef2() {
     // Arrange
     Process process = new Process();
@@ -534,13 +578,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#findAssociationsWithSourceRefRecursive(String)} with
-   * {@code sourceRef}.
+   * Test {@link Process#findAssociationsWithSourceRefRecursive(String)} with {@code sourceRef}.
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithSourceRefRecursive(String)}
+   * Method under test: {@link Process#findAssociationsWithSourceRefRecursive(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithSourceRefRecursive(String)"})
   public void testFindAssociationsWithSourceRefRecursiveWithSourceRef3() {
     // Arrange
     Process process = new Process();
@@ -551,13 +595,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#findAssociationsWithSourceRefRecursive(String)} with
-   * {@code sourceRef}.
+   * Test {@link Process#findAssociationsWithSourceRefRecursive(String)} with {@code sourceRef}.
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithSourceRefRecursive(String)}
+   * Method under test: {@link Process#findAssociationsWithSourceRefRecursive(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithSourceRefRecursive(String)"})
   public void testFindAssociationsWithSourceRefRecursiveWithSourceRef4() {
     // Arrange
     Process process = new Process();
@@ -569,13 +613,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#findAssociationsWithSourceRefRecursive(String)} with
-   * {@code sourceRef}.
+   * Test {@link Process#findAssociationsWithSourceRefRecursive(String)} with {@code sourceRef}.
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithSourceRefRecursive(String)}
+   * Method under test: {@link Process#findAssociationsWithSourceRefRecursive(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithSourceRefRecursive(String)"})
   public void testFindAssociationsWithSourceRefRecursiveWithSourceRef5() {
     // Arrange
     Association artifact = new Association();
@@ -590,13 +634,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#findAssociationsWithSourceRefRecursive(String)} with
-   * {@code sourceRef}.
+   * Test {@link Process#findAssociationsWithSourceRefRecursive(String)} with {@code sourceRef}.
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithSourceRefRecursive(String)}
+   * Method under test: {@link Process#findAssociationsWithSourceRefRecursive(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithSourceRefRecursive(String)"})
   public void testFindAssociationsWithSourceRefRecursiveWithSourceRef6() {
     // Arrange
     Association artifact = new Association();
@@ -612,32 +656,32 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#findAssociationsWithSourceRefRecursive(String)} with
-   * {@code sourceRef}.
+   * Test {@link Process#findAssociationsWithSourceRefRecursive(String)} with {@code sourceRef}.
    * <ul>
    *   <li>Given {@link Process} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithSourceRefRecursive(String)}
+   * Method under test: {@link Process#findAssociationsWithSourceRefRecursive(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithSourceRefRecursive(String)"})
   public void testFindAssociationsWithSourceRefRecursiveWithSourceRef_givenProcess() {
     // Arrange, Act and Assert
     assertTrue((new Process()).findAssociationsWithSourceRefRecursive("Source Ref").isEmpty());
   }
 
   /**
-   * Test {@link Process#findAssociationsWithSourceRefRecursive(String)} with
-   * {@code sourceRef}.
+   * Test {@link Process#findAssociationsWithSourceRefRecursive(String)} with {@code sourceRef}.
    * <ul>
    *   <li>Then return size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithSourceRefRecursive(String)}
+   * Method under test: {@link Process#findAssociationsWithSourceRefRecursive(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithSourceRefRecursive(String)"})
   public void testFindAssociationsWithSourceRefRecursiveWithSourceRef_thenReturnSizeIsOne() {
     // Arrange
     Association artifact = new Association();
@@ -658,14 +702,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)}
-   * with {@code flowElementsContainer}, {@code targetRef}.
+   * Test {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)} with {@code flowElementsContainer}, {@code targetRef}.
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)}
+   * Method under test: {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)"})
   public void testFindAssociationsWithTargetRefRecursiveWithFlowElementsContainerTargetRef() {
     // Arrange
     Process process = new Process();
@@ -675,14 +718,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)}
-   * with {@code flowElementsContainer}, {@code targetRef}.
+   * Test {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)} with {@code flowElementsContainer}, {@code targetRef}.
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)}
+   * Method under test: {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)"})
   public void testFindAssociationsWithTargetRefRecursiveWithFlowElementsContainerTargetRef2() {
     // Arrange
     Process process = new Process();
@@ -692,14 +734,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)}
-   * with {@code flowElementsContainer}, {@code targetRef}.
+   * Test {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)} with {@code flowElementsContainer}, {@code targetRef}.
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)}
+   * Method under test: {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)"})
   public void testFindAssociationsWithTargetRefRecursiveWithFlowElementsContainerTargetRef3() {
     // Arrange
     Process process = new Process();
@@ -712,14 +753,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)}
-   * with {@code flowElementsContainer}, {@code targetRef}.
+   * Test {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)} with {@code flowElementsContainer}, {@code targetRef}.
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)}
+   * Method under test: {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)"})
   public void testFindAssociationsWithTargetRefRecursiveWithFlowElementsContainerTargetRef4() {
     // Arrange
     Process process = new Process();
@@ -733,14 +773,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)}
-   * with {@code flowElementsContainer}, {@code targetRef}.
+   * Test {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)} with {@code flowElementsContainer}, {@code targetRef}.
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)}
+   * Method under test: {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)"})
   public void testFindAssociationsWithTargetRefRecursiveWithFlowElementsContainerTargetRef5() {
     // Arrange
     Process process = new Process();
@@ -753,14 +792,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)}
-   * with {@code flowElementsContainer}, {@code targetRef}.
+   * Test {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)} with {@code flowElementsContainer}, {@code targetRef}.
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)}
+   * Method under test: {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)"})
   public void testFindAssociationsWithTargetRefRecursiveWithFlowElementsContainerTargetRef6() {
     // Arrange
     Process process = new Process();
@@ -774,14 +812,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)}
-   * with {@code flowElementsContainer}, {@code targetRef}.
+   * Test {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)} with {@code flowElementsContainer}, {@code targetRef}.
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)}
+   * Method under test: {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)"})
   public void testFindAssociationsWithTargetRefRecursiveWithFlowElementsContainerTargetRef7() {
     // Arrange
     Process process = new Process();
@@ -803,14 +840,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)}
-   * with {@code flowElementsContainer}, {@code targetRef}.
+   * Test {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)} with {@code flowElementsContainer}, {@code targetRef}.
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)}
+   * Method under test: {@link Process#findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithTargetRefRecursive(FlowElementsContainer, String)"})
   public void testFindAssociationsWithTargetRefRecursiveWithFlowElementsContainerTargetRef8() {
     // Arrange
     Process process = new Process();
@@ -827,13 +863,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#findAssociationsWithTargetRefRecursive(String)} with
-   * {@code targetRef}.
+   * Test {@link Process#findAssociationsWithTargetRefRecursive(String)} with {@code targetRef}.
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithTargetRefRecursive(String)}
+   * Method under test: {@link Process#findAssociationsWithTargetRefRecursive(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithTargetRefRecursive(String)"})
   public void testFindAssociationsWithTargetRefRecursiveWithTargetRef() {
     // Arrange
     Process process = new Process();
@@ -844,13 +880,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#findAssociationsWithTargetRefRecursive(String)} with
-   * {@code targetRef}.
+   * Test {@link Process#findAssociationsWithTargetRefRecursive(String)} with {@code targetRef}.
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithTargetRefRecursive(String)}
+   * Method under test: {@link Process#findAssociationsWithTargetRefRecursive(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithTargetRefRecursive(String)"})
   public void testFindAssociationsWithTargetRefRecursiveWithTargetRef2() {
     // Arrange
     Process process = new Process();
@@ -862,13 +898,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#findAssociationsWithTargetRefRecursive(String)} with
-   * {@code targetRef}.
+   * Test {@link Process#findAssociationsWithTargetRefRecursive(String)} with {@code targetRef}.
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithTargetRefRecursive(String)}
+   * Method under test: {@link Process#findAssociationsWithTargetRefRecursive(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithTargetRefRecursive(String)"})
   public void testFindAssociationsWithTargetRefRecursiveWithTargetRef3() {
     // Arrange
     Process process = new Process();
@@ -879,13 +915,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#findAssociationsWithTargetRefRecursive(String)} with
-   * {@code targetRef}.
+   * Test {@link Process#findAssociationsWithTargetRefRecursive(String)} with {@code targetRef}.
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithTargetRefRecursive(String)}
+   * Method under test: {@link Process#findAssociationsWithTargetRefRecursive(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithTargetRefRecursive(String)"})
   public void testFindAssociationsWithTargetRefRecursiveWithTargetRef4() {
     // Arrange
     Process process = new Process();
@@ -897,13 +933,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#findAssociationsWithTargetRefRecursive(String)} with
-   * {@code targetRef}.
+   * Test {@link Process#findAssociationsWithTargetRefRecursive(String)} with {@code targetRef}.
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithTargetRefRecursive(String)}
+   * Method under test: {@link Process#findAssociationsWithTargetRefRecursive(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithTargetRefRecursive(String)"})
   public void testFindAssociationsWithTargetRefRecursiveWithTargetRef5() {
     // Arrange
     Association artifact = new Association();
@@ -918,32 +954,32 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#findAssociationsWithTargetRefRecursive(String)} with
-   * {@code targetRef}.
+   * Test {@link Process#findAssociationsWithTargetRefRecursive(String)} with {@code targetRef}.
    * <ul>
    *   <li>Given {@link Process} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithTargetRefRecursive(String)}
+   * Method under test: {@link Process#findAssociationsWithTargetRefRecursive(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithTargetRefRecursive(String)"})
   public void testFindAssociationsWithTargetRefRecursiveWithTargetRef_givenProcess() {
     // Arrange, Act and Assert
     assertTrue((new Process()).findAssociationsWithTargetRefRecursive("Target Ref").isEmpty());
   }
 
   /**
-   * Test {@link Process#findAssociationsWithTargetRefRecursive(String)} with
-   * {@code targetRef}.
+   * Test {@link Process#findAssociationsWithTargetRefRecursive(String)} with {@code targetRef}.
    * <ul>
    *   <li>Then return size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link Process#findAssociationsWithTargetRefRecursive(String)}
+   * Method under test: {@link Process#findAssociationsWithTargetRefRecursive(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findAssociationsWithTargetRefRecursive(String)"})
   public void testFindAssociationsWithTargetRefRecursiveWithTargetRef_thenReturnSizeIsOne() {
     // Arrange
     Association artifact = new Association();
@@ -963,12 +999,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#getFlowElementsContainer(String)} with
-   * {@code flowElementId}.
+   * Test {@link Process#getFlowElementsContainer(String)} with {@code flowElementId}.
    * <p>
    * Method under test: {@link Process#getFlowElementsContainer(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElementsContainer Process.getFlowElementsContainer(String)"})
   public void testGetFlowElementsContainerWithFlowElementId() {
     // Arrange
     Process process = new Process();
@@ -979,12 +1016,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#getFlowElementsContainer(String)} with
-   * {@code flowElementId}.
+   * Test {@link Process#getFlowElementsContainer(String)} with {@code flowElementId}.
    * <p>
    * Method under test: {@link Process#getFlowElementsContainer(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElementsContainer Process.getFlowElementsContainer(String)"})
   public void testGetFlowElementsContainerWithFlowElementId2() {
     // Arrange
     Process process = new Process();
@@ -995,16 +1033,16 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#getFlowElementsContainer(String)} with
-   * {@code flowElementId}.
+   * Test {@link Process#getFlowElementsContainer(String)} with {@code flowElementId}.
    * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor) Id is
-   * {@code Id}.</li>
+   *   <li>Given {@link AdhocSubProcess} (default constructor) Id is {@code Id}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Process#getFlowElementsContainer(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElementsContainer Process.getFlowElementsContainer(String)"})
   public void testGetFlowElementsContainerWithFlowElementId_givenAdhocSubProcessIdIsId() {
     // Arrange
     AdhocSubProcess element = new AdhocSubProcess();
@@ -1018,8 +1056,7 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#getFlowElementsContainer(String)} with
-   * {@code flowElementId}.
+   * Test {@link Process#getFlowElementsContainer(String)} with {@code flowElementId}.
    * <ul>
    *   <li>Given {@link Process} (default constructor).</li>
    *   <li>Then return {@code null}.</li>
@@ -1028,14 +1065,15 @@ public class ProcessDiffblueTest {
    * Method under test: {@link Process#getFlowElementsContainer(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElementsContainer Process.getFlowElementsContainer(String)"})
   public void testGetFlowElementsContainerWithFlowElementId_givenProcess_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new Process()).getFlowElementsContainer("42"));
   }
 
   /**
-   * Test {@link Process#getFlowElementsContainer(String)} with
-   * {@code flowElementId}.
+   * Test {@link Process#getFlowElementsContainer(String)} with {@code flowElementId}.
    * <ul>
    *   <li>Then return {@link Process} (default constructor).</li>
    * </ul>
@@ -1043,6 +1081,8 @@ public class ProcessDiffblueTest {
    * Method under test: {@link Process#getFlowElementsContainer(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElementsContainer Process.getFlowElementsContainer(String)"})
   public void testGetFlowElementsContainerWithFlowElementId_thenReturnProcess() {
     // Arrange
     AdhocSubProcess element = new AdhocSubProcess();
@@ -1056,13 +1096,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#getFlowElementsContainer(FlowElementsContainer, String)}
-   * with {@code flowElementsContainer}, {@code flowElementId}.
+   * Test {@link Process#getFlowElementsContainer(FlowElementsContainer, String)} with {@code flowElementsContainer}, {@code flowElementId}.
    * <p>
-   * Method under test:
-   * {@link Process#getFlowElementsContainer(FlowElementsContainer, String)}
+   * Method under test: {@link Process#getFlowElementsContainer(FlowElementsContainer, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElementsContainer Process.getFlowElementsContainer(FlowElementsContainer, String)"})
   public void testGetFlowElementsContainerWithFlowElementsContainerFlowElementId() {
     // Arrange
     Process process = new Process();
@@ -1072,13 +1112,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#getFlowElementsContainer(FlowElementsContainer, String)}
-   * with {@code flowElementsContainer}, {@code flowElementId}.
+   * Test {@link Process#getFlowElementsContainer(FlowElementsContainer, String)} with {@code flowElementsContainer}, {@code flowElementId}.
    * <p>
-   * Method under test:
-   * {@link Process#getFlowElementsContainer(FlowElementsContainer, String)}
+   * Method under test: {@link Process#getFlowElementsContainer(FlowElementsContainer, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElementsContainer Process.getFlowElementsContainer(FlowElementsContainer, String)"})
   public void testGetFlowElementsContainerWithFlowElementsContainerFlowElementId2() {
     // Arrange
     Process process = new Process();
@@ -1091,13 +1131,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#getFlowElementsContainer(FlowElementsContainer, String)}
-   * with {@code flowElementsContainer}, {@code flowElementId}.
+   * Test {@link Process#getFlowElementsContainer(FlowElementsContainer, String)} with {@code flowElementsContainer}, {@code flowElementId}.
    * <p>
-   * Method under test:
-   * {@link Process#getFlowElementsContainer(FlowElementsContainer, String)}
+   * Method under test: {@link Process#getFlowElementsContainer(FlowElementsContainer, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElementsContainer Process.getFlowElementsContainer(FlowElementsContainer, String)"})
   public void testGetFlowElementsContainerWithFlowElementsContainerFlowElementId3() {
     // Arrange
     Process process = new Process();
@@ -1110,13 +1150,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#getFlowElementsContainer(FlowElementsContainer, String)}
-   * with {@code flowElementsContainer}, {@code flowElementId}.
+   * Test {@link Process#getFlowElementsContainer(FlowElementsContainer, String)} with {@code flowElementsContainer}, {@code flowElementId}.
    * <p>
-   * Method under test:
-   * {@link Process#getFlowElementsContainer(FlowElementsContainer, String)}
+   * Method under test: {@link Process#getFlowElementsContainer(FlowElementsContainer, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElementsContainer Process.getFlowElementsContainer(FlowElementsContainer, String)"})
   public void testGetFlowElementsContainerWithFlowElementsContainerFlowElementId4() {
     // Arrange
     Process process = new Process();
@@ -1132,13 +1172,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#getFlowElementsContainer(FlowElementsContainer, String)}
-   * with {@code flowElementsContainer}, {@code flowElementId}.
+   * Test {@link Process#getFlowElementsContainer(FlowElementsContainer, String)} with {@code flowElementsContainer}, {@code flowElementId}.
    * <p>
-   * Method under test:
-   * {@link Process#getFlowElementsContainer(FlowElementsContainer, String)}
+   * Method under test: {@link Process#getFlowElementsContainer(FlowElementsContainer, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElementsContainer Process.getFlowElementsContainer(FlowElementsContainer, String)"})
   public void testGetFlowElementsContainerWithFlowElementsContainerFlowElementId5() {
     // Arrange
     Process process = new Process();
@@ -1154,16 +1194,16 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#getFlowElementsContainer(FlowElementsContainer, String)}
-   * with {@code flowElementsContainer}, {@code flowElementId}.
+   * Test {@link Process#getFlowElementsContainer(FlowElementsContainer, String)} with {@code flowElementsContainer}, {@code flowElementId}.
    * <ul>
    *   <li>When {@link Process} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link Process#getFlowElementsContainer(FlowElementsContainer, String)}
+   * Method under test: {@link Process#getFlowElementsContainer(FlowElementsContainer, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElementsContainer Process.getFlowElementsContainer(FlowElementsContainer, String)"})
   public void testGetFlowElementsContainerWithFlowElementsContainerFlowElementId_whenProcess() {
     // Arrange
     Process process = new Process();
@@ -1175,14 +1215,15 @@ public class ProcessDiffblueTest {
   /**
    * Test {@link Process#findFlowElementInList(String)}.
    * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor) Id is
-   * {@code 42}.</li>
+   *   <li>Given {@link AdhocSubProcess} (default constructor) Id is {@code 42}.</li>
    *   <li>Then return {@link AdhocSubProcess} (default constructor).</li>
    * </ul>
    * <p>
    * Method under test: {@link Process#findFlowElementInList(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElement Process.findFlowElementInList(String)"})
   public void testFindFlowElementInList_givenAdhocSubProcessIdIs42_thenReturnAdhocSubProcess() {
     // Arrange
     AdhocSubProcess element = new AdhocSubProcess();
@@ -1198,14 +1239,15 @@ public class ProcessDiffblueTest {
   /**
    * Test {@link Process#findFlowElementInList(String)}.
    * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor) Id is
-   * {@code Id}.</li>
+   *   <li>Given {@link AdhocSubProcess} (default constructor) Id is {@code Id}.</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Process#findFlowElementInList(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElement Process.findFlowElementInList(String)"})
   public void testFindFlowElementInList_givenAdhocSubProcessIdIsId_thenReturnNull() {
     // Arrange
     AdhocSubProcess element = new AdhocSubProcess();
@@ -1228,6 +1270,8 @@ public class ProcessDiffblueTest {
    * Method under test: {@link Process#findFlowElementInList(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElement Process.findFlowElementInList(String)"})
   public void testFindFlowElementInList_givenProcess_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new Process()).findFlowElementInList("42"));
@@ -1242,6 +1286,8 @@ public class ProcessDiffblueTest {
    * Method under test: {@link Process#findFlowElementInList(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElement Process.findFlowElementInList(String)"})
   public void testFindFlowElementInList_thenReturnNull() {
     // Arrange
     Process process = new Process();
@@ -1255,13 +1301,14 @@ public class ProcessDiffblueTest {
    * Test {@link Process#addFlowElement(FlowElement)}.
    * <ul>
    *   <li>Given empty string.</li>
-   *   <li>When {@link AdhocSubProcess} (default constructor) Id is empty
-   * string.</li>
+   *   <li>When {@link AdhocSubProcess} (default constructor) Id is empty string.</li>
    * </ul>
    * <p>
    * Method under test: {@link Process#addFlowElement(FlowElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Process.addFlowElement(FlowElement)"})
   public void testAddFlowElement_givenEmptyString_whenAdhocSubProcessIdIsEmptyString() {
     // Arrange
     Process process = new Process();
@@ -1273,36 +1320,26 @@ public class ProcessDiffblueTest {
     process.addFlowElement(element);
 
     // Assert
-    FlowElementsContainer parentContainer = element.getParentContainer();
-    Collection<FlowElement> flowElements = parentContainer.getFlowElements();
-    assertEquals(1, flowElements.size());
-    assertTrue(flowElements instanceof List);
-    assertTrue(parentContainer instanceof Process);
-    Map<String, FlowElement> flowElementMap = parentContainer.getFlowElementMap();
-    assertTrue(flowElementMap.isEmpty());
-    assertSame(element, ((List<FlowElement>) flowElements).get(0));
-    Collection<Artifact> expectedArtifacts = parentContainer.getArtifacts();
-    assertSame(expectedArtifacts, process.getArtifacts());
-    assertSame(flowElementMap, process.getFlowElementMap());
-    assertSame(flowElements, process.getFlowElements());
+    assertSame(process, element.getParentContainer());
   }
 
   /**
    * Test {@link Process#addFlowElement(FlowElement)}.
    * <ul>
-   *   <li>Then {@link AdhocSubProcess} (default constructor) ParentContainer
-   * FlowElementMap size is one.</li>
+   *   <li>Then {@link AdhocSubProcess} (default constructor) ParentContainer FlowElements size is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link Process#addFlowElement(FlowElement)}
    */
   @Test
-  public void testAddFlowElement_thenAdhocSubProcessParentContainerFlowElementMapSizeIsOne() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Process.addFlowElement(FlowElement)"})
+  public void testAddFlowElement_thenAdhocSubProcessParentContainerFlowElementsSizeIsOne() {
     // Arrange
     Process process = new Process();
 
     AdhocSubProcess element = new AdhocSubProcess();
-    element.setId("Element");
+    element.setId("not empty");
 
     // Act
     process.addFlowElement(element);
@@ -1316,23 +1353,20 @@ public class ProcessDiffblueTest {
     Map<String, FlowElement> flowElementMap = parentContainer.getFlowElementMap();
     assertEquals(1, flowElementMap.size());
     assertSame(element, ((List<FlowElement>) flowElements).get(0));
-    assertSame(element, flowElementMap.get("Element"));
-    Collection<Artifact> expectedArtifacts = parentContainer.getArtifacts();
-    assertSame(expectedArtifacts, process.getArtifacts());
-    assertSame(flowElementMap, process.getFlowElementMap());
-    assertSame(flowElements, process.getFlowElements());
+    assertSame(element, flowElementMap.get("not empty"));
   }
 
   /**
    * Test {@link Process#addFlowElement(FlowElement)}.
    * <ul>
-   *   <li>Then {@link BooleanDataObject} (default constructor) ParentContainer
-   * Artifacts {@link List}.</li>
+   *   <li>Then {@link BooleanDataObject} (default constructor) ParentContainer Artifacts {@link List}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Process#addFlowElement(FlowElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Process.addFlowElement(FlowElement)"})
   public void testAddFlowElement_thenBooleanDataObjectParentContainerArtifactsList() {
     // Arrange
     Process process = new Process();
@@ -1351,8 +1385,6 @@ public class ProcessDiffblueTest {
     assertTrue(parentContainer instanceof Process);
     assertTrue(artifacts.isEmpty());
     assertSame(element, ((List<FlowElement>) flowElements).get(0));
-    assertSame(artifacts, process.getArtifacts());
-    assertSame(flowElements, process.getFlowElements());
   }
 
   /**
@@ -1364,6 +1396,8 @@ public class ProcessDiffblueTest {
    * Method under test: {@link Process#addFlowElement(FlowElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Process.addFlowElement(FlowElement)"})
   public void testAddFlowElement_whenAdhocSubProcess() {
     // Arrange
     Process process = new Process();
@@ -1373,58 +1407,21 @@ public class ProcessDiffblueTest {
     process.addFlowElement(element);
 
     // Assert
-    FlowElementsContainer parentContainer = element.getParentContainer();
-    Collection<FlowElement> flowElements = parentContainer.getFlowElements();
-    assertEquals(1, flowElements.size());
-    assertTrue(flowElements instanceof List);
-    assertTrue(parentContainer instanceof Process);
-    Map<String, FlowElement> flowElementMap = parentContainer.getFlowElementMap();
-    assertTrue(flowElementMap.isEmpty());
-    assertSame(element, ((List<FlowElement>) flowElements).get(0));
-    Collection<Artifact> expectedArtifacts = parentContainer.getArtifacts();
-    assertSame(expectedArtifacts, process.getArtifacts());
-    assertSame(flowElementMap, process.getFlowElementMap());
-    assertSame(flowElements, process.getFlowElements());
-  }
-
-  /**
-   * Test {@link Process#addFlowElementToMap(FlowElement)}.
-   * <ul>
-   *   <li>Given {@code Element}.</li>
-   *   <li>Then {@link Process} (default constructor) FlowElementMap size is
-   * one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Process#addFlowElementToMap(FlowElement)}
-   */
-  @Test
-  public void testAddFlowElementToMap_givenElement_thenProcessFlowElementMapSizeIsOne() {
-    // Arrange
-    Process process = new Process();
-
-    AdhocSubProcess element = new AdhocSubProcess();
-    element.setId("Element");
-
-    // Act
-    process.addFlowElementToMap(element);
-
-    // Assert
-    Map<String, FlowElement> flowElementMap = process.getFlowElementMap();
-    assertEquals(1, flowElementMap.size());
-    assertSame(element, flowElementMap.get("Element"));
+    assertSame(process, element.getParentContainer());
   }
 
   /**
    * Test {@link Process#addFlowElementToMap(FlowElement)}.
    * <ul>
    *   <li>Given empty string.</li>
-   *   <li>When {@link AdhocSubProcess} (default constructor) Id is empty
-   * string.</li>
+   *   <li>When {@link AdhocSubProcess} (default constructor) Id is empty string.</li>
    * </ul>
    * <p>
    * Method under test: {@link Process#addFlowElementToMap(FlowElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Process.addFlowElementToMap(FlowElement)"})
   public void testAddFlowElementToMap_givenEmptyString_whenAdhocSubProcessIdIsEmptyString() {
     // Arrange
     Process process = new Process();
@@ -1442,6 +1439,34 @@ public class ProcessDiffblueTest {
   /**
    * Test {@link Process#addFlowElementToMap(FlowElement)}.
    * <ul>
+   *   <li>Given {@code not empty}.</li>
+   *   <li>Then {@link Process} (default constructor) FlowElementMap size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link Process#addFlowElementToMap(FlowElement)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Process.addFlowElementToMap(FlowElement)"})
+  public void testAddFlowElementToMap_givenNotEmpty_thenProcessFlowElementMapSizeIsOne() {
+    // Arrange
+    Process process = new Process();
+
+    AdhocSubProcess element = new AdhocSubProcess();
+    element.setId("not empty");
+
+    // Act
+    process.addFlowElementToMap(element);
+
+    // Assert
+    Map<String, FlowElement> flowElementMap = process.getFlowElementMap();
+    assertEquals(1, flowElementMap.size());
+    assertSame(element, flowElementMap.get("not empty"));
+  }
+
+  /**
+   * Test {@link Process#addFlowElementToMap(FlowElement)}.
+   * <ul>
    *   <li>When {@link AdhocSubProcess} (default constructor).</li>
    *   <li>Then {@link Process} (default constructor) FlowElementMap Empty.</li>
    * </ul>
@@ -1449,6 +1474,8 @@ public class ProcessDiffblueTest {
    * Method under test: {@link Process#addFlowElementToMap(FlowElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Process.addFlowElementToMap(FlowElement)"})
   public void testAddFlowElementToMap_whenAdhocSubProcess_thenProcessFlowElementMapEmpty() {
     // Arrange
     Process process = new Process();
@@ -1470,6 +1497,8 @@ public class ProcessDiffblueTest {
    * Method under test: {@link Process#addFlowElementToMap(FlowElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Process.addFlowElementToMap(FlowElement)"})
   public void testAddFlowElementToMap_whenNull_thenProcessFlowElementMapEmpty() {
     // Arrange
     Process process = new Process();
@@ -1482,169 +1511,6 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#removeFlowElement(String)}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code 42} is {@link AdhocSubProcess}
-   * (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Process#removeFlowElement(String)}
-   */
-  @Test
-  public void testRemoveFlowElement_givenHashMap42IsAdhocSubProcess() {
-    // Arrange
-    HashMap<String, FlowElement> stringFlowElementMap = new HashMap<>();
-    stringFlowElementMap.put("42", new AdhocSubProcess());
-    stringFlowElementMap.put("foo", new AdhocSubProcess());
-    AdhocSubProcess element = mock(AdhocSubProcess.class);
-    when(element.getId()).thenReturn("42");
-    when(element.getFlowElementMap()).thenReturn(stringFlowElementMap);
-    doNothing().when(element).setParentContainer(Mockito.<FlowElementsContainer>any());
-
-    Process process = new Process();
-    process.addFlowElement(element);
-
-    // Act
-    process.removeFlowElement("42");
-
-    // Assert
-    verify(element, atLeast(1)).getId();
-    verify(element).setParentContainer(isA(FlowElementsContainer.class));
-    verify(element).getFlowElementMap();
-    Collection<FlowElement> flowElements = process.getFlowElements();
-    assertEquals(1, flowElements.size());
-    assertTrue(flowElements instanceof List);
-    assertEquals(stringFlowElementMap, process.getFlowElementMap());
-  }
-
-  /**
-   * Test {@link Process#removeFlowElement(String)}.
-   * <ul>
-   *   <li>Given {@link Process} (default constructor).</li>
-   *   <li>Then {@link Process} (default constructor) FlowElements Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Process#removeFlowElement(String)}
-   */
-  @Test
-  public void testRemoveFlowElement_givenProcess_thenProcessFlowElementsEmpty() {
-    // Arrange
-    Process process = new Process();
-
-    // Act
-    process.removeFlowElement("42");
-
-    // Assert that nothing has changed
-    Collection<FlowElement> flowElements = process.getFlowElements();
-    assertTrue(flowElements instanceof List);
-    assertTrue(flowElements.isEmpty());
-    assertTrue(process.getFlowElementMap().isEmpty());
-  }
-
-  /**
-   * Test {@link Process#removeFlowElement(String)}.
-   * <ul>
-   *   <li>Then {@link Process} (default constructor) FlowElements Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Process#removeFlowElement(String)}
-   */
-  @Test
-  public void testRemoveFlowElement_thenProcessFlowElementsEmpty() {
-    // Arrange
-    AdhocSubProcess element = mock(AdhocSubProcess.class);
-    when(element.getId()).thenReturn("42");
-    when(element.getFlowElementMap()).thenReturn(new HashMap<>());
-    doNothing().when(element).setParentContainer(Mockito.<FlowElementsContainer>any());
-
-    Process process = new Process();
-    process.addFlowElement(element);
-
-    // Act
-    process.removeFlowElement("42");
-
-    // Assert
-    verify(element, atLeast(1)).getId();
-    verify(element).setParentContainer(isA(FlowElementsContainer.class));
-    verify(element).getFlowElementMap();
-    Collection<FlowElement> flowElements = process.getFlowElements();
-    assertTrue(flowElements instanceof List);
-    assertTrue(flowElements.isEmpty());
-    assertTrue(process.getFlowElementMap().isEmpty());
-  }
-
-  /**
-   * Test {@link Process#removeFlowElement(String)}.
-   * <ul>
-   *   <li>Then {@link Process} (default constructor) FlowElements size is one.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Process#removeFlowElement(String)}
-   */
-  @Test
-  public void testRemoveFlowElement_thenProcessFlowElementsSizeIsOne() {
-    // Arrange
-    HashMap<String, FlowElement> stringFlowElementMap = new HashMap<>();
-    stringFlowElementMap.put("42", new BooleanDataObject());
-    stringFlowElementMap.put("foo", new AdhocSubProcess());
-    AdhocSubProcess element = mock(AdhocSubProcess.class);
-    when(element.getId()).thenReturn("42");
-    when(element.getFlowElementMap()).thenReturn(stringFlowElementMap);
-    doNothing().when(element).setParentContainer(Mockito.<FlowElementsContainer>any());
-
-    Process process = new Process();
-    process.addFlowElement(element);
-
-    // Act
-    process.removeFlowElement("42");
-
-    // Assert
-    verify(element, atLeast(1)).getId();
-    verify(element).setParentContainer(isA(FlowElementsContainer.class));
-    verify(element).getFlowElementMap();
-    Collection<FlowElement> flowElements = process.getFlowElements();
-    assertEquals(1, flowElements.size());
-    assertTrue(flowElements instanceof List);
-    assertEquals(stringFlowElementMap, process.getFlowElementMap());
-  }
-
-  /**
-   * Test {@link Process#removeFlowElement(String)}.
-   * <ul>
-   *   <li>Then {@link Process} (default constructor) FlowElements size is two.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Process#removeFlowElement(String)}
-   */
-  @Test
-  public void testRemoveFlowElement_thenProcessFlowElementsSizeIsTwo() {
-    // Arrange
-    HashMap<String, FlowElement> stringFlowElementMap = new HashMap<>();
-    stringFlowElementMap.put("42", new BooleanDataObject());
-    stringFlowElementMap.put("foo", new AdhocSubProcess());
-    AdhocSubProcess element = mock(AdhocSubProcess.class);
-    when(element.getId()).thenReturn("42");
-    when(element.getFlowElementMap()).thenReturn(stringFlowElementMap);
-    doNothing().when(element).setParentContainer(Mockito.<FlowElementsContainer>any());
-
-    Process process = new Process();
-    process.addFlowElement(new AdhocSubProcess());
-    process.addFlowElement(element);
-
-    // Act
-    process.removeFlowElement("42");
-
-    // Assert
-    verify(element, atLeast(1)).getId();
-    verify(element).setParentContainer(isA(FlowElementsContainer.class));
-    verify(element).getFlowElementMap();
-    Collection<FlowElement> flowElements = process.getFlowElements();
-    assertEquals(2, flowElements.size());
-    assertTrue(flowElements instanceof List);
-    assertEquals(stringFlowElementMap, process.getFlowElementMap());
-  }
-
-  /**
    * Test {@link Process#getArtifact(String)}.
    * <ul>
    *   <li>Given {@link Association} (default constructor) Id is {@code 42}.</li>
@@ -1654,6 +1520,8 @@ public class ProcessDiffblueTest {
    * Method under test: {@link Process#getArtifact(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Artifact Process.getArtifact(String)"})
   public void testGetArtifact_givenAssociationIdIs42_thenReturnAssociation() {
     // Arrange
     Association artifact = new Association();
@@ -1669,14 +1537,15 @@ public class ProcessDiffblueTest {
   /**
    * Test {@link Process#getArtifact(String)}.
    * <ul>
-   *   <li>Given {@link Process} (default constructor) addArtifact
-   * {@link Association} (default constructor).</li>
+   *   <li>Given {@link Process} (default constructor) addArtifact {@link Association} (default constructor).</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Process#getArtifact(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Artifact Process.getArtifact(String)"})
   public void testGetArtifact_givenProcessAddArtifactAssociation_thenReturnNull() {
     // Arrange
     Process process = new Process();
@@ -1696,6 +1565,8 @@ public class ProcessDiffblueTest {
    * Method under test: {@link Process#getArtifact(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Artifact Process.getArtifact(String)"})
   public void testGetArtifact_givenProcess_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new Process()).getArtifact("42"));
@@ -1707,6 +1578,8 @@ public class ProcessDiffblueTest {
    * Method under test: {@link Process#addArtifact(Artifact)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Process.addArtifact(Artifact)"})
   public void testAddArtifact() {
     // Arrange
     Process process = new Process();
@@ -1736,6 +1609,8 @@ public class ProcessDiffblueTest {
    * Method under test: {@link Process#removeArtifact(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Process.removeArtifact(String)"})
   public void testRemoveArtifact_givenAssociationIdIs42_when42_thenProcessArtifactsEmpty() {
     // Arrange
     Association artifact = new Association();
@@ -1767,6 +1642,8 @@ public class ProcessDiffblueTest {
    * Method under test: {@link Process#removeArtifact(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Process.removeArtifact(String)"})
   public void testRemoveArtifact_givenProcess_when42_thenProcessArtifactsEmpty() {
     // Arrange
     Process process = new Process();
@@ -1792,6 +1669,8 @@ public class ProcessDiffblueTest {
    * Method under test: {@link Process#removeArtifact(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Process.removeArtifact(String)"})
   public void testRemoveArtifact_thenProcessArtifactsSizeIsOne() {
     // Arrange
     Process process = new Process();
@@ -1810,12 +1689,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#findFlowElementsOfType(Class, boolean)} with
-   * {@code type}, {@code goIntoSubprocesses}.
+   * Test {@link Process#findFlowElementsOfType(Class, boolean)} with {@code type}, {@code goIntoSubprocesses}.
    * <p>
    * Method under test: {@link Process#findFlowElementsOfType(Class, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findFlowElementsOfType(Class, boolean)"})
   public void testFindFlowElementsOfTypeWithTypeGoIntoSubprocesses() {
     // Arrange
     Process process = new Process();
@@ -1838,12 +1718,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#findFlowElementsOfType(Class, boolean)} with
-   * {@code type}, {@code goIntoSubprocesses}.
+   * Test {@link Process#findFlowElementsOfType(Class, boolean)} with {@code type}, {@code goIntoSubprocesses}.
    * <p>
    * Method under test: {@link Process#findFlowElementsOfType(Class, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findFlowElementsOfType(Class, boolean)"})
   public void testFindFlowElementsOfTypeWithTypeGoIntoSubprocesses2() {
     // Arrange
     Process process = new Process();
@@ -1860,12 +1741,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#findFlowElementsOfType(Class, boolean)} with
-   * {@code type}, {@code goIntoSubprocesses}.
+   * Test {@link Process#findFlowElementsOfType(Class, boolean)} with {@code type}, {@code goIntoSubprocesses}.
    * <p>
    * Method under test: {@link Process#findFlowElementsOfType(Class, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findFlowElementsOfType(Class, boolean)"})
   public void testFindFlowElementsOfTypeWithTypeGoIntoSubprocesses3() {
     // Arrange
     AdhocSubProcess element = new AdhocSubProcess();
@@ -1881,51 +1763,21 @@ public class ProcessDiffblueTest {
 
     // Assert
     assertEquals(2, actualFindFlowElementsOfTypeResult.size());
-    FlowElement getResult = actualFindFlowElementsOfTypeResult.get(0);
-    Collection<FlowElement> flowElements = ((AdhocSubProcess) getResult).getFlowElements();
-    assertEquals(1, flowElements.size());
-    assertTrue(flowElements instanceof List);
+    assertTrue(actualFindFlowElementsOfTypeResult.get(0) instanceof AdhocSubProcess);
+    FlowElement getResult = actualFindFlowElementsOfTypeResult.get(1);
     assertTrue(getResult instanceof AdhocSubProcess);
-    assertSame(element2, actualFindFlowElementsOfTypeResult.get(1));
-    assertSame(element2, ((List<FlowElement>) flowElements).get(0));
+    assertSame(element2, getResult);
   }
 
   /**
-   * Test {@link Process#findFlowElementsOfType(Class, boolean)} with
-   * {@code type}, {@code goIntoSubprocesses}.
+   * Test {@link Process#findFlowElementsOfType(Class, boolean)} with {@code type}, {@code goIntoSubprocesses}.
    * <p>
    * Method under test: {@link Process#findFlowElementsOfType(Class, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findFlowElementsOfType(Class, boolean)"})
   public void testFindFlowElementsOfTypeWithTypeGoIntoSubprocesses4() {
-    // Arrange
-    Process process = new Process();
-    process.addFlowElement(new AdhocSubProcess());
-    Class<FlowElement> type = FlowElement.class;
-
-    // Act
-    List<FlowElement> actualFindFlowElementsOfTypeResult = process.findFlowElementsOfType(type, false);
-
-    // Assert
-    assertEquals(1, actualFindFlowElementsOfTypeResult.size());
-    FlowElement getResult = actualFindFlowElementsOfTypeResult.get(0);
-    FlowElementsContainer parentContainer = getResult.getParentContainer();
-    Collection<FlowElement> flowElements = parentContainer.getFlowElements();
-    assertEquals(1, flowElements.size());
-    assertTrue(flowElements instanceof List);
-    assertTrue(getResult instanceof AdhocSubProcess);
-    assertTrue(parentContainer instanceof Process);
-    assertSame(getResult, ((List<FlowElement>) flowElements).get(0));
-  }
-
-  /**
-   * Test {@link Process#findFlowElementsOfType(Class, boolean)} with
-   * {@code type}, {@code goIntoSubprocesses}.
-   * <p>
-   * Method under test: {@link Process#findFlowElementsOfType(Class, boolean)}
-   */
-  @Test
-  public void testFindFlowElementsOfTypeWithTypeGoIntoSubprocesses5() {
     // Arrange
     AdhocSubProcess element = new AdhocSubProcess();
     BooleanDataObject element2 = new BooleanDataObject();
@@ -1950,8 +1802,7 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#findFlowElementsOfType(Class, boolean)} with
-   * {@code type}, {@code goIntoSubprocesses}.
+   * Test {@link Process#findFlowElementsOfType(Class, boolean)} with {@code type}, {@code goIntoSubprocesses}.
    * <ul>
    *   <li>Given {@link Process} (default constructor).</li>
    * </ul>
@@ -1959,6 +1810,8 @@ public class ProcessDiffblueTest {
    * Method under test: {@link Process#findFlowElementsOfType(Class, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findFlowElementsOfType(Class, boolean)"})
   public void testFindFlowElementsOfTypeWithTypeGoIntoSubprocesses_givenProcess() {
     // Arrange
     Process process = new Process();
@@ -1966,6 +1819,38 @@ public class ProcessDiffblueTest {
 
     // Act and Assert
     assertTrue(process.findFlowElementsOfType(type, true).isEmpty());
+  }
+
+  /**
+   * Test {@link Process#findFlowElementsOfType(Class, boolean)} with {@code type}, {@code goIntoSubprocesses}.
+   * <ul>
+   *   <li>When {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link Process#findFlowElementsOfType(Class, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findFlowElementsOfType(Class, boolean)"})
+  public void testFindFlowElementsOfTypeWithTypeGoIntoSubprocesses_whenFalse() {
+    // Arrange
+    Process process = new Process();
+    process.addFlowElement(new AdhocSubProcess());
+    Class<FlowElement> type = FlowElement.class;
+
+    // Act
+    List<FlowElement> actualFindFlowElementsOfTypeResult = process.findFlowElementsOfType(type, false);
+
+    // Assert
+    assertEquals(1, actualFindFlowElementsOfTypeResult.size());
+    FlowElement getResult = actualFindFlowElementsOfTypeResult.get(0);
+    Collection<FlowElement> flowElements = ((AdhocSubProcess) getResult).getFlowElements();
+    assertTrue(flowElements instanceof List);
+    assertTrue(getResult instanceof AdhocSubProcess);
+    FlowElementsContainer parentContainer = getResult.getParentContainer();
+    assertTrue(parentContainer instanceof Process);
+    assertTrue(flowElements.isEmpty());
+    assertEquals(actualFindFlowElementsOfTypeResult, parentContainer.getFlowElements());
   }
 
   /**
@@ -1978,6 +1863,8 @@ public class ProcessDiffblueTest {
    * Method under test: {@link Process#findFlowElementsOfType(Class)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findFlowElementsOfType(Class)"})
   public void testFindFlowElementsOfTypeWithType_givenProcess_thenReturnEmpty() {
     // Arrange
     Process process = new Process();
@@ -1996,6 +1883,8 @@ public class ProcessDiffblueTest {
    * Method under test: {@link Process#findFlowElementsOfType(Class)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findFlowElementsOfType(Class)"})
   public void testFindFlowElementsOfTypeWithType_thenFirstParentContainerReturnProcess() {
     // Arrange
     Process process = new Process();
@@ -2020,72 +1909,15 @@ public class ProcessDiffblueTest {
   /**
    * Test {@link Process#findFlowElementsOfType(Class)} with {@code type}.
    * <ul>
-   *   <li>Then return first is {@link BooleanDataObject} (default
-   * constructor).</li>
+   *   <li>Then return first FlowElements size is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link Process#findFlowElementsOfType(Class)}
    */
   @Test
-  public void testFindFlowElementsOfTypeWithType_thenReturnFirstIsBooleanDataObject() {
-    // Arrange
-    Process process = new Process();
-    BooleanDataObject element = new BooleanDataObject();
-    process.addFlowElement(element);
-    Class<FlowElement> type = FlowElement.class;
-
-    // Act
-    List<FlowElement> actualFindFlowElementsOfTypeResult = process.findFlowElementsOfType(type);
-
-    // Assert
-    assertEquals(1, actualFindFlowElementsOfTypeResult.size());
-    assertSame(element, actualFindFlowElementsOfTypeResult.get(0));
-  }
-
-  /**
-   * Test {@link Process#findFlowElementsOfType(Class)} with {@code type}.
-   * <ul>
-   *   <li>Then return second is {@link AdhocSubProcess} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Process#findFlowElementsOfType(Class)}
-   */
-  @Test
-  public void testFindFlowElementsOfTypeWithType_thenReturnSecondIsAdhocSubProcess() {
-    // Arrange
-    AdhocSubProcess element = new AdhocSubProcess();
-    AdhocSubProcess element2 = new AdhocSubProcess();
-    element.addFlowElement(element2);
-
-    Process process = new Process();
-    process.addFlowElement(element);
-    Class<FlowElement> type = FlowElement.class;
-
-    // Act
-    List<FlowElement> actualFindFlowElementsOfTypeResult = process.findFlowElementsOfType(type);
-
-    // Assert
-    assertEquals(2, actualFindFlowElementsOfTypeResult.size());
-    FlowElement getResult = actualFindFlowElementsOfTypeResult.get(0);
-    Collection<FlowElement> flowElements = ((AdhocSubProcess) getResult).getFlowElements();
-    assertEquals(1, flowElements.size());
-    assertTrue(flowElements instanceof List);
-    assertTrue(getResult instanceof AdhocSubProcess);
-    assertSame(element2, actualFindFlowElementsOfTypeResult.get(1));
-    assertSame(element2, ((List<FlowElement>) flowElements).get(0));
-  }
-
-  /**
-   * Test {@link Process#findFlowElementsOfType(Class)} with {@code type}.
-   * <ul>
-   *   <li>Then return second is {@link BooleanDataObject} (default
-   * constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Process#findFlowElementsOfType(Class)}
-   */
-  @Test
-  public void testFindFlowElementsOfTypeWithType_thenReturnSecondIsBooleanDataObject() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findFlowElementsOfType(Class)"})
+  public void testFindFlowElementsOfTypeWithType_thenReturnFirstFlowElementsSizeIsOne() {
     // Arrange
     AdhocSubProcess element = new AdhocSubProcess();
     BooleanDataObject element2 = new BooleanDataObject();
@@ -2110,13 +1942,71 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#findFlowElementsInSubProcessOfType(SubProcess, Class)}
-   * with {@code subProcess}, {@code type}.
+   * Test {@link Process#findFlowElementsOfType(Class)} with {@code type}.
+   * <ul>
+   *   <li>Then return first is {@link BooleanDataObject} (default constructor).</li>
+   * </ul>
    * <p>
-   * Method under test:
-   * {@link Process#findFlowElementsInSubProcessOfType(SubProcess, Class)}
+   * Method under test: {@link Process#findFlowElementsOfType(Class)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findFlowElementsOfType(Class)"})
+  public void testFindFlowElementsOfTypeWithType_thenReturnFirstIsBooleanDataObject() {
+    // Arrange
+    Process process = new Process();
+    BooleanDataObject element = new BooleanDataObject();
+    process.addFlowElement(element);
+    Class<FlowElement> type = FlowElement.class;
+
+    // Act
+    List<FlowElement> actualFindFlowElementsOfTypeResult = process.findFlowElementsOfType(type);
+
+    // Assert
+    assertEquals(1, actualFindFlowElementsOfTypeResult.size());
+    assertSame(element, actualFindFlowElementsOfTypeResult.get(0));
+  }
+
+  /**
+   * Test {@link Process#findFlowElementsOfType(Class)} with {@code type}.
+   * <ul>
+   *   <li>Then second return {@link AdhocSubProcess}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link Process#findFlowElementsOfType(Class)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findFlowElementsOfType(Class)"})
+  public void testFindFlowElementsOfTypeWithType_thenSecondReturnAdhocSubProcess() {
+    // Arrange
+    AdhocSubProcess element = new AdhocSubProcess();
+    AdhocSubProcess element2 = new AdhocSubProcess();
+    element.addFlowElement(element2);
+
+    Process process = new Process();
+    process.addFlowElement(element);
+    Class<FlowElement> type = FlowElement.class;
+
+    // Act
+    List<FlowElement> actualFindFlowElementsOfTypeResult = process.findFlowElementsOfType(type);
+
+    // Assert
+    assertEquals(2, actualFindFlowElementsOfTypeResult.size());
+    assertTrue(actualFindFlowElementsOfTypeResult.get(0) instanceof AdhocSubProcess);
+    FlowElement getResult = actualFindFlowElementsOfTypeResult.get(1);
+    assertTrue(getResult instanceof AdhocSubProcess);
+    assertSame(element2, getResult);
+  }
+
+  /**
+   * Test {@link Process#findFlowElementsInSubProcessOfType(SubProcess, Class)} with {@code subProcess}, {@code type}.
+   * <p>
+   * Method under test: {@link Process#findFlowElementsInSubProcessOfType(SubProcess, Class)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findFlowElementsInSubProcessOfType(SubProcess, Class)"})
   public void testFindFlowElementsInSubProcessOfTypeWithSubProcessType() {
     // Arrange
     Process process = new Process();
@@ -2132,17 +2022,19 @@ public class ProcessDiffblueTest {
 
     // Assert
     assertEquals(1, actualFindFlowElementsInSubProcessOfTypeResult.size());
-    assertSame(element, actualFindFlowElementsInSubProcessOfTypeResult.get(0));
+    FlowElement getResult = actualFindFlowElementsInSubProcessOfTypeResult.get(0);
+    assertTrue(getResult instanceof AdhocSubProcess);
+    assertSame(element, getResult);
   }
 
   /**
-   * Test {@link Process#findFlowElementsInSubProcessOfType(SubProcess, Class)}
-   * with {@code subProcess}, {@code type}.
+   * Test {@link Process#findFlowElementsInSubProcessOfType(SubProcess, Class)} with {@code subProcess}, {@code type}.
    * <p>
-   * Method under test:
-   * {@link Process#findFlowElementsInSubProcessOfType(SubProcess, Class)}
+   * Method under test: {@link Process#findFlowElementsInSubProcessOfType(SubProcess, Class)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findFlowElementsInSubProcessOfType(SubProcess, Class)"})
   public void testFindFlowElementsInSubProcessOfTypeWithSubProcessType2() {
     // Arrange
     Process process = new Process();
@@ -2162,14 +2054,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link Process#findFlowElementsInSubProcessOfType(SubProcess, Class, boolean)}
-   * with {@code subProcess}, {@code type}, {@code goIntoSubprocesses}.
+   * Test {@link Process#findFlowElementsInSubProcessOfType(SubProcess, Class, boolean)} with {@code subProcess}, {@code type}, {@code goIntoSubprocesses}.
    * <p>
-   * Method under test:
-   * {@link Process#findFlowElementsInSubProcessOfType(SubProcess, Class, boolean)}
+   * Method under test: {@link Process#findFlowElementsInSubProcessOfType(SubProcess, Class, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findFlowElementsInSubProcessOfType(SubProcess, Class, boolean)"})
   public void testFindFlowElementsInSubProcessOfTypeWithSubProcessTypeGoIntoSubprocesses() {
     // Arrange
     Process process = new Process();
@@ -2181,14 +2072,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link Process#findFlowElementsInSubProcessOfType(SubProcess, Class, boolean)}
-   * with {@code subProcess}, {@code type}, {@code goIntoSubprocesses}.
+   * Test {@link Process#findFlowElementsInSubProcessOfType(SubProcess, Class, boolean)} with {@code subProcess}, {@code type}, {@code goIntoSubprocesses}.
    * <p>
-   * Method under test:
-   * {@link Process#findFlowElementsInSubProcessOfType(SubProcess, Class, boolean)}
+   * Method under test: {@link Process#findFlowElementsInSubProcessOfType(SubProcess, Class, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findFlowElementsInSubProcessOfType(SubProcess, Class, boolean)"})
   public void testFindFlowElementsInSubProcessOfTypeWithSubProcessTypeGoIntoSubprocesses2() {
     // Arrange
     Process process = new Process();
@@ -2204,18 +2094,19 @@ public class ProcessDiffblueTest {
 
     // Assert
     assertEquals(1, actualFindFlowElementsInSubProcessOfTypeResult.size());
-    assertSame(element, actualFindFlowElementsInSubProcessOfTypeResult.get(0));
+    FlowElement getResult = actualFindFlowElementsInSubProcessOfTypeResult.get(0);
+    assertTrue(getResult instanceof AdhocSubProcess);
+    assertSame(element, getResult);
   }
 
   /**
-   * Test
-   * {@link Process#findFlowElementsInSubProcessOfType(SubProcess, Class, boolean)}
-   * with {@code subProcess}, {@code type}, {@code goIntoSubprocesses}.
+   * Test {@link Process#findFlowElementsInSubProcessOfType(SubProcess, Class, boolean)} with {@code subProcess}, {@code type}, {@code goIntoSubprocesses}.
    * <p>
-   * Method under test:
-   * {@link Process#findFlowElementsInSubProcessOfType(SubProcess, Class, boolean)}
+   * Method under test: {@link Process#findFlowElementsInSubProcessOfType(SubProcess, Class, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findFlowElementsInSubProcessOfType(SubProcess, Class, boolean)"})
   public void testFindFlowElementsInSubProcessOfTypeWithSubProcessTypeGoIntoSubprocesses3() {
     // Arrange
     Process process = new Process();
@@ -2235,14 +2126,13 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link Process#findFlowElementsInSubProcessOfType(SubProcess, Class, boolean)}
-   * with {@code subProcess}, {@code type}, {@code goIntoSubprocesses}.
+   * Test {@link Process#findFlowElementsInSubProcessOfType(SubProcess, Class, boolean)} with {@code subProcess}, {@code type}, {@code goIntoSubprocesses}.
    * <p>
-   * Method under test:
-   * {@link Process#findFlowElementsInSubProcessOfType(SubProcess, Class, boolean)}
+   * Method under test: {@link Process#findFlowElementsInSubProcessOfType(SubProcess, Class, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findFlowElementsInSubProcessOfType(SubProcess, Class, boolean)"})
   public void testFindFlowElementsInSubProcessOfTypeWithSubProcessTypeGoIntoSubprocesses4() {
     // Arrange
     Process process = new Process();
@@ -2258,27 +2148,24 @@ public class ProcessDiffblueTest {
     // Assert
     assertEquals(1, actualFindFlowElementsInSubProcessOfTypeResult.size());
     FlowElement getResult = actualFindFlowElementsInSubProcessOfTypeResult.get(0);
-    FlowElementsContainer parentContainer = getResult.getParentContainer();
-    Collection<FlowElement> flowElements = parentContainer.getFlowElements();
-    assertEquals(1, flowElements.size());
-    assertTrue(flowElements instanceof List);
     assertTrue(getResult instanceof AdhocSubProcess);
+    FlowElementsContainer parentContainer = getResult.getParentContainer();
     assertTrue(parentContainer instanceof SubProcess);
-    assertSame(getResult, ((List<FlowElement>) flowElements).get(0));
+    assertEquals(actualFindFlowElementsInSubProcessOfTypeResult, parentContainer.getFlowElements());
     assertSame(parentContainer, getResult.getSubProcess());
   }
 
   /**
-   * Test {@link Process#findFlowElementsInSubProcessOfType(SubProcess, Class)}
-   * with {@code subProcess}, {@code type}.
+   * Test {@link Process#findFlowElementsInSubProcessOfType(SubProcess, Class)} with {@code subProcess}, {@code type}.
    * <ul>
    *   <li>When {@link SubProcess} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link Process#findFlowElementsInSubProcessOfType(SubProcess, Class)}
+   * Method under test: {@link Process#findFlowElementsInSubProcessOfType(SubProcess, Class)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List Process.findFlowElementsInSubProcessOfType(SubProcess, Class)"})
   public void testFindFlowElementsInSubProcessOfTypeWithSubProcessType_whenSubProcess() {
     // Arrange
     Process process = new Process();
@@ -2290,16 +2177,16 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#findParent(FlowElement, FlowElementsContainer)} with
-   * {@code childElement}, {@code flowElementsContainer}.
+   * Test {@link Process#findParent(FlowElement, FlowElementsContainer)} with {@code childElement}, {@code flowElementsContainer}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link Process#findParent(FlowElement, FlowElementsContainer)}
+   * Method under test: {@link Process#findParent(FlowElement, FlowElementsContainer)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElementsContainer Process.findParent(FlowElement, FlowElementsContainer)"})
   public void testFindParentWithChildElementFlowElementsContainer_given42() {
     // Arrange
     Process process = new Process();
@@ -2315,16 +2202,16 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#findParent(FlowElement, FlowElementsContainer)} with
-   * {@code childElement}, {@code flowElementsContainer}.
+   * Test {@link Process#findParent(FlowElement, FlowElementsContainer)} with {@code childElement}, {@code flowElementsContainer}.
    * <ul>
    *   <li>Given {@link AdhocSubProcess} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link Process#findParent(FlowElement, FlowElementsContainer)}
+   * Method under test: {@link Process#findParent(FlowElement, FlowElementsContainer)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElementsContainer Process.findParent(FlowElement, FlowElementsContainer)"})
   public void testFindParentWithChildElementFlowElementsContainer_givenAdhocSubProcess() {
     // Arrange
     Process process = new Process();
@@ -2338,16 +2225,16 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#findParent(FlowElement, FlowElementsContainer)} with
-   * {@code childElement}, {@code flowElementsContainer}.
+   * Test {@link Process#findParent(FlowElement, FlowElementsContainer)} with {@code childElement}, {@code flowElementsContainer}.
    * <ul>
    *   <li>Given {@link BooleanDataObject} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link Process#findParent(FlowElement, FlowElementsContainer)}
+   * Method under test: {@link Process#findParent(FlowElement, FlowElementsContainer)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElementsContainer Process.findParent(FlowElement, FlowElementsContainer)"})
   public void testFindParentWithChildElementFlowElementsContainer_givenBooleanDataObject() {
     // Arrange
     Process process = new Process();
@@ -2361,16 +2248,16 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#findParent(FlowElement, FlowElementsContainer)} with
-   * {@code childElement}, {@code flowElementsContainer}.
+   * Test {@link Process#findParent(FlowElement, FlowElementsContainer)} with {@code childElement}, {@code flowElementsContainer}.
    * <ul>
    *   <li>Then return {@link AdhocSubProcess} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link Process#findParent(FlowElement, FlowElementsContainer)}
+   * Method under test: {@link Process#findParent(FlowElement, FlowElementsContainer)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElementsContainer Process.findParent(FlowElement, FlowElementsContainer)"})
   public void testFindParentWithChildElementFlowElementsContainer_thenReturnAdhocSubProcess() {
     // Arrange
     Process process = new Process();
@@ -2389,16 +2276,16 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#findParent(FlowElement, FlowElementsContainer)} with
-   * {@code childElement}, {@code flowElementsContainer}.
+   * Test {@link Process#findParent(FlowElement, FlowElementsContainer)} with {@code childElement}, {@code flowElementsContainer}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link Process#findParent(FlowElement, FlowElementsContainer)}
+   * Method under test: {@link Process#findParent(FlowElement, FlowElementsContainer)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElementsContainer Process.findParent(FlowElement, FlowElementsContainer)"})
   public void testFindParentWithChildElementFlowElementsContainer_thenReturnNull() {
     // Arrange
     Process process = new Process();
@@ -2409,17 +2296,17 @@ public class ProcessDiffblueTest {
   }
 
   /**
-   * Test {@link Process#findParent(FlowElement, FlowElementsContainer)} with
-   * {@code childElement}, {@code flowElementsContainer}.
+   * Test {@link Process#findParent(FlowElement, FlowElementsContainer)} with {@code childElement}, {@code flowElementsContainer}.
    * <ul>
    *   <li>When {@link Process} (default constructor).</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link Process#findParent(FlowElement, FlowElementsContainer)}
+   * Method under test: {@link Process#findParent(FlowElement, FlowElementsContainer)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElementsContainer Process.findParent(FlowElement, FlowElementsContainer)"})
   public void testFindParentWithChildElementFlowElementsContainer_whenProcess_thenReturnNull() {
     // Arrange
     Process process = new Process();
@@ -2440,6 +2327,8 @@ public class ProcessDiffblueTest {
    * Method under test: {@link Process#findParent(FlowElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElementsContainer Process.findParent(FlowElement)"})
   public void testFindParentWithChildElement_given42_whenAdhocSubProcessIdIs42_thenReturnNull() {
     // Arrange
     Process process = new Process();
@@ -2455,14 +2344,15 @@ public class ProcessDiffblueTest {
   /**
    * Test {@link Process#findParent(FlowElement)} with {@code childElement}.
    * <ul>
-   *   <li>Given {@link AdhocSubProcess} (default constructor) Id is
-   * {@code 42}.</li>
+   *   <li>Given {@link AdhocSubProcess} (default constructor) Id is {@code 42}.</li>
    *   <li>Then return {@link Process} (default constructor).</li>
    * </ul>
    * <p>
    * Method under test: {@link Process#findParent(FlowElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElementsContainer Process.findParent(FlowElement)"})
   public void testFindParentWithChildElement_givenAdhocSubProcessIdIs42_thenReturnProcess() {
     // Arrange
     AdhocSubProcess element = new AdhocSubProcess();
@@ -2481,13 +2371,14 @@ public class ProcessDiffblueTest {
   /**
    * Test {@link Process#findParent(FlowElement)} with {@code childElement}.
    * <ul>
-   *   <li>Given {@link Process} (default constructor) addFlowElement
-   * {@link BooleanDataObject} (default constructor).</li>
+   *   <li>Given {@link Process} (default constructor) addFlowElement {@link BooleanDataObject} (default constructor).</li>
    * </ul>
    * <p>
    * Method under test: {@link Process#findParent(FlowElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElementsContainer Process.findParent(FlowElement)"})
   public void testFindParentWithChildElement_givenProcessAddFlowElementBooleanDataObject() {
     // Arrange
     Process process = new Process();
@@ -2508,6 +2399,8 @@ public class ProcessDiffblueTest {
    * Method under test: {@link Process#findParent(FlowElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElementsContainer Process.findParent(FlowElement)"})
   public void testFindParentWithChildElement_givenProcess_whenAdhocSubProcess_thenReturnNull() {
     // Arrange
     Process process = new Process();
@@ -2526,6 +2419,8 @@ public class ProcessDiffblueTest {
    * Method under test: {@link Process#findParent(FlowElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElementsContainer Process.findParent(FlowElement)"})
   public void testFindParentWithChildElement_whenAdhocSubProcess_thenReturnNull() {
     // Arrange
     Process process = new Process();
@@ -2545,6 +2440,8 @@ public class ProcessDiffblueTest {
    * Method under test: {@link Process#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Process Process.clone()"})
   public void testClone_givenProcess_thenArtifactsReturnList() {
     // Arrange and Act
     Process actualCloneResult = (new Process()).clone();
@@ -2558,7 +2455,6 @@ public class ProcessDiffblueTest {
     assertNull(actualCloneResult.getDocumentation());
     assertNull(actualCloneResult.getName());
     assertNull(actualCloneResult.getInitialFlowElement());
-    assertNull(actualCloneResult.getIoSpecification());
     assertEquals(0, actualCloneResult.getXmlColumnNumber());
     assertEquals(0, actualCloneResult.getXmlRowNumber());
     assertFalse(actualCloneResult.isCandidateStarterGroupsDefined());
@@ -2586,18 +2482,16 @@ public class ProcessDiffblueTest {
    * Method under test: {@link Process#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Process Process.clone()"})
   public void testClone_thenReturnAttributesSizeIsOne() {
     // Arrange
     Process process = new Process();
     ExtensionAttribute attribute = new ExtensionAttribute("Name");
     process.addAttribute(attribute);
 
-    // Act
-    Process actualCloneResult = process.clone();
-
-    // Assert
-    assertNull(actualCloneResult.getIoSpecification());
-    Map<String, List<ExtensionAttribute>> attributes = actualCloneResult.getAttributes();
+    // Act and Assert
+    Map<String, List<ExtensionAttribute>> attributes = process.clone().getAttributes();
     assertEquals(1, attributes.size());
     List<ExtensionAttribute> getResult = attributes.get("Name");
     assertEquals(1, getResult.size());
@@ -2613,6 +2507,8 @@ public class ProcessDiffblueTest {
    * Method under test: {@link Process#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Process Process.clone()"})
   public void testClone_thenReturnAttributesSizeIsTwo() {
     // Arrange
     Process process = new Process();
@@ -2638,6 +2534,8 @@ public class ProcessDiffblueTest {
    * Method under test: {@link Process#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Process Process.clone()"})
   public void testClone_thenReturnIoSpecificationIdIsNull() {
     // Arrange
     Process process = new Process();
@@ -2660,25 +2558,28 @@ public class ProcessDiffblueTest {
   /**
    * Test {@link Process#setValues(Process)} with {@code Process}.
    * <ul>
-   *   <li>Then calls {@link ExtensionAttribute#getName()}.</li>
+   *   <li>Then calls {@link IOSpecification#clone()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Process#setValues(Process)}
    */
   @Test
-  public void testSetValuesWithProcess_thenCallsGetName() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Process.setValues(Process)"})
+  public void testSetValuesWithProcess_thenCallsClone() {
     // Arrange
     Process process = new Process();
-    ExtensionAttribute attribute = mock(ExtensionAttribute.class);
-    when(attribute.getName()).thenReturn("Name");
+    IOSpecification ioSpecification = mock(IOSpecification.class);
+    when(ioSpecification.clone()).thenReturn(new IOSpecification());
 
     Process otherElement = new Process();
-    otherElement.addAttribute(attribute);
+    otherElement.setIoSpecification(ioSpecification);
+    otherElement.addAttribute(new ExtensionAttribute("Name"));
 
     // Act
     process.setValues(otherElement);
 
     // Assert
-    verify(attribute, atLeast(1)).getName();
+    verify(ioSpecification).clone();
   }
 }

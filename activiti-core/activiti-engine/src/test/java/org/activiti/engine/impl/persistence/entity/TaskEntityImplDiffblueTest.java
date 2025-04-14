@@ -17,8 +17,11 @@ package org.activiti.engine.impl.persistence.entity;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
@@ -27,6 +30,7 @@ import java.util.List;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.engine.task.DelegationState;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class TaskEntityImplDiffblueTest {
   /**
@@ -94,6 +98,36 @@ public class TaskEntityImplDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TaskEntityImpl.forceUpdate()", "Integer TaskEntityImpl.getAppVersion()",
+      "String TaskEntityImpl.getAssignee()", "String TaskEntityImpl.getBusinessKey()",
+      "String TaskEntityImpl.getCategory()", "Date TaskEntityImpl.getClaimTime()",
+      "Date TaskEntityImpl.getCreateTime()", "ActivitiListener TaskEntityImpl.getCurrentActivitiListener()",
+      "DelegationState TaskEntityImpl.getDelegationState()", "Date TaskEntityImpl.getDueDate()",
+      "String TaskEntityImpl.getEventName()", "String TaskEntityImpl.getExecutionId()",
+      "String TaskEntityImpl.getFormKey()", "String TaskEntityImpl.getLocalizedDescription()",
+      "String TaskEntityImpl.getLocalizedName()", "String TaskEntityImpl.getOwner()",
+      "String TaskEntityImpl.getParentTaskId()", "int TaskEntityImpl.getPriority()",
+      "String TaskEntityImpl.getProcessDefinitionId()", "String TaskEntityImpl.getProcessInstanceId()",
+      "int TaskEntityImpl.getRevision()", "int TaskEntityImpl.getSuspensionState()",
+      "String TaskEntityImpl.getTaskDefinitionKey()", "String TaskEntityImpl.getTenantId()",
+      "boolean TaskEntityImpl.isActivityIdUsedForDetails()", "boolean TaskEntityImpl.isCanceled()",
+      "boolean TaskEntityImpl.isDeleted()", "void TaskEntityImpl.setAppVersion(Integer)",
+      "void TaskEntityImpl.setBusinessKey(String)", "void TaskEntityImpl.setCanceled(boolean)",
+      "void TaskEntityImpl.setCategory(String)", "void TaskEntityImpl.setClaimTime(Date)",
+      "void TaskEntityImpl.setCreateTime(Date)", "void TaskEntityImpl.setCurrentActivitiListener(ActivitiListener)",
+      "void TaskEntityImpl.setDelegationState(DelegationState)", "void TaskEntityImpl.setDeleted(boolean)",
+      "void TaskEntityImpl.setDescription(String)", "void TaskEntityImpl.setDueDate(Date)",
+      "void TaskEntityImpl.setEventName(String)", "void TaskEntityImpl.setExecution(ExecutionEntity)",
+      "void TaskEntityImpl.setExecutionId(String)", "void TaskEntityImpl.setFormKey(String)",
+      "void TaskEntityImpl.setLocalizedDescription(String)", "void TaskEntityImpl.setLocalizedName(String)",
+      "void TaskEntityImpl.setName(String)", "void TaskEntityImpl.setOwner(String)",
+      "void TaskEntityImpl.setParentTaskId(String)", "void TaskEntityImpl.setPriority(int)",
+      "void TaskEntityImpl.setProcessDefinitionId(String)", "void TaskEntityImpl.setProcessInstance(ExecutionEntity)",
+      "void TaskEntityImpl.setProcessInstanceId(String)", "void TaskEntityImpl.setQueryVariables(List)",
+      "void TaskEntityImpl.setRevision(int)", "void TaskEntityImpl.setSuspensionState(int)",
+      "void TaskEntityImpl.setTaskDefinitionKey(String)", "void TaskEntityImpl.setTenantId(String)",
+      "String TaskEntityImpl.toString()"})
   public void testGettersAndSetters() {
     // Arrange
     TaskEntityImpl taskEntityImpl = new TaskEntityImpl();
@@ -135,7 +169,7 @@ public class TaskEntityImplDiffblueTest {
     taskEntityImpl.setTenantId("42");
     String actualToStringResult = taskEntityImpl.toString();
     Integer actualAppVersion = taskEntityImpl.getAppVersion();
-    taskEntityImpl.getAssignee();
+    String actualAssignee = taskEntityImpl.getAssignee();
     String actualBusinessKey = taskEntityImpl.getBusinessKey();
     String actualCategory = taskEntityImpl.getCategory();
     Date actualClaimTime = taskEntityImpl.getClaimTime();
@@ -161,7 +195,7 @@ public class TaskEntityImplDiffblueTest {
     boolean actualIsCanceledResult = taskEntityImpl.isCanceled();
     boolean actualIsDeletedResult = taskEntityImpl.isDeleted();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualExecutionId);
     assertEquals("42", actualParentTaskId);
     assertEquals("42", actualProcessDefinitionId);
@@ -176,6 +210,7 @@ public class TaskEntityImplDiffblueTest {
     assertEquals("Owner", actualOwner);
     assertEquals("Task Definition Key", actualTaskDefinitionKey);
     assertEquals("Task[id=null, name=Task Name]", actualToStringResult);
+    assertNull(actualAssignee);
     assertEquals(1, actualAppVersion.intValue());
     assertEquals(1, actualPriority);
     assertEquals(1, actualRevision);

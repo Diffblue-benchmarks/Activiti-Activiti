@@ -21,7 +21,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
@@ -35,70 +36,129 @@ import org.activiti.bpmn.model.FlowElement;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.impl.variable.BigDecimalType;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ExecutionEntityImplDiffblueTest {
   /**
-   * Test {@link ExecutionEntityImpl#getPersistentState()}.
-   * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections.</li>
-   * </ul>
+   * Test {@link ExecutionEntityImpl#createWithEmptyRelationshipCollections()}.
    * <p>
-   * Method under test: {@link ExecutionEntityImpl#getPersistentState()}
+   * Method under test: {@link ExecutionEntityImpl#createWithEmptyRelationshipCollections()}
    */
   @Test
-  public void testGetPersistentState_givenCreateWithEmptyRelationshipCollections() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ExecutionEntityImpl ExecutionEntityImpl.createWithEmptyRelationshipCollections()"})
+  public void testCreateWithEmptyRelationshipCollections() {
     // Arrange and Act
-    Object actualPersistentState = ExecutionEntityImpl.createWithEmptyRelationshipCollections().getPersistentState();
-
-    // Assert
-    assertTrue(actualPersistentState instanceof Map);
-    assertEquals(23, ((Map<Object, Object>) actualPersistentState).size());
-    assertNull(((Map<Object, Object>) actualPersistentState).get("activityId"));
-    assertNull(((Map<Object, Object>) actualPersistentState).get("parentId"));
-    assertNull(((Map<Object, Object>) actualPersistentState).get("processDefinitionId"));
-    assertNull(((Map<Object, Object>) actualPersistentState).get("superExecution"));
-    assertTrue(((Map<Object, Object>) actualPersistentState).containsKey("isActive"));
-    assertTrue(((Map<Object, Object>) actualPersistentState).containsKey("isConcurrent"));
-    assertTrue(((Map<Object, Object>) actualPersistentState).containsKey("isEventScope"));
-    assertTrue(((Map<Object, Object>) actualPersistentState).containsKey("isScope"));
-    assertTrue(((Map<Object, Object>) actualPersistentState).containsKey("suspendedJobCount"));
-    assertTrue(((Map<Object, Object>) actualPersistentState).containsKey("suspensionState"));
-    assertTrue(((Map<Object, Object>) actualPersistentState).containsKey("timerJobCount"));
-  }
-
-  /**
-   * Test {@link ExecutionEntityImpl#getPersistentState()}.
-   * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections LockTime is
-   * {@link Date}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionEntityImpl#getPersistentState()}
-   */
-  @Test
-  public void testGetPersistentState_givenCreateWithEmptyRelationshipCollectionsLockTimeIsDate() {
-    // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
+    ExecutionEntityImpl actualCreateWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
         .createWithEmptyRelationshipCollections();
-    createWithEmptyRelationshipCollectionsResult.setLockTime(mock(java.sql.Date.class));
-
-    // Act
-    Object actualPersistentState = createWithEmptyRelationshipCollectionsResult.getPersistentState();
 
     // Assert
-    assertTrue(actualPersistentState instanceof Map);
-    assertEquals(23, ((Map<Object, Object>) actualPersistentState).size());
-    assertNull(((Map<Object, Object>) actualPersistentState).get("activityId"));
-    assertNull(((Map<Object, Object>) actualPersistentState).get("parentId"));
-    assertNull(((Map<Object, Object>) actualPersistentState).get("processDefinitionId"));
-    assertNull(((Map<Object, Object>) actualPersistentState).get("superExecution"));
-    assertTrue(((Map<Object, Object>) actualPersistentState).containsKey("isActive"));
-    assertTrue(((Map<Object, Object>) actualPersistentState).containsKey("isConcurrent"));
-    assertTrue(((Map<Object, Object>) actualPersistentState).containsKey("isEventScope"));
-    assertTrue(((Map<Object, Object>) actualPersistentState).containsKey("isScope"));
-    assertTrue(((Map<Object, Object>) actualPersistentState).containsKey("suspendedJobCount"));
-    assertTrue(((Map<Object, Object>) actualPersistentState).containsKey("suspensionState"));
-    assertTrue(((Map<Object, Object>) actualPersistentState).containsKey("timerJobCount"));
+    Object persistentState = actualCreateWithEmptyRelationshipCollectionsResult.getPersistentState();
+    assertTrue(persistentState instanceof Map);
+    assertEquals("", actualCreateWithEmptyRelationshipCollectionsResult.getTenantId());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getCachedElContext());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getAppVersion());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getProcessDefinitionVersion());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getId());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getActivityId());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getActivityName());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getBusinessKey());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getCurrentActivityId());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getDeleteReason());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getDeploymentId());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getDescription());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getEventName());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getLocalizedDescription());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getLocalizedName());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getName());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getParentId());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getParentProcessInstanceId());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getProcessDefinitionId());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getProcessDefinitionKey());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getProcessDefinitionName());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getProcessInstanceId());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getRootProcessInstanceId());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getStartUserId());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getSuperExecutionId());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.description);
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.name);
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getLockTime());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getStartTime());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getQueryVariables());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.queryVariables);
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.transientVariabes);
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getCurrentActivitiListener());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getCurrentFlowElement());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.currentFlowElement);
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getEngineServices());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getParent());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getProcessInstance());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getSuperExecution());
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.parent);
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.processInstance);
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.rootProcessInstance);
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.subProcessInstance);
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.superExecution);
+    assertNull(actualCreateWithEmptyRelationshipCollectionsResult.getParentVariableScope());
+    assertEquals(0, actualCreateWithEmptyRelationshipCollectionsResult.getDeadLetterJobCount());
+    assertEquals(0, actualCreateWithEmptyRelationshipCollectionsResult.getEventSubscriptionCount());
+    assertEquals(0, actualCreateWithEmptyRelationshipCollectionsResult.getIdentityLinkCount());
+    assertEquals(0, actualCreateWithEmptyRelationshipCollectionsResult.getJobCount());
+    assertEquals(0, actualCreateWithEmptyRelationshipCollectionsResult.getSuspendedJobCount());
+    assertEquals(0, actualCreateWithEmptyRelationshipCollectionsResult.getTaskCount());
+    assertEquals(0, actualCreateWithEmptyRelationshipCollectionsResult.getTimerJobCount());
+    assertEquals(0, actualCreateWithEmptyRelationshipCollectionsResult.getVariableCount());
+    assertEquals(1, actualCreateWithEmptyRelationshipCollectionsResult.getRevision());
+    assertEquals(1, actualCreateWithEmptyRelationshipCollectionsResult.getSuspensionState());
+    assertEquals(2, actualCreateWithEmptyRelationshipCollectionsResult.getRevisionNext());
+    assertEquals(23, ((Map<Object, Object>) persistentState).size());
+    assertFalse(actualCreateWithEmptyRelationshipCollectionsResult.isInserted());
+    assertFalse(actualCreateWithEmptyRelationshipCollectionsResult.isUpdated());
+    assertFalse(actualCreateWithEmptyRelationshipCollectionsResult.isConcurrent());
+    assertFalse(actualCreateWithEmptyRelationshipCollectionsResult.isCountEnabled());
+    assertFalse(actualCreateWithEmptyRelationshipCollectionsResult.isDeleted());
+    assertFalse(actualCreateWithEmptyRelationshipCollectionsResult.isEnded());
+    assertFalse(actualCreateWithEmptyRelationshipCollectionsResult.isEventScope());
+    assertFalse(actualCreateWithEmptyRelationshipCollectionsResult.isMultiInstanceRoot());
+    assertFalse(actualCreateWithEmptyRelationshipCollectionsResult.isRootExecution());
+    assertFalse(actualCreateWithEmptyRelationshipCollectionsResult.isSuspended());
+    assertFalse(actualCreateWithEmptyRelationshipCollectionsResult.forcedUpdate);
+    assertTrue(actualCreateWithEmptyRelationshipCollectionsResult.getEventSubscriptions().isEmpty());
+    assertTrue(actualCreateWithEmptyRelationshipCollectionsResult.getExecutions().isEmpty());
+    assertTrue(actualCreateWithEmptyRelationshipCollectionsResult.getIdentityLinks().isEmpty());
+    assertTrue(actualCreateWithEmptyRelationshipCollectionsResult.getJobs().isEmpty());
+    assertTrue(actualCreateWithEmptyRelationshipCollectionsResult.getTasks().isEmpty());
+    assertTrue(actualCreateWithEmptyRelationshipCollectionsResult.getTimerJobs().isEmpty());
+    assertTrue(actualCreateWithEmptyRelationshipCollectionsResult.eventSubscriptions.isEmpty());
+    assertTrue(actualCreateWithEmptyRelationshipCollectionsResult.executions.isEmpty());
+    assertTrue(actualCreateWithEmptyRelationshipCollectionsResult.identityLinks.isEmpty());
+    assertTrue(actualCreateWithEmptyRelationshipCollectionsResult.jobs.isEmpty());
+    assertTrue(actualCreateWithEmptyRelationshipCollectionsResult.tasks.isEmpty());
+    assertTrue(actualCreateWithEmptyRelationshipCollectionsResult.timerJobs.isEmpty());
+    assertTrue(((Map<Object, Object>) persistentState).containsKey("isEventScope"));
+    assertTrue(((Map<Object, Object>) persistentState).containsKey("isScope"));
+    assertTrue(((Map<Object, Object>) persistentState).containsKey("processDefinitionId"));
+    assertTrue(((Map<Object, Object>) persistentState).containsKey("superExecution"));
+    assertTrue(((Map<Object, Object>) persistentState).containsKey("suspendedJobCount"));
+    assertTrue(((Map<Object, Object>) persistentState).containsKey("suspensionState"));
+    assertTrue(actualCreateWithEmptyRelationshipCollectionsResult.getProcessVariables().isEmpty());
+    assertTrue(actualCreateWithEmptyRelationshipCollectionsResult.getTransientVariables().isEmpty());
+    assertTrue(actualCreateWithEmptyRelationshipCollectionsResult.getTransientVariablesLocal().isEmpty());
+    assertTrue(actualCreateWithEmptyRelationshipCollectionsResult.getUsedVariablesCache().isEmpty());
+    assertTrue(actualCreateWithEmptyRelationshipCollectionsResult.getVariableInstanceEntities().isEmpty());
+    assertTrue(actualCreateWithEmptyRelationshipCollectionsResult.getVariableInstances().isEmpty());
+    assertTrue(actualCreateWithEmptyRelationshipCollectionsResult.getVariableInstancesLocal().isEmpty());
+    assertTrue(actualCreateWithEmptyRelationshipCollectionsResult.getVariables().isEmpty());
+    assertTrue(actualCreateWithEmptyRelationshipCollectionsResult.getVariablesLocal().isEmpty());
+    assertTrue(actualCreateWithEmptyRelationshipCollectionsResult.variableInstances.isEmpty());
+    assertTrue(actualCreateWithEmptyRelationshipCollectionsResult.getVariableNames().isEmpty());
+    assertTrue(actualCreateWithEmptyRelationshipCollectionsResult.getVariableNamesLocal().isEmpty());
+    assertTrue(actualCreateWithEmptyRelationshipCollectionsResult.isActive());
+    assertTrue(actualCreateWithEmptyRelationshipCollectionsResult.isProcessInstanceType());
+    assertTrue(actualCreateWithEmptyRelationshipCollectionsResult.isScope());
+    assertTrue(actualCreateWithEmptyRelationshipCollectionsResult.isActivityIdUsedForDetails());
+    assertSame(actualCreateWithEmptyRelationshipCollectionsResult,
+        actualCreateWithEmptyRelationshipCollectionsResult.getSourceActivityExecution());
   }
 
   /**
@@ -110,6 +170,8 @@ public class ExecutionEntityImplDiffblueTest {
    * Method under test: {@link ExecutionEntityImpl#getPersistentState()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object ExecutionEntityImpl.getPersistentState()"})
   public void testGetPersistentState_thenReturnSizeIsPrecision() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -125,42 +187,59 @@ public class ExecutionEntityImplDiffblueTest {
     assertNull(((Map<Object, Object>) actualPersistentState).get("parentId"));
     assertNull(((Map<Object, Object>) actualPersistentState).get("processDefinitionId"));
     assertNull(((Map<Object, Object>) actualPersistentState).get("superExecution"));
-    assertTrue(((Map<Object, Object>) actualPersistentState).containsKey("forcedUpdate"));
-    assertTrue(((Map<Object, Object>) actualPersistentState).containsKey("isActive"));
-    assertTrue(((Map<Object, Object>) actualPersistentState).containsKey("isConcurrent"));
-    assertTrue(((Map<Object, Object>) actualPersistentState).containsKey("isEventScope"));
-    assertTrue(((Map<Object, Object>) actualPersistentState).containsKey("isScope"));
-    assertTrue(((Map<Object, Object>) actualPersistentState).containsKey("suspendedJobCount"));
-    assertTrue(((Map<Object, Object>) actualPersistentState).containsKey("suspensionState"));
-    assertTrue(((Map<Object, Object>) actualPersistentState).containsKey("timerJobCount"));
+    assertEquals(0, ((Integer) ((Map<Object, Object>) actualPersistentState).get("suspendedJobCount")).intValue());
+    assertEquals(0, ((Integer) ((Map<Object, Object>) actualPersistentState).get("timerJobCount")).intValue());
+    assertEquals(1, ((Integer) ((Map<Object, Object>) actualPersistentState).get("suspensionState")).intValue());
+    assertFalse((Boolean) ((Map<Object, Object>) actualPersistentState).get("isConcurrent"));
+    assertFalse((Boolean) ((Map<Object, Object>) actualPersistentState).get("isEventScope"));
+    assertTrue((Boolean) ((Map<Object, Object>) actualPersistentState).get("forcedUpdate"));
+    assertTrue((Boolean) ((Map<Object, Object>) actualPersistentState).get("isActive"));
+    assertTrue((Boolean) ((Map<Object, Object>) actualPersistentState).get("isScope"));
   }
 
   /**
-   * Test {@link ExecutionEntityImpl#getCurrentFlowElement()}.
+   * Test {@link ExecutionEntityImpl#getPersistentState()}.
+   * <ul>
+   *   <li>Then return size is twenty-three.</li>
+   * </ul>
    * <p>
-   * Method under test: {@link ExecutionEntityImpl#getCurrentFlowElement()}
+   * Method under test: {@link ExecutionEntityImpl#getPersistentState()}
    */
   @Test
-  public void testGetCurrentFlowElement() {
-    // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    createWithEmptyRelationshipCollectionsResult.setLockTime(mock(java.sql.Date.class));
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object ExecutionEntityImpl.getPersistentState()"})
+  public void testGetPersistentState_thenReturnSizeIsTwentyThree() {
+    // Arrange and Act
+    Object actualPersistentState = ExecutionEntityImpl.createWithEmptyRelationshipCollections().getPersistentState();
 
-    // Act and Assert
-    assertNull(createWithEmptyRelationshipCollectionsResult.getCurrentFlowElement());
+    // Assert
+    assertTrue(actualPersistentState instanceof Map);
+    assertEquals(23, ((Map<Object, Object>) actualPersistentState).size());
+    assertNull(((Map<Object, Object>) actualPersistentState).get("activityId"));
+    assertNull(((Map<Object, Object>) actualPersistentState).get("parentId"));
+    assertNull(((Map<Object, Object>) actualPersistentState).get("processDefinitionId"));
+    assertNull(((Map<Object, Object>) actualPersistentState).get("superExecution"));
+    assertEquals(0, ((Integer) ((Map<Object, Object>) actualPersistentState).get("suspendedJobCount")).intValue());
+    assertEquals(0, ((Integer) ((Map<Object, Object>) actualPersistentState).get("timerJobCount")).intValue());
+    assertEquals(1, ((Integer) ((Map<Object, Object>) actualPersistentState).get("suspensionState")).intValue());
+    assertFalse((Boolean) ((Map<Object, Object>) actualPersistentState).get("isConcurrent"));
+    assertFalse((Boolean) ((Map<Object, Object>) actualPersistentState).get("isEventScope"));
+    assertTrue((Boolean) ((Map<Object, Object>) actualPersistentState).get("isActive"));
+    assertTrue((Boolean) ((Map<Object, Object>) actualPersistentState).get("isScope"));
   }
 
   /**
    * Test {@link ExecutionEntityImpl#getCurrentFlowElement()}.
    * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ExecutionEntityImpl#getCurrentFlowElement()}
    */
   @Test
-  public void testGetCurrentFlowElement_givenCreateWithEmptyRelationshipCollections() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"FlowElement ExecutionEntityImpl.getCurrentFlowElement()"})
+  public void testGetCurrentFlowElement_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getCurrentFlowElement());
   }
@@ -168,10 +247,11 @@ public class ExecutionEntityImplDiffblueTest {
   /**
    * Test {@link ExecutionEntityImpl#setCurrentFlowElement(FlowElement)}.
    * <p>
-   * Method under test:
-   * {@link ExecutionEntityImpl#setCurrentFlowElement(FlowElement)}
+   * Method under test: {@link ExecutionEntityImpl#setCurrentFlowElement(FlowElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionEntityImpl.setCurrentFlowElement(FlowElement)"})
   public void testSetCurrentFlowElement() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -182,40 +262,18 @@ public class ExecutionEntityImplDiffblueTest {
     createWithEmptyRelationshipCollectionsResult.setCurrentFlowElement(currentFlowElement);
 
     // Assert
-    FlowElement flowElement = createWithEmptyRelationshipCollectionsResult.currentFlowElement;
-    assertTrue(flowElement instanceof AdhocSubProcess);
-    assertEquals("Parallel", ((AdhocSubProcess) flowElement).getOrdering());
-    assertNull(((AdhocSubProcess) flowElement).getBehavior());
-    assertNull(((AdhocSubProcess) flowElement).getDefaultFlow());
-    assertNull(((AdhocSubProcess) flowElement).getFailedJobRetryTimeCycleValue());
-    assertNull(((AdhocSubProcess) flowElement).getCompletionCondition());
-    assertNull(flowElement.getId());
-    assertNull(flowElement.getDocumentation());
-    assertNull(flowElement.getName());
-    assertNull(flowElement.getParentContainer());
-    assertNull(((AdhocSubProcess) flowElement).getIoSpecification());
-    assertNull(((AdhocSubProcess) flowElement).getLoopCharacteristics());
-    assertNull(flowElement.getSubProcess());
-    assertEquals(0, flowElement.getXmlColumnNumber());
-    assertEquals(0, flowElement.getXmlRowNumber());
-    assertFalse(((AdhocSubProcess) flowElement).hasMultiInstanceLoopCharacteristics());
-    assertFalse(((AdhocSubProcess) flowElement).isForCompensation());
-    assertFalse(((AdhocSubProcess) flowElement).hasSequentialOrdering());
-    assertFalse(((AdhocSubProcess) flowElement).isAsynchronous());
-    assertFalse(((AdhocSubProcess) flowElement).isNotExclusive());
-    assertTrue(((AdhocSubProcess) flowElement).hasParallelOrdering());
-    assertTrue(((AdhocSubProcess) flowElement).isCancelRemainingInstances());
-    assertTrue(((AdhocSubProcess) flowElement).isExclusive());
+    assertTrue(createWithEmptyRelationshipCollectionsResult.currentFlowElement instanceof AdhocSubProcess);
     assertSame(currentFlowElement, createWithEmptyRelationshipCollectionsResult.getCurrentFlowElement());
   }
 
   /**
    * Test {@link ExecutionEntityImpl#setCurrentFlowElement(FlowElement)}.
    * <p>
-   * Method under test:
-   * {@link ExecutionEntityImpl#setCurrentFlowElement(FlowElement)}
+   * Method under test: {@link ExecutionEntityImpl#setCurrentFlowElement(FlowElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionEntityImpl.setCurrentFlowElement(FlowElement)"})
   public void testSetCurrentFlowElement2() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -224,29 +282,9 @@ public class ExecutionEntityImplDiffblueTest {
     // Act
     createWithEmptyRelationshipCollectionsResult.setCurrentFlowElement(null);
 
-    // Assert
+    // Assert that nothing has changed
     assertNull(createWithEmptyRelationshipCollectionsResult.getCurrentFlowElement());
     assertNull(createWithEmptyRelationshipCollectionsResult.currentFlowElement);
-  }
-
-  /**
-   * Test {@link ExecutionEntityImpl#getExecutions()}.
-   * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections LockTime is
-   * {@link Date}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionEntityImpl#getExecutions()}
-   */
-  @Test
-  public void testGetExecutions_givenCreateWithEmptyRelationshipCollectionsLockTimeIsDate() {
-    // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    createWithEmptyRelationshipCollectionsResult.setLockTime(mock(java.sql.Date.class));
-
-    // Act and Assert
-    assertTrue(createWithEmptyRelationshipCollectionsResult.getExecutions().isEmpty());
   }
 
   /**
@@ -259,6 +297,8 @@ public class ExecutionEntityImplDiffblueTest {
    * Method under test: {@link ExecutionEntityImpl#getExecutions()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List ExecutionEntityImpl.getExecutions()"})
   public void testGetExecutions_givenCreateWithEmptyRelationshipCollections_thenReturnEmpty() {
     // Arrange, Act and Assert
     assertTrue(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getExecutions().isEmpty());
@@ -267,35 +307,17 @@ public class ExecutionEntityImplDiffblueTest {
   /**
    * Test {@link ExecutionEntityImpl#getProcessInstance()}.
    * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ExecutionEntityImpl#getProcessInstance()}
    */
   @Test
-  public void testGetProcessInstance_givenCreateWithEmptyRelationshipCollections() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ExecutionEntityImpl ExecutionEntityImpl.getProcessInstance()"})
+  public void testGetProcessInstance_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getProcessInstance());
-  }
-
-  /**
-   * Test {@link ExecutionEntityImpl#getProcessInstance()}.
-   * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections LockTime is
-   * {@link Date}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionEntityImpl#getProcessInstance()}
-   */
-  @Test
-  public void testGetProcessInstance_givenCreateWithEmptyRelationshipCollectionsLockTimeIsDate() {
-    // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    createWithEmptyRelationshipCollectionsResult.setLockTime(mock(java.sql.Date.class));
-
-    // Act and Assert
-    assertNull(createWithEmptyRelationshipCollectionsResult.getProcessInstance());
   }
 
   /**
@@ -304,10 +326,11 @@ public class ExecutionEntityImplDiffblueTest {
    *   <li>When createWithEmptyRelationshipCollections.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExecutionEntityImpl#setProcessInstance(ExecutionEntity)}
+   * Method under test: {@link ExecutionEntityImpl#setProcessInstance(ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionEntityImpl.setProcessInstance(ExecutionEntity)"})
   public void testSetProcessInstance_whenCreateWithEmptyRelationshipCollections() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -327,10 +350,11 @@ public class ExecutionEntityImplDiffblueTest {
    *   <li>When {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExecutionEntityImpl#setProcessInstance(ExecutionEntity)}
+   * Method under test: {@link ExecutionEntityImpl#setProcessInstance(ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionEntityImpl.setProcessInstance(ExecutionEntity)"})
   public void testSetProcessInstance_whenNull() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -339,39 +363,9 @@ public class ExecutionEntityImplDiffblueTest {
     // Act
     createWithEmptyRelationshipCollectionsResult.setProcessInstance(null);
 
-    // Assert
+    // Assert that nothing has changed
     assertSame(createWithEmptyRelationshipCollectionsResult,
         createWithEmptyRelationshipCollectionsResult.getSourceActivityExecution());
-  }
-
-  /**
-   * Test {@link ExecutionEntityImpl#isProcessInstanceType()}.
-   * <p>
-   * Method under test: {@link ExecutionEntityImpl#isProcessInstanceType()}
-   */
-  @Test
-  public void testIsProcessInstanceType() {
-    // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    createWithEmptyRelationshipCollectionsResult.setLockTime(mock(java.sql.Date.class));
-
-    // Act and Assert
-    assertTrue(createWithEmptyRelationshipCollectionsResult.isProcessInstanceType());
-  }
-
-  /**
-   * Test {@link ExecutionEntityImpl#isProcessInstanceType()}.
-   * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionEntityImpl#isProcessInstanceType()}
-   */
-  @Test
-  public void testIsProcessInstanceType_givenCreateWithEmptyRelationshipCollections() {
-    // Arrange, Act and Assert
-    assertTrue(ExecutionEntityImpl.createWithEmptyRelationshipCollections().isProcessInstanceType());
   }
 
   /**
@@ -383,6 +377,8 @@ public class ExecutionEntityImplDiffblueTest {
    * Method under test: {@link ExecutionEntityImpl#isProcessInstanceType()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ExecutionEntityImpl.isProcessInstanceType()"})
   public void testIsProcessInstanceType_thenReturnFalse() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -394,23 +390,19 @@ public class ExecutionEntityImplDiffblueTest {
   }
 
   /**
-   * Test {@link ExecutionEntityImpl#getParent()}.
+   * Test {@link ExecutionEntityImpl#isProcessInstanceType()}.
    * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections LockTime is
-   * {@link Date}.</li>
+   *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test: {@link ExecutionEntityImpl#getParent()}
+   * Method under test: {@link ExecutionEntityImpl#isProcessInstanceType()}
    */
   @Test
-  public void testGetParent_givenCreateWithEmptyRelationshipCollectionsLockTimeIsDate() {
-    // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    createWithEmptyRelationshipCollectionsResult.setLockTime(mock(java.sql.Date.class));
-
-    // Act and Assert
-    assertNull(createWithEmptyRelationshipCollectionsResult.getParent());
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ExecutionEntityImpl.isProcessInstanceType()"})
+  public void testIsProcessInstanceType_thenReturnTrue() {
+    // Arrange, Act and Assert
+    assertTrue(ExecutionEntityImpl.createWithEmptyRelationshipCollections().isProcessInstanceType());
   }
 
   /**
@@ -423,6 +415,8 @@ public class ExecutionEntityImplDiffblueTest {
    * Method under test: {@link ExecutionEntityImpl#getParent()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ExecutionEntityImpl ExecutionEntityImpl.getParent()"})
   public void testGetParent_givenCreateWithEmptyRelationshipCollections_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getParent());
@@ -437,6 +431,8 @@ public class ExecutionEntityImplDiffblueTest {
    * Method under test: {@link ExecutionEntityImpl#setParent(ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionEntityImpl.setParent(ExecutionEntity)"})
   public void testSetParent_whenCreateWithEmptyRelationshipCollections() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -459,6 +455,8 @@ public class ExecutionEntityImplDiffblueTest {
    * Method under test: {@link ExecutionEntityImpl#setParent(ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionEntityImpl.setParent(ExecutionEntity)"})
   public void testSetParent_whenNull() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -467,43 +465,22 @@ public class ExecutionEntityImplDiffblueTest {
     // Act
     createWithEmptyRelationshipCollectionsResult.setParent(null);
 
-    // Assert
+    // Assert that nothing has changed
     assertSame(createWithEmptyRelationshipCollectionsResult,
         createWithEmptyRelationshipCollectionsResult.getSourceActivityExecution());
   }
 
   /**
    * Test {@link ExecutionEntityImpl#getSuperExecution()}.
-   * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections.</li>
-   * </ul>
    * <p>
    * Method under test: {@link ExecutionEntityImpl#getSuperExecution()}
    */
   @Test
-  public void testGetSuperExecution_givenCreateWithEmptyRelationshipCollections() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ExecutionEntityImpl ExecutionEntityImpl.getSuperExecution()"})
+  public void testGetSuperExecution() {
     // Arrange, Act and Assert
     assertNull(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getSuperExecution());
-  }
-
-  /**
-   * Test {@link ExecutionEntityImpl#getSuperExecution()}.
-   * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections LockTime is
-   * {@link Date}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionEntityImpl#getSuperExecution()}
-   */
-  @Test
-  public void testGetSuperExecution_givenCreateWithEmptyRelationshipCollectionsLockTimeIsDate() {
-    // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    createWithEmptyRelationshipCollectionsResult.setLockTime(mock(java.sql.Date.class));
-
-    // Act and Assert
-    assertNull(createWithEmptyRelationshipCollectionsResult.getSuperExecution());
   }
 
   /**
@@ -512,10 +489,11 @@ public class ExecutionEntityImplDiffblueTest {
    *   <li>When createWithEmptyRelationshipCollections.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExecutionEntityImpl#setSuperExecution(ExecutionEntity)}
+   * Method under test: {@link ExecutionEntityImpl#setSuperExecution(ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionEntityImpl.setSuperExecution(ExecutionEntity)"})
   public void testSetSuperExecution_whenCreateWithEmptyRelationshipCollections() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -535,10 +513,11 @@ public class ExecutionEntityImplDiffblueTest {
    *   <li>When {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExecutionEntityImpl#setSuperExecution(ExecutionEntity)}
+   * Method under test: {@link ExecutionEntityImpl#setSuperExecution(ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionEntityImpl.setSuperExecution(ExecutionEntity)"})
   public void testSetSuperExecution_whenNull() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -547,7 +526,7 @@ public class ExecutionEntityImplDiffblueTest {
     // Act
     createWithEmptyRelationshipCollectionsResult.setSuperExecution(null);
 
-    // Assert
+    // Assert that nothing has changed
     assertSame(createWithEmptyRelationshipCollectionsResult,
         createWithEmptyRelationshipCollectionsResult.getSourceActivityExecution());
   }
@@ -561,6 +540,8 @@ public class ExecutionEntityImplDiffblueTest {
    * Method under test: {@link ExecutionEntityImpl#getSubProcessInstance()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ExecutionEntityImpl ExecutionEntityImpl.getSubProcessInstance()"})
   public void testGetSubProcessInstance_thenReturnCreateWithEmptyRelationshipCollections() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -568,31 +549,8 @@ public class ExecutionEntityImplDiffblueTest {
     ExecutionEntityImpl subProcessInstance = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
     createWithEmptyRelationshipCollectionsResult.setSubProcessInstance(subProcessInstance);
 
-    // Act
-    ExecutionEntityImpl actualSubProcessInstance = createWithEmptyRelationshipCollectionsResult.getSubProcessInstance();
-
-    // Assert
-    assertSame(subProcessInstance, actualSubProcessInstance);
-    List<EventSubscriptionEntity> eventSubscriptionEntityList = actualSubProcessInstance.eventSubscriptions;
-    ExecutionEntityImpl executionEntityImpl = createWithEmptyRelationshipCollectionsResult.subProcessInstance;
-    assertSame(eventSubscriptionEntityList, executionEntityImpl.getEventSubscriptions());
-    assertSame(eventSubscriptionEntityList, executionEntityImpl.eventSubscriptions);
-    List<ExecutionEntityImpl> executionEntityImplList = actualSubProcessInstance.executions;
-    assertSame(executionEntityImplList, executionEntityImpl.getExecutions());
-    assertSame(executionEntityImplList, executionEntityImpl.executions);
-    List<IdentityLinkEntity> identityLinkEntityList = actualSubProcessInstance.identityLinks;
-    assertSame(identityLinkEntityList, executionEntityImpl.getIdentityLinks());
-    assertSame(identityLinkEntityList, executionEntityImpl.identityLinks);
-    List<JobEntity> jobEntityList = actualSubProcessInstance.jobs;
-    assertSame(jobEntityList, executionEntityImpl.getJobs());
-    assertSame(jobEntityList, executionEntityImpl.jobs);
-    List<TaskEntity> taskEntityList = actualSubProcessInstance.tasks;
-    assertSame(taskEntityList, executionEntityImpl.getTasks());
-    assertSame(taskEntityList, executionEntityImpl.tasks);
-    List<TimerJobEntity> timerJobEntityList = actualSubProcessInstance.timerJobs;
-    assertSame(timerJobEntityList, executionEntityImpl.getTimerJobs());
-    assertSame(timerJobEntityList, executionEntityImpl.timerJobs);
-    assertSame(actualSubProcessInstance.variableInstances, executionEntityImpl.variableInstances);
+    // Act and Assert
+    assertSame(subProcessInstance, createWithEmptyRelationshipCollectionsResult.getSubProcessInstance());
   }
 
   /**
@@ -601,10 +559,11 @@ public class ExecutionEntityImplDiffblueTest {
    *   <li>When createWithEmptyRelationshipCollections.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExecutionEntityImpl#setRootProcessInstance(ExecutionEntity)}
+   * Method under test: {@link ExecutionEntityImpl#setRootProcessInstance(ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionEntityImpl.setRootProcessInstance(ExecutionEntity)"})
   public void testSetRootProcessInstance_whenCreateWithEmptyRelationshipCollections() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -624,10 +583,11 @@ public class ExecutionEntityImplDiffblueTest {
    *   <li>When {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExecutionEntityImpl#setRootProcessInstance(ExecutionEntity)}
+   * Method under test: {@link ExecutionEntityImpl#setRootProcessInstance(ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionEntityImpl.setRootProcessInstance(ExecutionEntity)"})
   public void testSetRootProcessInstance_whenNull() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -636,7 +596,7 @@ public class ExecutionEntityImplDiffblueTest {
     // Act
     createWithEmptyRelationshipCollectionsResult.setRootProcessInstance(null);
 
-    // Assert
+    // Assert that nothing has changed
     assertSame(createWithEmptyRelationshipCollectionsResult,
         createWithEmptyRelationshipCollectionsResult.getSourceActivityExecution());
   }
@@ -651,6 +611,8 @@ public class ExecutionEntityImplDiffblueTest {
    * Method under test: {@link ExecutionEntityImpl#isRootExecution()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ExecutionEntityImpl.isRootExecution()"})
   public void testIsRootExecution_givenCreateWithEmptyRelationshipCollections_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(ExecutionEntityImpl.createWithEmptyRelationshipCollections().isRootExecution());
@@ -665,6 +627,8 @@ public class ExecutionEntityImplDiffblueTest {
    * Method under test: {@link ExecutionEntityImpl#isRootExecution()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ExecutionEntityImpl.isRootExecution()"})
   public void testIsRootExecution_thenReturnFalse() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -684,6 +648,8 @@ public class ExecutionEntityImplDiffblueTest {
    * Method under test: {@link ExecutionEntityImpl#isRootExecution()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ExecutionEntityImpl.isRootExecution()"})
   public void testIsRootExecution_thenReturnTrue() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -787,6 +753,53 @@ public class ExecutionEntityImplDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionEntityImpl.forceUpdate()", "String ExecutionEntityImpl.getActivityId()",
+      "String ExecutionEntityImpl.getActivityName()", "Integer ExecutionEntityImpl.getAppVersion()",
+      "String ExecutionEntityImpl.getBusinessKey()",
+      "ActivitiListener ExecutionEntityImpl.getCurrentActivitiListener()",
+      "String ExecutionEntityImpl.getCurrentActivityId()", "int ExecutionEntityImpl.getDeadLetterJobCount()",
+      "String ExecutionEntityImpl.getDeleteReason()", "String ExecutionEntityImpl.getDeploymentId()",
+      "String ExecutionEntityImpl.getEventName()", "int ExecutionEntityImpl.getEventSubscriptionCount()",
+      "int ExecutionEntityImpl.getIdentityLinkCount()", "int ExecutionEntityImpl.getJobCount()",
+      "String ExecutionEntityImpl.getLocalizedDescription()", "String ExecutionEntityImpl.getLocalizedName()",
+      "Date ExecutionEntityImpl.getLockTime()", "String ExecutionEntityImpl.getParentId()",
+      "String ExecutionEntityImpl.getParentProcessInstanceId()", "String ExecutionEntityImpl.getProcessDefinitionId()",
+      "String ExecutionEntityImpl.getProcessDefinitionKey()", "String ExecutionEntityImpl.getProcessDefinitionName()",
+      "Integer ExecutionEntityImpl.getProcessDefinitionVersion()", "String ExecutionEntityImpl.getProcessInstanceId()",
+      "String ExecutionEntityImpl.getRootProcessInstanceId()", "Date ExecutionEntityImpl.getStartTime()",
+      "String ExecutionEntityImpl.getStartUserId()", "String ExecutionEntityImpl.getSuperExecutionId()",
+      "int ExecutionEntityImpl.getSuspendedJobCount()", "int ExecutionEntityImpl.getSuspensionState()",
+      "int ExecutionEntityImpl.getTaskCount()", "String ExecutionEntityImpl.getTenantId()",
+      "int ExecutionEntityImpl.getTimerJobCount()", "int ExecutionEntityImpl.getVariableCount()",
+      "void ExecutionEntityImpl.inactivate()", "boolean ExecutionEntityImpl.isActive()",
+      "boolean ExecutionEntityImpl.isConcurrent()", "boolean ExecutionEntityImpl.isCountEnabled()",
+      "boolean ExecutionEntityImpl.isDeleted()", "boolean ExecutionEntityImpl.isEnded()",
+      "boolean ExecutionEntityImpl.isEventScope()", "boolean ExecutionEntityImpl.isMultiInstanceRoot()",
+      "boolean ExecutionEntityImpl.isScope()", "void ExecutionEntityImpl.setActive(boolean)",
+      "void ExecutionEntityImpl.setAppVersion(Integer)", "void ExecutionEntityImpl.setBusinessKey(String)",
+      "void ExecutionEntityImpl.setConcurrent(boolean)", "void ExecutionEntityImpl.setCountEnabled(boolean)",
+      "void ExecutionEntityImpl.setCurrentActivitiListener(ActivitiListener)",
+      "void ExecutionEntityImpl.setDeadLetterJobCount(int)", "void ExecutionEntityImpl.setDeleteReason(String)",
+      "void ExecutionEntityImpl.setDeleted(boolean)", "void ExecutionEntityImpl.setDeploymentId(String)",
+      "void ExecutionEntityImpl.setDescription(String)", "void ExecutionEntityImpl.setEnded(boolean)",
+      "void ExecutionEntityImpl.setEventName(String)", "void ExecutionEntityImpl.setEventScope(boolean)",
+      "void ExecutionEntityImpl.setEventSubscriptionCount(int)", "void ExecutionEntityImpl.setIdentityLinkCount(int)",
+      "void ExecutionEntityImpl.setJobCount(int)", "void ExecutionEntityImpl.setLocalizedDescription(String)",
+      "void ExecutionEntityImpl.setLocalizedName(String)", "void ExecutionEntityImpl.setLockTime(Date)",
+      "void ExecutionEntityImpl.setMultiInstanceRoot(boolean)", "void ExecutionEntityImpl.setName(String)",
+      "void ExecutionEntityImpl.setParentId(String)", "void ExecutionEntityImpl.setParentProcessInstanceId(String)",
+      "void ExecutionEntityImpl.setProcessDefinitionId(String)",
+      "void ExecutionEntityImpl.setProcessDefinitionKey(String)",
+      "void ExecutionEntityImpl.setProcessDefinitionName(String)",
+      "void ExecutionEntityImpl.setProcessDefinitionVersion(Integer)",
+      "void ExecutionEntityImpl.setProcessInstanceId(String)", "void ExecutionEntityImpl.setQueryVariables(List)",
+      "void ExecutionEntityImpl.setRootProcessInstanceId(String)", "void ExecutionEntityImpl.setScope(boolean)",
+      "void ExecutionEntityImpl.setStartTime(Date)", "void ExecutionEntityImpl.setStartUserId(String)",
+      "void ExecutionEntityImpl.setSubProcessInstance(ExecutionEntity)",
+      "void ExecutionEntityImpl.setSuspendedJobCount(int)", "void ExecutionEntityImpl.setSuspensionState(int)",
+      "void ExecutionEntityImpl.setTaskCount(int)", "void ExecutionEntityImpl.setTenantId(String)",
+      "void ExecutionEntityImpl.setTimerJobCount(int)", "void ExecutionEntityImpl.setVariableCount(int)"})
   public void testGettersAndSetters() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -840,13 +853,13 @@ public class ExecutionEntityImplDiffblueTest {
     createWithEmptyRelationshipCollectionsResult.setTimerJobCount(3);
     createWithEmptyRelationshipCollectionsResult.setVariableCount(3);
     createWithEmptyRelationshipCollectionsResult.inactivate();
-    createWithEmptyRelationshipCollectionsResult.getActivityId();
-    createWithEmptyRelationshipCollectionsResult.getActivityName();
+    String actualActivityId = createWithEmptyRelationshipCollectionsResult.getActivityId();
+    String actualActivityName = createWithEmptyRelationshipCollectionsResult.getActivityName();
     Integer actualAppVersion = createWithEmptyRelationshipCollectionsResult.getAppVersion();
     String actualBusinessKey = createWithEmptyRelationshipCollectionsResult.getBusinessKey();
     ActivitiListener actualCurrentActivitiListener = createWithEmptyRelationshipCollectionsResult
         .getCurrentActivitiListener();
-    createWithEmptyRelationshipCollectionsResult.getCurrentActivityId();
+    String actualCurrentActivityId = createWithEmptyRelationshipCollectionsResult.getCurrentActivityId();
     int actualDeadLetterJobCount = createWithEmptyRelationshipCollectionsResult.getDeadLetterJobCount();
     String actualDeleteReason = createWithEmptyRelationshipCollectionsResult.getDeleteReason();
     String actualDeploymentId = createWithEmptyRelationshipCollectionsResult.getDeploymentId();
@@ -867,7 +880,7 @@ public class ExecutionEntityImplDiffblueTest {
     String actualRootProcessInstanceId = createWithEmptyRelationshipCollectionsResult.getRootProcessInstanceId();
     Date actualStartTime = createWithEmptyRelationshipCollectionsResult.getStartTime();
     String actualStartUserId = createWithEmptyRelationshipCollectionsResult.getStartUserId();
-    createWithEmptyRelationshipCollectionsResult.getSuperExecutionId();
+    String actualSuperExecutionId = createWithEmptyRelationshipCollectionsResult.getSuperExecutionId();
     int actualSuspendedJobCount = createWithEmptyRelationshipCollectionsResult.getSuspendedJobCount();
     int actualSuspensionState = createWithEmptyRelationshipCollectionsResult.getSuspensionState();
     int actualTaskCount = createWithEmptyRelationshipCollectionsResult.getTaskCount();
@@ -883,7 +896,7 @@ public class ExecutionEntityImplDiffblueTest {
     boolean actualIsMultiInstanceRootResult = createWithEmptyRelationshipCollectionsResult.isMultiInstanceRoot();
     boolean actualIsScopeResult = createWithEmptyRelationshipCollectionsResult.isScope();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualDeploymentId);
     assertEquals("42", actualParentId);
     assertEquals("42", actualParentProcessInstanceId);
@@ -899,6 +912,10 @@ public class ExecutionEntityImplDiffblueTest {
     assertEquals("Localized Name", actualLocalizedName);
     assertEquals("Process Definition Key", actualProcessDefinitionKey);
     assertEquals("Process Definition Name", actualProcessDefinitionName);
+    assertNull(actualActivityId);
+    assertNull(actualActivityName);
+    assertNull(actualCurrentActivityId);
+    assertNull(actualSuperExecutionId);
     assertEquals(1, actualAppVersion.intValue());
     assertEquals(1, actualProcessDefinitionVersion.intValue());
     assertEquals(1, actualIdentityLinkCount);
@@ -924,13 +941,13 @@ public class ExecutionEntityImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExecutionEntityImpl#initializeVariableInstanceBackPointer(VariableInstanceEntity)}.
+   * Test {@link ExecutionEntityImpl#initializeVariableInstanceBackPointer(VariableInstanceEntity)}.
    * <p>
-   * Method under test:
-   * {@link ExecutionEntityImpl#initializeVariableInstanceBackPointer(VariableInstanceEntity)}
+   * Method under test: {@link ExecutionEntityImpl#initializeVariableInstanceBackPointer(VariableInstanceEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionEntityImpl.initializeVariableInstanceBackPointer(VariableInstanceEntity)"})
   public void testInitializeVariableInstanceBackPointer() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -940,18 +957,18 @@ public class ExecutionEntityImplDiffblueTest {
     // Act
     createWithEmptyRelationshipCollectionsResult.initializeVariableInstanceBackPointer(variableInstance);
 
-    // Assert
+    // Assert that nothing has changed
     assertNull(variableInstance.getProcessInstanceId());
   }
 
   /**
-   * Test
-   * {@link ExecutionEntityImpl#initializeVariableInstanceBackPointer(VariableInstanceEntity)}.
+   * Test {@link ExecutionEntityImpl#initializeVariableInstanceBackPointer(VariableInstanceEntity)}.
    * <p>
-   * Method under test:
-   * {@link ExecutionEntityImpl#initializeVariableInstanceBackPointer(VariableInstanceEntity)}
+   * Method under test: {@link ExecutionEntityImpl#initializeVariableInstanceBackPointer(VariableInstanceEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionEntityImpl.initializeVariableInstanceBackPointer(VariableInstanceEntity)"})
   public void testInitializeVariableInstanceBackPointer2() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -968,30 +985,17 @@ public class ExecutionEntityImplDiffblueTest {
 
   /**
    * Test {@link ExecutionEntityImpl#getParentVariableScope()}.
-   * <p>
-   * Method under test: {@link ExecutionEntityImpl#getParentVariableScope()}
-   */
-  @Test
-  public void testGetParentVariableScope() {
-    // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    createWithEmptyRelationshipCollectionsResult.setLockTime(mock(java.sql.Date.class));
-
-    // Act and Assert
-    assertNull(createWithEmptyRelationshipCollectionsResult.getParentVariableScope());
-  }
-
-  /**
-   * Test {@link ExecutionEntityImpl#getParentVariableScope()}.
    * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections.</li>
+   *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ExecutionEntityImpl#getParentVariableScope()}
    */
   @Test
-  public void testGetParentVariableScope_givenCreateWithEmptyRelationshipCollections() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.persistence.entity.VariableScopeImpl ExecutionEntityImpl.getParentVariableScope()"})
+  public void testGetParentVariableScope_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getParentVariableScope());
   }
@@ -1002,42 +1006,9 @@ public class ExecutionEntityImplDiffblueTest {
    * Method under test: {@link ExecutionEntityImpl#getSourceActivityExecution()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ExecutionEntityImpl ExecutionEntityImpl.getSourceActivityExecution()"})
   public void testGetSourceActivityExecution() {
-    // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    createWithEmptyRelationshipCollectionsResult.setLockTime(mock(java.sql.Date.class));
-
-    // Act
-    ExecutionEntityImpl actualSourceActivityExecution = createWithEmptyRelationshipCollectionsResult
-        .getSourceActivityExecution();
-
-    // Assert
-    assertSame(createWithEmptyRelationshipCollectionsResult, actualSourceActivityExecution);
-    List<EventSubscriptionEntity> expectedEventSubscriptions = actualSourceActivityExecution.eventSubscriptions;
-    assertSame(expectedEventSubscriptions, createWithEmptyRelationshipCollectionsResult.getEventSubscriptions());
-    List<ExecutionEntityImpl> expectedExecutions = actualSourceActivityExecution.executions;
-    assertSame(expectedExecutions, createWithEmptyRelationshipCollectionsResult.getExecutions());
-    List<IdentityLinkEntity> expectedIdentityLinks = actualSourceActivityExecution.identityLinks;
-    assertSame(expectedIdentityLinks, createWithEmptyRelationshipCollectionsResult.getIdentityLinks());
-    List<JobEntity> expectedJobs = actualSourceActivityExecution.jobs;
-    assertSame(expectedJobs, createWithEmptyRelationshipCollectionsResult.getJobs());
-    List<TaskEntity> expectedTasks = actualSourceActivityExecution.tasks;
-    assertSame(expectedTasks, createWithEmptyRelationshipCollectionsResult.getTasks());
-    List<TimerJobEntity> expectedTimerJobs = actualSourceActivityExecution.timerJobs;
-    assertSame(expectedTimerJobs, createWithEmptyRelationshipCollectionsResult.getTimerJobs());
-  }
-
-  /**
-   * Test {@link ExecutionEntityImpl#getSourceActivityExecution()}.
-   * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionEntityImpl#getSourceActivityExecution()}
-   */
-  @Test
-  public void testGetSourceActivityExecution_givenCreateWithEmptyRelationshipCollections() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
         .createWithEmptyRelationshipCollections();
@@ -1068,6 +1039,8 @@ public class ExecutionEntityImplDiffblueTest {
    * Method under test: {@link ExecutionEntityImpl#getSpecificVariable(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"VariableInstanceEntity ExecutionEntityImpl.getSpecificVariable(String)"})
   public void testGetSpecificVariable() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class,
@@ -1081,10 +1054,11 @@ public class ExecutionEntityImplDiffblueTest {
    *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExecutionEntityImpl#getSpecificVariables(Collection)}
+   * Method under test: {@link ExecutionEntityImpl#getSpecificVariables(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List ExecutionEntityImpl.getSpecificVariables(Collection)"})
   public void testGetSpecificVariables_givenFoo_whenArrayListAddFoo() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1105,10 +1079,11 @@ public class ExecutionEntityImplDiffblueTest {
    *   <li>Given {@code lazy loading outside command context}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExecutionEntityImpl#getSpecificVariables(Collection)}
+   * Method under test: {@link ExecutionEntityImpl#getSpecificVariables(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List ExecutionEntityImpl.getSpecificVariables(Collection)"})
   public void testGetSpecificVariables_givenLazyLoadingOutsideCommandContext() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1128,10 +1103,11 @@ public class ExecutionEntityImplDiffblueTest {
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExecutionEntityImpl#getSpecificVariables(Collection)}
+   * Method under test: {@link ExecutionEntityImpl#getSpecificVariables(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List ExecutionEntityImpl.getSpecificVariables(Collection)"})
   public void testGetSpecificVariables_whenArrayList() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1144,52 +1120,18 @@ public class ExecutionEntityImplDiffblueTest {
 
   /**
    * Test {@link ExecutionEntityImpl#getEventSubscriptions()}.
-   * <p>
-   * Method under test: {@link ExecutionEntityImpl#getEventSubscriptions()}
-   */
-  @Test
-  public void testGetEventSubscriptions() {
-    // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    createWithEmptyRelationshipCollectionsResult.setLockTime(mock(java.sql.Date.class));
-
-    // Act and Assert
-    assertTrue(createWithEmptyRelationshipCollectionsResult.getEventSubscriptions().isEmpty());
-  }
-
-  /**
-   * Test {@link ExecutionEntityImpl#getEventSubscriptions()}.
    * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections.</li>
+   *   <li>Then return Empty.</li>
    * </ul>
    * <p>
    * Method under test: {@link ExecutionEntityImpl#getEventSubscriptions()}
    */
   @Test
-  public void testGetEventSubscriptions_givenCreateWithEmptyRelationshipCollections() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List ExecutionEntityImpl.getEventSubscriptions()"})
+  public void testGetEventSubscriptions_thenReturnEmpty() {
     // Arrange, Act and Assert
     assertTrue(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getEventSubscriptions().isEmpty());
-  }
-
-  /**
-   * Test {@link ExecutionEntityImpl#getJobs()}.
-   * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections LockTime is
-   * {@link Date}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionEntityImpl#getJobs()}
-   */
-  @Test
-  public void testGetJobs_givenCreateWithEmptyRelationshipCollectionsLockTimeIsDate() {
-    // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    createWithEmptyRelationshipCollectionsResult.setLockTime(mock(java.sql.Date.class));
-
-    // Act and Assert
-    assertTrue(createWithEmptyRelationshipCollectionsResult.getJobs().isEmpty());
   }
 
   /**
@@ -1202,6 +1144,8 @@ public class ExecutionEntityImplDiffblueTest {
    * Method under test: {@link ExecutionEntityImpl#getJobs()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List ExecutionEntityImpl.getJobs()"})
   public void testGetJobs_givenCreateWithEmptyRelationshipCollections_thenReturnEmpty() {
     // Arrange, Act and Assert
     assertTrue(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getJobs().isEmpty());
@@ -1210,26 +1154,6 @@ public class ExecutionEntityImplDiffblueTest {
   /**
    * Test {@link ExecutionEntityImpl#getTimerJobs()}.
    * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections LockTime is
-   * {@link Date}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionEntityImpl#getTimerJobs()}
-   */
-  @Test
-  public void testGetTimerJobs_givenCreateWithEmptyRelationshipCollectionsLockTimeIsDate() {
-    // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    createWithEmptyRelationshipCollectionsResult.setLockTime(mock(java.sql.Date.class));
-
-    // Act and Assert
-    assertTrue(createWithEmptyRelationshipCollectionsResult.getTimerJobs().isEmpty());
-  }
-
-  /**
-   * Test {@link ExecutionEntityImpl#getTimerJobs()}.
-   * <ul>
    *   <li>Given createWithEmptyRelationshipCollections.</li>
    *   <li>Then return Empty.</li>
    * </ul>
@@ -1237,6 +1161,8 @@ public class ExecutionEntityImplDiffblueTest {
    * Method under test: {@link ExecutionEntityImpl#getTimerJobs()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List ExecutionEntityImpl.getTimerJobs()"})
   public void testGetTimerJobs_givenCreateWithEmptyRelationshipCollections_thenReturnEmpty() {
     // Arrange, Act and Assert
     assertTrue(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getTimerJobs().isEmpty());
@@ -1245,26 +1171,6 @@ public class ExecutionEntityImplDiffblueTest {
   /**
    * Test {@link ExecutionEntityImpl#getTasks()}.
    * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections LockTime is
-   * {@link Date}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionEntityImpl#getTasks()}
-   */
-  @Test
-  public void testGetTasks_givenCreateWithEmptyRelationshipCollectionsLockTimeIsDate() {
-    // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    createWithEmptyRelationshipCollectionsResult.setLockTime(mock(java.sql.Date.class));
-
-    // Act and Assert
-    assertTrue(createWithEmptyRelationshipCollectionsResult.getTasks().isEmpty());
-  }
-
-  /**
-   * Test {@link ExecutionEntityImpl#getTasks()}.
-   * <ul>
    *   <li>Given createWithEmptyRelationshipCollections.</li>
    *   <li>Then return Empty.</li>
    * </ul>
@@ -1272,6 +1178,8 @@ public class ExecutionEntityImplDiffblueTest {
    * Method under test: {@link ExecutionEntityImpl#getTasks()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List ExecutionEntityImpl.getTasks()"})
   public void testGetTasks_givenCreateWithEmptyRelationshipCollections_thenReturnEmpty() {
     // Arrange, Act and Assert
     assertTrue(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getTasks().isEmpty());
@@ -1280,26 +1188,6 @@ public class ExecutionEntityImplDiffblueTest {
   /**
    * Test {@link ExecutionEntityImpl#getIdentityLinks()}.
    * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections LockTime is
-   * {@link Date}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionEntityImpl#getIdentityLinks()}
-   */
-  @Test
-  public void testGetIdentityLinks_givenCreateWithEmptyRelationshipCollectionsLockTimeIsDate() {
-    // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    createWithEmptyRelationshipCollectionsResult.setLockTime(mock(java.sql.Date.class));
-
-    // Act and Assert
-    assertTrue(createWithEmptyRelationshipCollectionsResult.getIdentityLinks().isEmpty());
-  }
-
-  /**
-   * Test {@link ExecutionEntityImpl#getIdentityLinks()}.
-   * <ul>
    *   <li>Given createWithEmptyRelationshipCollections.</li>
    *   <li>Then return Empty.</li>
    * </ul>
@@ -1307,29 +1195,11 @@ public class ExecutionEntityImplDiffblueTest {
    * Method under test: {@link ExecutionEntityImpl#getIdentityLinks()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List ExecutionEntityImpl.getIdentityLinks()"})
   public void testGetIdentityLinks_givenCreateWithEmptyRelationshipCollections_thenReturnEmpty() {
     // Arrange, Act and Assert
     assertTrue(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getIdentityLinks().isEmpty());
-  }
-
-  /**
-   * Test {@link ExecutionEntityImpl#isSuspended()}.
-   * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections LockTime is
-   * {@link Date}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionEntityImpl#isSuspended()}
-   */
-  @Test
-  public void testIsSuspended_givenCreateWithEmptyRelationshipCollectionsLockTimeIsDate() {
-    // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    createWithEmptyRelationshipCollectionsResult.setLockTime(mock(java.sql.Date.class));
-
-    // Act and Assert
-    assertFalse(createWithEmptyRelationshipCollectionsResult.isSuspended());
   }
 
   /**
@@ -1342,6 +1212,8 @@ public class ExecutionEntityImplDiffblueTest {
    * Method under test: {@link ExecutionEntityImpl#isSuspended()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ExecutionEntityImpl.isSuspended()"})
   public void testIsSuspended_givenCreateWithEmptyRelationshipCollections_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(ExecutionEntityImpl.createWithEmptyRelationshipCollections().isSuspended());
@@ -1356,6 +1228,8 @@ public class ExecutionEntityImplDiffblueTest {
    * Method under test: {@link ExecutionEntityImpl#isSuspended()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ExecutionEntityImpl.isSuspended()"})
   public void testIsSuspended_thenReturnTrue() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1372,6 +1246,8 @@ public class ExecutionEntityImplDiffblueTest {
    * Method under test: {@link ExecutionEntityImpl#getName()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExecutionEntityImpl.getName()"})
   public void testGetName() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1392,6 +1268,8 @@ public class ExecutionEntityImplDiffblueTest {
    * Method under test: {@link ExecutionEntityImpl#getName()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExecutionEntityImpl.getName()"})
   public void testGetName_givenCreateWithEmptyRelationshipCollections_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getName());
@@ -1406,6 +1284,8 @@ public class ExecutionEntityImplDiffblueTest {
    * Method under test: {@link ExecutionEntityImpl#getName()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExecutionEntityImpl.getName()"})
   public void testGetName_thenReturnFoo() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1422,6 +1302,8 @@ public class ExecutionEntityImplDiffblueTest {
    * Method under test: {@link ExecutionEntityImpl#getDescription()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExecutionEntityImpl.getDescription()"})
   public void testGetDescription() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1442,6 +1324,8 @@ public class ExecutionEntityImplDiffblueTest {
    * Method under test: {@link ExecutionEntityImpl#getDescription()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExecutionEntityImpl.getDescription()"})
   public void testGetDescription_givenCreateWithEmptyRelationshipCollections_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getDescription());
@@ -1456,6 +1340,8 @@ public class ExecutionEntityImplDiffblueTest {
    * Method under test: {@link ExecutionEntityImpl#getDescription()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExecutionEntityImpl.getDescription()"})
   public void testGetDescription_thenReturnFoo() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1475,6 +1361,8 @@ public class ExecutionEntityImplDiffblueTest {
    * Method under test: {@link ExecutionEntityImpl#getProcessVariables()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map ExecutionEntityImpl.getProcessVariables()"})
   public void testGetProcessVariables_givenCreateWithEmptyRelationshipCollections() {
     // Arrange, Act and Assert
     assertTrue(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getProcessVariables().isEmpty());
@@ -1483,14 +1371,15 @@ public class ExecutionEntityImplDiffblueTest {
   /**
    * Test {@link ExecutionEntityImpl#getProcessVariables()}.
    * <ul>
-   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) Id is
-   * {@code null}.</li>
+   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) Id is {@code null}.</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
    * Method under test: {@link ExecutionEntityImpl#getProcessVariables()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map ExecutionEntityImpl.getProcessVariables()"})
   public void testGetProcessVariables_givenVariableInstanceEntityImplIdIsNull_thenReturnEmpty() {
     // Arrange
     VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
@@ -1510,13 +1399,14 @@ public class ExecutionEntityImplDiffblueTest {
   /**
    * Test {@link ExecutionEntityImpl#getProcessVariables()}.
    * <ul>
-   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) TaskId is
-   * {@code foo}.</li>
+   *   <li>Given {@link VariableInstanceEntityImpl} (default constructor) TaskId is {@code foo}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ExecutionEntityImpl#getProcessVariables()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map ExecutionEntityImpl.getProcessVariables()"})
   public void testGetProcessVariables_givenVariableInstanceEntityImplTaskIdIsFoo() {
     // Arrange
     VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
@@ -1542,6 +1432,8 @@ public class ExecutionEntityImplDiffblueTest {
    * Method under test: {@link ExecutionEntityImpl#getProcessVariables()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map ExecutionEntityImpl.getProcessVariables()"})
   public void testGetProcessVariables_thenReturnEmpty() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1561,6 +1453,8 @@ public class ExecutionEntityImplDiffblueTest {
    * Method under test: {@link ExecutionEntityImpl#getProcessVariables()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map ExecutionEntityImpl.getProcessVariables()"})
   public void testGetProcessVariables_thenReturnSizeIsOne() {
     // Arrange
     VariableInstanceEntityImpl variableInstanceEntityImpl = new VariableInstanceEntityImpl();
@@ -1585,26 +1479,6 @@ public class ExecutionEntityImplDiffblueTest {
   /**
    * Test {@link ExecutionEntityImpl#getQueryVariables()}.
    * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections LockTime is
-   * {@link Date}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionEntityImpl#getQueryVariables()}
-   */
-  @Test
-  public void testGetQueryVariables_givenCreateWithEmptyRelationshipCollectionsLockTimeIsDate() {
-    // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    createWithEmptyRelationshipCollectionsResult.setLockTime(mock(java.sql.Date.class));
-
-    // Act and Assert
-    assertNull(createWithEmptyRelationshipCollectionsResult.getQueryVariables());
-  }
-
-  /**
-   * Test {@link ExecutionEntityImpl#getQueryVariables()}.
-   * <ul>
    *   <li>Given createWithEmptyRelationshipCollections.</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
@@ -1612,6 +1486,8 @@ public class ExecutionEntityImplDiffblueTest {
    * Method under test: {@link ExecutionEntityImpl#getQueryVariables()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List ExecutionEntityImpl.getQueryVariables()"})
   public void testGetQueryVariables_givenCreateWithEmptyRelationshipCollections_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(ExecutionEntityImpl.createWithEmptyRelationshipCollections().getQueryVariables());
@@ -1626,6 +1502,8 @@ public class ExecutionEntityImplDiffblueTest {
    * Method under test: {@link ExecutionEntityImpl#getQueryVariables()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List ExecutionEntityImpl.getQueryVariables()"})
   public void testGetQueryVariables_thenReturnEmpty() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
@@ -1639,35 +1517,17 @@ public class ExecutionEntityImplDiffblueTest {
   /**
    * Test {@link ExecutionEntityImpl#toString()}.
    * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections.</li>
+   *   <li>Then return {@code ProcessInstance[null]}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ExecutionEntityImpl#toString()}
    */
   @Test
-  public void testToString_givenCreateWithEmptyRelationshipCollections() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExecutionEntityImpl.toString()"})
+  public void testToString_thenReturnProcessInstanceNull() {
     // Arrange, Act and Assert
     assertEquals("ProcessInstance[null]", ExecutionEntityImpl.createWithEmptyRelationshipCollections().toString());
-  }
-
-  /**
-   * Test {@link ExecutionEntityImpl#toString()}.
-   * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections LockTime is
-   * {@link Date}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ExecutionEntityImpl#toString()}
-   */
-  @Test
-  public void testToString_givenCreateWithEmptyRelationshipCollectionsLockTimeIsDate() {
-    // Arrange
-    ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl
-        .createWithEmptyRelationshipCollections();
-    createWithEmptyRelationshipCollectionsResult.setLockTime(mock(java.sql.Date.class));
-
-    // Act and Assert
-    assertEquals("ProcessInstance[null]", createWithEmptyRelationshipCollectionsResult.toString());
   }
 
   /**
@@ -1679,6 +1539,8 @@ public class ExecutionEntityImplDiffblueTest {
    * Method under test: {@link ExecutionEntityImpl#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExecutionEntityImpl.toString()"})
   public void testToString_thenReturnScopedExecutionIdNullParent42() {
     // Arrange
     ExecutionEntityImpl createWithEmptyRelationshipCollectionsResult = ExecutionEntityImpl

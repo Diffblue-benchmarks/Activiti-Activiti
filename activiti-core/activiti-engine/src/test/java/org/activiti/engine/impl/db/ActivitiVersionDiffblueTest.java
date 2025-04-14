@@ -19,18 +19,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ActivitiVersionDiffblueTest {
-  @InjectMocks
-  private ActivitiVersion activitiVersion;
-
   /**
    * Test getters and setters.
    * <p>
@@ -41,6 +37,8 @@ public class ActivitiVersionDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiVersion.<init>(String, List)", "String ActivitiVersion.getMainVersion()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ActivitiVersion actualActivitiVersion = new ActivitiVersion("1.0.2", new ArrayList<>());
@@ -56,6 +54,8 @@ public class ActivitiVersionDiffblueTest {
    * Method under test: {@link ActivitiVersion#ActivitiVersion(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiVersion.<init>(String)"})
   public void testNewActivitiVersion() {
     // Arrange and Act
     ActivitiVersion actualActivitiVersion = new ActivitiVersion("1.0.2");
@@ -73,6 +73,8 @@ public class ActivitiVersionDiffblueTest {
    * Method under test: {@link ActivitiVersion#matches(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ActivitiVersion.matches(String)"})
   public void testMatches() {
     // Arrange, Act and Assert
     assertFalse((new ActivitiVersion("Main Version", new ArrayList<>())).matches("1.0.2"));
@@ -81,14 +83,15 @@ public class ActivitiVersionDiffblueTest {
   /**
    * Test {@link ActivitiVersion#matches(String)}.
    * <ul>
-   *   <li>Given {@link ActivitiVersion#ActivitiVersion(String)} with mainVersion is
-   * {@code 1.0.2}.</li>
+   *   <li>Given {@link ActivitiVersion#ActivitiVersion(String)} with mainVersion is {@code 1.0.2}.</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ActivitiVersion#matches(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ActivitiVersion.matches(String)"})
   public void testMatches_givenActivitiVersionWithMainVersionIs102_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue((new ActivitiVersion("1.0.2")).matches("1.0.2"));
@@ -97,14 +100,15 @@ public class ActivitiVersionDiffblueTest {
   /**
    * Test {@link ActivitiVersion#matches(String)}.
    * <ul>
-   *   <li>Given {@link ActivitiVersion#ActivitiVersion(String)} with
-   * {@code Main Version}.</li>
+   *   <li>Given {@link ActivitiVersion#ActivitiVersion(String)} with {@code Main Version}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ActivitiVersion#matches(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ActivitiVersion.matches(String)"})
   public void testMatches_givenActivitiVersionWithMainVersion_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new ActivitiVersion("Main Version")).matches("1.0.2"));
@@ -120,6 +124,8 @@ public class ActivitiVersionDiffblueTest {
    * Method under test: {@link ActivitiVersion#equals(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ActivitiVersion.equals(Object)"})
   public void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
     // Arrange
     ActivitiVersion activitiVersion = new ActivitiVersion("1.0.2");
@@ -141,6 +147,8 @@ public class ActivitiVersionDiffblueTest {
    * Method under test: {@link ActivitiVersion#equals(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ActivitiVersion.equals(Object)"})
   public void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
     ActivitiVersion activitiVersion = new ActivitiVersion("1.0.2");
@@ -161,6 +169,8 @@ public class ActivitiVersionDiffblueTest {
    * Method under test: {@link ActivitiVersion#equals(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ActivitiVersion.equals(Object)"})
   public void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
     ActivitiVersion activitiVersion = new ActivitiVersion("Main Version");
@@ -179,6 +189,8 @@ public class ActivitiVersionDiffblueTest {
    * Method under test: {@link ActivitiVersion#equals(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ActivitiVersion.equals(Object)"})
   public void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new ActivitiVersion("1.0.2"), null);
@@ -194,6 +206,8 @@ public class ActivitiVersionDiffblueTest {
    * Method under test: {@link ActivitiVersion#equals(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean ActivitiVersion.equals(Object)"})
   public void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new ActivitiVersion("1.0.2"), "Different type to ActivitiVersion");

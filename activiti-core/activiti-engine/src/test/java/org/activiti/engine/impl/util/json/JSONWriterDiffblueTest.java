@@ -18,12 +18,15 @@ package org.activiti.engine.impl.util.json;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.PipedWriter;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class JSONWriterDiffblueTest {
   /**
@@ -32,6 +35,8 @@ public class JSONWriterDiffblueTest {
    * Method under test: {@link JSONWriter#JSONWriter(Writer)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JSONWriter.<init>(Writer)"})
   public void testNewJSONWriter() {
     // Arrange and Act
     JSONWriter actualJsonWriter = new JSONWriter(new StringWriter());
@@ -44,14 +49,15 @@ public class JSONWriterDiffblueTest {
   /**
    * Test {@link JSONWriter#array()}.
    * <ul>
-   *   <li>Given {@link JSONWriter#JSONWriter(Writer)} with w is
-   * {@link PipedWriter#PipedWriter()}.</li>
+   *   <li>Given {@link JSONWriter#JSONWriter(Writer)} with w is {@link PipedWriter#PipedWriter()}.</li>
    *   <li>Then throw {@link JSONException}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONWriter#array()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONWriter JSONWriter.array()"})
   public void testArray_givenJSONWriterWithWIsPipedWriter_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONWriter(new PipedWriter())).array());
@@ -60,14 +66,14 @@ public class JSONWriterDiffblueTest {
   /**
    * Test {@link JSONWriter#array()}.
    * <ul>
-   *   <li>Then {@link JSONWriter#JSONWriter(Writer)} with w is
-   * {@link StringWriter#StringWriter()} {@link JSONWriter#writer} toString is
-   * {@code [}.</li>
+   *   <li>Then {@link JSONWriter#JSONWriter(Writer)} with w is {@link StringWriter#StringWriter()} {@link JSONWriter#writer} toString is {@code [}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONWriter#array()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONWriter JSONWriter.array()"})
   public void testArray_thenJSONWriterWithWIsStringWriterWriterToStringIsLeftSquareBracket() throws JSONException {
     // Arrange
     JSONWriter jsonWriter = new JSONWriter(new StringWriter());
@@ -87,6 +93,8 @@ public class JSONWriterDiffblueTest {
    * Method under test: {@link JSONWriter#endArray()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONWriter JSONWriter.endArray()"})
   public void testEndArray() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONWriter(new StringWriter())).endArray());
@@ -98,6 +106,8 @@ public class JSONWriterDiffblueTest {
    * Method under test: {@link JSONWriter#endObject()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONWriter JSONWriter.endObject()"})
   public void testEndObject() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONWriter(new StringWriter())).endObject());
@@ -112,6 +122,8 @@ public class JSONWriterDiffblueTest {
    * Method under test: {@link JSONWriter#key(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONWriter JSONWriter.key(String)"})
   public void testKey_whenFoo() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONWriter(new StringWriter())).key("foo"));
@@ -126,6 +138,8 @@ public class JSONWriterDiffblueTest {
    * Method under test: {@link JSONWriter#key(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONWriter JSONWriter.key(String)"})
   public void testKey_whenNull() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONWriter(new StringWriter())).key(null));
@@ -134,14 +148,15 @@ public class JSONWriterDiffblueTest {
   /**
    * Test {@link JSONWriter#object()}.
    * <ul>
-   *   <li>Given {@link JSONWriter#JSONWriter(Writer)} with w is
-   * {@link PipedWriter#PipedWriter()}.</li>
+   *   <li>Given {@link JSONWriter#JSONWriter(Writer)} with w is {@link PipedWriter#PipedWriter()}.</li>
    *   <li>Then throw {@link JSONException}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONWriter#object()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONWriter JSONWriter.object()"})
   public void testObject_givenJSONWriterWithWIsPipedWriter_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONWriter(new PipedWriter())).object());
@@ -150,14 +165,14 @@ public class JSONWriterDiffblueTest {
   /**
    * Test {@link JSONWriter#object()}.
    * <ul>
-   *   <li>Then {@link JSONWriter#JSONWriter(Writer)} with w is
-   * {@link StringWriter#StringWriter()} {@link JSONWriter#writer} toString is
-   * {@code {}.</li>
+   *   <li>Then {@link JSONWriter#JSONWriter(Writer)} with w is {@link StringWriter#StringWriter()} {@link JSONWriter#writer} toString is {@code {}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONWriter#object()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONWriter JSONWriter.object()"})
   public void testObject_thenJSONWriterWithWIsStringWriterWriterToStringIsLeftCurlyBracket() throws JSONException {
     // Arrange
     JSONWriter jsonWriter = new JSONWriter(new StringWriter());
@@ -180,6 +195,8 @@ public class JSONWriterDiffblueTest {
    * Method under test: {@link JSONWriter#value(boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONWriter JSONWriter.value(boolean)"})
   public void testValueWithB_whenFalse() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONWriter(new StringWriter())).value(false));
@@ -194,6 +211,8 @@ public class JSONWriterDiffblueTest {
    * Method under test: {@link JSONWriter#value(boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONWriter JSONWriter.value(boolean)"})
   public void testValueWithB_whenTrue() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONWriter(new StringWriter())).value(true));
@@ -209,6 +228,8 @@ public class JSONWriterDiffblueTest {
    * Method under test: {@link JSONWriter#value(double)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONWriter JSONWriter.value(double)"})
   public void testValueWithD_when05_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONWriter(new StringWriter())).value(0.5d));
@@ -224,6 +245,8 @@ public class JSONWriterDiffblueTest {
    * Method under test: {@link JSONWriter#value(double)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONWriter JSONWriter.value(double)"})
   public void testValueWithD_whenTen_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONWriter(new StringWriter())).value(10.0d));
@@ -235,6 +258,8 @@ public class JSONWriterDiffblueTest {
    * Method under test: {@link JSONWriter#value(long)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONWriter JSONWriter.value(long)"})
   public void testValueWithL() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONWriter(new StringWriter())).value(1L));
@@ -244,13 +269,14 @@ public class JSONWriterDiffblueTest {
    * Test {@link JSONWriter#value(Object)} with {@code o}.
    * <ul>
    *   <li>Given {@code {}.</li>
-   *   <li>When {@link JSONObject#JSONObject()} append {@code {} and {@link
-   * JSONObject#NULL}.</li>
+   *   <li>When {@link JSONObject#JSONObject()} append {@code {} and {@link JSONObject#NULL}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JSONWriter#value(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONWriter JSONWriter.value(Object)"})
   public void testValueWithO_givenLeftCurlyBracket_whenJSONObjectAppendLeftCurlyBracketAndNull() throws JSONException {
     // Arrange
     JSONWriter jsonWriter = new JSONWriter(new StringWriter());
@@ -272,6 +298,8 @@ public class JSONWriterDiffblueTest {
    * Method under test: {@link JSONWriter#value(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONWriter JSONWriter.value(Object)"})
   public void testValueWithO_givenOneHundredFive_whenJSONArrayOneHundredFiveIsTrue() throws JSONException {
     // Arrange
     JSONWriter jsonWriter = new JSONWriter(new StringWriter());
@@ -293,6 +321,8 @@ public class JSONWriterDiffblueTest {
    * Method under test: {@link JSONWriter#value(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONWriter JSONWriter.value(Object)"})
   public void testValueWithO_when05_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONWriter(new StringWriter())).value((Object) 0.5d));
@@ -308,6 +338,8 @@ public class JSONWriterDiffblueTest {
    * Method under test: {@link JSONWriter#value(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONWriter JSONWriter.value(Object)"})
   public void testValueWithO_whenArrayList_thenThrowJSONException() throws JSONException {
     // Arrange
     JSONWriter jsonWriter = new JSONWriter(new StringWriter());
@@ -326,6 +358,8 @@ public class JSONWriterDiffblueTest {
    * Method under test: {@link JSONWriter#value(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONWriter JSONWriter.value(Object)"})
   public void testValueWithO_whenEmptyString_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONWriter(new StringWriter())).value(""));
@@ -341,6 +375,8 @@ public class JSONWriterDiffblueTest {
    * Method under test: {@link JSONWriter#value(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONWriter JSONWriter.value(Object)"})
   public void testValueWithO_whenHashMap_thenThrowJSONException() throws JSONException {
     // Arrange
     JSONWriter jsonWriter = new JSONWriter(new StringWriter());
@@ -359,6 +395,8 @@ public class JSONWriterDiffblueTest {
    * Method under test: {@link JSONWriter#value(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONWriter JSONWriter.value(Object)"})
   public void testValueWithO_whenJSONArray_thenThrowJSONException() throws JSONException {
     // Arrange
     JSONWriter jsonWriter = new JSONWriter(new StringWriter());
@@ -377,6 +415,8 @@ public class JSONWriterDiffblueTest {
    * Method under test: {@link JSONWriter#value(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONWriter JSONWriter.value(Object)"})
   public void testValueWithO_whenJSONObject_thenThrowJSONException() throws JSONException {
     // Arrange
     JSONWriter jsonWriter = new JSONWriter(new StringWriter());
@@ -395,10 +435,44 @@ public class JSONWriterDiffblueTest {
    * Method under test: {@link JSONWriter#value(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONWriter JSONWriter.value(Object)"})
   public void testValueWithO_whenNull_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONWriter(new StringWriter())).value(JSONObject.NULL));
+  }
+
+  /**
+   * Test {@link JSONWriter#value(Object)} with {@code o}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONWriter#value(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONWriter JSONWriter.value(Object)"})
+  public void testValueWithO_whenNull_thenThrowJSONException2() throws JSONException {
+    // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONWriter(new StringWriter())).value("null"));
+  }
+
+  /**
+   * Test {@link JSONWriter#value(Object)} with {@code o}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link JSONException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONWriter#value(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONWriter JSONWriter.value(Object)"})
+  public void testValueWithO_whenNull_thenThrowJSONException3() throws JSONException {
+    // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONWriter(new StringWriter())).value(null));
   }
 
@@ -412,6 +486,8 @@ public class JSONWriterDiffblueTest {
    * Method under test: {@link JSONWriter#value(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONWriter JSONWriter.value(Object)"})
   public void testValueWithO_whenOne_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONWriter(new StringWriter())).value(1));
@@ -427,9 +503,27 @@ public class JSONWriterDiffblueTest {
    * Method under test: {@link JSONWriter#value(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONWriter JSONWriter.value(Object)"})
   public void testValueWithO_whenTen_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONWriter(new StringWriter())).value((Object) 10.0d));
+  }
+
+  /**
+   * Test {@link JSONWriter#value(Object)} with {@code o}.
+   * <ul>
+   *   <li>When ten.</li>
+   *   <li>Then throw {@link JSONException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JSONWriter#value(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONWriter JSONWriter.value(Object)"})
+  public void testValueWithO_whenTen_thenThrowJSONException2() throws JSONException {
+    // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONWriter(new StringWriter())).value(10.0f));
   }
 
@@ -443,6 +537,8 @@ public class JSONWriterDiffblueTest {
    * Method under test: {@link JSONWriter#value(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONWriter JSONWriter.value(Object)"})
   public void testValueWithO_whenToJSONObjectHttpsExampleOrgExample_thenThrowJSONException() throws JSONException {
     // Arrange
     JSONWriter jsonWriter = new JSONWriter(new StringWriter());
@@ -461,6 +557,8 @@ public class JSONWriterDiffblueTest {
    * Method under test: {@link JSONWriter#value(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"JSONWriter JSONWriter.value(Object)"})
   public void testValueWithO_whenTrue_thenThrowJSONException() throws JSONException {
     // Arrange, Act and Assert
     assertThrows(JSONException.class, () -> (new JSONWriter(new StringWriter())).value((Object) true));

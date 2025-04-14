@@ -17,8 +17,10 @@ package org.activiti.bpmn.converter.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class CommaSplitterDiffblueTest {
@@ -33,6 +35,8 @@ class CommaSplitterDiffblueTest {
    */
   @Test
   @DisplayName("Test splitCommas(String); when empty string; then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List CommaSplitter.splitCommas(String)"})
   void testSplitCommas_whenEmptyString_thenReturnEmpty() {
     // Arrange and Act
     List<String> actualSplitCommasResult = CommaSplitter.splitCommas("");
@@ -52,6 +56,8 @@ class CommaSplitterDiffblueTest {
    */
   @Test
   @DisplayName("Test splitCommas(String); when 'St'; then return size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List CommaSplitter.splitCommas(String)"})
   void testSplitCommas_whenSt_thenReturnSizeIsOne() {
     // Arrange and Act
     List<String> actualSplitCommasResult = CommaSplitter.splitCommas("St");

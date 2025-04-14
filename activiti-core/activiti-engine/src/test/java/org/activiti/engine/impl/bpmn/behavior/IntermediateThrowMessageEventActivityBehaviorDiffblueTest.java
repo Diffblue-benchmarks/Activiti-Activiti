@@ -17,6 +17,8 @@ package org.activiti.engine.impl.bpmn.behavior;
 
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.MessageEventDefinition;
 import org.activiti.bpmn.model.ThrowEvent;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultMessageExecutionContext;
@@ -25,6 +27,7 @@ import org.activiti.engine.impl.delegate.MessagePayloadMappingProvider;
 import org.activiti.engine.impl.delegate.ThrowMessageDelegate;
 import org.activiti.engine.impl.el.ExpressionManager;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class IntermediateThrowMessageEventActivityBehaviorDiffblueTest {
   /**
@@ -32,12 +35,15 @@ public class IntermediateThrowMessageEventActivityBehaviorDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link IntermediateThrowMessageEventActivityBehavior#IntermediateThrowMessageEventActivityBehavior(ThrowEvent, MessageEventDefinition, ThrowMessageDelegate, MessageExecutionContext)}
+   *   <li>{@link IntermediateThrowMessageEventActivityBehavior#IntermediateThrowMessageEventActivityBehavior(ThrowEvent, MessageEventDefinition, ThrowMessageDelegate, MessageExecutionContext)}
    *   <li>{@link IntermediateThrowMessageEventActivityBehavior#getThrowEvent()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "void IntermediateThrowMessageEventActivityBehavior.<init>(ThrowEvent, MessageEventDefinition, ThrowMessageDelegate, MessageExecutionContext)",
+      "ThrowEvent IntermediateThrowMessageEventActivityBehavior.getThrowEvent()"})
   public void testGettersAndSetters() {
     // Arrange
     ThrowEvent throwEvent = new ThrowEvent();

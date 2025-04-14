@@ -16,17 +16,20 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class GetProcessInstanceAttachmentsCmdDiffblueTest {
   /**
-   * Test
-   * {@link GetProcessInstanceAttachmentsCmd#GetProcessInstanceAttachmentsCmd(String)}.
+   * Test {@link GetProcessInstanceAttachmentsCmd#GetProcessInstanceAttachmentsCmd(String)}.
    * <p>
-   * Method under test:
-   * {@link GetProcessInstanceAttachmentsCmd#GetProcessInstanceAttachmentsCmd(String)}
+   * Method under test: {@link GetProcessInstanceAttachmentsCmd#GetProcessInstanceAttachmentsCmd(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void GetProcessInstanceAttachmentsCmd.<init>(String)"})
   public void testNewGetProcessInstanceAttachmentsCmd() {
     // Arrange, Act and Assert
     assertEquals("42", (new GetProcessInstanceAttachmentsCmd("42")).processInstanceId);

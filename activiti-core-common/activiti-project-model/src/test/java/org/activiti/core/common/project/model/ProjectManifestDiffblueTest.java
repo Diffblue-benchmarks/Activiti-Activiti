@@ -16,7 +16,9 @@
 package org.activiti.core.common.project.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ProjectManifestDiffblueTest {
@@ -46,6 +48,16 @@ class ProjectManifestDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProjectManifest.<init>()", "String ProjectManifest.getCreatedBy()",
+      "String ProjectManifest.getCreationDate()", "String ProjectManifest.getDescription()",
+      "String ProjectManifest.getId()", "String ProjectManifest.getLastModifiedBy()",
+      "String ProjectManifest.getLastModifiedDate()", "String ProjectManifest.getName()",
+      "String ProjectManifest.getVersion()", "void ProjectManifest.setCreatedBy(String)",
+      "void ProjectManifest.setCreationDate(String)", "void ProjectManifest.setDescription(String)",
+      "void ProjectManifest.setId(String)", "void ProjectManifest.setLastModifiedBy(String)",
+      "void ProjectManifest.setLastModifiedDate(String)", "void ProjectManifest.setName(String)",
+      "void ProjectManifest.setVersion(String)"})
   void testGettersAndSetters() {
     // Arrange and Act
     ProjectManifest actualProjectManifest = new ProjectManifest();
@@ -53,7 +65,7 @@ class ProjectManifestDiffblueTest {
     actualProjectManifest.setCreationDate("2020-03-01");
     actualProjectManifest.setDescription("The characteristics of someone or something");
     actualProjectManifest.setId("42");
-    actualProjectManifest.setLastModifiedBy("Jan 1, 2020 9:00am GMT+0100");
+    actualProjectManifest.setLastModifiedBy("JaneDoe");
     actualProjectManifest.setLastModifiedDate("2020-03-01");
     actualProjectManifest.setName("Name");
     actualProjectManifest.setVersion("1.0.2");
@@ -65,13 +77,13 @@ class ProjectManifestDiffblueTest {
     String actualLastModifiedDate = actualProjectManifest.getLastModifiedDate();
     String actualName = actualProjectManifest.getName();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("1.0.2", actualProjectManifest.getVersion());
     assertEquals("2020-03-01", actualCreationDate);
     assertEquals("2020-03-01", actualLastModifiedDate);
     assertEquals("42", actualId);
     assertEquals("Jan 1, 2020 8:00am GMT+0100", actualCreatedBy);
-    assertEquals("Jan 1, 2020 9:00am GMT+0100", actualLastModifiedBy);
+    assertEquals("JaneDoe", actualLastModifiedBy);
     assertEquals("Name", actualName);
     assertEquals("The characteristics of someone or something", actualDescription);
   }

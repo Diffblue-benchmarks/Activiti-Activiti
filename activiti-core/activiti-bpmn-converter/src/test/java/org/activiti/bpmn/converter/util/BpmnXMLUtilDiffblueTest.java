@@ -27,39 +27,35 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import ch.qos.logback.core.util.COWArrayList;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiFunction;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 import org.activiti.bpmn.converter.IndentingXMLStreamWriter;
 import org.activiti.bpmn.model.ActivitiListener;
-import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.ExtensionAttribute;
 import org.activiti.bpmn.model.ExtensionElement;
-import org.activiti.bpmn.model.FlowNode;
 import org.activiti.bpmn.model.SequenceFlow;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class BpmnXMLUtilDiffblueTest {
   /**
-   * Test
-   * {@link BpmnXMLUtil#writeExtensionElements(BaseElement, boolean, Map, XMLStreamWriter)}
-   * with {@code baseElement}, {@code didWriteExtensionStartElement},
-   * {@code namespaceMap}, {@code xtw}.
+   * Test {@link BpmnXMLUtil#writeExtensionElements(BaseElement, boolean, Map, XMLStreamWriter)} with {@code baseElement}, {@code didWriteExtensionStartElement}, {@code namespaceMap}, {@code xtw}.
    * <p>
-   * Method under test:
-   * {@link BpmnXMLUtil#writeExtensionElements(BaseElement, boolean, Map, XMLStreamWriter)}
+   * Method under test: {@link BpmnXMLUtil#writeExtensionElements(BaseElement, boolean, Map, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeExtensionElements(BaseElement, boolean, Map, XMLStreamWriter) with 'baseElement', 'didWriteExtensionStartElement', 'namespaceMap', 'xtw'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BpmnXMLUtil.writeExtensionElements(BaseElement, boolean, Map, XMLStreamWriter)"})
   void testWriteExtensionElementsWithBaseElementDidWriteExtensionStartElementNamespaceMapXtw() throws Exception {
     // Arrange
     ActivitiListener baseElement = new ActivitiListener();
@@ -70,16 +66,14 @@ class BpmnXMLUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnXMLUtil#writeExtensionElements(BaseElement, boolean, Map, XMLStreamWriter)}
-   * with {@code baseElement}, {@code didWriteExtensionStartElement},
-   * {@code namespaceMap}, {@code xtw}.
+   * Test {@link BpmnXMLUtil#writeExtensionElements(BaseElement, boolean, Map, XMLStreamWriter)} with {@code baseElement}, {@code didWriteExtensionStartElement}, {@code namespaceMap}, {@code xtw}.
    * <p>
-   * Method under test:
-   * {@link BpmnXMLUtil#writeExtensionElements(BaseElement, boolean, Map, XMLStreamWriter)}
+   * Method under test: {@link BpmnXMLUtil#writeExtensionElements(BaseElement, boolean, Map, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeExtensionElements(BaseElement, boolean, Map, XMLStreamWriter) with 'baseElement', 'didWriteExtensionStartElement', 'namespaceMap', 'xtw'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BpmnXMLUtil.writeExtensionElements(BaseElement, boolean, Map, XMLStreamWriter)"})
   void testWriteExtensionElementsWithBaseElementDidWriteExtensionStartElementNamespaceMapXtw2() throws Exception {
     // Arrange
     ActivitiListener baseElement = new ActivitiListener();
@@ -91,37 +85,14 @@ class BpmnXMLUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnXMLUtil#writeExtensionElements(BaseElement, boolean, Map, XMLStreamWriter)}
-   * with {@code baseElement}, {@code didWriteExtensionStartElement},
-   * {@code namespaceMap}, {@code xtw}.
+   * Test {@link BpmnXMLUtil#writeExtensionElements(BaseElement, boolean, XMLStreamWriter)} with {@code baseElement}, {@code didWriteExtensionStartElement}, {@code xtw}.
    * <p>
-   * Method under test:
-   * {@link BpmnXMLUtil#writeExtensionElements(BaseElement, boolean, Map, XMLStreamWriter)}
-   */
-  @Test
-  @DisplayName("Test writeExtensionElements(BaseElement, boolean, Map, XMLStreamWriter) with 'baseElement', 'didWriteExtensionStartElement', 'namespaceMap', 'xtw'")
-  void testWriteExtensionElementsWithBaseElementDidWriteExtensionStartElementNamespaceMapXtw3() throws Exception {
-    // Arrange
-    ActivitiListener baseElement = new ActivitiListener();
-
-    HashMap<String, String> namespaceMap = new HashMap<>();
-    namespaceMap.computeIfPresent("foo", mock(BiFunction.class));
-
-    // Act and Assert
-    assertTrue(BpmnXMLUtil.writeExtensionElements(baseElement, true, namespaceMap, new IndentingXMLStreamWriter(null)));
-  }
-
-  /**
-   * Test
-   * {@link BpmnXMLUtil#writeExtensionElements(BaseElement, boolean, XMLStreamWriter)}
-   * with {@code baseElement}, {@code didWriteExtensionStartElement}, {@code xtw}.
-   * <p>
-   * Method under test:
-   * {@link BpmnXMLUtil#writeExtensionElements(BaseElement, boolean, XMLStreamWriter)}
+   * Method under test: {@link BpmnXMLUtil#writeExtensionElements(BaseElement, boolean, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeExtensionElements(BaseElement, boolean, XMLStreamWriter) with 'baseElement', 'didWriteExtensionStartElement', 'xtw'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BpmnXMLUtil.writeExtensionElements(BaseElement, boolean, XMLStreamWriter)"})
   void testWriteExtensionElementsWithBaseElementDidWriteExtensionStartElementXtw() throws Exception {
     // Arrange
     ActivitiListener baseElement = new ActivitiListener();
@@ -131,15 +102,14 @@ class BpmnXMLUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnXMLUtil#writeExtensionElements(BaseElement, boolean, XMLStreamWriter)}
-   * with {@code baseElement}, {@code didWriteExtensionStartElement}, {@code xtw}.
+   * Test {@link BpmnXMLUtil#writeExtensionElements(BaseElement, boolean, XMLStreamWriter)} with {@code baseElement}, {@code didWriteExtensionStartElement}, {@code xtw}.
    * <p>
-   * Method under test:
-   * {@link BpmnXMLUtil#writeExtensionElements(BaseElement, boolean, XMLStreamWriter)}
+   * Method under test: {@link BpmnXMLUtil#writeExtensionElements(BaseElement, boolean, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeExtensionElements(BaseElement, boolean, XMLStreamWriter) with 'baseElement', 'didWriteExtensionStartElement', 'xtw'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BpmnXMLUtil.writeExtensionElements(BaseElement, boolean, XMLStreamWriter)"})
   void testWriteExtensionElementsWithBaseElementDidWriteExtensionStartElementXtw2() throws Exception {
     // Arrange
     ActivitiListener baseElement = new ActivitiListener();
@@ -149,14 +119,14 @@ class BpmnXMLUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnXMLUtil#writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)}.
+   * Test {@link BpmnXMLUtil#writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)}.
    * <p>
-   * Method under test:
-   * {@link BpmnXMLUtil#writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)}
+   * Method under test: {@link BpmnXMLUtil#writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnXMLUtil.writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)"})
   void testWriteExtensionElement() throws Exception {
     // Arrange
     ExtensionElement extensionElement = new ExtensionElement();
@@ -182,7 +152,7 @@ class BpmnXMLUtilDiffblueTest {
     // Act
     BpmnXMLUtil.writeExtensionElement(extensionElement2, namespaceMap, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw, atLeast(1)).writeEndElement();
     verify(xtw, atLeast(1)).writeStartElement(eq("Name"));
     verify(extensionElement2).getAttributes();
@@ -193,18 +163,17 @@ class BpmnXMLUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnXMLUtil#writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)}.
+   * Test {@link BpmnXMLUtil#writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link ExtensionElement} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link ExtensionElement} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnXMLUtil#writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)}
+   * Method under test: {@link BpmnXMLUtil#writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeExtensionElement(ExtensionElement, Map, XMLStreamWriter); given ArrayList() add ExtensionElement (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnXMLUtil.writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)"})
   void testWriteExtensionElement_givenArrayListAddExtensionElement() throws Exception {
     // Arrange
     ArrayList<ExtensionElement> extensionElementList = new ArrayList<>();
@@ -226,7 +195,7 @@ class BpmnXMLUtilDiffblueTest {
     // Act
     BpmnXMLUtil.writeExtensionElement(extensionElement, namespaceMap, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeEndElement();
     verify(xtw).writeStartElement(eq("Name"));
     verify(extensionElement).getAttributes();
@@ -237,18 +206,18 @@ class BpmnXMLUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnXMLUtil#writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)}.
+   * Test {@link BpmnXMLUtil#writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)}.
    * <ul>
    *   <li>Given {@code Element Text}.</li>
    *   <li>Then calls {@link IndentingXMLStreamWriter#writeCData(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnXMLUtil#writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)}
+   * Method under test: {@link BpmnXMLUtil#writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeExtensionElement(ExtensionElement, Map, XMLStreamWriter); given 'Element Text'; then calls writeCData(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnXMLUtil.writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)"})
   void testWriteExtensionElement_givenElementText_thenCallsWriteCData() throws Exception {
     // Arrange
     ExtensionElement extensionElement = mock(ExtensionElement.class);
@@ -265,7 +234,7 @@ class BpmnXMLUtilDiffblueTest {
     // Act
     BpmnXMLUtil.writeExtensionElement(extensionElement, namespaceMap, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeCData(eq("Element Text"));
     verify(xtw).writeEndElement();
     verify(xtw).writeStartElement(eq("Name"));
@@ -276,17 +245,17 @@ class BpmnXMLUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnXMLUtil#writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)}.
+   * Test {@link BpmnXMLUtil#writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)}.
    * <ul>
    *   <li>Given empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnXMLUtil#writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)}
+   * Method under test: {@link BpmnXMLUtil#writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeExtensionElement(ExtensionElement, Map, XMLStreamWriter); given empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnXMLUtil.writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)"})
   void testWriteExtensionElement_givenEmptyString() throws Exception {
     // Arrange
     ExtensionElement extensionElement = mock(ExtensionElement.class);
@@ -304,7 +273,7 @@ class BpmnXMLUtilDiffblueTest {
     // Act
     BpmnXMLUtil.writeExtensionElement(extensionElement, namespaceMap, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeCData(eq("Element Text"));
     verify(xtw).writeEndElement();
     verify(xtw).writeStartElement(eq("Namespace"), eq("Name"));
@@ -316,17 +285,17 @@ class BpmnXMLUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnXMLUtil#writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)}.
+   * Test {@link BpmnXMLUtil#writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)}.
    * <ul>
    *   <li>Then calls {@link ExtensionElement#getChildElements()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnXMLUtil#writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)}
+   * Method under test: {@link BpmnXMLUtil#writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeExtensionElement(ExtensionElement, Map, XMLStreamWriter); then calls getChildElements()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnXMLUtil.writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)"})
   void testWriteExtensionElement_thenCallsGetChildElements() throws Exception {
     // Arrange
     HashMap<String, List<ExtensionElement>> stringListMap = new HashMap<>();
@@ -345,7 +314,7 @@ class BpmnXMLUtilDiffblueTest {
     // Act
     BpmnXMLUtil.writeExtensionElement(extensionElement, namespaceMap, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeEndElement();
     verify(xtw).writeStartElement(eq("Name"));
     verify(extensionElement).getAttributes();
@@ -356,18 +325,17 @@ class BpmnXMLUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnXMLUtil#writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)}.
+   * Test {@link BpmnXMLUtil#writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)}.
    * <ul>
-   *   <li>Then calls
-   * {@link IndentingXMLStreamWriter#writeStartElement(String, String)}.</li>
+   *   <li>Then calls {@link IndentingXMLStreamWriter#writeStartElement(String, String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnXMLUtil#writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)}
+   * Method under test: {@link BpmnXMLUtil#writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeExtensionElement(ExtensionElement, Map, XMLStreamWriter); then calls writeStartElement(String, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnXMLUtil.writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)"})
   void testWriteExtensionElement_thenCallsWriteStartElement() throws Exception {
     // Arrange
     ExtensionElement extensionElement = mock(ExtensionElement.class);
@@ -385,7 +353,7 @@ class BpmnXMLUtilDiffblueTest {
     // Act
     BpmnXMLUtil.writeExtensionElement(extensionElement, namespaceMap, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeCData(eq("Element Text"));
     verify(xtw).writeEndElement();
     verify(xtw).writeStartElement(eq("Namespace"), eq("Name"));
@@ -397,17 +365,17 @@ class BpmnXMLUtilDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link BpmnXMLUtil#writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)}.
+   * Test {@link BpmnXMLUtil#writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)}.
    * <ul>
    *   <li>Then throw {@link XMLStreamException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnXMLUtil#writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)}
+   * Method under test: {@link BpmnXMLUtil#writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeExtensionElement(ExtensionElement, Map, XMLStreamWriter); then throw XMLStreamException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnXMLUtil.writeExtensionElement(ExtensionElement, Map, XMLStreamWriter)"})
   void testWriteExtensionElement_thenThrowXMLStreamException() throws Exception {
     // Arrange
     ExtensionElement extensionElement = mock(ExtensionElement.class);
@@ -436,6 +404,8 @@ class BpmnXMLUtilDiffblueTest {
    */
   @Test
   @DisplayName("Test parseDelimitedList(String); when empty string; then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List BpmnXMLUtil.parseDelimitedList(String)"})
   void testParseDelimitedList_whenEmptyString_thenReturnEmpty() {
     // Arrange and Act
     List<String> actualParseDelimitedListResult = BpmnXMLUtil.parseDelimitedList("");
@@ -455,6 +425,8 @@ class BpmnXMLUtilDiffblueTest {
    */
   @Test
   @DisplayName("Test parseDelimitedList(String); when 'foo'; then return size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List BpmnXMLUtil.parseDelimitedList(String)"})
   void testParseDelimitedList_whenFoo_thenReturnSizeIsOne() {
     // Arrange and Act
     List<String> actualParseDelimitedListResult = BpmnXMLUtil.parseDelimitedList("foo");
@@ -475,6 +447,8 @@ class BpmnXMLUtilDiffblueTest {
    */
   @Test
   @DisplayName("Test parseDelimitedList(String); when 'null'; then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List BpmnXMLUtil.parseDelimitedList(String)"})
   void testParseDelimitedList_whenNull_thenReturnEmpty() {
     // Arrange and Act
     List<String> actualParseDelimitedListResult = BpmnXMLUtil.parseDelimitedList(null);
@@ -495,6 +469,8 @@ class BpmnXMLUtilDiffblueTest {
    */
   @Test
   @DisplayName("Test convertToDelimitedString(List); given '42'; when ArrayList() add '42'; then return '42,foo'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String BpmnXMLUtil.convertToDelimitedString(List)"})
   void testConvertToDelimitedString_given42_whenArrayListAdd42_thenReturn42Foo() {
     // Arrange
     ArrayList<String> stringList = new ArrayList<>();
@@ -508,59 +484,6 @@ class BpmnXMLUtilDiffblueTest {
   /**
    * Test {@link BpmnXMLUtil#convertToDelimitedString(List)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@code 42}.</li>
-   *   <li>Then return {@code 42,foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BpmnXMLUtil#convertToDelimitedString(List)}
-   */
-  @Test
-  @DisplayName("Test convertToDelimitedString(List); given ArrayList() add '42'; then return '42,foo'")
-  void testConvertToDelimitedString_givenArrayListAdd42_thenReturn42Foo() {
-    // Arrange
-    ArrayList<String> stringList = new ArrayList<>();
-    stringList.add("42");
-    stringList.add("foo");
-    COWArrayList<String> stringList2 = mock(COWArrayList.class);
-    when(stringList2.iterator()).thenReturn(stringList.iterator());
-
-    // Act
-    String actualConvertToDelimitedStringResult = BpmnXMLUtil.convertToDelimitedString(stringList2);
-
-    // Assert
-    verify(stringList2).iterator();
-    assertEquals("42,foo", actualConvertToDelimitedStringResult);
-  }
-
-  /**
-   * Test {@link BpmnXMLUtil#convertToDelimitedString(List)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} iterator.</li>
-   *   <li>Then calls {@link COWArrayList#iterator()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BpmnXMLUtil#convertToDelimitedString(List)}
-   */
-  @Test
-  @DisplayName("Test convertToDelimitedString(List); given ArrayList() iterator; then calls iterator()")
-  void testConvertToDelimitedString_givenArrayListIterator_thenCallsIterator() {
-    // Arrange
-    COWArrayList<String> stringList = mock(COWArrayList.class);
-
-    ArrayList<String> stringList2 = new ArrayList<>();
-    when(stringList.iterator()).thenReturn(stringList2.iterator());
-
-    // Act
-    String actualConvertToDelimitedStringResult = BpmnXMLUtil.convertToDelimitedString(stringList);
-
-    // Assert
-    verify(stringList).iterator();
-    assertEquals("", actualConvertToDelimitedStringResult);
-  }
-
-  /**
-   * Test {@link BpmnXMLUtil#convertToDelimitedString(List)}.
-   * <ul>
    *   <li>Given {@code String List}.</li>
    *   <li>Then return {@code String List}.</li>
    * </ul>
@@ -569,6 +492,8 @@ class BpmnXMLUtilDiffblueTest {
    */
   @Test
   @DisplayName("Test convertToDelimitedString(List); given 'String List'; then return 'String List'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String BpmnXMLUtil.convertToDelimitedString(List)"})
   void testConvertToDelimitedString_givenStringList_thenReturnStringList() {
     // Arrange
     ArrayList<String> stringList = new ArrayList<>();
@@ -589,6 +514,8 @@ class BpmnXMLUtilDiffblueTest {
    */
   @Test
   @DisplayName("Test convertToDelimitedString(List); when ArrayList(); then return empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String BpmnXMLUtil.convertToDelimitedString(List)"})
   void testConvertToDelimitedString_whenArrayList_thenReturnEmptyString() {
     // Arrange, Act and Assert
     assertEquals("", BpmnXMLUtil.convertToDelimitedString(new ArrayList<>()));
@@ -605,24 +532,25 @@ class BpmnXMLUtilDiffblueTest {
    */
   @Test
   @DisplayName("Test convertToDelimitedString(List); when 'null'; then return empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String BpmnXMLUtil.convertToDelimitedString(List)"})
   void testConvertToDelimitedString_whenNull_thenReturnEmptyString() {
     // Arrange, Act and Assert
     assertEquals("", BpmnXMLUtil.convertToDelimitedString(null));
   }
 
   /**
-   * Test
-   * {@link BpmnXMLUtil#writeCustomAttributes(Collection, XMLStreamWriter, List[])}
-   * with {@code attributes}, {@code xtw}, {@code blackLists}.
+   * Test {@link BpmnXMLUtil#writeCustomAttributes(Collection, XMLStreamWriter, List[])} with {@code attributes}, {@code xtw}, {@code blackLists}.
    * <ul>
    *   <li>Then calls {@link ExtensionAttribute#getName()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnXMLUtil#writeCustomAttributes(Collection, XMLStreamWriter, List[])}
+   * Method under test: {@link BpmnXMLUtil#writeCustomAttributes(Collection, XMLStreamWriter, List[])}
    */
   @Test
   @DisplayName("Test writeCustomAttributes(Collection, XMLStreamWriter, List[]) with 'attributes', 'xtw', 'blackLists'; then calls getName()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnXMLUtil.writeCustomAttributes(Collection, XMLStreamWriter, List[])"})
   void testWriteCustomAttributesWithAttributesXtwBlackLists_thenCallsGetName() throws XMLStreamException {
     // Arrange
     ExtensionAttribute extensionAttribute = mock(ExtensionAttribute.class);
@@ -642,22 +570,20 @@ class BpmnXMLUtilDiffblueTest {
     // Act
     BpmnXMLUtil.writeCustomAttributes(attributes, xtw, extensionAttributeList2);
 
-    // Assert that nothing has changed
+    // Assert
     verify(extensionAttribute).getName();
     verify(extensionAttribute, atLeast(1)).getNamespace();
   }
 
   /**
-   * Test
-   * {@link BpmnXMLUtil#writeCustomAttributes(Collection, XMLStreamWriter, Map, List[])}
-   * with {@code attributes}, {@code xtw}, {@code namespaceMap},
-   * {@code blackLists}.
+   * Test {@link BpmnXMLUtil#writeCustomAttributes(Collection, XMLStreamWriter, Map, List[])} with {@code attributes}, {@code xtw}, {@code namespaceMap}, {@code blackLists}.
    * <p>
-   * Method under test:
-   * {@link BpmnXMLUtil#writeCustomAttributes(Collection, XMLStreamWriter, Map, List[])}
+   * Method under test: {@link BpmnXMLUtil#writeCustomAttributes(Collection, XMLStreamWriter, Map, List[])}
    */
   @Test
   @DisplayName("Test writeCustomAttributes(Collection, XMLStreamWriter, Map, List[]) with 'attributes', 'xtw', 'namespaceMap', 'blackLists'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnXMLUtil.writeCustomAttributes(Collection, XMLStreamWriter, Map, List[])"})
   void testWriteCustomAttributesWithAttributesXtwNamespaceMapBlackLists() throws XMLStreamException {
     // Arrange
     ExtensionAttribute extensionAttribute = mock(ExtensionAttribute.class);
@@ -678,7 +604,7 @@ class BpmnXMLUtilDiffblueTest {
     // Act
     BpmnXMLUtil.writeCustomAttributes(attributes, xtw, namespaceMap, extensionAttributeList2);
 
-    // Assert that nothing has changed
+    // Assert
     verify(extensionAttribute).getName();
     verify(extensionAttribute, atLeast(1)).getNamespace();
   }
@@ -686,15 +612,15 @@ class BpmnXMLUtilDiffblueTest {
   /**
    * Test {@link BpmnXMLUtil#isBlacklisted(ExtensionAttribute, List[])}.
    * <ul>
-   *   <li>Given {@link ExtensionAttribute#ExtensionAttribute(String)} with name is
-   * {@code 42}.</li>
+   *   <li>Given {@link ExtensionAttribute#ExtensionAttribute(String)} with name is {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnXMLUtil#isBlacklisted(ExtensionAttribute, List[])}
+   * Method under test: {@link BpmnXMLUtil#isBlacklisted(ExtensionAttribute, List[])}
    */
   @Test
   @DisplayName("Test isBlacklisted(ExtensionAttribute, List[]); given ExtensionAttribute(String) with name is '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BpmnXMLUtil.isBlacklisted(ExtensionAttribute, List[])"})
   void testIsBlacklisted_givenExtensionAttributeWithNameIs42() {
     // Arrange
     ExtensionAttribute attribute = new ExtensionAttribute("Name");
@@ -709,16 +635,16 @@ class BpmnXMLUtilDiffblueTest {
   /**
    * Test {@link BpmnXMLUtil#isBlacklisted(ExtensionAttribute, List[])}.
    * <ul>
-   *   <li>Given {@link ExtensionAttribute#ExtensionAttribute(String)} with
-   * {@code Name}.</li>
+   *   <li>Given {@link ExtensionAttribute#ExtensionAttribute(String)} with {@code Name}.</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnXMLUtil#isBlacklisted(ExtensionAttribute, List[])}
+   * Method under test: {@link BpmnXMLUtil#isBlacklisted(ExtensionAttribute, List[])}
    */
   @Test
   @DisplayName("Test isBlacklisted(ExtensionAttribute, List[]); given ExtensionAttribute(String) with 'Name'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BpmnXMLUtil.isBlacklisted(ExtensionAttribute, List[])"})
   void testIsBlacklisted_givenExtensionAttributeWithName_thenReturnTrue() {
     // Arrange
     ExtensionAttribute attribute = new ExtensionAttribute("Name");
@@ -733,15 +659,15 @@ class BpmnXMLUtilDiffblueTest {
   /**
    * Test {@link BpmnXMLUtil#isBlacklisted(ExtensionAttribute, List[])}.
    * <ul>
-   *   <li>Given {@link ExtensionAttribute#ExtensionAttribute(String, String)} with
-   * namespace is {@code Name} and {@code Name}.</li>
+   *   <li>Given {@link ExtensionAttribute#ExtensionAttribute(String, String)} with namespace is {@code Name} and {@code Name}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnXMLUtil#isBlacklisted(ExtensionAttribute, List[])}
+   * Method under test: {@link BpmnXMLUtil#isBlacklisted(ExtensionAttribute, List[])}
    */
   @Test
   @DisplayName("Test isBlacklisted(ExtensionAttribute, List[]); given ExtensionAttribute(String, String) with namespace is 'Name' and 'Name'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BpmnXMLUtil.isBlacklisted(ExtensionAttribute, List[])"})
   void testIsBlacklisted_givenExtensionAttributeWithNamespaceIsNameAndName() {
     // Arrange
     ExtensionAttribute attribute = new ExtensionAttribute("Name");
@@ -756,16 +682,16 @@ class BpmnXMLUtilDiffblueTest {
   /**
    * Test {@link BpmnXMLUtil#isBlacklisted(ExtensionAttribute, List[])}.
    * <ul>
-   *   <li>When {@link ExtensionAttribute#ExtensionAttribute(String)} with
-   * {@code Name}.</li>
+   *   <li>When {@link ExtensionAttribute#ExtensionAttribute(String)} with {@code Name}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnXMLUtil#isBlacklisted(ExtensionAttribute, List[])}
+   * Method under test: {@link BpmnXMLUtil#isBlacklisted(ExtensionAttribute, List[])}
    */
   @Test
   @DisplayName("Test isBlacklisted(ExtensionAttribute, List[]); when ExtensionAttribute(String) with 'Name'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BpmnXMLUtil.isBlacklisted(ExtensionAttribute, List[])"})
   void testIsBlacklisted_whenExtensionAttributeWithName_thenReturnFalse() {
     // Arrange
     ExtensionAttribute attribute = new ExtensionAttribute("Name");
@@ -777,15 +703,15 @@ class BpmnXMLUtilDiffblueTest {
   /**
    * Test {@link BpmnXMLUtil#isBlacklisted(ExtensionAttribute, List[])}.
    * <ul>
-   *   <li>When {@link ExtensionAttribute#ExtensionAttribute(String, String)} with
-   * {@code Namespace} and {@code Name}.</li>
+   *   <li>When {@link ExtensionAttribute#ExtensionAttribute(String, String)} with {@code Namespace} and {@code Name}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnXMLUtil#isBlacklisted(ExtensionAttribute, List[])}
+   * Method under test: {@link BpmnXMLUtil#isBlacklisted(ExtensionAttribute, List[])}
    */
   @Test
   @DisplayName("Test isBlacklisted(ExtensionAttribute, List[]); when ExtensionAttribute(String, String) with 'Namespace' and 'Name'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BpmnXMLUtil.isBlacklisted(ExtensionAttribute, List[])"})
   void testIsBlacklisted_whenExtensionAttributeWithNamespaceAndName() {
     // Arrange
     ExtensionAttribute attribute = new ExtensionAttribute("Namespace", "Name");
@@ -800,15 +726,15 @@ class BpmnXMLUtilDiffblueTest {
   /**
    * Test {@link BpmnXMLUtil#isBlacklisted(ExtensionAttribute, List[])}.
    * <ul>
-   *   <li>When {@link ExtensionAttribute#ExtensionAttribute(String, String)} with
-   * {@code Namespace} and {@code Name}.</li>
+   *   <li>When {@link ExtensionAttribute#ExtensionAttribute(String, String)} with {@code Namespace} and {@code Name}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnXMLUtil#isBlacklisted(ExtensionAttribute, List[])}
+   * Method under test: {@link BpmnXMLUtil#isBlacklisted(ExtensionAttribute, List[])}
    */
   @Test
   @DisplayName("Test isBlacklisted(ExtensionAttribute, List[]); when ExtensionAttribute(String, String) with 'Namespace' and 'Name'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BpmnXMLUtil.isBlacklisted(ExtensionAttribute, List[])"})
   void testIsBlacklisted_whenExtensionAttributeWithNamespaceAndName2() {
     // Arrange
     ExtensionAttribute attribute = new ExtensionAttribute("Namespace", "Name");
@@ -823,15 +749,15 @@ class BpmnXMLUtilDiffblueTest {
   /**
    * Test {@link BpmnXMLUtil#isBlacklisted(ExtensionAttribute, List[])}.
    * <ul>
-   *   <li>When {@link ExtensionAttribute#ExtensionAttribute(String, String)} with
-   * namespace is {@code Name} and {@code Name}.</li>
+   *   <li>When {@link ExtensionAttribute#ExtensionAttribute(String, String)} with namespace is {@code Name} and {@code Name}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnXMLUtil#isBlacklisted(ExtensionAttribute, List[])}
+   * Method under test: {@link BpmnXMLUtil#isBlacklisted(ExtensionAttribute, List[])}
    */
   @Test
   @DisplayName("Test isBlacklisted(ExtensionAttribute, List[]); when ExtensionAttribute(String, String) with namespace is 'Name' and 'Name'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BpmnXMLUtil.isBlacklisted(ExtensionAttribute, List[])"})
   void testIsBlacklisted_whenExtensionAttributeWithNamespaceIsNameAndName() {
     // Arrange
     ExtensionAttribute attribute = new ExtensionAttribute("Name", "Name");
@@ -850,126 +776,29 @@ class BpmnXMLUtilDiffblueTest {
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnXMLUtil#isBlacklisted(ExtensionAttribute, List[])}
+   * Method under test: {@link BpmnXMLUtil#isBlacklisted(ExtensionAttribute, List[])}
    */
   @Test
   @DisplayName("Test isBlacklisted(ExtensionAttribute, List[]); when 'null'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BpmnXMLUtil.isBlacklisted(ExtensionAttribute, List[])"})
   void testIsBlacklisted_whenNull_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(BpmnXMLUtil.isBlacklisted(new ExtensionAttribute("Name"), null));
   }
 
   /**
-   * Test
-   * {@link BpmnXMLUtil#writeIncomingAndOutgoingFlowElement(FlowNode, XMLStreamWriter)}.
-   * <p>
-   * Method under test:
-   * {@link BpmnXMLUtil#writeIncomingAndOutgoingFlowElement(FlowNode, XMLStreamWriter)}
-   */
-  @Test
-  @DisplayName("Test writeIncomingAndOutgoingFlowElement(FlowNode, XMLStreamWriter)")
-  void testWriteIncomingAndOutgoingFlowElement() throws Exception {
-    // Arrange
-    ArrayList<SequenceFlow> sequenceFlowList = new ArrayList<>();
-    sequenceFlowList.add(new SequenceFlow("Source Ref", "Target Ref"));
-
-    ArrayList<SequenceFlow> sequenceFlowList2 = new ArrayList<>();
-    sequenceFlowList2.add(new SequenceFlow("bpmn2", "bpmn2"));
-    AdhocSubProcess flowNode = mock(AdhocSubProcess.class);
-    when(flowNode.getIncomingFlows()).thenReturn(sequenceFlowList);
-    when(flowNode.getOutgoingFlows()).thenReturn(sequenceFlowList2);
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeEndElement();
-    doNothing().when(writer).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-
-    // Act
-    BpmnXMLUtil.writeIncomingAndOutgoingFlowElement(flowNode, new IndentingXMLStreamWriter(writer));
-
-    // Assert
-    verify(writer, atLeast(1)).writeCharacters((String) isNull());
-    verify(writer, atLeast(1)).writeEndElement();
-    verify(writer, atLeast(1)).writeStartElement(eq("bpmn2"), Mockito.<String>any(),
-        eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
-    verify(flowNode, atLeast(1)).getIncomingFlows();
-    verify(flowNode, atLeast(1)).getOutgoingFlows();
-  }
-
-  /**
-   * Test
-   * {@link BpmnXMLUtil#writeIncomingAndOutgoingFlowElement(FlowNode, XMLStreamWriter)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then calls {@link FlowNode#getIncomingFlows()}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link BpmnXMLUtil#writeIncomingAndOutgoingFlowElement(FlowNode, XMLStreamWriter)}
-   */
-  @Test
-  @DisplayName("Test writeIncomingAndOutgoingFlowElement(FlowNode, XMLStreamWriter); given ArrayList(); then calls getIncomingFlows()")
-  void testWriteIncomingAndOutgoingFlowElement_givenArrayList_thenCallsGetIncomingFlows() throws Exception {
-    // Arrange
-    AdhocSubProcess flowNode = mock(AdhocSubProcess.class);
-    when(flowNode.getIncomingFlows()).thenReturn(new ArrayList<>());
-    when(flowNode.getOutgoingFlows()).thenReturn(new ArrayList<>());
-
-    // Act
-    BpmnXMLUtil.writeIncomingAndOutgoingFlowElement(flowNode, new IndentingXMLStreamWriter(null));
-
-    // Assert that nothing has changed
-    verify(flowNode).getIncomingFlows();
-    verify(flowNode).getOutgoingFlows();
-  }
-
-  /**
-   * Test
-   * {@link BpmnXMLUtil#writeIncomingAndOutgoingFlowElement(FlowNode, XMLStreamWriter)}.
+   * Test {@link BpmnXMLUtil#writeIncomingElementChild(XMLStreamWriter, SequenceFlow)}.
    * <ul>
    *   <li>Then calls {@link IndentingXMLStreamWriter#writeCharacters(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnXMLUtil#writeIncomingAndOutgoingFlowElement(FlowNode, XMLStreamWriter)}
-   */
-  @Test
-  @DisplayName("Test writeIncomingAndOutgoingFlowElement(FlowNode, XMLStreamWriter); then calls writeCharacters(String)")
-  void testWriteIncomingAndOutgoingFlowElement_thenCallsWriteCharacters() throws Exception {
-    // Arrange
-    ArrayList<SequenceFlow> sequenceFlowList = new ArrayList<>();
-    sequenceFlowList.add(new SequenceFlow("Source Ref", "Target Ref"));
-    AdhocSubProcess flowNode = mock(AdhocSubProcess.class);
-    when(flowNode.getIncomingFlows()).thenReturn(sequenceFlowList);
-    when(flowNode.getOutgoingFlows()).thenReturn(new ArrayList<>());
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeEndElement();
-    doNothing().when(writer).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-
-    // Act
-    BpmnXMLUtil.writeIncomingAndOutgoingFlowElement(flowNode, new IndentingXMLStreamWriter(writer));
-
-    // Assert
-    verify(writer).writeCharacters((String) isNull());
-    verify(writer).writeEndElement();
-    verify(writer).writeStartElement(eq("bpmn2"), eq("incoming"), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
-    verify(flowNode, atLeast(1)).getIncomingFlows();
-    verify(flowNode).getOutgoingFlows();
-  }
-
-  /**
-   * Test
-   * {@link BpmnXMLUtil#writeIncomingElementChild(XMLStreamWriter, SequenceFlow)}.
-   * <ul>
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeCharacters(String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link BpmnXMLUtil#writeIncomingElementChild(XMLStreamWriter, SequenceFlow)}
+   * Method under test: {@link BpmnXMLUtil#writeIncomingElementChild(XMLStreamWriter, SequenceFlow)}
    */
   @Test
   @DisplayName("Test writeIncomingElementChild(XMLStreamWriter, SequenceFlow); then calls writeCharacters(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnXMLUtil.writeIncomingElementChild(XMLStreamWriter, SequenceFlow)"})
   void testWriteIncomingElementChild_thenCallsWriteCharacters() throws Exception {
     // Arrange
     IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
@@ -980,24 +809,24 @@ class BpmnXMLUtilDiffblueTest {
     // Act
     BpmnXMLUtil.writeIncomingElementChild(xtw, new SequenceFlow("Source Ref", "Target Ref"));
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeCharacters((String) isNull());
     verify(xtw).writeEndElement();
     verify(xtw).writeStartElement(eq("bpmn2"), eq("incoming"), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
   }
 
   /**
-   * Test
-   * {@link BpmnXMLUtil#writeOutgoingElementChild(XMLStreamWriter, SequenceFlow)}.
+   * Test {@link BpmnXMLUtil#writeOutgoingElementChild(XMLStreamWriter, SequenceFlow)}.
    * <ul>
    *   <li>Then calls {@link IndentingXMLStreamWriter#writeCharacters(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnXMLUtil#writeOutgoingElementChild(XMLStreamWriter, SequenceFlow)}
+   * Method under test: {@link BpmnXMLUtil#writeOutgoingElementChild(XMLStreamWriter, SequenceFlow)}
    */
   @Test
   @DisplayName("Test writeOutgoingElementChild(XMLStreamWriter, SequenceFlow); then calls writeCharacters(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BpmnXMLUtil.writeOutgoingElementChild(XMLStreamWriter, SequenceFlow)"})
   void testWriteOutgoingElementChild_thenCallsWriteCharacters() throws Exception {
     // Arrange
     IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
@@ -1008,7 +837,7 @@ class BpmnXMLUtilDiffblueTest {
     // Act
     BpmnXMLUtil.writeOutgoingElementChild(xtw, new SequenceFlow("Source Ref", "Target Ref"));
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw).writeCharacters((String) isNull());
     verify(xtw).writeEndElement();
     verify(xtw).writeStartElement(eq("bpmn2"), eq("outgoing"), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));

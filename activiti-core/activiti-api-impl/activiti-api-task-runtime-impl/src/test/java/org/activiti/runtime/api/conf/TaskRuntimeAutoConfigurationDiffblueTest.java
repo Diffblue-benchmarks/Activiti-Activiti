@@ -15,7 +15,6 @@
  */
 package org.activiti.runtime.api.conf;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -23,11 +22,10 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
-import org.activiti.api.model.shared.event.RuntimeEvent;
 import org.activiti.api.runtime.shared.events.VariableEventListener;
-import org.activiti.api.task.runtime.conf.TaskRuntimeConfiguration;
 import org.activiti.api.task.runtime.events.TaskCandidateGroupAddedEvent;
 import org.activiti.api.task.runtime.events.TaskCandidateGroupRemovedEvent;
 import org.activiti.api.task.runtime.events.TaskCandidateUserAddedEvent;
@@ -47,21 +45,25 @@ import org.activiti.runtime.api.impl.VariableNameValidator;
 import org.activiti.runtime.api.model.impl.APITaskCandidateGroupConverter;
 import org.activiti.runtime.api.model.impl.APITaskCandidateUserConverter;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class TaskRuntimeAutoConfigurationDiffblueTest {
   /**
-   * Test
-   * {@link TaskRuntimeAutoConfiguration#taskVariablesValidator(DateFormatterProvider, VariableNameValidator)}.
+   * Test {@link TaskRuntimeAutoConfiguration#taskVariablesValidator(DateFormatterProvider, VariableNameValidator)}.
    * <p>
-   * Method under test:
-   * {@link TaskRuntimeAutoConfiguration#taskVariablesValidator(DateFormatterProvider, VariableNameValidator)}
+   * Method under test: {@link TaskRuntimeAutoConfiguration#taskVariablesValidator(DateFormatterProvider, VariableNameValidator)}
    */
   @Test
   @DisplayName("Test taskVariablesValidator(DateFormatterProvider, VariableNameValidator)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.runtime.api.impl.TaskVariablesPayloadValidator TaskRuntimeAutoConfiguration.taskVariablesValidator(DateFormatterProvider, VariableNameValidator)"})
   void testTaskVariablesValidator() {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
 
     // Arrange
     TaskRuntimeAutoConfiguration taskRuntimeAutoConfiguration = new TaskRuntimeAutoConfiguration();
@@ -73,106 +75,44 @@ class TaskRuntimeAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TaskRuntimeAutoConfiguration#taskVariablesValidator(DateFormatterProvider, VariableNameValidator)}.
+   * Test {@link TaskRuntimeAutoConfiguration#taskRuntimeConfiguration(List, List)}.
    * <ul>
-   *   <li>When {@link DateFormatterProvider}.</li>
+   *   <li>Given {@link TaskRuntimeEventListener}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskRuntimeAutoConfiguration#taskVariablesValidator(DateFormatterProvider, VariableNameValidator)}
+   * Method under test: {@link TaskRuntimeAutoConfiguration#taskRuntimeConfiguration(List, List)}
    */
   @Test
-  @DisplayName("Test taskVariablesValidator(DateFormatterProvider, VariableNameValidator); when DateFormatterProvider")
-  void testTaskVariablesValidator_whenDateFormatterProvider() {
-    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
-
+  @DisplayName("Test taskRuntimeConfiguration(List, List); given TaskRuntimeEventListener")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.task.runtime.conf.TaskRuntimeConfiguration TaskRuntimeAutoConfiguration.taskRuntimeConfiguration(List, List)"})
+  void testTaskRuntimeConfiguration_givenTaskRuntimeEventListener() {
     // Arrange
     TaskRuntimeAutoConfiguration taskRuntimeAutoConfiguration = new TaskRuntimeAutoConfiguration();
-    DateFormatterProvider dateFormatterProvider = mock(DateFormatterProvider.class);
+
+    ArrayList<TaskRuntimeEventListener<?>> taskRuntimeEventListeners = new ArrayList<>();
+    taskRuntimeEventListeners.add(mock(TaskRuntimeEventListener.class));
 
     // Act and Assert
-    assertNull(taskRuntimeAutoConfiguration.taskVariablesValidator(dateFormatterProvider, new VariableNameValidator())
-        .handlePayloadVariables(null));
+    assertTrue(taskRuntimeAutoConfiguration.taskRuntimeConfiguration(taskRuntimeEventListeners,
+        new ArrayList<>()) instanceof TaskRuntimeConfigurationImpl);
   }
 
   /**
-   * Test
-   * {@link TaskRuntimeAutoConfiguration#taskRuntimeConfiguration(List, List)}.
+   * Test {@link TaskRuntimeAutoConfiguration#taskRuntimeConfiguration(List, List)}.
    * <ul>
-   *   <li>Then return taskRuntimeEventListeners Empty.</li>
+   *   <li>Given {@link TaskRuntimeEventListener}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskRuntimeAutoConfiguration#taskRuntimeConfiguration(List, List)}
+   * Method under test: {@link TaskRuntimeAutoConfiguration#taskRuntimeConfiguration(List, List)}
    */
   @Test
-  @DisplayName("Test taskRuntimeConfiguration(List, List); then return taskRuntimeEventListeners Empty")
-  void testTaskRuntimeConfiguration_thenReturnTaskRuntimeEventListenersEmpty() {
-    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
-
-    // Arrange
-    TaskRuntimeAutoConfiguration taskRuntimeAutoConfiguration = new TaskRuntimeAutoConfiguration();
-    ArrayList<TaskRuntimeEventListener<?>> taskRuntimeEventListeners = new ArrayList<>();
-
-    // Act
-    TaskRuntimeConfiguration actualTaskRuntimeConfigurationResult = taskRuntimeAutoConfiguration
-        .taskRuntimeConfiguration(taskRuntimeEventListeners, new ArrayList<>());
-
-    // Assert
-    assertTrue(actualTaskRuntimeConfigurationResult instanceof TaskRuntimeConfigurationImpl);
-    assertTrue(actualTaskRuntimeConfigurationResult.taskRuntimeEventListeners().isEmpty());
-    assertTrue(actualTaskRuntimeConfigurationResult.variableEventListeners().isEmpty());
-  }
-
-  /**
-   * Test
-   * {@link TaskRuntimeAutoConfiguration#taskRuntimeConfiguration(List, List)}.
-   * <ul>
-   *   <li>Then return taskRuntimeEventListeners is
-   * {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link TaskRuntimeAutoConfiguration#taskRuntimeConfiguration(List, List)}
-   */
-  @Test
-  @DisplayName("Test taskRuntimeConfiguration(List, List); then return taskRuntimeEventListeners is ArrayList()")
-  void testTaskRuntimeConfiguration_thenReturnTaskRuntimeEventListenersIsArrayList() {
-    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
-
-    // Arrange
-    TaskRuntimeAutoConfiguration taskRuntimeAutoConfiguration = new TaskRuntimeAutoConfiguration();
-
-    ArrayList<TaskRuntimeEventListener<?>> taskRuntimeEventListeners = new ArrayList<>();
-    taskRuntimeEventListeners.add(mock(TaskRuntimeEventListener.class));
-
-    // Act
-    TaskRuntimeConfiguration actualTaskRuntimeConfigurationResult = taskRuntimeAutoConfiguration
-        .taskRuntimeConfiguration(taskRuntimeEventListeners, new ArrayList<>());
-
-    // Assert
-    assertTrue(actualTaskRuntimeConfigurationResult instanceof TaskRuntimeConfigurationImpl);
-    assertTrue(actualTaskRuntimeConfigurationResult.variableEventListeners().isEmpty());
-    assertEquals(taskRuntimeEventListeners, actualTaskRuntimeConfigurationResult.taskRuntimeEventListeners());
-  }
-
-  /**
-   * Test
-   * {@link TaskRuntimeAutoConfiguration#taskRuntimeConfiguration(List, List)}.
-   * <ul>
-   *   <li>Then return taskRuntimeEventListeners is
-   * {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link TaskRuntimeAutoConfiguration#taskRuntimeConfiguration(List, List)}
-   */
-  @Test
-  @DisplayName("Test taskRuntimeConfiguration(List, List); then return taskRuntimeEventListeners is ArrayList()")
-  void testTaskRuntimeConfiguration_thenReturnTaskRuntimeEventListenersIsArrayList2() {
-    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
-
+  @DisplayName("Test taskRuntimeConfiguration(List, List); given TaskRuntimeEventListener")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.task.runtime.conf.TaskRuntimeConfiguration TaskRuntimeAutoConfiguration.taskRuntimeConfiguration(List, List)"})
+  void testTaskRuntimeConfiguration_givenTaskRuntimeEventListener2() {
     // Arrange
     TaskRuntimeAutoConfiguration taskRuntimeAutoConfiguration = new TaskRuntimeAutoConfiguration();
 
@@ -180,31 +120,25 @@ class TaskRuntimeAutoConfigurationDiffblueTest {
     taskRuntimeEventListeners.add(mock(TaskRuntimeEventListener.class));
     taskRuntimeEventListeners.add(mock(TaskRuntimeEventListener.class));
 
-    // Act
-    TaskRuntimeConfiguration actualTaskRuntimeConfigurationResult = taskRuntimeAutoConfiguration
-        .taskRuntimeConfiguration(taskRuntimeEventListeners, new ArrayList<>());
-
-    // Assert
-    assertTrue(actualTaskRuntimeConfigurationResult instanceof TaskRuntimeConfigurationImpl);
-    assertTrue(actualTaskRuntimeConfigurationResult.variableEventListeners().isEmpty());
-    assertEquals(taskRuntimeEventListeners, actualTaskRuntimeConfigurationResult.taskRuntimeEventListeners());
+    // Act and Assert
+    assertTrue(taskRuntimeAutoConfiguration.taskRuntimeConfiguration(taskRuntimeEventListeners,
+        new ArrayList<>()) instanceof TaskRuntimeConfigurationImpl);
   }
 
   /**
-   * Test
-   * {@link TaskRuntimeAutoConfiguration#taskRuntimeConfiguration(List, List)}.
+   * Test {@link TaskRuntimeAutoConfiguration#taskRuntimeConfiguration(List, List)}.
    * <ul>
-   *   <li>Then return variableEventListeners is {@link ArrayList#ArrayList()}.</li>
+   *   <li>Given {@link VariableEventListener}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskRuntimeAutoConfiguration#taskRuntimeConfiguration(List, List)}
+   * Method under test: {@link TaskRuntimeAutoConfiguration#taskRuntimeConfiguration(List, List)}
    */
   @Test
-  @DisplayName("Test taskRuntimeConfiguration(List, List); then return variableEventListeners is ArrayList()")
-  void testTaskRuntimeConfiguration_thenReturnVariableEventListenersIsArrayList() {
-    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
-
+  @DisplayName("Test taskRuntimeConfiguration(List, List); given VariableEventListener")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.task.runtime.conf.TaskRuntimeConfiguration TaskRuntimeAutoConfiguration.taskRuntimeConfiguration(List, List)"})
+  void testTaskRuntimeConfiguration_givenVariableEventListener() {
     // Arrange
     TaskRuntimeAutoConfiguration taskRuntimeAutoConfiguration = new TaskRuntimeAutoConfiguration();
     ArrayList<TaskRuntimeEventListener<?>> taskRuntimeEventListeners = new ArrayList<>();
@@ -212,31 +146,25 @@ class TaskRuntimeAutoConfigurationDiffblueTest {
     ArrayList<VariableEventListener<?>> variableEventListeners = new ArrayList<>();
     variableEventListeners.add(mock(VariableEventListener.class));
 
-    // Act
-    TaskRuntimeConfiguration actualTaskRuntimeConfigurationResult = taskRuntimeAutoConfiguration
-        .taskRuntimeConfiguration(taskRuntimeEventListeners, variableEventListeners);
-
-    // Assert
-    assertTrue(actualTaskRuntimeConfigurationResult instanceof TaskRuntimeConfigurationImpl);
-    assertTrue(actualTaskRuntimeConfigurationResult.taskRuntimeEventListeners().isEmpty());
-    assertEquals(variableEventListeners, actualTaskRuntimeConfigurationResult.variableEventListeners());
+    // Act and Assert
+    assertTrue(taskRuntimeAutoConfiguration.taskRuntimeConfiguration(taskRuntimeEventListeners,
+        variableEventListeners) instanceof TaskRuntimeConfigurationImpl);
   }
 
   /**
-   * Test
-   * {@link TaskRuntimeAutoConfiguration#taskRuntimeConfiguration(List, List)}.
+   * Test {@link TaskRuntimeAutoConfiguration#taskRuntimeConfiguration(List, List)}.
    * <ul>
-   *   <li>Then return variableEventListeners is {@link ArrayList#ArrayList()}.</li>
+   *   <li>Given {@link VariableEventListener}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskRuntimeAutoConfiguration#taskRuntimeConfiguration(List, List)}
+   * Method under test: {@link TaskRuntimeAutoConfiguration#taskRuntimeConfiguration(List, List)}
    */
   @Test
-  @DisplayName("Test taskRuntimeConfiguration(List, List); then return variableEventListeners is ArrayList()")
-  void testTaskRuntimeConfiguration_thenReturnVariableEventListenersIsArrayList2() {
-    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
-
+  @DisplayName("Test taskRuntimeConfiguration(List, List); given VariableEventListener")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.task.runtime.conf.TaskRuntimeConfiguration TaskRuntimeAutoConfiguration.taskRuntimeConfiguration(List, List)"})
+  void testTaskRuntimeConfiguration_givenVariableEventListener2() {
     // Arrange
     TaskRuntimeAutoConfiguration taskRuntimeAutoConfiguration = new TaskRuntimeAutoConfiguration();
     ArrayList<TaskRuntimeEventListener<?>> taskRuntimeEventListeners = new ArrayList<>();
@@ -245,53 +173,67 @@ class TaskRuntimeAutoConfigurationDiffblueTest {
     variableEventListeners.add(mock(VariableEventListener.class));
     variableEventListeners.add(mock(VariableEventListener.class));
 
-    // Act
-    TaskRuntimeConfiguration actualTaskRuntimeConfigurationResult = taskRuntimeAutoConfiguration
-        .taskRuntimeConfiguration(taskRuntimeEventListeners, variableEventListeners);
-
-    // Assert
-    assertTrue(actualTaskRuntimeConfigurationResult instanceof TaskRuntimeConfigurationImpl);
-    assertTrue(actualTaskRuntimeConfigurationResult.taskRuntimeEventListeners().isEmpty());
-    assertEquals(variableEventListeners, actualTaskRuntimeConfigurationResult.variableEventListeners());
+    // Act and Assert
+    assertTrue(taskRuntimeAutoConfiguration.taskRuntimeConfiguration(taskRuntimeEventListeners,
+        variableEventListeners) instanceof TaskRuntimeConfigurationImpl);
   }
 
   /**
-   * Test
-   * {@link TaskRuntimeAutoConfiguration#taskRuntimeConfiguration(List, List)}.
+   * Test {@link TaskRuntimeAutoConfiguration#taskRuntimeConfiguration(List, List)}.
+   * <ul>
+   *   <li>When {@link ArrayList#ArrayList()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link TaskRuntimeAutoConfiguration#taskRuntimeConfiguration(List, List)}
+   */
+  @Test
+  @DisplayName("Test taskRuntimeConfiguration(List, List); when ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.task.runtime.conf.TaskRuntimeConfiguration TaskRuntimeAutoConfiguration.taskRuntimeConfiguration(List, List)"})
+  void testTaskRuntimeConfiguration_whenArrayList() {
+    // Arrange
+    TaskRuntimeAutoConfiguration taskRuntimeAutoConfiguration = new TaskRuntimeAutoConfiguration();
+    ArrayList<TaskRuntimeEventListener<?>> taskRuntimeEventListeners = new ArrayList<>();
+
+    // Act and Assert
+    assertTrue(taskRuntimeAutoConfiguration.taskRuntimeConfiguration(taskRuntimeEventListeners,
+        new ArrayList<>()) instanceof TaskRuntimeConfigurationImpl);
+  }
+
+  /**
+   * Test {@link TaskRuntimeAutoConfiguration#taskRuntimeConfiguration(List, List)}.
    * <ul>
    *   <li>When {@code null}.</li>
-   *   <li>Then return taskRuntimeEventListeners Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskRuntimeAutoConfiguration#taskRuntimeConfiguration(List, List)}
+   * Method under test: {@link TaskRuntimeAutoConfiguration#taskRuntimeConfiguration(List, List)}
    */
   @Test
-  @DisplayName("Test taskRuntimeConfiguration(List, List); when 'null'; then return taskRuntimeEventListeners Empty")
-  void testTaskRuntimeConfiguration_whenNull_thenReturnTaskRuntimeEventListenersEmpty() {
-    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
-
-    // Arrange and Act
-    TaskRuntimeConfiguration actualTaskRuntimeConfigurationResult = (new TaskRuntimeAutoConfiguration())
-        .taskRuntimeConfiguration(null, null);
-
-    // Assert
-    assertTrue(actualTaskRuntimeConfigurationResult instanceof TaskRuntimeConfigurationImpl);
-    assertTrue(actualTaskRuntimeConfigurationResult.taskRuntimeEventListeners().isEmpty());
-    assertTrue(actualTaskRuntimeConfigurationResult.variableEventListeners().isEmpty());
+  @DisplayName("Test taskRuntimeConfiguration(List, List); when 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.activiti.api.task.runtime.conf.TaskRuntimeConfiguration TaskRuntimeAutoConfiguration.taskRuntimeConfiguration(List, List)"})
+  void testTaskRuntimeConfiguration_whenNull() {
+    // Arrange, Act and Assert
+    assertTrue((new TaskRuntimeAutoConfiguration()).taskRuntimeConfiguration(null,
+        null) instanceof TaskRuntimeConfigurationImpl);
   }
 
   /**
-   * Test
-   * {@link TaskRuntimeAutoConfiguration#toAPITaskCandidateUserAddedEventConverter(APITaskCandidateUserConverter)}.
+   * Test {@link TaskRuntimeAutoConfiguration#toAPITaskCandidateUserAddedEventConverter(APITaskCandidateUserConverter)}.
    * <p>
-   * Method under test:
-   * {@link TaskRuntimeAutoConfiguration#toAPITaskCandidateUserAddedEventConverter(APITaskCandidateUserConverter)}
+   * Method under test: {@link TaskRuntimeAutoConfiguration#toAPITaskCandidateUserAddedEventConverter(APITaskCandidateUserConverter)}
    */
   @Test
   @DisplayName("Test toAPITaskCandidateUserAddedEventConverter(APITaskCandidateUserConverter)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "ToAPITaskCandidateUserAddedEventConverter TaskRuntimeAutoConfiguration.toAPITaskCandidateUserAddedEventConverter(APITaskCandidateUserConverter)"})
   void testToAPITaskCandidateUserAddedEventConverter() {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
 
     // Arrange
     TaskRuntimeAutoConfiguration taskRuntimeAutoConfiguration = new TaskRuntimeAutoConfiguration();
@@ -307,44 +249,22 @@ class TaskRuntimeAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TaskRuntimeAutoConfiguration#toAPITaskCandidateUserAddedEventConverter(APITaskCandidateUserConverter)}.
-   * <ul>
-   *   <li>When {@link APITaskCandidateUserConverter}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link TaskRuntimeAutoConfiguration#toAPITaskCandidateUserAddedEventConverter(APITaskCandidateUserConverter)}
-   */
-  @Test
-  @DisplayName("Test toAPITaskCandidateUserAddedEventConverter(APITaskCandidateUserConverter); when APITaskCandidateUserConverter")
-  void testToAPITaskCandidateUserAddedEventConverter_whenAPITaskCandidateUserConverter() {
-    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
-
-    // Arrange and Act
-    ToAPITaskCandidateUserAddedEventConverter actualToAPITaskCandidateUserAddedEventConverterResult = (new TaskRuntimeAutoConfiguration())
-        .toAPITaskCandidateUserAddedEventConverter(mock(APITaskCandidateUserConverter.class));
-
-    // Assert
-    assertFalse(actualToAPITaskCandidateUserAddedEventConverterResult
-        .from(new ActivitiProcessCancelledEventImpl(ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
-        .isPresent());
-  }
-
-  /**
-   * Test
-   * {@link TaskRuntimeAutoConfiguration#registerTaskCandidateUserAddedEventListener(RuntimeService, List, ToAPITaskCandidateUserAddedEventConverter)}.
+   * Test {@link TaskRuntimeAutoConfiguration#registerTaskCandidateUserAddedEventListener(RuntimeService, List, ToAPITaskCandidateUserAddedEventConverter)}.
    * <ul>
    *   <li>Given {@link TaskRuntimeEventListener}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskRuntimeAutoConfiguration#registerTaskCandidateUserAddedEventListener(RuntimeService, List, ToAPITaskCandidateUserAddedEventConverter)}
+   * Method under test: {@link TaskRuntimeAutoConfiguration#registerTaskCandidateUserAddedEventListener(RuntimeService, List, ToAPITaskCandidateUserAddedEventConverter)}
    */
   @Test
   @DisplayName("Test registerTaskCandidateUserAddedEventListener(RuntimeService, List, ToAPITaskCandidateUserAddedEventConverter); given TaskRuntimeEventListener")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.springframework.beans.factory.InitializingBean TaskRuntimeAutoConfiguration.registerTaskCandidateUserAddedEventListener(RuntimeService, List, ToAPITaskCandidateUserAddedEventConverter)"})
   void testRegisterTaskCandidateUserAddedEventListener_givenTaskRuntimeEventListener() throws Exception {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
 
     // Arrange
     TaskRuntimeAutoConfiguration taskRuntimeAutoConfiguration = new TaskRuntimeAutoConfiguration();
@@ -366,19 +286,22 @@ class TaskRuntimeAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TaskRuntimeAutoConfiguration#registerTaskCandidateUserAddedEventListener(RuntimeService, List, ToAPITaskCandidateUserAddedEventConverter)}.
+   * Test {@link TaskRuntimeAutoConfiguration#registerTaskCandidateUserAddedEventListener(RuntimeService, List, ToAPITaskCandidateUserAddedEventConverter)}.
    * <ul>
    *   <li>Given {@link TaskRuntimeEventListener}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskRuntimeAutoConfiguration#registerTaskCandidateUserAddedEventListener(RuntimeService, List, ToAPITaskCandidateUserAddedEventConverter)}
+   * Method under test: {@link TaskRuntimeAutoConfiguration#registerTaskCandidateUserAddedEventListener(RuntimeService, List, ToAPITaskCandidateUserAddedEventConverter)}
    */
   @Test
   @DisplayName("Test registerTaskCandidateUserAddedEventListener(RuntimeService, List, ToAPITaskCandidateUserAddedEventConverter); given TaskRuntimeEventListener")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.springframework.beans.factory.InitializingBean TaskRuntimeAutoConfiguration.registerTaskCandidateUserAddedEventListener(RuntimeService, List, ToAPITaskCandidateUserAddedEventConverter)"})
   void testRegisterTaskCandidateUserAddedEventListener_givenTaskRuntimeEventListener2() throws Exception {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
 
     // Arrange
     TaskRuntimeAutoConfiguration taskRuntimeAutoConfiguration = new TaskRuntimeAutoConfiguration();
@@ -401,19 +324,22 @@ class TaskRuntimeAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TaskRuntimeAutoConfiguration#registerTaskCandidateUserAddedEventListener(RuntimeService, List, ToAPITaskCandidateUserAddedEventConverter)}.
+   * Test {@link TaskRuntimeAutoConfiguration#registerTaskCandidateUserAddedEventListener(RuntimeService, List, ToAPITaskCandidateUserAddedEventConverter)}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskRuntimeAutoConfiguration#registerTaskCandidateUserAddedEventListener(RuntimeService, List, ToAPITaskCandidateUserAddedEventConverter)}
+   * Method under test: {@link TaskRuntimeAutoConfiguration#registerTaskCandidateUserAddedEventListener(RuntimeService, List, ToAPITaskCandidateUserAddedEventConverter)}
    */
   @Test
   @DisplayName("Test registerTaskCandidateUserAddedEventListener(RuntimeService, List, ToAPITaskCandidateUserAddedEventConverter); when ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.springframework.beans.factory.InitializingBean TaskRuntimeAutoConfiguration.registerTaskCandidateUserAddedEventListener(RuntimeService, List, ToAPITaskCandidateUserAddedEventConverter)"})
   void testRegisterTaskCandidateUserAddedEventListener_whenArrayList() throws Exception {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
 
     // Arrange
     TaskRuntimeAutoConfiguration taskRuntimeAutoConfiguration = new TaskRuntimeAutoConfiguration();
@@ -433,19 +359,22 @@ class TaskRuntimeAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TaskRuntimeAutoConfiguration#registerTaskCandidateUserRemovedEventListener(RuntimeService, List, APITaskCandidateUserConverter)}.
+   * Test {@link TaskRuntimeAutoConfiguration#registerTaskCandidateUserRemovedEventListener(RuntimeService, List, APITaskCandidateUserConverter)}.
    * <ul>
    *   <li>Given {@link TaskRuntimeEventListener}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskRuntimeAutoConfiguration#registerTaskCandidateUserRemovedEventListener(RuntimeService, List, APITaskCandidateUserConverter)}
+   * Method under test: {@link TaskRuntimeAutoConfiguration#registerTaskCandidateUserRemovedEventListener(RuntimeService, List, APITaskCandidateUserConverter)}
    */
   @Test
   @DisplayName("Test registerTaskCandidateUserRemovedEventListener(RuntimeService, List, APITaskCandidateUserConverter); given TaskRuntimeEventListener")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.springframework.beans.factory.InitializingBean TaskRuntimeAutoConfiguration.registerTaskCandidateUserRemovedEventListener(RuntimeService, List, APITaskCandidateUserConverter)"})
   void testRegisterTaskCandidateUserRemovedEventListener_givenTaskRuntimeEventListener() throws Exception {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
 
     // Arrange
     TaskRuntimeAutoConfiguration taskRuntimeAutoConfiguration = new TaskRuntimeAutoConfiguration();
@@ -466,19 +395,22 @@ class TaskRuntimeAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TaskRuntimeAutoConfiguration#registerTaskCandidateUserRemovedEventListener(RuntimeService, List, APITaskCandidateUserConverter)}.
+   * Test {@link TaskRuntimeAutoConfiguration#registerTaskCandidateUserRemovedEventListener(RuntimeService, List, APITaskCandidateUserConverter)}.
    * <ul>
    *   <li>Given {@link TaskRuntimeEventListener}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskRuntimeAutoConfiguration#registerTaskCandidateUserRemovedEventListener(RuntimeService, List, APITaskCandidateUserConverter)}
+   * Method under test: {@link TaskRuntimeAutoConfiguration#registerTaskCandidateUserRemovedEventListener(RuntimeService, List, APITaskCandidateUserConverter)}
    */
   @Test
   @DisplayName("Test registerTaskCandidateUserRemovedEventListener(RuntimeService, List, APITaskCandidateUserConverter); given TaskRuntimeEventListener")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.springframework.beans.factory.InitializingBean TaskRuntimeAutoConfiguration.registerTaskCandidateUserRemovedEventListener(RuntimeService, List, APITaskCandidateUserConverter)"})
   void testRegisterTaskCandidateUserRemovedEventListener_givenTaskRuntimeEventListener2() throws Exception {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
 
     // Arrange
     TaskRuntimeAutoConfiguration taskRuntimeAutoConfiguration = new TaskRuntimeAutoConfiguration();
@@ -500,19 +432,22 @@ class TaskRuntimeAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TaskRuntimeAutoConfiguration#registerTaskCandidateUserRemovedEventListener(RuntimeService, List, APITaskCandidateUserConverter)}.
+   * Test {@link TaskRuntimeAutoConfiguration#registerTaskCandidateUserRemovedEventListener(RuntimeService, List, APITaskCandidateUserConverter)}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskRuntimeAutoConfiguration#registerTaskCandidateUserRemovedEventListener(RuntimeService, List, APITaskCandidateUserConverter)}
+   * Method under test: {@link TaskRuntimeAutoConfiguration#registerTaskCandidateUserRemovedEventListener(RuntimeService, List, APITaskCandidateUserConverter)}
    */
   @Test
   @DisplayName("Test registerTaskCandidateUserRemovedEventListener(RuntimeService, List, APITaskCandidateUserConverter); when ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.springframework.beans.factory.InitializingBean TaskRuntimeAutoConfiguration.registerTaskCandidateUserRemovedEventListener(RuntimeService, List, APITaskCandidateUserConverter)"})
   void testRegisterTaskCandidateUserRemovedEventListener_whenArrayList() throws Exception {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
 
     // Arrange
     TaskRuntimeAutoConfiguration taskRuntimeAutoConfiguration = new TaskRuntimeAutoConfiguration();
@@ -531,16 +466,19 @@ class TaskRuntimeAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TaskRuntimeAutoConfiguration#toAPITaskCandidateGroupAddedEventConverter(APITaskCandidateGroupConverter)}.
+   * Test {@link TaskRuntimeAutoConfiguration#toAPITaskCandidateGroupAddedEventConverter(APITaskCandidateGroupConverter)}.
    * <p>
-   * Method under test:
-   * {@link TaskRuntimeAutoConfiguration#toAPITaskCandidateGroupAddedEventConverter(APITaskCandidateGroupConverter)}
+   * Method under test: {@link TaskRuntimeAutoConfiguration#toAPITaskCandidateGroupAddedEventConverter(APITaskCandidateGroupConverter)}
    */
   @Test
   @DisplayName("Test toAPITaskCandidateGroupAddedEventConverter(APITaskCandidateGroupConverter)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "ToAPITaskCandidateGroupAddedEventConverter TaskRuntimeAutoConfiguration.toAPITaskCandidateGroupAddedEventConverter(APITaskCandidateGroupConverter)"})
   void testToAPITaskCandidateGroupAddedEventConverter() {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
 
     // Arrange
     TaskRuntimeAutoConfiguration taskRuntimeAutoConfiguration = new TaskRuntimeAutoConfiguration();
@@ -556,41 +494,22 @@ class TaskRuntimeAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TaskRuntimeAutoConfiguration#toAPITaskCandidateGroupAddedEventConverter(APITaskCandidateGroupConverter)}.
-   * <p>
-   * Method under test:
-   * {@link TaskRuntimeAutoConfiguration#toAPITaskCandidateGroupAddedEventConverter(APITaskCandidateGroupConverter)}
-   */
-  @Test
-  @DisplayName("Test toAPITaskCandidateGroupAddedEventConverter(APITaskCandidateGroupConverter)")
-  void testToAPITaskCandidateGroupAddedEventConverter2() {
-    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
-
-    // Arrange and Act
-    ToAPITaskCandidateGroupAddedEventConverter actualToAPITaskCandidateGroupAddedEventConverterResult = (new TaskRuntimeAutoConfiguration())
-        .toAPITaskCandidateGroupAddedEventConverter(mock(APITaskCandidateGroupConverter.class));
-
-    // Assert
-    assertFalse(actualToAPITaskCandidateGroupAddedEventConverterResult
-        .from(new ActivitiProcessCancelledEventImpl(ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
-        .isPresent());
-  }
-
-  /**
-   * Test
-   * {@link TaskRuntimeAutoConfiguration#registerTaskCandidateGroupAddedEventListener(RuntimeService, List, ToAPITaskCandidateGroupAddedEventConverter)}.
+   * Test {@link TaskRuntimeAutoConfiguration#registerTaskCandidateGroupAddedEventListener(RuntimeService, List, ToAPITaskCandidateGroupAddedEventConverter)}.
    * <ul>
    *   <li>Given {@link TaskRuntimeEventListener}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskRuntimeAutoConfiguration#registerTaskCandidateGroupAddedEventListener(RuntimeService, List, ToAPITaskCandidateGroupAddedEventConverter)}
+   * Method under test: {@link TaskRuntimeAutoConfiguration#registerTaskCandidateGroupAddedEventListener(RuntimeService, List, ToAPITaskCandidateGroupAddedEventConverter)}
    */
   @Test
   @DisplayName("Test registerTaskCandidateGroupAddedEventListener(RuntimeService, List, ToAPITaskCandidateGroupAddedEventConverter); given TaskRuntimeEventListener")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.springframework.beans.factory.InitializingBean TaskRuntimeAutoConfiguration.registerTaskCandidateGroupAddedEventListener(RuntimeService, List, ToAPITaskCandidateGroupAddedEventConverter)"})
   void testRegisterTaskCandidateGroupAddedEventListener_givenTaskRuntimeEventListener() throws Exception {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
 
     // Arrange
     TaskRuntimeAutoConfiguration taskRuntimeAutoConfiguration = new TaskRuntimeAutoConfiguration();
@@ -612,19 +531,22 @@ class TaskRuntimeAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TaskRuntimeAutoConfiguration#registerTaskCandidateGroupAddedEventListener(RuntimeService, List, ToAPITaskCandidateGroupAddedEventConverter)}.
+   * Test {@link TaskRuntimeAutoConfiguration#registerTaskCandidateGroupAddedEventListener(RuntimeService, List, ToAPITaskCandidateGroupAddedEventConverter)}.
    * <ul>
    *   <li>Given {@link TaskRuntimeEventListener}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskRuntimeAutoConfiguration#registerTaskCandidateGroupAddedEventListener(RuntimeService, List, ToAPITaskCandidateGroupAddedEventConverter)}
+   * Method under test: {@link TaskRuntimeAutoConfiguration#registerTaskCandidateGroupAddedEventListener(RuntimeService, List, ToAPITaskCandidateGroupAddedEventConverter)}
    */
   @Test
   @DisplayName("Test registerTaskCandidateGroupAddedEventListener(RuntimeService, List, ToAPITaskCandidateGroupAddedEventConverter); given TaskRuntimeEventListener")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.springframework.beans.factory.InitializingBean TaskRuntimeAutoConfiguration.registerTaskCandidateGroupAddedEventListener(RuntimeService, List, ToAPITaskCandidateGroupAddedEventConverter)"})
   void testRegisterTaskCandidateGroupAddedEventListener_givenTaskRuntimeEventListener2() throws Exception {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
 
     // Arrange
     TaskRuntimeAutoConfiguration taskRuntimeAutoConfiguration = new TaskRuntimeAutoConfiguration();
@@ -647,19 +569,22 @@ class TaskRuntimeAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TaskRuntimeAutoConfiguration#registerTaskCandidateGroupAddedEventListener(RuntimeService, List, ToAPITaskCandidateGroupAddedEventConverter)}.
+   * Test {@link TaskRuntimeAutoConfiguration#registerTaskCandidateGroupAddedEventListener(RuntimeService, List, ToAPITaskCandidateGroupAddedEventConverter)}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskRuntimeAutoConfiguration#registerTaskCandidateGroupAddedEventListener(RuntimeService, List, ToAPITaskCandidateGroupAddedEventConverter)}
+   * Method under test: {@link TaskRuntimeAutoConfiguration#registerTaskCandidateGroupAddedEventListener(RuntimeService, List, ToAPITaskCandidateGroupAddedEventConverter)}
    */
   @Test
   @DisplayName("Test registerTaskCandidateGroupAddedEventListener(RuntimeService, List, ToAPITaskCandidateGroupAddedEventConverter); when ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.springframework.beans.factory.InitializingBean TaskRuntimeAutoConfiguration.registerTaskCandidateGroupAddedEventListener(RuntimeService, List, ToAPITaskCandidateGroupAddedEventConverter)"})
   void testRegisterTaskCandidateGroupAddedEventListener_whenArrayList() throws Exception {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
 
     // Arrange
     TaskRuntimeAutoConfiguration taskRuntimeAutoConfiguration = new TaskRuntimeAutoConfiguration();
@@ -679,19 +604,22 @@ class TaskRuntimeAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TaskRuntimeAutoConfiguration#registerTaskCandidateGroupRemovedEventListener(RuntimeService, List, APITaskCandidateGroupConverter)}.
+   * Test {@link TaskRuntimeAutoConfiguration#registerTaskCandidateGroupRemovedEventListener(RuntimeService, List, APITaskCandidateGroupConverter)}.
    * <ul>
    *   <li>Given {@link TaskRuntimeEventListener}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskRuntimeAutoConfiguration#registerTaskCandidateGroupRemovedEventListener(RuntimeService, List, APITaskCandidateGroupConverter)}
+   * Method under test: {@link TaskRuntimeAutoConfiguration#registerTaskCandidateGroupRemovedEventListener(RuntimeService, List, APITaskCandidateGroupConverter)}
    */
   @Test
   @DisplayName("Test registerTaskCandidateGroupRemovedEventListener(RuntimeService, List, APITaskCandidateGroupConverter); given TaskRuntimeEventListener")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.springframework.beans.factory.InitializingBean TaskRuntimeAutoConfiguration.registerTaskCandidateGroupRemovedEventListener(RuntimeService, List, APITaskCandidateGroupConverter)"})
   void testRegisterTaskCandidateGroupRemovedEventListener_givenTaskRuntimeEventListener() throws Exception {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
 
     // Arrange
     TaskRuntimeAutoConfiguration taskRuntimeAutoConfiguration = new TaskRuntimeAutoConfiguration();
@@ -712,19 +640,22 @@ class TaskRuntimeAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TaskRuntimeAutoConfiguration#registerTaskCandidateGroupRemovedEventListener(RuntimeService, List, APITaskCandidateGroupConverter)}.
+   * Test {@link TaskRuntimeAutoConfiguration#registerTaskCandidateGroupRemovedEventListener(RuntimeService, List, APITaskCandidateGroupConverter)}.
    * <ul>
    *   <li>Given {@link TaskRuntimeEventListener}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskRuntimeAutoConfiguration#registerTaskCandidateGroupRemovedEventListener(RuntimeService, List, APITaskCandidateGroupConverter)}
+   * Method under test: {@link TaskRuntimeAutoConfiguration#registerTaskCandidateGroupRemovedEventListener(RuntimeService, List, APITaskCandidateGroupConverter)}
    */
   @Test
   @DisplayName("Test registerTaskCandidateGroupRemovedEventListener(RuntimeService, List, APITaskCandidateGroupConverter); given TaskRuntimeEventListener")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.springframework.beans.factory.InitializingBean TaskRuntimeAutoConfiguration.registerTaskCandidateGroupRemovedEventListener(RuntimeService, List, APITaskCandidateGroupConverter)"})
   void testRegisterTaskCandidateGroupRemovedEventListener_givenTaskRuntimeEventListener2() throws Exception {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
 
     // Arrange
     TaskRuntimeAutoConfiguration taskRuntimeAutoConfiguration = new TaskRuntimeAutoConfiguration();
@@ -746,19 +677,22 @@ class TaskRuntimeAutoConfigurationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link TaskRuntimeAutoConfiguration#registerTaskCandidateGroupRemovedEventListener(RuntimeService, List, APITaskCandidateGroupConverter)}.
+   * Test {@link TaskRuntimeAutoConfiguration#registerTaskCandidateGroupRemovedEventListener(RuntimeService, List, APITaskCandidateGroupConverter)}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskRuntimeAutoConfiguration#registerTaskCandidateGroupRemovedEventListener(RuntimeService, List, APITaskCandidateGroupConverter)}
+   * Method under test: {@link TaskRuntimeAutoConfiguration#registerTaskCandidateGroupRemovedEventListener(RuntimeService, List, APITaskCandidateGroupConverter)}
    */
   @Test
   @DisplayName("Test registerTaskCandidateGroupRemovedEventListener(RuntimeService, List, APITaskCandidateGroupConverter); when ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "org.springframework.beans.factory.InitializingBean TaskRuntimeAutoConfiguration.registerTaskCandidateGroupRemovedEventListener(RuntimeService, List, APITaskCandidateGroupConverter)"})
   void testRegisterTaskCandidateGroupRemovedEventListener_whenArrayList() throws Exception {
     //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
+    //   Run dcover create --keep-partial-tests to gain insights into why
+    //   a non-Spring test was created.
 
     // Arrange
     TaskRuntimeAutoConfiguration taskRuntimeAutoConfiguration = new TaskRuntimeAutoConfiguration();

@@ -25,6 +25,8 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.transaction.RollbackException;
 import jakarta.transaction.Synchronization;
 import jakarta.transaction.SystemException;
@@ -36,6 +38,7 @@ import org.activiti.engine.impl.cfg.TransactionState;
 import org.activiti.engine.impl.cfg.jta.JtaTransactionContext.TransactionStateSynchronization;
 import org.activiti.engine.impl.interceptor.CommandContext;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class JtaTransactionContextDiffblueTest {
@@ -49,12 +52,14 @@ public class JtaTransactionContextDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JtaTransactionContext.<init>(TransactionManager)", "void JtaTransactionContext.commit()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     JtaTransactionContext actualJtaTransactionContext = new JtaTransactionContext(mock(TransactionManager.class));
     actualJtaTransactionContext.commit();
 
-    // Assert that nothing has changed
+    // Assert
     assertNull(actualJtaTransactionContext.getTransaction());
   }
 
@@ -64,6 +69,8 @@ public class JtaTransactionContextDiffblueTest {
    * Method under test: {@link JtaTransactionContext#rollback()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JtaTransactionContext.rollback()"})
   public void testRollback() throws SystemException {
     // Arrange
     TransactionManager transactionManager = mock(TransactionManager.class);
@@ -80,6 +87,8 @@ public class JtaTransactionContextDiffblueTest {
    * Method under test: {@link JtaTransactionContext#rollback()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JtaTransactionContext.rollback()"})
   public void testRollback2() throws SystemException {
     // Arrange
     TransactionManager transactionManager = mock(TransactionManager.class);
@@ -96,6 +105,8 @@ public class JtaTransactionContextDiffblueTest {
    * Method under test: {@link JtaTransactionContext#rollback()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JtaTransactionContext.rollback()"})
   public void testRollback3() throws SystemException {
     // Arrange
     TransactionManager transactionManager = mock(TransactionManager.class);
@@ -109,14 +120,15 @@ public class JtaTransactionContextDiffblueTest {
   /**
    * Test {@link JtaTransactionContext#rollback()}.
    * <ul>
-   *   <li>Given {@link Transaction} {@link Transaction#getStatus()} return
-   * four.</li>
+   *   <li>Given {@link Transaction} {@link Transaction#getStatus()} return four.</li>
    *   <li>Then calls {@link Transaction#getStatus()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JtaTransactionContext#rollback()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JtaTransactionContext.rollback()"})
   public void testRollback_givenTransactionGetStatusReturnFour_thenCallsGetStatus() throws SystemException {
     // Arrange
     Transaction transaction = mock(Transaction.class);
@@ -127,7 +139,7 @@ public class JtaTransactionContextDiffblueTest {
     // Act
     (new JtaTransactionContext(transactionManager)).rollback();
 
-    // Assert that nothing has changed
+    // Assert
     verify(transaction).getStatus();
     verify(transactionManager).getTransaction();
   }
@@ -135,14 +147,15 @@ public class JtaTransactionContextDiffblueTest {
   /**
    * Test {@link JtaTransactionContext#rollback()}.
    * <ul>
-   *   <li>Given {@link Transaction} {@link Transaction#getStatus()} return
-   * one.</li>
+   *   <li>Given {@link Transaction} {@link Transaction#getStatus()} return one.</li>
    *   <li>Then calls {@link Transaction#setRollbackOnly()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JtaTransactionContext#rollback()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JtaTransactionContext.rollback()"})
   public void testRollback_givenTransactionGetStatusReturnOne_thenCallsSetRollbackOnly()
       throws SystemException, IllegalStateException {
     // Arrange
@@ -155,7 +168,7 @@ public class JtaTransactionContextDiffblueTest {
     // Act
     (new JtaTransactionContext(transactionManager)).rollback();
 
-    // Assert that nothing has changed
+    // Assert
     verify(transaction).getStatus();
     verify(transaction).setRollbackOnly();
     verify(transactionManager).getTransaction();
@@ -164,14 +177,15 @@ public class JtaTransactionContextDiffblueTest {
   /**
    * Test {@link JtaTransactionContext#rollback()}.
    * <ul>
-   *   <li>Given {@link Transaction} {@link Transaction#getStatus()} return
-   * six.</li>
+   *   <li>Given {@link Transaction} {@link Transaction#getStatus()} return six.</li>
    *   <li>Then calls {@link Transaction#getStatus()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JtaTransactionContext#rollback()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JtaTransactionContext.rollback()"})
   public void testRollback_givenTransactionGetStatusReturnSix_thenCallsGetStatus() throws SystemException {
     // Arrange
     Transaction transaction = mock(Transaction.class);
@@ -182,7 +196,7 @@ public class JtaTransactionContextDiffblueTest {
     // Act
     (new JtaTransactionContext(transactionManager)).rollback();
 
-    // Assert that nothing has changed
+    // Assert
     verify(transaction).getStatus();
     verify(transactionManager).getTransaction();
   }
@@ -190,13 +204,14 @@ public class JtaTransactionContextDiffblueTest {
   /**
    * Test {@link JtaTransactionContext#rollback()}.
    * <ul>
-   *   <li>Given {@link Transaction} {@link Transaction#getStatus()} throw
-   * {@link SystemException#SystemException(int)} with errcode is six.</li>
+   *   <li>Given {@link Transaction} {@link Transaction#getStatus()} throw {@link SystemException#SystemException(int)} with errcode is six.</li>
    * </ul>
    * <p>
    * Method under test: {@link JtaTransactionContext#rollback()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JtaTransactionContext.rollback()"})
   public void testRollback_givenTransactionGetStatusThrowSystemExceptionWithErrcodeIsSix() throws SystemException {
     // Arrange
     Transaction transaction = mock(Transaction.class);
@@ -213,13 +228,14 @@ public class JtaTransactionContextDiffblueTest {
   /**
    * Test {@link JtaTransactionContext#getTransaction()}.
    * <ul>
-   *   <li>Given {@link TransactionManager}
-   * {@link TransactionManager#getTransaction()} return {@link Transaction}.</li>
+   *   <li>Given {@link TransactionManager} {@link TransactionManager#getTransaction()} return {@link Transaction}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JtaTransactionContext#getTransaction()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Transaction JtaTransactionContext.getTransaction()"})
   public void testGetTransaction_givenTransactionManagerGetTransactionReturnTransaction() throws SystemException {
     // Arrange
     TransactionManager transactionManager = mock(TransactionManager.class);
@@ -241,6 +257,8 @@ public class JtaTransactionContextDiffblueTest {
    * Method under test: {@link JtaTransactionContext#getTransaction()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Transaction JtaTransactionContext.getTransaction()"})
   public void testGetTransaction_thenThrowActivitiException() throws SystemException {
     // Arrange
     TransactionManager transactionManager = mock(TransactionManager.class);
@@ -260,6 +278,8 @@ public class JtaTransactionContextDiffblueTest {
    * Method under test: {@link JtaTransactionContext#getTransaction()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Transaction JtaTransactionContext.getTransaction()"})
   public void testGetTransaction_thenThrowIllegalStateException() throws SystemException {
     // Arrange
     TransactionManager transactionManager = mock(TransactionManager.class);
@@ -271,13 +291,13 @@ public class JtaTransactionContextDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JtaTransactionContext#addTransactionListener(TransactionState, TransactionListener)}.
+   * Test {@link JtaTransactionContext#addTransactionListener(TransactionState, TransactionListener)}.
    * <p>
-   * Method under test:
-   * {@link JtaTransactionContext#addTransactionListener(TransactionState, TransactionListener)}
+   * Method under test: {@link JtaTransactionContext#addTransactionListener(TransactionState, TransactionListener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JtaTransactionContext.addTransactionListener(TransactionState, TransactionListener)"})
   public void testAddTransactionListener() throws RollbackException, SystemException, IllegalStateException {
     // Arrange
     Transaction transaction = mock(Transaction.class);
@@ -293,13 +313,13 @@ public class JtaTransactionContextDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JtaTransactionContext#addTransactionListener(TransactionState, TransactionListener)}.
+   * Test {@link JtaTransactionContext#addTransactionListener(TransactionState, TransactionListener)}.
    * <p>
-   * Method under test:
-   * {@link JtaTransactionContext#addTransactionListener(TransactionState, TransactionListener)}
+   * Method under test: {@link JtaTransactionContext#addTransactionListener(TransactionState, TransactionListener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JtaTransactionContext.addTransactionListener(TransactionState, TransactionListener)"})
   public void testAddTransactionListener2() throws RollbackException, SystemException, IllegalStateException {
     // Arrange
     Transaction transaction = mock(Transaction.class);
@@ -316,13 +336,13 @@ public class JtaTransactionContextDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JtaTransactionContext#addTransactionListener(TransactionState, TransactionListener)}.
+   * Test {@link JtaTransactionContext#addTransactionListener(TransactionState, TransactionListener)}.
    * <p>
-   * Method under test:
-   * {@link JtaTransactionContext#addTransactionListener(TransactionState, TransactionListener)}
+   * Method under test: {@link JtaTransactionContext#addTransactionListener(TransactionState, TransactionListener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JtaTransactionContext.addTransactionListener(TransactionState, TransactionListener)"})
   public void testAddTransactionListener3() throws RollbackException, SystemException, IllegalStateException {
     // Arrange
     Transaction transaction = mock(Transaction.class);
@@ -338,13 +358,13 @@ public class JtaTransactionContextDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JtaTransactionContext#addTransactionListener(TransactionState, TransactionListener)}.
+   * Test {@link JtaTransactionContext#addTransactionListener(TransactionState, TransactionListener)}.
    * <p>
-   * Method under test:
-   * {@link JtaTransactionContext#addTransactionListener(TransactionState, TransactionListener)}
+   * Method under test: {@link JtaTransactionContext#addTransactionListener(TransactionState, TransactionListener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JtaTransactionContext.addTransactionListener(TransactionState, TransactionListener)"})
   public void testAddTransactionListener4() throws RollbackException, SystemException, IllegalStateException {
     // Arrange
     Transaction transaction = mock(Transaction.class);
@@ -360,13 +380,13 @@ public class JtaTransactionContextDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JtaTransactionContext#addTransactionListener(TransactionState, TransactionListener)}.
+   * Test {@link JtaTransactionContext#addTransactionListener(TransactionState, TransactionListener)}.
    * <p>
-   * Method under test:
-   * {@link JtaTransactionContext#addTransactionListener(TransactionState, TransactionListener)}
+   * Method under test: {@link JtaTransactionContext#addTransactionListener(TransactionState, TransactionListener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JtaTransactionContext.addTransactionListener(TransactionState, TransactionListener)"})
   public void testAddTransactionListener5() throws RollbackException, SystemException, IllegalStateException {
     // Arrange
     Transaction transaction = mock(Transaction.class);
@@ -386,18 +406,16 @@ public class JtaTransactionContextDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JtaTransactionContext#addTransactionListener(TransactionState, TransactionListener)}.
+   * Test {@link JtaTransactionContext#addTransactionListener(TransactionState, TransactionListener)}.
    * <ul>
-   *   <li>Given {@link Transaction}
-   * {@link Transaction#registerSynchronization(Synchronization)} does
-   * nothing.</li>
+   *   <li>Given {@link Transaction} {@link Transaction#registerSynchronization(Synchronization)} does nothing.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JtaTransactionContext#addTransactionListener(TransactionState, TransactionListener)}
+   * Method under test: {@link JtaTransactionContext#addTransactionListener(TransactionState, TransactionListener)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JtaTransactionContext.addTransactionListener(TransactionState, TransactionListener)"})
   public void testAddTransactionListener_givenTransactionRegisterSynchronizationDoesNothing()
       throws RollbackException, SystemException, IllegalStateException {
     // Arrange
@@ -416,91 +434,87 @@ public class JtaTransactionContextDiffblueTest {
   }
 
   /**
-   * Test TransactionStateSynchronization
-   * {@link TransactionStateSynchronization#afterCompletion(int)}.
+   * Test TransactionStateSynchronization {@link TransactionStateSynchronization#afterCompletion(int)}.
    * <ul>
    *   <li>Then calls {@link TransactionListener#execute(CommandContext)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JtaTransactionContext.TransactionStateSynchronization#afterCompletion(int)}
+   * Method under test: {@link TransactionStateSynchronization#afterCompletion(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TransactionStateSynchronization.afterCompletion(int)"})
   public void testTransactionStateSynchronizationAfterCompletion_thenCallsExecute() {
     // Arrange
     TransactionListener transactionListener = mock(TransactionListener.class);
     doNothing().when(transactionListener).execute(Mockito.<CommandContext>any());
 
     // Act
-    (new JtaTransactionContext.TransactionStateSynchronization(TransactionState.ROLLED_BACK, transactionListener, null))
-        .afterCompletion(4);
+    (new TransactionStateSynchronization(TransactionState.ROLLED_BACK, transactionListener, null)).afterCompletion(4);
 
     // Assert
     verify(transactionListener).execute(isNull());
   }
 
   /**
-   * Test TransactionStateSynchronization
-   * {@link TransactionStateSynchronization#afterCompletion(int)}.
+   * Test TransactionStateSynchronization {@link TransactionStateSynchronization#afterCompletion(int)}.
    * <ul>
    *   <li>When three.</li>
    *   <li>Then calls {@link TransactionListener#execute(CommandContext)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JtaTransactionContext.TransactionStateSynchronization#afterCompletion(int)}
+   * Method under test: {@link TransactionStateSynchronization#afterCompletion(int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TransactionStateSynchronization.afterCompletion(int)"})
   public void testTransactionStateSynchronizationAfterCompletion_whenThree_thenCallsExecute() {
     // Arrange
     TransactionListener transactionListener = mock(TransactionListener.class);
     doNothing().when(transactionListener).execute(Mockito.<CommandContext>any());
 
     // Act
-    (new JtaTransactionContext.TransactionStateSynchronization(TransactionState.COMMITTED, transactionListener, null))
-        .afterCompletion(3);
+    (new TransactionStateSynchronization(TransactionState.COMMITTED, transactionListener, null)).afterCompletion(3);
 
     // Assert
     verify(transactionListener).execute(isNull());
   }
 
   /**
-   * Test TransactionStateSynchronization
-   * {@link TransactionStateSynchronization#beforeCompletion()}.
+   * Test TransactionStateSynchronization {@link TransactionStateSynchronization#beforeCompletion()}.
    * <p>
-   * Method under test:
-   * {@link JtaTransactionContext.TransactionStateSynchronization#beforeCompletion()}
+   * Method under test: {@link TransactionStateSynchronization#beforeCompletion()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TransactionStateSynchronization.beforeCompletion()"})
   public void testTransactionStateSynchronizationBeforeCompletion() {
     // Arrange
     TransactionListener transactionListener = mock(TransactionListener.class);
     doNothing().when(transactionListener).execute(Mockito.<CommandContext>any());
 
     // Act
-    (new JtaTransactionContext.TransactionStateSynchronization(TransactionState.COMMITTING, transactionListener, null))
-        .beforeCompletion();
+    (new TransactionStateSynchronization(TransactionState.COMMITTING, transactionListener, null)).beforeCompletion();
 
     // Assert
     verify(transactionListener).execute(isNull());
   }
 
   /**
-   * Test TransactionStateSynchronization
-   * {@link TransactionStateSynchronization#beforeCompletion()}.
+   * Test TransactionStateSynchronization {@link TransactionStateSynchronization#beforeCompletion()}.
    * <p>
-   * Method under test:
-   * {@link JtaTransactionContext.TransactionStateSynchronization#beforeCompletion()}
+   * Method under test: {@link TransactionStateSynchronization#beforeCompletion()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TransactionStateSynchronization.beforeCompletion()"})
   public void testTransactionStateSynchronizationBeforeCompletion2() {
     // Arrange
     TransactionListener transactionListener = mock(TransactionListener.class);
     doNothing().when(transactionListener).execute(Mockito.<CommandContext>any());
 
     // Act
-    (new JtaTransactionContext.TransactionStateSynchronization(TransactionState.ROLLINGBACK, transactionListener, null))
-        .beforeCompletion();
+    (new TransactionStateSynchronization(TransactionState.ROLLINGBACK, transactionListener, null)).beforeCompletion();
 
     // Assert
     verify(transactionListener).execute(isNull());

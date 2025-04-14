@@ -18,6 +18,8 @@ package org.activiti.engine.impl.bpmn.parser.handler;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.CancelEventDefinition;
 import org.activiti.bpmn.model.IntermediateCatchEvent;
@@ -28,17 +30,17 @@ import org.activiti.engine.impl.bpmn.parser.BpmnParseHandlers;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class IntermediateCatchEventParseHandlerDiffblueTest {
   /**
-   * Test
-   * {@link IntermediateCatchEventParseHandler#executeParse(BpmnParse, IntermediateCatchEvent)}
-   * with {@code BpmnParse}, {@code IntermediateCatchEvent}.
+   * Test {@link IntermediateCatchEventParseHandler#executeParse(BpmnParse, IntermediateCatchEvent)} with {@code BpmnParse}, {@code IntermediateCatchEvent}.
    * <p>
-   * Method under test:
-   * {@link IntermediateCatchEventParseHandler#executeParse(BpmnParse, IntermediateCatchEvent)}
+   * Method under test: {@link IntermediateCatchEventParseHandler#executeParse(BpmnParse, IntermediateCatchEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IntermediateCatchEventParseHandler.executeParse(BpmnParse, IntermediateCatchEvent)"})
   public void testExecuteParseWithBpmnParseIntermediateCatchEvent() {
     // Arrange
     IntermediateCatchEventParseHandler intermediateCatchEventParseHandler = new IntermediateCatchEventParseHandler();
@@ -58,17 +60,16 @@ public class IntermediateCatchEventParseHandlerDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link IntermediateCatchEventParseHandler#executeParse(BpmnParse, IntermediateCatchEvent)}
-   * with {@code BpmnParse}, {@code IntermediateCatchEvent}.
+   * Test {@link IntermediateCatchEventParseHandler#executeParse(BpmnParse, IntermediateCatchEvent)} with {@code BpmnParse}, {@code IntermediateCatchEvent}.
    * <ul>
    *   <li>Given {@link BpmnParseHandlers} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link IntermediateCatchEventParseHandler#executeParse(BpmnParse, IntermediateCatchEvent)}
+   * Method under test: {@link IntermediateCatchEventParseHandler#executeParse(BpmnParse, IntermediateCatchEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IntermediateCatchEventParseHandler.executeParse(BpmnParse, IntermediateCatchEvent)"})
   public void testExecuteParseWithBpmnParseIntermediateCatchEvent_givenBpmnParseHandlers() {
     // Arrange
     IntermediateCatchEventParseHandler intermediateCatchEventParseHandler = new IntermediateCatchEventParseHandler();
@@ -88,17 +89,16 @@ public class IntermediateCatchEventParseHandlerDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link IntermediateCatchEventParseHandler#executeParse(BpmnParse, IntermediateCatchEvent)}
-   * with {@code BpmnParse}, {@code IntermediateCatchEvent}.
+   * Test {@link IntermediateCatchEventParseHandler#executeParse(BpmnParse, IntermediateCatchEvent)} with {@code BpmnParse}, {@code IntermediateCatchEvent}.
    * <ul>
    *   <li>Given {@link CancelEventDefinition} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link IntermediateCatchEventParseHandler#executeParse(BpmnParse, IntermediateCatchEvent)}
+   * Method under test: {@link IntermediateCatchEventParseHandler#executeParse(BpmnParse, IntermediateCatchEvent)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IntermediateCatchEventParseHandler.executeParse(BpmnParse, IntermediateCatchEvent)"})
   public void testExecuteParseWithBpmnParseIntermediateCatchEvent_givenCancelEventDefinition() {
     // Arrange
     IntermediateCatchEventParseHandler intermediateCatchEventParseHandler = new IntermediateCatchEventParseHandler();
@@ -119,12 +119,14 @@ public class IntermediateCatchEventParseHandlerDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of
-   * {@link IntermediateCatchEventParseHandler}
+   *   <li>default or parameterless constructor of {@link IntermediateCatchEventParseHandler}
    *   <li>{@link IntermediateCatchEventParseHandler#getHandledType()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IntermediateCatchEventParseHandler.<init>()",
+      "Class IntermediateCatchEventParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends BaseElement> actualHandledType = (new IntermediateCatchEventParseHandler()).getHandledType();

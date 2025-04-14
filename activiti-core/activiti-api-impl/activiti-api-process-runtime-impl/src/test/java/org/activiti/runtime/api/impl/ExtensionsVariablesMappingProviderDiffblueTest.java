@@ -28,12 +28,14 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.BigIntegerNode;
 import com.fasterxml.jackson.databind.node.BinaryNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import java.math.BigInteger;
 import java.util.AbstractMap;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -45,13 +47,16 @@ import org.activiti.spring.process.ProcessExtensionService;
 import org.activiti.spring.process.model.ConstantDefinition;
 import org.activiti.spring.process.model.Extension;
 import org.activiti.spring.process.model.Mapping;
+import org.activiti.spring.process.model.Mapping.SourceMappingType;
 import org.activiti.spring.process.model.ProcessConstantsMapping;
 import org.activiti.spring.process.model.ProcessVariablesMapping;
+import org.activiti.spring.process.model.ProcessVariablesMapping.MappingType;
 import org.activiti.spring.process.model.VariableDefinition;
 import org.activiti.spring.process.variable.VariableParsingService;
 import org.apache.commons.collections4.keyvalue.DefaultMapEntry;
 import org.apache.commons.collections4.keyvalue.TiedMapEntry;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -78,25 +83,26 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   private VariableParsingService variableParsingService;
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}.
    * <ul>
-   *   <li>Given {@code null}.</li>
-   *   <li>When {@link Mapping} {@link Mapping#getType()} return {@code null}.</li>
+   *   <li>Given {@code JSONPATCH}.</li>
+   *   <li>When {@link Mapping} {@link Mapping#getType()} return {@code JSONPATCH}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}
    */
   @Test
-  @DisplayName("Test calculateMappedValue(Mapping, DelegateExecution, Extension); given 'null'; when Mapping getType() return 'null'")
-  void testCalculateMappedValue_givenNull_whenMappingGetTypeReturnNull() {
+  @DisplayName("Test calculateMappedValue(Mapping, DelegateExecution, Extension); given 'JSONPATCH'; when Mapping getType() return 'JSONPATCH'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "Optional ExtensionsVariablesMappingProvider.calculateMappedValue(Mapping, DelegateExecution, Extension)"})
+  void testCalculateMappedValue_givenJsonpatch_whenMappingGetTypeReturnJsonpatch() {
     // Arrange
     Mapping inputMapping = mock(Mapping.class);
-    when(inputMapping.getType()).thenReturn(null);
-    doNothing().when(inputMapping).setType(Mockito.<Mapping.SourceMappingType>any());
+    when(inputMapping.getType()).thenReturn(SourceMappingType.JSONPATCH);
+    doNothing().when(inputMapping).setType(Mockito.<SourceMappingType>any());
     doNothing().when(inputMapping).setValue(Mockito.<Object>any());
-    inputMapping.setType(Mapping.SourceMappingType.VARIABLE);
+    inputMapping.setType(SourceMappingType.VARIABLE);
     inputMapping.setValue("Value");
     ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
 
@@ -106,32 +112,33 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     // Assert
     verify(inputMapping, atLeast(1)).getType();
-    verify(inputMapping).setType(eq(Mapping.SourceMappingType.VARIABLE));
+    verify(inputMapping).setType(eq(SourceMappingType.VARIABLE));
     verify(inputMapping).setValue(isA(Object.class));
     assertFalse(actualCalculateMappedValueResult.isPresent());
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}.
    * <ul>
    *   <li>Given {@code VALUE}.</li>
    *   <li>Then return {@link Optional#get()} is {@code Value}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}
    */
   @Test
   @DisplayName("Test calculateMappedValue(Mapping, DelegateExecution, Extension); given 'VALUE'; then return get() is 'Value'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "Optional ExtensionsVariablesMappingProvider.calculateMappedValue(Mapping, DelegateExecution, Extension)"})
   void testCalculateMappedValue_givenValue_thenReturnGetIsValue() {
     // Arrange
     Mapping inputMapping = mock(Mapping.class);
     when(inputMapping.getValue()).thenReturn("Value");
-    when(inputMapping.getType()).thenReturn(Mapping.SourceMappingType.VALUE);
-    doNothing().when(inputMapping).setType(Mockito.<Mapping.SourceMappingType>any());
+    when(inputMapping.getType()).thenReturn(SourceMappingType.VALUE);
+    doNothing().when(inputMapping).setType(Mockito.<SourceMappingType>any());
     doNothing().when(inputMapping).setValue(Mockito.<Object>any());
-    inputMapping.setType(Mapping.SourceMappingType.VARIABLE);
+    inputMapping.setType(SourceMappingType.VARIABLE);
     inputMapping.setValue("Value");
     ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
 
@@ -142,36 +149,36 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
     // Assert
     verify(inputMapping).getType();
     verify(inputMapping).getValue();
-    verify(inputMapping).setType(eq(Mapping.SourceMappingType.VARIABLE));
+    verify(inputMapping).setType(eq(SourceMappingType.VARIABLE));
     verify(inputMapping).setValue(isA(Object.class));
     assertEquals("Value", actualCalculateMappedValueResult.get());
     assertTrue(actualCalculateMappedValueResult.isPresent());
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}.
    * <ul>
    *   <li>Given {@link VariableDefinition#VariableDefinition()}.</li>
    *   <li>Then calls {@link Extension#getPropertyByName(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}
    */
   @Test
   @DisplayName("Test calculateMappedValue(Mapping, DelegateExecution, Extension); given VariableDefinition(); then calls getPropertyByName(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "Optional ExtensionsVariablesMappingProvider.calculateMappedValue(Mapping, DelegateExecution, Extension)"})
   void testCalculateMappedValue_givenVariableDefinition_thenCallsGetPropertyByName() {
     // Arrange
     Mapping inputMapping = mock(Mapping.class);
     when(inputMapping.getValue()).thenReturn("Value");
-    when(inputMapping.getType()).thenReturn(Mapping.SourceMappingType.VARIABLE);
-    doNothing().when(inputMapping).setType(Mockito.<Mapping.SourceMappingType>any());
+    when(inputMapping.getType()).thenReturn(SourceMappingType.VARIABLE);
+    doNothing().when(inputMapping).setType(Mockito.<SourceMappingType>any());
     doNothing().when(inputMapping).setValue(Mockito.<Object>any());
-    inputMapping.setType(Mapping.SourceMappingType.VARIABLE);
+    inputMapping.setType(SourceMappingType.VARIABLE);
     inputMapping.setValue("Value");
-    DelegateExecution execution = mock(DelegateExecution.class);
-    when(execution.getVariable(Mockito.<String>any())).thenReturn("Variable");
+    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
     Extension extensions = mock(Extension.class);
     when(extensions.getPropertyByName(Mockito.<String>any())).thenReturn(new VariableDefinition());
 
@@ -180,110 +187,35 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
         .calculateMappedValue(inputMapping, execution, extensions);
 
     // Assert
-    verify(execution).getVariable(eq("Value"));
     verify(extensions).getPropertyByName(eq("Value"));
     verify(inputMapping, atLeast(1)).getType();
     verify(inputMapping).getValue();
-    verify(inputMapping).setType(eq(Mapping.SourceMappingType.VARIABLE));
-    verify(inputMapping).setValue(isA(Object.class));
-    assertEquals("Variable", actualCalculateMappedValueResult.get());
-    assertTrue(actualCalculateMappedValueResult.isPresent());
-  }
-
-  /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}.
-   * <ul>
-   *   <li>Given {@code Variable}.</li>
-   *   <li>Then return {@link Optional#get()} is {@code Variable}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}
-   */
-  @Test
-  @DisplayName("Test calculateMappedValue(Mapping, DelegateExecution, Extension); given 'Variable'; then return get() is 'Variable'")
-  void testCalculateMappedValue_givenVariable_thenReturnGetIsVariable() {
-    // Arrange
-    Mapping inputMapping = mock(Mapping.class);
-    when(inputMapping.getValue()).thenReturn("Value");
-    when(inputMapping.getType()).thenReturn(Mapping.SourceMappingType.VARIABLE);
-    doNothing().when(inputMapping).setType(Mockito.<Mapping.SourceMappingType>any());
-    doNothing().when(inputMapping).setValue(Mockito.<Object>any());
-    inputMapping.setType(Mapping.SourceMappingType.VARIABLE);
-    inputMapping.setValue("Value");
-    DelegateExecution execution = mock(DelegateExecution.class);
-    when(execution.getVariable(Mockito.<String>any())).thenReturn("Variable");
-
-    // Act
-    Optional<Object> actualCalculateMappedValueResult = extensionsVariablesMappingProvider
-        .calculateMappedValue(inputMapping, execution, new Extension());
-
-    // Assert
-    verify(execution, atLeast(1)).getVariable(eq("Value"));
-    verify(inputMapping, atLeast(1)).getType();
-    verify(inputMapping).getValue();
-    verify(inputMapping).setType(eq(Mapping.SourceMappingType.VARIABLE));
-    verify(inputMapping).setValue(isA(Object.class));
-    assertEquals("Variable", actualCalculateMappedValueResult.get());
-    assertTrue(actualCalculateMappedValueResult.isPresent());
-  }
-
-  /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}.
-   * <ul>
-   *   <li>Then return not Present.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}
-   */
-  @Test
-  @DisplayName("Test calculateMappedValue(Mapping, DelegateExecution, Extension); then return not Present")
-  void testCalculateMappedValue_thenReturnNotPresent() {
-    // Arrange
-    Mapping inputMapping = mock(Mapping.class);
-    when(inputMapping.getValue()).thenReturn("Value");
-    when(inputMapping.getType()).thenReturn(Mapping.SourceMappingType.VARIABLE);
-    doNothing().when(inputMapping).setType(Mockito.<Mapping.SourceMappingType>any());
-    doNothing().when(inputMapping).setValue(Mockito.<Object>any());
-    inputMapping.setType(Mapping.SourceMappingType.VARIABLE);
-    inputMapping.setValue("Value");
-    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-
-    // Act
-    Optional<Object> actualCalculateMappedValueResult = extensionsVariablesMappingProvider
-        .calculateMappedValue(inputMapping, execution, new Extension());
-
-    // Assert
-    verify(inputMapping, atLeast(1)).getType();
-    verify(inputMapping).getValue();
-    verify(inputMapping).setType(eq(Mapping.SourceMappingType.VARIABLE));
+    verify(inputMapping).setType(eq(SourceMappingType.VARIABLE));
     verify(inputMapping).setValue(isA(Object.class));
     assertFalse(actualCalculateMappedValueResult.isPresent());
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}.
    * <ul>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}
    */
   @Test
   @DisplayName("Test calculateMappedValue(Mapping, DelegateExecution, Extension); then throw ActivitiIllegalArgumentException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "Optional ExtensionsVariablesMappingProvider.calculateMappedValue(Mapping, DelegateExecution, Extension)"})
   void testCalculateMappedValue_thenThrowActivitiIllegalArgumentException() {
     // Arrange
     Mapping inputMapping = mock(Mapping.class);
     when(inputMapping.getValue()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
-    when(inputMapping.getType()).thenReturn(Mapping.SourceMappingType.VARIABLE);
-    doNothing().when(inputMapping).setType(Mockito.<Mapping.SourceMappingType>any());
+    when(inputMapping.getType()).thenReturn(SourceMappingType.VARIABLE);
+    doNothing().when(inputMapping).setType(Mockito.<SourceMappingType>any());
     doNothing().when(inputMapping).setValue(Mockito.<Object>any());
-    inputMapping.setType(Mapping.SourceMappingType.VARIABLE);
+    inputMapping.setType(SourceMappingType.VARIABLE);
     inputMapping.setValue("Value");
     ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
 
@@ -292,27 +224,28 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
         () -> extensionsVariablesMappingProvider.calculateMappedValue(inputMapping, execution, new Extension()));
     verify(inputMapping, atLeast(1)).getType();
     verify(inputMapping).getValue();
-    verify(inputMapping).setType(eq(Mapping.SourceMappingType.VARIABLE));
+    verify(inputMapping).setType(eq(SourceMappingType.VARIABLE));
     verify(inputMapping).setValue(isA(Object.class));
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}.
    * <ul>
    *   <li>When {@link Mapping} (default constructor) Type is {@code VARIABLE}.</li>
    *   <li>Then return not Present.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}
    */
   @Test
   @DisplayName("Test calculateMappedValue(Mapping, DelegateExecution, Extension); when Mapping (default constructor) Type is 'VARIABLE'; then return not Present")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "Optional ExtensionsVariablesMappingProvider.calculateMappedValue(Mapping, DelegateExecution, Extension)"})
   void testCalculateMappedValue_whenMappingTypeIsVariable_thenReturnNotPresent() {
     // Arrange
     Mapping inputMapping = new Mapping();
-    inputMapping.setType(Mapping.SourceMappingType.VARIABLE);
+    inputMapping.setType(SourceMappingType.VARIABLE);
     inputMapping.setValue("Value");
     ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
 
@@ -322,26 +255,27 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}.
    * <ul>
    *   <li>When {@code null}.</li>
    *   <li>Then return not Present.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateMappedValue(Mapping, DelegateExecution, Extension)}
    */
   @Test
   @DisplayName("Test calculateMappedValue(Mapping, DelegateExecution, Extension); when 'null'; then return not Present")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "Optional ExtensionsVariablesMappingProvider.calculateMappedValue(Mapping, DelegateExecution, Extension)"})
   void testCalculateMappedValue_whenNull_thenReturnNotPresent() {
     // Arrange
     Mapping inputMapping = mock(Mapping.class);
     when(inputMapping.getValue()).thenReturn("Value");
-    when(inputMapping.getType()).thenReturn(Mapping.SourceMappingType.VARIABLE);
-    doNothing().when(inputMapping).setType(Mockito.<Mapping.SourceMappingType>any());
+    when(inputMapping.getType()).thenReturn(SourceMappingType.VARIABLE);
+    doNothing().when(inputMapping).setType(Mockito.<SourceMappingType>any());
     doNothing().when(inputMapping).setValue(Mockito.<Object>any());
-    inputMapping.setType(Mapping.SourceMappingType.VARIABLE);
+    inputMapping.setType(SourceMappingType.VARIABLE);
     inputMapping.setValue("Value");
 
     // Act
@@ -351,21 +285,20 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
     // Assert
     verify(inputMapping, atLeast(1)).getType();
     verify(inputMapping).getValue();
-    verify(inputMapping).setType(eq(Mapping.SourceMappingType.VARIABLE));
+    verify(inputMapping).setType(eq(SourceMappingType.VARIABLE));
     verify(inputMapping).setValue(isA(Object.class));
     assertFalse(actualCalculateMappedValueResult.isPresent());
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
-   * with {@code execution}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with {@code execution}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
    */
   @Test
   @DisplayName("Test calculateInputVariables(DelegateExecution) with 'execution'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"})
   void testCalculateInputVariablesWithExecution() {
     // Arrange
     when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(new Extension());
@@ -380,15 +313,14 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
-   * with {@code execution}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with {@code execution}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
    */
   @Test
   @DisplayName("Test calculateInputVariables(DelegateExecution) with 'execution'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"})
   void testCalculateInputVariablesWithExecution2() {
     // Arrange
     Extension extension = mock(Extension.class);
@@ -410,15 +342,14 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
-   * with {@code execution}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with {@code execution}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
    */
   @Test
   @DisplayName("Test calculateInputVariables(DelegateExecution) with 'execution'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"})
   void testCalculateInputVariablesWithExecution3() {
     // Arrange
     Extension extension = mock(Extension.class);
@@ -438,19 +369,18 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
-   * with {@code execution}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with {@code execution}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
    */
   @Test
   @DisplayName("Test calculateInputVariables(DelegateExecution) with 'execution'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"})
   void testCalculateInputVariablesWithExecution4() {
     // Arrange
     Mapping mapping = new Mapping();
-    mapping.setType(Mapping.SourceMappingType.VARIABLE);
+    mapping.setType(SourceMappingType.VARIABLE);
     mapping.setValue("Value");
 
     HashMap<String, Mapping> inputs = new HashMap<>();
@@ -458,7 +388,7 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(inputs);
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(new HashMap<>());
     Extension extension = mock(Extension.class);
     when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(null);
@@ -486,23 +416,22 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
-   * with {@code execution}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with {@code execution}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
    */
   @Test
   @DisplayName("Test calculateInputVariables(DelegateExecution) with 'execution'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"})
   void testCalculateInputVariablesWithExecution5() {
     // Arrange
     Mapping mapping = mock(Mapping.class);
     when(mapping.getValue()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
-    when(mapping.getType()).thenReturn(Mapping.SourceMappingType.VARIABLE);
-    doNothing().when(mapping).setType(Mockito.<Mapping.SourceMappingType>any());
+    when(mapping.getType()).thenReturn(SourceMappingType.VARIABLE);
+    doNothing().when(mapping).setType(Mockito.<SourceMappingType>any());
     doNothing().when(mapping).setValue(Mockito.<Object>any());
-    mapping.setType(Mapping.SourceMappingType.VARIABLE);
+    mapping.setType(SourceMappingType.VARIABLE);
     mapping.setValue("Value");
 
     HashMap<String, Mapping> inputs = new HashMap<>();
@@ -510,7 +439,7 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(inputs);
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(new HashMap<>());
     Extension extension = mock(Extension.class);
     when(extension.shouldMapAllInputs(Mockito.<String>any())).thenReturn(false);
@@ -529,32 +458,30 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
     verify(extension).shouldMapAllInputs(isNull());
     verify(mapping, atLeast(1)).getType();
     verify(mapping).getValue();
-    verify(mapping).setType(eq(Mapping.SourceMappingType.VARIABLE));
+    verify(mapping).setType(eq(SourceMappingType.VARIABLE));
     verify(mapping).setValue(isA(Object.class));
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
-   * with {@code execution}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with {@code execution}.
    * <ul>
-   *   <li>Given {@link Mapping} {@link Mapping#getType()} return
-   * {@code VALUE}.</li>
+   *   <li>Given {@link Mapping} {@link Mapping#getType()} return {@code VALUE}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
    */
   @Test
   @DisplayName("Test calculateInputVariables(DelegateExecution) with 'execution'; given Mapping getType() return 'VALUE'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"})
   void testCalculateInputVariablesWithExecution_givenMappingGetTypeReturnValue() {
     // Arrange
     Mapping mapping = mock(Mapping.class);
     when(mapping.getValue()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
-    when(mapping.getType()).thenReturn(Mapping.SourceMappingType.VALUE);
-    doNothing().when(mapping).setType(Mockito.<Mapping.SourceMappingType>any());
+    when(mapping.getType()).thenReturn(SourceMappingType.VALUE);
+    doNothing().when(mapping).setType(Mockito.<SourceMappingType>any());
     doNothing().when(mapping).setValue(Mockito.<Object>any());
-    mapping.setType(Mapping.SourceMappingType.VARIABLE);
+    mapping.setType(SourceMappingType.VARIABLE);
     mapping.setValue("Value");
 
     HashMap<String, Mapping> inputs = new HashMap<>();
@@ -562,7 +489,7 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(inputs);
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(new HashMap<>());
     Extension extension = mock(Extension.class);
     when(extension.shouldMapAllInputs(Mockito.<String>any())).thenReturn(false);
@@ -581,36 +508,34 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
     verify(extension).shouldMapAllInputs(isNull());
     verify(mapping).getType();
     verify(mapping).getValue();
-    verify(mapping).setType(eq(Mapping.SourceMappingType.VARIABLE));
+    verify(mapping).setType(eq(SourceMappingType.VARIABLE));
     verify(mapping).setValue(isA(Object.class));
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
-   * with {@code execution}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with {@code execution}.
    * <ul>
-   *   <li>Given {@link Mapping} (default constructor) Type is
-   * {@code JSONPATCH}.</li>
+   *   <li>Given {@link Mapping} (default constructor) Type is {@code JSONPATCH}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
    */
   @Test
   @DisplayName("Test calculateInputVariables(DelegateExecution) with 'execution'; given Mapping (default constructor) Type is 'JSONPATCH'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"})
   void testCalculateInputVariablesWithExecution_givenMappingTypeIsJsonpatch() {
     // Arrange
     Mapping mapping = mock(Mapping.class);
     when(mapping.getValue()).thenReturn("Value");
-    when(mapping.getType()).thenReturn(Mapping.SourceMappingType.VARIABLE);
-    doNothing().when(mapping).setType(Mockito.<Mapping.SourceMappingType>any());
+    when(mapping.getType()).thenReturn(SourceMappingType.VARIABLE);
+    doNothing().when(mapping).setType(Mockito.<SourceMappingType>any());
     doNothing().when(mapping).setValue(Mockito.<Object>any());
-    mapping.setType(Mapping.SourceMappingType.VARIABLE);
+    mapping.setType(SourceMappingType.VARIABLE);
     mapping.setValue("Value");
 
     Mapping mapping2 = new Mapping();
-    mapping2.setType(Mapping.SourceMappingType.JSONPATCH);
+    mapping2.setType(SourceMappingType.JSONPATCH);
     mapping2.setValue("Value");
 
     HashMap<String, Mapping> inputs = new HashMap<>();
@@ -619,7 +544,7 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(inputs);
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(new HashMap<>());
     Extension extension = mock(Extension.class);
     when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(new VariableDefinition());
@@ -645,32 +570,31 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
     verify(extension).shouldMapAllInputs(isNull());
     verify(mapping, atLeast(1)).getType();
     verify(mapping).getValue();
-    verify(mapping).setType(eq(Mapping.SourceMappingType.VARIABLE));
+    verify(mapping).setType(eq(SourceMappingType.VARIABLE));
     verify(mapping).setValue(isA(Object.class));
     assertTrue(actualCalculateInputVariablesResult.isEmpty());
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
-   * with {@code execution}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with {@code execution}.
    * <ul>
    *   <li>Given {@link Mapping} (default constructor) Type is {@code VALUE}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
    */
   @Test
   @DisplayName("Test calculateInputVariables(DelegateExecution) with 'execution'; given Mapping (default constructor) Type is 'VALUE'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"})
   void testCalculateInputVariablesWithExecution_givenMappingTypeIsValue() {
     // Arrange
     Mapping mapping = new Mapping();
-    mapping.setType(Mapping.SourceMappingType.VARIABLE);
+    mapping.setType(SourceMappingType.VARIABLE);
     mapping.setValue("Value");
 
     Mapping mapping2 = new Mapping();
-    mapping2.setType(Mapping.SourceMappingType.VALUE);
+    mapping2.setType(SourceMappingType.VALUE);
     mapping2.setValue("Value");
 
     HashMap<String, Mapping> inputs = new HashMap<>();
@@ -679,7 +603,7 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(inputs);
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(new HashMap<>());
     Extension extension = mock(Extension.class);
     when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(new VariableDefinition());
@@ -707,23 +631,21 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
-   * with {@code execution}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with {@code execution}.
    * <ul>
-   *   <li>Given {@link Mapping} (default constructor) Type is
-   * {@code VARIABLE}.</li>
+   *   <li>Given {@link Mapping} (default constructor) Type is {@code VARIABLE}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
    */
   @Test
   @DisplayName("Test calculateInputVariables(DelegateExecution) with 'execution'; given Mapping (default constructor) Type is 'VARIABLE'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"})
   void testCalculateInputVariablesWithExecution_givenMappingTypeIsVariable() {
     // Arrange
     Mapping mapping = new Mapping();
-    mapping.setType(Mapping.SourceMappingType.VARIABLE);
+    mapping.setType(SourceMappingType.VARIABLE);
     mapping.setValue("Value");
 
     HashMap<String, Mapping> inputs = new HashMap<>();
@@ -731,7 +653,7 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(inputs);
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(new HashMap<>());
     Extension extension = mock(Extension.class);
     when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(new VariableDefinition());
@@ -759,24 +681,22 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
-   * with {@code execution}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with {@code execution}.
    * <ul>
-   *   <li>Then calls
-   * {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator, Map)}.</li>
+   *   <li>Then calls {@link ExpressionResolver#resolveExpressionsMap(ExpressionEvaluator, Map)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
    */
   @Test
   @DisplayName("Test calculateInputVariables(DelegateExecution) with 'execution'; then calls resolveExpressionsMap(ExpressionEvaluator, Map)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"})
   void testCalculateInputVariablesWithExecution_thenCallsResolveExpressionsMap() {
     // Arrange
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(new HashMap<>());
     Extension extension = mock(Extension.class);
     when(extension.shouldMapAllInputs(Mockito.<String>any())).thenReturn(false);
@@ -802,18 +722,17 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
-   * with {@code execution}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)} with {@code execution}.
    * <ul>
    *   <li>Then return size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateInputVariables(DelegateExecution)}
    */
   @Test
   @DisplayName("Test calculateInputVariables(DelegateExecution) with 'execution'; then return size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateInputVariables(DelegateExecution)"})
   void testCalculateInputVariablesWithExecution_thenReturnSizeIsOne() {
     // Arrange
     ConstantDefinition constantDefinition = new ConstantDefinition();
@@ -823,10 +742,10 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
     processConstantsMapping.put("foo", constantDefinition);
     Mapping mapping = mock(Mapping.class);
     when(mapping.getValue()).thenReturn("Value");
-    when(mapping.getType()).thenReturn(Mapping.SourceMappingType.VARIABLE);
-    doNothing().when(mapping).setType(Mockito.<Mapping.SourceMappingType>any());
+    when(mapping.getType()).thenReturn(SourceMappingType.VARIABLE);
+    doNothing().when(mapping).setType(Mockito.<SourceMappingType>any());
     doNothing().when(mapping).setValue(Mockito.<Object>any());
-    mapping.setType(Mapping.SourceMappingType.VARIABLE);
+    mapping.setType(SourceMappingType.VARIABLE);
     mapping.setValue("Value");
 
     HashMap<String, Mapping> inputs = new HashMap<>();
@@ -834,7 +753,7 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(inputs);
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(new HashMap<>());
     Extension extension = mock(Extension.class);
     when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(new VariableDefinition());
@@ -861,7 +780,7 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
     verify(extension).shouldMapAllInputs(isNull());
     verify(mapping, atLeast(1)).getType();
     verify(mapping).getValue();
-    verify(mapping).setType(eq(Mapping.SourceMappingType.VARIABLE));
+    verify(mapping).setType(eq(SourceMappingType.VARIABLE));
     verify(mapping).setValue(isA(Object.class));
     assertEquals(1, actualCalculateInputVariablesResult.size());
     assertEquals("Value", actualCalculateInputVariablesResult.get("foo"));
@@ -869,15 +788,14 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   * with {@code mappingExecutionContext}, {@code availableVariables}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
   @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
   void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables() {
     // Arrange
     when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(new Extension());
@@ -893,15 +811,14 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   * with {@code mappingExecutionContext}, {@code availableVariables}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
   @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
   void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables2() {
     // Arrange
     Extension extension = mock(Extension.class);
@@ -919,15 +836,14 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   * with {@code mappingExecutionContext}, {@code availableVariables}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
   @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
   void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables3() {
     // Arrange
     Extension extension = mock(Extension.class);
@@ -946,15 +862,14 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   * with {@code mappingExecutionContext}, {@code availableVariables}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
   @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
   void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables4() {
     // Arrange
     Extension extension = mock(Extension.class);
@@ -977,20 +892,19 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   * with {@code mappingExecutionContext}, {@code availableVariables}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
   @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
   void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables5() {
     // Arrange
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(new HashMap<>());
     Extension extension = mock(Extension.class);
     when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
@@ -1017,19 +931,18 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   * with {@code mappingExecutionContext}, {@code availableVariables}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
   @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
   void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables6() {
     // Arrange
     Mapping mapping = new Mapping();
-    mapping.setType(Mapping.SourceMappingType.JSONPATCH);
+    mapping.setType(SourceMappingType.JSONPATCH);
     mapping.setValue("Value");
 
     HashMap<String, Mapping> outputs = new HashMap<>();
@@ -1037,7 +950,7 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(outputs);
     Extension extension = mock(Extension.class);
     when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(new VariableDefinition());
@@ -1060,19 +973,18 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   * with {@code mappingExecutionContext}, {@code availableVariables}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
   @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
   void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables7() {
     // Arrange
     Mapping mapping = new Mapping();
-    mapping.setType(Mapping.SourceMappingType.JSONPATCH);
+    mapping.setType(SourceMappingType.JSONPATCH);
     mapping.setValue("Value");
 
     HashMap<String, Mapping> outputs = new HashMap<>();
@@ -1080,7 +992,7 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(outputs);
     Extension extension = mock(Extension.class);
     when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(null);
@@ -1109,19 +1021,18 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   * with {@code mappingExecutionContext}, {@code availableVariables}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
   @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
   void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables8() {
     // Arrange
     Mapping mapping = new Mapping();
-    mapping.setType(Mapping.SourceMappingType.JSONPATCH);
+    mapping.setType(SourceMappingType.JSONPATCH);
     mapping.setValue("Value");
 
     HashMap<String, Mapping> outputs = new HashMap<>();
@@ -1129,7 +1040,7 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(outputs);
     Extension extension = mock(Extension.class);
     when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(new VariableDefinition(
@@ -1153,19 +1064,18 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   * with {@code mappingExecutionContext}, {@code availableVariables}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
   @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
   void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables9() {
     // Arrange
     Mapping mapping = new Mapping();
-    mapping.setType(Mapping.SourceMappingType.JSONPATCH);
+    mapping.setType(SourceMappingType.JSONPATCH);
     mapping.setValue("Value");
 
     HashMap<String, Mapping> outputs = new HashMap<>();
@@ -1173,7 +1083,7 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(outputs);
     VariableDefinition variableDefinition = mock(VariableDefinition.class);
     when(variableDefinition.getValue()).thenReturn("Value");
@@ -1199,19 +1109,18 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   * with {@code mappingExecutionContext}, {@code availableVariables}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
   @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
   void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables10() {
     // Arrange
     Mapping mapping = new Mapping();
-    mapping.setType(Mapping.SourceMappingType.JSONPATCH);
+    mapping.setType(SourceMappingType.JSONPATCH);
     mapping.setValue("Value");
 
     HashMap<String, Mapping> outputs = new HashMap<>();
@@ -1219,11 +1128,11 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(outputs);
 
     Mapping mapping2 = new Mapping();
-    mapping2.setType(Mapping.SourceMappingType.VARIABLE);
+    mapping2.setType(SourceMappingType.VARIABLE);
     mapping2.setValue("Value");
     VariableDefinition variableDefinition = mock(VariableDefinition.class);
     when(variableDefinition.getValue()).thenReturn(mapping2);
@@ -1249,19 +1158,18 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   * with {@code mappingExecutionContext}, {@code availableVariables}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
   @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
   void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables11() {
     // Arrange
     Mapping mapping = new Mapping();
-    mapping.setType(Mapping.SourceMappingType.JSONPATCH);
+    mapping.setType(SourceMappingType.JSONPATCH);
     mapping.setValue("Value");
 
     HashMap<String, Mapping> outputs = new HashMap<>();
@@ -1269,10 +1177,10 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(outputs);
     VariableDefinition variableDefinition = mock(VariableDefinition.class);
-    when(variableDefinition.getValue()).thenReturn(new AbstractMap.SimpleEntry<>("42", "42"));
+    when(variableDefinition.getValue()).thenReturn(new SimpleEntry<>("42", "42"));
     Extension extension = mock(Extension.class);
     when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(variableDefinition);
     when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
@@ -1295,19 +1203,18 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   * with {@code mappingExecutionContext}, {@code availableVariables}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
   @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
   void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables12() {
     // Arrange
     Mapping mapping = new Mapping();
-    mapping.setType(Mapping.SourceMappingType.JSONPATCH);
+    mapping.setType(SourceMappingType.JSONPATCH);
     mapping.setValue("Value");
 
     HashMap<String, Mapping> outputs = new HashMap<>();
@@ -1315,7 +1222,7 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(outputs);
     VariableDefinition variableDefinition = mock(VariableDefinition.class);
     when(variableDefinition.getValue()).thenReturn(new ArrayNode(JsonNodeFactory.withExactBigDecimals(true)));
@@ -1341,19 +1248,18 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   * with {@code mappingExecutionContext}, {@code availableVariables}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
   @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
   void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables13() {
     // Arrange
     Mapping mapping = new Mapping();
-    mapping.setType(Mapping.SourceMappingType.JSONPATCH);
+    mapping.setType(SourceMappingType.JSONPATCH);
     mapping.setValue("Value");
 
     HashMap<String, Mapping> outputs = new HashMap<>();
@@ -1361,7 +1267,7 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(outputs);
     VariableDefinition variableDefinition = mock(VariableDefinition.class);
     when(variableDefinition.getValue()).thenReturn(new BigIntegerNode(BigInteger.valueOf(1L)));
@@ -1387,19 +1293,18 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   * with {@code mappingExecutionContext}, {@code availableVariables}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
   @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
   void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables14() {
     // Arrange
     Mapping mapping = new Mapping();
-    mapping.setType(Mapping.SourceMappingType.JSONPATCH);
+    mapping.setType(SourceMappingType.JSONPATCH);
     mapping.setValue("Value");
 
     HashMap<String, Mapping> outputs = new HashMap<>();
@@ -1407,7 +1312,7 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(outputs);
     VariableDefinition variableDefinition = mock(VariableDefinition.class);
     when(variableDefinition.getValue()).thenReturn("");
@@ -1433,19 +1338,18 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   * with {@code mappingExecutionContext}, {@code availableVariables}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
   @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
   void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables15() {
     // Arrange
     Mapping mapping = new Mapping();
-    mapping.setType(Mapping.SourceMappingType.JSONPATCH);
+    mapping.setType(SourceMappingType.JSONPATCH);
     mapping.setValue("Value");
 
     HashMap<String, Mapping> outputs = new HashMap<>();
@@ -1453,7 +1357,7 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(outputs);
     VariableDefinition variableDefinition = mock(VariableDefinition.class);
     when(variableDefinition.getValue()).thenReturn(new DefaultMapEntry<>("Key", "Value"));
@@ -1479,19 +1383,18 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   * with {@code mappingExecutionContext}, {@code availableVariables}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
   @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
   void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables16() {
     // Arrange
     Mapping mapping = new Mapping();
-    mapping.setType(Mapping.SourceMappingType.JSONPATCH);
+    mapping.setType(SourceMappingType.JSONPATCH);
     mapping.setValue("Value");
 
     HashMap<String, Mapping> outputs = new HashMap<>();
@@ -1499,11 +1402,11 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(outputs);
     Mapping mapping2 = mock(Mapping.class);
     when(mapping2.getValue()).thenReturn("Value");
-    when(mapping2.getType()).thenReturn(Mapping.SourceMappingType.VARIABLE);
+    when(mapping2.getType()).thenReturn(SourceMappingType.VARIABLE);
     VariableDefinition variableDefinition = mock(VariableDefinition.class);
     when(variableDefinition.getValue()).thenReturn(mapping2);
     Extension extension = mock(Extension.class);
@@ -1530,19 +1433,18 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   * with {@code mappingExecutionContext}, {@code availableVariables}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
   @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
   void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables17() {
     // Arrange
     Mapping mapping = new Mapping();
-    mapping.setType(Mapping.SourceMappingType.JSONPATCH);
+    mapping.setType(SourceMappingType.JSONPATCH);
     mapping.setValue("Value");
 
     HashMap<String, Mapping> outputs = new HashMap<>();
@@ -1550,15 +1452,15 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(outputs);
 
     Mapping mapping2 = new Mapping();
-    mapping2.setType(Mapping.SourceMappingType.VARIABLE);
+    mapping2.setType(SourceMappingType.VARIABLE);
     mapping2.setValue("Value");
     Mapping mapping3 = mock(Mapping.class);
     when(mapping3.getValue()).thenReturn(mapping2);
-    when(mapping3.getType()).thenReturn(Mapping.SourceMappingType.VARIABLE);
+    when(mapping3.getType()).thenReturn(SourceMappingType.VARIABLE);
     VariableDefinition variableDefinition = mock(VariableDefinition.class);
     when(variableDefinition.getValue()).thenReturn(mapping3);
     Extension extension = mock(Extension.class);
@@ -1585,19 +1487,18 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   * with {@code mappingExecutionContext}, {@code availableVariables}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
   @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
   void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables18() {
     // Arrange
     Mapping mapping = new Mapping();
-    mapping.setType(Mapping.SourceMappingType.JSONPATCH);
+    mapping.setType(SourceMappingType.JSONPATCH);
     mapping.setValue("Value");
 
     HashMap<String, Mapping> outputs = new HashMap<>();
@@ -1605,11 +1506,11 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(outputs);
     Mapping mapping2 = mock(Mapping.class);
     when(mapping2.getValue()).thenReturn(1);
-    when(mapping2.getType()).thenReturn(Mapping.SourceMappingType.VARIABLE);
+    when(mapping2.getType()).thenReturn(SourceMappingType.VARIABLE);
     VariableDefinition variableDefinition = mock(VariableDefinition.class);
     when(variableDefinition.getValue()).thenReturn(mapping2);
     Extension extension = mock(Extension.class);
@@ -1636,19 +1537,18 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   * with {@code mappingExecutionContext}, {@code availableVariables}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
   @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
   void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables19() {
     // Arrange
     Mapping mapping = new Mapping();
-    mapping.setType(Mapping.SourceMappingType.JSONPATCH);
+    mapping.setType(SourceMappingType.JSONPATCH);
     mapping.setValue("Value");
 
     HashMap<String, Mapping> outputs = new HashMap<>();
@@ -1656,11 +1556,11 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(outputs);
     Mapping mapping2 = mock(Mapping.class);
-    when(mapping2.getValue()).thenReturn(new AbstractMap.SimpleEntry<>("42", "42"));
-    when(mapping2.getType()).thenReturn(Mapping.SourceMappingType.VARIABLE);
+    when(mapping2.getValue()).thenReturn(new SimpleEntry<>("42", "42"));
+    when(mapping2.getType()).thenReturn(SourceMappingType.VARIABLE);
     VariableDefinition variableDefinition = mock(VariableDefinition.class);
     when(variableDefinition.getValue()).thenReturn(mapping2);
     Extension extension = mock(Extension.class);
@@ -1687,19 +1587,18 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   * with {@code mappingExecutionContext}, {@code availableVariables}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
   @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
   void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables20() {
     // Arrange
     Mapping mapping = new Mapping();
-    mapping.setType(Mapping.SourceMappingType.JSONPATCH);
+    mapping.setType(SourceMappingType.JSONPATCH);
     mapping.setValue("Value");
 
     HashMap<String, Mapping> outputs = new HashMap<>();
@@ -1707,11 +1606,11 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(outputs);
     Mapping mapping2 = mock(Mapping.class);
     when(mapping2.getValue()).thenReturn(null);
-    when(mapping2.getType()).thenReturn(Mapping.SourceMappingType.VARIABLE);
+    when(mapping2.getType()).thenReturn(SourceMappingType.VARIABLE);
     VariableDefinition variableDefinition = mock(VariableDefinition.class);
     when(variableDefinition.getValue()).thenReturn(mapping2);
     Extension extension = mock(Extension.class);
@@ -1738,19 +1637,18 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   * with {@code mappingExecutionContext}, {@code availableVariables}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
   @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
   void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables21() {
     // Arrange
     Mapping mapping = new Mapping();
-    mapping.setType(Mapping.SourceMappingType.JSONPATCH);
+    mapping.setType(SourceMappingType.JSONPATCH);
     mapping.setValue("Value");
 
     HashMap<String, Mapping> outputs = new HashMap<>();
@@ -1758,11 +1656,11 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(outputs);
     Mapping mapping2 = mock(Mapping.class);
     when(mapping2.getValue()).thenReturn(new TiedMapEntry<>(new HashMap<>(), "Key"));
-    when(mapping2.getType()).thenReturn(Mapping.SourceMappingType.VARIABLE);
+    when(mapping2.getType()).thenReturn(SourceMappingType.VARIABLE);
     VariableDefinition variableDefinition = mock(VariableDefinition.class);
     when(variableDefinition.getValue()).thenReturn(mapping2);
     Extension extension = mock(Extension.class);
@@ -1789,19 +1687,18 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   * with {@code mappingExecutionContext}, {@code availableVariables}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
   @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
   void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables22() {
     // Arrange
     Mapping mapping = new Mapping();
-    mapping.setType(Mapping.SourceMappingType.JSONPATCH);
+    mapping.setType(SourceMappingType.JSONPATCH);
     mapping.setValue("Value");
 
     HashMap<String, Mapping> outputs = new HashMap<>();
@@ -1809,14 +1706,13 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(outputs);
     Mapping mapping2 = mock(Mapping.class);
-    when(mapping2.getValue()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
     when(mapping2.getType()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
     Mapping mapping3 = mock(Mapping.class);
     when(mapping3.getValue()).thenReturn(mapping2);
-    when(mapping3.getType()).thenReturn(Mapping.SourceMappingType.VARIABLE);
+    when(mapping3.getType()).thenReturn(SourceMappingType.VARIABLE);
     VariableDefinition variableDefinition = mock(VariableDefinition.class);
     when(variableDefinition.getValue()).thenReturn(mapping3);
     Extension extension = mock(Extension.class);
@@ -1844,19 +1740,18 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   * with {@code mappingExecutionContext}, {@code availableVariables}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
   @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
   void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables23() {
     // Arrange
     Mapping mapping = new Mapping();
-    mapping.setType(Mapping.SourceMappingType.JSONPATCH);
+    mapping.setType(SourceMappingType.JSONPATCH);
     mapping.setValue("Value");
 
     HashMap<String, Mapping> outputs = new HashMap<>();
@@ -1864,14 +1759,13 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(outputs);
     Mapping mapping2 = mock(Mapping.class);
-    when(mapping2.getValue()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
     when(mapping2.getType()).thenThrow(new ActivitiIllegalArgumentException(null));
     Mapping mapping3 = mock(Mapping.class);
     when(mapping3.getValue()).thenReturn(mapping2);
-    when(mapping3.getType()).thenReturn(Mapping.SourceMappingType.VARIABLE);
+    when(mapping3.getType()).thenReturn(SourceMappingType.VARIABLE);
     VariableDefinition variableDefinition = mock(VariableDefinition.class);
     when(variableDefinition.getValue()).thenReturn(mapping3);
     Extension extension = mock(Extension.class);
@@ -1899,19 +1793,18 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   * with {@code mappingExecutionContext}, {@code availableVariables}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
   @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
   void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables24() {
     // Arrange
     Mapping mapping = new Mapping();
-    mapping.setType(Mapping.SourceMappingType.JSONPATCH);
+    mapping.setType(SourceMappingType.JSONPATCH);
     mapping.setValue("Value");
 
     HashMap<String, Mapping> outputs = new HashMap<>();
@@ -1919,14 +1812,13 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(outputs);
     Mapping mapping2 = mock(Mapping.class);
-    when(mapping2.getValue()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
     when(mapping2.getType()).thenThrow(new ActivitiIllegalArgumentException(""));
     Mapping mapping3 = mock(Mapping.class);
     when(mapping3.getValue()).thenReturn(mapping2);
-    when(mapping3.getType()).thenReturn(Mapping.SourceMappingType.VARIABLE);
+    when(mapping3.getType()).thenReturn(SourceMappingType.VARIABLE);
     VariableDefinition variableDefinition = mock(VariableDefinition.class);
     when(variableDefinition.getValue()).thenReturn(mapping3);
     Extension extension = mock(Extension.class);
@@ -1954,23 +1846,22 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   * with {@code mappingExecutionContext}, {@code availableVariables}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
   @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
   void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables25() {
     // Arrange
     Mapping mapping = mock(Mapping.class);
     when(mapping.getValue()).thenReturn("Value");
-    when(mapping.getType()).thenReturn(Mapping.SourceMappingType.VARIABLE);
-    doNothing().when(mapping).setType(Mockito.<Mapping.SourceMappingType>any());
+    when(mapping.getType()).thenReturn(SourceMappingType.VARIABLE);
+    doNothing().when(mapping).setType(Mockito.<SourceMappingType>any());
     doNothing().when(mapping).setValue(Mockito.<Object>any());
-    mapping.setType(Mapping.SourceMappingType.JSONPATCH);
+    mapping.setType(SourceMappingType.JSONPATCH);
     mapping.setValue("Value");
 
     HashMap<String, Mapping> outputs = new HashMap<>();
@@ -1978,16 +1869,10 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(outputs);
-    Mapping mapping2 = mock(Mapping.class);
-    when(mapping2.getValue()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
-    when(mapping2.getType()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
-    Mapping mapping3 = mock(Mapping.class);
-    when(mapping3.getValue()).thenReturn(mapping2);
-    when(mapping3.getType()).thenReturn(Mapping.SourceMappingType.VARIABLE);
     VariableDefinition variableDefinition = mock(VariableDefinition.class);
-    when(variableDefinition.getValue()).thenReturn(mapping3);
+    when(variableDefinition.getValue()).thenReturn(mock(Mapping.class));
     Extension extension = mock(Extension.class);
     when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(variableDefinition);
     when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
@@ -2013,30 +1898,29 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
     verify(extension).shouldMapAllOutputs(eq("42"));
     verify(mapping, atLeast(1)).getType();
     verify(mapping).getValue();
-    verify(mapping).setType(eq(Mapping.SourceMappingType.JSONPATCH));
+    verify(mapping).setType(eq(SourceMappingType.JSONPATCH));
     verify(mapping).setValue(isA(Object.class));
     verify(variableDefinition).getValue();
     assertTrue(actualCalculateOutPutVariablesResult.isEmpty());
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   * with {@code mappingExecutionContext}, {@code availableVariables}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
   @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
   void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables26() {
     // Arrange
     Mapping mapping = mock(Mapping.class);
     when(mapping.getValue()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
-    when(mapping.getType()).thenReturn(Mapping.SourceMappingType.VARIABLE);
-    doNothing().when(mapping).setType(Mockito.<Mapping.SourceMappingType>any());
+    when(mapping.getType()).thenReturn(SourceMappingType.VARIABLE);
+    doNothing().when(mapping).setType(Mockito.<SourceMappingType>any());
     doNothing().when(mapping).setValue(Mockito.<Object>any());
-    mapping.setType(Mapping.SourceMappingType.JSONPATCH);
+    mapping.setType(SourceMappingType.JSONPATCH);
     mapping.setValue("Value");
 
     HashMap<String, Mapping> outputs = new HashMap<>();
@@ -2044,16 +1928,10 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(outputs);
-    Mapping mapping2 = mock(Mapping.class);
-    when(mapping2.getValue()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
-    when(mapping2.getType()).thenThrow(new ActivitiIllegalArgumentException("An error occurred"));
-    Mapping mapping3 = mock(Mapping.class);
-    when(mapping3.getValue()).thenReturn(mapping2);
-    when(mapping3.getType()).thenReturn(Mapping.SourceMappingType.VARIABLE);
     VariableDefinition variableDefinition = mock(VariableDefinition.class);
-    when(variableDefinition.getValue()).thenReturn(mapping3);
+    when(variableDefinition.getValue()).thenReturn(mock(Mapping.class));
     Extension extension = mock(Extension.class);
     when(extension.getPropertyByName(Mockito.<String>any())).thenReturn(variableDefinition);
     when(extension.shouldMapAllOutputs(Mockito.<String>any())).thenReturn(false);
@@ -2074,28 +1952,27 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
     verify(extension).shouldMapAllOutputs(eq("42"));
     verify(mapping, atLeast(1)).getType();
     verify(mapping).getValue();
-    verify(mapping).setType(eq(Mapping.SourceMappingType.JSONPATCH));
+    verify(mapping).setType(eq(SourceMappingType.JSONPATCH));
     verify(mapping).setValue(isA(Object.class));
     verify(variableDefinition).getValue();
   }
 
   /**
-   * Test
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
-   * with {@code mappingExecutionContext}, {@code availableVariables}.
+   * Test {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)} with {@code mappingExecutionContext}, {@code availableVariables}.
    * <ul>
    *   <li>Given {@code A}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
+   * Method under test: {@link ExtensionsVariablesMappingProvider#calculateOutPutVariables(MappingExecutionContext, Map)}
    */
   @Test
   @DisplayName("Test calculateOutPutVariables(MappingExecutionContext, Map) with 'mappingExecutionContext', 'availableVariables'; given 'A'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Map ExtensionsVariablesMappingProvider.calculateOutPutVariables(MappingExecutionContext, Map)"})
   void testCalculateOutPutVariablesWithMappingExecutionContextAvailableVariables_givenA() {
     // Arrange
     Mapping mapping = new Mapping();
-    mapping.setType(Mapping.SourceMappingType.JSONPATCH);
+    mapping.setType(SourceMappingType.JSONPATCH);
     mapping.setValue("Value");
 
     HashMap<String, Mapping> outputs = new HashMap<>();
@@ -2103,7 +1980,7 @@ class ExtensionsVariablesMappingProviderDiffblueTest {
 
     ProcessVariablesMapping processVariablesMapping = new ProcessVariablesMapping();
     processVariablesMapping.setInputs(new HashMap<>());
-    processVariablesMapping.setMappingType(ProcessVariablesMapping.MappingType.MAP_ALL);
+    processVariablesMapping.setMappingType(MappingType.MAP_ALL);
     processVariablesMapping.setOutputs(outputs);
     VariableDefinition variableDefinition = mock(VariableDefinition.class);
     when(variableDefinition.getValue()).thenReturn(new BinaryNode(new byte[]{'A', 1, 'A', 1, 'A', 1, 'A', 1}));

@@ -19,26 +19,108 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.util.Date;
 import org.activiti.engine.impl.persistence.entity.HistoricDetailVariableInstanceUpdateEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class BooleanTypeDiffblueTest {
   /**
    * Test {@link BooleanType#getValue(ValueFields)}.
    * <ul>
-   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default
-   * constructor).</li>
+   *   <li>Given forty-two.</li>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BooleanType#getValue(ValueFields)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object BooleanType.getValue(ValueFields)"})
+  public void testGetValue_givenFortyTwo_thenReturnFalse() {
+    // Arrange
+    BooleanType booleanType = new BooleanType();
+
+    HistoricDetailVariableInstanceUpdateEntityImpl valueFields = new HistoricDetailVariableInstanceUpdateEntityImpl();
+    valueFields.setActivityInstanceId("42");
+    valueFields.setCachedValue(JSONObject.NULL);
+    valueFields.setDeleted(true);
+    valueFields.setDetailType("Detail Type");
+    valueFields.setDoubleValue(10.0d);
+    valueFields.setExecutionId("42");
+    valueFields.setId("42");
+    valueFields.setInserted(true);
+    valueFields.setName("Name");
+    valueFields.setProcessInstanceId("42");
+    valueFields.setRevision(1);
+    valueFields.setTaskId("42");
+    valueFields.setTextValue("42");
+    valueFields.setTextValue2("42");
+    valueFields.setTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    valueFields.setUpdated(true);
+    valueFields.setVariableType(new BigDecimalType());
+    valueFields.setLongValue(42L);
+
+    // Act and Assert
+    assertFalse((Boolean) booleanType.getValue(valueFields));
+  }
+
+  /**
+   * Test {@link BooleanType#getValue(ValueFields)}.
+   * <ul>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BooleanType#getValue(ValueFields)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object BooleanType.getValue(ValueFields)"})
+  public void testGetValue_thenReturnTrue() {
+    // Arrange
+    BooleanType booleanType = new BooleanType();
+
+    HistoricDetailVariableInstanceUpdateEntityImpl valueFields = new HistoricDetailVariableInstanceUpdateEntityImpl();
+    valueFields.setActivityInstanceId("42");
+    valueFields.setCachedValue(JSONObject.NULL);
+    valueFields.setDeleted(true);
+    valueFields.setDetailType("Detail Type");
+    valueFields.setDoubleValue(10.0d);
+    valueFields.setExecutionId("42");
+    valueFields.setId("42");
+    valueFields.setInserted(true);
+    valueFields.setName("Name");
+    valueFields.setProcessInstanceId("42");
+    valueFields.setRevision(1);
+    valueFields.setTaskId("42");
+    valueFields.setTextValue("42");
+    valueFields.setTextValue2("42");
+    valueFields.setTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    valueFields.setUpdated(true);
+    valueFields.setVariableType(new BigDecimalType());
+    valueFields.setLongValue(1L);
+
+    // Act and Assert
+    assertTrue((Boolean) booleanType.getValue(valueFields));
+  }
+
+  /**
+   * Test {@link BooleanType#getValue(ValueFields)}.
+   * <ul>
+   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor).</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BooleanType#getValue(ValueFields)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object BooleanType.getValue(ValueFields)"})
   public void testGetValue_whenHistoricDetailVariableInstanceUpdateEntityImpl_thenReturnNull() {
     // Arrange
     BooleanType booleanType = new BooleanType();
@@ -48,35 +130,13 @@ public class BooleanTypeDiffblueTest {
   }
 
   /**
-   * Test {@link BooleanType#getValue(ValueFields)}.
-   * <ul>
-   *   <li>When {@link ValueFields} {@link ValueFields#getLongValue()} return
-   * forty-two.</li>
-   *   <li>Then calls {@link ValueFields#getLongValue()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BooleanType#getValue(ValueFields)}
-   */
-  @Test
-  public void testGetValue_whenValueFieldsGetLongValueReturnFortyTwo_thenCallsGetLongValue() {
-    // Arrange
-    BooleanType booleanType = new BooleanType();
-    ValueFields valueFields = mock(ValueFields.class);
-    when(valueFields.getLongValue()).thenReturn(42L);
-
-    // Act
-    booleanType.getValue(valueFields);
-
-    // Assert
-    verify(valueFields, atLeast(1)).getLongValue();
-  }
-
-  /**
    * Test {@link BooleanType#setValue(Object, ValueFields)}.
    * <p>
    * Method under test: {@link BooleanType#setValue(Object, ValueFields)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BooleanType.setValue(Object, ValueFields)"})
   public void testSetValue() {
     // Arrange
     BooleanType booleanType = new BooleanType();
@@ -95,6 +155,8 @@ public class BooleanTypeDiffblueTest {
    * Method under test: {@link BooleanType#setValue(Object, ValueFields)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BooleanType.setValue(Object, ValueFields)"})
   public void testSetValue2() {
     // Arrange
     BooleanType booleanType = new BooleanType();
@@ -110,13 +172,14 @@ public class BooleanTypeDiffblueTest {
   /**
    * Test {@link BooleanType#setValue(Object, ValueFields)}.
    * <ul>
-   *   <li>Then {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default
-   * constructor) LongValue is {@code null}.</li>
+   *   <li>Then {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor) LongValue is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BooleanType#setValue(Object, ValueFields)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BooleanType.setValue(Object, ValueFields)"})
   public void testSetValue_thenHistoricDetailVariableInstanceUpdateEntityImplLongValueIsNull() {
     // Arrange
     BooleanType booleanType = new BooleanType();
@@ -125,7 +188,7 @@ public class BooleanTypeDiffblueTest {
     // Act
     booleanType.setValue(null, valueFields);
 
-    // Assert
+    // Assert that nothing has changed
     assertNull(valueFields.getLongValue());
   }
 
@@ -139,6 +202,8 @@ public class BooleanTypeDiffblueTest {
    * Method under test: {@link BooleanType#isAbleToStore(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean BooleanType.isAbleToStore(Object)"})
   public void testIsAbleToStore_whenNull_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new BooleanType()).isAbleToStore(JSONObject.NULL));
@@ -154,6 +219,8 @@ public class BooleanTypeDiffblueTest {
    * Method under test: {@link BooleanType#isAbleToStore(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean BooleanType.isAbleToStore(Object)"})
   public void testIsAbleToStore_whenNull_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue((new BooleanType()).isAbleToStore(null));
@@ -170,6 +237,9 @@ public class BooleanTypeDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BooleanType.<init>()", "String BooleanType.getTypeName()",
+      "boolean BooleanType.isCachable()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     BooleanType actualBooleanType = new BooleanType();

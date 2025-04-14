@@ -21,6 +21,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -33,16 +35,18 @@ import org.activiti.engine.impl.bpmn.parser.factory.MessageExecutionContext;
 import org.activiti.engine.impl.delegate.MessagePayloadMappingProvider;
 import org.activiti.engine.impl.el.ExpressionManager;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class EventSubProcessMessageStartEventActivityBehaviorDiffblueTest {
   /**
-   * Test
-   * {@link EventSubProcessMessageStartEventActivityBehavior#EventSubProcessMessageStartEventActivityBehavior(MessageEventDefinition, MessageExecutionContext)}.
+   * Test {@link EventSubProcessMessageStartEventActivityBehavior#EventSubProcessMessageStartEventActivityBehavior(MessageEventDefinition, MessageExecutionContext)}.
    * <p>
-   * Method under test:
-   * {@link EventSubProcessMessageStartEventActivityBehavior#EventSubProcessMessageStartEventActivityBehavior(MessageEventDefinition, MessageExecutionContext)}
+   * Method under test: {@link EventSubProcessMessageStartEventActivityBehavior#EventSubProcessMessageStartEventActivityBehavior(MessageEventDefinition, MessageExecutionContext)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "void EventSubProcessMessageStartEventActivityBehavior.<init>(MessageEventDefinition, MessageExecutionContext)"})
   public void testNewEventSubProcessMessageStartEventActivityBehavior() {
     // Arrange
     MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
@@ -74,18 +78,17 @@ public class EventSubProcessMessageStartEventActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}.
+   * Test {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}.
    * <ul>
-   *   <li>When {@link ArrayList#ArrayList()} add {@link BooleanDataObject} (default
-   * constructor).</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@link BooleanDataObject} (default constructor).</li>
    *   <li>Then return size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}
+   * Method under test: {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map EventSubProcessMessageStartEventActivityBehavior.processDataObjects(Collection)"})
   public void testProcessDataObjects_whenArrayListAddBooleanDataObject_thenReturnSizeIsOne() {
     // Arrange
     MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
@@ -108,17 +111,17 @@ public class EventSubProcessMessageStartEventActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}.
+   * Test {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}
+   * Method under test: {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map EventSubProcessMessageStartEventActivityBehavior.processDataObjects(Collection)"})
   public void testProcessDataObjects_whenArrayList_thenReturnEmpty() {
     // Arrange
     MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
@@ -132,18 +135,17 @@ public class EventSubProcessMessageStartEventActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}.
+   * Test {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}.
    * <ul>
-   *   <li>When {@link LinkedHashSet#LinkedHashSet()} add {@link BooleanDataObject}
-   * (default constructor).</li>
+   *   <li>When {@link LinkedHashSet#LinkedHashSet()} add {@link BooleanDataObject} (default constructor).</li>
    *   <li>Then return size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}
+   * Method under test: {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map EventSubProcessMessageStartEventActivityBehavior.processDataObjects(Collection)"})
   public void testProcessDataObjects_whenLinkedHashSetAddBooleanDataObject_thenReturnSizeIsOne() {
     // Arrange
     MessageEventDefinition messageEventDefinition = new MessageEventDefinition();
@@ -165,17 +167,17 @@ public class EventSubProcessMessageStartEventActivityBehaviorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}.
+   * Test {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}.
    * <ul>
    *   <li>When {@code null}.</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}
+   * Method under test: {@link EventSubProcessMessageStartEventActivityBehavior#processDataObjects(Collection)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Map EventSubProcessMessageStartEventActivityBehavior.processDataObjects(Collection)"})
   public void testProcessDataObjects_whenNull_thenReturnEmpty() {
     // Arrange
     MessageEventDefinition messageEventDefinition = new MessageEventDefinition();

@@ -19,21 +19,25 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
 import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.engine.delegate.TransactionDependentExecutionListener;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ExecuteExecutionListenerTransactionListenerDiffblueTest {
   /**
-   * Test
-   * {@link ExecuteExecutionListenerTransactionListener#ExecuteExecutionListenerTransactionListener(TransactionDependentExecutionListener, TransactionDependentExecutionListenerExecutionScope)}.
+   * Test {@link ExecuteExecutionListenerTransactionListener#ExecuteExecutionListenerTransactionListener(TransactionDependentExecutionListener, TransactionDependentExecutionListenerExecutionScope)}.
    * <p>
-   * Method under test:
-   * {@link ExecuteExecutionListenerTransactionListener#ExecuteExecutionListenerTransactionListener(TransactionDependentExecutionListener, TransactionDependentExecutionListenerExecutionScope)}
+   * Method under test: {@link ExecuteExecutionListenerTransactionListener#ExecuteExecutionListenerTransactionListener(TransactionDependentExecutionListener, TransactionDependentExecutionListenerExecutionScope)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "void ExecuteExecutionListenerTransactionListener.<init>(TransactionDependentExecutionListener, TransactionDependentExecutionListenerExecutionScope)"})
   public void testNewExecuteExecutionListenerTransactionListener() {
     // Arrange
     TransactionDependentExecutionListener listener = mock(TransactionDependentExecutionListener.class);

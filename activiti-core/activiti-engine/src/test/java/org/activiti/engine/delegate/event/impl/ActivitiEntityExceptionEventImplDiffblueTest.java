@@ -19,20 +19,23 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ActivitiEntityExceptionEventImplDiffblueTest {
   /**
-   * Test
-   * {@link ActivitiEntityExceptionEventImpl#ActivitiEntityExceptionEventImpl(Object, ActivitiEventType, Throwable)}.
+   * Test {@link ActivitiEntityExceptionEventImpl#ActivitiEntityExceptionEventImpl(Object, ActivitiEventType, Throwable)}.
    * <p>
-   * Method under test:
-   * {@link ActivitiEntityExceptionEventImpl#ActivitiEntityExceptionEventImpl(Object, ActivitiEventType, Throwable)}
+   * Method under test: {@link ActivitiEntityExceptionEventImpl#ActivitiEntityExceptionEventImpl(Object, ActivitiEventType, Throwable)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiEntityExceptionEventImpl.<init>(Object, ActivitiEventType, Throwable)"})
   public void testNewActivitiEntityExceptionEventImpl() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
@@ -41,17 +44,17 @@ public class ActivitiEntityExceptionEventImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiEntityExceptionEventImpl#ActivitiEntityExceptionEventImpl(Object, ActivitiEventType, Throwable)}.
+   * Test {@link ActivitiEntityExceptionEventImpl#ActivitiEntityExceptionEventImpl(Object, ActivitiEventType, Throwable)}.
    * <ul>
    *   <li>When {@link JSONObject#NULL}.</li>
    *   <li>Then return ExecutionId is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiEntityExceptionEventImpl#ActivitiEntityExceptionEventImpl(Object, ActivitiEventType, Throwable)}
+   * Method under test: {@link ActivitiEntityExceptionEventImpl#ActivitiEntityExceptionEventImpl(Object, ActivitiEventType, Throwable)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiEntityExceptionEventImpl.<init>(Object, ActivitiEventType, Throwable)"})
   public void testNewActivitiEntityExceptionEventImpl_whenNull_thenReturnExecutionIdIsNull() {
     // Arrange
     Object object = JSONObject.NULL;
@@ -81,6 +84,9 @@ public class ActivitiEntityExceptionEventImplDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Throwable ActivitiEntityExceptionEventImpl.getCause()",
+      "Object ActivitiEntityExceptionEventImpl.getEntity()"})
   public void testGettersAndSetters() {
     // Arrange
     ActivitiEntityExceptionEventImpl activitiEntityExceptionEventImpl = new ActivitiEntityExceptionEventImpl(

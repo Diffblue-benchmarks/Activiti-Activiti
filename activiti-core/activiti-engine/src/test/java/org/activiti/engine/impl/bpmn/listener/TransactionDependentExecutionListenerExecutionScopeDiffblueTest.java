@@ -18,11 +18,14 @@ package org.activiti.engine.impl.bpmn.listener;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
 import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.FlowElement;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class TransactionDependentExecutionListenerExecutionScopeDiffblueTest {
   /**
@@ -30,21 +33,23 @@ public class TransactionDependentExecutionListenerExecutionScopeDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link TransactionDependentExecutionListenerExecutionScope#TransactionDependentExecutionListenerExecutionScope(String, String, FlowElement, Map, Map)}
-   *   <li>
-   * {@link TransactionDependentExecutionListenerExecutionScope#getCustomPropertiesMap()}
-   *   <li>
-   * {@link TransactionDependentExecutionListenerExecutionScope#getExecutionId()}
-   *   <li>
-   * {@link TransactionDependentExecutionListenerExecutionScope#getExecutionVariables()}
-   *   <li>
-   * {@link TransactionDependentExecutionListenerExecutionScope#getFlowElement()}
-   *   <li>
-   * {@link TransactionDependentExecutionListenerExecutionScope#getProcessInstanceId()}
+   *   <li>{@link TransactionDependentExecutionListenerExecutionScope#TransactionDependentExecutionListenerExecutionScope(String, String, FlowElement, Map, Map)}
+   *   <li>{@link TransactionDependentExecutionListenerExecutionScope#getCustomPropertiesMap()}
+   *   <li>{@link TransactionDependentExecutionListenerExecutionScope#getExecutionId()}
+   *   <li>{@link TransactionDependentExecutionListenerExecutionScope#getExecutionVariables()}
+   *   <li>{@link TransactionDependentExecutionListenerExecutionScope#getFlowElement()}
+   *   <li>{@link TransactionDependentExecutionListenerExecutionScope#getProcessInstanceId()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "void TransactionDependentExecutionListenerExecutionScope.<init>(String, String, FlowElement, Map, Map)",
+      "Map TransactionDependentExecutionListenerExecutionScope.getCustomPropertiesMap()",
+      "String TransactionDependentExecutionListenerExecutionScope.getExecutionId()",
+      "Map TransactionDependentExecutionListenerExecutionScope.getExecutionVariables()",
+      "FlowElement TransactionDependentExecutionListenerExecutionScope.getFlowElement()",
+      "String TransactionDependentExecutionListenerExecutionScope.getProcessInstanceId()"})
   public void testGettersAndSetters() {
     // Arrange
     AdhocSubProcess flowElement = new AdhocSubProcess();

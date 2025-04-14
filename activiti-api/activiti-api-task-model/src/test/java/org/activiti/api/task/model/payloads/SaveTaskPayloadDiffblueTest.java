@@ -19,11 +19,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiFunction;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class SaveTaskPayloadDiffblueTest {
@@ -34,6 +34,8 @@ class SaveTaskPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test new SaveTaskPayload()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SaveTaskPayload.<init>()"})
   void testNewSaveTaskPayload() {
     // Arrange and Act
     SaveTaskPayload actualSaveTaskPayload = new SaveTaskPayload();
@@ -45,40 +47,14 @@ class SaveTaskPayloadDiffblueTest {
 
   /**
    * Test {@link SaveTaskPayload#SaveTaskPayload(String, Map)}.
-   * <ul>
-   *   <li>Given {@code foo}.</li>
-   *   <li>When {@link HashMap#HashMap()} computeIfPresent {@code foo} and
-   * {@link BiFunction}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link SaveTaskPayload#SaveTaskPayload(String, Map)}
    */
   @Test
-  @DisplayName("Test new SaveTaskPayload(String, Map); given 'foo'; when HashMap() computeIfPresent 'foo' and BiFunction")
-  void testNewSaveTaskPayload_givenFoo_whenHashMapComputeIfPresentFooAndBiFunction() {
-    // Arrange
-    HashMap<String, Object> variables = new HashMap<>();
-    variables.computeIfPresent("foo", mock(BiFunction.class));
-
-    // Act
-    SaveTaskPayload actualSaveTaskPayload = new SaveTaskPayload("42", variables);
-
-    // Assert
-    assertEquals("42", actualSaveTaskPayload.getTaskId());
-    assertTrue(actualSaveTaskPayload.getVariables().isEmpty());
-  }
-
-  /**
-   * Test {@link SaveTaskPayload#SaveTaskPayload(String, Map)}.
-   * <ul>
-   *   <li>When {@link HashMap#HashMap()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SaveTaskPayload#SaveTaskPayload(String, Map)}
-   */
-  @Test
-  @DisplayName("Test new SaveTaskPayload(String, Map); when HashMap()")
-  void testNewSaveTaskPayload_whenHashMap() {
+  @DisplayName("Test new SaveTaskPayload(String, Map)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SaveTaskPayload.<init>(String, Map)"})
+  void testNewSaveTaskPayload2() {
     // Arrange and Act
     SaveTaskPayload actualSaveTaskPayload = new SaveTaskPayload("42", new HashMap<>());
 
@@ -101,6 +77,10 @@ class SaveTaskPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String SaveTaskPayload.getId()", "String SaveTaskPayload.getTaskId()",
+      "Map SaveTaskPayload.getVariables()", "void SaveTaskPayload.setTaskId(String)",
+      "void SaveTaskPayload.setVariables(Map)"})
   void testGettersAndSetters() {
     // Arrange
     SaveTaskPayload saveTaskPayload = new SaveTaskPayload();
@@ -113,7 +93,7 @@ class SaveTaskPayloadDiffblueTest {
     String actualTaskId = saveTaskPayload.getTaskId();
     Map<String, Object> actualVariables = saveTaskPayload.getVariables();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualTaskId);
     assertTrue(actualVariables.isEmpty());
     assertSame(variables, actualVariables);

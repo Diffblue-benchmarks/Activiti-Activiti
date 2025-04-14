@@ -26,31 +26,30 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.Process;
-import org.activiti.bpmn.model.Resource;
 import org.activiti.bpmn.model.SequenceFlow;
-import org.activiti.bpmn.model.Signal;
 import org.activiti.validation.ValidationError;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class SequenceflowValidatorDiffblueTest {
   /**
-   * Test
-   * {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
    * <p>
-   * Method under test:
-   * {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation() {
     // Arrange
     SequenceflowValidator sequenceflowValidator = new SequenceflowValidator();
@@ -87,14 +86,14 @@ class SequenceflowValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
    * <p>
-   * Method under test:
-   * {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation2() {
     // Arrange
     SequenceflowValidator sequenceflowValidator = new SequenceflowValidator();
@@ -131,14 +130,14 @@ class SequenceflowValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
    * <p>
-   * Method under test:
-   * {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation3() {
     // Arrange
     SequenceflowValidator sequenceflowValidator = new SequenceflowValidator();
@@ -178,19 +177,17 @@ class SequenceflowValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add
-   * {@link SequenceFlow#SequenceFlow(String, String)} with {@code Source Ref} and
-   * {@code Target Ref}.</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link SequenceFlow#SequenceFlow(String, String)} with {@code Source Ref} and {@code Target Ref}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList() add SequenceFlow(String, String) with 'Source Ref' and 'Target Ref'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenArrayListAddSequenceFlowWithSourceRefAndTargetRef() {
     // Arrange
     SequenceflowValidator sequenceflowValidator = new SequenceflowValidator();
@@ -202,7 +199,6 @@ class SequenceflowValidatorDiffblueTest {
     when(flowElement.getId()).thenReturn("42");
     Process process = mock(Process.class);
     when(process.getFlowElementsContainer(Mockito.<String>any())).thenReturn(new AdhocSubProcess());
-    when(process.getId()).thenReturn("42");
     when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(flowElement);
     when(process.findFlowElementsOfType(Mockito.<Class<SequenceFlow>>any())).thenReturn(sequenceFlowList);
     ArrayList<ValidationError> errors = new ArrayList<>();
@@ -215,29 +211,23 @@ class SequenceflowValidatorDiffblueTest {
     verify(process).findFlowElementsOfType(isA(Class.class));
     verify(process, atLeast(1)).getFlowElement(Mockito.<String>any(), eq(true));
     verify(process, atLeast(1)).getFlowElementsContainer(eq("42"));
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
     assertTrue(errors.isEmpty());
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
   }
 
   /**
-   * Test
-   * {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
    *   <li>Given {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then {@link BpmnModel} (default constructor) Resources {@link List}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList(); then BpmnModel (default constructor) Resources List")
-  void testExecuteValidation_givenArrayList_thenBpmnModelResourcesList() {
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList(); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
+  void testExecuteValidation_givenArrayList_thenArrayListEmpty() {
     // Arrange
     SequenceflowValidator sequenceflowValidator = new SequenceflowValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -250,28 +240,21 @@ class SequenceflowValidatorDiffblueTest {
 
     // Assert that nothing has changed
     verify(process).findFlowElementsOfType(isA(Class.class));
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
     assertTrue(errors.isEmpty());
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
   }
 
   /**
-   * Test
-   * {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link SequenceFlow} {@link SequenceFlow#getSourceRef()} return
-   * {@code null}.</li>
+   *   <li>Given {@link SequenceFlow} {@link SequenceFlow#getSourceRef()} return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given SequenceFlow getSourceRef() return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenSequenceFlowGetSourceRefReturnNull() {
     // Arrange
     SequenceflowValidator sequenceflowValidator = new SequenceflowValidator();
@@ -323,24 +306,22 @@ class SequenceflowValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link SequenceFlow} {@link SequenceFlow#getSourceRef()} return
-   * {@code Source Ref}.</li>
+   *   <li>Given {@link SequenceFlow} {@link SequenceFlow#getSourceRef()} return {@code Source Ref}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given SequenceFlow getSourceRef() return 'Source Ref'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenSequenceFlowGetSourceRefReturnSourceRef() {
     // Arrange
     SequenceflowValidator sequenceflowValidator = new SequenceflowValidator();
     BpmnModel bpmnModel = new BpmnModel();
     SequenceFlow sequenceFlow = mock(SequenceFlow.class);
-    when(sequenceFlow.getId()).thenReturn("42");
     when(sequenceFlow.getConditionExpression()).thenReturn("Condition Expression");
     when(sequenceFlow.getSourceRef()).thenReturn("Source Ref");
     when(sequenceFlow.getTargetRef()).thenReturn("Target Ref");
@@ -351,7 +332,6 @@ class SequenceflowValidatorDiffblueTest {
     when(flowElement.getId()).thenReturn("42");
     Process process = mock(Process.class);
     when(process.getFlowElementsContainer(Mockito.<String>any())).thenReturn(new AdhocSubProcess());
-    when(process.getId()).thenReturn("42");
     when(process.getFlowElement(Mockito.<String>any(), anyBoolean())).thenReturn(flowElement);
     when(process.findFlowElementsOfType(Mockito.<Class<SequenceFlow>>any())).thenReturn(sequenceFlowList);
     ArrayList<ValidationError> errors = new ArrayList<>();
@@ -359,7 +339,7 @@ class SequenceflowValidatorDiffblueTest {
     // Act
     sequenceflowValidator.executeValidation(bpmnModel, process, errors);
 
-    // Assert
+    // Assert that nothing has changed
     verify(flowElement, atLeast(1)).getId();
     verify(process).findFlowElementsOfType(isA(Class.class));
     verify(process, atLeast(1)).getFlowElement(Mockito.<String>any(), eq(true));
@@ -367,28 +347,21 @@ class SequenceflowValidatorDiffblueTest {
     verify(sequenceFlow).getConditionExpression();
     verify(sequenceFlow).getSourceRef();
     verify(sequenceFlow).getTargetRef();
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
     assertTrue(errors.isEmpty());
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
   }
 
   /**
-   * Test
-   * {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link SequenceFlow} {@link SequenceFlow#getTargetRef()} return
-   * {@code null}.</li>
+   *   <li>Given {@link SequenceFlow} {@link SequenceFlow#getTargetRef()} return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given SequenceFlow getTargetRef() return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenSequenceFlowGetTargetRefReturnNull() {
     // Arrange
     SequenceflowValidator sequenceflowValidator = new SequenceflowValidator();
@@ -443,17 +416,17 @@ class SequenceflowValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} second ActivityId is {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() second ActivityId is '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListSecondActivityIdIs42() {
     // Arrange
     SequenceflowValidator sequenceflowValidator = new SequenceflowValidator();
@@ -505,18 +478,17 @@ class SequenceflowValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} second ActivityId is
-   * {@code null}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} second ActivityId is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() second ActivityId is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListSecondActivityIdIsNull() {
     // Arrange
     SequenceflowValidator sequenceflowValidator = new SequenceflowValidator();
@@ -550,45 +522,17 @@ class SequenceflowValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>When {@link BpmnModel}.</li>
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
+   *   <li>When {@link Process} {@link Process#getFlowElement(String, boolean)} return {@link AdhocSubProcess} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
-   */
-  @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); when BpmnModel; then ArrayList() Empty")
-  void testExecuteValidation_whenBpmnModel_thenArrayListEmpty() {
-    // Arrange
-    SequenceflowValidator sequenceflowValidator = new SequenceflowValidator();
-    BpmnModel bpmnModel = mock(BpmnModel.class);
-    Process process = new Process();
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    sequenceflowValidator.executeValidation(bpmnModel, process, errors);
-
-    // Assert that nothing has changed
-    assertTrue(errors.isEmpty());
-  }
-
-  /**
-   * Test
-   * {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
-   * <ul>
-   *   <li>When {@link Process} {@link Process#getFlowElement(String, boolean)}
-   * return {@link AdhocSubProcess} (default constructor).</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); when Process getFlowElement(String, boolean) return AdhocSubProcess (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_whenProcessGetFlowElementReturnAdhocSubProcess() {
     // Arrange
     SequenceflowValidator sequenceflowValidator = new SequenceflowValidator();
@@ -609,28 +553,21 @@ class SequenceflowValidatorDiffblueTest {
     verify(process).findFlowElementsOfType(isA(Class.class));
     verify(process, atLeast(1)).getFlowElement(Mockito.<String>any(), eq(true));
     verify(process, atLeast(1)).getFlowElementsContainer(isNull());
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
     assertTrue(errors.isEmpty());
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
   }
 
   /**
-   * Test
-   * {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>When {@link Process} {@link Process#getFlowElement(String, boolean)}
-   * return {@code null}.</li>
+   *   <li>When {@link Process} {@link Process#getFlowElement(String, boolean)} return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); when Process getFlowElement(String, boolean) return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_whenProcessGetFlowElementReturnNull() {
     // Arrange
     SequenceflowValidator sequenceflowValidator = new SequenceflowValidator();
@@ -662,19 +599,19 @@ class SequenceflowValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
    *   <li>When {@link Process} (default constructor).</li>
-   *   <li>Then {@link BpmnModel} (default constructor) Resources {@link List}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link SequenceflowValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); when Process (default constructor); then BpmnModel (default constructor) Resources List")
-  void testExecuteValidation_whenProcess_thenBpmnModelResourcesList() {
+  @DisplayName("Test executeValidation(BpmnModel, Process, List); when Process (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SequenceflowValidator.executeValidation(BpmnModel, Process, List)"})
+  void testExecuteValidation_whenProcess_thenArrayListEmpty() {
     // Arrange
     SequenceflowValidator sequenceflowValidator = new SequenceflowValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -685,12 +622,6 @@ class SequenceflowValidatorDiffblueTest {
     sequenceflowValidator.executeValidation(bpmnModel, process, errors);
 
     // Assert that nothing has changed
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
-    Collection<Signal> signals = bpmnModel.getSignals();
-    assertTrue(signals instanceof List);
     assertTrue(errors.isEmpty());
-    assertTrue(resources.isEmpty());
-    assertTrue(signals.isEmpty());
   }
 }

@@ -16,17 +16,20 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class DeleteHistoricTaskInstanceCmdDiffblueTest {
   /**
-   * Test
-   * {@link DeleteHistoricTaskInstanceCmd#DeleteHistoricTaskInstanceCmd(String)}.
+   * Test {@link DeleteHistoricTaskInstanceCmd#DeleteHistoricTaskInstanceCmd(String)}.
    * <p>
-   * Method under test:
-   * {@link DeleteHistoricTaskInstanceCmd#DeleteHistoricTaskInstanceCmd(String)}
+   * Method under test: {@link DeleteHistoricTaskInstanceCmd#DeleteHistoricTaskInstanceCmd(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeleteHistoricTaskInstanceCmd.<init>(String)"})
   public void testNewDeleteHistoricTaskInstanceCmd() {
     // Arrange, Act and Assert
     assertEquals("42", (new DeleteHistoricTaskInstanceCmd("42")).taskId);

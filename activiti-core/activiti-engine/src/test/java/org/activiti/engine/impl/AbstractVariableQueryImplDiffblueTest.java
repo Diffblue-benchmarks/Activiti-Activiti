@@ -21,51 +21,30 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.List;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.history.HistoricTaskInstanceQuery;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.activiti.engine.runtime.ExecutionQuery;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class AbstractVariableQueryImplDiffblueTest {
-  @InjectMocks
-  private HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl;
-
-  @InjectMocks
-  private ExecutionQueryImpl executionQueryImpl;
-
   /**
-   * Test {@link AbstractVariableQueryImpl#variableValueEquals(String, Object)}
-   * with {@code name}, {@code value}.
+   * Test {@link AbstractVariableQueryImpl#variableValueEquals(String, Object)} with {@code name}, {@code value}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueEquals(String, Object)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueEquals(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueEquals(String, Object)"})
   public void testVariableValueEqualsWithNameValue() {
-    // Arrange and Act
-    HistoricTaskInstanceQuery actualVariableValueEqualsResult = historicTaskInstanceQueryImpl
-        .variableValueEquals("Name", JSONObject.NULL);
+    // Arrange
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
-    // Assert
-    assertTrue(historicTaskInstanceQueryImpl.hasLocalQueryVariableValue());
-    assertSame(historicTaskInstanceQueryImpl, actualVariableValueEqualsResult);
-  }
-
-  /**
-   * Test {@link AbstractVariableQueryImpl#variableValueEquals(String, Object)}
-   * with {@code name}, {@code value}.
-   * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueEquals(String, Object)}
-   */
-  @Test
-  public void testVariableValueEqualsWithNameValue2() {
-    // Arrange and Act
+    // Act
     HistoricTaskInstanceQuery actualVariableValueEqualsResult = historicTaskInstanceQueryImpl
         .variableValueEquals("Name", null);
 
@@ -75,16 +54,58 @@ public class AbstractVariableQueryImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueEquals(String, Object, boolean)}
-   * with {@code name}, {@code value}, {@code localScope}.
+   * Test {@link AbstractVariableQueryImpl#variableValueEquals(String, Object, boolean)} with {@code name}, {@code value}, {@code localScope}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueEquals(String, Object, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueEquals(String, Object, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueEquals(String, Object, boolean)"})
   public void testVariableValueEqualsWithNameValueLocalScope() {
-    // Arrange and Act
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new ExecutionQueryImpl()).variableValueEquals(null, null, true));
+  }
+
+  /**
+   * Test {@link AbstractVariableQueryImpl#variableValueEquals(String, Object, boolean)} with {@code name}, {@code value}, {@code localScope}.
+   * <p>
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueEquals(String, Object, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueEquals(String, Object, boolean)"})
+  public void testVariableValueEqualsWithNameValueLocalScope2() {
+    // Arrange
+    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
+
+    // Act
+    ExecutionQuery actualVariableValueEqualsResult = executionQueryImpl.variableValueEquals("Name", null, true);
+
+    // Assert
+    assertTrue(executionQueryImpl.hasLocalQueryVariableValue());
+    assertSame(executionQueryImpl, actualVariableValueEqualsResult);
+  }
+
+  /**
+   * Test {@link AbstractVariableQueryImpl#variableValueEquals(String, Object, boolean)} with {@code name}, {@code value}, {@code localScope}.
+   * <ul>
+   *   <li>When {@link JSONObject#NULL}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueEquals(String, Object, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueEquals(String, Object, boolean)"})
+  public void testVariableValueEqualsWithNameValueLocalScope_whenNull() {
+    // Arrange
+    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
+
+    // Act
     ExecutionQuery actualVariableValueEqualsResult = executionQueryImpl.variableValueEquals("Name", JSONObject.NULL,
         true);
 
@@ -94,63 +115,75 @@ public class AbstractVariableQueryImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueEquals(String, Object, boolean)}
-   * with {@code name}, {@code value}, {@code localScope}.
-   * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueEquals(String, Object, boolean)}
-   */
-  @Test
-  public void testVariableValueEqualsWithNameValueLocalScope2() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> executionQueryImpl.variableValueEquals(null, JSONObject.NULL, true));
-  }
-
-  /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueEquals(String, Object, boolean)}
-   * with {@code name}, {@code value}, {@code localScope}.
-   * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueEquals(String, Object, boolean)}
-   */
-  @Test
-  public void testVariableValueEqualsWithNameValueLocalScope3() {
-    // Arrange and Act
-    ExecutionQuery actualVariableValueEqualsResult = executionQueryImpl.variableValueEquals("Name", null, true);
-
-    // Assert
-    assertTrue(executionQueryImpl.hasLocalQueryVariableValue());
-    assertSame(executionQueryImpl, actualVariableValueEqualsResult);
-  }
-
-  /**
-   * Test {@link AbstractVariableQueryImpl#variableValueEquals(String, Object)}
-   * with {@code name}, {@code value}.
+   * Test {@link AbstractVariableQueryImpl#variableValueEquals(String, Object)} with {@code name}, {@code value}.
    * <ul>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueEquals(String, Object)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueEquals(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueEquals(String, Object)"})
   public void testVariableValueEqualsWithNameValue_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> historicTaskInstanceQueryImpl.variableValueEquals(null, JSONObject.NULL));
+        () -> (new HistoricTaskInstanceQueryImpl()).variableValueEquals(null, null));
   }
 
   /**
-   * Test {@link AbstractVariableQueryImpl#variableValueEquals(Object, boolean)}
-   * with {@code value}, {@code localScope}.
+   * Test {@link AbstractVariableQueryImpl#variableValueEquals(String, Object)} with {@code name}, {@code value}.
+   * <ul>
+   *   <li>When {@link JSONObject#NULL}.</li>
+   * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueEquals(Object, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueEquals(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueEquals(String, Object)"})
+  public void testVariableValueEqualsWithNameValue_whenNull() {
+    // Arrange
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
+
+    // Act
+    HistoricTaskInstanceQuery actualVariableValueEqualsResult = historicTaskInstanceQueryImpl
+        .variableValueEquals("Name", JSONObject.NULL);
+
+    // Assert
+    assertTrue(historicTaskInstanceQueryImpl.hasLocalQueryVariableValue());
+    assertSame(historicTaskInstanceQueryImpl, actualVariableValueEqualsResult);
+  }
+
+  /**
+   * Test {@link AbstractVariableQueryImpl#variableValueEquals(Object)} with {@code value}.
+   * <p>
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueEquals(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueEquals(Object)"})
+  public void testVariableValueEqualsWithValue() {
+    // Arrange
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
+
+    // Act
+    HistoricTaskInstanceQuery actualVariableValueEqualsResult = historicTaskInstanceQueryImpl
+        .variableValueEquals(JSONObject.NULL);
+
+    // Assert
+    assertTrue(historicTaskInstanceQueryImpl.hasLocalQueryVariableValue());
+    assertSame(historicTaskInstanceQueryImpl, actualVariableValueEqualsResult);
+  }
+
+  /**
+   * Test {@link AbstractVariableQueryImpl#variableValueEquals(Object, boolean)} with {@code value}, {@code localScope}.
+   * <p>
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueEquals(Object, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueEquals(Object, boolean)"})
   public void testVariableValueEqualsWithValueLocalScope() {
     // Arrange
     ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
@@ -164,41 +197,19 @@ public class AbstractVariableQueryImplDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractVariableQueryImpl#variableValueEquals(Object)} with
-   * {@code value}.
-   * <ul>
-   *   <li>Then return OrderBy is {@code RES.ID_ asc}.</li>
-   * </ul>
+   * Test {@link AbstractVariableQueryImpl#variableValueEqualsIgnoreCase(String, String)} with {@code name}, {@code value}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueEquals(Object)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueEqualsIgnoreCase(String, String)}
    */
   @Test
-  public void testVariableValueEqualsWithValue_thenReturnOrderByIsResIdAsc() {
-    // Arrange and Act
-    HistoricTaskInstanceQuery actualVariableValueEqualsResult = (new HistoricTaskInstanceQueryImpl())
-        .variableValueEquals(JSONObject.NULL);
-
-    // Assert
-    assertTrue(actualVariableValueEqualsResult instanceof HistoricTaskInstanceQueryImpl);
-    assertEquals("RES.ID_ asc", ((HistoricTaskInstanceQueryImpl) actualVariableValueEqualsResult).getOrderBy());
-    assertEquals("RES.ID_ asc", ((HistoricTaskInstanceQueryImpl) actualVariableValueEqualsResult).getOrderByColumns());
-    assertEquals("TEMPRES_ID_ asc",
-        ((HistoricTaskInstanceQueryImpl) actualVariableValueEqualsResult).getMssqlOrDB2OrderBy());
-    assertNull(((HistoricTaskInstanceQueryImpl) actualVariableValueEqualsResult).orderBy);
-  }
-
-  /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueEqualsIgnoreCase(String, String)}
-   * with {@code name}, {@code value}.
-   * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueEqualsIgnoreCase(String, String)}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueEqualsIgnoreCase(String, String)"})
   public void testVariableValueEqualsIgnoreCaseWithNameValue() {
-    // Arrange and Act
+    // Arrange
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
+
+    // Act
     HistoricTaskInstanceQuery actualVariableValueEqualsIgnoreCaseResult = historicTaskInstanceQueryImpl
         .variableValueEqualsIgnoreCase("Name", "42");
 
@@ -208,46 +219,49 @@ public class AbstractVariableQueryImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueEqualsIgnoreCase(String, String)}
-   * with {@code name}, {@code value}.
+   * Test {@link AbstractVariableQueryImpl#variableValueEqualsIgnoreCase(String, String)} with {@code name}, {@code value}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueEqualsIgnoreCase(String, String)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueEqualsIgnoreCase(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueEqualsIgnoreCase(String, String)"})
   public void testVariableValueEqualsIgnoreCaseWithNameValue2() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> historicTaskInstanceQueryImpl.variableValueEqualsIgnoreCase(null, "42"));
+        () -> (new HistoricTaskInstanceQueryImpl()).variableValueEqualsIgnoreCase(null, null));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueEqualsIgnoreCase(String, String)}
-   * with {@code name}, {@code value}.
+   * Test {@link AbstractVariableQueryImpl#variableValueEqualsIgnoreCase(String, String)} with {@code name}, {@code value}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueEqualsIgnoreCase(String, String)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueEqualsIgnoreCase(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueEqualsIgnoreCase(String, String)"})
   public void testVariableValueEqualsIgnoreCaseWithNameValue3() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> historicTaskInstanceQueryImpl.variableValueEqualsIgnoreCase("Name", null));
+        () -> (new HistoricTaskInstanceQueryImpl()).variableValueEqualsIgnoreCase(null, "42"));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueEqualsIgnoreCase(String, String, boolean)}
-   * with {@code name}, {@code value}, {@code localScope}.
+   * Test {@link AbstractVariableQueryImpl#variableValueEqualsIgnoreCase(String, String, boolean)} with {@code name}, {@code value}, {@code localScope}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueEqualsIgnoreCase(String, String, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueEqualsIgnoreCase(String, String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueEqualsIgnoreCase(String, String, boolean)"})
   public void testVariableValueEqualsIgnoreCaseWithNameValueLocalScope() {
-    // Arrange and Act
+    // Arrange
+    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
+
+    // Act
     ExecutionQuery actualVariableValueEqualsIgnoreCaseResult = executionQueryImpl.variableValueEqualsIgnoreCase("Name",
         "42", true);
 
@@ -257,46 +271,49 @@ public class AbstractVariableQueryImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueEqualsIgnoreCase(String, String, boolean)}
-   * with {@code name}, {@code value}, {@code localScope}.
+   * Test {@link AbstractVariableQueryImpl#variableValueEqualsIgnoreCase(String, String, boolean)} with {@code name}, {@code value}, {@code localScope}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueEqualsIgnoreCase(String, String, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueEqualsIgnoreCase(String, String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueEqualsIgnoreCase(String, String, boolean)"})
   public void testVariableValueEqualsIgnoreCaseWithNameValueLocalScope2() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> executionQueryImpl.variableValueEqualsIgnoreCase(null, "42", true));
+        () -> (new ExecutionQueryImpl()).variableValueEqualsIgnoreCase(null, null, true));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueEqualsIgnoreCase(String, String, boolean)}
-   * with {@code name}, {@code value}, {@code localScope}.
+   * Test {@link AbstractVariableQueryImpl#variableValueEqualsIgnoreCase(String, String, boolean)} with {@code name}, {@code value}, {@code localScope}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueEqualsIgnoreCase(String, String, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueEqualsIgnoreCase(String, String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueEqualsIgnoreCase(String, String, boolean)"})
   public void testVariableValueEqualsIgnoreCaseWithNameValueLocalScope3() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> executionQueryImpl.variableValueEqualsIgnoreCase("Name", null, true));
+        () -> (new ExecutionQueryImpl()).variableValueEqualsIgnoreCase(null, "42", true));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueNotEqualsIgnoreCase(String, String)}
-   * with {@code name}, {@code value}.
+   * Test {@link AbstractVariableQueryImpl#variableValueNotEqualsIgnoreCase(String, String)} with {@code name}, {@code value}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueNotEqualsIgnoreCase(String, String)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueNotEqualsIgnoreCase(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueNotEqualsIgnoreCase(String, String)"})
   public void testVariableValueNotEqualsIgnoreCaseWithNameValue() {
-    // Arrange and Act
+    // Arrange
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
+
+    // Act
     HistoricTaskInstanceQuery actualVariableValueNotEqualsIgnoreCaseResult = historicTaskInstanceQueryImpl
         .variableValueNotEqualsIgnoreCase("Name", "42");
 
@@ -306,46 +323,49 @@ public class AbstractVariableQueryImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueNotEqualsIgnoreCase(String, String)}
-   * with {@code name}, {@code value}.
+   * Test {@link AbstractVariableQueryImpl#variableValueNotEqualsIgnoreCase(String, String)} with {@code name}, {@code value}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueNotEqualsIgnoreCase(String, String)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueNotEqualsIgnoreCase(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueNotEqualsIgnoreCase(String, String)"})
   public void testVariableValueNotEqualsIgnoreCaseWithNameValue2() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> historicTaskInstanceQueryImpl.variableValueNotEqualsIgnoreCase(null, "42"));
+        () -> (new HistoricTaskInstanceQueryImpl()).variableValueNotEqualsIgnoreCase(null, null));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueNotEqualsIgnoreCase(String, String)}
-   * with {@code name}, {@code value}.
+   * Test {@link AbstractVariableQueryImpl#variableValueNotEqualsIgnoreCase(String, String)} with {@code name}, {@code value}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueNotEqualsIgnoreCase(String, String)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueNotEqualsIgnoreCase(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueNotEqualsIgnoreCase(String, String)"})
   public void testVariableValueNotEqualsIgnoreCaseWithNameValue3() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> historicTaskInstanceQueryImpl.variableValueNotEqualsIgnoreCase("Name", null));
+        () -> (new HistoricTaskInstanceQueryImpl()).variableValueNotEqualsIgnoreCase(null, "42"));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueNotEqualsIgnoreCase(String, String, boolean)}
-   * with {@code name}, {@code value}, {@code localScope}.
+   * Test {@link AbstractVariableQueryImpl#variableValueNotEqualsIgnoreCase(String, String, boolean)} with {@code name}, {@code value}, {@code localScope}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueNotEqualsIgnoreCase(String, String, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueNotEqualsIgnoreCase(String, String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueNotEqualsIgnoreCase(String, String, boolean)"})
   public void testVariableValueNotEqualsIgnoreCaseWithNameValueLocalScope() {
-    // Arrange and Act
+    // Arrange
+    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
+
+    // Act
     ExecutionQuery actualVariableValueNotEqualsIgnoreCaseResult = executionQueryImpl
         .variableValueNotEqualsIgnoreCase("Name", "42", true);
 
@@ -355,77 +375,64 @@ public class AbstractVariableQueryImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueNotEqualsIgnoreCase(String, String, boolean)}
-   * with {@code name}, {@code value}, {@code localScope}.
+   * Test {@link AbstractVariableQueryImpl#variableValueNotEqualsIgnoreCase(String, String, boolean)} with {@code name}, {@code value}, {@code localScope}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueNotEqualsIgnoreCase(String, String, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueNotEqualsIgnoreCase(String, String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueNotEqualsIgnoreCase(String, String, boolean)"})
   public void testVariableValueNotEqualsIgnoreCaseWithNameValueLocalScope2() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> executionQueryImpl.variableValueNotEqualsIgnoreCase(null, "42", true));
+        () -> (new ExecutionQueryImpl()).variableValueNotEqualsIgnoreCase(null, null, true));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueNotEqualsIgnoreCase(String, String, boolean)}
-   * with {@code name}, {@code value}, {@code localScope}.
+   * Test {@link AbstractVariableQueryImpl#variableValueNotEqualsIgnoreCase(String, String, boolean)} with {@code name}, {@code value}, {@code localScope}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueNotEqualsIgnoreCase(String, String, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueNotEqualsIgnoreCase(String, String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueNotEqualsIgnoreCase(String, String, boolean)"})
   public void testVariableValueNotEqualsIgnoreCaseWithNameValueLocalScope3() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> executionQueryImpl.variableValueNotEqualsIgnoreCase("Name", null, true));
+        () -> (new ExecutionQueryImpl()).variableValueNotEqualsIgnoreCase(null, "42", true));
   }
 
   /**
-   * Test {@link AbstractVariableQueryImpl#variableValueNotEquals(String, Object)}
-   * with {@code name}, {@code value}.
+   * Test {@link AbstractVariableQueryImpl#variableValueNotEquals(String, Object)} with {@code name}, {@code value}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueNotEquals(String, Object)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueNotEquals(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueNotEquals(String, Object)"})
   public void testVariableValueNotEqualsWithNameValue() {
-    // Arrange and Act
-    HistoricTaskInstanceQuery actualVariableValueNotEqualsResult = historicTaskInstanceQueryImpl
-        .variableValueNotEquals("Name", JSONObject.NULL);
-
-    // Assert
-    assertTrue(historicTaskInstanceQueryImpl.hasLocalQueryVariableValue());
-    assertSame(historicTaskInstanceQueryImpl, actualVariableValueNotEqualsResult);
-  }
-
-  /**
-   * Test {@link AbstractVariableQueryImpl#variableValueNotEquals(String, Object)}
-   * with {@code name}, {@code value}.
-   * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueNotEquals(String, Object)}
-   */
-  @Test
-  public void testVariableValueNotEqualsWithNameValue2() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> historicTaskInstanceQueryImpl.variableValueNotEquals(null, JSONObject.NULL));
+        () -> (new HistoricTaskInstanceQueryImpl()).variableValueNotEquals(null, null));
   }
 
   /**
-   * Test {@link AbstractVariableQueryImpl#variableValueNotEquals(String, Object)}
-   * with {@code name}, {@code value}.
+   * Test {@link AbstractVariableQueryImpl#variableValueNotEquals(String, Object)} with {@code name}, {@code value}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueNotEquals(String, Object)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueNotEquals(String, Object)}
    */
   @Test
-  public void testVariableValueNotEqualsWithNameValue3() {
-    // Arrange and Act
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueNotEquals(String, Object)"})
+  public void testVariableValueNotEqualsWithNameValue2() {
+    // Arrange
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
+
+    // Act
     HistoricTaskInstanceQuery actualVariableValueNotEqualsResult = historicTaskInstanceQueryImpl
         .variableValueNotEquals("Name", null);
 
@@ -435,16 +442,58 @@ public class AbstractVariableQueryImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueNotEquals(String, Object, boolean)}
-   * with {@code name}, {@code value}, {@code localScope}.
+   * Test {@link AbstractVariableQueryImpl#variableValueNotEquals(String, Object, boolean)} with {@code name}, {@code value}, {@code localScope}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueNotEquals(String, Object, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueNotEquals(String, Object, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueNotEquals(String, Object, boolean)"})
   public void testVariableValueNotEqualsWithNameValueLocalScope() {
-    // Arrange and Act
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new ExecutionQueryImpl()).variableValueNotEquals(null, null, true));
+  }
+
+  /**
+   * Test {@link AbstractVariableQueryImpl#variableValueNotEquals(String, Object, boolean)} with {@code name}, {@code value}, {@code localScope}.
+   * <p>
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueNotEquals(String, Object, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueNotEquals(String, Object, boolean)"})
+  public void testVariableValueNotEqualsWithNameValueLocalScope2() {
+    // Arrange
+    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
+
+    // Act
+    ExecutionQuery actualVariableValueNotEqualsResult = executionQueryImpl.variableValueNotEquals("Name", null, true);
+
+    // Assert
+    assertTrue(executionQueryImpl.hasLocalQueryVariableValue());
+    assertSame(executionQueryImpl, actualVariableValueNotEqualsResult);
+  }
+
+  /**
+   * Test {@link AbstractVariableQueryImpl#variableValueNotEquals(String, Object, boolean)} with {@code name}, {@code value}, {@code localScope}.
+   * <ul>
+   *   <li>When {@link JSONObject#NULL}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueNotEquals(String, Object, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueNotEquals(String, Object, boolean)"})
+  public void testVariableValueNotEqualsWithNameValueLocalScope_whenNull() {
+    // Arrange
+    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
+
+    // Act
     ExecutionQuery actualVariableValueNotEqualsResult = executionQueryImpl.variableValueNotEquals("Name",
         JSONObject.NULL, true);
 
@@ -454,49 +503,44 @@ public class AbstractVariableQueryImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueNotEquals(String, Object, boolean)}
-   * with {@code name}, {@code value}, {@code localScope}.
+   * Test {@link AbstractVariableQueryImpl#variableValueNotEquals(String, Object)} with {@code name}, {@code value}.
+   * <ul>
+   *   <li>When {@link JSONObject#NULL}.</li>
+   * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueNotEquals(String, Object, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueNotEquals(String, Object)}
    */
   @Test
-  public void testVariableValueNotEqualsWithNameValueLocalScope2() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> executionQueryImpl.variableValueNotEquals(null, JSONObject.NULL, true));
-  }
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueNotEquals(String, Object)"})
+  public void testVariableValueNotEqualsWithNameValue_whenNull() {
+    // Arrange
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
 
-  /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueNotEquals(String, Object, boolean)}
-   * with {@code name}, {@code value}, {@code localScope}.
-   * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueNotEquals(String, Object, boolean)}
-   */
-  @Test
-  public void testVariableValueNotEqualsWithNameValueLocalScope3() {
-    // Arrange and Act
-    ExecutionQuery actualVariableValueNotEqualsResult = executionQueryImpl.variableValueNotEquals("Name", null, true);
+    // Act
+    HistoricTaskInstanceQuery actualVariableValueNotEqualsResult = historicTaskInstanceQueryImpl
+        .variableValueNotEquals("Name", JSONObject.NULL);
 
     // Assert
-    assertTrue(executionQueryImpl.hasLocalQueryVariableValue());
-    assertSame(executionQueryImpl, actualVariableValueNotEqualsResult);
+    assertTrue(historicTaskInstanceQueryImpl.hasLocalQueryVariableValue());
+    assertSame(historicTaskInstanceQueryImpl, actualVariableValueNotEqualsResult);
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueGreaterThan(String, Object)}
-   * with {@code name}, {@code value}.
+   * Test {@link AbstractVariableQueryImpl#variableValueGreaterThan(String, Object)} with {@code name}, {@code value}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueGreaterThan(String, Object)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueGreaterThan(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueGreaterThan(String, Object)"})
   public void testVariableValueGreaterThanWithNameValue() {
-    // Arrange and Act
+    // Arrange
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
+
+    // Act
     HistoricTaskInstanceQuery actualVariableValueGreaterThanResult = historicTaskInstanceQueryImpl
         .variableValueGreaterThan("Name", JSONObject.NULL);
 
@@ -506,46 +550,49 @@ public class AbstractVariableQueryImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueGreaterThan(String, Object)}
-   * with {@code name}, {@code value}.
+   * Test {@link AbstractVariableQueryImpl#variableValueGreaterThan(String, Object)} with {@code name}, {@code value}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueGreaterThan(String, Object)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueGreaterThan(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueGreaterThan(String, Object)"})
   public void testVariableValueGreaterThanWithNameValue2() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> historicTaskInstanceQueryImpl.variableValueGreaterThan(null, JSONObject.NULL));
+        () -> (new HistoricTaskInstanceQueryImpl()).variableValueGreaterThan(null, null));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueGreaterThan(String, Object)}
-   * with {@code name}, {@code value}.
+   * Test {@link AbstractVariableQueryImpl#variableValueGreaterThan(String, Object)} with {@code name}, {@code value}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueGreaterThan(String, Object)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueGreaterThan(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueGreaterThan(String, Object)"})
   public void testVariableValueGreaterThanWithNameValue3() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> historicTaskInstanceQueryImpl.variableValueGreaterThan("Name", null));
+        () -> (new HistoricTaskInstanceQueryImpl()).variableValueGreaterThan("Name", null));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueGreaterThan(String, Object, boolean)}
-   * with {@code name}, {@code value}, {@code localScope}.
+   * Test {@link AbstractVariableQueryImpl#variableValueGreaterThan(String, Object, boolean)} with {@code name}, {@code value}, {@code localScope}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueGreaterThan(String, Object, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueGreaterThan(String, Object, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueGreaterThan(String, Object, boolean)"})
   public void testVariableValueGreaterThanWithNameValueLocalScope() {
-    // Arrange and Act
+    // Arrange
+    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
+
+    // Act
     ExecutionQuery actualVariableValueGreaterThanResult = executionQueryImpl.variableValueGreaterThan("Name",
         JSONObject.NULL, true);
 
@@ -555,46 +602,49 @@ public class AbstractVariableQueryImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueGreaterThan(String, Object, boolean)}
-   * with {@code name}, {@code value}, {@code localScope}.
+   * Test {@link AbstractVariableQueryImpl#variableValueGreaterThan(String, Object, boolean)} with {@code name}, {@code value}, {@code localScope}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueGreaterThan(String, Object, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueGreaterThan(String, Object, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueGreaterThan(String, Object, boolean)"})
   public void testVariableValueGreaterThanWithNameValueLocalScope2() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> executionQueryImpl.variableValueGreaterThan(null, JSONObject.NULL, true));
+        () -> (new ExecutionQueryImpl()).variableValueGreaterThan(null, null, true));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueGreaterThan(String, Object, boolean)}
-   * with {@code name}, {@code value}, {@code localScope}.
+   * Test {@link AbstractVariableQueryImpl#variableValueGreaterThan(String, Object, boolean)} with {@code name}, {@code value}, {@code localScope}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueGreaterThan(String, Object, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueGreaterThan(String, Object, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueGreaterThan(String, Object, boolean)"})
   public void testVariableValueGreaterThanWithNameValueLocalScope3() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> executionQueryImpl.variableValueGreaterThan("Name", null, true));
+        () -> (new ExecutionQueryImpl()).variableValueGreaterThan("Name", null, true));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueGreaterThanOrEqual(String, Object)}
-   * with {@code name}, {@code value}.
+   * Test {@link AbstractVariableQueryImpl#variableValueGreaterThanOrEqual(String, Object)} with {@code name}, {@code value}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueGreaterThanOrEqual(String, Object)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueGreaterThanOrEqual(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueGreaterThanOrEqual(String, Object)"})
   public void testVariableValueGreaterThanOrEqualWithNameValue() {
-    // Arrange and Act
+    // Arrange
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
+
+    // Act
     HistoricTaskInstanceQuery actualVariableValueGreaterThanOrEqualResult = historicTaskInstanceQueryImpl
         .variableValueGreaterThanOrEqual("Name", JSONObject.NULL);
 
@@ -604,46 +654,49 @@ public class AbstractVariableQueryImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueGreaterThanOrEqual(String, Object)}
-   * with {@code name}, {@code value}.
+   * Test {@link AbstractVariableQueryImpl#variableValueGreaterThanOrEqual(String, Object)} with {@code name}, {@code value}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueGreaterThanOrEqual(String, Object)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueGreaterThanOrEqual(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueGreaterThanOrEqual(String, Object)"})
   public void testVariableValueGreaterThanOrEqualWithNameValue2() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> historicTaskInstanceQueryImpl.variableValueGreaterThanOrEqual(null, JSONObject.NULL));
+        () -> (new HistoricTaskInstanceQueryImpl()).variableValueGreaterThanOrEqual(null, null));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueGreaterThanOrEqual(String, Object)}
-   * with {@code name}, {@code value}.
+   * Test {@link AbstractVariableQueryImpl#variableValueGreaterThanOrEqual(String, Object)} with {@code name}, {@code value}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueGreaterThanOrEqual(String, Object)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueGreaterThanOrEqual(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueGreaterThanOrEqual(String, Object)"})
   public void testVariableValueGreaterThanOrEqualWithNameValue3() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> historicTaskInstanceQueryImpl.variableValueGreaterThanOrEqual("Name", null));
+        () -> (new HistoricTaskInstanceQueryImpl()).variableValueGreaterThanOrEqual("Name", null));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueGreaterThanOrEqual(String, Object, boolean)}
-   * with {@code name}, {@code value}, {@code localScope}.
+   * Test {@link AbstractVariableQueryImpl#variableValueGreaterThanOrEqual(String, Object, boolean)} with {@code name}, {@code value}, {@code localScope}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueGreaterThanOrEqual(String, Object, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueGreaterThanOrEqual(String, Object, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueGreaterThanOrEqual(String, Object, boolean)"})
   public void testVariableValueGreaterThanOrEqualWithNameValueLocalScope() {
-    // Arrange and Act
+    // Arrange
+    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
+
+    // Act
     ExecutionQuery actualVariableValueGreaterThanOrEqualResult = executionQueryImpl
         .variableValueGreaterThanOrEqual("Name", JSONObject.NULL, true);
 
@@ -653,45 +706,48 @@ public class AbstractVariableQueryImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueGreaterThanOrEqual(String, Object, boolean)}
-   * with {@code name}, {@code value}, {@code localScope}.
+   * Test {@link AbstractVariableQueryImpl#variableValueGreaterThanOrEqual(String, Object, boolean)} with {@code name}, {@code value}, {@code localScope}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueGreaterThanOrEqual(String, Object, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueGreaterThanOrEqual(String, Object, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueGreaterThanOrEqual(String, Object, boolean)"})
   public void testVariableValueGreaterThanOrEqualWithNameValueLocalScope2() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> executionQueryImpl.variableValueGreaterThanOrEqual(null, JSONObject.NULL, true));
+        () -> (new ExecutionQueryImpl()).variableValueGreaterThanOrEqual(null, null, true));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueGreaterThanOrEqual(String, Object, boolean)}
-   * with {@code name}, {@code value}, {@code localScope}.
+   * Test {@link AbstractVariableQueryImpl#variableValueGreaterThanOrEqual(String, Object, boolean)} with {@code name}, {@code value}, {@code localScope}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueGreaterThanOrEqual(String, Object, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueGreaterThanOrEqual(String, Object, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueGreaterThanOrEqual(String, Object, boolean)"})
   public void testVariableValueGreaterThanOrEqualWithNameValueLocalScope3() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> executionQueryImpl.variableValueGreaterThanOrEqual("Name", null, true));
+        () -> (new ExecutionQueryImpl()).variableValueGreaterThanOrEqual("Name", null, true));
   }
 
   /**
-   * Test {@link AbstractVariableQueryImpl#variableValueLessThan(String, Object)}
-   * with {@code name}, {@code value}.
+   * Test {@link AbstractVariableQueryImpl#variableValueLessThan(String, Object)} with {@code name}, {@code value}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueLessThan(String, Object)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueLessThan(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueLessThan(String, Object)"})
   public void testVariableValueLessThanWithNameValue() {
-    // Arrange and Act
+    // Arrange
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
+
+    // Act
     HistoricTaskInstanceQuery actualVariableValueLessThanResult = historicTaskInstanceQueryImpl
         .variableValueLessThan("Name", JSONObject.NULL);
 
@@ -701,16 +757,19 @@ public class AbstractVariableQueryImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueLessThan(String, Object, boolean)}
-   * with {@code name}, {@code value}, {@code localScope}.
+   * Test {@link AbstractVariableQueryImpl#variableValueLessThan(String, Object, boolean)} with {@code name}, {@code value}, {@code localScope}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueLessThan(String, Object, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueLessThan(String, Object, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueLessThan(String, Object, boolean)"})
   public void testVariableValueLessThanWithNameValueLocalScope() {
-    // Arrange and Act
+    // Arrange
+    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
+
+    // Act
     ExecutionQuery actualVariableValueLessThanResult = executionQueryImpl.variableValueLessThan("Name", JSONObject.NULL,
         true);
 
@@ -720,65 +779,83 @@ public class AbstractVariableQueryImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueLessThan(String, Object, boolean)}
-   * with {@code name}, {@code value}, {@code localScope}.
+   * Test {@link AbstractVariableQueryImpl#variableValueLessThan(String, Object, boolean)} with {@code name}, {@code value}, {@code localScope}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueLessThan(String, Object, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueLessThan(String, Object, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueLessThan(String, Object, boolean)"})
   public void testVariableValueLessThanWithNameValueLocalScope2() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> executionQueryImpl.variableValueLessThan(null, JSONObject.NULL, true));
+        () -> (new ExecutionQueryImpl()).variableValueLessThan(null, null, true));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueLessThan(String, Object, boolean)}
-   * with {@code name}, {@code value}, {@code localScope}.
+   * Test {@link AbstractVariableQueryImpl#variableValueLessThan(String, Object, boolean)} with {@code name}, {@code value}, {@code localScope}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueLessThan(String, Object, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueLessThan(String, Object, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueLessThan(String, Object, boolean)"})
   public void testVariableValueLessThanWithNameValueLocalScope3() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> executionQueryImpl.variableValueLessThan("Name", null, true));
+        () -> (new ExecutionQueryImpl()).variableValueLessThan("Name", null, true));
   }
 
   /**
-   * Test {@link AbstractVariableQueryImpl#variableValueLessThan(String, Object)}
-   * with {@code name}, {@code value}.
+   * Test {@link AbstractVariableQueryImpl#variableValueLessThan(String, Object)} with {@code name}, {@code value}.
    * <ul>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueLessThan(String, Object)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueLessThan(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueLessThan(String, Object)"})
   public void testVariableValueLessThanWithNameValue_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> historicTaskInstanceQueryImpl.variableValueLessThan(null, JSONObject.NULL));
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> historicTaskInstanceQueryImpl.variableValueLessThan("Name", null));
+        () -> (new HistoricTaskInstanceQueryImpl()).variableValueLessThan(null, null));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueLessThanOrEqual(String, Object)}
-   * with {@code name}, {@code value}.
+   * Test {@link AbstractVariableQueryImpl#variableValueLessThan(String, Object)} with {@code name}, {@code value}.
+   * <ul>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
+   * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueLessThanOrEqual(String, Object)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueLessThan(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueLessThan(String, Object)"})
+  public void testVariableValueLessThanWithNameValue_thenThrowActivitiIllegalArgumentException2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new HistoricTaskInstanceQueryImpl()).variableValueLessThan("Name", null));
+  }
+
+  /**
+   * Test {@link AbstractVariableQueryImpl#variableValueLessThanOrEqual(String, Object)} with {@code name}, {@code value}.
+   * <p>
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueLessThanOrEqual(String, Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueLessThanOrEqual(String, Object)"})
   public void testVariableValueLessThanOrEqualWithNameValue() {
-    // Arrange and Act
+    // Arrange
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
+
+    // Act
     HistoricTaskInstanceQuery actualVariableValueLessThanOrEqualResult = historicTaskInstanceQueryImpl
         .variableValueLessThanOrEqual("Name", JSONObject.NULL);
 
@@ -788,46 +865,49 @@ public class AbstractVariableQueryImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueLessThanOrEqual(String, Object)}
-   * with {@code name}, {@code value}.
+   * Test {@link AbstractVariableQueryImpl#variableValueLessThanOrEqual(String, Object)} with {@code name}, {@code value}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueLessThanOrEqual(String, Object)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueLessThanOrEqual(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueLessThanOrEqual(String, Object)"})
   public void testVariableValueLessThanOrEqualWithNameValue2() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> historicTaskInstanceQueryImpl.variableValueLessThanOrEqual(null, JSONObject.NULL));
+        () -> (new HistoricTaskInstanceQueryImpl()).variableValueLessThanOrEqual(null, null));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueLessThanOrEqual(String, Object)}
-   * with {@code name}, {@code value}.
+   * Test {@link AbstractVariableQueryImpl#variableValueLessThanOrEqual(String, Object)} with {@code name}, {@code value}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueLessThanOrEqual(String, Object)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueLessThanOrEqual(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueLessThanOrEqual(String, Object)"})
   public void testVariableValueLessThanOrEqualWithNameValue3() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> historicTaskInstanceQueryImpl.variableValueLessThanOrEqual("Name", null));
+        () -> (new HistoricTaskInstanceQueryImpl()).variableValueLessThanOrEqual("Name", null));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueLessThanOrEqual(String, Object, boolean)}
-   * with {@code name}, {@code value}, {@code localScope}.
+   * Test {@link AbstractVariableQueryImpl#variableValueLessThanOrEqual(String, Object, boolean)} with {@code name}, {@code value}, {@code localScope}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueLessThanOrEqual(String, Object, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueLessThanOrEqual(String, Object, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueLessThanOrEqual(String, Object, boolean)"})
   public void testVariableValueLessThanOrEqualWithNameValueLocalScope() {
-    // Arrange and Act
+    // Arrange
+    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
+
+    // Act
     ExecutionQuery actualVariableValueLessThanOrEqualResult = executionQueryImpl.variableValueLessThanOrEqual("Name",
         JSONObject.NULL, true);
 
@@ -837,45 +917,48 @@ public class AbstractVariableQueryImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueLessThanOrEqual(String, Object, boolean)}
-   * with {@code name}, {@code value}, {@code localScope}.
+   * Test {@link AbstractVariableQueryImpl#variableValueLessThanOrEqual(String, Object, boolean)} with {@code name}, {@code value}, {@code localScope}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueLessThanOrEqual(String, Object, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueLessThanOrEqual(String, Object, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueLessThanOrEqual(String, Object, boolean)"})
   public void testVariableValueLessThanOrEqualWithNameValueLocalScope2() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> executionQueryImpl.variableValueLessThanOrEqual(null, JSONObject.NULL, true));
+        () -> (new ExecutionQueryImpl()).variableValueLessThanOrEqual(null, null, true));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueLessThanOrEqual(String, Object, boolean)}
-   * with {@code name}, {@code value}, {@code localScope}.
+   * Test {@link AbstractVariableQueryImpl#variableValueLessThanOrEqual(String, Object, boolean)} with {@code name}, {@code value}, {@code localScope}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueLessThanOrEqual(String, Object, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueLessThanOrEqual(String, Object, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueLessThanOrEqual(String, Object, boolean)"})
   public void testVariableValueLessThanOrEqualWithNameValueLocalScope3() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> executionQueryImpl.variableValueLessThanOrEqual("Name", null, true));
+        () -> (new ExecutionQueryImpl()).variableValueLessThanOrEqual("Name", null, true));
   }
 
   /**
-   * Test {@link AbstractVariableQueryImpl#variableValueLike(String, String)} with
-   * {@code name}, {@code value}.
+   * Test {@link AbstractVariableQueryImpl#variableValueLike(String, String)} with {@code name}, {@code value}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueLike(String, String)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueLike(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueLike(String, String)"})
   public void testVariableValueLikeWithNameValue() {
-    // Arrange and Act
+    // Arrange
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
+
+    // Act
     HistoricTaskInstanceQuery actualVariableValueLikeResult = historicTaskInstanceQueryImpl.variableValueLike("Name",
         "42");
 
@@ -885,16 +968,19 @@ public class AbstractVariableQueryImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueLike(String, String, boolean)}
-   * with {@code name}, {@code value}, {@code localScope}.
+   * Test {@link AbstractVariableQueryImpl#variableValueLike(String, String, boolean)} with {@code name}, {@code value}, {@code localScope}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueLike(String, String, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueLike(String, String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueLike(String, String, boolean)"})
   public void testVariableValueLikeWithNameValueLocalScope() {
-    // Arrange and Act
+    // Arrange
+    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
+
+    // Act
     ExecutionQuery actualVariableValueLikeResult = executionQueryImpl.variableValueLike("Name", "42", true);
 
     // Assert
@@ -903,64 +989,83 @@ public class AbstractVariableQueryImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueLike(String, String, boolean)}
-   * with {@code name}, {@code value}, {@code localScope}.
+   * Test {@link AbstractVariableQueryImpl#variableValueLike(String, String, boolean)} with {@code name}, {@code value}, {@code localScope}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueLike(String, String, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueLike(String, String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueLike(String, String, boolean)"})
   public void testVariableValueLikeWithNameValueLocalScope2() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> executionQueryImpl.variableValueLike(null, "42", true));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new ExecutionQueryImpl()).variableValueLike(null, null, true));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueLike(String, String, boolean)}
-   * with {@code name}, {@code value}, {@code localScope}.
+   * Test {@link AbstractVariableQueryImpl#variableValueLike(String, String, boolean)} with {@code name}, {@code value}, {@code localScope}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueLike(String, String, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueLike(String, String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueLike(String, String, boolean)"})
   public void testVariableValueLikeWithNameValueLocalScope3() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> executionQueryImpl.variableValueLike("Name", null, true));
+        () -> (new ExecutionQueryImpl()).variableValueLike("Name", null, true));
   }
 
   /**
-   * Test {@link AbstractVariableQueryImpl#variableValueLike(String, String)} with
-   * {@code name}, {@code value}.
+   * Test {@link AbstractVariableQueryImpl#variableValueLike(String, String)} with {@code name}, {@code value}.
    * <ul>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueLike(String, String)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueLike(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueLike(String, String)"})
   public void testVariableValueLikeWithNameValue_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> historicTaskInstanceQueryImpl.variableValueLike(null, "42"));
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> historicTaskInstanceQueryImpl.variableValueLike("Name", null));
+        () -> (new HistoricTaskInstanceQueryImpl()).variableValueLike(null, null));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueLikeIgnoreCase(String, String)}
-   * with {@code name}, {@code value}.
+   * Test {@link AbstractVariableQueryImpl#variableValueLike(String, String)} with {@code name}, {@code value}.
+   * <ul>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
+   * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueLikeIgnoreCase(String, String)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueLike(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueLike(String, String)"})
+  public void testVariableValueLikeWithNameValue_thenThrowActivitiIllegalArgumentException2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new HistoricTaskInstanceQueryImpl()).variableValueLike("Name", null));
+  }
+
+  /**
+   * Test {@link AbstractVariableQueryImpl#variableValueLikeIgnoreCase(String, String)} with {@code name}, {@code value}.
+   * <p>
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueLikeIgnoreCase(String, String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueLikeIgnoreCase(String, String)"})
   public void testVariableValueLikeIgnoreCaseWithNameValue() {
-    // Arrange and Act
+    // Arrange
+    HistoricTaskInstanceQueryImpl historicTaskInstanceQueryImpl = new HistoricTaskInstanceQueryImpl();
+
+    // Act
     HistoricTaskInstanceQuery actualVariableValueLikeIgnoreCaseResult = historicTaskInstanceQueryImpl
         .variableValueLikeIgnoreCase("Name", "42");
 
@@ -970,31 +1075,34 @@ public class AbstractVariableQueryImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueLikeIgnoreCase(String, String)}
-   * with {@code name}, {@code value}.
+   * Test {@link AbstractVariableQueryImpl#variableValueLikeIgnoreCase(String, String)} with {@code name}, {@code value}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueLikeIgnoreCase(String, String)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueLikeIgnoreCase(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueLikeIgnoreCase(String, String)"})
   public void testVariableValueLikeIgnoreCaseWithNameValue2() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> historicTaskInstanceQueryImpl.variableValueLikeIgnoreCase(null, "42"));
+        () -> (new HistoricTaskInstanceQueryImpl()).variableValueLikeIgnoreCase(null, "42"));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueLikeIgnoreCase(String, String, boolean)}
-   * with {@code name}, {@code value}, {@code localScope}.
+   * Test {@link AbstractVariableQueryImpl#variableValueLikeIgnoreCase(String, String, boolean)} with {@code name}, {@code value}, {@code localScope}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueLikeIgnoreCase(String, String, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueLikeIgnoreCase(String, String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueLikeIgnoreCase(String, String, boolean)"})
   public void testVariableValueLikeIgnoreCaseWithNameValueLocalScope() {
-    // Arrange and Act
+    // Arrange
+    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
+
+    // Act
     ExecutionQuery actualVariableValueLikeIgnoreCaseResult = executionQueryImpl.variableValueLikeIgnoreCase("Name",
         "42", true);
 
@@ -1004,237 +1112,247 @@ public class AbstractVariableQueryImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#variableValueLikeIgnoreCase(String, String, boolean)}
-   * with {@code name}, {@code value}, {@code localScope}.
+   * Test {@link AbstractVariableQueryImpl#variableValueLikeIgnoreCase(String, String, boolean)} with {@code name}, {@code value}, {@code localScope}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#variableValueLikeIgnoreCase(String, String, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#variableValueLikeIgnoreCase(String, String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.query.Query AbstractVariableQueryImpl.variableValueLikeIgnoreCase(String, String, boolean)"})
   public void testVariableValueLikeIgnoreCaseWithNameValueLocalScope2() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> executionQueryImpl.variableValueLikeIgnoreCase(null, "42", true));
+        () -> (new ExecutionQueryImpl()).variableValueLikeIgnoreCase(null, "42", true));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}.
+   * Test {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}.
    * <ul>
-   *   <li>Then {@link ExecutionQueryImpl} QueryVariableValues first Operator is
-   * {@code EQUALS}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}
-   */
-  @Test
-  public void testAddVariable_thenExecutionQueryImplQueryVariableValuesFirstOperatorIsEquals() {
-    // Arrange and Act
-    executionQueryImpl.addVariable("Name", JSONObject.NULL, QueryOperator.EQUALS, true);
-
-    // Assert
-    QueryVariableValue getResult = executionQueryImpl.getQueryVariableValues().get(0);
-    assertEquals("EQUALS", getResult.getOperator());
-    assertEquals("Name", getResult.getName());
-    assertNull(getResult.getDoubleValue());
-    assertNull(getResult.getLongValue());
-    assertNull(getResult.getTextValue());
-    assertNull(getResult.getTextValue2());
-    assertNull(getResult.getType());
-    assertTrue(executionQueryImpl.hasLocalQueryVariableValue());
-    assertTrue(getResult.isLocal());
-  }
-
-  /**
-   * Test
-   * {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}.
-   * <ul>
-   *   <li>Then {@link ExecutionQueryImpl} QueryVariableValues first Operator is
-   * {@code EQUALS}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}
-   */
-  @Test
-  public void testAddVariable_thenExecutionQueryImplQueryVariableValuesFirstOperatorIsEquals2() {
-    // Arrange and Act
-    executionQueryImpl.addVariable("Name", null, QueryOperator.EQUALS, true);
-
-    // Assert
-    QueryVariableValue getResult = executionQueryImpl.getQueryVariableValues().get(0);
-    assertEquals("EQUALS", getResult.getOperator());
-    assertEquals("Name", getResult.getName());
-    assertNull(getResult.getDoubleValue());
-    assertNull(getResult.getLongValue());
-    assertNull(getResult.getTextValue());
-    assertNull(getResult.getTextValue2());
-    assertNull(getResult.getType());
-    assertTrue(executionQueryImpl.hasLocalQueryVariableValue());
-    assertTrue(getResult.isLocal());
-  }
-
-  /**
-   * Test
-   * {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}.
-   * <ul>
-   *   <li>When {@code EQUALS_IGNORE_CASE}.</li>
+   *   <li>When {@link QueryOperator#EQUALS_IGNORE_CASE}.</li>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}
    */
   @Test
-  public void testAddVariable_whenEqualsIgnoreCase_thenThrowActivitiIllegalArgumentException() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractVariableQueryImpl.addVariable(String, Object, QueryOperator, boolean)"})
+  public void testAddVariable_whenEquals_ignore_case_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> executionQueryImpl.addVariable("Name", null, QueryOperator.EQUALS_IGNORE_CASE, true));
+        () -> (new ExecutionQueryImpl()).addVariable("Name", null, QueryOperator.EQUALS_IGNORE_CASE, true));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}.
+   * Test {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}.
+   * <ul>
+   *   <li>When {@code EQUALS}.</li>
+   *   <li>Then {@link ExecutionQueryImpl#ExecutionQueryImpl()} QueryVariableValues size is one.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractVariableQueryImpl.addVariable(String, Object, QueryOperator, boolean)"})
+  public void testAddVariable_whenEquals_thenExecutionQueryImplQueryVariableValuesSizeIsOne() {
+    // Arrange
+    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
+
+    // Act
+    executionQueryImpl.addVariable("Name", null, QueryOperator.EQUALS, true);
+
+    // Assert
+    List<QueryVariableValue> queryVariableValues = executionQueryImpl.getQueryVariableValues();
+    assertEquals(1, queryVariableValues.size());
+    QueryVariableValue getResult = queryVariableValues.get(0);
+    assertEquals("EQUALS", getResult.getOperator());
+    assertEquals("Name", getResult.getName());
+    assertNull(getResult.getDoubleValue());
+    assertNull(getResult.getLongValue());
+    assertNull(getResult.getTextValue());
+    assertNull(getResult.getTextValue2());
+    assertNull(getResult.getType());
+    assertTrue(executionQueryImpl.hasLocalQueryVariableValue());
+    assertTrue(getResult.isLocal());
+  }
+
+  /**
+   * Test {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}.
    * <ul>
    *   <li>When {@code GREATER_THAN_OR_EQUAL}.</li>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractVariableQueryImpl.addVariable(String, Object, QueryOperator, boolean)"})
   public void testAddVariable_whenGreaterThanOrEqual_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> executionQueryImpl.addVariable("Name", null, QueryOperator.GREATER_THAN_OR_EQUAL, true));
+        () -> (new ExecutionQueryImpl()).addVariable("Name", null, QueryOperator.GREATER_THAN_OR_EQUAL, true));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}.
+   * Test {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}.
    * <ul>
    *   <li>When {@code GREATER_THAN}.</li>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractVariableQueryImpl.addVariable(String, Object, QueryOperator, boolean)"})
   public void testAddVariable_whenGreaterThan_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> executionQueryImpl.addVariable("Name", null, QueryOperator.GREATER_THAN, true));
+        () -> (new ExecutionQueryImpl()).addVariable(null, null, QueryOperator.GREATER_THAN, true));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}.
+   * Test {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}.
+   * <ul>
+   *   <li>When {@code GREATER_THAN}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractVariableQueryImpl.addVariable(String, Object, QueryOperator, boolean)"})
+  public void testAddVariable_whenGreaterThan_thenThrowActivitiIllegalArgumentException2() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new ExecutionQueryImpl()).addVariable("Name", null, QueryOperator.GREATER_THAN, true));
+  }
+
+  /**
+   * Test {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}.
    * <ul>
    *   <li>When {@code LESS_THAN_OR_EQUAL}.</li>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractVariableQueryImpl.addVariable(String, Object, QueryOperator, boolean)"})
   public void testAddVariable_whenLessThanOrEqual_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> executionQueryImpl.addVariable("Name", null, QueryOperator.LESS_THAN_OR_EQUAL, true));
+        () -> (new ExecutionQueryImpl()).addVariable("Name", null, QueryOperator.LESS_THAN_OR_EQUAL, true));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}.
+   * Test {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}.
    * <ul>
    *   <li>When {@code LESS_THAN}.</li>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractVariableQueryImpl.addVariable(String, Object, QueryOperator, boolean)"})
   public void testAddVariable_whenLessThan_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> executionQueryImpl.addVariable("Name", null, QueryOperator.LESS_THAN, true));
+        () -> (new ExecutionQueryImpl()).addVariable("Name", null, QueryOperator.LESS_THAN, true));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}.
+   * Test {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}.
    * <ul>
-   *   <li>When {@code LIKE_IGNORE_CASE}.</li>
+   *   <li>When {@link QueryOperator#LIKE_IGNORE_CASE}.</li>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}
    */
   @Test
-  public void testAddVariable_whenLikeIgnoreCase_thenThrowActivitiIllegalArgumentException() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractVariableQueryImpl.addVariable(String, Object, QueryOperator, boolean)"})
+  public void testAddVariable_whenLike_ignore_case_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> executionQueryImpl.addVariable("Name", null, QueryOperator.LIKE_IGNORE_CASE, true));
+        () -> (new ExecutionQueryImpl()).addVariable("Name", null, QueryOperator.LIKE_IGNORE_CASE, true));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}.
+   * Test {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}.
    * <ul>
-   *   <li>When {@code LIKE}.</li>
+   *   <li>When {@link QueryOperator#LIKE}.</li>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractVariableQueryImpl.addVariable(String, Object, QueryOperator, boolean)"})
   public void testAddVariable_whenLike_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> executionQueryImpl.addVariable("Name", null, QueryOperator.LIKE, true));
+        () -> (new ExecutionQueryImpl()).addVariable("Name", null, QueryOperator.LIKE, true));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}.
+   * Test {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}.
    * <ul>
-   *   <li>When {@code NOT_EQUALS_IGNORE_CASE}.</li>
+   *   <li>When {@link QueryOperator#NOT_EQUALS_IGNORE_CASE}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}
    */
   @Test
-  public void testAddVariable_whenNotEqualsIgnoreCase() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractVariableQueryImpl.addVariable(String, Object, QueryOperator, boolean)"})
+  public void testAddVariable_whenNot_equals_ignore_case() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> executionQueryImpl.addVariable("Name", null, QueryOperator.NOT_EQUALS_IGNORE_CASE, true));
+        () -> (new ExecutionQueryImpl()).addVariable("Name", null, QueryOperator.NOT_EQUALS_IGNORE_CASE, true));
   }
 
   /**
-   * Test
-   * {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}.
+   * Test {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}.
    * <ul>
    *   <li>When {@link JSONObject#NULL}.</li>
-   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
+   *   <li>Then {@link ExecutionQueryImpl#ExecutionQueryImpl()} QueryVariableValues size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}
+   * Method under test: {@link AbstractVariableQueryImpl#addVariable(String, Object, QueryOperator, boolean)}
    */
   @Test
-  public void testAddVariable_whenNull_thenThrowActivitiIllegalArgumentException() {
-    // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class,
-        () -> executionQueryImpl.addVariable(null, JSONObject.NULL, QueryOperator.EQUALS, true));
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractVariableQueryImpl.addVariable(String, Object, QueryOperator, boolean)"})
+  public void testAddVariable_whenNull_thenExecutionQueryImplQueryVariableValuesSizeIsOne() {
+    // Arrange
+    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
+
+    // Act
+    executionQueryImpl.addVariable("Name", JSONObject.NULL, QueryOperator.EQUALS, true);
+
+    // Assert
+    List<QueryVariableValue> queryVariableValues = executionQueryImpl.getQueryVariableValues();
+    assertEquals(1, queryVariableValues.size());
+    QueryVariableValue getResult = queryVariableValues.get(0);
+    assertEquals("EQUALS", getResult.getOperator());
+    assertEquals("Name", getResult.getName());
+    assertNull(getResult.getDoubleValue());
+    assertNull(getResult.getLongValue());
+    assertNull(getResult.getTextValue());
+    assertNull(getResult.getTextValue2());
+    assertNull(getResult.getType());
+    assertTrue(executionQueryImpl.hasLocalQueryVariableValue());
+    assertTrue(getResult.isLocal());
   }
 
   /**
@@ -1246,9 +1364,26 @@ public class AbstractVariableQueryImplDiffblueTest {
    * Method under test: {@link AbstractVariableQueryImpl#isBoolean(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean AbstractVariableQueryImpl.isBoolean(Object)"})
   public void testIsBoolean_whenNull() {
     // Arrange, Act and Assert
     assertFalse((new ExecutionQueryImpl()).isBoolean(JSONObject.NULL));
+  }
+
+  /**
+   * Test {@link AbstractVariableQueryImpl#isBoolean(Object)}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AbstractVariableQueryImpl#isBoolean(Object)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean AbstractVariableQueryImpl.isBoolean(Object)"})
+  public void testIsBoolean_whenNull2() {
+    // Arrange, Act and Assert
     assertFalse((new ExecutionQueryImpl()).isBoolean(null));
   }
 
@@ -1258,6 +1393,8 @@ public class AbstractVariableQueryImplDiffblueTest {
    * Method under test: {@link AbstractVariableQueryImpl#getQueryVariableValues()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List AbstractVariableQueryImpl.getQueryVariableValues()"})
   public void testGetQueryVariableValues() {
     // Arrange, Act and Assert
     assertTrue((new ExecutionQueryImpl()).getQueryVariableValues().isEmpty());
@@ -1266,24 +1403,111 @@ public class AbstractVariableQueryImplDiffblueTest {
   /**
    * Test {@link AbstractVariableQueryImpl#hasLocalQueryVariableValue()}.
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#hasLocalQueryVariableValue()}
+   * Method under test: {@link AbstractVariableQueryImpl#hasLocalQueryVariableValue()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean AbstractVariableQueryImpl.hasLocalQueryVariableValue()"})
   public void testHasLocalQueryVariableValue() {
+    // Arrange
+    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
+    executionQueryImpl.addVariable("description", JSONObject.NULL, QueryOperator.NOT_EQUALS, false);
+    executionQueryImpl.addVariable("Name", JSONObject.NULL, QueryOperator.EQUALS, true);
+
+    // Act and Assert
+    assertTrue(executionQueryImpl.hasLocalQueryVariableValue());
+  }
+
+  /**
+   * Test {@link AbstractVariableQueryImpl#hasLocalQueryVariableValue()}.
+   * <ul>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AbstractVariableQueryImpl#hasLocalQueryVariableValue()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean AbstractVariableQueryImpl.hasLocalQueryVariableValue()"})
+  public void testHasLocalQueryVariableValue_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new ExecutionQueryImpl()).hasLocalQueryVariableValue());
   }
 
   /**
-   * Test {@link AbstractVariableQueryImpl#hasNonLocalQueryVariableValue()}.
+   * Test {@link AbstractVariableQueryImpl#hasLocalQueryVariableValue()}.
+   * <ul>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractVariableQueryImpl#hasNonLocalQueryVariableValue()}
+   * Method under test: {@link AbstractVariableQueryImpl#hasLocalQueryVariableValue()}
    */
   @Test
-  public void testHasNonLocalQueryVariableValue() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean AbstractVariableQueryImpl.hasLocalQueryVariableValue()"})
+  public void testHasLocalQueryVariableValue_thenReturnTrue() {
+    // Arrange
+    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
+    executionQueryImpl.addVariable("Name", JSONObject.NULL, QueryOperator.EQUALS, true);
+
+    // Act and Assert
+    assertTrue(executionQueryImpl.hasLocalQueryVariableValue());
+  }
+
+  /**
+   * Test {@link AbstractVariableQueryImpl#hasNonLocalQueryVariableValue()}.
+   * <ul>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AbstractVariableQueryImpl#hasNonLocalQueryVariableValue()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean AbstractVariableQueryImpl.hasNonLocalQueryVariableValue()"})
+  public void testHasNonLocalQueryVariableValue_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new ExecutionQueryImpl()).hasNonLocalQueryVariableValue());
+  }
+
+  /**
+   * Test {@link AbstractVariableQueryImpl#hasNonLocalQueryVariableValue()}.
+   * <ul>
+   *   <li>Then return {@code false}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AbstractVariableQueryImpl#hasNonLocalQueryVariableValue()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean AbstractVariableQueryImpl.hasNonLocalQueryVariableValue()"})
+  public void testHasNonLocalQueryVariableValue_thenReturnFalse2() {
+    // Arrange
+    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
+    executionQueryImpl.addVariable("Name", JSONObject.NULL, QueryOperator.EQUALS, true);
+
+    // Act and Assert
+    assertFalse(executionQueryImpl.hasNonLocalQueryVariableValue());
+  }
+
+  /**
+   * Test {@link AbstractVariableQueryImpl#hasNonLocalQueryVariableValue()}.
+   * <ul>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AbstractVariableQueryImpl#hasNonLocalQueryVariableValue()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean AbstractVariableQueryImpl.hasNonLocalQueryVariableValue()"})
+  public void testHasNonLocalQueryVariableValue_thenReturnTrue() {
+    // Arrange
+    ExecutionQueryImpl executionQueryImpl = new ExecutionQueryImpl();
+    executionQueryImpl.addVariable("description", JSONObject.NULL, QueryOperator.NOT_EQUALS, false);
+    executionQueryImpl.addVariable("Name", JSONObject.NULL, QueryOperator.EQUALS, true);
+
+    // Act and Assert
+    assertTrue(executionQueryImpl.hasNonLocalQueryVariableValue());
   }
 }

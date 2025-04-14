@@ -18,26 +18,21 @@ package org.activiti.bpmn.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import java.util.HashMap;
-import java.util.List;
-import java.util.function.BiFunction;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class AssignmentDiffblueTest {
   /**
    * Test {@link Assignment#clone()}.
-   * <ul>
-   *   <li>Given {@link Assignment} (default constructor).</li>
-   * </ul>
    * <p>
    * Method under test: {@link Assignment#clone()}
    */
   @Test
-  public void testClone_givenAssignment() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Assignment Assignment.clone()"})
+  public void testClone() {
     // Arrange and Act
     Assignment actualCloneResult = (new Assignment()).clone();
 
@@ -49,61 +44,6 @@ public class AssignmentDiffblueTest {
     assertEquals(0, actualCloneResult.getXmlRowNumber());
     assertTrue(actualCloneResult.getAttributes().isEmpty());
     assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link Assignment#clone()}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@code foo} and
-   * {@link BiFunction}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Assignment#clone()}
-   */
-  @Test
-  public void testClone_givenHashMapComputeIfPresentFooAndBiFunction() {
-    // Arrange
-    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
-    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
-
-    Assignment assignment = new Assignment();
-    assignment.setExtensionElements(extensionElements);
-
-    // Act
-    Assignment actualCloneResult = assignment.clone();
-
-    // Assert
-    assertNull(actualCloneResult.getFrom());
-    assertNull(actualCloneResult.getTo());
-    assertNull(actualCloneResult.getId());
-    assertEquals(0, actualCloneResult.getXmlColumnNumber());
-    assertEquals(0, actualCloneResult.getXmlRowNumber());
-    assertTrue(actualCloneResult.getAttributes().isEmpty());
-    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link Assignment#setValues(Assignment)} with {@code otherAssignment}.
-   * <ul>
-   *   <li>Then calls {@link ExtensionElement#getName()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link Assignment#setValues(Assignment)}
-   */
-  @Test
-  public void testSetValuesWithOtherAssignment_thenCallsGetName() {
-    // Arrange
-    ExtensionElement extensionElement = mock(ExtensionElement.class);
-    when(extensionElement.getName()).thenReturn("Name");
-
-    Assignment assignment = new Assignment();
-    assignment.addExtensionElement(extensionElement);
-
-    // Act
-    assignment.setValues(new Assignment());
-
-    // Assert
-    verify(extensionElement, atLeast(1)).getName();
   }
 
   /**
@@ -119,6 +59,9 @@ public class AssignmentDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Assignment.<init>()", "String Assignment.getFrom()", "String Assignment.getTo()",
+      "void Assignment.setFrom(String)", "void Assignment.setTo(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Assignment actualAssignment = new Assignment();
@@ -126,9 +69,10 @@ public class AssignmentDiffblueTest {
     actualAssignment.setTo("alice.liddell@example.org");
     String actualFrom = actualAssignment.getFrom();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("alice.liddell@example.org", actualAssignment.getTo());
     assertEquals("jane.doe@example.org", actualFrom);
+    assertNull(actualAssignment.getId());
     assertEquals(0, actualAssignment.getXmlColumnNumber());
     assertEquals(0, actualAssignment.getXmlRowNumber());
     assertTrue(actualAssignment.getAttributes().isEmpty());

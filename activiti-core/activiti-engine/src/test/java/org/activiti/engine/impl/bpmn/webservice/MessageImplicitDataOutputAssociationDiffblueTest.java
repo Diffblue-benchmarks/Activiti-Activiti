@@ -26,6 +26,8 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.impl.bpmn.data.FieldBaseStructureInstance;
@@ -35,20 +37,22 @@ import org.activiti.engine.impl.bpmn.data.SimpleStructureDefinition;
 import org.activiti.engine.impl.el.FixedValue;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class MessageImplicitDataOutputAssociationDiffblueTest {
   /**
-   * Test
-   * {@link MessageImplicitDataOutputAssociation#MessageImplicitDataOutputAssociation(String, String)}.
+   * Test {@link MessageImplicitDataOutputAssociation#MessageImplicitDataOutputAssociation(String, String)}.
    * <ul>
    *   <li>Then return Source is {@code Source Ref}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link MessageImplicitDataOutputAssociation#MessageImplicitDataOutputAssociation(String, String)}
+   * Method under test: {@link MessageImplicitDataOutputAssociation#MessageImplicitDataOutputAssociation(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MessageImplicitDataOutputAssociation.<init>(String, String)",
+      "void MessageImplicitDataOutputAssociation.<init>(String, Expression)"})
   public void testNewMessageImplicitDataOutputAssociation_thenReturnSourceIsSourceRef() {
     // Arrange and Act
     MessageImplicitDataOutputAssociation actualMessageImplicitDataOutputAssociation = new MessageImplicitDataOutputAssociation(
@@ -61,16 +65,17 @@ public class MessageImplicitDataOutputAssociationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link MessageImplicitDataOutputAssociation#MessageImplicitDataOutputAssociation(String, Expression)}.
+   * Test {@link MessageImplicitDataOutputAssociation#MessageImplicitDataOutputAssociation(String, Expression)}.
    * <ul>
    *   <li>Then SourceExpression return {@link FixedValue}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link MessageImplicitDataOutputAssociation#MessageImplicitDataOutputAssociation(String, Expression)}
+   * Method under test: {@link MessageImplicitDataOutputAssociation#MessageImplicitDataOutputAssociation(String, Expression)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MessageImplicitDataOutputAssociation.<init>(String, String)",
+      "void MessageImplicitDataOutputAssociation.<init>(String, Expression)"})
   public void testNewMessageImplicitDataOutputAssociation_thenSourceExpressionReturnFixedValue() {
     // Arrange
     FixedValue sourceExpression = new FixedValue(JSONObject.NULL);
@@ -88,13 +93,13 @@ public class MessageImplicitDataOutputAssociationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link MessageImplicitDataOutputAssociation#evaluate(DelegateExecution)}.
+   * Test {@link MessageImplicitDataOutputAssociation#evaluate(DelegateExecution)}.
    * <p>
-   * Method under test:
-   * {@link MessageImplicitDataOutputAssociation#evaluate(DelegateExecution)}
+   * Method under test: {@link MessageImplicitDataOutputAssociation#evaluate(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MessageImplicitDataOutputAssociation.evaluate(DelegateExecution)"})
   public void testEvaluate() {
     // Arrange
     MessageImplicitDataOutputAssociation messageImplicitDataOutputAssociation = new MessageImplicitDataOutputAssociation(
@@ -116,19 +121,16 @@ public class MessageImplicitDataOutputAssociationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link MessageImplicitDataOutputAssociation#evaluate(DelegateExecution)}.
+   * Test {@link MessageImplicitDataOutputAssociation#evaluate(DelegateExecution)}.
    * <ul>
-   *   <li>Given
-   * {@link ItemInstance#ItemInstance(ItemDefinition, StructureInstance)} with
-   * item is {@link ItemDefinition#ItemDefinition(String, StructureDefinition)}
-   * and structureInstance is {@code null}.</li>
+   *   <li>Given {@link ItemInstance#ItemInstance(ItemDefinition, StructureInstance)} with item is {@link ItemDefinition#ItemDefinition(String, StructureDefinition)} and structureInstance is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link MessageImplicitDataOutputAssociation#evaluate(DelegateExecution)}
+   * Method under test: {@link MessageImplicitDataOutputAssociation#evaluate(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MessageImplicitDataOutputAssociation.evaluate(DelegateExecution)"})
   public void testEvaluate_givenItemInstanceWithItemIsItemDefinitionAndStructureInstanceIsNull() {
     // Arrange
     MessageImplicitDataOutputAssociation messageImplicitDataOutputAssociation = new MessageImplicitDataOutputAssociation(
@@ -146,16 +148,16 @@ public class MessageImplicitDataOutputAssociationDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link MessageImplicitDataOutputAssociation#evaluate(DelegateExecution)}.
+   * Test {@link MessageImplicitDataOutputAssociation#evaluate(DelegateExecution)}.
    * <ul>
    *   <li>Then calls {@link FieldBaseStructureInstance#getFieldValue(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link MessageImplicitDataOutputAssociation#evaluate(DelegateExecution)}
+   * Method under test: {@link MessageImplicitDataOutputAssociation#evaluate(DelegateExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MessageImplicitDataOutputAssociation.evaluate(DelegateExecution)"})
   public void testEvaluate_thenCallsGetFieldValue() {
     // Arrange
     MessageImplicitDataOutputAssociation messageImplicitDataOutputAssociation = new MessageImplicitDataOutputAssociation(

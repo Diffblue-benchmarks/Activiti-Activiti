@@ -16,17 +16,20 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class DeleteProcessInstanceCmdDiffblueTest {
   /**
-   * Test
-   * {@link DeleteProcessInstanceCmd#DeleteProcessInstanceCmd(String, String)}.
+   * Test {@link DeleteProcessInstanceCmd#DeleteProcessInstanceCmd(String, String)}.
    * <p>
-   * Method under test:
-   * {@link DeleteProcessInstanceCmd#DeleteProcessInstanceCmd(String, String)}
+   * Method under test: {@link DeleteProcessInstanceCmd#DeleteProcessInstanceCmd(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeleteProcessInstanceCmd.<init>(String, String)"})
   public void testNewDeleteProcessInstanceCmd() {
     // Arrange and Act
     DeleteProcessInstanceCmd actualDeleteProcessInstanceCmd = new DeleteProcessInstanceCmd("42", "Just cause");

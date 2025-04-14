@@ -19,12 +19,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
 import org.activiti.api.process.model.payloads.TimerPayload;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class BPMNTimerImplDiffblueTest {
@@ -40,6 +41,9 @@ class BPMNTimerImplDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNTimerImpl.<init>()", "TimerPayload BPMNTimerImpl.getTimerPayload()",
+      "void BPMNTimerImpl.setTimerPayload(TimerPayload)"})
   void testGettersAndSetters() {
     // Arrange and Act
     BPMNTimerImpl actualBpmnTimerImpl = new BPMNTimerImpl();
@@ -51,9 +55,13 @@ class BPMNTimerImplDiffblueTest {
     timerPayload.setRepeat("Repeat");
     timerPayload.setRetries(1);
     actualBpmnTimerImpl.setTimerPayload(timerPayload);
+    TimerPayload actualTimerPayload = actualBpmnTimerImpl.getTimerPayload();
 
-    // Assert that nothing has changed
-    assertSame(timerPayload, actualBpmnTimerImpl.getTimerPayload());
+    // Assert
+    assertNull(actualBpmnTimerImpl.getElementId());
+    assertNull(actualBpmnTimerImpl.getProcessDefinitionId());
+    assertNull(actualBpmnTimerImpl.getProcessInstanceId());
+    assertSame(timerPayload, actualTimerPayload);
   }
 
   /**
@@ -63,6 +71,8 @@ class BPMNTimerImplDiffblueTest {
    */
   @Test
   @DisplayName("Test new BPMNTimerImpl(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNTimerImpl.<init>(String)"})
   void testNewBPMNTimerImpl() {
     // Arrange and Act
     BPMNTimerImpl actualBpmnTimerImpl = new BPMNTimerImpl("42");
@@ -75,8 +85,7 @@ class BPMNTimerImplDiffblueTest {
   }
 
   /**
-   * Test {@link BPMNTimerImpl#equals(Object)}, and
-   * {@link BPMNTimerImpl#hashCode()}.
+   * Test {@link BPMNTimerImpl#equals(Object)}, and {@link BPMNTimerImpl#hashCode()}.
    * <ul>
    *   <li>When other is equal.</li>
    *   <li>Then return equal.</li>
@@ -90,6 +99,8 @@ class BPMNTimerImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is equal; then return equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BPMNTimerImpl.equals(Object)", "int BPMNTimerImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsEqual_thenReturnEqual() {
     // Arrange
     BPMNTimerImpl bpmnTimerImpl = new BPMNTimerImpl("42");
@@ -102,8 +113,7 @@ class BPMNTimerImplDiffblueTest {
   }
 
   /**
-   * Test {@link BPMNTimerImpl#equals(Object)}, and
-   * {@link BPMNTimerImpl#hashCode()}.
+   * Test {@link BPMNTimerImpl#equals(Object)}, and {@link BPMNTimerImpl#hashCode()}.
    * <ul>
    *   <li>When other is same.</li>
    *   <li>Then return equal.</li>
@@ -117,6 +127,8 @@ class BPMNTimerImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BPMNTimerImpl.equals(Object)", "int BPMNTimerImpl.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
     BPMNTimerImpl bpmnTimerImpl = new BPMNTimerImpl("42");
@@ -138,6 +150,8 @@ class BPMNTimerImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BPMNTimerImpl.equals(Object)", "int BPMNTimerImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
     BPMNTimerImpl bpmnTimerImpl = new BPMNTimerImpl("Element Id");
@@ -157,23 +171,9 @@ class BPMNTimerImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BPMNTimerImpl.equals(Object)", "int BPMNTimerImpl.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
-    // Arrange, Act and Assert
-    assertNotEquals(new BPMNTimerImpl("42"), mock(BPMNActivityImpl.class));
-  }
-
-  /**
-   * Test {@link BPMNTimerImpl#equals(Object)}.
-   * <ul>
-   *   <li>When other is different.</li>
-   *   <li>Then return not equal.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link BPMNTimerImpl#equals(Object)}
-   */
-  @Test
-  @DisplayName("Test equals(Object); when other is different; then return not equal")
-  void testEquals_whenOtherIsDifferent_thenReturnNotEqual3() {
     // Arrange
     TimerPayload timerPayload = new TimerPayload();
     timerPayload.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
@@ -201,7 +201,9 @@ class BPMNTimerImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
-  void testEquals_whenOtherIsDifferent_thenReturnNotEqual4() {
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BPMNTimerImpl.equals(Object)", "int BPMNTimerImpl.hashCode()"})
+  void testEquals_whenOtherIsDifferent_thenReturnNotEqual3() {
     // Arrange
     BPMNTimerImpl bpmnTimerImpl = new BPMNTimerImpl("42");
 
@@ -231,6 +233,8 @@ class BPMNTimerImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BPMNTimerImpl.equals(Object)", "int BPMNTimerImpl.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new BPMNTimerImpl("42"), null);
@@ -247,6 +251,8 @@ class BPMNTimerImplDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean BPMNTimerImpl.equals(Object)", "int BPMNTimerImpl.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange, Act and Assert
     assertNotEquals(new BPMNTimerImpl("42"), "Different type to BPMNTimerImpl");
@@ -255,14 +261,15 @@ class BPMNTimerImplDiffblueTest {
   /**
    * Test {@link BPMNTimerImpl#toString()}.
    * <ul>
-   *   <li>Then return {@code BPMNActivityImpl{, elementId='42',
-   * timerPayload='null'}}.</li>
+   *   <li>Then return {@code BPMNActivityImpl{, elementId='42', timerPayload='null'}}.</li>
    * </ul>
    * <p>
    * Method under test: {@link BPMNTimerImpl#toString()}
    */
   @Test
   @DisplayName("Test toString(); then return 'BPMNActivityImpl{, elementId='42', timerPayload='null'}'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String BPMNTimerImpl.toString()"})
   void testToString_thenReturnBPMNActivityImplElementId42TimerPayloadNull() {
     // Arrange, Act and Assert
     assertEquals("BPMNActivityImpl{, elementId='42', timerPayload='null'}", (new BPMNTimerImpl("42")).toString());

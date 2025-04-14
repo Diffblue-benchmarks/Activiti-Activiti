@@ -21,7 +21,8 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import java.sql.Date;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.bpmn.model.AdhocSubProcess;
@@ -29,6 +30,7 @@ import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -57,6 +59,11 @@ public class ExecutionTreeNodeDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionTreeNode.<init>(ExecutionEntity)", "List ExecutionTreeNode.getChildren()",
+      "ExecutionEntity ExecutionTreeNode.getExecutionEntity()", "ExecutionTreeNode ExecutionTreeNode.getParent()",
+      "void ExecutionTreeNode.setChildren(List)", "void ExecutionTreeNode.setExecutionEntity(ExecutionEntity)",
+      "void ExecutionTreeNode.setParent(ExecutionTreeNode)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ExecutionTreeNode actualExecutionTreeNode = new ExecutionTreeNode(
@@ -71,7 +78,7 @@ public class ExecutionTreeNodeDiffblueTest {
     ExecutionEntity actualExecutionEntity = actualExecutionTreeNode.getExecutionEntity();
     ExecutionTreeNode actualParent = actualExecutionTreeNode.getParent();
 
-    // Assert that nothing has changed
+    // Assert
     assertTrue(actualChildren.isEmpty());
     assertSame(children, actualChildren);
     assertSame(parent, actualParent);
@@ -87,6 +94,8 @@ public class ExecutionTreeNodeDiffblueTest {
    * Method under test: {@link ExecutionTreeNode#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExecutionTreeNode.toString()"})
   public void testToString_givenCreateWithEmptyRelationshipCollectionsEndedIsTrue() {
     // Arrange
     ExecutionEntityImpl executionEntity = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
@@ -108,13 +117,14 @@ public class ExecutionTreeNodeDiffblueTest {
   /**
    * Test {@link ExecutionTreeNode#toString()}.
    * <ul>
-   *   <li>Given createWithEmptyRelationshipCollections MultiInstanceRoot is
-   * {@code true}.</li>
+   *   <li>Given createWithEmptyRelationshipCollections MultiInstanceRoot is {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ExecutionTreeNode#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExecutionTreeNode.toString()"})
   public void testToString_givenCreateWithEmptyRelationshipCollectionsMultiInstanceRootIsTrue() {
     // Arrange
     ExecutionEntityImpl executionEntity = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
@@ -142,6 +152,8 @@ public class ExecutionTreeNodeDiffblueTest {
    * Method under test: {@link ExecutionTreeNode#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExecutionTreeNode.toString()"})
   public void testToString_thenReturnAString() {
     // Arrange
     ArrayList<ExecutionTreeNode> children = new ArrayList<>();
@@ -165,6 +177,8 @@ public class ExecutionTreeNodeDiffblueTest {
    * Method under test: {@link ExecutionTreeNode#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExecutionTreeNode.toString()"})
   public void testToString_thenReturnAString2() {
     // Arrange
     ExecutionTreeNode executionTreeNode = new ExecutionTreeNode(
@@ -192,6 +206,8 @@ public class ExecutionTreeNodeDiffblueTest {
    * Method under test: {@link ExecutionTreeNode#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExecutionTreeNode.toString()"})
   public void testToString_thenReturnAString3() {
     // Arrange
     ArrayList<ExecutionTreeNode> children = new ArrayList<>();
@@ -222,6 +238,8 @@ public class ExecutionTreeNodeDiffblueTest {
    * Method under test: {@link ExecutionTreeNode#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExecutionTreeNode.toString()"})
   public void testToString_thenReturnAString4() {
     // Arrange
     ArrayList<ExecutionTreeNode> children = new ArrayList<>();
@@ -254,6 +272,8 @@ public class ExecutionTreeNodeDiffblueTest {
    * Method under test: {@link ExecutionTreeNode#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExecutionTreeNode.toString()"})
   public void testToString_thenReturnNullParentId42() {
     // Arrange
     ExecutionEntityImpl executionEntity = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
@@ -272,6 +292,8 @@ public class ExecutionTreeNodeDiffblueTest {
    * Method under test: {@link ExecutionTreeNode#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExecutionTreeNode.toString()"})
   public void testToString_thenReturnNullProcessInstance() {
     // Arrange, Act and Assert
     assertEquals("null (process instance)\n",
@@ -287,6 +309,8 @@ public class ExecutionTreeNodeDiffblueTest {
    * Method under test: {@link ExecutionTreeNode#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExecutionTreeNode.toString()"})
   public void testToString_thenReturnNullProcessInstance2() {
     // Arrange
     ExecutionTreeNode executionTreeNode = new ExecutionTreeNode(
@@ -298,17 +322,139 @@ public class ExecutionTreeNodeDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}.
-   * <ul>
-   *   <li>Given {@link ExecutionEntity}
-   * {@link DelegateExecution#getCurrentFlowElement()} return {@code null}.</li>
-   * </ul>
+   * Test {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}.
    * <p>
-   * Method under test:
-   * {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
+   * Method under test: {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionTreeNode.internalToString(StringBuilder, String, boolean)"})
+  public void testInternalToString() {
+    // Arrange
+    ExecutionEntity executionEntity = mock(ExecutionEntity.class);
+    when(executionEntity.isActive()).thenReturn(true);
+    when(executionEntity.isEnded()).thenReturn(true);
+    when(executionEntity.isScope()).thenReturn(true);
+    when(executionEntity.isMultiInstanceRoot()).thenReturn(true);
+    when(executionEntity.getId()).thenReturn("42");
+    when(executionEntity.getParentId()).thenReturn("42");
+    when(executionEntity.getCurrentFlowElement()).thenReturn(new AdhocSubProcess());
+
+    ExecutionTreeNode executionTreeNode = new ExecutionTreeNode(executionEntity);
+    executionTreeNode.setChildren(new ArrayList<>());
+    StringBuilder strb = new StringBuilder("foo");
+
+    // Act
+    executionTreeNode.internalToString(strb, "Prefix", true);
+
+    // Assert
+    verify(executionEntity).getCurrentFlowElement();
+    verify(executionEntity).getId();
+    verify(executionEntity).getParentId();
+    verify(executionEntity).isActive();
+    verify(executionEntity).isEnded();
+    verify(executionEntity).isScope();
+    verify(executionEntity).isMultiInstanceRoot();
+    assertEquals(
+        "fooPrefix└── 42 : null (AdhocSubProcess, parent id 42 (active) (scope) (multi instance root)" + " (ended)\n",
+        strb.toString());
+  }
+
+  /**
+   * Test {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}.
+   * <p>
+   * Method under test: {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionTreeNode.internalToString(StringBuilder, String, boolean)"})
+  public void testInternalToString2() {
+    // Arrange
+    ExecutionEntity executionEntity = mock(ExecutionEntity.class);
+    when(executionEntity.isActive()).thenReturn(true);
+    when(executionEntity.isEnded()).thenReturn(true);
+    when(executionEntity.isScope()).thenReturn(true);
+    when(executionEntity.isMultiInstanceRoot()).thenReturn(true);
+    when(executionEntity.getId()).thenReturn("42");
+    when(executionEntity.getParentId()).thenReturn("42");
+    when(executionEntity.getCurrentFlowElement()).thenReturn(new AdhocSubProcess());
+
+    ArrayList<ExecutionTreeNode> children = new ArrayList<>();
+    children.add(new ExecutionTreeNode(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+
+    ExecutionTreeNode executionTreeNode = new ExecutionTreeNode(executionEntity);
+    executionTreeNode.setChildren(children);
+    StringBuilder strb = new StringBuilder("foo");
+
+    // Act
+    executionTreeNode.internalToString(strb, "Prefix", true);
+
+    // Assert
+    verify(executionEntity).getCurrentFlowElement();
+    verify(executionEntity).getId();
+    verify(executionEntity).getParentId();
+    verify(executionEntity).isActive();
+    verify(executionEntity).isEnded();
+    verify(executionEntity).isScope();
+    verify(executionEntity).isMultiInstanceRoot();
+    assertEquals("fooPrefix└── 42 : null (AdhocSubProcess, parent id 42 (active) (scope) (multi instance root)"
+        + " (ended)\n" + "Prefix    └── null : , parent id null (active) (scope)\n", strb.toString());
+  }
+
+  /**
+   * Test {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}.
+   * <p>
+   * Method under test: {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionTreeNode.internalToString(StringBuilder, String, boolean)"})
+  public void testInternalToString3() {
+    // Arrange
+    ExecutionEntity executionEntity = mock(ExecutionEntity.class);
+    when(executionEntity.isActive()).thenReturn(true);
+    when(executionEntity.isEnded()).thenReturn(true);
+    when(executionEntity.isScope()).thenReturn(true);
+    when(executionEntity.isMultiInstanceRoot()).thenReturn(true);
+    when(executionEntity.getId()).thenReturn("42");
+    when(executionEntity.getParentId()).thenReturn("42");
+    when(executionEntity.getCurrentFlowElement()).thenReturn(new AdhocSubProcess());
+
+    ArrayList<ExecutionTreeNode> children = new ArrayList<>();
+    children.add(new ExecutionTreeNode(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+    children.add(new ExecutionTreeNode(ExecutionEntityImpl.createWithEmptyRelationshipCollections()));
+
+    ExecutionTreeNode executionTreeNode = new ExecutionTreeNode(executionEntity);
+    executionTreeNode.setChildren(children);
+    StringBuilder strb = new StringBuilder("foo");
+
+    // Act
+    executionTreeNode.internalToString(strb, "Prefix", true);
+
+    // Assert
+    verify(executionEntity).getCurrentFlowElement();
+    verify(executionEntity).getId();
+    verify(executionEntity).getParentId();
+    verify(executionEntity).isActive();
+    verify(executionEntity).isEnded();
+    verify(executionEntity).isScope();
+    verify(executionEntity).isMultiInstanceRoot();
+    assertEquals("fooPrefix└── 42 : null (AdhocSubProcess, parent id 42 (active) (scope) (multi instance root)"
+        + " (ended)\n" + "Prefix    ├── null : , parent id null (active) (scope)\n"
+        + "Prefix    └── null : , parent id null (active) (scope)\n", strb.toString());
+  }
+
+  /**
+   * Test {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}.
+   * <ul>
+   *   <li>Given {@link ExecutionEntity} {@link DelegateExecution#getCurrentFlowElement()} return {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionTreeNode.internalToString(StringBuilder, String, boolean)"})
   public void testInternalToString_givenExecutionEntityGetCurrentFlowElementReturnNull() {
     // Arrange
     when(executionEntity.isActive()).thenReturn(true);
@@ -335,17 +481,16 @@ public class ExecutionTreeNodeDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}.
+   * Test {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}.
    * <ul>
-   *   <li>Given {@link ExecutionEntity} {@link DelegateExecution#isActive()} return
-   * {@code false}.</li>
+   *   <li>Given {@link ExecutionEntity} {@link DelegateExecution#isActive()} return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
+   * Method under test: {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionTreeNode.internalToString(StringBuilder, String, boolean)"})
   public void testInternalToString_givenExecutionEntityIsActiveReturnFalse() {
     // Arrange
     when(executionEntity.isActive()).thenReturn(false);
@@ -373,17 +518,16 @@ public class ExecutionTreeNodeDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}.
+   * Test {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}.
    * <ul>
-   *   <li>Given {@link ExecutionEntity} {@link DelegateExecution#isEnded()} return
-   * {@code false}.</li>
+   *   <li>Given {@link ExecutionEntity} {@link DelegateExecution#isEnded()} return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
+   * Method under test: {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionTreeNode.internalToString(StringBuilder, String, boolean)"})
   public void testInternalToString_givenExecutionEntityIsEndedReturnFalse() {
     // Arrange
     when(executionEntity.isActive()).thenReturn(true);
@@ -411,17 +555,16 @@ public class ExecutionTreeNodeDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}.
+   * Test {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}.
    * <ul>
-   *   <li>Given {@link ExecutionEntity}
-   * {@link ExecutionEntity#isMultiInstanceRoot()} return {@code false}.</li>
+   *   <li>Given {@link ExecutionEntity} {@link ExecutionEntity#isMultiInstanceRoot()} return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
+   * Method under test: {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionTreeNode.internalToString(StringBuilder, String, boolean)"})
   public void testInternalToString_givenExecutionEntityIsMultiInstanceRootReturnFalse() {
     // Arrange
     when(executionEntity.isActive()).thenReturn(true);
@@ -448,17 +591,16 @@ public class ExecutionTreeNodeDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}.
+   * Test {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}.
    * <ul>
-   *   <li>Given {@link ExecutionEntity} {@link DelegateExecution#isScope()} return
-   * {@code false}.</li>
+   *   <li>Given {@link ExecutionEntity} {@link DelegateExecution#isScope()} return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
+   * Method under test: {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionTreeNode.internalToString(StringBuilder, String, boolean)"})
   public void testInternalToString_givenExecutionEntityIsScopeReturnFalse() {
     // Arrange
     when(executionEntity.isActive()).thenReturn(true);
@@ -486,18 +628,17 @@ public class ExecutionTreeNodeDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}.
+   * Test {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}.
    * <ul>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo}
-   * toString is a string.</li>
+   *   <li>Given {@link ExecutionTreeNode}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
+   * Method under test: {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
    */
   @Test
-  public void testInternalToString_thenStringBuilderWithFooToStringIsAString() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionTreeNode.internalToString(StringBuilder, String, boolean)"})
+  public void testInternalToString_givenExecutionTreeNode() {
     // Arrange
     when(executionEntity.isActive()).thenReturn(true);
     when(executionEntity.isEnded()).thenReturn(true);
@@ -525,19 +666,18 @@ public class ExecutionTreeNodeDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}.
+   * Test {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}.
    * <ul>
+   *   <li>Given {@link ExecutionTreeNode}.</li>
    *   <li>When {@code false}.</li>
-   *   <li>Then {@link StringBuilder#StringBuilder(String)} with {@code foo}
-   * toString is a string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
+   * Method under test: {@link ExecutionTreeNode#internalToString(StringBuilder, String, boolean)}
    */
   @Test
-  public void testInternalToString_whenFalse_thenStringBuilderWithFooToStringIsAString() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecutionTreeNode.internalToString(StringBuilder, String, boolean)"})
+  public void testInternalToString_givenExecutionTreeNode_whenFalse() {
     // Arrange
     when(executionEntity.isActive()).thenReturn(true);
     when(executionEntity.isEnded()).thenReturn(true);
@@ -566,21 +706,6 @@ public class ExecutionTreeNodeDiffblueTest {
 
   /**
    * Test {@link ExecutionTreeNode#getCurrentFlowElementId()}.
-   * <p>
-   * Method under test: {@link ExecutionTreeNode#getCurrentFlowElementId()}
-   */
-  @Test
-  public void testGetCurrentFlowElementId() {
-    // Arrange
-    ExecutionEntityImpl executionEntity = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-    executionEntity.setLockTime(mock(Date.class));
-
-    // Act and Assert
-    assertEquals("", (new ExecutionTreeNode(executionEntity)).getCurrentFlowElementId());
-  }
-
-  /**
-   * Test {@link ExecutionTreeNode#getCurrentFlowElementId()}.
    * <ul>
    *   <li>Then return empty string.</li>
    * </ul>
@@ -588,6 +713,8 @@ public class ExecutionTreeNodeDiffblueTest {
    * Method under test: {@link ExecutionTreeNode#getCurrentFlowElementId()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ExecutionTreeNode.getCurrentFlowElementId()"})
   public void testGetCurrentFlowElementId_thenReturnEmptyString() {
     // Arrange, Act and Assert
     assertEquals("", (new ExecutionTreeNode(ExecutionEntityImpl.createWithEmptyRelationshipCollections()))

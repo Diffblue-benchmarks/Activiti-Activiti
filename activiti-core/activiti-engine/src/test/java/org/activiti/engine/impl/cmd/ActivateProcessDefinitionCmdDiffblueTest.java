@@ -17,13 +17,17 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntityImpl;
 import org.activiti.engine.impl.persistence.entity.SuspensionState;
+import org.activiti.engine.impl.persistence.entity.SuspensionState.SuspensionStateImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ActivateProcessDefinitionCmdDiffblueTest {
   /**
@@ -34,14 +38,17 @@ public class ActivateProcessDefinitionCmdDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link ActivateProcessDefinitionCmd#ActivateProcessDefinitionCmd(ProcessDefinitionEntity, boolean, Date, String)}
+   *   <li>{@link ActivateProcessDefinitionCmd#ActivateProcessDefinitionCmd(ProcessDefinitionEntity, boolean, Date, String)}
    *   <li>{@link ActivateProcessDefinitionCmd#getDelayedExecutionJobHandlerType()}
-   *   <li>
-   * {@link ActivateProcessDefinitionCmd#getProcessDefinitionSuspensionState()}
+   *   <li>{@link ActivateProcessDefinitionCmd#getProcessDefinitionSuspensionState()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivateProcessDefinitionCmd.<init>(String, String, boolean, Date, String)",
+      "void ActivateProcessDefinitionCmd.<init>(ProcessDefinitionEntity, boolean, Date, String)",
+      "String ActivateProcessDefinitionCmd.getDelayedExecutionJobHandlerType()",
+      "SuspensionState ActivateProcessDefinitionCmd.getProcessDefinitionSuspensionState()"})
   public void testGettersAndSetters_whenProcessDefinitionEntityImpl() {
     // Arrange
     ProcessDefinitionEntityImpl processDefinitionEntity = new ProcessDefinitionEntityImpl();
@@ -54,8 +61,7 @@ public class ActivateProcessDefinitionCmdDiffblueTest {
         .getDelayedExecutionJobHandlerType();
 
     // Assert
-    assertTrue(actualActivateProcessDefinitionCmd
-        .getProcessDefinitionSuspensionState() instanceof SuspensionState.SuspensionStateImpl);
+    assertTrue(actualActivateProcessDefinitionCmd.getProcessDefinitionSuspensionState() instanceof SuspensionStateImpl);
     assertEquals("activate-processdefinition", actualDelayedExecutionJobHandlerType);
   }
 
@@ -67,14 +73,17 @@ public class ActivateProcessDefinitionCmdDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link ActivateProcessDefinitionCmd#ActivateProcessDefinitionCmd(String, String, boolean, Date, String)}
+   *   <li>{@link ActivateProcessDefinitionCmd#ActivateProcessDefinitionCmd(String, String, boolean, Date, String)}
    *   <li>{@link ActivateProcessDefinitionCmd#getDelayedExecutionJobHandlerType()}
-   *   <li>
-   * {@link ActivateProcessDefinitionCmd#getProcessDefinitionSuspensionState()}
+   *   <li>{@link ActivateProcessDefinitionCmd#getProcessDefinitionSuspensionState()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivateProcessDefinitionCmd.<init>(String, String, boolean, Date, String)",
+      "void ActivateProcessDefinitionCmd.<init>(ProcessDefinitionEntity, boolean, Date, String)",
+      "String ActivateProcessDefinitionCmd.getDelayedExecutionJobHandlerType()",
+      "SuspensionState ActivateProcessDefinitionCmd.getProcessDefinitionSuspensionState()"})
   public void testGettersAndSetters_whenProcessDefinitionKey() {
     // Arrange and Act
     ActivateProcessDefinitionCmd actualActivateProcessDefinitionCmd = new ActivateProcessDefinitionCmd("42",
@@ -84,8 +93,7 @@ public class ActivateProcessDefinitionCmdDiffblueTest {
         .getDelayedExecutionJobHandlerType();
 
     // Assert
-    assertTrue(actualActivateProcessDefinitionCmd
-        .getProcessDefinitionSuspensionState() instanceof SuspensionState.SuspensionStateImpl);
+    assertTrue(actualActivateProcessDefinitionCmd.getProcessDefinitionSuspensionState() instanceof SuspensionStateImpl);
     assertEquals("activate-processdefinition", actualDelayedExecutionJobHandlerType);
   }
 }

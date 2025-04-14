@@ -28,6 +28,8 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
@@ -48,6 +50,7 @@ import org.activiti.engine.impl.persistence.entity.data.JobDataManager;
 import org.activiti.engine.impl.persistence.entity.data.impl.MybatisJobDataManager;
 import org.activiti.engine.runtime.Job;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -70,14 +73,17 @@ public class JobEntityManagerImplDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link JobEntityManagerImpl#JobEntityManagerImpl(ProcessEngineConfigurationImpl, JobDataManager)}
+   *   <li>{@link JobEntityManagerImpl#JobEntityManagerImpl(ProcessEngineConfigurationImpl, JobDataManager)}
    *   <li>{@link JobEntityManagerImpl#setJobDataManager(JobDataManager)}
    *   <li>{@link JobEntityManagerImpl#getDataManager()}
    *   <li>{@link JobEntityManagerImpl#getJobDataManager()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.<init>(ProcessEngineConfigurationImpl, JobDataManager)",
+      "DataManager JobEntityManagerImpl.getDataManager()", "JobDataManager JobEntityManagerImpl.getJobDataManager()",
+      "void JobEntityManagerImpl.setJobDataManager(JobDataManager)"})
   public void testGettersAndSetters() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
@@ -89,7 +95,7 @@ public class JobEntityManagerImplDiffblueTest {
     actualJobEntityManagerImpl.setJobDataManager(jobDataManager);
     DataManager<JobEntity> actualDataManager = actualJobEntityManagerImpl.getDataManager();
 
-    // Assert that nothing has changed
+    // Assert
     assertSame(jobDataManager, actualDataManager);
     assertSame(jobDataManager, actualJobEntityManagerImpl.getJobDataManager());
   }
@@ -100,6 +106,8 @@ public class JobEntityManagerImplDiffblueTest {
    * Method under test: {@link JobEntityManagerImpl#insertJobEntity(JobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JobEntityManagerImpl.insertJobEntity(JobEntity)"})
   public void testInsertJobEntity() {
     // Arrange
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
@@ -125,6 +133,8 @@ public class JobEntityManagerImplDiffblueTest {
    * Method under test: {@link JobEntityManagerImpl#insertJobEntity(JobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JobEntityManagerImpl.insertJobEntity(JobEntity)"})
   public void testInsertJobEntity2() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -173,6 +183,8 @@ public class JobEntityManagerImplDiffblueTest {
    * Method under test: {@link JobEntityManagerImpl#insertJobEntity(JobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JobEntityManagerImpl.insertJobEntity(JobEntity)"})
   public void testInsertJobEntity3() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -231,6 +243,8 @@ public class JobEntityManagerImplDiffblueTest {
    * Method under test: {@link JobEntityManagerImpl#insertJobEntity(JobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JobEntityManagerImpl.insertJobEntity(JobEntity)"})
   public void testInsertJobEntity4() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -283,13 +297,14 @@ public class JobEntityManagerImplDiffblueTest {
   /**
    * Test {@link JobEntityManagerImpl#insertJobEntity(JobEntity)}.
    * <ul>
-   *   <li>Given {@link ActivitiEventDispatcher}
-   * {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
+   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JobEntityManagerImpl#insertJobEntity(JobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JobEntityManagerImpl.insertJobEntity(JobEntity)"})
   public void testInsertJobEntity_givenActivitiEventDispatcherIsEnabledReturnFalse() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -315,14 +330,15 @@ public class JobEntityManagerImplDiffblueTest {
   /**
    * Test {@link JobEntityManagerImpl#insertJobEntity(JobEntity)}.
    * <ul>
-   *   <li>Given {@link ExecutionDataManager} {@link DataManager#findById(String)}
-   * return {@code null}.</li>
+   *   <li>Given {@link ExecutionDataManager} {@link DataManager#findById(String)} return {@code null}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JobEntityManagerImpl#insertJobEntity(JobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JobEntityManagerImpl.insertJobEntity(JobEntity)"})
   public void testInsertJobEntity_givenExecutionDataManagerFindByIdReturnNull_thenReturnFalse() {
     // Arrange
     PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
@@ -362,14 +378,15 @@ public class JobEntityManagerImplDiffblueTest {
   /**
    * Test {@link JobEntityManagerImpl#insertJobEntity(JobEntity)}.
    * <ul>
-   *   <li>Given {@link ExecutionEntity} {@link DelegateExecution#getTenantId()}
-   * return {@code 42}.</li>
+   *   <li>Given {@link ExecutionEntity} {@link DelegateExecution#getTenantId()} return {@code 42}.</li>
    *   <li>Then calls {@link DelegateExecution#getTenantId()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JobEntityManagerImpl#insertJobEntity(JobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JobEntityManagerImpl.insertJobEntity(JobEntity)"})
   public void testInsertJobEntity_givenExecutionEntityGetTenantIdReturn42_thenCallsGetTenantId() {
     // Arrange
     PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
@@ -422,13 +439,14 @@ public class JobEntityManagerImplDiffblueTest {
   /**
    * Test {@link JobEntityManagerImpl#insertJobEntity(JobEntity)}.
    * <ul>
-   *   <li>Given {@link ExecutionEntityImpl}
-   * {@link ExecutionEntityImpl#getTenantId()} return {@code 42}.</li>
+   *   <li>Given {@link ExecutionEntityImpl} {@link ExecutionEntityImpl#getTenantId()} return {@code 42}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JobEntityManagerImpl#insertJobEntity(JobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JobEntityManagerImpl.insertJobEntity(JobEntity)"})
   public void testInsertJobEntity_givenExecutionEntityImplGetTenantIdReturn42() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -494,13 +512,14 @@ public class JobEntityManagerImplDiffblueTest {
   /**
    * Test {@link JobEntityManagerImpl#insertJobEntity(JobEntity)}.
    * <ul>
-   *   <li>Given {@link ExecutionEntityImpl}
-   * {@link ExecutionEntityImpl#getTenantId()} return {@code null}.</li>
+   *   <li>Given {@link ExecutionEntityImpl} {@link ExecutionEntityImpl#getTenantId()} return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JobEntityManagerImpl#insertJobEntity(JobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JobEntityManagerImpl.insertJobEntity(JobEntity)"})
   public void testInsertJobEntity_givenExecutionEntityImplGetTenantIdReturnNull() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -567,13 +586,14 @@ public class JobEntityManagerImplDiffblueTest {
    * Test {@link JobEntityManagerImpl#insertJobEntity(JobEntity)}.
    * <ul>
    *   <li>When {@link JobEntityImpl} (default constructor).</li>
-   *   <li>Then calls
-   * {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JobEntityManagerImpl#insertJobEntity(JobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JobEntityManagerImpl.insertJobEntity(JobEntity)"})
   public void testInsertJobEntity_whenJobEntityImpl_thenCallsDispatchEvent() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -599,12 +619,13 @@ public class JobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link JobEntityManagerImpl#insert(JobEntity, boolean)} with
-   * {@code JobEntity}, {@code boolean}.
+   * Test {@link JobEntityManagerImpl#insert(JobEntity, boolean)} with {@code JobEntity}, {@code boolean}.
    * <p>
    * Method under test: {@link JobEntityManagerImpl#insert(JobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.insert(JobEntity, boolean)"})
   public void testInsertWithJobEntityBoolean() {
     // Arrange
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
@@ -617,19 +638,20 @@ public class JobEntityManagerImplDiffblueTest {
     // Act
     jobEntityManagerImpl.insert(jobEntity, true);
 
-    // Assert
+    // Assert that nothing has changed
     verify(processEngineConfiguration).getEventDispatcher();
     verify(jobDataManager).insert(isA(JobEntity.class));
     assertEquals("", jobEntity.getTenantId());
   }
 
   /**
-   * Test {@link JobEntityManagerImpl#insert(JobEntity, boolean)} with
-   * {@code JobEntity}, {@code boolean}.
+   * Test {@link JobEntityManagerImpl#insert(JobEntity, boolean)} with {@code JobEntity}, {@code boolean}.
    * <p>
    * Method under test: {@link JobEntityManagerImpl#insert(JobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.insert(JobEntity, boolean)"})
   public void testInsertWithJobEntityBoolean2() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -660,7 +682,7 @@ public class JobEntityManagerImplDiffblueTest {
     // Act
     jobEntityManagerImpl.insert(jobEntity, true);
 
-    // Assert
+    // Assert that nothing has changed
     verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
     verify(activitiEventDispatcher).isEnabled();
     verify(processEngineConfiguration).getEventDispatcher();
@@ -672,12 +694,13 @@ public class JobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link JobEntityManagerImpl#insert(JobEntity, boolean)} with
-   * {@code JobEntity}, {@code boolean}.
+   * Test {@link JobEntityManagerImpl#insert(JobEntity, boolean)} with {@code JobEntity}, {@code boolean}.
    * <p>
    * Method under test: {@link JobEntityManagerImpl#insert(JobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.insert(JobEntity, boolean)"})
   public void testInsertWithJobEntityBoolean3() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -713,7 +736,7 @@ public class JobEntityManagerImplDiffblueTest {
     // Act
     jobEntityManagerImpl.insert(jobEntity, true);
 
-    // Assert
+    // Assert that nothing has changed
     verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
     verify(activitiEventDispatcher).isEnabled();
     verify(performanceSettings).isEnableExecutionRelationshipCounts();
@@ -730,12 +753,13 @@ public class JobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link JobEntityManagerImpl#insert(JobEntity, boolean)} with
-   * {@code JobEntity}, {@code boolean}.
+   * Test {@link JobEntityManagerImpl#insert(JobEntity, boolean)} with {@code JobEntity}, {@code boolean}.
    * <p>
    * Method under test: {@link JobEntityManagerImpl#insert(JobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.insert(JobEntity, boolean)"})
   public void testInsertWithJobEntityBoolean4() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -768,7 +792,7 @@ public class JobEntityManagerImplDiffblueTest {
     // Act
     jobEntityManagerImpl.insert(jobEntity, true);
 
-    // Assert
+    // Assert that nothing has changed
     verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
     verify(activitiEventDispatcher).isEnabled();
     verify(performanceSettings).isEnableExecutionRelationshipCounts();
@@ -785,16 +809,16 @@ public class JobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link JobEntityManagerImpl#insert(JobEntity, boolean)} with
-   * {@code JobEntity}, {@code boolean}.
+   * Test {@link JobEntityManagerImpl#insert(JobEntity, boolean)} with {@code JobEntity}, {@code boolean}.
    * <ul>
-   *   <li>Given {@link ActivitiEventDispatcher}
-   * {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
+   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JobEntityManagerImpl#insert(JobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.insert(JobEntity, boolean)"})
   public void testInsertWithJobEntityBoolean_givenActivitiEventDispatcherIsEnabledReturnFalse() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -809,7 +833,7 @@ public class JobEntityManagerImplDiffblueTest {
     // Act
     jobEntityManagerImpl.insert(jobEntity, true);
 
-    // Assert
+    // Assert that nothing has changed
     verify(activitiEventDispatcher).isEnabled();
     verify(processEngineConfiguration).getEventDispatcher();
     verify(jobDataManager).insert(isA(JobEntity.class));
@@ -817,16 +841,16 @@ public class JobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link JobEntityManagerImpl#insert(JobEntity, boolean)} with
-   * {@code JobEntity}, {@code boolean}.
+   * Test {@link JobEntityManagerImpl#insert(JobEntity, boolean)} with {@code JobEntity}, {@code boolean}.
    * <ul>
-   *   <li>Given {@link ExecutionDataManager} {@link DataManager#findById(String)}
-   * return {@code null}.</li>
+   *   <li>Given {@link ExecutionDataManager} {@link DataManager#findById(String)} return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JobEntityManagerImpl#insert(JobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.insert(JobEntity, boolean)"})
   public void testInsertWithJobEntityBoolean_givenExecutionDataManagerFindByIdReturnNull() {
     // Arrange
     PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
@@ -852,7 +876,7 @@ public class JobEntityManagerImplDiffblueTest {
     // Act
     jobEntityManagerImpl.insert(jobEntity, true);
 
-    // Assert
+    // Assert that nothing has changed
     verify(performanceSettings).setEnableEagerExecutionTreeFetching(eq(true));
     verify(performanceSettings).setEnableExecutionRelationshipCounts(eq(true));
     verify(performanceSettings).setEnableLocalization(eq(true));
@@ -863,16 +887,16 @@ public class JobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link JobEntityManagerImpl#insert(JobEntity, boolean)} with
-   * {@code JobEntity}, {@code boolean}.
+   * Test {@link JobEntityManagerImpl#insert(JobEntity, boolean)} with {@code JobEntity}, {@code boolean}.
    * <ul>
-   *   <li>Given {@link ExecutionEntityImpl}
-   * {@link ExecutionEntityImpl#getTenantId()} return {@code 42}.</li>
+   *   <li>Given {@link ExecutionEntityImpl} {@link ExecutionEntityImpl#getTenantId()} return {@code 42}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JobEntityManagerImpl#insert(JobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.insert(JobEntity, boolean)"})
   public void testInsertWithJobEntityBoolean_givenExecutionEntityImplGetTenantIdReturn42() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -935,16 +959,16 @@ public class JobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link JobEntityManagerImpl#insert(JobEntity, boolean)} with
-   * {@code JobEntity}, {@code boolean}.
+   * Test {@link JobEntityManagerImpl#insert(JobEntity, boolean)} with {@code JobEntity}, {@code boolean}.
    * <ul>
-   *   <li>Given {@link ExecutionEntityImpl}
-   * {@link ExecutionEntityImpl#getTenantId()} return {@code null}.</li>
+   *   <li>Given {@link ExecutionEntityImpl} {@link ExecutionEntityImpl#getTenantId()} return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JobEntityManagerImpl#insert(JobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.insert(JobEntity, boolean)"})
   public void testInsertWithJobEntityBoolean_givenExecutionEntityImplGetTenantIdReturnNull() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -985,7 +1009,7 @@ public class JobEntityManagerImplDiffblueTest {
     // Act
     jobEntityManagerImpl.insert(jobEntity, true);
 
-    // Assert
+    // Assert that nothing has changed
     verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
     verify(activitiEventDispatcher).isEnabled();
     verify(performanceSettings).isEnableExecutionRelationshipCounts();
@@ -1007,8 +1031,7 @@ public class JobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link JobEntityManagerImpl#insert(JobEntity, boolean)} with
-   * {@code JobEntity}, {@code boolean}.
+   * Test {@link JobEntityManagerImpl#insert(JobEntity, boolean)} with {@code JobEntity}, {@code boolean}.
    * <ul>
    *   <li>Then calls {@link DelegateExecution#getTenantId()}.</li>
    * </ul>
@@ -1016,6 +1039,8 @@ public class JobEntityManagerImplDiffblueTest {
    * Method under test: {@link JobEntityManagerImpl#insert(JobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.insert(JobEntity, boolean)"})
   public void testInsertWithJobEntityBoolean_thenCallsGetTenantId() {
     // Arrange
     PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
@@ -1065,17 +1090,17 @@ public class JobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link JobEntityManagerImpl#insert(JobEntity, boolean)} with
-   * {@code JobEntity}, {@code boolean}.
+   * Test {@link JobEntityManagerImpl#insert(JobEntity, boolean)} with {@code JobEntity}, {@code boolean}.
    * <ul>
    *   <li>When {@code false}.</li>
-   *   <li>Then {@link JobEntityImpl} (default constructor) TenantId is empty
-   * string.</li>
+   *   <li>Then {@link JobEntityImpl} (default constructor) TenantId is empty string.</li>
    * </ul>
    * <p>
    * Method under test: {@link JobEntityManagerImpl#insert(JobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.insert(JobEntity, boolean)"})
   public void testInsertWithJobEntityBoolean_whenFalse_thenJobEntityImplTenantIdIsEmptyString() {
     // Arrange
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
@@ -1088,24 +1113,24 @@ public class JobEntityManagerImplDiffblueTest {
     // Act
     jobEntityManagerImpl.insert(jobEntity, false);
 
-    // Assert
+    // Assert that nothing has changed
     verify(processEngineConfiguration).getEventDispatcher();
     verify(jobDataManager).insert(isA(JobEntity.class));
     assertEquals("", jobEntity.getTenantId());
   }
 
   /**
-   * Test {@link JobEntityManagerImpl#insert(JobEntity, boolean)} with
-   * {@code JobEntity}, {@code boolean}.
+   * Test {@link JobEntityManagerImpl#insert(JobEntity, boolean)} with {@code JobEntity}, {@code boolean}.
    * <ul>
    *   <li>When {@link JobEntityImpl} (default constructor).</li>
-   *   <li>Then calls
-   * {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JobEntityManagerImpl#insert(JobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.insert(JobEntity, boolean)"})
   public void testInsertWithJobEntityBoolean_whenJobEntityImpl_thenCallsDispatchEvent() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -1121,7 +1146,7 @@ public class JobEntityManagerImplDiffblueTest {
     // Act
     jobEntityManagerImpl.insert(jobEntity, true);
 
-    // Assert
+    // Assert that nothing has changed
     verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
     verify(activitiEventDispatcher).isEnabled();
     verify(processEngineConfiguration).getEventDispatcher();
@@ -1135,6 +1160,8 @@ public class JobEntityManagerImplDiffblueTest {
    * Method under test: {@link JobEntityManagerImpl#doInsert(JobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JobEntityManagerImpl.doInsert(JobEntity, boolean)"})
   public void testDoInsert() {
     // Arrange
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
@@ -1160,6 +1187,8 @@ public class JobEntityManagerImplDiffblueTest {
    * Method under test: {@link JobEntityManagerImpl#doInsert(JobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JobEntityManagerImpl.doInsert(JobEntity, boolean)"})
   public void testDoInsert2() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -1218,6 +1247,8 @@ public class JobEntityManagerImplDiffblueTest {
    * Method under test: {@link JobEntityManagerImpl#doInsert(JobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JobEntityManagerImpl.doInsert(JobEntity, boolean)"})
   public void testDoInsert3() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -1270,15 +1301,16 @@ public class JobEntityManagerImplDiffblueTest {
   /**
    * Test {@link JobEntityManagerImpl#doInsert(JobEntity, boolean)}.
    * <ul>
-   *   <li>Given {@link ActivitiEventDispatcher}
-   * {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
-   *   <li>Then calls {@link ActivitiEventDispatcher#isEnabled()}.</li>
+   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
+   *   <li>When {@link JobEntityImpl} (default constructor).</li>
    * </ul>
    * <p>
    * Method under test: {@link JobEntityManagerImpl#doInsert(JobEntity, boolean)}
    */
   @Test
-  public void testDoInsert_givenActivitiEventDispatcherIsEnabledReturnFalse_thenCallsIsEnabled() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JobEntityManagerImpl.doInsert(JobEntity, boolean)"})
+  public void testDoInsert_givenActivitiEventDispatcherIsEnabledReturnFalse_whenJobEntityImpl() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     when(activitiEventDispatcher.isEnabled()).thenReturn(false);
@@ -1303,14 +1335,15 @@ public class JobEntityManagerImplDiffblueTest {
   /**
    * Test {@link JobEntityManagerImpl#doInsert(JobEntity, boolean)}.
    * <ul>
-   *   <li>Given {@link ExecutionDataManager} {@link DataManager#findById(String)}
-   * return {@code null}.</li>
+   *   <li>Given {@link ExecutionDataManager} {@link DataManager#findById(String)} return {@code null}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JobEntityManagerImpl#doInsert(JobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JobEntityManagerImpl.doInsert(JobEntity, boolean)"})
   public void testDoInsert_givenExecutionDataManagerFindByIdReturnNull_thenReturnFalse() {
     // Arrange
     PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
@@ -1350,14 +1383,15 @@ public class JobEntityManagerImplDiffblueTest {
   /**
    * Test {@link JobEntityManagerImpl#doInsert(JobEntity, boolean)}.
    * <ul>
-   *   <li>Given {@link ExecutionEntity} {@link DelegateExecution#getTenantId()}
-   * return {@code 42}.</li>
+   *   <li>Given {@link ExecutionEntity} {@link DelegateExecution#getTenantId()} return {@code 42}.</li>
    *   <li>Then calls {@link DelegateExecution#getTenantId()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JobEntityManagerImpl#doInsert(JobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JobEntityManagerImpl.doInsert(JobEntity, boolean)"})
   public void testDoInsert_givenExecutionEntityGetTenantIdReturn42_thenCallsGetTenantId() {
     // Arrange
     PerformanceSettings performanceSettings = mock(PerformanceSettings.class);
@@ -1410,13 +1444,14 @@ public class JobEntityManagerImplDiffblueTest {
   /**
    * Test {@link JobEntityManagerImpl#doInsert(JobEntity, boolean)}.
    * <ul>
-   *   <li>Given {@link ExecutionEntityImpl}
-   * {@link ExecutionEntityImpl#getTenantId()} return {@code 42}.</li>
+   *   <li>Given {@link ExecutionEntityImpl} {@link ExecutionEntityImpl#getTenantId()} return {@code 42}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JobEntityManagerImpl#doInsert(JobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JobEntityManagerImpl.doInsert(JobEntity, boolean)"})
   public void testDoInsert_givenExecutionEntityImplGetTenantIdReturn42() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -1482,14 +1517,15 @@ public class JobEntityManagerImplDiffblueTest {
   /**
    * Test {@link JobEntityManagerImpl#doInsert(JobEntity, boolean)}.
    * <ul>
-   *   <li>Given {@link ExecutionEntityImpl}
-   * {@link ExecutionEntityImpl#getTenantId()} return {@code null}.</li>
+   *   <li>Given {@link ExecutionEntityImpl} {@link ExecutionEntityImpl#getTenantId()} return {@code null}.</li>
    *   <li>Then calls {@link ExecutionEntityImpl#getJobCount()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JobEntityManagerImpl#doInsert(JobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JobEntityManagerImpl.doInsert(JobEntity, boolean)"})
   public void testDoInsert_givenExecutionEntityImplGetTenantIdReturnNull_thenCallsGetJobCount() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -1555,13 +1591,14 @@ public class JobEntityManagerImplDiffblueTest {
   /**
    * Test {@link JobEntityManagerImpl#doInsert(JobEntity, boolean)}.
    * <ul>
-   *   <li>Given {@link PerformanceSettings} (default constructor)
-   * EnableEagerExecutionTreeFetching is {@code true}.</li>
+   *   <li>Given {@link PerformanceSettings} (default constructor) EnableEagerExecutionTreeFetching is {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JobEntityManagerImpl#doInsert(JobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JobEntityManagerImpl.doInsert(JobEntity, boolean)"})
   public void testDoInsert_givenPerformanceSettingsEnableEagerExecutionTreeFetchingIsTrue() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -1608,13 +1645,14 @@ public class JobEntityManagerImplDiffblueTest {
    * Test {@link JobEntityManagerImpl#doInsert(JobEntity, boolean)}.
    * <ul>
    *   <li>When {@code false}.</li>
-   *   <li>Then {@link JobEntityImpl} (default constructor) TenantId is empty
-   * string.</li>
+   *   <li>Then {@link JobEntityImpl} (default constructor) TenantId is empty string.</li>
    * </ul>
    * <p>
    * Method under test: {@link JobEntityManagerImpl#doInsert(JobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JobEntityManagerImpl.doInsert(JobEntity, boolean)"})
   public void testDoInsert_whenFalse_thenJobEntityImplTenantIdIsEmptyString() {
     // Arrange
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
@@ -1638,13 +1676,14 @@ public class JobEntityManagerImplDiffblueTest {
    * Test {@link JobEntityManagerImpl#doInsert(JobEntity, boolean)}.
    * <ul>
    *   <li>When {@link JobEntityImpl} (default constructor).</li>
-   *   <li>Then calls
-   * {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JobEntityManagerImpl#doInsert(JobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JobEntityManagerImpl.doInsert(JobEntity, boolean)"})
   public void testDoInsert_whenJobEntityImpl_thenCallsDispatchEvent() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -1678,6 +1717,8 @@ public class JobEntityManagerImplDiffblueTest {
    * Method under test: {@link JobEntityManagerImpl#findJobsToExecute(Page)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List JobEntityManagerImpl.findJobsToExecute(Page)"})
   public void testFindJobsToExecute_thenReturnEmpty() {
     // Arrange
     JobDataManager jobDataManager = mock(JobDataManager.class);
@@ -1699,6 +1740,8 @@ public class JobEntityManagerImplDiffblueTest {
    * Method under test: {@link JobEntityManagerImpl#findJobsByExecutionId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List JobEntityManagerImpl.findJobsByExecutionId(String)"})
   public void testFindJobsByExecutionId() {
     // Arrange
     when(jobDataManager.findJobsByExecutionId(Mockito.<String>any())).thenReturn(new ArrayList<>());
@@ -1714,10 +1757,11 @@ public class JobEntityManagerImplDiffblueTest {
   /**
    * Test {@link JobEntityManagerImpl#findJobsByProcessDefinitionId(String)}.
    * <p>
-   * Method under test:
-   * {@link JobEntityManagerImpl#findJobsByProcessDefinitionId(String)}
+   * Method under test: {@link JobEntityManagerImpl#findJobsByProcessDefinitionId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List JobEntityManagerImpl.findJobsByProcessDefinitionId(String)"})
   public void testFindJobsByProcessDefinitionId() {
     // Arrange
     when(jobDataManager.findJobsByProcessDefinitionId(Mockito.<String>any())).thenReturn(new ArrayList<>());
@@ -1732,13 +1776,13 @@ public class JobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JobEntityManagerImpl#findJobsByTypeAndProcessDefinitionId(String, String)}.
+   * Test {@link JobEntityManagerImpl#findJobsByTypeAndProcessDefinitionId(String, String)}.
    * <p>
-   * Method under test:
-   * {@link JobEntityManagerImpl#findJobsByTypeAndProcessDefinitionId(String, String)}
+   * Method under test: {@link JobEntityManagerImpl#findJobsByTypeAndProcessDefinitionId(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List JobEntityManagerImpl.findJobsByTypeAndProcessDefinitionId(String, String)"})
   public void testFindJobsByTypeAndProcessDefinitionId() {
     // Arrange
     when(jobDataManager.findJobsByTypeAndProcessDefinitionId(Mockito.<String>any(), Mockito.<String>any()))
@@ -1756,10 +1800,11 @@ public class JobEntityManagerImplDiffblueTest {
   /**
    * Test {@link JobEntityManagerImpl#findJobsByProcessInstanceId(String)}.
    * <p>
-   * Method under test:
-   * {@link JobEntityManagerImpl#findJobsByProcessInstanceId(String)}
+   * Method under test: {@link JobEntityManagerImpl#findJobsByProcessInstanceId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List JobEntityManagerImpl.findJobsByProcessInstanceId(String)"})
   public void testFindJobsByProcessInstanceId() {
     // Arrange
     when(jobDataManager.findJobsByProcessInstanceId(Mockito.<String>any())).thenReturn(new ArrayList<>());
@@ -1781,6 +1826,8 @@ public class JobEntityManagerImplDiffblueTest {
    * Method under test: {@link JobEntityManagerImpl#findExpiredJobs(Page)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List JobEntityManagerImpl.findExpiredJobs(Page)"})
   public void testFindExpiredJobs_thenReturnEmpty() {
     // Arrange
     JobDataManager jobDataManager = mock(JobDataManager.class);
@@ -1802,6 +1849,8 @@ public class JobEntityManagerImplDiffblueTest {
    * Method under test: {@link JobEntityManagerImpl#resetExpiredJob(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.resetExpiredJob(String)"})
   public void testResetExpiredJob() {
     // Arrange
     doNothing().when(jobDataManager).resetExpiredJob(Mockito.<String>any());
@@ -1814,16 +1863,16 @@ public class JobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JobEntityManagerImpl#findJobsByQueryCriteria(JobQueryImpl, Page)}.
+   * Test {@link JobEntityManagerImpl#findJobsByQueryCriteria(JobQueryImpl, Page)}.
    * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JobEntityManagerImpl#findJobsByQueryCriteria(JobQueryImpl, Page)}
+   * Method under test: {@link JobEntityManagerImpl#findJobsByQueryCriteria(JobQueryImpl, Page)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List JobEntityManagerImpl.findJobsByQueryCriteria(JobQueryImpl, Page)"})
   public void testFindJobsByQueryCriteria_thenReturnEmpty() {
     // Arrange
     JobDataManager jobDataManager = mock(JobDataManager.class);
@@ -1848,10 +1897,11 @@ public class JobEntityManagerImplDiffblueTest {
    *   <li>Then return three.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JobEntityManagerImpl#findJobCountByQueryCriteria(JobQueryImpl)}
+   * Method under test: {@link JobEntityManagerImpl#findJobCountByQueryCriteria(JobQueryImpl)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"long JobEntityManagerImpl.findJobCountByQueryCriteria(JobQueryImpl)"})
   public void testFindJobCountByQueryCriteria_thenReturnThree() {
     // Arrange
     JobDataManager jobDataManager = mock(JobDataManager.class);
@@ -1868,13 +1918,13 @@ public class JobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link JobEntityManagerImpl#updateJobTenantIdForDeployment(String, String)}.
+   * Test {@link JobEntityManagerImpl#updateJobTenantIdForDeployment(String, String)}.
    * <p>
-   * Method under test:
-   * {@link JobEntityManagerImpl#updateJobTenantIdForDeployment(String, String)}
+   * Method under test: {@link JobEntityManagerImpl#updateJobTenantIdForDeployment(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.updateJobTenantIdForDeployment(String, String)"})
   public void testUpdateJobTenantIdForDeployment() {
     // Arrange
     doNothing().when(jobDataManager).updateJobTenantIdForDeployment(Mockito.<String>any(), Mockito.<String>any());
@@ -1892,67 +1942,79 @@ public class JobEntityManagerImplDiffblueTest {
    * Method under test: {@link JobEntityManagerImpl#delete(JobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.delete(JobEntity)"})
   public void testDeleteWithJobEntity() {
     // Arrange
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
+    JobDataManager jobDataManager = mock(JobDataManager.class);
+    doNothing().when(jobDataManager).delete(Mockito.<JobEntity>any());
+    JobEntityManagerImpl jobEntityManagerImpl = new JobEntityManagerImpl(processEngineConfiguration, jobDataManager);
+
+    // Act
+    jobEntityManagerImpl.delete(new JobEntityImpl());
+
+    // Assert
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(jobDataManager).delete(isA(JobEntity.class));
+  }
+
+  /**
+   * Test {@link JobEntityManagerImpl#delete(JobEntity)} with {@code JobEntity}.
+   * <p>
+   * Method under test: {@link JobEntityManagerImpl#delete(JobEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.delete(JobEntity)"})
+  public void testDeleteWithJobEntity2() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+
     PerformanceSettings performanceSettings = new PerformanceSettings();
     performanceSettings.setEnableEagerExecutionTreeFetching(true);
     performanceSettings.setEnableExecutionRelationshipCounts(true);
     performanceSettings.setEnableLocalization(true);
     performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-    ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
-    when(executionEntityManager.findById(Mockito.<String>any()))
+    ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
+    when(executionDataManager.findById(Mockito.<String>any()))
         .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(new ActivitiEventDispatcherImpl());
-    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManager);
+    when(processEngineConfiguration.getExecutionEntityManager())
+        .thenReturn(new ExecutionEntityManagerImpl(new JtaProcessEngineConfiguration(), executionDataManager));
     when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     JobDataManager jobDataManager = mock(JobDataManager.class);
     doNothing().when(jobDataManager).delete(Mockito.<JobEntity>any());
     JobEntityManagerImpl jobEntityManagerImpl = new JobEntityManagerImpl(processEngineConfiguration, jobDataManager);
 
     JobEntityImpl jobEntity = new JobEntityImpl();
-    jobEntity.setDeleted(true);
-    jobEntity.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    jobEntity.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    jobEntity.setExceptionMessage("An error occurred");
-    jobEntity.setExclusive(true);
-    jobEntity.setId("42");
-    jobEntity.setInserted(true);
-    jobEntity.setJobHandlerConfiguration("Job Handler Configuration");
-    jobEntity.setJobHandlerType("Job Handler Type");
-    jobEntity.setJobType("Job Type");
-    jobEntity
-        .setLockExpirationTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    jobEntity.setLockOwner("Claimed By");
-    jobEntity.setMaxIterations(3);
-    jobEntity.setProcessDefinitionId("42");
-    jobEntity.setProcessInstanceId("42");
-    jobEntity.setRepeat("Repeat");
-    jobEntity.setRetries(1);
-    jobEntity.setRevision(1);
-    jobEntity.setTenantId("42");
-    jobEntity.setUpdated(true);
-    jobEntity.setExecutionId("Job Entity");
-    jobEntity.setExceptionStacktrace(null);
+    jobEntity.setExecutionId("42");
 
     // Act
     jobEntityManagerImpl.delete(jobEntity);
 
     // Assert
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher, atLeast(1)).isEnabled();
     verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
     verify(processEngineConfiguration, atLeast(1)).getExecutionEntityManager();
     verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
-    verify(executionEntityManager, atLeast(1)).findById(eq("Job Entity"));
     verify(jobDataManager).delete(isA(JobEntity.class));
+    verify(executionDataManager, atLeast(1)).findById(eq("42"));
   }
 
   /**
-   * Test {@link JobEntityManagerImpl#delete(JobEntity, boolean)} with
-   * {@code JobEntity}, {@code boolean}.
+   * Test {@link JobEntityManagerImpl#delete(JobEntity, boolean)} with {@code JobEntity}, {@code boolean}.
    * <p>
    * Method under test: {@link JobEntityManagerImpl#delete(JobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.delete(JobEntity, boolean)"})
   public void testDeleteWithJobEntityBoolean() {
     // Arrange
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
@@ -1970,12 +2032,13 @@ public class JobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link JobEntityManagerImpl#delete(JobEntity, boolean)} with
-   * {@code JobEntity}, {@code boolean}.
+   * Test {@link JobEntityManagerImpl#delete(JobEntity, boolean)} with {@code JobEntity}, {@code boolean}.
    * <p>
    * Method under test: {@link JobEntityManagerImpl#delete(JobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.delete(JobEntity, boolean)"})
   public void testDeleteWithJobEntityBoolean2() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -2020,16 +2083,16 @@ public class JobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link JobEntityManagerImpl#delete(JobEntity, boolean)} with
-   * {@code JobEntity}, {@code boolean}.
+   * Test {@link JobEntityManagerImpl#delete(JobEntity, boolean)} with {@code JobEntity}, {@code boolean}.
    * <ul>
-   *   <li>Given {@link ActivitiEventDispatcher}
-   * {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
+   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JobEntityManagerImpl#delete(JobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.delete(JobEntity, boolean)"})
   public void testDeleteWithJobEntityBoolean_givenActivitiEventDispatcherIsEnabledReturnFalse() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -2050,16 +2113,16 @@ public class JobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link JobEntityManagerImpl#delete(JobEntity, boolean)} with
-   * {@code JobEntity}, {@code boolean}.
+   * Test {@link JobEntityManagerImpl#delete(JobEntity, boolean)} with {@code JobEntity}, {@code boolean}.
    * <ul>
-   *   <li>Then calls
-   * {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JobEntityManagerImpl#delete(JobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.delete(JobEntity, boolean)"})
   public void testDeleteWithJobEntityBoolean_thenCallsDispatchEvent() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -2082,8 +2145,7 @@ public class JobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link JobEntityManagerImpl#delete(JobEntity, boolean)} with
-   * {@code JobEntity}, {@code boolean}.
+   * Test {@link JobEntityManagerImpl#delete(JobEntity, boolean)} with {@code JobEntity}, {@code boolean}.
    * <ul>
    *   <li>Then calls {@link EntityManager#findById(String)}.</li>
    * </ul>
@@ -2091,6 +2153,8 @@ public class JobEntityManagerImplDiffblueTest {
    * Method under test: {@link JobEntityManagerImpl#delete(JobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.delete(JobEntity, boolean)"})
   public void testDeleteWithJobEntityBoolean_thenCallsFindById() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -2134,8 +2198,7 @@ public class JobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link JobEntityManagerImpl#delete(JobEntity, boolean)} with
-   * {@code JobEntity}, {@code boolean}.
+   * Test {@link JobEntityManagerImpl#delete(JobEntity, boolean)} with {@code JobEntity}, {@code boolean}.
    * <ul>
    *   <li>Then calls {@link EntityManager#findById(String)}.</li>
    * </ul>
@@ -2143,6 +2206,8 @@ public class JobEntityManagerImplDiffblueTest {
    * Method under test: {@link JobEntityManagerImpl#delete(JobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.delete(JobEntity, boolean)"})
   public void testDeleteWithJobEntityBoolean_thenCallsFindById2() {
     // Arrange
     PerformanceSettings performanceSettings = new PerformanceSettings();
@@ -2174,8 +2239,7 @@ public class JobEntityManagerImplDiffblueTest {
   }
 
   /**
-   * Test {@link JobEntityManagerImpl#delete(JobEntity, boolean)} with
-   * {@code JobEntity}, {@code boolean}.
+   * Test {@link JobEntityManagerImpl#delete(JobEntity, boolean)} with {@code JobEntity}, {@code boolean}.
    * <ul>
    *   <li>Then calls {@link ExecutionEntityImpl#getJobCount()}.</li>
    * </ul>
@@ -2183,6 +2247,8 @@ public class JobEntityManagerImplDiffblueTest {
    * Method under test: {@link JobEntityManagerImpl#delete(JobEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.delete(JobEntity, boolean)"})
   public void testDeleteWithJobEntityBoolean_thenCallsGetJobCount() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
@@ -2235,82 +2301,50 @@ public class JobEntityManagerImplDiffblueTest {
   /**
    * Test {@link JobEntityManagerImpl#delete(JobEntity)} with {@code JobEntity}.
    * <ul>
-   *   <li>Given {@link ActivitiEventDispatcher}
-   * {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
+   *   <li>Given {@link ActivitiEventDispatcher} {@link ActivitiEventDispatcher#isEnabled()} return {@code false}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JobEntityManagerImpl#delete(JobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.delete(JobEntity)"})
   public void testDeleteWithJobEntity_givenActivitiEventDispatcherIsEnabledReturnFalse() {
     // Arrange
-    PerformanceSettings performanceSettings = new PerformanceSettings();
-    performanceSettings.setEnableEagerExecutionTreeFetching(true);
-    performanceSettings.setEnableExecutionRelationshipCounts(true);
-    performanceSettings.setEnableLocalization(true);
-    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
-    ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
-    when(executionEntityManager.findById(Mockito.<String>any()))
-        .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     when(activitiEventDispatcher.isEnabled()).thenReturn(false);
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
     when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
-    when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManager);
-    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
     JobDataManager jobDataManager = mock(JobDataManager.class);
     doNothing().when(jobDataManager).delete(Mockito.<JobEntity>any());
     JobEntityManagerImpl jobEntityManagerImpl = new JobEntityManagerImpl(processEngineConfiguration, jobDataManager);
 
-    JobEntityImpl jobEntity = new JobEntityImpl();
-    jobEntity.setDeleted(true);
-    jobEntity.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    jobEntity.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    jobEntity.setExceptionMessage("An error occurred");
-    jobEntity.setExclusive(true);
-    jobEntity.setId("42");
-    jobEntity.setInserted(true);
-    jobEntity.setJobHandlerConfiguration("Job Handler Configuration");
-    jobEntity.setJobHandlerType("Job Handler Type");
-    jobEntity.setJobType("Job Type");
-    jobEntity
-        .setLockExpirationTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    jobEntity.setLockOwner("Claimed By");
-    jobEntity.setMaxIterations(3);
-    jobEntity.setProcessDefinitionId("42");
-    jobEntity.setProcessInstanceId("42");
-    jobEntity.setRepeat("Repeat");
-    jobEntity.setRetries(1);
-    jobEntity.setRevision(1);
-    jobEntity.setTenantId("42");
-    jobEntity.setUpdated(true);
-    jobEntity.setExecutionId("Job Entity");
-    jobEntity.setExceptionStacktrace(null);
-
     // Act
-    jobEntityManagerImpl.delete(jobEntity);
+    jobEntityManagerImpl.delete(new JobEntityImpl());
 
     // Assert
     verify(activitiEventDispatcher, atLeast(1)).isEnabled();
     verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
-    verify(processEngineConfiguration, atLeast(1)).getExecutionEntityManager();
-    verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
-    verify(executionEntityManager, atLeast(1)).findById(eq("Job Entity"));
     verify(jobDataManager).delete(isA(JobEntity.class));
   }
 
   /**
    * Test {@link JobEntityManagerImpl#delete(JobEntity)} with {@code JobEntity}.
    * <ul>
-   *   <li>Then calls
-   * {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
+   *   <li>Then calls {@link EntityManager#findById(String)}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JobEntityManagerImpl#delete(JobEntity)}
    */
   @Test
-  public void testDeleteWithJobEntity_thenCallsDispatchEvent() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.delete(JobEntity)"})
+  public void testDeleteWithJobEntity_thenCallsFindById() {
     // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+
     PerformanceSettings performanceSettings = new PerformanceSettings();
     performanceSettings.setEnableEagerExecutionTreeFetching(true);
     performanceSettings.setEnableExecutionRelationshipCounts(true);
@@ -2319,41 +2353,16 @@ public class JobEntityManagerImplDiffblueTest {
     ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
     when(executionEntityManager.findById(Mockito.<String>any()))
         .thenReturn(ExecutionEntityImpl.createWithEmptyRelationshipCollections());
-    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
-    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
-    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
     ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
-    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     when(processEngineConfiguration.getExecutionEntityManager()).thenReturn(executionEntityManager);
     when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
     JobDataManager jobDataManager = mock(JobDataManager.class);
     doNothing().when(jobDataManager).delete(Mockito.<JobEntity>any());
     JobEntityManagerImpl jobEntityManagerImpl = new JobEntityManagerImpl(processEngineConfiguration, jobDataManager);
 
     JobEntityImpl jobEntity = new JobEntityImpl();
-    jobEntity.setDeleted(true);
-    jobEntity.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    jobEntity.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    jobEntity.setExceptionMessage("An error occurred");
-    jobEntity.setExclusive(true);
-    jobEntity.setId("42");
-    jobEntity.setInserted(true);
-    jobEntity.setJobHandlerConfiguration("Job Handler Configuration");
-    jobEntity.setJobHandlerType("Job Handler Type");
-    jobEntity.setJobType("Job Type");
-    jobEntity
-        .setLockExpirationTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    jobEntity.setLockOwner("Claimed By");
-    jobEntity.setMaxIterations(3);
-    jobEntity.setProcessDefinitionId("42");
-    jobEntity.setProcessInstanceId("42");
-    jobEntity.setRepeat("Repeat");
-    jobEntity.setRetries(1);
-    jobEntity.setRevision(1);
-    jobEntity.setTenantId("42");
-    jobEntity.setUpdated(true);
-    jobEntity.setExecutionId("Job Entity");
-    jobEntity.setExceptionStacktrace(null);
+    jobEntity.setExecutionId("42");
 
     // Act
     jobEntityManagerImpl.delete(jobEntity);
@@ -2364,21 +2373,81 @@ public class JobEntityManagerImplDiffblueTest {
     verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
     verify(processEngineConfiguration, atLeast(1)).getExecutionEntityManager();
     verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
-    verify(executionEntityManager, atLeast(1)).findById(eq("Job Entity"));
+    verify(executionEntityManager, atLeast(1)).findById(eq("42"));
     verify(jobDataManager).delete(isA(JobEntity.class));
   }
 
   /**
    * Test {@link JobEntityManagerImpl#delete(JobEntity)} with {@code JobEntity}.
    * <ul>
-   *   <li>When {@link JobEntityImpl} (default constructor) ExecutionId is
-   * {@code null}.</li>
+   *   <li>Then calls {@link ExecutionEntityImpl#getJobCount()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JobEntityManagerImpl#delete(JobEntity)}
    */
   @Test
-  public void testDeleteWithJobEntity_whenJobEntityImplExecutionIdIsNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.delete(JobEntity)"})
+  public void testDeleteWithJobEntity_thenCallsGetJobCount() {
+    // Arrange
+    ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
+    doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
+    when(activitiEventDispatcher.isEnabled()).thenReturn(true);
+
+    PerformanceSettings performanceSettings = new PerformanceSettings();
+    performanceSettings.setEnableEagerExecutionTreeFetching(true);
+    performanceSettings.setEnableExecutionRelationshipCounts(true);
+    performanceSettings.setEnableLocalization(true);
+    performanceSettings.setValidateExecutionRelationshipCountConfigOnBoot(true);
+    ExecutionEntityImpl executionEntityImpl = mock(ExecutionEntityImpl.class);
+    when(executionEntityImpl.getJobCount()).thenReturn(3);
+    doNothing().when(executionEntityImpl).setJobCount(anyInt());
+    when(executionEntityImpl.isCountEnabled()).thenReturn(true);
+    when(executionEntityImpl.getJobs()).thenReturn(new ArrayList<>());
+    ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
+    when(executionDataManager.findById(Mockito.<String>any())).thenReturn(executionEntityImpl);
+    ProcessEngineConfigurationImpl processEngineConfiguration = mock(ProcessEngineConfigurationImpl.class);
+    when(processEngineConfiguration.getExecutionEntityManager())
+        .thenReturn(new ExecutionEntityManagerImpl(new JtaProcessEngineConfiguration(), executionDataManager));
+    when(processEngineConfiguration.getPerformanceSettings()).thenReturn(performanceSettings);
+    when(processEngineConfiguration.getEventDispatcher()).thenReturn(activitiEventDispatcher);
+    JobDataManager jobDataManager = mock(JobDataManager.class);
+    doNothing().when(jobDataManager).delete(Mockito.<JobEntity>any());
+    JobEntityManagerImpl jobEntityManagerImpl = new JobEntityManagerImpl(processEngineConfiguration, jobDataManager);
+
+    JobEntityImpl jobEntity = new JobEntityImpl();
+    jobEntity.setExecutionId("42");
+
+    // Act
+    jobEntityManagerImpl.delete(jobEntity);
+
+    // Assert
+    verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
+    verify(activitiEventDispatcher, atLeast(1)).isEnabled();
+    verify(processEngineConfiguration, atLeast(1)).getEventDispatcher();
+    verify(processEngineConfiguration, atLeast(1)).getExecutionEntityManager();
+    verify(processEngineConfiguration, atLeast(1)).getPerformanceSettings();
+    verify(executionEntityImpl).getJobCount();
+    verify(executionEntityImpl).getJobs();
+    verify(executionEntityImpl).isCountEnabled();
+    verify(executionEntityImpl).setJobCount(eq(2));
+    verify(jobDataManager).delete(isA(JobEntity.class));
+    verify(executionDataManager, atLeast(1)).findById(eq("42"));
+  }
+
+  /**
+   * Test {@link JobEntityManagerImpl#delete(JobEntity)} with {@code JobEntity}.
+   * <ul>
+   *   <li>When {@link JobEntityImpl} (default constructor).</li>
+   *   <li>Then calls {@link ActivitiEventDispatcher#dispatchEvent(ActivitiEvent)}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link JobEntityManagerImpl#delete(JobEntity)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.delete(JobEntity)"})
+  public void testDeleteWithJobEntity_whenJobEntityImpl_thenCallsDispatchEvent() {
     // Arrange
     ActivitiEventDispatcher activitiEventDispatcher = mock(ActivitiEventDispatcher.class);
     doNothing().when(activitiEventDispatcher).dispatchEvent(Mockito.<ActivitiEvent>any());
@@ -2389,33 +2458,8 @@ public class JobEntityManagerImplDiffblueTest {
     doNothing().when(jobDataManager).delete(Mockito.<JobEntity>any());
     JobEntityManagerImpl jobEntityManagerImpl = new JobEntityManagerImpl(processEngineConfiguration, jobDataManager);
 
-    JobEntityImpl jobEntity = new JobEntityImpl();
-    jobEntity.setDeleted(true);
-    jobEntity.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    jobEntity.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    jobEntity.setExceptionMessage("An error occurred");
-    jobEntity.setExclusive(true);
-    jobEntity.setId("42");
-    jobEntity.setInserted(true);
-    jobEntity.setJobHandlerConfiguration("Job Handler Configuration");
-    jobEntity.setJobHandlerType("Job Handler Type");
-    jobEntity.setJobType("Job Type");
-    jobEntity
-        .setLockExpirationTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    jobEntity.setLockOwner("Claimed By");
-    jobEntity.setMaxIterations(3);
-    jobEntity.setProcessDefinitionId("42");
-    jobEntity.setProcessInstanceId("42");
-    jobEntity.setRepeat("Repeat");
-    jobEntity.setRetries(1);
-    jobEntity.setRevision(1);
-    jobEntity.setTenantId("42");
-    jobEntity.setUpdated(true);
-    jobEntity.setExecutionId(null);
-    jobEntity.setExceptionStacktrace(null);
-
     // Act
-    jobEntityManagerImpl.delete(jobEntity);
+    jobEntityManagerImpl.delete(new JobEntityImpl());
 
     // Assert
     verify(activitiEventDispatcher, atLeast(1)).dispatchEvent(Mockito.<ActivitiEvent>any());
@@ -2427,10 +2471,11 @@ public class JobEntityManagerImplDiffblueTest {
   /**
    * Test {@link JobEntityManagerImpl#removeExecutionLink(JobEntity)}.
    * <p>
-   * Method under test:
-   * {@link JobEntityManagerImpl#removeExecutionLink(JobEntity)}
+   * Method under test: {@link JobEntityManagerImpl#removeExecutionLink(JobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.removeExecutionLink(JobEntity)"})
   public void testRemoveExecutionLink() {
     // Arrange
     ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
@@ -2477,14 +2522,14 @@ public class JobEntityManagerImplDiffblueTest {
   /**
    * Test {@link JobEntityManagerImpl#removeExecutionLink(JobEntity)}.
    * <ul>
-   *   <li>Given {@link ExecutionDataManager} {@link DataManager#findById(String)}
-   * return {@code null}.</li>
+   *   <li>Given {@link ExecutionDataManager} {@link DataManager#findById(String)} return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JobEntityManagerImpl#removeExecutionLink(JobEntity)}
+   * Method under test: {@link JobEntityManagerImpl#removeExecutionLink(JobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.removeExecutionLink(JobEntity)"})
   public void testRemoveExecutionLink_givenExecutionDataManagerFindByIdReturnNull() {
     // Arrange
     ExecutionDataManager executionDataManager = mock(ExecutionDataManager.class);
@@ -2533,10 +2578,11 @@ public class JobEntityManagerImplDiffblueTest {
    *   <li>Then calls {@link EntityManager#findById(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JobEntityManagerImpl#removeExecutionLink(JobEntity)}
+   * Method under test: {@link JobEntityManagerImpl#removeExecutionLink(JobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.removeExecutionLink(JobEntity)"})
   public void testRemoveExecutionLink_thenCallsFindById() {
     // Arrange
     ExecutionEntityManager executionEntityManager = mock(ExecutionEntityManager.class);
@@ -2585,10 +2631,11 @@ public class JobEntityManagerImplDiffblueTest {
    *   <li>Then calls {@link AbstractJobEntityImpl#getExceptionByteArrayRef()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link JobEntityManagerImpl#deleteExceptionByteArrayRef(JobEntity)}
+   * Method under test: {@link JobEntityManagerImpl#deleteExceptionByteArrayRef(JobEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityManagerImpl.deleteExceptionByteArrayRef(JobEntity)"})
   public void testDeleteExceptionByteArrayRef_thenCallsGetExceptionByteArrayRef() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
@@ -2602,7 +2649,7 @@ public class JobEntityManagerImplDiffblueTest {
     // Act
     jobEntityManagerImpl.deleteExceptionByteArrayRef(jobEntity);
 
-    // Assert that nothing has changed
+    // Assert
     verify(jobEntity).getExceptionByteArrayRef();
     verify(byteArrayRef).delete();
   }

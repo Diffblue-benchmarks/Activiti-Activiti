@@ -16,7 +16,10 @@
 package org.activiti.engine.impl.bpmn.data;
 
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class DataRefDiffblueTest {
   /**
@@ -29,6 +32,8 @@ public class DataRefDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DataRef.<init>(String)", "String DataRef.getIdRef()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("Id Ref", (new DataRef("Id Ref")).getIdRef());

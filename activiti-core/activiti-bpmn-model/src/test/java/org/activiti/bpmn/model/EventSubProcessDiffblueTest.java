@@ -19,17 +19,21 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class EventSubProcessDiffblueTest {
   /**
    * Test new {@link EventSubProcess} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link EventSubProcess}
+   * Method under test: default or parameterless constructor of {@link EventSubProcess}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventSubProcess.<init>()"})
   public void testNewEventSubProcess() {
     // Arrange and Act
     EventSubProcess actualEventSubProcess = new EventSubProcess();

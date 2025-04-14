@@ -18,7 +18,10 @@ package org.activiti.bpmn.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class GraphicInfoDiffblueTest {
   /**
@@ -46,6 +49,14 @@ public class GraphicInfoDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void GraphicInfo.<init>()", "BaseElement GraphicInfo.getElement()",
+      "Boolean GraphicInfo.getExpanded()", "double GraphicInfo.getHeight()", "double GraphicInfo.getWidth()",
+      "double GraphicInfo.getX()", "int GraphicInfo.getXmlColumnNumber()", "int GraphicInfo.getXmlRowNumber()",
+      "double GraphicInfo.getY()", "void GraphicInfo.setElement(BaseElement)", "void GraphicInfo.setExpanded(Boolean)",
+      "void GraphicInfo.setHeight(double)", "void GraphicInfo.setWidth(double)", "void GraphicInfo.setX(double)",
+      "void GraphicInfo.setXmlColumnNumber(int)", "void GraphicInfo.setXmlRowNumber(int)",
+      "void GraphicInfo.setY(double)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     GraphicInfo actualGraphicInfo = new GraphicInfo();
@@ -66,7 +77,7 @@ public class GraphicInfoDiffblueTest {
     int actualXmlColumnNumber = actualGraphicInfo.getXmlColumnNumber();
     int actualXmlRowNumber = actualGraphicInfo.getXmlRowNumber();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals(10, actualXmlColumnNumber);
     assertEquals(10, actualXmlRowNumber);
     assertEquals(10.0d, actualHeight, 0.0);

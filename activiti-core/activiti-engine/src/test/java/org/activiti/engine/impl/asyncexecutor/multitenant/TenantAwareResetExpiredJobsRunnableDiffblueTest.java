@@ -17,13 +17,14 @@ package org.activiti.engine.impl.asyncexecutor.multitenant;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.asyncexecutor.AsyncExecutor;
 import org.activiti.engine.impl.cfg.multitenant.TenantInfoHolder;
 import org.activiti.engine.test.cfg.multitenant.DummyTenantInfoHolder;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
@@ -32,58 +33,34 @@ public class TenantAwareResetExpiredJobsRunnableDiffblueTest {
   @Mock
   private AsyncExecutor asyncExecutor;
 
-  @InjectMocks
-  private String string;
-
-  @InjectMocks
-  private TenantAwareResetExpiredJobsRunnable tenantAwareResetExpiredJobsRunnable;
-
   @Mock
   private TenantInfoHolder tenantInfoHolder;
 
   /**
-   * Test
-   * {@link TenantAwareResetExpiredJobsRunnable#TenantAwareResetExpiredJobsRunnable(AsyncExecutor, TenantInfoHolder, String)}.
+   * Test {@link TenantAwareResetExpiredJobsRunnable#TenantAwareResetExpiredJobsRunnable(AsyncExecutor, TenantInfoHolder, String)}.
    * <p>
-   * Method under test:
-   * {@link TenantAwareResetExpiredJobsRunnable#TenantAwareResetExpiredJobsRunnable(AsyncExecutor, TenantInfoHolder, String)}
+   * Method under test: {@link TenantAwareResetExpiredJobsRunnable#TenantAwareResetExpiredJobsRunnable(AsyncExecutor, TenantInfoHolder, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TenantAwareResetExpiredJobsRunnable.<init>(AsyncExecutor, TenantInfoHolder, String)"})
   public void testNewTenantAwareResetExpiredJobsRunnable() {
     // Arrange, Act and Assert
     assertEquals("42", (new TenantAwareResetExpiredJobsRunnable(asyncExecutor, tenantInfoHolder, "42")).tenantId);
   }
 
   /**
-   * Test
-   * {@link TenantAwareResetExpiredJobsRunnable#getTenantAwareAsyncExecutor()}.
+   * Test {@link TenantAwareResetExpiredJobsRunnable#getTenantAwareAsyncExecutor()}.
    * <p>
-   * Method under test:
-   * {@link TenantAwareResetExpiredJobsRunnable#getTenantAwareAsyncExecutor()}
+   * Method under test: {@link TenantAwareResetExpiredJobsRunnable#getTenantAwareAsyncExecutor()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "ExecutorPerTenantAsyncExecutor TenantAwareResetExpiredJobsRunnable.getTenantAwareAsyncExecutor()"})
   public void testGetTenantAwareAsyncExecutor() {
     // Arrange
     ExecutorPerTenantAsyncExecutor asyncExecutor = new ExecutorPerTenantAsyncExecutor(new DummyTenantInfoHolder());
-
-    // Act and Assert
-    assertSame(asyncExecutor,
-        (new TenantAwareResetExpiredJobsRunnable(asyncExecutor, new DummyTenantInfoHolder(), "42"))
-            .getTenantAwareAsyncExecutor());
-  }
-
-  /**
-   * Test
-   * {@link TenantAwareResetExpiredJobsRunnable#getTenantAwareAsyncExecutor()}.
-   * <p>
-   * Method under test:
-   * {@link TenantAwareResetExpiredJobsRunnable#getTenantAwareAsyncExecutor()}
-   */
-  @Test
-  public void testGetTenantAwareAsyncExecutor2() {
-    // Arrange
-    ExecutorPerTenantAsyncExecutor asyncExecutor = new ExecutorPerTenantAsyncExecutor(new DummyTenantInfoHolder(),
-        mock(TenantAwareAsyncExecutorFactory.class));
 
     // Act and Assert
     assertSame(asyncExecutor,

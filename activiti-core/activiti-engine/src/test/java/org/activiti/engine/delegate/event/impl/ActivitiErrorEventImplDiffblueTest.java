@@ -17,22 +17,25 @@ package org.activiti.engine.delegate.event.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ActivitiErrorEventImplDiffblueTest {
   /**
-   * Test
-   * {@link ActivitiErrorEventImpl#ActivitiErrorEventImpl(ActivitiEventType)}.
+   * Test {@link ActivitiErrorEventImpl#ActivitiErrorEventImpl(ActivitiEventType)}.
    * <ul>
    *   <li>When {@code ENTITY_CREATED}.</li>
    *   <li>Then return ActivityId is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiErrorEventImpl#ActivitiErrorEventImpl(ActivitiEventType)}
+   * Method under test: {@link ActivitiErrorEventImpl#ActivitiErrorEventImpl(ActivitiEventType)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiErrorEventImpl.<init>(ActivitiEventType)"})
   public void testNewActivitiErrorEventImpl_whenEntityCreated_thenReturnActivityIdIsNull() {
     // Arrange and Act
     ActivitiErrorEventImpl actualActivitiErrorEventImpl = new ActivitiErrorEventImpl(ActivitiEventType.ENTITY_CREATED);
@@ -63,6 +66,9 @@ public class ActivitiErrorEventImplDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ActivitiErrorEventImpl.getErrorCode()", "String ActivitiErrorEventImpl.getErrorId()",
+      "void ActivitiErrorEventImpl.setErrorCode(String)", "void ActivitiErrorEventImpl.setErrorId(String)"})
   public void testGettersAndSetters() {
     // Arrange
     ActivitiErrorEventImpl activitiErrorEventImpl = new ActivitiErrorEventImpl(ActivitiEventType.ENTITY_CREATED);
@@ -72,7 +78,7 @@ public class ActivitiErrorEventImplDiffblueTest {
     activitiErrorEventImpl.setErrorId("An error occurred");
     String actualErrorCode = activitiErrorEventImpl.getErrorCode();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("An error occurred", actualErrorCode);
     assertEquals("An error occurred", activitiErrorEventImpl.getErrorId());
   }

@@ -16,8 +16,12 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.persistence.entity.SuspensionState;
+import org.activiti.engine.impl.persistence.entity.SuspensionState.SuspensionStateImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ActivateProcessInstanceCmdDiffblueTest {
   /**
@@ -30,8 +34,11 @@ public class ActivateProcessInstanceCmdDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivateProcessInstanceCmd.<init>(String)",
+      "SuspensionState ActivateProcessInstanceCmd.getNewState()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
-    assertTrue((new ActivateProcessInstanceCmd("42")).getNewState() instanceof SuspensionState.SuspensionStateImpl);
+    assertTrue((new ActivateProcessInstanceCmd("42")).getNewState() instanceof SuspensionStateImpl);
   }
 }

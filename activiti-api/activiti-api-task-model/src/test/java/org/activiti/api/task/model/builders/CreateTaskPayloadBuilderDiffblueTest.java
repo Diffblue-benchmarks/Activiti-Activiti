@@ -16,10 +16,9 @@
 package org.activiti.api.task.model.builders;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
@@ -27,9 +26,19 @@ import java.util.Date;
 import java.util.List;
 import org.activiti.api.task.model.payloads.CreateTaskPayload;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+@ContextConfiguration(classes = {CreateTaskPayloadBuilder.class})
+@ExtendWith(SpringExtension.class)
 class CreateTaskPayloadBuilderDiffblueTest {
+  @Autowired
+  private CreateTaskPayloadBuilder createTaskPayloadBuilder;
+
   /**
    * Test {@link CreateTaskPayloadBuilder#withCandidateGroups(List)}.
    * <ul>
@@ -41,6 +50,8 @@ class CreateTaskPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test withCandidateGroups(List); given '42'; when ArrayList() add '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"CreateTaskPayloadBuilder CreateTaskPayloadBuilder.withCandidateGroups(List)"})
   void testWithCandidateGroups_given42_whenArrayListAdd42() {
     // Arrange
     CreateTaskPayloadBuilder createResult = TaskPayloadBuilder.create();
@@ -49,114 +60,98 @@ class CreateTaskPayloadBuilderDiffblueTest {
     candidateGroups.add("42");
     candidateGroups.add("foo");
 
-    // Act and Assert
-    CreateTaskPayload buildResult = createResult.withCandidateGroups(candidateGroups).build();
-    assertNull(buildResult.getDueDate());
-    assertSame(candidateGroups, buildResult.getCandidateGroups());
+    // Act
+    CreateTaskPayloadBuilder actualWithCandidateGroupsResult = createResult.withCandidateGroups(candidateGroups);
+
+    // Assert
     assertSame(candidateGroups, createResult.build().getCandidateGroups());
-  }
-
-  /**
-   * Test {@link CreateTaskPayloadBuilder#withCandidateGroups(List)}.
-   * <ul>
-   *   <li>Given create withDueDate {@link Date}.</li>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CreateTaskPayloadBuilder#withCandidateGroups(List)}
-   */
-  @Test
-  @DisplayName("Test withCandidateGroups(List); given create withDueDate Date; when ArrayList()")
-  void testWithCandidateGroups_givenCreateWithDueDateDate_whenArrayList() {
-    // Arrange
-    CreateTaskPayloadBuilder createResult = TaskPayloadBuilder.create();
-    createResult.withDueDate(mock(java.sql.Date.class));
-    ArrayList<String> candidateGroups = new ArrayList<>();
-
-    // Act and Assert
-    assertTrue(createResult.withCandidateGroups(candidateGroups).build().getCandidateGroups().isEmpty());
-    assertSame(candidateGroups, createResult.build().getCandidateGroups());
-  }
-
-  /**
-   * Test {@link CreateTaskPayloadBuilder#withCandidateGroups(List)}.
-   * <ul>
-   *   <li>Given create.</li>
-   *   <li>When {@code null}.</li>
-   *   <li>Then return build CandidateGroups Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CreateTaskPayloadBuilder#withCandidateGroups(List)}
-   */
-  @Test
-  @DisplayName("Test withCandidateGroups(List); given create; when 'null'; then return build CandidateGroups Empty")
-  void testWithCandidateGroups_givenCreate_whenNull_thenReturnBuildCandidateGroupsEmpty() {
-    // Arrange, Act and Assert
-    CreateTaskPayload buildResult = TaskPayloadBuilder.create().withCandidateGroups(null).build();
-    assertNull(buildResult.getDueDate());
-    assertTrue(buildResult.getCandidateGroups().isEmpty());
+    assertSame(createResult, actualWithCandidateGroupsResult);
   }
 
   /**
    * Test {@link CreateTaskPayloadBuilder#withCandidateGroups(List)}.
    * <ul>
    *   <li>Given {@code foo}.</li>
-   *   <li>Then return build CandidateGroups is {@link ArrayList#ArrayList()}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
    * </ul>
    * <p>
    * Method under test: {@link CreateTaskPayloadBuilder#withCandidateGroups(List)}
    */
   @Test
-  @DisplayName("Test withCandidateGroups(List); given 'foo'; then return build CandidateGroups is ArrayList()")
-  void testWithCandidateGroups_givenFoo_thenReturnBuildCandidateGroupsIsArrayList() {
+  @DisplayName("Test withCandidateGroups(List); given 'foo'; when ArrayList() add 'foo'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"CreateTaskPayloadBuilder CreateTaskPayloadBuilder.withCandidateGroups(List)"})
+  void testWithCandidateGroups_givenFoo_whenArrayListAddFoo() {
     // Arrange
     CreateTaskPayloadBuilder createResult = TaskPayloadBuilder.create();
 
     ArrayList<String> candidateGroups = new ArrayList<>();
     candidateGroups.add("foo");
 
-    // Act and Assert
-    CreateTaskPayload buildResult = createResult.withCandidateGroups(candidateGroups).build();
-    assertNull(buildResult.getDueDate());
-    assertSame(candidateGroups, buildResult.getCandidateGroups());
+    // Act
+    CreateTaskPayloadBuilder actualWithCandidateGroupsResult = createResult.withCandidateGroups(candidateGroups);
+
+    // Assert
     assertSame(candidateGroups, createResult.build().getCandidateGroups());
+    assertSame(createResult, actualWithCandidateGroupsResult);
   }
 
   /**
    * Test {@link CreateTaskPayloadBuilder#withCandidateGroups(List)}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return build CandidateGroups Empty.</li>
+   *   <li>Then create build CandidateGroups is {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link CreateTaskPayloadBuilder#withCandidateGroups(List)}
    */
   @Test
-  @DisplayName("Test withCandidateGroups(List); when ArrayList(); then return build CandidateGroups Empty")
-  void testWithCandidateGroups_whenArrayList_thenReturnBuildCandidateGroupsEmpty() {
+  @DisplayName("Test withCandidateGroups(List); when ArrayList(); then create build CandidateGroups is ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"CreateTaskPayloadBuilder CreateTaskPayloadBuilder.withCandidateGroups(List)"})
+  void testWithCandidateGroups_whenArrayList_thenCreateBuildCandidateGroupsIsArrayList() {
     // Arrange
     CreateTaskPayloadBuilder createResult = TaskPayloadBuilder.create();
     ArrayList<String> candidateGroups = new ArrayList<>();
 
-    // Act and Assert
-    CreateTaskPayload buildResult = createResult.withCandidateGroups(candidateGroups).build();
-    assertNull(buildResult.getDueDate());
-    assertTrue(buildResult.getCandidateGroups().isEmpty());
+    // Act
+    CreateTaskPayloadBuilder actualWithCandidateGroupsResult = createResult.withCandidateGroups(candidateGroups);
+
+    // Assert
     assertSame(candidateGroups, createResult.build().getCandidateGroups());
+    assertSame(createResult, actualWithCandidateGroupsResult);
+  }
+
+  /**
+   * Test {@link CreateTaskPayloadBuilder#withCandidateGroups(List)}.
+   * <ul>
+   *   <li>When {@code null}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link CreateTaskPayloadBuilder#withCandidateGroups(List)}
+   */
+  @Test
+  @DisplayName("Test withCandidateGroups(List); when 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"CreateTaskPayloadBuilder CreateTaskPayloadBuilder.withCandidateGroups(List)"})
+  void testWithCandidateGroups_whenNull() {
+    // Arrange
+    CreateTaskPayloadBuilder createResult = TaskPayloadBuilder.create();
+
+    // Act and Assert
+    assertSame(createResult, createResult.withCandidateGroups(null));
   }
 
   /**
    * Test {@link CreateTaskPayloadBuilder#withCandidateGroup(String)}.
-   * <ul>
-   *   <li>Given create.</li>
-   * </ul>
    * <p>
-   * Method under test:
-   * {@link CreateTaskPayloadBuilder#withCandidateGroup(String)}
+   * Method under test: {@link CreateTaskPayloadBuilder#withCandidateGroup(String)}
    */
   @Test
-  @DisplayName("Test withCandidateGroup(String); given create")
-  void testWithCandidateGroup_givenCreate() {
+  @DisplayName("Test withCandidateGroup(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"CreateTaskPayloadBuilder CreateTaskPayloadBuilder.withCandidateGroup(String)"})
+  void testWithCandidateGroup() {
     // Arrange
     CreateTaskPayloadBuilder createResult = TaskPayloadBuilder.create();
 
@@ -165,28 +160,7 @@ class CreateTaskPayloadBuilderDiffblueTest {
   }
 
   /**
-   * Test {@link CreateTaskPayloadBuilder#withCandidateGroup(String)}.
-   * <ul>
-   *   <li>Given create withDueDate {@link Date}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link CreateTaskPayloadBuilder#withCandidateGroup(String)}
-   */
-  @Test
-  @DisplayName("Test withCandidateGroup(String); given create withDueDate Date")
-  void testWithCandidateGroup_givenCreateWithDueDateDate() {
-    // Arrange
-    CreateTaskPayloadBuilder createResult = TaskPayloadBuilder.create();
-    createResult.withDueDate(mock(java.sql.Date.class));
-
-    // Act and Assert
-    assertSame(createResult, createResult.withCandidateGroup("2020-03-01"));
-  }
-
-  /**
-   * Test {@link CreateTaskPayloadBuilder#withCandidateUsers(List)} with
-   * {@code List}.
+   * Test {@link CreateTaskPayloadBuilder#withCandidateUsers(List)} with {@code List}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.</li>
@@ -196,6 +170,8 @@ class CreateTaskPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test withCandidateUsers(List) with 'List'; given '42'; when ArrayList() add '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"CreateTaskPayloadBuilder CreateTaskPayloadBuilder.withCandidateUsers(List)"})
   void testWithCandidateUsersWithList_given42_whenArrayListAdd42() {
     // Arrange
     CreateTaskPayloadBuilder createResult = TaskPayloadBuilder.create();
@@ -204,141 +180,99 @@ class CreateTaskPayloadBuilderDiffblueTest {
     candidateUsers.add("42");
     candidateUsers.add("foo");
 
-    // Act and Assert
-    CreateTaskPayload buildResult = createResult.withCandidateUsers(candidateUsers).build();
-    assertNull(buildResult.getDueDate());
-    assertSame(candidateUsers, buildResult.getCandidateUsers());
+    // Act
+    CreateTaskPayloadBuilder actualWithCandidateUsersResult = createResult.withCandidateUsers(candidateUsers);
+
+    // Assert
     assertSame(candidateUsers, createResult.build().getCandidateUsers());
+    assertSame(createResult, actualWithCandidateUsersResult);
   }
 
   /**
-   * Test {@link CreateTaskPayloadBuilder#withCandidateUsers(List)} with
-   * {@code List}.
-   * <ul>
-   *   <li>Given create withDueDate {@link Date}.</li>
-   *   <li>When {@link ArrayList#ArrayList()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CreateTaskPayloadBuilder#withCandidateUsers(List)}
-   */
-  @Test
-  @DisplayName("Test withCandidateUsers(List) with 'List'; given create withDueDate Date; when ArrayList()")
-  void testWithCandidateUsersWithList_givenCreateWithDueDateDate_whenArrayList() {
-    // Arrange
-    CreateTaskPayloadBuilder createResult = TaskPayloadBuilder.create();
-    createResult.withDueDate(mock(java.sql.Date.class));
-    ArrayList<String> candidateUsers = new ArrayList<>();
-
-    // Act and Assert
-    assertTrue(createResult.withCandidateUsers(candidateUsers).build().getCandidateUsers().isEmpty());
-    assertSame(candidateUsers, createResult.build().getCandidateUsers());
-  }
-
-  /**
-   * Test {@link CreateTaskPayloadBuilder#withCandidateUsers(List)} with
-   * {@code List}.
+   * Test {@link CreateTaskPayloadBuilder#withCandidateUsers(List)} with {@code List}.
    * <ul>
    *   <li>Given {@code foo}.</li>
-   *   <li>Then return build CandidateUsers is {@link ArrayList#ArrayList()}.</li>
+   *   <li>When {@link ArrayList#ArrayList()} add {@code foo}.</li>
    * </ul>
    * <p>
    * Method under test: {@link CreateTaskPayloadBuilder#withCandidateUsers(List)}
    */
   @Test
-  @DisplayName("Test withCandidateUsers(List) with 'List'; given 'foo'; then return build CandidateUsers is ArrayList()")
-  void testWithCandidateUsersWithList_givenFoo_thenReturnBuildCandidateUsersIsArrayList() {
+  @DisplayName("Test withCandidateUsers(List) with 'List'; given 'foo'; when ArrayList() add 'foo'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"CreateTaskPayloadBuilder CreateTaskPayloadBuilder.withCandidateUsers(List)"})
+  void testWithCandidateUsersWithList_givenFoo_whenArrayListAddFoo() {
     // Arrange
     CreateTaskPayloadBuilder createResult = TaskPayloadBuilder.create();
 
     ArrayList<String> candidateUsers = new ArrayList<>();
     candidateUsers.add("foo");
 
-    // Act and Assert
-    CreateTaskPayload buildResult = createResult.withCandidateUsers(candidateUsers).build();
-    assertNull(buildResult.getDueDate());
-    assertSame(candidateUsers, buildResult.getCandidateUsers());
+    // Act
+    CreateTaskPayloadBuilder actualWithCandidateUsersResult = createResult.withCandidateUsers(candidateUsers);
+
+    // Assert
     assertSame(candidateUsers, createResult.build().getCandidateUsers());
+    assertSame(createResult, actualWithCandidateUsersResult);
   }
 
   /**
-   * Test {@link CreateTaskPayloadBuilder#withCandidateUsers(List)} with
-   * {@code List}.
+   * Test {@link CreateTaskPayloadBuilder#withCandidateUsers(List)} with {@code List}.
    * <ul>
    *   <li>When {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then return build CandidateUsers Empty.</li>
    * </ul>
    * <p>
    * Method under test: {@link CreateTaskPayloadBuilder#withCandidateUsers(List)}
    */
   @Test
-  @DisplayName("Test withCandidateUsers(List) with 'List'; when ArrayList(); then return build CandidateUsers Empty")
-  void testWithCandidateUsersWithList_whenArrayList_thenReturnBuildCandidateUsersEmpty() {
+  @DisplayName("Test withCandidateUsers(List) with 'List'; when ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"CreateTaskPayloadBuilder CreateTaskPayloadBuilder.withCandidateUsers(List)"})
+  void testWithCandidateUsersWithList_whenArrayList() {
     // Arrange
     CreateTaskPayloadBuilder createResult = TaskPayloadBuilder.create();
     ArrayList<String> candidateUsers = new ArrayList<>();
 
-    // Act and Assert
-    CreateTaskPayload buildResult = createResult.withCandidateUsers(candidateUsers).build();
-    assertNull(buildResult.getDueDate());
-    assertTrue(buildResult.getCandidateUsers().isEmpty());
+    // Act
+    CreateTaskPayloadBuilder actualWithCandidateUsersResult = createResult.withCandidateUsers(candidateUsers);
+
+    // Assert
     assertSame(candidateUsers, createResult.build().getCandidateUsers());
+    assertSame(createResult, actualWithCandidateUsersResult);
   }
 
   /**
-   * Test {@link CreateTaskPayloadBuilder#withCandidateUsers(List)} with
-   * {@code List}.
+   * Test {@link CreateTaskPayloadBuilder#withCandidateUsers(List)} with {@code List}.
    * <ul>
    *   <li>When {@code null}.</li>
-   *   <li>Then return build CandidateUsers Empty.</li>
    * </ul>
    * <p>
    * Method under test: {@link CreateTaskPayloadBuilder#withCandidateUsers(List)}
    */
   @Test
-  @DisplayName("Test withCandidateUsers(List) with 'List'; when 'null'; then return build CandidateUsers Empty")
-  void testWithCandidateUsersWithList_whenNull_thenReturnBuildCandidateUsersEmpty() {
-    // Arrange, Act and Assert
-    CreateTaskPayload buildResult = TaskPayloadBuilder.create().withCandidateUsers((List<String>) null).build();
-    assertNull(buildResult.getDueDate());
-    assertTrue(buildResult.getCandidateUsers().isEmpty());
-  }
-
-  /**
-   * Test {@link CreateTaskPayloadBuilder#withCandidateUsers(String)} with
-   * {@code String}.
-   * <ul>
-   *   <li>Given create.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link CreateTaskPayloadBuilder#withCandidateUsers(String)}
-   */
-  @Test
-  @DisplayName("Test withCandidateUsers(String) with 'String'; given create")
-  void testWithCandidateUsersWithString_givenCreate() {
+  @DisplayName("Test withCandidateUsers(List) with 'List'; when 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"CreateTaskPayloadBuilder CreateTaskPayloadBuilder.withCandidateUsers(List)"})
+  void testWithCandidateUsersWithList_whenNull() {
     // Arrange
     CreateTaskPayloadBuilder createResult = TaskPayloadBuilder.create();
 
     // Act and Assert
-    assertSame(createResult, createResult.withCandidateUsers("2020-03-01"));
+    assertSame(createResult, createResult.withCandidateUsers((List<String>) null));
   }
 
   /**
-   * Test {@link CreateTaskPayloadBuilder#withCandidateUsers(String)} with
-   * {@code String}.
-   * <ul>
-   *   <li>Given create withDueDate {@link Date}.</li>
-   * </ul>
+   * Test {@link CreateTaskPayloadBuilder#withCandidateUsers(String)} with {@code String}.
    * <p>
-   * Method under test:
-   * {@link CreateTaskPayloadBuilder#withCandidateUsers(String)}
+   * Method under test: {@link CreateTaskPayloadBuilder#withCandidateUsers(String)}
    */
   @Test
-  @DisplayName("Test withCandidateUsers(String) with 'String'; given create withDueDate Date")
-  void testWithCandidateUsersWithString_givenCreateWithDueDateDate() {
+  @DisplayName("Test withCandidateUsers(String) with 'String'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"CreateTaskPayloadBuilder CreateTaskPayloadBuilder.withCandidateUsers(String)"})
+  void testWithCandidateUsersWithString() {
     // Arrange
     CreateTaskPayloadBuilder createResult = TaskPayloadBuilder.create();
-    createResult.withDueDate(mock(java.sql.Date.class));
 
     // Act and Assert
     assertSame(createResult, createResult.withCandidateUsers("2020-03-01"));
@@ -362,6 +296,15 @@ class CreateTaskPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test build()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void CreateTaskPayloadBuilder.<init>()", "CreateTaskPayload CreateTaskPayloadBuilder.build()",
+      "CreateTaskPayloadBuilder CreateTaskPayloadBuilder.withAssignee(String)",
+      "CreateTaskPayloadBuilder CreateTaskPayloadBuilder.withDescription(String)",
+      "CreateTaskPayloadBuilder CreateTaskPayloadBuilder.withDueDate(Date)",
+      "CreateTaskPayloadBuilder CreateTaskPayloadBuilder.withFormKey(String)",
+      "CreateTaskPayloadBuilder CreateTaskPayloadBuilder.withName(String)",
+      "CreateTaskPayloadBuilder CreateTaskPayloadBuilder.withParentTaskId(String)",
+      "CreateTaskPayloadBuilder CreateTaskPayloadBuilder.withPriority(int)"})
   void testBuild() {
     // Arrange
     CreateTaskPayloadBuilder withAssigneeResult = (new CreateTaskPayloadBuilder()).withAssignee("Assignee");

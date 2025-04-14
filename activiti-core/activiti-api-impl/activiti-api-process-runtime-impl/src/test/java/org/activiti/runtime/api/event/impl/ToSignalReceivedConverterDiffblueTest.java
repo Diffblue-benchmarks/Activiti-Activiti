@@ -18,12 +18,12 @@ package org.activiti.runtime.api.event.impl;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Optional;
-import org.activiti.api.process.model.BPMNSignal;
 import org.activiti.api.process.model.events.BPMNSignalEvent;
+import org.activiti.api.process.model.events.BPMNSignalEvent.SignalEvents;
 import org.activiti.api.process.model.events.BPMNSignalReceivedEvent;
-import org.activiti.api.process.model.payloads.SignalPayload;
 import org.activiti.api.runtime.event.impl.BPMNSignalReceivedEventImpl;
 import org.activiti.api.runtime.model.impl.BPMNSignalImpl;
 import org.activiti.engine.delegate.event.ActivitiEventType;
@@ -31,23 +31,54 @@ import org.activiti.engine.delegate.event.ActivitiSignalEvent;
 import org.activiti.engine.delegate.event.impl.ActivitiSignalEventImpl;
 import org.activiti.runtime.api.model.impl.ToSignalConverter;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ToSignalReceivedConverterDiffblueTest {
   /**
-   * Test {@link ToSignalReceivedConverter#from(ActivitiSignalEvent)} with
-   * {@code ActivitiSignalEvent}.
-   * <ul>
-   *   <li>Then return {@link Optional#get()} Entity SignalPayload Variables
-   * Empty.</li>
-   * </ul>
+   * Test {@link ToSignalReceivedConverter#from(ActivitiSignalEvent)} with {@code ActivitiSignalEvent}.
    * <p>
-   * Method under test:
-   * {@link ToSignalReceivedConverter#from(ActivitiSignalEvent)}
+   * Method under test: {@link ToSignalReceivedConverter#from(ActivitiSignalEvent)}
    */
   @Test
-  @DisplayName("Test from(ActivitiSignalEvent) with 'ActivitiSignalEvent'; then return get() Entity SignalPayload Variables Empty")
-  void testFromWithActivitiSignalEvent_thenReturnGetEntitySignalPayloadVariablesEmpty() {
+  @DisplayName("Test from(ActivitiSignalEvent) with 'ActivitiSignalEvent'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Optional ToSignalReceivedConverter.from(ActivitiSignalEvent)"})
+  void testFromWithActivitiSignalEvent() {
+    // Arrange
+    ToSignalReceivedConverter toSignalReceivedConverter = new ToSignalReceivedConverter(new ToSignalConverter());
+
+    // Act
+    Optional<BPMNSignalReceivedEvent> actualFromResult = toSignalReceivedConverter
+        .from(new ActivitiSignalEventImpl(ActivitiEventType.ENTITY_CREATED));
+
+    // Assert
+    BPMNSignalReceivedEvent getResult = actualFromResult.get();
+    assertTrue(getResult instanceof BPMNSignalReceivedEventImpl);
+    assertTrue(getResult.getEntity() instanceof BPMNSignalImpl);
+    assertNull(getResult.getProcessDefinitionVersion());
+    assertNull(getResult.getBusinessKey());
+    assertNull(getResult.getParentProcessInstanceId());
+    assertNull(getResult.getProcessDefinitionId());
+    assertNull(getResult.getProcessDefinitionKey());
+    assertNull(getResult.getProcessInstanceId());
+    assertEquals(SignalEvents.SIGNAL_RECEIVED, getResult.getEventType());
+    assertTrue(actualFromResult.isPresent());
+  }
+
+  /**
+   * Test {@link ToSignalReceivedConverter#from(ActivitiSignalEvent)} with {@code ActivitiSignalEvent}.
+   * <ul>
+   *   <li>Given {@link HashMap#HashMap()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link ToSignalReceivedConverter#from(ActivitiSignalEvent)}
+   */
+  @Test
+  @DisplayName("Test from(ActivitiSignalEvent) with 'ActivitiSignalEvent'; given HashMap()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Optional ToSignalReceivedConverter.from(ActivitiSignalEvent)"})
+  void testFromWithActivitiSignalEvent_givenHashMap() {
     // Arrange
     ToSignalReceivedConverter toSignalReceivedConverter = new ToSignalReceivedConverter(new ToSignalConverter());
 
@@ -60,63 +91,14 @@ class ToSignalReceivedConverterDiffblueTest {
     // Assert
     BPMNSignalReceivedEvent getResult = actualFromResult.get();
     assertTrue(getResult instanceof BPMNSignalReceivedEventImpl);
-    BPMNSignal entity = getResult.getEntity();
-    assertTrue(entity instanceof BPMNSignalImpl);
+    assertTrue(getResult.getEntity() instanceof BPMNSignalImpl);
     assertNull(getResult.getProcessDefinitionVersion());
     assertNull(getResult.getBusinessKey());
     assertNull(getResult.getParentProcessInstanceId());
     assertNull(getResult.getProcessDefinitionId());
     assertNull(getResult.getProcessDefinitionKey());
     assertNull(getResult.getProcessInstanceId());
-    assertNull(entity.getElementId());
-    assertNull(entity.getProcessDefinitionId());
-    assertNull(entity.getProcessInstanceId());
-    SignalPayload signalPayload = entity.getSignalPayload();
-    assertNull(signalPayload.getName());
-    assertEquals(BPMNSignalEvent.SignalEvents.SIGNAL_RECEIVED, getResult.getEventType());
-    assertTrue(signalPayload.getVariables().isEmpty());
-    assertTrue(actualFromResult.isPresent());
-  }
-
-  /**
-   * Test {@link ToSignalReceivedConverter#from(ActivitiSignalEvent)} with
-   * {@code ActivitiSignalEvent}.
-   * <ul>
-   *   <li>Then return {@link Optional#get()} Entity SignalPayload Variables is
-   * {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link ToSignalReceivedConverter#from(ActivitiSignalEvent)}
-   */
-  @Test
-  @DisplayName("Test from(ActivitiSignalEvent) with 'ActivitiSignalEvent'; then return get() Entity SignalPayload Variables is 'null'")
-  void testFromWithActivitiSignalEvent_thenReturnGetEntitySignalPayloadVariablesIsNull() {
-    // Arrange
-    ToSignalReceivedConverter toSignalReceivedConverter = new ToSignalReceivedConverter(new ToSignalConverter());
-
-    // Act
-    Optional<BPMNSignalReceivedEvent> actualFromResult = toSignalReceivedConverter
-        .from(new ActivitiSignalEventImpl(ActivitiEventType.ENTITY_CREATED));
-
-    // Assert
-    BPMNSignalReceivedEvent getResult = actualFromResult.get();
-    assertTrue(getResult instanceof BPMNSignalReceivedEventImpl);
-    BPMNSignal entity = getResult.getEntity();
-    assertTrue(entity instanceof BPMNSignalImpl);
-    assertNull(getResult.getProcessDefinitionVersion());
-    assertNull(getResult.getBusinessKey());
-    assertNull(getResult.getParentProcessInstanceId());
-    assertNull(getResult.getProcessDefinitionId());
-    assertNull(getResult.getProcessDefinitionKey());
-    assertNull(getResult.getProcessInstanceId());
-    assertNull(entity.getElementId());
-    assertNull(entity.getProcessDefinitionId());
-    assertNull(entity.getProcessInstanceId());
-    SignalPayload signalPayload = entity.getSignalPayload();
-    assertNull(signalPayload.getName());
-    assertNull(signalPayload.getVariables());
-    assertEquals(BPMNSignalEvent.SignalEvents.SIGNAL_RECEIVED, getResult.getEventType());
+    assertEquals(SignalEvents.SIGNAL_RECEIVED, getResult.getEventType());
     assertTrue(actualFromResult.isPresent());
   }
 }

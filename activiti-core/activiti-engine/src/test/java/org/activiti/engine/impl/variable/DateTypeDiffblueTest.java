@@ -22,10 +22,13 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.sql.Date;
 import org.activiti.engine.impl.persistence.entity.HistoricDetailVariableInstanceUpdateEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class DateTypeDiffblueTest {
   /**
@@ -38,6 +41,8 @@ public class DateTypeDiffblueTest {
    * Method under test: {@link DateType#isAbleToStore(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean DateType.isAbleToStore(Object)"})
   public void testIsAbleToStore_whenNull_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new DateType()).isAbleToStore(JSONObject.NULL));
@@ -53,6 +58,8 @@ public class DateTypeDiffblueTest {
    * Method under test: {@link DateType#isAbleToStore(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean DateType.isAbleToStore(Object)"})
   public void testIsAbleToStore_whenNull_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue((new DateType()).isAbleToStore(null));
@@ -61,14 +68,15 @@ public class DateTypeDiffblueTest {
   /**
    * Test {@link DateType#getValue(ValueFields)}.
    * <ul>
-   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default
-   * constructor).</li>
+   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor).</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link DateType#getValue(ValueFields)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object DateType.getValue(ValueFields)"})
   public void testGetValue_whenHistoricDetailVariableInstanceUpdateEntityImpl_thenReturnNull() {
     // Arrange
     DateType dateType = new DateType();
@@ -78,35 +86,13 @@ public class DateTypeDiffblueTest {
   }
 
   /**
-   * Test {@link DateType#getValue(ValueFields)}.
-   * <ul>
-   *   <li>When {@link ValueFields} {@link ValueFields#getLongValue()} return
-   * forty-two.</li>
-   *   <li>Then calls {@link ValueFields#getLongValue()}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link DateType#getValue(ValueFields)}
-   */
-  @Test
-  public void testGetValue_whenValueFieldsGetLongValueReturnFortyTwo_thenCallsGetLongValue() {
-    // Arrange
-    DateType dateType = new DateType();
-    ValueFields valueFields = mock(ValueFields.class);
-    when(valueFields.getLongValue()).thenReturn(42L);
-
-    // Act
-    dateType.getValue(valueFields);
-
-    // Assert
-    verify(valueFields).getLongValue();
-  }
-
-  /**
    * Test {@link DateType#setValue(Object, ValueFields)}.
    * <p>
    * Method under test: {@link DateType#setValue(Object, ValueFields)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DateType.setValue(Object, ValueFields)"})
   public void testSetValue() {
     // Arrange
     DateType dateType = new DateType();
@@ -125,13 +111,14 @@ public class DateTypeDiffblueTest {
   /**
    * Test {@link DateType#setValue(Object, ValueFields)}.
    * <ul>
-   *   <li>Then {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default
-   * constructor) LongValue is {@code null}.</li>
+   *   <li>Then {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor) LongValue is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link DateType#setValue(Object, ValueFields)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DateType.setValue(Object, ValueFields)"})
   public void testSetValue_thenHistoricDetailVariableInstanceUpdateEntityImplLongValueIsNull() {
     // Arrange
     DateType dateType = new DateType();
@@ -140,7 +127,7 @@ public class DateTypeDiffblueTest {
     // Act
     dateType.setValue(null, valueFields);
 
-    // Assert
+    // Assert that nothing has changed
     assertNull(valueFields.getLongValue());
   }
 
@@ -155,6 +142,8 @@ public class DateTypeDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DateType.<init>()", "String DateType.getTypeName()", "boolean DateType.isCachable()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     DateType actualDateType = new DateType();

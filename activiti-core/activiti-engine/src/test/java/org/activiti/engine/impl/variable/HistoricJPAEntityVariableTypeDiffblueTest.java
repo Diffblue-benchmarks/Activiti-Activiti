@@ -18,7 +18,10 @@ package org.activiti.engine.impl.variable;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class HistoricJPAEntityVariableTypeDiffblueTest {
   /**
@@ -31,6 +34,9 @@ public class HistoricJPAEntityVariableTypeDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricJPAEntityVariableType HistoricJPAEntityVariableType.getSharedInstance()",
+      "boolean HistoricJPAEntityVariableType.isCachable()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     HistoricJPAEntityVariableType actualSharedInstance = HistoricJPAEntityVariableType.getSharedInstance();
@@ -44,10 +50,11 @@ public class HistoricJPAEntityVariableTypeDiffblueTest {
   /**
    * Test new {@link HistoricJPAEntityVariableType} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link HistoricJPAEntityVariableType}
+   * Method under test: default or parameterless constructor of {@link HistoricJPAEntityVariableType}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HistoricJPAEntityVariableType.<init>()"})
   public void testNewHistoricJPAEntityVariableType() {
     // Arrange and Act
     HistoricJPAEntityVariableType actualHistoricJPAEntityVariableType = new HistoricJPAEntityVariableType();

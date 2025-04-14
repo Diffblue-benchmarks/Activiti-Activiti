@@ -20,6 +20,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.payloads.ReceiveMessagePayload;
 import org.activiti.api.process.model.payloads.SetProcessVariablesPayload;
 import org.activiti.api.process.model.payloads.SignalPayload;
@@ -31,6 +32,7 @@ import org.activiti.spring.process.ProcessExtensionService;
 import org.activiti.spring.process.model.Extension;
 import org.activiti.spring.process.variable.VariableValidationService;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -63,15 +65,14 @@ class ProcessVariablesPayloadValidatorDiffblueTest {
   private VariableValidationService variableValidationService;
 
   /**
-   * Test
-   * {@link ProcessVariablesPayloadValidator#checkPayloadVariables(SetProcessVariablesPayload, String)}
-   * with {@code setProcessVariablesPayload}, {@code processDefinitionId}.
+   * Test {@link ProcessVariablesPayloadValidator#checkPayloadVariables(SetProcessVariablesPayload, String)} with {@code setProcessVariablesPayload}, {@code processDefinitionId}.
    * <p>
-   * Method under test:
-   * {@link ProcessVariablesPayloadValidator#checkPayloadVariables(SetProcessVariablesPayload, String)}
+   * Method under test: {@link ProcessVariablesPayloadValidator#checkPayloadVariables(SetProcessVariablesPayload, String)}
    */
   @Test
   @DisplayName("Test checkPayloadVariables(SetProcessVariablesPayload, String) with 'setProcessVariablesPayload', 'processDefinitionId'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessVariablesPayloadValidator.checkPayloadVariables(SetProcessVariablesPayload, String)"})
   void testCheckPayloadVariablesWithSetProcessVariablesPayloadProcessDefinitionId() {
     // Arrange
     when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(new Extension());
@@ -84,15 +85,14 @@ class ProcessVariablesPayloadValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessVariablesPayloadValidator#checkPayloadVariables(SetProcessVariablesPayload, String)}
-   * with {@code setProcessVariablesPayload}, {@code processDefinitionId}.
+   * Test {@link ProcessVariablesPayloadValidator#checkPayloadVariables(SetProcessVariablesPayload, String)} with {@code setProcessVariablesPayload}, {@code processDefinitionId}.
    * <p>
-   * Method under test:
-   * {@link ProcessVariablesPayloadValidator#checkPayloadVariables(SetProcessVariablesPayload, String)}
+   * Method under test: {@link ProcessVariablesPayloadValidator#checkPayloadVariables(SetProcessVariablesPayload, String)}
    */
   @Test
   @DisplayName("Test checkPayloadVariables(SetProcessVariablesPayload, String) with 'setProcessVariablesPayload', 'processDefinitionId'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessVariablesPayloadValidator.checkPayloadVariables(SetProcessVariablesPayload, String)"})
   void testCheckPayloadVariablesWithSetProcessVariablesPayloadProcessDefinitionId2() {
     // Arrange
     Extension extension = mock(Extension.class);
@@ -107,14 +107,15 @@ class ProcessVariablesPayloadValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessVariablesPayloadValidator#checkStartProcessPayloadVariables(StartProcessPayload, String)}.
+   * Test {@link ProcessVariablesPayloadValidator#checkStartProcessPayloadVariables(StartProcessPayload, String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessVariablesPayloadValidator#checkStartProcessPayloadVariables(StartProcessPayload, String)}
+   * Method under test: {@link ProcessVariablesPayloadValidator#checkStartProcessPayloadVariables(StartProcessPayload, String)}
    */
   @Test
   @DisplayName("Test checkStartProcessPayloadVariables(StartProcessPayload, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void ProcessVariablesPayloadValidator.checkStartProcessPayloadVariables(StartProcessPayload, String)"})
   void testCheckStartProcessPayloadVariables() {
     // Arrange
     when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(new Extension());
@@ -127,17 +128,18 @@ class ProcessVariablesPayloadValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessVariablesPayloadValidator#checkStartProcessPayloadVariables(StartProcessPayload, String)}.
+   * Test {@link ProcessVariablesPayloadValidator#checkStartProcessPayloadVariables(StartProcessPayload, String)}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessVariablesPayloadValidator#checkStartProcessPayloadVariables(StartProcessPayload, String)}
+   * Method under test: {@link ProcessVariablesPayloadValidator#checkStartProcessPayloadVariables(StartProcessPayload, String)}
    */
   @Test
   @DisplayName("Test checkStartProcessPayloadVariables(StartProcessPayload, String); then throw ActivitiException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void ProcessVariablesPayloadValidator.checkStartProcessPayloadVariables(StartProcessPayload, String)"})
   void testCheckStartProcessPayloadVariables_thenThrowActivitiException() {
     // Arrange
     Extension extension = mock(Extension.class);
@@ -152,14 +154,15 @@ class ProcessVariablesPayloadValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessVariablesPayloadValidator#checkStartMessagePayloadVariables(StartMessagePayload, String)}.
+   * Test {@link ProcessVariablesPayloadValidator#checkStartMessagePayloadVariables(StartMessagePayload, String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessVariablesPayloadValidator#checkStartMessagePayloadVariables(StartMessagePayload, String)}
+   * Method under test: {@link ProcessVariablesPayloadValidator#checkStartMessagePayloadVariables(StartMessagePayload, String)}
    */
   @Test
   @DisplayName("Test checkStartMessagePayloadVariables(StartMessagePayload, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void ProcessVariablesPayloadValidator.checkStartMessagePayloadVariables(StartMessagePayload, String)"})
   void testCheckStartMessagePayloadVariables() {
     // Arrange
     when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(new Extension());
@@ -172,17 +175,18 @@ class ProcessVariablesPayloadValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessVariablesPayloadValidator#checkStartMessagePayloadVariables(StartMessagePayload, String)}.
+   * Test {@link ProcessVariablesPayloadValidator#checkStartMessagePayloadVariables(StartMessagePayload, String)}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessVariablesPayloadValidator#checkStartMessagePayloadVariables(StartMessagePayload, String)}
+   * Method under test: {@link ProcessVariablesPayloadValidator#checkStartMessagePayloadVariables(StartMessagePayload, String)}
    */
   @Test
   @DisplayName("Test checkStartMessagePayloadVariables(StartMessagePayload, String); then throw ActivitiException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void ProcessVariablesPayloadValidator.checkStartMessagePayloadVariables(StartMessagePayload, String)"})
   void testCheckStartMessagePayloadVariables_thenThrowActivitiException() {
     // Arrange
     Extension extension = mock(Extension.class);
@@ -197,14 +201,15 @@ class ProcessVariablesPayloadValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessVariablesPayloadValidator#checkReceiveMessagePayloadVariables(ReceiveMessagePayload, String)}.
+   * Test {@link ProcessVariablesPayloadValidator#checkReceiveMessagePayloadVariables(ReceiveMessagePayload, String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessVariablesPayloadValidator#checkReceiveMessagePayloadVariables(ReceiveMessagePayload, String)}
+   * Method under test: {@link ProcessVariablesPayloadValidator#checkReceiveMessagePayloadVariables(ReceiveMessagePayload, String)}
    */
   @Test
   @DisplayName("Test checkReceiveMessagePayloadVariables(ReceiveMessagePayload, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void ProcessVariablesPayloadValidator.checkReceiveMessagePayloadVariables(ReceiveMessagePayload, String)"})
   void testCheckReceiveMessagePayloadVariables() {
     // Arrange
     when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(new Extension());
@@ -217,17 +222,18 @@ class ProcessVariablesPayloadValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessVariablesPayloadValidator#checkReceiveMessagePayloadVariables(ReceiveMessagePayload, String)}.
+   * Test {@link ProcessVariablesPayloadValidator#checkReceiveMessagePayloadVariables(ReceiveMessagePayload, String)}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessVariablesPayloadValidator#checkReceiveMessagePayloadVariables(ReceiveMessagePayload, String)}
+   * Method under test: {@link ProcessVariablesPayloadValidator#checkReceiveMessagePayloadVariables(ReceiveMessagePayload, String)}
    */
   @Test
   @DisplayName("Test checkReceiveMessagePayloadVariables(ReceiveMessagePayload, String); then throw ActivitiException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "void ProcessVariablesPayloadValidator.checkReceiveMessagePayloadVariables(ReceiveMessagePayload, String)"})
   void testCheckReceiveMessagePayloadVariables_thenThrowActivitiException() {
     // Arrange
     Extension extension = mock(Extension.class);
@@ -242,14 +248,14 @@ class ProcessVariablesPayloadValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessVariablesPayloadValidator#checkSignalPayloadVariables(SignalPayload, String)}.
+   * Test {@link ProcessVariablesPayloadValidator#checkSignalPayloadVariables(SignalPayload, String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessVariablesPayloadValidator#checkSignalPayloadVariables(SignalPayload, String)}
+   * Method under test: {@link ProcessVariablesPayloadValidator#checkSignalPayloadVariables(SignalPayload, String)}
    */
   @Test
   @DisplayName("Test checkSignalPayloadVariables(SignalPayload, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessVariablesPayloadValidator.checkSignalPayloadVariables(SignalPayload, String)"})
   void testCheckSignalPayloadVariables() {
     // Arrange
     when(processExtensionService.getExtensionsForId(Mockito.<String>any())).thenReturn(new Extension());
@@ -262,17 +268,17 @@ class ProcessVariablesPayloadValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ProcessVariablesPayloadValidator#checkSignalPayloadVariables(SignalPayload, String)}.
+   * Test {@link ProcessVariablesPayloadValidator#checkSignalPayloadVariables(SignalPayload, String)}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessVariablesPayloadValidator#checkSignalPayloadVariables(SignalPayload, String)}
+   * Method under test: {@link ProcessVariablesPayloadValidator#checkSignalPayloadVariables(SignalPayload, String)}
    */
   @Test
   @DisplayName("Test checkSignalPayloadVariables(SignalPayload, String); then throw ActivitiException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessVariablesPayloadValidator.checkSignalPayloadVariables(SignalPayload, String)"})
   void testCheckSignalPayloadVariables_thenThrowActivitiException() {
     // Arrange
     Extension extension = mock(Extension.class);

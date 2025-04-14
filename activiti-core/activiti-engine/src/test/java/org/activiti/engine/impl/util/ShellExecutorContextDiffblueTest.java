@@ -18,9 +18,12 @@ package org.activiti.engine.impl.util;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ShellExecutorContextDiffblueTest {
   /**
@@ -28,8 +31,7 @@ public class ShellExecutorContextDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link ShellExecutorContext#ShellExecutorContext(Boolean, Boolean, Boolean, String, String, String, List)}
+   *   <li>{@link ShellExecutorContext#ShellExecutorContext(Boolean, Boolean, Boolean, String, String, String, List)}
    *   <li>{@link ShellExecutorContext#setArgList(List)}
    *   <li>{@link ShellExecutorContext#setWaitFlag(Boolean)}
    *   <li>{@link ShellExecutorContext#getArgList()}
@@ -42,6 +44,13 @@ public class ShellExecutorContextDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ShellExecutorContext.<init>(Boolean, Boolean, Boolean, String, String, String, List)",
+      "List ShellExecutorContext.getArgList()", "Boolean ShellExecutorContext.getCleanEnvBoolan()",
+      "String ShellExecutorContext.getDirectoryStr()", "String ShellExecutorContext.getErrorCodeVariableStr()",
+      "Boolean ShellExecutorContext.getRedirectErrorFlag()", "String ShellExecutorContext.getResultVariableStr()",
+      "Boolean ShellExecutorContext.getWaitFlag()", "void ShellExecutorContext.setArgList(List)",
+      "void ShellExecutorContext.setWaitFlag(Boolean)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ShellExecutorContext actualShellExecutorContext = new ShellExecutorContext(true, true, true, "/directory",
@@ -57,7 +66,7 @@ public class ShellExecutorContextDiffblueTest {
     String actualResultVariableStr = actualShellExecutorContext.getResultVariableStr();
     Boolean actualWaitFlag = actualShellExecutorContext.getWaitFlag();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("/directory", actualDirectoryStr);
     assertEquals("An error occurred", actualErrorCodeVariableStr);
     assertEquals("Result Variable Str", actualResultVariableStr);

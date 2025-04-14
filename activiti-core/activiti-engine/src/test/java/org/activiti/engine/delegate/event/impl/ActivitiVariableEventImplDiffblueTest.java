@@ -18,25 +18,28 @@ package org.activiti.engine.delegate.event.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.event.ActivitiEventType;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.activiti.engine.impl.variable.BigDecimalType;
 import org.activiti.engine.impl.variable.VariableType;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ActivitiVariableEventImplDiffblueTest {
   /**
-   * Test
-   * {@link ActivitiVariableEventImpl#ActivitiVariableEventImpl(ActivitiEventType)}.
+   * Test {@link ActivitiVariableEventImpl#ActivitiVariableEventImpl(ActivitiEventType)}.
    * <ul>
    *   <li>When {@code ENTITY_CREATED}.</li>
    *   <li>Then return VariableValue is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiVariableEventImpl#ActivitiVariableEventImpl(ActivitiEventType)}
+   * Method under test: {@link ActivitiVariableEventImpl#ActivitiVariableEventImpl(ActivitiEventType)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiVariableEventImpl.<init>(ActivitiEventType)"})
   public void testNewActivitiVariableEventImpl_whenEntityCreated_thenReturnVariableValueIsNull() {
     // Arrange and Act
     ActivitiVariableEventImpl actualActivitiVariableEventImpl = new ActivitiVariableEventImpl(
@@ -70,6 +73,13 @@ public class ActivitiVariableEventImplDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ActivitiVariableEventImpl.getTaskId()",
+      "String ActivitiVariableEventImpl.getVariableName()", "VariableType ActivitiVariableEventImpl.getVariableType()",
+      "Object ActivitiVariableEventImpl.getVariableValue()", "void ActivitiVariableEventImpl.setTaskId(String)",
+      "void ActivitiVariableEventImpl.setVariableName(String)",
+      "void ActivitiVariableEventImpl.setVariableType(VariableType)",
+      "void ActivitiVariableEventImpl.setVariableValue(Object)"})
   public void testGettersAndSetters() {
     // Arrange
     ActivitiVariableEventImpl activitiVariableEventImpl = new ActivitiVariableEventImpl(
@@ -86,7 +96,7 @@ public class ActivitiVariableEventImplDiffblueTest {
     String actualVariableName = activitiVariableEventImpl.getVariableName();
     VariableType actualVariableType = activitiVariableEventImpl.getVariableType();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualTaskId);
     assertEquals("Variable Name", actualVariableName);
     assertSame(variableType, actualVariableType);

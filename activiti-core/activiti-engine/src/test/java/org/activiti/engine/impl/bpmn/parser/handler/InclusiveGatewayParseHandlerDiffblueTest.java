@@ -17,6 +17,8 @@ package org.activiti.engine.impl.bpmn.parser.handler;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.InclusiveGateway;
 import org.activiti.engine.impl.bpmn.behavior.InclusiveGatewayActivityBehavior;
@@ -24,17 +26,17 @@ import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class InclusiveGatewayParseHandlerDiffblueTest {
   /**
-   * Test
-   * {@link InclusiveGatewayParseHandler#executeParse(BpmnParse, InclusiveGateway)}
-   * with {@code BpmnParse}, {@code InclusiveGateway}.
+   * Test {@link InclusiveGatewayParseHandler#executeParse(BpmnParse, InclusiveGateway)} with {@code BpmnParse}, {@code InclusiveGateway}.
    * <p>
-   * Method under test:
-   * {@link InclusiveGatewayParseHandler#executeParse(BpmnParse, InclusiveGateway)}
+   * Method under test: {@link InclusiveGatewayParseHandler#executeParse(BpmnParse, InclusiveGateway)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void InclusiveGatewayParseHandler.executeParse(BpmnParse, InclusiveGateway)"})
   public void testExecuteParseWithBpmnParseInclusiveGateway() {
     // Arrange
     InclusiveGatewayParseHandler inclusiveGatewayParseHandler = new InclusiveGatewayParseHandler();
@@ -56,12 +58,14 @@ public class InclusiveGatewayParseHandlerDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of
-   * {@link InclusiveGatewayParseHandler}
+   *   <li>default or parameterless constructor of {@link InclusiveGatewayParseHandler}
    *   <li>{@link InclusiveGatewayParseHandler#getHandledType()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void InclusiveGatewayParseHandler.<init>()",
+      "Class InclusiveGatewayParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends BaseElement> actualHandledType = (new InclusiveGatewayParseHandler()).getHandledType();

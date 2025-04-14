@@ -30,6 +30,8 @@ import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import ch.qos.logback.core.util.COWArrayList;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -38,6 +40,7 @@ import org.activiti.api.runtime.shared.query.Page;
 import org.activiti.api.runtime.shared.query.Pageable;
 import org.activiti.api.runtime.shared.security.SecurityManager;
 import org.activiti.api.task.model.Task;
+import org.activiti.api.task.model.Task.TaskStatus;
 import org.activiti.api.task.model.impl.TaskImpl;
 import org.activiti.api.task.model.payloads.CandidateGroupsPayload;
 import org.activiti.api.task.model.payloads.CandidateUsersPayload;
@@ -48,6 +51,7 @@ import org.activiti.api.task.model.payloads.UpdateTaskPayload;
 import org.activiti.api.task.model.payloads.UpdateTaskVariablePayload;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.impl.persistence.entity.IdentityLinkEntityImpl;
+import org.activiti.engine.impl.persistence.entity.VariableInstance;
 import org.activiti.engine.query.Query;
 import org.activiti.engine.task.IdentityLink;
 import org.activiti.engine.task.TaskQuery;
@@ -55,6 +59,7 @@ import org.activiti.runtime.api.model.impl.APITaskConverter;
 import org.activiti.runtime.api.model.impl.APIVariableInstanceConverter;
 import org.activiti.runtime.api.query.impl.PageImpl;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -87,18 +92,18 @@ class TaskAdminRuntimeImplDiffblueTest {
   private TaskService taskService;
 
   /**
-   * Test {@link TaskAdminRuntimeImpl#tasks(Pageable, GetTasksPayload)} with
-   * {@code pageable}, {@code getTasksPayload}.
+   * Test {@link TaskAdminRuntimeImpl#tasks(Pageable, GetTasksPayload)} with {@code pageable}, {@code getTasksPayload}.
    * <ul>
    *   <li>When {@link GetTasksPayload#GetTasksPayload()}.</li>
    *   <li>Then return {@link PageImpl}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskAdminRuntimeImpl#tasks(Pageable, GetTasksPayload)}
+   * Method under test: {@link TaskAdminRuntimeImpl#tasks(Pageable, GetTasksPayload)}
    */
   @Test
   @DisplayName("Test tasks(Pageable, GetTasksPayload) with 'pageable', 'getTasksPayload'; when GetTasksPayload(); then return PageImpl")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Page TaskAdminRuntimeImpl.tasks(Pageable, GetTasksPayload)"})
   void testTasksWithPageableGetTasksPayload_whenGetTasksPayload_thenReturnPageImpl() {
     // Arrange
     TaskQuery taskQuery = mock(TaskQuery.class);
@@ -109,8 +114,7 @@ class TaskAdminRuntimeImplDiffblueTest {
     Pageable pageable = Pageable.of(1, 3);
 
     // Act
-    Page<org.activiti.api.task.model.Task> actualTasksResult = taskAdminRuntimeImpl.tasks(pageable,
-        new GetTasksPayload());
+    Page<Task> actualTasksResult = taskAdminRuntimeImpl.tasks(pageable, new GetTasksPayload());
 
     // Assert
     verify(taskService).createTaskQuery();
@@ -133,6 +137,8 @@ class TaskAdminRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test tasks(Pageable) with 'pageable'; given TaskQuery count() return three; then return PageImpl")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Page TaskAdminRuntimeImpl.tasks(Pageable)"})
   void testTasksWithPageable_givenTaskQueryCountReturnThree_thenReturnPageImpl() {
     // Arrange
     TaskQuery taskQuery = mock(TaskQuery.class);
@@ -142,7 +148,7 @@ class TaskAdminRuntimeImplDiffblueTest {
     when(aPITaskConverter.from(Mockito.<Collection<org.activiti.engine.task.Task>>any())).thenReturn(new ArrayList<>());
 
     // Act
-    Page<org.activiti.api.task.model.Task> actualTasksResult = taskAdminRuntimeImpl.tasks(Pageable.of(1, 3));
+    Page<Task> actualTasksResult = taskAdminRuntimeImpl.tasks(Pageable.of(1, 3));
 
     // Assert
     verify(taskService).createTaskQuery();
@@ -157,17 +163,18 @@ class TaskAdminRuntimeImplDiffblueTest {
   /**
    * Test {@link TaskAdminRuntimeImpl#update(UpdateTaskPayload)}.
    * <ul>
-   *   <li>Then return {@link TaskImpl#TaskImpl(String, String, TaskStatus)} with id
-   * is {@code 42} and {@code Name} and status is {@code CREATED}.</li>
+   *   <li>Then return {@link TaskImpl#TaskImpl(String, String, TaskStatus)} with id is {@code 42} and {@code Name} and status is {@code CREATED}.</li>
    * </ul>
    * <p>
    * Method under test: {@link TaskAdminRuntimeImpl#update(UpdateTaskPayload)}
    */
   @Test
   @DisplayName("Test update(UpdateTaskPayload); then return TaskImpl(String, String, TaskStatus) with id is '42' and 'Name' and status is 'CREATED'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Task TaskAdminRuntimeImpl.update(UpdateTaskPayload)"})
   void testUpdate_thenReturnTaskImplWithIdIs42AndNameAndStatusIsCreated() {
     // Arrange
-    TaskImpl taskImpl = new TaskImpl("42", "Name", Task.TaskStatus.CREATED);
+    TaskImpl taskImpl = new TaskImpl("42", "Name", TaskStatus.CREATED);
 
     when(taskRuntimeHelper.applyUpdateTaskPayload(anyBoolean(), Mockito.<UpdateTaskPayload>any())).thenReturn(taskImpl);
 
@@ -189,6 +196,8 @@ class TaskAdminRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test update(UpdateTaskPayload); then throw IllegalStateException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Task TaskAdminRuntimeImpl.update(UpdateTaskPayload)"})
   void testUpdate_thenThrowIllegalStateException() {
     // Arrange
     when(taskRuntimeHelper.applyUpdateTaskPayload(anyBoolean(), Mockito.<UpdateTaskPayload>any()))
@@ -202,19 +211,40 @@ class TaskAdminRuntimeImplDiffblueTest {
   /**
    * Test {@link TaskAdminRuntimeImpl#variables(GetTaskVariablesPayload)}.
    * <ul>
+   *   <li>Given {@link APIVariableInstanceConverter}.</li>
+   *   <li>Then throw {@link IllegalStateException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link TaskAdminRuntimeImpl#variables(GetTaskVariablesPayload)}
+   */
+  @Test
+  @DisplayName("Test variables(GetTaskVariablesPayload); given APIVariableInstanceConverter; then throw IllegalStateException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List TaskAdminRuntimeImpl.variables(GetTaskVariablesPayload)"})
+  void testVariables_givenAPIVariableInstanceConverter_thenThrowIllegalStateException() {
+    // Arrange
+    when(taskRuntimeHelper.getInternalTaskVariables(Mockito.<String>any())).thenThrow(new IllegalStateException("foo"));
+
+    // Act and Assert
+    assertThrows(IllegalStateException.class, () -> taskAdminRuntimeImpl.variables(new GetTaskVariablesPayload()));
+    verify(taskRuntimeHelper).getInternalTaskVariables(isNull());
+  }
+
+  /**
+   * Test {@link TaskAdminRuntimeImpl#variables(GetTaskVariablesPayload)}.
+   * <ul>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskAdminRuntimeImpl#variables(GetTaskVariablesPayload)}
+   * Method under test: {@link TaskAdminRuntimeImpl#variables(GetTaskVariablesPayload)}
    */
   @Test
   @DisplayName("Test variables(GetTaskVariablesPayload); then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List TaskAdminRuntimeImpl.variables(GetTaskVariablesPayload)"})
   void testVariables_thenReturnEmpty() {
     // Arrange
-    when(aPIVariableInstanceConverter
-        .from(Mockito.<Collection<org.activiti.engine.impl.persistence.entity.VariableInstance>>any()))
-        .thenReturn(new ArrayList<>());
+    when(aPIVariableInstanceConverter.from(Mockito.<Collection<VariableInstance>>any())).thenReturn(new ArrayList<>());
     when(taskRuntimeHelper.getInternalTaskVariables(Mockito.<String>any())).thenReturn(new HashMap<>());
 
     // Act
@@ -228,38 +258,17 @@ class TaskAdminRuntimeImplDiffblueTest {
   }
 
   /**
-   * Test {@link TaskAdminRuntimeImpl#variables(GetTaskVariablesPayload)}.
-   * <ul>
-   *   <li>Then throw {@link IllegalStateException}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link TaskAdminRuntimeImpl#variables(GetTaskVariablesPayload)}
-   */
-  @Test
-  @DisplayName("Test variables(GetTaskVariablesPayload); then throw IllegalStateException")
-  void testVariables_thenThrowIllegalStateException() {
-    // Arrange
-    when(taskRuntimeHelper.getInternalTaskVariables(Mockito.<String>any())).thenThrow(new IllegalStateException("foo"));
-
-    // Act and Assert
-    assertThrows(IllegalStateException.class, () -> taskAdminRuntimeImpl.variables(new GetTaskVariablesPayload()));
-    verify(taskRuntimeHelper).getInternalTaskVariables(isNull());
-  }
-
-  /**
    * Test {@link TaskAdminRuntimeImpl#createVariable(CreateTaskVariablePayload)}.
    * <ul>
-   *   <li>Given {@link TaskRuntimeHelper}
-   * {@link TaskRuntimeHelper#createVariable(boolean, CreateTaskVariablePayload)}
-   * does nothing.</li>
+   *   <li>Given {@link TaskRuntimeHelper} {@link TaskRuntimeHelper#createVariable(boolean, CreateTaskVariablePayload)} does nothing.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskAdminRuntimeImpl#createVariable(CreateTaskVariablePayload)}
+   * Method under test: {@link TaskAdminRuntimeImpl#createVariable(CreateTaskVariablePayload)}
    */
   @Test
   @DisplayName("Test createVariable(CreateTaskVariablePayload); given TaskRuntimeHelper createVariable(boolean, CreateTaskVariablePayload) does nothing")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskAdminRuntimeImpl.createVariable(CreateTaskVariablePayload)"})
   void testCreateVariable_givenTaskRuntimeHelperCreateVariableDoesNothing() {
     // Arrange
     doNothing().when(taskRuntimeHelper).createVariable(anyBoolean(), Mockito.<CreateTaskVariablePayload>any());
@@ -267,7 +276,7 @@ class TaskAdminRuntimeImplDiffblueTest {
     // Act
     taskAdminRuntimeImpl.createVariable(new CreateTaskVariablePayload());
 
-    // Assert that nothing has changed
+    // Assert
     verify(taskRuntimeHelper).createVariable(eq(true), isA(CreateTaskVariablePayload.class));
   }
 
@@ -277,11 +286,12 @@ class TaskAdminRuntimeImplDiffblueTest {
    *   <li>Then throw {@link IllegalStateException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskAdminRuntimeImpl#createVariable(CreateTaskVariablePayload)}
+   * Method under test: {@link TaskAdminRuntimeImpl#createVariable(CreateTaskVariablePayload)}
    */
   @Test
   @DisplayName("Test createVariable(CreateTaskVariablePayload); then throw IllegalStateException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskAdminRuntimeImpl.createVariable(CreateTaskVariablePayload)"})
   void testCreateVariable_thenThrowIllegalStateException() {
     // Arrange
     doThrow(new IllegalStateException("foo")).when(taskRuntimeHelper)
@@ -296,16 +306,15 @@ class TaskAdminRuntimeImplDiffblueTest {
   /**
    * Test {@link TaskAdminRuntimeImpl#updateVariable(UpdateTaskVariablePayload)}.
    * <ul>
-   *   <li>Given {@link TaskRuntimeHelper}
-   * {@link TaskRuntimeHelper#updateVariable(boolean, UpdateTaskVariablePayload)}
-   * does nothing.</li>
+   *   <li>Given {@link TaskRuntimeHelper} {@link TaskRuntimeHelper#updateVariable(boolean, UpdateTaskVariablePayload)} does nothing.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskAdminRuntimeImpl#updateVariable(UpdateTaskVariablePayload)}
+   * Method under test: {@link TaskAdminRuntimeImpl#updateVariable(UpdateTaskVariablePayload)}
    */
   @Test
   @DisplayName("Test updateVariable(UpdateTaskVariablePayload); given TaskRuntimeHelper updateVariable(boolean, UpdateTaskVariablePayload) does nothing")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskAdminRuntimeImpl.updateVariable(UpdateTaskVariablePayload)"})
   void testUpdateVariable_givenTaskRuntimeHelperUpdateVariableDoesNothing() {
     // Arrange
     doNothing().when(taskRuntimeHelper).updateVariable(anyBoolean(), Mockito.<UpdateTaskVariablePayload>any());
@@ -313,7 +322,7 @@ class TaskAdminRuntimeImplDiffblueTest {
     // Act
     taskAdminRuntimeImpl.updateVariable(new UpdateTaskVariablePayload());
 
-    // Assert that nothing has changed
+    // Assert
     verify(taskRuntimeHelper).updateVariable(eq(true), isA(UpdateTaskVariablePayload.class));
   }
 
@@ -323,11 +332,12 @@ class TaskAdminRuntimeImplDiffblueTest {
    *   <li>Then throw {@link IllegalStateException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskAdminRuntimeImpl#updateVariable(UpdateTaskVariablePayload)}
+   * Method under test: {@link TaskAdminRuntimeImpl#updateVariable(UpdateTaskVariablePayload)}
    */
   @Test
   @DisplayName("Test updateVariable(UpdateTaskVariablePayload); then throw IllegalStateException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskAdminRuntimeImpl.updateVariable(UpdateTaskVariablePayload)"})
   void testUpdateVariable_thenThrowIllegalStateException() {
     // Arrange
     doThrow(new IllegalStateException("foo")).when(taskRuntimeHelper)
@@ -341,324 +351,318 @@ class TaskAdminRuntimeImplDiffblueTest {
 
   /**
    * Test {@link TaskAdminRuntimeImpl#addCandidateUsers(CandidateUsersPayload)}.
-   * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then calls {@link CandidateUsersPayload#getCandidateUsers()}.</li>
-   * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskAdminRuntimeImpl#addCandidateUsers(CandidateUsersPayload)}
+   * Method under test: {@link TaskAdminRuntimeImpl#addCandidateUsers(CandidateUsersPayload)}
    */
   @Test
-  @DisplayName("Test addCandidateUsers(CandidateUsersPayload); given ArrayList(); then calls getCandidateUsers()")
-  void testAddCandidateUsers_givenArrayList_thenCallsGetCandidateUsers() {
+  @DisplayName("Test addCandidateUsers(CandidateUsersPayload)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskAdminRuntimeImpl.addCandidateUsers(CandidateUsersPayload)"})
+  void testAddCandidateUsers() {
     // Arrange
-    CandidateUsersPayload candidateUsersPayload = mock(CandidateUsersPayload.class);
-    when(candidateUsersPayload.getCandidateUsers()).thenReturn(new ArrayList<>());
+    doThrow(new IllegalStateException("foo")).when(taskService)
+        .addCandidateUser(Mockito.<String>any(), Mockito.<String>any());
 
-    // Act
-    taskAdminRuntimeImpl.addCandidateUsers(candidateUsersPayload);
+    ArrayList<String> candidateUsers = new ArrayList<>();
+    candidateUsers.add("2020-03-01");
 
-    // Assert that nothing has changed
-    verify(candidateUsersPayload, atLeast(1)).getCandidateUsers();
-  }
-
-  /**
-   * Test {@link TaskAdminRuntimeImpl#addCandidateUsers(CandidateUsersPayload)}.
-   * <ul>
-   *   <li>Then calls {@link TaskService#addCandidateUser(String, String)}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link TaskAdminRuntimeImpl#addCandidateUsers(CandidateUsersPayload)}
-   */
-  @Test
-  @DisplayName("Test addCandidateUsers(CandidateUsersPayload); then calls addCandidateUser(String, String)")
-  void testAddCandidateUsers_thenCallsAddCandidateUser() {
-    // Arrange
-    doNothing().when(taskService).addCandidateUser(Mockito.<String>any(), Mockito.<String>any());
-
-    ArrayList<String> stringList = new ArrayList<>();
-    stringList.add("foo");
-    CandidateUsersPayload candidateUsersPayload = mock(CandidateUsersPayload.class);
-    when(candidateUsersPayload.getTaskId()).thenReturn("42");
-    when(candidateUsersPayload.getCandidateUsers()).thenReturn(stringList);
-
-    // Act
-    taskAdminRuntimeImpl.addCandidateUsers(candidateUsersPayload);
-
-    // Assert that nothing has changed
-    verify(candidateUsersPayload, atLeast(1)).getCandidateUsers();
-    verify(candidateUsersPayload).getTaskId();
-    verify(taskService).addCandidateUser(eq("42"), eq("foo"));
-  }
-
-  /**
-   * Test {@link TaskAdminRuntimeImpl#addCandidateUsers(CandidateUsersPayload)}.
-   * <ul>
-   *   <li>Then throw {@link IllegalStateException}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link TaskAdminRuntimeImpl#addCandidateUsers(CandidateUsersPayload)}
-   */
-  @Test
-  @DisplayName("Test addCandidateUsers(CandidateUsersPayload); then throw IllegalStateException")
-  void testAddCandidateUsers_thenThrowIllegalStateException() {
-    // Arrange
-    ArrayList<String> stringList = new ArrayList<>();
-    stringList.add("foo");
-    CandidateUsersPayload candidateUsersPayload = mock(CandidateUsersPayload.class);
-    when(candidateUsersPayload.getTaskId()).thenThrow(new IllegalStateException("foo"));
-    when(candidateUsersPayload.getCandidateUsers()).thenReturn(stringList);
+    CandidateUsersPayload candidateUsersPayload = new CandidateUsersPayload();
+    candidateUsersPayload.setCandidateUsers(candidateUsers);
 
     // Act and Assert
     assertThrows(IllegalStateException.class, () -> taskAdminRuntimeImpl.addCandidateUsers(candidateUsersPayload));
-    verify(candidateUsersPayload, atLeast(1)).getCandidateUsers();
-    verify(candidateUsersPayload).getTaskId();
+    verify(taskService).addCandidateUser(isNull(), eq("2020-03-01"));
   }
 
   /**
-   * Test
-   * {@link TaskAdminRuntimeImpl#deleteCandidateUsers(CandidateUsersPayload)}.
+   * Test {@link TaskAdminRuntimeImpl#addCandidateUsers(CandidateUsersPayload)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then calls {@link CandidateUsersPayload#getCandidateUsers()}.</li>
+   *   <li>Given {@link TaskService} {@link TaskService#addCandidateUser(String, String)} does nothing.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskAdminRuntimeImpl#deleteCandidateUsers(CandidateUsersPayload)}
+   * Method under test: {@link TaskAdminRuntimeImpl#addCandidateUsers(CandidateUsersPayload)}
    */
   @Test
-  @DisplayName("Test deleteCandidateUsers(CandidateUsersPayload); given ArrayList(); then calls getCandidateUsers()")
-  void testDeleteCandidateUsers_givenArrayList_thenCallsGetCandidateUsers() {
+  @DisplayName("Test addCandidateUsers(CandidateUsersPayload); given TaskService addCandidateUser(String, String) does nothing")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskAdminRuntimeImpl.addCandidateUsers(CandidateUsersPayload)"})
+  void testAddCandidateUsers_givenTaskServiceAddCandidateUserDoesNothing() {
     // Arrange
-    CandidateUsersPayload candidateUsersPayload = mock(CandidateUsersPayload.class);
-    when(candidateUsersPayload.getCandidateUsers()).thenReturn(new ArrayList<>());
+    doNothing().when(taskService).addCandidateUser(Mockito.<String>any(), Mockito.<String>any());
+
+    ArrayList<String> candidateUsers = new ArrayList<>();
+    candidateUsers.add("2020-03-01");
+
+    CandidateUsersPayload candidateUsersPayload = new CandidateUsersPayload();
+    candidateUsersPayload.setCandidateUsers(candidateUsers);
 
     // Act
-    taskAdminRuntimeImpl.deleteCandidateUsers(candidateUsersPayload);
+    taskAdminRuntimeImpl.addCandidateUsers(candidateUsersPayload);
 
-    // Assert that nothing has changed
-    verify(candidateUsersPayload, atLeast(1)).getCandidateUsers();
+    // Assert
+    verify(taskService).addCandidateUser(isNull(), eq("2020-03-01"));
   }
 
   /**
-   * Test
-   * {@link TaskAdminRuntimeImpl#deleteCandidateUsers(CandidateUsersPayload)}.
+   * Test {@link TaskAdminRuntimeImpl#addCandidateUsers(CandidateUsersPayload)}.
    * <ul>
-   *   <li>Then calls {@link TaskService#deleteCandidateUser(String, String)}.</li>
+   *   <li>Then calls {@link COWArrayList#isEmpty()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskAdminRuntimeImpl#deleteCandidateUsers(CandidateUsersPayload)}
+   * Method under test: {@link TaskAdminRuntimeImpl#addCandidateUsers(CandidateUsersPayload)}
    */
   @Test
-  @DisplayName("Test deleteCandidateUsers(CandidateUsersPayload); then calls deleteCandidateUser(String, String)")
-  void testDeleteCandidateUsers_thenCallsDeleteCandidateUser() {
+  @DisplayName("Test addCandidateUsers(CandidateUsersPayload); then calls isEmpty()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskAdminRuntimeImpl.addCandidateUsers(CandidateUsersPayload)"})
+  void testAddCandidateUsers_thenCallsIsEmpty() {
     // Arrange
-    doNothing().when(taskService).deleteCandidateUser(Mockito.<String>any(), Mockito.<String>any());
+    COWArrayList<String> candidateUsers = mock(COWArrayList.class);
+    when(candidateUsers.isEmpty()).thenThrow(new IllegalStateException("foo"));
 
-    ArrayList<String> stringList = new ArrayList<>();
-    stringList.add("foo");
-    CandidateUsersPayload candidateUsersPayload = mock(CandidateUsersPayload.class);
-    when(candidateUsersPayload.getTaskId()).thenReturn("42");
-    when(candidateUsersPayload.getCandidateUsers()).thenReturn(stringList);
+    CandidateUsersPayload candidateUsersPayload = new CandidateUsersPayload();
+    candidateUsersPayload.setCandidateUsers(candidateUsers);
 
-    // Act
-    taskAdminRuntimeImpl.deleteCandidateUsers(candidateUsersPayload);
-
-    // Assert that nothing has changed
-    verify(candidateUsersPayload, atLeast(1)).getCandidateUsers();
-    verify(candidateUsersPayload).getTaskId();
-    verify(taskService).deleteCandidateUser(eq("42"), eq("foo"));
+    // Act and Assert
+    assertThrows(IllegalStateException.class, () -> taskAdminRuntimeImpl.addCandidateUsers(candidateUsersPayload));
+    verify(candidateUsers).isEmpty();
   }
 
   /**
-   * Test
-   * {@link TaskAdminRuntimeImpl#deleteCandidateUsers(CandidateUsersPayload)}.
-   * <ul>
-   *   <li>Then throw {@link IllegalStateException}.</li>
-   * </ul>
+   * Test {@link TaskAdminRuntimeImpl#deleteCandidateUsers(CandidateUsersPayload)}.
    * <p>
-   * Method under test:
-   * {@link TaskAdminRuntimeImpl#deleteCandidateUsers(CandidateUsersPayload)}
+   * Method under test: {@link TaskAdminRuntimeImpl#deleteCandidateUsers(CandidateUsersPayload)}
    */
   @Test
-  @DisplayName("Test deleteCandidateUsers(CandidateUsersPayload); then throw IllegalStateException")
-  void testDeleteCandidateUsers_thenThrowIllegalStateException() {
+  @DisplayName("Test deleteCandidateUsers(CandidateUsersPayload)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskAdminRuntimeImpl.deleteCandidateUsers(CandidateUsersPayload)"})
+  void testDeleteCandidateUsers() {
     // Arrange
-    ArrayList<String> stringList = new ArrayList<>();
-    stringList.add("foo");
-    CandidateUsersPayload candidateUsersPayload = mock(CandidateUsersPayload.class);
-    when(candidateUsersPayload.getTaskId()).thenThrow(new IllegalStateException("foo"));
-    when(candidateUsersPayload.getCandidateUsers()).thenReturn(stringList);
+    doThrow(new IllegalStateException("foo")).when(taskService)
+        .deleteCandidateUser(Mockito.<String>any(), Mockito.<String>any());
+
+    ArrayList<String> candidateUsers = new ArrayList<>();
+    candidateUsers.add("2020-03-01");
+
+    CandidateUsersPayload candidateUsersPayload = new CandidateUsersPayload();
+    candidateUsersPayload.setCandidateUsers(candidateUsers);
 
     // Act and Assert
     assertThrows(IllegalStateException.class, () -> taskAdminRuntimeImpl.deleteCandidateUsers(candidateUsersPayload));
-    verify(candidateUsersPayload, atLeast(1)).getCandidateUsers();
-    verify(candidateUsersPayload).getTaskId();
+    verify(taskService).deleteCandidateUser(isNull(), eq("2020-03-01"));
   }
 
   /**
-   * Test {@link TaskAdminRuntimeImpl#addCandidateGroups(CandidateGroupsPayload)}.
+   * Test {@link TaskAdminRuntimeImpl#deleteCandidateUsers(CandidateUsersPayload)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then calls {@link CandidateGroupsPayload#getCandidateGroups()}.</li>
+   *   <li>Given {@link TaskService} {@link TaskService#deleteCandidateUser(String, String)} does nothing.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskAdminRuntimeImpl#addCandidateGroups(CandidateGroupsPayload)}
+   * Method under test: {@link TaskAdminRuntimeImpl#deleteCandidateUsers(CandidateUsersPayload)}
    */
   @Test
-  @DisplayName("Test addCandidateGroups(CandidateGroupsPayload); given ArrayList(); then calls getCandidateGroups()")
-  void testAddCandidateGroups_givenArrayList_thenCallsGetCandidateGroups() {
+  @DisplayName("Test deleteCandidateUsers(CandidateUsersPayload); given TaskService deleteCandidateUser(String, String) does nothing")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskAdminRuntimeImpl.deleteCandidateUsers(CandidateUsersPayload)"})
+  void testDeleteCandidateUsers_givenTaskServiceDeleteCandidateUserDoesNothing() {
     // Arrange
-    CandidateGroupsPayload candidateGroupsPayload = mock(CandidateGroupsPayload.class);
-    when(candidateGroupsPayload.getCandidateGroups()).thenReturn(new ArrayList<>());
+    doNothing().when(taskService).deleteCandidateUser(Mockito.<String>any(), Mockito.<String>any());
+
+    ArrayList<String> candidateUsers = new ArrayList<>();
+    candidateUsers.add("2020-03-01");
+
+    CandidateUsersPayload candidateUsersPayload = new CandidateUsersPayload();
+    candidateUsersPayload.setCandidateUsers(candidateUsers);
 
     // Act
-    taskAdminRuntimeImpl.addCandidateGroups(candidateGroupsPayload);
+    taskAdminRuntimeImpl.deleteCandidateUsers(candidateUsersPayload);
 
-    // Assert that nothing has changed
-    verify(candidateGroupsPayload, atLeast(1)).getCandidateGroups();
+    // Assert
+    verify(taskService).deleteCandidateUser(isNull(), eq("2020-03-01"));
+  }
+
+  /**
+   * Test {@link TaskAdminRuntimeImpl#deleteCandidateUsers(CandidateUsersPayload)}.
+   * <ul>
+   *   <li>Then calls {@link COWArrayList#isEmpty()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link TaskAdminRuntimeImpl#deleteCandidateUsers(CandidateUsersPayload)}
+   */
+  @Test
+  @DisplayName("Test deleteCandidateUsers(CandidateUsersPayload); then calls isEmpty()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskAdminRuntimeImpl.deleteCandidateUsers(CandidateUsersPayload)"})
+  void testDeleteCandidateUsers_thenCallsIsEmpty() {
+    // Arrange
+    COWArrayList<String> candidateUsers = mock(COWArrayList.class);
+    when(candidateUsers.isEmpty()).thenThrow(new IllegalStateException("foo"));
+
+    CandidateUsersPayload candidateUsersPayload = new CandidateUsersPayload();
+    candidateUsersPayload.setCandidateUsers(candidateUsers);
+
+    // Act and Assert
+    assertThrows(IllegalStateException.class, () -> taskAdminRuntimeImpl.deleteCandidateUsers(candidateUsersPayload));
+    verify(candidateUsers).isEmpty();
   }
 
   /**
    * Test {@link TaskAdminRuntimeImpl#addCandidateGroups(CandidateGroupsPayload)}.
-   * <ul>
-   *   <li>Then calls {@link TaskService#addCandidateGroup(String, String)}.</li>
-   * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskAdminRuntimeImpl#addCandidateGroups(CandidateGroupsPayload)}
+   * Method under test: {@link TaskAdminRuntimeImpl#addCandidateGroups(CandidateGroupsPayload)}
    */
   @Test
-  @DisplayName("Test addCandidateGroups(CandidateGroupsPayload); then calls addCandidateGroup(String, String)")
-  void testAddCandidateGroups_thenCallsAddCandidateGroup() {
+  @DisplayName("Test addCandidateGroups(CandidateGroupsPayload)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskAdminRuntimeImpl.addCandidateGroups(CandidateGroupsPayload)"})
+  void testAddCandidateGroups() {
     // Arrange
-    doNothing().when(taskService).addCandidateGroup(Mockito.<String>any(), Mockito.<String>any());
+    doThrow(new IllegalStateException("foo")).when(taskService)
+        .addCandidateGroup(Mockito.<String>any(), Mockito.<String>any());
 
-    ArrayList<String> stringList = new ArrayList<>();
-    stringList.add("foo");
-    CandidateGroupsPayload candidateGroupsPayload = mock(CandidateGroupsPayload.class);
-    when(candidateGroupsPayload.getTaskId()).thenReturn("42");
-    when(candidateGroupsPayload.getCandidateGroups()).thenReturn(stringList);
+    ArrayList<String> candidateGroups = new ArrayList<>();
+    candidateGroups.add("2020-03-01");
 
-    // Act
-    taskAdminRuntimeImpl.addCandidateGroups(candidateGroupsPayload);
-
-    // Assert that nothing has changed
-    verify(candidateGroupsPayload, atLeast(1)).getCandidateGroups();
-    verify(candidateGroupsPayload).getTaskId();
-    verify(taskService).addCandidateGroup(eq("42"), eq("foo"));
-  }
-
-  /**
-   * Test {@link TaskAdminRuntimeImpl#addCandidateGroups(CandidateGroupsPayload)}.
-   * <ul>
-   *   <li>Then throw {@link IllegalStateException}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link TaskAdminRuntimeImpl#addCandidateGroups(CandidateGroupsPayload)}
-   */
-  @Test
-  @DisplayName("Test addCandidateGroups(CandidateGroupsPayload); then throw IllegalStateException")
-  void testAddCandidateGroups_thenThrowIllegalStateException() {
-    // Arrange
-    ArrayList<String> stringList = new ArrayList<>();
-    stringList.add("foo");
-    CandidateGroupsPayload candidateGroupsPayload = mock(CandidateGroupsPayload.class);
-    when(candidateGroupsPayload.getTaskId()).thenThrow(new IllegalStateException("foo"));
-    when(candidateGroupsPayload.getCandidateGroups()).thenReturn(stringList);
+    CandidateGroupsPayload candidateGroupsPayload = new CandidateGroupsPayload();
+    candidateGroupsPayload.setCandidateGroups(candidateGroups);
 
     // Act and Assert
     assertThrows(IllegalStateException.class, () -> taskAdminRuntimeImpl.addCandidateGroups(candidateGroupsPayload));
-    verify(candidateGroupsPayload, atLeast(1)).getCandidateGroups();
-    verify(candidateGroupsPayload).getTaskId();
+    verify(taskService).addCandidateGroup(isNull(), eq("2020-03-01"));
   }
 
   /**
-   * Test
-   * {@link TaskAdminRuntimeImpl#deleteCandidateGroups(CandidateGroupsPayload)}.
+   * Test {@link TaskAdminRuntimeImpl#addCandidateGroups(CandidateGroupsPayload)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()}.</li>
-   *   <li>Then calls {@link CandidateGroupsPayload#getCandidateGroups()}.</li>
+   *   <li>Given {@link TaskService} {@link TaskService#addCandidateGroup(String, String)} does nothing.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskAdminRuntimeImpl#deleteCandidateGroups(CandidateGroupsPayload)}
+   * Method under test: {@link TaskAdminRuntimeImpl#addCandidateGroups(CandidateGroupsPayload)}
    */
   @Test
-  @DisplayName("Test deleteCandidateGroups(CandidateGroupsPayload); given ArrayList(); then calls getCandidateGroups()")
-  void testDeleteCandidateGroups_givenArrayList_thenCallsGetCandidateGroups() {
+  @DisplayName("Test addCandidateGroups(CandidateGroupsPayload); given TaskService addCandidateGroup(String, String) does nothing")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskAdminRuntimeImpl.addCandidateGroups(CandidateGroupsPayload)"})
+  void testAddCandidateGroups_givenTaskServiceAddCandidateGroupDoesNothing() {
     // Arrange
-    CandidateGroupsPayload candidateGroupsPayload = mock(CandidateGroupsPayload.class);
-    when(candidateGroupsPayload.getCandidateGroups()).thenReturn(new ArrayList<>());
+    doNothing().when(taskService).addCandidateGroup(Mockito.<String>any(), Mockito.<String>any());
+
+    ArrayList<String> candidateGroups = new ArrayList<>();
+    candidateGroups.add("2020-03-01");
+
+    CandidateGroupsPayload candidateGroupsPayload = new CandidateGroupsPayload();
+    candidateGroupsPayload.setCandidateGroups(candidateGroups);
 
     // Act
-    taskAdminRuntimeImpl.deleteCandidateGroups(candidateGroupsPayload);
+    taskAdminRuntimeImpl.addCandidateGroups(candidateGroupsPayload);
 
-    // Assert that nothing has changed
-    verify(candidateGroupsPayload, atLeast(1)).getCandidateGroups();
+    // Assert
+    verify(taskService).addCandidateGroup(isNull(), eq("2020-03-01"));
   }
 
   /**
-   * Test
-   * {@link TaskAdminRuntimeImpl#deleteCandidateGroups(CandidateGroupsPayload)}.
+   * Test {@link TaskAdminRuntimeImpl#addCandidateGroups(CandidateGroupsPayload)}.
    * <ul>
-   *   <li>Then calls {@link TaskService#deleteCandidateGroup(String, String)}.</li>
+   *   <li>Then calls {@link COWArrayList#isEmpty()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskAdminRuntimeImpl#deleteCandidateGroups(CandidateGroupsPayload)}
+   * Method under test: {@link TaskAdminRuntimeImpl#addCandidateGroups(CandidateGroupsPayload)}
    */
   @Test
-  @DisplayName("Test deleteCandidateGroups(CandidateGroupsPayload); then calls deleteCandidateGroup(String, String)")
-  void testDeleteCandidateGroups_thenCallsDeleteCandidateGroup() {
+  @DisplayName("Test addCandidateGroups(CandidateGroupsPayload); then calls isEmpty()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskAdminRuntimeImpl.addCandidateGroups(CandidateGroupsPayload)"})
+  void testAddCandidateGroups_thenCallsIsEmpty() {
     // Arrange
-    doNothing().when(taskService).deleteCandidateGroup(Mockito.<String>any(), Mockito.<String>any());
+    COWArrayList<String> candidateGroups = mock(COWArrayList.class);
+    when(candidateGroups.isEmpty()).thenThrow(new IllegalStateException("foo"));
 
-    ArrayList<String> stringList = new ArrayList<>();
-    stringList.add("foo");
-    CandidateGroupsPayload candidateGroupsPayload = mock(CandidateGroupsPayload.class);
-    when(candidateGroupsPayload.getTaskId()).thenReturn("42");
-    when(candidateGroupsPayload.getCandidateGroups()).thenReturn(stringList);
+    CandidateGroupsPayload candidateGroupsPayload = new CandidateGroupsPayload();
+    candidateGroupsPayload.setCandidateGroups(candidateGroups);
 
-    // Act
-    taskAdminRuntimeImpl.deleteCandidateGroups(candidateGroupsPayload);
-
-    // Assert that nothing has changed
-    verify(candidateGroupsPayload, atLeast(1)).getCandidateGroups();
-    verify(candidateGroupsPayload).getTaskId();
-    verify(taskService).deleteCandidateGroup(eq("42"), eq("foo"));
+    // Act and Assert
+    assertThrows(IllegalStateException.class, () -> taskAdminRuntimeImpl.addCandidateGroups(candidateGroupsPayload));
+    verify(candidateGroups).isEmpty();
   }
 
   /**
-   * Test
-   * {@link TaskAdminRuntimeImpl#deleteCandidateGroups(CandidateGroupsPayload)}.
-   * <ul>
-   *   <li>Then throw {@link IllegalStateException}.</li>
-   * </ul>
+   * Test {@link TaskAdminRuntimeImpl#deleteCandidateGroups(CandidateGroupsPayload)}.
    * <p>
-   * Method under test:
-   * {@link TaskAdminRuntimeImpl#deleteCandidateGroups(CandidateGroupsPayload)}
+   * Method under test: {@link TaskAdminRuntimeImpl#deleteCandidateGroups(CandidateGroupsPayload)}
    */
   @Test
-  @DisplayName("Test deleteCandidateGroups(CandidateGroupsPayload); then throw IllegalStateException")
-  void testDeleteCandidateGroups_thenThrowIllegalStateException() {
+  @DisplayName("Test deleteCandidateGroups(CandidateGroupsPayload)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskAdminRuntimeImpl.deleteCandidateGroups(CandidateGroupsPayload)"})
+  void testDeleteCandidateGroups() {
     // Arrange
-    ArrayList<String> stringList = new ArrayList<>();
-    stringList.add("foo");
-    CandidateGroupsPayload candidateGroupsPayload = mock(CandidateGroupsPayload.class);
-    when(candidateGroupsPayload.getTaskId()).thenThrow(new IllegalStateException("foo"));
-    when(candidateGroupsPayload.getCandidateGroups()).thenReturn(stringList);
+    doThrow(new IllegalStateException("foo")).when(taskService)
+        .deleteCandidateGroup(Mockito.<String>any(), Mockito.<String>any());
+
+    ArrayList<String> candidateGroups = new ArrayList<>();
+    candidateGroups.add("2020-03-01");
+
+    CandidateGroupsPayload candidateGroupsPayload = new CandidateGroupsPayload();
+    candidateGroupsPayload.setCandidateGroups(candidateGroups);
 
     // Act and Assert
     assertThrows(IllegalStateException.class, () -> taskAdminRuntimeImpl.deleteCandidateGroups(candidateGroupsPayload));
-    verify(candidateGroupsPayload, atLeast(1)).getCandidateGroups();
-    verify(candidateGroupsPayload).getTaskId();
+    verify(taskService).deleteCandidateGroup(isNull(), eq("2020-03-01"));
+  }
+
+  /**
+   * Test {@link TaskAdminRuntimeImpl#deleteCandidateGroups(CandidateGroupsPayload)}.
+   * <ul>
+   *   <li>Given {@link TaskService} {@link TaskService#deleteCandidateGroup(String, String)} does nothing.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link TaskAdminRuntimeImpl#deleteCandidateGroups(CandidateGroupsPayload)}
+   */
+  @Test
+  @DisplayName("Test deleteCandidateGroups(CandidateGroupsPayload); given TaskService deleteCandidateGroup(String, String) does nothing")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskAdminRuntimeImpl.deleteCandidateGroups(CandidateGroupsPayload)"})
+  void testDeleteCandidateGroups_givenTaskServiceDeleteCandidateGroupDoesNothing() {
+    // Arrange
+    doNothing().when(taskService).deleteCandidateGroup(Mockito.<String>any(), Mockito.<String>any());
+
+    ArrayList<String> candidateGroups = new ArrayList<>();
+    candidateGroups.add("2020-03-01");
+
+    CandidateGroupsPayload candidateGroupsPayload = new CandidateGroupsPayload();
+    candidateGroupsPayload.setCandidateGroups(candidateGroups);
+
+    // Act
+    taskAdminRuntimeImpl.deleteCandidateGroups(candidateGroupsPayload);
+
+    // Assert
+    verify(taskService).deleteCandidateGroup(isNull(), eq("2020-03-01"));
+  }
+
+  /**
+   * Test {@link TaskAdminRuntimeImpl#deleteCandidateGroups(CandidateGroupsPayload)}.
+   * <ul>
+   *   <li>Then calls {@link COWArrayList#isEmpty()}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link TaskAdminRuntimeImpl#deleteCandidateGroups(CandidateGroupsPayload)}
+   */
+  @Test
+  @DisplayName("Test deleteCandidateGroups(CandidateGroupsPayload); then calls isEmpty()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskAdminRuntimeImpl.deleteCandidateGroups(CandidateGroupsPayload)"})
+  void testDeleteCandidateGroups_thenCallsIsEmpty() {
+    // Arrange
+    COWArrayList<String> candidateGroups = mock(COWArrayList.class);
+    when(candidateGroups.isEmpty()).thenThrow(new IllegalStateException("foo"));
+
+    CandidateGroupsPayload candidateGroupsPayload = new CandidateGroupsPayload();
+    candidateGroupsPayload.setCandidateGroups(candidateGroups);
+
+    // Act and Assert
+    assertThrows(IllegalStateException.class, () -> taskAdminRuntimeImpl.deleteCandidateGroups(candidateGroupsPayload));
+    verify(candidateGroups).isEmpty();
   }
 
   /**
@@ -668,6 +672,8 @@ class TaskAdminRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test userCandidates(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List TaskAdminRuntimeImpl.userCandidates(String)"})
   void testUserCandidates() {
     // Arrange
     when(taskService.getIdentityLinksForTask(Mockito.<String>any())).thenThrow(new IllegalStateException("foo"));
@@ -684,6 +690,8 @@ class TaskAdminRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test userCandidates(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List TaskAdminRuntimeImpl.userCandidates(String)"})
   void testUserCandidates2() {
     // Arrange
     IdentityLinkEntityImpl identityLinkEntityImpl = mock(IdentityLinkEntityImpl.class);
@@ -704,8 +712,7 @@ class TaskAdminRuntimeImplDiffblueTest {
   /**
    * Test {@link TaskAdminRuntimeImpl#userCandidates(String)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link IdentityLinkEntityImpl}
-   * (default constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link IdentityLinkEntityImpl} (default constructor).</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
@@ -713,6 +720,8 @@ class TaskAdminRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test userCandidates(String); given ArrayList() add IdentityLinkEntityImpl (default constructor); then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List TaskAdminRuntimeImpl.userCandidates(String)"})
   void testUserCandidates_givenArrayListAddIdentityLinkEntityImpl_thenReturnEmpty() {
     // Arrange
     ArrayList<IdentityLink> identityLinkList = new ArrayList<>();
@@ -730,8 +739,7 @@ class TaskAdminRuntimeImplDiffblueTest {
   /**
    * Test {@link TaskAdminRuntimeImpl#userCandidates(String)}.
    * <ul>
-   *   <li>Given {@link IdentityLinkEntityImpl}
-   * {@link IdentityLinkEntityImpl#getType()} return {@code Type}.</li>
+   *   <li>Given {@link IdentityLinkEntityImpl} {@link IdentityLinkEntityImpl#getType()} return {@code Type}.</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
@@ -739,6 +747,8 @@ class TaskAdminRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test userCandidates(String); given IdentityLinkEntityImpl getType() return 'Type'; then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List TaskAdminRuntimeImpl.userCandidates(String)"})
   void testUserCandidates_givenIdentityLinkEntityImplGetTypeReturnType_thenReturnEmpty() {
     // Arrange
     IdentityLinkEntityImpl identityLinkEntityImpl = mock(IdentityLinkEntityImpl.class);
@@ -769,6 +779,8 @@ class TaskAdminRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test userCandidates(String); then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List TaskAdminRuntimeImpl.userCandidates(String)"})
   void testUserCandidates_thenReturnEmpty() {
     // Arrange
     when(taskService.getIdentityLinksForTask(Mockito.<String>any())).thenReturn(new ArrayList<>());
@@ -791,6 +803,8 @@ class TaskAdminRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test userCandidates(String); then return size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List TaskAdminRuntimeImpl.userCandidates(String)"})
   void testUserCandidates_thenReturnSizeIsOne() {
     // Arrange
     IdentityLinkEntityImpl identityLinkEntityImpl = mock(IdentityLinkEntityImpl.class);
@@ -819,6 +833,8 @@ class TaskAdminRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test groupCandidates(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List TaskAdminRuntimeImpl.groupCandidates(String)"})
   void testGroupCandidates() {
     // Arrange
     when(taskService.getIdentityLinksForTask(Mockito.<String>any())).thenThrow(new IllegalStateException("foo"));
@@ -835,6 +851,8 @@ class TaskAdminRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test groupCandidates(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List TaskAdminRuntimeImpl.groupCandidates(String)"})
   void testGroupCandidates2() {
     // Arrange
     IdentityLinkEntityImpl identityLinkEntityImpl = mock(IdentityLinkEntityImpl.class);
@@ -855,8 +873,7 @@ class TaskAdminRuntimeImplDiffblueTest {
   /**
    * Test {@link TaskAdminRuntimeImpl#groupCandidates(String)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link IdentityLinkEntityImpl}
-   * (default constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link IdentityLinkEntityImpl} (default constructor).</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
@@ -864,6 +881,8 @@ class TaskAdminRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test groupCandidates(String); given ArrayList() add IdentityLinkEntityImpl (default constructor); then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List TaskAdminRuntimeImpl.groupCandidates(String)"})
   void testGroupCandidates_givenArrayListAddIdentityLinkEntityImpl_thenReturnEmpty() {
     // Arrange
     ArrayList<IdentityLink> identityLinkList = new ArrayList<>();
@@ -881,8 +900,7 @@ class TaskAdminRuntimeImplDiffblueTest {
   /**
    * Test {@link TaskAdminRuntimeImpl#groupCandidates(String)}.
    * <ul>
-   *   <li>Given {@link IdentityLinkEntityImpl}
-   * {@link IdentityLinkEntityImpl#getType()} return {@code Type}.</li>
+   *   <li>Given {@link IdentityLinkEntityImpl} {@link IdentityLinkEntityImpl#getType()} return {@code Type}.</li>
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
@@ -890,6 +908,8 @@ class TaskAdminRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test groupCandidates(String); given IdentityLinkEntityImpl getType() return 'Type'; then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List TaskAdminRuntimeImpl.groupCandidates(String)"})
   void testGroupCandidates_givenIdentityLinkEntityImplGetTypeReturnType_thenReturnEmpty() {
     // Arrange
     IdentityLinkEntityImpl identityLinkEntityImpl = mock(IdentityLinkEntityImpl.class);
@@ -920,6 +940,8 @@ class TaskAdminRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test groupCandidates(String); then return Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List TaskAdminRuntimeImpl.groupCandidates(String)"})
   void testGroupCandidates_thenReturnEmpty() {
     // Arrange
     when(taskService.getIdentityLinksForTask(Mockito.<String>any())).thenReturn(new ArrayList<>());
@@ -942,6 +964,8 @@ class TaskAdminRuntimeImplDiffblueTest {
    */
   @Test
   @DisplayName("Test groupCandidates(String); then return size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"List TaskAdminRuntimeImpl.groupCandidates(String)"})
   void testGroupCandidates_thenReturnSizeIsOne() {
     // Arrange
     IdentityLinkEntityImpl identityLinkEntityImpl = mock(IdentityLinkEntityImpl.class);

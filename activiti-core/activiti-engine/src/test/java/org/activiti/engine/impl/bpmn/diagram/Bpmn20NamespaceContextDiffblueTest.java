@@ -18,25 +18,22 @@ package org.activiti.engine.impl.bpmn.diagram;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Iterator;
 import java.util.Map;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class Bpmn20NamespaceContextDiffblueTest {
-  @InjectMocks
-  private Bpmn20NamespaceContext bpmn20NamespaceContext;
-
   /**
    * Test new {@link Bpmn20NamespaceContext} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link Bpmn20NamespaceContext}
+   * Method under test: default or parameterless constructor of {@link Bpmn20NamespaceContext}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Bpmn20NamespaceContext.<init>()"})
   public void testNewBpmn20NamespaceContext() {
     // Arrange, Act and Assert
     Map<String, String> stringStringMap = (new Bpmn20NamespaceContext()).namespaceUris;
@@ -53,6 +50,8 @@ public class Bpmn20NamespaceContextDiffblueTest {
    * Method under test: {@link Bpmn20NamespaceContext#getNamespaceURI(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String Bpmn20NamespaceContext.getNamespaceURI(String)"})
   public void testGetNamespaceURI() {
     // Arrange, Act and Assert
     assertNull((new Bpmn20NamespaceContext()).getNamespaceURI("Prefix"));
@@ -68,6 +67,8 @@ public class Bpmn20NamespaceContextDiffblueTest {
    * Method under test: {@link Bpmn20NamespaceContext#getPrefix(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String Bpmn20NamespaceContext.getPrefix(String)"})
   public void testGetPrefix_whenHttpWwwOmgOrgSpecBpmn20100524Model_thenReturnBpmn() {
     // Arrange, Act and Assert
     assertEquals(Bpmn20NamespaceContext.BPMN,
@@ -84,6 +85,8 @@ public class Bpmn20NamespaceContextDiffblueTest {
    * Method under test: {@link Bpmn20NamespaceContext#getPrefix(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String Bpmn20NamespaceContext.getPrefix(String)"})
   public void testGetPrefix_whenNamespaceUri_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new Bpmn20NamespaceContext()).getPrefix("Namespace URI"));
@@ -99,6 +102,8 @@ public class Bpmn20NamespaceContextDiffblueTest {
    * Method under test: {@link Bpmn20NamespaceContext#getPrefixes(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Iterator Bpmn20NamespaceContext.getPrefixes(String)"})
   public void testGetPrefixes_whenHttpWwwOmgOrgSpecBpmn20100524Model_thenReturnNextIsBpmn() {
     // Arrange and Act
     Iterator<String> actualPrefixes = (new Bpmn20NamespaceContext())
@@ -119,6 +124,8 @@ public class Bpmn20NamespaceContextDiffblueTest {
    * Method under test: {@link Bpmn20NamespaceContext#getPrefixes(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Iterator Bpmn20NamespaceContext.getPrefixes(String)"})
   public void testGetPrefixes_whenNamespaceUri() {
     // Arrange, Act and Assert
     assertFalse((new Bpmn20NamespaceContext()).getPrefixes("Namespace URI").hasNext());

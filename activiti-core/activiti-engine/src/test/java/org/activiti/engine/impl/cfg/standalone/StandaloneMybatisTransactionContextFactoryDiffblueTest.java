@@ -17,22 +17,26 @@ package org.activiti.engine.impl.cfg.standalone;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.cfg.TransactionContext;
 import org.activiti.engine.impl.interceptor.CommandContext;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class StandaloneMybatisTransactionContextFactoryDiffblueTest {
   /**
-   * Test
-   * {@link StandaloneMybatisTransactionContextFactory#openTransactionContext(CommandContext)}.
+   * Test {@link StandaloneMybatisTransactionContextFactory#openTransactionContext(CommandContext)}.
    * <ul>
    *   <li>Then return {@link StandaloneMybatisTransactionContext}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link StandaloneMybatisTransactionContextFactory#openTransactionContext(CommandContext)}
+   * Method under test: {@link StandaloneMybatisTransactionContextFactory#openTransactionContext(CommandContext)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "TransactionContext StandaloneMybatisTransactionContextFactory.openTransactionContext(CommandContext)"})
   public void testOpenTransactionContext_thenReturnStandaloneMybatisTransactionContext() {
     // Arrange and Act
     TransactionContext actualOpenTransactionContextResult = (new StandaloneMybatisTransactionContextFactory())

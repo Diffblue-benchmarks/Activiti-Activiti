@@ -17,9 +17,12 @@ package org.activiti.engine.impl.agenda;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiEngineAgenda;
 import org.activiti.engine.impl.interceptor.CommandContext;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class DefaultActivitiEngineAgendaFactoryDiffblueTest {
   /**
@@ -29,10 +32,11 @@ public class DefaultActivitiEngineAgendaFactoryDiffblueTest {
    *   <li>Then return {@link DefaultActivitiEngineAgenda}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultActivitiEngineAgendaFactory#createAgenda(CommandContext)}
+   * Method under test: {@link DefaultActivitiEngineAgendaFactory#createAgenda(CommandContext)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ActivitiEngineAgenda DefaultActivitiEngineAgendaFactory.createAgenda(CommandContext)"})
   public void testCreateAgenda_whenNull_thenReturnDefaultActivitiEngineAgenda() {
     // Arrange and Act
     ActivitiEngineAgenda actualCreateAgendaResult = (new DefaultActivitiEngineAgendaFactory()).createAgenda(null);

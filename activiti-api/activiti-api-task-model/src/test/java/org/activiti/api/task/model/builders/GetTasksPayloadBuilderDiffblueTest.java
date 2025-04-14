@@ -19,13 +19,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.api.task.model.payloads.GetTasksPayload;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+@ContextConfiguration(classes = {GetTasksPayloadBuilder.class})
+@ExtendWith(SpringExtension.class)
 class GetTasksPayloadBuilderDiffblueTest {
+  @Autowired
+  private GetTasksPayloadBuilder getTasksPayloadBuilder;
+
   /**
    * Test {@link GetTasksPayloadBuilder#withGroup(String)}.
    * <ul>
@@ -36,6 +47,8 @@ class GetTasksPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test withGroup(String); given tasks")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"GetTasksPayloadBuilder GetTasksPayloadBuilder.withGroup(String)"})
   void testWithGroup_givenTasks() {
     // Arrange
     GetTasksPayloadBuilder tasksResult = TaskPayloadBuilder.tasks();
@@ -54,6 +67,8 @@ class GetTasksPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test withGroup(String); given tasks withGroups ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"GetTasksPayloadBuilder GetTasksPayloadBuilder.withGroup(String)"})
   void testWithGroup_givenTasksWithGroupsArrayList() {
     // Arrange
     GetTasksPayloadBuilder tasksResult = TaskPayloadBuilder.tasks();
@@ -78,6 +93,12 @@ class GetTasksPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test build()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void GetTasksPayloadBuilder.<init>()", "GetTasksPayload GetTasksPayloadBuilder.build()",
+      "GetTasksPayloadBuilder GetTasksPayloadBuilder.withAssignee(String)",
+      "GetTasksPayloadBuilder GetTasksPayloadBuilder.withGroups(List)",
+      "GetTasksPayloadBuilder GetTasksPayloadBuilder.withParentTaskId(String)",
+      "GetTasksPayloadBuilder GetTasksPayloadBuilder.withProcessInstanceId(String)"})
   void testBuild() {
     // Arrange
     GetTasksPayloadBuilder withGroupResult = (new GetTasksPayloadBuilder()).withAssignee("Assignee").withGroup("Group");

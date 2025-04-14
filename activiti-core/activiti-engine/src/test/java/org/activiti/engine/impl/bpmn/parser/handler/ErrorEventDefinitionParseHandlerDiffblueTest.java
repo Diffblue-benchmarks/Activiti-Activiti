@@ -17,6 +17,8 @@ package org.activiti.engine.impl.bpmn.parser.handler;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BoundaryEvent;
 import org.activiti.bpmn.model.ErrorEventDefinition;
@@ -26,17 +28,17 @@ import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ErrorEventDefinitionParseHandlerDiffblueTest {
   /**
-   * Test
-   * {@link ErrorEventDefinitionParseHandler#executeParse(BpmnParse, ErrorEventDefinition)}
-   * with {@code BpmnParse}, {@code ErrorEventDefinition}.
+   * Test {@link ErrorEventDefinitionParseHandler#executeParse(BpmnParse, ErrorEventDefinition)} with {@code BpmnParse}, {@code ErrorEventDefinition}.
    * <p>
-   * Method under test:
-   * {@link ErrorEventDefinitionParseHandler#executeParse(BpmnParse, ErrorEventDefinition)}
+   * Method under test: {@link ErrorEventDefinitionParseHandler#executeParse(BpmnParse, ErrorEventDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ErrorEventDefinitionParseHandler.executeParse(BpmnParse, ErrorEventDefinition)"})
   public void testExecuteParseWithBpmnParseErrorEventDefinition() {
     // Arrange
     ErrorEventDefinitionParseHandler errorEventDefinitionParseHandler = new ErrorEventDefinitionParseHandler();
@@ -63,12 +65,14 @@ public class ErrorEventDefinitionParseHandlerDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of
-   * {@link ErrorEventDefinitionParseHandler}
+   *   <li>default or parameterless constructor of {@link ErrorEventDefinitionParseHandler}
    *   <li>{@link ErrorEventDefinitionParseHandler#getHandledType()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ErrorEventDefinitionParseHandler.<init>()",
+      "Class ErrorEventDefinitionParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends BaseElement> actualHandledType = (new ErrorEventDefinitionParseHandler()).getHandledType();

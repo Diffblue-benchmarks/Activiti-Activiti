@@ -18,9 +18,11 @@ package org.activiti.validation;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ValidationErrorDiffblueTest {
@@ -31,6 +33,8 @@ class ValidationErrorDiffblueTest {
    */
   @Test
   @DisplayName("Test toString()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String ValidationError.toString()"})
   void testToString() {
     // Arrange
     ValidationError validationError = new ValidationError();
@@ -59,6 +63,8 @@ class ValidationErrorDiffblueTest {
    */
   @Test
   @DisplayName("Test toString()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String ValidationError.toString()"})
   void testToString2() {
     // Arrange
     ValidationError validationError = new ValidationError();
@@ -87,6 +93,8 @@ class ValidationErrorDiffblueTest {
    */
   @Test
   @DisplayName("Test toString()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String ValidationError.toString()"})
   void testToString3() {
     // Arrange
     ValidationError validationError = new ValidationError();
@@ -100,8 +108,7 @@ class ValidationErrorDiffblueTest {
   /**
    * Test {@link ValidationError#toString()}.
    * <ul>
-   *   <li>Given {@link ValidationError} (default constructor) ActivityId is
-   * {@code foo}.</li>
+   *   <li>Given {@link ValidationError} (default constructor) ActivityId is {@code foo}.</li>
    *   <li>Then return a string.</li>
    * </ul>
    * <p>
@@ -109,6 +116,8 @@ class ValidationErrorDiffblueTest {
    */
   @Test
   @DisplayName("Test toString(); given ValidationError (default constructor) ActivityId is 'foo'; then return a string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String ValidationError.toString()"})
   void testToString_givenValidationErrorActivityIdIsFoo_thenReturnAString() {
     // Arrange
     ValidationError validationError = new ValidationError();
@@ -133,8 +142,7 @@ class ValidationErrorDiffblueTest {
   /**
    * Test {@link ValidationError#toString()}.
    * <ul>
-   *   <li>Given {@link ValidationError} (default constructor) ActivityId is
-   * {@code foo}.</li>
+   *   <li>Given {@link ValidationError} (default constructor) ActivityId is {@code foo}.</li>
    *   <li>Then return a string.</li>
    * </ul>
    * <p>
@@ -142,6 +150,8 @@ class ValidationErrorDiffblueTest {
    */
   @Test
   @DisplayName("Test toString(); given ValidationError (default constructor) ActivityId is 'foo'; then return a string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String ValidationError.toString()"})
   void testToString_givenValidationErrorActivityIdIsFoo_thenReturnAString2() {
     // Arrange
     ValidationError validationError = new ValidationError();
@@ -166,8 +176,7 @@ class ValidationErrorDiffblueTest {
   /**
    * Test {@link ValidationError#toString()}.
    * <ul>
-   *   <li>Given {@link ValidationError} (default constructor) ActivityName is
-   * {@code foo}.</li>
+   *   <li>Given {@link ValidationError} (default constructor) ActivityName is {@code foo}.</li>
    *   <li>Then return a string.</li>
    * </ul>
    * <p>
@@ -175,6 +184,8 @@ class ValidationErrorDiffblueTest {
    */
   @Test
   @DisplayName("Test toString(); given ValidationError (default constructor) ActivityName is 'foo'; then return a string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String ValidationError.toString()"})
   void testToString_givenValidationErrorActivityNameIsFoo_thenReturnAString() {
     // Arrange
     ValidationError validationError = new ValidationError();
@@ -199,8 +210,7 @@ class ValidationErrorDiffblueTest {
   /**
    * Test {@link ValidationError#toString()}.
    * <ul>
-   *   <li>Given {@link ValidationError} (default constructor) Key is
-   * {@code foo}.</li>
+   *   <li>Given {@link ValidationError} (default constructor) Key is {@code foo}.</li>
    *   <li>Then return a string.</li>
    * </ul>
    * <p>
@@ -208,6 +218,8 @@ class ValidationErrorDiffblueTest {
    */
   @Test
   @DisplayName("Test toString(); given ValidationError (default constructor) Key is 'foo'; then return a string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String ValidationError.toString()"})
   void testToString_givenValidationErrorKeyIsFoo_thenReturnAString() {
     // Arrange
     ValidationError validationError = new ValidationError();
@@ -232,8 +244,7 @@ class ValidationErrorDiffblueTest {
   /**
    * Test {@link ValidationError#toString()}.
    * <ul>
-   *   <li>Given {@link ValidationError} (default constructor) Key is
-   * {@code foo}.</li>
+   *   <li>Given {@link ValidationError} (default constructor) Key is {@code foo}.</li>
    *   <li>Then return a string.</li>
    * </ul>
    * <p>
@@ -241,6 +252,8 @@ class ValidationErrorDiffblueTest {
    */
   @Test
   @DisplayName("Test toString(); given ValidationError (default constructor) Key is 'foo'; then return a string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String ValidationError.toString()"})
   void testToString_givenValidationErrorKeyIsFoo_thenReturnAString2() {
     // Arrange
     ValidationError validationError = new ValidationError();
@@ -265,14 +278,15 @@ class ValidationErrorDiffblueTest {
   /**
    * Test {@link ValidationError#toString()}.
    * <ul>
-   *   <li>Given {@link ValidationError} (default constructor) ProcessDefinitionName
-   * is {@code - [Extra info :}.</li>
+   *   <li>Given {@link ValidationError} (default constructor) ProcessDefinitionName is {@code - [Extra info :}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ValidationError#toString()}
    */
   @Test
   @DisplayName("Test toString(); given ValidationError (default constructor) ProcessDefinitionName is '- [Extra info :'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String ValidationError.toString()"})
   void testToString_givenValidationErrorProcessDefinitionNameIsExtraInfo() {
     // Arrange
     ValidationError validationError = new ValidationError();
@@ -286,8 +300,7 @@ class ValidationErrorDiffblueTest {
   /**
    * Test {@link ValidationError#toString()}.
    * <ul>
-   *   <li>Given {@link ValidationError} (default constructor) XmlColumnNumber is
-   * one.</li>
+   *   <li>Given {@link ValidationError} (default constructor) XmlColumnNumber is one.</li>
    *   <li>Then return a string.</li>
    * </ul>
    * <p>
@@ -295,6 +308,8 @@ class ValidationErrorDiffblueTest {
    */
   @Test
   @DisplayName("Test toString(); given ValidationError (default constructor) XmlColumnNumber is one; then return a string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String ValidationError.toString()"})
   void testToString_givenValidationErrorXmlColumnNumberIsOne_thenReturnAString() {
     // Arrange
     ValidationError validationError = new ValidationError();
@@ -319,14 +334,15 @@ class ValidationErrorDiffblueTest {
   /**
    * Test {@link ValidationError#toString()}.
    * <ul>
-   *   <li>Then return
-   * {@code [Validation set: 'null' | Problem: 'null'] : null - [Extra info : ]}.</li>
+   *   <li>Then return {@code [Validation set: 'null' | Problem: 'null'] : null - [Extra info : ]}.</li>
    * </ul>
    * <p>
    * Method under test: {@link ValidationError#toString()}
    */
   @Test
   @DisplayName("Test toString(); then return '[Validation set: 'null' | Problem: 'null'] : null - [Extra info : ]'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String ValidationError.toString()"})
   void testToString_thenReturnValidationSetNullProblemNullNullExtraInfo() {
     // Arrange, Act and Assert
     assertEquals("[Validation set: 'null' | Problem: 'null'] : null - [Extra info : ]",
@@ -367,6 +383,19 @@ class ValidationErrorDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidationError.<init>()", "String ValidationError.getActivityId()",
+      "String ValidationError.getActivityName()", "String ValidationError.getDefaultDescription()",
+      "String ValidationError.getKey()", "Map ValidationError.getParams()", "String ValidationError.getProblem()",
+      "String ValidationError.getProcessDefinitionId()", "String ValidationError.getProcessDefinitionName()",
+      "String ValidationError.getValidatorSetName()", "int ValidationError.getXmlColumnNumber()",
+      "int ValidationError.getXmlLineNumber()", "boolean ValidationError.isWarning()",
+      "void ValidationError.setActivityId(String)", "void ValidationError.setActivityName(String)",
+      "void ValidationError.setDefaultDescription(String)", "void ValidationError.setKey(String)",
+      "void ValidationError.setParams(Map)", "void ValidationError.setProblem(String)",
+      "void ValidationError.setProcessDefinitionId(String)", "void ValidationError.setProcessDefinitionName(String)",
+      "void ValidationError.setValidatorSetName(String)", "void ValidationError.setWarning(boolean)",
+      "void ValidationError.setXmlColumnNumber(int)", "void ValidationError.setXmlLineNumber(int)"})
   void testGettersAndSetters() {
     // Arrange and Act
     ValidationError actualValidationError = new ValidationError();
@@ -396,7 +425,7 @@ class ValidationErrorDiffblueTest {
     int actualXmlLineNumber = actualValidationError.getXmlLineNumber();
     boolean actualIsWarningResult = actualValidationError.isWarning();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualActivityId);
     assertEquals("42", actualProcessDefinitionId);
     assertEquals("Activity Name", actualActivityName);

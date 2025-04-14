@@ -20,20 +20,23 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class GetProcessInstancesPayloadDiffblueTest {
   /**
    * Test new {@link GetProcessInstancesPayload} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link GetProcessInstancesPayload}
+   * Method under test: default or parameterless constructor of {@link GetProcessInstancesPayload}
    */
   @Test
   @DisplayName("Test new GetProcessInstancesPayload (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void GetProcessInstancesPayload.<init>()"})
   void testNewGetProcessInstancesPayload() {
     // Arrange and Act
     GetProcessInstancesPayload actualGetProcessInstancesPayload = new GetProcessInstancesPayload();
@@ -66,6 +69,15 @@ class GetProcessInstancesPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String GetProcessInstancesPayload.getBusinessKey()", "String GetProcessInstancesPayload.getId()",
+      "String GetProcessInstancesPayload.getParentProcessInstanceId()",
+      "Set GetProcessInstancesPayload.getProcessDefinitionKeys()", "boolean GetProcessInstancesPayload.isActiveOnly()",
+      "boolean GetProcessInstancesPayload.isSuspendedOnly()", "void GetProcessInstancesPayload.setActiveOnly(boolean)",
+      "void GetProcessInstancesPayload.setBusinessKey(String)",
+      "void GetProcessInstancesPayload.setParentProcessInstanceId(String)",
+      "void GetProcessInstancesPayload.setProcessDefinitionKeys(Set)",
+      "void GetProcessInstancesPayload.setSuspendedOnly(boolean)"})
   void testGettersAndSetters() {
     // Arrange
     GetProcessInstancesPayload getProcessInstancesPayload = new GetProcessInstancesPayload();
@@ -84,7 +96,7 @@ class GetProcessInstancesPayloadDiffblueTest {
     boolean actualIsActiveOnlyResult = getProcessInstancesPayload.isActiveOnly();
     boolean actualIsSuspendedOnlyResult = getProcessInstancesPayload.isSuspendedOnly();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualParentProcessInstanceId);
     assertEquals("Business Key", actualBusinessKey);
     assertTrue(actualProcessDefinitionKeys.isEmpty());

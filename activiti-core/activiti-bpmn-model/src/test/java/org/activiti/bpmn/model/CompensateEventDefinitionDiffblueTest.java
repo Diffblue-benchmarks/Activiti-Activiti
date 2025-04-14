@@ -19,14 +19,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import java.util.HashMap;
-import java.util.List;
-import java.util.function.BiFunction;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class CompensateEventDefinitionDiffblueTest {
   /**
@@ -39,40 +35,11 @@ public class CompensateEventDefinitionDiffblueTest {
    * Method under test: {@link CompensateEventDefinition#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CompensateEventDefinition CompensateEventDefinition.clone()"})
   public void testClone_givenCompensateEventDefinition_thenReturnWaitForCompletion() {
     // Arrange and Act
     CompensateEventDefinition actualCloneResult = (new CompensateEventDefinition()).clone();
-
-    // Assert
-    assertNull(actualCloneResult.getId());
-    assertNull(actualCloneResult.getActivityRef());
-    assertEquals(0, actualCloneResult.getXmlColumnNumber());
-    assertEquals(0, actualCloneResult.getXmlRowNumber());
-    assertTrue(actualCloneResult.getAttributes().isEmpty());
-    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-    assertTrue(actualCloneResult.isWaitForCompletion());
-  }
-
-  /**
-   * Test {@link CompensateEventDefinition#clone()}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@code foo} and
-   * {@link BiFunction}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CompensateEventDefinition#clone()}
-   */
-  @Test
-  public void testClone_givenHashMapComputeIfPresentFooAndBiFunction() {
-    // Arrange
-    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
-    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
-
-    CompensateEventDefinition compensateEventDefinition = new CompensateEventDefinition();
-    compensateEventDefinition.setExtensionElements(extensionElements);
-
-    // Act
-    CompensateEventDefinition actualCloneResult = compensateEventDefinition.clone();
 
     // Assert
     assertNull(actualCloneResult.getId());
@@ -93,6 +60,8 @@ public class CompensateEventDefinitionDiffblueTest {
    * Method under test: {@link CompensateEventDefinition#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"CompensateEventDefinition CompensateEventDefinition.clone()"})
   public void testClone_thenReturnNotWaitForCompletion() {
     // Arrange
     CompensateEventDefinition compensateEventDefinition = new CompensateEventDefinition();
@@ -112,61 +81,6 @@ public class CompensateEventDefinitionDiffblueTest {
   }
 
   /**
-   * Test {@link CompensateEventDefinition#setValues(CompensateEventDefinition)}
-   * with {@code otherDefinition}.
-   * <ul>
-   *   <li>Given {@code false}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link CompensateEventDefinition#setValues(CompensateEventDefinition)}
-   */
-  @Test
-  public void testSetValuesWithOtherDefinition_givenFalse() {
-    // Arrange
-    ExtensionElement extensionElement = mock(ExtensionElement.class);
-    when(extensionElement.getName()).thenReturn("Name");
-
-    CompensateEventDefinition compensateEventDefinition = new CompensateEventDefinition();
-    compensateEventDefinition.addExtensionElement(extensionElement);
-
-    CompensateEventDefinition otherDefinition = new CompensateEventDefinition();
-    otherDefinition.setWaitForCompletion(false);
-
-    // Act
-    compensateEventDefinition.setValues(otherDefinition);
-
-    // Assert
-    verify(extensionElement, atLeast(1)).getName();
-  }
-
-  /**
-   * Test {@link CompensateEventDefinition#setValues(CompensateEventDefinition)}
-   * with {@code otherDefinition}.
-   * <ul>
-   *   <li>Then calls {@link ExtensionElement#getName()}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link CompensateEventDefinition#setValues(CompensateEventDefinition)}
-   */
-  @Test
-  public void testSetValuesWithOtherDefinition_thenCallsGetName() {
-    // Arrange
-    ExtensionElement extensionElement = mock(ExtensionElement.class);
-    when(extensionElement.getName()).thenReturn("Name");
-
-    CompensateEventDefinition compensateEventDefinition = new CompensateEventDefinition();
-    compensateEventDefinition.addExtensionElement(extensionElement);
-
-    // Act
-    compensateEventDefinition.setValues(new CompensateEventDefinition());
-
-    // Assert
-    verify(extensionElement, atLeast(1)).getName();
-  }
-
-  /**
    * Test getters and setters.
    * <p>
    * Methods under test:
@@ -179,6 +93,11 @@ public class CompensateEventDefinitionDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CompensateEventDefinition.<init>()", "String CompensateEventDefinition.getActivityRef()",
+      "boolean CompensateEventDefinition.isWaitForCompletion()",
+      "void CompensateEventDefinition.setActivityRef(String)",
+      "void CompensateEventDefinition.setWaitForCompletion(boolean)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     CompensateEventDefinition actualCompensateEventDefinition = new CompensateEventDefinition();
@@ -187,8 +106,9 @@ public class CompensateEventDefinitionDiffblueTest {
     String actualActivityRef = actualCompensateEventDefinition.getActivityRef();
     boolean actualIsWaitForCompletionResult = actualCompensateEventDefinition.isWaitForCompletion();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Activity Ref", actualActivityRef);
+    assertNull(actualCompensateEventDefinition.getId());
     assertEquals(0, actualCompensateEventDefinition.getXmlColumnNumber());
     assertEquals(0, actualCompensateEventDefinition.getXmlRowNumber());
     assertTrue(actualCompensateEventDefinition.getAttributes().isEmpty());

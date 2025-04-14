@@ -21,10 +21,13 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.JavaDelegate;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class JavaDelegateInvocationDiffblueTest {
@@ -33,12 +36,14 @@ public class JavaDelegateInvocationDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link JavaDelegateInvocation#JavaDelegateInvocation(JavaDelegate, DelegateExecution)}
+   *   <li>{@link JavaDelegateInvocation#JavaDelegateInvocation(JavaDelegate, DelegateExecution)}
    *   <li>{@link JavaDelegateInvocation#getTarget()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JavaDelegateInvocation.<init>(JavaDelegate, DelegateExecution)",
+      "Object JavaDelegateInvocation.getTarget()"})
   public void testGettersAndSetters() {
     // Arrange
     JavaDelegate delegateInstance = mock(JavaDelegate.class);
@@ -49,8 +54,8 @@ public class JavaDelegateInvocationDiffblueTest {
     Object actualTarget = actualJavaDelegateInvocation.getTarget();
 
     // Assert
-    assertNull(actualJavaDelegateInvocation.getInvocationParameters());
     assertNull(actualJavaDelegateInvocation.getInvocationResult());
+    assertNull(actualJavaDelegateInvocation.getInvocationParameters());
     assertSame(delegateInstance, actualTarget);
   }
 
@@ -60,6 +65,8 @@ public class JavaDelegateInvocationDiffblueTest {
    * Method under test: {@link JavaDelegateInvocation#invoke()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JavaDelegateInvocation.invoke()"})
   public void testInvoke() {
     // Arrange
     JavaDelegate delegateInstance = mock(JavaDelegate.class);

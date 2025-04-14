@@ -17,7 +17,11 @@ package org.activiti.engine.impl.persistence.entity;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class HistoricFormPropertyEntityImplDiffblueTest {
   /**
@@ -25,8 +29,7 @@ public class HistoricFormPropertyEntityImplDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of
-   * {@link HistoricFormPropertyEntityImpl}
+   *   <li>default or parameterless constructor of {@link HistoricFormPropertyEntityImpl}
    *   <li>{@link HistoricFormPropertyEntityImpl#setPropertyId(String)}
    *   <li>{@link HistoricFormPropertyEntityImpl#setPropertyValue(String)}
    *   <li>{@link HistoricFormPropertyEntityImpl#getPropertyId()}
@@ -34,6 +37,12 @@ public class HistoricFormPropertyEntityImplDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HistoricFormPropertyEntityImpl.<init>()",
+      "String HistoricFormPropertyEntityImpl.getPropertyId()",
+      "String HistoricFormPropertyEntityImpl.getPropertyValue()",
+      "void HistoricFormPropertyEntityImpl.setPropertyId(String)",
+      "void HistoricFormPropertyEntityImpl.setPropertyValue(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     HistoricFormPropertyEntityImpl actualHistoricFormPropertyEntityImpl = new HistoricFormPropertyEntityImpl();
@@ -41,10 +50,16 @@ public class HistoricFormPropertyEntityImplDiffblueTest {
     actualHistoricFormPropertyEntityImpl.setPropertyValue("42");
     String actualPropertyId = actualHistoricFormPropertyEntityImpl.getPropertyId();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualPropertyId);
     assertEquals("42", actualHistoricFormPropertyEntityImpl.getPropertyValue());
     assertEquals("FormProperty", actualHistoricFormPropertyEntityImpl.getDetailType());
+    assertNull(actualHistoricFormPropertyEntityImpl.getId());
+    assertNull(actualHistoricFormPropertyEntityImpl.getActivityInstanceId());
+    assertNull(actualHistoricFormPropertyEntityImpl.getExecutionId());
+    assertNull(actualHistoricFormPropertyEntityImpl.getProcessInstanceId());
+    assertNull(actualHistoricFormPropertyEntityImpl.getTaskId());
+    assertNull(actualHistoricFormPropertyEntityImpl.getTime());
     assertFalse(actualHistoricFormPropertyEntityImpl.isDeleted());
     assertFalse(actualHistoricFormPropertyEntityImpl.isInserted());
     assertFalse(actualHistoricFormPropertyEntityImpl.isUpdated());

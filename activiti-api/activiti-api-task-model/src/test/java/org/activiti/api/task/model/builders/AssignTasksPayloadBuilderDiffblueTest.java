@@ -18,13 +18,24 @@ package org.activiti.api.task.model.builders;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.api.task.model.payloads.AssignTasksPayload;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+@ContextConfiguration(classes = {AssignTasksPayloadBuilder.class})
+@ExtendWith(SpringExtension.class)
 class AssignTasksPayloadBuilderDiffblueTest {
+  @Autowired
+  private AssignTasksPayloadBuilder assignTasksPayloadBuilder;
+
   /**
    * Test {@link AssignTasksPayloadBuilder#withTaskIds(List)}.
    * <ul>
@@ -36,6 +47,8 @@ class AssignTasksPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test withTaskIds(List); given '42'; when ArrayList() add '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"AssignTasksPayloadBuilder AssignTasksPayloadBuilder.withTaskIds(List)"})
   void testWithTaskIds_given42_whenArrayListAdd42() {
     // Arrange
     AssignTasksPayloadBuilder assignMultipleResult = TaskPayloadBuilder.assignMultiple();
@@ -63,6 +76,8 @@ class AssignTasksPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test withTaskIds(List); given 'foo'; when ArrayList() add 'foo'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"AssignTasksPayloadBuilder AssignTasksPayloadBuilder.withTaskIds(List)"})
   void testWithTaskIds_givenFoo_whenArrayListAddFoo() {
     // Arrange
     AssignTasksPayloadBuilder assignMultipleResult = TaskPayloadBuilder.assignMultiple();
@@ -88,6 +103,8 @@ class AssignTasksPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test withTaskIds(List); when ArrayList()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"AssignTasksPayloadBuilder AssignTasksPayloadBuilder.withTaskIds(List)"})
   void testWithTaskIds_whenArrayList() {
     // Arrange
     AssignTasksPayloadBuilder assignMultipleResult = TaskPayloadBuilder.assignMultiple();
@@ -108,6 +125,8 @@ class AssignTasksPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test withTaskId(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"AssignTasksPayloadBuilder AssignTasksPayloadBuilder.withTaskId(String)"})
   void testWithTaskId() {
     // Arrange
     AssignTasksPayloadBuilder assignMultipleResult = TaskPayloadBuilder.assignMultiple();
@@ -128,6 +147,9 @@ class AssignTasksPayloadBuilderDiffblueTest {
    */
   @Test
   @DisplayName("Test build()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AssignTasksPayloadBuilder.<init>()", "AssignTasksPayload AssignTasksPayloadBuilder.build()",
+      "AssignTasksPayloadBuilder AssignTasksPayloadBuilder.withAssignee(String)"})
   void testBuild() {
     // Arrange
     AssignTasksPayloadBuilder withAssigneeResult = (new AssignTasksPayloadBuilder()).withAssignee("Assignee");

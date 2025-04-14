@@ -16,7 +16,10 @@
 package org.activiti.engine.impl;
 
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class EventSubscriptionQueryPropertyDiffblueTest {
   /**
@@ -24,12 +27,14 @@ public class EventSubscriptionQueryPropertyDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link EventSubscriptionQueryProperty#EventSubscriptionQueryProperty(String)}
+   *   <li>{@link EventSubscriptionQueryProperty#EventSubscriptionQueryProperty(String)}
    *   <li>{@link EventSubscriptionQueryProperty#getName()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventSubscriptionQueryProperty.<init>(String)",
+      "String EventSubscriptionQueryProperty.getName()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("Property Name", (new EventSubscriptionQueryProperty("Property Name")).getName());

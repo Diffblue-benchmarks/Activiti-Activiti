@@ -18,10 +18,14 @@ package org.activiti.engine.test.impl.logger;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
+import org.activiti.engine.test.impl.logger.DebugInfoExecutionTree.DebugInfoExecutionTreeNode;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class AbstractDebugInfoDiffblueTest {
   /**
@@ -30,6 +34,8 @@ public class AbstractDebugInfoDiffblueTest {
    * Method under test: {@link AbstractDebugInfo#getExecutionTrees()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List AbstractDebugInfo.getExecutionTrees()"})
   public void testGetExecutionTrees() {
     // Arrange, Act and Assert
     assertTrue((new DebugInfoExecutionCreated(ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
@@ -43,6 +49,8 @@ public class AbstractDebugInfoDiffblueTest {
    * Method under test: {@link AbstractDebugInfo#setExecutionTrees(List)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractDebugInfo.setExecutionTrees(List)"})
   public void testSetExecutionTrees() {
     // Arrange
     DebugInfoExecutionCreated debugInfoExecutionCreated = new DebugInfoExecutionCreated(
@@ -59,17 +67,18 @@ public class AbstractDebugInfoDiffblueTest {
   /**
    * Test {@link AbstractDebugInfo#addExecutionTree(DebugInfoExecutionTree)}.
    * <p>
-   * Method under test:
-   * {@link AbstractDebugInfo#addExecutionTree(DebugInfoExecutionTree)}
+   * Method under test: {@link AbstractDebugInfo#addExecutionTree(DebugInfoExecutionTree)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void AbstractDebugInfo.addExecutionTree(DebugInfoExecutionTree)"})
   public void testAddExecutionTree() {
     // Arrange
     DebugInfoExecutionCreated debugInfoExecutionCreated = new DebugInfoExecutionCreated(
         ExecutionEntityImpl.createWithEmptyRelationshipCollections());
 
     DebugInfoExecutionTree executionTree = new DebugInfoExecutionTree();
-    executionTree.setProcessInstance(new DebugInfoExecutionTree.DebugInfoExecutionTreeNode());
+    executionTree.setProcessInstance(new DebugInfoExecutionTreeNode());
 
     // Act
     debugInfoExecutionCreated.addExecutionTree(executionTree);

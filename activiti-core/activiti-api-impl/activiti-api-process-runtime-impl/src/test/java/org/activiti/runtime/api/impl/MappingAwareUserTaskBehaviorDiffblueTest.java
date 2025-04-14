@@ -16,10 +16,12 @@
 package org.activiti.runtime.api.impl;
 
 import static org.junit.jupiter.api.Assertions.assertNull;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.UserTask;
 import org.activiti.engine.impl.bpmn.behavior.VariablesCalculator;
 import org.activiti.engine.impl.bpmn.behavior.VariablesPropagator;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,14 +47,14 @@ class MappingAwareUserTaskBehaviorDiffblueTest {
   private VariablesPropagator variablesPropagator;
 
   /**
-   * Test
-   * {@link MappingAwareUserTaskBehavior#MappingAwareUserTaskBehavior(UserTask, VariablesCalculator, VariablesPropagator)}.
+   * Test {@link MappingAwareUserTaskBehavior#MappingAwareUserTaskBehavior(UserTask, VariablesCalculator, VariablesPropagator)}.
    * <p>
-   * Method under test:
-   * {@link MappingAwareUserTaskBehavior#MappingAwareUserTaskBehavior(UserTask, VariablesCalculator, VariablesPropagator)}
+   * Method under test: {@link MappingAwareUserTaskBehavior#MappingAwareUserTaskBehavior(UserTask, VariablesCalculator, VariablesPropagator)}
    */
   @Test
   @DisplayName("Test new MappingAwareUserTaskBehavior(UserTask, VariablesCalculator, VariablesPropagator)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void MappingAwareUserTaskBehavior.<init>(UserTask, VariablesCalculator, VariablesPropagator)"})
   void testNewMappingAwareUserTaskBehavior() {
     // Arrange, Act and Assert
     assertNull((new MappingAwareUserTaskBehavior(userTask, variablesCalculator, variablesPropagator))

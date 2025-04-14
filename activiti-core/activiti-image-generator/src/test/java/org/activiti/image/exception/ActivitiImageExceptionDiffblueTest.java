@@ -18,7 +18,9 @@ package org.activiti.image.exception;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ActivitiImageExceptionDiffblueTest {
@@ -29,11 +31,13 @@ class ActivitiImageExceptionDiffblueTest {
    *   <li>Then return Cause is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiImageException#ActivitiImageException(String)}
+   * Method under test: {@link ActivitiImageException#ActivitiImageException(String)}
    */
   @Test
   @DisplayName("Test new ActivitiImageException(String); when 'An error occurred'; then return Cause is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ActivitiImageException.<init>(String)",
+      "void ActivitiImageException.<init>(String, Throwable)"})
   void testNewActivitiImageException_whenAnErrorOccurred_thenReturnCauseIsNull() {
     // Arrange and Act
     ActivitiImageException actualActivitiImageException = new ActivitiImageException("An error occurred");
@@ -45,18 +49,19 @@ class ActivitiImageExceptionDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ActivitiImageException#ActivitiImageException(String, Throwable)}.
+   * Test {@link ActivitiImageException#ActivitiImageException(String, Throwable)}.
    * <ul>
    *   <li>When {@link Throwable#Throwable()}.</li>
    *   <li>Then return Cause is {@link Throwable#Throwable()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ActivitiImageException#ActivitiImageException(String, Throwable)}
+   * Method under test: {@link ActivitiImageException#ActivitiImageException(String, Throwable)}
    */
   @Test
   @DisplayName("Test new ActivitiImageException(String, Throwable); when Throwable(); then return Cause is Throwable()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ActivitiImageException.<init>(String)",
+      "void ActivitiImageException.<init>(String, Throwable)"})
   void testNewActivitiImageException_whenThrowable_thenReturnCauseIsThrowable() {
     // Arrange
     Throwable cause = new Throwable();

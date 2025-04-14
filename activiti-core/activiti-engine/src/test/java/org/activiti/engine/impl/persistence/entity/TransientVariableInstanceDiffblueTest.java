@@ -17,10 +17,14 @@ package org.activiti.engine.impl.persistence.entity;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class TransientVariableInstanceDiffblueTest {
   /**
@@ -28,8 +32,7 @@ public class TransientVariableInstanceDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link TransientVariableInstance#TransientVariableInstance(String, Object)}
+   *   <li>{@link TransientVariableInstance#TransientVariableInstance(String, Object)}
    *   <li>{@link TransientVariableInstance#setValue(Object)}
    *   <li>{@link TransientVariableInstance#setBytes(byte[])}
    *   <li>{@link TransientVariableInstance#setCachedValue(Object)}
@@ -69,6 +72,26 @@ public class TransientVariableInstanceDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TransientVariableInstance.<init>(String, Object)",
+      "byte[] TransientVariableInstance.getBytes()", "Object TransientVariableInstance.getCachedValue()",
+      "Double TransientVariableInstance.getDoubleValue()", "String TransientVariableInstance.getExecutionId()",
+      "String TransientVariableInstance.getId()", "Long TransientVariableInstance.getLongValue()",
+      "String TransientVariableInstance.getName()", "Object TransientVariableInstance.getPersistentState()",
+      "String TransientVariableInstance.getProcessInstanceId()", "int TransientVariableInstance.getRevision()",
+      "int TransientVariableInstance.getRevisionNext()", "String TransientVariableInstance.getTaskId()",
+      "String TransientVariableInstance.getTextValue()", "String TransientVariableInstance.getTextValue2()",
+      "String TransientVariableInstance.getTypeName()", "Object TransientVariableInstance.getValue()",
+      "boolean TransientVariableInstance.isDeleted()", "boolean TransientVariableInstance.isInserted()",
+      "boolean TransientVariableInstance.isUpdated()", "void TransientVariableInstance.setBytes(byte[])",
+      "void TransientVariableInstance.setCachedValue(Object)", "void TransientVariableInstance.setDeleted(boolean)",
+      "void TransientVariableInstance.setDoubleValue(Double)", "void TransientVariableInstance.setExecutionId(String)",
+      "void TransientVariableInstance.setId(String)", "void TransientVariableInstance.setInserted(boolean)",
+      "void TransientVariableInstance.setLongValue(Long)", "void TransientVariableInstance.setName(String)",
+      "void TransientVariableInstance.setProcessInstanceId(String)", "void TransientVariableInstance.setRevision(int)",
+      "void TransientVariableInstance.setTaskId(String)", "void TransientVariableInstance.setTextValue(String)",
+      "void TransientVariableInstance.setTextValue2(String)", "void TransientVariableInstance.setTypeName(String)",
+      "void TransientVariableInstance.setUpdated(boolean)", "void TransientVariableInstance.setValue(Object)"})
   public void testGettersAndSetters() throws UnsupportedEncodingException {
     // Arrange and Act
     TransientVariableInstance actualTransientVariableInstance = new TransientVariableInstance("Variable Name",
@@ -91,28 +114,39 @@ public class TransientVariableInstanceDiffblueTest {
     actualTransientVariableInstance.setTextValue("42");
     actualTransientVariableInstance.setTypeName("Type Name");
     actualTransientVariableInstance.setUpdated(true);
-    actualTransientVariableInstance.getBytes();
-    actualTransientVariableInstance.getCachedValue();
-    actualTransientVariableInstance.getDoubleValue();
-    actualTransientVariableInstance.getExecutionId();
-    actualTransientVariableInstance.getId();
-    actualTransientVariableInstance.getLongValue();
+    byte[] actualBytes = actualTransientVariableInstance.getBytes();
+    Object actualCachedValue = actualTransientVariableInstance.getCachedValue();
+    Double actualDoubleValue = actualTransientVariableInstance.getDoubleValue();
+    String actualExecutionId = actualTransientVariableInstance.getExecutionId();
+    String actualId = actualTransientVariableInstance.getId();
+    Long actualLongValue = actualTransientVariableInstance.getLongValue();
     String actualName = actualTransientVariableInstance.getName();
-    actualTransientVariableInstance.getPersistentState();
-    actualTransientVariableInstance.getProcessInstanceId();
+    Object actualPersistentState = actualTransientVariableInstance.getPersistentState();
+    String actualProcessInstanceId = actualTransientVariableInstance.getProcessInstanceId();
     int actualRevision = actualTransientVariableInstance.getRevision();
     int actualRevisionNext = actualTransientVariableInstance.getRevisionNext();
-    actualTransientVariableInstance.getTaskId();
-    actualTransientVariableInstance.getTextValue();
-    actualTransientVariableInstance.getTextValue2();
+    String actualTaskId = actualTransientVariableInstance.getTaskId();
+    String actualTextValue = actualTransientVariableInstance.getTextValue();
+    String actualTextValue2 = actualTransientVariableInstance.getTextValue2();
     String actualTypeName = actualTransientVariableInstance.getTypeName();
     Object actualValue = actualTransientVariableInstance.getValue();
     boolean actualIsDeletedResult = actualTransientVariableInstance.isDeleted();
     boolean actualIsInsertedResult = actualTransientVariableInstance.isInserted();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Variable Name", actualName);
     assertEquals("transient", actualTypeName);
+    assertNull(actualBytes);
+    assertNull(actualDoubleValue);
+    assertNull(actualLongValue);
+    assertNull(actualCachedValue);
+    assertNull(actualPersistentState);
+    assertNull(actualExecutionId);
+    assertNull(actualId);
+    assertNull(actualProcessInstanceId);
+    assertNull(actualTaskId);
+    assertNull(actualTextValue);
+    assertNull(actualTextValue2);
     assertEquals(0, actualRevision);
     assertEquals(0, actualRevisionNext);
     assertFalse(actualIsDeletedResult);

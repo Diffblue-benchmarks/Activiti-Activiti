@@ -21,28 +21,43 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.api.process.model.StartMessageDeploymentDefinition;
 import org.activiti.api.process.model.events.MessageDefinitionEvent;
+import org.activiti.api.process.model.events.MessageDefinitionEvent.MessageDefinitionEvents;
+import org.activiti.api.runtime.event.impl.StartMessageDeployedEventImpl.Builder;
 import org.activiti.api.runtime.model.impl.ProcessDefinitionImpl;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+@ContextConfiguration(classes = {Builder.class})
+@ExtendWith(SpringExtension.class)
 class StartMessageDeployedEventImplDiffblueTest {
+  @Autowired
+  private Builder builder;
+
   /**
    * Test {@link StartMessageDeployedEventImpl#builder()}.
    * <p>
    * Methods under test:
    * <ul>
    *   <li>{@link StartMessageDeployedEventImpl#builder()}
-   *   <li>
-   * {@link StartMessageDeployedEventImpl#withEntity(StartMessageDeploymentDefinition)}
+   *   <li>{@link StartMessageDeployedEventImpl#withEntity(StartMessageDeploymentDefinition)}
    * </ul>
    */
   @Test
   @DisplayName("Test builder()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void Builder.<init>()", "StartMessageDeployedEventImpl Builder.build()",
+      "Builder Builder.withEntity(StartMessageDeploymentDefinition)"})
   void testBuilder() {
     // Arrange and Act
-    StartMessageDeployedEventImpl.Builder actualBuilderResult = StartMessageDeployedEventImpl.builder();
+    Builder actualBuilderResult = StartMessageDeployedEventImpl.builder();
 
     // Assert
     assertSame(actualBuilderResult, actualBuilderResult.withEntity(mock(StartMessageDeploymentDefinition.class)));
@@ -51,11 +66,12 @@ class StartMessageDeployedEventImplDiffblueTest {
   /**
    * Test {@link StartMessageDeployedEventImpl#StartMessageDeployedEventImpl()}.
    * <p>
-   * Method under test:
-   * {@link StartMessageDeployedEventImpl#StartMessageDeployedEventImpl()}
+   * Method under test: {@link StartMessageDeployedEventImpl#StartMessageDeployedEventImpl()}
    */
   @Test
   @DisplayName("Test new StartMessageDeployedEventImpl()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void StartMessageDeployedEventImpl.<init>()"})
   void testNewStartMessageDeployedEventImpl() {
     // Arrange and Act
     StartMessageDeployedEventImpl actualStartMessageDeployedEventImpl = new StartMessageDeployedEventImpl();
@@ -68,22 +84,21 @@ class StartMessageDeployedEventImplDiffblueTest {
     assertNull(actualStartMessageDeployedEventImpl.getProcessDefinitionKey());
     assertNull(actualStartMessageDeployedEventImpl.getProcessInstanceId());
     assertNull(actualStartMessageDeployedEventImpl.getEntity());
-    assertEquals(MessageDefinitionEvent.MessageDefinitionEvents.START_MESSAGE_DEPLOYED,
-        actualStartMessageDeployedEventImpl.getEventType());
+    assertEquals(MessageDefinitionEvents.START_MESSAGE_DEPLOYED, actualStartMessageDeployedEventImpl.getEventType());
   }
 
   /**
-   * Test
-   * {@link StartMessageDeployedEventImpl#StartMessageDeployedEventImpl(StartMessageDeploymentDefinition)}.
+   * Test {@link StartMessageDeployedEventImpl#StartMessageDeployedEventImpl(StartMessageDeploymentDefinition)}.
    * <ul>
    *   <li>Then return BusinessKey is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link StartMessageDeployedEventImpl#StartMessageDeployedEventImpl(StartMessageDeploymentDefinition)}
+   * Method under test: {@link StartMessageDeployedEventImpl#StartMessageDeployedEventImpl(StartMessageDeploymentDefinition)}
    */
   @Test
   @DisplayName("Test new StartMessageDeployedEventImpl(StartMessageDeploymentDefinition); then return BusinessKey is 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void StartMessageDeployedEventImpl.<init>(StartMessageDeploymentDefinition)"})
   void testNewStartMessageDeployedEventImpl_thenReturnBusinessKeyIsNull() {
     // Arrange
     StartMessageDeploymentDefinition startMessageEventSubscription = mock(StartMessageDeploymentDefinition.class);
@@ -101,8 +116,7 @@ class StartMessageDeployedEventImplDiffblueTest {
     assertNull(actualStartMessageDeployedEventImpl.getProcessDefinitionKey());
     assertNull(actualStartMessageDeployedEventImpl.getProcessInstanceId());
     assertEquals(0, actualStartMessageDeployedEventImpl.getProcessDefinitionVersion().intValue());
-    assertEquals(MessageDefinitionEvent.MessageDefinitionEvents.START_MESSAGE_DEPLOYED,
-        actualStartMessageDeployedEventImpl.getEventType());
+    assertEquals(MessageDefinitionEvents.START_MESSAGE_DEPLOYED, actualStartMessageDeployedEventImpl.getEventType());
     assertSame(startMessageEventSubscription, actualStartMessageDeployedEventImpl.getEntity());
   }
 }

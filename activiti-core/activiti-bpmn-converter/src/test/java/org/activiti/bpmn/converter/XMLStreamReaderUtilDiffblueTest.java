@@ -17,9 +17,11 @@ package org.activiti.bpmn.converter;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.util.StreamReaderDelegate;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class XMLStreamReaderUtilDiffblueTest {
@@ -30,6 +32,8 @@ class XMLStreamReaderUtilDiffblueTest {
    */
   @Test
   @DisplayName("Test moveDown(XMLStreamReader)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String XMLStreamReaderUtil.moveDown(XMLStreamReader)"})
   void testMoveDown() {
     // Arrange, Act and Assert
     assertNull(XMLStreamReaderUtil.moveDown(new StreamReaderDelegate()));
@@ -38,11 +42,12 @@ class XMLStreamReaderUtilDiffblueTest {
   /**
    * Test {@link XMLStreamReaderUtil#moveToEndOfElement(XMLStreamReader, String)}.
    * <p>
-   * Method under test:
-   * {@link XMLStreamReaderUtil#moveToEndOfElement(XMLStreamReader, String)}
+   * Method under test: {@link XMLStreamReaderUtil#moveToEndOfElement(XMLStreamReader, String)}
    */
   @Test
   @DisplayName("Test moveToEndOfElement(XMLStreamReader, String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean XMLStreamReaderUtil.moveToEndOfElement(XMLStreamReader, String)"})
   void testMoveToEndOfElement() {
     // Arrange, Act and Assert
     assertFalse(XMLStreamReaderUtil.moveToEndOfElement(new StreamReaderDelegate(), "Element Name"));

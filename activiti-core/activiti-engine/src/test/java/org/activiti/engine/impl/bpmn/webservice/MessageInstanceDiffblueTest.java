@@ -16,11 +16,14 @@
 package org.activiti.engine.impl.bpmn.webservice;
 
 import static org.junit.Assert.assertSame;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.bpmn.data.FieldBaseStructureInstance;
 import org.activiti.engine.impl.bpmn.data.ItemDefinition;
 import org.activiti.engine.impl.bpmn.data.ItemInstance;
 import org.activiti.engine.impl.bpmn.data.SimpleStructureDefinition;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class MessageInstanceDiffblueTest {
   /**
@@ -33,6 +36,9 @@ public class MessageInstanceDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MessageInstance.<init>(MessageDefinition, ItemInstance)",
+      "MessageDefinition MessageInstance.getMessage()"})
   public void testGettersAndSetters() {
     // Arrange
     MessageDefinition message = new MessageDefinition("42");
@@ -57,6 +63,8 @@ public class MessageInstanceDiffblueTest {
    * Method under test: {@link MessageInstance#getStructureInstance()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.impl.bpmn.data.StructureInstance MessageInstance.getStructureInstance()"})
   public void testGetStructureInstance() {
     // Arrange
     MessageDefinition message = new MessageDefinition("42");

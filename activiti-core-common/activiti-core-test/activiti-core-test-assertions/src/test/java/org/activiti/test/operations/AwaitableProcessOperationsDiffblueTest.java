@@ -21,14 +21,19 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import org.activiti.api.process.model.ProcessInstance;
+import org.activiti.api.process.model.payloads.SignalPayload;
 import org.activiti.api.process.model.payloads.StartProcessPayload;
 import org.activiti.test.EventSource;
 import org.activiti.test.assertions.AwaitProcessInstanceAssertions;
+import org.activiti.test.assertions.AwaitSignalAssertions;
 import org.activiti.test.assertions.ProcessInstanceAssertions;
 import org.activiti.test.assertions.ProcessInstanceAssertionsImpl;
+import org.activiti.test.assertions.SignalAssertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -36,14 +41,13 @@ class AwaitableProcessOperationsDiffblueTest {
   /**
    * Test {@link AwaitableProcessOperations#start(StartProcessPayload)}.
    * <p>
-   * Method under test:
-   * {@link AwaitableProcessOperations#start(StartProcessPayload)}
+   * Method under test: {@link AwaitableProcessOperations#start(StartProcessPayload)}
    */
   @Test
   @DisplayName("Test start(StartProcessPayload)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ProcessInstanceAssertions AwaitableProcessOperations.start(StartProcessPayload)"})
   void testStart() {
-    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
-
     // Arrange
     ProcessOperations processOperations = mock(ProcessOperations.class);
     EventSource eventSource = mock(EventSource.class);
@@ -62,14 +66,13 @@ class AwaitableProcessOperationsDiffblueTest {
   /**
    * Test {@link AwaitableProcessOperations#start(StartProcessPayload)}.
    * <p>
-   * Method under test:
-   * {@link AwaitableProcessOperations#start(StartProcessPayload)}
+   * Method under test: {@link AwaitableProcessOperations#start(StartProcessPayload)}
    */
   @Test
   @DisplayName("Test start(StartProcessPayload)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ProcessInstanceAssertions AwaitableProcessOperations.start(StartProcessPayload)"})
   void testStart2() {
-    //   Diffblue Cover was unable to create a Spring-specific test for this Spring method.
-
     // Arrange
     ProcessOperations processOperations = mock(ProcessOperations.class);
     EventSource eventSource = mock(EventSource.class);
@@ -85,5 +88,80 @@ class AwaitableProcessOperationsDiffblueTest {
     verify(processOperations).start(isA(StartProcessPayload.class));
     assertTrue(actualStartResult instanceof AwaitProcessInstanceAssertions);
     assertSame(awaitProcessInstanceAssertions, actualStartResult);
+  }
+
+  /**
+   * Test {@link AwaitableProcessOperations#signal(SignalPayload)}.
+   * <p>
+   * Method under test: {@link AwaitableProcessOperations#signal(SignalPayload)}
+   */
+  @Test
+  @DisplayName("Test signal(SignalPayload)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"SignalAssertions AwaitableProcessOperations.signal(SignalPayload)"})
+  void testSignal() {
+    // Arrange
+    ProcessOperations processOperations = mock(ProcessOperations.class);
+    when(processOperations.signal(Mockito.<SignalPayload>any())).thenReturn(mock(SignalAssertions.class));
+    AwaitableProcessOperations awaitableProcessOperations = new AwaitableProcessOperations(processOperations, false);
+
+    // Act
+    awaitableProcessOperations.signal(new SignalPayload());
+
+    // Assert
+    verify(processOperations).signal(isA(SignalPayload.class));
+  }
+
+  /**
+   * Test {@link AwaitableProcessOperations#signal(SignalPayload)}.
+   * <ul>
+   *   <li>Then return {@link AwaitSignalAssertions}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AwaitableProcessOperations#signal(SignalPayload)}
+   */
+  @Test
+  @DisplayName("Test signal(SignalPayload); then return AwaitSignalAssertions")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"SignalAssertions AwaitableProcessOperations.signal(SignalPayload)"})
+  void testSignal_thenReturnAwaitSignalAssertions() {
+    // Arrange
+    ProcessOperations processOperations = mock(ProcessOperations.class);
+    when(processOperations.signal(Mockito.<SignalPayload>any())).thenReturn(mock(SignalAssertions.class));
+    AwaitableProcessOperations awaitableProcessOperations = new AwaitableProcessOperations(processOperations, true);
+
+    // Act
+    SignalAssertions actualSignalResult = awaitableProcessOperations.signal(new SignalPayload());
+
+    // Assert
+    verify(processOperations).signal(isA(SignalPayload.class));
+    assertTrue(actualSignalResult instanceof AwaitSignalAssertions);
+  }
+
+  /**
+   * Test {@link AwaitableProcessOperations#signal(SignalPayload)}.
+   * <ul>
+   *   <li>Then return {@link AwaitSignalAssertions}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AwaitableProcessOperations#signal(SignalPayload)}
+   */
+  @Test
+  @DisplayName("Test signal(SignalPayload); then return AwaitSignalAssertions")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"SignalAssertions AwaitableProcessOperations.signal(SignalPayload)"})
+  void testSignal_thenReturnAwaitSignalAssertions2() {
+    // Arrange
+    ProcessOperations processOperations = mock(ProcessOperations.class);
+    when(processOperations.signal(Mockito.<SignalPayload>any())).thenReturn(mock(SignalAssertions.class));
+    AwaitableProcessOperations awaitableProcessOperations = new AwaitableProcessOperations(
+        new AwaitableProcessOperations(processOperations, true), true);
+
+    // Act
+    SignalAssertions actualSignalResult = awaitableProcessOperations.signal(new SignalPayload());
+
+    // Assert
+    verify(processOperations).signal(isA(SignalPayload.class));
+    assertTrue(actualSignalResult instanceof AwaitSignalAssertions);
   }
 }

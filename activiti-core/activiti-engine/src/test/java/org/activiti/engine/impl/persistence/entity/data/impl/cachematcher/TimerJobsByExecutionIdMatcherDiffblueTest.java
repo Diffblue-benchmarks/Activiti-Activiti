@@ -21,24 +21,27 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.persistence.entity.TimerJobEntity;
 import org.activiti.engine.impl.persistence.entity.TimerJobEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class TimerJobsByExecutionIdMatcherDiffblueTest {
   /**
-   * Test {@link TimerJobsByExecutionIdMatcher#isRetained(TimerJobEntity, Object)}
-   * with {@code TimerJobEntity}, {@code Object}.
+   * Test {@link TimerJobsByExecutionIdMatcher#isRetained(TimerJobEntity, Object)} with {@code TimerJobEntity}, {@code Object}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobsByExecutionIdMatcher#isRetained(TimerJobEntity, Object)}
+   * Method under test: {@link TimerJobsByExecutionIdMatcher#isRetained(TimerJobEntity, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean TimerJobsByExecutionIdMatcher.isRetained(TimerJobEntity, Object)"})
   public void testIsRetainedWithTimerJobEntityObject_given42_thenReturnFalse() {
     // Arrange
     TimerJobsByExecutionIdMatcher timerJobsByExecutionIdMatcher = new TimerJobsByExecutionIdMatcher();
@@ -54,18 +57,18 @@ public class TimerJobsByExecutionIdMatcherDiffblueTest {
   }
 
   /**
-   * Test {@link TimerJobsByExecutionIdMatcher#isRetained(TimerJobEntity, Object)}
-   * with {@code TimerJobEntity}, {@code Object}.
+   * Test {@link TimerJobsByExecutionIdMatcher#isRetained(TimerJobEntity, Object)} with {@code TimerJobEntity}, {@code Object}.
    * <ul>
    *   <li>Given {@code 42}.</li>
    *   <li>When {@code 42}.</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobsByExecutionIdMatcher#isRetained(TimerJobEntity, Object)}
+   * Method under test: {@link TimerJobsByExecutionIdMatcher#isRetained(TimerJobEntity, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean TimerJobsByExecutionIdMatcher.isRetained(TimerJobEntity, Object)"})
   public void testIsRetainedWithTimerJobEntityObject_given42_when42_thenReturnTrue() {
     // Arrange
     TimerJobsByExecutionIdMatcher timerJobsByExecutionIdMatcher = new TimerJobsByExecutionIdMatcher();
@@ -81,17 +84,17 @@ public class TimerJobsByExecutionIdMatcherDiffblueTest {
   }
 
   /**
-   * Test {@link TimerJobsByExecutionIdMatcher#isRetained(TimerJobEntity, Object)}
-   * with {@code TimerJobEntity}, {@code Object}.
+   * Test {@link TimerJobsByExecutionIdMatcher#isRetained(TimerJobEntity, Object)} with {@code TimerJobEntity}, {@code Object}.
    * <ul>
    *   <li>When {@link TimerJobEntityImpl} (default constructor).</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TimerJobsByExecutionIdMatcher#isRetained(TimerJobEntity, Object)}
+   * Method under test: {@link TimerJobsByExecutionIdMatcher#isRetained(TimerJobEntity, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean TimerJobsByExecutionIdMatcher.isRetained(TimerJobEntity, Object)"})
   public void testIsRetainedWithTimerJobEntityObject_whenTimerJobEntityImpl_thenReturnFalse() {
     // Arrange
     TimerJobsByExecutionIdMatcher timerJobsByExecutionIdMatcher = new TimerJobsByExecutionIdMatcher();

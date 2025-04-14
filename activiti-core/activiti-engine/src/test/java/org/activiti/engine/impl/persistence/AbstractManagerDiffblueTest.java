@@ -17,11 +17,12 @@ package org.activiti.engine.impl.persistence;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import static org.mockito.Mockito.mock;
-import org.activiti.core.el.CustomFunctionProvider;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.persistence.entity.TableDataManagerImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class AbstractManagerDiffblueTest {
   /**
@@ -30,24 +31,11 @@ public class AbstractManagerDiffblueTest {
    * Method under test: {@link AbstractManager#getCommandContext()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.impl.interceptor.CommandContext AbstractManager.getCommandContext()"})
   public void testGetCommandContext() {
     // Arrange, Act and Assert
     assertNull((new TableDataManagerImpl(new JtaProcessEngineConfiguration())).getCommandContext());
-  }
-
-  /**
-   * Test {@link AbstractManager#getCommandContext()}.
-   * <p>
-   * Method under test: {@link AbstractManager#getCommandContext()}
-   */
-  @Test
-  public void testGetCommandContext2() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull((new TableDataManagerImpl(processEngineConfiguration)).getCommandContext());
   }
 
   /**
@@ -56,6 +44,9 @@ public class AbstractManagerDiffblueTest {
    * Method under test: {@link AbstractManager#getProcessEngineConfiguration()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl AbstractManager.getProcessEngineConfiguration()"})
   public void testGetProcessEngineConfiguration() {
     // Arrange
     TableDataManagerImpl tableDataManagerImpl = new TableDataManagerImpl(new JtaProcessEngineConfiguration());
@@ -65,37 +56,6 @@ public class AbstractManagerDiffblueTest {
   }
 
   /**
-   * Test {@link AbstractManager#getProcessEngineConfiguration()}.
-   * <p>
-   * Method under test: {@link AbstractManager#getProcessEngineConfiguration()}
-   */
-  @Test
-  public void testGetProcessEngineConfiguration2() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-    TableDataManagerImpl tableDataManagerImpl = new TableDataManagerImpl(processEngineConfiguration);
-
-    // Act and Assert
-    assertSame(tableDataManagerImpl.processEngineConfiguration, tableDataManagerImpl.getProcessEngineConfiguration());
-  }
-
-  /**
-   * Test {@link AbstractManager#getCommandExecutor()}.
-   * <p>
-   * Method under test: {@link AbstractManager#getCommandExecutor()}
-   */
-  @Test
-  public void testGetCommandExecutor() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull((new TableDataManagerImpl(processEngineConfiguration)).getCommandExecutor());
-  }
-
-  /**
    * Test {@link AbstractManager#getCommandExecutor()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
@@ -104,6 +64,8 @@ public class AbstractManagerDiffblueTest {
    * Method under test: {@link AbstractManager#getCommandExecutor()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.impl.interceptor.CommandExecutor AbstractManager.getCommandExecutor()"})
   public void testGetCommandExecutor_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new TableDataManagerImpl(new JtaProcessEngineConfiguration())).getCommandExecutor());
@@ -111,21 +73,6 @@ public class AbstractManagerDiffblueTest {
 
   /**
    * Test {@link AbstractManager#getClock()}.
-   * <p>
-   * Method under test: {@link AbstractManager#getClock()}
-   */
-  @Test
-  public void testGetClock() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull((new TableDataManagerImpl(processEngineConfiguration)).getClock());
-  }
-
-  /**
-   * Test {@link AbstractManager#getClock()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
@@ -133,6 +80,8 @@ public class AbstractManagerDiffblueTest {
    * Method under test: {@link AbstractManager#getClock()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.runtime.Clock AbstractManager.getClock()"})
   public void testGetClock_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new TableDataManagerImpl(new JtaProcessEngineConfiguration())).getClock());
@@ -140,21 +89,6 @@ public class AbstractManagerDiffblueTest {
 
   /**
    * Test {@link AbstractManager#getAsyncExecutor()}.
-   * <p>
-   * Method under test: {@link AbstractManager#getAsyncExecutor()}
-   */
-  @Test
-  public void testGetAsyncExecutor() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull((new TableDataManagerImpl(processEngineConfiguration)).getAsyncExecutor());
-  }
-
-  /**
-   * Test {@link AbstractManager#getAsyncExecutor()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
@@ -162,6 +96,8 @@ public class AbstractManagerDiffblueTest {
    * Method under test: {@link AbstractManager#getAsyncExecutor()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.impl.asyncexecutor.AsyncExecutor AbstractManager.getAsyncExecutor()"})
   public void testGetAsyncExecutor_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new TableDataManagerImpl(new JtaProcessEngineConfiguration())).getAsyncExecutor());
@@ -169,21 +105,6 @@ public class AbstractManagerDiffblueTest {
 
   /**
    * Test {@link AbstractManager#getEventDispatcher()}.
-   * <p>
-   * Method under test: {@link AbstractManager#getEventDispatcher()}
-   */
-  @Test
-  public void testGetEventDispatcher() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull((new TableDataManagerImpl(processEngineConfiguration)).getEventDispatcher());
-  }
-
-  /**
-   * Test {@link AbstractManager#getEventDispatcher()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
@@ -191,6 +112,8 @@ public class AbstractManagerDiffblueTest {
    * Method under test: {@link AbstractManager#getEventDispatcher()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.delegate.event.ActivitiEventDispatcher AbstractManager.getEventDispatcher()"})
   public void testGetEventDispatcher_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new TableDataManagerImpl(new JtaProcessEngineConfiguration())).getEventDispatcher());
@@ -198,21 +121,6 @@ public class AbstractManagerDiffblueTest {
 
   /**
    * Test {@link AbstractManager#getHistoryManager()}.
-   * <p>
-   * Method under test: {@link AbstractManager#getHistoryManager()}
-   */
-  @Test
-  public void testGetHistoryManager() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull((new TableDataManagerImpl(processEngineConfiguration)).getHistoryManager());
-  }
-
-  /**
-   * Test {@link AbstractManager#getHistoryManager()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
@@ -220,6 +128,8 @@ public class AbstractManagerDiffblueTest {
    * Method under test: {@link AbstractManager#getHistoryManager()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.impl.history.HistoryManager AbstractManager.getHistoryManager()"})
   public void testGetHistoryManager_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new TableDataManagerImpl(new JtaProcessEngineConfiguration())).getHistoryManager());
@@ -227,21 +137,6 @@ public class AbstractManagerDiffblueTest {
 
   /**
    * Test {@link AbstractManager#getJobManager()}.
-   * <p>
-   * Method under test: {@link AbstractManager#getJobManager()}
-   */
-  @Test
-  public void testGetJobManager() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull((new TableDataManagerImpl(processEngineConfiguration)).getJobManager());
-  }
-
-  /**
-   * Test {@link AbstractManager#getJobManager()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
@@ -249,6 +144,8 @@ public class AbstractManagerDiffblueTest {
    * Method under test: {@link AbstractManager#getJobManager()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"org.activiti.engine.impl.asyncexecutor.JobManager AbstractManager.getJobManager()"})
   public void testGetJobManager_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new TableDataManagerImpl(new JtaProcessEngineConfiguration())).getJobManager());
@@ -256,21 +153,6 @@ public class AbstractManagerDiffblueTest {
 
   /**
    * Test {@link AbstractManager#getDeploymentEntityManager()}.
-   * <p>
-   * Method under test: {@link AbstractManager#getDeploymentEntityManager()}
-   */
-  @Test
-  public void testGetDeploymentEntityManager() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull((new TableDataManagerImpl(processEngineConfiguration)).getDeploymentEntityManager());
-  }
-
-  /**
-   * Test {@link AbstractManager#getDeploymentEntityManager()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
@@ -278,6 +160,9 @@ public class AbstractManagerDiffblueTest {
    * Method under test: {@link AbstractManager#getDeploymentEntityManager()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.persistence.entity.DeploymentEntityManager AbstractManager.getDeploymentEntityManager()"})
   public void testGetDeploymentEntityManager_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new TableDataManagerImpl(new JtaProcessEngineConfiguration())).getDeploymentEntityManager());
@@ -285,21 +170,6 @@ public class AbstractManagerDiffblueTest {
 
   /**
    * Test {@link AbstractManager#getResourceEntityManager()}.
-   * <p>
-   * Method under test: {@link AbstractManager#getResourceEntityManager()}
-   */
-  @Test
-  public void testGetResourceEntityManager() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull((new TableDataManagerImpl(processEngineConfiguration)).getResourceEntityManager());
-  }
-
-  /**
-   * Test {@link AbstractManager#getResourceEntityManager()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
@@ -307,6 +177,9 @@ public class AbstractManagerDiffblueTest {
    * Method under test: {@link AbstractManager#getResourceEntityManager()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.persistence.entity.ResourceEntityManager AbstractManager.getResourceEntityManager()"})
   public void testGetResourceEntityManager_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new TableDataManagerImpl(new JtaProcessEngineConfiguration())).getResourceEntityManager());
@@ -314,21 +187,6 @@ public class AbstractManagerDiffblueTest {
 
   /**
    * Test {@link AbstractManager#getByteArrayEntityManager()}.
-   * <p>
-   * Method under test: {@link AbstractManager#getByteArrayEntityManager()}
-   */
-  @Test
-  public void testGetByteArrayEntityManager() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull((new TableDataManagerImpl(processEngineConfiguration)).getByteArrayEntityManager());
-  }
-
-  /**
-   * Test {@link AbstractManager#getByteArrayEntityManager()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
@@ -336,6 +194,9 @@ public class AbstractManagerDiffblueTest {
    * Method under test: {@link AbstractManager#getByteArrayEntityManager()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.persistence.entity.ByteArrayEntityManager AbstractManager.getByteArrayEntityManager()"})
   public void testGetByteArrayEntityManager_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new TableDataManagerImpl(new JtaProcessEngineConfiguration())).getByteArrayEntityManager());
@@ -343,30 +204,16 @@ public class AbstractManagerDiffblueTest {
 
   /**
    * Test {@link AbstractManager#getProcessDefinitionEntityManager()}.
-   * <p>
-   * Method under test:
-   * {@link AbstractManager#getProcessDefinitionEntityManager()}
-   */
-  @Test
-  public void testGetProcessDefinitionEntityManager() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull((new TableDataManagerImpl(processEngineConfiguration)).getProcessDefinitionEntityManager());
-  }
-
-  /**
-   * Test {@link AbstractManager#getProcessDefinitionEntityManager()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractManager#getProcessDefinitionEntityManager()}
+   * Method under test: {@link AbstractManager#getProcessDefinitionEntityManager()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntityManager AbstractManager.getProcessDefinitionEntityManager()"})
   public void testGetProcessDefinitionEntityManager_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new TableDataManagerImpl(new JtaProcessEngineConfiguration())).getProcessDefinitionEntityManager());
@@ -374,30 +221,16 @@ public class AbstractManagerDiffblueTest {
 
   /**
    * Test {@link AbstractManager#getProcessDefinitionInfoEntityManager()}.
-   * <p>
-   * Method under test:
-   * {@link AbstractManager#getProcessDefinitionInfoEntityManager()}
-   */
-  @Test
-  public void testGetProcessDefinitionInfoEntityManager() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull((new TableDataManagerImpl(processEngineConfiguration)).getProcessDefinitionInfoEntityManager());
-  }
-
-  /**
-   * Test {@link AbstractManager#getProcessDefinitionInfoEntityManager()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractManager#getProcessDefinitionInfoEntityManager()}
+   * Method under test: {@link AbstractManager#getProcessDefinitionInfoEntityManager()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.persistence.entity.ProcessDefinitionInfoEntityManager AbstractManager.getProcessDefinitionInfoEntityManager()"})
   public void testGetProcessDefinitionInfoEntityManager_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new TableDataManagerImpl(new JtaProcessEngineConfiguration())).getProcessDefinitionInfoEntityManager());
@@ -405,21 +238,6 @@ public class AbstractManagerDiffblueTest {
 
   /**
    * Test {@link AbstractManager#getModelEntityManager()}.
-   * <p>
-   * Method under test: {@link AbstractManager#getModelEntityManager()}
-   */
-  @Test
-  public void testGetModelEntityManager() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull((new TableDataManagerImpl(processEngineConfiguration)).getModelEntityManager());
-  }
-
-  /**
-   * Test {@link AbstractManager#getModelEntityManager()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
@@ -427,6 +245,9 @@ public class AbstractManagerDiffblueTest {
    * Method under test: {@link AbstractManager#getModelEntityManager()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.persistence.entity.ModelEntityManager AbstractManager.getModelEntityManager()"})
   public void testGetModelEntityManager_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new TableDataManagerImpl(new JtaProcessEngineConfiguration())).getModelEntityManager());
@@ -434,21 +255,6 @@ public class AbstractManagerDiffblueTest {
 
   /**
    * Test {@link AbstractManager#getExecutionEntityManager()}.
-   * <p>
-   * Method under test: {@link AbstractManager#getExecutionEntityManager()}
-   */
-  @Test
-  public void testGetExecutionEntityManager() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull((new TableDataManagerImpl(processEngineConfiguration)).getExecutionEntityManager());
-  }
-
-  /**
-   * Test {@link AbstractManager#getExecutionEntityManager()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
@@ -456,6 +262,9 @@ public class AbstractManagerDiffblueTest {
    * Method under test: {@link AbstractManager#getExecutionEntityManager()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.persistence.entity.ExecutionEntityManager AbstractManager.getExecutionEntityManager()"})
   public void testGetExecutionEntityManager_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new TableDataManagerImpl(new JtaProcessEngineConfiguration())).getExecutionEntityManager());
@@ -463,21 +272,6 @@ public class AbstractManagerDiffblueTest {
 
   /**
    * Test {@link AbstractManager#getTaskEntityManager()}.
-   * <p>
-   * Method under test: {@link AbstractManager#getTaskEntityManager()}
-   */
-  @Test
-  public void testGetTaskEntityManager() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull((new TableDataManagerImpl(processEngineConfiguration)).getTaskEntityManager());
-  }
-
-  /**
-   * Test {@link AbstractManager#getTaskEntityManager()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
@@ -485,6 +279,9 @@ public class AbstractManagerDiffblueTest {
    * Method under test: {@link AbstractManager#getTaskEntityManager()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.persistence.entity.TaskEntityManager AbstractManager.getTaskEntityManager()"})
   public void testGetTaskEntityManager_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new TableDataManagerImpl(new JtaProcessEngineConfiguration())).getTaskEntityManager());
@@ -492,21 +289,6 @@ public class AbstractManagerDiffblueTest {
 
   /**
    * Test {@link AbstractManager#getIdentityLinkEntityManager()}.
-   * <p>
-   * Method under test: {@link AbstractManager#getIdentityLinkEntityManager()}
-   */
-  @Test
-  public void testGetIdentityLinkEntityManager() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull((new TableDataManagerImpl(processEngineConfiguration)).getIdentityLinkEntityManager());
-  }
-
-  /**
-   * Test {@link AbstractManager#getIdentityLinkEntityManager()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
@@ -514,6 +296,9 @@ public class AbstractManagerDiffblueTest {
    * Method under test: {@link AbstractManager#getIdentityLinkEntityManager()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.persistence.entity.IdentityLinkEntityManager AbstractManager.getIdentityLinkEntityManager()"})
   public void testGetIdentityLinkEntityManager_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new TableDataManagerImpl(new JtaProcessEngineConfiguration())).getIdentityLinkEntityManager());
@@ -521,30 +306,16 @@ public class AbstractManagerDiffblueTest {
 
   /**
    * Test {@link AbstractManager#getEventSubscriptionEntityManager()}.
-   * <p>
-   * Method under test:
-   * {@link AbstractManager#getEventSubscriptionEntityManager()}
-   */
-  @Test
-  public void testGetEventSubscriptionEntityManager() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull((new TableDataManagerImpl(processEngineConfiguration)).getEventSubscriptionEntityManager());
-  }
-
-  /**
-   * Test {@link AbstractManager#getEventSubscriptionEntityManager()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractManager#getEventSubscriptionEntityManager()}
+   * Method under test: {@link AbstractManager#getEventSubscriptionEntityManager()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.persistence.entity.EventSubscriptionEntityManager AbstractManager.getEventSubscriptionEntityManager()"})
   public void testGetEventSubscriptionEntityManager_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new TableDataManagerImpl(new JtaProcessEngineConfiguration())).getEventSubscriptionEntityManager());
@@ -552,21 +323,6 @@ public class AbstractManagerDiffblueTest {
 
   /**
    * Test {@link AbstractManager#getVariableInstanceEntityManager()}.
-   * <p>
-   * Method under test: {@link AbstractManager#getVariableInstanceEntityManager()}
-   */
-  @Test
-  public void testGetVariableInstanceEntityManager() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull((new TableDataManagerImpl(processEngineConfiguration)).getVariableInstanceEntityManager());
-  }
-
-  /**
-   * Test {@link AbstractManager#getVariableInstanceEntityManager()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
@@ -574,6 +330,9 @@ public class AbstractManagerDiffblueTest {
    * Method under test: {@link AbstractManager#getVariableInstanceEntityManager()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.persistence.entity.VariableInstanceEntityManager AbstractManager.getVariableInstanceEntityManager()"})
   public void testGetVariableInstanceEntityManager_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new TableDataManagerImpl(new JtaProcessEngineConfiguration())).getVariableInstanceEntityManager());
@@ -581,21 +340,6 @@ public class AbstractManagerDiffblueTest {
 
   /**
    * Test {@link AbstractManager#getJobEntityManager()}.
-   * <p>
-   * Method under test: {@link AbstractManager#getJobEntityManager()}
-   */
-  @Test
-  public void testGetJobEntityManager() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull((new TableDataManagerImpl(processEngineConfiguration)).getJobEntityManager());
-  }
-
-  /**
-   * Test {@link AbstractManager#getJobEntityManager()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
@@ -603,6 +347,9 @@ public class AbstractManagerDiffblueTest {
    * Method under test: {@link AbstractManager#getJobEntityManager()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.persistence.entity.JobEntityManager AbstractManager.getJobEntityManager()"})
   public void testGetJobEntityManager_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new TableDataManagerImpl(new JtaProcessEngineConfiguration())).getJobEntityManager());
@@ -610,21 +357,6 @@ public class AbstractManagerDiffblueTest {
 
   /**
    * Test {@link AbstractManager#getTimerJobEntityManager()}.
-   * <p>
-   * Method under test: {@link AbstractManager#getTimerJobEntityManager()}
-   */
-  @Test
-  public void testGetTimerJobEntityManager() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull((new TableDataManagerImpl(processEngineConfiguration)).getTimerJobEntityManager());
-  }
-
-  /**
-   * Test {@link AbstractManager#getTimerJobEntityManager()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
@@ -632,6 +364,9 @@ public class AbstractManagerDiffblueTest {
    * Method under test: {@link AbstractManager#getTimerJobEntityManager()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.persistence.entity.TimerJobEntityManager AbstractManager.getTimerJobEntityManager()"})
   public void testGetTimerJobEntityManager_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new TableDataManagerImpl(new JtaProcessEngineConfiguration())).getTimerJobEntityManager());
@@ -639,21 +374,6 @@ public class AbstractManagerDiffblueTest {
 
   /**
    * Test {@link AbstractManager#getSuspendedJobEntityManager()}.
-   * <p>
-   * Method under test: {@link AbstractManager#getSuspendedJobEntityManager()}
-   */
-  @Test
-  public void testGetSuspendedJobEntityManager() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull((new TableDataManagerImpl(processEngineConfiguration)).getSuspendedJobEntityManager());
-  }
-
-  /**
-   * Test {@link AbstractManager#getSuspendedJobEntityManager()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
@@ -661,6 +381,9 @@ public class AbstractManagerDiffblueTest {
    * Method under test: {@link AbstractManager#getSuspendedJobEntityManager()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.persistence.entity.SuspendedJobEntityManager AbstractManager.getSuspendedJobEntityManager()"})
   public void testGetSuspendedJobEntityManager_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new TableDataManagerImpl(new JtaProcessEngineConfiguration())).getSuspendedJobEntityManager());
@@ -668,21 +391,6 @@ public class AbstractManagerDiffblueTest {
 
   /**
    * Test {@link AbstractManager#getDeadLetterJobEntityManager()}.
-   * <p>
-   * Method under test: {@link AbstractManager#getDeadLetterJobEntityManager()}
-   */
-  @Test
-  public void testGetDeadLetterJobEntityManager() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull((new TableDataManagerImpl(processEngineConfiguration)).getDeadLetterJobEntityManager());
-  }
-
-  /**
-   * Test {@link AbstractManager#getDeadLetterJobEntityManager()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
@@ -690,6 +398,9 @@ public class AbstractManagerDiffblueTest {
    * Method under test: {@link AbstractManager#getDeadLetterJobEntityManager()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.persistence.entity.DeadLetterJobEntityManager AbstractManager.getDeadLetterJobEntityManager()"})
   public void testGetDeadLetterJobEntityManager_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new TableDataManagerImpl(new JtaProcessEngineConfiguration())).getDeadLetterJobEntityManager());
@@ -697,30 +408,16 @@ public class AbstractManagerDiffblueTest {
 
   /**
    * Test {@link AbstractManager#getHistoricProcessInstanceEntityManager()}.
-   * <p>
-   * Method under test:
-   * {@link AbstractManager#getHistoricProcessInstanceEntityManager()}
-   */
-  @Test
-  public void testGetHistoricProcessInstanceEntityManager() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull((new TableDataManagerImpl(processEngineConfiguration)).getHistoricProcessInstanceEntityManager());
-  }
-
-  /**
-   * Test {@link AbstractManager#getHistoricProcessInstanceEntityManager()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractManager#getHistoricProcessInstanceEntityManager()}
+   * Method under test: {@link AbstractManager#getHistoricProcessInstanceEntityManager()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.persistence.entity.HistoricProcessInstanceEntityManager AbstractManager.getHistoricProcessInstanceEntityManager()"})
   public void testGetHistoricProcessInstanceEntityManager_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(
@@ -729,21 +426,6 @@ public class AbstractManagerDiffblueTest {
 
   /**
    * Test {@link AbstractManager#getHistoricDetailEntityManager()}.
-   * <p>
-   * Method under test: {@link AbstractManager#getHistoricDetailEntityManager()}
-   */
-  @Test
-  public void testGetHistoricDetailEntityManager() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull((new TableDataManagerImpl(processEngineConfiguration)).getHistoricDetailEntityManager());
-  }
-
-  /**
-   * Test {@link AbstractManager#getHistoricDetailEntityManager()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
@@ -751,6 +433,9 @@ public class AbstractManagerDiffblueTest {
    * Method under test: {@link AbstractManager#getHistoricDetailEntityManager()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.persistence.entity.HistoricDetailEntityManager AbstractManager.getHistoricDetailEntityManager()"})
   public void testGetHistoricDetailEntityManager_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new TableDataManagerImpl(new JtaProcessEngineConfiguration())).getHistoricDetailEntityManager());
@@ -758,30 +443,16 @@ public class AbstractManagerDiffblueTest {
 
   /**
    * Test {@link AbstractManager#getHistoricActivityInstanceEntityManager()}.
-   * <p>
-   * Method under test:
-   * {@link AbstractManager#getHistoricActivityInstanceEntityManager()}
-   */
-  @Test
-  public void testGetHistoricActivityInstanceEntityManager() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull((new TableDataManagerImpl(processEngineConfiguration)).getHistoricActivityInstanceEntityManager());
-  }
-
-  /**
-   * Test {@link AbstractManager#getHistoricActivityInstanceEntityManager()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractManager#getHistoricActivityInstanceEntityManager()}
+   * Method under test: {@link AbstractManager#getHistoricActivityInstanceEntityManager()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.persistence.entity.HistoricActivityInstanceEntityManager AbstractManager.getHistoricActivityInstanceEntityManager()"})
   public void testGetHistoricActivityInstanceEntityManager_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(
@@ -790,30 +461,16 @@ public class AbstractManagerDiffblueTest {
 
   /**
    * Test {@link AbstractManager#getHistoricVariableInstanceEntityManager()}.
-   * <p>
-   * Method under test:
-   * {@link AbstractManager#getHistoricVariableInstanceEntityManager()}
-   */
-  @Test
-  public void testGetHistoricVariableInstanceEntityManager() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull((new TableDataManagerImpl(processEngineConfiguration)).getHistoricVariableInstanceEntityManager());
-  }
-
-  /**
-   * Test {@link AbstractManager#getHistoricVariableInstanceEntityManager()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractManager#getHistoricVariableInstanceEntityManager()}
+   * Method under test: {@link AbstractManager#getHistoricVariableInstanceEntityManager()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.persistence.entity.HistoricVariableInstanceEntityManager AbstractManager.getHistoricVariableInstanceEntityManager()"})
   public void testGetHistoricVariableInstanceEntityManager_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull(
@@ -822,30 +479,16 @@ public class AbstractManagerDiffblueTest {
 
   /**
    * Test {@link AbstractManager#getHistoricTaskInstanceEntityManager()}.
-   * <p>
-   * Method under test:
-   * {@link AbstractManager#getHistoricTaskInstanceEntityManager()}
-   */
-  @Test
-  public void testGetHistoricTaskInstanceEntityManager() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull((new TableDataManagerImpl(processEngineConfiguration)).getHistoricTaskInstanceEntityManager());
-  }
-
-  /**
-   * Test {@link AbstractManager#getHistoricTaskInstanceEntityManager()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractManager#getHistoricTaskInstanceEntityManager()}
+   * Method under test: {@link AbstractManager#getHistoricTaskInstanceEntityManager()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.persistence.entity.HistoricTaskInstanceEntityManager AbstractManager.getHistoricTaskInstanceEntityManager()"})
   public void testGetHistoricTaskInstanceEntityManager_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new TableDataManagerImpl(new JtaProcessEngineConfiguration())).getHistoricTaskInstanceEntityManager());
@@ -853,30 +496,16 @@ public class AbstractManagerDiffblueTest {
 
   /**
    * Test {@link AbstractManager#getHistoricIdentityLinkEntityManager()}.
-   * <p>
-   * Method under test:
-   * {@link AbstractManager#getHistoricIdentityLinkEntityManager()}
-   */
-  @Test
-  public void testGetHistoricIdentityLinkEntityManager() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull((new TableDataManagerImpl(processEngineConfiguration)).getHistoricIdentityLinkEntityManager());
-  }
-
-  /**
-   * Test {@link AbstractManager#getHistoricIdentityLinkEntityManager()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AbstractManager#getHistoricIdentityLinkEntityManager()}
+   * Method under test: {@link AbstractManager#getHistoricIdentityLinkEntityManager()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.persistence.entity.HistoricIdentityLinkEntityManager AbstractManager.getHistoricIdentityLinkEntityManager()"})
   public void testGetHistoricIdentityLinkEntityManager_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new TableDataManagerImpl(new JtaProcessEngineConfiguration())).getHistoricIdentityLinkEntityManager());
@@ -884,21 +513,6 @@ public class AbstractManagerDiffblueTest {
 
   /**
    * Test {@link AbstractManager#getAttachmentEntityManager()}.
-   * <p>
-   * Method under test: {@link AbstractManager#getAttachmentEntityManager()}
-   */
-  @Test
-  public void testGetAttachmentEntityManager() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull((new TableDataManagerImpl(processEngineConfiguration)).getAttachmentEntityManager());
-  }
-
-  /**
-   * Test {@link AbstractManager#getAttachmentEntityManager()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
@@ -906,6 +520,9 @@ public class AbstractManagerDiffblueTest {
    * Method under test: {@link AbstractManager#getAttachmentEntityManager()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.persistence.entity.AttachmentEntityManager AbstractManager.getAttachmentEntityManager()"})
   public void testGetAttachmentEntityManager_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new TableDataManagerImpl(new JtaProcessEngineConfiguration())).getAttachmentEntityManager());
@@ -913,21 +530,6 @@ public class AbstractManagerDiffblueTest {
 
   /**
    * Test {@link AbstractManager#getCommentEntityManager()}.
-   * <p>
-   * Method under test: {@link AbstractManager#getCommentEntityManager()}
-   */
-  @Test
-  public void testGetCommentEntityManager() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    // Act and Assert
-    assertNull((new TableDataManagerImpl(processEngineConfiguration)).getCommentEntityManager());
-  }
-
-  /**
-   * Test {@link AbstractManager#getCommentEntityManager()}.
    * <ul>
    *   <li>Then return {@code null}.</li>
    * </ul>
@@ -935,6 +537,9 @@ public class AbstractManagerDiffblueTest {
    * Method under test: {@link AbstractManager#getCommentEntityManager()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.impl.persistence.entity.CommentEntityManager AbstractManager.getCommentEntityManager()"})
   public void testGetCommentEntityManager_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new TableDataManagerImpl(new JtaProcessEngineConfiguration())).getCommentEntityManager());

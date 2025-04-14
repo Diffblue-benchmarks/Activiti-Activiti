@@ -18,6 +18,8 @@ package org.activiti.engine.impl.bpmn.parser.handler;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.CallActivity;
 import org.activiti.engine.impl.bpmn.behavior.CallActivityBehavior;
@@ -25,16 +27,17 @@ import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class CallActivityParseHandlerDiffblueTest {
   /**
-   * Test {@link CallActivityParseHandler#executeParse(BpmnParse, CallActivity)}
-   * with {@code BpmnParse}, {@code CallActivity}.
+   * Test {@link CallActivityParseHandler#executeParse(BpmnParse, CallActivity)} with {@code BpmnParse}, {@code CallActivity}.
    * <p>
-   * Method under test:
-   * {@link CallActivityParseHandler#executeParse(BpmnParse, CallActivity)}
+   * Method under test: {@link CallActivityParseHandler#executeParse(BpmnParse, CallActivity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CallActivityParseHandler.executeParse(BpmnParse, CallActivity)"})
   public void testExecuteParseWithBpmnParseCallActivity() {
     // Arrange
     CallActivityParseHandler callActivityParseHandler = new CallActivityParseHandler();
@@ -55,13 +58,13 @@ public class CallActivityParseHandlerDiffblueTest {
   }
 
   /**
-   * Test {@link CallActivityParseHandler#executeParse(BpmnParse, CallActivity)}
-   * with {@code BpmnParse}, {@code CallActivity}.
+   * Test {@link CallActivityParseHandler#executeParse(BpmnParse, CallActivity)} with {@code BpmnParse}, {@code CallActivity}.
    * <p>
-   * Method under test:
-   * {@link CallActivityParseHandler#executeParse(BpmnParse, CallActivity)}
+   * Method under test: {@link CallActivityParseHandler#executeParse(BpmnParse, CallActivity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CallActivityParseHandler.executeParse(BpmnParse, CallActivity)"})
   public void testExecuteParseWithBpmnParseCallActivity2() {
     // Arrange
     CallActivityParseHandler callActivityParseHandler = new CallActivityParseHandler();
@@ -93,6 +96,8 @@ public class CallActivityParseHandlerDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CallActivityParseHandler.<init>()", "Class CallActivityParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends BaseElement> actualHandledType = (new CallActivityParseHandler()).getHandledType();

@@ -16,6 +16,8 @@
 package org.activiti.engine.impl;
 
 import static org.junit.Assert.assertSame;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.cfg.CommandExecutorImpl;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
@@ -23,6 +25,7 @@ import org.activiti.engine.impl.interceptor.CommandConfig;
 import org.activiti.engine.impl.interceptor.CommandContextInterceptor;
 import org.activiti.engine.impl.interceptor.CommandExecutor;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ServiceImplDiffblueTest {
   /**
@@ -36,6 +39,9 @@ public class ServiceImplDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceImpl.<init>()", "void ServiceImpl.<init>(ProcessEngineConfigurationImpl)",
+      "CommandExecutor ServiceImpl.getCommandExecutor()", "void ServiceImpl.setCommandExecutor(CommandExecutor)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     ServiceImpl actualServiceImpl = new ServiceImpl();
@@ -44,7 +50,7 @@ public class ServiceImplDiffblueTest {
 
     actualServiceImpl.setCommandExecutor(commandExecutor);
 
-    // Assert that nothing has changed
+    // Assert
     assertSame(commandExecutor, actualServiceImpl.getCommandExecutor());
   }
 
@@ -62,6 +68,9 @@ public class ServiceImplDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ServiceImpl.<init>()", "void ServiceImpl.<init>(ProcessEngineConfigurationImpl)",
+      "CommandExecutor ServiceImpl.getCommandExecutor()", "void ServiceImpl.setCommandExecutor(CommandExecutor)"})
   public void testGettersAndSetters_whenJtaProcessEngineConfiguration() {
     // Arrange and Act
     ServiceImpl actualServiceImpl = new ServiceImpl(new JtaProcessEngineConfiguration());
@@ -70,7 +79,7 @@ public class ServiceImplDiffblueTest {
 
     actualServiceImpl.setCommandExecutor(commandExecutor);
 
-    // Assert that nothing has changed
+    // Assert
     assertSame(commandExecutor, actualServiceImpl.getCommandExecutor());
   }
 }

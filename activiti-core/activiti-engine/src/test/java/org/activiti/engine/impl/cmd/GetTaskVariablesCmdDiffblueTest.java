@@ -17,20 +17,23 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class GetTaskVariablesCmdDiffblueTest {
   /**
-   * Test
-   * {@link GetTaskVariablesCmd#GetTaskVariablesCmd(String, Collection, boolean)}.
+   * Test {@link GetTaskVariablesCmd#GetTaskVariablesCmd(String, Collection, boolean)}.
    * <p>
-   * Method under test:
-   * {@link GetTaskVariablesCmd#GetTaskVariablesCmd(String, Collection, boolean)}
+   * Method under test: {@link GetTaskVariablesCmd#GetTaskVariablesCmd(String, Collection, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void GetTaskVariablesCmd.<init>(String, Collection, boolean)"})
   public void testNewGetTaskVariablesCmd() {
     // Arrange and Act
     GetTaskVariablesCmd actualGetTaskVariablesCmd = new GetTaskVariablesCmd("42", new ArrayList<>(), true);

@@ -23,6 +23,8 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.activiti.engine.delegate.VariableScope;
@@ -30,6 +32,7 @@ import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.el.NoExecutionVariableScope;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class ScriptBindingsFactoryDiffblueTest {
@@ -38,13 +41,15 @@ public class ScriptBindingsFactoryDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>
-   * {@link ScriptBindingsFactory#ScriptBindingsFactory(ProcessEngineConfigurationImpl, List)}
+   *   <li>{@link ScriptBindingsFactory#ScriptBindingsFactory(ProcessEngineConfigurationImpl, List)}
    *   <li>{@link ScriptBindingsFactory#setResolverFactories(List)}
    *   <li>{@link ScriptBindingsFactory#getResolverFactories()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ScriptBindingsFactory.<init>(ProcessEngineConfigurationImpl, List)",
+      "List ScriptBindingsFactory.getResolverFactories()", "void ScriptBindingsFactory.setResolverFactories(List)"})
   public void testGettersAndSetters() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
@@ -56,7 +61,7 @@ public class ScriptBindingsFactoryDiffblueTest {
     actualScriptBindingsFactory.setResolverFactories(resolverFactories);
     List<ResolverFactory> actualResolverFactories = actualScriptBindingsFactory.getResolverFactories();
 
-    // Assert that nothing has changed
+    // Assert
     assertTrue(actualResolverFactories.isEmpty());
     assertSame(resolverFactories, actualResolverFactories);
   }
@@ -67,10 +72,11 @@ public class ScriptBindingsFactoryDiffblueTest {
    *   <li>Then return Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ScriptBindingsFactory#createResolvers(VariableScope)}
+   * Method under test: {@link ScriptBindingsFactory#createResolvers(VariableScope)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List ScriptBindingsFactory.createResolvers(VariableScope)"})
   public void testCreateResolvers_thenReturnEmpty() {
     // Arrange
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
@@ -87,10 +93,11 @@ public class ScriptBindingsFactoryDiffblueTest {
    *   <li>Then return size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ScriptBindingsFactory#createResolvers(VariableScope)}
+   * Method under test: {@link ScriptBindingsFactory#createResolvers(VariableScope)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List ScriptBindingsFactory.createResolvers(VariableScope)"})
   public void testCreateResolvers_thenReturnSizeIsOne() {
     // Arrange
     ResolverFactory resolverFactory = mock(ResolverFactory.class);
@@ -100,11 +107,8 @@ public class ScriptBindingsFactoryDiffblueTest {
 
     ArrayList<ResolverFactory> resolverFactories = new ArrayList<>();
     resolverFactories.add(resolverFactory);
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-
-    ScriptBindingsFactory scriptBindingsFactory = new ScriptBindingsFactory(processEngineConfiguration,
-        new ArrayList<>());
-    scriptBindingsFactory.setResolverFactories(resolverFactories);
+    ScriptBindingsFactory scriptBindingsFactory = new ScriptBindingsFactory(new JtaProcessEngineConfiguration(),
+        resolverFactories);
 
     // Act
     List<Resolver> actualCreateResolversResult = scriptBindingsFactory

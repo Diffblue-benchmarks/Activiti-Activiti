@@ -17,6 +17,8 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
 import org.activiti.engine.ActivitiIllegalArgumentException;
@@ -24,16 +26,17 @@ import org.activiti.engine.impl.RuntimeServiceImpl;
 import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.impl.runtime.ProcessInstanceBuilderImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class StartProcessInstanceByMessageCmdDiffblueTest {
   /**
-   * Test
-   * {@link StartProcessInstanceByMessageCmd#StartProcessInstanceByMessageCmd(String, String, Map, String)}.
+   * Test {@link StartProcessInstanceByMessageCmd#StartProcessInstanceByMessageCmd(String, String, Map, String)}.
    * <p>
-   * Method under test:
-   * {@link StartProcessInstanceByMessageCmd#StartProcessInstanceByMessageCmd(String, String, Map, String)}
+   * Method under test: {@link StartProcessInstanceByMessageCmd#StartProcessInstanceByMessageCmd(String, String, Map, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void StartProcessInstanceByMessageCmd.<init>(String, String, Map, String)"})
   public void testNewStartProcessInstanceByMessageCmd() {
     // Arrange, Act and Assert
     assertTrue(
@@ -47,10 +50,12 @@ public class StartProcessInstanceByMessageCmdDiffblueTest {
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link StartProcessInstanceByMessageCmd#execute(CommandContext)}
+   * Method under test: {@link StartProcessInstanceByMessageCmd#execute(CommandContext)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "org.activiti.engine.runtime.ProcessInstance StartProcessInstanceByMessageCmd.execute(CommandContext)"})
   public void testExecute_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,

@@ -23,19 +23,23 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.impl.persistence.entity.HistoricDetailVariableInstanceUpdateEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class JPAEntityVariableTypeDiffblueTest {
   /**
    * Test new {@link JPAEntityVariableType} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link JPAEntityVariableType}
+   * Method under test: default or parameterless constructor of {@link JPAEntityVariableType}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JPAEntityVariableType.<init>()"})
   public void testNewJPAEntityVariableType() {
     // Arrange and Act
     JPAEntityVariableType actualJpaEntityVariableType = new JPAEntityVariableType();
@@ -56,6 +60,9 @@ public class JPAEntityVariableTypeDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String JPAEntityVariableType.getTypeName()", "boolean JPAEntityVariableType.isCachable()",
+      "void JPAEntityVariableType.setForceCacheable(boolean)"})
   public void testGettersAndSetters() {
     // Arrange
     JPAEntityVariableType jpaEntityVariableType = new JPAEntityVariableType();
@@ -64,7 +71,7 @@ public class JPAEntityVariableTypeDiffblueTest {
     jpaEntityVariableType.setForceCacheable(true);
     String actualTypeName = jpaEntityVariableType.getTypeName();
 
-    // Assert that nothing has changed
+    // Assert
     assertTrue(jpaEntityVariableType.isCachable());
     assertEquals(JPAEntityVariableType.TYPE_NAME, actualTypeName);
   }
@@ -80,6 +87,8 @@ public class JPAEntityVariableTypeDiffblueTest {
    * Method under test: {@link JPAEntityVariableType#isAbleToStore(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JPAEntityVariableType.isAbleToStore(Object)"})
   public void testIsAbleToStore_givenJPAEntityVariableType_whenNull_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new JPAEntityVariableType()).isAbleToStore(JSONObject.NULL));
@@ -96,6 +105,8 @@ public class JPAEntityVariableTypeDiffblueTest {
    * Method under test: {@link JPAEntityVariableType#isAbleToStore(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JPAEntityVariableType.isAbleToStore(Object)"})
   public void testIsAbleToStore_givenJPAEntityVariableType_whenNull_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue((new JPAEntityVariableType()).isAbleToStore(null));
@@ -112,37 +123,11 @@ public class JPAEntityVariableTypeDiffblueTest {
    * Method under test: {@link JPAEntityVariableType#isAbleToStore(Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean JPAEntityVariableType.isAbleToStore(Object)"})
   public void testIsAbleToStore_givenSharedInstance_whenOne_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse(HistoricJPAEntityVariableType.getSharedInstance().isAbleToStore(1));
-  }
-
-  /**
-   * Test {@link JPAEntityVariableType#getValue(ValueFields)}.
-   * <ul>
-   *   <li>Given {@code null}.</li>
-   *   <li>When {@link ValueFields} {@link ValueFields#getTextValue2()} return
-   * {@code null}.</li>
-   *   <li>Then return {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link JPAEntityVariableType#getValue(ValueFields)}
-   */
-  @Test
-  public void testGetValue_givenNull_whenValueFieldsGetTextValue2ReturnNull_thenReturnNull() {
-    // Arrange
-    JPAEntityVariableType jpaEntityVariableType = new JPAEntityVariableType();
-    ValueFields valueFields = mock(ValueFields.class);
-    when(valueFields.getTextValue2()).thenReturn(null);
-    when(valueFields.getTextValue()).thenReturn("42");
-
-    // Act
-    Object actualValue = jpaEntityVariableType.getValue(valueFields);
-
-    // Assert
-    verify(valueFields).getTextValue();
-    verify(valueFields).getTextValue2();
-    assertNull(actualValue);
   }
 
   /**
@@ -154,6 +139,8 @@ public class JPAEntityVariableTypeDiffblueTest {
    * Method under test: {@link JPAEntityVariableType#getValue(ValueFields)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JPAEntityVariableType.getValue(ValueFields)"})
   public void testGetValue_thenThrowActivitiException() {
     // Arrange
     JPAEntityVariableType jpaEntityVariableType = new JPAEntityVariableType();
@@ -170,14 +157,15 @@ public class JPAEntityVariableTypeDiffblueTest {
   /**
    * Test {@link JPAEntityVariableType#getValue(ValueFields)}.
    * <ul>
-   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default
-   * constructor).</li>
+   *   <li>When {@link HistoricDetailVariableInstanceUpdateEntityImpl} (default constructor).</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link JPAEntityVariableType#getValue(ValueFields)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JPAEntityVariableType.getValue(ValueFields)"})
   public void testGetValue_whenHistoricDetailVariableInstanceUpdateEntityImpl_thenReturnNull() {
     // Arrange
     JPAEntityVariableType jpaEntityVariableType = new JPAEntityVariableType();

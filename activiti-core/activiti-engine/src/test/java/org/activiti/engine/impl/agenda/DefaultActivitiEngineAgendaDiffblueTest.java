@@ -20,6 +20,8 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiEngineAgendaFactory;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.interceptor.Command;
@@ -27,6 +29,7 @@ import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class DefaultActivitiEngineAgendaDiffblueTest {
@@ -39,23 +42,24 @@ public class DefaultActivitiEngineAgendaDiffblueTest {
    * Method under test: {@link DefaultActivitiEngineAgenda#isEmpty()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean DefaultActivitiEngineAgenda.isEmpty()"})
   public void testIsEmpty_thenReturnTrue() {
     // Arrange, Act and Assert
     assertTrue((new DefaultActivitiEngineAgenda(null)).isEmpty());
   }
 
   /**
-   * Test
-   * {@link DefaultActivitiEngineAgenda#planContinueProcessOperation(ExecutionEntity)}.
+   * Test {@link DefaultActivitiEngineAgenda#planContinueProcessOperation(ExecutionEntity)}.
    * <ul>
-   *   <li>Then calls
-   * {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
+   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultActivitiEngineAgenda#planContinueProcessOperation(ExecutionEntity)}
+   * Method under test: {@link DefaultActivitiEngineAgenda#planContinueProcessOperation(ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultActivitiEngineAgenda.planContinueProcessOperation(ExecutionEntity)"})
   public void testPlanContinueProcessOperation_thenCallsCreateAgenda() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
@@ -76,17 +80,16 @@ public class DefaultActivitiEngineAgendaDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultActivitiEngineAgenda#planContinueProcessSynchronousOperation(ExecutionEntity)}.
+   * Test {@link DefaultActivitiEngineAgenda#planContinueProcessSynchronousOperation(ExecutionEntity)}.
    * <ul>
-   *   <li>Then calls
-   * {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
+   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultActivitiEngineAgenda#planContinueProcessSynchronousOperation(ExecutionEntity)}
+   * Method under test: {@link DefaultActivitiEngineAgenda#planContinueProcessSynchronousOperation(ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultActivitiEngineAgenda.planContinueProcessSynchronousOperation(ExecutionEntity)"})
   public void testPlanContinueProcessSynchronousOperation_thenCallsCreateAgenda() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
@@ -107,17 +110,16 @@ public class DefaultActivitiEngineAgendaDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultActivitiEngineAgenda#planContinueProcessInCompensation(ExecutionEntity)}.
+   * Test {@link DefaultActivitiEngineAgenda#planContinueProcessInCompensation(ExecutionEntity)}.
    * <ul>
-   *   <li>Then calls
-   * {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
+   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultActivitiEngineAgenda#planContinueProcessInCompensation(ExecutionEntity)}
+   * Method under test: {@link DefaultActivitiEngineAgenda#planContinueProcessInCompensation(ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultActivitiEngineAgenda.planContinueProcessInCompensation(ExecutionEntity)"})
   public void testPlanContinueProcessInCompensation_thenCallsCreateAgenda() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
@@ -138,17 +140,16 @@ public class DefaultActivitiEngineAgendaDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultActivitiEngineAgenda#planContinueMultiInstanceOperation(ExecutionEntity)}.
+   * Test {@link DefaultActivitiEngineAgenda#planContinueMultiInstanceOperation(ExecutionEntity)}.
    * <ul>
-   *   <li>Then calls
-   * {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
+   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultActivitiEngineAgenda#planContinueMultiInstanceOperation(ExecutionEntity)}
+   * Method under test: {@link DefaultActivitiEngineAgenda#planContinueMultiInstanceOperation(ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultActivitiEngineAgenda.planContinueMultiInstanceOperation(ExecutionEntity)"})
   public void testPlanContinueMultiInstanceOperation_thenCallsCreateAgenda() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
@@ -169,17 +170,17 @@ public class DefaultActivitiEngineAgendaDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultActivitiEngineAgenda#planTakeOutgoingSequenceFlowsOperation(ExecutionEntity, boolean)}.
+   * Test {@link DefaultActivitiEngineAgenda#planTakeOutgoingSequenceFlowsOperation(ExecutionEntity, boolean)}.
    * <ul>
-   *   <li>Then calls
-   * {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
+   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultActivitiEngineAgenda#planTakeOutgoingSequenceFlowsOperation(ExecutionEntity, boolean)}
+   * Method under test: {@link DefaultActivitiEngineAgenda#planTakeOutgoingSequenceFlowsOperation(ExecutionEntity, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "void DefaultActivitiEngineAgenda.planTakeOutgoingSequenceFlowsOperation(ExecutionEntity, boolean)"})
   public void testPlanTakeOutgoingSequenceFlowsOperation_thenCallsCreateAgenda() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
@@ -200,17 +201,16 @@ public class DefaultActivitiEngineAgendaDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultActivitiEngineAgenda#planEndExecutionOperation(ExecutionEntity)}.
+   * Test {@link DefaultActivitiEngineAgenda#planEndExecutionOperation(ExecutionEntity)}.
    * <ul>
-   *   <li>Then calls
-   * {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
+   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultActivitiEngineAgenda#planEndExecutionOperation(ExecutionEntity)}
+   * Method under test: {@link DefaultActivitiEngineAgenda#planEndExecutionOperation(ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultActivitiEngineAgenda.planEndExecutionOperation(ExecutionEntity)"})
   public void testPlanEndExecutionOperation_thenCallsCreateAgenda() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
@@ -230,17 +230,16 @@ public class DefaultActivitiEngineAgendaDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultActivitiEngineAgenda#planTriggerExecutionOperation(ExecutionEntity)}.
+   * Test {@link DefaultActivitiEngineAgenda#planTriggerExecutionOperation(ExecutionEntity)}.
    * <ul>
-   *   <li>Then calls
-   * {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
+   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultActivitiEngineAgenda#planTriggerExecutionOperation(ExecutionEntity)}
+   * Method under test: {@link DefaultActivitiEngineAgenda#planTriggerExecutionOperation(ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultActivitiEngineAgenda.planTriggerExecutionOperation(ExecutionEntity)"})
   public void testPlanTriggerExecutionOperation_thenCallsCreateAgenda() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
@@ -261,17 +260,16 @@ public class DefaultActivitiEngineAgendaDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultActivitiEngineAgenda#planDestroyScopeOperation(ExecutionEntity)}.
+   * Test {@link DefaultActivitiEngineAgenda#planDestroyScopeOperation(ExecutionEntity)}.
    * <ul>
-   *   <li>Then calls
-   * {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
+   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultActivitiEngineAgenda#planDestroyScopeOperation(ExecutionEntity)}
+   * Method under test: {@link DefaultActivitiEngineAgenda#planDestroyScopeOperation(ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultActivitiEngineAgenda.planDestroyScopeOperation(ExecutionEntity)"})
   public void testPlanDestroyScopeOperation_thenCallsCreateAgenda() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
@@ -291,17 +289,16 @@ public class DefaultActivitiEngineAgendaDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link DefaultActivitiEngineAgenda#planExecuteInactiveBehaviorsOperation()}.
+   * Test {@link DefaultActivitiEngineAgenda#planExecuteInactiveBehaviorsOperation()}.
    * <ul>
-   *   <li>Then calls
-   * {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
+   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link DefaultActivitiEngineAgenda#planExecuteInactiveBehaviorsOperation()}
+   * Method under test: {@link DefaultActivitiEngineAgenda#planExecuteInactiveBehaviorsOperation()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DefaultActivitiEngineAgenda.planExecuteInactiveBehaviorsOperation()"})
   public void testPlanExecuteInactiveBehaviorsOperation_thenCallsCreateAgenda() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);

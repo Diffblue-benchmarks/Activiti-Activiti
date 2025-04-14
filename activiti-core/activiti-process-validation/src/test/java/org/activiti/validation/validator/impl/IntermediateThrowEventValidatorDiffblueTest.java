@@ -23,6 +23,7 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -38,24 +39,24 @@ import org.activiti.bpmn.model.SignalEventDefinition;
 import org.activiti.bpmn.model.ThrowEvent;
 import org.activiti.validation.ValidationError;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class IntermediateThrowEventValidatorDiffblueTest {
   /**
-   * Test
-   * {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link ThrowEvent} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link ThrowEvent} (default constructor).</li>
    *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList() add ThrowEvent (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IntermediateThrowEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenArrayListAddThrowEvent_thenArrayListEmpty() {
     // Arrange
     IntermediateThrowEventValidator intermediateThrowEventValidator = new IntermediateThrowEventValidator();
@@ -82,18 +83,18 @@ class IntermediateThrowEventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
    *   <li>Given {@link ArrayList#ArrayList()}.</li>
    *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given ArrayList(); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IntermediateThrowEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenArrayList_thenArrayListEmpty() {
     // Arrange
     IntermediateThrowEventValidator intermediateThrowEventValidator = new IntermediateThrowEventValidator();
@@ -117,18 +118,17 @@ class IntermediateThrowEventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link ThrowEvent} (default constructor) addEventDefinition
-   * {@link CompensateEventDefinition} (default constructor).</li>
+   *   <li>Given {@link ThrowEvent} (default constructor) addEventDefinition {@link CompensateEventDefinition} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given ThrowEvent (default constructor) addEventDefinition CompensateEventDefinition (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IntermediateThrowEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenThrowEventAddEventDefinitionCompensateEventDefinition() {
     // Arrange
     IntermediateThrowEventValidator intermediateThrowEventValidator = new IntermediateThrowEventValidator();
@@ -158,18 +158,17 @@ class IntermediateThrowEventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link ThrowEvent} (default constructor) addEventDefinition
-   * {@link MessageEventDefinition} (default constructor).</li>
+   *   <li>Given {@link ThrowEvent} (default constructor) addEventDefinition {@link MessageEventDefinition} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given ThrowEvent (default constructor) addEventDefinition MessageEventDefinition (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IntermediateThrowEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenThrowEventAddEventDefinitionMessageEventDefinition() {
     // Arrange
     IntermediateThrowEventValidator intermediateThrowEventValidator = new IntermediateThrowEventValidator();
@@ -199,18 +198,17 @@ class IntermediateThrowEventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Given {@link ThrowEvent} (default constructor) addEventDefinition
-   * {@link SignalEventDefinition} (default constructor).</li>
+   *   <li>Given {@link ThrowEvent} (default constructor) addEventDefinition {@link SignalEventDefinition} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); given ThrowEvent (default constructor) addEventDefinition SignalEventDefinition (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IntermediateThrowEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_givenThrowEventAddEventDefinitionSignalEventDefinition() {
     // Arrange
     IntermediateThrowEventValidator intermediateThrowEventValidator = new IntermediateThrowEventValidator();
@@ -240,17 +238,17 @@ class IntermediateThrowEventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} first ActivityId is {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() first ActivityId is '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IntermediateThrowEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListFirstActivityIdIs42() {
     // Arrange
     IntermediateThrowEventValidator intermediateThrowEventValidator = new IntermediateThrowEventValidator();
@@ -303,18 +301,17 @@ class IntermediateThrowEventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} first ProcessDefinitionName is
-   * {@code Name}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} first ProcessDefinitionName is {@code Name}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() first ProcessDefinitionName is 'Name'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IntermediateThrowEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListFirstProcessDefinitionNameIsName() {
     // Arrange
     IntermediateThrowEventValidator intermediateThrowEventValidator = new IntermediateThrowEventValidator();
@@ -361,17 +358,17 @@ class IntermediateThrowEventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
    *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IntermediateThrowEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_thenArrayListSizeIsTwo() {
     // Arrange
     IntermediateThrowEventValidator intermediateThrowEventValidator = new IntermediateThrowEventValidator();
@@ -439,45 +436,18 @@ class IntermediateThrowEventValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}.
-   * <ul>
-   *   <li>When {@link BpmnModel}.</li>
-   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}
-   */
-  @Test
-  @DisplayName("Test executeValidation(BpmnModel, Process, List); when BpmnModel; then ArrayList() Empty")
-  void testExecuteValidation_whenBpmnModel_thenArrayListEmpty() {
-    // Arrange
-    IntermediateThrowEventValidator intermediateThrowEventValidator = new IntermediateThrowEventValidator();
-    BpmnModel bpmnModel = mock(BpmnModel.class);
-    Process process = new Process();
-    ArrayList<ValidationError> errors = new ArrayList<>();
-
-    // Act
-    intermediateThrowEventValidator.executeValidation(bpmnModel, process, errors);
-
-    // Assert that nothing has changed
-    assertTrue(errors.isEmpty());
-  }
-
-  /**
-   * Test
-   * {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}.
+   * Test {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}.
    * <ul>
    *   <li>When {@link Process} (default constructor).</li>
    *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}
+   * Method under test: {@link IntermediateThrowEventValidator#executeValidation(BpmnModel, Process, List)}
    */
   @Test
   @DisplayName("Test executeValidation(BpmnModel, Process, List); when Process (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void IntermediateThrowEventValidator.executeValidation(BpmnModel, Process, List)"})
   void testExecuteValidation_whenProcess_thenArrayListEmpty() {
     // Arrange
     IntermediateThrowEventValidator intermediateThrowEventValidator = new IntermediateThrowEventValidator();

@@ -17,9 +17,12 @@ package org.activiti.bpmn.model.parse;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.BaseElement;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class WarningDiffblueTest {
   /**
@@ -28,6 +31,8 @@ public class WarningDiffblueTest {
    * Method under test: {@link Warning#Warning(String, String, int, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Warning.<init>(String, String, int, int)"})
   public void testNewWarning() {
     // Arrange and Act
     Warning actualWarning = new Warning("Warning Message", "Local Name", 2, 10);
@@ -49,6 +54,8 @@ public class WarningDiffblueTest {
    * Method under test: {@link Warning#Warning(String, BaseElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void Warning.<init>(String, BaseElement)"})
   public void testNewWarning_whenActivitiListener_thenReturnWarningMessage() {
     // Arrange and Act
     Warning actualWarning = new Warning("Warning Message", new ActivitiListener());
@@ -69,6 +76,8 @@ public class WarningDiffblueTest {
    * Method under test: {@link Warning#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String Warning.toString()"})
   public void testToString_thenReturnWarningMessageLine2Column10() {
     // Arrange, Act and Assert
     assertEquals("Warning Message | line 2 | column 10", (new Warning("Warning Message", null, 2, 10)).toString());
@@ -77,13 +86,14 @@ public class WarningDiffblueTest {
   /**
    * Test {@link Warning#toString()}.
    * <ul>
-   *   <li>Then return
-   * {@code Warning Message | Local Name | line 2 | column 10}.</li>
+   *   <li>Then return {@code Warning Message | Local Name | line 2 | column 10}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Warning#toString()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String Warning.toString()"})
   public void testToString_thenReturnWarningMessageLocalNameLine2Column10() {
     // Arrange, Act and Assert
     assertEquals("Warning Message | Local Name | line 2 | column 10",

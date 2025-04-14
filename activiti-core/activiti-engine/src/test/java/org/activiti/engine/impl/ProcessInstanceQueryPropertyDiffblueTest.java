@@ -17,27 +17,20 @@ package org.activiti.engine.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ProcessInstanceQueryPropertyDiffblueTest {
-  @InjectMocks
-  private ProcessInstanceQueryProperty processInstanceQueryProperty;
-
-  @InjectMocks
-  private String string;
-
   /**
-   * Test
-   * {@link ProcessInstanceQueryProperty#ProcessInstanceQueryProperty(String)}.
+   * Test {@link ProcessInstanceQueryProperty#ProcessInstanceQueryProperty(String)}.
    * <p>
-   * Method under test:
-   * {@link ProcessInstanceQueryProperty#ProcessInstanceQueryProperty(String)}
+   * Method under test: {@link ProcessInstanceQueryProperty#ProcessInstanceQueryProperty(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ProcessInstanceQueryProperty.<init>(String)"})
   public void testNewProcessInstanceQueryProperty() {
     // Arrange, Act and Assert
     assertEquals("Name", (new ProcessInstanceQueryProperty("Name")).getName());
@@ -49,6 +42,8 @@ public class ProcessInstanceQueryPropertyDiffblueTest {
    * Method under test: {@link ProcessInstanceQueryProperty#getName()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ProcessInstanceQueryProperty.getName()"})
   public void testGetName() {
     // Arrange, Act and Assert
     assertEquals("Name", (new ProcessInstanceQueryProperty("Name")).getName());
@@ -60,6 +55,8 @@ public class ProcessInstanceQueryPropertyDiffblueTest {
    * Method under test: {@link ProcessInstanceQueryProperty#findByName(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"ProcessInstanceQueryProperty ProcessInstanceQueryProperty.findByName(String)"})
   public void testFindByName() {
     // Arrange, Act and Assert
     assertNull(ProcessInstanceQueryProperty.findByName("Property Name"));

@@ -25,6 +25,8 @@ import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
 import org.activiti.engine.impl.RuntimeServiceImpl;
@@ -37,39 +39,53 @@ import org.activiti.engine.impl.runtime.ProcessInstanceBuilderImpl;
 import org.activiti.engine.impl.util.ProcessInstanceHelper;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class CreateProcessInstanceCmdDiffblueTest {
   /**
-   * Test
-   * {@link CreateProcessInstanceCmd#CreateProcessInstanceCmd(String, String, String, Map)}.
+   * Test {@link CreateProcessInstanceCmd#CreateProcessInstanceCmd(String, String, String, Map)}.
    * <p>
-   * Method under test:
-   * {@link CreateProcessInstanceCmd#CreateProcessInstanceCmd(String, String, String, Map)}
+   * Method under test: {@link CreateProcessInstanceCmd#CreateProcessInstanceCmd(String, String, String, Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CreateProcessInstanceCmd.<init>(String, String, String, Map)",
+      "void CreateProcessInstanceCmd.<init>(String, String, String, Map, String)"})
   public void testNewCreateProcessInstanceCmd() {
     // Arrange, Act and Assert
     assertTrue((new CreateProcessInstanceCmd("Process Definition Key", "42", "Business Key", new HashMap<>())).variables
         .isEmpty());
+  }
+
+  /**
+   * Test {@link CreateProcessInstanceCmd#CreateProcessInstanceCmd(String, String, String, Map, String)}.
+   * <p>
+   * Method under test: {@link CreateProcessInstanceCmd#CreateProcessInstanceCmd(String, String, String, Map, String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CreateProcessInstanceCmd.<init>(String, String, String, Map)",
+      "void CreateProcessInstanceCmd.<init>(String, String, String, Map, String)"})
+  public void testNewCreateProcessInstanceCmd2() {
+    // Arrange, Act and Assert
     assertTrue(
         (new CreateProcessInstanceCmd("Process Definition Key", "42", "Business Key", new HashMap<>(), "42")).variables
             .isEmpty());
   }
 
   /**
-   * Test
-   * {@link CreateProcessInstanceCmd#CreateProcessInstanceCmd(ProcessInstanceBuilderImpl)}.
+   * Test {@link CreateProcessInstanceCmd#CreateProcessInstanceCmd(ProcessInstanceBuilderImpl)}.
    * <ul>
    *   <li>Given empty string.</li>
-   *   <li>Then return {@link CreateProcessInstanceCmd#tenantId} is empty
-   * string.</li>
+   *   <li>Then return {@link CreateProcessInstanceCmd#tenantId} is empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link CreateProcessInstanceCmd#CreateProcessInstanceCmd(ProcessInstanceBuilderImpl)}
+   * Method under test: {@link CreateProcessInstanceCmd#CreateProcessInstanceCmd(ProcessInstanceBuilderImpl)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CreateProcessInstanceCmd.<init>(ProcessInstanceBuilderImpl)"})
   public void testNewCreateProcessInstanceCmd_givenEmptyString_thenReturnTenantIdIsEmptyString() {
     // Arrange
     ProcessInstanceBuilderImpl processInstanceBuilder = mock(ProcessInstanceBuilderImpl.class);
@@ -126,17 +142,16 @@ public class CreateProcessInstanceCmdDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link CreateProcessInstanceCmd#CreateProcessInstanceCmd(ProcessInstanceBuilderImpl)}.
+   * Test {@link CreateProcessInstanceCmd#CreateProcessInstanceCmd(ProcessInstanceBuilderImpl)}.
    * <ul>
-   *   <li>Then return {@link CreateProcessInstanceCmd#businessKey} is
-   * {@code null}.</li>
+   *   <li>Then return {@link CreateProcessInstanceCmd#businessKey} is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link CreateProcessInstanceCmd#CreateProcessInstanceCmd(ProcessInstanceBuilderImpl)}
+   * Method under test: {@link CreateProcessInstanceCmd#CreateProcessInstanceCmd(ProcessInstanceBuilderImpl)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CreateProcessInstanceCmd.<init>(ProcessInstanceBuilderImpl)"})
   public void testNewCreateProcessInstanceCmd_thenReturnBusinessKeyIsNull() {
     // Arrange
     ProcessInstanceBuilderImpl processInstanceBuilder = new ProcessInstanceBuilderImpl(new RuntimeServiceImpl());
@@ -174,16 +189,16 @@ public class CreateProcessInstanceCmdDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link CreateProcessInstanceCmd#CreateProcessInstanceCmd(ProcessInstanceBuilderImpl)}.
+   * Test {@link CreateProcessInstanceCmd#CreateProcessInstanceCmd(ProcessInstanceBuilderImpl)}.
    * <ul>
    *   <li>Then return {@link CreateProcessInstanceCmd#tenantId} is {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link CreateProcessInstanceCmd#CreateProcessInstanceCmd(ProcessInstanceBuilderImpl)}
+   * Method under test: {@link CreateProcessInstanceCmd#CreateProcessInstanceCmd(ProcessInstanceBuilderImpl)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CreateProcessInstanceCmd.<init>(ProcessInstanceBuilderImpl)"})
   public void testNewCreateProcessInstanceCmd_thenReturnTenantIdIs42() {
     // Arrange
     ProcessInstanceBuilderImpl processInstanceBuilder = mock(ProcessInstanceBuilderImpl.class);

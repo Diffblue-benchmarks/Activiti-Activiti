@@ -17,28 +17,33 @@ package org.activiti.engine.impl.agenda;
 
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiEngineAgendaFactory;
+import org.activiti.engine.Agenda;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandContext;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class ContinueMultiInstanceOperationDiffblueTest {
   /**
-   * Test
-   * {@link ContinueMultiInstanceOperation#ContinueMultiInstanceOperation(CommandContext, ExecutionEntity)}.
+   * Test {@link ContinueMultiInstanceOperation#ContinueMultiInstanceOperation(CommandContext, ExecutionEntity)}.
    * <p>
-   * Method under test:
-   * {@link ContinueMultiInstanceOperation#ContinueMultiInstanceOperation(CommandContext, ExecutionEntity)}
+   * Method under test: {@link ContinueMultiInstanceOperation#ContinueMultiInstanceOperation(CommandContext, ExecutionEntity)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ContinueMultiInstanceOperation.<init>(CommandContext, ExecutionEntity)"})
   public void testNewContinueMultiInstanceOperation() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);
@@ -57,9 +62,13 @@ public class ContinueMultiInstanceOperationDiffblueTest {
 
     // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
-    assertSame(defaultActivitiEngineAgenda, actualContinueMultiInstanceOperation.getAgenda());
+    Agenda agenda = actualContinueMultiInstanceOperation.getAgenda();
+    assertTrue(agenda instanceof DefaultActivitiEngineAgenda);
+    ExecutionEntity execution2 = actualContinueMultiInstanceOperation.getExecution();
+    assertTrue(execution2 instanceof ExecutionEntityImpl);
+    assertSame(defaultActivitiEngineAgenda, agenda);
     assertSame(commandContext, actualContinueMultiInstanceOperation.getCommandContext());
-    assertSame(execution, actualContinueMultiInstanceOperation.getExecution());
+    assertSame(execution, execution2);
   }
 
   /**
@@ -71,6 +80,8 @@ public class ContinueMultiInstanceOperationDiffblueTest {
    * Method under test: {@link ContinueMultiInstanceOperation#run()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ContinueMultiInstanceOperation.run()"})
   public void testRun_thenThrowRuntimeException() {
     // Arrange
     ActivitiEngineAgendaFactory engineAgendaFactory = mock(ActivitiEngineAgendaFactory.class);

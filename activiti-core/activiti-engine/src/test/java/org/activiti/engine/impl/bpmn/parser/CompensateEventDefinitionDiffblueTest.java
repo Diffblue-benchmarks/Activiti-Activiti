@@ -17,7 +17,10 @@ package org.activiti.engine.impl.bpmn.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class CompensateEventDefinitionDiffblueTest {
   /**
@@ -33,6 +36,11 @@ public class CompensateEventDefinitionDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CompensateEventDefinition.<init>()", "String CompensateEventDefinition.getActivityRef()",
+      "boolean CompensateEventDefinition.isWaitForCompletion()",
+      "void CompensateEventDefinition.setActivityRef(String)",
+      "void CompensateEventDefinition.setWaitForCompletion(boolean)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     CompensateEventDefinition actualCompensateEventDefinition = new CompensateEventDefinition();
@@ -40,7 +48,7 @@ public class CompensateEventDefinitionDiffblueTest {
     actualCompensateEventDefinition.setWaitForCompletion(true);
     String actualActivityRef = actualCompensateEventDefinition.getActivityRef();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Activity Ref", actualActivityRef);
     assertTrue(actualCompensateEventDefinition.isWaitForCompletion());
   }

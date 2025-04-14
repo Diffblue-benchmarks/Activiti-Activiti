@@ -19,24 +19,24 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class MultiInstanceLoopCharacteristicsDiffblueTest {
   /**
    * Test {@link MultiInstanceLoopCharacteristics#clone()}.
    * <ul>
-   *   <li>Given {@link MultiInstanceLoopCharacteristics} (default
-   * constructor).</li>
+   *   <li>Given {@link MultiInstanceLoopCharacteristics} (default constructor).</li>
    *   <li>Then return not Sequential.</li>
    * </ul>
    * <p>
    * Method under test: {@link MultiInstanceLoopCharacteristics#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"MultiInstanceLoopCharacteristics MultiInstanceLoopCharacteristics.clone()"})
   public void testClone_givenMultiInstanceLoopCharacteristics_thenReturnNotSequential() {
     // Arrange and Act
     MultiInstanceLoopCharacteristics actualCloneResult = (new MultiInstanceLoopCharacteristics()).clone();
@@ -66,6 +66,8 @@ public class MultiInstanceLoopCharacteristicsDiffblueTest {
    * Method under test: {@link MultiInstanceLoopCharacteristics#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"MultiInstanceLoopCharacteristics MultiInstanceLoopCharacteristics.clone()"})
   public void testClone_thenReturnSequential() {
     // Arrange
     MultiInstanceLoopCharacteristics multiInstanceLoopCharacteristics = new MultiInstanceLoopCharacteristics();
@@ -91,39 +93,11 @@ public class MultiInstanceLoopCharacteristicsDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link MultiInstanceLoopCharacteristics#setValues(MultiInstanceLoopCharacteristics)}
-   * with {@code otherLoopCharacteristics}.
-   * <ul>
-   *   <li>Then calls {@link ExtensionElement#getName()}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link MultiInstanceLoopCharacteristics#setValues(MultiInstanceLoopCharacteristics)}
-   */
-  @Test
-  public void testSetValuesWithOtherLoopCharacteristics_thenCallsGetName() {
-    // Arrange
-    ExtensionElement extensionElement = mock(ExtensionElement.class);
-    when(extensionElement.getName()).thenReturn("Name");
-
-    MultiInstanceLoopCharacteristics multiInstanceLoopCharacteristics = new MultiInstanceLoopCharacteristics();
-    multiInstanceLoopCharacteristics.addExtensionElement(extensionElement);
-
-    // Act
-    multiInstanceLoopCharacteristics.setValues(new MultiInstanceLoopCharacteristics());
-
-    // Assert
-    verify(extensionElement, atLeast(1)).getName();
-  }
-
-  /**
    * Test getters and setters.
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of
-   * {@link MultiInstanceLoopCharacteristics}
+   *   <li>default or parameterless constructor of {@link MultiInstanceLoopCharacteristics}
    *   <li>{@link MultiInstanceLoopCharacteristics#setCompletionCondition(String)}
    *   <li>{@link MultiInstanceLoopCharacteristics#setElementIndexVariable(String)}
    *   <li>{@link MultiInstanceLoopCharacteristics#setElementVariable(String)}
@@ -143,6 +117,24 @@ public class MultiInstanceLoopCharacteristicsDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MultiInstanceLoopCharacteristics.<init>()",
+      "String MultiInstanceLoopCharacteristics.getCompletionCondition()",
+      "String MultiInstanceLoopCharacteristics.getElementIndexVariable()",
+      "String MultiInstanceLoopCharacteristics.getElementVariable()",
+      "String MultiInstanceLoopCharacteristics.getInputDataItem()",
+      "String MultiInstanceLoopCharacteristics.getLoopCardinality()",
+      "String MultiInstanceLoopCharacteristics.getLoopDataOutputRef()",
+      "String MultiInstanceLoopCharacteristics.getOutputDataItem()",
+      "boolean MultiInstanceLoopCharacteristics.isSequential()",
+      "void MultiInstanceLoopCharacteristics.setCompletionCondition(String)",
+      "void MultiInstanceLoopCharacteristics.setElementIndexVariable(String)",
+      "void MultiInstanceLoopCharacteristics.setElementVariable(String)",
+      "void MultiInstanceLoopCharacteristics.setInputDataItem(String)",
+      "void MultiInstanceLoopCharacteristics.setLoopCardinality(String)",
+      "void MultiInstanceLoopCharacteristics.setLoopDataOutputRef(String)",
+      "void MultiInstanceLoopCharacteristics.setOutputDataItem(String)",
+      "void MultiInstanceLoopCharacteristics.setSequential(boolean)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     MultiInstanceLoopCharacteristics actualMultiInstanceLoopCharacteristics = new MultiInstanceLoopCharacteristics();
@@ -163,7 +155,7 @@ public class MultiInstanceLoopCharacteristicsDiffblueTest {
     String actualOutputDataItem = actualMultiInstanceLoopCharacteristics.getOutputDataItem();
     boolean actualIsSequentialResult = actualMultiInstanceLoopCharacteristics.isSequential();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Completion Condition", actualCompletionCondition);
     assertEquals("Element Index Variable", actualElementIndexVariable);
     assertEquals("Element Variable", actualElementVariable);
@@ -171,6 +163,7 @@ public class MultiInstanceLoopCharacteristicsDiffblueTest {
     assertEquals("Loop Cardinality", actualLoopCardinality);
     assertEquals("Loop Data Output Ref", actualLoopDataOutputRef);
     assertEquals("Output Data Item", actualOutputDataItem);
+    assertNull(actualMultiInstanceLoopCharacteristics.getId());
     assertEquals(0, actualMultiInstanceLoopCharacteristics.getXmlColumnNumber());
     assertEquals(0, actualMultiInstanceLoopCharacteristics.getXmlRowNumber());
     assertTrue(actualMultiInstanceLoopCharacteristics.getAttributes().isEmpty());

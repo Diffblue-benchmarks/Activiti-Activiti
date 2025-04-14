@@ -19,21 +19,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class TimerPayloadDiffblueTest {
   /**
    * Test new {@link TimerPayload} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link TimerPayload}
+   * Method under test: default or parameterless constructor of {@link TimerPayload}
    */
   @Test
   @DisplayName("Test new TimerPayload (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TimerPayload.<init>()"})
   void testNewTimerPayload() {
     // Arrange and Act
     TimerPayload actualTimerPayload = new TimerPayload();
@@ -69,6 +72,13 @@ class TimerPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Date TimerPayload.getDuedate()", "Date TimerPayload.getEndDate()",
+      "String TimerPayload.getExceptionMessage()", "String TimerPayload.getId()", "int TimerPayload.getMaxIterations()",
+      "String TimerPayload.getRepeat()", "int TimerPayload.getRetries()", "void TimerPayload.setDuedate(Date)",
+      "void TimerPayload.setEndDate(Date)", "void TimerPayload.setExceptionMessage(String)",
+      "void TimerPayload.setMaxIterations(int)", "void TimerPayload.setRepeat(String)",
+      "void TimerPayload.setRetries(int)"})
   void testGettersAndSetters() {
     // Arrange
     TimerPayload timerPayload = new TimerPayload();
@@ -89,7 +99,7 @@ class TimerPayloadDiffblueTest {
     int actualMaxIterations = timerPayload.getMaxIterations();
     String actualRepeat = timerPayload.getRepeat();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("An error occurred", actualExceptionMessage);
     assertEquals("Repeat", actualRepeat);
     assertEquals(1, timerPayload.getRetries());
@@ -99,8 +109,7 @@ class TimerPayloadDiffblueTest {
   }
 
   /**
-   * Test {@link TimerPayload#equals(Object)}, and
-   * {@link TimerPayload#hashCode()}.
+   * Test {@link TimerPayload#equals(Object)}, and {@link TimerPayload#hashCode()}.
    * <ul>
    *   <li>When other is same.</li>
    *   <li>Then return equal.</li>
@@ -114,6 +123,8 @@ class TimerPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object), and hashCode(); when other is same; then return equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TimerPayload.equals(Object)", "int TimerPayload.hashCode()"})
   void testEqualsAndHashCode_whenOtherIsSame_thenReturnEqual() {
     // Arrange
     TimerPayload timerPayload = new TimerPayload();
@@ -141,6 +152,8 @@ class TimerPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TimerPayload.equals(Object)", "int TimerPayload.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual() {
     // Arrange
     TimerPayload timerPayload = new TimerPayload();
@@ -174,6 +187,8 @@ class TimerPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TimerPayload.equals(Object)", "int TimerPayload.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual2() {
     // Arrange
     TimerPayload timerPayload = new TimerPayload();
@@ -207,6 +222,8 @@ class TimerPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TimerPayload.equals(Object)", "int TimerPayload.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual3() {
     // Arrange
     TimerPayload timerPayload = new TimerPayload();
@@ -240,6 +257,8 @@ class TimerPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TimerPayload.equals(Object)", "int TimerPayload.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual4() {
     // Arrange
     TimerPayload timerPayload = new TimerPayload();
@@ -273,6 +292,8 @@ class TimerPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TimerPayload.equals(Object)", "int TimerPayload.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual5() {
     // Arrange
     TimerPayload timerPayload = new TimerPayload();
@@ -306,12 +327,14 @@ class TimerPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TimerPayload.equals(Object)", "int TimerPayload.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual6() {
     // Arrange
     TimerPayload timerPayload = new TimerPayload();
     timerPayload.setDuedate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     timerPayload.setEndDate(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    timerPayload.setExceptionMessage("c3240f40-1287-4b0e-8307-e8239c4bcd54");
+    timerPayload.setExceptionMessage("5ca234f4-850f-4206-8b49-6451aa1086b6");
     timerPayload.setMaxIterations(3);
     timerPayload.setRepeat("Repeat");
     timerPayload.setRetries(1);
@@ -339,6 +362,8 @@ class TimerPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TimerPayload.equals(Object)", "int TimerPayload.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual7() {
     // Arrange
     TimerPayload timerPayload = new TimerPayload();
@@ -372,6 +397,8 @@ class TimerPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TimerPayload.equals(Object)", "int TimerPayload.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual8() {
     // Arrange
     TimerPayload timerPayload = new TimerPayload();
@@ -405,6 +432,8 @@ class TimerPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TimerPayload.equals(Object)", "int TimerPayload.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual9() {
     // Arrange
     TimerPayload timerPayload = new TimerPayload();
@@ -438,6 +467,8 @@ class TimerPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is different; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TimerPayload.equals(Object)", "int TimerPayload.hashCode()"})
   void testEquals_whenOtherIsDifferent_thenReturnNotEqual10() {
     // Arrange
     TimerPayload timerPayload = new TimerPayload();
@@ -471,6 +502,8 @@ class TimerPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is 'null'; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TimerPayload.equals(Object)", "int TimerPayload.hashCode()"})
   void testEquals_whenOtherIsNull_thenReturnNotEqual() {
     // Arrange
     TimerPayload timerPayload = new TimerPayload();
@@ -496,6 +529,8 @@ class TimerPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test equals(Object); when other is wrong type; then return not equal")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean TimerPayload.equals(Object)", "int TimerPayload.hashCode()"})
   void testEquals_whenOtherIsWrongType_thenReturnNotEqual() {
     // Arrange
     TimerPayload timerPayload = new TimerPayload();

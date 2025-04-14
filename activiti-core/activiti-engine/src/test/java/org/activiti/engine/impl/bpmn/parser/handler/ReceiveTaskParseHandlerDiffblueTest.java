@@ -18,6 +18,8 @@ package org.activiti.engine.impl.bpmn.parser.handler;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.ReceiveTask;
 import org.activiti.engine.impl.bpmn.behavior.ReceiveTaskActivityBehavior;
@@ -25,16 +27,17 @@ import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ReceiveTaskParseHandlerDiffblueTest {
   /**
-   * Test {@link ReceiveTaskParseHandler#executeParse(BpmnParse, ReceiveTask)}
-   * with {@code BpmnParse}, {@code ReceiveTask}.
+   * Test {@link ReceiveTaskParseHandler#executeParse(BpmnParse, ReceiveTask)} with {@code BpmnParse}, {@code ReceiveTask}.
    * <p>
-   * Method under test:
-   * {@link ReceiveTaskParseHandler#executeParse(BpmnParse, ReceiveTask)}
+   * Method under test: {@link ReceiveTaskParseHandler#executeParse(BpmnParse, ReceiveTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ReceiveTaskParseHandler.executeParse(BpmnParse, ReceiveTask)"})
   public void testExecuteParseWithBpmnParseReceiveTask() {
     // Arrange
     ReceiveTaskParseHandler receiveTaskParseHandler = new ReceiveTaskParseHandler();
@@ -63,6 +66,8 @@ public class ReceiveTaskParseHandlerDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ReceiveTaskParseHandler.<init>()", "Class ReceiveTaskParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends BaseElement> actualHandledType = (new ReceiveTaskParseHandler()).getHandledType();

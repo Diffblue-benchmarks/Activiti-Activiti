@@ -16,24 +16,27 @@
 package org.activiti.engine.impl.persistence.entity.data.impl.cachematcher;
 
 import static org.junit.Assert.assertFalse;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class SubProcessInstanceExecutionBySuperExecutionIdMatcherDiffblueTest {
   /**
-   * Test
-   * {@link SubProcessInstanceExecutionBySuperExecutionIdMatcher#isRetained(ExecutionEntity, Object)}
-   * with {@code ExecutionEntity}, {@code Object}.
+   * Test {@link SubProcessInstanceExecutionBySuperExecutionIdMatcher#isRetained(ExecutionEntity, Object)} with {@code ExecutionEntity}, {@code Object}.
    * <ul>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SubProcessInstanceExecutionBySuperExecutionIdMatcher#isRetained(ExecutionEntity, Object)}
+   * Method under test: {@link SubProcessInstanceExecutionBySuperExecutionIdMatcher#isRetained(ExecutionEntity, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "boolean SubProcessInstanceExecutionBySuperExecutionIdMatcher.isRetained(ExecutionEntity, Object)"})
   public void testIsRetainedWithExecutionEntityObject_thenReturnFalse() {
     // Arrange
     SubProcessInstanceExecutionBySuperExecutionIdMatcher subProcessInstanceExecutionBySuperExecutionIdMatcher = new SubProcessInstanceExecutionBySuperExecutionIdMatcher();

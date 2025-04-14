@@ -17,7 +17,9 @@ package org.activiti.core.common.model.connector;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class VariableDefinitionDiffblueTest {
@@ -47,6 +49,15 @@ class VariableDefinitionDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void VariableDefinition.<init>()", "String VariableDefinition.getDescription()",
+      "Boolean VariableDefinition.getDisplay()", "String VariableDefinition.getDisplayName()",
+      "String VariableDefinition.getId()", "String VariableDefinition.getName()", "String VariableDefinition.getType()",
+      "boolean VariableDefinition.isAnalytics()", "boolean VariableDefinition.isRequired()",
+      "void VariableDefinition.setAnalytics(boolean)", "void VariableDefinition.setDescription(String)",
+      "void VariableDefinition.setDisplay(Boolean)", "void VariableDefinition.setDisplayName(String)",
+      "void VariableDefinition.setId(String)", "void VariableDefinition.setName(String)",
+      "void VariableDefinition.setRequired(boolean)", "void VariableDefinition.setType(String)"})
   void testGettersAndSetters() {
     // Arrange and Act
     VariableDefinition actualVariableDefinition = new VariableDefinition();
@@ -66,7 +77,7 @@ class VariableDefinitionDiffblueTest {
     String actualType = actualVariableDefinition.getType();
     boolean actualIsAnalyticsResult = actualVariableDefinition.isAnalytics();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualId);
     assertEquals("Display Name", actualDisplayName);
     assertEquals("Name", actualName);

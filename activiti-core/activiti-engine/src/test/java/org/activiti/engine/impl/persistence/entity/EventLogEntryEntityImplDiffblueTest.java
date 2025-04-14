@@ -15,14 +15,19 @@
  */
 package org.activiti.engine.impl.persistence.entity;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class EventLogEntryEntityImplDiffblueTest {
   /**
@@ -60,6 +65,21 @@ public class EventLogEntryEntityImplDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void EventLogEntryEntityImpl.<init>()", "byte[] EventLogEntryEntityImpl.getData()",
+      "String EventLogEntryEntityImpl.getExecutionId()", "String EventLogEntryEntityImpl.getLockOwner()",
+      "String EventLogEntryEntityImpl.getLockTime()", "long EventLogEntryEntityImpl.getLogNumber()",
+      "Object EventLogEntryEntityImpl.getPersistentState()", "String EventLogEntryEntityImpl.getProcessDefinitionId()",
+      "String EventLogEntryEntityImpl.getProcessInstanceId()", "int EventLogEntryEntityImpl.getProcessed()",
+      "String EventLogEntryEntityImpl.getTaskId()", "Date EventLogEntryEntityImpl.getTimeStamp()",
+      "String EventLogEntryEntityImpl.getType()", "String EventLogEntryEntityImpl.getUserId()",
+      "void EventLogEntryEntityImpl.setData(byte[])", "void EventLogEntryEntityImpl.setExecutionId(String)",
+      "void EventLogEntryEntityImpl.setLockOwner(String)", "void EventLogEntryEntityImpl.setLockTime(String)",
+      "void EventLogEntryEntityImpl.setLogNumber(long)", "void EventLogEntryEntityImpl.setProcessDefinitionId(String)",
+      "void EventLogEntryEntityImpl.setProcessInstanceId(String)", "void EventLogEntryEntityImpl.setProcessed(int)",
+      "void EventLogEntryEntityImpl.setTaskId(String)", "void EventLogEntryEntityImpl.setTimeStamp(Date)",
+      "void EventLogEntryEntityImpl.setType(String)", "void EventLogEntryEntityImpl.setUserId(String)",
+      "String EventLogEntryEntityImpl.toString()"})
   public void testGettersAndSetters() throws UnsupportedEncodingException {
     // Arrange and Act
     EventLogEntryEntityImpl actualEventLogEntryEntityImpl = new EventLogEntryEntityImpl();
@@ -83,7 +103,7 @@ public class EventLogEntryEntityImplDiffblueTest {
     String actualLockOwner = actualEventLogEntryEntityImpl.getLockOwner();
     String actualLockTime = actualEventLogEntryEntityImpl.getLockTime();
     long actualLogNumber = actualEventLogEntryEntityImpl.getLogNumber();
-    actualEventLogEntryEntityImpl.getPersistentState();
+    Object actualPersistentState = actualEventLogEntryEntityImpl.getPersistentState();
     String actualProcessDefinitionId = actualEventLogEntryEntityImpl.getProcessDefinitionId();
     String actualProcessInstanceId = actualEventLogEntryEntityImpl.getProcessInstanceId();
     int actualProcessed = actualEventLogEntryEntityImpl.getProcessed();
@@ -91,7 +111,7 @@ public class EventLogEntryEntityImplDiffblueTest {
     Date actualTimeStamp = actualEventLogEntryEntityImpl.getTimeStamp();
     String actualType = actualEventLogEntryEntityImpl.getType();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualExecutionId);
     assertEquals("42", actualProcessDefinitionId);
     assertEquals("42", actualProcessInstanceId);
@@ -100,6 +120,8 @@ public class EventLogEntryEntityImplDiffblueTest {
     assertEquals("Lock Owner", actualLockOwner);
     assertEquals("Lock Time", actualLockTime);
     assertEquals("Type", actualType);
+    assertNull(actualPersistentState);
+    assertNull(actualEventLogEntryEntityImpl.getId());
     assertEquals(1, actualProcessed);
     assertEquals(1L, actualLogNumber);
     assertFalse(actualEventLogEntryEntityImpl.isDeleted());
@@ -107,5 +129,6 @@ public class EventLogEntryEntityImplDiffblueTest {
     assertFalse(actualEventLogEntryEntityImpl.isUpdated());
     assertSame(data, actualData);
     assertSame(timeStamp, actualTimeStamp);
+    assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), actualData);
   }
 }

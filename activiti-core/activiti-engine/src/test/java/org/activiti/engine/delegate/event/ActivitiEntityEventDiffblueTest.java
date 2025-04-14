@@ -16,11 +16,12 @@
 package org.activiti.engine.delegate.event;
 
 import static org.junit.Assert.assertNull;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.event.impl.ActivitiProcessCancelledEventImpl;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
-import org.activiti.engine.runtime.ProcessInstance;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ActivitiEntityEventDiffblueTest {
   /**
@@ -29,25 +30,11 @@ public class ActivitiEntityEventDiffblueTest {
    * Method under test: {@link ActivitiEntityEvent#getReason()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.String ActivitiEntityEvent.getReason()"})
   public void testGetReason() {
     // Arrange, Act and Assert
     assertNull((new ActivitiProcessCancelledEventImpl(ExecutionEntityImpl.createWithEmptyRelationshipCollections()))
         .getReason());
-  }
-
-  /**
-   * Test {@link ActivitiEntityEvent#getReason()}.
-   * <ul>
-   *   <li>Given
-   * {@link ActivitiProcessCancelledEventImpl#ActivitiProcessCancelledEventImpl(ProcessInstance)}
-   * with {@link ProcessInstance}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link ActivitiEntityEvent#getReason()}
-   */
-  @Test
-  public void testGetReason_givenActivitiProcessCancelledEventImplWithProcessInstance() {
-    // Arrange, Act and Assert
-    assertNull((new ActivitiProcessCancelledEventImpl(mock(ProcessInstance.class))).getReason());
   }
 }

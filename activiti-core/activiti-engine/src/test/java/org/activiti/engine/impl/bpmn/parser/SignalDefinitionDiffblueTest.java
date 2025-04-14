@@ -16,7 +16,10 @@
 package org.activiti.engine.impl.bpmn.parser;
 
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class SignalDefinitionDiffblueTest {
   /**
@@ -32,6 +35,10 @@ public class SignalDefinitionDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SignalDefinition.<init>()", "String SignalDefinition.getId()",
+      "String SignalDefinition.getName()", "void SignalDefinition.setId(String)",
+      "void SignalDefinition.setName(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     SignalDefinition actualSignalDefinition = new SignalDefinition();
@@ -39,7 +46,7 @@ public class SignalDefinitionDiffblueTest {
     actualSignalDefinition.setName("Name");
     String actualId = actualSignalDefinition.getId();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualId);
     assertEquals("Name", actualSignalDefinition.getName());
   }

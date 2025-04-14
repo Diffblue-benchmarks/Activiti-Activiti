@@ -16,16 +16,20 @@
 package org.activiti.engine.impl.event.logger.handler;
 
 import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class TaskCreatedEventHandlerDiffblueTest {
   /**
    * Test new {@link TaskCreatedEventHandler} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link TaskCreatedEventHandler}
+   * Method under test: default or parameterless constructor of {@link TaskCreatedEventHandler}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void TaskCreatedEventHandler.<init>()"})
   public void testNewTaskCreatedEventHandler() {
     // Arrange and Act
     TaskCreatedEventHandler actualTaskCreatedEventHandler = new TaskCreatedEventHandler();

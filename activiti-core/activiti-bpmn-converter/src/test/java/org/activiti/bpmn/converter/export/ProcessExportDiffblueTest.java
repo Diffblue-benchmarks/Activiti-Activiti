@@ -21,6 +21,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +35,7 @@ import org.activiti.bpmn.model.FieldExtension;
 import org.activiti.bpmn.model.Lane;
 import org.activiti.bpmn.model.Process;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -41,16 +43,16 @@ class ProcessExportDiffblueTest {
   /**
    * Test {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link ActivitiListener} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link ActivitiListener} (default constructor).</li>
    *   <li>Then calls {@link EventListener#getEntityType()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
+   * Method under test: {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeProcess(Process, XMLStreamWriter); given ArrayList() add ActivitiListener (default constructor); then calls getEntityType()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessExport.writeProcess(Process, XMLStreamWriter)"})
   void testWriteProcess_givenArrayListAddActivitiListener_thenCallsGetEntityType() throws Exception {
     // Arrange
     ArrayList<String> stringList = new ArrayList<>();
@@ -116,17 +118,16 @@ class ProcessExportDiffblueTest {
   /**
    * Test {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link EventListener} (default
-   * constructor).</li>
-   *   <li>Then calls
-   * {@link IndentingXMLStreamWriter#writeStartElement(String)}.</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link EventListener} (default constructor).</li>
+   *   <li>Then calls {@link IndentingXMLStreamWriter#writeStartElement(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
+   * Method under test: {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeProcess(Process, XMLStreamWriter); given ArrayList() add EventListener (default constructor); then calls writeStartElement(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessExport.writeProcess(Process, XMLStreamWriter)"})
   void testWriteProcess_givenArrayListAddEventListener_thenCallsWriteStartElement() throws Exception {
     // Arrange
     ArrayList<String> stringList = new ArrayList<>();
@@ -182,17 +183,16 @@ class ProcessExportDiffblueTest {
   /**
    * Test {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link EventListener} (default
-   * constructor).</li>
-   *   <li>Then calls
-   * {@link IndentingXMLStreamWriter#writeStartElement(String)}.</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link EventListener} (default constructor).</li>
+   *   <li>Then calls {@link IndentingXMLStreamWriter#writeStartElement(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
+   * Method under test: {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeProcess(Process, XMLStreamWriter); given ArrayList() add EventListener (default constructor); then calls writeStartElement(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessExport.writeProcess(Process, XMLStreamWriter)"})
   void testWriteProcess_givenArrayListAddEventListener_thenCallsWriteStartElement2() throws Exception {
     // Arrange
     ArrayList<String> stringList = new ArrayList<>();
@@ -249,15 +249,15 @@ class ProcessExportDiffblueTest {
   /**
    * Test {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
+   * Method under test: {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeProcess(Process, XMLStreamWriter); given ArrayList() add FieldExtension (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessExport.writeProcess(Process, XMLStreamWriter)"})
   void testWriteProcess_givenArrayListAddFieldExtension() throws Exception {
     // Arrange
     ArrayList<String> stringList = new ArrayList<>();
@@ -338,16 +338,16 @@ class ProcessExportDiffblueTest {
   /**
    * Test {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link Lane} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link Lane} (default constructor).</li>
    *   <li>Then calls {@link EventListener#getEntityType()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
+   * Method under test: {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeProcess(Process, XMLStreamWriter); given ArrayList() add Lane (default constructor); then calls getEntityType()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessExport.writeProcess(Process, XMLStreamWriter)"})
   void testWriteProcess_givenArrayListAddLane_thenCallsGetEntityType() throws Exception {
     // Arrange
     ArrayList<String> stringList = new ArrayList<>();
@@ -417,11 +417,12 @@ class ProcessExportDiffblueTest {
    *   <li>Then calls {@link IndentingXMLStreamWriter#writeCharacters(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
+   * Method under test: {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeProcess(Process, XMLStreamWriter); given 'Documentation'; then calls writeCharacters(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessExport.writeProcess(Process, XMLStreamWriter)"})
   void testWriteProcess_givenDocumentation_thenCallsWriteCharacters() throws Exception {
     // Arrange
     Process process = mock(Process.class);
@@ -468,15 +469,15 @@ class ProcessExportDiffblueTest {
    * Test {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}.
    * <ul>
    *   <li>Given empty string.</li>
-   *   <li>When {@link Process} {@link Process#getDocumentation()} return empty
-   * string.</li>
+   *   <li>When {@link Process} {@link Process#getDocumentation()} return empty string.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
+   * Method under test: {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeProcess(Process, XMLStreamWriter); given empty string; when Process getDocumentation() return empty string")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessExport.writeProcess(Process, XMLStreamWriter)"})
   void testWriteProcess_givenEmptyString_whenProcessGetDocumentationReturnEmptyString() throws Exception {
     // Arrange
     Process process = mock(Process.class);
@@ -517,15 +518,15 @@ class ProcessExportDiffblueTest {
   /**
    * Test {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link EventListener} {@link EventListener#getEntityType()} return
-   * {@code null}.</li>
+   *   <li>Given {@link EventListener} {@link EventListener#getEntityType()} return {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
+   * Method under test: {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeProcess(Process, XMLStreamWriter); given EventListener getEntityType() return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessExport.writeProcess(Process, XMLStreamWriter)"})
   void testWriteProcess_givenEventListenerGetEntityTypeReturnNull() throws Exception {
     // Arrange
     ArrayList<String> stringList = new ArrayList<>();
@@ -588,16 +589,16 @@ class ProcessExportDiffblueTest {
   /**
    * Test {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code bpmn2} is
-   * {@link ArrayList#ArrayList()}.</li>
+   *   <li>Given {@link HashMap#HashMap()} {@code bpmn2} is {@link ArrayList#ArrayList()}.</li>
    *   <li>Then calls {@link EventListener#getEntityType()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
+   * Method under test: {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeProcess(Process, XMLStreamWriter); given HashMap() 'bpmn2' is ArrayList(); then calls getEntityType()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessExport.writeProcess(Process, XMLStreamWriter)"})
   void testWriteProcess_givenHashMapBpmn2IsArrayList_thenCallsGetEntityType() throws Exception {
     // Arrange
     ArrayList<String> stringList = new ArrayList<>();
@@ -663,16 +664,16 @@ class ProcessExportDiffblueTest {
   /**
    * Test {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code bpmn2} is
-   * {@link ArrayList#ArrayList()}.</li>
+   *   <li>Given {@link HashMap#HashMap()} {@code bpmn2} is {@link ArrayList#ArrayList()}.</li>
    *   <li>Then calls {@link EventListener#getEntityType()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
+   * Method under test: {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeProcess(Process, XMLStreamWriter); given HashMap() 'bpmn2' is ArrayList(); then calls getEntityType()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessExport.writeProcess(Process, XMLStreamWriter)"})
   void testWriteProcess_givenHashMapBpmn2IsArrayList_thenCallsGetEntityType2() throws Exception {
     // Arrange
     ArrayList<String> stringList = new ArrayList<>();
@@ -738,15 +739,15 @@ class ProcessExportDiffblueTest {
   /**
    * Test {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}.
    * <ul>
-   *   <li>Then calls
-   * {@link ActivitiListener#getCustomPropertiesResolverImplementationType()}.</li>
+   *   <li>Then calls {@link ActivitiListener#getCustomPropertiesResolverImplementationType()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
+   * Method under test: {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeProcess(Process, XMLStreamWriter); then calls getCustomPropertiesResolverImplementationType()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessExport.writeProcess(Process, XMLStreamWriter)"})
   void testWriteProcess_thenCallsGetCustomPropertiesResolverImplementationType() throws Exception {
     // Arrange
     ArrayList<String> stringList = new ArrayList<>();
@@ -827,11 +828,12 @@ class ProcessExportDiffblueTest {
    *   <li>Then calls {@link EventListener#getEntityType()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
+   * Method under test: {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeProcess(Process, XMLStreamWriter); then calls getEntityType()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessExport.writeProcess(Process, XMLStreamWriter)"})
   void testWriteProcess_thenCallsGetEntityType() throws Exception {
     // Arrange
     ArrayList<String> stringList = new ArrayList<>();
@@ -897,11 +899,12 @@ class ProcessExportDiffblueTest {
    *   <li>Then calls {@link EventListener#getImplementation()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
+   * Method under test: {@link ProcessExport#writeProcess(Process, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeProcess(Process, XMLStreamWriter); then calls getImplementation()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ProcessExport.writeProcess(Process, XMLStreamWriter)"})
   void testWriteProcess_thenCallsGetImplementation() throws Exception {
     // Arrange
     ArrayList<String> stringList = new ArrayList<>();

@@ -19,12 +19,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.function.BiFunction;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class SequenceFlowDiffblueTest {
   /**
@@ -51,6 +51,16 @@ public class SequenceFlowDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SequenceFlow.<init>()", "void SequenceFlow.<init>(String, String)",
+      "String SequenceFlow.getConditionExpression()", "String SequenceFlow.getSkipExpression()",
+      "FlowElement SequenceFlow.getSourceFlowElement()", "String SequenceFlow.getSourceRef()",
+      "FlowElement SequenceFlow.getTargetFlowElement()", "String SequenceFlow.getTargetRef()",
+      "List SequenceFlow.getWaypoints()", "void SequenceFlow.setConditionExpression(String)",
+      "void SequenceFlow.setSkipExpression(String)", "void SequenceFlow.setSourceFlowElement(FlowElement)",
+      "void SequenceFlow.setSourceRef(String)", "void SequenceFlow.setTargetFlowElement(FlowElement)",
+      "void SequenceFlow.setTargetRef(String)", "void SequenceFlow.setWaypoints(List)",
+      "String SequenceFlow.toString()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     SequenceFlow actualSequenceFlow = new SequenceFlow();
@@ -73,12 +83,16 @@ public class SequenceFlowDiffblueTest {
     String actualTargetRef = actualSequenceFlow.getTargetRef();
     List<Integer> actualWaypoints = actualSequenceFlow.getWaypoints();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Condition Expression", actualConditionExpression);
     assertEquals("Skip Expression", actualSkipExpression);
     assertEquals("Source Ref --> Target Ref", actualToStringResult);
     assertEquals("Source Ref", actualSourceRef);
     assertEquals("Target Ref", actualTargetRef);
+    assertNull(actualSequenceFlow.getId());
+    assertNull(actualSequenceFlow.getDocumentation());
+    assertNull(actualSequenceFlow.getName());
+    assertNull(actualSequenceFlow.getParentContainer());
     assertEquals(0, actualSequenceFlow.getXmlColumnNumber());
     assertEquals(0, actualSequenceFlow.getXmlRowNumber());
     assertTrue(actualSequenceFlow.getExecutionListeners().isEmpty());
@@ -117,6 +131,16 @@ public class SequenceFlowDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SequenceFlow.<init>()", "void SequenceFlow.<init>(String, String)",
+      "String SequenceFlow.getConditionExpression()", "String SequenceFlow.getSkipExpression()",
+      "FlowElement SequenceFlow.getSourceFlowElement()", "String SequenceFlow.getSourceRef()",
+      "FlowElement SequenceFlow.getTargetFlowElement()", "String SequenceFlow.getTargetRef()",
+      "List SequenceFlow.getWaypoints()", "void SequenceFlow.setConditionExpression(String)",
+      "void SequenceFlow.setSkipExpression(String)", "void SequenceFlow.setSourceFlowElement(FlowElement)",
+      "void SequenceFlow.setSourceRef(String)", "void SequenceFlow.setTargetFlowElement(FlowElement)",
+      "void SequenceFlow.setTargetRef(String)", "void SequenceFlow.setWaypoints(List)",
+      "String SequenceFlow.toString()"})
   public void testGettersAndSetters_whenSourceRef() {
     // Arrange and Act
     SequenceFlow actualSequenceFlow = new SequenceFlow("Source Ref", "Target Ref");
@@ -139,12 +163,16 @@ public class SequenceFlowDiffblueTest {
     String actualTargetRef = actualSequenceFlow.getTargetRef();
     List<Integer> actualWaypoints = actualSequenceFlow.getWaypoints();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Condition Expression", actualConditionExpression);
     assertEquals("Skip Expression", actualSkipExpression);
     assertEquals("Source Ref --> Target Ref", actualToStringResult);
     assertEquals("Source Ref", actualSourceRef);
     assertEquals("Target Ref", actualTargetRef);
+    assertNull(actualSequenceFlow.getId());
+    assertNull(actualSequenceFlow.getDocumentation());
+    assertNull(actualSequenceFlow.getName());
+    assertNull(actualSequenceFlow.getParentContainer());
     assertEquals(0, actualSequenceFlow.getXmlColumnNumber());
     assertEquals(0, actualSequenceFlow.getXmlRowNumber());
     assertTrue(actualSequenceFlow.getExecutionListeners().isEmpty());
@@ -158,59 +186,13 @@ public class SequenceFlowDiffblueTest {
 
   /**
    * Test {@link SequenceFlow#clone()}.
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@code foo} and
-   * {@link BiFunction}.</li>
-   *   <li>Then return {@code Source Ref}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link SequenceFlow#clone()}
    */
   @Test
-  public void testClone_givenHashMapComputeIfPresentFooAndBiFunction_thenReturnSourceRef() {
-    // Arrange
-    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
-    attributes.computeIfPresent("foo", mock(BiFunction.class));
-
-    SequenceFlow sequenceFlow = new SequenceFlow("Source Ref", "Target Ref");
-    sequenceFlow.setExtensionElements(null);
-    sequenceFlow.setAttributes(attributes);
-
-    // Act
-    SequenceFlow actualCloneResult = sequenceFlow.clone();
-
-    // Assert
-    assertEquals("Source Ref", actualCloneResult.getSourceRef());
-    assertEquals("Target Ref", actualCloneResult.getTargetRef());
-    assertNull(actualCloneResult.getId());
-    assertNull(actualCloneResult.getDocumentation());
-    assertNull(actualCloneResult.getName());
-    assertNull(actualCloneResult.getConditionExpression());
-    assertNull(actualCloneResult.getSkipExpression());
-    assertNull(actualCloneResult.getSourceFlowElement());
-    assertNull(actualCloneResult.getTargetFlowElement());
-    assertNull(actualCloneResult.getParentContainer());
-    assertNull(actualCloneResult.getSubProcess());
-    assertEquals(0, actualCloneResult.getXmlColumnNumber());
-    assertEquals(0, actualCloneResult.getXmlRowNumber());
-    assertTrue(actualCloneResult.getExecutionListeners().isEmpty());
-    assertTrue(actualCloneResult.getWaypoints().isEmpty());
-    assertTrue(actualCloneResult.getAttributes().isEmpty());
-    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link SequenceFlow#clone()}.
-   * <ul>
-   *   <li>Given {@link SequenceFlow#SequenceFlow(String, String)} with
-   * {@code Source Ref} and {@code Target Ref}.</li>
-   *   <li>Then return {@code Source Ref}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SequenceFlow#clone()}
-   */
-  @Test
-  public void testClone_givenSequenceFlowWithSourceRefAndTargetRef_thenReturnSourceRef() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"SequenceFlow SequenceFlow.clone()"})
+  public void testClone() {
     // Arrange and Act
     SequenceFlow actualCloneResult = (new SequenceFlow("Source Ref", "Target Ref")).clone();
 

@@ -20,26 +20,29 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class JobEntityImplDiffblueTest {
   /**
    * Test {@link JobEntityImpl#getPersistentState()}.
    * <ul>
-   *   <li>Given {@link JobEntityImpl} (default constructor) Deleted is
-   * {@code true}.</li>
+   *   <li>Given {@link JobEntityImpl} (default constructor) Deleted is {@code true}.</li>
    *   <li>Then return size is six.</li>
    * </ul>
    * <p>
    * Method under test: {@link JobEntityImpl#getPersistentState()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JobEntityImpl.getPersistentState()"})
   public void testGetPersistentState_givenJobEntityImplDeletedIsTrue_thenReturnSizeIsSix() {
     // Arrange
     JobEntityImpl jobEntityImpl = new JobEntityImpl();
@@ -77,7 +80,7 @@ public class JobEntityImplDiffblueTest {
     assertEquals("An error occurred", ((Map<String, Object>) actualPersistentState).get("exceptionMessage"));
     assertEquals("Claimed By", ((Map<String, Object>) actualPersistentState).get("lockOwner"));
     assertNull(((Map<String, Object>) actualPersistentState).get("exceptionByteArrayId"));
-    assertTrue(((Map<String, Object>) actualPersistentState).containsKey("retries"));
+    assertEquals(1, ((Integer) ((Map<String, Object>) actualPersistentState).get("retries")).intValue());
     assertSame(duedate, ((Map<String, Object>) actualPersistentState).get("duedate"));
     assertSame(claimedUntil, ((Map<String, Object>) actualPersistentState).get("lockExpirationTime"));
   }
@@ -86,13 +89,15 @@ public class JobEntityImplDiffblueTest {
    * Test {@link JobEntityImpl#getPersistentState()}.
    * <ul>
    *   <li>Given {@link JobEntityImpl} (default constructor).</li>
-   *   <li>Then return {@code lockExpirationTime} is {@code null}.</li>
+   *   <li>Then return size is five.</li>
    * </ul>
    * <p>
    * Method under test: {@link JobEntityImpl#getPersistentState()}
    */
   @Test
-  public void testGetPersistentState_givenJobEntityImpl_thenReturnLockExpirationTimeIsNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"Object JobEntityImpl.getPersistentState()"})
+  public void testGetPersistentState_givenJobEntityImpl_thenReturnSizeIsFive() {
     // Arrange and Act
     Object actualPersistentState = (new JobEntityImpl()).getPersistentState();
 
@@ -107,39 +112,17 @@ public class JobEntityImplDiffblueTest {
   }
 
   /**
-   * Test {@link JobEntityImpl#getPersistentState()}.
+   * Test {@link JobEntityImpl#setExecution(ExecutionEntity)}.
    * <ul>
-   *   <li>Then return containsKey {@code lockExpirationTime}.</li>
+   *   <li>Then createWithEmptyRelationshipCollections {@link ExecutionEntityImpl#jobs} size is one.</li>
    * </ul>
    * <p>
-   * Method under test: {@link JobEntityImpl#getPersistentState()}
-   */
-  @Test
-  public void testGetPersistentState_thenReturnContainsKeyLockExpirationTime() {
-    // Arrange
-    JobEntityImpl jobEntityImpl = new JobEntityImpl();
-    jobEntityImpl.setLockExpirationTime(mock(java.sql.Date.class));
-
-    // Act
-    Object actualPersistentState = jobEntityImpl.getPersistentState();
-
-    // Assert
-    assertTrue(actualPersistentState instanceof Map);
-    assertEquals(5, ((Map<String, Object>) actualPersistentState).size());
-    assertNull(((Map<String, Object>) actualPersistentState).get("duedate"));
-    assertNull(((Map<String, Object>) actualPersistentState).get("exceptionMessage"));
-    assertNull(((Map<String, Object>) actualPersistentState).get("lockOwner"));
-    assertTrue(((Map<String, Object>) actualPersistentState).containsKey("lockExpirationTime"));
-    assertTrue(((Map<String, Object>) actualPersistentState).containsKey("retries"));
-  }
-
-  /**
-   * Test {@link JobEntityImpl#setExecution(ExecutionEntity)}.
-   * <p>
    * Method under test: {@link JobEntityImpl#setExecution(ExecutionEntity)}
    */
   @Test
-  public void testSetExecution() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityImpl.setExecution(ExecutionEntity)"})
+  public void testSetExecution_thenCreateWithEmptyRelationshipCollectionsJobsSizeIsOne() {
     // Arrange
     JobEntityImpl jobEntityImpl = new JobEntityImpl();
     ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
@@ -148,60 +131,11 @@ public class JobEntityImplDiffblueTest {
     jobEntityImpl.setExecution(execution);
 
     // Assert
-    List<JobEntity> jobs = execution.getJobs();
-    assertEquals(1, jobs.size());
-    JobEntity getResult = jobs.get(0);
-    Object persistentState = getResult.getPersistentState();
-    assertTrue(persistentState instanceof Map);
-    Object persistentState2 = jobEntityImpl.getPersistentState();
-    assertTrue(persistentState2 instanceof Map);
-    assertTrue(getResult instanceof JobEntityImpl);
-    assertEquals(5, ((Map<String, Integer>) persistentState).size());
-    assertNull(((Map<String, Integer>) persistentState).get("lockExpirationTime"));
-    assertEquals(5, ((Map<String, Integer>) persistentState2).size());
-    assertNull(((Map<String, Integer>) persistentState2).get("lockExpirationTime"));
-    assertNull(getResult.getLockExpirationTime());
-    assertNull(jobEntityImpl.getLockExpirationTime());
-    assertEquals(0, ((Map<String, Integer>) persistentState).get("retries").intValue());
-    assertTrue(((Map<String, Integer>) persistentState).containsKey("duedate"));
-    assertTrue(((Map<String, Integer>) persistentState2).containsKey("duedate"));
-    assertTrue(((Map<String, Integer>) persistentState2).containsKey("exceptionMessage"));
-    assertTrue(((Map<String, Integer>) persistentState2).containsKey("lockOwner"));
-    assertTrue(((Map<String, Integer>) persistentState2).containsKey("retries"));
-  }
-
-  /**
-   * Test {@link JobEntityImpl#setExecution(ExecutionEntity)}.
-   * <p>
-   * Method under test: {@link JobEntityImpl#setExecution(ExecutionEntity)}
-   */
-  @Test
-  public void testSetExecution2() {
-    // Arrange
-    JobEntityImpl jobEntityImpl = new JobEntityImpl();
-    jobEntityImpl.setLockExpirationTime(mock(java.sql.Date.class));
-    ExecutionEntityImpl execution = ExecutionEntityImpl.createWithEmptyRelationshipCollections();
-
-    // Act
-    jobEntityImpl.setExecution(execution);
-
-    // Assert
-    List<JobEntity> jobs = execution.getJobs();
-    assertEquals(1, jobs.size());
-    JobEntity getResult = jobs.get(0);
-    Object persistentState = getResult.getPersistentState();
-    assertTrue(persistentState instanceof Map);
-    Object persistentState2 = jobEntityImpl.getPersistentState();
-    assertTrue(persistentState2 instanceof Map);
-    assertTrue(getResult instanceof JobEntityImpl);
-    assertEquals(5, ((Map<String, Object>) persistentState).size());
-    assertEquals(5, ((Map<String, Object>) persistentState2).size());
-    assertTrue(((Map<String, Object>) persistentState).containsKey("duedate"));
-    assertTrue(((Map<String, Object>) persistentState).containsKey("retries"));
-    assertTrue(((Map<String, Object>) persistentState2).containsKey("duedate"));
-    assertTrue(((Map<String, Object>) persistentState2).containsKey("exceptionMessage"));
-    assertTrue(((Map<String, Object>) persistentState2).containsKey("lockOwner"));
-    assertTrue(((Map<String, Object>) persistentState2).containsKey("retries"));
+    List<JobEntity> jobEntityList = execution.jobs;
+    assertEquals(1, jobEntityList.size());
+    assertSame(jobEntityImpl, jobEntityList.get(0));
+    List<JobEntity> expectedJobs = execution.jobs;
+    assertSame(expectedJobs, execution.getJobs());
   }
 
   /**
@@ -218,6 +152,10 @@ public class JobEntityImplDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void JobEntityImpl.<init>()", "Date JobEntityImpl.getLockExpirationTime()",
+      "String JobEntityImpl.getLockOwner()", "void JobEntityImpl.setLockExpirationTime(Date)",
+      "void JobEntityImpl.setLockOwner(String)", "String JobEntityImpl.toString()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     JobEntityImpl actualJobEntityImpl = new JobEntityImpl();
@@ -228,10 +166,22 @@ public class JobEntityImplDiffblueTest {
     Date actualLockExpirationTime = actualJobEntityImpl.getLockExpirationTime();
     String actualLockOwner = actualJobEntityImpl.getLockOwner();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("", actualJobEntityImpl.getTenantId());
     assertEquals("Claimed By", actualLockOwner);
     assertEquals("JobEntity [id=null]", actualToStringResult);
+    assertNull(actualJobEntityImpl.getId());
+    assertNull(actualJobEntityImpl.getExceptionMessage());
+    assertNull(actualJobEntityImpl.getExecutionId());
+    assertNull(actualJobEntityImpl.getJobHandlerConfiguration());
+    assertNull(actualJobEntityImpl.getJobHandlerType());
+    assertNull(actualJobEntityImpl.getJobType());
+    assertNull(actualJobEntityImpl.getProcessDefinitionId());
+    assertNull(actualJobEntityImpl.getProcessInstanceId());
+    assertNull(actualJobEntityImpl.getRepeat());
+    assertNull(actualJobEntityImpl.getDuedate());
+    assertNull(actualJobEntityImpl.getEndDate());
+    assertNull(actualJobEntityImpl.getExceptionByteArrayRef());
     assertEquals(0, actualJobEntityImpl.getMaxIterations());
     assertEquals(0, actualJobEntityImpl.getRetries());
     assertEquals(1, actualJobEntityImpl.getRevision());

@@ -16,7 +16,10 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ClaimTaskCmdDiffblueTest {
   /**
@@ -29,6 +32,8 @@ public class ClaimTaskCmdDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ClaimTaskCmd.<init>(String, String)", "String ClaimTaskCmd.getSuspendedTaskException()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("Cannot claim a suspended task", (new ClaimTaskCmd("42", "42")).getSuspendedTaskException());

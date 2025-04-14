@@ -20,13 +20,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.List;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class CommentEntityImplDiffblueTest {
   /**
@@ -55,6 +57,16 @@ public class CommentEntityImplDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CommentEntityImpl.<init>()", "String CommentEntityImpl.getAction()",
+      "String CommentEntityImpl.getFullMessage()", "String CommentEntityImpl.getMessage()",
+      "java.lang.Object CommentEntityImpl.getPersistentState()", "String CommentEntityImpl.getProcessInstanceId()",
+      "String CommentEntityImpl.getTaskId()", "Date CommentEntityImpl.getTime()", "String CommentEntityImpl.getType()",
+      "String CommentEntityImpl.getUserId()", "void CommentEntityImpl.setAction(String)",
+      "void CommentEntityImpl.setFullMessage(String)", "void CommentEntityImpl.setMessage(String)",
+      "void CommentEntityImpl.setProcessInstanceId(String)", "void CommentEntityImpl.setTaskId(String)",
+      "void CommentEntityImpl.setTime(Date)", "void CommentEntityImpl.setType(String)",
+      "void CommentEntityImpl.setUserId(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     CommentEntityImpl actualCommentEntityImpl = new CommentEntityImpl();
@@ -76,7 +88,7 @@ public class CommentEntityImplDiffblueTest {
     Date actualTime = actualCommentEntityImpl.getTime();
     String actualType = actualCommentEntityImpl.getType();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("42", actualProcessInstanceId);
     assertEquals("42", actualTaskId);
     assertEquals("42", actualCommentEntityImpl.getUserId());
@@ -84,74 +96,11 @@ public class CommentEntityImplDiffblueTest {
     assertEquals("Full Message", actualFullMessage);
     assertEquals("Not all who wander are lost", actualMessage);
     assertEquals("Type", actualType);
+    assertNull(actualCommentEntityImpl.getId());
     assertFalse(actualCommentEntityImpl.isDeleted());
     assertFalse(actualCommentEntityImpl.isInserted());
     assertFalse(actualCommentEntityImpl.isUpdated());
     assertSame(time, actualTime);
-  }
-
-  /**
-   * Test {@link CommentEntityImpl#getFullMessageBytes()}.
-   * <p>
-   * Method under test: {@link CommentEntityImpl#getFullMessageBytes()}
-   */
-  @Test
-  public void testGetFullMessageBytes() throws UnsupportedEncodingException {
-    // Arrange
-    CommentEntityImpl commentEntityImpl = new CommentEntityImpl();
-    commentEntityImpl.setAction("Action");
-    commentEntityImpl.setDeleted(true);
-    commentEntityImpl.setFullMessage("Full Message");
-    commentEntityImpl.setId("42");
-    commentEntityImpl.setInserted(true);
-    commentEntityImpl.setMessage("Not all who wander are lost");
-    commentEntityImpl.setProcessInstanceId("42");
-    commentEntityImpl.setTaskId("42");
-    commentEntityImpl.setTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    commentEntityImpl.setType("Type");
-    commentEntityImpl.setUpdated(true);
-    commentEntityImpl.setUserId("42");
-    commentEntityImpl.setFullMessageBytes("AXAXAXAX".getBytes("UTF-8"));
-
-    // Act
-    byte[] actualFullMessageBytes = commentEntityImpl.getFullMessageBytes();
-
-    // Assert
-    assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), actualFullMessageBytes);
-  }
-
-  /**
-   * Test {@link CommentEntityImpl#getFullMessageBytes()}.
-   * <ul>
-   *   <li>Given {@link CommentEntityImpl} (default constructor) Time is
-   * {@link Date}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CommentEntityImpl#getFullMessageBytes()}
-   */
-  @Test
-  public void testGetFullMessageBytes_givenCommentEntityImplTimeIsDate() throws UnsupportedEncodingException {
-    // Arrange
-    CommentEntityImpl commentEntityImpl = new CommentEntityImpl();
-    commentEntityImpl.setAction("Action");
-    commentEntityImpl.setDeleted(true);
-    commentEntityImpl.setFullMessage("Full Message");
-    commentEntityImpl.setId("42");
-    commentEntityImpl.setInserted(true);
-    commentEntityImpl.setMessage("Not all who wander are lost");
-    commentEntityImpl.setProcessInstanceId("42");
-    commentEntityImpl.setTaskId("42");
-    commentEntityImpl.setTime(mock(java.sql.Date.class));
-    commentEntityImpl.setType("Type");
-    commentEntityImpl.setUpdated(true);
-    commentEntityImpl.setUserId("42");
-    commentEntityImpl.setFullMessageBytes("AXAXAXAX".getBytes("UTF-8"));
-
-    // Act
-    byte[] actualFullMessageBytes = commentEntityImpl.getFullMessageBytes();
-
-    // Assert
-    assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), actualFullMessageBytes);
   }
 
   /**
@@ -164,18 +113,61 @@ public class CommentEntityImplDiffblueTest {
    * Method under test: {@link CommentEntityImpl#getFullMessageBytes()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"byte[] CommentEntityImpl.getFullMessageBytes()"})
   public void testGetFullMessageBytes_givenCommentEntityImpl_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new CommentEntityImpl()).getFullMessageBytes());
   }
 
   /**
+   * Test {@link CommentEntityImpl#getFullMessageBytes()}.
+   * <ul>
+   *   <li>Then return {@code AXAXAXAX} Bytes is {@code UTF-8}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link CommentEntityImpl#getFullMessageBytes()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"byte[] CommentEntityImpl.getFullMessageBytes()"})
+  public void testGetFullMessageBytes_thenReturnAxaxaxaxBytesIsUtf8() throws UnsupportedEncodingException {
+    // Arrange
+    CommentEntityImpl commentEntityImpl = new CommentEntityImpl();
+    commentEntityImpl.setAction("Action");
+    commentEntityImpl.setDeleted(true);
+    commentEntityImpl.setFullMessage("Full Message");
+    commentEntityImpl.setId("42");
+    commentEntityImpl.setInserted(true);
+    commentEntityImpl.setMessage("Not all who wander are lost");
+    commentEntityImpl.setProcessInstanceId("42");
+    commentEntityImpl.setTaskId("42");
+    commentEntityImpl.setTime(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+    commentEntityImpl.setType("Type");
+    commentEntityImpl.setUpdated(true);
+    commentEntityImpl.setUserId("42");
+    commentEntityImpl.setFullMessageBytes("AXAXAXAX".getBytes("UTF-8"));
+
+    // Act
+    byte[] actualFullMessageBytes = commentEntityImpl.getFullMessageBytes();
+
+    // Assert
+    assertArrayEquals("AXAXAXAX".getBytes("UTF-8"), actualFullMessageBytes);
+  }
+
+  /**
    * Test {@link CommentEntityImpl#setFullMessageBytes(byte[])}.
+   * <ul>
+   *   <li>Then {@link CommentEntityImpl} (default constructor) FullMessageBytes is {@code null}.</li>
+   * </ul>
    * <p>
    * Method under test: {@link CommentEntityImpl#setFullMessageBytes(byte[])}
    */
   @Test
-  public void testSetFullMessageBytes() throws UnsupportedEncodingException {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CommentEntityImpl.setFullMessageBytes(byte[])"})
+  public void testSetFullMessageBytes_thenCommentEntityImplFullMessageBytesIsNull()
+      throws UnsupportedEncodingException {
     // Arrange
     CommentEntityImpl commentEntityImpl = new CommentEntityImpl();
     commentEntityImpl.setAction("Action");
@@ -203,48 +195,14 @@ public class CommentEntityImplDiffblueTest {
   /**
    * Test {@link CommentEntityImpl#setFullMessageBytes(byte[])}.
    * <ul>
-   *   <li>Given {@link CommentEntityImpl} (default constructor) Time is
-   * {@link Date}.</li>
+   *   <li>Then {@link CommentEntityImpl} (default constructor) FullMessage is {@code AXAXAXAX}.</li>
    * </ul>
    * <p>
    * Method under test: {@link CommentEntityImpl#setFullMessageBytes(byte[])}
    */
   @Test
-  public void testSetFullMessageBytes_givenCommentEntityImplTimeIsDate() throws UnsupportedEncodingException {
-    // Arrange
-    CommentEntityImpl commentEntityImpl = new CommentEntityImpl();
-    commentEntityImpl.setAction("Action");
-    commentEntityImpl.setDeleted(true);
-    commentEntityImpl.setFullMessage("Full Message");
-    commentEntityImpl.setFullMessageBytes("AXAXAXAX".getBytes("UTF-8"));
-    commentEntityImpl.setId("42");
-    commentEntityImpl.setInserted(true);
-    commentEntityImpl.setMessage("Not all who wander are lost");
-    commentEntityImpl.setProcessInstanceId("42");
-    commentEntityImpl.setTaskId("42");
-    commentEntityImpl.setTime(mock(java.sql.Date.class));
-    commentEntityImpl.setType("Type");
-    commentEntityImpl.setUpdated(true);
-    commentEntityImpl.setUserId("42");
-
-    // Act
-    commentEntityImpl.setFullMessageBytes(null);
-
-    // Assert
-    assertNull(commentEntityImpl.getFullMessageBytes());
-    assertNull(commentEntityImpl.getFullMessage());
-  }
-
-  /**
-   * Test {@link CommentEntityImpl#setFullMessageBytes(byte[])}.
-   * <ul>
-   *   <li>Then {@link CommentEntityImpl} (default constructor) FullMessage is
-   * {@code AXAXAXAX}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CommentEntityImpl#setFullMessageBytes(byte[])}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CommentEntityImpl.setFullMessageBytes(byte[])"})
   public void testSetFullMessageBytes_thenCommentEntityImplFullMessageIsAxaxaxax() throws UnsupportedEncodingException {
     // Arrange
     CommentEntityImpl commentEntityImpl = new CommentEntityImpl();
@@ -259,12 +217,13 @@ public class CommentEntityImplDiffblueTest {
   }
 
   /**
-   * Test {@link CommentEntityImpl#setMessage(String[])} with
-   * {@code messageParts}.
+   * Test {@link CommentEntityImpl#setMessage(String[])} with {@code messageParts}.
    * <p>
    * Method under test: {@link CommentEntityImpl#setMessage(String[])}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CommentEntityImpl.setMessage(String[])"})
   public void testSetMessageWithMessageParts() {
     // Arrange
     CommentEntityImpl commentEntityImpl = new CommentEntityImpl();
@@ -280,42 +239,16 @@ public class CommentEntityImplDiffblueTest {
   }
 
   /**
-   * Test {@link CommentEntityImpl#setMessage(String[])} with
-   * {@code messageParts}.
+   * Test {@link CommentEntityImpl#setMessage(String[])} with {@code messageParts}.
    * <ul>
-   *   <li>Given {@link CommentEntityImpl} (default constructor) Time is
-   * {@link Date}.</li>
+   *   <li>Then {@link CommentEntityImpl} (default constructor) Message is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link CommentEntityImpl#setMessage(String[])}
    */
   @Test
-  public void testSetMessageWithMessageParts_givenCommentEntityImplTimeIsDate() {
-    // Arrange
-    CommentEntityImpl commentEntityImpl = new CommentEntityImpl();
-    commentEntityImpl.setTime(mock(java.sql.Date.class));
-
-    // Act
-    commentEntityImpl.setMessage(new String[]{"Message Parts"});
-
-    // Assert
-    List<String> messageParts = commentEntityImpl.getMessageParts();
-    assertEquals(1, messageParts.size());
-    assertEquals("Message Parts", messageParts.get(0));
-    assertEquals("Message Parts", commentEntityImpl.getMessage());
-  }
-
-  /**
-   * Test {@link CommentEntityImpl#setMessage(String[])} with
-   * {@code messageParts}.
-   * <ul>
-   *   <li>Then {@link CommentEntityImpl} (default constructor) Message is
-   * {@code null}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CommentEntityImpl#setMessage(String[])}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CommentEntityImpl.setMessage(String[])"})
   public void testSetMessageWithMessageParts_thenCommentEntityImplMessageIsNull() {
     // Arrange
     CommentEntityImpl commentEntityImpl = new CommentEntityImpl();
@@ -333,43 +266,6 @@ public class CommentEntityImplDiffblueTest {
   /**
    * Test {@link CommentEntityImpl#getMessageParts()}.
    * <ul>
-   *   <li>Given {@link CommentEntityImpl} (default constructor) Time is
-   * {@link Date}.</li>
-   *   <li>Then return first is {@code foo}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link CommentEntityImpl#getMessageParts()}
-   */
-  @Test
-  public void testGetMessageParts_givenCommentEntityImplTimeIsDate_thenReturnFirstIsFoo()
-      throws UnsupportedEncodingException {
-    // Arrange
-    CommentEntityImpl commentEntityImpl = new CommentEntityImpl();
-    commentEntityImpl.setAction("Action");
-    commentEntityImpl.setDeleted(true);
-    commentEntityImpl.setFullMessage("Full Message");
-    commentEntityImpl.setFullMessageBytes("AXAXAXAX".getBytes("UTF-8"));
-    commentEntityImpl.setId("42");
-    commentEntityImpl.setInserted(true);
-    commentEntityImpl.setProcessInstanceId("42");
-    commentEntityImpl.setTaskId("42");
-    commentEntityImpl.setTime(mock(java.sql.Date.class));
-    commentEntityImpl.setType("Type");
-    commentEntityImpl.setUpdated(true);
-    commentEntityImpl.setUserId("42");
-    commentEntityImpl.setMessage(new String[]{"foo"});
-
-    // Act
-    List<String> actualMessageParts = commentEntityImpl.getMessageParts();
-
-    // Assert
-    assertEquals(1, actualMessageParts.size());
-    assertEquals("foo", actualMessageParts.get(0));
-  }
-
-  /**
-   * Test {@link CommentEntityImpl#getMessageParts()}.
-   * <ul>
    *   <li>Given {@link CommentEntityImpl} (default constructor).</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
@@ -377,6 +273,8 @@ public class CommentEntityImplDiffblueTest {
    * Method under test: {@link CommentEntityImpl#getMessageParts()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List CommentEntityImpl.getMessageParts()"})
   public void testGetMessageParts_givenCommentEntityImpl_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new CommentEntityImpl()).getMessageParts());
@@ -391,6 +289,8 @@ public class CommentEntityImplDiffblueTest {
    * Method under test: {@link CommentEntityImpl#getMessageParts()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List CommentEntityImpl.getMessageParts()"})
   public void testGetMessageParts_thenReturnFirstIsFoo() throws UnsupportedEncodingException {
     // Arrange
     CommentEntityImpl commentEntityImpl = new CommentEntityImpl();
@@ -425,6 +325,8 @@ public class CommentEntityImplDiffblueTest {
    * Method under test: {@link CommentEntityImpl#getMessageParts()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"List CommentEntityImpl.getMessageParts()"})
   public void testGetMessageParts_thenReturnFirstIsNull() throws UnsupportedEncodingException {
     // Arrange
     CommentEntityImpl commentEntityImpl = new CommentEntityImpl();

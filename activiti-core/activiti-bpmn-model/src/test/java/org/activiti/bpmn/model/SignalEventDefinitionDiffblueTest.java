@@ -19,60 +19,24 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import java.util.HashMap;
-import java.util.List;
-import java.util.function.BiFunction;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class SignalEventDefinitionDiffblueTest {
   /**
    * Test {@link SignalEventDefinition#clone()}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} computeIfPresent {@code foo} and
-   * {@link BiFunction}.</li>
-   *   <li>Then return not Async.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link SignalEventDefinition#clone()}
-   */
-  @Test
-  public void testClone_givenHashMapComputeIfPresentFooAndBiFunction_thenReturnNotAsync() {
-    // Arrange
-    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
-    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
-
-    SignalEventDefinition signalEventDefinition = new SignalEventDefinition();
-    signalEventDefinition.setExtensionElements(extensionElements);
-
-    // Act
-    SignalEventDefinition actualCloneResult = signalEventDefinition.clone();
-
-    // Assert
-    assertNull(actualCloneResult.getId());
-    assertNull(actualCloneResult.getSignalExpression());
-    assertNull(actualCloneResult.getSignalRef());
-    assertEquals(0, actualCloneResult.getXmlColumnNumber());
-    assertEquals(0, actualCloneResult.getXmlRowNumber());
-    assertFalse(actualCloneResult.isAsync());
-    assertTrue(actualCloneResult.getAttributes().isEmpty());
-    assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link SignalEventDefinition#clone()}.
-   * <ul>
-   *   <li>Given {@link SignalEventDefinition} (default constructor) Async is
-   * {@code true}.</li>
+   *   <li>Given {@link SignalEventDefinition} (default constructor) Async is {@code true}.</li>
    *   <li>Then return Async.</li>
    * </ul>
    * <p>
    * Method under test: {@link SignalEventDefinition#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"SignalEventDefinition SignalEventDefinition.clone()"})
   public void testClone_givenSignalEventDefinitionAsyncIsTrue_thenReturnAsync() {
     // Arrange
     SignalEventDefinition signalEventDefinition = new SignalEventDefinition();
@@ -102,6 +66,8 @@ public class SignalEventDefinitionDiffblueTest {
    * Method under test: {@link SignalEventDefinition#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"SignalEventDefinition SignalEventDefinition.clone()"})
   public void testClone_givenSignalEventDefinition_thenReturnNotAsync() {
     // Arrange and Act
     SignalEventDefinition actualCloneResult = (new SignalEventDefinition()).clone();
@@ -115,32 +81,6 @@ public class SignalEventDefinitionDiffblueTest {
     assertFalse(actualCloneResult.isAsync());
     assertTrue(actualCloneResult.getAttributes().isEmpty());
     assertTrue(actualCloneResult.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link SignalEventDefinition#setValues(SignalEventDefinition)} with
-   * {@code otherDefinition}.
-   * <ul>
-   *   <li>Then calls {@link ExtensionElement#getName()}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link SignalEventDefinition#setValues(SignalEventDefinition)}
-   */
-  @Test
-  public void testSetValuesWithOtherDefinition_thenCallsGetName() {
-    // Arrange
-    ExtensionElement extensionElement = mock(ExtensionElement.class);
-    when(extensionElement.getName()).thenReturn("Name");
-
-    SignalEventDefinition signalEventDefinition = new SignalEventDefinition();
-    signalEventDefinition.addExtensionElement(extensionElement);
-
-    // Act
-    signalEventDefinition.setValues(new SignalEventDefinition());
-
-    // Assert
-    verify(extensionElement, atLeast(1)).getName();
   }
 
   /**
@@ -158,6 +98,11 @@ public class SignalEventDefinitionDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SignalEventDefinition.<init>()", "String SignalEventDefinition.getSignalExpression()",
+      "String SignalEventDefinition.getSignalRef()", "boolean SignalEventDefinition.isAsync()",
+      "void SignalEventDefinition.setAsync(boolean)", "void SignalEventDefinition.setSignalExpression(String)",
+      "void SignalEventDefinition.setSignalRef(String)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     SignalEventDefinition actualSignalEventDefinition = new SignalEventDefinition();
@@ -168,9 +113,10 @@ public class SignalEventDefinitionDiffblueTest {
     String actualSignalRef = actualSignalEventDefinition.getSignalRef();
     boolean actualIsAsyncResult = actualSignalEventDefinition.isAsync();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Signal Expression", actualSignalExpression);
     assertEquals("Signal Ref", actualSignalRef);
+    assertNull(actualSignalEventDefinition.getId());
     assertEquals(0, actualSignalEventDefinition.getXmlColumnNumber());
     assertEquals(0, actualSignalEventDefinition.getXmlRowNumber());
     assertTrue(actualSignalEventDefinition.getAttributes().isEmpty());

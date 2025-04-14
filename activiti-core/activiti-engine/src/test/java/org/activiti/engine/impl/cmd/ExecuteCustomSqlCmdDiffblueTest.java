@@ -17,17 +17,20 @@ package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ExecuteCustomSqlCmdDiffblueTest {
   /**
-   * Test
-   * {@link ExecuteCustomSqlCmd#ExecuteCustomSqlCmd(Class, CustomSqlExecution)}.
+   * Test {@link ExecuteCustomSqlCmd#ExecuteCustomSqlCmd(Class, CustomSqlExecution)}.
    * <p>
-   * Method under test:
-   * {@link ExecuteCustomSqlCmd#ExecuteCustomSqlCmd(Class, CustomSqlExecution)}
+   * Method under test: {@link ExecuteCustomSqlCmd#ExecuteCustomSqlCmd(Class, CustomSqlExecution)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ExecuteCustomSqlCmd.<init>(Class, CustomSqlExecution)"})
   public void testNewExecuteCustomSqlCmd() {
     // Arrange
     Class<Object> mapperClass = Object.class;

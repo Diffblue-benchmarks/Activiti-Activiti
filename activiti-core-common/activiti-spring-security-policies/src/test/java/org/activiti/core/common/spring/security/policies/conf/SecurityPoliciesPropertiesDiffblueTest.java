@@ -17,9 +17,11 @@ package org.activiti.core.common.spring.security.policies.conf;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.activiti.core.common.spring.security.policies.SecurityPolicy;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class SecurityPoliciesPropertiesDiffblueTest {
@@ -28,14 +30,16 @@ class SecurityPoliciesPropertiesDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of
-   * {@link SecurityPoliciesProperties}
+   *   <li>default or parameterless constructor of {@link SecurityPoliciesProperties}
    *   <li>{@link SecurityPoliciesProperties#getPolicies()}
    *   <li>{@link SecurityPoliciesProperties#getWildcard()}
    * </ul>
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SecurityPoliciesProperties.<init>()", "List SecurityPoliciesProperties.getPolicies()",
+      "java.lang.String SecurityPoliciesProperties.getWildcard()"})
   void testGettersAndSetters() {
     // Arrange and Act
     SecurityPoliciesProperties actualSecurityPoliciesProperties = new SecurityPoliciesProperties();

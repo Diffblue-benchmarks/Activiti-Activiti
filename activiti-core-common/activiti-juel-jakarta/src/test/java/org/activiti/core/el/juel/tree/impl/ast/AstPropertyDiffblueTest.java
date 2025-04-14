@@ -25,6 +25,7 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELContext;
 import jakarta.el.ELException;
 import jakarta.el.MethodNotFoundException;
@@ -39,55 +40,26 @@ import org.activiti.core.el.juel.tree.impl.ast.AstBinary.Operator;
 import org.activiti.core.el.juel.util.RootPropertyResolver;
 import org.activiti.core.el.juel.util.SimpleContext;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class AstPropertyDiffblueTest {
   /**
    * Test {@link AstProperty#getPrefix()}.
-   * <ul>
-   *   <li>Then return {@link AstBinary}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link AstProperty#getPrefix()}
    */
   @Test
-  @DisplayName("Test getPrefix(); then return AstBinary")
-  void testGetPrefix_thenReturnAstBinary() {
-    // Arrange
-    AstNull left = new AstNull();
-    AstDot astDot = new AstDot(new AstBinary(left, new AstNull(), mock(AstBinary.Operator.class)), "Property", true);
-
-    // Act
-    AstNode actualPrefix = astDot.getPrefix();
-
-    // Assert
-    assertTrue(actualPrefix instanceof AstBinary);
-    assertEquals(2, actualPrefix.getCardinality());
-    assertSame(astDot.prefix, actualPrefix);
-  }
-
-  /**
-   * Test {@link AstProperty#getPrefix()}.
-   * <ul>
-   *   <li>Then return {@link AstNull}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstProperty#getPrefix()}
-   */
-  @Test
-  @DisplayName("Test getPrefix(); then return AstNull")
-  void testGetPrefix_thenReturnAstNull() {
+  @DisplayName("Test getPrefix()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"AstNode AstProperty.getPrefix()"})
+  void testGetPrefix() {
     // Arrange
     AstDot astDot = new AstDot(new AstNull(), "Property", true);
 
-    // Act
-    AstNode actualPrefix = astDot.getPrefix();
-
-    // Assert
-    assertTrue(actualPrefix instanceof AstNull);
-    assertEquals(0, actualPrefix.getCardinality());
-    assertSame(astDot.prefix, actualPrefix);
+    // Act and Assert
+    assertSame(astDot.prefix, astDot.getPrefix());
   }
 
   /**
@@ -97,6 +69,8 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test getValueReference(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ValueReference AstProperty.getValueReference(Bindings, ELContext)"})
   void testGetValueReference() {
     // Arrange
     AstNull base = new AstNull();
@@ -117,9 +91,11 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test getValueReference(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ValueReference AstProperty.getValueReference(Bindings, ELContext)"})
   void testGetValueReference2() {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -141,9 +117,11 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test getValueReference(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ValueReference AstProperty.getValueReference(Bindings, ELContext)"})
   void testGetValueReference3() {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -167,6 +145,8 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test getValueReference(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ValueReference AstProperty.getValueReference(Bindings, ELContext)"})
   void testGetValueReference4() {
     // Arrange
     AstNull base = new AstNull();
@@ -189,6 +169,8 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test getValueReference(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ValueReference AstProperty.getValueReference(Bindings, ELContext)"})
   void testGetValueReference5() {
     // Arrange
     AstNull question = new AstNull();
@@ -212,9 +194,11 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test getValueReference(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ValueReference AstProperty.getValueReference(Bindings, ELContext)"})
   void testGetValueReference6() {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -240,9 +224,11 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test getValueReference(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ValueReference AstProperty.getValueReference(Bindings, ELContext)"})
   void testGetValueReference7() {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -269,9 +255,11 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test getValueReference(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ValueReference AstProperty.getValueReference(Bindings, ELContext)"})
   void testGetValueReference8() {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -291,15 +279,15 @@ class AstPropertyDiffblueTest {
   /**
    * Test {@link AstProperty#getValueReference(Bindings, ELContext)}.
    * <ul>
-   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is
-   * {@link AstChoice#AstChoice(AstNode, AstNode, AstNode)} and {@code Property}
-   * and lvalue is {@code true}.</li>
+   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is {@link AstChoice#AstChoice(AstNode, AstNode, AstNode)} and {@code Property} and lvalue is {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstProperty#getValueReference(Bindings, ELContext)}
    */
   @Test
   @DisplayName("Test getValueReference(Bindings, ELContext); given AstDot(AstNode, String, boolean) with base is AstChoice(AstNode, AstNode, AstNode) and 'Property' and lvalue is 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ValueReference AstProperty.getValueReference(Bindings, ELContext)"})
   void testGetValueReference_givenAstDotWithBaseIsAstChoiceAndPropertyAndLvalueIsTrue() {
     // Arrange
     AstNull question = new AstNull();
@@ -317,15 +305,15 @@ class AstPropertyDiffblueTest {
   /**
    * Test {@link AstProperty#getValueReference(Bindings, ELContext)}.
    * <ul>
-   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is
-   * {@link AstNull} (default constructor) and {@code Property} and lvalue is
-   * {@code true}.</li>
+   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is {@link AstNull} (default constructor) and {@code Property} and lvalue is {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstProperty#getValueReference(Bindings, ELContext)}
    */
   @Test
   @DisplayName("Test getValueReference(Bindings, ELContext); given AstDot(AstNode, String, boolean) with base is AstNull (default constructor) and 'Property' and lvalue is 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ValueReference AstProperty.getValueReference(Bindings, ELContext)"})
   void testGetValueReference_givenAstDotWithBaseIsAstNullAndPropertyAndLvalueIsTrue() {
     // Arrange
     AstDot astDot = new AstDot(new AstNull(), "Property", true);
@@ -348,9 +336,11 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test getValueReference(Bindings, ELContext); then return Base is 'Eval'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"ValueReference AstProperty.getValueReference(Bindings, ELContext)"})
   void testGetValueReference_thenReturnBaseIsEval() {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -376,6 +366,8 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test eval(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object AstProperty.eval(Bindings, ELContext)"})
   void testEval() {
     // Arrange
     AstNull base = new AstNull();
@@ -392,15 +384,15 @@ class AstPropertyDiffblueTest {
   /**
    * Test {@link AstProperty#eval(Bindings, ELContext)}.
    * <ul>
-   *   <li>Given {@link AstChoice#AstChoice(AstNode, AstNode, AstNode)} with
-   * question is {@link AstNull} (default constructor) and yes is {@link AstNull}
-   * (default constructor) and no is {@link AstNull} (default constructor).</li>
+   *   <li>Given {@link AstChoice#AstChoice(AstNode, AstNode, AstNode)} with question is {@link AstNull} (default constructor) and yes is {@link AstNull} (default constructor) and no is {@link AstNull} (default constructor).</li>
    * </ul>
    * <p>
    * Method under test: {@link AstProperty#eval(Bindings, ELContext)}
    */
   @Test
   @DisplayName("Test eval(Bindings, ELContext); given AstChoice(AstNode, AstNode, AstNode) with question is AstNull (default constructor) and yes is AstNull (default constructor) and no is AstNull (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object AstProperty.eval(Bindings, ELContext)"})
   void testEval_givenAstChoiceWithQuestionIsAstNullAndYesIsAstNullAndNoIsAstNull() {
     // Arrange
     AstNull question = new AstNull();
@@ -418,18 +410,18 @@ class AstPropertyDiffblueTest {
   /**
    * Test {@link AstProperty#eval(Bindings, ELContext)}.
    * <ul>
-   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is
-   * {@link AstBinary#AstBinary(AstNode, AstNode, Operator)} and property is
-   * {@code null} and lvalue is {@code true}.</li>
+   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is {@link AstBinary#AstBinary(AstNode, AstNode, Operator)} and property is {@code null} and lvalue is {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstProperty#eval(Bindings, ELContext)}
    */
   @Test
   @DisplayName("Test eval(Bindings, ELContext); given AstDot(AstNode, String, boolean) with base is AstBinary(AstNode, AstNode, Operator) and property is 'null' and lvalue is 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object AstProperty.eval(Bindings, ELContext)"})
   void testEval_givenAstDotWithBaseIsAstBinaryAndPropertyIsNullAndLvalueIsTrue() {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -450,9 +442,7 @@ class AstPropertyDiffblueTest {
   /**
    * Test {@link AstProperty#eval(Bindings, ELContext)}.
    * <ul>
-   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is
-   * {@link AstNull} (default constructor) and {@code Property} and lvalue is
-   * {@code true}.</li>
+   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is {@link AstNull} (default constructor) and {@code Property} and lvalue is {@code true}.</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
@@ -460,6 +450,8 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test eval(Bindings, ELContext); given AstDot(AstNode, String, boolean) with base is AstNull (default constructor) and 'Property' and lvalue is 'true'; then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object AstProperty.eval(Bindings, ELContext)"})
   void testEval_givenAstDotWithBaseIsAstNullAndPropertyAndLvalueIsTrue_thenReturnNull() {
     // Arrange
     AstDot astDot = new AstDot(new AstNull(), "Property", true);
@@ -482,9 +474,11 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test eval(Bindings, ELContext); then throw PropertyNotFoundException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object AstProperty.eval(Bindings, ELContext)"})
   void testEval_thenThrowPropertyNotFoundException() {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -502,78 +496,16 @@ class AstPropertyDiffblueTest {
 
   /**
    * Test {@link AstProperty#isLiteralText()}.
-   * <ul>
-   *   <li>Given {@link AstBinary#AstBinary(AstNode, AstNode, Operator)} with left
-   * is {@link AstNull} (default constructor) and right is {@link AstNull}
-   * (default constructor) and {@link Operator}.</li>
-   * </ul>
    * <p>
    * Method under test: {@link AstProperty#isLiteralText()}
    */
   @Test
-  @DisplayName("Test isLiteralText(); given AstBinary(AstNode, AstNode, Operator) with left is AstNull (default constructor) and right is AstNull (default constructor) and Operator")
-  void testIsLiteralText_givenAstBinaryWithLeftIsAstNullAndRightIsAstNullAndOperator() {
-    // Arrange
-    AstNull left = new AstNull();
-
-    // Act and Assert
-    assertFalse((new AstDot(new AstBinary(left, new AstNull(), mock(AstBinary.Operator.class)), "Property", true))
-        .isLiteralText());
-  }
-
-  /**
-   * Test {@link AstProperty#isLiteralText()}.
-   * <ul>
-   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is
-   * {@link AstNull} (default constructor) and {@code Property} and lvalue is
-   * {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstProperty#isLiteralText()}
-   */
-  @Test
-  @DisplayName("Test isLiteralText(); given AstDot(AstNode, String, boolean) with base is AstNull (default constructor) and 'Property' and lvalue is 'true'")
-  void testIsLiteralText_givenAstDotWithBaseIsAstNullAndPropertyAndLvalueIsTrue() {
+  @DisplayName("Test isLiteralText()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean AstProperty.isLiteralText()"})
+  void testIsLiteralText() {
     // Arrange, Act and Assert
     assertFalse((new AstDot(new AstNull(), "Property", true)).isLiteralText());
-  }
-
-  /**
-   * Test {@link AstProperty#isLeftValue()}.
-   * <ul>
-   *   <li>Given {@link AstBinary#AstBinary(AstNode, AstNode, Operator)} with left
-   * is {@link AstNull} (default constructor) and right is {@link AstNull}
-   * (default constructor) and {@link Operator}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstProperty#isLeftValue()}
-   */
-  @Test
-  @DisplayName("Test isLeftValue(); given AstBinary(AstNode, AstNode, Operator) with left is AstNull (default constructor) and right is AstNull (default constructor) and Operator")
-  void testIsLeftValue_givenAstBinaryWithLeftIsAstNullAndRightIsAstNullAndOperator() {
-    // Arrange
-    AstNull left = new AstNull();
-
-    // Act and Assert
-    assertTrue((new AstDot(new AstBinary(left, new AstNull(), mock(AstBinary.Operator.class)), "Property", true))
-        .isLeftValue());
-  }
-
-  /**
-   * Test {@link AstProperty#isLeftValue()}.
-   * <ul>
-   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is
-   * {@link AstNull} (default constructor) and {@code Property} and lvalue is
-   * {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstProperty#isLeftValue()}
-   */
-  @Test
-  @DisplayName("Test isLeftValue(); given AstDot(AstNode, String, boolean) with base is AstNull (default constructor) and 'Property' and lvalue is 'true'")
-  void testIsLeftValue_givenAstDotWithBaseIsAstNullAndPropertyAndLvalueIsTrue() {
-    // Arrange, Act and Assert
-    assertTrue((new AstDot(new AstNull(), "Property", true)).isLeftValue());
   }
 
   /**
@@ -586,9 +518,28 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test isLeftValue(); then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean AstProperty.isLeftValue()"})
   void testIsLeftValue_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new AstDot(new AstNull(), "Property", false)).isLeftValue());
+  }
+
+  /**
+   * Test {@link AstProperty#isLeftValue()}.
+   * <ul>
+   *   <li>Then return {@code true}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AstProperty#isLeftValue()}
+   */
+  @Test
+  @DisplayName("Test isLeftValue(); then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean AstProperty.isLeftValue()"})
+  void testIsLeftValue_thenReturnTrue() {
+    // Arrange, Act and Assert
+    assertTrue((new AstDot(new AstNull(), "Property", true)).isLeftValue());
   }
 
   /**
@@ -598,28 +549,9 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test isMethodInvocation()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean AstProperty.isMethodInvocation()"})
   void testIsMethodInvocation() {
-    // Arrange
-    AstNull left = new AstNull();
-
-    // Act and Assert
-    assertFalse((new AstDot(new AstBinary(left, new AstNull(), mock(AstBinary.Operator.class)), "Property", true))
-        .isMethodInvocation());
-  }
-
-  /**
-   * Test {@link AstProperty#isMethodInvocation()}.
-   * <ul>
-   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is
-   * {@link AstNull} (default constructor) and {@code Property} and lvalue is
-   * {@code true}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstProperty#isMethodInvocation()}
-   */
-  @Test
-  @DisplayName("Test isMethodInvocation(); given AstDot(AstNode, String, boolean) with base is AstNull (default constructor) and 'Property' and lvalue is 'true'")
-  void testIsMethodInvocation_givenAstDotWithBaseIsAstNullAndPropertyAndLvalueIsTrue() {
     // Arrange, Act and Assert
     assertFalse((new AstDot(new AstNull(), "Property", true)).isMethodInvocation());
   }
@@ -631,6 +563,8 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test getType(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Class AstProperty.getType(Bindings, ELContext)"})
   void testGetType() {
     // Arrange
     AstNull base = new AstNull();
@@ -651,9 +585,11 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test getType(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Class AstProperty.getType(Bindings, ELContext)"})
   void testGetType2() {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -677,6 +613,8 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test getType(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Class AstProperty.getType(Bindings, ELContext)"})
   void testGetType3() {
     // Arrange
     AstNull base = new AstNull();
@@ -699,6 +637,8 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test getType(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Class AstProperty.getType(Bindings, ELContext)"})
   void testGetType4() {
     // Arrange
     AstNull question = new AstNull();
@@ -722,9 +662,11 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test getType(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Class AstProperty.getType(Bindings, ELContext)"})
   void testGetType5() {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -750,9 +692,11 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test getType(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Class AstProperty.getType(Bindings, ELContext)"})
   void testGetType6() {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -779,9 +723,11 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test getType(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Class AstProperty.getType(Bindings, ELContext)"})
   void testGetType7() {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -801,18 +747,18 @@ class AstPropertyDiffblueTest {
   /**
    * Test {@link AstProperty#getType(Bindings, ELContext)}.
    * <ul>
-   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is
-   * {@link AstBinary#AstBinary(AstNode, AstNode, Operator)} and property is
-   * {@code null} and lvalue is {@code true}.</li>
+   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is {@link AstBinary#AstBinary(AstNode, AstNode, Operator)} and property is {@code null} and lvalue is {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstProperty#getType(Bindings, ELContext)}
    */
   @Test
   @DisplayName("Test getType(Bindings, ELContext); given AstDot(AstNode, String, boolean) with base is AstBinary(AstNode, AstNode, Operator) and property is 'null' and lvalue is 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Class AstProperty.getType(Bindings, ELContext)"})
   void testGetType_givenAstDotWithBaseIsAstBinaryAndPropertyIsNullAndLvalueIsTrue() {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -830,15 +776,15 @@ class AstPropertyDiffblueTest {
   /**
    * Test {@link AstProperty#getType(Bindings, ELContext)}.
    * <ul>
-   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is
-   * {@link AstChoice#AstChoice(AstNode, AstNode, AstNode)} and {@code Property}
-   * and lvalue is {@code true}.</li>
+   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is {@link AstChoice#AstChoice(AstNode, AstNode, AstNode)} and {@code Property} and lvalue is {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstProperty#getType(Bindings, ELContext)}
    */
   @Test
   @DisplayName("Test getType(Bindings, ELContext); given AstDot(AstNode, String, boolean) with base is AstChoice(AstNode, AstNode, AstNode) and 'Property' and lvalue is 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Class AstProperty.getType(Bindings, ELContext)"})
   void testGetType_givenAstDotWithBaseIsAstChoiceAndPropertyAndLvalueIsTrue() {
     // Arrange
     AstNull question = new AstNull();
@@ -856,15 +802,15 @@ class AstPropertyDiffblueTest {
   /**
    * Test {@link AstProperty#getType(Bindings, ELContext)}.
    * <ul>
-   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is
-   * {@link AstNull} (default constructor) and {@code Property} and lvalue is
-   * {@code true}.</li>
+   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is {@link AstNull} (default constructor) and {@code Property} and lvalue is {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstProperty#getType(Bindings, ELContext)}
    */
   @Test
   @DisplayName("Test getType(Bindings, ELContext); given AstDot(AstNode, String, boolean) with base is AstNull (default constructor) and 'Property' and lvalue is 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Class AstProperty.getType(Bindings, ELContext)"})
   void testGetType_givenAstDotWithBaseIsAstNullAndPropertyAndLvalueIsTrue() {
     // Arrange
     AstDot astDot = new AstDot(new AstNull(), "Property", true);
@@ -887,10 +833,12 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test getType(Bindings, ELContext); then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Class AstProperty.getType(Bindings, ELContext)"})
   void testGetType_thenReturnNull() {
     // Arrange
     AstNull left = new AstNull();
-    AstDot astDot = new AstDot(new AstBinary(left, new AstNull(), mock(AstBinary.Operator.class)), "Property", false);
+    AstDot astDot = new AstDot(new AstBinary(left, new AstNull(), mock(Operator.class)), "Property", false);
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
     Bindings bindings = new Bindings(new Method[]{null},
@@ -903,17 +851,18 @@ class AstPropertyDiffblueTest {
   /**
    * Test {@link AstProperty#getType(Bindings, ELContext)}.
    * <ul>
-   *   <li>When {@link SimpleContext#SimpleContext(ELResolver)} with resolver is
-   * {@link RootPropertyResolver#RootPropertyResolver()}.</li>
+   *   <li>When {@link SimpleContext#SimpleContext(ELResolver)} with resolver is {@link RootPropertyResolver#RootPropertyResolver()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstProperty#getType(Bindings, ELContext)}
    */
   @Test
   @DisplayName("Test getType(Bindings, ELContext); when SimpleContext(ELResolver) with resolver is RootPropertyResolver()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Class AstProperty.getType(Bindings, ELContext)"})
   void testGetType_whenSimpleContextWithResolverIsRootPropertyResolver() {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -936,6 +885,8 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test isReadOnly(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean AstProperty.isReadOnly(Bindings, ELContext)"})
   void testIsReadOnly() throws ELException {
     // Arrange
     AstNull base = new AstNull();
@@ -956,9 +907,11 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test isReadOnly(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean AstProperty.isReadOnly(Bindings, ELContext)"})
   void testIsReadOnly2() throws ELException {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -982,6 +935,8 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test isReadOnly(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean AstProperty.isReadOnly(Bindings, ELContext)"})
   void testIsReadOnly3() throws ELException {
     // Arrange
     AstNull base = new AstNull();
@@ -1004,6 +959,8 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test isReadOnly(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean AstProperty.isReadOnly(Bindings, ELContext)"})
   void testIsReadOnly4() throws ELException {
     // Arrange
     AstNull question = new AstNull();
@@ -1027,9 +984,11 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test isReadOnly(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean AstProperty.isReadOnly(Bindings, ELContext)"})
   void testIsReadOnly5() throws ELException {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -1055,9 +1014,11 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test isReadOnly(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean AstProperty.isReadOnly(Bindings, ELContext)"})
   void testIsReadOnly6() throws ELException {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -1084,9 +1045,11 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test isReadOnly(Bindings, ELContext)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean AstProperty.isReadOnly(Bindings, ELContext)"})
   void testIsReadOnly7() throws ELException {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -1106,18 +1069,18 @@ class AstPropertyDiffblueTest {
   /**
    * Test {@link AstProperty#isReadOnly(Bindings, ELContext)}.
    * <ul>
-   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is
-   * {@link AstBinary#AstBinary(AstNode, AstNode, Operator)} and property is
-   * {@code null} and lvalue is {@code true}.</li>
+   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is {@link AstBinary#AstBinary(AstNode, AstNode, Operator)} and property is {@code null} and lvalue is {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstProperty#isReadOnly(Bindings, ELContext)}
    */
   @Test
   @DisplayName("Test isReadOnly(Bindings, ELContext); given AstDot(AstNode, String, boolean) with base is AstBinary(AstNode, AstNode, Operator) and property is 'null' and lvalue is 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean AstProperty.isReadOnly(Bindings, ELContext)"})
   void testIsReadOnly_givenAstDotWithBaseIsAstBinaryAndPropertyIsNullAndLvalueIsTrue() throws ELException {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -1135,15 +1098,15 @@ class AstPropertyDiffblueTest {
   /**
    * Test {@link AstProperty#isReadOnly(Bindings, ELContext)}.
    * <ul>
-   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is
-   * {@link AstChoice#AstChoice(AstNode, AstNode, AstNode)} and {@code Property}
-   * and lvalue is {@code true}.</li>
+   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is {@link AstChoice#AstChoice(AstNode, AstNode, AstNode)} and {@code Property} and lvalue is {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstProperty#isReadOnly(Bindings, ELContext)}
    */
   @Test
   @DisplayName("Test isReadOnly(Bindings, ELContext); given AstDot(AstNode, String, boolean) with base is AstChoice(AstNode, AstNode, AstNode) and 'Property' and lvalue is 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean AstProperty.isReadOnly(Bindings, ELContext)"})
   void testIsReadOnly_givenAstDotWithBaseIsAstChoiceAndPropertyAndLvalueIsTrue() throws ELException {
     // Arrange
     AstNull question = new AstNull();
@@ -1161,15 +1124,15 @@ class AstPropertyDiffblueTest {
   /**
    * Test {@link AstProperty#isReadOnly(Bindings, ELContext)}.
    * <ul>
-   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is
-   * {@link AstNull} (default constructor) and {@code Property} and lvalue is
-   * {@code true}.</li>
+   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is {@link AstNull} (default constructor) and {@code Property} and lvalue is {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstProperty#isReadOnly(Bindings, ELContext)}
    */
   @Test
   @DisplayName("Test isReadOnly(Bindings, ELContext); given AstDot(AstNode, String, boolean) with base is AstNull (default constructor) and 'Property' and lvalue is 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean AstProperty.isReadOnly(Bindings, ELContext)"})
   void testIsReadOnly_givenAstDotWithBaseIsAstNullAndPropertyAndLvalueIsTrue() throws ELException {
     // Arrange
     AstDot astDot = new AstDot(new AstNull(), "Property", true);
@@ -1192,10 +1155,12 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test isReadOnly(Bindings, ELContext); then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean AstProperty.isReadOnly(Bindings, ELContext)"})
   void testIsReadOnly_thenReturnTrue() throws ELException {
     // Arrange
     AstNull left = new AstNull();
-    AstDot astDot = new AstDot(new AstBinary(left, new AstNull(), mock(AstBinary.Operator.class)), "Property", false);
+    AstDot astDot = new AstDot(new AstBinary(left, new AstNull(), mock(Operator.class)), "Property", false);
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
     Bindings bindings = new Bindings(new Method[]{null},
@@ -1208,17 +1173,18 @@ class AstPropertyDiffblueTest {
   /**
    * Test {@link AstProperty#isReadOnly(Bindings, ELContext)}.
    * <ul>
-   *   <li>When {@link SimpleContext#SimpleContext(ELResolver)} with resolver is
-   * {@link RootPropertyResolver#RootPropertyResolver()}.</li>
+   *   <li>When {@link SimpleContext#SimpleContext(ELResolver)} with resolver is {@link RootPropertyResolver#RootPropertyResolver()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstProperty#isReadOnly(Bindings, ELContext)}
    */
   @Test
   @DisplayName("Test isReadOnly(Bindings, ELContext); when SimpleContext(ELResolver) with resolver is RootPropertyResolver()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean AstProperty.isReadOnly(Bindings, ELContext)"})
   void testIsReadOnly_whenSimpleContextWithResolverIsRootPropertyResolver() throws ELException {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -1241,6 +1207,8 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test setValue(Bindings, ELContext, Object)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstProperty.setValue(Bindings, ELContext, Object)"})
   void testSetValue() throws ELException {
     // Arrange
     AstNull base = new AstNull();
@@ -1261,9 +1229,11 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test setValue(Bindings, ELContext, Object)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstProperty.setValue(Bindings, ELContext, Object)"})
   void testSetValue2() throws ELException {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -1287,6 +1257,8 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test setValue(Bindings, ELContext, Object)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstProperty.setValue(Bindings, ELContext, Object)"})
   void testSetValue3() throws ELException {
     // Arrange
     AstNull base = new AstNull();
@@ -1309,6 +1281,8 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test setValue(Bindings, ELContext, Object)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstProperty.setValue(Bindings, ELContext, Object)"})
   void testSetValue4() throws ELException {
     // Arrange
     AstNull question = new AstNull();
@@ -1332,9 +1306,11 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test setValue(Bindings, ELContext, Object)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstProperty.setValue(Bindings, ELContext, Object)"})
   void testSetValue5() throws ELException {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -1360,9 +1336,11 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test setValue(Bindings, ELContext, Object)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstProperty.setValue(Bindings, ELContext, Object)"})
   void testSetValue6() throws ELException {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -1389,9 +1367,11 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test setValue(Bindings, ELContext, Object)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstProperty.setValue(Bindings, ELContext, Object)"})
   void testSetValue7() throws ELException {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -1411,19 +1391,19 @@ class AstPropertyDiffblueTest {
   /**
    * Test {@link AstProperty#setValue(Bindings, ELContext, Object)}.
    * <ul>
-   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is
-   * {@link AstBinary#AstBinary(AstNode, AstNode, Operator)} and {@code Property}
-   * and lvalue is {@code false}.</li>
+   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is {@link AstBinary#AstBinary(AstNode, AstNode, Operator)} and {@code Property} and lvalue is {@code false}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstProperty#setValue(Bindings, ELContext, Object)}
    */
   @Test
   @DisplayName("Test setValue(Bindings, ELContext, Object); given AstDot(AstNode, String, boolean) with base is AstBinary(AstNode, AstNode, Operator) and 'Property' and lvalue is 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstProperty.setValue(Bindings, ELContext, Object)"})
   void testSetValue_givenAstDotWithBaseIsAstBinaryAndPropertyAndLvalueIsFalse() throws ELException {
     // Arrange
     AstNull left = new AstNull();
-    AstDot astDot = new AstDot(new AstBinary(left, new AstNull(), mock(AstBinary.Operator.class)), "Property", false);
+    AstDot astDot = new AstDot(new AstBinary(left, new AstNull(), mock(Operator.class)), "Property", false);
     TypeConverter converter = mock(TypeConverter.class);
     Class<Object> type = Object.class;
     Bindings bindings = new Bindings(new Method[]{null},
@@ -1436,18 +1416,18 @@ class AstPropertyDiffblueTest {
   /**
    * Test {@link AstProperty#setValue(Bindings, ELContext, Object)}.
    * <ul>
-   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is
-   * {@link AstBinary#AstBinary(AstNode, AstNode, Operator)} and property is
-   * {@code null} and lvalue is {@code true}.</li>
+   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is {@link AstBinary#AstBinary(AstNode, AstNode, Operator)} and property is {@code null} and lvalue is {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstProperty#setValue(Bindings, ELContext, Object)}
    */
   @Test
   @DisplayName("Test setValue(Bindings, ELContext, Object); given AstDot(AstNode, String, boolean) with base is AstBinary(AstNode, AstNode, Operator) and property is 'null' and lvalue is 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstProperty.setValue(Bindings, ELContext, Object)"})
   void testSetValue_givenAstDotWithBaseIsAstBinaryAndPropertyIsNullAndLvalueIsTrue() throws ELException {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -1465,19 +1445,19 @@ class AstPropertyDiffblueTest {
   /**
    * Test {@link AstProperty#setValue(Bindings, ELContext, Object)}.
    * <ul>
-   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is
-   * {@link AstBracket#AstBracket(AstNode, AstNode, boolean, boolean)} and
-   * {@code Property} and lvalue is {@code false}.</li>
+   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is {@link AstBracket#AstBracket(AstNode, AstNode, boolean, boolean)} and {@code Property} and lvalue is {@code false}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstProperty#setValue(Bindings, ELContext, Object)}
    */
   @Test
   @DisplayName("Test setValue(Bindings, ELContext, Object); given AstDot(AstNode, String, boolean) with base is AstBracket(AstNode, AstNode, boolean, boolean) and 'Property' and lvalue is 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstProperty.setValue(Bindings, ELContext, Object)"})
   void testSetValue_givenAstDotWithBaseIsAstBracketAndPropertyAndLvalueIsFalse() throws ELException {
     // Arrange
     AstNull left = new AstNull();
-    AstBinary base = new AstBinary(left, new AstNull(), mock(AstBinary.Operator.class));
+    AstBinary base = new AstBinary(left, new AstNull(), mock(Operator.class));
 
     AstDot astDot = new AstDot(new AstBracket(base, new AstNull(), true, true), "Property", false);
     TypeConverter converter = mock(TypeConverter.class);
@@ -1492,15 +1472,15 @@ class AstPropertyDiffblueTest {
   /**
    * Test {@link AstProperty#setValue(Bindings, ELContext, Object)}.
    * <ul>
-   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is
-   * {@link AstChoice#AstChoice(AstNode, AstNode, AstNode)} and {@code Property}
-   * and lvalue is {@code true}.</li>
+   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is {@link AstChoice#AstChoice(AstNode, AstNode, AstNode)} and {@code Property} and lvalue is {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstProperty#setValue(Bindings, ELContext, Object)}
    */
   @Test
   @DisplayName("Test setValue(Bindings, ELContext, Object); given AstDot(AstNode, String, boolean) with base is AstChoice(AstNode, AstNode, AstNode) and 'Property' and lvalue is 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstProperty.setValue(Bindings, ELContext, Object)"})
   void testSetValue_givenAstDotWithBaseIsAstChoiceAndPropertyAndLvalueIsTrue() throws ELException {
     // Arrange
     AstNull question = new AstNull();
@@ -1518,15 +1498,15 @@ class AstPropertyDiffblueTest {
   /**
    * Test {@link AstProperty#setValue(Bindings, ELContext, Object)}.
    * <ul>
-   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is
-   * {@link AstNull} (default constructor) and {@code Property} and lvalue is
-   * {@code true}.</li>
+   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is {@link AstNull} (default constructor) and {@code Property} and lvalue is {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstProperty#setValue(Bindings, ELContext, Object)}
    */
   @Test
   @DisplayName("Test setValue(Bindings, ELContext, Object); given AstDot(AstNode, String, boolean) with base is AstNull (default constructor) and 'Property' and lvalue is 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstProperty.setValue(Bindings, ELContext, Object)"})
   void testSetValue_givenAstDotWithBaseIsAstNullAndPropertyAndLvalueIsTrue() throws ELException {
     // Arrange
     AstDot astDot = new AstDot(new AstNull(), "Property", true);
@@ -1542,17 +1522,18 @@ class AstPropertyDiffblueTest {
   /**
    * Test {@link AstProperty#setValue(Bindings, ELContext, Object)}.
    * <ul>
-   *   <li>When {@link SimpleContext#SimpleContext(ELResolver)} with resolver is
-   * {@link RootPropertyResolver#RootPropertyResolver()}.</li>
+   *   <li>When {@link SimpleContext#SimpleContext(ELResolver)} with resolver is {@link RootPropertyResolver#RootPropertyResolver()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstProperty#setValue(Bindings, ELContext, Object)}
    */
   @Test
   @DisplayName("Test setValue(Bindings, ELContext, Object); when SimpleContext(ELResolver) with resolver is RootPropertyResolver()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void AstProperty.setValue(Bindings, ELContext, Object)"})
   void testSetValue_whenSimpleContextWithResolverIsRootPropertyResolver() throws ELException {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -1570,13 +1551,18 @@ class AstPropertyDiffblueTest {
 
   /**
    * Test {@link AstProperty#findMethod(String, Class, Class, Class[])}.
+   * <ul>
+   *   <li>When array of {@link Class} with {@link Object}.</li>
+   *   <li>Then throw {@link MethodNotFoundException}.</li>
+   * </ul>
    * <p>
-   * Method under test:
-   * {@link AstProperty#findMethod(String, Class, Class, Class[])}
+   * Method under test: {@link AstProperty#findMethod(String, Class, Class, Class[])}
    */
   @Test
-  @DisplayName("Test findMethod(String, Class, Class, Class[])")
-  void testFindMethod() {
+  @DisplayName("Test findMethod(String, Class, Class, Class[]); when array of Class with Object; then throw MethodNotFoundException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Method AstProperty.findMethod(String, Class, Class, Class[])"})
+  void testFindMethod_whenArrayOfClassWithObject_thenThrowMethodNotFoundException() {
     // Arrange
     AstDot astDot = new AstDot(new AstNull(), "Property", true);
     Class<Object> clazz = Object.class;
@@ -1591,19 +1577,18 @@ class AstPropertyDiffblueTest {
   /**
    * Test {@link AstProperty#getMethodInfo(Bindings, ELContext, Class, Class[])}.
    * <ul>
-   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is
-   * {@link AstBinary#AstBinary(AstNode, AstNode, Operator)} and property is
-   * {@code null} and lvalue is {@code true}.</li>
+   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is {@link AstBinary#AstBinary(AstNode, AstNode, Operator)} and property is {@code null} and lvalue is {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstProperty#getMethodInfo(Bindings, ELContext, Class, Class[])}
+   * Method under test: {@link AstProperty#getMethodInfo(Bindings, ELContext, Class, Class[])}
    */
   @Test
   @DisplayName("Test getMethodInfo(Bindings, ELContext, Class, Class[]); given AstDot(AstNode, String, boolean) with base is AstBinary(AstNode, AstNode, Operator) and property is 'null' and lvalue is 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"jakarta.el.MethodInfo AstProperty.getMethodInfo(Bindings, ELContext, Class, Class[])"})
   void testGetMethodInfo_givenAstDotWithBaseIsAstBinaryAndPropertyIsNullAndLvalueIsTrue() {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -1626,16 +1611,15 @@ class AstPropertyDiffblueTest {
   /**
    * Test {@link AstProperty#getMethodInfo(Bindings, ELContext, Class, Class[])}.
    * <ul>
-   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is
-   * {@link AstNull} (default constructor) and {@code Property} and lvalue is
-   * {@code true}.</li>
+   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is {@link AstNull} (default constructor) and {@code Property} and lvalue is {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstProperty#getMethodInfo(Bindings, ELContext, Class, Class[])}
+   * Method under test: {@link AstProperty#getMethodInfo(Bindings, ELContext, Class, Class[])}
    */
   @Test
   @DisplayName("Test getMethodInfo(Bindings, ELContext, Class, Class[]); given AstDot(AstNode, String, boolean) with base is AstNull (default constructor) and 'Property' and lvalue is 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"jakarta.el.MethodInfo AstProperty.getMethodInfo(Bindings, ELContext, Class, Class[])"})
   void testGetMethodInfo_givenAstDotWithBaseIsAstNullAndPropertyAndLvalueIsTrue() {
     // Arrange
     AstDot astDot = new AstDot(new AstNull(), "Property", true);
@@ -1659,14 +1643,15 @@ class AstPropertyDiffblueTest {
    *   <li>Then throw {@link MethodNotFoundException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstProperty#getMethodInfo(Bindings, ELContext, Class, Class[])}
+   * Method under test: {@link AstProperty#getMethodInfo(Bindings, ELContext, Class, Class[])}
    */
   @Test
   @DisplayName("Test getMethodInfo(Bindings, ELContext, Class, Class[]); then throw MethodNotFoundException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"jakarta.el.MethodInfo AstProperty.getMethodInfo(Bindings, ELContext, Class, Class[])"})
   void testGetMethodInfo_thenThrowMethodNotFoundException() {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -1687,22 +1672,20 @@ class AstPropertyDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AstProperty#invoke(Bindings, ELContext, Class, Class[], Object[])}.
+   * Test {@link AstProperty#invoke(Bindings, ELContext, Class, Class[], Object[])}.
    * <ul>
-   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is
-   * {@link AstBinary#AstBinary(AstNode, AstNode, Operator)} and property is
-   * {@code null} and lvalue is {@code true}.</li>
+   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is {@link AstBinary#AstBinary(AstNode, AstNode, Operator)} and property is {@code null} and lvalue is {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstProperty#invoke(Bindings, ELContext, Class, Class[], Object[])}
+   * Method under test: {@link AstProperty#invoke(Bindings, ELContext, Class, Class[], Object[])}
    */
   @Test
   @DisplayName("Test invoke(Bindings, ELContext, Class, Class[], Object[]); given AstDot(AstNode, String, boolean) with base is AstBinary(AstNode, AstNode, Operator) and property is 'null' and lvalue is 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object AstProperty.invoke(Bindings, ELContext, Class, Class[], Object[])"})
   void testInvoke_givenAstDotWithBaseIsAstBinaryAndPropertyIsNullAndLvalueIsTrue() {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -1723,19 +1706,17 @@ class AstPropertyDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AstProperty#invoke(Bindings, ELContext, Class, Class[], Object[])}.
+   * Test {@link AstProperty#invoke(Bindings, ELContext, Class, Class[], Object[])}.
    * <ul>
-   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is
-   * {@link AstNull} (default constructor) and {@code Property} and lvalue is
-   * {@code true}.</li>
+   *   <li>Given {@link AstDot#AstDot(AstNode, String, boolean)} with base is {@link AstNull} (default constructor) and {@code Property} and lvalue is {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstProperty#invoke(Bindings, ELContext, Class, Class[], Object[])}
+   * Method under test: {@link AstProperty#invoke(Bindings, ELContext, Class, Class[], Object[])}
    */
   @Test
   @DisplayName("Test invoke(Bindings, ELContext, Class, Class[], Object[]); given AstDot(AstNode, String, boolean) with base is AstNull (default constructor) and 'Property' and lvalue is 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object AstProperty.invoke(Bindings, ELContext, Class, Class[], Object[])"})
   void testInvoke_givenAstDotWithBaseIsAstNullAndPropertyAndLvalueIsTrue() {
     // Arrange
     AstDot astDot = new AstDot(new AstNull(), "Property", true);
@@ -1754,20 +1735,20 @@ class AstPropertyDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link AstProperty#invoke(Bindings, ELContext, Class, Class[], Object[])}.
+   * Test {@link AstProperty#invoke(Bindings, ELContext, Class, Class[], Object[])}.
    * <ul>
    *   <li>Then throw {@link MethodNotFoundException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AstProperty#invoke(Bindings, ELContext, Class, Class[], Object[])}
+   * Method under test: {@link AstProperty#invoke(Bindings, ELContext, Class, Class[], Object[])}
    */
   @Test
   @DisplayName("Test invoke(Bindings, ELContext, Class, Class[], Object[]); then throw MethodNotFoundException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Object AstProperty.invoke(Bindings, ELContext, Class, Class[], Object[])"})
   void testInvoke_thenThrowMethodNotFoundException() {
     // Arrange
-    AstBinary.Operator operator = mock(AstBinary.Operator.class);
+    Operator operator = mock(Operator.class);
     when(operator.eval(Mockito.<Bindings>any(), Mockito.<ELContext>any(), Mockito.<AstNode>any(),
         Mockito.<AstNode>any())).thenReturn("Eval");
     AstNull left = new AstNull();
@@ -1790,35 +1771,17 @@ class AstPropertyDiffblueTest {
   /**
    * Test {@link AstProperty#getChild(int)}.
    * <ul>
-   *   <li>Given {@link AstBinary#AstBinary(AstNode, AstNode, Operator)} with left
-   * is {@link AstNull} (default constructor) and right is {@link AstNull}
-   * (default constructor) and {@link Operator}.</li>
-   * </ul>
-   * <p>
-   * Method under test: {@link AstProperty#getChild(int)}
-   */
-  @Test
-  @DisplayName("Test getChild(int); given AstBinary(AstNode, AstNode, Operator) with left is AstNull (default constructor) and right is AstNull (default constructor) and Operator")
-  void testGetChild_givenAstBinaryWithLeftIsAstNullAndRightIsAstNullAndOperator() {
-    // Arrange
-    AstNull left = new AstNull();
-
-    // Act and Assert
-    assertNull(
-        (new AstDot(new AstBinary(left, new AstNull(), mock(AstBinary.Operator.class)), "Property", true)).getChild(1));
-  }
-
-  /**
-   * Test {@link AstProperty#getChild(int)}.
-   * <ul>
+   *   <li>When one.</li>
    *   <li>Then return {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link AstProperty#getChild(int)}
    */
   @Test
-  @DisplayName("Test getChild(int); then return 'null'")
-  void testGetChild_thenReturnNull() {
+  @DisplayName("Test getChild(int); when one; then return 'null'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"AstNode AstProperty.getChild(int)"})
+  void testGetChild_whenOne_thenReturnNull() {
     // Arrange, Act and Assert
     assertNull((new AstDot(new AstNull(), "Property", true)).getChild(1));
   }
@@ -1834,6 +1797,8 @@ class AstPropertyDiffblueTest {
    */
   @Test
   @DisplayName("Test getChild(int); when zero; then return AstNull (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"AstNode AstProperty.getChild(int)"})
   void testGetChild_whenZero_thenReturnAstNull() {
     // Arrange
     AstNull base = new AstNull();

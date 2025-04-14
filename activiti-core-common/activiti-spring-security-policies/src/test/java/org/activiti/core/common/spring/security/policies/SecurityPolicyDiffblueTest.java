@@ -18,9 +18,11 @@ package org.activiti.core.common.spring.security.policies;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class SecurityPolicyDiffblueTest {
@@ -46,6 +48,13 @@ class SecurityPolicyDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SecurityPolicy.<init>()", "SecurityPolicyAccess SecurityPolicy.getAccess()",
+      "List SecurityPolicy.getGroups()", "List SecurityPolicy.getKeys()", "String SecurityPolicy.getName()",
+      "String SecurityPolicy.getServiceName()", "List SecurityPolicy.getUsers()",
+      "void SecurityPolicy.setAccess(SecurityPolicyAccess)", "void SecurityPolicy.setGroups(List)",
+      "void SecurityPolicy.setKeys(List)", "void SecurityPolicy.setName(String)",
+      "void SecurityPolicy.setServiceName(String)", "void SecurityPolicy.setUsers(List)"})
   void testGettersAndSetters() {
     // Arrange and Act
     SecurityPolicy actualSecurityPolicy = new SecurityPolicy();
@@ -65,7 +74,7 @@ class SecurityPolicyDiffblueTest {
     String actualServiceName = actualSecurityPolicy.getServiceName();
     List<String> actualUsers = actualSecurityPolicy.getUsers();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Name", actualName);
     assertEquals("Service Name", actualServiceName);
     assertEquals(SecurityPolicyAccess.NONE, actualAccess);

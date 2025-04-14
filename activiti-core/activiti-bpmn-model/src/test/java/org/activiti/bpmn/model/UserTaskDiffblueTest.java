@@ -26,6 +26,8 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,20 +35,22 @@ import java.util.Map;
 import java.util.Set;
 import org.activiti.bpmn.model.alfresco.AlfrescoUserTask;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class UserTaskDiffblueTest {
   /**
    * Test {@link UserTask#isExtended()}.
    * <ul>
-   *   <li>Given {@link UserTask} (default constructor) ExtensionId is empty
-   * string.</li>
+   *   <li>Given {@link UserTask} (default constructor) ExtensionId is empty string.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
    * Method under test: {@link UserTask#isExtended()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean UserTask.isExtended()"})
   public void testIsExtended_givenUserTaskExtensionIdIsEmptyString_thenReturnFalse() {
     // Arrange
     UserTask userTask = new UserTask();
@@ -59,14 +63,15 @@ public class UserTaskDiffblueTest {
   /**
    * Test {@link UserTask#isExtended()}.
    * <ul>
-   *   <li>Given {@link UserTask} (default constructor) ExtensionId is
-   * {@code foo}.</li>
+   *   <li>Given {@link UserTask} (default constructor) ExtensionId is {@code foo}.</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
    * Method under test: {@link UserTask#isExtended()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean UserTask.isExtended()"})
   public void testIsExtended_givenUserTaskExtensionIdIsFoo_thenReturnTrue() {
     // Arrange
     UserTask userTask = new UserTask();
@@ -86,6 +91,8 @@ public class UserTaskDiffblueTest {
    * Method under test: {@link UserTask#isExtended()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean UserTask.isExtended()"})
   public void testIsExtended_givenUserTask_thenReturnFalse() {
     // Arrange, Act and Assert
     assertFalse((new UserTask()).isExtended());
@@ -100,6 +107,8 @@ public class UserTaskDiffblueTest {
    * Method under test: {@link UserTask#addCustomUserIdentityLink(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTask.addCustomUserIdentityLink(String, String)"})
   public void testAddCustomUserIdentityLink_givenUserTask() {
     // Arrange
     UserTask userTask = new UserTask();
@@ -118,13 +127,14 @@ public class UserTaskDiffblueTest {
   /**
    * Test {@link UserTask#addCustomUserIdentityLink(String, String)}.
    * <ul>
-   *   <li>Given {@link UserTask} (default constructor) addCustomUserIdentityLink
-   * {@code 42} and {@code Type}.</li>
+   *   <li>Given {@link UserTask} (default constructor) addCustomUserIdentityLink {@code 42} and {@code Type}.</li>
    * </ul>
    * <p>
    * Method under test: {@link UserTask#addCustomUserIdentityLink(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTask.addCustomUserIdentityLink(String, String)"})
   public void testAddCustomUserIdentityLink_givenUserTaskAddCustomUserIdentityLink42AndType() {
     // Arrange
     UserTask userTask = new UserTask();
@@ -133,7 +143,7 @@ public class UserTaskDiffblueTest {
     // Act
     userTask.addCustomUserIdentityLink("42", "Type");
 
-    // Assert
+    // Assert that nothing has changed
     Map<String, Set<String>> customUserIdentityLinks = userTask.getCustomUserIdentityLinks();
     assertEquals(1, customUserIdentityLinks.size());
     Set<String> getResult = customUserIdentityLinks.get("Type");
@@ -147,10 +157,11 @@ public class UserTaskDiffblueTest {
    *   <li>Given {@link UserTask} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link UserTask#addCustomGroupIdentityLink(String, String)}
+   * Method under test: {@link UserTask#addCustomGroupIdentityLink(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTask.addCustomGroupIdentityLink(String, String)"})
   public void testAddCustomGroupIdentityLink_givenUserTask() {
     // Arrange
     UserTask userTask = new UserTask();
@@ -169,14 +180,14 @@ public class UserTaskDiffblueTest {
   /**
    * Test {@link UserTask#addCustomGroupIdentityLink(String, String)}.
    * <ul>
-   *   <li>Given {@link UserTask} (default constructor) addCustomGroupIdentityLink
-   * {@code 42} and {@code Type}.</li>
+   *   <li>Given {@link UserTask} (default constructor) addCustomGroupIdentityLink {@code 42} and {@code Type}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link UserTask#addCustomGroupIdentityLink(String, String)}
+   * Method under test: {@link UserTask#addCustomGroupIdentityLink(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTask.addCustomGroupIdentityLink(String, String)"})
   public void testAddCustomGroupIdentityLink_givenUserTaskAddCustomGroupIdentityLink42AndType() {
     // Arrange
     UserTask userTask = new UserTask();
@@ -185,7 +196,7 @@ public class UserTaskDiffblueTest {
     // Act
     userTask.addCustomGroupIdentityLink("42", "Type");
 
-    // Assert
+    // Assert that nothing has changed
     Map<String, Set<String>> customGroupIdentityLinks = userTask.getCustomGroupIdentityLinks();
     assertEquals(1, customGroupIdentityLinks.size());
     Set<String> getResult = customGroupIdentityLinks.get("Type");
@@ -196,13 +207,14 @@ public class UserTaskDiffblueTest {
   /**
    * Test {@link UserTask#clone()}.
    * <ul>
-   *   <li>Given {@link ActivitiListener} (default constructor) FieldExtensions is
-   * {@code null}.</li>
+   *   <li>Given {@link ActivitiListener} (default constructor) FieldExtensions is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link UserTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"UserTask UserTask.clone()"})
   public void testClone_givenActivitiListenerFieldExtensionsIsNull() {
     // Arrange
     ActivitiListener activitiListener = new ActivitiListener();
@@ -244,6 +256,8 @@ public class UserTaskDiffblueTest {
    * Method under test: {@link UserTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"UserTask UserTask.clone()"})
   public void testClone_givenAlfrescoUserTask_thenReturnAlfrescoUserTask() {
     // Arrange and Act
     AlfrescoUserTask actualCloneResult = (new AlfrescoUserTask()).clone();
@@ -258,14 +272,15 @@ public class UserTaskDiffblueTest {
   /**
    * Test {@link UserTask#clone()}.
    * <ul>
-   *   <li>Given {@link FormProperty} (default constructor) FormValues is
-   * {@code null}.</li>
+   *   <li>Given {@link FormProperty} (default constructor) FormValues is {@code null}.</li>
    *   <li>Then return FormProperties size is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link UserTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"UserTask UserTask.clone()"})
   public void testClone_givenFormPropertyFormValuesIsNull_thenReturnFormPropertiesSizeIsOne() {
     // Arrange
     FormProperty formProperty = new FormProperty();
@@ -302,14 +317,15 @@ public class UserTaskDiffblueTest {
   /**
    * Test {@link UserTask#clone()}.
    * <ul>
-   *   <li>Given {@link UserTask} (default constructor) TaskListeners is
-   * {@code null}.</li>
+   *   <li>Given {@link UserTask} (default constructor) TaskListeners is {@code null}.</li>
    *   <li>Then return IoSpecification is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link UserTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"UserTask UserTask.clone()"})
   public void testClone_givenUserTaskTaskListenersIsNull_thenReturnIoSpecificationIsNull() {
     // Arrange
     UserTask userTask = new UserTask();
@@ -323,7 +339,6 @@ public class UserTaskDiffblueTest {
     assertNull(actualCloneResult.getIoSpecification());
     assertNull(actualCloneResult.getLoopCharacteristics());
     assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
-    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
     assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
     assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
     assertTrue(actualCloneResult.getFormProperties().isEmpty());
@@ -341,6 +356,8 @@ public class UserTaskDiffblueTest {
    * Method under test: {@link UserTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"UserTask UserTask.clone()"})
   public void testClone_givenUserTask_thenReturnIoSpecificationIsNull() {
     // Arrange and Act
     UserTask actualCloneResult = (new UserTask()).clone();
@@ -349,7 +366,6 @@ public class UserTaskDiffblueTest {
     assertNull(actualCloneResult.getIoSpecification());
     assertNull(actualCloneResult.getLoopCharacteristics());
     assertFalse(actualCloneResult.hasMultiInstanceLoopCharacteristics());
-    assertTrue(actualCloneResult.getBoundaryEvents().isEmpty());
     assertTrue(actualCloneResult.getDataInputAssociations().isEmpty());
     assertTrue(actualCloneResult.getDataOutputAssociations().isEmpty());
     assertTrue(actualCloneResult.getFormProperties().isEmpty());
@@ -366,6 +382,8 @@ public class UserTaskDiffblueTest {
    * Method under test: {@link UserTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"UserTask UserTask.clone()"})
   public void testClone_thenReturnAttributesSizeIsOne() {
     // Arrange
     UserTask userTask = new UserTask();
@@ -389,6 +407,8 @@ public class UserTaskDiffblueTest {
    * Method under test: {@link UserTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"UserTask UserTask.clone()"})
   public void testClone_thenReturnAttributesSizeIsTwo() {
     // Arrange
     UserTask userTask = new UserTask();
@@ -408,16 +428,19 @@ public class UserTaskDiffblueTest {
   /**
    * Test {@link UserTask#clone()}.
    * <ul>
-   *   <li>Then return BoundaryEvents is {@link ArrayList#ArrayList()}.</li>
+   *   <li>Then return BoundaryEvents size is one.</li>
    * </ul>
    * <p>
    * Method under test: {@link UserTask#clone()}
    */
   @Test
-  public void testClone_thenReturnBoundaryEventsIsArrayList() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"UserTask UserTask.clone()"})
+  public void testClone_thenReturnBoundaryEventsSizeIsOne() {
     // Arrange
     ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
-    boundaryEvents.add(new BoundaryEvent());
+    BoundaryEvent boundaryEvent = new BoundaryEvent();
+    boundaryEvents.add(boundaryEvent);
 
     UserTask userTask = new UserTask();
     userTask.setLoopCharacteristics(null);
@@ -427,7 +450,9 @@ public class UserTaskDiffblueTest {
     userTask.setBoundaryEvents(boundaryEvents);
 
     // Act and Assert
-    assertEquals(boundaryEvents, userTask.clone().getBoundaryEvents());
+    List<BoundaryEvent> boundaryEvents2 = userTask.clone().getBoundaryEvents();
+    assertEquals(1, boundaryEvents2.size());
+    assertSame(boundaryEvent, boundaryEvents2.get(0));
   }
 
   /**
@@ -439,6 +464,8 @@ public class UserTaskDiffblueTest {
    * Method under test: {@link UserTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"UserTask UserTask.clone()"})
   public void testClone_thenReturnDataInputAssociationsSizeIsOne() {
     // Arrange
     ArrayList<DataAssociation> dataInputAssociations = new ArrayList<>();
@@ -478,6 +505,8 @@ public class UserTaskDiffblueTest {
    * Method under test: {@link UserTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"UserTask UserTask.clone()"})
   public void testClone_thenReturnDataOutputAssociationsSizeIsOne() {
     // Arrange
     ArrayList<DataAssociation> dataOutputAssociations = new ArrayList<>();
@@ -517,6 +546,8 @@ public class UserTaskDiffblueTest {
    * Method under test: {@link UserTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"UserTask UserTask.clone()"})
   public void testClone_thenReturnIoSpecificationIdIsNull() {
     // Arrange
     ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
@@ -551,6 +582,8 @@ public class UserTaskDiffblueTest {
    * Method under test: {@link UserTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"UserTask UserTask.clone()"})
   public void testClone_thenReturnLoopCharacteristicsIdIsNull() {
     // Arrange
     ArrayList<BoundaryEvent> boundaryEvents = new ArrayList<>();
@@ -593,6 +626,8 @@ public class UserTaskDiffblueTest {
    * Method under test: {@link UserTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"UserTask UserTask.clone()"})
   public void testClone_thenReturnTaskListenersFirstFieldExtensionsSizeIsOne() {
     // Arrange
     ArrayList<FieldExtension> fieldExtensions = new ArrayList<>();
@@ -633,6 +668,8 @@ public class UserTaskDiffblueTest {
    * Method under test: {@link UserTask#clone()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"UserTask UserTask.clone()"})
   public void testClone_thenReturnTaskListenersFirstInstanceIsNull() {
     // Arrange
     ActivitiListener activitiListener = new ActivitiListener();
@@ -670,6 +707,8 @@ public class UserTaskDiffblueTest {
    * Method under test: {@link UserTask#setValues(UserTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
   public void testSetValuesWithUserTask() {
     // Arrange
     UserTask userTask = new UserTask();
@@ -687,38 +726,11 @@ public class UserTaskDiffblueTest {
     // Act
     userTask.setValues(otherElement);
 
-    // Assert
-    assertNull(otherElement.getDefaultFlow());
-    assertNull(otherElement.getFailedJobRetryTimeCycleValue());
-    assertNull(otherElement.getId());
-    MultiInstanceLoopCharacteristics loopCharacteristics = otherElement.getLoopCharacteristics();
-    assertNull(loopCharacteristics.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
-    assertNull(loopCharacteristics.getCompletionCondition());
-    assertNull(loopCharacteristics.getElementIndexVariable());
-    assertNull(loopCharacteristics.getElementVariable());
-    assertNull(loopCharacteristics.getInputDataItem());
-    assertNull(loopCharacteristics.getLoopCardinality());
-    assertNull(loopCharacteristics.getLoopDataOutputRef());
-    assertNull(loopCharacteristics.getOutputDataItem());
-    assertNull(otherElement.getAssignee());
-    assertNull(otherElement.getCategory());
-    assertNull(otherElement.getDueDate());
-    assertNull(otherElement.getExtensionId());
-    assertNull(otherElement.getFormKey());
-    assertNull(otherElement.getOwner());
-    assertNull(otherElement.getPriority());
-    assertNull(otherElement.getSkipExpression());
-    assertEquals(0, loopCharacteristics.getXmlColumnNumber());
-    assertEquals(0, loopCharacteristics.getXmlRowNumber());
+    // Assert that nothing has changed
     assertFalse(otherElement.isForCompensation());
     assertFalse(otherElement.isAsynchronous());
     assertFalse(otherElement.isNotExclusive());
-    assertFalse(loopCharacteristics.isSequential());
     assertFalse(otherElement.isExtended());
-    assertTrue(loopCharacteristics.getAttributes().isEmpty());
-    assertTrue(loopCharacteristics.getExtensionElements().isEmpty());
     assertTrue(otherElement.getCustomGroupIdentityLinks().isEmpty());
     assertTrue(otherElement.getCustomUserIdentityLinks().isEmpty());
     assertTrue(otherElement.hasMultiInstanceLoopCharacteristics());
@@ -728,13 +740,14 @@ public class UserTaskDiffblueTest {
   /**
    * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
    * <ul>
-   *   <li>Given {@link ActivitiListener} (default constructor) FieldExtensions is
-   * {@link ArrayList#ArrayList()}.</li>
+   *   <li>Given {@link ActivitiListener} (default constructor) FieldExtensions is {@link ArrayList#ArrayList()}.</li>
    * </ul>
    * <p>
    * Method under test: {@link UserTask#setValues(UserTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
   public void testSetValuesWithUserTask_givenActivitiListenerFieldExtensionsIsArrayList() {
     // Arrange
     UserTask userTask = new UserTask();
@@ -752,20 +765,7 @@ public class UserTaskDiffblueTest {
     // Act
     userTask.setValues(otherElement);
 
-    // Assert
-    assertNull(otherElement.getDefaultFlow());
-    assertNull(otherElement.getFailedJobRetryTimeCycleValue());
-    assertNull(otherElement.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
-    assertNull(otherElement.getAssignee());
-    assertNull(otherElement.getCategory());
-    assertNull(otherElement.getDueDate());
-    assertNull(otherElement.getExtensionId());
-    assertNull(otherElement.getFormKey());
-    assertNull(otherElement.getOwner());
-    assertNull(otherElement.getPriority());
-    assertNull(otherElement.getSkipExpression());
+    // Assert that nothing has changed
     assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherElement.isForCompensation());
     assertFalse(otherElement.isAsynchronous());
@@ -779,13 +779,14 @@ public class UserTaskDiffblueTest {
   /**
    * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
    * <ul>
-   *   <li>Given {@link ActivitiListener} (default constructor) FieldExtensions is
-   * {@code null}.</li>
+   *   <li>Given {@link ActivitiListener} (default constructor) FieldExtensions is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link UserTask#setValues(UserTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
   public void testSetValuesWithUserTask_givenActivitiListenerFieldExtensionsIsNull() {
     // Arrange
     UserTask userTask = new UserTask();
@@ -803,20 +804,7 @@ public class UserTaskDiffblueTest {
     // Act
     userTask.setValues(otherElement);
 
-    // Assert
-    assertNull(otherElement.getDefaultFlow());
-    assertNull(otherElement.getFailedJobRetryTimeCycleValue());
-    assertNull(otherElement.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
-    assertNull(otherElement.getAssignee());
-    assertNull(otherElement.getCategory());
-    assertNull(otherElement.getDueDate());
-    assertNull(otherElement.getExtensionId());
-    assertNull(otherElement.getFormKey());
-    assertNull(otherElement.getOwner());
-    assertNull(otherElement.getPriority());
-    assertNull(otherElement.getSkipExpression());
+    // Assert that nothing has changed
     assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherElement.isForCompensation());
     assertFalse(otherElement.isAsynchronous());
@@ -830,13 +818,14 @@ public class UserTaskDiffblueTest {
   /**
    * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link DataAssociation} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link DataAssociation} (default constructor).</li>
    * </ul>
    * <p>
    * Method under test: {@link UserTask#setValues(UserTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
   public void testSetValuesWithUserTask_givenArrayListAddDataAssociation() {
     // Arrange
     UserTask userTask = new UserTask();
@@ -857,20 +846,7 @@ public class UserTaskDiffblueTest {
     // Act
     userTask.setValues(otherElement);
 
-    // Assert
-    assertNull(otherElement.getDefaultFlow());
-    assertNull(otherElement.getFailedJobRetryTimeCycleValue());
-    assertNull(otherElement.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
-    assertNull(otherElement.getAssignee());
-    assertNull(otherElement.getCategory());
-    assertNull(otherElement.getDueDate());
-    assertNull(otherElement.getExtensionId());
-    assertNull(otherElement.getFormKey());
-    assertNull(otherElement.getOwner());
-    assertNull(otherElement.getPriority());
-    assertNull(otherElement.getSkipExpression());
+    // Assert that nothing has changed
     assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherElement.isForCompensation());
     assertFalse(otherElement.isAsynchronous());
@@ -884,13 +860,14 @@ public class UserTaskDiffblueTest {
   /**
    * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link DataAssociation} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link DataAssociation} (default constructor).</li>
    * </ul>
    * <p>
    * Method under test: {@link UserTask#setValues(UserTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
   public void testSetValuesWithUserTask_givenArrayListAddDataAssociation2() {
     // Arrange
     UserTask userTask = new UserTask();
@@ -911,20 +888,7 @@ public class UserTaskDiffblueTest {
     // Act
     userTask.setValues(otherElement);
 
-    // Assert
-    assertNull(otherElement.getDefaultFlow());
-    assertNull(otherElement.getFailedJobRetryTimeCycleValue());
-    assertNull(otherElement.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
-    assertNull(otherElement.getAssignee());
-    assertNull(otherElement.getCategory());
-    assertNull(otherElement.getDueDate());
-    assertNull(otherElement.getExtensionId());
-    assertNull(otherElement.getFormKey());
-    assertNull(otherElement.getOwner());
-    assertNull(otherElement.getPriority());
-    assertNull(otherElement.getSkipExpression());
+    // Assert that nothing has changed
     assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherElement.isForCompensation());
     assertFalse(otherElement.isAsynchronous());
@@ -938,13 +902,14 @@ public class UserTaskDiffblueTest {
   /**
    * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default constructor).</li>
    * </ul>
    * <p>
    * Method under test: {@link UserTask#setValues(UserTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
   public void testSetValuesWithUserTask_givenArrayListAddFieldExtension() {
     // Arrange
     UserTask userTask = new UserTask();
@@ -965,20 +930,7 @@ public class UserTaskDiffblueTest {
     // Act
     userTask.setValues(otherElement);
 
-    // Assert
-    assertNull(otherElement.getDefaultFlow());
-    assertNull(otherElement.getFailedJobRetryTimeCycleValue());
-    assertNull(otherElement.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
-    assertNull(otherElement.getAssignee());
-    assertNull(otherElement.getCategory());
-    assertNull(otherElement.getDueDate());
-    assertNull(otherElement.getExtensionId());
-    assertNull(otherElement.getFormKey());
-    assertNull(otherElement.getOwner());
-    assertNull(otherElement.getPriority());
-    assertNull(otherElement.getSkipExpression());
+    // Assert that nothing has changed
     assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherElement.isForCompensation());
     assertFalse(otherElement.isAsynchronous());
@@ -993,13 +945,14 @@ public class UserTaskDiffblueTest {
    * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
    * <ul>
    *   <li>Given {@code true}.</li>
-   *   <li>Then {@link UserTask} (default constructor) DueDate is
-   * {@code 2020-03-01}.</li>
+   *   <li>Then {@link UserTask} (default constructor) DueDate is {@code 2020-03-01}.</li>
    * </ul>
    * <p>
    * Method under test: {@link UserTask#setValues(UserTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
   public void testSetValuesWithUserTask_givenTrue_thenUserTaskDueDateIs20200301() {
     // Arrange
     UserTask userTask = new UserTask();
@@ -1078,33 +1031,9 @@ public class UserTaskDiffblueTest {
     assertEquals("Owner", userTask.getOwner());
     assertEquals("Priority", userTask.getPriority());
     assertEquals("Skip Expression", userTask.getSkipExpression());
-    IOSpecification ioSpecification = userTask.getIoSpecification();
-    assertNull(ioSpecification.getId());
-    MultiInstanceLoopCharacteristics loopCharacteristics = userTask.getLoopCharacteristics();
-    assertNull(loopCharacteristics.getId());
-    assertNull(loopCharacteristics.getCompletionCondition());
-    assertNull(loopCharacteristics.getElementIndexVariable());
-    assertNull(loopCharacteristics.getElementVariable());
-    assertNull(loopCharacteristics.getInputDataItem());
-    assertNull(loopCharacteristics.getLoopCardinality());
-    assertNull(loopCharacteristics.getLoopDataOutputRef());
-    assertNull(loopCharacteristics.getOutputDataItem());
     assertNull(userTask.getCustomGroupIdentityLinks());
     assertNull(userTask.getCustomUserIdentityLinks());
-    assertEquals(0, ioSpecification.getXmlColumnNumber());
-    assertEquals(0, loopCharacteristics.getXmlColumnNumber());
-    assertEquals(0, ioSpecification.getXmlRowNumber());
-    assertEquals(0, loopCharacteristics.getXmlRowNumber());
     assertFalse(userTask.isExclusive());
-    assertFalse(loopCharacteristics.isSequential());
-    assertTrue(ioSpecification.getDataInputRefs().isEmpty());
-    assertTrue(ioSpecification.getDataInputs().isEmpty());
-    assertTrue(ioSpecification.getDataOutputRefs().isEmpty());
-    assertTrue(ioSpecification.getDataOutputs().isEmpty());
-    assertTrue(ioSpecification.getAttributes().isEmpty());
-    assertTrue(loopCharacteristics.getAttributes().isEmpty());
-    assertTrue(ioSpecification.getExtensionElements().isEmpty());
-    assertTrue(loopCharacteristics.getExtensionElements().isEmpty());
     assertTrue(userTask.hasMultiInstanceLoopCharacteristics());
     assertTrue(userTask.isForCompensation());
     assertTrue(userTask.isAsynchronous());
@@ -1121,6 +1050,8 @@ public class UserTaskDiffblueTest {
    * Method under test: {@link UserTask#setValues(UserTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
   public void testSetValuesWithUserTask_thenCallsClone() {
     // Arrange
     UserTask userTask = new UserTask();
@@ -1140,21 +1071,8 @@ public class UserTaskDiffblueTest {
     // Act
     userTask.setValues(otherElement);
 
-    // Assert
+    // Assert that nothing has changed
     verify(loopCharacteristics).clone();
-    assertNull(otherElement.getDefaultFlow());
-    assertNull(otherElement.getFailedJobRetryTimeCycleValue());
-    assertNull(otherElement.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
-    assertNull(otherElement.getAssignee());
-    assertNull(otherElement.getCategory());
-    assertNull(otherElement.getDueDate());
-    assertNull(otherElement.getExtensionId());
-    assertNull(otherElement.getFormKey());
-    assertNull(otherElement.getOwner());
-    assertNull(otherElement.getPriority());
-    assertNull(otherElement.getSkipExpression());
     assertFalse(otherElement.isForCompensation());
     assertFalse(otherElement.isAsynchronous());
     assertFalse(otherElement.isNotExclusive());
@@ -1174,6 +1092,8 @@ public class UserTaskDiffblueTest {
    * Method under test: {@link UserTask#setValues(UserTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
   public void testSetValuesWithUserTask_thenCallsClone2() {
     // Arrange
     UserTask userTask = new UserTask();
@@ -1195,22 +1115,9 @@ public class UserTaskDiffblueTest {
     // Act
     userTask.setValues(otherElement);
 
-    // Assert
+    // Assert that nothing has changed
     verify(ioSpecification).clone();
     verify(loopCharacteristics).clone();
-    assertNull(otherElement.getDefaultFlow());
-    assertNull(otherElement.getFailedJobRetryTimeCycleValue());
-    assertNull(otherElement.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
-    assertNull(otherElement.getAssignee());
-    assertNull(otherElement.getCategory());
-    assertNull(otherElement.getDueDate());
-    assertNull(otherElement.getExtensionId());
-    assertNull(otherElement.getFormKey());
-    assertNull(otherElement.getOwner());
-    assertNull(otherElement.getPriority());
-    assertNull(otherElement.getSkipExpression());
     assertFalse(otherElement.isForCompensation());
     assertFalse(otherElement.isAsynchronous());
     assertFalse(otherElement.isNotExclusive());
@@ -1230,6 +1137,8 @@ public class UserTaskDiffblueTest {
    * Method under test: {@link UserTask#setValues(UserTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
   public void testSetValuesWithUserTask_thenCallsClone3() {
     // Arrange
     UserTask userTask = new UserTask();
@@ -1252,21 +1161,8 @@ public class UserTaskDiffblueTest {
     // Act
     userTask.setValues(otherElement);
 
-    // Assert
+    // Assert that nothing has changed
     verify(dataAssociation).clone();
-    assertNull(otherElement.getDefaultFlow());
-    assertNull(otherElement.getFailedJobRetryTimeCycleValue());
-    assertNull(otherElement.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
-    assertNull(otherElement.getAssignee());
-    assertNull(otherElement.getCategory());
-    assertNull(otherElement.getDueDate());
-    assertNull(otherElement.getExtensionId());
-    assertNull(otherElement.getFormKey());
-    assertNull(otherElement.getOwner());
-    assertNull(otherElement.getPriority());
-    assertNull(otherElement.getSkipExpression());
     assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherElement.isForCompensation());
     assertFalse(otherElement.isAsynchronous());
@@ -1286,6 +1182,8 @@ public class UserTaskDiffblueTest {
    * Method under test: {@link UserTask#setValues(UserTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
   public void testSetValuesWithUserTask_thenCallsClone4() {
     // Arrange
     UserTask userTask = new UserTask();
@@ -1308,21 +1206,8 @@ public class UserTaskDiffblueTest {
     // Act
     userTask.setValues(otherElement);
 
-    // Assert
+    // Assert that nothing has changed
     verify(dataAssociation).clone();
-    assertNull(otherElement.getDefaultFlow());
-    assertNull(otherElement.getFailedJobRetryTimeCycleValue());
-    assertNull(otherElement.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
-    assertNull(otherElement.getAssignee());
-    assertNull(otherElement.getCategory());
-    assertNull(otherElement.getDueDate());
-    assertNull(otherElement.getExtensionId());
-    assertNull(otherElement.getFormKey());
-    assertNull(otherElement.getOwner());
-    assertNull(otherElement.getPriority());
-    assertNull(otherElement.getSkipExpression());
     assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherElement.isForCompensation());
     assertFalse(otherElement.isAsynchronous());
@@ -1342,6 +1227,8 @@ public class UserTaskDiffblueTest {
    * Method under test: {@link UserTask#setValues(UserTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
   public void testSetValuesWithUserTask_whenUserTask() {
     // Arrange
     UserTask userTask = new UserTask();
@@ -1350,20 +1237,7 @@ public class UserTaskDiffblueTest {
     // Act
     userTask.setValues(otherElement);
 
-    // Assert
-    assertNull(otherElement.getDefaultFlow());
-    assertNull(otherElement.getFailedJobRetryTimeCycleValue());
-    assertNull(otherElement.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
-    assertNull(otherElement.getAssignee());
-    assertNull(otherElement.getCategory());
-    assertNull(otherElement.getDueDate());
-    assertNull(otherElement.getExtensionId());
-    assertNull(otherElement.getFormKey());
-    assertNull(otherElement.getOwner());
-    assertNull(otherElement.getPriority());
-    assertNull(otherElement.getSkipExpression());
+    // Assert that nothing has changed
     assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherElement.isForCompensation());
     assertFalse(otherElement.isAsynchronous());
@@ -1377,13 +1251,14 @@ public class UserTaskDiffblueTest {
   /**
    * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
    * <ul>
-   *   <li>When {@link UserTask} (default constructor) IoSpecification is
-   * {@link IOSpecification} (default constructor).</li>
+   *   <li>When {@link UserTask} (default constructor) IoSpecification is {@link IOSpecification} (default constructor).</li>
    * </ul>
    * <p>
    * Method under test: {@link UserTask#setValues(UserTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
   public void testSetValuesWithUserTask_whenUserTaskIoSpecificationIsIOSpecification() {
     // Arrange
     UserTask userTask = new UserTask();
@@ -1401,35 +1276,12 @@ public class UserTaskDiffblueTest {
     // Act
     userTask.setValues(otherElement);
 
-    // Assert
-    assertNull(otherElement.getDefaultFlow());
-    assertNull(otherElement.getFailedJobRetryTimeCycleValue());
-    assertNull(otherElement.getId());
-    IOSpecification ioSpecification = otherElement.getIoSpecification();
-    assertNull(ioSpecification.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
-    assertNull(otherElement.getAssignee());
-    assertNull(otherElement.getCategory());
-    assertNull(otherElement.getDueDate());
-    assertNull(otherElement.getExtensionId());
-    assertNull(otherElement.getFormKey());
-    assertNull(otherElement.getOwner());
-    assertNull(otherElement.getPriority());
-    assertNull(otherElement.getSkipExpression());
-    assertEquals(0, ioSpecification.getXmlColumnNumber());
-    assertEquals(0, ioSpecification.getXmlRowNumber());
+    // Assert that nothing has changed
     assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherElement.isForCompensation());
     assertFalse(otherElement.isAsynchronous());
     assertFalse(otherElement.isNotExclusive());
     assertFalse(otherElement.isExtended());
-    assertTrue(ioSpecification.getDataInputRefs().isEmpty());
-    assertTrue(ioSpecification.getDataInputs().isEmpty());
-    assertTrue(ioSpecification.getDataOutputRefs().isEmpty());
-    assertTrue(ioSpecification.getDataOutputs().isEmpty());
-    assertTrue(ioSpecification.getAttributes().isEmpty());
-    assertTrue(ioSpecification.getExtensionElements().isEmpty());
     assertTrue(otherElement.getCustomGroupIdentityLinks().isEmpty());
     assertTrue(otherElement.getCustomUserIdentityLinks().isEmpty());
     assertTrue(otherElement.isExclusive());
@@ -1438,13 +1290,14 @@ public class UserTaskDiffblueTest {
   /**
    * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
    * <ul>
-   *   <li>When {@link UserTask} (default constructor) LoopCharacteristics is
-   * {@code null}.</li>
+   *   <li>When {@link UserTask} (default constructor) LoopCharacteristics is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link UserTask#setValues(UserTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
   public void testSetValuesWithUserTask_whenUserTaskLoopCharacteristicsIsNull() {
     // Arrange
     UserTask userTask = new UserTask();
@@ -1462,20 +1315,7 @@ public class UserTaskDiffblueTest {
     // Act
     userTask.setValues(otherElement);
 
-    // Assert
-    assertNull(otherElement.getDefaultFlow());
-    assertNull(otherElement.getFailedJobRetryTimeCycleValue());
-    assertNull(otherElement.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
-    assertNull(otherElement.getAssignee());
-    assertNull(otherElement.getCategory());
-    assertNull(otherElement.getDueDate());
-    assertNull(otherElement.getExtensionId());
-    assertNull(otherElement.getFormKey());
-    assertNull(otherElement.getOwner());
-    assertNull(otherElement.getPriority());
-    assertNull(otherElement.getSkipExpression());
+    // Assert that nothing has changed
     assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherElement.isForCompensation());
     assertFalse(otherElement.isAsynchronous());
@@ -1489,13 +1329,14 @@ public class UserTaskDiffblueTest {
   /**
    * Test {@link UserTask#setValues(UserTask)} with {@code UserTask}.
    * <ul>
-   *   <li>When {@link UserTask} (default constructor) TaskListeners is
-   * {@code null}.</li>
+   *   <li>When {@link UserTask} (default constructor) TaskListeners is {@code null}.</li>
    * </ul>
    * <p>
    * Method under test: {@link UserTask#setValues(UserTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTask.setValues(UserTask)"})
   public void testSetValuesWithUserTask_whenUserTaskTaskListenersIsNull() {
     // Arrange
     UserTask userTask = new UserTask();
@@ -1507,20 +1348,7 @@ public class UserTaskDiffblueTest {
     // Act
     userTask.setValues(otherElement);
 
-    // Assert
-    assertNull(otherElement.getDefaultFlow());
-    assertNull(otherElement.getFailedJobRetryTimeCycleValue());
-    assertNull(otherElement.getId());
-    assertNull(otherElement.getDocumentation());
-    assertNull(otherElement.getName());
-    assertNull(otherElement.getAssignee());
-    assertNull(otherElement.getCategory());
-    assertNull(otherElement.getDueDate());
-    assertNull(otherElement.getExtensionId());
-    assertNull(otherElement.getFormKey());
-    assertNull(otherElement.getOwner());
-    assertNull(otherElement.getPriority());
-    assertNull(otherElement.getSkipExpression());
+    // Assert that nothing has changed
     assertFalse(otherElement.hasMultiInstanceLoopCharacteristics());
     assertFalse(otherElement.isForCompensation());
     assertFalse(otherElement.isAsynchronous());
@@ -1537,6 +1365,8 @@ public class UserTaskDiffblueTest {
    * Method under test: {@link UserTask#accept(ReferenceOverrider)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTask.accept(ReferenceOverrider)"})
   public void testAccept() {
     // Arrange
     UserTask userTask = new UserTask();
@@ -1591,6 +1421,21 @@ public class UserTaskDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void UserTask.<init>()", "String UserTask.getAssignee()",
+      "String UserTask.getBusinessCalendarName()", "List UserTask.getCandidateGroups()",
+      "List UserTask.getCandidateUsers()", "String UserTask.getCategory()",
+      "Map UserTask.getCustomGroupIdentityLinks()", "List UserTask.getCustomProperties()",
+      "Map UserTask.getCustomUserIdentityLinks()", "String UserTask.getDueDate()", "String UserTask.getExtensionId()",
+      "String UserTask.getFormKey()", "List UserTask.getFormProperties()", "String UserTask.getOwner()",
+      "String UserTask.getPriority()", "String UserTask.getSkipExpression()", "List UserTask.getTaskListeners()",
+      "void UserTask.setAssignee(String)", "void UserTask.setBusinessCalendarName(String)",
+      "void UserTask.setCandidateGroups(List)", "void UserTask.setCandidateUsers(List)",
+      "void UserTask.setCategory(String)", "void UserTask.setCustomGroupIdentityLinks(Map)",
+      "void UserTask.setCustomProperties(List)", "void UserTask.setCustomUserIdentityLinks(Map)",
+      "void UserTask.setDueDate(String)", "void UserTask.setExtensionId(String)", "void UserTask.setFormKey(String)",
+      "void UserTask.setFormProperties(List)", "void UserTask.setOwner(String)", "void UserTask.setPriority(String)",
+      "void UserTask.setSkipExpression(String)", "void UserTask.setTaskListeners(List)"})
   public void testGettersAndSetters() {
     // Arrange and Act
     UserTask actualUserTask = new UserTask();
@@ -1634,7 +1479,7 @@ public class UserTaskDiffblueTest {
     String actualSkipExpression = actualUserTask.getSkipExpression();
     List<ActivitiListener> actualTaskListeners = actualUserTask.getTaskListeners();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("2020-03-01", actualDueDate);
     assertEquals("42", actualExtensionId);
     assertEquals("Assignee", actualAssignee);
@@ -1644,6 +1489,15 @@ public class UserTaskDiffblueTest {
     assertEquals("Owner", actualOwner);
     assertEquals("Priority", actualPriority);
     assertEquals("Skip Expression", actualSkipExpression);
+    assertNull(actualUserTask.getBehavior());
+    assertNull(actualUserTask.getDefaultFlow());
+    assertNull(actualUserTask.getFailedJobRetryTimeCycleValue());
+    assertNull(actualUserTask.getId());
+    assertNull(actualUserTask.getDocumentation());
+    assertNull(actualUserTask.getName());
+    assertNull(actualUserTask.getParentContainer());
+    assertNull(actualUserTask.getIoSpecification());
+    assertNull(actualUserTask.getLoopCharacteristics());
     assertEquals(0, actualUserTask.getXmlColumnNumber());
     assertEquals(0, actualUserTask.getXmlRowNumber());
     assertFalse(actualUserTask.isForCompensation());

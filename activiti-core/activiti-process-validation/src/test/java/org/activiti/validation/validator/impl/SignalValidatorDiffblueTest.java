@@ -19,22 +19,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.activiti.bpmn.model.BpmnModel;
-import org.activiti.bpmn.model.Resource;
 import org.activiti.bpmn.model.Signal;
 import org.activiti.validation.ValidationError;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class SignalValidatorDiffblueTest {
   /**
    * Test {@link SignalValidator#validate(BpmnModel, List)}.
    * <ul>
-   *   <li>Given {@link Signal#Signal(String, String)} with {@code Id} and
-   * {@code Name}.</li>
+   *   <li>Given {@link Signal#Signal(String, String)} with {@code Id} and {@code Name}.</li>
    *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
    * <p>
@@ -42,6 +42,8 @@ class SignalValidatorDiffblueTest {
    */
   @Test
   @DisplayName("Test validate(BpmnModel, List); given Signal(String, String) with 'Id' and 'Name'; then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SignalValidator.validate(BpmnModel, List)"})
   void testValidate_givenSignalWithIdAndName_thenArrayListSizeIsTwo() {
     // Arrange
     SignalValidator signalValidator = new SignalValidator();
@@ -78,14 +80,15 @@ class SignalValidatorDiffblueTest {
   /**
    * Test {@link SignalValidator#validate(BpmnModel, List)}.
    * <ul>
-   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and
-   * name is {@code 42}.</li>
+   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and name is {@code 42}.</li>
    * </ul>
    * <p>
    * Method under test: {@link SignalValidator#validate(BpmnModel, List)}
    */
   @Test
   @DisplayName("Test validate(BpmnModel, List); given Signal(String, String) with id is '42' and name is '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SignalValidator.validate(BpmnModel, List)"})
   void testValidate_givenSignalWithIdIs42AndNameIs42() {
     // Arrange
     SignalValidator signalValidator = new SignalValidator();
@@ -99,23 +102,21 @@ class SignalValidatorDiffblueTest {
     signalValidator.validate(bpmnModel, errors);
 
     // Assert that nothing has changed
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
     assertTrue(errors.isEmpty());
-    assertTrue(resources.isEmpty());
   }
 
   /**
    * Test {@link SignalValidator#validate(BpmnModel, List)}.
    * <ul>
-   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and
-   * name is {@code SIGNAL_MISSING_ID}.</li>
+   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and name is {@code SIGNAL_MISSING_ID}.</li>
    * </ul>
    * <p>
    * Method under test: {@link SignalValidator#validate(BpmnModel, List)}
    */
   @Test
   @DisplayName("Test validate(BpmnModel, List); given Signal(String, String) with id is '42' and name is 'SIGNAL_MISSING_ID'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SignalValidator.validate(BpmnModel, List)"})
   void testValidate_givenSignalWithIdIs42AndNameIsSignalMissingId() {
     // Arrange
     SignalValidator signalValidator = new SignalValidator();
@@ -139,16 +140,17 @@ class SignalValidatorDiffblueTest {
   /**
    * Test {@link SignalValidator#validate(BpmnModel, List)}.
    * <ul>
-   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and
-   * {@code Name}.</li>
-   *   <li>Then {@link BpmnModel} (default constructor) Resources {@link List}.</li>
+   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and {@code Name}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
    * Method under test: {@link SignalValidator#validate(BpmnModel, List)}
    */
   @Test
-  @DisplayName("Test validate(BpmnModel, List); given Signal(String, String) with id is '42' and 'Name'; then BpmnModel (default constructor) Resources List")
-  void testValidate_givenSignalWithIdIs42AndName_thenBpmnModelResourcesList() {
+  @DisplayName("Test validate(BpmnModel, List); given Signal(String, String) with id is '42' and 'Name'; then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SignalValidator.validate(BpmnModel, List)"})
+  void testValidate_givenSignalWithIdIs42AndName_thenArrayListEmpty() {
     // Arrange
     SignalValidator signalValidator = new SignalValidator();
 
@@ -160,23 +162,21 @@ class SignalValidatorDiffblueTest {
     signalValidator.validate(bpmnModel, errors);
 
     // Assert that nothing has changed
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
     assertTrue(errors.isEmpty());
-    assertTrue(resources.isEmpty());
   }
 
   /**
    * Test {@link SignalValidator#validate(BpmnModel, List)}.
    * <ul>
-   *   <li>Given {@link Signal#Signal(String, String)} with id is empty string and
-   * {@code Name}.</li>
+   *   <li>Given {@link Signal#Signal(String, String)} with id is empty string and {@code Name}.</li>
    * </ul>
    * <p>
    * Method under test: {@link SignalValidator#validate(BpmnModel, List)}
    */
   @Test
   @DisplayName("Test validate(BpmnModel, List); given Signal(String, String) with id is empty string and 'Name'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SignalValidator.validate(BpmnModel, List)"})
   void testValidate_givenSignalWithIdIsEmptyStringAndName() {
     // Arrange
     SignalValidator signalValidator = new SignalValidator();
@@ -199,14 +199,15 @@ class SignalValidatorDiffblueTest {
   /**
    * Test {@link SignalValidator#validate(BpmnModel, List)}.
    * <ul>
-   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code null} and
-   * {@code Name}.</li>
+   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code null} and {@code Name}.</li>
    * </ul>
    * <p>
    * Method under test: {@link SignalValidator#validate(BpmnModel, List)}
    */
   @Test
   @DisplayName("Test validate(BpmnModel, List); given Signal(String, String) with id is 'null' and 'Name'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SignalValidator.validate(BpmnModel, List)"})
   void testValidate_givenSignalWithIdIsNullAndName() {
     // Arrange
     SignalValidator signalValidator = new SignalValidator();
@@ -229,14 +230,15 @@ class SignalValidatorDiffblueTest {
   /**
    * Test {@link SignalValidator#validate(BpmnModel, List)}.
    * <ul>
-   *   <li>Then {@link ArrayList#ArrayList()} first DefaultDescription is
-   * {@code SIGNAL_MISSING_NAME}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} first DefaultDescription is {@code SIGNAL_MISSING_NAME}.</li>
    * </ul>
    * <p>
    * Method under test: {@link SignalValidator#validate(BpmnModel, List)}
    */
   @Test
   @DisplayName("Test validate(BpmnModel, List); then ArrayList() first DefaultDescription is 'SIGNAL_MISSING_NAME'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SignalValidator.validate(BpmnModel, List)"})
   void testValidate_thenArrayListFirstDefaultDescriptionIsSignalMissingName() {
     // Arrange
     SignalValidator signalValidator = new SignalValidator();
@@ -260,14 +262,16 @@ class SignalValidatorDiffblueTest {
    * Test {@link SignalValidator#validate(BpmnModel, List)}.
    * <ul>
    *   <li>When {@link BpmnModel} (default constructor).</li>
-   *   <li>Then {@link BpmnModel} (default constructor) Resources {@link List}.</li>
+   *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
    * Method under test: {@link SignalValidator#validate(BpmnModel, List)}
    */
   @Test
-  @DisplayName("Test validate(BpmnModel, List); when BpmnModel (default constructor); then BpmnModel (default constructor) Resources List")
-  void testValidate_whenBpmnModel_thenBpmnModelResourcesList() {
+  @DisplayName("Test validate(BpmnModel, List); when BpmnModel (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void SignalValidator.validate(BpmnModel, List)"})
+  void testValidate_whenBpmnModel_thenArrayListEmpty() {
     // Arrange
     SignalValidator signalValidator = new SignalValidator();
     BpmnModel bpmnModel = new BpmnModel();
@@ -277,24 +281,21 @@ class SignalValidatorDiffblueTest {
     signalValidator.validate(bpmnModel, errors);
 
     // Assert that nothing has changed
-    Collection<Resource> resources = bpmnModel.getResources();
-    assertTrue(resources instanceof List);
     assertTrue(errors.isEmpty());
-    assertTrue(resources.isEmpty());
   }
 
   /**
    * Test {@link SignalValidator#duplicateName(Collection, String, String)}.
    * <ul>
-   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and
-   * {@code Name}.</li>
+   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and {@code Name}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SignalValidator#duplicateName(Collection, String, String)}
+   * Method under test: {@link SignalValidator#duplicateName(Collection, String, String)}
    */
   @Test
   @DisplayName("Test duplicateName(Collection, String, String); given Signal(String, String) with id is '42' and 'Name'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean SignalValidator.duplicateName(Collection, String, String)"})
   void testDuplicateName_givenSignalWithIdIs42AndName() {
     // Arrange
     SignalValidator signalValidator = new SignalValidator();
@@ -309,15 +310,15 @@ class SignalValidatorDiffblueTest {
   /**
    * Test {@link SignalValidator#duplicateName(Collection, String, String)}.
    * <ul>
-   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and
-   * {@code Name}.</li>
+   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and {@code Name}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SignalValidator#duplicateName(Collection, String, String)}
+   * Method under test: {@link SignalValidator#duplicateName(Collection, String, String)}
    */
   @Test
   @DisplayName("Test duplicateName(Collection, String, String); given Signal(String, String) with id is '42' and 'Name'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean SignalValidator.duplicateName(Collection, String, String)"})
   void testDuplicateName_givenSignalWithIdIs42AndName2() {
     // Arrange
     SignalValidator signalValidator = new SignalValidator();
@@ -333,15 +334,15 @@ class SignalValidatorDiffblueTest {
   /**
    * Test {@link SignalValidator#duplicateName(Collection, String, String)}.
    * <ul>
-   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and
-   * name is {@code 42}.</li>
+   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and name is {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SignalValidator#duplicateName(Collection, String, String)}
+   * Method under test: {@link SignalValidator#duplicateName(Collection, String, String)}
    */
   @Test
   @DisplayName("Test duplicateName(Collection, String, String); given Signal(String, String) with id is '42' and name is '42'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean SignalValidator.duplicateName(Collection, String, String)"})
   void testDuplicateName_givenSignalWithIdIs42AndNameIs42() {
     // Arrange
     SignalValidator signalValidator = new SignalValidator();
@@ -356,17 +357,17 @@ class SignalValidatorDiffblueTest {
   /**
    * Test {@link SignalValidator#duplicateName(Collection, String, String)}.
    * <ul>
-   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and
-   * {@code Name}.</li>
+   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and {@code Name}.</li>
    *   <li>When {@code null}.</li>
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SignalValidator#duplicateName(Collection, String, String)}
+   * Method under test: {@link SignalValidator#duplicateName(Collection, String, String)}
    */
   @Test
   @DisplayName("Test duplicateName(Collection, String, String); given Signal(String, String) with id is '42' and 'Name'; when 'null'; then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean SignalValidator.duplicateName(Collection, String, String)"})
   void testDuplicateName_givenSignalWithIdIs42AndName_whenNull_thenReturnFalse() {
     // Arrange
     SignalValidator signalValidator = new SignalValidator();
@@ -381,16 +382,16 @@ class SignalValidatorDiffblueTest {
   /**
    * Test {@link SignalValidator#duplicateName(Collection, String, String)}.
    * <ul>
-   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code Name} and
-   * {@code Name}.</li>
+   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code Name} and {@code Name}.</li>
    *   <li>Then return {@code true}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SignalValidator#duplicateName(Collection, String, String)}
+   * Method under test: {@link SignalValidator#duplicateName(Collection, String, String)}
    */
   @Test
   @DisplayName("Test duplicateName(Collection, String, String); given Signal(String, String) with id is 'Name' and 'Name'; then return 'true'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean SignalValidator.duplicateName(Collection, String, String)"})
   void testDuplicateName_givenSignalWithIdIsNameAndName_thenReturnTrue() {
     // Arrange
     SignalValidator signalValidator = new SignalValidator();
@@ -405,15 +406,15 @@ class SignalValidatorDiffblueTest {
   /**
    * Test {@link SignalValidator#duplicateName(Collection, String, String)}.
    * <ul>
-   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code null} and
-   * {@code Name}.</li>
+   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code null} and {@code Name}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SignalValidator#duplicateName(Collection, String, String)}
+   * Method under test: {@link SignalValidator#duplicateName(Collection, String, String)}
    */
   @Test
   @DisplayName("Test duplicateName(Collection, String, String); given Signal(String, String) with id is 'null' and 'Name'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean SignalValidator.duplicateName(Collection, String, String)"})
   void testDuplicateName_givenSignalWithIdIsNullAndName() {
     // Arrange
     SignalValidator signalValidator = new SignalValidator();
@@ -432,11 +433,12 @@ class SignalValidatorDiffblueTest {
    *   <li>Then return {@code false}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SignalValidator#duplicateName(Collection, String, String)}
+   * Method under test: {@link SignalValidator#duplicateName(Collection, String, String)}
    */
   @Test
   @DisplayName("Test duplicateName(Collection, String, String); when ArrayList(); then return 'false'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"boolean SignalValidator.duplicateName(Collection, String, String)"})
   void testDuplicateName_whenArrayList_thenReturnFalse() {
     // Arrange
     SignalValidator signalValidator = new SignalValidator();

@@ -16,17 +16,20 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class DeleteHistoricProcessInstanceCmdDiffblueTest {
   /**
-   * Test
-   * {@link DeleteHistoricProcessInstanceCmd#DeleteHistoricProcessInstanceCmd(String)}.
+   * Test {@link DeleteHistoricProcessInstanceCmd#DeleteHistoricProcessInstanceCmd(String)}.
    * <p>
-   * Method under test:
-   * {@link DeleteHistoricProcessInstanceCmd#DeleteHistoricProcessInstanceCmd(String)}
+   * Method under test: {@link DeleteHistoricProcessInstanceCmd#DeleteHistoricProcessInstanceCmd(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DeleteHistoricProcessInstanceCmd.<init>(String)"})
   public void testNewDeleteHistoricProcessInstanceCmd() {
     // Arrange, Act and Assert
     assertEquals("42", (new DeleteHistoricProcessInstanceCmd("42")).processInstanceId);

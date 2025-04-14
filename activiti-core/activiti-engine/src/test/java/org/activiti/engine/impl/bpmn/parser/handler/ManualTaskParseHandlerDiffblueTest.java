@@ -18,6 +18,8 @@ package org.activiti.engine.impl.bpmn.parser.handler;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.ManualTask;
 import org.activiti.engine.impl.bpmn.behavior.ManualTaskActivityBehavior;
@@ -25,16 +27,17 @@ import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class ManualTaskParseHandlerDiffblueTest {
   /**
-   * Test {@link ManualTaskParseHandler#executeParse(BpmnParse, ManualTask)} with
-   * {@code BpmnParse}, {@code ManualTask}.
+   * Test {@link ManualTaskParseHandler#executeParse(BpmnParse, ManualTask)} with {@code BpmnParse}, {@code ManualTask}.
    * <p>
-   * Method under test:
-   * {@link ManualTaskParseHandler#executeParse(BpmnParse, ManualTask)}
+   * Method under test: {@link ManualTaskParseHandler#executeParse(BpmnParse, ManualTask)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ManualTaskParseHandler.executeParse(BpmnParse, ManualTask)"})
   public void testExecuteParseWithBpmnParseManualTask() {
     // Arrange
     ManualTaskParseHandler manualTaskParseHandler = new ManualTaskParseHandler();
@@ -63,6 +66,8 @@ public class ManualTaskParseHandlerDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ManualTaskParseHandler.<init>()", "Class ManualTaskParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends BaseElement> actualHandledType = (new ManualTaskParseHandler()).getHandledType();

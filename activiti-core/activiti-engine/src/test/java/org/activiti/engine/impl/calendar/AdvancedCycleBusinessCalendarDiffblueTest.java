@@ -17,14 +17,12 @@ package org.activiti.engine.impl.calendar;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import java.util.TimeZone;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.impl.util.DefaultClockImpl;
-import org.activiti.engine.runtime.ClockReader;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class AdvancedCycleBusinessCalendarDiffblueTest {
   /**
@@ -33,10 +31,11 @@ public class AdvancedCycleBusinessCalendarDiffblueTest {
    *   <li>Then return intValue is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AdvancedCycleBusinessCalendar#getDefaultScheduleVersion()}
+   * Method under test: {@link AdvancedCycleBusinessCalendar#getDefaultScheduleVersion()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Integer AdvancedCycleBusinessCalendar.getDefaultScheduleVersion()"})
   public void testGetDefaultScheduleVersion_thenReturnIntValueIsOne() {
     // Arrange
     AdvancedCycleBusinessCalendar advancedCycleBusinessCalendar = new AdvancedCycleBusinessCalendar(
@@ -53,23 +52,24 @@ public class AdvancedCycleBusinessCalendarDiffblueTest {
    *   <li>Then return intValue is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link AdvancedCycleBusinessCalendar#getDefaultScheduleVersion()}
+   * Method under test: {@link AdvancedCycleBusinessCalendar#getDefaultScheduleVersion()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.lang.Integer AdvancedCycleBusinessCalendar.getDefaultScheduleVersion()"})
   public void testGetDefaultScheduleVersion_thenReturnIntValueIsTwo() {
     // Arrange, Act and Assert
     assertEquals(2, (new AdvancedCycleBusinessCalendar(new DefaultClockImpl())).getDefaultScheduleVersion().intValue());
   }
 
   /**
-   * Test {@link AdvancedCycleBusinessCalendar#resolveDuedate(String, int)} with
-   * {@code duedateDescription}, {@code maxIterations}.
+   * Test {@link AdvancedCycleBusinessCalendar#resolveDuedate(String, int)} with {@code duedateDescription}, {@code maxIterations}.
    * <p>
-   * Method under test:
-   * {@link AdvancedCycleBusinessCalendar#resolveDuedate(String, int)}
+   * Method under test: {@link AdvancedCycleBusinessCalendar#resolveDuedate(String, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Date AdvancedCycleBusinessCalendar.resolveDuedate(String, int)"})
   public void testResolveDuedateWithDuedateDescriptionMaxIterations() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
@@ -77,21 +77,38 @@ public class AdvancedCycleBusinessCalendarDiffblueTest {
   }
 
   /**
-   * Test {@link AdvancedCycleBusinessCalendar#resolveDuedate(String, int)} with
-   * {@code duedateDescription}, {@code maxIterations}.
+   * Test {@link AdvancedCycleBusinessCalendar#resolveDuedate(String, int)} with {@code duedateDescription}, {@code maxIterations}.
    * <p>
-   * Method under test:
-   * {@link AdvancedCycleBusinessCalendar#resolveDuedate(String, int)}
+   * Method under test: {@link AdvancedCycleBusinessCalendar#resolveDuedate(String, int)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Date AdvancedCycleBusinessCalendar.resolveDuedate(String, int)"})
   public void testResolveDuedateWithDuedateDescriptionMaxIterations2() {
     // Arrange
-    ClockReader clockReader = mock(ClockReader.class);
-    when(clockReader.getCurrentTimeZone()).thenReturn(TimeZone.getTimeZone("America/Los_Angeles"));
+    AdvancedCycleBusinessCalendar advancedCycleBusinessCalendar = new AdvancedCycleBusinessCalendar(
+        new DefaultClockImpl());
+    advancedCycleBusinessCalendar.setDefaultScheduleVersion(1);
 
     // Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> (new AdvancedCycleBusinessCalendar(clockReader)).resolveDuedate("DSTZONE", 3));
-    verify(clockReader).getCurrentTimeZone();
+        () -> advancedCycleBusinessCalendar.resolveDuedate("2020-03-01", 3));
+  }
+
+  /**
+   * Test {@link AdvancedCycleBusinessCalendar#resolveDuedate(String, int)} with {@code duedateDescription}, {@code maxIterations}.
+   * <ul>
+   *   <li>When {@code DSTZONE}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link AdvancedCycleBusinessCalendar#resolveDuedate(String, int)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.Date AdvancedCycleBusinessCalendar.resolveDuedate(String, int)"})
+  public void testResolveDuedateWithDuedateDescriptionMaxIterations_whenDstzone() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new AdvancedCycleBusinessCalendar(new DefaultClockImpl())).resolveDuedate("DSTZONE", 3));
   }
 }

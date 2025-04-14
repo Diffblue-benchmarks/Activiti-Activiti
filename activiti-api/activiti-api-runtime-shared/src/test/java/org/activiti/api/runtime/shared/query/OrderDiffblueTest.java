@@ -16,7 +16,10 @@
 package org.activiti.api.runtime.shared.query;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import org.activiti.api.runtime.shared.query.Order.Direction;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class OrderDiffblueTest {
@@ -27,13 +30,15 @@ class OrderDiffblueTest {
    */
   @Test
   @DisplayName("Test new Order(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void Order.<init>(String)"})
   void testNewOrder() {
     // Arrange and Act
     Order actualOrder = new Order("Property");
 
     // Assert
     assertEquals("Property", actualOrder.getProperty());
-    assertEquals(Order.Direction.ASC, actualOrder.getDirection());
+    assertEquals(Direction.ASC, actualOrder.getDirection());
   }
 
   /**
@@ -47,31 +52,35 @@ class OrderDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Direction Order.getDirection()", "String Order.getProperty()"})
   void testGettersAndSetters() {
     // Arrange
-    Order byResult = Order.by("Property", Order.Direction.ASC);
+    Order byResult = Order.by("Property", Direction.ASC);
 
     // Act
-    Order.Direction actualDirection = byResult.getDirection();
+    Direction actualDirection = byResult.getDirection();
 
     // Assert
     assertEquals("Property", byResult.getProperty());
-    assertEquals(Order.Direction.ASC, actualDirection);
+    assertEquals(Direction.ASC, actualDirection);
   }
 
   /**
    * Test {@link Order#by(String, Direction)}.
    * <p>
-   * Method under test: {@link Order#by(String, Order.Direction)}
+   * Method under test: {@link Order#by(String, Direction)}
    */
   @Test
   @DisplayName("Test by(String, Direction)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Order Order.by(String, Direction)"})
   void testBy() {
     // Arrange and Act
-    Order actualByResult = Order.by("Property", Order.Direction.ASC);
+    Order actualByResult = Order.by("Property", Direction.ASC);
 
     // Assert
     assertEquals("Property", actualByResult.getProperty());
-    assertEquals(Order.Direction.ASC, actualByResult.getDirection());
+    assertEquals(Direction.ASC, actualByResult.getDirection());
   }
 }

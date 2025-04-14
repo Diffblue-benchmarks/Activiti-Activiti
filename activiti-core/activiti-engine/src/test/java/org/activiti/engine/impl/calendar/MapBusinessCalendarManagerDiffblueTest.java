@@ -18,10 +18,12 @@ package org.activiti.engine.impl.calendar;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.Map;
 import org.activiti.engine.ActivitiException;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class MapBusinessCalendarManagerDiffblueTest {
   /**
@@ -31,10 +33,11 @@ public class MapBusinessCalendarManagerDiffblueTest {
    *   <li>Then throw {@link IllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link MapBusinessCalendarManager#MapBusinessCalendarManager(Map)}
+   * Method under test: {@link MapBusinessCalendarManager#MapBusinessCalendarManager(Map)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MapBusinessCalendarManager.<init>(Map)"})
   public void testNewMapBusinessCalendarManager_whenNull_thenThrowIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(IllegalArgumentException.class, () -> new MapBusinessCalendarManager(null));
@@ -46,10 +49,11 @@ public class MapBusinessCalendarManagerDiffblueTest {
    *   <li>Then return {@link DefaultBusinessCalendar}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link MapBusinessCalendarManager#getBusinessCalendar(String)}
+   * Method under test: {@link MapBusinessCalendarManager#getBusinessCalendar(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"BusinessCalendar MapBusinessCalendarManager.getBusinessCalendar(String)"})
   public void testGetBusinessCalendar_thenReturnDefaultBusinessCalendar() {
     // Arrange
     MapBusinessCalendarManager mapBusinessCalendarManager = new MapBusinessCalendarManager();
@@ -70,10 +74,11 @@ public class MapBusinessCalendarManagerDiffblueTest {
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link MapBusinessCalendarManager#getBusinessCalendar(String)}
+   * Method under test: {@link MapBusinessCalendarManager#getBusinessCalendar(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"BusinessCalendar MapBusinessCalendarManager.getBusinessCalendar(String)"})
   public void testGetBusinessCalendar_thenThrowActivitiException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiException.class,
@@ -81,47 +86,21 @@ public class MapBusinessCalendarManagerDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link MapBusinessCalendarManager#addBusinessCalendar(String, BusinessCalendar)}.
-   * <ul>
-   *   <li>When {@link DefaultBusinessCalendar} (default constructor).</li>
-   * </ul>
+   * Test {@link MapBusinessCalendarManager#addBusinessCalendar(String, BusinessCalendar)}.
    * <p>
-   * Method under test:
-   * {@link MapBusinessCalendarManager#addBusinessCalendar(String, BusinessCalendar)}
+   * Method under test: {@link MapBusinessCalendarManager#addBusinessCalendar(String, BusinessCalendar)}
    */
   @Test
-  public void testAddBusinessCalendar_whenDefaultBusinessCalendar() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "BusinessCalendarManager MapBusinessCalendarManager.addBusinessCalendar(String, BusinessCalendar)"})
+  public void testAddBusinessCalendar() {
     // Arrange
     MapBusinessCalendarManager mapBusinessCalendarManager = new MapBusinessCalendarManager();
 
     // Act
     BusinessCalendarManager actualAddBusinessCalendarResult = mapBusinessCalendarManager
         .addBusinessCalendar("Business Calendar Ref", new DefaultBusinessCalendar());
-
-    // Assert
-    assertTrue(actualAddBusinessCalendarResult instanceof MapBusinessCalendarManager);
-    assertSame(mapBusinessCalendarManager, actualAddBusinessCalendarResult);
-  }
-
-  /**
-   * Test
-   * {@link MapBusinessCalendarManager#addBusinessCalendar(String, BusinessCalendar)}.
-   * <ul>
-   *   <li>When {@link DefaultBusinessCalendar}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link MapBusinessCalendarManager#addBusinessCalendar(String, BusinessCalendar)}
-   */
-  @Test
-  public void testAddBusinessCalendar_whenDefaultBusinessCalendar2() {
-    // Arrange
-    MapBusinessCalendarManager mapBusinessCalendarManager = new MapBusinessCalendarManager();
-
-    // Act
-    BusinessCalendarManager actualAddBusinessCalendarResult = mapBusinessCalendarManager
-        .addBusinessCalendar("Business Calendar Ref", mock(DefaultBusinessCalendar.class));
 
     // Assert
     assertTrue(actualAddBusinessCalendarResult instanceof MapBusinessCalendarManager);

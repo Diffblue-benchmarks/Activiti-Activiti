@@ -21,29 +21,25 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashSet;
 import java.util.Set;
 import org.activiti.engine.ActivitiIllegalArgumentException;
 import org.activiti.engine.history.HistoricVariableInstanceQuery;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class HistoricVariableInstanceQueryImplDiffblueTest {
-  @InjectMocks
-  private HistoricVariableInstanceQueryImpl historicVariableInstanceQueryImpl;
-
   /**
-   * Test
-   * {@link HistoricVariableInstanceQueryImpl#HistoricVariableInstanceQueryImpl()}.
+   * Test {@link HistoricVariableInstanceQueryImpl#HistoricVariableInstanceQueryImpl()}.
    * <p>
-   * Method under test:
-   * {@link HistoricVariableInstanceQueryImpl#HistoricVariableInstanceQueryImpl()}
+   * Method under test: {@link HistoricVariableInstanceQueryImpl#HistoricVariableInstanceQueryImpl()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void HistoricVariableInstanceQueryImpl.<init>()"})
   public void testNewHistoricVariableInstanceQueryImpl() {
     // Arrange and Act
     HistoricVariableInstanceQueryImpl actualHistoricVariableInstanceQueryImpl = new HistoricVariableInstanceQueryImpl();
@@ -80,16 +76,19 @@ public class HistoricVariableInstanceQueryImplDiffblueTest {
   /**
    * Test {@link HistoricVariableInstanceQueryImpl#processInstanceId(String)}.
    * <ul>
-   *   <li>Then {@link HistoricVariableInstanceQueryImpl} ProcessInstanceId is
-   * {@code 42}.</li>
+   *   <li>Then {@link HistoricVariableInstanceQueryImpl#HistoricVariableInstanceQueryImpl()} ProcessInstanceId is {@code 42}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricVariableInstanceQueryImpl#processInstanceId(String)}
+   * Method under test: {@link HistoricVariableInstanceQueryImpl#processInstanceId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricVariableInstanceQueryImpl HistoricVariableInstanceQueryImpl.processInstanceId(String)"})
   public void testProcessInstanceId_thenHistoricVariableInstanceQueryImplProcessInstanceIdIs42() {
-    // Arrange and Act
+    // Arrange
+    HistoricVariableInstanceQueryImpl historicVariableInstanceQueryImpl = new HistoricVariableInstanceQueryImpl();
+
+    // Act
     HistoricVariableInstanceQueryImpl actualProcessInstanceIdResult = historicVariableInstanceQueryImpl
         .processInstanceId("42");
 
@@ -105,14 +104,15 @@ public class HistoricVariableInstanceQueryImplDiffblueTest {
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricVariableInstanceQueryImpl#processInstanceId(String)}
+   * Method under test: {@link HistoricVariableInstanceQueryImpl#processInstanceId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricVariableInstanceQueryImpl HistoricVariableInstanceQueryImpl.processInstanceId(String)"})
   public void testProcessInstanceId_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> historicVariableInstanceQueryImpl.processInstanceId(null));
+        () -> (new HistoricVariableInstanceQueryImpl()).processInstanceId(null));
   }
 
   /**
@@ -122,26 +122,30 @@ public class HistoricVariableInstanceQueryImplDiffblueTest {
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricVariableInstanceQueryImpl#executionId(String)}
+   * Method under test: {@link HistoricVariableInstanceQueryImpl#executionId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricVariableInstanceQueryImpl HistoricVariableInstanceQueryImpl.executionId(String)"})
   public void testExecutionId_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> historicVariableInstanceQueryImpl.executionId(null));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new HistoricVariableInstanceQueryImpl()).executionId(null));
   }
 
   /**
    * Test {@link HistoricVariableInstanceQueryImpl#executionIds(Set)}.
    * <ul>
    *   <li>When {@link HashSet#HashSet()}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricVariableInstanceQueryImpl#executionIds(Set)}
+   * Method under test: {@link HistoricVariableInstanceQueryImpl#executionIds(Set)}
    */
   @Test
-  public void testExecutionIds_whenHashSet() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricVariableInstanceQueryImpl HistoricVariableInstanceQueryImpl.executionIds(Set)"})
+  public void testExecutionIds_whenHashSet_thenThrowActivitiIllegalArgumentException() {
     // Arrange
     HistoricVariableInstanceQueryImpl historicVariableInstanceQueryImpl = new HistoricVariableInstanceQueryImpl();
 
@@ -154,13 +158,15 @@ public class HistoricVariableInstanceQueryImplDiffblueTest {
    * Test {@link HistoricVariableInstanceQueryImpl#executionIds(Set)}.
    * <ul>
    *   <li>When {@code null}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricVariableInstanceQueryImpl#executionIds(Set)}
+   * Method under test: {@link HistoricVariableInstanceQueryImpl#executionIds(Set)}
    */
   @Test
-  public void testExecutionIds_whenNull() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricVariableInstanceQueryImpl HistoricVariableInstanceQueryImpl.executionIds(Set)"})
+  public void testExecutionIds_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
         () -> (new HistoricVariableInstanceQueryImpl()).executionIds(null));
@@ -170,14 +176,19 @@ public class HistoricVariableInstanceQueryImplDiffblueTest {
    * Test {@link HistoricVariableInstanceQueryImpl#taskId(String)}.
    * <ul>
    *   <li>When {@code 42}.</li>
-   *   <li>Then {@link HistoricVariableInstanceQueryImpl} TaskId is {@code 42}.</li>
+   *   <li>Then {@link HistoricVariableInstanceQueryImpl#HistoricVariableInstanceQueryImpl()} TaskId is {@code 42}.</li>
    * </ul>
    * <p>
    * Method under test: {@link HistoricVariableInstanceQueryImpl#taskId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricVariableInstanceQuery HistoricVariableInstanceQueryImpl.taskId(String)"})
   public void testTaskId_when42_thenHistoricVariableInstanceQueryImplTaskIdIs42() {
-    // Arrange and Act
+    // Arrange
+    HistoricVariableInstanceQueryImpl historicVariableInstanceQueryImpl = new HistoricVariableInstanceQueryImpl();
+
+    // Act
     HistoricVariableInstanceQuery actualTaskIdResult = historicVariableInstanceQueryImpl.taskId("42");
 
     // Assert
@@ -195,18 +206,26 @@ public class HistoricVariableInstanceQueryImplDiffblueTest {
    * Method under test: {@link HistoricVariableInstanceQueryImpl#taskId(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricVariableInstanceQuery HistoricVariableInstanceQueryImpl.taskId(String)"})
   public void testTaskId_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> historicVariableInstanceQueryImpl.taskId(null));
+    assertThrows(ActivitiIllegalArgumentException.class, () -> (new HistoricVariableInstanceQueryImpl()).taskId(null));
   }
 
   /**
    * Test {@link HistoricVariableInstanceQueryImpl#taskIds(Set)}.
+   * <ul>
+   *   <li>When {@link HashSet#HashSet()}.</li>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
+   * </ul>
    * <p>
    * Method under test: {@link HistoricVariableInstanceQueryImpl#taskIds(Set)}
    */
   @Test
-  public void testTaskIds() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricVariableInstanceQueryImpl HistoricVariableInstanceQueryImpl.taskIds(Set)"})
+  public void testTaskIds_whenHashSet_thenThrowActivitiIllegalArgumentException() {
     // Arrange
     HistoricVariableInstanceQueryImpl historicVariableInstanceQueryImpl = new HistoricVariableInstanceQueryImpl();
 
@@ -217,12 +236,61 @@ public class HistoricVariableInstanceQueryImplDiffblueTest {
 
   /**
    * Test {@link HistoricVariableInstanceQueryImpl#excludeTaskVariables()}.
+   * <ul>
+   *   <li>Given {@link HashSet#HashSet()} add {@code foo}.</li>
+   * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricVariableInstanceQueryImpl#excludeTaskVariables()}
+   * Method under test: {@link HistoricVariableInstanceQueryImpl#excludeTaskVariables()}
    */
   @Test
-  public void testExcludeTaskVariables() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricVariableInstanceQuery HistoricVariableInstanceQueryImpl.excludeTaskVariables()"})
+  public void testExcludeTaskVariables_givenHashSetAddFoo() {
+    // Arrange
+    HashSet<String> taskIds = new HashSet<>();
+    taskIds.add("foo");
+
+    HistoricVariableInstanceQueryImpl historicVariableInstanceQueryImpl = new HistoricVariableInstanceQueryImpl();
+    historicVariableInstanceQueryImpl.taskIds(taskIds);
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> historicVariableInstanceQueryImpl.excludeTaskVariables());
+  }
+
+  /**
+   * Test {@link HistoricVariableInstanceQueryImpl#excludeTaskVariables()}.
+   * <ul>
+   *   <li>Given {@link HistoricVariableInstanceQueryImpl#HistoricVariableInstanceQueryImpl()} taskId {@code 42}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link HistoricVariableInstanceQueryImpl#excludeTaskVariables()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricVariableInstanceQuery HistoricVariableInstanceQueryImpl.excludeTaskVariables()"})
+  public void testExcludeTaskVariables_givenHistoricVariableInstanceQueryImplTaskId42() {
+    // Arrange
+    HistoricVariableInstanceQueryImpl historicVariableInstanceQueryImpl = new HistoricVariableInstanceQueryImpl();
+    historicVariableInstanceQueryImpl.taskId("42");
+
+    // Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> historicVariableInstanceQueryImpl.excludeTaskVariables());
+  }
+
+  /**
+   * Test {@link HistoricVariableInstanceQueryImpl#excludeTaskVariables()}.
+   * <ul>
+   *   <li>Then {@link HistoricVariableInstanceQueryImpl#HistoricVariableInstanceQueryImpl()} ExcludeTaskRelated.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link HistoricVariableInstanceQueryImpl#excludeTaskVariables()}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricVariableInstanceQuery HistoricVariableInstanceQueryImpl.excludeTaskVariables()"})
+  public void testExcludeTaskVariables_thenHistoricVariableInstanceQueryImplExcludeTaskRelated() {
     // Arrange
     HistoricVariableInstanceQueryImpl historicVariableInstanceQueryImpl = new HistoricVariableInstanceQueryImpl();
 
@@ -238,16 +306,19 @@ public class HistoricVariableInstanceQueryImplDiffblueTest {
   /**
    * Test {@link HistoricVariableInstanceQueryImpl#variableName(String)}.
    * <ul>
-   *   <li>Then {@link HistoricVariableInstanceQueryImpl} VariableName is
-   * {@code Variable Name}.</li>
+   *   <li>Then {@link HistoricVariableInstanceQueryImpl#HistoricVariableInstanceQueryImpl()} VariableName is {@code Variable Name}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricVariableInstanceQueryImpl#variableName(String)}
+   * Method under test: {@link HistoricVariableInstanceQueryImpl#variableName(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricVariableInstanceQuery HistoricVariableInstanceQueryImpl.variableName(String)"})
   public void testVariableName_thenHistoricVariableInstanceQueryImplVariableNameIsVariableName() {
-    // Arrange and Act
+    // Arrange
+    HistoricVariableInstanceQueryImpl historicVariableInstanceQueryImpl = new HistoricVariableInstanceQueryImpl();
+
+    // Act
     HistoricVariableInstanceQuery actualVariableNameResult = historicVariableInstanceQueryImpl
         .variableName("Variable Name");
 
@@ -263,25 +334,31 @@ public class HistoricVariableInstanceQueryImplDiffblueTest {
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricVariableInstanceQueryImpl#variableName(String)}
+   * Method under test: {@link HistoricVariableInstanceQueryImpl#variableName(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricVariableInstanceQuery HistoricVariableInstanceQueryImpl.variableName(String)"})
   public void testVariableName_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
-    assertThrows(ActivitiIllegalArgumentException.class, () -> historicVariableInstanceQueryImpl.variableName(null));
+    assertThrows(ActivitiIllegalArgumentException.class,
+        () -> (new HistoricVariableInstanceQueryImpl()).variableName(null));
   }
 
   /**
-   * Test
-   * {@link HistoricVariableInstanceQueryImpl#variableValueEquals(String, Object)}.
+   * Test {@link HistoricVariableInstanceQueryImpl#variableValueEquals(String, Object)}.
    * <p>
-   * Method under test:
-   * {@link HistoricVariableInstanceQueryImpl#variableValueEquals(String, Object)}
+   * Method under test: {@link HistoricVariableInstanceQueryImpl#variableValueEquals(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "HistoricVariableInstanceQuery HistoricVariableInstanceQueryImpl.variableValueEquals(String, Object)"})
   public void testVariableValueEquals() {
-    // Arrange and Act
+    // Arrange
+    HistoricVariableInstanceQueryImpl historicVariableInstanceQueryImpl = new HistoricVariableInstanceQueryImpl();
+
+    // Act
     HistoricVariableInstanceQuery actualVariableValueEqualsResult = historicVariableInstanceQueryImpl
         .variableValueEquals("Variable Name", JSONObject.NULL);
 
@@ -291,50 +368,56 @@ public class HistoricVariableInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link HistoricVariableInstanceQueryImpl#variableValueEquals(String, Object)}.
+   * Test {@link HistoricVariableInstanceQueryImpl#variableValueEquals(String, Object)}.
    * <ul>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricVariableInstanceQueryImpl#variableValueEquals(String, Object)}
+   * Method under test: {@link HistoricVariableInstanceQueryImpl#variableValueEquals(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "HistoricVariableInstanceQuery HistoricVariableInstanceQueryImpl.variableValueEquals(String, Object)"})
   public void testVariableValueEquals_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> historicVariableInstanceQueryImpl.variableValueEquals("Variable Name", null));
+        () -> (new HistoricVariableInstanceQueryImpl()).variableValueEquals("Variable Name", null));
   }
 
   /**
-   * Test
-   * {@link HistoricVariableInstanceQueryImpl#variableValueEquals(String, Object)}.
+   * Test {@link HistoricVariableInstanceQueryImpl#variableValueEquals(String, Object)}.
    * <ul>
    *   <li>When {@code null}.</li>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricVariableInstanceQueryImpl#variableValueEquals(String, Object)}
+   * Method under test: {@link HistoricVariableInstanceQueryImpl#variableValueEquals(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "HistoricVariableInstanceQuery HistoricVariableInstanceQueryImpl.variableValueEquals(String, Object)"})
   public void testVariableValueEquals_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> historicVariableInstanceQueryImpl.variableValueEquals(null, JSONObject.NULL));
+        () -> (new HistoricVariableInstanceQueryImpl()).variableValueEquals(null, null));
   }
 
   /**
-   * Test
-   * {@link HistoricVariableInstanceQueryImpl#variableValueNotEquals(String, Object)}.
+   * Test {@link HistoricVariableInstanceQueryImpl#variableValueNotEquals(String, Object)}.
    * <p>
-   * Method under test:
-   * {@link HistoricVariableInstanceQueryImpl#variableValueNotEquals(String, Object)}
+   * Method under test: {@link HistoricVariableInstanceQueryImpl#variableValueNotEquals(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "HistoricVariableInstanceQuery HistoricVariableInstanceQueryImpl.variableValueNotEquals(String, Object)"})
   public void testVariableValueNotEquals() {
-    // Arrange and Act
+    // Arrange
+    HistoricVariableInstanceQueryImpl historicVariableInstanceQueryImpl = new HistoricVariableInstanceQueryImpl();
+
+    // Act
     HistoricVariableInstanceQuery actualVariableValueNotEqualsResult = historicVariableInstanceQueryImpl
         .variableValueNotEquals("Variable Name", JSONObject.NULL);
 
@@ -344,50 +427,56 @@ public class HistoricVariableInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link HistoricVariableInstanceQueryImpl#variableValueNotEquals(String, Object)}.
+   * Test {@link HistoricVariableInstanceQueryImpl#variableValueNotEquals(String, Object)}.
    * <ul>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricVariableInstanceQueryImpl#variableValueNotEquals(String, Object)}
+   * Method under test: {@link HistoricVariableInstanceQueryImpl#variableValueNotEquals(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "HistoricVariableInstanceQuery HistoricVariableInstanceQueryImpl.variableValueNotEquals(String, Object)"})
   public void testVariableValueNotEquals_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> historicVariableInstanceQueryImpl.variableValueNotEquals("Variable Name", null));
+        () -> (new HistoricVariableInstanceQueryImpl()).variableValueNotEquals("Variable Name", null));
   }
 
   /**
-   * Test
-   * {@link HistoricVariableInstanceQueryImpl#variableValueNotEquals(String, Object)}.
+   * Test {@link HistoricVariableInstanceQueryImpl#variableValueNotEquals(String, Object)}.
    * <ul>
    *   <li>When {@code null}.</li>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricVariableInstanceQueryImpl#variableValueNotEquals(String, Object)}
+   * Method under test: {@link HistoricVariableInstanceQueryImpl#variableValueNotEquals(String, Object)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "HistoricVariableInstanceQuery HistoricVariableInstanceQueryImpl.variableValueNotEquals(String, Object)"})
   public void testVariableValueNotEquals_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> historicVariableInstanceQueryImpl.variableValueNotEquals(null, JSONObject.NULL));
+        () -> (new HistoricVariableInstanceQueryImpl()).variableValueNotEquals(null, null));
   }
 
   /**
-   * Test
-   * {@link HistoricVariableInstanceQueryImpl#variableValueLike(String, String)}.
+   * Test {@link HistoricVariableInstanceQueryImpl#variableValueLike(String, String)}.
    * <p>
-   * Method under test:
-   * {@link HistoricVariableInstanceQueryImpl#variableValueLike(String, String)}
+   * Method under test: {@link HistoricVariableInstanceQueryImpl#variableValueLike(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "HistoricVariableInstanceQuery HistoricVariableInstanceQueryImpl.variableValueLike(String, String)"})
   public void testVariableValueLike() {
-    // Arrange and Act
+    // Arrange
+    HistoricVariableInstanceQueryImpl historicVariableInstanceQueryImpl = new HistoricVariableInstanceQueryImpl();
+
+    // Act
     HistoricVariableInstanceQuery actualVariableValueLikeResult = historicVariableInstanceQueryImpl
         .variableValueLike("Variable Name", "42");
 
@@ -397,51 +486,57 @@ public class HistoricVariableInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link HistoricVariableInstanceQueryImpl#variableValueLike(String, String)}.
+   * Test {@link HistoricVariableInstanceQueryImpl#variableValueLike(String, String)}.
    * <ul>
    *   <li>When {@code null}.</li>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricVariableInstanceQueryImpl#variableValueLike(String, String)}
+   * Method under test: {@link HistoricVariableInstanceQueryImpl#variableValueLike(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "HistoricVariableInstanceQuery HistoricVariableInstanceQueryImpl.variableValueLike(String, String)"})
   public void testVariableValueLike_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> historicVariableInstanceQueryImpl.variableValueLike(null, "42"));
+        () -> (new HistoricVariableInstanceQueryImpl()).variableValueLike(null, null));
   }
 
   /**
-   * Test
-   * {@link HistoricVariableInstanceQueryImpl#variableValueLike(String, String)}.
+   * Test {@link HistoricVariableInstanceQueryImpl#variableValueLike(String, String)}.
    * <ul>
    *   <li>When {@code Variable Name}.</li>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricVariableInstanceQueryImpl#variableValueLike(String, String)}
+   * Method under test: {@link HistoricVariableInstanceQueryImpl#variableValueLike(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "HistoricVariableInstanceQuery HistoricVariableInstanceQueryImpl.variableValueLike(String, String)"})
   public void testVariableValueLike_whenVariableName_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> historicVariableInstanceQueryImpl.variableValueLike("Variable Name", null));
+        () -> (new HistoricVariableInstanceQueryImpl()).variableValueLike("Variable Name", null));
   }
 
   /**
-   * Test
-   * {@link HistoricVariableInstanceQueryImpl#variableValueLikeIgnoreCase(String, String)}.
+   * Test {@link HistoricVariableInstanceQueryImpl#variableValueLikeIgnoreCase(String, String)}.
    * <p>
-   * Method under test:
-   * {@link HistoricVariableInstanceQueryImpl#variableValueLikeIgnoreCase(String, String)}
+   * Method under test: {@link HistoricVariableInstanceQueryImpl#variableValueLikeIgnoreCase(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "HistoricVariableInstanceQuery HistoricVariableInstanceQueryImpl.variableValueLikeIgnoreCase(String, String)"})
   public void testVariableValueLikeIgnoreCase() {
-    // Arrange and Act
+    // Arrange
+    HistoricVariableInstanceQueryImpl historicVariableInstanceQueryImpl = new HistoricVariableInstanceQueryImpl();
+
+    // Act
     HistoricVariableInstanceQuery actualVariableValueLikeIgnoreCaseResult = historicVariableInstanceQueryImpl
         .variableValueLikeIgnoreCase("Variable Name", "42");
 
@@ -451,33 +546,54 @@ public class HistoricVariableInstanceQueryImplDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link HistoricVariableInstanceQueryImpl#variableValueLikeIgnoreCase(String, String)}.
+   * Test {@link HistoricVariableInstanceQueryImpl#variableValueLikeIgnoreCase(String, String)}.
    * <ul>
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricVariableInstanceQueryImpl#variableValueLikeIgnoreCase(String, String)}
+   * Method under test: {@link HistoricVariableInstanceQueryImpl#variableValueLikeIgnoreCase(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "HistoricVariableInstanceQuery HistoricVariableInstanceQueryImpl.variableValueLikeIgnoreCase(String, String)"})
   public void testVariableValueLikeIgnoreCase_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> historicVariableInstanceQueryImpl.variableValueLikeIgnoreCase(null, "42"));
+        () -> (new HistoricVariableInstanceQueryImpl()).variableValueLikeIgnoreCase(null, null));
+  }
+
+  /**
+   * Test {@link HistoricVariableInstanceQueryImpl#variableValueLikeIgnoreCase(String, String)}.
+   * <ul>
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link HistoricVariableInstanceQueryImpl#variableValueLikeIgnoreCase(String, String)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({
+      "HistoricVariableInstanceQuery HistoricVariableInstanceQueryImpl.variableValueLikeIgnoreCase(String, String)"})
+  public void testVariableValueLikeIgnoreCase_thenThrowActivitiIllegalArgumentException2() {
+    // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> historicVariableInstanceQueryImpl.variableValueLikeIgnoreCase("Variable Name", null));
+        () -> (new HistoricVariableInstanceQueryImpl()).variableValueLikeIgnoreCase("Variable Name", null));
   }
 
   /**
    * Test {@link HistoricVariableInstanceQueryImpl#variableNameLike(String)}.
    * <p>
-   * Method under test:
-   * {@link HistoricVariableInstanceQueryImpl#variableNameLike(String)}
+   * Method under test: {@link HistoricVariableInstanceQueryImpl#variableNameLike(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricVariableInstanceQuery HistoricVariableInstanceQueryImpl.variableNameLike(String)"})
   public void testVariableNameLike() {
-    // Arrange and Act
+    // Arrange
+    HistoricVariableInstanceQueryImpl historicVariableInstanceQueryImpl = new HistoricVariableInstanceQueryImpl();
+
+    // Act
     HistoricVariableInstanceQuery actualVariableNameLikeResult = historicVariableInstanceQueryImpl
         .variableNameLike("Variable Name Like");
 
@@ -493,13 +609,14 @@ public class HistoricVariableInstanceQueryImplDiffblueTest {
    *   <li>Then throw {@link ActivitiIllegalArgumentException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link HistoricVariableInstanceQueryImpl#variableNameLike(String)}
+   * Method under test: {@link HistoricVariableInstanceQueryImpl#variableNameLike(String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"HistoricVariableInstanceQuery HistoricVariableInstanceQueryImpl.variableNameLike(String)"})
   public void testVariableNameLike_whenNull_thenThrowActivitiIllegalArgumentException() {
     // Arrange, Act and Assert
     assertThrows(ActivitiIllegalArgumentException.class,
-        () -> historicVariableInstanceQueryImpl.variableNameLike(null));
+        () -> (new HistoricVariableInstanceQueryImpl()).variableNameLike(null));
   }
 }

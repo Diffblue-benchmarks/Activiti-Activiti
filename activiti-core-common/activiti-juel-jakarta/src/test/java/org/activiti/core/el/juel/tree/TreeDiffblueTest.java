@@ -24,6 +24,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import jakarta.el.ELException;
 import jakarta.el.FunctionMapper;
 import jakarta.el.VariableMapper;
@@ -34,6 +35,7 @@ import org.activiti.core.el.juel.tree.impl.ast.AstFunction;
 import org.activiti.core.el.juel.tree.impl.ast.AstNull;
 import org.activiti.core.el.juel.tree.impl.ast.AstParameters;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -53,6 +55,10 @@ class TreeDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void Tree.<init>(ExpressionNode, List, List, boolean)", "Iterable Tree.getFunctionNodes()",
+      "Iterable Tree.getIdentifierNodes()", "ExpressionNode Tree.getRoot()", "boolean Tree.isDeferred()",
+      "String Tree.toString()"})
   void testGettersAndSetters() {
     // Arrange
     AstNull root = new AstNull();
@@ -77,14 +83,14 @@ class TreeDiffblueTest {
   }
 
   /**
-   * Test {@link Tree#bind(FunctionMapper, VariableMapper, TypeConverter)} with
-   * {@code fnMapper}, {@code varMapper}, {@code converter}.
+   * Test {@link Tree#bind(FunctionMapper, VariableMapper, TypeConverter)} with {@code fnMapper}, {@code varMapper}, {@code converter}.
    * <p>
-   * Method under test:
-   * {@link Tree#bind(FunctionMapper, VariableMapper, TypeConverter)}
+   * Method under test: {@link Tree#bind(FunctionMapper, VariableMapper, TypeConverter)}
    */
   @Test
   @DisplayName("Test bind(FunctionMapper, VariableMapper, TypeConverter) with 'fnMapper', 'varMapper', 'converter'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Bindings Tree.bind(FunctionMapper, VariableMapper, TypeConverter)"})
   void testBindWithFnMapperVarMapperConverter() {
     // Arrange
     ArrayList<FunctionNode> functions = new ArrayList<>();
@@ -101,17 +107,17 @@ class TreeDiffblueTest {
   }
 
   /**
-   * Test {@link Tree#bind(FunctionMapper, VariableMapper, TypeConverter)} with
-   * {@code fnMapper}, {@code varMapper}, {@code converter}.
+   * Test {@link Tree#bind(FunctionMapper, VariableMapper, TypeConverter)} with {@code fnMapper}, {@code varMapper}, {@code converter}.
    * <ul>
    *   <li>Then return not FunctionBound is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link Tree#bind(FunctionMapper, VariableMapper, TypeConverter)}
+   * Method under test: {@link Tree#bind(FunctionMapper, VariableMapper, TypeConverter)}
    */
   @Test
   @DisplayName("Test bind(FunctionMapper, VariableMapper, TypeConverter) with 'fnMapper', 'varMapper', 'converter'; then return not FunctionBound is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Bindings Tree.bind(FunctionMapper, VariableMapper, TypeConverter)"})
   void testBindWithFnMapperVarMapperConverter_thenReturnNotFunctionBoundIsOne() {
     // Arrange
     AstNull root = new AstNull();
@@ -127,17 +133,17 @@ class TreeDiffblueTest {
   }
 
   /**
-   * Test {@link Tree#bind(FunctionMapper, VariableMapper, TypeConverter)} with
-   * {@code fnMapper}, {@code varMapper}, {@code converter}.
+   * Test {@link Tree#bind(FunctionMapper, VariableMapper, TypeConverter)} with {@code fnMapper}, {@code varMapper}, {@code converter}.
    * <ul>
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link Tree#bind(FunctionMapper, VariableMapper, TypeConverter)}
+   * Method under test: {@link Tree#bind(FunctionMapper, VariableMapper, TypeConverter)}
    */
   @Test
   @DisplayName("Test bind(FunctionMapper, VariableMapper, TypeConverter) with 'fnMapper', 'varMapper', 'converter'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Bindings Tree.bind(FunctionMapper, VariableMapper, TypeConverter)"})
   void testBindWithFnMapperVarMapperConverter_thenThrowELException() {
     // Arrange
     ArrayList<FunctionNode> functions = new ArrayList<>();
@@ -153,17 +159,17 @@ class TreeDiffblueTest {
   }
 
   /**
-   * Test {@link Tree#bind(FunctionMapper, VariableMapper)} with {@code fnMapper},
-   * {@code varMapper}.
+   * Test {@link Tree#bind(FunctionMapper, VariableMapper)} with {@code fnMapper}, {@code varMapper}.
    * <ul>
-   *   <li>Given {@link ELException#ELException(String)} with pMessage is
-   * {@code An error occurred}.</li>
+   *   <li>Given {@link ELException#ELException(String)} with pMessage is {@code An error occurred}.</li>
    * </ul>
    * <p>
    * Method under test: {@link Tree#bind(FunctionMapper, VariableMapper)}
    */
   @Test
   @DisplayName("Test bind(FunctionMapper, VariableMapper) with 'fnMapper', 'varMapper'; given ELException(String) with pMessage is 'An error occurred'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Bindings Tree.bind(FunctionMapper, VariableMapper)"})
   void testBindWithFnMapperVarMapper_givenELExceptionWithPMessageIsAnErrorOccurred() {
     // Arrange
     ArrayList<FunctionNode> functions = new ArrayList<>();
@@ -180,8 +186,7 @@ class TreeDiffblueTest {
   }
 
   /**
-   * Test {@link Tree#bind(FunctionMapper, VariableMapper)} with {@code fnMapper},
-   * {@code varMapper}.
+   * Test {@link Tree#bind(FunctionMapper, VariableMapper)} with {@code fnMapper}, {@code varMapper}.
    * <ul>
    *   <li>Then throw {@link ELException}.</li>
    * </ul>
@@ -190,6 +195,8 @@ class TreeDiffblueTest {
    */
   @Test
   @DisplayName("Test bind(FunctionMapper, VariableMapper) with 'fnMapper', 'varMapper'; then throw ELException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Bindings Tree.bind(FunctionMapper, VariableMapper)"})
   void testBindWithFnMapperVarMapper_thenThrowELException() {
     // Arrange
     ArrayList<FunctionNode> functions = new ArrayList<>();
@@ -205,8 +212,7 @@ class TreeDiffblueTest {
   }
 
   /**
-   * Test {@link Tree#bind(FunctionMapper, VariableMapper)} with {@code fnMapper},
-   * {@code varMapper}.
+   * Test {@link Tree#bind(FunctionMapper, VariableMapper)} with {@code fnMapper}, {@code varMapper}.
    * <ul>
    *   <li>When {@link FunctionMapper}.</li>
    *   <li>Then return not FunctionBound is one.</li>
@@ -216,6 +222,8 @@ class TreeDiffblueTest {
    */
   @Test
   @DisplayName("Test bind(FunctionMapper, VariableMapper) with 'fnMapper', 'varMapper'; when FunctionMapper; then return not FunctionBound is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"Bindings Tree.bind(FunctionMapper, VariableMapper)"})
   void testBindWithFnMapperVarMapper_whenFunctionMapper_thenReturnNotFunctionBoundIsOne() {
     // Arrange
     AstNull root = new AstNull();

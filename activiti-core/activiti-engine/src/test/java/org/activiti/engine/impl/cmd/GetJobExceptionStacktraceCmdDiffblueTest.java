@@ -16,17 +16,20 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class GetJobExceptionStacktraceCmdDiffblueTest {
   /**
-   * Test
-   * {@link GetJobExceptionStacktraceCmd#GetJobExceptionStacktraceCmd(String, JobType)}.
+   * Test {@link GetJobExceptionStacktraceCmd#GetJobExceptionStacktraceCmd(String, JobType)}.
    * <p>
-   * Method under test:
-   * {@link GetJobExceptionStacktraceCmd#GetJobExceptionStacktraceCmd(String, JobType)}
+   * Method under test: {@link GetJobExceptionStacktraceCmd#GetJobExceptionStacktraceCmd(String, JobType)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void GetJobExceptionStacktraceCmd.<init>(String, JobType)"})
   public void testNewGetJobExceptionStacktraceCmd() {
     // Arrange, Act and Assert
     assertEquals(JobType.ASYNC, (new GetJobExceptionStacktraceCmd("42", JobType.ASYNC)).jobType);

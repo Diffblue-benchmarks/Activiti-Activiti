@@ -17,28 +17,29 @@ package org.activiti.bpmn.converter.child;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.UserTask;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class TaskListenerParserDiffblueTest {
   /**
-   * Test
-   * {@link TaskListenerParser#addListenerToParent(ActivitiListener, BaseElement)}.
+   * Test {@link TaskListenerParser#addListenerToParent(ActivitiListener, BaseElement)}.
    * <ul>
    *   <li>When {@link UserTask} (default constructor).</li>
-   *   <li>Then {@link UserTask} (default constructor) TaskListeners size is
-   * one.</li>
+   *   <li>Then {@link UserTask} (default constructor) TaskListeners size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link TaskListenerParser#addListenerToParent(ActivitiListener, BaseElement)}
+   * Method under test: {@link TaskListenerParser#addListenerToParent(ActivitiListener, BaseElement)}
    */
   @Test
   @DisplayName("Test addListenerToParent(ActivitiListener, BaseElement); when UserTask (default constructor); then UserTask (default constructor) TaskListeners size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskListenerParser.addListenerToParent(ActivitiListener, BaseElement)"})
   void testAddListenerToParent_whenUserTask_thenUserTaskTaskListenersSizeIsOne() {
     // Arrange
     TaskListenerParser taskListenerParser = new TaskListenerParser();
@@ -65,6 +66,8 @@ class TaskListenerParserDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void TaskListenerParser.<init>()", "java.lang.String TaskListenerParser.getElementName()"})
   void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("taskListener", (new TaskListenerParser()).getElementName());

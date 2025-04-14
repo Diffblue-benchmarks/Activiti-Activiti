@@ -16,7 +16,10 @@
 package org.activiti.engine.impl.cmd;
 
 import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class MoveTimerToExecutableJobCmdDiffblueTest {
   /**
@@ -29,6 +32,9 @@ public class MoveTimerToExecutableJobCmdDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void MoveTimerToExecutableJobCmd.<init>(String)",
+      "String MoveTimerToExecutableJobCmd.getJobId()"})
   public void testGettersAndSetters() {
     // Arrange, Act and Assert
     assertEquals("42", (new MoveTimerToExecutableJobCmd("42")).getJobId());

@@ -20,25 +20,29 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.ActivitiEngineAgendaFactory;
 import org.activiti.engine.impl.agenda.DefaultActivitiEngineAgenda;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandContext;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
 
 public class DatabaseEventFlusherDiffblueTest {
   /**
    * Test {@link DatabaseEventFlusher#closing(CommandContext)}.
    * <ul>
-   *   <li>Then calls
-   * {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
+   *   <li>Then calls {@link ActivitiEngineAgendaFactory#createAgenda(CommandContext)}.</li>
    * </ul>
    * <p>
    * Method under test: {@link DatabaseEventFlusher#closing(CommandContext)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DatabaseEventFlusher.closing(CommandContext)"})
   public void testClosing_thenCallsCreateAgenda() {
     // Arrange
     DatabaseEventFlusher databaseEventFlusher = new DatabaseEventFlusher();
@@ -52,17 +56,20 @@ public class DatabaseEventFlusherDiffblueTest {
     // Act
     databaseEventFlusher.closing(new CommandContext(mock(Command.class), processEngineConfiguration));
 
-    // Assert that nothing has changed
+    // Assert
     verify(engineAgendaFactory).createAgenda(isA(CommandContext.class));
   }
 
   /**
    * Test new {@link DatabaseEventFlusher} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link DatabaseEventFlusher}
+   * Method under test: default or parameterless constructor of {@link DatabaseEventFlusher}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void DatabaseEventFlusher.<init>()",
+      "void DatabaseEventFlusher.afterSessionsFlush(CommandContext)",
+      "void DatabaseEventFlusher.closeFailure(CommandContext)"})
   public void testNewDatabaseEventFlusher() {
     // Arrange, Act and Assert
     assertTrue((new DatabaseEventFlusher()).getEventHandlers().isEmpty());

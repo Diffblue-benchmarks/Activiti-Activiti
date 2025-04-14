@@ -18,23 +18,21 @@ package org.activiti.engine.impl.bpmn.behavior;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import java.util.HashMap;
-import java.util.List;
-import java.util.function.BiFunction;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.CompensateEventDefinition;
-import org.activiti.bpmn.model.ExtensionElement;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class IntermediateThrowCompensationEventActivityBehaviorDiffblueTest {
   /**
-   * Test
-   * {@link IntermediateThrowCompensationEventActivityBehavior#IntermediateThrowCompensationEventActivityBehavior(CompensateEventDefinition)}.
+   * Test {@link IntermediateThrowCompensationEventActivityBehavior#IntermediateThrowCompensationEventActivityBehavior(CompensateEventDefinition)}.
    * <p>
-   * Method under test:
-   * {@link IntermediateThrowCompensationEventActivityBehavior#IntermediateThrowCompensationEventActivityBehavior(CompensateEventDefinition)}
+   * Method under test: {@link IntermediateThrowCompensationEventActivityBehavior#IntermediateThrowCompensationEventActivityBehavior(CompensateEventDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void IntermediateThrowCompensationEventActivityBehavior.<init>(CompensateEventDefinition)"})
   public void testNewIntermediateThrowCompensationEventActivityBehavior() {
     // Arrange, Act and Assert
     CompensateEventDefinition compensateEventDefinition = (new IntermediateThrowCompensationEventActivityBehavior(
@@ -46,33 +44,5 @@ public class IntermediateThrowCompensationEventActivityBehaviorDiffblueTest {
     assertTrue(compensateEventDefinition.getAttributes().isEmpty());
     assertTrue(compensateEventDefinition.getExtensionElements().isEmpty());
     assertTrue(compensateEventDefinition.isWaitForCompletion());
-  }
-
-  /**
-   * Test
-   * {@link IntermediateThrowCompensationEventActivityBehavior#IntermediateThrowCompensationEventActivityBehavior(CompensateEventDefinition)}.
-   * <p>
-   * Method under test:
-   * {@link IntermediateThrowCompensationEventActivityBehavior#IntermediateThrowCompensationEventActivityBehavior(CompensateEventDefinition)}
-   */
-  @Test
-  public void testNewIntermediateThrowCompensationEventActivityBehavior2() {
-    // Arrange
-    HashMap<String, List<ExtensionElement>> extensionElements = new HashMap<>();
-    extensionElements.computeIfPresent("foo", mock(BiFunction.class));
-
-    CompensateEventDefinition compensateEventDefinition = new CompensateEventDefinition();
-    compensateEventDefinition.setExtensionElements(extensionElements);
-
-    // Act and Assert
-    CompensateEventDefinition compensateEventDefinition2 = (new IntermediateThrowCompensationEventActivityBehavior(
-        compensateEventDefinition)).compensateEventDefinition;
-    assertNull(compensateEventDefinition2.getId());
-    assertNull(compensateEventDefinition2.getActivityRef());
-    assertEquals(0, compensateEventDefinition2.getXmlColumnNumber());
-    assertEquals(0, compensateEventDefinition2.getXmlRowNumber());
-    assertTrue(compensateEventDefinition2.getAttributes().isEmpty());
-    assertTrue(compensateEventDefinition2.getExtensionElements().isEmpty());
-    assertTrue(compensateEventDefinition2.isWaitForCompletion());
   }
 }

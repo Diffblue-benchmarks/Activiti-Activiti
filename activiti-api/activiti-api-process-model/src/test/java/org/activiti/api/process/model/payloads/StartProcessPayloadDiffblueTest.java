@@ -18,11 +18,11 @@ package org.activiti.api.process.model.payloads;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiFunction;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class StartProcessPayloadDiffblueTest {
@@ -33,6 +33,8 @@ class StartProcessPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test new StartProcessPayload()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void StartProcessPayload.<init>()"})
   void testNewStartProcessPayload() {
     // Arrange and Act
     StartProcessPayload actualStartProcessPayload = new StartProcessPayload();
@@ -46,49 +48,15 @@ class StartProcessPayloadDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link StartProcessPayload#StartProcessPayload(String, String, String, String, Map)}.
-   * <ul>
-   *   <li>Given {@code foo}.</li>
-   *   <li>When {@link HashMap#HashMap()} computeIfPresent {@code foo} and
-   * {@link BiFunction}.</li>
-   * </ul>
+   * Test {@link StartProcessPayload#StartProcessPayload(String, String, String, String, Map)}.
    * <p>
-   * Method under test:
-   * {@link StartProcessPayload#StartProcessPayload(String, String, String, String, Map)}
+   * Method under test: {@link StartProcessPayload#StartProcessPayload(String, String, String, String, Map)}
    */
   @Test
-  @DisplayName("Test new StartProcessPayload(String, String, String, String, Map); given 'foo'; when HashMap() computeIfPresent 'foo' and BiFunction")
-  void testNewStartProcessPayload_givenFoo_whenHashMapComputeIfPresentFooAndBiFunction() {
-    // Arrange
-    HashMap<String, Object> variables = new HashMap<>();
-    variables.computeIfPresent("foo", mock(BiFunction.class));
-
-    // Act
-    StartProcessPayload actualStartProcessPayload = new StartProcessPayload("42", "Process Definition Key", "Name",
-        "Business Key", variables);
-
-    // Assert
-    assertEquals("42", actualStartProcessPayload.getProcessDefinitionId());
-    assertEquals("Business Key", actualStartProcessPayload.getBusinessKey());
-    assertEquals("Name", actualStartProcessPayload.getName());
-    assertEquals("Process Definition Key", actualStartProcessPayload.getProcessDefinitionKey());
-    assertTrue(actualStartProcessPayload.getVariables().isEmpty());
-  }
-
-  /**
-   * Test
-   * {@link StartProcessPayload#StartProcessPayload(String, String, String, String, Map)}.
-   * <ul>
-   *   <li>When {@link HashMap#HashMap()}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link StartProcessPayload#StartProcessPayload(String, String, String, String, Map)}
-   */
-  @Test
-  @DisplayName("Test new StartProcessPayload(String, String, String, String, Map); when HashMap()")
-  void testNewStartProcessPayload_whenHashMap() {
+  @DisplayName("Test new StartProcessPayload(String, String, String, String, Map)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void StartProcessPayload.<init>(String, String, String, String, Map)"})
+  void testNewStartProcessPayload2() {
     // Arrange and Act
     StartProcessPayload actualStartProcessPayload = new StartProcessPayload("42", "Process Definition Key", "Name",
         "Business Key", new HashMap<>());
@@ -117,20 +85,28 @@ class StartProcessPayloadDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"String StartProcessPayload.getBusinessKey()", "String StartProcessPayload.getId()",
+      "String StartProcessPayload.getName()", "String StartProcessPayload.getProcessDefinitionId()",
+      "String StartProcessPayload.getProcessDefinitionKey()", "Map StartProcessPayload.getVariables()",
+      "void StartProcessPayload.setName(String)"})
   void testGettersAndSetters() {
     // Arrange
     StartProcessPayload startProcessPayload = new StartProcessPayload();
 
     // Act
     startProcessPayload.setName("Name");
-    startProcessPayload.getBusinessKey();
+    String actualBusinessKey = startProcessPayload.getBusinessKey();
     startProcessPayload.getId();
     String actualName = startProcessPayload.getName();
-    startProcessPayload.getProcessDefinitionId();
-    startProcessPayload.getProcessDefinitionKey();
+    String actualProcessDefinitionId = startProcessPayload.getProcessDefinitionId();
+    String actualProcessDefinitionKey = startProcessPayload.getProcessDefinitionKey();
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Name", actualName);
+    assertNull(actualBusinessKey);
+    assertNull(actualProcessDefinitionId);
+    assertNull(actualProcessDefinitionKey);
     assertTrue(startProcessPayload.getVariables().isEmpty());
   }
 }

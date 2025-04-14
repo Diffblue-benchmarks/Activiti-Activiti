@@ -17,6 +17,8 @@ package org.activiti.engine.impl.bpmn.parser.handler;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BoundaryEvent;
 import org.activiti.bpmn.model.CompensateEventDefinition;
@@ -28,17 +30,17 @@ import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.bpmn.parser.BpmnParser;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class CompensateEventDefinitionParseHandlerDiffblueTest {
   /**
-   * Test
-   * {@link CompensateEventDefinitionParseHandler#executeParse(BpmnParse, CompensateEventDefinition)}
-   * with {@code BpmnParse}, {@code CompensateEventDefinition}.
+   * Test {@link CompensateEventDefinitionParseHandler#executeParse(BpmnParse, CompensateEventDefinition)} with {@code BpmnParse}, {@code CompensateEventDefinition}.
    * <p>
-   * Method under test:
-   * {@link CompensateEventDefinitionParseHandler#executeParse(BpmnParse, CompensateEventDefinition)}
+   * Method under test: {@link CompensateEventDefinitionParseHandler#executeParse(BpmnParse, CompensateEventDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CompensateEventDefinitionParseHandler.executeParse(BpmnParse, CompensateEventDefinition)"})
   public void testExecuteParseWithBpmnParseCompensateEventDefinition() {
     // Arrange
     CompensateEventDefinitionParseHandler compensateEventDefinitionParseHandler = new CompensateEventDefinitionParseHandler();
@@ -60,14 +62,13 @@ public class CompensateEventDefinitionParseHandlerDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link CompensateEventDefinitionParseHandler#executeParse(BpmnParse, CompensateEventDefinition)}
-   * with {@code BpmnParse}, {@code CompensateEventDefinition}.
+   * Test {@link CompensateEventDefinitionParseHandler#executeParse(BpmnParse, CompensateEventDefinition)} with {@code BpmnParse}, {@code CompensateEventDefinition}.
    * <p>
-   * Method under test:
-   * {@link CompensateEventDefinitionParseHandler#executeParse(BpmnParse, CompensateEventDefinition)}
+   * Method under test: {@link CompensateEventDefinitionParseHandler#executeParse(BpmnParse, CompensateEventDefinition)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CompensateEventDefinitionParseHandler.executeParse(BpmnParse, CompensateEventDefinition)"})
   public void testExecuteParseWithBpmnParseCompensateEventDefinition2() {
     // Arrange
     CompensateEventDefinitionParseHandler compensateEventDefinitionParseHandler = new CompensateEventDefinitionParseHandler();
@@ -94,12 +95,14 @@ public class CompensateEventDefinitionParseHandlerDiffblueTest {
    * <p>
    * Methods under test:
    * <ul>
-   *   <li>default or parameterless constructor of
-   * {@link CompensateEventDefinitionParseHandler}
+   *   <li>default or parameterless constructor of {@link CompensateEventDefinitionParseHandler}
    *   <li>{@link CompensateEventDefinitionParseHandler#getHandledType()}
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void CompensateEventDefinitionParseHandler.<init>()",
+      "Class CompensateEventDefinitionParseHandler.getHandledType()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     Class<? extends BaseElement> actualHandledType = (new CompensateEventDefinitionParseHandler()).getHandledType();

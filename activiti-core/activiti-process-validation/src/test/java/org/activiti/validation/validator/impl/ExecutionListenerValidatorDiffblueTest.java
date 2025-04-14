@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -28,18 +29,19 @@ import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.Process;
 import org.activiti.validation.ValidationError;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ExecutionListenerValidatorDiffblueTest {
   /**
-   * Test
-   * {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}.
+   * Test {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}.
    * <p>
-   * Method under test:
-   * {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}
+   * Method under test: {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}
    */
   @Test
   @DisplayName("Test validateListeners(Process, BaseElement, List, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ExecutionListenerValidator.validateListeners(Process, BaseElement, List, List)"})
   void testValidateListeners() {
     // Arrange
     ExecutionListenerValidator executionListenerValidator = new ExecutionListenerValidator();
@@ -77,14 +79,14 @@ class ExecutionListenerValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}.
+   * Test {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}.
    * <p>
-   * Method under test:
-   * {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}
+   * Method under test: {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}
    */
   @Test
   @DisplayName("Test validateListeners(Process, BaseElement, List, List)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ExecutionListenerValidator.validateListeners(Process, BaseElement, List, List)"})
   void testValidateListeners2() {
     // Arrange
     ExecutionListenerValidator executionListenerValidator = new ExecutionListenerValidator();
@@ -122,18 +124,18 @@ class ExecutionListenerValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}.
+   * Test {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}.
    * <ul>
    *   <li>Given {@link ActivitiListener} (default constructor).</li>
    *   <li>Then {@link ArrayList#ArrayList()} size is one.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}
+   * Method under test: {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}
    */
   @Test
   @DisplayName("Test validateListeners(Process, BaseElement, List, List); given ActivitiListener (default constructor); then ArrayList() size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ExecutionListenerValidator.validateListeners(Process, BaseElement, List, List)"})
   void testValidateListeners_givenActivitiListener_thenArrayListSizeIsOne() {
     // Arrange
     ExecutionListenerValidator executionListenerValidator = new ExecutionListenerValidator();
@@ -168,18 +170,18 @@ class ExecutionListenerValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}.
+   * Test {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}.
    * <ul>
    *   <li>Given {@link ActivitiListener} (default constructor).</li>
    *   <li>Then {@link ArrayList#ArrayList()} size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}
+   * Method under test: {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}
    */
   @Test
   @DisplayName("Test validateListeners(Process, BaseElement, List, List); given ActivitiListener (default constructor); then ArrayList() size is two")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ExecutionListenerValidator.validateListeners(Process, BaseElement, List, List)"})
   void testValidateListeners_givenActivitiListener_thenArrayListSizeIsTwo() {
     // Arrange
     ExecutionListenerValidator executionListenerValidator = new ExecutionListenerValidator();
@@ -212,18 +214,18 @@ class ExecutionListenerValidatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}.
+   * Test {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}.
    * <ul>
    *   <li>When {@link ActivitiListener} (default constructor).</li>
    *   <li>Then {@link ArrayList#ArrayList()} Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}
+   * Method under test: {@link ExecutionListenerValidator#validateListeners(Process, BaseElement, List, List)}
    */
   @Test
   @DisplayName("Test validateListeners(Process, BaseElement, List, List); when ActivitiListener (default constructor); then ArrayList() Empty")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ExecutionListenerValidator.validateListeners(Process, BaseElement, List, List)"})
   void testValidateListeners_whenActivitiListener_thenArrayListEmpty() {
     // Arrange
     ExecutionListenerValidator executionListenerValidator = new ExecutionListenerValidator();

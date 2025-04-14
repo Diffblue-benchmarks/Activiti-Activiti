@@ -21,6 +21,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,6 +37,7 @@ import org.activiti.bpmn.model.MessageFlow;
 import org.activiti.bpmn.model.Pool;
 import org.activiti.bpmn.model.Process;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -46,11 +48,12 @@ class BPMNDIExportDiffblueTest {
    *   <li>Given {@link AdhocSubProcess} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BPMNDIExport#writeBPMNDI(BpmnModel, XMLStreamWriter)}
+   * Method under test: {@link BPMNDIExport#writeBPMNDI(BpmnModel, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeBPMNDI(BpmnModel, XMLStreamWriter); given AdhocSubProcess (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNDIExport.writeBPMNDI(BpmnModel, XMLStreamWriter)"})
   void testWriteBPMNDI_givenAdhocSubProcess() throws Exception {
     // Arrange
     HashMap<String, List<GraphicInfo>> stringListMap = new HashMap<>();
@@ -81,7 +84,7 @@ class BPMNDIExportDiffblueTest {
     // Act
     BPMNDIExport.writeBPMNDI(model, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
     verify(xtw, atLeast(1)).writeEndElement();
     verify(xtw, atLeast(1)).writeStartElement(eq("bpmndi"), Mockito.<String>any(),
@@ -98,15 +101,15 @@ class BPMNDIExportDiffblueTest {
   /**
    * Test {@link BPMNDIExport#writeBPMNDI(BpmnModel, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link GraphicInfo} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link GraphicInfo} (default constructor).</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BPMNDIExport#writeBPMNDI(BpmnModel, XMLStreamWriter)}
+   * Method under test: {@link BPMNDIExport#writeBPMNDI(BpmnModel, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeBPMNDI(BpmnModel, XMLStreamWriter); given ArrayList() add GraphicInfo (default constructor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNDIExport.writeBPMNDI(BpmnModel, XMLStreamWriter)"})
   void testWriteBPMNDI_givenArrayListAddGraphicInfo() throws Exception {
     // Arrange
     HashMap<String, List<GraphicInfo>> stringListMap = new HashMap<>();
@@ -150,7 +153,7 @@ class BPMNDIExportDiffblueTest {
     // Act
     BPMNDIExport.writeBPMNDI(model, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
     verify(xtw, atLeast(1)).writeEndElement();
     verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
@@ -166,16 +169,16 @@ class BPMNDIExportDiffblueTest {
   /**
    * Test {@link BPMNDIExport#writeBPMNDI(BpmnModel, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link Pool} (default
-   * constructor).</li>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link Pool} (default constructor).</li>
    *   <li>Then calls {@link BpmnModel#getGraphicInfo(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BPMNDIExport#writeBPMNDI(BpmnModel, XMLStreamWriter)}
+   * Method under test: {@link BPMNDIExport#writeBPMNDI(BpmnModel, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeBPMNDI(BpmnModel, XMLStreamWriter); given ArrayList() add Pool (default constructor); then calls getGraphicInfo(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNDIExport.writeBPMNDI(BpmnModel, XMLStreamWriter)"})
   void testWriteBPMNDI_givenArrayListAddPool_thenCallsGetGraphicInfo() throws Exception {
     // Arrange
     ArrayList<Pool> poolList = new ArrayList<>();
@@ -234,7 +237,7 @@ class BPMNDIExportDiffblueTest {
     // Act
     BPMNDIExport.writeBPMNDI(model, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
     verify(xtw, atLeast(1)).writeEndElement();
     verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
@@ -255,11 +258,12 @@ class BPMNDIExportDiffblueTest {
    *   <li>Then calls {@link BpmnModel#getArtifact(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BPMNDIExport#writeBPMNDI(BpmnModel, XMLStreamWriter)}
+   * Method under test: {@link BPMNDIExport#writeBPMNDI(BpmnModel, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeBPMNDI(BpmnModel, XMLStreamWriter); given Association (default constructor); then calls getArtifact(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNDIExport.writeBPMNDI(BpmnModel, XMLStreamWriter)"})
   void testWriteBPMNDI_givenAssociation_thenCallsGetArtifact() throws Exception {
     // Arrange
     HashMap<String, List<GraphicInfo>> stringListMap = new HashMap<>();
@@ -292,7 +296,7 @@ class BPMNDIExportDiffblueTest {
     // Act
     BPMNDIExport.writeBPMNDI(model, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
     verify(xtw, atLeast(1)).writeEndElement();
     verify(xtw, atLeast(1)).writeStartElement(eq("bpmndi"), Mockito.<String>any(),
@@ -311,16 +315,16 @@ class BPMNDIExportDiffblueTest {
   /**
    * Test {@link BPMNDIExport#writeBPMNDI(BpmnModel, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link FlowElement} {@link FlowElement#getName()} return empty
-   * string.</li>
+   *   <li>Given {@link FlowElement} {@link FlowElement#getName()} return empty string.</li>
    *   <li>Then calls {@link FlowElement#getName()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BPMNDIExport#writeBPMNDI(BpmnModel, XMLStreamWriter)}
+   * Method under test: {@link BPMNDIExport#writeBPMNDI(BpmnModel, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeBPMNDI(BpmnModel, XMLStreamWriter); given FlowElement getName() return empty string; then calls getName()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNDIExport.writeBPMNDI(BpmnModel, XMLStreamWriter)"})
   void testWriteBPMNDI_givenFlowElementGetNameReturnEmptyString_thenCallsGetName() throws Exception {
     // Arrange
     HashMap<String, List<GraphicInfo>> stringListMap = new HashMap<>();
@@ -353,7 +357,7 @@ class BPMNDIExportDiffblueTest {
     // Act
     BPMNDIExport.writeBPMNDI(model, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
     verify(xtw, atLeast(1)).writeEndElement();
     verify(xtw, atLeast(1)).writeStartElement(eq("bpmndi"), Mockito.<String>any(),
@@ -371,16 +375,16 @@ class BPMNDIExportDiffblueTest {
   /**
    * Test {@link BPMNDIExport#writeBPMNDI(BpmnModel, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link FlowElement} {@link FlowElement#getName()} return
-   * {@code Name}.</li>
+   *   <li>Given {@link FlowElement} {@link FlowElement#getName()} return {@code Name}.</li>
    *   <li>Then calls {@link FlowElement#getName()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BPMNDIExport#writeBPMNDI(BpmnModel, XMLStreamWriter)}
+   * Method under test: {@link BPMNDIExport#writeBPMNDI(BpmnModel, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeBPMNDI(BpmnModel, XMLStreamWriter); given FlowElement getName() return 'Name'; then calls getName()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNDIExport.writeBPMNDI(BpmnModel, XMLStreamWriter)"})
   void testWriteBPMNDI_givenFlowElementGetNameReturnName_thenCallsGetName() throws Exception {
     // Arrange
     HashMap<String, List<GraphicInfo>> stringListMap = new HashMap<>();
@@ -413,7 +417,7 @@ class BPMNDIExportDiffblueTest {
     // Act
     BPMNDIExport.writeBPMNDI(model, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
     verify(xtw, atLeast(1)).writeEndElement();
     verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
@@ -430,16 +434,16 @@ class BPMNDIExportDiffblueTest {
   /**
    * Test {@link BPMNDIExport#writeBPMNDI(BpmnModel, XMLStreamWriter)}.
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} {@code bpmndi} is {@link GraphicInfo}
-   * (default constructor).</li>
+   *   <li>Given {@link HashMap#HashMap()} {@code bpmndi} is {@link GraphicInfo} (default constructor).</li>
    *   <li>Then calls {@link BpmnModel#getGraphicInfo(String)}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BPMNDIExport#writeBPMNDI(BpmnModel, XMLStreamWriter)}
+   * Method under test: {@link BPMNDIExport#writeBPMNDI(BpmnModel, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeBPMNDI(BpmnModel, XMLStreamWriter); given HashMap() 'bpmndi' is GraphicInfo (default constructor); then calls getGraphicInfo(String)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNDIExport.writeBPMNDI(BpmnModel, XMLStreamWriter)"})
   void testWriteBPMNDI_givenHashMapBpmndiIsGraphicInfo_thenCallsGetGraphicInfo() throws Exception {
     // Arrange
     HashMap<String, List<GraphicInfo>> stringListMap = new HashMap<>();
@@ -496,7 +500,7 @@ class BPMNDIExportDiffblueTest {
     // Act
     BPMNDIExport.writeBPMNDI(model, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
     verify(xtw, atLeast(1)).writeEndElement();
     verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
@@ -518,11 +522,12 @@ class BPMNDIExportDiffblueTest {
    *   <li>Then calls {@link BpmnModel#getMainProcess()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BPMNDIExport#writeBPMNDI(BpmnModel, XMLStreamWriter)}
+   * Method under test: {@link BPMNDIExport#writeBPMNDI(BpmnModel, XMLStreamWriter)}
    */
   @Test
   @DisplayName("Test writeBPMNDI(BpmnModel, XMLStreamWriter); given HashMap(); then calls getMainProcess()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void BPMNDIExport.writeBPMNDI(BpmnModel, XMLStreamWriter)"})
   void testWriteBPMNDI_givenHashMap_thenCallsGetMainProcess() throws Exception {
     // Arrange
     BpmnModel model = mock(BpmnModel.class);
@@ -538,7 +543,7 @@ class BPMNDIExportDiffblueTest {
     // Act
     BPMNDIExport.writeBPMNDI(model, xtw);
 
-    // Assert that nothing has changed
+    // Assert
     verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
     verify(xtw, atLeast(1)).writeEndElement();
     verify(xtw, atLeast(1)).writeStartElement(eq("bpmndi"), Mockito.<String>any(),

@@ -17,7 +17,9 @@ package org.activiti.validation.validator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 class ValidatorSetDiffblueTest {
@@ -33,12 +35,15 @@ class ValidatorSetDiffblueTest {
    */
   @Test
   @DisplayName("Test getters and setters")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"void ValidatorSet.<init>(String)", "String ValidatorSet.getName()",
+      "void ValidatorSet.setName(String)"})
   void testGettersAndSetters() {
     // Arrange and Act
     ValidatorSet actualValidatorSet = new ValidatorSet("Name");
     actualValidatorSet.setName("Name");
 
-    // Assert that nothing has changed
+    // Assert
     assertEquals("Name", actualValidatorSet.getName());
   }
 
@@ -52,6 +57,8 @@ class ValidatorSetDiffblueTest {
    */
   @Test
   @DisplayName("Test getValidators(); then return size is one")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({"java.util.Collection ValidatorSet.getValidators()"})
   void testGetValidators_thenReturnSizeIsOne() {
     // Arrange
     ValidatorSet validatorSet = new ValidatorSet("Name");

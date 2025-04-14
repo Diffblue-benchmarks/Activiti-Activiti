@@ -16,19 +16,22 @@
 package org.activiti.engine.impl.delegate;
 
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class DefaultThrowMessageJavaDelegateDiffblueTest {
   /**
-   * Test
-   * {@link DefaultThrowMessageJavaDelegate#send(DelegateExecution, ThrowMessage)}.
+   * Test {@link DefaultThrowMessageJavaDelegate#send(DelegateExecution, ThrowMessage)}.
    * <p>
-   * Method under test:
-   * {@link DefaultThrowMessageJavaDelegate#send(DelegateExecution, ThrowMessage)}
+   * Method under test: {@link DefaultThrowMessageJavaDelegate#send(DelegateExecution, ThrowMessage)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"boolean DefaultThrowMessageJavaDelegate.send(DelegateExecution, ThrowMessage)"})
   public void testSend() {
     // Arrange
     DefaultThrowMessageJavaDelegate defaultThrowMessageJavaDelegate = new DefaultThrowMessageJavaDelegate();

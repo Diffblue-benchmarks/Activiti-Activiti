@@ -18,20 +18,13 @@ package org.activiti.engine.impl.bpmn.data;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import java.util.List;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class SimpleStructureDefinitionDiffblueTest {
-  @InjectMocks
-  private SimpleStructureDefinition simpleStructureDefinition;
-
-  @InjectMocks
-  private String string;
-
   /**
    * Test getters and setters.
    * <p>
@@ -42,6 +35,8 @@ public class SimpleStructureDefinitionDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SimpleStructureDefinition.<init>(String)", "String SimpleStructureDefinition.getId()"})
   public void testGettersAndSetters() {
     // Arrange and Act
     SimpleStructureDefinition actualSimpleStructureDefinition = new SimpleStructureDefinition("42");
@@ -58,6 +53,8 @@ public class SimpleStructureDefinitionDiffblueTest {
    * Method under test: {@link SimpleStructureDefinition#getFieldSize()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"int SimpleStructureDefinition.getFieldSize()"})
   public void testGetFieldSize() {
     // Arrange, Act and Assert
     assertEquals(0, (new SimpleStructureDefinition("42")).getFieldSize());
@@ -66,17 +63,17 @@ public class SimpleStructureDefinitionDiffblueTest {
   /**
    * Test {@link SimpleStructureDefinition#setFieldName(int, String, Class)}.
    * <ul>
-   *   <li>When one.</li>
-   *   <li>Then {@link SimpleStructureDefinition}
-   * {@link SimpleStructureDefinition#fieldNames} size is two.</li>
+   *   <li>Then {@link SimpleStructureDefinition#SimpleStructureDefinition(String)} with id is {@code 42} {@link SimpleStructureDefinition#fieldNames} size is two.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link SimpleStructureDefinition#setFieldName(int, String, Class)}
+   * Method under test: {@link SimpleStructureDefinition#setFieldName(int, String, Class)}
    */
   @Test
-  public void testSetFieldName_whenOne_thenSimpleStructureDefinitionFieldNamesSizeIsTwo() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void SimpleStructureDefinition.setFieldName(int, String, Class)"})
+  public void testSetFieldName_thenSimpleStructureDefinitionWithIdIs42FieldNamesSizeIsTwo() {
     // Arrange
+    SimpleStructureDefinition simpleStructureDefinition = new SimpleStructureDefinition("42");
     Class<Object> type = Object.class;
 
     // Act
@@ -101,6 +98,8 @@ public class SimpleStructureDefinitionDiffblueTest {
    * Method under test: {@link SimpleStructureDefinition#createInstance()}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"StructureInstance SimpleStructureDefinition.createInstance()"})
   public void testCreateInstance() {
     // Arrange and Act
     StructureInstance actualCreateInstanceResult = (new SimpleStructureDefinition("42")).createInstance();

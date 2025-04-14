@@ -17,27 +17,20 @@ package org.activiti.engine;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.experimental.categories.Category;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ActivitiTaskAlreadyClaimedExceptionDiffblueTest {
-  @InjectMocks
-  private ActivitiTaskAlreadyClaimedException activitiTaskAlreadyClaimedException;
-
-  @InjectMocks
-  private String string;
-
   /**
-   * Test
-   * {@link ActivitiTaskAlreadyClaimedException#ActivitiTaskAlreadyClaimedException(String, String)}.
+   * Test {@link ActivitiTaskAlreadyClaimedException#ActivitiTaskAlreadyClaimedException(String, String)}.
    * <p>
-   * Method under test:
-   * {@link ActivitiTaskAlreadyClaimedException#ActivitiTaskAlreadyClaimedException(String, String)}
+   * Method under test: {@link ActivitiTaskAlreadyClaimedException#ActivitiTaskAlreadyClaimedException(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void ActivitiTaskAlreadyClaimedException.<init>(String, String)"})
   public void testNewActivitiTaskAlreadyClaimedException() {
     // Arrange and Act
     ActivitiTaskAlreadyClaimedException actualActivitiTaskAlreadyClaimedException = new ActivitiTaskAlreadyClaimedException(
@@ -64,6 +57,9 @@ public class ActivitiTaskAlreadyClaimedExceptionDiffblueTest {
    * </ul>
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"String ActivitiTaskAlreadyClaimedException.getTaskAssignee()",
+      "String ActivitiTaskAlreadyClaimedException.getTaskId()"})
   public void testGettersAndSetters() {
     // Arrange
     ActivitiTaskAlreadyClaimedException activitiTaskAlreadyClaimedException = new ActivitiTaskAlreadyClaimedException(

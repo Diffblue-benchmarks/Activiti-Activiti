@@ -21,12 +21,16 @@ import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.HashMap;
 import org.activiti.engine.ActivitiException;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.impl.el.ExpressionManager;
 import org.activiti.engine.impl.el.FixedValue;
+import org.activiti.engine.impl.el.NoExecutionVariableScope;
 import org.activiti.engine.impl.interceptor.DelegateInterceptor;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -50,19 +54,48 @@ class CompositeVariableExpressionEvaluatorDiffblueTest {
   private VariableScopeExpressionEvaluator variableScopeExpressionEvaluator;
 
   /**
-   * Test
-   * {@link CompositeVariableExpressionEvaluator#evaluate(Expression, ExpressionManager, DelegateInterceptor)}.
+   * Test {@link CompositeVariableExpressionEvaluator#evaluate(Expression, ExpressionManager, DelegateInterceptor)}.
+   * <p>
+   * Method under test: {@link CompositeVariableExpressionEvaluator#evaluate(Expression, ExpressionManager, DelegateInterceptor)}
+   */
+  @Test
+  @DisplayName("Test evaluate(Expression, ExpressionManager, DelegateInterceptor)")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "Object CompositeVariableExpressionEvaluator.evaluate(Expression, ExpressionManager, DelegateInterceptor)"})
+  void testEvaluate() {
+    // Arrange
+    SimpleMapExpressionEvaluator simpleMapExpressionEvaluator = mock(SimpleMapExpressionEvaluator.class);
+    when(simpleMapExpressionEvaluator.evaluate(Mockito.<Expression>any(), Mockito.<ExpressionManager>any(),
+        Mockito.<DelegateInterceptor>any())).thenThrow(new ActivitiException("An error occurred"));
+    CompositeVariableExpressionEvaluator compositeVariableExpressionEvaluator = new CompositeVariableExpressionEvaluator(
+        simpleMapExpressionEvaluator,
+        new VariableScopeExpressionEvaluator(NoExecutionVariableScope.getSharedInstance()));
+    FixedValue expression = new FixedValue("Value");
+
+    // Act
+    Object actualEvaluateResult = compositeVariableExpressionEvaluator.evaluate(expression, new ExpressionManager(),
+        mock(DelegateInterceptor.class));
+
+    // Assert
+    verify(simpleMapExpressionEvaluator).evaluate(isA(Expression.class), isA(ExpressionManager.class),
+        isA(DelegateInterceptor.class));
+    assertEquals("Value", actualEvaluateResult);
+  }
+
+  /**
+   * Test {@link CompositeVariableExpressionEvaluator#evaluate(Expression, ExpressionManager, DelegateInterceptor)}.
    * <ul>
-   *   <li>Given {@link SimpleMapExpressionEvaluator}
-   * {@link SimpleMapExpressionEvaluator#evaluate(Expression, ExpressionManager, DelegateInterceptor)}
-   * return {@code Evaluate}.</li>
+   *   <li>Given {@link SimpleMapExpressionEvaluator} {@link SimpleMapExpressionEvaluator#evaluate(Expression, ExpressionManager, DelegateInterceptor)} return {@code Evaluate}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link CompositeVariableExpressionEvaluator#evaluate(Expression, ExpressionManager, DelegateInterceptor)}
+   * Method under test: {@link CompositeVariableExpressionEvaluator#evaluate(Expression, ExpressionManager, DelegateInterceptor)}
    */
   @Test
   @DisplayName("Test evaluate(Expression, ExpressionManager, DelegateInterceptor); given SimpleMapExpressionEvaluator evaluate(Expression, ExpressionManager, DelegateInterceptor) return 'Evaluate'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "Object CompositeVariableExpressionEvaluator.evaluate(Expression, ExpressionManager, DelegateInterceptor)"})
   void testEvaluate_givenSimpleMapExpressionEvaluatorEvaluateReturnEvaluate() {
     // Arrange
     when(simpleMapExpressionEvaluator.evaluate(Mockito.<Expression>any(), Mockito.<ExpressionManager>any(),
@@ -80,19 +113,44 @@ class CompositeVariableExpressionEvaluatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link CompositeVariableExpressionEvaluator#evaluate(Expression, ExpressionManager, DelegateInterceptor)}.
+   * Test {@link CompositeVariableExpressionEvaluator#evaluate(Expression, ExpressionManager, DelegateInterceptor)}.
    * <ul>
-   *   <li>Given {@link VariableScopeExpressionEvaluator}
-   * {@link VariableScopeExpressionEvaluator#evaluate(Expression, ExpressionManager, DelegateInterceptor)}
-   * return {@code Evaluate}.</li>
+   *   <li>Given {@link SimpleMapExpressionEvaluator#SimpleMapExpressionEvaluator(Map)} with context is {@link HashMap#HashMap()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link CompositeVariableExpressionEvaluator#evaluate(Expression, ExpressionManager, DelegateInterceptor)}
+   * Method under test: {@link CompositeVariableExpressionEvaluator#evaluate(Expression, ExpressionManager, DelegateInterceptor)}
+   */
+  @Test
+  @DisplayName("Test evaluate(Expression, ExpressionManager, DelegateInterceptor); given SimpleMapExpressionEvaluator(Map) with context is HashMap()")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "Object CompositeVariableExpressionEvaluator.evaluate(Expression, ExpressionManager, DelegateInterceptor)"})
+  void testEvaluate_givenSimpleMapExpressionEvaluatorWithContextIsHashMap() {
+    // Arrange
+    SimpleMapExpressionEvaluator simpleMapExpressionEvaluator = new SimpleMapExpressionEvaluator(new HashMap<>());
+    CompositeVariableExpressionEvaluator compositeVariableExpressionEvaluator = new CompositeVariableExpressionEvaluator(
+        simpleMapExpressionEvaluator,
+        new VariableScopeExpressionEvaluator(NoExecutionVariableScope.getSharedInstance()));
+    FixedValue expression = new FixedValue("Value");
+
+    // Act and Assert
+    assertEquals("Value", compositeVariableExpressionEvaluator.evaluate(expression, new ExpressionManager(),
+        mock(DelegateInterceptor.class)));
+  }
+
+  /**
+   * Test {@link CompositeVariableExpressionEvaluator#evaluate(Expression, ExpressionManager, DelegateInterceptor)}.
+   * <ul>
+   *   <li>Given {@link VariableScopeExpressionEvaluator} {@link VariableScopeExpressionEvaluator#evaluate(Expression, ExpressionManager, DelegateInterceptor)} return {@code Evaluate}.</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link CompositeVariableExpressionEvaluator#evaluate(Expression, ExpressionManager, DelegateInterceptor)}
    */
   @Test
   @DisplayName("Test evaluate(Expression, ExpressionManager, DelegateInterceptor); given VariableScopeExpressionEvaluator evaluate(Expression, ExpressionManager, DelegateInterceptor) return 'Evaluate'")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "Object CompositeVariableExpressionEvaluator.evaluate(Expression, ExpressionManager, DelegateInterceptor)"})
   void testEvaluate_givenVariableScopeExpressionEvaluatorEvaluateReturnEvaluate() {
     // Arrange
     when(simpleMapExpressionEvaluator.evaluate(Mockito.<Expression>any(), Mockito.<ExpressionManager>any(),
@@ -114,17 +172,18 @@ class CompositeVariableExpressionEvaluatorDiffblueTest {
   }
 
   /**
-   * Test
-   * {@link CompositeVariableExpressionEvaluator#evaluate(Expression, ExpressionManager, DelegateInterceptor)}.
+   * Test {@link CompositeVariableExpressionEvaluator#evaluate(Expression, ExpressionManager, DelegateInterceptor)}.
    * <ul>
    *   <li>Then throw {@link ActivitiException}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link CompositeVariableExpressionEvaluator#evaluate(Expression, ExpressionManager, DelegateInterceptor)}
+   * Method under test: {@link CompositeVariableExpressionEvaluator#evaluate(Expression, ExpressionManager, DelegateInterceptor)}
    */
   @Test
   @DisplayName("Test evaluate(Expression, ExpressionManager, DelegateInterceptor); then throw ActivitiException")
+  @Tag("MaintainedByDiffblue")
+  @MethodsUnderTest({
+      "Object CompositeVariableExpressionEvaluator.evaluate(Expression, ExpressionManager, DelegateInterceptor)"})
   void testEvaluate_thenThrowActivitiException() {
     // Arrange
     when(simpleMapExpressionEvaluator.evaluate(Mockito.<Expression>any(), Mockito.<ExpressionManager>any(),

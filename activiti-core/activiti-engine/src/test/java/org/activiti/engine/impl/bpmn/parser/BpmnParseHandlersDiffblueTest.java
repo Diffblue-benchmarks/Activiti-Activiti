@@ -18,24 +18,27 @@ package org.activiti.engine.impl.bpmn.parser;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.BaseElement;
 import org.activiti.bpmn.model.BooleanDataObject;
+import org.activiti.bpmn.model.FlowElement;
 import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
 import org.activiti.engine.impl.bpmn.parser.handler.AdhocSubProcessParseHandler;
-import org.activiti.engine.impl.cfg.BpmnParseFactory;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class BpmnParseHandlersDiffblueTest {
   /**
    * Test new {@link BpmnParseHandlers} (default constructor).
    * <p>
-   * Method under test: default or parameterless constructor of
-   * {@link BpmnParseHandlers}
+   * Method under test: default or parameterless constructor of {@link BpmnParseHandlers}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnParseHandlers.<init>()"})
   public void testNewBpmnParseHandlers() {
     // Arrange, Act and Assert
     assertTrue((new BpmnParseHandlers()).parseHandlers.isEmpty());
@@ -47,6 +50,8 @@ public class BpmnParseHandlersDiffblueTest {
    * Method under test: {@link BpmnParseHandlers#getHandlersFor(Class)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"java.util.List BpmnParseHandlers.getHandlersFor(Class)"})
   public void testGetHandlersFor() {
     // Arrange
     BpmnParseHandlers bpmnParseHandlers = new BpmnParseHandlers();
@@ -59,10 +64,11 @@ public class BpmnParseHandlersDiffblueTest {
   /**
    * Test {@link BpmnParseHandlers#parseElement(BpmnParse, BaseElement)}.
    * <p>
-   * Method under test:
-   * {@link BpmnParseHandlers#parseElement(BpmnParse, BaseElement)}
+   * Method under test: {@link BpmnParseHandlers#parseElement(BpmnParse, BaseElement)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnParseHandlers.parseElement(BpmnParse, BaseElement)"})
   public void testParseElement() {
     // Arrange
     BpmnParseHandlers bpmnParseHandlers = new BpmnParseHandlers();
@@ -73,47 +79,22 @@ public class BpmnParseHandlersDiffblueTest {
     bpmnParseHandlers.parseElement(bpmnParse, element);
 
     // Assert
-    assertSame(element, bpmnParse.getCurrentFlowElement());
+    FlowElement currentFlowElement = bpmnParse.getCurrentFlowElement();
+    assertTrue(currentFlowElement instanceof AdhocSubProcess);
+    assertSame(element, currentFlowElement);
   }
 
   /**
    * Test {@link BpmnParseHandlers#parseElement(BpmnParse, BaseElement)}.
    * <ul>
-   *   <li>Given {@link BpmnParseFactory}.</li>
+   *   <li>Given {@link DefaultActivityBehaviorFactory#DefaultActivityBehaviorFactory()}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnParseHandlers#parseElement(BpmnParse, BaseElement)}
+   * Method under test: {@link BpmnParseHandlers#parseElement(BpmnParse, BaseElement)}
    */
   @Test
-  public void testParseElement_givenBpmnParseFactory() {
-    // Arrange
-    BpmnParseHandlers bpmnParseHandlers = new BpmnParseHandlers();
-
-    BpmnParser parser = new BpmnParser();
-    parser.setBpmnParseFactory(mock(BpmnParseFactory.class));
-    BpmnParse bpmnParse = new BpmnParse(parser);
-    ActivitiListener element = new ActivitiListener();
-
-    // Act
-    bpmnParseHandlers.parseElement(bpmnParse, element);
-
-    // Assert that nothing has changed
-    assertTrue(element.getAttributes().isEmpty());
-    assertTrue(element.getExtensionElements().isEmpty());
-  }
-
-  /**
-   * Test {@link BpmnParseHandlers#parseElement(BpmnParse, BaseElement)}.
-   * <ul>
-   *   <li>Given
-   * {@link DefaultActivityBehaviorFactory#DefaultActivityBehaviorFactory()}.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link BpmnParseHandlers#parseElement(BpmnParse, BaseElement)}
-   */
-  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnParseHandlers.parseElement(BpmnParse, BaseElement)"})
   public void testParseElement_givenDefaultActivityBehaviorFactory() {
     // Arrange
     BpmnParseHandlers bpmnParseHandlers = new BpmnParseHandlers();
@@ -128,58 +109,54 @@ public class BpmnParseHandlersDiffblueTest {
     bpmnParseHandlers.parseElement(bpmnParse, element);
 
     // Assert
-    assertSame(element, bpmnParse.getCurrentFlowElement());
-  }
-
-  /**
-   * Test {@link BpmnParseHandlers#parseElement(BpmnParse, BaseElement)}.
-   * <ul>
-   *   <li>Then {@link BooleanDataObject} (default constructor) ExecutionListeners
-   * Empty.</li>
-   * </ul>
-   * <p>
-   * Method under test:
-   * {@link BpmnParseHandlers#parseElement(BpmnParse, BaseElement)}
-   */
-  @Test
-  public void testParseElement_thenBooleanDataObjectExecutionListenersEmpty() {
-    // Arrange
-    BpmnParseHandlers bpmnParseHandlers = new BpmnParseHandlers();
-    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    BooleanDataObject element = new BooleanDataObject();
-
-    // Act
-    bpmnParseHandlers.parseElement(bpmnParse, element);
-
-    // Assert that nothing has changed
-    assertTrue(element.getExecutionListeners().isEmpty());
-    assertTrue(element.getAttributes().isEmpty());
-    assertTrue(element.getExtensionElements().isEmpty());
+    FlowElement currentFlowElement = bpmnParse.getCurrentFlowElement();
+    assertTrue(currentFlowElement instanceof AdhocSubProcess);
+    assertSame(element, currentFlowElement);
   }
 
   /**
    * Test {@link BpmnParseHandlers#parseElement(BpmnParse, BaseElement)}.
    * <ul>
    *   <li>When {@link ActivitiListener} (default constructor).</li>
-   *   <li>Then {@link ActivitiListener} (default constructor) Attributes
-   * Empty.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link BpmnParseHandlers#parseElement(BpmnParse, BaseElement)}
+   * Method under test: {@link BpmnParseHandlers#parseElement(BpmnParse, BaseElement)}
    */
   @Test
-  public void testParseElement_whenActivitiListener_thenActivitiListenerAttributesEmpty() {
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnParseHandlers.parseElement(BpmnParse, BaseElement)"})
+  public void testParseElement_whenActivitiListener() {
     // Arrange
     BpmnParseHandlers bpmnParseHandlers = new BpmnParseHandlers();
     BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
-    ActivitiListener element = new ActivitiListener();
 
     // Act
-    bpmnParseHandlers.parseElement(bpmnParse, element);
+    bpmnParseHandlers.parseElement(bpmnParse, new ActivitiListener());
 
     // Assert that nothing has changed
-    assertTrue(element.getAttributes().isEmpty());
-    assertTrue(element.getExtensionElements().isEmpty());
+    assertNull(bpmnParse.getCurrentFlowElement());
+  }
+
+  /**
+   * Test {@link BpmnParseHandlers#parseElement(BpmnParse, BaseElement)}.
+   * <ul>
+   *   <li>When {@link BooleanDataObject} (default constructor).</li>
+   * </ul>
+   * <p>
+   * Method under test: {@link BpmnParseHandlers#parseElement(BpmnParse, BaseElement)}
+   */
+  @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void BpmnParseHandlers.parseElement(BpmnParse, BaseElement)"})
+  public void testParseElement_whenBooleanDataObject() {
+    // Arrange
+    BpmnParseHandlers bpmnParseHandlers = new BpmnParseHandlers();
+    BpmnParse bpmnParse = new BpmnParse(new BpmnParser());
+
+    // Act
+    bpmnParseHandlers.parseElement(bpmnParse, new BooleanDataObject());
+
+    // Assert that nothing has changed
+    assertNull(bpmnParse.getCurrentFlowElement());
   }
 }

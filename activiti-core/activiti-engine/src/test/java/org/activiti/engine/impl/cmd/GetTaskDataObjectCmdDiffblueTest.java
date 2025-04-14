@@ -19,21 +19,25 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.MaintainedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 public class GetTaskDataObjectCmdDiffblueTest {
   /**
-   * Test
-   * {@link GetTaskDataObjectCmd#GetTaskDataObjectCmd(String, String, String, boolean)}.
+   * Test {@link GetTaskDataObjectCmd#GetTaskDataObjectCmd(String, String, String, boolean)}.
    * <ul>
    *   <li>When {@code en}.</li>
    *   <li>Then return {@link GetTaskDataObjectCmd#locale} is {@code en}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link GetTaskDataObjectCmd#GetTaskDataObjectCmd(String, String, String, boolean)}
+   * Method under test: {@link GetTaskDataObjectCmd#GetTaskDataObjectCmd(String, String, String, boolean)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void GetTaskDataObjectCmd.<init>(String, String)",
+      "void GetTaskDataObjectCmd.<init>(String, String, String, boolean)"})
   public void testNewGetTaskDataObjectCmd_whenEn_thenReturnLocaleIsEn() {
     // Arrange and Act
     GetTaskDataObjectCmd actualGetTaskDataObjectCmd = new GetTaskDataObjectCmd("42", "Variable Name", "en", true);
@@ -52,10 +56,12 @@ public class GetTaskDataObjectCmdDiffblueTest {
    *   <li>Then return {@link GetTaskDataObjectCmd#locale} is {@code null}.</li>
    * </ul>
    * <p>
-   * Method under test:
-   * {@link GetTaskDataObjectCmd#GetTaskDataObjectCmd(String, String)}
+   * Method under test: {@link GetTaskDataObjectCmd#GetTaskDataObjectCmd(String, String)}
    */
   @Test
+  @Category(MaintainedByDiffblue.class)
+  @MethodsUnderTest({"void GetTaskDataObjectCmd.<init>(String, String)",
+      "void GetTaskDataObjectCmd.<init>(String, String, String, boolean)"})
   public void testNewGetTaskDataObjectCmd_whenVariableName_thenReturnLocaleIsNull() {
     // Arrange and Act
     GetTaskDataObjectCmd actualGetTaskDataObjectCmd = new GetTaskDataObjectCmd("42", "Variable Name");
