@@ -12,6 +12,10 @@
   <name>Activiti :: Spring Boot Starter</name>
   <dependencies>
     <dependency>
+      <groupId>com.diffblue.cover</groupId>
+      <artifactId>cover-annotations</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.activiti</groupId>
       <artifactId>activiti-spring-app-process</artifactId>
     </dependency>

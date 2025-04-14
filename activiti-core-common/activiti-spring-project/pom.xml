@@ -12,6 +12,10 @@
   <name>Activiti :: Spring Project</name>
   <dependencies>
     <dependency>
+      <groupId>com.diffblue.cover</groupId>
+      <artifactId>cover-annotations</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.activiti</groupId>
       <artifactId>activiti-project-model</artifactId>
     </dependency>

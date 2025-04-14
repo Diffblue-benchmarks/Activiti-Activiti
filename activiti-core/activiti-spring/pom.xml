@@ -12,6 +12,10 @@
   <name>Activiti :: Spring</name>
   <dependencies>
     <dependency>
+      <groupId>com.diffblue.cover</groupId>
+      <artifactId>cover-annotations</artifactId>
+    </dependency>
+    <dependency>
       <groupId>jakarta.el</groupId>
       <artifactId>jakarta.el-api</artifactId>
     </dependency>

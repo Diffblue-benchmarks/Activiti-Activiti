@@ -12,6 +12,10 @@
   <name>Activiti :: API :: Model Common</name>
   <dependencies>
     <dependency>
+      <groupId>com.diffblue.cover</groupId>
+      <artifactId>cover-annotations</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
       <scope>test</scope>

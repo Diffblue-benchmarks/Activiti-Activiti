@@ -11,6 +11,10 @@
   <name>Activiti :: API :: Process Model Implementation</name>
   <dependencies>
     <dependency>
+      <groupId>com.diffblue.cover</groupId>
+      <artifactId>cover-annotations</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.activiti</groupId>
       <artifactId>activiti-api-model-shared</artifactId>
     </dependency>
