@@ -24,6 +24,11 @@
       <artifactId>spring-boot-test</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.activiti</groupId>
       <artifactId>activiti-core-test-assertions</artifactId>
     </dependency>
