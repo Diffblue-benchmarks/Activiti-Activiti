@@ -16,4 +16,6 @@
 # interfaces only
 --exclude-modules org.activiti:activiti-api-process-runtime
 --exclude-modules org.activiti:activiti-api-task-runtime
+# pitest aggregation
+--exclude-modules org.activiti:activiti-mutation-aggregation
 
