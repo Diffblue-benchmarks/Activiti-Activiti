@@ -1,0 +1,209 @@
+{
+  "meta" : {
+    "reportVersion" : "2.7"
+  },
+  "run" : {
+    "version" : "2025.04.01-e81fef6-licensed",
+    "creationTimestamp" : "2025-04-16T00:40:15.158393+01:00",
+    "command" : "dcover coverage-reports ",
+    "totalTime" : 48.342,
+    "environmentDetectionTime" : 35.083,
+    "indexingTime" : 0.0,
+    "entryPointsTime" : 0.0,
+    "generationTime" : 0.0,
+    "timeToFirstTest" : 48.342,
+    "timeToLastTest" : 48.342,
+    "indexQueryTime" : 0.0,
+    "verificationTime" : 0.0,
+    "validationTime" : 0.0
+  },
+  "codes" : {
+    "T000" : "Method eligible for test creation",
+    "T005" : "Trivial constructor",
+    "T010" : "Abstract or interface method",
+    "T012" : "Synthetic method"
+  },
+  "summary" : {
+    "classesCount" : 4,
+    "methodsCount" : 13,
+    "cumulativeDiffblueTestCount" : 3,
+    "cumulativeManualTestCount" : 0,
+    "completeTestCount" : 0,
+    "incompleteTestCount" : 0,
+    "skeletonTestCount" : 0,
+    "totalPhysicalLineCount" : 68,
+    "perMethodTestability" : {
+      "T000" : 2,
+      "T005" : 2,
+      "T010" : 8,
+      "T012" : 1
+    },
+    "perMethodOutcome" : {
+      "T000" : 2,
+      "T005" : 2,
+      "T010" : 8,
+      "T012" : 1
+    }
+  },
+  "classes" : {
+    "org.activiti.spring.resources.ResourceFinder" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      }
+    },
+    "org.activiti.spring.resources.ResourceFinderDescriptor" : {
+      "methodsCount" : 6,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 6
+      },
+      "perMethodOutcome" : {
+        "T010" : 6
+      }
+    },
+    "org.activiti.spring.resources.ResourceReader" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 2
+      },
+      "perMethodOutcome" : {
+        "T010" : 2
+      }
+    },
+    "org.activiti.spring.resources.conf.ResourceFinderAutoConfiguration" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T005" : 1
+      }
+    }
+  },
+  "methods" : {
+    "org.activiti.spring.resources.ResourceFinder.<clinit>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        32
+      ]
+    },
+    "org.activiti.spring.resources.ResourceFinder.<init>:(Lorg/springframework/core/io/support/ResourcePatternResolver;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        36,
+        37,
+        38
+      ]
+    },
+    "org.activiti.spring.resources.ResourceFinder.discoverResources:(Lorg/activiti/spring/resources/ResourceFinderDescriptor;)Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        41,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        51,
+        53,
+        54,
+        57
+      ]
+    },
+    "org.activiti.spring.resources.ResourceFinderDescriptor.getLocationPrefix:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.spring.resources.ResourceFinderDescriptor.getLocationSuffixes:()Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.spring.resources.ResourceFinderDescriptor.getMsgForEmptyResources:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.spring.resources.ResourceFinderDescriptor.getMsgForResourcesFound:(Ljava/util/List;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.spring.resources.ResourceFinderDescriptor.shouldLookUpResources:()Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.spring.resources.ResourceFinderDescriptor.validate:(Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.spring.resources.ResourceReader.getResourceNameSelector:()Ljava/util/function/Predicate;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.spring.resources.ResourceReader.read:(Ljava/io/InputStream;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.spring.resources.conf.ResourceFinderAutoConfiguration.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        25
+      ]
+    },
+    "org.activiti.spring.resources.conf.ResourceFinderAutoConfiguration.resourceFinderImpl:(Lorg/springframework/core/io/support/ResourcePatternResolver;)Lorg/activiti/spring/resources/ResourceFinder;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        30
+      ]
+    }
+  },
+  "validationMetrics" : { }
+}

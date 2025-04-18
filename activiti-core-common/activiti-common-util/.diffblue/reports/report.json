@@ -1,0 +1,177 @@
+{
+  "meta" : {
+    "reportVersion" : "2.7"
+  },
+  "run" : {
+    "version" : "2025.04.01-e81fef6-licensed",
+    "creationTimestamp" : "2025-04-16T00:44:19.328718+01:00",
+    "command" : "dcover coverage-reports ",
+    "totalTime" : 55.844,
+    "environmentDetectionTime" : 35.58,
+    "indexingTime" : 0.0,
+    "entryPointsTime" : 0.0,
+    "generationTime" : 0.0,
+    "timeToFirstTest" : 55.844,
+    "timeToLastTest" : 55.844,
+    "indexQueryTime" : 0.0,
+    "verificationTime" : 0.0,
+    "validationTime" : 0.0
+  },
+  "codes" : {
+    "T000" : "Method eligible for test creation",
+    "T001" : "Trivial getter",
+    "T002" : "Trivial setter",
+    "T005" : "Trivial constructor"
+  },
+  "summary" : {
+    "classesCount" : 2,
+    "methodsCount" : 8,
+    "cumulativeDiffblueTestCount" : 4,
+    "cumulativeManualTestCount" : 10,
+    "completeTestCount" : 0,
+    "incompleteTestCount" : 0,
+    "skeletonTestCount" : 0,
+    "totalPhysicalLineCount" : 73,
+    "perMethodTestability" : {
+      "T000" : 4,
+      "T001" : 2,
+      "T002" : 1,
+      "T005" : 1
+    },
+    "perMethodOutcome" : {
+      "T000" : 4,
+      "T001" : 2,
+      "T002" : 1,
+      "T005" : 1
+    }
+  },
+  "classes" : {
+    "org.activiti.common.util.DateFormatterProvider" : {
+      "methodsCount" : 6,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 3,
+        "T001" : 2,
+        "T002" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 3,
+        "T001" : 2,
+        "T002" : 1
+      }
+    },
+    "org.activiti.common.util.conf.ActivitiCoreCommonUtilAutoConfiguration" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T005" : 1
+      }
+    }
+  },
+  "methods" : {
+    "org.activiti.common.util.DateFormatterProvider.<init>:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        30,
+        28,
+        31,
+        32
+      ]
+    },
+    "org.activiti.common.util.DateFormatterProvider.getDateFormatPattern:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        39
+      ]
+    },
+    "org.activiti.common.util.DateFormatterProvider.getZoneId:()Ljava/time/ZoneId;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        35
+      ]
+    },
+    "org.activiti.common.util.DateFormatterProvider.parse:(Ljava/lang/String;)Ljava/util/Date;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        47,
+        48,
+        49,
+        50,
+        53,
+        55,
+        56,
+        57,
+        59
+      ]
+    },
+    "org.activiti.common.util.DateFormatterProvider.setDateFormatPattern:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        43,
+        44
+      ]
+    },
+    "org.activiti.common.util.DateFormatterProvider.toDate:(Ljava/lang/Object;)Ljava/util/Date;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        64,
+        65,
+        68,
+        69,
+        72,
+        73,
+        76,
+        77,
+        80,
+        81,
+        84,
+        85,
+        88
+      ]
+    },
+    "org.activiti.common.util.conf.ActivitiCoreCommonUtilAutoConfiguration.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        25
+      ]
+    },
+    "org.activiti.common.util.conf.ActivitiCoreCommonUtilAutoConfiguration.dateFormatterProvider:(Ljava/lang/String;)Lorg/activiti/common/util/DateFormatterProvider;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        31
+      ]
+    }
+  },
+  "validationMetrics" : { }
+}

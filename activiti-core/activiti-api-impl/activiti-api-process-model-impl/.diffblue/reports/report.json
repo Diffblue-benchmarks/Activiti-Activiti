@@ -1,0 +1,6381 @@
+{
+  "meta" : {
+    "reportVersion" : "2.7"
+  },
+  "run" : {
+    "version" : "2025.04.01-e81fef6-licensed",
+    "creationTimestamp" : "2025-04-16T00:49:47.048947+01:00",
+    "command" : "dcover coverage-reports ",
+    "totalTime" : 62.105,
+    "environmentDetectionTime" : 37.158,
+    "indexingTime" : 0.0,
+    "entryPointsTime" : 0.0,
+    "generationTime" : 0.0,
+    "timeToFirstTest" : 62.107,
+    "timeToLastTest" : 62.107,
+    "indexQueryTime" : 0.0,
+    "verificationTime" : 0.0,
+    "validationTime" : 0.0
+  },
+  "codes" : {
+    "T000" : "Method eligible for test creation",
+    "T001" : "Trivial getter",
+    "T002" : "Trivial setter",
+    "T003" : "Private method",
+    "T004" : "In anonymous inner class",
+    "T005" : "Trivial constructor",
+    "T008" : "Private and never called",
+    "T010" : "Abstract or interface method",
+    "T012" : "Synthetic method",
+    "T020" : "Other trivial method"
+  },
+  "summary" : {
+    "classesCount" : 81,
+    "methodsCount" : 475,
+    "cumulativeDiffblueTestCount" : 408,
+    "cumulativeManualTestCount" : 84,
+    "completeTestCount" : 0,
+    "incompleteTestCount" : 0,
+    "skeletonTestCount" : 0,
+    "totalPhysicalLineCount" : 3085,
+    "perMethodTestability" : {
+      "T000" : 156,
+      "T001" : 97,
+      "T002" : 86,
+      "T003" : 9,
+      "T004" : 2,
+      "T005" : 62,
+      "T008" : 5,
+      "T010" : 7,
+      "T012" : 25,
+      "T020" : 26
+    },
+    "perMethodOutcome" : {
+      "T000" : 156,
+      "T001" : 97,
+      "T002" : 86,
+      "T003" : 9,
+      "T004" : 2,
+      "T005" : 62,
+      "T008" : 5,
+      "T010" : 7,
+      "T012" : 25,
+      "T020" : 26
+    }
+  },
+  "classes" : {
+    "org.activiti.api.runtime.conf.impl.ProcessModelAutoConfiguration" : {
+      "methodsCount" : 19,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 19
+      },
+      "perMethodOutcome" : {
+        "T000" : 19
+      }
+    },
+    "org.activiti.api.runtime.conf.impl.ProcessModelAutoConfiguration$1" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T004" : 2
+      },
+      "perMethodOutcome" : {
+        "T004" : 2
+      }
+    },
+    "org.activiti.api.runtime.event.impl.ApplicationDeployedEventImpl" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2
+      },
+      "perMethodOutcome" : {
+        "T000" : 2
+      }
+    },
+    "org.activiti.api.runtime.event.impl.ApplicationDeployedEvents" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T001" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T001" : 1,
+        "T005" : 1
+      }
+    },
+    "org.activiti.api.runtime.event.impl.BPMNActivityCancelledEventImpl" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T020" : 1
+      }
+    },
+    "org.activiti.api.runtime.event.impl.BPMNActivityCompletedEventImpl" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T020" : 1
+      }
+    },
+    "org.activiti.api.runtime.event.impl.BPMNActivityEventImpl" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 2
+      },
+      "perMethodOutcome" : {
+        "T010" : 2
+      }
+    },
+    "org.activiti.api.runtime.event.impl.BPMNActivityStartedEventImpl" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T020" : 1
+      }
+    },
+    "org.activiti.api.runtime.event.impl.BPMNErrorReceivedEventImpl" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T020" : 1
+      }
+    },
+    "org.activiti.api.runtime.event.impl.BPMNMessageReceivedEventImpl" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T020" : 1
+      }
+    },
+    "org.activiti.api.runtime.event.impl.BPMNMessageSentEventImpl" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T020" : 1
+      }
+    },
+    "org.activiti.api.runtime.event.impl.BPMNMessageWaitingEventImpl" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T020" : 1
+      }
+    },
+    "org.activiti.api.runtime.event.impl.BPMNSequenceFlowTakenImpl" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T020" : 1
+      }
+    },
+    "org.activiti.api.runtime.event.impl.BPMNSignalReceivedEventImpl" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T020" : 1
+      }
+    },
+    "org.activiti.api.runtime.event.impl.BPMNTimerCancelledEventImpl" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T020" : 1
+      }
+    },
+    "org.activiti.api.runtime.event.impl.BPMNTimerExecutedEventImpl" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T020" : 1
+      }
+    },
+    "org.activiti.api.runtime.event.impl.BPMNTimerFailedEventImpl" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T020" : 1
+      }
+    },
+    "org.activiti.api.runtime.event.impl.BPMNTimerFiredEventImpl" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T020" : 1
+      }
+    },
+    "org.activiti.api.runtime.event.impl.BPMNTimerRetriesDecrementedEventImpl" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T020" : 1
+      }
+    },
+    "org.activiti.api.runtime.event.impl.BPMNTimerScheduledEventImpl" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T020" : 1
+      }
+    },
+    "org.activiti.api.runtime.event.impl.MessageSubscriptionCancelledEventImpl" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T020" : 1
+      }
+    },
+    "org.activiti.api.runtime.event.impl.ProcessCandidateStarterGroupAddedEventImpl" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2
+      },
+      "perMethodOutcome" : {
+        "T000" : 2
+      }
+    },
+    "org.activiti.api.runtime.event.impl.ProcessCandidateStarterGroupAddedEvents" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T001" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T001" : 1,
+        "T005" : 1
+      }
+    },
+    "org.activiti.api.runtime.event.impl.ProcessCandidateStarterGroupRemovedEventImpl" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2
+      },
+      "perMethodOutcome" : {
+        "T000" : 2
+      }
+    },
+    "org.activiti.api.runtime.event.impl.ProcessCandidateStarterUserAddedEventImpl" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2
+      },
+      "perMethodOutcome" : {
+        "T000" : 2
+      }
+    },
+    "org.activiti.api.runtime.event.impl.ProcessCandidateStarterUserAddedEvents" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T001" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T001" : 1,
+        "T005" : 1
+      }
+    },
+    "org.activiti.api.runtime.event.impl.ProcessCandidateStarterUserRemovedEventImpl" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2
+      },
+      "perMethodOutcome" : {
+        "T000" : 2
+      }
+    },
+    "org.activiti.api.runtime.event.impl.ProcessDeployedEventImpl" : {
+      "methodsCount" : 4,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 3,
+        "T001" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 3,
+        "T001" : 1
+      }
+    },
+    "org.activiti.api.runtime.event.impl.ProcessDeployedEvents" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T001" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T001" : 1,
+        "T005" : 1
+      }
+    },
+    "org.activiti.api.runtime.event.impl.StartMessageDeployedEventImpl" : {
+      "methodsCount" : 5,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T003" : 1,
+        "T005" : 2
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T003" : 1,
+        "T005" : 2
+      }
+    },
+    "org.activiti.api.runtime.event.impl.StartMessageDeployedEventImpl$Builder" : {
+      "methodsCount" : 4,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T002" : 1,
+        "T005" : 1,
+        "T008" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T002" : 1,
+        "T005" : 1,
+        "T008" : 1
+      }
+    },
+    "org.activiti.api.runtime.event.impl.StartMessageDeployedEvents" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2
+      },
+      "perMethodOutcome" : {
+        "T000" : 2
+      }
+    },
+    "org.activiti.api.runtime.model.impl.BPMNActivityImpl" : {
+      "methodsCount" : 11,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 3,
+        "T001" : 3,
+        "T002" : 3,
+        "T005" : 1,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 3,
+        "T001" : 3,
+        "T002" : 3,
+        "T005" : 1,
+        "T020" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.BPMNElementImpl" : {
+      "methodsCount" : 9,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T001" : 3,
+        "T002" : 3,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T001" : 3,
+        "T002" : 3,
+        "T005" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.BPMNErrorImpl" : {
+      "methodsCount" : 10,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 4,
+        "T001" : 2,
+        "T002" : 2,
+        "T005" : 1,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 4,
+        "T001" : 2,
+        "T002" : 2,
+        "T005" : 1,
+        "T020" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.BPMNMessageImpl" : {
+      "methodsCount" : 7,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 4,
+        "T001" : 1,
+        "T002" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 4,
+        "T001" : 1,
+        "T002" : 1,
+        "T005" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.BPMNSequenceFlowImpl" : {
+      "methodsCount" : 15,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 3,
+        "T001" : 6,
+        "T002" : 4,
+        "T005" : 1,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 3,
+        "T001" : 6,
+        "T002" : 4,
+        "T005" : 1,
+        "T020" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.BPMNSignalImpl" : {
+      "methodsCount" : 7,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 4,
+        "T001" : 1,
+        "T002" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 4,
+        "T001" : 1,
+        "T002" : 1,
+        "T005" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.BPMNTimerImpl" : {
+      "methodsCount" : 7,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 4,
+        "T001" : 1,
+        "T002" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 4,
+        "T001" : 1,
+        "T002" : 1,
+        "T005" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.DateToStringConverter" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.DeploymentImpl" : {
+      "methodsCount" : 9,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T001" : 4,
+        "T002" : 4,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T001" : 4,
+        "T002" : 4,
+        "T005" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl" : {
+      "methodsCount" : 47,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 12,
+        "T001" : 16,
+        "T002" : 14,
+        "T003" : 1,
+        "T012" : 4
+      },
+      "perMethodOutcome" : {
+        "T000" : 12,
+        "T001" : 16,
+        "T002" : 14,
+        "T003" : 1,
+        "T012" : 4
+      }
+    },
+    "org.activiti.api.runtime.model.impl.JsonNodeToStringConverter" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.ListToStringConverter" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.LocalDateTimeToStringConverter" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.LocalDateToStringConverter" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.MapToStringConverter" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.MessageSubscriptionImpl" : {
+      "methodsCount" : 16,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T001" : 9,
+        "T003" : 1,
+        "T005" : 3,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T001" : 9,
+        "T003" : 1,
+        "T005" : 3,
+        "T020" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.MessageSubscriptionImpl$Builder" : {
+      "methodsCount" : 12,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T002" : 9,
+        "T005" : 1,
+        "T008" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T002" : 9,
+        "T005" : 1,
+        "T008" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.ObjectValue" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T001" : 1,
+        "T005" : 2
+      },
+      "perMethodOutcome" : {
+        "T001" : 1,
+        "T005" : 2
+      }
+    },
+    "org.activiti.api.runtime.model.impl.ObjectValueToStringConverter" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.ProcessCandidateStarterGroupImpl" : {
+      "methodsCount" : 5,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T001" : 1,
+        "T005" : 2
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T001" : 1,
+        "T005" : 2
+      }
+    },
+    "org.activiti.api.runtime.model.impl.ProcessCandidateStarterImpl" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T010" : 2
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T010" : 2
+      }
+    },
+    "org.activiti.api.runtime.model.impl.ProcessCandidateStarterUserImpl" : {
+      "methodsCount" : 5,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T001" : 1,
+        "T005" : 2
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T001" : 1,
+        "T005" : 2
+      }
+    },
+    "org.activiti.api.runtime.model.impl.ProcessDefinitionImpl" : {
+      "methodsCount" : 18,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T001" : 7,
+        "T002" : 7,
+        "T005" : 1,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T001" : 7,
+        "T002" : 7,
+        "T005" : 1,
+        "T020" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.ProcessDefinitionMetaImpl" : {
+      "methodsCount" : 10,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T001" : 4,
+        "T002" : 4,
+        "T005" : 2
+      },
+      "perMethodOutcome" : {
+        "T001" : 4,
+        "T002" : 4,
+        "T005" : 2
+      }
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceImpl" : {
+      "methodsCount" : 28,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T001" : 12,
+        "T002" : 12,
+        "T005" : 1,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T001" : 12,
+        "T002" : 12,
+        "T005" : 1,
+        "T020" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceMetaImpl" : {
+      "methodsCount" : 6,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T001" : 2,
+        "T002" : 2,
+        "T005" : 2
+      },
+      "perMethodOutcome" : {
+        "T001" : 2,
+        "T002" : 2,
+        "T005" : 2
+      }
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariableValue" : {
+      "methodsCount" : 12,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 5,
+        "T001" : 2,
+        "T003" : 2,
+        "T005" : 2,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 5,
+        "T001" : 2,
+        "T003" : 2,
+        "T005" : 2,
+        "T020" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariableValue$Builder" : {
+      "methodsCount" : 4,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T002" : 2,
+        "T008" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T002" : 2,
+        "T008" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariableValue$IBuildStage" : {
+      "methodsCount" : 1,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 1
+      },
+      "perMethodOutcome" : {
+        "T010" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariableValue$ITypeStage" : {
+      "methodsCount" : 1,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 1
+      },
+      "perMethodOutcome" : {
+        "T010" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariableValue$IValueStage" : {
+      "methodsCount" : 1,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 1
+      },
+      "perMethodOutcome" : {
+        "T010" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariablesMap" : {
+      "methodsCount" : 1,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T005" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariablesMapDeserializer" : {
+      "methodsCount" : 4,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 2
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 2
+      }
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariablesMapSerializer" : {
+      "methodsCount" : 5,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T003" : 2,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T003" : 2,
+        "T005" : 1,
+        "T012" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariablesMapTypeRegistry" : {
+      "methodsCount" : 10,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 7,
+        "T005" : 1,
+        "T012" : 2
+      },
+      "perMethodOutcome" : {
+        "T000" : 7,
+        "T005" : 1,
+        "T012" : 2
+      }
+    },
+    "org.activiti.api.runtime.model.impl.SetToStringConverter" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageDeploymentDefinitionImpl" : {
+      "methodsCount" : 9,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T001" : 2,
+        "T003" : 1,
+        "T005" : 3,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T001" : 2,
+        "T003" : 1,
+        "T005" : 3,
+        "T020" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageDeploymentDefinitionImpl$Builder" : {
+      "methodsCount" : 5,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T002" : 2,
+        "T005" : 1,
+        "T008" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T002" : 2,
+        "T005" : 1,
+        "T008" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageSubscriptionImpl" : {
+      "methodsCount" : 13,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T001" : 6,
+        "T003" : 1,
+        "T005" : 3,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T001" : 6,
+        "T003" : 1,
+        "T005" : 3,
+        "T020" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageSubscriptionImpl$Builder" : {
+      "methodsCount" : 9,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T002" : 6,
+        "T005" : 1,
+        "T008" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T002" : 6,
+        "T005" : 1,
+        "T008" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.StringToDateConverter" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.StringToJsonNodeConverter" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.StringToListConverter" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.StringToLocalDateConverter" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.StringToLocalDateTimeConverter" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.StringToMapConverter" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.StringToObjectValueConverter" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.StringToSetConverter" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      }
+    },
+    "org.activiti.api.runtime.model.impl.VariableDefinitionImpl" : {
+      "methodsCount" : 20,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T001" : 8,
+        "T002" : 8,
+        "T005" : 1,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T001" : 8,
+        "T002" : 8,
+        "T005" : 1,
+        "T020" : 1
+      }
+    }
+  },
+  "methods" : {
+    "org.activiti.api.runtime.conf.impl.ProcessModelAutoConfiguration$1.<init>:(Lorg/activiti/api/runtime/conf/impl/ProcessModelAutoConfiguration;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T004",
+      "perMethodOutcome" : "T004",
+      "lineNumbers" : [
+        128
+      ]
+    },
+    "org.activiti.api.runtime.conf.impl.ProcessModelAutoConfiguration$1.resolveAbstractType:(Lcom/fasterxml/jackson/databind/DeserializationConfig;Lcom/fasterxml/jackson/databind/BeanDescription;)Lcom/fasterxml/jackson/databind/JavaType;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T004",
+      "perMethodOutcome" : "T004",
+      "lineNumbers" : [
+        134,
+        135,
+        134
+      ]
+    },
+    "org.activiti.api.runtime.conf.impl.ProcessModelAutoConfiguration.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        114,
+        116,
+        119,
+        116
+      ]
+    },
+    "org.activiti.api.runtime.conf.impl.ProcessModelAutoConfiguration.conversionService:()Lorg/springframework/format/support/FormattingConversionService;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        218,
+        220,
+        222
+      ]
+    },
+    "org.activiti.api.runtime.conf.impl.ProcessModelAutoConfiguration.customizeProcessModelObjectMapper:(Lorg/springframework/beans/factory/ObjectProvider;)Lcom/fasterxml/jackson/databind/Module;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        126,
+        127,
+        128,
+        139,
+        141,
+        143,
+        145,
+        147,
+        149,
+        151,
+        153,
+        155,
+        157,
+        159,
+        161,
+        163,
+        165,
+        167,
+        170,
+        171,
+        170,
+        173,
+        174,
+        173,
+        175,
+        176,
+        175,
+        177,
+        178,
+        177,
+        179,
+        180,
+        179,
+        181,
+        182,
+        181,
+        183,
+        184,
+        183,
+        185,
+        186,
+        185,
+        187,
+        188,
+        187,
+        189,
+        190,
+        189,
+        191,
+        192,
+        191,
+        193,
+        194,
+        193,
+        195,
+        196,
+        195,
+        197,
+        198,
+        197,
+        199,
+        200,
+        199,
+        201,
+        202,
+        201,
+        203,
+        204,
+        203,
+        205,
+        207,
+        209,
+        211,
+        214
+      ]
+    },
+    "org.activiti.api.runtime.conf.impl.ProcessModelAutoConfiguration.dateToStringConverter:()Lorg/activiti/api/runtime/model/impl/DateToStringConverter;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        252
+      ]
+    },
+    "org.activiti.api.runtime.conf.impl.ProcessModelAutoConfiguration.jsonNodeToStringConverter:(Lcom/fasterxml/jackson/databind/ObjectMapper;)Lorg/activiti/api/runtime/model/impl/JsonNodeToStringConverter;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        242
+      ]
+    },
+    "org.activiti.api.runtime.conf.impl.ProcessModelAutoConfiguration.listToStringConverter:(Lcom/fasterxml/jackson/databind/ObjectMapper;)Lorg/activiti/api/runtime/model/impl/ListToStringConverter;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        282
+      ]
+    },
+    "org.activiti.api.runtime.conf.impl.ProcessModelAutoConfiguration.localDateTimeToStringConverter:()Lorg/activiti/api/runtime/model/impl/LocalDateTimeToStringConverter;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        262
+      ]
+    },
+    "org.activiti.api.runtime.conf.impl.ProcessModelAutoConfiguration.localDateToStringConverter:()Lorg/activiti/api/runtime/model/impl/LocalDateToStringConverter;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        272
+      ]
+    },
+    "org.activiti.api.runtime.conf.impl.ProcessModelAutoConfiguration.mapToStringConverter:(Lcom/fasterxml/jackson/databind/ObjectMapper;)Lorg/activiti/api/runtime/model/impl/MapToStringConverter;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        232
+      ]
+    },
+    "org.activiti.api.runtime.conf.impl.ProcessModelAutoConfiguration.objectValueToStringConverter:(Lcom/fasterxml/jackson/databind/ObjectMapper;)Lorg/activiti/api/runtime/model/impl/ObjectValueToStringConverter;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        302
+      ]
+    },
+    "org.activiti.api.runtime.conf.impl.ProcessModelAutoConfiguration.setToStringConverter:(Lcom/fasterxml/jackson/databind/ObjectMapper;)Lorg/activiti/api/runtime/model/impl/SetToStringConverter;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        292
+      ]
+    },
+    "org.activiti.api.runtime.conf.impl.ProcessModelAutoConfiguration.sringToListConverter:(Lcom/fasterxml/jackson/databind/ObjectMapper;)Lorg/activiti/api/runtime/model/impl/StringToListConverter;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        277
+      ]
+    },
+    "org.activiti.api.runtime.conf.impl.ProcessModelAutoConfiguration.stringToDateConverter:()Lorg/activiti/api/runtime/model/impl/StringToDateConverter;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        247
+      ]
+    },
+    "org.activiti.api.runtime.conf.impl.ProcessModelAutoConfiguration.stringToJsonNodeConverter:(Lcom/fasterxml/jackson/databind/ObjectMapper;)Lorg/activiti/api/runtime/model/impl/StringToJsonNodeConverter;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        237
+      ]
+    },
+    "org.activiti.api.runtime.conf.impl.ProcessModelAutoConfiguration.stringToLocalDateConverter:()Lorg/activiti/api/runtime/model/impl/StringToLocalDateConverter;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        267
+      ]
+    },
+    "org.activiti.api.runtime.conf.impl.ProcessModelAutoConfiguration.stringToLocalDateTimeConverter:()Lorg/activiti/api/runtime/model/impl/StringToLocalDateTimeConverter;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        257
+      ]
+    },
+    "org.activiti.api.runtime.conf.impl.ProcessModelAutoConfiguration.stringToMapConverter:(Lcom/fasterxml/jackson/databind/ObjectMapper;)Lorg/activiti/api/runtime/model/impl/StringToMapConverter;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        227
+      ]
+    },
+    "org.activiti.api.runtime.conf.impl.ProcessModelAutoConfiguration.stringToObjectValueConverter:(Lcom/fasterxml/jackson/databind/ObjectMapper;)Lorg/activiti/api/runtime/model/impl/StringToObjectValueConverter;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        297
+      ]
+    },
+    "org.activiti.api.runtime.conf.impl.ProcessModelAutoConfiguration.stringToSetConverter:(Lcom/fasterxml/jackson/databind/ObjectMapper;)Lorg/activiti/api/runtime/model/impl/StringToSetConverter;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        287
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.ApplicationDeployedEventImpl.<init>:(Lorg/activiti/api/process/model/Deployment;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        28,
+        29
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.ApplicationDeployedEventImpl.<init>:(Lorg/activiti/api/process/model/Deployment;Lorg/activiti/api/process/model/events/ApplicationEvent$ApplicationEvents;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        32,
+        33,
+        34
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.ApplicationDeployedEvents.<init>:(Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        25,
+        26,
+        27
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.ApplicationDeployedEvents.getApplicationDeployedEvents:()Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        30
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNActivityCancelledEventImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        23,
+        24
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNActivityCancelledEventImpl.<init>:(Lorg/activiti/api/process/model/BPMNActivity;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        27,
+        28
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNActivityCancelledEventImpl.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "T020",
+      "lineNumbers" : [
+        37
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNActivityCompletedEventImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        23,
+        24
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNActivityCompletedEventImpl.<init>:(Lorg/activiti/api/process/model/BPMNActivity;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        27,
+        28
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNActivityCompletedEventImpl.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "T020",
+      "lineNumbers" : [
+        37
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNActivityEventImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010",
+      "lineNumbers" : [
+        25,
+        26
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNActivityEventImpl.<init>:(Lorg/activiti/api/process/model/BPMNActivity;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010",
+      "lineNumbers" : [
+        29,
+        30
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNActivityStartedEventImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        24,
+        25
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNActivityStartedEventImpl.<init>:(Lorg/activiti/api/process/model/BPMNActivity;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        28,
+        29
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNActivityStartedEventImpl.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "T020",
+      "lineNumbers" : [
+        38
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNErrorReceivedEventImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        23,
+        24
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNErrorReceivedEventImpl.<init>:(Lorg/activiti/api/process/model/BPMNError;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        27,
+        28
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNErrorReceivedEventImpl.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "T020",
+      "lineNumbers" : [
+        37
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNMessageReceivedEventImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        24,
+        25
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNMessageReceivedEventImpl.<init>:(Lorg/activiti/api/process/model/BPMNMessage;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        28,
+        29
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNMessageReceivedEventImpl.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "T020",
+      "lineNumbers" : [
+        38
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNMessageSentEventImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        24,
+        25
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNMessageSentEventImpl.<init>:(Lorg/activiti/api/process/model/BPMNMessage;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        28,
+        29
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNMessageSentEventImpl.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "T020",
+      "lineNumbers" : [
+        38
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNMessageWaitingEventImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        24,
+        25
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNMessageWaitingEventImpl.<init>:(Lorg/activiti/api/process/model/BPMNMessage;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        28,
+        29
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNMessageWaitingEventImpl.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "T020",
+      "lineNumbers" : [
+        38
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNSequenceFlowTakenImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        24,
+        25
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNSequenceFlowTakenImpl.<init>:(Lorg/activiti/api/process/model/BPMNSequenceFlow;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        28,
+        29
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNSequenceFlowTakenImpl.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "T020",
+      "lineNumbers" : [
+        38
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNSignalReceivedEventImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        24,
+        25
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNSignalReceivedEventImpl.<init>:(Lorg/activiti/api/process/model/BPMNSignal;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        28,
+        29
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNSignalReceivedEventImpl.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "T020",
+      "lineNumbers" : [
+        38
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNTimerCancelledEventImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        24,
+        25
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNTimerCancelledEventImpl.<init>:(Lorg/activiti/api/process/model/BPMNTimer;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        28,
+        29
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNTimerCancelledEventImpl.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "T020",
+      "lineNumbers" : [
+        38
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNTimerExecutedEventImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        24,
+        25
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNTimerExecutedEventImpl.<init>:(Lorg/activiti/api/process/model/BPMNTimer;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        28,
+        29
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNTimerExecutedEventImpl.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "T020",
+      "lineNumbers" : [
+        38
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNTimerFailedEventImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        24,
+        25
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNTimerFailedEventImpl.<init>:(Lorg/activiti/api/process/model/BPMNTimer;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        28,
+        29
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNTimerFailedEventImpl.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "T020",
+      "lineNumbers" : [
+        38
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNTimerFiredEventImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        24,
+        25
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNTimerFiredEventImpl.<init>:(Lorg/activiti/api/process/model/BPMNTimer;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        28,
+        29
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNTimerFiredEventImpl.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "T020",
+      "lineNumbers" : [
+        38
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNTimerRetriesDecrementedEventImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        24,
+        25
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNTimerRetriesDecrementedEventImpl.<init>:(Lorg/activiti/api/process/model/BPMNTimer;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        28,
+        29
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNTimerRetriesDecrementedEventImpl.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "T020",
+      "lineNumbers" : [
+        38
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNTimerScheduledEventImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        24,
+        25
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNTimerScheduledEventImpl.<init>:(Lorg/activiti/api/process/model/BPMNTimer;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        28,
+        29
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.BPMNTimerScheduledEventImpl.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "T020",
+      "lineNumbers" : [
+        38
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.MessageSubscriptionCancelledEventImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        25,
+        26
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.MessageSubscriptionCancelledEventImpl.<init>:(Lorg/activiti/api/process/model/MessageSubscription;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        29,
+        31,
+        32,
+        33
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.MessageSubscriptionCancelledEventImpl.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "T020",
+      "lineNumbers" : [
+        37
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.ProcessCandidateStarterGroupAddedEventImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        24,
+        25
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.ProcessCandidateStarterGroupAddedEventImpl.<init>:(Lorg/activiti/api/process/model/ProcessCandidateStarterGroup;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        28,
+        29
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.ProcessCandidateStarterGroupAddedEvents.<init>:(Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        26,
+        27,
+        28
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.ProcessCandidateStarterGroupAddedEvents.getEvents:()Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        31
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.ProcessCandidateStarterGroupRemovedEventImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        24,
+        25
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.ProcessCandidateStarterGroupRemovedEventImpl.<init>:(Lorg/activiti/api/process/model/ProcessCandidateStarterGroup;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        28,
+        29
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.ProcessCandidateStarterUserAddedEventImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        24,
+        25
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.ProcessCandidateStarterUserAddedEventImpl.<init>:(Lorg/activiti/api/process/model/ProcessCandidateStarterUser;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        28,
+        29
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.ProcessCandidateStarterUserAddedEvents.<init>:(Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        26,
+        27,
+        28
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.ProcessCandidateStarterUserAddedEvents.getEvents:()Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        31
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.ProcessCandidateStarterUserRemovedEventImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        24,
+        25
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.ProcessCandidateStarterUserRemovedEventImpl.<init>:(Lorg/activiti/api/process/model/ProcessCandidateStarterUser;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        28,
+        29
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.ProcessDeployedEventImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        26,
+        27
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.ProcessDeployedEventImpl.<init>:(Lorg/activiti/api/process/model/ProcessDefinition;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        30,
+        31,
+        32,
+        33
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.ProcessDeployedEventImpl.<init>:(Lorg/activiti/api/process/model/ProcessDefinition;Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        36,
+        37,
+        38
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.ProcessDeployedEventImpl.getProcessModelContent:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        47
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.ProcessDeployedEvents.<init>:(Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        26,
+        27,
+        28
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.ProcessDeployedEvents.getProcessDeployedEvents:()Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        31
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.StartMessageDeployedEventImpl$Builder.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        63,
+        64
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.StartMessageDeployedEventImpl$Builder.<init>:(Lorg/activiti/api/runtime/event/impl/StartMessageDeployedEventImpl;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T008",
+      "perMethodOutcome" : "T008",
+      "lineNumbers" : [
+        66,
+        67,
+        68
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.StartMessageDeployedEventImpl$Builder.build:()Lorg/activiti/api/runtime/event/impl/StartMessageDeployedEventImpl;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        85
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.StartMessageDeployedEventImpl$Builder.withEntity:(Lorg/activiti/api/process/model/StartMessageDeploymentDefinition;)Lorg/activiti/api/runtime/event/impl/StartMessageDeployedEventImpl$Builder;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        76,
+        77
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.StartMessageDeployedEventImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        30,
+        31
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.StartMessageDeployedEventImpl.<init>:(Lorg/activiti/api/process/model/StartMessageDeploymentDefinition;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        34,
+        36,
+        38,
+        39,
+        40,
+        41
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.StartMessageDeployedEventImpl.<init>:(Lorg/activiti/api/runtime/event/impl/StartMessageDeployedEventImpl$Builder;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        27,
+        28
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.StartMessageDeployedEventImpl.builder:()Lorg/activiti/api/runtime/event/impl/StartMessageDeployedEventImpl$Builder;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        44
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.StartMessageDeployedEventImpl.builderFrom:(Lorg/activiti/api/runtime/event/impl/StartMessageDeployedEventImpl;)Lorg/activiti/api/runtime/event/impl/StartMessageDeployedEventImpl$Builder;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        53
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.StartMessageDeployedEvents.<init>:(Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        28,
+        29
+      ]
+    },
+    "org.activiti.api.runtime.event.impl.StartMessageDeployedEvents.getStartMessageDeployedEvents:()Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        34
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNActivityImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        28,
+        29
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNActivityImpl.<init>:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        33,
+        34,
+        35,
+        36,
+        37
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNActivityImpl.equals:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        68,
+        69,
+        71,
+        72,
+        74,
+        75,
+        77,
+        78,
+        79,
+        80,
+        78
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNActivityImpl.getActivityName:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        41
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNActivityImpl.getActivityType:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        50
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNActivityImpl.getExecutionId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        59
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNActivityImpl.hashCode:()I" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        85,
+        86,
+        87,
+        88
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNActivityImpl.setActivityName:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        45,
+        46
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNActivityImpl.setActivityType:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        54,
+        55
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNActivityImpl.setExecutionId:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        63,
+        64
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNActivityImpl.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "T020",
+      "lineNumbers" : [
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNElementImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        22
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNElementImpl.equals:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        58,
+        59,
+        61,
+        62,
+        64,
+        65,
+        67,
+        69,
+        65
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNElementImpl.getElementId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        49
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNElementImpl.getProcessDefinitionId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        39
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNElementImpl.getProcessInstanceId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        30
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNElementImpl.hashCode:()I" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        76
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNElementImpl.setElementId:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        53,
+        54
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNElementImpl.setProcessDefinitionId:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        43,
+        44
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNElementImpl.setProcessInstanceId:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        34,
+        35
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNErrorImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        27,
+        28
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNErrorImpl.<init>:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        30,
+        31,
+        32
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNErrorImpl.<init>:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        35,
+        36,
+        37,
+        38,
+        39
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNErrorImpl.equals:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        68,
+        69,
+        71,
+        72,
+        74,
+        76,
+        77,
+        76,
+        78,
+        79,
+        78,
+        80,
+        81,
+        80,
+        82,
+        83,
+        82,
+        84,
+        85,
+        84,
+        76
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNErrorImpl.getErrorCode:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        42
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNErrorImpl.getErrorId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        50
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNErrorImpl.hashCode:()I" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        59,
+        60,
+        61,
+        62,
+        63,
+        59
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNErrorImpl.setErrorCode:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        46,
+        47
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNErrorImpl.setErrorId:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        54,
+        55
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNErrorImpl.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "T020",
+      "lineNumbers" : [
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        90
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNMessageImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        27,
+        28
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNMessageImpl.<init>:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        30,
+        31,
+        32
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNMessageImpl.equals:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        44,
+        45,
+        47,
+        48,
+        50,
+        52,
+        53,
+        52,
+        55,
+        54,
+        52
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNMessageImpl.getMessagePayload:()Lorg/activiti/api/process/model/payloads/MessageEventPayload;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        35
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNMessageImpl.hashCode:()I" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        60,
+        61,
+        62,
+        63
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNMessageImpl.setMessagePayload:(Lorg/activiti/api/process/model/payloads/MessageEventPayload;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        39,
+        40
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNMessageImpl.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        68,
+        69,
+        70,
+        68
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNSequenceFlowImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        31,
+        32
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNSequenceFlowImpl.<init>:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        36,
+        37,
+        38,
+        39,
+        40
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNSequenceFlowImpl.equals:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        90,
+        91,
+        93,
+        94,
+        96,
+        97,
+        98,
+        97,
+        100,
+        99,
+        102,
+        101,
+        104,
+        103,
+        106,
+        105,
+        108,
+        107,
+        110,
+        109,
+        97
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNSequenceFlowImpl.getSourceActivityElementId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        44
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNSequenceFlowImpl.getSourceActivityName:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        49
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNSequenceFlowImpl.getSourceActivityType:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        58
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNSequenceFlowImpl.getTargetActivityElementId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        67
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNSequenceFlowImpl.getTargetActivityName:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        72
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNSequenceFlowImpl.getTargetActivityType:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        81
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNSequenceFlowImpl.hashCode:()I" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        116
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNSequenceFlowImpl.setSourceActivityName:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        53,
+        54
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNSequenceFlowImpl.setSourceActivityType:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        62,
+        63
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNSequenceFlowImpl.setTargetActivityName:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        76,
+        77
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNSequenceFlowImpl.setTargetActivityType:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        85,
+        86
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNSequenceFlowImpl.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "T020",
+      "lineNumbers" : [
+        123
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNSignalImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        27,
+        28
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNSignalImpl.<init>:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        31,
+        32,
+        33
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNSignalImpl.equals:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        45,
+        46,
+        48,
+        49,
+        51,
+        53,
+        54,
+        53,
+        56,
+        55,
+        53
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNSignalImpl.getSignalPayload:()Lorg/activiti/api/process/model/payloads/SignalPayload;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        36
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNSignalImpl.hashCode:()I" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        62,
+        63,
+        64,
+        62
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNSignalImpl.setSignalPayload:(Lorg/activiti/api/process/model/payloads/SignalPayload;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        40,
+        41
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNSignalImpl.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        69,
+        70,
+        71,
+        69
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNTimerImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        25,
+        26
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNTimerImpl.<init>:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        28,
+        29,
+        30
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNTimerImpl.equals:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNTimerImpl.getTimerPayload:()Lorg/activiti/api/process/model/payloads/TimerPayload;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        33
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNTimerImpl.hashCode:()I" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        42,
+        43,
+        44,
+        45
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNTimerImpl.setTimerPayload:(Lorg/activiti/api/process/model/payloads/TimerPayload;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        37,
+        38
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.BPMNTimerImpl.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        67,
+        68,
+        69,
+        67
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.DateToStringConverter.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        23
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.DateToStringConverter.convert:(Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        22
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.DateToStringConverter.convert:(Ljava/util/Date;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        27
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.DeploymentImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        20
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.DeploymentImpl.getId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        56
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.DeploymentImpl.getName:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        41
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.DeploymentImpl.getProjectReleaseVersion:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        51
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.DeploymentImpl.getVersion:()Ljava/lang/Integer;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        46
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.DeploymentImpl.setId:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        60,
+        61
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.DeploymentImpl.setName:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        28,
+        29
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.DeploymentImpl.setProjectReleaseVersion:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        36,
+        37
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.DeploymentImpl.setVersion:(Ljava/lang/Integer;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        32,
+        33
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        46,
+        30,
+        31,
+        47,
+        48
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.addInBoundVariable:(Ljava/lang/String;Ljava/lang/Object;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        114,
+        115
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.addInBoundVariables:(Ljava/util/Map;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        110,
+        111
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.addOutBoundVariable:(Ljava/lang/String;Ljava/lang/Object;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        125,
+        126
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.addOutBoundVariables:(Ljava/util/Map;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        129,
+        130
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.equals:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        231,
+        232,
+        234,
+        235,
+        237,
+        238,
+        240,
+        241,
+        242,
+        243,
+        244,
+        245,
+        246,
+        247,
+        248,
+        249,
+        250,
+        251,
+        252,
+        253,
+        254,
+        255,
+        256,
+        241
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.getAppVersion:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        191
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.getBusinessKey:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        173
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.getClientId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        88
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.getClientName:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        152
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.getClientType:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        162
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.getConnectorType:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        97
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.getExecutionId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        201
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.getId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        52
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.getInBoundVariable:(Ljava/lang/String;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        316,
+        317,
+        318,
+        316
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.getInBoundVariable:(Ljava/lang/String;Ljava/lang/Class;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        324,
+        325,
+        326,
+        324
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.getInBoundVariables:()Ljava/util/Map;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        106
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.getOutBoundVariable:(Ljava/lang/String;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        332,
+        333,
+        334,
+        332
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.getOutBoundVariable:(Ljava/lang/String;Ljava/lang/Class;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        340,
+        341,
+        342,
+        340
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.getOutBoundVariables:()Ljava/util/Map;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        119
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.getParentProcessInstanceId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        182
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.getProcessDefinitionId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        79
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.getProcessDefinitionKey:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        134
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.getProcessDefinitionVersion:()Ljava/lang/Integer;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        143
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.getProcessInstanceId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        70
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.getRootProcessInstanceId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        61
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.hashCode:()I" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        211
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.lambda$getInBoundVariable$0:(Ljava/lang/String;Lorg/activiti/api/runtime/model/impl/ProcessVariablesMap;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        317
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.lambda$getInBoundVariable$1:(Ljava/lang/String;Lorg/activiti/api/runtime/model/impl/ProcessVariablesMap;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        325
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.lambda$getOutBoundVariable$2:(Ljava/lang/String;Lorg/activiti/api/runtime/model/impl/ProcessVariablesMap;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        333
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.lambda$getOutBoundVariable$3:(Ljava/lang/String;Lorg/activiti/api/runtime/model/impl/ProcessVariablesMap;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        341
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.setAppVersion:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        195,
+        196
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.setBusinessKey:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        177,
+        178
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.setClientId:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        92,
+        93
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.setClientName:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        157,
+        158
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.setClientType:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        167,
+        168
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.setConnectorType:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        101,
+        102
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.setExecutionId:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        206,
+        207
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.setId:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        56,
+        57
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.setParentProcessInstanceId:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        186,
+        187
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.setProcessDefinitionId:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        83,
+        84
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.setProcessDefinitionKey:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        138,
+        139
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.setProcessDefinitionVersion:(Ljava/lang/Integer;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        147,
+        148
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.setProcessInstanceId:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        74,
+        75
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.setRootProcessInstanceId:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        65,
+        66
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        261,
+        262,
+        263,
+        264,
+        265,
+        266,
+        267,
+        268,
+        269,
+        270,
+        271,
+        272,
+        273,
+        274,
+        275,
+        276,
+        277,
+        278,
+        279,
+        280,
+        281,
+        282,
+        283,
+        284,
+        285,
+        286,
+        287,
+        288,
+        289,
+        290,
+        291,
+        292,
+        293,
+        294,
+        295,
+        296
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.IntegrationContextImpl.toString:(Ljava/util/Collection;I)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        300,
+        301,
+        302,
+        303,
+        304,
+        305,
+        307,
+        303,
+        309,
+        310
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.JsonNodeToStringConverter.<init>:(Lcom/fasterxml/jackson/databind/ObjectMapper;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        27,
+        28,
+        29
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.JsonNodeToStringConverter.convert:(Lcom/fasterxml/jackson/databind/JsonNode;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        35,
+        36,
+        37
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.JsonNodeToStringConverter.convert:(Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        23
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ListToStringConverter.<init>:(Lcom/fasterxml/jackson/databind/ObjectMapper;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        28,
+        29,
+        30
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ListToStringConverter.convert:(Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        24
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ListToStringConverter.convert:(Ljava/util/List;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        36,
+        37,
+        38
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.LocalDateTimeToStringConverter.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        23
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.LocalDateTimeToStringConverter.convert:(Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        22
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.LocalDateTimeToStringConverter.convert:(Ljava/time/LocalDateTime;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        27
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.LocalDateToStringConverter.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        23
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.LocalDateToStringConverter.convert:(Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        22
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.LocalDateToStringConverter.convert:(Ljava/time/LocalDate;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        27
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MapToStringConverter.<init>:(Lcom/fasterxml/jackson/databind/ObjectMapper;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        28,
+        29,
+        30
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MapToStringConverter.convert:(Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        24
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MapToStringConverter.convert:(Ljava/util/Map;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        36,
+        37,
+        38
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MessageSubscriptionImpl$Builder.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        178,
+        179
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MessageSubscriptionImpl$Builder.<init>:(Lorg/activiti/api/runtime/model/impl/MessageSubscriptionImpl;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T008",
+      "perMethodOutcome" : "T008",
+      "lineNumbers" : [
+        181,
+        182,
+        183,
+        184,
+        185,
+        186,
+        187,
+        188,
+        189,
+        190,
+        191
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MessageSubscriptionImpl$Builder.build:()Lorg/activiti/api/runtime/model/impl/MessageSubscriptionImpl;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        288
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MessageSubscriptionImpl$Builder.withActivityId:(Ljava/lang/String;)Lorg/activiti/api/runtime/model/impl/MessageSubscriptionImpl$Builder;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        269,
+        270
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MessageSubscriptionImpl$Builder.withBusinessKey:(Ljava/lang/String;)Lorg/activiti/api/runtime/model/impl/MessageSubscriptionImpl$Builder;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        249,
+        250
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MessageSubscriptionImpl$Builder.withConfiguration:(Ljava/lang/String;)Lorg/activiti/api/runtime/model/impl/MessageSubscriptionImpl$Builder;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        259,
+        260
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MessageSubscriptionImpl$Builder.withCreated:(Ljava/util/Date;)Lorg/activiti/api/runtime/model/impl/MessageSubscriptionImpl$Builder;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        279,
+        280
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MessageSubscriptionImpl$Builder.withEventName:(Ljava/lang/String;)Lorg/activiti/api/runtime/model/impl/MessageSubscriptionImpl$Builder;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        209,
+        210
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MessageSubscriptionImpl$Builder.withExecutionId:(Ljava/lang/String;)Lorg/activiti/api/runtime/model/impl/MessageSubscriptionImpl$Builder;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        219,
+        220
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MessageSubscriptionImpl$Builder.withId:(Ljava/lang/String;)Lorg/activiti/api/runtime/model/impl/MessageSubscriptionImpl$Builder;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        199,
+        200
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MessageSubscriptionImpl$Builder.withProcessDefinitionId:(Ljava/lang/String;)Lorg/activiti/api/runtime/model/impl/MessageSubscriptionImpl$Builder;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        239,
+        240
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MessageSubscriptionImpl$Builder.withProcessInstanceId:(Ljava/lang/String;)Lorg/activiti/api/runtime/model/impl/MessageSubscriptionImpl$Builder;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        229,
+        230
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MessageSubscriptionImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        47,
+        48
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MessageSubscriptionImpl.<init>:(Lorg/activiti/api/runtime/model/impl/MessageSubscriptionImpl$Builder;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MessageSubscriptionImpl.builder:()Lorg/activiti/api/runtime/model/impl/MessageSubscriptionImpl$Builder;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        150
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MessageSubscriptionImpl.builderFrom:(Lorg/activiti/api/runtime/model/impl/MessageSubscriptionImpl;)Lorg/activiti/api/runtime/model/impl/MessageSubscriptionImpl$Builder;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        159
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MessageSubscriptionImpl.equals:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        96,
+        97,
+        99,
+        100,
+        102,
+        103,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        106
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MessageSubscriptionImpl.getActivityId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        75
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MessageSubscriptionImpl.getBusinessKey:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        141
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MessageSubscriptionImpl.getConfiguration:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        71
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MessageSubscriptionImpl.getCreated:()Ljava/util/Date;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        79
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MessageSubscriptionImpl.getEventName:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        55
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MessageSubscriptionImpl.getExecutionId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        59
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MessageSubscriptionImpl.getId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        51
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MessageSubscriptionImpl.getProcessDefinitionId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        67
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MessageSubscriptionImpl.getProcessInstanceId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        63
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MessageSubscriptionImpl.hashCode:()I" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        84
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.MessageSubscriptionImpl.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "T020",
+      "lineNumbers" : [
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ObjectValue.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        24,
+        25
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ObjectValue.<init>:(Ljava/lang/Object;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        27,
+        28,
+        29
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ObjectValue.getObject:()Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        32
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ObjectValueToStringConverter.<init>:(Lcom/fasterxml/jackson/databind/ObjectMapper;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        31,
+        32,
+        33
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ObjectValueToStringConverter.convert:(Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        26
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ObjectValueToStringConverter.convert:(Lorg/activiti/api/runtime/model/impl/ObjectValue;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        40,
+        42,
+        43,
+        45,
+        46,
+        50,
+        51,
+        52
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessCandidateStarterGroupImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        26,
+        27
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessCandidateStarterGroupImpl.<init>:(Ljava/lang/String;Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        30,
+        31,
+        32
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessCandidateStarterGroupImpl.equals:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        36,
+        37,
+        38,
+        39,
+        40,
+        39
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessCandidateStarterGroupImpl.getGroupId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        50
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessCandidateStarterGroupImpl.hashCode:()I" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        45
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessCandidateStarterImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010",
+      "lineNumbers" : [
+        24,
+        25
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessCandidateStarterImpl.<init>:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010",
+      "lineNumbers" : [
+        27,
+        28,
+        29
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessCandidateStarterImpl.getProcessDefinitionId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        33
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessCandidateStarterUserImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        26,
+        27
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessCandidateStarterUserImpl.<init>:(Ljava/lang/String;Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        30,
+        31,
+        32
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessCandidateStarterUserImpl.equals:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        36,
+        37,
+        38,
+        39,
+        40,
+        39
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessCandidateStarterUserImpl.getUserId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        50
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessCandidateStarterUserImpl.hashCode:()I" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        45
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessDefinitionImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        22
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessDefinitionImpl.equals:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        97,
+        98,
+        100,
+        101,
+        103,
+        104,
+        106,
+        107,
+        108,
+        110,
+        112,
+        114,
+        116,
+        107
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessDefinitionImpl.getCategory:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        88
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessDefinitionImpl.getDescription:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        61
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessDefinitionImpl.getFormKey:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        79
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessDefinitionImpl.getId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        34
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessDefinitionImpl.getKey:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        52
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessDefinitionImpl.getName:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        43
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessDefinitionImpl.getVersion:()I" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        70
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessDefinitionImpl.hashCode:()I" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        122,
+        126,
+        122
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessDefinitionImpl.setCategory:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        92,
+        93
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessDefinitionImpl.setDescription:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        65,
+        66
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessDefinitionImpl.setFormKey:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        83,
+        84
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessDefinitionImpl.setId:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        38,
+        39
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessDefinitionImpl.setKey:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        56,
+        57
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessDefinitionImpl.setName:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        47,
+        48
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessDefinitionImpl.setVersion:(I)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        74,
+        75
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessDefinitionImpl.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "T020",
+      "lineNumbers" : [
+        133
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessDefinitionMetaImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        29,
+        30
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessDefinitionMetaImpl.<init>:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        32,
+        33,
+        34
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessDefinitionMetaImpl.getConnectorsIds:()Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        62
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessDefinitionMetaImpl.getGroupIds:()Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        54
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessDefinitionMetaImpl.getProcessDefinitionKey:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        38
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessDefinitionMetaImpl.getUsersIds:()Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        46
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessDefinitionMetaImpl.setConnectorsIds:(Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        66,
+        67
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessDefinitionMetaImpl.setGroupIds:(Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        58,
+        59
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessDefinitionMetaImpl.setProcessDefinitionKey:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        42,
+        43
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessDefinitionMetaImpl.setUsersIds:(Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        50,
+        51
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        38,
+        39
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceImpl.equals:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        151,
+        152,
+        154,
+        155,
+        157,
+        158,
+        160,
+        161,
+        163,
+        165,
+        167,
+        169,
+        171,
+        173,
+        175,
+        178,
+        180,
+        182,
+        161
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceImpl.getBusinessKey:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        68
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceImpl.getCompletedDate:()Ljava/util/Date;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        58
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceImpl.getId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        43
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceImpl.getInitiator:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        63
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceImpl.getName:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        48
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceImpl.getParentId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        88
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceImpl.getProcessDefinitionId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        78
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceImpl.getProcessDefinitionKey:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        83
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceImpl.getProcessDefinitionName:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        98
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceImpl.getProcessDefinitionVersion:()Ljava/lang/Integer;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        93
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceImpl.getStartDate:()Ljava/util/Date;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        53
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceImpl.getStatus:()Lorg/activiti/api/process/model/ProcessInstance$ProcessInstanceStatus;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        73
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceImpl.hashCode:()I" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        188
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceImpl.setBusinessKey:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        130,
+        131
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceImpl.setCompletedDate:(Ljava/util/Date;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        126,
+        127
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceImpl.setId:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        102,
+        103
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceImpl.setInitiator:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        118,
+        119
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceImpl.setName:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        106,
+        107
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceImpl.setParentId:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        138,
+        139
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceImpl.setProcessDefinitionId:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        110,
+        111
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceImpl.setProcessDefinitionKey:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        114,
+        115
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceImpl.setProcessDefinitionName:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        146,
+        147
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceImpl.setProcessDefinitionVersion:(Ljava/lang/Integer;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        142,
+        143
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceImpl.setStartDate:(Ljava/util/Date;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        122,
+        123
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceImpl.setStatus:(Lorg/activiti/api/process/model/ProcessInstance$ProcessInstanceStatus;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        134,
+        135
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceImpl.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "T020",
+      "lineNumbers" : [
+        205
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceMetaImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        27,
+        28
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceMetaImpl.<init>:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        30,
+        31,
+        32
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceMetaImpl.getActiveActivitiesIds:()Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        45
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceMetaImpl.getProcessInstanceId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        36
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceMetaImpl.setActiveActivitiesIds:(Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        49,
+        50
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessInstanceMetaImpl.setProcessInstanceId:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        40,
+        41
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariableValue$Builder.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T008",
+      "perMethodOutcome" : "T008",
+      "lineNumbers" : [
+        175,
+        176
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariableValue$Builder.build:()Lorg/activiti/api/runtime/model/impl/ProcessVariableValue;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        192
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariableValue$Builder.type:(Ljava/lang/String;)Lorg/activiti/api/runtime/model/impl/ProcessVariableValue$IValueStage;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        180,
+        181
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariableValue$Builder.value:(Ljava/lang/String;)Lorg/activiti/api/runtime/model/impl/ProcessVariableValue$IBuildStage;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        186,
+        187
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariableValue$IBuildStage.build:()Lorg/activiti/api/runtime/model/impl/ProcessVariableValue;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariableValue$ITypeStage.type:(Ljava/lang/String;)Lorg/activiti/api/runtime/model/impl/ProcessVariableValue$IValueStage;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariableValue$IValueStage.value:(Ljava/lang/String;)Lorg/activiti/api/runtime/model/impl/ProcessVariableValue$IBuildStage;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariableValue.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        30
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariableValue.<init>:(Ljava/lang/String;Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        37,
+        38,
+        39,
+        40
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariableValue.<init>:(Lorg/activiti/api/runtime/model/impl/ProcessVariableValue$Builder;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        32,
+        33,
+        34,
+        35
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariableValue.builder:()Lorg/activiti/api/runtime/model/impl/ProcessVariableValue$ITypeStage;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        126
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariableValue.equals:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        57,
+        58,
+        60,
+        61,
+        63,
+        64,
+        66,
+        67
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariableValue.escape:(Ljava/lang/String;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        98,
+        99,
+        100,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        115,
+        100,
+        117,
+        118
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariableValue.getType:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        43
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariableValue.getValue:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        47
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariableValue.hashCode:()I" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        52
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariableValue.toJson:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        84,
+        87,
+        88
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariableValue.toMap:()Ljava/util/Map;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        71,
+        73,
+        74,
+        76
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariableValue.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "T020",
+      "lineNumbers" : [
+        93
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariablesMap.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        20
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariablesMapDeserializer.<clinit>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        32,
+        36
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariablesMapDeserializer.<init>:(Lorg/springframework/core/convert/ConversionService;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        39,
+        40,
+        41
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariablesMapDeserializer.deserialize:(Lcom/fasterxml/jackson/core/JsonParser;Lcom/fasterxml/jackson/databind/DeserializationContext;)Lorg/activiti/api/runtime/model/impl/ProcessVariablesMap;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        46,
+        48,
+        49,
+        50,
+        85
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariablesMapDeserializer.lambda$deserialize$0:(Lorg/activiti/api/runtime/model/impl/ProcessVariablesMap;Ljava/util/Map$Entry;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        51,
+        52,
+        54,
+        55,
+        56,
+        57,
+        59,
+        60,
+        62,
+        63,
+        64,
+        67,
+        68,
+        70,
+        72,
+        76,
+        74,
+        75,
+        77,
+        78,
+        81,
+        83
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariablesMapSerializer.<init>:(Lorg/springframework/core/convert/ConversionService;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        39,
+        41,
+        42
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariablesMapSerializer.buildProcessVariableValue:(Ljava/lang/Object;)Lorg/activiti/api/runtime/model/impl/ProcessVariableValue;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        60,
+        62,
+        63,
+        64,
+        66,
+        67,
+        70,
+        72,
+        75
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariablesMapSerializer.resolveEntryType:(Ljava/lang/Class;Ljava/lang/Object;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        81,
+        82,
+        84,
+        85,
+        88
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariablesMapSerializer.serialize:(Ljava/lang/Object;Lcom/fasterxml/jackson/core/JsonGenerator;Lcom/fasterxml/jackson/databind/SerializerProvider;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        33
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariablesMapSerializer.serialize:(Lorg/activiti/api/runtime/model/impl/ProcessVariablesMap;Lcom/fasterxml/jackson/core/JsonGenerator;Lcom/fasterxml/jackson/databind/SerializerProvider;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        56,
+        57
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariablesMapTypeRegistry.<clinit>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        36,
+        37,
+        38,
+        60,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariablesMapTypeRegistry.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        33
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariablesMapTypeRegistry.canConvert:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        129,
+        131
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariablesMapTypeRegistry.containsType:(Ljava/lang/String;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        135
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariablesMapTypeRegistry.forClass:(Ljava/lang/Class;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        114
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariablesMapTypeRegistry.forType:(Ljava/lang/String;)Ljava/lang/Class;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        106
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariablesMapTypeRegistry.forType:(Ljava/lang/String;Ljava/lang/Class;)Ljava/lang/Class;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        110
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariablesMapTypeRegistry.getContainerType:(Ljava/lang/Class;Ljava/lang/Object;)Ljava/util/Optional;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        123,
+        124,
+        125,
+        123
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariablesMapTypeRegistry.isScalarType:(Ljava/lang/Class;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        118
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.ProcessVariablesMapTypeRegistry.lambda$getContainerType$0:(Ljava/lang/Object;Ljava/lang/Class;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        124
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.SetToStringConverter.<init>:(Lcom/fasterxml/jackson/databind/ObjectMapper;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        28,
+        29,
+        30
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.SetToStringConverter.convert:(Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        24
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.SetToStringConverter.convert:(Ljava/util/Set;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        36,
+        37,
+        38
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageDeploymentDefinitionImpl$Builder.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        99,
+        100
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageDeploymentDefinitionImpl$Builder.<init>:(Lorg/activiti/api/runtime/model/impl/StartMessageDeploymentDefinitionImpl;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T008",
+      "perMethodOutcome" : "T008",
+      "lineNumbers" : [
+        102,
+        103,
+        104,
+        105
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageDeploymentDefinitionImpl$Builder.build:()Lorg/activiti/api/runtime/model/impl/StartMessageDeploymentDefinitionImpl;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        132
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageDeploymentDefinitionImpl$Builder.withMessageSubscription:(Lorg/activiti/api/process/model/StartMessageSubscription;)Lorg/activiti/api/runtime/model/impl/StartMessageDeploymentDefinitionImpl$Builder;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        113,
+        114
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageDeploymentDefinitionImpl$Builder.withProcessDefinition:(Lorg/activiti/api/process/model/ProcessDefinition;)Lorg/activiti/api/runtime/model/impl/StartMessageDeploymentDefinitionImpl$Builder;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        123,
+        124
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageDeploymentDefinitionImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        36
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageDeploymentDefinitionImpl.<init>:(Lorg/activiti/api/runtime/model/impl/StartMessageDeploymentDefinitionImpl$Builder;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        31,
+        32,
+        33,
+        34
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageDeploymentDefinitionImpl.builder:()Lorg/activiti/api/runtime/model/impl/StartMessageDeploymentDefinitionImpl$Builder;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        79
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageDeploymentDefinitionImpl.builderFrom:(Lorg/activiti/api/runtime/model/impl/StartMessageDeploymentDefinitionImpl;)Lorg/activiti/api/runtime/model/impl/StartMessageDeploymentDefinitionImpl$Builder;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        88
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageDeploymentDefinitionImpl.equals:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        53,
+        54,
+        56,
+        57,
+        59,
+        60,
+        62,
+        63,
+        64,
+        63
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageDeploymentDefinitionImpl.getMessageSubscription:()Lorg/activiti/api/process/model/StartMessageSubscription;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        43
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageDeploymentDefinitionImpl.getProcessDefinition:()Lorg/activiti/api/process/model/ProcessDefinition;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        39
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageDeploymentDefinitionImpl.hashCode:()I" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        48
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageDeploymentDefinitionImpl.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "T020",
+      "lineNumbers" : [
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageSubscriptionImpl$Builder.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        147,
+        148
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageSubscriptionImpl$Builder.<init>:(Lorg/activiti/api/runtime/model/impl/StartMessageSubscriptionImpl;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T008",
+      "perMethodOutcome" : "T008",
+      "lineNumbers" : [
+        150,
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        157
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageSubscriptionImpl$Builder.build:()Lorg/activiti/api/runtime/model/impl/StartMessageSubscriptionImpl;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        224
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageSubscriptionImpl$Builder.withActivityId:(Ljava/lang/String;)Lorg/activiti/api/runtime/model/impl/StartMessageSubscriptionImpl$Builder;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        205,
+        206
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageSubscriptionImpl$Builder.withConfiguration:(Ljava/lang/String;)Lorg/activiti/api/runtime/model/impl/StartMessageSubscriptionImpl$Builder;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        195,
+        196
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageSubscriptionImpl$Builder.withCreated:(Ljava/util/Date;)Lorg/activiti/api/runtime/model/impl/StartMessageSubscriptionImpl$Builder;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        215,
+        216
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageSubscriptionImpl$Builder.withEventName:(Ljava/lang/String;)Lorg/activiti/api/runtime/model/impl/StartMessageSubscriptionImpl$Builder;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        175,
+        176
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageSubscriptionImpl$Builder.withId:(Ljava/lang/String;)Lorg/activiti/api/runtime/model/impl/StartMessageSubscriptionImpl$Builder;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        165,
+        166
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageSubscriptionImpl$Builder.withProcessDefinitionId:(Ljava/lang/String;)Lorg/activiti/api/runtime/model/impl/StartMessageSubscriptionImpl$Builder;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        185,
+        186
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageSubscriptionImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        41,
+        42
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageSubscriptionImpl.<init>:(Lorg/activiti/api/runtime/model/impl/StartMessageSubscriptionImpl$Builder;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageSubscriptionImpl.builder:()Lorg/activiti/api/runtime/model/impl/StartMessageSubscriptionImpl$Builder;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        123
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageSubscriptionImpl.builderFrom:(Lorg/activiti/api/runtime/model/impl/StartMessageSubscriptionImpl;)Lorg/activiti/api/runtime/model/impl/StartMessageSubscriptionImpl$Builder;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        132
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageSubscriptionImpl.equals:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        81,
+        82,
+        84,
+        85,
+        87,
+        88,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        91
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageSubscriptionImpl.getActivityId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        61
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageSubscriptionImpl.getConfiguration:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        57
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageSubscriptionImpl.getCreated:()Ljava/util/Date;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        65
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageSubscriptionImpl.getEventName:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        49
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageSubscriptionImpl.getId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        45
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageSubscriptionImpl.getProcessDefinitionId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        53
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageSubscriptionImpl.hashCode:()I" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        71
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StartMessageSubscriptionImpl.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "T020",
+      "lineNumbers" : [
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StringToDateConverter.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        30
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StringToDateConverter.convert:(Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        29
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StringToDateConverter.convert:(Ljava/lang/String;)Ljava/util/Date;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        34,
+        35,
+        37
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StringToJsonNodeConverter.<init>:(Lcom/fasterxml/jackson/databind/ObjectMapper;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        27,
+        28,
+        29
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StringToJsonNodeConverter.convert:(Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        23
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StringToJsonNodeConverter.convert:(Ljava/lang/String;)Lcom/fasterxml/jackson/databind/JsonNode;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        35,
+        36,
+        37
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StringToListConverter.<init>:(Lcom/fasterxml/jackson/databind/ObjectMapper;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        29,
+        30,
+        31
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StringToListConverter.convert:(Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        25
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StringToListConverter.convert:(Ljava/lang/String;)Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        35,
+        36,
+        39,
+        40,
+        41
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StringToLocalDateConverter.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        25
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StringToLocalDateConverter.convert:(Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        24
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StringToLocalDateConverter.convert:(Ljava/lang/String;)Ljava/time/LocalDate;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        29
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StringToLocalDateTimeConverter.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        25
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StringToLocalDateTimeConverter.convert:(Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        24
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StringToLocalDateTimeConverter.convert:(Ljava/lang/String;)Ljava/time/LocalDateTime;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        29
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StringToMapConverter.<init>:(Lcom/fasterxml/jackson/databind/ObjectMapper;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        29,
+        30,
+        31
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StringToMapConverter.convert:(Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        25
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StringToMapConverter.convert:(Ljava/lang/String;)Ljava/util/Map;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        35,
+        38,
+        39,
+        40
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StringToObjectValueConverter.<init>:(Lcom/fasterxml/jackson/databind/ObjectMapper;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        26,
+        27,
+        28
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StringToObjectValueConverter.convert:(Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        22
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StringToObjectValueConverter.convert:(Ljava/lang/String;)Lorg/activiti/api/runtime/model/impl/ObjectValue;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        33,
+        34,
+        35
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StringToSetConverter.<init>:(Lcom/fasterxml/jackson/databind/ObjectMapper;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        29,
+        30,
+        31
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StringToSetConverter.convert:(Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        25
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.StringToSetConverter.convert:(Ljava/lang/String;)Ljava/util/Set;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        35,
+        36,
+        39,
+        40,
+        41
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.VariableDefinitionImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        22
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.VariableDefinitionImpl.equals:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        110
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.VariableDefinitionImpl.getDescription:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        53
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.VariableDefinitionImpl.getDisplay:()Ljava/lang/Boolean;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        80
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.VariableDefinitionImpl.getDisplayName:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        89
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.VariableDefinitionImpl.getId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        35
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.VariableDefinitionImpl.getName:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        44
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.VariableDefinitionImpl.getType:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        62
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.VariableDefinitionImpl.hashCode:()I" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        122
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.VariableDefinitionImpl.isAnalytics:()Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        98
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.VariableDefinitionImpl.isRequired:()Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        71
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.VariableDefinitionImpl.setAnalytics:(Z)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        102,
+        103
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.VariableDefinitionImpl.setDescription:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        57,
+        58
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.VariableDefinitionImpl.setDisplay:(Ljava/lang/Boolean;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        84,
+        85
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.VariableDefinitionImpl.setDisplayName:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        93,
+        94
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.VariableDefinitionImpl.setId:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        39,
+        40
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.VariableDefinitionImpl.setName:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        48,
+        49
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.VariableDefinitionImpl.setRequired:(Z)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        75,
+        76
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.VariableDefinitionImpl.setType:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        66,
+        67
+      ]
+    },
+    "org.activiti.api.runtime.model.impl.VariableDefinitionImpl.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "T020",
+      "lineNumbers" : [
+        127
+      ]
+    }
+  },
+  "validationMetrics" : { }
+}

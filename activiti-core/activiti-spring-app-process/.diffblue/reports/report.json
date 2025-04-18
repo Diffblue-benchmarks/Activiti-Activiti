@@ -1,0 +1,185 @@
+{
+  "meta" : {
+    "reportVersion" : "2.7"
+  },
+  "run" : {
+    "version" : "2025.04.01-e81fef6-licensed",
+    "creationTimestamp" : "2025-04-16T01:45:39.806492+01:00",
+    "command" : "dcover coverage-reports ",
+    "totalTime" : 55.382,
+    "environmentDetectionTime" : 35.854,
+    "indexingTime" : 0.0,
+    "entryPointsTime" : 0.0,
+    "generationTime" : 0.0,
+    "timeToFirstTest" : 55.383,
+    "timeToLastTest" : 55.383,
+    "indexQueryTime" : 0.0,
+    "verificationTime" : 0.0,
+    "validationTime" : 0.0
+  },
+  "codes" : {
+    "T000" : "Method eligible for test creation",
+    "T001" : "Trivial getter",
+    "T005" : "Trivial constructor",
+    "T012" : "Synthetic method"
+  },
+  "summary" : {
+    "classesCount" : 3,
+    "methodsCount" : 9,
+    "cumulativeDiffblueTestCount" : 3,
+    "cumulativeManualTestCount" : 1,
+    "completeTestCount" : 0,
+    "incompleteTestCount" : 0,
+    "skeletonTestCount" : 0,
+    "totalPhysicalLineCount" : 56,
+    "perMethodTestability" : {
+      "T000" : 4,
+      "T001" : 1,
+      "T005" : 3,
+      "T012" : 1
+    },
+    "perMethodOutcome" : {
+      "T000" : 4,
+      "T001" : 1,
+      "T005" : 3,
+      "T012" : 1
+    }
+  },
+  "classes" : {
+    "org.activiti.application.conf.ApplicationProcessAutoConfiguration" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T005" : 1
+      }
+    },
+    "org.activiti.application.deployer.ProcessEntryDeployer" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T005" : 1
+      }
+    },
+    "org.activiti.application.discovery.ProcessEntryDiscovery" : {
+      "methodsCount" : 4,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T001" : 1,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T001" : 1,
+        "T005" : 1,
+        "T012" : 1
+      }
+    }
+  },
+  "methods" : {
+    "org.activiti.application.conf.ApplicationProcessAutoConfiguration.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        27
+      ]
+    },
+    "org.activiti.application.conf.ApplicationProcessAutoConfiguration.processEntryDeployer:(Lorg/activiti/engine/RepositoryService;)Lorg/activiti/application/deployer/ApplicationEntryDeployer;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        36
+      ]
+    },
+    "org.activiti.application.conf.ApplicationProcessAutoConfiguration.processEntryDiscovery:()Lorg/activiti/application/ApplicationEntryDiscovery;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        31
+      ]
+    },
+    "org.activiti.application.deployer.ProcessEntryDeployer.<init>:(Lorg/activiti/engine/RepositoryService;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        30,
+        31,
+        32
+      ]
+    },
+    "org.activiti.application.deployer.ProcessEntryDeployer.deployEntries:(Lorg/activiti/application/ApplicationContent;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42
+      ]
+    },
+    "org.activiti.application.discovery.ProcessEntryDiscovery.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        23
+      ]
+    },
+    "org.activiti.application.discovery.ProcessEntryDiscovery.filter:(Ljava/util/zip/ZipEntry;)Ljava/util/function/Predicate;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        29
+      ]
+    },
+    "org.activiti.application.discovery.ProcessEntryDiscovery.getEntryType:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        34
+      ]
+    },
+    "org.activiti.application.discovery.ProcessEntryDiscovery.lambda$filter$0:(Ljava/util/zip/ZipEntry;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        29
+      ]
+    }
+  },
+  "validationMetrics" : { }
+}

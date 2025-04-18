@@ -1,0 +1,186 @@
+{
+  "meta" : {
+    "reportVersion" : "2.7"
+  },
+  "run" : {
+    "version" : "2025.04.01-e81fef6-licensed",
+    "creationTimestamp" : "2025-04-16T00:37:37.118071+01:00",
+    "command" : "dcover coverage-reports ",
+    "totalTime" : 57.405,
+    "environmentDetectionTime" : 35.715,
+    "indexingTime" : 0.0,
+    "entryPointsTime" : 0.0,
+    "generationTime" : 0.0,
+    "timeToFirstTest" : 57.406,
+    "timeToLastTest" : 57.406,
+    "indexQueryTime" : 0.0,
+    "verificationTime" : 0.0,
+    "validationTime" : 0.0
+  },
+  "codes" : {
+    "T000" : "Method eligible for test creation",
+    "T003" : "Private method",
+    "T005" : "Trivial constructor"
+  },
+  "summary" : {
+    "classesCount" : 2,
+    "methodsCount" : 9,
+    "cumulativeDiffblueTestCount" : 11,
+    "cumulativeManualTestCount" : 4,
+    "completeTestCount" : 0,
+    "incompleteTestCount" : 0,
+    "skeletonTestCount" : 0,
+    "totalPhysicalLineCount" : 95,
+    "perMethodTestability" : {
+      "T000" : 5,
+      "T003" : 2,
+      "T005" : 2
+    },
+    "perMethodOutcome" : {
+      "T000" : 5,
+      "T003" : 2,
+      "T005" : 2
+    }
+  },
+  "classes" : {
+    "org.activiti.core.common.spring.connector.ConnectorDefinitionService" : {
+      "methodsCount" : 5,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T003" : 2,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T003" : 2,
+        "T005" : 1
+      }
+    },
+    "org.activiti.core.common.spring.connector.autoconfigure.ConnectorAutoConfiguration" : {
+      "methodsCount" : 4,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 3,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 3,
+        "T005" : 1
+      }
+    }
+  },
+  "methods" : {
+    "org.activiti.core.common.spring.connector.ConnectorDefinitionService.<init>:(Ljava/lang/String;Lcom/fasterxml/jackson/databind/ObjectMapper;Lorg/springframework/core/io/support/ResourcePatternResolver;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        39,
+        40,
+        41,
+        42,
+        43
+      ]
+    },
+    "org.activiti.core.common.spring.connector.ConnectorDefinitionService.get:()Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        63,
+        64,
+        65,
+        66,
+        67,
+        66,
+        69,
+        71
+      ]
+    },
+    "org.activiti.core.common.spring.connector.ConnectorDefinitionService.read:(Ljava/io/InputStream;)Lorg/activiti/core/common/model/connector/ConnectorDefinition;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        57
+      ]
+    },
+    "org.activiti.core.common.spring.connector.ConnectorDefinitionService.retrieveResources:()Ljava/util/Optional;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        47,
+        49,
+        50,
+        51,
+        53
+      ]
+    },
+    "org.activiti.core.common.spring.connector.ConnectorDefinitionService.validate:(Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        75,
+        76,
+        78,
+        79,
+        80,
+        81,
+        83,
+        84,
+        86,
+        87,
+        89,
+        91
+      ]
+    },
+    "org.activiti.core.common.spring.connector.autoconfigure.ConnectorAutoConfiguration.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        34
+      ]
+    },
+    "org.activiti.core.common.spring.connector.autoconfigure.ConnectorAutoConfiguration.connectorDefinitionService:(Ljava/lang/String;Lcom/fasterxml/jackson/databind/ObjectMapper;Lorg/springframework/core/io/support/ResourcePatternResolver;)Lorg/activiti/core/common/spring/connector/ConnectorDefinitionService;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        46
+      ]
+    },
+    "org.activiti.core.common.spring.connector.autoconfigure.ConnectorAutoConfiguration.connectorDefinitions:(Lorg/activiti/core/common/spring/connector/ConnectorDefinitionService;)Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        52,
+        53
+      ]
+    },
+    "org.activiti.core.common.spring.connector.autoconfigure.ConnectorAutoConfiguration.objectMapper:()Lcom/fasterxml/jackson/databind/ObjectMapper;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        40
+      ]
+    }
+  },
+  "validationMetrics" : { }
+}

@@ -1,0 +1,868 @@
+{
+  "meta" : {
+    "reportVersion" : "2.7"
+  },
+  "run" : {
+    "version" : "2025.04.01-e81fef6-licensed",
+    "creationTimestamp" : "2025-04-16T00:50:49.161714+01:00",
+    "command" : "dcover coverage-reports ",
+    "totalTime" : 47.907,
+    "environmentDetectionTime" : 35.403,
+    "indexingTime" : 0.0,
+    "entryPointsTime" : 0.0,
+    "generationTime" : 0.0,
+    "timeToFirstTest" : 47.907,
+    "timeToLastTest" : 47.907,
+    "indexQueryTime" : 0.0,
+    "verificationTime" : 0.0,
+    "validationTime" : 0.0
+  },
+  "codes" : {
+    "T000" : "Method eligible for test creation",
+    "T001" : "Trivial getter",
+    "T002" : "Trivial setter",
+    "T004" : "In anonymous inner class",
+    "T005" : "Trivial constructor",
+    "T010" : "Abstract or interface method",
+    "T020" : "Other trivial method"
+  },
+  "summary" : {
+    "classesCount" : 6,
+    "methodsCount" : 67,
+    "cumulativeDiffblueTestCount" : 47,
+    "cumulativeManualTestCount" : 0,
+    "completeTestCount" : 0,
+    "incompleteTestCount" : 0,
+    "skeletonTestCount" : 0,
+    "totalPhysicalLineCount" : 447,
+    "perMethodTestability" : {
+      "T000" : 9,
+      "T001" : 24,
+      "T002" : 22,
+      "T004" : 2,
+      "T005" : 7,
+      "T010" : 2,
+      "T020" : 1
+    },
+    "perMethodOutcome" : {
+      "T000" : 9,
+      "T001" : 24,
+      "T002" : 22,
+      "T004" : 2,
+      "T005" : 7,
+      "T010" : 2,
+      "T020" : 1
+    }
+  },
+  "classes" : {
+    "org.activiti.api.task.conf.impl.TaskModelAutoConfiguration" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T005" : 1
+      }
+    },
+    "org.activiti.api.task.conf.impl.TaskModelAutoConfiguration$1" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T004" : 2
+      },
+      "perMethodOutcome" : {
+        "T004" : 2
+      }
+    },
+    "org.activiti.api.task.model.impl.TaskCandidateGroupImpl" : {
+      "methodsCount" : 5,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T001" : 1,
+        "T005" : 2
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T001" : 1,
+        "T005" : 2
+      }
+    },
+    "org.activiti.api.task.model.impl.TaskCandidateImpl" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T010" : 2
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T010" : 2
+      }
+    },
+    "org.activiti.api.task.model.impl.TaskCandidateUserImpl" : {
+      "methodsCount" : 5,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T001" : 1,
+        "T005" : 2
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T001" : 1,
+        "T005" : 2
+      }
+    },
+    "org.activiti.api.task.model.impl.TaskImpl" : {
+      "methodsCount" : 50,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 3,
+        "T001" : 22,
+        "T002" : 22,
+        "T005" : 2,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 3,
+        "T001" : 22,
+        "T002" : 22,
+        "T005" : 2,
+        "T020" : 1
+      }
+    }
+  },
+  "methods" : {
+    "org.activiti.api.task.conf.impl.TaskModelAutoConfiguration$1.<init>:(Lorg/activiti/api/task/conf/impl/TaskModelAutoConfiguration;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T004",
+      "perMethodOutcome" : "T004",
+      "lineNumbers" : [
+        56
+      ]
+    },
+    "org.activiti.api.task.conf.impl.TaskModelAutoConfiguration$1.resolveAbstractType:(Lcom/fasterxml/jackson/databind/DeserializationConfig;Lcom/fasterxml/jackson/databind/BeanDescription;)Lcom/fasterxml/jackson/databind/JavaType;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T004",
+      "perMethodOutcome" : "T004",
+      "lineNumbers" : [
+        62,
+        63,
+        62
+      ]
+    },
+    "org.activiti.api.task.conf.impl.TaskModelAutoConfiguration.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        49
+      ]
+    },
+    "org.activiti.api.task.conf.impl.TaskModelAutoConfiguration.customizeTaskModelObjectMapper:()Lcom/fasterxml/jackson/databind/Module;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        54,
+        55,
+        56,
+        66,
+        68,
+        70,
+        73,
+        74,
+        73,
+        76,
+        77,
+        76,
+        79,
+        80,
+        79,
+        82,
+        83,
+        82,
+        85,
+        86,
+        85,
+        88,
+        89,
+        88,
+        91,
+        92,
+        91,
+        94,
+        95,
+        94,
+        97,
+        98,
+        97,
+        100,
+        101,
+        100,
+        103,
+        105
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskCandidateGroupImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        26,
+        27
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskCandidateGroupImpl.<init>:(Ljava/lang/String;Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        30,
+        31,
+        32
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskCandidateGroupImpl.equals:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        42,
+        43,
+        45,
+        46,
+        48,
+        49,
+        50,
+        49
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskCandidateGroupImpl.getGroupId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        37
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskCandidateGroupImpl.hashCode:()I" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        55
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskCandidateImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010",
+      "lineNumbers" : [
+        26,
+        27
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskCandidateImpl.<init>:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010",
+      "lineNumbers" : [
+        29,
+        30,
+        31
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskCandidateImpl.getTaskId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        35
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskCandidateUserImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        26,
+        28
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskCandidateUserImpl.<init>:(Ljava/lang/String;Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        31,
+        32,
+        33
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskCandidateUserImpl.equals:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        42,
+        43,
+        45,
+        46,
+        48,
+        49,
+        50,
+        49
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskCandidateUserImpl.getUserId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        37
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskCandidateUserImpl.hashCode:()I" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        55
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        50,
+        51
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.<init>:(Ljava/lang/String;Ljava/lang/String;Lorg/activiti/api/task/model/Task$TaskStatus;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        55,
+        56,
+        57,
+        58,
+        59
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.equals:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        265,
+        266,
+        268,
+        269,
+        271,
+        272,
+        274,
+        275,
+        276,
+        278,
+        281,
+        283,
+        285,
+        287,
+        289,
+        291,
+        293,
+        295,
+        297,
+        299,
+        301,
+        303,
+        305,
+        307,
+        309,
+        311,
+        275
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.getAssignee:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        81
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.getBusinessKey:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        234
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.getCandidateGroups:()Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        99
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.getCandidateUsers:()Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        90
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.getClaimedDate:()Ljava/util/Date;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        135
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.getCompletedBy:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        256
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.getCompletedDate:()Ljava/util/Date;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        207
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.getCreatedDate:()Ljava/util/Date;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        126
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.getDescription:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        117
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.getDueDate:()Ljava/util/Date;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        144
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.getDuration:()Ljava/lang/Long;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        216
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.getFormKey:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        198
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.getId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        67
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.getName:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        108
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.getOwner:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        72
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.getParentTaskId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        185
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.getPriority:()I" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        153
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.getProcessDefinitionId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        162
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.getProcessDefinitionVersion:()Ljava/lang/Integer;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        225
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.getProcessInstanceId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        171
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.getStatus:()Lorg/activiti/api/task/model/Task$TaskStatus;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        180
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.getTaskDefinitionKey:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        248
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.hashCode:()I" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        317,
+        327,
+        317
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.isStandalone:()Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        239
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.setAssignee:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        85,
+        86
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.setBusinessKey:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        243,
+        244
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.setCandidateGroups:(Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        103,
+        104
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.setCandidateUsers:(Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        94,
+        95
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.setClaimedDate:(Ljava/util/Date;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        139,
+        140
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.setCompletedBy:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        259,
+        260
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.setCompletedDate:(Ljava/util/Date;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        211,
+        212
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.setCreatedDate:(Ljava/util/Date;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        130,
+        131
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.setDescription:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        121,
+        122
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.setDueDate:(Ljava/util/Date;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        148,
+        149
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.setDuration:(Ljava/lang/Long;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        220,
+        221
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.setFormKey:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        202,
+        203
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.setId:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        62,
+        63
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.setName:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        112,
+        113
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.setOwner:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        76,
+        77
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.setParentTaskId:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        189,
+        190
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.setPriority:(I)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        157,
+        158
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.setProcessDefinitionId:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        166,
+        167
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.setProcessDefinitionVersion:(Ljava/lang/Integer;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        229,
+        230
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.setProcessInstanceId:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        175,
+        176
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.setStatus:(Lorg/activiti/api/task/model/Task$TaskStatus;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        193,
+        194
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.setTaskDefinitionKey:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        252,
+        253
+      ]
+    },
+    "org.activiti.api.task.model.impl.TaskImpl.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "T020",
+      "lineNumbers" : [
+        342
+      ]
+    }
+  },
+  "validationMetrics" : { }
+}

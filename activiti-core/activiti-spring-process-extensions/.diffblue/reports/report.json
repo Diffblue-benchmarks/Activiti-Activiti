@@ -1,0 +1,2709 @@
+{
+  "meta" : {
+    "reportVersion" : "2.7"
+  },
+  "run" : {
+    "version" : "2025.04.01-e81fef6-licensed",
+    "creationTimestamp" : "2025-04-14T18:14:10.334573+01:00",
+    "command" : "dcover create --exclude-modules org.activiti:activiti-dependency-check --exclude-modules org.activiti:activiti-api-dependencies --exclude-modules org.activiti:activiti-core-common-dependencies --exclude-modules org.activiti:activiti-core-dependencies --exclude-modules org.activiti:activiti-dependencies --exclude-modules org.activiti:activiti-spring-conformance-set0 --exclude-modules org.activiti:activiti-spring-conformance-set1 --exclude-modules org.activiti:activiti-spring-conformance-set2 --exclude-modules org.activiti:activiti-spring-conformance-set3 --exclude-modules org.activiti:activiti-spring-conformance-set4 --exclude-modules org.activiti:activiti-spring-conformance-set5 --exclude-modules org.activiti:activiti-spring-conformance-variables --exclude-modules org.activiti:activiti-spring-conformance-signals --exclude-modules org.activiti:activiti-api-process-runtime --exclude-modules org.activiti:activiti-api-task-runtime --exclude-modules org.activiti:activiti-mutation-aggregation",
+    "totalTime" : 59.857,
+    "environmentDetectionTime" : 0.316,
+    "indexingTime" : 0.289,
+    "entryPointsTime" : 0.31,
+    "generationTime" : 51344.225,
+    "timeToFirstTest" : 54073.464,
+    "timeToLastTest" : 53520.048,
+    "indexQueryTime" : 3.829,
+    "verificationTime" : 899.997,
+    "validationTime" : 5.08
+  },
+  "codes" : {
+    "R000" : "Success",
+    "R002" : "Missing observers",
+    "R005" : "Unable to load class",
+    "R013" : "No inputs found that don't throw a trivial exception",
+    "T000" : "Method eligible for test creation",
+    "T001" : "Trivial getter",
+    "T002" : "Trivial setter",
+    "T003" : "Private method",
+    "T005" : "Trivial constructor",
+    "T010" : "Abstract or interface method",
+    "T012" : "Synthetic method",
+    "T020" : "Other trivial method",
+    "T021" : "Empty method body",
+    "V000" : "Validated successfully"
+  },
+  "summary" : {
+    "classesCount" : 29,
+    "methodsCount" : 187,
+    "cumulativeDiffblueTestCount" : 0,
+    "cumulativeManualTestCount" : 0,
+    "completeTestCount" : 71,
+    "incompleteTestCount" : 0,
+    "skeletonTestCount" : 0,
+    "totalPhysicalLineCount" : 0,
+    "perMethodTestability" : {
+      "T000" : 56,
+      "T001" : 30,
+      "T002" : 29,
+      "T003" : 10,
+      "T005" : 22,
+      "T010" : 2,
+      "T012" : 35,
+      "T020" : 2,
+      "T021" : 1
+    },
+    "perMethodOutcome" : {
+      "R000" : 96,
+      "R002" : 2,
+      "R005" : 40,
+      "R013" : 2,
+      "T003" : 10,
+      "T010" : 2,
+      "T012" : 35
+    },
+    "perTestOutcome" : {
+      "R000" : 71
+    },
+    "perTestValidation" : {
+      "V000" : 7743
+    }
+  },
+  "classes" : {
+    "org.activiti.spring.process.CachingProcessExtensionService" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R005" : 2
+      }
+    },
+    "org.activiti.spring.process.ProcessExtensionResourceFinderDescriptor" : {
+      "methodsCount" : 7,
+      "completeTestCount" : 8,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 4,
+        "T001" : 2,
+        "T021" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 7
+      },
+      "perTestOutcome" : {
+        "R000" : 8
+      }
+    },
+    "org.activiti.spring.process.ProcessExtensionResourceReader" : {
+      "methodsCount" : 6,
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T003" : 2,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "R002" : 1,
+        "T003" : 2,
+        "T012" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 3
+      }
+    },
+    "org.activiti.spring.process.ProcessExtensionService" : {
+      "methodsCount" : 9,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 4,
+        "T002" : 1,
+        "T003" : 2,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "R005" : 6,
+        "T003" : 2,
+        "T012" : 1
+      }
+    },
+    "org.activiti.spring.process.conf.ProcessExtensionsAutoConfiguration" : {
+      "methodsCount" : 12,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 9,
+        "T005" : 1,
+        "T012" : 2
+      },
+      "perMethodOutcome" : {
+        "R005" : 10,
+        "T012" : 2
+      }
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition" : {
+      "methodsCount" : 13,
+      "completeTestCount" : 10,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T001" : 4,
+        "T002" : 4,
+        "T005" : 2,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 13
+      },
+      "perTestOutcome" : {
+        "R000" : 10
+      }
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition$AssignmentEnum" : {
+      "methodsCount" : 5,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T003" : 1,
+        "T012" : 4
+      },
+      "perMethodOutcome" : {
+        "T003" : 1,
+        "T012" : 4
+      }
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition$AssignmentMode" : {
+      "methodsCount" : 5,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T003" : 1,
+        "T012" : 4
+      },
+      "perMethodOutcome" : {
+        "T003" : 1,
+        "T012" : 4
+      }
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition$AssignmentType" : {
+      "methodsCount" : 5,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T003" : 1,
+        "T012" : 4
+      },
+      "perMethodOutcome" : {
+        "T003" : 1,
+        "T012" : 4
+      }
+    },
+    "org.activiti.spring.process.model.ConstantDefinition" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T001" : 1,
+        "T002" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 3
+      },
+      "perTestOutcome" : {
+        "R000" : 1
+      }
+    },
+    "org.activiti.spring.process.model.Extension" : {
+      "methodsCount" : 21,
+      "completeTestCount" : 14,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 10,
+        "T001" : 5,
+        "T002" : 5,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 18,
+        "R013" : 2,
+        "T012" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 14
+      }
+    },
+    "org.activiti.spring.process.model.Mapping" : {
+      "methodsCount" : 5,
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T001" : 2,
+        "T002" : 2,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 5
+      },
+      "perTestOutcome" : {
+        "R000" : 1
+      }
+    },
+    "org.activiti.spring.process.model.Mapping$SourceMappingType" : {
+      "methodsCount" : 5,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T003" : 1,
+        "T012" : 4
+      },
+      "perMethodOutcome" : {
+        "T003" : 1,
+        "T012" : 4
+      }
+    },
+    "org.activiti.spring.process.model.ProcessConstantsMapping" : {
+      "methodsCount" : 1,
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 1
+      }
+    },
+    "org.activiti.spring.process.model.ProcessExtensionModel" : {
+      "methodsCount" : 6,
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T001" : 2,
+        "T002" : 2,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 6
+      },
+      "perTestOutcome" : {
+        "R000" : 2
+      }
+    },
+    "org.activiti.spring.process.model.ProcessVariablesMapping" : {
+      "methodsCount" : 8,
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T001" : 3,
+        "T002" : 3,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 8
+      },
+      "perTestOutcome" : {
+        "R000" : 2
+      }
+    },
+    "org.activiti.spring.process.model.ProcessVariablesMapping$MappingType" : {
+      "methodsCount" : 5,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T003" : 1,
+        "T012" : 4
+      },
+      "perMethodOutcome" : {
+        "T003" : 1,
+        "T012" : 4
+      }
+    },
+    "org.activiti.spring.process.model.TaskTemplateDefinition" : {
+      "methodsCount" : 7,
+      "completeTestCount" : 7,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T001" : 2,
+        "T002" : 2,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 7
+      },
+      "perTestOutcome" : {
+        "R000" : 7
+      }
+    },
+    "org.activiti.spring.process.model.TemplateDefinition" : {
+      "methodsCount" : 13,
+      "completeTestCount" : 10,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T001" : 4,
+        "T002" : 4,
+        "T005" : 2,
+        "T020" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 13
+      },
+      "perTestOutcome" : {
+        "R000" : 10
+      }
+    },
+    "org.activiti.spring.process.model.TemplateDefinition$TemplateType" : {
+      "methodsCount" : 5,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T003" : 1,
+        "T012" : 4
+      },
+      "perMethodOutcome" : {
+        "T003" : 1,
+        "T012" : 4
+      }
+    },
+    "org.activiti.spring.process.model.TemplatesDefinition" : {
+      "methodsCount" : 9,
+      "completeTestCount" : 10,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 4,
+        "T001" : 2,
+        "T002" : 2,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 9
+      },
+      "perTestOutcome" : {
+        "R000" : 10
+      }
+    },
+    "org.activiti.spring.process.model.VariableDefinition" : {
+      "methodsCount" : 4,
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T001" : 1,
+        "T002" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 4
+      },
+      "perTestOutcome" : {
+        "R000" : 2
+      }
+    },
+    "org.activiti.spring.process.variable.VariableParsingService" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "R005" : 2,
+        "T012" : 1
+      }
+    },
+    "org.activiti.spring.process.variable.VariableValidationService" : {
+      "methodsCount" : 4,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "R002" : 1,
+        "R005" : 2,
+        "T012" : 1
+      }
+    },
+    "org.activiti.spring.process.variable.types.BigDecimalVariableType" : {
+      "methodsCount" : 4,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "R005" : 3,
+        "T012" : 1
+      }
+    },
+    "org.activiti.spring.process.variable.types.DateVariableType" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R005" : 3
+      }
+    },
+    "org.activiti.spring.process.variable.types.JavaObjectVariableType" : {
+      "methodsCount" : 5,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T001" : 1,
+        "T002" : 1,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "R005" : 4,
+        "T012" : 1
+      }
+    },
+    "org.activiti.spring.process.variable.types.JsonObjectVariableType" : {
+      "methodsCount" : 5,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T001" : 1,
+        "T002" : 1,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "R005" : 4,
+        "T012" : 1
+      }
+    },
+    "org.activiti.spring.process.variable.types.VariableType" : {
+      "methodsCount" : 7,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 4,
+        "T010" : 2,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "R005" : 4,
+        "T010" : 2,
+        "T012" : 1
+      }
+    }
+  },
+  "methods" : {
+    "org.activiti.spring.process.CachingProcessExtensionService.<init>:(Lorg/activiti/spring/process/ProcessExtensionService;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        26,
+        27,
+        28
+      ]
+    },
+    "org.activiti.spring.process.CachingProcessExtensionService.getExtensionsForId:(Ljava/lang/String;)Lorg/activiti/spring/process/model/Extension;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        32
+      ]
+    },
+    "org.activiti.spring.process.ProcessExtensionResourceFinderDescriptor.<init>:(ZLjava/lang/String;Ljava/lang/String;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        32,
+        34,
+        35,
+        36,
+        37,
+        38
+      ]
+    },
+    "org.activiti.spring.process.ProcessExtensionResourceFinderDescriptor.getLocationPrefix:()Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        47
+      ]
+    },
+    "org.activiti.spring.process.ProcessExtensionResourceFinderDescriptor.getLocationSuffixes:()Ljava/util/List;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        42
+      ]
+    },
+    "org.activiti.spring.process.ProcessExtensionResourceFinderDescriptor.getMsgForEmptyResources:()Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        57
+      ]
+    },
+    "org.activiti.spring.process.ProcessExtensionResourceFinderDescriptor.getMsgForResourcesFound:(Ljava/util/List;)Ljava/lang/String;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        62
+      ]
+    },
+    "org.activiti.spring.process.ProcessExtensionResourceFinderDescriptor.shouldLookUpResources:()Z" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        52
+      ]
+    },
+    "org.activiti.spring.process.ProcessExtensionResourceFinderDescriptor.validate:(Ljava/util/List;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T021",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        68
+      ]
+    },
+    "org.activiti.spring.process.ProcessExtensionResourceReader.<init>:(Lcom/fasterxml/jackson/databind/ObjectMapper;Ljava/util/Map;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        37,
+        38,
+        39,
+        40
+      ]
+    },
+    "org.activiti.spring.process.ProcessExtensionResourceReader.convertJsonVariables:(Lorg/activiti/spring/process/model/ProcessExtensionModel;)Lorg/activiti/spring/process/model/ProcessExtensionModel;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        68,
+        71
+      ]
+    },
+    "org.activiti.spring.process.ProcessExtensionResourceReader.getResourceNameSelector:()Ljava/util/function/Predicate;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        44
+      ]
+    },
+    "org.activiti.spring.process.ProcessExtensionResourceReader.lambda$getResourceNameSelector$0:(Ljava/lang/String;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        44
+      ]
+    },
+    "org.activiti.spring.process.ProcessExtensionResourceReader.read:(Ljava/io/InputStream;)Lorg/activiti/spring/process/model/ProcessExtensionModel;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        49,
+        50,
+        53
+      ]
+    },
+    "org.activiti.spring.process.ProcessExtensionResourceReader.saveVariableAsJsonObject:(Lorg/activiti/spring/process/model/Extension;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        75,
+        76,
+        77,
+        80,
+        81
+      ]
+    },
+    "org.activiti.spring.process.ProcessExtensionService.<clinit>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        35
+      ]
+    },
+    "org.activiti.spring.process.ProcessExtensionService.<init>:(Lorg/activiti/spring/resources/DeploymentResourceLoader;Lorg/activiti/spring/process/ProcessExtensionResourceReader;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        39,
+        36,
+        41,
+        42,
+        43
+      ]
+    },
+    "org.activiti.spring.process.ProcessExtensionService.buildProcessDefinitionAndExtensionMap:(Ljava/util/List;)Ljava/util/Map;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        60,
+        61,
+        62,
+        63,
+        65
+      ]
+    },
+    "org.activiti.spring.process.ProcessExtensionService.getExtensionsFor:(Lorg/activiti/engine/repository/ProcessDefinition;)Lorg/activiti/spring/process/model/Extension;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        78,
+        79,
+        81
+      ]
+    },
+    "org.activiti.spring.process.ProcessExtensionService.getExtensionsForId:(Ljava/lang/String;)Lorg/activiti/spring/process/model/Extension;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        85,
+        87,
+        88
+      ]
+    },
+    "org.activiti.spring.process.ProcessExtensionService.getProcessExtensionsForDeploymentId:(Ljava/lang/String;)Ljava/util/Map;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        46,
+        47,
+        48,
+        51,
+        54,
+        55,
+        56
+      ]
+    },
+    "org.activiti.spring.process.ProcessExtensionService.hasExtensionsFor:(Ljava/lang/String;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        73,
+        74
+      ]
+    },
+    "org.activiti.spring.process.ProcessExtensionService.hasExtensionsFor:(Lorg/activiti/engine/repository/ProcessDefinition;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        69
+      ]
+    },
+    "org.activiti.spring.process.ProcessExtensionService.setRepositoryService:(Lorg/activiti/engine/RepositoryService;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        92,
+        93
+      ]
+    },
+    "org.activiti.spring.process.conf.ProcessExtensionsAutoConfiguration.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        42
+      ]
+    },
+    "org.activiti.spring.process.conf.ProcessExtensionsAutoConfiguration.cachingProcessExtensionService:(Lorg/activiti/spring/process/ProcessExtensionService;)Lorg/activiti/spring/process/CachingProcessExtensionService;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        110
+      ]
+    },
+    "org.activiti.spring.process.conf.ProcessExtensionsAutoConfiguration.deploymentResourceLoader:()Lorg/activiti/spring/resources/DeploymentResourceLoader;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        47
+      ]
+    },
+    "org.activiti.spring.process.conf.ProcessExtensionsAutoConfiguration.initRepositoryServiceForDeploymentResourceLoader:(Lorg/activiti/engine/RepositoryService;Lorg/activiti/spring/resources/DeploymentResourceLoader;)Lorg/springframework/beans/factory/InitializingBean;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        75
+      ]
+    },
+    "org.activiti.spring.process.conf.ProcessExtensionsAutoConfiguration.initRepositoryServiceForProcessExtensionService:(Lorg/activiti/engine/RepositoryService;Lorg/activiti/spring/process/ProcessExtensionService;)Lorg/springframework/beans/factory/InitializingBean;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        69
+      ]
+    },
+    "org.activiti.spring.process.conf.ProcessExtensionsAutoConfiguration.lambda$initRepositoryServiceForDeploymentResourceLoader$1:(Lorg/activiti/spring/resources/DeploymentResourceLoader;Lorg/activiti/engine/RepositoryService;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        75
+      ]
+    },
+    "org.activiti.spring.process.conf.ProcessExtensionsAutoConfiguration.lambda$initRepositoryServiceForProcessExtensionService$0:(Lorg/activiti/spring/process/ProcessExtensionService;Lorg/activiti/engine/RepositoryService;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        69
+      ]
+    },
+    "org.activiti.spring.process.conf.ProcessExtensionsAutoConfiguration.processExtensionResourceReader:(Lcom/fasterxml/jackson/databind/ObjectMapper;Ljava/util/Map;)Lorg/activiti/spring/process/ProcessExtensionResourceReader;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        54
+      ]
+    },
+    "org.activiti.spring.process.conf.ProcessExtensionsAutoConfiguration.processExtensionService:(Lorg/activiti/spring/process/ProcessExtensionResourceReader;Lorg/activiti/spring/resources/DeploymentResourceLoader;)Lorg/activiti/spring/process/ProcessExtensionService;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        61
+      ]
+    },
+    "org.activiti.spring.process.conf.ProcessExtensionsAutoConfiguration.variableParsingService:(Ljava/util/Map;)Lorg/activiti/spring/process/variable/VariableParsingService;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        104
+      ]
+    },
+    "org.activiti.spring.process.conf.ProcessExtensionsAutoConfiguration.variableTypeMap:(Lcom/fasterxml/jackson/databind/ObjectMapper;Lorg/activiti/common/util/DateFormatterProvider;)Ljava/util/Map;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94
+      ]
+    },
+    "org.activiti.spring.process.conf.ProcessExtensionsAutoConfiguration.variableValidationService:(Ljava/util/Map;)Lorg/activiti/spring/process/variable/VariableValidationService;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        99
+      ]
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition$AssignmentEnum.$values:()[Lorg/activiti/spring/process/model/AssignmentDefinition$AssignmentEnum;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        22
+      ]
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition$AssignmentEnum.<clinit>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        23,
+        24,
+        22
+      ]
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition$AssignmentEnum.<init>:(Ljava/lang/String;ILjava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        28,
+        29,
+        30
+      ]
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition$AssignmentEnum.valueOf:(Ljava/lang/String;)Lorg/activiti/spring/process/model/AssignmentDefinition$AssignmentEnum;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        22
+      ]
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition$AssignmentEnum.values:()[Lorg/activiti/spring/process/model/AssignmentDefinition$AssignmentEnum;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        22
+      ]
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition$AssignmentMode.$values:()[Lorg/activiti/spring/process/model/AssignmentDefinition$AssignmentMode;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        46
+      ]
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition$AssignmentMode.<clinit>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        47,
+        48,
+        46
+      ]
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition$AssignmentMode.<init>:(Ljava/lang/String;ILjava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        52,
+        53,
+        54
+      ]
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition$AssignmentMode.valueOf:(Ljava/lang/String;)Lorg/activiti/spring/process/model/AssignmentDefinition$AssignmentMode;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        46
+      ]
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition$AssignmentMode.values:()[Lorg/activiti/spring/process/model/AssignmentDefinition$AssignmentMode;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        46
+      ]
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition$AssignmentType.$values:()[Lorg/activiti/spring/process/model/AssignmentDefinition$AssignmentType;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        33
+      ]
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition$AssignmentType.<clinit>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        34,
+        35,
+        36,
+        33
+      ]
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition$AssignmentType.<init>:(Ljava/lang/String;ILjava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        40,
+        41,
+        42
+      ]
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition$AssignmentType.valueOf:(Ljava/lang/String;)Lorg/activiti/spring/process/model/AssignmentDefinition$AssignmentType;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        33
+      ]
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition$AssignmentType.values:()[Lorg/activiti/spring/process/model/AssignmentDefinition$AssignmentType;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        33
+      ]
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition.<init>:()V" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        64,
+        65
+      ]
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition.<init>:(Ljava/lang/String;Lorg/activiti/spring/process/model/AssignmentDefinition$AssignmentEnum;Lorg/activiti/spring/process/model/AssignmentDefinition$AssignmentType;Lorg/activiti/spring/process/model/AssignmentDefinition$AssignmentMode;)V" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        70,
+        71,
+        72,
+        73,
+        74,
+        75
+      ]
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition.equals:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 8,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 8
+      },
+      "lineNumbers" : [
+        111,
+        112,
+        113,
+        114
+      ]
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition.getAssignment:()Lorg/activiti/spring/process/model/AssignmentDefinition$AssignmentEnum;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        86
+      ]
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition.getId:()Ljava/lang/String;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        78
+      ]
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition.getMode:()Lorg/activiti/spring/process/model/AssignmentDefinition$AssignmentMode;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        102
+      ]
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition.getType:()Lorg/activiti/spring/process/model/AssignmentDefinition$AssignmentType;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        94
+      ]
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition.hashCode:()I" : {
+      "completeTestCount" : 8,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 8
+      },
+      "lineNumbers" : [
+        120
+      ]
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition.setAssignment:(Lorg/activiti/spring/process/model/AssignmentDefinition$AssignmentEnum;)V" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        90,
+        91
+      ]
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition.setId:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        82,
+        83
+      ]
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition.setMode:(Lorg/activiti/spring/process/model/AssignmentDefinition$AssignmentMode;)V" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        106,
+        107
+      ]
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition.setType:(Lorg/activiti/spring/process/model/AssignmentDefinition$AssignmentType;)V" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        98,
+        99
+      ]
+    },
+    "org.activiti.spring.process.model.AssignmentDefinition.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        128
+      ]
+    },
+    "org.activiti.spring.process.model.ConstantDefinition.<init>:()V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        18
+      ]
+    },
+    "org.activiti.spring.process.model.ConstantDefinition.getValue:()Ljava/lang/Object;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        23
+      ]
+    },
+    "org.activiti.spring.process.model.ConstantDefinition.setValue:(Ljava/lang/Object;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        27,
+        28
+      ]
+    },
+    "org.activiti.spring.process.model.Extension.<clinit>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        29
+      ]
+    },
+    "org.activiti.spring.process.model.Extension.<init>:()V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        27,
+        30,
+        31,
+        32,
+        33,
+        34
+      ]
+    },
+    "org.activiti.spring.process.model.Extension.findAssigneeTemplateForTask:(Ljava/lang/String;)Ljava/util/Optional;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        73
+      ]
+    },
+    "org.activiti.spring.process.model.Extension.findCandidateTemplateForTask:(Ljava/lang/String;)Ljava/util/Optional;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        77
+      ]
+    },
+    "org.activiti.spring.process.model.Extension.getAssignments:()Ljava/util/Map;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        125
+      ]
+    },
+    "org.activiti.spring.process.model.Extension.getConstantForFlowElement:(Ljava/lang/String;)Lorg/activiti/spring/process/model/ProcessConstantsMapping;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        62,
+        63
+      ]
+    },
+    "org.activiti.spring.process.model.Extension.getConstants:()Ljava/util/Map;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        53
+      ]
+    },
+    "org.activiti.spring.process.model.Extension.getMappingForFlowElement:(Ljava/lang/String;)Lorg/activiti/spring/process/model/ProcessVariablesMapping;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        68,
+        69
+      ]
+    },
+    "org.activiti.spring.process.model.Extension.getMappings:()Ljava/util/Map;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        45
+      ]
+    },
+    "org.activiti.spring.process.model.Extension.getProperties:()Ljava/util/Map;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        37
+      ]
+    },
+    "org.activiti.spring.process.model.Extension.getProperty:(Ljava/lang/String;)Lorg/activiti/spring/process/model/VariableDefinition;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        81
+      ]
+    },
+    "org.activiti.spring.process.model.Extension.getPropertyByName:(Ljava/lang/String;)Lorg/activiti/spring/process/model/VariableDefinition;" : {
+      "completeTestCount" : 5,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 5
+      },
+      "lineNumbers" : [
+        85,
+        86,
+        87,
+        88,
+        89,
+        92,
+        95
+      ]
+    },
+    "org.activiti.spring.process.model.Extension.getTemplates:()Lorg/activiti/spring/process/model/TemplatesDefinition;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        117
+      ]
+    },
+    "org.activiti.spring.process.model.Extension.hasMapping:(Ljava/lang/String;)Z" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        99
+      ]
+    },
+    "org.activiti.spring.process.model.Extension.setAssignments:(Ljava/util/Map;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        129,
+        130
+      ]
+    },
+    "org.activiti.spring.process.model.Extension.setConstants:(Ljava/util/Map;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        57,
+        58
+      ]
+    },
+    "org.activiti.spring.process.model.Extension.setMappings:(Ljava/util/Map;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        49,
+        50
+      ]
+    },
+    "org.activiti.spring.process.model.Extension.setProperties:(Ljava/util/Map;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        41,
+        42
+      ]
+    },
+    "org.activiti.spring.process.model.Extension.setTemplates:(Lorg/activiti/spring/process/model/TemplatesDefinition;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        121,
+        122
+      ]
+    },
+    "org.activiti.spring.process.model.Extension.shouldMapAllInputs:(Ljava/lang/String;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        103,
+        104,
+        105,
+        106,
+        104
+      ]
+    },
+    "org.activiti.spring.process.model.Extension.shouldMapAllOutputs:(Ljava/lang/String;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        110,
+        111,
+        112,
+        113,
+        111
+      ]
+    },
+    "org.activiti.spring.process.model.Mapping$SourceMappingType.$values:()[Lorg/activiti/spring/process/model/Mapping$SourceMappingType;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        40
+      ]
+    },
+    "org.activiti.spring.process.model.Mapping$SourceMappingType.<clinit>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        42,
+        44,
+        46,
+        40
+      ]
+    },
+    "org.activiti.spring.process.model.Mapping$SourceMappingType.<init>:(Ljava/lang/String;I)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        40
+      ]
+    },
+    "org.activiti.spring.process.model.Mapping$SourceMappingType.valueOf:(Ljava/lang/String;)Lorg/activiti/spring/process/model/Mapping$SourceMappingType;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        40
+      ]
+    },
+    "org.activiti.spring.process.model.Mapping$SourceMappingType.values:()[Lorg/activiti/spring/process/model/Mapping$SourceMappingType;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        40
+      ]
+    },
+    "org.activiti.spring.process.model.Mapping.<init>:()V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        18
+      ]
+    },
+    "org.activiti.spring.process.model.Mapping.getType:()Lorg/activiti/spring/process/model/Mapping$SourceMappingType;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        25
+      ]
+    },
+    "org.activiti.spring.process.model.Mapping.getValue:()Ljava/lang/Object;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        33
+      ]
+    },
+    "org.activiti.spring.process.model.Mapping.setType:(Lorg/activiti/spring/process/model/Mapping$SourceMappingType;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        29,
+        30
+      ]
+    },
+    "org.activiti.spring.process.model.Mapping.setValue:(Ljava/lang/Object;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        37,
+        38
+      ]
+    },
+    "org.activiti.spring.process.model.ProcessConstantsMapping.<init>:()V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        22
+      ]
+    },
+    "org.activiti.spring.process.model.ProcessExtensionModel.<init>:()V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        23,
+        26
+      ]
+    },
+    "org.activiti.spring.process.model.ProcessExtensionModel.getAllExtensions:()Ljava/util/Map;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        41
+      ]
+    },
+    "org.activiti.spring.process.model.ProcessExtensionModel.getExtensions:(Ljava/lang/String;)Lorg/activiti/spring/process/model/Extension;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        37
+      ]
+    },
+    "org.activiti.spring.process.model.ProcessExtensionModel.getId:()Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        29
+      ]
+    },
+    "org.activiti.spring.process.model.ProcessExtensionModel.setExtensions:(Ljava/util/Map;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        45,
+        46
+      ]
+    },
+    "org.activiti.spring.process.model.ProcessExtensionModel.setId:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        33,
+        34
+      ]
+    },
+    "org.activiti.spring.process.model.ProcessVariablesMapping$MappingType.$values:()[Lorg/activiti/spring/process/model/ProcessVariablesMapping$MappingType;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        55
+      ]
+    },
+    "org.activiti.spring.process.model.ProcessVariablesMapping$MappingType.<clinit>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        56,
+        57,
+        58,
+        55
+      ]
+    },
+    "org.activiti.spring.process.model.ProcessVariablesMapping$MappingType.<init>:(Ljava/lang/String;I)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        55
+      ]
+    },
+    "org.activiti.spring.process.model.ProcessVariablesMapping$MappingType.valueOf:(Ljava/lang/String;)Lorg/activiti/spring/process/model/ProcessVariablesMapping$MappingType;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        55
+      ]
+    },
+    "org.activiti.spring.process.model.ProcessVariablesMapping$MappingType.values:()[Lorg/activiti/spring/process/model/ProcessVariablesMapping$MappingType;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        55
+      ]
+    },
+    "org.activiti.spring.process.model.ProcessVariablesMapping.<init>:()V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        23,
+        26,
+        27
+      ]
+    },
+    "org.activiti.spring.process.model.ProcessVariablesMapping.getInputMapping:(Ljava/lang/String;)Lorg/activiti/spring/process/model/Mapping;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        37
+      ]
+    },
+    "org.activiti.spring.process.model.ProcessVariablesMapping.getInputs:()Ljava/util/Map;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        30
+      ]
+    },
+    "org.activiti.spring.process.model.ProcessVariablesMapping.getMappingType:()Lorg/activiti/spring/process/model/ProcessVariablesMapping$MappingType;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        48
+      ]
+    },
+    "org.activiti.spring.process.model.ProcessVariablesMapping.getOutputs:()Ljava/util/Map;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        41
+      ]
+    },
+    "org.activiti.spring.process.model.ProcessVariablesMapping.setInputs:(Ljava/util/Map;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        33,
+        34
+      ]
+    },
+    "org.activiti.spring.process.model.ProcessVariablesMapping.setMappingType:(Lorg/activiti/spring/process/model/ProcessVariablesMapping$MappingType;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        52,
+        53
+      ]
+    },
+    "org.activiti.spring.process.model.ProcessVariablesMapping.setOutputs:(Ljava/util/Map;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        44,
+        45
+      ]
+    },
+    "org.activiti.spring.process.model.TaskTemplateDefinition.<init>:()V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        21
+      ]
+    },
+    "org.activiti.spring.process.model.TaskTemplateDefinition.equals:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 6,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 6
+      },
+      "lineNumbers" : [
+        46,
+        47,
+        48,
+        49,
+        50,
+        49
+      ]
+    },
+    "org.activiti.spring.process.model.TaskTemplateDefinition.getAssignee:()Lorg/activiti/spring/process/model/TemplateDefinition;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        28
+      ]
+    },
+    "org.activiti.spring.process.model.TaskTemplateDefinition.getCandidate:()Lorg/activiti/spring/process/model/TemplateDefinition;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        36
+      ]
+    },
+    "org.activiti.spring.process.model.TaskTemplateDefinition.hashCode:()I" : {
+      "completeTestCount" : 6,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 6
+      },
+      "lineNumbers" : [
+        55
+      ]
+    },
+    "org.activiti.spring.process.model.TaskTemplateDefinition.setAssignee:(Lorg/activiti/spring/process/model/TemplateDefinition;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        32,
+        33
+      ]
+    },
+    "org.activiti.spring.process.model.TaskTemplateDefinition.setCandidate:(Lorg/activiti/spring/process/model/TemplateDefinition;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        40,
+        41
+      ]
+    },
+    "org.activiti.spring.process.model.TemplateDefinition$TemplateType.$values:()[Lorg/activiti/spring/process/model/TemplateDefinition$TemplateType;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        22
+      ]
+    },
+    "org.activiti.spring.process.model.TemplateDefinition$TemplateType.<clinit>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        23,
+        24,
+        22
+      ]
+    },
+    "org.activiti.spring.process.model.TemplateDefinition$TemplateType.<init>:(Ljava/lang/String;I)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        22
+      ]
+    },
+    "org.activiti.spring.process.model.TemplateDefinition$TemplateType.valueOf:(Ljava/lang/String;)Lorg/activiti/spring/process/model/TemplateDefinition$TemplateType;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        22
+      ]
+    },
+    "org.activiti.spring.process.model.TemplateDefinition$TemplateType.values:()[Lorg/activiti/spring/process/model/TemplateDefinition$TemplateType;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        22
+      ]
+    },
+    "org.activiti.spring.process.model.TemplateDefinition.<init>:()V" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        35,
+        36
+      ]
+    },
+    "org.activiti.spring.process.model.TemplateDefinition.<init>:(Lorg/activiti/spring/process/model/TemplateDefinition$TemplateType;Ljava/lang/String;)V" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        38,
+        39,
+        40,
+        41
+      ]
+    },
+    "org.activiti.spring.process.model.TemplateDefinition.equals:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 8,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 8
+      },
+      "lineNumbers" : [
+        77,
+        78,
+        79,
+        80,
+        81,
+        83,
+        80
+      ]
+    },
+    "org.activiti.spring.process.model.TemplateDefinition.getFrom:()Ljava/lang/String;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        44
+      ]
+    },
+    "org.activiti.spring.process.model.TemplateDefinition.getSubject:()Ljava/lang/String;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        52
+      ]
+    },
+    "org.activiti.spring.process.model.TemplateDefinition.getType:()Lorg/activiti/spring/process/model/TemplateDefinition$TemplateType;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        68
+      ]
+    },
+    "org.activiti.spring.process.model.TemplateDefinition.getValue:()Ljava/lang/String;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        60
+      ]
+    },
+    "org.activiti.spring.process.model.TemplateDefinition.hashCode:()I" : {
+      "completeTestCount" : 8,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 8
+      },
+      "lineNumbers" : [
+        88
+      ]
+    },
+    "org.activiti.spring.process.model.TemplateDefinition.setFrom:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        48,
+        49
+      ]
+    },
+    "org.activiti.spring.process.model.TemplateDefinition.setSubject:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        56,
+        57
+      ]
+    },
+    "org.activiti.spring.process.model.TemplateDefinition.setType:(Lorg/activiti/spring/process/model/TemplateDefinition$TemplateType;)V" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        72,
+        73
+      ]
+    },
+    "org.activiti.spring.process.model.TemplateDefinition.setValue:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        64,
+        65
+      ]
+    },
+    "org.activiti.spring.process.model.TemplateDefinition.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T020",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        96
+      ]
+    },
+    "org.activiti.spring.process.model.TemplatesDefinition.<init>:()V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        25,
+        27
+      ]
+    },
+    "org.activiti.spring.process.model.TemplatesDefinition.equals:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 7,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 7
+      },
+      "lineNumbers" : [
+        66,
+        67,
+        69,
+        70,
+        72,
+        73,
+        74,
+        73
+      ]
+    },
+    "org.activiti.spring.process.model.TemplatesDefinition.findAssigneeTemplateForTask:(Ljava/lang/String;)Ljava/util/Optional;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        49,
+        50,
+        51,
+        53
+      ]
+    },
+    "org.activiti.spring.process.model.TemplatesDefinition.findCandidateTemplateForTask:(Ljava/lang/String;)Ljava/util/Optional;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        57,
+        58,
+        59,
+        61
+      ]
+    },
+    "org.activiti.spring.process.model.TemplatesDefinition.getDefaultTemplate:()Lorg/activiti/spring/process/model/TaskTemplateDefinition;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        41
+      ]
+    },
+    "org.activiti.spring.process.model.TemplatesDefinition.getTasks:()Ljava/util/Map;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        33
+      ]
+    },
+    "org.activiti.spring.process.model.TemplatesDefinition.hashCode:()I" : {
+      "completeTestCount" : 7,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 7
+      },
+      "lineNumbers" : [
+        79
+      ]
+    },
+    "org.activiti.spring.process.model.TemplatesDefinition.setDefaultTemplate:(Lorg/activiti/spring/process/model/TaskTemplateDefinition;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        45,
+        46
+      ]
+    },
+    "org.activiti.spring.process.model.TemplatesDefinition.setTasks:(Ljava/util/Map;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        37,
+        38
+      ]
+    },
+    "org.activiti.spring.process.model.VariableDefinition.<init>:()V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        24
+      ]
+    },
+    "org.activiti.spring.process.model.VariableDefinition.<init>:(Ljava/lang/String;Ljava/lang/Object;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        26,
+        27,
+        28,
+        29
+      ]
+    },
+    "org.activiti.spring.process.model.VariableDefinition.getValue:()Ljava/lang/Object;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        32
+      ]
+    },
+    "org.activiti.spring.process.model.VariableDefinition.setValue:(Ljava/lang/Object;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        35,
+        36
+      ]
+    },
+    "org.activiti.spring.process.variable.VariableParsingService.<clinit>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        31
+      ]
+    },
+    "org.activiti.spring.process.variable.VariableParsingService.<init>:(Ljava/util/Map;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        33,
+        34,
+        35
+      ]
+    },
+    "org.activiti.spring.process.variable.VariableParsingService.parse:(Lorg/activiti/spring/process/model/VariableDefinition;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        42,
+        43,
+        45,
+        48
+      ]
+    },
+    "org.activiti.spring.process.variable.VariableValidationService.<clinit>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        30
+      ]
+    },
+    "org.activiti.spring.process.variable.VariableValidationService.<init>:(Ljava/util/Map;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        32,
+        33,
+        34
+      ]
+    },
+    "org.activiti.spring.process.variable.VariableValidationService.validate:(Ljava/lang/Object;Lorg/activiti/spring/process/model/VariableDefinition;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        39
+      ]
+    },
+    "org.activiti.spring.process.variable.VariableValidationService.validateWithErrors:(Ljava/lang/Object;Lorg/activiti/spring/process/model/VariableDefinition;)Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        44,
+        46,
+        47,
+        50,
+        51,
+        54,
+        56,
+        57,
+        58,
+        61
+      ]
+    },
+    "org.activiti.spring.process.variable.types.BigDecimalVariableType.<clinit>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        29
+      ]
+    },
+    "org.activiti.spring.process.variable.types.BigDecimalVariableType.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        25
+      ]
+    },
+    "org.activiti.spring.process.variable.types.BigDecimalVariableType.parseFromValue:(Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        34,
+        35,
+        38,
+        39,
+        41,
+        42,
+        43
+      ]
+    },
+    "org.activiti.spring.process.variable.types.BigDecimalVariableType.validate:(Ljava/lang/Object;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        49,
+        50,
+        51,
+        52,
+        54
+      ]
+    },
+    "org.activiti.spring.process.variable.types.DateVariableType.<init>:(Ljava/lang/Class;Lorg/activiti/common/util/DateFormatterProvider;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        30,
+        31,
+        32
+      ]
+    },
+    "org.activiti.spring.process.variable.types.DateVariableType.parseFromValue:(Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        43,
+        44,
+        46,
+        47,
+        48
+      ]
+    },
+    "org.activiti.spring.process.variable.types.DateVariableType.validate:(Ljava/lang/Object;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        36,
+        37
+      ]
+    },
+    "org.activiti.spring.process.variable.types.JavaObjectVariableType.<clinit>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        28
+      ]
+    },
+    "org.activiti.spring.process.variable.types.JavaObjectVariableType.<init>:(Ljava/lang/Class;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        32,
+        33,
+        34
+      ]
+    },
+    "org.activiti.spring.process.variable.types.JavaObjectVariableType.getClazz:()Ljava/lang/Class;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        37
+      ]
+    },
+    "org.activiti.spring.process.variable.types.JavaObjectVariableType.setClazz:(Ljava/lang/Class;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        41,
+        42
+      ]
+    },
+    "org.activiti.spring.process.variable.types.JavaObjectVariableType.validate:(Ljava/lang/Object;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        47,
+        48,
+        49,
+        50,
+        52
+      ]
+    },
+    "org.activiti.spring.process.variable.types.JsonObjectVariableType.<clinit>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        27
+      ]
+    },
+    "org.activiti.spring.process.variable.types.JsonObjectVariableType.<init>:(Lcom/fasterxml/jackson/databind/ObjectMapper;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        31,
+        32,
+        33
+      ]
+    },
+    "org.activiti.spring.process.variable.types.JsonObjectVariableType.getObjectMapper:()Lcom/fasterxml/jackson/databind/ObjectMapper;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        36
+      ]
+    },
+    "org.activiti.spring.process.variable.types.JsonObjectVariableType.setObjectMapper:(Lcom/fasterxml/jackson/databind/ObjectMapper;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        40,
+        41
+      ]
+    },
+    "org.activiti.spring.process.variable.types.JsonObjectVariableType.validate:(Ljava/lang/Object;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        51,
+        52,
+        53,
+        54,
+        57,
+        58,
+        59,
+        60,
+        62
+      ]
+    },
+    "org.activiti.spring.process.variable.types.VariableType.<clinit>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        28
+      ]
+    },
+    "org.activiti.spring.process.variable.types.VariableType.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010",
+      "lineNumbers" : [
+        26
+      ]
+    },
+    "org.activiti.spring.process.variable.types.VariableType.getName:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        32
+      ]
+    },
+    "org.activiti.spring.process.variable.types.VariableType.isExpression:(Ljava/lang/Object;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        46
+      ]
+    },
+    "org.activiti.spring.process.variable.types.VariableType.parseFromValue:(Ljava/lang/Object;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        42
+      ]
+    },
+    "org.activiti.spring.process.variable.types.VariableType.setName:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        36,
+        37
+      ]
+    },
+    "org.activiti.spring.process.variable.types.VariableType.validate:(Ljava/lang/Object;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    }
+  },
+  "validationMetrics" : { }
+}

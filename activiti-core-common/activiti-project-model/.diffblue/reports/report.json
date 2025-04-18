@@ -1,0 +1,226 @@
+{
+  "meta" : {
+    "reportVersion" : "2.7"
+  },
+  "run" : {
+    "version" : "2025.04.01-e81fef6-licensed",
+    "creationTimestamp" : "2025-04-16T00:42:44.958185+01:00",
+    "command" : "dcover coverage-reports ",
+    "totalTime" : 45.519,
+    "environmentDetectionTime" : 34.217,
+    "indexingTime" : 0.0,
+    "entryPointsTime" : 0.0,
+    "generationTime" : 0.0,
+    "timeToFirstTest" : 45.52,
+    "timeToLastTest" : 45.52,
+    "indexQueryTime" : 0.0,
+    "verificationTime" : 0.0,
+    "validationTime" : 0.0
+  },
+  "codes" : {
+    "T001" : "Trivial getter",
+    "T002" : "Trivial setter",
+    "T005" : "Trivial constructor"
+  },
+  "summary" : {
+    "classesCount" : 1,
+    "methodsCount" : 17,
+    "cumulativeDiffblueTestCount" : 1,
+    "cumulativeManualTestCount" : 0,
+    "completeTestCount" : 0,
+    "incompleteTestCount" : 0,
+    "skeletonTestCount" : 0,
+    "totalPhysicalLineCount" : 59,
+    "perMethodTestability" : {
+      "T001" : 8,
+      "T002" : 8,
+      "T005" : 1
+    },
+    "perMethodOutcome" : {
+      "T001" : 8,
+      "T002" : 8,
+      "T005" : 1
+    }
+  },
+  "classes" : {
+    "org.activiti.core.common.project.model.ProjectManifest" : {
+      "methodsCount" : 17,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T001" : 8,
+        "T002" : 8,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T001" : 8,
+        "T002" : 8,
+        "T005" : 1
+      }
+    }
+  },
+  "methods" : {
+    "org.activiti.core.common.project.model.ProjectManifest.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        18
+      ]
+    },
+    "org.activiti.core.common.project.model.ProjectManifest.getCreatedBy:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        37
+      ]
+    },
+    "org.activiti.core.common.project.model.ProjectManifest.getCreationDate:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        45
+      ]
+    },
+    "org.activiti.core.common.project.model.ProjectManifest.getDescription:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        85
+      ]
+    },
+    "org.activiti.core.common.project.model.ProjectManifest.getId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        69
+      ]
+    },
+    "org.activiti.core.common.project.model.ProjectManifest.getLastModifiedBy:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        53
+      ]
+    },
+    "org.activiti.core.common.project.model.ProjectManifest.getLastModifiedDate:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        61
+      ]
+    },
+    "org.activiti.core.common.project.model.ProjectManifest.getName:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        77
+      ]
+    },
+    "org.activiti.core.common.project.model.ProjectManifest.getVersion:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        93
+      ]
+    },
+    "org.activiti.core.common.project.model.ProjectManifest.setCreatedBy:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        41,
+        42
+      ]
+    },
+    "org.activiti.core.common.project.model.ProjectManifest.setCreationDate:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        49,
+        50
+      ]
+    },
+    "org.activiti.core.common.project.model.ProjectManifest.setDescription:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        89,
+        90
+      ]
+    },
+    "org.activiti.core.common.project.model.ProjectManifest.setId:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        73,
+        74
+      ]
+    },
+    "org.activiti.core.common.project.model.ProjectManifest.setLastModifiedBy:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        57,
+        58
+      ]
+    },
+    "org.activiti.core.common.project.model.ProjectManifest.setLastModifiedDate:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        65,
+        66
+      ]
+    },
+    "org.activiti.core.common.project.model.ProjectManifest.setName:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        81,
+        82
+      ]
+    },
+    "org.activiti.core.common.project.model.ProjectManifest.setVersion:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        97,
+        98
+      ]
+    }
+  },
+  "validationMetrics" : { }
+}

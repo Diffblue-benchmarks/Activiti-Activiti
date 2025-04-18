@@ -1,0 +1,812 @@
+{
+  "meta" : {
+    "reportVersion" : "2.7"
+  },
+  "run" : {
+    "version" : "2025.04.01-e81fef6-licensed",
+    "creationTimestamp" : "2025-04-16T00:36:41.861474+01:00",
+    "command" : "dcover coverage-reports ",
+    "totalTime" : 55.251,
+    "environmentDetectionTime" : 35.237,
+    "indexingTime" : 0.0,
+    "entryPointsTime" : 0.0,
+    "generationTime" : 0.0,
+    "timeToFirstTest" : 55.252,
+    "timeToLastTest" : 55.252,
+    "indexQueryTime" : 0.0,
+    "verificationTime" : 0.0,
+    "validationTime" : 0.0
+  },
+  "codes" : {
+    "T000" : "Method eligible for test creation",
+    "T001" : "Trivial getter",
+    "T002" : "Trivial setter",
+    "T003" : "Private method",
+    "T005" : "Trivial constructor",
+    "T010" : "Abstract or interface method",
+    "T012" : "Synthetic method"
+  },
+  "summary" : {
+    "classesCount" : 12,
+    "methodsCount" : 61,
+    "cumulativeDiffblueTestCount" : 37,
+    "cumulativeManualTestCount" : 4,
+    "completeTestCount" : 0,
+    "incompleteTestCount" : 0,
+    "skeletonTestCount" : 0,
+    "totalPhysicalLineCount" : 356,
+    "perMethodTestability" : {
+      "T000" : 17,
+      "T001" : 8,
+      "T002" : 6,
+      "T003" : 5,
+      "T005" : 8,
+      "T010" : 12,
+      "T012" : 5
+    },
+    "perMethodOutcome" : {
+      "T000" : 17,
+      "T001" : 8,
+      "T002" : 6,
+      "T003" : 5,
+      "T005" : 8,
+      "T010" : 12,
+      "T012" : 5
+    }
+  },
+  "classes" : {
+    "org.activiti.core.common.spring.security.policies.ActivitiForbiddenException" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T005" : 2
+      },
+      "perMethodOutcome" : {
+        "T005" : 2
+      }
+    },
+    "org.activiti.core.common.spring.security.policies.BaseSecurityPoliciesManagerImpl" : {
+      "methodsCount" : 11,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 7,
+        "T003" : 2,
+        "T010" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 7,
+        "T003" : 2,
+        "T010" : 1,
+        "T012" : 1
+      }
+    },
+    "org.activiti.core.common.spring.security.policies.ProcessSecurityPoliciesManager" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 2
+      },
+      "perMethodOutcome" : {
+        "T010" : 2
+      }
+    },
+    "org.activiti.core.common.spring.security.policies.ProcessSecurityPoliciesManagerImpl" : {
+      "methodsCount" : 8,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 5,
+        "T003" : 2,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 5,
+        "T003" : 2,
+        "T005" : 1
+      }
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPoliciesManager" : {
+      "methodsCount" : 6,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 6
+      },
+      "perMethodOutcome" : {
+        "T010" : 6
+      }
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPoliciesProcessDefinitionRestrictionApplier" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T005" : 1
+      }
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPoliciesProcessInstanceRestrictionApplier" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T005" : 1
+      }
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPoliciesRestrictionApplier" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 3
+      },
+      "perMethodOutcome" : {
+        "T010" : 3
+      }
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPolicy" : {
+      "methodsCount" : 13,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T001" : 6,
+        "T002" : 6,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T001" : 6,
+        "T002" : 6,
+        "T005" : 1
+      }
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPolicyAccess" : {
+      "methodsCount" : 5,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T003" : 1,
+        "T012" : 4
+      },
+      "perMethodOutcome" : {
+        "T003" : 1,
+        "T012" : 4
+      }
+    },
+    "org.activiti.core.common.spring.security.policies.conf.SecurityPoliciesProperties" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T001" : 2,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T001" : 2,
+        "T005" : 1
+      }
+    },
+    "org.activiti.core.common.spring.security.policies.config.ActivitiSpringSecurityPoliciesAutoConfiguration" : {
+      "methodsCount" : 4,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 3,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 3,
+        "T005" : 1
+      }
+    }
+  },
+  "methods" : {
+    "org.activiti.core.common.spring.security.policies.ActivitiForbiddenException.<init>:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        26,
+        27
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.ActivitiForbiddenException.<init>:(Ljava/lang/String;Ljava/lang/Throwable;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        22,
+        23
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.BaseSecurityPoliciesManagerImpl.<init>:(Lorg/activiti/api/runtime/shared/security/SecurityManager;Lorg/activiti/core/common/spring/security/policies/conf/SecurityPoliciesProperties;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010",
+      "lineNumbers" : [
+        36,
+        37,
+        38,
+        39
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.BaseSecurityPoliciesManagerImpl.anEntryInSetStartsKey:(Ljava/util/Set;Ljava/lang/String;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        148,
+        149,
+        150,
+        152,
+        153
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.BaseSecurityPoliciesManagerImpl.arePoliciesDefined:()Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        42
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.BaseSecurityPoliciesManagerImpl.canRead:(Ljava/lang/String;Ljava/lang/String;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        103
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.BaseSecurityPoliciesManagerImpl.canWrite:(Ljava/lang/String;Ljava/lang/String;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        112
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.BaseSecurityPoliciesManagerImpl.getAllowedKeys:([Lorg/activiti/core/common/spring/security/policies/SecurityPolicyAccess;)Ljava/util/Map;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        48,
+        49,
+        50,
+        52,
+        54,
+        55,
+        57,
+        58,
+        62,
+        65,
+        66,
+        67,
+        68,
+        71,
+        72,
+        73,
+        79,
+        80
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.BaseSecurityPoliciesManagerImpl.getSecurityPoliciesProperties:()Lorg/activiti/core/common/spring/security/policies/conf/SecurityPoliciesProperties;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        157
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.BaseSecurityPoliciesManagerImpl.hasPermission:(Ljava/lang/String;Lorg/activiti/core/common/spring/security/policies/SecurityPolicyAccess;Ljava/lang/String;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        121,
+        122,
+        126,
+        127,
+        130,
+        131,
+        132,
+        133,
+        136,
+        137,
+        140,
+        141,
+        140
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.BaseSecurityPoliciesManagerImpl.isGroupInPolicy:(Lorg/activiti/core/common/spring/security/policies/SecurityPolicy;Ljava/util/List;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        89,
+        90,
+        91,
+        92,
+        95,
+        97
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.BaseSecurityPoliciesManagerImpl.isUserInPolicy:(Lorg/activiti/core/common/spring/security/policies/SecurityPolicy;Ljava/lang/String;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        85
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.BaseSecurityPoliciesManagerImpl.lambda$getAllowedKeys$0:(Ljava/lang/String;)Ljava/util/Set;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        59
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.ProcessSecurityPoliciesManager.restrictProcessDefQuery:(Lorg/activiti/core/common/spring/security/policies/SecurityPolicyAccess;)Lorg/activiti/api/process/model/payloads/GetProcessDefinitionsPayload;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.core.common.spring.security.policies.ProcessSecurityPoliciesManager.restrictProcessInstQuery:(Lorg/activiti/core/common/spring/security/policies/SecurityPolicyAccess;)Lorg/activiti/api/process/model/payloads/GetProcessInstancesPayload;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.core.common.spring.security.policies.ProcessSecurityPoliciesManagerImpl.<init>:(Lorg/activiti/api/runtime/shared/security/SecurityManager;Lorg/activiti/core/common/spring/security/policies/conf/SecurityPoliciesProperties;Lorg/activiti/core/common/spring/security/policies/SecurityPoliciesRestrictionApplier;Lorg/activiti/core/common/spring/security/policies/SecurityPoliciesRestrictionApplier;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        41,
+        42,
+        43,
+        44
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.ProcessSecurityPoliciesManagerImpl.anEntryInSetStartsKey:(Ljava/util/Set;Ljava/lang/String;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        104,
+        106,
+        107,
+        109,
+        110
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.ProcessSecurityPoliciesManagerImpl.canRead:(Ljava/lang/String;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        99,
+        100,
+        99
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.ProcessSecurityPoliciesManagerImpl.canWrite:(Ljava/lang/String;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        95
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.ProcessSecurityPoliciesManagerImpl.definitionKeysAllowedForApplicationPolicy:(Lorg/activiti/core/common/spring/security/policies/SecurityPolicyAccess;)Ljava/util/Set;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        51,
+        52,
+        54,
+        58,
+        59,
+        61,
+        62
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.ProcessSecurityPoliciesManagerImpl.restrictProcessDefQuery:(Lorg/activiti/core/common/spring/security/policies/SecurityPolicyAccess;)Lorg/activiti/api/process/model/payloads/GetProcessDefinitionsPayload;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        47
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.ProcessSecurityPoliciesManagerImpl.restrictProcessInstQuery:(Lorg/activiti/core/common/spring/security/policies/SecurityPolicyAccess;)Lorg/activiti/api/process/model/payloads/GetProcessInstancesPayload;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        67
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.ProcessSecurityPoliciesManagerImpl.restrictQuery:(Lorg/activiti/core/common/spring/security/policies/SecurityPoliciesRestrictionApplier;Lorg/activiti/core/common/spring/security/policies/SecurityPolicyAccess;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        71,
+        72,
+        75,
+        77,
+        79,
+        80,
+        83,
+        87,
+        88,
+        91
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPoliciesManager.arePoliciesDefined:()Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPoliciesManager.canRead:(Ljava/lang/String;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPoliciesManager.canRead:(Ljava/lang/String;Ljava/lang/String;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPoliciesManager.canWrite:(Ljava/lang/String;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPoliciesManager.canWrite:(Ljava/lang/String;Ljava/lang/String;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPoliciesManager.getAllowedKeys:([Lorg/activiti/core/common/spring/security/policies/SecurityPolicyAccess;)Ljava/util/Map;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPoliciesProcessDefinitionRestrictionApplier.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        24
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPoliciesProcessDefinitionRestrictionApplier.restrictToKeys:(Ljava/util/Set;)Lorg/activiti/api/process/model/payloads/GetProcessDefinitionsPayload;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        28
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPoliciesProcessInstanceRestrictionApplier.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        24
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPoliciesProcessInstanceRestrictionApplier.restrictToKeys:(Ljava/util/Set;)Lorg/activiti/api/process/model/payloads/GetProcessInstancesPayload;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        28
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPoliciesRestrictionApplier.allowAll:()Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPoliciesRestrictionApplier.denyAll:()Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPoliciesRestrictionApplier.restrictToKeys:(Ljava/util/Set;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPolicy.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        20
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPolicy.getAccess:()Lorg/activiti/core/common/spring/security/policies/SecurityPolicyAccess;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        61
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPolicy.getGroups:()Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        37
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPolicy.getKeys:()Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        69
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPolicy.getName:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        29
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPolicy.getServiceName:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        53
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPolicy.getUsers:()Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        45
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPolicy.setAccess:(Lorg/activiti/core/common/spring/security/policies/SecurityPolicyAccess;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        65,
+        66
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPolicy.setGroups:(Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        41,
+        42
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPolicy.setKeys:(Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        73,
+        74
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPolicy.setName:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        33,
+        34
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPolicy.setServiceName:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        57,
+        58
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPolicy.setUsers:(Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "T002",
+      "lineNumbers" : [
+        49,
+        50
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPolicyAccess.$values:()[Lorg/activiti/core/common/spring/security/policies/SecurityPolicyAccess;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        18
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPolicyAccess.<clinit>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        19,
+        20,
+        21,
+        18
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPolicyAccess.<init>:(Ljava/lang/String;I)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        18
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPolicyAccess.valueOf:(Ljava/lang/String;)Lorg/activiti/core/common/spring/security/policies/SecurityPolicyAccess;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        18
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.SecurityPolicyAccess.values:()[Lorg/activiti/core/common/spring/security/policies/SecurityPolicyAccess;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        18
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.conf.SecurityPoliciesProperties.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        25,
+        27,
+        29
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.conf.SecurityPoliciesProperties.getPolicies:()Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        33
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.conf.SecurityPoliciesProperties.getWildcard:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        37
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.config.ActivitiSpringSecurityPoliciesAutoConfiguration.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        34
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.config.ActivitiSpringSecurityPoliciesAutoConfiguration.processDefinitionRestrictionApplier:()Lorg/activiti/core/common/spring/security/policies/SecurityPoliciesRestrictionApplier;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        57
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.config.ActivitiSpringSecurityPoliciesAutoConfiguration.processInstanceRestrictionApplier:()Lorg/activiti/core/common/spring/security/policies/SecurityPoliciesRestrictionApplier;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        51
+      ]
+    },
+    "org.activiti.core.common.spring.security.policies.config.ActivitiSpringSecurityPoliciesAutoConfiguration.processSecurityPoliciesManager:(Lorg/activiti/api/runtime/shared/security/SecurityManager;Lorg/activiti/core/common/spring/security/policies/conf/SecurityPoliciesProperties;Lorg/activiti/core/common/spring/security/policies/SecurityPoliciesRestrictionApplier;Lorg/activiti/core/common/spring/security/policies/SecurityPoliciesRestrictionApplier;)Lorg/activiti/core/common/spring/security/policies/ProcessSecurityPoliciesManager;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        42
+      ]
+    }
+  },
+  "validationMetrics" : { }
+}

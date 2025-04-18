@@ -1,0 +1,517 @@
+{
+  "meta" : {
+    "reportVersion" : "2.7"
+  },
+  "run" : {
+    "version" : "2025.04.01-e81fef6-licensed",
+    "creationTimestamp" : "2025-04-16T00:39:19.84238+01:00",
+    "command" : "dcover coverage-reports ",
+    "totalTime" : 55.309,
+    "environmentDetectionTime" : 35.287,
+    "indexingTime" : 0.0,
+    "entryPointsTime" : 0.0,
+    "generationTime" : 0.0,
+    "timeToFirstTest" : 55.311,
+    "timeToLastTest" : 55.311,
+    "indexQueryTime" : 0.0,
+    "verificationTime" : 0.0,
+    "validationTime" : 0.0
+  },
+  "codes" : {
+    "T000" : "Method eligible for test creation",
+    "T001" : "Trivial getter",
+    "T003" : "Private method",
+    "T005" : "Trivial constructor",
+    "T010" : "Abstract or interface method",
+    "T012" : "Synthetic method"
+  },
+  "summary" : {
+    "classesCount" : 11,
+    "methodsCount" : 28,
+    "cumulativeDiffblueTestCount" : 10,
+    "cumulativeManualTestCount" : 5,
+    "completeTestCount" : 0,
+    "incompleteTestCount" : 0,
+    "skeletonTestCount" : 0,
+    "totalPhysicalLineCount" : 221,
+    "perMethodTestability" : {
+      "T000" : 7,
+      "T001" : 4,
+      "T003" : 1,
+      "T005" : 9,
+      "T010" : 3,
+      "T012" : 4
+    },
+    "perMethodOutcome" : {
+      "T000" : 7,
+      "T001" : 4,
+      "T003" : 1,
+      "T005" : 9,
+      "T010" : 3,
+      "T012" : 4
+    }
+  },
+  "classes" : {
+    "org.activiti.application.ApplicationContent" : {
+      "methodsCount" : 4,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 2,
+        "T005" : 1,
+        "T012" : 1
+      }
+    },
+    "org.activiti.application.ApplicationDiscovery" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T005" : 1
+      }
+    },
+    "org.activiti.application.ApplicationEntry" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T001" : 2,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T001" : 2,
+        "T005" : 1
+      }
+    },
+    "org.activiti.application.ApplicationEntryDiscovery" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 2
+      },
+      "perMethodOutcome" : {
+        "T010" : 2
+      }
+    },
+    "org.activiti.application.ApplicationLoadException" : {
+      "methodsCount" : 1,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T005" : 1
+      }
+    },
+    "org.activiti.application.ApplicationReader" : {
+      "methodsCount" : 5,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T003" : 1,
+        "T005" : 1,
+        "T012" : 2
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T003" : 1,
+        "T005" : 1,
+        "T012" : 2
+      }
+    },
+    "org.activiti.application.ApplicationService" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T005" : 1
+      }
+    },
+    "org.activiti.application.FileContent" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T001" : 2,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T001" : 2,
+        "T005" : 1
+      }
+    },
+    "org.activiti.application.conf.ApplicationAutoConfiguration" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      }
+    },
+    "org.activiti.application.deployer.ApplicationDeployer" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T000" : 1,
+        "T005" : 1
+      }
+    },
+    "org.activiti.application.deployer.ApplicationEntryDeployer" : {
+      "methodsCount" : 1,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 1
+      },
+      "perMethodOutcome" : {
+        "T010" : 1
+      }
+    }
+  },
+  "methods" : {
+    "org.activiti.application.ApplicationContent.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        25,
+        27
+      ]
+    },
+    "org.activiti.application.ApplicationContent.add:(Lorg/activiti/application/ApplicationEntry;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        30,
+        32,
+        33
+      ]
+    },
+    "org.activiti.application.ApplicationContent.getFileContents:(Ljava/lang/String;)Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        36
+      ]
+    },
+    "org.activiti.application.ApplicationContent.lambda$add$0:(Ljava/lang/String;)Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        31
+      ]
+    },
+    "org.activiti.application.ApplicationDiscovery.<init>:(Lorg/springframework/core/io/support/ResourcePatternResolver;Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        33,
+        34,
+        35,
+        36
+      ]
+    },
+    "org.activiti.application.ApplicationDiscovery.discoverApplications:()Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        39,
+        40,
+        41,
+        43,
+        46,
+        44,
+        45,
+        48
+      ]
+    },
+    "org.activiti.application.ApplicationEntry.<init>:(Ljava/lang/String;Lorg/activiti/application/FileContent;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        25,
+        26,
+        27,
+        28
+      ]
+    },
+    "org.activiti.application.ApplicationEntry.getFileContent:()Lorg/activiti/application/FileContent;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        35
+      ]
+    },
+    "org.activiti.application.ApplicationEntry.getType:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        31
+      ]
+    },
+    "org.activiti.application.ApplicationEntryDiscovery.filter:(Ljava/util/zip/ZipEntry;)Ljava/util/function/Predicate;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.application.ApplicationEntryDiscovery.getEntryType:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.application.ApplicationLoadException.<init>:(Ljava/lang/String;Ljava/lang/Throwable;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        21,
+        22
+      ]
+    },
+    "org.activiti.application.ApplicationReader.<init>:(Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        29,
+        30,
+        31
+      ]
+    },
+    "org.activiti.application.ApplicationReader.lambda$read$0:(Ljava/util/zip/ZipEntry;Lorg/activiti/application/ApplicationEntryDiscovery;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        41
+      ]
+    },
+    "org.activiti.application.ApplicationReader.lambda$read$1:(Lorg/activiti/application/ApplicationContent;Ljava/util/zip/ZipEntry;Ljava/util/zip/ZipInputStream;Lorg/activiti/application/ApplicationEntryDiscovery;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        45,
+        46,
+        47,
+        45
+      ]
+    },
+    "org.activiti.application.ApplicationReader.read:(Ljava/io/InputStream;)Lorg/activiti/application/ApplicationContent;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        34,
+        35,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        49,
+        50,
+        35,
+        53,
+        50,
+        51,
+        54
+      ]
+    },
+    "org.activiti.application.ApplicationReader.readBytes:(Ljava/util/zip/ZipInputStream;)[B" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        59,
+        60,
+        61
+      ]
+    },
+    "org.activiti.application.ApplicationService.<init>:(Lorg/activiti/application/ApplicationDiscovery;Lorg/activiti/application/ApplicationReader;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        31,
+        32,
+        33,
+        34
+      ]
+    },
+    "org.activiti.application.ApplicationService.loadApplications:()Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        37,
+        38,
+        40,
+        41,
+        42,
+        43,
+        41,
+        44,
+        47,
+        45,
+        46,
+        48
+      ]
+    },
+    "org.activiti.application.FileContent.<init>:(Ljava/lang/String;[B)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        25,
+        26,
+        27,
+        28
+      ]
+    },
+    "org.activiti.application.FileContent.getContent:()[B" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        35
+      ]
+    },
+    "org.activiti.application.FileContent.getName:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "T001",
+      "lineNumbers" : [
+        31
+      ]
+    },
+    "org.activiti.application.conf.ApplicationAutoConfiguration.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        37
+      ]
+    },
+    "org.activiti.application.conf.ApplicationAutoConfiguration.deployApplications:(Lorg/springframework/core/io/support/ResourcePatternResolver;Ljava/util/List;Ljava/util/List;Ljava/lang/String;)Lorg/springframework/beans/factory/InitializingBean;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        44
+      ]
+    },
+    "org.activiti.application.conf.ApplicationAutoConfiguration.lambda$deployApplications$0:(Lorg/springframework/core/io/support/ResourcePatternResolver;Ljava/lang/String;Ljava/util/List;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        44,
+        47,
+        48,
+        49,
+        50,
+        44
+      ]
+    },
+    "org.activiti.application.deployer.ApplicationDeployer.<init>:(Lorg/activiti/application/ApplicationService;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        30,
+        31,
+        32,
+        33
+      ]
+    },
+    "org.activiti.application.deployer.ApplicationDeployer.deploy:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T000",
+      "lineNumbers" : [
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42
+      ]
+    },
+    "org.activiti.application.deployer.ApplicationEntryDeployer.deployEntries:(Lorg/activiti/application/ApplicationContent;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    }
+  },
+  "validationMetrics" : { }
+}

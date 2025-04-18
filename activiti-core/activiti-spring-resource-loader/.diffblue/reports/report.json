@@ -1,0 +1,133 @@
+{
+  "meta" : {
+    "reportVersion" : "2.7"
+  },
+  "run" : {
+    "version" : "2025.04.01-e81fef6-licensed",
+    "creationTimestamp" : "2025-04-14T18:14:10.334573+01:00",
+    "command" : "dcover create --exclude-modules org.activiti:activiti-dependency-check --exclude-modules org.activiti:activiti-api-dependencies --exclude-modules org.activiti:activiti-core-common-dependencies --exclude-modules org.activiti:activiti-core-dependencies --exclude-modules org.activiti:activiti-dependencies --exclude-modules org.activiti:activiti-spring-conformance-set0 --exclude-modules org.activiti:activiti-spring-conformance-set1 --exclude-modules org.activiti:activiti-spring-conformance-set2 --exclude-modules org.activiti:activiti-spring-conformance-set3 --exclude-modules org.activiti:activiti-spring-conformance-set4 --exclude-modules org.activiti:activiti-spring-conformance-set5 --exclude-modules org.activiti:activiti-spring-conformance-variables --exclude-modules org.activiti:activiti-spring-conformance-signals --exclude-modules org.activiti:activiti-api-process-runtime --exclude-modules org.activiti:activiti-api-task-runtime --exclude-modules org.activiti:activiti-mutation-aggregation",
+    "totalTime" : 9.853,
+    "environmentDetectionTime" : 0.243,
+    "indexingTime" : 0.282,
+    "entryPointsTime" : 0.235,
+    "generationTime" : 51262.404,
+    "timeToFirstTest" : 53975.91,
+    "timeToLastTest" : 53422.859,
+    "indexQueryTime" : 2.347,
+    "verificationTime" : 899.818,
+    "validationTime" : 5.08
+  },
+  "codes" : {
+    "R005" : "Unable to load class",
+    "T000" : "Method eligible for test creation",
+    "T002" : "Trivial setter",
+    "T003" : "Private method",
+    "T005" : "Trivial constructor",
+    "V000" : "Validated successfully"
+  },
+  "summary" : {
+    "classesCount" : 1,
+    "methodsCount" : 4,
+    "cumulativeDiffblueTestCount" : 0,
+    "cumulativeManualTestCount" : 0,
+    "completeTestCount" : 0,
+    "incompleteTestCount" : 0,
+    "skeletonTestCount" : 0,
+    "totalPhysicalLineCount" : 0,
+    "perMethodTestability" : {
+      "T000" : 1,
+      "T002" : 1,
+      "T003" : 1,
+      "T005" : 1
+    },
+    "perMethodOutcome" : {
+      "R005" : 3,
+      "T003" : 1
+    },
+    "perTestValidation" : {
+      "V000" : 7743
+    }
+  },
+  "classes" : {
+    "org.activiti.spring.resources.DeploymentResourceLoader" : {
+      "methodsCount" : 4,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T002" : 1,
+        "T003" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R005" : 3,
+        "T003" : 1
+      }
+    }
+  },
+  "methods" : {
+    "org.activiti.spring.resources.DeploymentResourceLoader.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        28,
+        32
+      ]
+    },
+    "org.activiti.spring.resources.DeploymentResourceLoader.loadResources:(Ljava/lang/String;Lorg/activiti/spring/resources/ResourceReader;Ljava/util/List;)Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        61,
+        62,
+        63,
+        65,
+        66,
+        67,
+        69,
+        63,
+        71,
+        69,
+        70,
+        72,
+        73
+      ]
+    },
+    "org.activiti.spring.resources.DeploymentResourceLoader.loadResourcesForDeployment:(Ljava/lang/String;Lorg/activiti/spring/resources/ResourceReader;)Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        35,
+        36,
+        37,
+        40,
+        42,
+        44,
+        45,
+        46,
+        48,
+        51,
+        52,
+        54,
+        55
+      ]
+    },
+    "org.activiti.spring.resources.DeploymentResourceLoader.setRepositoryService:(Lorg/activiti/engine/RepositoryService;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R005",
+      "lineNumbers" : [
+        77,
+        78
+      ]
+    }
+  },
+  "validationMetrics" : { }
+}
