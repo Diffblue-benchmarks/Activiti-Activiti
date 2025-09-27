@@ -1,0 +1,152 @@
+/*
+ * Copyright 2010-2020 Alfresco Software, Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.activiti.engine.management;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.ArrayList;
+import java.util.List;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+public class TableMetaDataDiffblueTest {
+  /**
+   * Test getters and setters.
+   *
+   * <p>Methods under test:
+   *
+   * <ul>
+   *   <li>{@link TableMetaData#TableMetaData()}
+   *   <li>{@link TableMetaData#setColumnNames(List)}
+   *   <li>{@link TableMetaData#setColumnTypes(List)}
+   *   <li>{@link TableMetaData#setTableName(String)}
+   *   <li>{@link TableMetaData#getColumnNames()}
+   *   <li>{@link TableMetaData#getColumnTypes()}
+   *   <li>{@link TableMetaData#getTableName()}
+   * </ul>
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void TableMetaData.<init>()",
+    "void TableMetaData.<init>(String)",
+    "List TableMetaData.getColumnNames()",
+    "List TableMetaData.getColumnTypes()",
+    "String TableMetaData.getTableName()",
+    "void TableMetaData.setColumnNames(List)",
+    "void TableMetaData.setColumnTypes(List)",
+    "void TableMetaData.setTableName(String)"
+  })
+  public void testGettersAndSetters() {
+    // Arrange and Act
+    TableMetaData actualTableMetaData = new TableMetaData();
+    ArrayList<String> columnNames = new ArrayList<>();
+    actualTableMetaData.setColumnNames(columnNames);
+    ArrayList<String> columnTypes = new ArrayList<>();
+    actualTableMetaData.setColumnTypes(columnTypes);
+    actualTableMetaData.setTableName("Table Name");
+    List<String> actualColumnNames = actualTableMetaData.getColumnNames();
+    List<String> actualColumnTypes = actualTableMetaData.getColumnTypes();
+
+    // Assert
+    assertEquals("Table Name", actualTableMetaData.getTableName());
+    assertTrue(actualColumnNames.isEmpty());
+    assertTrue(actualColumnTypes.isEmpty());
+    assertSame(columnNames, actualColumnNames);
+    assertSame(columnTypes, actualColumnTypes);
+  }
+
+  /**
+   * Test getters and setters.
+   *
+   * <ul>
+   *   <li>When {@code Table Name}.
+   * </ul>
+   *
+   * <p>Methods under test:
+   *
+   * <ul>
+   *   <li>{@link TableMetaData#TableMetaData(String)}
+   *   <li>{@link TableMetaData#setColumnNames(List)}
+   *   <li>{@link TableMetaData#setColumnTypes(List)}
+   *   <li>{@link TableMetaData#setTableName(String)}
+   *   <li>{@link TableMetaData#getColumnNames()}
+   *   <li>{@link TableMetaData#getColumnTypes()}
+   *   <li>{@link TableMetaData#getTableName()}
+   * </ul>
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void TableMetaData.<init>()",
+    "void TableMetaData.<init>(String)",
+    "List TableMetaData.getColumnNames()",
+    "List TableMetaData.getColumnTypes()",
+    "String TableMetaData.getTableName()",
+    "void TableMetaData.setColumnNames(List)",
+    "void TableMetaData.setColumnTypes(List)",
+    "void TableMetaData.setTableName(String)"
+  })
+  public void testGettersAndSetters_whenTableName() {
+    // Arrange and Act
+    TableMetaData actualTableMetaData = new TableMetaData("Table Name");
+    ArrayList<String> columnNames = new ArrayList<>();
+    actualTableMetaData.setColumnNames(columnNames);
+    ArrayList<String> columnTypes = new ArrayList<>();
+    actualTableMetaData.setColumnTypes(columnTypes);
+    actualTableMetaData.setTableName("Table Name");
+    List<String> actualColumnNames = actualTableMetaData.getColumnNames();
+    List<String> actualColumnTypes = actualTableMetaData.getColumnTypes();
+
+    // Assert
+    assertEquals("Table Name", actualTableMetaData.getTableName());
+    assertTrue(actualColumnNames.isEmpty());
+    assertTrue(actualColumnTypes.isEmpty());
+    assertSame(columnNames, actualColumnNames);
+    assertSame(columnTypes, actualColumnTypes);
+  }
+
+  /**
+   * Test {@link TableMetaData#addColumnMetaData(String, String)}.
+   *
+   * <p>Method under test: {@link TableMetaData#addColumnMetaData(String, String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void TableMetaData.addColumnMetaData(String, String)"})
+  public void testAddColumnMetaData() {
+    // Arrange
+    TableMetaData tableMetaData = new TableMetaData("Table Name");
+
+    // Act
+    tableMetaData.addColumnMetaData("Column Name", "Column Type");
+
+    // Assert
+    List<String> columnNames = tableMetaData.getColumnNames();
+    assertEquals(1, columnNames.size());
+    assertEquals("Column Name", columnNames.get(0));
+    List<String> columnTypes = tableMetaData.getColumnTypes();
+    assertEquals(1, columnTypes.size());
+    assertEquals("Column Type", columnTypes.get(0));
+  }
+}

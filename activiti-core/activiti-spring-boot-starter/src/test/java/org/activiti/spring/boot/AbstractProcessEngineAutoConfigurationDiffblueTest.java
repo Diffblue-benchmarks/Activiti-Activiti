@@ -1,0 +1,221 @@
+/*
+ * Copyright 2010-2020 Alfresco Software, Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.activiti.spring.boot;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.ArrayList;
+import java.util.List;
+import org.activiti.api.runtime.shared.identity.UserGroupManager;
+import org.activiti.spring.SpringAsyncExecutor;
+import org.activiti.spring.SpringCallerRunsRejectedJobsHandler;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
+import org.springframework.core.task.TaskExecutor;
+
+@ExtendWith(MockitoExtension.class)
+class AbstractProcessEngineAutoConfigurationDiffblueTest {
+  @Mock private UserGroupManager userGroupManager;
+
+  /**
+   * Test {@link AbstractProcessEngineAutoConfiguration#springAsyncExecutor(TaskExecutor)}.
+   *
+   * <p>Method under test: {@link
+   * AbstractProcessEngineAutoConfiguration#springAsyncExecutor(TaskExecutor)}
+   */
+  @Test
+  @DisplayName("Test springAsyncExecutor(TaskExecutor)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "SpringAsyncExecutor AbstractProcessEngineAutoConfiguration.springAsyncExecutor(TaskExecutor)"
+  })
+  void testSpringAsyncExecutor() {
+    // Arrange
+    TaskExecutor applicationTaskExecutor = mock(TaskExecutor.class);
+
+    // Act
+    SpringAsyncExecutor actualSpringAsyncExecutorResult =
+        new ProcessEngineAutoConfiguration(userGroupManager)
+            .springAsyncExecutor(applicationTaskExecutor);
+
+    // Assert
+    assertTrue(
+        actualSpringAsyncExecutorResult.getRejectedJobsHandler()
+            instanceof SpringCallerRunsRejectedJobsHandler);
+    assertNull(actualSpringAsyncExecutorResult.getAsyncJobAcquisitionThread());
+    assertNull(actualSpringAsyncExecutorResult.getResetExpiredJobThread());
+    assertNull(actualSpringAsyncExecutorResult.getTimerJobAcquisitionThread());
+    assertNull(actualSpringAsyncExecutorResult.getThreadPoolQueue());
+    assertNull(actualSpringAsyncExecutorResult.getExecutorService());
+    assertNull(actualSpringAsyncExecutorResult.getExecuteAsyncRunnableFactory());
+    assertNull(actualSpringAsyncExecutorResult.getProcessEngineConfiguration());
+    assertEquals(0, actualSpringAsyncExecutorResult.getDefaultQueueSizeFullWaitTimeInMillis());
+    assertEquals(1, actualSpringAsyncExecutorResult.getMaxAsyncJobsDuePerAcquisition());
+    assertEquals(1, actualSpringAsyncExecutorResult.getMaxTimerJobsPerAcquisition());
+    assertEquals(10, actualSpringAsyncExecutorResult.getMaxPoolSize());
+    assertEquals(100, actualSpringAsyncExecutorResult.getQueueSize());
+    assertEquals(
+        10000, actualSpringAsyncExecutorResult.getDefaultAsyncJobAcquireWaitTimeInMillis());
+    assertEquals(
+        10000, actualSpringAsyncExecutorResult.getDefaultTimerJobAcquireWaitTimeInMillis());
+    assertEquals(2, actualSpringAsyncExecutorResult.getCorePoolSize());
+    assertEquals(3, actualSpringAsyncExecutorResult.getResetExpiredJobsPageSize());
+    assertEquals(300000, actualSpringAsyncExecutorResult.getAsyncJobLockTimeInMillis());
+    assertEquals(300000, actualSpringAsyncExecutorResult.getTimerLockTimeInMillis());
+    assertEquals(500, actualSpringAsyncExecutorResult.getRetryWaitTimeInMillis());
+    assertEquals(5000L, actualSpringAsyncExecutorResult.getKeepAliveTime());
+    assertEquals(60000, actualSpringAsyncExecutorResult.getResetExpiredJobsInterval());
+    assertEquals(60L, actualSpringAsyncExecutorResult.getSecondsToWaitOnShutdown());
+    assertFalse(actualSpringAsyncExecutorResult.isActive());
+    assertFalse(actualSpringAsyncExecutorResult.isAutoActivate());
+    assertFalse(actualSpringAsyncExecutorResult.isMessageQueueMode());
+    assertSame(applicationTaskExecutor, actualSpringAsyncExecutorResult.getTaskExecutor());
+  }
+
+  /**
+   * Test {@link AbstractProcessEngineAutoConfiguration#getCustomMybatisMapperClasses(List)}.
+   *
+   * <ul>
+   *   <li>Given {@code 42}.
+   *   <li>When {@link ArrayList#ArrayList()} add {@code 42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * AbstractProcessEngineAutoConfiguration#getCustomMybatisMapperClasses(List)}
+   */
+  @Test
+  @DisplayName("Test getCustomMybatisMapperClasses(List); given '42'; when ArrayList() add '42'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "java.util.Set AbstractProcessEngineAutoConfiguration.getCustomMybatisMapperClasses(List)"
+  })
+  void testGetCustomMybatisMapperClasses_given42_whenArrayListAdd42() {
+    // Arrange
+    ProcessEngineAutoConfiguration processEngineAutoConfiguration =
+        new ProcessEngineAutoConfiguration(userGroupManager);
+
+    ArrayList<String> customMyBatisMappers = new ArrayList<>();
+    customMyBatisMappers.add("42");
+    customMyBatisMappers.add("foo");
+
+    // Act and Assert
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> processEngineAutoConfiguration.getCustomMybatisMapperClasses(customMyBatisMappers));
+  }
+
+  /**
+   * Test {@link AbstractProcessEngineAutoConfiguration#getCustomMybatisMapperClasses(List)}.
+   *
+   * <ul>
+   *   <li>Given {@code Custom My Batis Mappers}.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * AbstractProcessEngineAutoConfiguration#getCustomMybatisMapperClasses(List)}
+   */
+  @Test
+  @DisplayName("Test getCustomMybatisMapperClasses(List); given 'Custom My Batis Mappers'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "java.util.Set AbstractProcessEngineAutoConfiguration.getCustomMybatisMapperClasses(List)"
+  })
+  void testGetCustomMybatisMapperClasses_givenCustomMyBatisMappers() {
+    // Arrange
+    ProcessEngineAutoConfiguration processEngineAutoConfiguration =
+        new ProcessEngineAutoConfiguration(userGroupManager);
+
+    ArrayList<String> customMyBatisMappers = new ArrayList<>();
+    customMyBatisMappers.add("Custom My Batis Mappers");
+
+    // Act and Assert
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> processEngineAutoConfiguration.getCustomMybatisMapperClasses(customMyBatisMappers));
+  }
+
+  /**
+   * Test {@link AbstractProcessEngineAutoConfiguration#getCustomMybatisMapperClasses(List)}.
+   *
+   * <ul>
+   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>Then return Empty.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * AbstractProcessEngineAutoConfiguration#getCustomMybatisMapperClasses(List)}
+   */
+  @Test
+  @DisplayName("Test getCustomMybatisMapperClasses(List); when ArrayList(); then return Empty")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "java.util.Set AbstractProcessEngineAutoConfiguration.getCustomMybatisMapperClasses(List)"
+  })
+  void testGetCustomMybatisMapperClasses_whenArrayList_thenReturnEmpty() {
+    // Arrange
+    ProcessEngineAutoConfiguration processEngineAutoConfiguration =
+        new ProcessEngineAutoConfiguration(userGroupManager);
+
+    // Act and Assert
+    assertTrue(
+        processEngineAutoConfiguration.getCustomMybatisMapperClasses(new ArrayList<>()).isEmpty());
+  }
+
+  /**
+   * Test {@link AbstractProcessEngineAutoConfiguration#taskExecutor()}.
+   *
+   * <p>Method under test: {@link AbstractProcessEngineAutoConfiguration#taskExecutor()}
+   */
+  @Test
+  @DisplayName("Test taskExecutor()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"TaskExecutor AbstractProcessEngineAutoConfiguration.taskExecutor()"})
+  void testTaskExecutor() {
+    // Arrange and Act
+    TaskExecutor actualTaskExecutorResult =
+        new ProcessEngineAutoConfiguration(userGroupManager).taskExecutor();
+
+    // Assert
+    assertTrue(actualTaskExecutorResult instanceof SimpleAsyncTaskExecutor);
+    assertEquals(
+        "SimpleAsyncTaskExecutor-",
+        ((SimpleAsyncTaskExecutor) actualTaskExecutorResult).getThreadNamePrefix());
+    assertNull(((SimpleAsyncTaskExecutor) actualTaskExecutorResult).getThreadGroup());
+    assertNull(((SimpleAsyncTaskExecutor) actualTaskExecutorResult).getThreadFactory());
+    assertEquals(-1, ((SimpleAsyncTaskExecutor) actualTaskExecutorResult).getConcurrencyLimit());
+    assertEquals(5, ((SimpleAsyncTaskExecutor) actualTaskExecutorResult).getThreadPriority());
+    assertFalse(((SimpleAsyncTaskExecutor) actualTaskExecutorResult).isThrottleActive());
+    assertFalse(((SimpleAsyncTaskExecutor) actualTaskExecutorResult).isDaemon());
+    assertTrue(((SimpleAsyncTaskExecutor) actualTaskExecutorResult).isActive());
+  }
+}

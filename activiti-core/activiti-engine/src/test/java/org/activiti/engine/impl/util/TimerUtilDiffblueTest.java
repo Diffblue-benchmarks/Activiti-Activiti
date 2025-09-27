@@ -1,0 +1,63 @@
+/*
+ * Copyright 2010-2020 Alfresco Software, Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.activiti.engine.impl.util;
+
+import static org.junit.Assert.assertEquals;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+public class TimerUtilDiffblueTest {
+  /**
+   * Test {@link TimerUtil#prepareRepeat(String)}.
+   *
+   * <ul>
+   *   <li>When {@code 2020-03-01}.
+   *   <li>Then return {@code 2020-03-01}.
+   * </ul>
+   *
+   * <p>Method under test: {@link TimerUtil#prepareRepeat(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String TimerUtil.prepareRepeat(String)"})
+  public void testPrepareRepeat_when20200301_thenReturn20200301() {
+    // Arrange, Act and Assert
+    assertEquals("2020-03-01", TimerUtil.prepareRepeat("2020-03-01"));
+  }
+
+  /**
+   * Test {@link TimerUtil#prepareRepeat(String)}.
+   *
+   * <ul>
+   *   <li>When {@code R}.
+   *   <li>Then return {@code R}.
+   * </ul>
+   *
+   * <p>Method under test: {@link TimerUtil#prepareRepeat(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String TimerUtil.prepareRepeat(String)"})
+  public void testPrepareRepeat_whenR_thenReturnR() {
+    // Arrange, Act and Assert
+    assertEquals("R", TimerUtil.prepareRepeat("R"));
+  }
+}

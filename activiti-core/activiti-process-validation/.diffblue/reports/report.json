@@ -1,0 +1,3093 @@
+{
+  "meta" : {
+    "reportVersion" : "2.7"
+  },
+  "run" : {
+    "version" : "2025.09.01-44e352d-licensed",
+    "creationTimestamp" : "2025-09-26T16:42:02.920714336Z",
+    "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
+    "totalTime" : 546.461,
+    "environmentDetectionTime" : 0.133,
+    "indexingTime" : 0.448,
+    "entryPointsTime" : 0.125,
+    "generationTime" : 9279.639,
+    "timeToFirstTest" : 12087.31,
+    "timeToLastTest" : 11194.632,
+    "indexQueryTime" : 3.1870000000000003,
+    "verificationTime" : 365.934,
+    "validationTime" : 14.364
+  },
+  "codes" : {
+    "F009" : "Internal error",
+    "R000" : "Success",
+    "R002" : "Missing observers",
+    "R004" : "No meaningful assertions found",
+    "R013" : "No inputs found that don't throw a trivial exception",
+    "T000" : "Method eligible for test creation",
+    "T001" : "Trivial getter",
+    "T002" : "Trivial setter",
+    "T003" : "Private method",
+    "T004" : "In anonymous inner class",
+    "T005" : "Trivial constructor",
+    "T010" : "Abstract or interface method",
+    "T012" : "Synthetic method",
+    "V000" : "Validated successfully",
+    "V003" : "Tests discarded during validation"
+  },
+  "summary" : {
+    "classesCount" : 40,
+    "methodsCount" : 158,
+    "cumulativeDiffblueTestCount" : 404,
+    "cumulativeManualTestCount" : 6,
+    "completeTestCount" : 404,
+    "incompleteTestCount" : 0,
+    "skeletonTestCount" : 0,
+    "totalPhysicalLineCount" : 1701,
+    "perMethodTestability" : {
+      "T000" : 78,
+      "T001" : 16,
+      "T002" : 16,
+      "T003" : 3,
+      "T004" : 1,
+      "T005" : 32,
+      "T010" : 7,
+      "T012" : 5
+    },
+    "perMethodOutcome" : {
+      "F009" : 1,
+      "R000" : 97,
+      "R002" : 29,
+      "R004" : 1,
+      "R013" : 13,
+      "T003" : 3,
+      "T004" : 1,
+      "T005" : 1,
+      "T010" : 7,
+      "T012" : 5
+    },
+    "perTestOutcome" : {
+      "R000" : 404
+    },
+    "perTestValidation" : {
+      "V000" : 404,
+      "V003" : 20
+    }
+  },
+  "classes" : {
+    "org.activiti.validation.ProcessValidator" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 2
+      },
+      "perMethodOutcome" : {
+        "T010" : 2
+      }
+    },
+    "org.activiti.validation.ProcessValidatorFactory" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "R002" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 1
+      }
+    },
+    "org.activiti.validation.ProcessValidatorImpl" : {
+      "methodsCount" : 5,
+      "completeTestCount" : 6,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 3,
+        "T001" : 1,
+        "T002" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 5
+      },
+      "perTestOutcome" : {
+        "R000" : 6
+      }
+    },
+    "org.activiti.validation.ValidationError" : {
+      "methodsCount" : 26,
+      "completeTestCount" : 16,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T001" : 12,
+        "T002" : 12,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 26
+      },
+      "perTestOutcome" : {
+        "R000" : 16
+      }
+    },
+    "org.activiti.validation.validator.Constraints" : {
+      "methodsCount" : 1,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "T005" : 1
+      }
+    },
+    "org.activiti.validation.validator.ErrorMessageDefinition" : {
+      "methodsCount" : 5,
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T001" : 2,
+        "T002" : 2,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 5
+      },
+      "perTestOutcome" : {
+        "R000" : 1
+      }
+    },
+    "org.activiti.validation.validator.ProcessLevelValidator" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T010" : 2
+      },
+      "perMethodOutcome" : {
+        "R013" : 1,
+        "T010" : 2
+      }
+    },
+    "org.activiti.validation.validator.ValidationErrorDecorator" : {
+      "methodsCount" : 4,
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 4
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "R002" : 1,
+        "R013" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 4
+      }
+    },
+    "org.activiti.validation.validator.ValidationErrorDecorator$1" : {
+      "methodsCount" : 1,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T004" : 1
+      },
+      "perMethodOutcome" : {
+        "T004" : 1
+      }
+    },
+    "org.activiti.validation.validator.Validator" : {
+      "methodsCount" : 1,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 1
+      },
+      "perMethodOutcome" : {
+        "T010" : 1
+      }
+    },
+    "org.activiti.validation.validator.ValidatorImpl" : {
+      "methodsCount" : 13,
+      "completeTestCount" : 41,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 12,
+        "T010" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 12,
+        "T010" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 41
+      }
+    },
+    "org.activiti.validation.validator.ValidatorSet" : {
+      "methodsCount" : 7,
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 4,
+        "T001" : 1,
+        "T002" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 4,
+        "R013" : 3
+      },
+      "perTestOutcome" : {
+        "R000" : 2
+      }
+    },
+    "org.activiti.validation.validator.ValidatorSetFactory" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "F009" : 1,
+        "R002" : 1
+      }
+    },
+    "org.activiti.validation.validator.impl.ActivitiEventListenerValidator" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 13,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "R002" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 13
+      }
+    },
+    "org.activiti.validation.validator.impl.AssociationValidator" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 11,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "R002" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 11
+      }
+    },
+    "org.activiti.validation.validator.impl.BoundaryEventValidator" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 10,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "R002" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 10
+      }
+    },
+    "org.activiti.validation.validator.impl.BpmnModelValidator" : {
+      "methodsCount" : 9,
+      "completeTestCount" : 14,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 5,
+        "T003" : 1,
+        "T005" : 1,
+        "T012" : 2
+      },
+      "perMethodOutcome" : {
+        "R000" : 3,
+        "R002" : 1,
+        "R013" : 2,
+        "T003" : 1,
+        "T012" : 2
+      },
+      "perTestOutcome" : {
+        "R000" : 14
+      }
+    },
+    "org.activiti.validation.validator.impl.DataObjectValidator" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 7,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "R002" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 7
+      }
+    },
+    "org.activiti.validation.validator.impl.DiagramInterchangeInfoValidator" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 9,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "R002" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 9
+      }
+    },
+    "org.activiti.validation.validator.impl.EndEventValidator" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 8,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "R002" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 8
+      }
+    },
+    "org.activiti.validation.validator.impl.ErrorValidator" : {
+      "methodsCount" : 5,
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 3
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "R002" : 1,
+        "T012" : 3
+      },
+      "perTestOutcome" : {
+        "R000" : 4
+      }
+    },
+    "org.activiti.validation.validator.impl.EventGatewayValidator" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 6,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "R002" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 6
+      }
+    },
+    "org.activiti.validation.validator.impl.EventSubprocessValidator" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 11,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "R002" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 11
+      }
+    },
+    "org.activiti.validation.validator.impl.EventValidator" : {
+      "methodsCount" : 6,
+      "completeTestCount" : 28,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 5,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 3,
+        "R002" : 1,
+        "R013" : 2
+      },
+      "perTestOutcome" : {
+        "R000" : 28
+      }
+    },
+    "org.activiti.validation.validator.impl.ExclusiveGatewayValidator" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 21,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "R002" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 21
+      }
+    },
+    "org.activiti.validation.validator.impl.ExecutionListenerValidator" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 13,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "R002" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 13
+      }
+    },
+    "org.activiti.validation.validator.impl.ExternalInvocationTaskValidator" : {
+      "methodsCount" : 4,
+      "completeTestCount" : 20,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 3,
+        "T010" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 3,
+        "T010" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 20
+      }
+    },
+    "org.activiti.validation.validator.impl.FlowElementValidator" : {
+      "methodsCount" : 7,
+      "completeTestCount" : 30,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 4,
+        "T003" : 2,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 3,
+        "R002" : 1,
+        "R013" : 1,
+        "T003" : 2
+      },
+      "perTestOutcome" : {
+        "R000" : 30
+      }
+    },
+    "org.activiti.validation.validator.impl.IntermediateCatchEventValidator" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 9,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "R002" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 9
+      }
+    },
+    "org.activiti.validation.validator.impl.IntermediateThrowEventValidator" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 9,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "R002" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 9
+      }
+    },
+    "org.activiti.validation.validator.impl.MessageValidator" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 5,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "R002" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 5
+      }
+    },
+    "org.activiti.validation.validator.impl.OperationValidator" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 7,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "R002" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 7
+      }
+    },
+    "org.activiti.validation.validator.impl.ScriptTaskValidator" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 6,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "R002" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 6
+      }
+    },
+    "org.activiti.validation.validator.impl.SendTaskValidator" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 9,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "R002" : 1,
+        "R013" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 9
+      }
+    },
+    "org.activiti.validation.validator.impl.SequenceflowValidator" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 16,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "R002" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 16
+      }
+    },
+    "org.activiti.validation.validator.impl.ServiceTaskValidator" : {
+      "methodsCount" : 6,
+      "completeTestCount" : 31,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 5,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 3,
+        "R002" : 1,
+        "R013" : 2
+      },
+      "perTestOutcome" : {
+        "R000" : 31
+      }
+    },
+    "org.activiti.validation.validator.impl.SignalValidator" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 16,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "R002" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 16
+      }
+    },
+    "org.activiti.validation.validator.impl.StartEventValidator" : {
+      "methodsCount" : 4,
+      "completeTestCount" : 10,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 3,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "R002" : 1,
+        "R004" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 10
+      }
+    },
+    "org.activiti.validation.validator.impl.SubprocessValidator" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "R002" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 2
+      }
+    },
+    "org.activiti.validation.validator.impl.UserTaskValidator" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 8,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "R002" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 8
+      }
+    }
+  },
+  "methods" : {
+    "org.activiti.validation.ProcessValidator.getValidatorSets:()Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.validation.ProcessValidator.validate:(Lorg/activiti/bpmn/model/BpmnModel;)Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.validation.ProcessValidatorFactory.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        24
+      ]
+    },
+    "org.activiti.validation.ProcessValidatorFactory.createDefaultProcessValidator:()Lorg/activiti/validation/ProcessValidator;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        27,
+        28,
+        29
+      ]
+    },
+    "org.activiti.validation.ProcessValidatorImpl.<init>:()V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        31,
+        32,
+        33
+      ]
+    },
+    "org.activiti.validation.ProcessValidatorImpl.addValidatorSet:(Lorg/activiti/validation/validator/ValidatorSet;)V" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        65,
+        66,
+        68,
+        69
+      ]
+    },
+    "org.activiti.validation.ProcessValidatorImpl.getValidatorSets:()Ljava/util/List;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        57
+      ]
+    },
+    "org.activiti.validation.ProcessValidatorImpl.setValidatorSets:(Ljava/util/List;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        61,
+        62
+      ]
+    },
+    "org.activiti.validation.ProcessValidatorImpl.validate:(Lorg/activiti/bpmn/model/BpmnModel;)Ljava/util/List;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        38,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        51,
+        52,
+        53
+      ]
+    },
+    "org.activiti.validation.ValidationError.<init>:()V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        22,
+        49
+      ]
+    },
+    "org.activiti.validation.ValidationError.getActivityId:()Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        108
+      ]
+    },
+    "org.activiti.validation.ValidationError.getActivityName:()Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        116
+      ]
+    },
+    "org.activiti.validation.ValidationError.getDefaultDescription:()Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        68
+      ]
+    },
+    "org.activiti.validation.ValidationError.getKey:()Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        132
+      ]
+    },
+    "org.activiti.validation.ValidationError.getParams:()Ljava/util/Map;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        140
+      ]
+    },
+    "org.activiti.validation.ValidationError.getProblem:()Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        60
+      ]
+    },
+    "org.activiti.validation.ValidationError.getProcessDefinitionId:()Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        76
+      ]
+    },
+    "org.activiti.validation.ValidationError.getProcessDefinitionName:()Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        84
+      ]
+    },
+    "org.activiti.validation.ValidationError.getValidatorSetName:()Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        52
+      ]
+    },
+    "org.activiti.validation.ValidationError.getXmlColumnNumber:()I" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        100
+      ]
+    },
+    "org.activiti.validation.ValidationError.getXmlLineNumber:()I" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        92
+      ]
+    },
+    "org.activiti.validation.ValidationError.isWarning:()Z" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        124
+      ]
+    },
+    "org.activiti.validation.ValidationError.setActivityId:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        112,
+        113
+      ]
+    },
+    "org.activiti.validation.ValidationError.setActivityName:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        120,
+        121
+      ]
+    },
+    "org.activiti.validation.ValidationError.setDefaultDescription:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        72,
+        73
+      ]
+    },
+    "org.activiti.validation.ValidationError.setKey:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        136,
+        137
+      ]
+    },
+    "org.activiti.validation.ValidationError.setParams:(Ljava/util/Map;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        144,
+        145
+      ]
+    },
+    "org.activiti.validation.ValidationError.setProblem:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        64,
+        65
+      ]
+    },
+    "org.activiti.validation.ValidationError.setProcessDefinitionId:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        80,
+        81
+      ]
+    },
+    "org.activiti.validation.ValidationError.setProcessDefinitionName:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        88,
+        89
+      ]
+    },
+    "org.activiti.validation.ValidationError.setValidatorSetName:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        56,
+        57
+      ]
+    },
+    "org.activiti.validation.ValidationError.setWarning:(Z)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        128,
+        129
+      ]
+    },
+    "org.activiti.validation.ValidationError.setXmlColumnNumber:(I)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        104,
+        105
+      ]
+    },
+    "org.activiti.validation.ValidationError.setXmlLineNumber:(I)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        96,
+        97
+      ]
+    },
+    "org.activiti.validation.ValidationError.toString:()Ljava/lang/String;" : {
+      "completeTestCount" : 15,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 15
+      },
+      "lineNumbers" : [
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        158,
+        159,
+        160,
+        162,
+        163,
+        165,
+        166,
+        167,
+        169,
+        170,
+        172,
+        173,
+        174,
+        176,
+        177,
+        179,
+        180,
+        182,
+        183,
+        184,
+        186,
+        187,
+        189,
+        190,
+        191,
+        193,
+        194,
+        195,
+        196,
+        197,
+        198,
+        200,
+        201
+      ]
+    },
+    "org.activiti.validation.validator.Constraints.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        22
+      ]
+    },
+    "org.activiti.validation.validator.ErrorMessageDefinition.<init>:()V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        19
+      ]
+    },
+    "org.activiti.validation.validator.ErrorMessageDefinition.getDescription:()Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        33
+      ]
+    },
+    "org.activiti.validation.validator.ErrorMessageDefinition.getProblem:()Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        25
+      ]
+    },
+    "org.activiti.validation.validator.ErrorMessageDefinition.setDescription:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        37,
+        38
+      ]
+    },
+    "org.activiti.validation.validator.ErrorMessageDefinition.setProblem:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        29,
+        30
+      ]
+    },
+    "org.activiti.validation.validator.ProcessLevelValidator.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010",
+      "lineNumbers" : [
+        28
+      ]
+    },
+    "org.activiti.validation.validator.ProcessLevelValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.validation.validator.ProcessLevelValidator.validate:(Lorg/activiti/bpmn/model/BpmnModel;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        32,
+        33,
+        34,
+        35
+      ]
+    },
+    "org.activiti.validation.validator.ValidationErrorDecorator$1.<init>:(Lorg/activiti/validation/validator/ValidationErrorDecorator;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T004",
+      "perMethodOutcome" : "T004",
+      "lineNumbers" : [
+        41
+      ]
+    },
+    "org.activiti.validation.validator.ValidationErrorDecorator.<init>:()V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        34,
+        35,
+        36
+      ]
+    },
+    "org.activiti.validation.validator.ValidationErrorDecorator.decorate:(Lorg/activiti/validation/ValidationError;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        53,
+        54,
+        53,
+        55,
+        56,
+        55,
+        57
+      ]
+    },
+    "org.activiti.validation.validator.ValidationErrorDecorator.init:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        40,
+        41,
+        43,
+        44,
+        47,
+        45,
+        46,
+        48
+      ]
+    },
+    "org.activiti.validation.validator.ValidationErrorDecorator.resolveMessage:(Ljava/lang/String;Ljava/util/Map;)Ljava/lang/String;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        60,
+        61
+      ]
+    },
+    "org.activiti.validation.validator.Validator.validate:(Lorg/activiti/bpmn/model/BpmnModel;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.validation.validator.ValidatorImpl.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010",
+      "lineNumbers" : [
+        27
+      ]
+    },
+    "org.activiti.validation.validator.ValidatorImpl.addError:(Ljava/util/List;Ljava/lang/String;)V" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        34,
+        35
+      ]
+    },
+    "org.activiti.validation.validator.ValidatorImpl.addError:(Ljava/util/List;Ljava/lang/String;Ljava/util/Map;)V" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        38,
+        39
+      ]
+    },
+    "org.activiti.validation.validator.ValidatorImpl.addError:(Ljava/util/List;Ljava/lang/String;Lorg/activiti/bpmn/model/BaseElement;)V" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        43,
+        44
+      ]
+    },
+    "org.activiti.validation.validator.ValidatorImpl.addError:(Ljava/util/List;Ljava/lang/String;Lorg/activiti/bpmn/model/BaseElement;Ljava/util/Map;)V" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        48,
+        49
+      ]
+    },
+    "org.activiti.validation.validator.ValidatorImpl.addError:(Ljava/util/List;Ljava/lang/String;Lorg/activiti/bpmn/model/Process;Ljava/lang/String;)V" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        106,
+        108,
+        109,
+        110,
+        113,
+        114,
+        115,
+        116,
+        118,
+        119
+      ]
+    },
+    "org.activiti.validation.validator.ValidatorImpl.addError:(Ljava/util/List;Ljava/lang/String;Lorg/activiti/bpmn/model/Process;Lorg/activiti/bpmn/model/BaseElement;)V" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        53,
+        54
+      ]
+    },
+    "org.activiti.validation.validator.ValidatorImpl.addError:(Ljava/util/List;Ljava/lang/String;Lorg/activiti/bpmn/model/Process;Lorg/activiti/bpmn/model/BaseElement;Ljava/util/Map;)V" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        58,
+        59
+      ]
+    },
+    "org.activiti.validation.validator.ValidatorImpl.addError:(Ljava/util/List;Ljava/lang/String;Lorg/activiti/bpmn/model/Process;Lorg/activiti/bpmn/model/BaseElement;Z)V" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        73,
+        74
+      ]
+    },
+    "org.activiti.validation.validator.ValidatorImpl.addError:(Ljava/util/List;Ljava/lang/String;Lorg/activiti/bpmn/model/Process;Lorg/activiti/bpmn/model/BaseElement;ZLjava/util/Map;)V" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        78,
+        79,
+        81,
+        82,
+        83,
+        86,
+        87,
+        88,
+        90,
+        91,
+        92,
+        93,
+        95,
+        96,
+        97,
+        98,
+        101,
+        102
+      ]
+    },
+    "org.activiti.validation.validator.ValidatorImpl.addError:(Ljava/util/List;Lorg/activiti/validation/ValidationError;)V" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        30,
+        31
+      ]
+    },
+    "org.activiti.validation.validator.ValidatorImpl.addWarning:(Ljava/util/List;Ljava/lang/String;Lorg/activiti/bpmn/model/Process;Lorg/activiti/bpmn/model/BaseElement;)V" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        63,
+        64
+      ]
+    },
+    "org.activiti.validation.validator.ValidatorImpl.addWarning:(Ljava/util/List;Ljava/lang/String;Lorg/activiti/bpmn/model/Process;Lorg/activiti/bpmn/model/BaseElement;Ljava/util/Map;)V" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        68,
+        69
+      ]
+    },
+    "org.activiti.validation.validator.ValidatorSet.<init>:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        32,
+        33,
+        34
+      ]
+    },
+    "org.activiti.validation.validator.ValidatorSet.addValidator:(Lorg/activiti/validation/validator/Validator;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        59,
+        60,
+        62,
+        63
+      ]
+    },
+    "org.activiti.validation.validator.ValidatorSet.getName:()Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        37
+      ]
+    },
+    "org.activiti.validation.validator.ValidatorSet.getValidators:()Ljava/util/Collection;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        45
+      ]
+    },
+    "org.activiti.validation.validator.ValidatorSet.removeValidator:(Ljava/lang/Class;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        55,
+        56
+      ]
+    },
+    "org.activiti.validation.validator.ValidatorSet.setName:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        41,
+        42
+      ]
+    },
+    "org.activiti.validation.validator.ValidatorSet.setValidators:(Ljava/util/Collection;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        49,
+        50,
+        51,
+        52
+      ]
+    },
+    "org.activiti.validation.validator.ValidatorSetFactory.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        49
+      ]
+    },
+    "org.activiti.validation.validator.ValidatorSetFactory.createActivitiExecutableProcessValidatorSet:()Lorg/activiti/validation/validator/ValidatorSet;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "F009",
+      "lineNumbers" : [
+        52,
+        54,
+        55,
+        56,
+        57,
+        58,
+        60,
+        61,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        80,
+        81,
+        83,
+        85
+      ]
+    },
+    "org.activiti.validation.validator.impl.ActivitiEventListenerValidator.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        32
+      ]
+    },
+    "org.activiti.validation.validator.impl.ActivitiEventListenerValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
+      "completeTestCount" : 13,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 13
+      },
+      "lineNumbers" : [
+        36,
+        37,
+        38,
+        40,
+        42,
+        44,
+        46,
+        48,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        61,
+        64
+      ]
+    },
+    "org.activiti.validation.validator.impl.AssociationValidator.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        34
+      ]
+    },
+    "org.activiti.validation.validator.impl.AssociationValidator.validate:(Lorg/activiti/bpmn/model/BpmnModel;Ljava/util/List;)V" : {
+      "completeTestCount" : 6,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 6
+      },
+      "lineNumbers" : [
+        40,
+        41,
+        42,
+        43,
+        44,
+        46,
+        50,
+        51,
+        52,
+        53,
+        54,
+        56,
+        57,
+        59
+      ]
+    },
+    "org.activiti.validation.validator.impl.AssociationValidator.validate:(Lorg/activiti/bpmn/model/Process;Lorg/activiti/bpmn/model/Association;Ljava/util/List;)V" : {
+      "completeTestCount" : 5,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 5
+      },
+      "lineNumbers" : [
+        62,
+        63,
+        65,
+        66,
+        68
+      ]
+    },
+    "org.activiti.validation.validator.impl.BoundaryEventValidator.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        41
+      ]
+    },
+    "org.activiti.validation.validator.impl.BoundaryEventValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
+      "completeTestCount" : 10,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 10
+      },
+      "lineNumbers" : [
+        45,
+        49,
+        53,
+        55,
+        57,
+        59,
+        61,
+        62,
+        65,
+        69,
+        71,
+        72,
+        73,
+        75,
+        76,
+        78,
+        81,
+        83,
+        84,
+        86,
+        88,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        92,
+        113,
+        115,
+        55,
+        120,
+        121,
+        122,
+        124,
+        126,
+        127,
+        128,
+        130,
+        132
+      ]
+    },
+    "org.activiti.validation.validator.impl.BpmnModelValidator.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        36
+      ]
+    },
+    "org.activiti.validation.validator.impl.BpmnModelValidator.getDuplicatesMap:(Ljava/util/List;)Ljava/util/Map;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        115
+      ]
+    },
+    "org.activiti.validation.validator.impl.BpmnModelValidator.getProcessesWithSameId:(Ljava/util/List;)Ljava/util/List;" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        108
+      ]
+    },
+    "org.activiti.validation.validator.impl.BpmnModelValidator.handleBPMNModelConstraints:(Lorg/activiti/bpmn/model/BpmnModel;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        80,
+        81,
+        82,
+        83,
+        85
+      ]
+    },
+    "org.activiti.validation.validator.impl.BpmnModelValidator.handleProcessConstraints:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        62,
+        63,
+        64,
+        65,
+        67,
+        68,
+        69,
+        70,
+        72,
+        73,
+        74,
+        75,
+        77
+      ]
+    },
+    "org.activiti.validation.validator.impl.BpmnModelValidator.lambda$getProcessesWithSameId$0:(Lorg/activiti/bpmn/model/Process;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        107
+      ]
+    },
+    "org.activiti.validation.validator.impl.BpmnModelValidator.lambda$getProcessesWithSameId$1:(Ljava/util/List;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        109
+      ]
+    },
+    "org.activiti.validation.validator.impl.BpmnModelValidator.validate:(Lorg/activiti/bpmn/model/BpmnModel;Ljava/util/List;)V" : {
+      "completeTestCount" : 7,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 7
+      },
+      "lineNumbers" : [
+        41,
+        42,
+        43,
+        47,
+        50,
+        51,
+        52,
+        53,
+        55,
+        56,
+        58,
+        59
+      ]
+    },
+    "org.activiti.validation.validator.impl.BpmnModelValidator.validateAtLeastOneExecutable:(Lorg/activiti/bpmn/model/BpmnModel;Ljava/util/List;)Z" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        91,
+        92,
+        93,
+        94,
+        96,
+        98,
+        99,
+        102
+      ]
+    },
+    "org.activiti.validation.validator.impl.DataObjectValidator.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        34
+      ]
+    },
+    "org.activiti.validation.validator.impl.DataObjectValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
+      "completeTestCount" : 7,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 7
+      },
+      "lineNumbers" : [
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        48,
+        49,
+        50,
+        52,
+        54
+      ]
+    },
+    "org.activiti.validation.validator.impl.DiagramInterchangeInfoValidator.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        33
+      ]
+    },
+    "org.activiti.validation.validator.impl.DiagramInterchangeInfoValidator.validate:(Lorg/activiti/bpmn/model/BpmnModel;Ljava/util/List;)V" : {
+      "completeTestCount" : 9,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 9
+      },
+      "lineNumbers" : [
+        37,
+        40,
+        41,
+        44,
+        46,
+        47,
+        48,
+        49,
+        50,
+        52,
+        53,
+        54,
+        55,
+        57,
+        61,
+        63,
+        64,
+        67,
+        68,
+        69,
+        70,
+        74,
+        75,
+        76,
+        77,
+        80,
+        82
+      ]
+    },
+    "org.activiti.validation.validator.impl.EndEventValidator.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        35
+      ]
+    },
+    "org.activiti.validation.validator.impl.EndEventValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
+      "completeTestCount" : 8,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 8
+      },
+      "lineNumbers" : [
+        39,
+        40,
+        41,
+        43,
+        46,
+        48,
+        49,
+        50,
+        56,
+        57
+      ]
+    },
+    "org.activiti.validation.validator.impl.ErrorValidator.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        31
+      ]
+    },
+    "org.activiti.validation.validator.impl.ErrorValidator.lambda$validate$0:(Lorg/activiti/bpmn/model/Error;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        38
+      ]
+    },
+    "org.activiti.validation.validator.impl.ErrorValidator.lambda$validate$1:(Ljava/util/List;Lorg/activiti/bpmn/model/Error;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        39,
+        42,
+        39
+      ]
+    },
+    "org.activiti.validation.validator.impl.ErrorValidator.lambda$validate$2:(Ljava/util/List;Ljava/util/Map;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        37,
+        38,
+        39,
+        37
+      ]
+    },
+    "org.activiti.validation.validator.impl.ErrorValidator.validate:(Lorg/activiti/bpmn/model/BpmnModel;Ljava/util/List;)V" : {
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "lineNumbers" : [
+        35,
+        36,
+        44
+      ]
+    },
+    "org.activiti.validation.validator.impl.EventGatewayValidator.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        34
+      ]
+    },
+    "org.activiti.validation.validator.impl.EventGatewayValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
+      "completeTestCount" : 6,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 6
+      },
+      "lineNumbers" : [
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        45,
+        46,
+        47
+      ]
+    },
+    "org.activiti.validation.validator.impl.EventSubprocessValidator.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        35
+      ]
+    },
+    "org.activiti.validation.validator.impl.EventSubprocessValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
+      "completeTestCount" : 11,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 11
+      },
+      "lineNumbers" : [
+        39,
+        40,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        50,
+        52,
+        53
+      ]
+    },
+    "org.activiti.validation.validator.impl.EventValidator.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        39
+      ]
+    },
+    "org.activiti.validation.validator.impl.EventValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
+      "completeTestCount" : 17,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 17
+      },
+      "lineNumbers" : [
+        43,
+        44,
+        45,
+        46,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        58,
+        60,
+        61
+      ]
+    },
+    "org.activiti.validation.validator.impl.EventValidator.handleCompensationEventDefinition:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Lorg/activiti/bpmn/model/Event;Lorg/activiti/bpmn/model/EventDefinition;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        102,
+        105,
+        106,
+        108
+      ]
+    },
+    "org.activiti.validation.validator.impl.EventValidator.handleMessageEventDefinition:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Lorg/activiti/bpmn/model/Event;Lorg/activiti/bpmn/model/EventDefinition;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        64,
+        66,
+        68,
+        70,
+        73,
+        75,
+        77
+      ]
+    },
+    "org.activiti.validation.validator.impl.EventValidator.handleSignalEventDefinition:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Lorg/activiti/bpmn/model/Event;Lorg/activiti/bpmn/model/EventDefinition;Ljava/util/List;)V" : {
+      "completeTestCount" : 6,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 6
+      },
+      "lineNumbers" : [
+        80,
+        82,
+        84,
+        85,
+        88,
+        89,
+        91
+      ]
+    },
+    "org.activiti.validation.validator.impl.EventValidator.handleTimerEventDefinition:(Lorg/activiti/bpmn/model/Process;Lorg/activiti/bpmn/model/Event;Lorg/activiti/bpmn/model/EventDefinition;Ljava/util/List;)V" : {
+      "completeTestCount" : 5,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 5
+      },
+      "lineNumbers" : [
+        94,
+        95,
+        97,
+        99
+      ]
+    },
+    "org.activiti.validation.validator.impl.ExclusiveGatewayValidator.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        34
+      ]
+    },
+    "org.activiti.validation.validator.impl.ExclusiveGatewayValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
+      "completeTestCount" : 12,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 12
+      },
+      "lineNumbers" : [
+        38,
+        39,
+        40,
+        41,
+        42
+      ]
+    },
+    "org.activiti.validation.validator.impl.ExclusiveGatewayValidator.validateExclusiveGateway:(Lorg/activiti/bpmn/model/Process;Lorg/activiti/bpmn/model/ExclusiveGateway;Ljava/util/List;)V" : {
+      "completeTestCount" : 9,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 9
+      },
+      "lineNumbers" : [
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        52,
+        53,
+        55,
+        56,
+        57,
+        58,
+        59,
+        61,
+        62,
+        64,
+        65,
+        67,
+        69,
+        70,
+        74
+      ]
+    },
+    "org.activiti.validation.validator.impl.ExecutionListenerValidator.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        34
+      ]
+    },
+    "org.activiti.validation.validator.impl.ExecutionListenerValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
+      "completeTestCount" : 7,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 7
+      },
+      "lineNumbers" : [
+        39,
+        41,
+        42,
+        43,
+        44
+      ]
+    },
+    "org.activiti.validation.validator.impl.ExecutionListenerValidator.validateListeners:(Lorg/activiti/bpmn/model/Process;Lorg/activiti/bpmn/model/BaseElement;Ljava/util/List;Ljava/util/List;)V" : {
+      "completeTestCount" : 6,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 6
+      },
+      "lineNumbers" : [
+        47,
+        48,
+        49,
+        50,
+        52,
+        53,
+        55,
+        57
+      ]
+    },
+    "org.activiti.validation.validator.impl.ExternalInvocationTaskValidator.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010",
+      "lineNumbers" : [
+        27
+      ]
+    },
+    "org.activiti.validation.validator.impl.ExternalInvocationTaskValidator.validateFieldDeclarationsForDmn:(Lorg/activiti/bpmn/model/Process;Lorg/activiti/bpmn/model/TaskWithFieldExtensions;Ljava/util/List;Ljava/util/List;)V" : {
+      "completeTestCount" : 6,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 6
+      },
+      "lineNumbers" : [
+        82,
+        84,
+        85,
+        86,
+        88,
+        89,
+        91,
+        93,
+        94,
+        96
+      ]
+    },
+    "org.activiti.validation.validator.impl.ExternalInvocationTaskValidator.validateFieldDeclarationsForEmail:(Lorg/activiti/bpmn/model/Process;Lorg/activiti/bpmn/model/TaskWithFieldExtensions;Ljava/util/List;Ljava/util/List;)V" : {
+      "completeTestCount" : 6,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 6
+      },
+      "lineNumbers" : [
+        30,
+        31,
+        33,
+        34,
+        35,
+        37,
+        38,
+        40,
+        41,
+        43,
+        44,
+        46,
+        47,
+        49,
+        51,
+        52,
+        54,
+        55,
+        57
+      ]
+    },
+    "org.activiti.validation.validator.impl.ExternalInvocationTaskValidator.validateFieldDeclarationsForShell:(Lorg/activiti/bpmn/model/Process;Lorg/activiti/bpmn/model/TaskWithFieldExtensions;Ljava/util/List;Ljava/util/List;)V" : {
+      "completeTestCount" : 8,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 8
+      },
+      "lineNumbers" : [
+        60,
+        62,
+        63,
+        64,
+        66,
+        67,
+        70,
+        71,
+        74,
+        76,
+        77,
+        79
+      ]
+    },
+    "org.activiti.validation.validator.impl.FlowElementValidator.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        41
+      ]
+    },
+    "org.activiti.validation.validator.impl.FlowElementValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
+      "completeTestCount" : 17,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 17
+      },
+      "lineNumbers" : [
+        52,
+        53,
+        54,
+        55
+      ]
+    },
+    "org.activiti.validation.validator.impl.FlowElementValidator.handleConstraints:(Lorg/activiti/bpmn/model/Process;Lorg/activiti/bpmn/model/Activity;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        72,
+        73,
+        74,
+        75,
+        77
+      ]
+    },
+    "org.activiti.validation.validator.impl.FlowElementValidator.handleDataAssociations:(Lorg/activiti/bpmn/model/Process;Lorg/activiti/bpmn/model/Activity;Ljava/util/List;)V" : {
+      "completeTestCount" : 8,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 8
+      },
+      "lineNumbers" : [
+        93,
+        94,
+        95,
+        96,
+        98,
+        100,
+        101,
+        102,
+        103,
+        105,
+        107
+      ]
+    },
+    "org.activiti.validation.validator.impl.FlowElementValidator.handleFlowElement:(Lorg/activiti/bpmn/model/Process;Lorg/activiti/bpmn/model/FlowElement;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        69
+      ]
+    },
+    "org.activiti.validation.validator.impl.FlowElementValidator.handleMultiInstanceLoopCharacteristics:(Lorg/activiti/bpmn/model/Process;Lorg/activiti/bpmn/model/Activity;Ljava/util/List;)V" : {
+      "completeTestCount" : 5,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 5
+      },
+      "lineNumbers" : [
+        80,
+        81,
+        83,
+        84,
+        86,
+        90
+      ]
+    },
+    "org.activiti.validation.validator.impl.FlowElementValidator.handleValidations:(Lorg/activiti/bpmn/model/Process;Lorg/activiti/bpmn/model/Activity;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        45,
+        46,
+        47,
+        48
+      ]
+    },
+    "org.activiti.validation.validator.impl.IntermediateCatchEventValidator.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        35
+      ]
+    },
+    "org.activiti.validation.validator.impl.IntermediateCatchEventValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
+      "completeTestCount" : 9,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 9
+      },
+      "lineNumbers" : [
+        39,
+        40,
+        41,
+        42,
+        43,
+        46,
+        47,
+        49,
+        50,
+        53,
+        54
+      ]
+    },
+    "org.activiti.validation.validator.impl.IntermediateThrowEventValidator.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        35
+      ]
+    },
+    "org.activiti.validation.validator.impl.IntermediateThrowEventValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
+      "completeTestCount" : 9,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 9
+      },
+      "lineNumbers" : [
+        39,
+        40,
+        41,
+        42,
+        43,
+        46,
+        50,
+        52,
+        53
+      ]
+    },
+    "org.activiti.validation.validator.impl.MessageValidator.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        31
+      ]
+    },
+    "org.activiti.validation.validator.impl.MessageValidator.validate:(Lorg/activiti/bpmn/model/BpmnModel;Ljava/util/List;)V" : {
+      "completeTestCount" : 5,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 5
+      },
+      "lineNumbers" : [
+        35,
+        36,
+        39,
+        40,
+        41,
+        45,
+        47
+      ]
+    },
+    "org.activiti.validation.validator.impl.OperationValidator.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        31
+      ]
+    },
+    "org.activiti.validation.validator.impl.OperationValidator.validate:(Lorg/activiti/bpmn/model/BpmnModel;Ljava/util/List;)V" : {
+      "completeTestCount" : 7,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 7
+      },
+      "lineNumbers" : [
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        42,
+        44,
+        46
+      ]
+    },
+    "org.activiti.validation.validator.impl.ScriptTaskValidator.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        32
+      ]
+    },
+    "org.activiti.validation.validator.impl.ScriptTaskValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
+      "completeTestCount" : 6,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 6
+      },
+      "lineNumbers" : [
+        36,
+        37,
+        38,
+        39,
+        41,
+        42
+      ]
+    },
+    "org.activiti.validation.validator.impl.SendTaskValidator.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        34
+      ]
+    },
+    "org.activiti.validation.validator.impl.SendTaskValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
+      "completeTestCount" : 9,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 9
+      },
+      "lineNumbers" : [
+        38,
+        39,
+        42,
+        43,
+        47,
+        49,
+        50,
+        53,
+        54,
+        60,
+        61,
+        62
+      ]
+    },
+    "org.activiti.validation.validator.impl.SendTaskValidator.verifyWebservice:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Lorg/activiti/bpmn/model/SendTask;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        65,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        75,
+        77,
+        80,
+        81,
+        85
+      ]
+    },
+    "org.activiti.validation.validator.impl.SequenceflowValidator.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        35
+      ]
+    },
+    "org.activiti.validation.validator.impl.SequenceflowValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
+      "completeTestCount" : 16,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 16
+      },
+      "lineNumbers" : [
+        39,
+        40,
+        42,
+        43,
+        45,
+        46,
+        48,
+        49,
+        55,
+        56,
+        59,
+        60,
+        62,
+        63,
+        66,
+        67,
+        68,
+        70,
+        71,
+        73,
+        74,
+        76,
+        77,
+        81,
+        83,
+        85,
+        86,
+        89,
+        87,
+        88,
+        92,
+        93
+      ]
+    },
+    "org.activiti.validation.validator.impl.ServiceTaskValidator.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        34
+      ]
+    },
+    "org.activiti.validation.validator.impl.ServiceTaskValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
+      "completeTestCount" : 13,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 13
+      },
+      "lineNumbers" : [
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        46
+      ]
+    },
+    "org.activiti.validation.validator.impl.ServiceTaskValidator.verifyImplementation:(Lorg/activiti/bpmn/model/Process;Lorg/activiti/bpmn/model/ServiceTask;Ljava/util/List;)V" : {
+      "completeTestCount" : 6,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 6
+      },
+      "lineNumbers" : [
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        57
+      ]
+    },
+    "org.activiti.validation.validator.impl.ServiceTaskValidator.verifyResultVariableName:(Lorg/activiti/bpmn/model/Process;Lorg/activiti/bpmn/model/ServiceTask;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        80,
+        81,
+        82,
+        81,
+        83,
+        85
+      ]
+    },
+    "org.activiti.validation.validator.impl.ServiceTaskValidator.verifyType:(Lorg/activiti/bpmn/model/Process;Lorg/activiti/bpmn/model/ServiceTask;Ljava/util/List;)V" : {
+      "completeTestCount" : 12,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 12
+      },
+      "lineNumbers" : [
+        60,
+        62,
+        63,
+        65,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        77
+      ]
+    },
+    "org.activiti.validation.validator.impl.ServiceTaskValidator.verifyWebservice:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Lorg/activiti/bpmn/model/ServiceTask;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        88,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        98,
+        100,
+        103,
+        104,
+        108
+      ]
+    },
+    "org.activiti.validation.validator.impl.SignalValidator.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        32
+      ]
+    },
+    "org.activiti.validation.validator.impl.SignalValidator.duplicateName:(Ljava/util/Collection;Ljava/lang/String;Ljava/lang/String;)Z" : {
+      "completeTestCount" : 7,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 7
+      },
+      "lineNumbers" : [
+        61,
+        62,
+        63,
+        64,
+        67,
+        68
+      ]
+    },
+    "org.activiti.validation.validator.impl.SignalValidator.validate:(Lorg/activiti/bpmn/model/BpmnModel;Ljava/util/List;)V" : {
+      "completeTestCount" : 9,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 9
+      },
+      "lineNumbers" : [
+        36,
+        37,
+        39,
+        40,
+        41,
+        44,
+        45,
+        48,
+        49,
+        52,
+        53,
+        55,
+        58
+      ]
+    },
+    "org.activiti.validation.validator.impl.StartEventValidator.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        36
+      ]
+    },
+    "org.activiti.validation.validator.impl.StartEventValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        40,
+        41,
+        42,
+        43
+      ]
+    },
+    "org.activiti.validation.validator.impl.StartEventValidator.validateEventDefinitionTypes:(Ljava/util/List;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
+      "completeTestCount" : 7,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 7
+      },
+      "lineNumbers" : [
+        46,
+        47,
+        48,
+        49,
+        52,
+        56,
+        57
+      ]
+    },
+    "org.activiti.validation.validator.impl.StartEventValidator.validateMultipleStartEvents:(Ljava/util/List;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R004",
+      "lineNumbers" : [
+        62,
+        63,
+        64,
+        65,
+        67,
+        69,
+        70,
+        71,
+        77,
+        80
+      ]
+    },
+    "org.activiti.validation.validator.impl.SubprocessValidator.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        33
+      ]
+    },
+    "org.activiti.validation.validator.impl.SubprocessValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        37,
+        38,
+        40,
+        43,
+        44,
+        45,
+        48,
+        49,
+        50,
+        52,
+        56,
+        58
+      ]
+    },
+    "org.activiti.validation.validator.impl.UserTaskValidator.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        32
+      ]
+    },
+    "org.activiti.validation.validator.impl.UserTaskValidator.executeValidation:(Lorg/activiti/bpmn/model/BpmnModel;Lorg/activiti/bpmn/model/Process;Ljava/util/List;)V" : {
+      "completeTestCount" : 8,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 8
+      },
+      "lineNumbers" : [
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        43,
+        45,
+        46
+      ]
+    }
+  },
+  "validationMetrics" : { }
+}

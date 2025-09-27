@@ -1,0 +1,94 @@
+/*
+ * Copyright 2010-2020 Alfresco Software, Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.activiti.api.task.model.builders;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.util.Date;
+import org.activiti.api.task.model.payloads.UpdateTaskPayload;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+
+class UpdateTaskPayloadBuilderDiffblueTest {
+  /**
+   * Test {@link UpdateTaskPayloadBuilder#build()}.
+   *
+   * <p>Methods under test:
+   *
+   * <ul>
+   *   <li>{@link UpdateTaskPayloadBuilder#build()}
+   *   <li>default or parameterless constructor of {@link UpdateTaskPayloadBuilder}
+   *   <li>{@link UpdateTaskPayloadBuilder#parentTaskId(String)}
+   *   <li>{@link UpdateTaskPayloadBuilder#withAssignee(String)}
+   *   <li>{@link UpdateTaskPayloadBuilder#withDescription(String)}
+   *   <li>{@link UpdateTaskPayloadBuilder#withDueDate(Date)}
+   *   <li>{@link UpdateTaskPayloadBuilder#withFormKey(String)}
+   *   <li>{@link UpdateTaskPayloadBuilder#withName(String)}
+   *   <li>{@link UpdateTaskPayloadBuilder#withPriority(Integer)}
+   *   <li>{@link UpdateTaskPayloadBuilder#withTaskId(String)}
+   * </ul>
+   */
+  @Test
+  @DisplayName("Test build()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void UpdateTaskPayloadBuilder.<init>()",
+    "UpdateTaskPayload UpdateTaskPayloadBuilder.build()",
+    "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.parentTaskId(String)",
+    "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.withAssignee(String)",
+    "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.withDescription(String)",
+    "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.withDueDate(Date)",
+    "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.withFormKey(String)",
+    "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.withName(String)",
+    "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.withPriority(Integer)",
+    "UpdateTaskPayloadBuilder UpdateTaskPayloadBuilder.withTaskId(String)"
+  })
+  void testBuild() {
+    // Arrange and Act
+    UpdateTaskPayloadBuilder actualWithDescriptionResult =
+        new UpdateTaskPayloadBuilder()
+            .parentTaskId("42")
+            .withAssignee("Assignee")
+            .withDescription("The characteristics of someone or something");
+    Date dueDate =
+        Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant());
+    UpdateTaskPayload actualUpdateTaskPayload =
+        actualWithDescriptionResult
+            .withDueDate(dueDate)
+            .withFormKey("Form Key")
+            .withName("Name")
+            .withPriority(1)
+            .withTaskId("42")
+            .build();
+
+    // Assert
+    assertEquals("42", actualUpdateTaskPayload.getParentTaskId());
+    assertEquals("42", actualUpdateTaskPayload.getTaskId());
+    assertEquals("Assignee", actualUpdateTaskPayload.getAssignee());
+    assertEquals("Form Key", actualUpdateTaskPayload.getFormKey());
+    assertEquals("Name", actualUpdateTaskPayload.getName());
+    assertEquals(
+        "The characteristics of someone or something", actualUpdateTaskPayload.getDescription());
+    assertEquals(1, actualUpdateTaskPayload.getPriority().intValue());
+    assertSame(dueDate, actualUpdateTaskPayload.getDueDate());
+  }
+}

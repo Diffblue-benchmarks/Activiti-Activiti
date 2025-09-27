@@ -1,0 +1,92 @@
+/*
+ * Copyright 2010-2020 Alfresco Software, Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.activiti.engine.impl.cfg;
+
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import org.activiti.engine.impl.bpmn.parser.BpmnParse;
+import org.activiti.engine.impl.bpmn.parser.BpmnParser;
+import org.activiti.engine.impl.bpmn.parser.factory.DefaultActivityBehaviorFactory;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+public class DefaultBpmnParseFactoryDiffblueTest {
+  /**
+   * Test {@link DefaultBpmnParseFactory#createBpmnParse(BpmnParser)}.
+   *
+   * <p>Method under test: {@link DefaultBpmnParseFactory#createBpmnParse(BpmnParser)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"BpmnParse DefaultBpmnParseFactory.createBpmnParse(BpmnParser)"})
+  public void testCreateBpmnParse() {
+    // Arrange
+    DefaultBpmnParseFactory defaultBpmnParseFactory = new DefaultBpmnParseFactory();
+
+    BpmnParser bpmnParser = new BpmnParser();
+    DefaultActivityBehaviorFactory activityBehaviorFactory = new DefaultActivityBehaviorFactory();
+    bpmnParser.setActivityBehaviorFactory(activityBehaviorFactory);
+
+    // Act and Assert
+    assertSame(
+        activityBehaviorFactory,
+        defaultBpmnParseFactory.createBpmnParse(bpmnParser).getActivityBehaviorFactory());
+  }
+
+  /**
+   * Test {@link DefaultBpmnParseFactory#createBpmnParse(BpmnParser)}.
+   *
+   * <ul>
+   *   <li>When {@link BpmnParser} (default constructor).
+   *   <li>Then return TargetNamespace is {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link DefaultBpmnParseFactory#createBpmnParse(BpmnParser)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"BpmnParse DefaultBpmnParseFactory.createBpmnParse(BpmnParser)"})
+  public void testCreateBpmnParse_whenBpmnParser_thenReturnTargetNamespaceIsNull() {
+    // Arrange
+    DefaultBpmnParseFactory defaultBpmnParseFactory = new DefaultBpmnParseFactory();
+
+    // Act
+    BpmnParse actualCreateBpmnParseResult =
+        defaultBpmnParseFactory.createBpmnParse(new BpmnParser());
+
+    // Assert
+    assertNull(actualCreateBpmnParseResult.getTargetNamespace());
+    assertNull(actualCreateBpmnParseResult.getSequenceFlows());
+    assertNull(actualCreateBpmnParseResult.getBpmnModel());
+    assertNull(actualCreateBpmnParseResult.getCurrentFlowElement());
+    assertNull(actualCreateBpmnParseResult.getCurrentProcess());
+    assertNull(actualCreateBpmnParseResult.getCurrentSubProcess());
+    assertNull(actualCreateBpmnParseResult.getBpmnParserHandlers());
+    assertNull(actualCreateBpmnParseResult.getActivityBehaviorFactory());
+    assertNull(actualCreateBpmnParseResult.getListenerFactory());
+    assertNull(actualCreateBpmnParseResult.getDeployment());
+    assertNull(actualCreateBpmnParseResult.getCurrentProcessDefinition());
+    assertTrue(actualCreateBpmnParseResult.getProcessDefinitions().isEmpty());
+    assertTrue(actualCreateBpmnParseResult.isValidateProcess());
+    assertTrue(actualCreateBpmnParseResult.isValidateSchema());
+  }
+}

@@ -1,0 +1,487 @@
+/*
+ * Copyright 2010-2020 Alfresco Software, Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.activiti.engine.impl.util;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
+import org.activiti.engine.ActivitiIllegalArgumentException;
+import org.activiti.engine.impl.util.json.JSONObject;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+public class CollectionUtilDiffblueTest {
+  /**
+   * Test {@link CollectionUtil#singletonMap(String, Object)}.
+   *
+   * <p>Method under test: {@link CollectionUtil#singletonMap(String, Object)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Map CollectionUtil.singletonMap(String, Object)"})
+  public void testSingletonMap() {
+    // Arrange
+    Object object = JSONObject.NULL;
+
+    // Act
+    Map<String, Object> actualSingletonMapResult = CollectionUtil.singletonMap("Key", object);
+
+    // Assert
+    assertEquals(1, actualSingletonMapResult.size());
+    assertSame(object, actualSingletonMapResult.get("Key"));
+  }
+
+  /**
+   * Test {@link CollectionUtil#map(Object[])}.
+   *
+   * <ul>
+   *   <li>Then return Empty.
+   * </ul>
+   *
+   * <p>Method under test: {@link CollectionUtil#map(Object[])}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Map CollectionUtil.map(Object[])"})
+  public void testMap_thenReturnEmpty() {
+    // Arrange and Act
+    Map<String, Object> actualMapResult = CollectionUtil.map();
+
+    // Assert
+    assertTrue(actualMapResult.isEmpty());
+  }
+
+  /**
+   * Test {@link CollectionUtil#map(Object[])}.
+   *
+   * <ul>
+   *   <li>When {@link JSONObject#NULL} and {@link JSONObject#NULL}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link CollectionUtil#map(Object[])}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Map CollectionUtil.map(Object[])"})
+  public void testMap_whenNullAndNull_thenThrowActivitiIllegalArgumentException() {
+    // Arrange, Act and Assert
+    assertThrows(
+        ActivitiIllegalArgumentException.class,
+        () -> CollectionUtil.map(JSONObject.NULL, JSONObject.NULL));
+  }
+
+  /**
+   * Test {@link CollectionUtil#map(Object[])}.
+   *
+   * <ul>
+   *   <li>When {@link JSONObject#NULL}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link CollectionUtil#map(Object[])}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Map CollectionUtil.map(Object[])"})
+  public void testMap_whenNull_thenThrowActivitiIllegalArgumentException() {
+    // Arrange, Act and Assert
+    assertThrows(ActivitiIllegalArgumentException.class, () -> CollectionUtil.map(JSONObject.NULL));
+  }
+
+  /**
+   * Test {@link CollectionUtil#map(Object[])}.
+   *
+   * <ul>
+   *   <li>When {@code Objects} and {@link JSONObject#NULL}.
+   *   <li>Then return containsKey {@code Objects}.
+   * </ul>
+   *
+   * <p>Method under test: {@link CollectionUtil#map(Object[])}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Map CollectionUtil.map(Object[])"})
+  public void testMap_whenObjectsAndNull_thenReturnContainsKeyObjects() {
+    // Arrange and Act
+    Map<String, Object> actualMapResult = CollectionUtil.map("Objects", JSONObject.NULL);
+
+    // Assert
+    assertEquals(1, actualMapResult.size());
+    assertTrue(actualMapResult.containsKey("Objects"));
+  }
+
+  /**
+   * Test {@link CollectionUtil#map(Object[])}.
+   *
+   * <ul>
+   *   <li>When {@code Objects} and {@code null}.
+   *   <li>Then return {@code Objects} is {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link CollectionUtil#map(Object[])}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Map CollectionUtil.map(Object[])"})
+  public void testMap_whenObjectsAndNull_thenReturnObjectsIsNull() {
+    // Arrange and Act
+    Map<String, Object> actualMapResult = CollectionUtil.map("Objects", null);
+
+    // Assert
+    assertEquals(1, actualMapResult.size());
+    assertNull(actualMapResult.get("Objects"));
+  }
+
+  /**
+   * Test {@link CollectionUtil#mapOfClass(Class, Object[])}.
+   *
+   * <ul>
+   *   <li>When {@code Object}.
+   *   <li>Then return Empty.
+   * </ul>
+   *
+   * <p>Method under test: {@link CollectionUtil#mapOfClass(Class, Object[])}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Map CollectionUtil.mapOfClass(Class, Object[])"})
+  public void testMapOfClass_whenJavaLangObject_thenReturnEmpty() {
+    // Arrange
+    Class<Object> clazz = Object.class;
+
+    // Act
+    Map<String, Object> actualMapOfClassResult = CollectionUtil.mapOfClass(clazz);
+
+    // Assert
+    assertTrue(actualMapOfClassResult.isEmpty());
+  }
+
+  /**
+   * Test {@link CollectionUtil#mapOfClass(Class, Object[])}.
+   *
+   * <ul>
+   *   <li>When {@code String}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link CollectionUtil#mapOfClass(Class, Object[])}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Map CollectionUtil.mapOfClass(Class, Object[])"})
+  public void testMapOfClass_whenJavaLangString_thenThrowActivitiIllegalArgumentException() {
+    // Arrange
+    Class<String> clazz = String.class;
+
+    // Act and Assert
+    assertThrows(
+        ActivitiIllegalArgumentException.class,
+        () -> CollectionUtil.mapOfClass(clazz, "Objects", JSONObject.NULL));
+  }
+
+  /**
+   * Test {@link CollectionUtil#mapOfClass(Class, Object[])}.
+   *
+   * <ul>
+   *   <li>When {@link JSONObject#NULL} and {@link JSONObject#NULL}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link CollectionUtil#mapOfClass(Class, Object[])}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Map CollectionUtil.mapOfClass(Class, Object[])"})
+  public void testMapOfClass_whenNullAndNull_thenThrowActivitiIllegalArgumentException() {
+    // Arrange
+    Class<Object> clazz = Object.class;
+
+    // Act and Assert
+    assertThrows(
+        ActivitiIllegalArgumentException.class,
+        () -> CollectionUtil.mapOfClass(clazz, JSONObject.NULL, JSONObject.NULL));
+  }
+
+  /**
+   * Test {@link CollectionUtil#mapOfClass(Class, Object[])}.
+   *
+   * <ul>
+   *   <li>When {@link JSONObject#NULL}.
+   *   <li>Then throw {@link ActivitiIllegalArgumentException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link CollectionUtil#mapOfClass(Class, Object[])}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Map CollectionUtil.mapOfClass(Class, Object[])"})
+  public void testMapOfClass_whenNull_thenThrowActivitiIllegalArgumentException() {
+    // Arrange
+    Class<Object> clazz = Object.class;
+
+    // Act and Assert
+    assertThrows(
+        ActivitiIllegalArgumentException.class,
+        () -> CollectionUtil.mapOfClass(clazz, JSONObject.NULL));
+  }
+
+  /**
+   * Test {@link CollectionUtil#mapOfClass(Class, Object[])}.
+   *
+   * <ul>
+   *   <li>When {@code Objects} and {@link JSONObject#NULL}.
+   *   <li>Then return containsKey {@code Objects}.
+   * </ul>
+   *
+   * <p>Method under test: {@link CollectionUtil#mapOfClass(Class, Object[])}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Map CollectionUtil.mapOfClass(Class, Object[])"})
+  public void testMapOfClass_whenObjectsAndNull_thenReturnContainsKeyObjects() {
+    // Arrange
+    Class<Object> clazz = Object.class;
+
+    // Act
+    Map<String, Object> actualMapOfClassResult =
+        CollectionUtil.mapOfClass(clazz, "Objects", JSONObject.NULL);
+
+    // Assert
+    assertEquals(1, actualMapOfClassResult.size());
+    assertTrue(actualMapOfClassResult.containsKey("Objects"));
+  }
+
+  /**
+   * Test {@link CollectionUtil#mapOfClass(Class, Object[])}.
+   *
+   * <ul>
+   *   <li>When {@code Objects} and {@code null}.
+   *   <li>Then return {@code Objects} is {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link CollectionUtil#mapOfClass(Class, Object[])}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Map CollectionUtil.mapOfClass(Class, Object[])"})
+  public void testMapOfClass_whenObjectsAndNull_thenReturnObjectsIsNull() {
+    // Arrange
+    Class<Object> clazz = Object.class;
+
+    // Act
+    Map<String, Object> actualMapOfClassResult = CollectionUtil.mapOfClass(clazz, "Objects", null);
+
+    // Assert
+    assertEquals(1, actualMapOfClassResult.size());
+    assertNull(actualMapOfClassResult.get("Objects"));
+  }
+
+  /**
+   * Test {@link CollectionUtil#isEmpty(Collection)}.
+   *
+   * <ul>
+   *   <li>Given {@link JSONObject#NULL}.
+   *   <li>When {@link ArrayList#ArrayList()} add {@link JSONObject#NULL}.
+   *   <li>Then return {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link CollectionUtil#isEmpty(Collection)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean CollectionUtil.isEmpty(Collection)"})
+  public void testIsEmpty_givenNull_whenArrayListAddNull_thenReturnFalse() {
+    // Arrange
+    ArrayList<Object> collection = new ArrayList<>();
+    collection.add(JSONObject.NULL);
+
+    // Act and Assert
+    assertFalse(CollectionUtil.isEmpty(collection));
+  }
+
+  /**
+   * Test {@link CollectionUtil#isEmpty(Collection)}.
+   *
+   * <ul>
+   *   <li>Given {@link JSONObject#NULL}.
+   *   <li>When {@link ArrayList#ArrayList()} add {@link JSONObject#NULL}.
+   *   <li>Then return {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link CollectionUtil#isEmpty(Collection)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean CollectionUtil.isEmpty(Collection)"})
+  public void testIsEmpty_givenNull_whenArrayListAddNull_thenReturnFalse2() {
+    // Arrange
+    ArrayList<Object> collection = new ArrayList<>();
+    collection.add(JSONObject.NULL);
+    collection.add(JSONObject.NULL);
+
+    // Act and Assert
+    assertFalse(CollectionUtil.isEmpty(collection));
+  }
+
+  /**
+   * Test {@link CollectionUtil#isEmpty(Collection)}.
+   *
+   * <ul>
+   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>Then return {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link CollectionUtil#isEmpty(Collection)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean CollectionUtil.isEmpty(Collection)"})
+  public void testIsEmpty_whenArrayList_thenReturnTrue() {
+    // Arrange, Act and Assert
+    assertTrue(CollectionUtil.isEmpty(new ArrayList<>()));
+  }
+
+  /**
+   * Test {@link CollectionUtil#isEmpty(Collection)}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then return {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link CollectionUtil#isEmpty(Collection)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean CollectionUtil.isEmpty(Collection)"})
+  public void testIsEmpty_whenNull_thenReturnTrue() {
+    // Arrange, Act and Assert
+    assertTrue(CollectionUtil.isEmpty(null));
+  }
+
+  /**
+   * Test {@link CollectionUtil#isNotEmpty(Collection)}.
+   *
+   * <ul>
+   *   <li>Given {@link JSONObject#NULL}.
+   *   <li>When {@link ArrayList#ArrayList()} add {@link JSONObject#NULL}.
+   *   <li>Then return {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link CollectionUtil#isNotEmpty(Collection)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean CollectionUtil.isNotEmpty(Collection)"})
+  public void testIsNotEmpty_givenNull_whenArrayListAddNull_thenReturnTrue() {
+    // Arrange
+    ArrayList<Object> collection = new ArrayList<>();
+    collection.add(JSONObject.NULL);
+
+    // Act and Assert
+    assertTrue(CollectionUtil.isNotEmpty(collection));
+  }
+
+  /**
+   * Test {@link CollectionUtil#isNotEmpty(Collection)}.
+   *
+   * <ul>
+   *   <li>Given {@link JSONObject#NULL}.
+   *   <li>When {@link ArrayList#ArrayList()} add {@link JSONObject#NULL}.
+   *   <li>Then return {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link CollectionUtil#isNotEmpty(Collection)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean CollectionUtil.isNotEmpty(Collection)"})
+  public void testIsNotEmpty_givenNull_whenArrayListAddNull_thenReturnTrue2() {
+    // Arrange
+    ArrayList<Object> collection = new ArrayList<>();
+    collection.add(JSONObject.NULL);
+    collection.add(JSONObject.NULL);
+
+    // Act and Assert
+    assertTrue(CollectionUtil.isNotEmpty(collection));
+  }
+
+  /**
+   * Test {@link CollectionUtil#isNotEmpty(Collection)}.
+   *
+   * <ul>
+   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>Then return {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link CollectionUtil#isNotEmpty(Collection)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean CollectionUtil.isNotEmpty(Collection)"})
+  public void testIsNotEmpty_whenArrayList_thenReturnFalse() {
+    // Arrange, Act and Assert
+    assertFalse(CollectionUtil.isNotEmpty(new ArrayList<>()));
+  }
+
+  /**
+   * Test {@link CollectionUtil#isNotEmpty(Collection)}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then return {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link CollectionUtil#isNotEmpty(Collection)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean CollectionUtil.isNotEmpty(Collection)"})
+  public void testIsNotEmpty_whenNull_thenReturnFalse() {
+    // Arrange, Act and Assert
+    assertFalse(CollectionUtil.isNotEmpty(null));
+  }
+}

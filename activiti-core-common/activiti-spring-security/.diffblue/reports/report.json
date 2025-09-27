@@ -1,0 +1,773 @@
+{
+  "meta" : {
+    "reportVersion" : "2.7"
+  },
+  "run" : {
+    "version" : "2025.09.01-44e352d-licensed",
+    "creationTimestamp" : "2025-09-26T16:42:02.920714336Z",
+    "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
+    "totalTime" : 150.255,
+    "environmentDetectionTime" : 0.051,
+    "indexingTime" : 0.366,
+    "entryPointsTime" : 0.039,
+    "generationTime" : 231.216,
+    "timeToFirstTest" : 784.551,
+    "timeToLastTest" : 650.719,
+    "indexQueryTime" : 3.0700000000000003,
+    "verificationTime" : 25.266,
+    "validationTime" : 12.263
+  },
+  "codes" : {
+    "R000" : "Success",
+    "R002" : "Missing observers",
+    "T000" : "Method eligible for test creation",
+    "T001" : "Trivial getter",
+    "T005" : "Trivial constructor",
+    "T010" : "Abstract or interface method",
+    "T012" : "Synthetic method",
+    "V000" : "Validated successfully",
+    "W001" : "Test did not compile"
+  },
+  "summary" : {
+    "classesCount" : 13,
+    "methodsCount" : 43,
+    "cumulativeDiffblueTestCount" : 35,
+    "cumulativeManualTestCount" : 17,
+    "completeTestCount" : 35,
+    "incompleteTestCount" : 0,
+    "skeletonTestCount" : 0,
+    "totalPhysicalLineCount" : 292,
+    "perMethodTestability" : {
+      "T000" : 24,
+      "T001" : 2,
+      "T005" : 11,
+      "T010" : 4,
+      "T012" : 2
+    },
+    "perMethodOutcome" : {
+      "R000" : 29,
+      "R002" : 7,
+      "T005" : 1,
+      "T010" : 4,
+      "T012" : 2
+    },
+    "perTestOutcome" : {
+      "R000" : 35
+    },
+    "perTestValidation" : {
+      "V000" : 35
+    },
+    "warnings" : {
+      "W001" : 2
+    }
+  },
+  "classes" : {
+    "org.activiti.core.common.spring.security.AbstractSimpleGrantedAuthoritiesMapper" : {
+      "methodsCount" : 4,
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T010" : 1,
+        "T012" : 2
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "T010" : 1,
+        "T012" : 2
+      },
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "warnings" : {
+        "W001" : 2
+      }
+    },
+    "org.activiti.core.common.spring.security.AuthenticationPrincipalGroupsProvider" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "R002" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 2
+      }
+    },
+    "org.activiti.core.common.spring.security.AuthenticationPrincipalIdentityProvider" : {
+      "methodsCount" : 5,
+      "completeTestCount" : 5,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 3,
+        "T001" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 5
+      },
+      "perTestOutcome" : {
+        "R000" : 5
+      }
+    },
+    "org.activiti.core.common.spring.security.AuthenticationPrincipalRolesProvider" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "R002" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 2
+      }
+    },
+    "org.activiti.core.common.spring.security.GrantedAuthoritiesGroupsMapper" : {
+      "methodsCount" : 1,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 1
+      },
+      "perMethodOutcome" : {
+        "T010" : 1
+      }
+    },
+    "org.activiti.core.common.spring.security.GrantedAuthoritiesResolver" : {
+      "methodsCount" : 1,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 1
+      },
+      "perMethodOutcome" : {
+        "T010" : 1
+      }
+    },
+    "org.activiti.core.common.spring.security.GrantedAuthoritiesRolesMapper" : {
+      "methodsCount" : 1,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 1
+      },
+      "perMethodOutcome" : {
+        "T010" : 1
+      }
+    },
+    "org.activiti.core.common.spring.security.LocalSpringSecurityContextPrincipalProvider" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 2
+      },
+      "perTestOutcome" : {
+        "R000" : 2
+      }
+    },
+    "org.activiti.core.common.spring.security.LocalSpringSecurityManager" : {
+      "methodsCount" : 1,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R002" : 1
+      }
+    },
+    "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesGroupsMapper" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 2
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "R002" : 2
+      },
+      "perTestOutcome" : {
+        "R000" : 3
+      }
+    },
+    "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesResolver" : {
+      "methodsCount" : 7,
+      "completeTestCount" : 8,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 5,
+        "T001" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 7
+      },
+      "perTestOutcome" : {
+        "R000" : 8
+      }
+    },
+    "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesRolesMapper" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 2
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "R002" : 2
+      },
+      "perTestOutcome" : {
+        "R000" : 3
+      }
+    },
+    "org.activiti.core.common.spring.security.config.ActivitiSpringSecurityAutoConfiguration" : {
+      "methodsCount" : 9,
+      "completeTestCount" : 8,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 8,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 8,
+        "T005" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 8
+      }
+    }
+  },
+  "methods" : {
+    "org.activiti.core.common.spring.security.AbstractSimpleGrantedAuthoritiesMapper.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010",
+      "lineNumbers" : [
+        26
+      ]
+    },
+    "org.activiti.core.common.spring.security.AbstractSimpleGrantedAuthoritiesMapper.getAuthoritesFilteredByPrefix:(Ljava/util/Collection;Ljava/lang/String;)Ljava/util/List;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "warnings" : {
+        "W001" : 2
+      },
+      "lineNumbers" : [
+        30,
+        31,
+        32,
+        33,
+        34,
+        30
+      ]
+    },
+    "org.activiti.core.common.spring.security.AbstractSimpleGrantedAuthoritiesMapper.lambda$getAuthoritesFilteredByPrefix$0:(Ljava/lang/String;Ljava/lang/String;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        32
+      ]
+    },
+    "org.activiti.core.common.spring.security.AbstractSimpleGrantedAuthoritiesMapper.lambda$getAuthoritesFilteredByPrefix$1:(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        33
+      ]
+    },
+    "org.activiti.core.common.spring.security.AuthenticationPrincipalGroupsProvider.<init>:(Lorg/activiti/core/common/spring/security/GrantedAuthoritiesResolver;Lorg/activiti/core/common/spring/security/GrantedAuthoritiesGroupsMapper;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        31,
+        32,
+        33,
+        34
+      ]
+    },
+    "org.activiti.core.common.spring.security.AuthenticationPrincipalGroupsProvider.getGroups:(Ljava/security/Principal;)Ljava/util/List;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        38,
+        39,
+        40,
+        41,
+        38
+      ]
+    },
+    "org.activiti.core.common.spring.security.AuthenticationPrincipalGroupsProvider.securityException:()Ljava/lang/SecurityException;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        45
+      ]
+    },
+    "org.activiti.core.common.spring.security.AuthenticationPrincipalIdentityProvider.<init>:()V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        24
+      ]
+    },
+    "org.activiti.core.common.spring.security.AuthenticationPrincipalIdentityProvider.getAnonymousUserId:()Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        43
+      ]
+    },
+    "org.activiti.core.common.spring.security.AuthenticationPrincipalIdentityProvider.getUserId:(Ljava/security/Principal;)Ljava/lang/String;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        30,
+        31,
+        32,
+        33,
+        34,
+        30
+      ]
+    },
+    "org.activiti.core.common.spring.security.AuthenticationPrincipalIdentityProvider.getUserId:(Lorg/springframework/security/core/Authentication;)Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        38,
+        39,
+        38
+      ]
+    },
+    "org.activiti.core.common.spring.security.AuthenticationPrincipalIdentityProvider.securityException:()Ljava/lang/SecurityException;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        47
+      ]
+    },
+    "org.activiti.core.common.spring.security.AuthenticationPrincipalRolesProvider.<init>:(Lorg/activiti/core/common/spring/security/GrantedAuthoritiesResolver;Lorg/activiti/core/common/spring/security/GrantedAuthoritiesRolesMapper;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        31,
+        32,
+        33,
+        34
+      ]
+    },
+    "org.activiti.core.common.spring.security.AuthenticationPrincipalRolesProvider.getRoles:(Ljava/security/Principal;)Ljava/util/List;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        38,
+        39,
+        40,
+        41,
+        38
+      ]
+    },
+    "org.activiti.core.common.spring.security.AuthenticationPrincipalRolesProvider.securityException:()Ljava/lang/SecurityException;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        45
+      ]
+    },
+    "org.activiti.core.common.spring.security.GrantedAuthoritiesGroupsMapper.getGroups:(Ljava/util/Collection;)Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.core.common.spring.security.GrantedAuthoritiesResolver.getAuthorities:(Ljava/security/Principal;)Ljava/util/Collection;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.core.common.spring.security.GrantedAuthoritiesRolesMapper.getRoles:(Ljava/util/Collection;)Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.core.common.spring.security.LocalSpringSecurityContextPrincipalProvider.<init>:()V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        26
+      ]
+    },
+    "org.activiti.core.common.spring.security.LocalSpringSecurityContextPrincipalProvider.getCurrentPrincipal:()Ljava/util/Optional;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        30,
+        31,
+        32,
+        33,
+        30
+      ]
+    },
+    "org.activiti.core.common.spring.security.LocalSpringSecurityManager.<init>:(Lorg/activiti/api/runtime/shared/security/SecurityContextPrincipalProvider;Lorg/activiti/api/runtime/shared/security/PrincipalIdentityProvider;Lorg/activiti/api/runtime/shared/security/PrincipalGroupsProvider;Lorg/activiti/api/runtime/shared/security/PrincipalRolesProvider;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        34,
+        38
+      ]
+    },
+    "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesGroupsMapper.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        29,
+        30
+      ]
+    },
+    "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesGroupsMapper.<init>:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        32,
+        33,
+        34
+      ]
+    },
+    "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesGroupsMapper.getGroups:(Ljava/util/Collection;)Ljava/util/List;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        38
+      ]
+    },
+    "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesResolver.<init>:()V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        28
+      ]
+    },
+    "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesResolver.emptyAuthorities:()Ljava/util/Collection;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        49
+      ]
+    },
+    "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesResolver.getAuthorities:(Ljava/security/Principal;)Ljava/util/Collection;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        32,
+        33,
+        34,
+        35,
+        36,
+        32
+      ]
+    },
+    "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesResolver.getAuthorities:(Lorg/springframework/security/core/Authentication;)Ljava/util/Collection;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        44,
+        45,
+        44
+      ]
+    },
+    "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesResolver.getPrincipalClass:()Ljava/lang/Class;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        57
+      ]
+    },
+    "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesResolver.isSupportedPrincipal:(Ljava/security/Principal;)Ljava/lang/Boolean;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        53
+      ]
+    },
+    "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesResolver.securityException:()Ljava/lang/SecurityException;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        40
+      ]
+    },
+    "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesRolesMapper.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        28,
+        29
+      ]
+    },
+    "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesRolesMapper.<init>:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        31,
+        32,
+        33
+      ]
+    },
+    "org.activiti.core.common.spring.security.SimpleGrantedAuthoritiesRolesMapper.getRoles:(Ljava/util/Collection;)Ljava/util/List;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        37
+      ]
+    },
+    "org.activiti.core.common.spring.security.config.ActivitiSpringSecurityAutoConfiguration.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        39
+      ]
+    },
+    "org.activiti.core.common.spring.security.config.ActivitiSpringSecurityAutoConfiguration.grantedAuthoritiesGroupsMapper:()Lorg/activiti/core/common/spring/security/GrantedAuthoritiesGroupsMapper;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        50
+      ]
+    },
+    "org.activiti.core.common.spring.security.config.ActivitiSpringSecurityAutoConfiguration.grantedAuthoritiesResolver:()Lorg/activiti/core/common/spring/security/GrantedAuthoritiesResolver;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        44
+      ]
+    },
+    "org.activiti.core.common.spring.security.config.ActivitiSpringSecurityAutoConfiguration.grantedAuthoritiesRolesMapper:()Lorg/activiti/core/common/spring/security/GrantedAuthoritiesRolesMapper;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        56
+      ]
+    },
+    "org.activiti.core.common.spring.security.config.ActivitiSpringSecurityAutoConfiguration.principalGroupsProvider:(Lorg/activiti/core/common/spring/security/GrantedAuthoritiesResolver;Lorg/activiti/core/common/spring/security/GrantedAuthoritiesGroupsMapper;)Lorg/activiti/api/runtime/shared/security/PrincipalGroupsProvider;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        75
+      ]
+    },
+    "org.activiti.core.common.spring.security.config.ActivitiSpringSecurityAutoConfiguration.principalIdentityProvider:()Lorg/activiti/api/runtime/shared/security/PrincipalIdentityProvider;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        68
+      ]
+    },
+    "org.activiti.core.common.spring.security.config.ActivitiSpringSecurityAutoConfiguration.principalRolessProvider:(Lorg/activiti/core/common/spring/security/GrantedAuthoritiesResolver;Lorg/activiti/core/common/spring/security/GrantedAuthoritiesRolesMapper;)Lorg/activiti/api/runtime/shared/security/PrincipalRolesProvider;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        83
+      ]
+    },
+    "org.activiti.core.common.spring.security.config.ActivitiSpringSecurityAutoConfiguration.securityContextPrincipalProvider:()Lorg/activiti/api/runtime/shared/security/SecurityContextPrincipalProvider;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        62
+      ]
+    },
+    "org.activiti.core.common.spring.security.config.ActivitiSpringSecurityAutoConfiguration.securityManager:(Lorg/activiti/api/runtime/shared/security/SecurityContextPrincipalProvider;Lorg/activiti/api/runtime/shared/security/PrincipalIdentityProvider;Lorg/activiti/api/runtime/shared/security/PrincipalGroupsProvider;Lorg/activiti/api/runtime/shared/security/PrincipalRolesProvider;)Lorg/activiti/api/runtime/shared/security/SecurityManager;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        93
+      ]
+    }
+  },
+  "validationMetrics" : { }
+}

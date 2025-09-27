@@ -1,0 +1,241 @@
+{
+  "meta" : {
+    "reportVersion" : "2.7"
+  },
+  "run" : {
+    "version" : "2025.09.01-44e352d-licensed",
+    "creationTimestamp" : "2025-09-26T16:42:02.920714336Z",
+    "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
+    "totalTime" : 443.299,
+    "environmentDetectionTime" : 0.022,
+    "indexingTime" : 0.399,
+    "entryPointsTime" : 0.015,
+    "generationTime" : 1484.23,
+    "timeToFirstTest" : 2778.731,
+    "timeToLastTest" : 2391.919,
+    "indexQueryTime" : 3.344,
+    "verificationTime" : 63.354,
+    "validationTime" : 10.846
+  },
+  "codes" : {
+    "R000" : "Success",
+    "R024" : "Analysis service shutdown unexpectedly",
+    "T000" : "Method eligible for test creation",
+    "T001" : "Trivial getter",
+    "T003" : "Private method",
+    "T005" : "Trivial constructor",
+    "T012" : "Synthetic method",
+    "V000" : "Validated successfully"
+  },
+  "summary" : {
+    "classesCount" : 2,
+    "methodsCount" : 12,
+    "cumulativeDiffblueTestCount" : 5,
+    "cumulativeManualTestCount" : 0,
+    "completeTestCount" : 5,
+    "incompleteTestCount" : 0,
+    "skeletonTestCount" : 0,
+    "totalPhysicalLineCount" : 87,
+    "perMethodTestability" : {
+      "T000" : 5,
+      "T001" : 2,
+      "T003" : 2,
+      "T005" : 2,
+      "T012" : 1
+    },
+    "perMethodOutcome" : {
+      "R000" : 5,
+      "R024" : 1,
+      "T003" : 2,
+      "T005" : 1,
+      "T012" : 1
+    },
+    "perTestOutcome" : {
+      "R000" : 5
+    },
+    "perTestValidation" : {
+      "V000" : 5
+    }
+  },
+  "classes" : {
+    "org.activiti.core.common.spring.project.ApplicationUpgradeContextService" : {
+      "methodsCount" : 7,
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 3,
+        "T001" : 2,
+        "T003" : 2,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 3,
+        "R024" : 1,
+        "T003" : 2,
+        "T012" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 3
+      }
+    },
+    "org.activiti.core.common.spring.project.conf.ApplicationUpgradeContextAutoConfiguration" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "T005" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 2
+      }
+    }
+  },
+  "methods" : {
+    "org.activiti.core.common.spring.project.ApplicationUpgradeContextService.<init>:(Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Boolean;Lcom/fasterxml/jackson/databind/ObjectMapper;Lorg/springframework/core/io/support/ResourcePatternResolver;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50
+      ]
+    },
+    "org.activiti.core.common.spring.project.ApplicationUpgradeContextService.getEnforcedAppVersion:()Ljava/lang/Integer;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        88
+      ]
+    },
+    "org.activiti.core.common.spring.project.ApplicationUpgradeContextService.hasEnforcedAppVersion:()Z" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R024",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        84
+      ]
+    },
+    "org.activiti.core.common.spring.project.ApplicationUpgradeContextService.hasProjectManifest:()Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "F009",
+      "lineNumbers" : [
+        80
+      ]
+    },
+    "org.activiti.core.common.spring.project.ApplicationUpgradeContextService.isRollbackDeployment:()Z" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        68
+      ]
+    },
+    "org.activiti.core.common.spring.project.ApplicationUpgradeContextService.lambda$loadProjectManifest$0:()Ljava/io/FileNotFoundException;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        75
+      ]
+    },
+    "org.activiti.core.common.spring.project.ApplicationUpgradeContextService.loadProjectManifest:()Lorg/activiti/core/common/project/model/ProjectManifest;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "F009",
+      "lineNumbers" : [
+        72,
+        74,
+        75,
+        76,
+        74
+      ]
+    },
+    "org.activiti.core.common.spring.project.ApplicationUpgradeContextService.read:(Ljava/io/InputStream;)Lorg/activiti/core/common/project/model/ProjectManifest;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        63
+      ]
+    },
+    "org.activiti.core.common.spring.project.ApplicationUpgradeContextService.retrieveResource:()Ljava/util/Optional;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        54,
+        55,
+        56,
+        58
+      ]
+    },
+    "org.activiti.core.common.spring.project.conf.ApplicationUpgradeContextAutoConfiguration.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        28
+      ]
+    },
+    "org.activiti.core.common.spring.project.conf.ApplicationUpgradeContextAutoConfiguration.applicationUpgradeContextService:(Ljava/lang/String;Ljava/lang/Integer;Ljava/lang/Boolean;Lcom/fasterxml/jackson/databind/ObjectMapper;Lorg/springframework/core/io/support/ResourcePatternResolver;)Lorg/activiti/core/common/spring/project/ApplicationUpgradeContextService;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        43
+      ]
+    },
+    "org.activiti.core.common.spring.project.conf.ApplicationUpgradeContextAutoConfiguration.objectMapper:()Lcom/fasterxml/jackson/databind/ObjectMapper;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        34
+      ]
+    }
+  },
+  "validationMetrics" : { }
+}

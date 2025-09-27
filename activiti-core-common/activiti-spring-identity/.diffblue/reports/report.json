@@ -1,0 +1,311 @@
+{
+  "meta" : {
+    "reportVersion" : "2.7"
+  },
+  "run" : {
+    "version" : "2025.09.01-44e352d-licensed",
+    "creationTimestamp" : "2025-09-26T16:42:02.920714336Z",
+    "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
+    "totalTime" : 127.541,
+    "environmentDetectionTime" : 0.145,
+    "indexingTime" : 0.362,
+    "entryPointsTime" : 0.02,
+    "generationTime" : 170.624,
+    "timeToFirstTest" : 633.429,
+    "timeToLastTest" : 533.48,
+    "indexQueryTime" : 3.6,
+    "verificationTime" : 20.131,
+    "validationTime" : 10.816
+  },
+  "codes" : {
+    "R000" : "Success",
+    "T000" : "Method eligible for test creation",
+    "T001" : "Trivial getter",
+    "T005" : "Trivial constructor",
+    "T012" : "Synthetic method",
+    "V000" : "Validated successfully"
+  },
+  "summary" : {
+    "classesCount" : 3,
+    "methodsCount" : 17,
+    "cumulativeDiffblueTestCount" : 15,
+    "cumulativeManualTestCount" : 0,
+    "completeTestCount" : 15,
+    "incompleteTestCount" : 0,
+    "skeletonTestCount" : 0,
+    "totalPhysicalLineCount" : 74,
+    "perMethodTestability" : {
+      "T000" : 7,
+      "T001" : 2,
+      "T005" : 2,
+      "T012" : 6
+    },
+    "perMethodOutcome" : {
+      "R000" : 10,
+      "T005" : 1,
+      "T012" : 6
+    },
+    "perTestOutcome" : {
+      "R000" : 15
+    },
+    "perTestValidation" : {
+      "V000" : 15
+    }
+  },
+  "classes" : {
+    "org.activiti.core.common.spring.identity.ActivitiUserGroupManagerImpl" : {
+      "methodsCount" : 9,
+      "completeTestCount" : 9,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 4,
+        "T005" : 1,
+        "T012" : 4
+      },
+      "perMethodOutcome" : {
+        "R000" : 5,
+        "T012" : 4
+      },
+      "perTestOutcome" : {
+        "R000" : 9
+      }
+    },
+    "org.activiti.core.common.spring.identity.ExtendedInMemoryUserDetailsManager" : {
+      "methodsCount" : 6,
+      "completeTestCount" : 5,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T001" : 2,
+        "T012" : 2
+      },
+      "perMethodOutcome" : {
+        "R000" : 4,
+        "T012" : 2
+      },
+      "perTestOutcome" : {
+        "R000" : 5
+      }
+    },
+    "org.activiti.core.common.spring.identity.config.ActivitiSpringIdentityAutoConfiguration" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "T005" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 1
+      }
+    }
+  },
+  "methods" : {
+    "org.activiti.core.common.spring.identity.ActivitiUserGroupManagerImpl.<init>:(Lorg/springframework/security/core/userdetails/UserDetailsService;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        29,
+        30,
+        31
+      ]
+    },
+    "org.activiti.core.common.spring.identity.ActivitiUserGroupManagerImpl.getGroups:()Ljava/util/List;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        52
+      ]
+    },
+    "org.activiti.core.common.spring.identity.ActivitiUserGroupManagerImpl.getUserGroups:(Ljava/lang/String;)Ljava/util/List;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        36,
+        37,
+        38,
+        39,
+        36
+      ]
+    },
+    "org.activiti.core.common.spring.identity.ActivitiUserGroupManagerImpl.getUserRoles:(Ljava/lang/String;)Ljava/util/List;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        44,
+        45,
+        46,
+        47,
+        44
+      ]
+    },
+    "org.activiti.core.common.spring.identity.ActivitiUserGroupManagerImpl.getUsers:()Ljava/util/List;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        57
+      ]
+    },
+    "org.activiti.core.common.spring.identity.ActivitiUserGroupManagerImpl.lambda$getUserGroups$0:(Lorg/springframework/security/core/GrantedAuthority;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        37
+      ]
+    },
+    "org.activiti.core.common.spring.identity.ActivitiUserGroupManagerImpl.lambda$getUserGroups$1:(Lorg/springframework/security/core/GrantedAuthority;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        38
+      ]
+    },
+    "org.activiti.core.common.spring.identity.ActivitiUserGroupManagerImpl.lambda$getUserRoles$2:(Lorg/springframework/security/core/GrantedAuthority;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        45
+      ]
+    },
+    "org.activiti.core.common.spring.identity.ActivitiUserGroupManagerImpl.lambda$getUserRoles$3:(Lorg/springframework/security/core/GrantedAuthority;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        46
+      ]
+    },
+    "org.activiti.core.common.spring.identity.ExtendedInMemoryUserDetailsManager.<init>:()V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        25,
+        27,
+        28
+      ]
+    },
+    "org.activiti.core.common.spring.identity.ExtendedInMemoryUserDetailsManager.createUser:(Lorg/springframework/security/core/userdetails/UserDetails;)V" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38
+      ]
+    },
+    "org.activiti.core.common.spring.identity.ExtendedInMemoryUserDetailsManager.getGroups:()Ljava/util/List;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        45
+      ]
+    },
+    "org.activiti.core.common.spring.identity.ExtendedInMemoryUserDetailsManager.getUsers:()Ljava/util/List;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        41
+      ]
+    },
+    "org.activiti.core.common.spring.identity.ExtendedInMemoryUserDetailsManager.lambda$createUser$0:(Lorg/springframework/security/core/GrantedAuthority;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        35
+      ]
+    },
+    "org.activiti.core.common.spring.identity.ExtendedInMemoryUserDetailsManager.lambda$createUser$1:(Lorg/springframework/security/core/GrantedAuthority;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        36
+      ]
+    },
+    "org.activiti.core.common.spring.identity.config.ActivitiSpringIdentityAutoConfiguration.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        26
+      ]
+    },
+    "org.activiti.core.common.spring.identity.config.ActivitiSpringIdentityAutoConfiguration.userGroupManager:(Lorg/springframework/security/core/userdetails/UserDetailsService;)Lorg/activiti/api/runtime/shared/identity/UserGroupManager;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        31
+      ]
+    }
+  },
+  "validationMetrics" : { }
+}

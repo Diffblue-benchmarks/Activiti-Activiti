@@ -1,0 +1,2610 @@
+{
+  "meta" : {
+    "reportVersion" : "2.7"
+  },
+  "run" : {
+    "version" : "2025.09.01-44e352d-licensed",
+    "creationTimestamp" : "2025-09-26T16:42:02.920714336Z",
+    "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
+    "totalTime" : 360.845,
+    "environmentDetectionTime" : 0.065,
+    "indexingTime" : 0.388,
+    "entryPointsTime" : 0.055,
+    "generationTime" : 1061.671,
+    "timeToFirstTest" : 2120.741,
+    "timeToLastTest" : 1811.391,
+    "indexQueryTime" : 2.954,
+    "verificationTime" : 51.587,
+    "validationTime" : 12.992
+  },
+  "codes" : {
+    "R000" : "Success",
+    "R002" : "Missing observers",
+    "R004" : "No meaningful assertions found",
+    "R013" : "No inputs found that don't throw a trivial exception",
+    "T000" : "Method eligible for test creation",
+    "T001" : "Trivial getter",
+    "T002" : "Trivial setter",
+    "T003" : "Private method",
+    "T005" : "Trivial constructor",
+    "T010" : "Abstract or interface method",
+    "T012" : "Synthetic method",
+    "V000" : "Validated successfully",
+    "W001" : "Test did not compile"
+  },
+  "summary" : {
+    "classesCount" : 36,
+    "methodsCount" : 181,
+    "cumulativeDiffblueTestCount" : 58,
+    "cumulativeManualTestCount" : 0,
+    "completeTestCount" : 58,
+    "incompleteTestCount" : 0,
+    "skeletonTestCount" : 0,
+    "totalPhysicalLineCount" : 849,
+    "perMethodTestability" : {
+      "T000" : 57,
+      "T001" : 9,
+      "T002" : 2,
+      "T003" : 15,
+      "T005" : 10,
+      "T010" : 24,
+      "T012" : 64
+    },
+    "perMethodOutcome" : {
+      "R000" : 43,
+      "R002" : 14,
+      "R004" : 4,
+      "R013" : 3,
+      "T003" : 15,
+      "T005" : 1,
+      "T010" : 24,
+      "T012" : 64,
+      "W001" : 13
+    },
+    "perTestOutcome" : {
+      "R000" : 58
+    },
+    "perTestValidation" : {
+      "V000" : 58
+    },
+    "warnings" : {
+      "W001" : 16
+    }
+  },
+  "classes" : {
+    "org.activiti.test.EventSource" : {
+      "methodsCount" : 1,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 1
+      },
+      "perMethodOutcome" : {
+        "T010" : 1
+      }
+    },
+    "org.activiti.test.TaskSource" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 2
+      },
+      "perMethodOutcome" : {
+        "T010" : 2
+      }
+    },
+    "org.activiti.test.assertions.AwaitProcessInstanceAssertions" : {
+      "methodsCount" : 8,
+      "completeTestCount" : 5,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 4,
+        "T005" : 1,
+        "T012" : 3
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "R002" : 1,
+        "R013" : 1,
+        "T012" : 3,
+        "W001" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 5
+      },
+      "warnings" : {
+        "W001" : 3
+      }
+    },
+    "org.activiti.test.assertions.AwaitSignalAssertions" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "R002" : 1,
+        "T012" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 1
+      }
+    },
+    "org.activiti.test.assertions.AwaitTaskAssertions" : {
+      "methodsCount" : 8,
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 4,
+        "T005" : 1,
+        "T012" : 3
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "R002" : 1,
+        "R013" : 1,
+        "T012" : 3,
+        "W001" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "warnings" : {
+        "W001" : 2
+      }
+    },
+    "org.activiti.test.assertions.ProcessInstanceAssertions" : {
+      "methodsCount" : 4,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 4
+      },
+      "perMethodOutcome" : {
+        "T010" : 4
+      }
+    },
+    "org.activiti.test.assertions.ProcessInstanceAssertionsImpl" : {
+      "methodsCount" : 5,
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 4,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "R002" : 2,
+        "W001" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "warnings" : {
+        "W001" : 1
+      }
+    },
+    "org.activiti.test.assertions.SignalAssertions" : {
+      "methodsCount" : 1,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 1
+      },
+      "perMethodOutcome" : {
+        "T010" : 1
+      }
+    },
+    "org.activiti.test.assertions.SignalAssertionsImpl" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R002" : 1,
+        "W001" : 1
+      },
+      "warnings" : {
+        "W001" : 1
+      }
+    },
+    "org.activiti.test.assertions.TaskAssertions" : {
+      "methodsCount" : 4,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 4
+      },
+      "perMethodOutcome" : {
+        "T010" : 4
+      }
+    },
+    "org.activiti.test.assertions.TaskAssertionsImpl" : {
+      "methodsCount" : 5,
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 4,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "R002" : 2,
+        "W001" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "warnings" : {
+        "W001" : 1
+      }
+    },
+    "org.activiti.test.conf.AssertionsAPIAutoConfiguration" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "T005" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 2
+      }
+    },
+    "org.activiti.test.matchers.ActivityMatchers" : {
+      "methodsCount" : 14,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T010" : 2,
+        "T012" : 10
+      },
+      "perMethodOutcome" : {
+        "R004" : 2,
+        "T010" : 2,
+        "T012" : 10
+      }
+    },
+    "org.activiti.test.matchers.BPMNStartEventMatchers" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T001" : 1,
+        "T003" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "T003" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 2
+      }
+    },
+    "org.activiti.test.matchers.EndEventMatchers" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T001" : 1,
+        "T003" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "T003" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 2
+      }
+    },
+    "org.activiti.test.matchers.ExclusiveGatewayMatchers" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T001" : 1,
+        "T003" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "T003" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 2
+      }
+    },
+    "org.activiti.test.matchers.InclusiveGatewayMatchers" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T001" : 1,
+        "T003" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "T003" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 2
+      }
+    },
+    "org.activiti.test.matchers.IntermediateCatchEventMatchers" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T001" : 1,
+        "T003" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "T003" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 2
+      }
+    },
+    "org.activiti.test.matchers.ManualTaskMatchers" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T001" : 1,
+        "T003" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "T003" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 2
+      }
+    },
+    "org.activiti.test.matchers.OperationScope" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 2
+      },
+      "perMethodOutcome" : {
+        "T010" : 2
+      }
+    },
+    "org.activiti.test.matchers.OperationScopeImpl" : {
+      "methodsCount" : 8,
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 3,
+        "T001" : 2,
+        "T002" : 2,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 8
+      },
+      "perTestOutcome" : {
+        "R000" : 4
+      }
+    },
+    "org.activiti.test.matchers.OperationScopeMatcher" : {
+      "methodsCount" : 1,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 1
+      },
+      "perMethodOutcome" : {
+        "T010" : 1
+      }
+    },
+    "org.activiti.test.matchers.ProcessInstanceMatchers" : {
+      "methodsCount" : 21,
+      "completeTestCount" : 8,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 7,
+        "T003" : 1,
+        "T012" : 13
+      },
+      "perMethodOutcome" : {
+        "R000" : 4,
+        "R004" : 1,
+        "T003" : 1,
+        "T012" : 13,
+        "W001" : 2
+      },
+      "perTestOutcome" : {
+        "R000" : 8
+      },
+      "warnings" : {
+        "W001" : 2
+      }
+    },
+    "org.activiti.test.matchers.ProcessResultMatcher" : {
+      "methodsCount" : 1,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 1
+      },
+      "perMethodOutcome" : {
+        "T010" : 1
+      }
+    },
+    "org.activiti.test.matchers.ProcessTaskMatcher" : {
+      "methodsCount" : 1,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 1
+      },
+      "perMethodOutcome" : {
+        "T010" : 1
+      }
+    },
+    "org.activiti.test.matchers.ProcessTaskMatchers" : {
+      "methodsCount" : 18,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 3,
+        "T003" : 2,
+        "T012" : 13
+      },
+      "perMethodOutcome" : {
+        "R002" : 1,
+        "T003" : 2,
+        "T012" : 13,
+        "W001" : 2
+      },
+      "warnings" : {
+        "W001" : 2
+      }
+    },
+    "org.activiti.test.matchers.ProcessVariableMatchers" : {
+      "methodsCount" : 9,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T003" : 1,
+        "T012" : 6
+      },
+      "perMethodOutcome" : {
+        "R002" : 1,
+        "R013" : 1,
+        "T003" : 1,
+        "T012" : 6
+      }
+    },
+    "org.activiti.test.matchers.SequenceFlowMatchers" : {
+      "methodsCount" : 7,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T003" : 1,
+        "T012" : 4
+      },
+      "perMethodOutcome" : {
+        "R002" : 1,
+        "T003" : 1,
+        "T012" : 4,
+        "W001" : 1
+      },
+      "warnings" : {
+        "W001" : 1
+      }
+    },
+    "org.activiti.test.matchers.SignalMatchers" : {
+      "methodsCount" : 7,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T003" : 1,
+        "T012" : 4
+      },
+      "perMethodOutcome" : {
+        "R002" : 1,
+        "T003" : 1,
+        "T012" : 4,
+        "W001" : 1
+      },
+      "warnings" : {
+        "W001" : 1
+      }
+    },
+    "org.activiti.test.matchers.TaskMatchers" : {
+      "methodsCount" : 13,
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 5,
+        "T003" : 1,
+        "T012" : 7
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "R004" : 1,
+        "T003" : 1,
+        "T012" : 7,
+        "W001" : 2
+      },
+      "perTestOutcome" : {
+        "R000" : 4
+      },
+      "warnings" : {
+        "W001" : 2
+      }
+    },
+    "org.activiti.test.matchers.TaskResultMatcher" : {
+      "methodsCount" : 1,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 1
+      },
+      "perMethodOutcome" : {
+        "T010" : 1
+      }
+    },
+    "org.activiti.test.matchers.ThrowEventMatchers" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 1,
+        "T001" : 1,
+        "T003" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "T003" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 2
+      }
+    },
+    "org.activiti.test.operations.AwaitableProcessOperations" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 6,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "R002" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 6
+      }
+    },
+    "org.activiti.test.operations.AwaitableTaskOperations" : {
+      "methodsCount" : 4,
+      "completeTestCount" : 6,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T003" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "R002" : 1,
+        "T003" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 6
+      }
+    },
+    "org.activiti.test.operations.ProcessOperations" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 2
+      },
+      "perMethodOutcome" : {
+        "T010" : 2
+      }
+    },
+    "org.activiti.test.operations.TaskOperations" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T010" : 2
+      },
+      "perMethodOutcome" : {
+        "T010" : 2
+      }
+    }
+  },
+  "methods" : {
+    "org.activiti.test.EventSource.getEvents:()Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.test.TaskSource.canHandle:(Lorg/activiti/api/task/model/Task$TaskStatus;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.test.TaskSource.getTasks:(Ljava/lang/String;)Ljava/util/List;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.test.assertions.AwaitProcessInstanceAssertions.<init>:(Lorg/activiti/test/assertions/ProcessInstanceAssertions;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        29,
+        30,
+        31
+      ]
+    },
+    "org.activiti.test.assertions.AwaitProcessInstanceAssertions.andReturn:()Lorg/activiti/api/process/model/ProcessInstance;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        53
+      ]
+    },
+    "org.activiti.test.assertions.AwaitProcessInstanceAssertions.expect:([Lorg/activiti/test/matchers/ProcessTaskMatcher;)Lorg/activiti/test/assertions/ProcessInstanceAssertions;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        47,
+        48
+      ]
+    },
+    "org.activiti.test.assertions.AwaitProcessInstanceAssertions.expectEvents:([Lorg/activiti/test/matchers/OperationScopeMatcher;)Lorg/activiti/test/assertions/ProcessInstanceAssertions;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 3
+      },
+      "lineNumbers" : [
+        41,
+        42
+      ]
+    },
+    "org.activiti.test.assertions.AwaitProcessInstanceAssertions.expectFields:([Lorg/activiti/test/matchers/ProcessResultMatcher;)Lorg/activiti/test/assertions/ProcessInstanceAssertions;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        35,
+        36
+      ]
+    },
+    "org.activiti.test.assertions.AwaitProcessInstanceAssertions.lambda$expect$2:([Lorg/activiti/test/matchers/ProcessTaskMatcher;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        47
+      ]
+    },
+    "org.activiti.test.assertions.AwaitProcessInstanceAssertions.lambda$expectEvents$1:([Lorg/activiti/test/matchers/OperationScopeMatcher;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        41
+      ]
+    },
+    "org.activiti.test.assertions.AwaitProcessInstanceAssertions.lambda$expectFields$0:([Lorg/activiti/test/matchers/ProcessResultMatcher;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        35
+      ]
+    },
+    "org.activiti.test.assertions.AwaitSignalAssertions.<init>:(Lorg/activiti/test/assertions/SignalAssertions;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        27,
+        28,
+        29
+      ]
+    },
+    "org.activiti.test.assertions.AwaitSignalAssertions.expectEventsOnProcessInstance:(Lorg/activiti/api/process/model/ProcessInstance;[Lorg/activiti/test/matchers/OperationScopeMatcher;)Lorg/activiti/test/assertions/SignalAssertions;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        34,
+        36
+      ]
+    },
+    "org.activiti.test.assertions.AwaitSignalAssertions.lambda$expectEventsOnProcessInstance$0:(Lorg/activiti/api/process/model/ProcessInstance;[Lorg/activiti/test/matchers/OperationScopeMatcher;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        34
+      ]
+    },
+    "org.activiti.test.assertions.AwaitTaskAssertions.<init>:(Lorg/activiti/test/assertions/TaskAssertions;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        29,
+        30,
+        31
+      ]
+    },
+    "org.activiti.test.assertions.AwaitTaskAssertions.andReturn:()Lorg/activiti/api/task/model/Task;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        53
+      ]
+    },
+    "org.activiti.test.assertions.AwaitTaskAssertions.expect:([Lorg/activiti/test/matchers/ProcessTaskMatcher;)Lorg/activiti/test/assertions/TaskAssertions;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        47,
+        48
+      ]
+    },
+    "org.activiti.test.assertions.AwaitTaskAssertions.expectEvents:([Lorg/activiti/test/matchers/OperationScopeMatcher;)Lorg/activiti/test/assertions/TaskAssertions;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 2
+      },
+      "lineNumbers" : [
+        35,
+        36
+      ]
+    },
+    "org.activiti.test.assertions.AwaitTaskAssertions.expectFields:([Lorg/activiti/test/matchers/TaskResultMatcher;)Lorg/activiti/test/assertions/TaskAssertions;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        41,
+        42
+      ]
+    },
+    "org.activiti.test.assertions.AwaitTaskAssertions.lambda$expect$2:([Lorg/activiti/test/matchers/ProcessTaskMatcher;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        47
+      ]
+    },
+    "org.activiti.test.assertions.AwaitTaskAssertions.lambda$expectEvents$0:([Lorg/activiti/test/matchers/OperationScopeMatcher;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        35
+      ]
+    },
+    "org.activiti.test.assertions.AwaitTaskAssertions.lambda$expectFields$1:([Lorg/activiti/test/matchers/TaskResultMatcher;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        41
+      ]
+    },
+    "org.activiti.test.assertions.ProcessInstanceAssertions.andReturn:()Lorg/activiti/api/process/model/ProcessInstance;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.test.assertions.ProcessInstanceAssertions.expect:([Lorg/activiti/test/matchers/ProcessTaskMatcher;)Lorg/activiti/test/assertions/ProcessInstanceAssertions;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.test.assertions.ProcessInstanceAssertions.expectEvents:([Lorg/activiti/test/matchers/OperationScopeMatcher;)Lorg/activiti/test/assertions/ProcessInstanceAssertions;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.test.assertions.ProcessInstanceAssertions.expectFields:([Lorg/activiti/test/matchers/ProcessResultMatcher;)Lorg/activiti/test/assertions/ProcessInstanceAssertions;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.test.assertions.ProcessInstanceAssertionsImpl.<init>:(Lorg/activiti/test/EventSource;Ljava/util/List;Lorg/activiti/api/process/model/ProcessInstance;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        39,
+        40,
+        41,
+        42,
+        43
+      ]
+    },
+    "org.activiti.test.assertions.ProcessInstanceAssertionsImpl.andReturn:()Lorg/activiti/api/process/model/ProcessInstance;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        75
+      ]
+    },
+    "org.activiti.test.assertions.ProcessInstanceAssertionsImpl.expect:([Lorg/activiti/test/matchers/ProcessTaskMatcher;)Lorg/activiti/test/assertions/ProcessInstanceAssertions;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        66,
+        67,
+        66,
+        70
+      ]
+    },
+    "org.activiti.test.assertions.ProcessInstanceAssertionsImpl.expectEvents:([Lorg/activiti/test/matchers/OperationScopeMatcher;)Lorg/activiti/test/assertions/ProcessInstanceAssertions;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 1
+      },
+      "lineNumbers" : [
+        56,
+        57,
+        58,
+        57,
+        61
+      ]
+    },
+    "org.activiti.test.assertions.ProcessInstanceAssertionsImpl.expectFields:([Lorg/activiti/test/matchers/ProcessResultMatcher;)Lorg/activiti/test/assertions/ProcessInstanceAssertions;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        47,
+        48,
+        49,
+        48,
+        51
+      ]
+    },
+    "org.activiti.test.assertions.SignalAssertions.expectEventsOnProcessInstance:(Lorg/activiti/api/process/model/ProcessInstance;[Lorg/activiti/test/matchers/OperationScopeMatcher;)Lorg/activiti/test/assertions/SignalAssertions;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.test.assertions.SignalAssertionsImpl.<init>:(Lorg/activiti/test/EventSource;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        31,
+        33,
+        34
+      ]
+    },
+    "org.activiti.test.assertions.SignalAssertionsImpl.expectEventsOnProcessInstance:(Lorg/activiti/api/process/model/ProcessInstance;[Lorg/activiti/test/matchers/OperationScopeMatcher;)Lorg/activiti/test/assertions/SignalAssertions;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 1
+      },
+      "lineNumbers" : [
+        39,
+        40,
+        41,
+        40,
+        44
+      ]
+    },
+    "org.activiti.test.assertions.TaskAssertions.andReturn:()Lorg/activiti/api/task/model/Task;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.test.assertions.TaskAssertions.expect:([Lorg/activiti/test/matchers/ProcessTaskMatcher;)Lorg/activiti/test/assertions/TaskAssertions;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.test.assertions.TaskAssertions.expectEvents:([Lorg/activiti/test/matchers/OperationScopeMatcher;)Lorg/activiti/test/assertions/TaskAssertions;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.test.assertions.TaskAssertions.expectFields:([Lorg/activiti/test/matchers/TaskResultMatcher;)Lorg/activiti/test/assertions/TaskAssertions;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.test.assertions.TaskAssertionsImpl.<init>:(Lorg/activiti/api/task/model/Task;Ljava/util/List;Lorg/activiti/test/EventSource;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        40,
+        41,
+        42,
+        43,
+        44
+      ]
+    },
+    "org.activiti.test.assertions.TaskAssertionsImpl.andReturn:()Lorg/activiti/api/task/model/Task;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        76
+      ]
+    },
+    "org.activiti.test.assertions.TaskAssertionsImpl.expect:([Lorg/activiti/test/matchers/ProcessTaskMatcher;)Lorg/activiti/test/assertions/TaskAssertions;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        67,
+        68,
+        67,
+        71
+      ]
+    },
+    "org.activiti.test.assertions.TaskAssertionsImpl.expectEvents:([Lorg/activiti/test/matchers/OperationScopeMatcher;)Lorg/activiti/test/assertions/TaskAssertions;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 1
+      },
+      "lineNumbers" : [
+        48,
+        49,
+        50,
+        51,
+        50,
+        49,
+        54
+      ]
+    },
+    "org.activiti.test.assertions.TaskAssertionsImpl.expectFields:([Lorg/activiti/test/matchers/TaskResultMatcher;)Lorg/activiti/test/assertions/TaskAssertions;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        59,
+        60,
+        59,
+        62
+      ]
+    },
+    "org.activiti.test.conf.AssertionsAPIAutoConfiguration.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        27
+      ]
+    },
+    "org.activiti.test.conf.AssertionsAPIAutoConfiguration.processOperations:(Lorg/activiti/test/operations/ProcessOperations;Z)Lorg/activiti/test/operations/ProcessOperations;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        32
+      ]
+    },
+    "org.activiti.test.conf.AssertionsAPIAutoConfiguration.taskOperations:(Lorg/activiti/test/operations/TaskOperations;Z)Lorg/activiti/test/operations/TaskOperations;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        39
+      ]
+    },
+    "org.activiti.test.matchers.ActivityMatchers.<init>:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010",
+      "lineNumbers" : [
+        32,
+        33,
+        34
+      ]
+    },
+    "org.activiti.test.matchers.ActivityMatchers.getActivityType:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.test.matchers.ActivityMatchers.hasBeenCompleted:()Lorg/activiti/test/matchers/OperationScopeMatcher;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R004",
+      "lineNumbers" : [
+        56
+      ]
+    },
+    "org.activiti.test.matchers.ActivityMatchers.hasBeenStarted:()Lorg/activiti/test/matchers/OperationScopeMatcher;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R004",
+      "lineNumbers" : [
+        39
+      ]
+    },
+    "org.activiti.test.matchers.ActivityMatchers.lambda$hasBeenCompleted$5:(Lorg/activiti/api/model/shared/event/RuntimeEvent;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        61
+      ]
+    },
+    "org.activiti.test.matchers.ActivityMatchers.lambda$hasBeenCompleted$6:(Lorg/activiti/test/matchers/OperationScope;Lorg/activiti/api/process/model/events/BPMNActivityCompletedEvent;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        66
+      ]
+    },
+    "org.activiti.test.matchers.ActivityMatchers.lambda$hasBeenCompleted$7:(Lorg/activiti/api/process/model/events/BPMNActivityCompletedEvent;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        67
+      ]
+    },
+    "org.activiti.test.matchers.ActivityMatchers.lambda$hasBeenCompleted$8:(Lorg/activiti/api/process/model/events/BPMNActivityCompletedEvent;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        68
+      ]
+    },
+    "org.activiti.test.matchers.ActivityMatchers.lambda$hasBeenCompleted$9:(Lorg/activiti/test/matchers/OperationScope;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        57,
+        59,
+        60,
+        61,
+        62,
+        63,
+        65,
+        66,
+        67,
+        69,
+        70,
+        72
+      ]
+    },
+    "org.activiti.test.matchers.ActivityMatchers.lambda$hasBeenStarted$0:(Lorg/activiti/api/model/shared/event/RuntimeEvent;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        42
+      ]
+    },
+    "org.activiti.test.matchers.ActivityMatchers.lambda$hasBeenStarted$1:(Lorg/activiti/test/matchers/OperationScope;Lorg/activiti/api/process/model/events/BPMNActivityStartedEvent;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        46
+      ]
+    },
+    "org.activiti.test.matchers.ActivityMatchers.lambda$hasBeenStarted$2:(Lorg/activiti/api/process/model/events/BPMNActivityStartedEvent;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        47
+      ]
+    },
+    "org.activiti.test.matchers.ActivityMatchers.lambda$hasBeenStarted$3:(Lorg/activiti/api/process/model/events/BPMNActivityStartedEvent;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        48
+      ]
+    },
+    "org.activiti.test.matchers.ActivityMatchers.lambda$hasBeenStarted$4:(Lorg/activiti/test/matchers/OperationScope;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        49,
+        51
+      ]
+    },
+    "org.activiti.test.matchers.BPMNStartEventMatchers.<init>:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        23,
+        25
+      ]
+    },
+    "org.activiti.test.matchers.BPMNStartEventMatchers.getActivityType:()Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        29
+      ]
+    },
+    "org.activiti.test.matchers.BPMNStartEventMatchers.startEvent:(Ljava/lang/String;)Lorg/activiti/test/matchers/BPMNStartEventMatchers;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        33
+      ]
+    },
+    "org.activiti.test.matchers.EndEventMatchers.<init>:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        23,
+        25
+      ]
+    },
+    "org.activiti.test.matchers.EndEventMatchers.endEvent:(Ljava/lang/String;)Lorg/activiti/test/matchers/EndEventMatchers;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        33
+      ]
+    },
+    "org.activiti.test.matchers.EndEventMatchers.getActivityType:()Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        29
+      ]
+    },
+    "org.activiti.test.matchers.ExclusiveGatewayMatchers.<init>:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        23,
+        25
+      ]
+    },
+    "org.activiti.test.matchers.ExclusiveGatewayMatchers.exclusiveGateway:(Ljava/lang/String;)Lorg/activiti/test/matchers/ExclusiveGatewayMatchers;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        33
+      ]
+    },
+    "org.activiti.test.matchers.ExclusiveGatewayMatchers.getActivityType:()Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        29
+      ]
+    },
+    "org.activiti.test.matchers.InclusiveGatewayMatchers.<init>:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        23,
+        25
+      ]
+    },
+    "org.activiti.test.matchers.InclusiveGatewayMatchers.getActivityType:()Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        29
+      ]
+    },
+    "org.activiti.test.matchers.InclusiveGatewayMatchers.inclusiveGateway:(Ljava/lang/String;)Lorg/activiti/test/matchers/InclusiveGatewayMatchers;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        33
+      ]
+    },
+    "org.activiti.test.matchers.IntermediateCatchEventMatchers.<init>:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        23,
+        25
+      ]
+    },
+    "org.activiti.test.matchers.IntermediateCatchEventMatchers.getActivityType:()Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        29
+      ]
+    },
+    "org.activiti.test.matchers.IntermediateCatchEventMatchers.intermediateCatchEvent:(Ljava/lang/String;)Lorg/activiti/test/matchers/IntermediateCatchEventMatchers;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        33
+      ]
+    },
+    "org.activiti.test.matchers.ManualTaskMatchers.<init>:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        23,
+        25
+      ]
+    },
+    "org.activiti.test.matchers.ManualTaskMatchers.getActivityType:()Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        29
+      ]
+    },
+    "org.activiti.test.matchers.ManualTaskMatchers.manualTask:(Ljava/lang/String;)Lorg/activiti/test/matchers/ManualTaskMatchers;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        33
+      ]
+    },
+    "org.activiti.test.matchers.OperationScope.getProcessInstanceId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.test.matchers.OperationScope.getTaskId:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.test.matchers.OperationScopeImpl.<init>:(Ljava/lang/String;Ljava/lang/String;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        25,
+        26,
+        27,
+        28
+      ]
+    },
+    "org.activiti.test.matchers.OperationScopeImpl.getProcessInstanceId:()Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        48
+      ]
+    },
+    "org.activiti.test.matchers.OperationScopeImpl.getTaskId:()Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        57
+      ]
+    },
+    "org.activiti.test.matchers.OperationScopeImpl.processInstanceScope:(Ljava/lang/String;)Lorg/activiti/test/matchers/OperationScope;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        31
+      ]
+    },
+    "org.activiti.test.matchers.OperationScopeImpl.scope:(Ljava/lang/String;Ljava/lang/String;)Lorg/activiti/test/matchers/OperationScope;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        39
+      ]
+    },
+    "org.activiti.test.matchers.OperationScopeImpl.setProcessInstanceId:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        43,
+        44
+      ]
+    },
+    "org.activiti.test.matchers.OperationScopeImpl.setTaskId:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T002",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        52,
+        53
+      ]
+    },
+    "org.activiti.test.matchers.OperationScopeImpl.taskScope:(Ljava/lang/String;)Lorg/activiti/test/matchers/OperationScope;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        35
+      ]
+    },
+    "org.activiti.test.matchers.OperationScopeMatcher.match:(Lorg/activiti/test/matchers/OperationScope;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.test.matchers.ProcessInstanceMatchers.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        35,
+        36
+      ]
+    },
+    "org.activiti.test.matchers.ProcessInstanceMatchers.businessKey:(Ljava/lang/String;)Lorg/activiti/test/matchers/ProcessResultMatcher;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        91
+      ]
+    },
+    "org.activiti.test.matchers.ProcessInstanceMatchers.hasBeenCompleted:()Lorg/activiti/test/matchers/OperationScopeMatcher;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 1
+      },
+      "lineNumbers" : [
+        68
+      ]
+    },
+    "org.activiti.test.matchers.ProcessInstanceMatchers.hasBeenStarted:()Lorg/activiti/test/matchers/OperationScopeMatcher;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 1
+      },
+      "lineNumbers" : [
+        43
+      ]
+    },
+    "org.activiti.test.matchers.ProcessInstanceMatchers.hasTask:(Ljava/lang/String;Lorg/activiti/api/task/model/Task$TaskStatus;[Lorg/activiti/test/matchers/TaskResultMatcher;)Lorg/activiti/test/matchers/ProcessTaskMatcher;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        98
+      ]
+    },
+    "org.activiti.test.matchers.ProcessInstanceMatchers.lambda$businessKey$10:(Ljava/lang/String;Lorg/activiti/api/process/model/ProcessInstance;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        92
+      ]
+    },
+    "org.activiti.test.matchers.ProcessInstanceMatchers.lambda$hasBeenCompleted$5:(Lorg/activiti/api/model/shared/event/RuntimeEvent;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        71
+      ]
+    },
+    "org.activiti.test.matchers.ProcessInstanceMatchers.lambda$hasBeenCompleted$6:(Lorg/activiti/api/process/runtime/events/ProcessCompletedEvent;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        75
+      ]
+    },
+    "org.activiti.test.matchers.ProcessInstanceMatchers.lambda$hasBeenCompleted$7:(Lorg/activiti/test/matchers/OperationScope;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78
+      ]
+    },
+    "org.activiti.test.matchers.ProcessInstanceMatchers.lambda$hasBeenStarted$0:(Lorg/activiti/api/model/shared/event/RuntimeEvent;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        46
+      ]
+    },
+    "org.activiti.test.matchers.ProcessInstanceMatchers.lambda$hasBeenStarted$1:(Lorg/activiti/api/process/runtime/events/ProcessCreatedEvent;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        50
+      ]
+    },
+    "org.activiti.test.matchers.ProcessInstanceMatchers.lambda$hasBeenStarted$2:(Lorg/activiti/api/model/shared/event/RuntimeEvent;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        56
+      ]
+    },
+    "org.activiti.test.matchers.ProcessInstanceMatchers.lambda$hasBeenStarted$3:(Lorg/activiti/api/process/runtime/events/ProcessStartedEvent;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        61
+      ]
+    },
+    "org.activiti.test.matchers.ProcessInstanceMatchers.lambda$hasBeenStarted$4:(Lorg/activiti/test/matchers/OperationScope;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        54,
+        55,
+        56,
+        57,
+        58,
+        60,
+        61,
+        62,
+        63,
+        64
+      ]
+    },
+    "org.activiti.test.matchers.ProcessInstanceMatchers.lambda$hasTask$11:(Ljava/lang/String;Lorg/activiti/api/task/model/Task;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        108
+      ]
+    },
+    "org.activiti.test.matchers.ProcessInstanceMatchers.lambda$hasTask$12:(Lorg/activiti/api/task/model/Task$TaskStatus;Ljava/lang/String;[Lorg/activiti/test/matchers/TaskResultMatcher;Ljava/lang/String;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        99,
+        100,
+        101,
+        102,
+        103,
+        105,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113,
+        112,
+        117,
+        118
+      ]
+    },
+    "org.activiti.test.matchers.ProcessInstanceMatchers.lambda$name$9:(Ljava/lang/String;Lorg/activiti/api/process/model/ProcessInstance;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        87
+      ]
+    },
+    "org.activiti.test.matchers.ProcessInstanceMatchers.lambda$status$8:(Lorg/activiti/api/process/model/ProcessInstance$ProcessInstanceStatus;Lorg/activiti/api/process/model/ProcessInstance;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        82
+      ]
+    },
+    "org.activiti.test.matchers.ProcessInstanceMatchers.name:(Ljava/lang/String;)Lorg/activiti/test/matchers/ProcessResultMatcher;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        86
+      ]
+    },
+    "org.activiti.test.matchers.ProcessInstanceMatchers.processInstance:()Lorg/activiti/test/matchers/ProcessInstanceMatchers;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R004",
+      "lineNumbers" : [
+        39
+      ]
+    },
+    "org.activiti.test.matchers.ProcessInstanceMatchers.status:(Lorg/activiti/api/process/model/ProcessInstance$ProcessInstanceStatus;)Lorg/activiti/test/matchers/ProcessResultMatcher;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        82
+      ]
+    },
+    "org.activiti.test.matchers.ProcessResultMatcher.match:(Lorg/activiti/api/process/model/ProcessInstance;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.test.matchers.ProcessTaskMatcher.match:(Ljava/lang/String;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.test.matchers.ProcessTaskMatchers.<init>:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        34,
+        35,
+        36
+      ]
+    },
+    "org.activiti.test.matchers.ProcessTaskMatchers.hasBeenAssigned:()Lorg/activiti/test/matchers/OperationScopeMatcher;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 1
+      },
+      "lineNumbers" : [
+        61
+      ]
+    },
+    "org.activiti.test.matchers.ProcessTaskMatchers.hasBeenCreated:()Lorg/activiti/test/matchers/OperationScopeMatcher;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 1
+      },
+      "lineNumbers" : [
+        44
+      ]
+    },
+    "org.activiti.test.matchers.ProcessTaskMatchers.hasBeenStarted:()Lorg/activiti/test/matchers/OperationScopeMatcher;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        77
+      ]
+    },
+    "org.activiti.test.matchers.ProcessTaskMatchers.lambda$hasBeenAssigned$4:(Lorg/activiti/api/model/shared/event/RuntimeEvent;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        64
+      ]
+    },
+    "org.activiti.test.matchers.ProcessTaskMatchers.lambda$hasBeenAssigned$5:(Lorg/activiti/test/matchers/OperationScope;Lorg/activiti/api/task/runtime/events/TaskAssignedEvent;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        68
+      ]
+    },
+    "org.activiti.test.matchers.ProcessTaskMatchers.lambda$hasBeenAssigned$6:(Lorg/activiti/api/task/runtime/events/TaskAssignedEvent;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        69
+      ]
+    },
+    "org.activiti.test.matchers.ProcessTaskMatchers.lambda$hasBeenAssigned$7:(Lorg/activiti/test/matchers/OperationScope;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        72
+      ]
+    },
+    "org.activiti.test.matchers.ProcessTaskMatchers.lambda$hasBeenCreated$0:(Lorg/activiti/api/model/shared/event/RuntimeEvent;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        48
+      ]
+    },
+    "org.activiti.test.matchers.ProcessTaskMatchers.lambda$hasBeenCreated$1:(Lorg/activiti/test/matchers/OperationScope;Lorg/activiti/api/task/runtime/events/TaskCreatedEvent;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        52
+      ]
+    },
+    "org.activiti.test.matchers.ProcessTaskMatchers.lambda$hasBeenCreated$2:(Lorg/activiti/api/task/runtime/events/TaskCreatedEvent;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        53
+      ]
+    },
+    "org.activiti.test.matchers.ProcessTaskMatchers.lambda$hasBeenCreated$3:(Lorg/activiti/test/matchers/OperationScope;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        56
+      ]
+    },
+    "org.activiti.test.matchers.ProcessTaskMatchers.lambda$hasBeenStarted$10:(Lorg/activiti/api/process/model/events/BPMNActivityStartedEvent;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        85
+      ]
+    },
+    "org.activiti.test.matchers.ProcessTaskMatchers.lambda$hasBeenStarted$11:(Lorg/activiti/api/process/model/events/BPMNActivityStartedEvent;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        86
+      ]
+    },
+    "org.activiti.test.matchers.ProcessTaskMatchers.lambda$hasBeenStarted$12:(Lorg/activiti/test/matchers/OperationScope;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        87,
+        88,
+        91
+      ]
+    },
+    "org.activiti.test.matchers.ProcessTaskMatchers.lambda$hasBeenStarted$8:(Lorg/activiti/api/model/shared/event/RuntimeEvent;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        80
+      ]
+    },
+    "org.activiti.test.matchers.ProcessTaskMatchers.lambda$hasBeenStarted$9:(Lorg/activiti/test/matchers/OperationScope;Lorg/activiti/api/process/model/events/BPMNActivityStartedEvent;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        84
+      ]
+    },
+    "org.activiti.test.matchers.ProcessTaskMatchers.taskWithName:(Ljava/lang/String;)Lorg/activiti/test/matchers/ProcessTaskMatchers;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        39
+      ]
+    },
+    "org.activiti.test.matchers.ProcessVariableMatchers.<init>:(Ljava/lang/String;Ljava/lang/Object;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        33,
+        35,
+        36,
+        37
+      ]
+    },
+    "org.activiti.test.matchers.ProcessVariableMatchers.hasBeenCreated:()Lorg/activiti/test/matchers/OperationScopeMatcher;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        44
+      ]
+    },
+    "org.activiti.test.matchers.ProcessVariableMatchers.lambda$hasBeenCreated$0:(Lorg/activiti/api/model/shared/event/RuntimeEvent;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        47
+      ]
+    },
+    "org.activiti.test.matchers.ProcessVariableMatchers.lambda$hasBeenCreated$1:(Lorg/activiti/api/model/shared/event/VariableCreatedEvent;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        49
+      ]
+    },
+    "org.activiti.test.matchers.ProcessVariableMatchers.lambda$hasBeenCreated$2:(Lorg/activiti/test/matchers/OperationScope;Lorg/activiti/api/model/shared/event/VariableCreatedEvent;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        50
+      ]
+    },
+    "org.activiti.test.matchers.ProcessVariableMatchers.lambda$hasBeenCreated$3:(Lorg/activiti/api/model/shared/event/VariableCreatedEvent;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        53
+      ]
+    },
+    "org.activiti.test.matchers.ProcessVariableMatchers.lambda$hasBeenCreated$4:(Lorg/activiti/api/model/shared/event/VariableCreatedEvent;)Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        54
+      ]
+    },
+    "org.activiti.test.matchers.ProcessVariableMatchers.lambda$hasBeenCreated$5:(Lorg/activiti/test/matchers/OperationScope;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        56,
+        55,
+        57,
+        59
+      ]
+    },
+    "org.activiti.test.matchers.ProcessVariableMatchers.processVariable:(Ljava/lang/String;Ljava/lang/Object;)Lorg/activiti/test/matchers/ProcessVariableMatchers;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        40
+      ]
+    },
+    "org.activiti.test.matchers.SequenceFlowMatchers.<init>:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        30,
+        32,
+        33
+      ]
+    },
+    "org.activiti.test.matchers.SequenceFlowMatchers.hasBeenTaken:()Lorg/activiti/test/matchers/OperationScopeMatcher;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 1
+      },
+      "lineNumbers" : [
+        40
+      ]
+    },
+    "org.activiti.test.matchers.SequenceFlowMatchers.lambda$hasBeenTaken$0:(Lorg/activiti/api/model/shared/event/RuntimeEvent;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        43
+      ]
+    },
+    "org.activiti.test.matchers.SequenceFlowMatchers.lambda$hasBeenTaken$1:(Lorg/activiti/test/matchers/OperationScope;Lorg/activiti/api/process/model/events/BPMNSequenceFlowTakenEvent;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        47
+      ]
+    },
+    "org.activiti.test.matchers.SequenceFlowMatchers.lambda$hasBeenTaken$2:(Lorg/activiti/api/process/model/events/BPMNSequenceFlowTakenEvent;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        48
+      ]
+    },
+    "org.activiti.test.matchers.SequenceFlowMatchers.lambda$hasBeenTaken$3:(Lorg/activiti/test/matchers/OperationScope;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50
+      ]
+    },
+    "org.activiti.test.matchers.SequenceFlowMatchers.sequenceFlow:(Ljava/lang/String;)Lorg/activiti/test/matchers/SequenceFlowMatchers;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        36
+      ]
+    },
+    "org.activiti.test.matchers.SignalMatchers.<init>:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        30,
+        32,
+        33
+      ]
+    },
+    "org.activiti.test.matchers.SignalMatchers.hasBeenReceived:()Lorg/activiti/test/matchers/OperationScopeMatcher;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 1
+      },
+      "lineNumbers" : [
+        40
+      ]
+    },
+    "org.activiti.test.matchers.SignalMatchers.lambda$hasBeenReceived$0:(Lorg/activiti/api/model/shared/event/RuntimeEvent;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        43
+      ]
+    },
+    "org.activiti.test.matchers.SignalMatchers.lambda$hasBeenReceived$1:(Lorg/activiti/test/matchers/OperationScope;Lorg/activiti/api/process/model/events/BPMNSignalReceivedEvent;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        45
+      ]
+    },
+    "org.activiti.test.matchers.SignalMatchers.lambda$hasBeenReceived$2:(Lorg/activiti/api/process/model/events/BPMNSignalReceivedEvent;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        48
+      ]
+    },
+    "org.activiti.test.matchers.SignalMatchers.lambda$hasBeenReceived$3:(Lorg/activiti/test/matchers/OperationScope;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51
+      ]
+    },
+    "org.activiti.test.matchers.SignalMatchers.signal:(Ljava/lang/String;)Lorg/activiti/test/matchers/SignalMatchers;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        36
+      ]
+    },
+    "org.activiti.test.matchers.TaskMatchers.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        29,
+        30
+      ]
+    },
+    "org.activiti.test.matchers.TaskMatchers.assignee:(Ljava/lang/String;)Lorg/activiti/test/matchers/TaskResultMatcher;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        65
+      ]
+    },
+    "org.activiti.test.matchers.TaskMatchers.hasBeenAssigned:()Lorg/activiti/test/matchers/OperationScopeMatcher;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 1
+      },
+      "lineNumbers" : [
+        37
+      ]
+    },
+    "org.activiti.test.matchers.TaskMatchers.hasBeenCompleted:()Lorg/activiti/test/matchers/OperationScopeMatcher;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 1
+      },
+      "lineNumbers" : [
+        51
+      ]
+    },
+    "org.activiti.test.matchers.TaskMatchers.lambda$hasBeenAssigned$0:(Lorg/activiti/api/model/shared/event/RuntimeEvent;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        40
+      ]
+    },
+    "org.activiti.test.matchers.TaskMatchers.lambda$hasBeenAssigned$1:(Lorg/activiti/api/task/runtime/events/TaskAssignedEvent;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        44
+      ]
+    },
+    "org.activiti.test.matchers.TaskMatchers.lambda$hasBeenAssigned$2:(Lorg/activiti/test/matchers/OperationScope;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47
+      ]
+    },
+    "org.activiti.test.matchers.TaskMatchers.lambda$hasBeenCompleted$3:(Lorg/activiti/api/model/shared/event/RuntimeEvent;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        54
+      ]
+    },
+    "org.activiti.test.matchers.TaskMatchers.lambda$hasBeenCompleted$4:(Lorg/activiti/api/task/runtime/events/TaskCompletedEvent;)Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        58
+      ]
+    },
+    "org.activiti.test.matchers.TaskMatchers.lambda$hasBeenCompleted$5:(Lorg/activiti/test/matchers/OperationScope;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61
+      ]
+    },
+    "org.activiti.test.matchers.TaskMatchers.lambda$withAssignee$6:(Ljava/lang/String;Lorg/activiti/api/task/model/Task;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        69
+      ]
+    },
+    "org.activiti.test.matchers.TaskMatchers.task:()Lorg/activiti/test/matchers/TaskMatchers;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R004",
+      "lineNumbers" : [
+        33
+      ]
+    },
+    "org.activiti.test.matchers.TaskMatchers.withAssignee:(Ljava/lang/String;)Lorg/activiti/test/matchers/TaskResultMatcher;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        69
+      ]
+    },
+    "org.activiti.test.matchers.TaskResultMatcher.match:(Lorg/activiti/api/task/model/Task;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.test.matchers.ThrowEventMatchers.<init>:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        23,
+        25
+      ]
+    },
+    "org.activiti.test.matchers.ThrowEventMatchers.getActivityType:()Ljava/lang/String;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        29
+      ]
+    },
+    "org.activiti.test.matchers.ThrowEventMatchers.throwEvent:(Ljava/lang/String;)Lorg/activiti/test/matchers/ThrowEventMatchers;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        33
+      ]
+    },
+    "org.activiti.test.operations.AwaitableProcessOperations.<init>:(Lorg/activiti/test/operations/ProcessOperations;Z)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        31,
+        32,
+        33,
+        34
+      ]
+    },
+    "org.activiti.test.operations.AwaitableProcessOperations.signal:(Lorg/activiti/api/process/model/payloads/SignalPayload;)Lorg/activiti/test/assertions/SignalAssertions;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        48,
+        49,
+        50,
+        52
+      ]
+    },
+    "org.activiti.test.operations.AwaitableProcessOperations.start:(Lorg/activiti/api/process/model/payloads/StartProcessPayload;)Lorg/activiti/test/assertions/ProcessInstanceAssertions;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        39,
+        40,
+        41,
+        43
+      ]
+    },
+    "org.activiti.test.operations.AwaitableTaskOperations.<init>:(Lorg/activiti/test/operations/TaskOperations;Z)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        29,
+        30,
+        31,
+        32
+      ]
+    },
+    "org.activiti.test.operations.AwaitableTaskOperations.awaitableAssertions:(Lorg/activiti/test/assertions/TaskAssertions;)Lorg/activiti/test/assertions/TaskAssertions;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        41,
+        42,
+        44
+      ]
+    },
+    "org.activiti.test.operations.AwaitableTaskOperations.claim:(Lorg/activiti/api/task/model/payloads/ClaimTaskPayload;)Lorg/activiti/test/assertions/TaskAssertions;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        36,
+        37
+      ]
+    },
+    "org.activiti.test.operations.AwaitableTaskOperations.complete:(Lorg/activiti/api/task/model/payloads/CompleteTaskPayload;)Lorg/activiti/test/assertions/TaskAssertions;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        49,
+        50
+      ]
+    },
+    "org.activiti.test.operations.ProcessOperations.signal:(Lorg/activiti/api/process/model/payloads/SignalPayload;)Lorg/activiti/test/assertions/SignalAssertions;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.test.operations.ProcessOperations.start:(Lorg/activiti/api/process/model/payloads/StartProcessPayload;)Lorg/activiti/test/assertions/ProcessInstanceAssertions;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.test.operations.TaskOperations.claim:(Lorg/activiti/api/task/model/payloads/ClaimTaskPayload;)Lorg/activiti/test/assertions/TaskAssertions;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    },
+    "org.activiti.test.operations.TaskOperations.complete:(Lorg/activiti/api/task/model/payloads/CompleteTaskPayload;)Lorg/activiti/test/assertions/TaskAssertions;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T010",
+      "perMethodOutcome" : "T010"
+    }
+  },
+  "validationMetrics" : { }
+}

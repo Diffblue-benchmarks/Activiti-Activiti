@@ -1,0 +1,832 @@
+{
+  "meta" : {
+    "reportVersion" : "2.7"
+  },
+  "run" : {
+    "version" : "2025.09.01-44e352d-licensed",
+    "creationTimestamp" : "2025-09-26T16:42:02.920714336Z",
+    "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
+    "totalTime" : 134.295,
+    "environmentDetectionTime" : 0.056,
+    "indexingTime" : 0.392,
+    "entryPointsTime" : 0.047,
+    "generationTime" : 1110.61,
+    "timeToFirstTest" : 2256.11,
+    "timeToLastTest" : 1917.294,
+    "indexQueryTime" : 2.435,
+    "verificationTime" : 60.493,
+    "validationTime" : 12.278
+  },
+  "codes" : {
+    "R000" : "Success",
+    "R002" : "Missing observers",
+    "R004" : "No meaningful assertions found",
+    "T000" : "Method eligible for test creation",
+    "T001" : "Trivial getter",
+    "T003" : "Private method",
+    "T005" : "Trivial constructor",
+    "T012" : "Synthetic method",
+    "T023" : "Testability unknown",
+    "V000" : "Validated successfully",
+    "W001" : "Test did not compile"
+  },
+  "summary" : {
+    "classesCount" : 6,
+    "methodsCount" : 54,
+    "cumulativeDiffblueTestCount" : 48,
+    "cumulativeManualTestCount" : 0,
+    "completeTestCount" : 48,
+    "incompleteTestCount" : 0,
+    "skeletonTestCount" : 0,
+    "totalPhysicalLineCount" : 331,
+    "perMethodTestability" : {
+      "T000" : 46,
+      "T001" : 1,
+      "T003" : 1,
+      "T005" : 4,
+      "T012" : 1,
+      "T023" : 1
+    },
+    "perMethodOutcome" : {
+      "R000" : 44,
+      "R002" : 3,
+      "R004" : 1,
+      "T003" : 1,
+      "T005" : 1,
+      "T012" : 1,
+      "T023" : 1,
+      "W001" : 2
+    },
+    "perTestOutcome" : {
+      "R000" : 48
+    },
+    "perTestValidation" : {
+      "V000" : 48
+    },
+    "warnings" : {
+      "W001" : 2
+    }
+  },
+  "classes" : {
+    "org.activiti.test.LocalEventSource" : {
+      "methodsCount" : 12,
+      "completeTestCount" : 8,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 9,
+        "T001" : 1,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 9,
+        "R004" : 1,
+        "T012" : 1,
+        "W001" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 8
+      },
+      "warnings" : {
+        "W001" : 1
+      }
+    },
+    "org.activiti.test.LocalTaskSource" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "R002" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 3
+      }
+    },
+    "org.activiti.test.LocalTaskSource$1" : {
+      "methodsCount" : 1,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T023" : 1
+      },
+      "perMethodOutcome" : {
+        "T023" : 1
+      }
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration" : {
+      "methodsCount" : 31,
+      "completeTestCount" : 34,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 31
+      },
+      "perMethodOutcome" : {
+        "R000" : 30,
+        "T005" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 34
+      }
+    },
+    "org.activiti.test.operations.ProcessRuntimeOperations" : {
+      "methodsCount" : 3,
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "R002" : 1,
+        "W001" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "warnings" : {
+        "W001" : 1
+      }
+    },
+    "org.activiti.test.operations.TaskRuntimeOperations" : {
+      "methodsCount" : 4,
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2,
+        "T003" : 1,
+        "T005" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "R002" : 1,
+        "T003" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 2
+      }
+    }
+  },
+  "methods" : {
+    "org.activiti.test.LocalEventSource.<init>:()V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        30,
+        32
+      ]
+    },
+    "org.activiti.test.LocalEventSource.addCollectedEvents:(Lorg/activiti/api/model/shared/event/RuntimeEvent;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 1
+      },
+      "lineNumbers" : [
+        35,
+        36
+      ]
+    },
+    "org.activiti.test.LocalEventSource.clearEvents:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R004",
+      "lineNumbers" : [
+        44,
+        45
+      ]
+    },
+    "org.activiti.test.LocalEventSource.getEvents:()Ljava/util/List;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T001",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        40
+      ]
+    },
+    "org.activiti.test.LocalEventSource.getEvents:(Ljava/lang/Class;)Ljava/util/List;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        48,
+        49,
+        50,
+        51,
+        52,
+        48
+      ]
+    },
+    "org.activiti.test.LocalEventSource.getEvents:([Ljava/lang/Enum;)Ljava/util/List;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        56,
+        57,
+        58,
+        59,
+        56
+      ]
+    },
+    "org.activiti.test.LocalEventSource.getProcessInstanceEvents:()Ljava/util/List;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        68
+      ]
+    },
+    "org.activiti.test.LocalEventSource.getTaskEvents:()Ljava/util/List;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        64
+      ]
+    },
+    "org.activiti.test.LocalEventSource.getTimerCancelledEvents:()Ljava/util/List;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        80
+      ]
+    },
+    "org.activiti.test.LocalEventSource.getTimerFiredEvents:()Ljava/util/List;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        72
+      ]
+    },
+    "org.activiti.test.LocalEventSource.getTimerScheduledEvents:()Ljava/util/List;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        76
+      ]
+    },
+    "org.activiti.test.LocalEventSource.lambda$getEvents$0:([Ljava/lang/Enum;Lorg/activiti/api/model/shared/event/RuntimeEvent;)Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        58
+      ]
+    },
+    "org.activiti.test.LocalTaskSource$1.<clinit>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T023",
+      "perMethodOutcome" : "T023"
+    },
+    "org.activiti.test.LocalTaskSource.<init>:(Lorg/activiti/api/task/runtime/TaskRuntime;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        31,
+        32,
+        33
+      ]
+    },
+    "org.activiti.test.LocalTaskSource.canHandle:(Lorg/activiti/api/task/model/Task$TaskStatus;)Z" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        45,
+        49,
+        51
+      ]
+    },
+    "org.activiti.test.LocalTaskSource.getTasks:(Ljava/lang/String;)Ljava/util/List;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        37,
+        39,
+        37,
+        40
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        62,
+        64
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.handledEvents:()Lorg/activiti/test/LocalEventSource;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        68
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.keepInMemoryBpmnActivityCancelledListener:()Lorg/activiti/api/process/runtime/events/listener/BPMNElementEventListener;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        106
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.keepInMemoryBpmnActivityCompletedListener:()Lorg/activiti/api/process/runtime/events/listener/BPMNElementEventListener;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        101
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.keepInMemoryBpmnActivityStartedListener:()Lorg/activiti/api/process/runtime/events/listener/BPMNElementEventListener;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        96
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.keepInMemoryBpmnSequenceFlowTakenListener:()Lorg/activiti/api/process/runtime/events/listener/BPMNElementEventListener;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        111
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.keepInMemoryBpmnSignalReceivedListener:()Lorg/activiti/api/process/runtime/events/listener/BPMNElementEventListener;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        191
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.keepInMemoryErrorReceivedListener:()Lorg/activiti/api/process/runtime/events/listener/BPMNElementEventListener;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        221
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.keepInMemoryProcessCancelledListener:()Lorg/activiti/api/process/runtime/events/listener/ProcessRuntimeEventListener;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        141
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.keepInMemoryProcessCompletedListener:()Lorg/activiti/api/process/runtime/events/listener/ProcessRuntimeEventListener;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        126
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.keepInMemoryProcessCreatedListener:()Lorg/activiti/api/process/runtime/events/listener/ProcessRuntimeEventListener;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        116
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.keepInMemoryProcessResumedListener:()Lorg/activiti/api/process/runtime/events/listener/ProcessRuntimeEventListener;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        131
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.keepInMemoryProcessStartedListener:()Lorg/activiti/api/process/runtime/events/listener/ProcessRuntimeEventListener;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        121
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.keepInMemoryProcessSuspendedListener:()Lorg/activiti/api/process/runtime/events/listener/ProcessRuntimeEventListener;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        136
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.keepInMemoryTaskAssignedEventListener:()Lorg/activiti/api/task/runtime/events/listener/TaskEventListener;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        181
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.keepInMemoryTaskCancelledEventListener:()Lorg/activiti/api/task/runtime/events/listener/TaskEventListener;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        186
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.keepInMemoryTaskCompletedEventListener:()Lorg/activiti/api/task/runtime/events/listener/TaskEventListener;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        171
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.keepInMemoryTaskCreatedEventListener:()Lorg/activiti/api/task/runtime/events/listener/TaskEventListener;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        161
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.keepInMemoryTaskSuspendedEventListener:()Lorg/activiti/api/task/runtime/events/listener/TaskEventListener;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        176
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.keepInMemoryTaskUpdatedEventListener:()Lorg/activiti/api/task/runtime/events/listener/TaskEventListener;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        166
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.keepInMemoryTimerCancelledListener:()Lorg/activiti/api/process/runtime/events/listener/BPMNElementEventListener;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        216
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.keepInMemoryTimerExecutedListener:()Lorg/activiti/api/process/runtime/events/listener/BPMNElementEventListener;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        206
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.keepInMemoryTimerFailedListener:()Lorg/activiti/api/process/runtime/events/listener/BPMNElementEventListener;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        211
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.keepInMemoryTimerFiredListener:()Lorg/activiti/api/process/runtime/events/listener/BPMNElementEventListener;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        201
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.keepInMemoryTimerScheduledListener:()Lorg/activiti/api/process/runtime/events/listener/BPMNElementEventListener;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        196
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.keepInMemoryVariableCreatedEventListener:()Lorg/activiti/api/runtime/shared/events/VariableEventListener;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        146
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.keepInMemoryVariableDeletedEventListener:()Lorg/activiti/api/runtime/shared/events/VariableEventListener;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        151
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.keepInMemoryVariableUpdatedEventListener:()Lorg/activiti/api/runtime/shared/events/VariableEventListener;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        156
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.localTaskProvider:(Lorg/activiti/api/task/runtime/TaskRuntime;)Lorg/activiti/test/TaskSource;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        73
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.processRuntimeOperations:(Lorg/activiti/api/process/runtime/ProcessRuntime;Lorg/activiti/test/EventSource;Ljava/util/List;)Lorg/activiti/test/operations/ProcessRuntimeOperations;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        80
+      ]
+    },
+    "org.activiti.test.config.ActivitiAssertionsAutoConfiguration.taskRuntimeOperations:(Lorg/activiti/api/task/runtime/TaskRuntime;Lorg/activiti/test/EventSource;Ljava/util/List;)Lorg/activiti/test/operations/TaskRuntimeOperations;" : {
+      "completeTestCount" : 3,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 3
+      },
+      "lineNumbers" : [
+        89
+      ]
+    },
+    "org.activiti.test.operations.ProcessRuntimeOperations.<init>:(Lorg/activiti/api/process/runtime/ProcessRuntime;Lorg/activiti/test/EventSource;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        39,
+        40,
+        41,
+        42,
+        43
+      ]
+    },
+    "org.activiti.test.operations.ProcessRuntimeOperations.signal:(Lorg/activiti/api/process/model/payloads/SignalPayload;)Lorg/activiti/test/assertions/SignalAssertions;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "W001",
+      "warnings" : {
+        "W001" : 1
+      },
+      "lineNumbers" : [
+        55,
+        56
+      ]
+    },
+    "org.activiti.test.operations.ProcessRuntimeOperations.start:(Lorg/activiti/api/process/model/payloads/StartProcessPayload;)Lorg/activiti/test/assertions/ProcessInstanceAssertions;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        47,
+        48
+      ]
+    },
+    "org.activiti.test.operations.TaskRuntimeOperations.<init>:(Lorg/activiti/api/task/runtime/TaskRuntime;Lorg/activiti/test/EventSource;Ljava/util/List;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T005",
+      "perMethodOutcome" : "R002",
+      "lineNumbers" : [
+        39,
+        40,
+        41,
+        42,
+        43
+      ]
+    },
+    "org.activiti.test.operations.TaskRuntimeOperations.buildTaskAssertions:(Lorg/activiti/api/task/model/Task;)Lorg/activiti/test/assertions/TaskAssertions;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        52
+      ]
+    },
+    "org.activiti.test.operations.TaskRuntimeOperations.claim:(Lorg/activiti/api/task/model/payloads/ClaimTaskPayload;)Lorg/activiti/test/assertions/TaskAssertions;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        47,
+        48
+      ]
+    },
+    "org.activiti.test.operations.TaskRuntimeOperations.complete:(Lorg/activiti/api/task/model/payloads/CompleteTaskPayload;)Lorg/activiti/test/assertions/TaskAssertions;" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        59,
+        60,
+        61
+      ]
+    }
+  },
+  "validationMetrics" : { }
+}

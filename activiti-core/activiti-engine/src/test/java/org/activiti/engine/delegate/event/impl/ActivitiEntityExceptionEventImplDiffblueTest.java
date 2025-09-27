@@ -1,0 +1,146 @@
+/*
+ * Copyright 2010-2020 Alfresco Software, Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.activiti.engine.delegate.event.impl;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertThrows;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import org.activiti.engine.ActivitiIllegalArgumentException;
+import org.activiti.engine.delegate.event.ActivitiEventType;
+import org.activiti.engine.impl.util.json.JSONObject;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+public class ActivitiEntityExceptionEventImplDiffblueTest {
+  /**
+   * Test {@link ActivitiEntityExceptionEventImpl#ActivitiEntityExceptionEventImpl(Object,
+   * ActivitiEventType, Throwable)}.
+   *
+   * <p>Method under test: {@link
+   * ActivitiEntityExceptionEventImpl#ActivitiEntityExceptionEventImpl(Object, ActivitiEventType,
+   * Throwable)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void ActivitiEntityExceptionEventImpl.<init>(Object, ActivitiEventType, Throwable)"
+  })
+  public void testNewActivitiEntityExceptionEventImpl() {
+    // Arrange, Act and Assert
+    assertThrows(
+        ActivitiIllegalArgumentException.class,
+        () -> new ActivitiEntityExceptionEventImpl(null, null, new Throwable()));
+  }
+
+  /**
+   * Test {@link ActivitiEntityExceptionEventImpl#ActivitiEntityExceptionEventImpl(Object,
+   * ActivitiEventType, Throwable)}.
+   *
+   * <p>Method under test: {@link
+   * ActivitiEntityExceptionEventImpl#ActivitiEntityExceptionEventImpl(Object, ActivitiEventType,
+   * Throwable)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void ActivitiEntityExceptionEventImpl.<init>(Object, ActivitiEventType, Throwable)"
+  })
+  public void testNewActivitiEntityExceptionEventImpl2() {
+    // Arrange, Act and Assert
+    assertThrows(
+        ActivitiIllegalArgumentException.class,
+        () ->
+            new ActivitiEntityExceptionEventImpl(
+                null, ActivitiEventType.ENTITY_CREATED, new Throwable()));
+  }
+
+  /**
+   * Test {@link ActivitiEntityExceptionEventImpl#ActivitiEntityExceptionEventImpl(Object,
+   * ActivitiEventType, Throwable)}.
+   *
+   * <ul>
+   *   <li>When {@link JSONObject#NULL}.
+   *   <li>Then return ExecutionId is {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * ActivitiEntityExceptionEventImpl#ActivitiEntityExceptionEventImpl(Object, ActivitiEventType,
+   * Throwable)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void ActivitiEntityExceptionEventImpl.<init>(Object, ActivitiEventType, Throwable)"
+  })
+  public void testNewActivitiEntityExceptionEventImpl_whenNull_thenReturnExecutionIdIsNull() {
+    // Arrange
+    Object object = JSONObject.NULL;
+    Throwable cause = new Throwable();
+
+    // Act
+    ActivitiEntityExceptionEventImpl actualActivitiEntityExceptionEventImpl =
+        new ActivitiEntityExceptionEventImpl(object, ActivitiEventType.ENTITY_CREATED, cause);
+
+    // Assert
+    assertNull(actualActivitiEntityExceptionEventImpl.getExecutionId());
+    assertNull(actualActivitiEntityExceptionEventImpl.getProcessDefinitionId());
+    assertNull(actualActivitiEntityExceptionEventImpl.getProcessInstanceId());
+    assertNull(actualActivitiEntityExceptionEventImpl.getReason());
+    assertEquals(
+        ActivitiEventType.ENTITY_CREATED, actualActivitiEntityExceptionEventImpl.getType());
+    assertSame(cause, actualActivitiEntityExceptionEventImpl.getCause());
+    assertSame(object, actualActivitiEntityExceptionEventImpl.getEntity());
+  }
+
+  /**
+   * Test getters and setters.
+   *
+   * <p>Methods under test:
+   *
+   * <ul>
+   *   <li>{@link ActivitiEntityExceptionEventImpl#getCause()}
+   *   <li>{@link ActivitiEntityExceptionEventImpl#getEntity()}
+   * </ul>
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "Throwable ActivitiEntityExceptionEventImpl.getCause()",
+    "Object ActivitiEntityExceptionEventImpl.getEntity()"
+  })
+  public void testGettersAndSetters() {
+    // Arrange
+    ActivitiEntityExceptionEventImpl activitiEntityExceptionEventImpl =
+        new ActivitiEntityExceptionEventImpl(
+            JSONObject.NULL, ActivitiEventType.ENTITY_CREATED, new Throwable());
+
+    // Act
+    Throwable actualCause = activitiEntityExceptionEventImpl.getCause();
+    Object actualEntity = activitiEntityExceptionEventImpl.getEntity();
+
+    // Assert
+    assertSame(activitiEntityExceptionEventImpl.cause, actualCause);
+    assertSame(activitiEntityExceptionEventImpl.entity, actualEntity);
+  }
+}

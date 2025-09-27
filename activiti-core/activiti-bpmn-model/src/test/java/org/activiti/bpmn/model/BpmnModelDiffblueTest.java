@@ -1,0 +1,3689 @@
+/*
+ * Copyright 2010-2020 Alfresco Software, Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.activiti.bpmn.model;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import com.diffblue.cover.annotations.ContributionFromDiffblue;
+import com.diffblue.cover.annotations.ManagedByDiffblue;
+import com.diffblue.cover.annotations.MethodsUnderTest;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import org.activiti.bpmn.model.Message.Builder;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+
+public class BpmnModelDiffblueTest {
+  /**
+   * Test {@link BpmnModel#getDefinitionsAttributeValue(String, String)}.
+   *
+   * <p>Method under test: {@link BpmnModel#getDefinitionsAttributeValue(String, String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String BpmnModel.getDefinitionsAttributeValue(String, String)"})
+  public void testGetDefinitionsAttributeValue() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addDefinitionsAttribute(new ExtensionAttribute("Name"));
+
+    // Act and Assert
+    assertNull(bpmnModel.getDefinitionsAttributeValue("Namespace", "Name"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getDefinitionsAttributeValue(String, String)}.
+   *
+   * <p>Method under test: {@link BpmnModel#getDefinitionsAttributeValue(String, String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String BpmnModel.getDefinitionsAttributeValue(String, String)"})
+  public void testGetDefinitionsAttributeValue2() {
+    // Arrange
+    ExtensionAttribute attribute = new ExtensionAttribute("Name");
+    attribute.setNamespace("Namespace");
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addDefinitionsAttribute(attribute);
+
+    // Act and Assert
+    assertNull(bpmnModel.getDefinitionsAttributeValue("Namespace", "Name"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getDefinitionsAttributeValue(String, String)}.
+   *
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor).
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getDefinitionsAttributeValue(String, String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String BpmnModel.getDefinitionsAttributeValue(String, String)"})
+  public void testGetDefinitionsAttributeValue_givenBpmnModel() {
+    // Arrange, Act and Assert
+    assertNull(new BpmnModel().getDefinitionsAttributeValue("Namespace", "Name"));
+  }
+
+  /**
+   * Test {@link BpmnModel#addDefinitionsAttribute(ExtensionAttribute)}.
+   *
+   * <ul>
+   *   <li>Then {@link BpmnModel} (default constructor) DefinitionsAttributes {@code Name} size is
+   *       one.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#addDefinitionsAttribute(ExtensionAttribute)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addDefinitionsAttribute(ExtensionAttribute)"})
+  public void testAddDefinitionsAttribute_thenBpmnModelDefinitionsAttributesNameSizeIsOne() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    ExtensionAttribute attribute = new ExtensionAttribute("Name");
+
+    // Act
+    bpmnModel.addDefinitionsAttribute(attribute);
+
+    // Assert
+    Map<String, List<ExtensionAttribute>> definitionsAttributes =
+        bpmnModel.getDefinitionsAttributes();
+    assertEquals(1, definitionsAttributes.size());
+    List<ExtensionAttribute> getResult = definitionsAttributes.get("Name");
+    assertEquals(1, getResult.size());
+    assertSame(attribute, getResult.get(0));
+  }
+
+  /**
+   * Test {@link BpmnModel#addDefinitionsAttribute(ExtensionAttribute)}.
+   *
+   * <ul>
+   *   <li>Then {@link BpmnModel} (default constructor) DefinitionsAttributes {@code Name} size is
+   *       two.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#addDefinitionsAttribute(ExtensionAttribute)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addDefinitionsAttribute(ExtensionAttribute)"})
+  public void testAddDefinitionsAttribute_thenBpmnModelDefinitionsAttributesNameSizeIsTwo() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    ExtensionAttribute attribute = new ExtensionAttribute("Name");
+    bpmnModel.addDefinitionsAttribute(attribute);
+    ExtensionAttribute attribute2 = new ExtensionAttribute("Name");
+
+    // Act
+    bpmnModel.addDefinitionsAttribute(attribute2);
+
+    // Assert
+    Map<String, List<ExtensionAttribute>> definitionsAttributes =
+        bpmnModel.getDefinitionsAttributes();
+    assertEquals(1, definitionsAttributes.size());
+    List<ExtensionAttribute> getResult = definitionsAttributes.get("Name");
+    assertEquals(2, getResult.size());
+    assertSame(attribute, getResult.get(0));
+    assertSame(attribute2, getResult.get(1));
+  }
+
+  /**
+   * Test {@link BpmnModel#addDefinitionsAttribute(ExtensionAttribute)}.
+   *
+   * <ul>
+   *   <li>When {@link ExtensionAttribute#ExtensionAttribute(String)} with name is empty string.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#addDefinitionsAttribute(ExtensionAttribute)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addDefinitionsAttribute(ExtensionAttribute)"})
+  public void testAddDefinitionsAttribute_whenExtensionAttributeWithNameIsEmptyString() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    // Act
+    bpmnModel.addDefinitionsAttribute(new ExtensionAttribute(""));
+
+    // Assert that nothing has changed
+    assertTrue(bpmnModel.getDefinitionsAttributes().isEmpty());
+  }
+
+  /**
+   * Test {@link BpmnModel#addDefinitionsAttribute(ExtensionAttribute)}.
+   *
+   * <ul>
+   *   <li>When {@link ExtensionAttribute#ExtensionAttribute(String)} with name is {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#addDefinitionsAttribute(ExtensionAttribute)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addDefinitionsAttribute(ExtensionAttribute)"})
+  public void testAddDefinitionsAttribute_whenExtensionAttributeWithNameIsNull() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    // Act
+    bpmnModel.addDefinitionsAttribute(new ExtensionAttribute(null));
+
+    // Assert that nothing has changed
+    assertTrue(bpmnModel.getDefinitionsAttributes().isEmpty());
+  }
+
+  /**
+   * Test {@link BpmnModel#addDefinitionsAttribute(ExtensionAttribute)}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then {@link BpmnModel} (default constructor) DefinitionsAttributes Empty.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#addDefinitionsAttribute(ExtensionAttribute)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addDefinitionsAttribute(ExtensionAttribute)"})
+  public void testAddDefinitionsAttribute_whenNull_thenBpmnModelDefinitionsAttributesEmpty() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    // Act
+    bpmnModel.addDefinitionsAttribute(null);
+
+    // Assert that nothing has changed
+    assertTrue(bpmnModel.getDefinitionsAttributes().isEmpty());
+  }
+
+  /**
+   * Test {@link BpmnModel#getMainProcess()}.
+   *
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor).
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getMainProcess()}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Process BpmnModel.getMainProcess()"})
+  public void testGetMainProcess_givenBpmnModel_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull(new BpmnModel().getMainProcess());
+  }
+
+  /**
+   * Test {@link BpmnModel#getMainProcess()}.
+   *
+   * <ul>
+   *   <li>Given {@link Pool} (default constructor) Id is {@code foo}.
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getMainProcess()}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Process BpmnModel.getMainProcess()"})
+  public void testGetMainProcess_givenPoolIdIsFoo_thenReturnNull() {
+    // Arrange
+    Pool pool = new Pool();
+    pool.setId("foo");
+
+    ArrayList<Pool> pools = new ArrayList<>();
+    pools.add(pool);
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.setPools(pools);
+    bpmnModel.addProcess(new Process());
+
+    // Act and Assert
+    assertNull(bpmnModel.getMainProcess());
+  }
+
+  /**
+   * Test {@link BpmnModel#getMainProcess()}.
+   *
+   * <ul>
+   *   <li>Given {@link Pool} (default constructor) Id is {@code null}.
+   *   <li>Then return {@link Process} (default constructor).
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getMainProcess()}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Process BpmnModel.getMainProcess()"})
+  public void testGetMainProcess_givenPoolIdIsNull_thenReturnProcess() {
+    // Arrange
+    Pool pool = new Pool();
+    pool.setId(null);
+
+    ArrayList<Pool> pools = new ArrayList<>();
+    pools.add(pool);
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.setPools(pools);
+    Process process = new Process();
+    bpmnModel.addProcess(process);
+
+    // Act and Assert
+    assertSame(process, bpmnModel.getMainProcess());
+  }
+
+  /**
+   * Test {@link BpmnModel#getMainProcess()}.
+   *
+   * <ul>
+   *   <li>Given {@link Pool} (default constructor) ProcessRef is empty string.
+   *   <li>Then return {@link Process} (default constructor).
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getMainProcess()}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Process BpmnModel.getMainProcess()"})
+  public void testGetMainProcess_givenPoolProcessRefIsEmptyString_thenReturnProcess() {
+    // Arrange
+    Pool pool = new Pool();
+    pool.setProcessRef("");
+    pool.setId(null);
+
+    ArrayList<Pool> pools = new ArrayList<>();
+    pools.add(pool);
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.setPools(pools);
+    Process process = new Process();
+    bpmnModel.addProcess(process);
+
+    // Act and Assert
+    assertSame(process, bpmnModel.getMainProcess());
+  }
+
+  /**
+   * Test {@link BpmnModel#getMainProcess()}.
+   *
+   * <ul>
+   *   <li>Given {@link Pool} (default constructor) ProcessRef is {@code not empty}.
+   *   <li>Then return {@link Process} (default constructor).
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getMainProcess()}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Process BpmnModel.getMainProcess()"})
+  public void testGetMainProcess_givenPoolProcessRefIsNotEmpty_thenReturnProcess() {
+    // Arrange
+    Pool pool = new Pool();
+    pool.setProcessRef("not empty");
+    pool.setId(null);
+
+    ArrayList<Pool> pools = new ArrayList<>();
+    pools.add(pool);
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.setPools(pools);
+    Process process = new Process();
+    bpmnModel.addProcess(process);
+
+    // Act and Assert
+    assertSame(process, bpmnModel.getMainProcess());
+  }
+
+  /**
+   * Test {@link BpmnModel#getProcess(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor).
+   *   <li>When {@code Pool Ref}.
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getProcess(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Process BpmnModel.getProcess(String)"})
+  public void testGetProcess_givenBpmnModel_whenPoolRef_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull(new BpmnModel().getProcess("Pool Ref"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getProcess(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link Pool} (default constructor) ProcessRef is empty string.
+   *   <li>When {@code null}.
+   *   <li>Then return {@link Process} (default constructor).
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getProcess(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Process BpmnModel.getProcess(String)"})
+  public void testGetProcess_givenPoolProcessRefIsEmptyString_whenNull_thenReturnProcess() {
+    // Arrange
+    Pool pool = new Pool();
+    pool.setProcessRef("");
+    pool.setId("foo");
+
+    ArrayList<Pool> pools = new ArrayList<>();
+    pools.add(pool);
+
+    BpmnModel bpmnModel = new BpmnModel();
+    Process process = new Process();
+    bpmnModel.addProcess(process);
+    bpmnModel.setPools(pools);
+
+    // Act and Assert
+    assertSame(process, bpmnModel.getProcess(null));
+  }
+
+  /**
+   * Test {@link BpmnModel#getProcess(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link Pool} (default constructor) ProcessRef is {@code not empty}.
+   *   <li>When {@code null}.
+   *   <li>Then return {@link Process} (default constructor).
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getProcess(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Process BpmnModel.getProcess(String)"})
+  public void testGetProcess_givenPoolProcessRefIsNotEmpty_whenNull_thenReturnProcess() {
+    // Arrange
+    Pool pool = new Pool();
+    pool.setProcessRef("not empty");
+    pool.setId("foo");
+
+    ArrayList<Pool> pools = new ArrayList<>();
+    pools.add(pool);
+
+    BpmnModel bpmnModel = new BpmnModel();
+    Process process = new Process();
+    bpmnModel.addProcess(process);
+    bpmnModel.setPools(pools);
+
+    // Act and Assert
+    assertSame(process, bpmnModel.getProcess(null));
+  }
+
+  /**
+   * Test {@link BpmnModel#getProcess(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link Pool} (default constructor) ProcessRef is {@code not empty}.
+   *   <li>When {@code Pool Ref}.
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getProcess(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Process BpmnModel.getProcess(String)"})
+  public void testGetProcess_givenPoolProcessRefIsNotEmpty_whenPoolRef_thenReturnNull() {
+    // Arrange
+    Pool pool = new Pool();
+    pool.setProcessRef("not empty");
+    pool.setId("foo");
+
+    ArrayList<Pool> pools = new ArrayList<>();
+    pools.add(pool);
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addProcess(new Process());
+    bpmnModel.setPools(pools);
+
+    // Act and Assert
+    assertNull(bpmnModel.getProcess("Pool Ref"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getProcess(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link Pool} (default constructor) ProcessRef is {@code null}.
+   *   <li>When {@code null}.
+   *   <li>Then return {@link Process} (default constructor).
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getProcess(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Process BpmnModel.getProcess(String)"})
+  public void testGetProcess_givenPoolProcessRefIsNull_whenNull_thenReturnProcess() {
+    // Arrange
+    Pool pool = new Pool();
+    pool.setProcessRef(null);
+    pool.setId("foo");
+
+    ArrayList<Pool> pools = new ArrayList<>();
+    pools.add(pool);
+
+    BpmnModel bpmnModel = new BpmnModel();
+    Process process = new Process();
+    bpmnModel.addProcess(process);
+    bpmnModel.setPools(pools);
+
+    // Act and Assert
+    assertSame(process, bpmnModel.getProcess(null));
+  }
+
+  /**
+   * Test {@link BpmnModel#getProcessById(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor).
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getProcessById(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Process BpmnModel.getProcessById(String)"})
+  public void testGetProcessById_givenBpmnModel_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull(new BpmnModel().getProcessById("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getProcessById(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link Process} (default constructor) Id is {@code 42}.
+   *   <li>Then return {@link Process} (default constructor).
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getProcessById(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Process BpmnModel.getProcessById(String)"})
+  public void testGetProcessById_givenProcessIdIs42_thenReturnProcess() {
+    // Arrange
+    Process process = new Process();
+    process.setId("42");
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addProcess(process);
+
+    // Act and Assert
+    assertSame(process, bpmnModel.getProcessById("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getProcessById(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link Process} (default constructor) Id is {@code Id}.
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getProcessById(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Process BpmnModel.getProcessById(String)"})
+  public void testGetProcessById_givenProcessIdIsId_thenReturnNull() {
+    // Arrange
+    Process process = new Process();
+    process.setId("Id");
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addProcess(process);
+
+    // Act and Assert
+    assertNull(bpmnModel.getProcessById("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#addProcess(Process)}.
+   *
+   * <p>Method under test: {@link BpmnModel#addProcess(Process)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addProcess(Process)"})
+  public void testAddProcess() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    Process process = new Process();
+
+    // Act
+    bpmnModel.addProcess(process);
+
+    // Assert
+    List<Process> processes = bpmnModel.getProcesses();
+    assertEquals(1, processes.size());
+    assertSame(process, processes.get(0));
+    assertSame(process, bpmnModel.getMainProcess());
+  }
+
+  /**
+   * Test {@link BpmnModel#getPool(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link Pool} (default constructor).
+   *   <li>When empty string.
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getPool(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Pool BpmnModel.getPool(String)"})
+  public void testGetPool_givenArrayListAddPool_whenEmptyString_thenReturnNull() {
+    // Arrange
+    ArrayList<Pool> pools = new ArrayList<>();
+    pools.add(new Pool());
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.setPools(pools);
+
+    // Act and Assert
+    assertNull(bpmnModel.getPool(""));
+  }
+
+  /**
+   * Test {@link BpmnModel#getPool(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link Pool} (default constructor).
+   *   <li>When {@code not empty}.
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getPool(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Pool BpmnModel.getPool(String)"})
+  public void testGetPool_givenArrayListAddPool_whenNotEmpty_thenReturnNull() {
+    // Arrange
+    ArrayList<Pool> pools = new ArrayList<>();
+    pools.add(new Pool());
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.setPools(pools);
+
+    // Act and Assert
+    assertNull(bpmnModel.getPool("not empty"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getPool(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link Pool} (default constructor).
+   *   <li>When {@code null}.
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getPool(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Pool BpmnModel.getPool(String)"})
+  public void testGetPool_givenArrayListAddPool_whenNull_thenReturnNull() {
+    // Arrange
+    ArrayList<Pool> pools = new ArrayList<>();
+    pools.add(new Pool());
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.setPools(pools);
+
+    // Act and Assert
+    assertNull(bpmnModel.getPool(null));
+  }
+
+  /**
+   * Test {@link BpmnModel#getPool(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor).
+   *   <li>When {@code 42}.
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getPool(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Pool BpmnModel.getPool(String)"})
+  public void testGetPool_givenBpmnModel_when42_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull(new BpmnModel().getPool("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getLane(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link Lane} (default constructor).
+   *   <li>When {@code not empty}.
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getLane(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Lane BpmnModel.getLane(String)"})
+  public void testGetLane_givenArrayListAddLane_whenNotEmpty_thenReturnNull() {
+    // Arrange
+    ArrayList<Lane> lanes = new ArrayList<>();
+    lanes.add(new Lane());
+
+    Process process = new Process();
+    process.setLanes(lanes);
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addProcess(process);
+
+    // Act and Assert
+    assertNull(bpmnModel.getLane("not empty"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getLane(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.
+   *   <li>When empty string.
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getLane(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Lane BpmnModel.getLane(String)"})
+  public void testGetLane_givenArrayListAddNull_whenEmptyString_thenReturnNull() {
+    // Arrange
+    ArrayList<Lane> lanes = new ArrayList<>();
+    lanes.add(null);
+
+    Process process = new Process();
+    process.setLanes(lanes);
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addProcess(process);
+
+    // Act and Assert
+    assertNull(bpmnModel.getLane(""));
+  }
+
+  /**
+   * Test {@link BpmnModel#getLane(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@code null}.
+   *   <li>When {@code null}.
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getLane(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Lane BpmnModel.getLane(String)"})
+  public void testGetLane_givenArrayListAddNull_whenNull_thenReturnNull() {
+    // Arrange
+    ArrayList<Lane> lanes = new ArrayList<>();
+    lanes.add(null);
+
+    Process process = new Process();
+    process.setLanes(lanes);
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addProcess(process);
+
+    // Act and Assert
+    assertNull(bpmnModel.getLane(null));
+  }
+
+  /**
+   * Test {@link BpmnModel#getLane(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor).
+   *   <li>When {@code 42}.
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getLane(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Lane BpmnModel.getLane(String)"})
+  public void testGetLane_givenBpmnModel_when42_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull(new BpmnModel().getLane("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getFlowElement(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link AdhocSubProcess} (default constructor) Id is {@code foo}.
+   *   <li>When {@code not empty}.
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getFlowElement(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"org.activiti.bpmn.model.FlowElement BpmnModel.getFlowElement(String)"})
+  public void testGetFlowElement_givenAdhocSubProcessIdIsFoo_whenNotEmpty_thenReturnNull() {
+    // Arrange
+    AdhocSubProcess element = new AdhocSubProcess();
+    element.setId("foo");
+
+    Process process = new Process();
+    process.addFlowElement(element);
+    process.setFlowElementMap(new HashMap<>());
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addProcess(process);
+
+    // Act and Assert
+    assertNull(bpmnModel.getFlowElement("not empty"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getFlowElement(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link AdhocSubProcess} (default constructor) Id is {@code not empty}.
+   *   <li>Then return {@link AdhocSubProcess} (default constructor).
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getFlowElement(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"org.activiti.bpmn.model.FlowElement BpmnModel.getFlowElement(String)"})
+  public void testGetFlowElement_givenAdhocSubProcessIdIsNotEmpty_thenReturnAdhocSubProcess() {
+    // Arrange
+    AdhocSubProcess element = new AdhocSubProcess();
+    element.setId("not empty");
+
+    Process process = new Process();
+    process.addFlowElement(element);
+    process.setFlowElementMap(new HashMap<>());
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addProcess(process);
+
+    // Act and Assert
+    assertSame(element, bpmnModel.getFlowElement("not empty"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getFlowElement(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor).
+   *   <li>When {@code 42}.
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getFlowElement(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"org.activiti.bpmn.model.FlowElement BpmnModel.getFlowElement(String)"})
+  public void testGetFlowElement_givenBpmnModel_when42_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull(new BpmnModel().getFlowElement("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getFlowElement(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link Process} (default constructor) addFlowElement {@link AdhocSubProcess}
+   *       (default constructor).
+   *   <li>When empty string.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getFlowElement(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"org.activiti.bpmn.model.FlowElement BpmnModel.getFlowElement(String)"})
+  public void testGetFlowElement_givenProcessAddFlowElementAdhocSubProcess_whenEmptyString() {
+    // Arrange
+    Process process = new Process();
+    process.addFlowElement(new AdhocSubProcess());
+    process.setFlowElementMap(new HashMap<>());
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addProcess(process);
+
+    // Act and Assert
+    assertNull(bpmnModel.getFlowElement(""));
+  }
+
+  /**
+   * Test {@link BpmnModel#getFlowElement(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link Process} (default constructor) addFlowElement {@link AdhocSubProcess}
+   *       (default constructor).
+   *   <li>When {@code not empty}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getFlowElement(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"org.activiti.bpmn.model.FlowElement BpmnModel.getFlowElement(String)"})
+  public void testGetFlowElement_givenProcessAddFlowElementAdhocSubProcess_whenNotEmpty() {
+    // Arrange
+    Process process = new Process();
+    process.addFlowElement(new AdhocSubProcess());
+    process.setFlowElementMap(new HashMap<>());
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addProcess(process);
+
+    // Act and Assert
+    assertNull(bpmnModel.getFlowElement("not empty"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getFlowElement(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link Process} (default constructor) addFlowElement {@link AdhocSubProcess}
+   *       (default constructor).
+   *   <li>When {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getFlowElement(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"org.activiti.bpmn.model.FlowElement BpmnModel.getFlowElement(String)"})
+  public void testGetFlowElement_givenProcessAddFlowElementAdhocSubProcess_whenNull() {
+    // Arrange
+    Process process = new Process();
+    process.addFlowElement(new AdhocSubProcess());
+    process.setFlowElementMap(new HashMap<>());
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addProcess(process);
+
+    // Act and Assert
+    assertNull(bpmnModel.getFlowElement(null));
+  }
+
+  /**
+   * Test {@link BpmnModel#getFlowElement(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link Process} (default constructor) addFlowElement {@link BooleanDataObject}
+   *       (default constructor).
+   *   <li>When {@code not empty}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getFlowElement(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"org.activiti.bpmn.model.FlowElement BpmnModel.getFlowElement(String)"})
+  public void testGetFlowElement_givenProcessAddFlowElementBooleanDataObject_whenNotEmpty() {
+    // Arrange
+    Process process = new Process();
+    process.addFlowElement(new BooleanDataObject());
+    process.setFlowElementMap(new HashMap<>());
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addProcess(process);
+
+    // Act and Assert
+    assertNull(bpmnModel.getFlowElement("not empty"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getFlowElement(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link SubProcess} (default constructor) addFlowElement {@link AdhocSubProcess}
+   *       (default constructor).
+   *   <li>When {@code not empty}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getFlowElement(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"org.activiti.bpmn.model.FlowElement BpmnModel.getFlowElement(String)"})
+  public void testGetFlowElement_givenSubProcessAddFlowElementAdhocSubProcess_whenNotEmpty() {
+    // Arrange
+    SubProcess element = new SubProcess();
+    element.addFlowElement(new AdhocSubProcess());
+
+    SubProcess element2 = new SubProcess();
+    element2.addFlowElement(element);
+
+    SubProcess element3 = new SubProcess();
+    element3.addFlowElement(element2);
+
+    Process process = new Process();
+    process.addFlowElement(element3);
+    process.setFlowElementMap(new HashMap<>());
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addProcess(process);
+
+    // Act and Assert
+    assertNull(bpmnModel.getFlowElement("not empty"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getFlowElement(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link SubProcess} (default constructor) addFlowElement {@link BooleanDataObject}
+   *       (default constructor).
+   *   <li>When {@code not empty}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getFlowElement(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"org.activiti.bpmn.model.FlowElement BpmnModel.getFlowElement(String)"})
+  public void testGetFlowElement_givenSubProcessAddFlowElementBooleanDataObject_whenNotEmpty() {
+    // Arrange
+    SubProcess element = new SubProcess();
+    element.addFlowElement(new BooleanDataObject());
+
+    SubProcess element2 = new SubProcess();
+    element2.addFlowElement(element);
+
+    SubProcess element3 = new SubProcess();
+    element3.addFlowElement(element2);
+
+    Process process = new Process();
+    process.addFlowElement(element3);
+    process.setFlowElementMap(new HashMap<>());
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addProcess(process);
+
+    // Act and Assert
+    assertNull(bpmnModel.getFlowElement("not empty"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getFlowElementInSubProcess(String, SubProcess)}.
+   *
+   * <ul>
+   *   <li>Given {@link SubProcess} (default constructor) addFlowElement {@link BooleanDataObject}
+   *       (default constructor).
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getFlowElementInSubProcess(String, SubProcess)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.bpmn.model.FlowElement BpmnModel.getFlowElementInSubProcess(String, SubProcess)"
+  })
+  public void testGetFlowElementInSubProcess_givenSubProcessAddFlowElementBooleanDataObject() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    SubProcess element = new SubProcess();
+    element.setFlowElementMap(new HashMap<>());
+    element.addFlowElement(new BooleanDataObject());
+
+    SubProcess element2 = new SubProcess();
+    element2.setFlowElementMap(new HashMap<>());
+    element2.addFlowElement(element);
+
+    SubProcess subProcess = new SubProcess();
+    subProcess.setFlowElementMap(new HashMap<>());
+    subProcess.addFlowElement(element2);
+
+    // Act and Assert
+    assertNull(bpmnModel.getFlowElementInSubProcess("not empty", subProcess));
+  }
+
+  /**
+   * Test {@link BpmnModel#getFlowElementInSubProcess(String, SubProcess)}.
+   *
+   * <ul>
+   *   <li>When empty string.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getFlowElementInSubProcess(String, SubProcess)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.bpmn.model.FlowElement BpmnModel.getFlowElementInSubProcess(String, SubProcess)"
+  })
+  public void testGetFlowElementInSubProcess_whenEmptyString() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    SubProcess element = new SubProcess();
+    element.setFlowElementMap(new HashMap<>());
+    element.addFlowElement(new AdhocSubProcess());
+
+    SubProcess element2 = new SubProcess();
+    element2.setFlowElementMap(new HashMap<>());
+    element2.addFlowElement(element);
+
+    SubProcess subProcess = new SubProcess();
+    subProcess.setFlowElementMap(new HashMap<>());
+    subProcess.addFlowElement(element2);
+
+    // Act and Assert
+    assertNull(bpmnModel.getFlowElementInSubProcess("", subProcess));
+  }
+
+  /**
+   * Test {@link BpmnModel#getFlowElementInSubProcess(String, SubProcess)}.
+   *
+   * <ul>
+   *   <li>When {@code not empty}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getFlowElementInSubProcess(String, SubProcess)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.bpmn.model.FlowElement BpmnModel.getFlowElementInSubProcess(String, SubProcess)"
+  })
+  public void testGetFlowElementInSubProcess_whenNotEmpty() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    SubProcess element = new SubProcess();
+    element.setFlowElementMap(new HashMap<>());
+    element.addFlowElement(new AdhocSubProcess());
+
+    SubProcess element2 = new SubProcess();
+    element2.setFlowElementMap(new HashMap<>());
+    element2.addFlowElement(element);
+
+    SubProcess subProcess = new SubProcess();
+    subProcess.setFlowElementMap(new HashMap<>());
+    subProcess.addFlowElement(element2);
+
+    // Act and Assert
+    assertNull(bpmnModel.getFlowElementInSubProcess("not empty", subProcess));
+  }
+
+  /**
+   * Test {@link BpmnModel#getFlowElementInSubProcess(String, SubProcess)}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getFlowElementInSubProcess(String, SubProcess)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.bpmn.model.FlowElement BpmnModel.getFlowElementInSubProcess(String, SubProcess)"
+  })
+  public void testGetFlowElementInSubProcess_whenNull() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    SubProcess element = new SubProcess();
+    element.setFlowElementMap(new HashMap<>());
+    element.addFlowElement(new AdhocSubProcess());
+
+    SubProcess element2 = new SubProcess();
+    element2.setFlowElementMap(new HashMap<>());
+    element2.addFlowElement(element);
+
+    SubProcess subProcess = new SubProcess();
+    subProcess.setFlowElementMap(new HashMap<>());
+    subProcess.addFlowElement(element2);
+
+    // Act and Assert
+    assertNull(bpmnModel.getFlowElementInSubProcess(null, subProcess));
+  }
+
+  /**
+   * Test {@link BpmnModel#getFlowElementInSubProcess(String, SubProcess)}.
+   *
+   * <ul>
+   *   <li>When {@link SubProcess} (default constructor).
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getFlowElementInSubProcess(String, SubProcess)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "org.activiti.bpmn.model.FlowElement BpmnModel.getFlowElementInSubProcess(String, SubProcess)"
+  })
+  public void testGetFlowElementInSubProcess_whenSubProcess_thenReturnNull() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    // Act and Assert
+    assertNull(bpmnModel.getFlowElementInSubProcess("42", new SubProcess()));
+  }
+
+  /**
+   * Test {@link BpmnModel#getArtifact(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor).
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getArtifact(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Artifact BpmnModel.getArtifact(String)"})
+  public void testGetArtifact_givenBpmnModel_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull(new BpmnModel().getArtifact("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getArtifact(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link Process} (default constructor) addArtifact {@link Association} (default
+   *       constructor).
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getArtifact(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Artifact BpmnModel.getArtifact(String)"})
+  public void testGetArtifact_givenProcessAddArtifactAssociation_thenReturnNull() {
+    // Arrange
+    SubProcess element = new SubProcess();
+    element.addFlowElement(new AdhocSubProcess());
+
+    SubProcess element2 = new SubProcess();
+    element2.addFlowElement(element);
+
+    SubProcess element3 = new SubProcess();
+    element3.addFlowElement(element2);
+
+    Process process = new Process();
+    process.addArtifact(new Association());
+    process.addFlowElement(element3);
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addProcess(process);
+
+    // Act and Assert
+    assertNull(bpmnModel.getArtifact("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getArtifactInSubProcess(String, SubProcess)}.
+   *
+   * <ul>
+   *   <li>Given {@link Association} (default constructor) Id is {@code 42}.
+   *   <li>Then return {@link Association} (default constructor).
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getArtifactInSubProcess(String, SubProcess)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Artifact BpmnModel.getArtifactInSubProcess(String, SubProcess)"})
+  public void testGetArtifactInSubProcess_givenAssociationIdIs42_thenReturnAssociation() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    Association artifact = new Association();
+    artifact.setId("42");
+
+    SubProcess element = new SubProcess();
+    element.addArtifact(new Association());
+    element.addFlowElement(new AdhocSubProcess());
+
+    SubProcess element2 = new SubProcess();
+    element2.addArtifact(new Association());
+    element2.addFlowElement(element);
+
+    SubProcess subProcess = new SubProcess();
+    subProcess.addArtifact(artifact);
+    subProcess.addFlowElement(element2);
+
+    // Act and Assert
+    assertSame(artifact, bpmnModel.getArtifactInSubProcess("42", subProcess));
+  }
+
+  /**
+   * Test {@link BpmnModel#getArtifactInSubProcess(String, SubProcess)}.
+   *
+   * <ul>
+   *   <li>Given {@link Association} (default constructor) Id is {@code 42}.
+   *   <li>Then return {@link Association} (default constructor).
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getArtifactInSubProcess(String, SubProcess)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Artifact BpmnModel.getArtifactInSubProcess(String, SubProcess)"})
+  public void testGetArtifactInSubProcess_givenAssociationIdIs42_thenReturnAssociation2() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    Association artifact = new Association();
+    artifact.setId("42");
+
+    SubProcess element = new SubProcess();
+    element.addArtifact(new Association());
+    element.addFlowElement(new AdhocSubProcess());
+
+    SubProcess element2 = new SubProcess();
+    element2.addArtifact(artifact);
+    element2.addFlowElement(element);
+
+    SubProcess subProcess = new SubProcess();
+    subProcess.addArtifact(new Association());
+    subProcess.addFlowElement(element2);
+
+    // Act and Assert
+    assertSame(artifact, bpmnModel.getArtifactInSubProcess("42", subProcess));
+  }
+
+  /**
+   * Test {@link BpmnModel#getArtifactInSubProcess(String, SubProcess)}.
+   *
+   * <ul>
+   *   <li>Given {@link SubProcess} (default constructor) addArtifact {@link Association} (default
+   *       constructor).
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getArtifactInSubProcess(String, SubProcess)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Artifact BpmnModel.getArtifactInSubProcess(String, SubProcess)"})
+  public void testGetArtifactInSubProcess_givenSubProcessAddArtifactAssociation_thenReturnNull() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    SubProcess element = new SubProcess();
+    element.addArtifact(new Association());
+    element.addFlowElement(new AdhocSubProcess());
+
+    SubProcess element2 = new SubProcess();
+    element2.addArtifact(new Association());
+    element2.addFlowElement(element);
+
+    SubProcess subProcess = new SubProcess();
+    subProcess.addArtifact(new Association());
+    subProcess.addFlowElement(element2);
+
+    // Act and Assert
+    assertNull(bpmnModel.getArtifactInSubProcess("42", subProcess));
+  }
+
+  /**
+   * Test {@link BpmnModel#getArtifactInSubProcess(String, SubProcess)}.
+   *
+   * <ul>
+   *   <li>Given {@link SubProcess} (default constructor) addFlowElement {@link BooleanDataObject}
+   *       (default constructor).
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getArtifactInSubProcess(String, SubProcess)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Artifact BpmnModel.getArtifactInSubProcess(String, SubProcess)"})
+  public void testGetArtifactInSubProcess_givenSubProcessAddFlowElementBooleanDataObject() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    SubProcess element = new SubProcess();
+    element.addArtifact(new Association());
+    element.addFlowElement(new BooleanDataObject());
+
+    SubProcess element2 = new SubProcess();
+    element2.addArtifact(new Association());
+    element2.addFlowElement(element);
+
+    SubProcess subProcess = new SubProcess();
+    subProcess.addArtifact(new Association());
+    subProcess.addFlowElement(element2);
+
+    // Act and Assert
+    assertNull(bpmnModel.getArtifactInSubProcess("42", subProcess));
+  }
+
+  /**
+   * Test {@link BpmnModel#getArtifactInSubProcess(String, SubProcess)}.
+   *
+   * <ul>
+   *   <li>When {@link SubProcess} (default constructor).
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getArtifactInSubProcess(String, SubProcess)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Artifact BpmnModel.getArtifactInSubProcess(String, SubProcess)"})
+  public void testGetArtifactInSubProcess_whenSubProcess_thenReturnNull() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    // Act and Assert
+    assertNull(bpmnModel.getArtifactInSubProcess("42", new SubProcess()));
+  }
+
+  /**
+   * Test {@link BpmnModel#addGraphicInfo(String, GraphicInfo)}.
+   *
+   * <p>Method under test: {@link BpmnModel#addGraphicInfo(String, GraphicInfo)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addGraphicInfo(String, GraphicInfo)"})
+  public void testAddGraphicInfo() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    GraphicInfo graphicInfo = new GraphicInfo();
+    graphicInfo.setElement(new ActivitiListener());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(10.0d);
+    graphicInfo.setWidth(10.0d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(3.0d);
+
+    // Act
+    bpmnModel.addGraphicInfo("Key", graphicInfo);
+
+    // Assert
+    Map<String, GraphicInfo> locationMap = bpmnModel.getLocationMap();
+    assertEquals(1, locationMap.size());
+    assertTrue(bpmnModel.hasDiagramInterchangeInfo());
+    assertSame(graphicInfo, locationMap.get("Key"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getGraphicInfo(String)}.
+   *
+   * <p>Method under test: {@link BpmnModel#getGraphicInfo(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"GraphicInfo BpmnModel.getGraphicInfo(String)"})
+  public void testGetGraphicInfo() {
+    // Arrange, Act and Assert
+    assertNull(new BpmnModel().getGraphicInfo("Key"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getFlowLocationGraphicInfo(String)}.
+   *
+   * <p>Method under test: {@link BpmnModel#getFlowLocationGraphicInfo(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"List BpmnModel.getFlowLocationGraphicInfo(String)"})
+  public void testGetFlowLocationGraphicInfo() {
+    // Arrange, Act and Assert
+    assertNull(new BpmnModel().getFlowLocationGraphicInfo("Key"));
+  }
+
+  /**
+   * Test {@link BpmnModel#hasDiagramInterchangeInfo()}.
+   *
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor).
+   *   <li>Then return {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#hasDiagramInterchangeInfo()}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean BpmnModel.hasDiagramInterchangeInfo()"})
+  public void testHasDiagramInterchangeInfo_givenBpmnModel_thenReturnFalse() {
+    // Arrange, Act and Assert
+    assertFalse(new BpmnModel().hasDiagramInterchangeInfo());
+  }
+
+  /**
+   * Test {@link BpmnModel#hasDiagramInterchangeInfo()}.
+   *
+   * <ul>
+   *   <li>Then return {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#hasDiagramInterchangeInfo()}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean BpmnModel.hasDiagramInterchangeInfo()"})
+  public void testHasDiagramInterchangeInfo_thenReturnTrue() {
+    // Arrange
+    GraphicInfo graphicInfo = new GraphicInfo();
+
+    Builder builderResult = Message.builder();
+
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
+    graphicInfo.setElement(
+        attributesResult
+            .extensionElements(new HashMap<>())
+            .id("42")
+            .itemRef("Item Ref")
+            .name("Name")
+            .xmlColumnNumber(10)
+            .xmlRowNumber(10)
+            .build());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(10.0d);
+    graphicInfo.setWidth(10.0d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(3.0d);
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addGraphicInfo("Key", graphicInfo);
+
+    // Act and Assert
+    assertTrue(bpmnModel.hasDiagramInterchangeInfo());
+  }
+
+  /**
+   * Test {@link BpmnModel#getLabelGraphicInfo(String)}.
+   *
+   * <p>Method under test: {@link BpmnModel#getLabelGraphicInfo(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"GraphicInfo BpmnModel.getLabelGraphicInfo(String)"})
+  public void testGetLabelGraphicInfo() {
+    // Arrange, Act and Assert
+    assertNull(new BpmnModel().getLabelGraphicInfo("Key"));
+  }
+
+  /**
+   * Test {@link BpmnModel#addLabelGraphicInfo(String, GraphicInfo)}.
+   *
+   * <p>Method under test: {@link BpmnModel#addLabelGraphicInfo(String, GraphicInfo)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addLabelGraphicInfo(String, GraphicInfo)"})
+  public void testAddLabelGraphicInfo() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    GraphicInfo graphicInfo = new GraphicInfo();
+    graphicInfo.setElement(new ActivitiListener());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(10.0d);
+    graphicInfo.setWidth(10.0d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(3.0d);
+
+    // Act
+    bpmnModel.addLabelGraphicInfo("Key", graphicInfo);
+
+    // Assert
+    Map<String, GraphicInfo> labelLocationMap = bpmnModel.getLabelLocationMap();
+    assertEquals(1, labelLocationMap.size());
+    assertSame(graphicInfo, labelLocationMap.get("Key"));
+  }
+
+  /**
+   * Test {@link BpmnModel#addFlowGraphicInfoList(String, List)}.
+   *
+   * <p>Method under test: {@link BpmnModel#addFlowGraphicInfoList(String, List)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addFlowGraphicInfoList(String, List)"})
+  public void testAddFlowGraphicInfoList() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    GraphicInfo graphicInfo = new GraphicInfo();
+
+    Builder builderResult = Message.builder();
+
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
+    graphicInfo.setElement(
+        attributesResult
+            .extensionElements(new HashMap<>())
+            .id("42")
+            .itemRef("Item Ref")
+            .name("Name")
+            .xmlColumnNumber(10)
+            .xmlRowNumber(10)
+            .build());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(10.0d);
+    graphicInfo.setWidth(10.0d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(3.0d);
+
+    ArrayList<GraphicInfo> graphicInfoList = new ArrayList<>();
+    graphicInfoList.add(graphicInfo);
+
+    // Act
+    bpmnModel.addFlowGraphicInfoList("Key", graphicInfoList);
+
+    // Assert
+    Map<String, List<GraphicInfo>> flowLocationMap = bpmnModel.getFlowLocationMap();
+    assertEquals(1, flowLocationMap.size());
+    assertSame(graphicInfoList, flowLocationMap.get("Key"));
+  }
+
+  /**
+   * Test {@link BpmnModel#addFlowGraphicInfoList(String, List)}.
+   *
+   * <ul>
+   *   <li>Given {@link GraphicInfo} (default constructor) Expanded is {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#addFlowGraphicInfoList(String, List)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addFlowGraphicInfoList(String, List)"})
+  public void testAddFlowGraphicInfoList_givenGraphicInfoExpandedIsFalse() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    GraphicInfo graphicInfo = new GraphicInfo();
+
+    Builder builderResult = Message.builder();
+
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
+    graphicInfo.setElement(
+        attributesResult
+            .extensionElements(new HashMap<>())
+            .id("42")
+            .itemRef("Item Ref")
+            .name("Name")
+            .xmlColumnNumber(10)
+            .xmlRowNumber(10)
+            .build());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(10.0d);
+    graphicInfo.setWidth(10.0d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(3.0d);
+
+    GraphicInfo graphicInfo2 = new GraphicInfo();
+
+    Builder builderResult2 = Message.builder();
+
+    Builder attributesResult2 = builderResult2.attributes(new HashMap<>());
+    graphicInfo2.setElement(
+        attributesResult2
+            .extensionElements(new HashMap<>())
+            .id("42")
+            .itemRef("Item Ref")
+            .name("Name")
+            .xmlColumnNumber(10)
+            .xmlRowNumber(10)
+            .build());
+    graphicInfo2.setExpanded(false);
+    graphicInfo2.setHeight(0.5d);
+    graphicInfo2.setWidth(0.5d);
+    graphicInfo2.setX(10.0d);
+    graphicInfo2.setXmlColumnNumber(1);
+    graphicInfo2.setXmlRowNumber(1);
+    graphicInfo2.setY(10.0d);
+
+    ArrayList<GraphicInfo> graphicInfoList = new ArrayList<>();
+    graphicInfoList.add(graphicInfo2);
+    graphicInfoList.add(graphicInfo);
+
+    // Act
+    bpmnModel.addFlowGraphicInfoList("Key", graphicInfoList);
+
+    // Assert
+    Map<String, List<GraphicInfo>> flowLocationMap = bpmnModel.getFlowLocationMap();
+    assertEquals(1, flowLocationMap.size());
+    assertSame(graphicInfoList, flowLocationMap.get("Key"));
+  }
+
+  /**
+   * Test {@link BpmnModel#addFlowGraphicInfoList(String, List)}.
+   *
+   * <ul>
+   *   <li>When {@link ArrayList#ArrayList()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#addFlowGraphicInfoList(String, List)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addFlowGraphicInfoList(String, List)"})
+  public void testAddFlowGraphicInfoList_whenArrayList() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    ArrayList<GraphicInfo> graphicInfoList = new ArrayList<>();
+
+    // Act
+    bpmnModel.addFlowGraphicInfoList("Key", graphicInfoList);
+
+    // Assert
+    Map<String, List<GraphicInfo>> flowLocationMap = bpmnModel.getFlowLocationMap();
+    assertEquals(1, flowLocationMap.size());
+    assertSame(graphicInfoList, flowLocationMap.get("Key"));
+  }
+
+  /**
+   * Test {@link BpmnModel#setResources(Collection)}.
+   *
+   * <ul>
+   *   <li>Then {@link BpmnModel} (default constructor) Resources is {@link ArrayList#ArrayList()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#setResources(Collection)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.setResources(Collection)"})
+  public void testSetResources_thenBpmnModelResourcesIsArrayList() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    ArrayList<Resource> resourceList = new ArrayList<>();
+    resourceList.add(new Resource("42", "Resource Name"));
+    resourceList.add(new Resource("42", "Resource Name"));
+
+    // Act
+    bpmnModel.setResources(resourceList);
+
+    // Assert
+    assertEquals(resourceList, bpmnModel.getResources());
+  }
+
+  /**
+   * Test {@link BpmnModel#setResources(Collection)}.
+   *
+   * <ul>
+   *   <li>Then {@link BpmnModel} (default constructor) Resources size is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#setResources(Collection)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.setResources(Collection)"})
+  public void testSetResources_thenBpmnModelResourcesSizeIsOne() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    ArrayList<Resource> resourceList = new ArrayList<>();
+    Resource resource = new Resource("42", "Resource Name");
+    resourceList.add(resource);
+
+    // Act
+    bpmnModel.setResources(resourceList);
+
+    // Assert
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertEquals(1, resources.size());
+    assertTrue(resources instanceof List);
+    assertSame(resource, ((List<Resource>) resources).get(0));
+  }
+
+  /**
+   * Test {@link BpmnModel#setResources(Collection)}.
+   *
+   * <ul>
+   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>Then {@link BpmnModel} (default constructor) Resources is {@link ArrayList#ArrayList()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#setResources(Collection)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.setResources(Collection)"})
+  public void testSetResources_whenArrayList_thenBpmnModelResourcesIsArrayList() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    ArrayList<Resource> resourceList = new ArrayList<>();
+
+    // Act
+    bpmnModel.setResources(resourceList);
+
+    // Assert that nothing has changed
+    assertEquals(resourceList, bpmnModel.getResources());
+  }
+
+  /**
+   * Test {@link BpmnModel#setResources(Collection)}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then {@link BpmnModel} (default constructor) Resources Empty.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#setResources(Collection)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.setResources(Collection)"})
+  public void testSetResources_whenNull_thenBpmnModelResourcesEmpty() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    // Act
+    bpmnModel.setResources(null);
+
+    // Assert that nothing has changed
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertTrue(resources instanceof List);
+    assertTrue(resources.isEmpty());
+  }
+
+  /**
+   * Test {@link BpmnModel#addResource(Resource)}.
+   *
+   * <ul>
+   *   <li>Then {@link BpmnModel} (default constructor) Resources size is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#addResource(Resource)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addResource(Resource)"})
+  public void testAddResource_thenBpmnModelResourcesSizeIsOne() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    Resource resource = new Resource("42", "Resource Name");
+
+    // Act
+    bpmnModel.addResource(resource);
+
+    // Assert
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertEquals(1, resources.size());
+    assertTrue(resources instanceof List);
+    assertSame(resource, ((List<Resource>) resources).get(0));
+  }
+
+  /**
+   * Test {@link BpmnModel#addResource(Resource)}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then {@link BpmnModel} (default constructor) Resources Empty.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#addResource(Resource)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addResource(Resource)"})
+  public void testAddResource_whenNull_thenBpmnModelResourcesEmpty() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    // Act
+    bpmnModel.addResource(null);
+
+    // Assert that nothing has changed
+    Collection<Resource> resources = bpmnModel.getResources();
+    assertTrue(resources instanceof List);
+    assertTrue(resources.isEmpty());
+  }
+
+  /**
+   * Test {@link BpmnModel#containsResourceId(String)}.
+   *
+   * <p>Method under test: {@link BpmnModel#containsResourceId(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean BpmnModel.containsResourceId(String)"})
+  public void testContainsResourceId() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addResource(new Resource("Resource Id", "Resource Name"));
+    bpmnModel.addResource(new Resource("42", "Resource Name"));
+
+    // Act and Assert
+    assertTrue(bpmnModel.containsResourceId("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#containsResourceId(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor).
+   *   <li>Then return {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#containsResourceId(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean BpmnModel.containsResourceId(String)"})
+  public void testContainsResourceId_givenBpmnModel_thenReturnFalse() {
+    // Arrange, Act and Assert
+    assertFalse(new BpmnModel().containsResourceId("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#containsResourceId(String)}.
+   *
+   * <ul>
+   *   <li>Then return {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#containsResourceId(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean BpmnModel.containsResourceId(String)"})
+  public void testContainsResourceId_thenReturnTrue() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addResource(new Resource("42", "Resource Name"));
+
+    // Act and Assert
+    assertTrue(bpmnModel.containsResourceId("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getResource(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor) addResource {@link
+   *       Resource#Resource(String, String)} with {@code Resource Id} and {@code Resource Name}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getResource(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Resource BpmnModel.getResource(String)"})
+  public void testGetResource_givenBpmnModelAddResourceResourceWithResourceIdAndResourceName() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addResource(new Resource("Resource Id", "Resource Name"));
+    Resource resource = new Resource("42", "Resource Name");
+    bpmnModel.addResource(resource);
+
+    // Act and Assert
+    assertSame(resource, bpmnModel.getResource("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getResource(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor).
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getResource(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Resource BpmnModel.getResource(String)"})
+  public void testGetResource_givenBpmnModel_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull(new BpmnModel().getResource("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getResource(String)}.
+   *
+   * <ul>
+   *   <li>Then return {@link Resource#Resource(String, String)} with resourceId is {@code 42} and
+   *       {@code Resource Name}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getResource(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Resource BpmnModel.getResource(String)"})
+  public void testGetResource_thenReturnResourceWithResourceIdIs42AndResourceName() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    Resource resource = new Resource("42", "Resource Name");
+    bpmnModel.addResource(resource);
+
+    // Act and Assert
+    assertSame(resource, bpmnModel.getResource("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#setSignals(Collection)}.
+   *
+   * <ul>
+   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and {@code Name}.
+   *   <li>Then {@link BpmnModel} (default constructor) Signals is {@link ArrayList#ArrayList()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#setSignals(Collection)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.setSignals(Collection)"})
+  public void testSetSignals_givenSignalWithIdIs42AndName_thenBpmnModelSignalsIsArrayList() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    ArrayList<Signal> signalList = new ArrayList<>();
+    signalList.add(new Signal("42", "Name"));
+    signalList.add(new Signal("42", "Name"));
+
+    // Act
+    bpmnModel.setSignals(signalList);
+
+    // Assert
+    assertEquals(signalList, bpmnModel.getSignals());
+  }
+
+  /**
+   * Test {@link BpmnModel#setSignals(Collection)}.
+   *
+   * <ul>
+   *   <li>Given {@link Signal#Signal(String, String)} with id is {@code 42} and {@code Name}.
+   *   <li>Then {@link BpmnModel} (default constructor) Signals size is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#setSignals(Collection)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.setSignals(Collection)"})
+  public void testSetSignals_givenSignalWithIdIs42AndName_thenBpmnModelSignalsSizeIsOne() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    ArrayList<Signal> signalList = new ArrayList<>();
+    Signal signal = new Signal("42", "Name");
+    signalList.add(signal);
+
+    // Act
+    bpmnModel.setSignals(signalList);
+
+    // Assert
+    Collection<Signal> signals = bpmnModel.getSignals();
+    assertEquals(1, signals.size());
+    assertTrue(signals instanceof List);
+    assertSame(signal, ((List<Signal>) signals).get(0));
+  }
+
+  /**
+   * Test {@link BpmnModel#setSignals(Collection)}.
+   *
+   * <ul>
+   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>Then {@link BpmnModel} (default constructor) Signals is {@link ArrayList#ArrayList()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#setSignals(Collection)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.setSignals(Collection)"})
+  public void testSetSignals_whenArrayList_thenBpmnModelSignalsIsArrayList() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    ArrayList<Signal> signalList = new ArrayList<>();
+
+    // Act
+    bpmnModel.setSignals(signalList);
+
+    // Assert that nothing has changed
+    assertEquals(signalList, bpmnModel.getSignals());
+  }
+
+  /**
+   * Test {@link BpmnModel#setSignals(Collection)}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then {@link BpmnModel} (default constructor) Signals Empty.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#setSignals(Collection)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.setSignals(Collection)"})
+  public void testSetSignals_whenNull_thenBpmnModelSignalsEmpty() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    // Act
+    bpmnModel.setSignals(null);
+
+    // Assert that nothing has changed
+    Collection<Signal> signals = bpmnModel.getSignals();
+    assertTrue(signals instanceof List);
+    assertTrue(signals.isEmpty());
+  }
+
+  /**
+   * Test {@link BpmnModel#addSignal(Signal)}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then {@link BpmnModel} (default constructor) Signals Empty.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#addSignal(Signal)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addSignal(Signal)"})
+  public void testAddSignal_whenNull_thenBpmnModelSignalsEmpty() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    // Act
+    bpmnModel.addSignal(null);
+
+    // Assert that nothing has changed
+    Collection<Signal> signals = bpmnModel.getSignals();
+    assertTrue(signals instanceof List);
+    assertTrue(signals.isEmpty());
+  }
+
+  /**
+   * Test {@link BpmnModel#addSignal(Signal)}.
+   *
+   * <ul>
+   *   <li>When {@link Signal#Signal(String, String)} with id is {@code 42} and {@code Name}.
+   *   <li>Then {@link BpmnModel} (default constructor) Signals size is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#addSignal(Signal)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addSignal(Signal)"})
+  public void testAddSignal_whenSignalWithIdIs42AndName_thenBpmnModelSignalsSizeIsOne() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    Signal signal = new Signal("42", "Name");
+
+    // Act
+    bpmnModel.addSignal(signal);
+
+    // Assert
+    Collection<Signal> signals = bpmnModel.getSignals();
+    assertEquals(1, signals.size());
+    assertTrue(signals instanceof List);
+    assertSame(signal, ((List<Signal>) signals).get(0));
+  }
+
+  /**
+   * Test {@link BpmnModel#containsSignalId(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor) addSignal {@link Signal#Signal(String,
+   *       String)} with {@code Id} and {@code Name}.
+   *   <li>Then return {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#containsSignalId(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean BpmnModel.containsSignalId(String)"})
+  public void testContainsSignalId_givenBpmnModelAddSignalSignalWithIdAndName_thenReturnTrue() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addSignal(new Signal("Id", "Name"));
+    bpmnModel.addSignal(new Signal("42", "Name"));
+
+    // Act and Assert
+    assertTrue(bpmnModel.containsSignalId("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#containsSignalId(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor).
+   *   <li>Then return {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#containsSignalId(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean BpmnModel.containsSignalId(String)"})
+  public void testContainsSignalId_givenBpmnModel_thenReturnFalse() {
+    // Arrange, Act and Assert
+    assertFalse(new BpmnModel().containsSignalId("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#containsSignalId(String)}.
+   *
+   * <ul>
+   *   <li>Then return {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#containsSignalId(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean BpmnModel.containsSignalId(String)"})
+  public void testContainsSignalId_thenReturnTrue() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addSignal(new Signal("42", "Name"));
+
+    // Act and Assert
+    assertTrue(bpmnModel.containsSignalId("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getSignal(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor) addSignal {@link Signal#Signal(String,
+   *       String)} with {@code Id} and {@code Name}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getSignal(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Signal BpmnModel.getSignal(String)"})
+  public void testGetSignal_givenBpmnModelAddSignalSignalWithIdAndName() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addSignal(new Signal("Id", "Name"));
+    Signal signal = new Signal("42", "Name");
+    bpmnModel.addSignal(signal);
+
+    // Act and Assert
+    assertSame(signal, bpmnModel.getSignal("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getSignal(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor).
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getSignal(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Signal BpmnModel.getSignal(String)"})
+  public void testGetSignal_givenBpmnModel_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull(new BpmnModel().getSignal("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getSignal(String)}.
+   *
+   * <ul>
+   *   <li>Then return {@link Signal#Signal(String, String)} with id is {@code 42} and {@code Name}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getSignal(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Signal BpmnModel.getSignal(String)"})
+  public void testGetSignal_thenReturnSignalWithIdIs42AndName() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    Signal signal = new Signal("42", "Name");
+    bpmnModel.addSignal(signal);
+
+    // Act and Assert
+    assertSame(signal, bpmnModel.getSignal("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#addMessageFlow(MessageFlow)}.
+   *
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor).
+   *   <li>When {@link MessageFlow#MessageFlow(String, String)} with {@code Source Ref} and {@code
+   *       Target Ref}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#addMessageFlow(MessageFlow)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addMessageFlow(MessageFlow)"})
+  public void testAddMessageFlow_givenBpmnModel_whenMessageFlowWithSourceRefAndTargetRef() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    // Act
+    bpmnModel.addMessageFlow(new MessageFlow("Source Ref", "Target Ref"));
+
+    // Assert that nothing has changed
+    assertTrue(bpmnModel.getMessageFlows().isEmpty());
+  }
+
+  /**
+   * Test {@link BpmnModel#addMessageFlow(MessageFlow)}.
+   *
+   * <ul>
+   *   <li>Given empty string.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#addMessageFlow(MessageFlow)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addMessageFlow(MessageFlow)"})
+  public void testAddMessageFlow_givenEmptyString() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.setMessageFlows(new HashMap<>());
+
+    MessageFlow messageFlow = new MessageFlow("Source Ref", "Target Ref");
+    messageFlow.setId("");
+
+    // Act
+    bpmnModel.addMessageFlow(messageFlow);
+
+    // Assert that nothing has changed
+    assertTrue(bpmnModel.getMessageFlows().isEmpty());
+  }
+
+  /**
+   * Test {@link BpmnModel#addMessageFlow(MessageFlow)}.
+   *
+   * <ul>
+   *   <li>Given {@code not empty}.
+   *   <li>Then {@link BpmnModel} (default constructor) MessageFlows size is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#addMessageFlow(MessageFlow)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addMessageFlow(MessageFlow)"})
+  public void testAddMessageFlow_givenNotEmpty_thenBpmnModelMessageFlowsSizeIsOne() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    HashMap<String, MessageFlow> messageFlows = new HashMap<>();
+    bpmnModel.setMessageFlows(messageFlows);
+
+    MessageFlow messageFlow = new MessageFlow("Source Ref", "Target Ref");
+    messageFlow.setId("not empty");
+
+    // Act
+    bpmnModel.addMessageFlow(messageFlow);
+
+    // Assert
+    Map<String, MessageFlow> messageFlows2 = bpmnModel.getMessageFlows();
+    assertEquals(1, messageFlows2.size());
+    assertSame(messageFlows, messageFlows2);
+    assertSame(messageFlow, messageFlows2.get("not empty"));
+  }
+
+  /**
+   * Test {@link BpmnModel#addMessageFlow(MessageFlow)}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then {@link BpmnModel} (default constructor) MessageFlows Empty.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#addMessageFlow(MessageFlow)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addMessageFlow(MessageFlow)"})
+  public void testAddMessageFlow_whenNull_thenBpmnModelMessageFlowsEmpty() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.setMessageFlows(new HashMap<>());
+
+    // Act
+    bpmnModel.addMessageFlow(null);
+
+    // Assert that nothing has changed
+    assertTrue(bpmnModel.getMessageFlows().isEmpty());
+  }
+
+  /**
+   * Test {@link BpmnModel#getMessageFlow(String)}.
+   *
+   * <p>Method under test: {@link BpmnModel#getMessageFlow(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"MessageFlow BpmnModel.getMessageFlow(String)"})
+  public void testGetMessageFlow() {
+    // Arrange, Act and Assert
+    assertNull(new BpmnModel().getMessageFlow("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#containsMessageFlowId(String)}.
+   *
+   * <p>Method under test: {@link BpmnModel#containsMessageFlowId(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean BpmnModel.containsMessageFlowId(String)"})
+  public void testContainsMessageFlowId() {
+    // Arrange, Act and Assert
+    assertFalse(new BpmnModel().containsMessageFlowId("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getMessages()}.
+   *
+   * <p>Method under test: {@link BpmnModel#getMessages()}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Collection BpmnModel.getMessages()"})
+  public void testGetMessages() {
+    // Arrange, Act and Assert
+    assertTrue(new BpmnModel().getMessages().isEmpty());
+  }
+
+  /**
+   * Test {@link BpmnModel#setMessages(Collection)}.
+   *
+   * <ul>
+   *   <li>Given {@link Message#Message(String, String, String)} with id is empty string and {@code
+   *       Name} and {@code Item Ref}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#setMessages(Collection)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.setMessages(Collection)"})
+  public void testSetMessages_givenMessageWithIdIsEmptyStringAndNameAndItemRef() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    LinkedHashSet<Message> messageList = new LinkedHashSet<>();
+    Message message = new Message("", "Name", "Item Ref");
+    messageList.add(message);
+
+    // Act
+    bpmnModel.setMessages(messageList);
+
+    // Assert that nothing has changed
+    assertTrue(bpmnModel.getMessages().isEmpty());
+    assertTrue(bpmnModel.messageMap.isEmpty());
+  }
+
+  /**
+   * Test {@link BpmnModel#setMessages(Collection)}.
+   *
+   * <ul>
+   *   <li>Given {@link Message#Message(String, String, String)} with id is {@code null} and {@code
+   *       Name} and {@code Item Ref}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#setMessages(Collection)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.setMessages(Collection)"})
+  public void testSetMessages_givenMessageWithIdIsNullAndNameAndItemRef() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    LinkedHashSet<Message> messageList = new LinkedHashSet<>();
+    Message message = new Message(null, "Name", "Item Ref");
+    messageList.add(message);
+
+    // Act
+    bpmnModel.setMessages(messageList);
+
+    // Assert that nothing has changed
+    assertTrue(bpmnModel.getMessages().isEmpty());
+    assertTrue(bpmnModel.messageMap.isEmpty());
+  }
+
+  /**
+   * Test {@link BpmnModel#setMessages(Collection)}.
+   *
+   * <ul>
+   *   <li>Given {@code null}.
+   *   <li>When {@link LinkedHashSet#LinkedHashSet()} add {@code null}.
+   *   <li>Then {@link BpmnModel} (default constructor) Messages Empty.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#setMessages(Collection)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.setMessages(Collection)"})
+  public void testSetMessages_givenNull_whenLinkedHashSetAddNull_thenBpmnModelMessagesEmpty() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    LinkedHashSet<Message> messageList = new LinkedHashSet<>();
+    messageList.add(null);
+
+    // Act
+    bpmnModel.setMessages(messageList);
+
+    // Assert that nothing has changed
+    assertTrue(bpmnModel.getMessages().isEmpty());
+    assertTrue(bpmnModel.messageMap.isEmpty());
+  }
+
+  /**
+   * Test {@link BpmnModel#setMessages(Collection)}.
+   *
+   * <ul>
+   *   <li>Then {@link BpmnModel} (default constructor) Messages size is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#setMessages(Collection)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.setMessages(Collection)"})
+  public void testSetMessages_thenBpmnModelMessagesSizeIsOne() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    LinkedHashSet<Message> messageList = new LinkedHashSet<>();
+    Message message = new Message("42", "Name", "Item Ref");
+    messageList.add(message);
+
+    // Act
+    bpmnModel.setMessages(messageList);
+
+    // Assert
+    assertEquals(1, bpmnModel.getMessages().size());
+    Map<String, Message> stringMessageMap = bpmnModel.messageMap;
+    assertEquals(1, stringMessageMap.size());
+    assertSame(message, stringMessageMap.get("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#setMessages(Collection)}.
+   *
+   * <ul>
+   *   <li>When {@link ArrayList#ArrayList()}.
+   *   <li>Then {@link BpmnModel} (default constructor) Messages Empty.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#setMessages(Collection)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.setMessages(Collection)"})
+  public void testSetMessages_whenArrayList_thenBpmnModelMessagesEmpty() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    // Act
+    bpmnModel.setMessages(new ArrayList<>());
+
+    // Assert that nothing has changed
+    assertTrue(bpmnModel.getMessages().isEmpty());
+    assertTrue(bpmnModel.messageMap.isEmpty());
+  }
+
+  /**
+   * Test {@link BpmnModel#setMessages(Collection)}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then {@link BpmnModel} (default constructor) Messages Empty.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#setMessages(Collection)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.setMessages(Collection)"})
+  public void testSetMessages_whenNull_thenBpmnModelMessagesEmpty() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    // Act
+    bpmnModel.setMessages(null);
+
+    // Assert that nothing has changed
+    assertTrue(bpmnModel.getMessages().isEmpty());
+    assertTrue(bpmnModel.messageMap.isEmpty());
+  }
+
+  /**
+   * Test {@link BpmnModel#addMessage(Message)}.
+   *
+   * <ul>
+   *   <li>Then {@link BpmnModel} (default constructor) Messages size is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#addMessage(Message)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addMessage(Message)"})
+  public void testAddMessage_thenBpmnModelMessagesSizeIsOne() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    Message message = new Message("42", "Name", "Item Ref");
+
+    // Act
+    bpmnModel.addMessage(message);
+
+    // Assert
+    assertEquals(1, bpmnModel.getMessages().size());
+    Map<String, Message> stringMessageMap = bpmnModel.messageMap;
+    assertEquals(1, stringMessageMap.size());
+    assertSame(message, stringMessageMap.get("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#addMessage(Message)}.
+   *
+   * <ul>
+   *   <li>When {@link Message#Message(String, String, String)} with id is empty string and {@code
+   *       Name} and {@code Item Ref}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#addMessage(Message)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addMessage(Message)"})
+  public void testAddMessage_whenMessageWithIdIsEmptyStringAndNameAndItemRef() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    Message message = new Message("", "Name", "Item Ref");
+
+    // Act
+    bpmnModel.addMessage(message);
+
+    // Assert that nothing has changed
+    assertTrue(bpmnModel.getMessages().isEmpty());
+    assertTrue(bpmnModel.messageMap.isEmpty());
+  }
+
+  /**
+   * Test {@link BpmnModel#addMessage(Message)}.
+   *
+   * <ul>
+   *   <li>When {@link Message#Message(String, String, String)} with id is {@code null} and {@code
+   *       Name} and {@code Item Ref}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#addMessage(Message)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addMessage(Message)"})
+  public void testAddMessage_whenMessageWithIdIsNullAndNameAndItemRef() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    Message message = new Message(null, "Name", "Item Ref");
+
+    // Act
+    bpmnModel.addMessage(message);
+
+    // Assert that nothing has changed
+    assertTrue(bpmnModel.getMessages().isEmpty());
+    assertTrue(bpmnModel.messageMap.isEmpty());
+  }
+
+  /**
+   * Test {@link BpmnModel#addMessage(Message)}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then {@link BpmnModel} (default constructor) Messages Empty.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#addMessage(Message)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addMessage(Message)"})
+  public void testAddMessage_whenNull_thenBpmnModelMessagesEmpty() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    // Act
+    bpmnModel.addMessage(null);
+
+    // Assert that nothing has changed
+    assertTrue(bpmnModel.getMessages().isEmpty());
+    assertTrue(bpmnModel.messageMap.isEmpty());
+  }
+
+  /**
+   * Test {@link BpmnModel#getMessage(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor).
+   *   <li>When {@code 42}.
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getMessage(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Message BpmnModel.getMessage(String)"})
+  public void testGetMessage_givenBpmnModel_when42_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull(new BpmnModel().getMessage("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getMessage(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor).
+   *   <li>When {@code 42:}.
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getMessage(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Message BpmnModel.getMessage(String)"})
+  public void testGetMessage_givenBpmnModel_when42_thenReturnNull2() {
+    // Arrange, Act and Assert
+    assertNull(new BpmnModel().getMessage("42:"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getMessage(String)}.
+   *
+   * <ul>
+   *   <li>Then return Id is {@code 42}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getMessage(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"Message BpmnModel.getMessage(String)"})
+  public void testGetMessage_thenReturnIdIs42() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    Builder builderResult = Message.builder();
+
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
+    bpmnModel.addMessage(
+        attributesResult
+            .extensionElements(new HashMap<>())
+            .id("42")
+            .itemRef("Item Ref")
+            .name("Name")
+            .xmlColumnNumber(10)
+            .xmlRowNumber(10)
+            .build());
+
+    // Act
+    Message actualMessage = bpmnModel.getMessage("42");
+
+    // Assert
+    assertEquals("42", actualMessage.getId());
+    assertEquals("Item Ref", actualMessage.getItemRef());
+    assertEquals("Name", actualMessage.getName());
+    assertEquals(10, actualMessage.getXmlColumnNumber());
+    assertEquals(10, actualMessage.getXmlRowNumber());
+    assertTrue(actualMessage.getAttributes().isEmpty());
+    assertTrue(actualMessage.getExtensionElements().isEmpty());
+  }
+
+  /**
+   * Test {@link BpmnModel#containsMessageId(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor).
+   *   <li>Then return {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#containsMessageId(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean BpmnModel.containsMessageId(String)"})
+  public void testContainsMessageId_givenBpmnModel_thenReturnFalse() {
+    // Arrange, Act and Assert
+    assertFalse(new BpmnModel().containsMessageId("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#containsMessageId(String)}.
+   *
+   * <ul>
+   *   <li>Then return {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#containsMessageId(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean BpmnModel.containsMessageId(String)"})
+  public void testContainsMessageId_thenReturnTrue() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    Builder builderResult = Message.builder();
+
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
+    bpmnModel.addMessage(
+        attributesResult
+            .extensionElements(new HashMap<>())
+            .id("42")
+            .itemRef("Item Ref")
+            .name("Name")
+            .xmlColumnNumber(10)
+            .xmlRowNumber(10)
+            .build());
+
+    // Act and Assert
+    assertTrue(bpmnModel.containsMessageId("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#addError(String, String, String)}.
+   *
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor) Errors is {@link HashMap#HashMap()}.
+   *   <li>When {@code null}.
+   *   <li>Then {@link BpmnModel} (default constructor) Errors Empty.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#addError(String, String, String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addError(String, String, String)"})
+  public void testAddError_givenBpmnModelErrorsIsHashMap_whenNull_thenBpmnModelErrorsEmpty() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.setErrors(new HashMap<>());
+
+    // Act
+    bpmnModel.addError(null, "An error occurred", "An error occurred");
+
+    // Assert that nothing has changed
+    assertTrue(bpmnModel.getErrors().isEmpty());
+  }
+
+  /**
+   * Test {@link BpmnModel#addError(String, String, String)}.
+   *
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor).
+   *   <li>When {@code An error occurred}.
+   *   <li>Then {@link BpmnModel} (default constructor) Errors size is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#addError(String, String, String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addError(String, String, String)"})
+  public void testAddError_givenBpmnModel_whenAnErrorOccurred_thenBpmnModelErrorsSizeIsOne() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    // Act
+    bpmnModel.addError("An error occurred", "An error occurred", "An error occurred");
+
+    // Assert
+    Map<String, Error> errors = bpmnModel.getErrors();
+    assertEquals(1, errors.size());
+    Error getResult = errors.get("An error occurred");
+    assertEquals("An error occurred", getResult.getErrorCode());
+    assertEquals("An error occurred", getResult.getId());
+    assertEquals("An error occurred", getResult.getName());
+  }
+
+  /**
+   * Test {@link BpmnModel#addError(String, String, String)}.
+   *
+   * <ul>
+   *   <li>When empty string.
+   *   <li>Then {@link BpmnModel} (default constructor) Errors Empty.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#addError(String, String, String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addError(String, String, String)"})
+  public void testAddError_whenEmptyString_thenBpmnModelErrorsEmpty() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.setErrors(new HashMap<>());
+
+    // Act
+    bpmnModel.addError("", "An error occurred", "An error occurred");
+
+    // Assert that nothing has changed
+    assertTrue(bpmnModel.getErrors().isEmpty());
+  }
+
+  /**
+   * Test {@link BpmnModel#containsErrorRef(String)}.
+   *
+   * <ul>
+   *   <li>Then return {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#containsErrorRef(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean BpmnModel.containsErrorRef(String)"})
+  public void testContainsErrorRef_thenReturnFalse() {
+    // Arrange, Act and Assert
+    assertFalse(new BpmnModel().containsErrorRef("An error occurred"));
+  }
+
+  /**
+   * Test {@link BpmnModel#containsErrorRef(String)}.
+   *
+   * <ul>
+   *   <li>Then return {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#containsErrorRef(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean BpmnModel.containsErrorRef(String)"})
+  public void testContainsErrorRef_thenReturnTrue() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addError("An error occurred", "An error occurred", "An error occurred");
+
+    // Act and Assert
+    assertTrue(bpmnModel.containsErrorRef("An error occurred"));
+  }
+
+  /**
+   * Test {@link BpmnModel#addItemDefinition(String, ItemDefinition)}.
+   *
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor).
+   *   <li>Then {@link BpmnModel} (default constructor) ItemDefinitions size is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#addItemDefinition(String, ItemDefinition)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addItemDefinition(String, ItemDefinition)"})
+  public void testAddItemDefinition_givenBpmnModel_thenBpmnModelItemDefinitionsSizeIsOne() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    ItemDefinition item = new ItemDefinition();
+
+    // Act
+    bpmnModel.addItemDefinition("42", item);
+
+    // Assert
+    Map<String, ItemDefinition> itemDefinitions = bpmnModel.getItemDefinitions();
+    assertEquals(1, itemDefinitions.size());
+    assertSame(item, itemDefinitions.get("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#addItemDefinition(String, ItemDefinition)}.
+   *
+   * <ul>
+   *   <li>When empty string.
+   *   <li>Then {@link BpmnModel} (default constructor) ItemDefinitions Empty.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#addItemDefinition(String, ItemDefinition)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addItemDefinition(String, ItemDefinition)"})
+  public void testAddItemDefinition_whenEmptyString_thenBpmnModelItemDefinitionsEmpty() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.setItemDefinitions(new HashMap<>());
+
+    // Act
+    bpmnModel.addItemDefinition("", new ItemDefinition());
+
+    // Assert that nothing has changed
+    assertTrue(bpmnModel.getItemDefinitions().isEmpty());
+  }
+
+  /**
+   * Test {@link BpmnModel#addItemDefinition(String, ItemDefinition)}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then {@link BpmnModel} (default constructor) ItemDefinitions Empty.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#addItemDefinition(String, ItemDefinition)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addItemDefinition(String, ItemDefinition)"})
+  public void testAddItemDefinition_whenNull_thenBpmnModelItemDefinitionsEmpty() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.setItemDefinitions(new HashMap<>());
+
+    // Act
+    bpmnModel.addItemDefinition(null, new ItemDefinition());
+
+    // Assert that nothing has changed
+    assertTrue(bpmnModel.getItemDefinitions().isEmpty());
+  }
+
+  /**
+   * Test {@link BpmnModel#containsItemDefinitionId(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor).
+   *   <li>Then return {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#containsItemDefinitionId(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean BpmnModel.containsItemDefinitionId(String)"})
+  public void testContainsItemDefinitionId_givenBpmnModel_thenReturnFalse() {
+    // Arrange, Act and Assert
+    assertFalse(new BpmnModel().containsItemDefinitionId("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#containsItemDefinitionId(String)}.
+   *
+   * <ul>
+   *   <li>Then return {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#containsItemDefinitionId(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean BpmnModel.containsItemDefinitionId(String)"})
+  public void testContainsItemDefinitionId_thenReturnTrue() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addItemDefinition("42", new ItemDefinition());
+
+    // Act and Assert
+    assertTrue(bpmnModel.containsItemDefinitionId("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getDataStore(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor) addDataStore {@code 42} and {@link
+   *       DataStore} (default constructor).
+   *   <li>Then return {@link DataStore} (default constructor).
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getDataStore(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"DataStore BpmnModel.getDataStore(String)"})
+  public void testGetDataStore_givenBpmnModelAddDataStore42AndDataStore_thenReturnDataStore() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    DataStore dataStore = new DataStore();
+    bpmnModel.addDataStore("42", dataStore);
+
+    // Act and Assert
+    assertSame(dataStore, bpmnModel.getDataStore("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getDataStore(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor).
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getDataStore(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"DataStore BpmnModel.getDataStore(String)"})
+  public void testGetDataStore_givenBpmnModel_thenReturnNull() {
+    // Arrange, Act and Assert
+    assertNull(new BpmnModel().getDataStore("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#addDataStore(String, DataStore)}.
+   *
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor).
+   *   <li>When {@code 42}.
+   *   <li>Then {@link BpmnModel} (default constructor) DataStores size is one.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#addDataStore(String, DataStore)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addDataStore(String, DataStore)"})
+  public void testAddDataStore_givenBpmnModel_when42_thenBpmnModelDataStoresSizeIsOne() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    DataStore dataStore = new DataStore();
+
+    // Act
+    bpmnModel.addDataStore("42", dataStore);
+
+    // Assert
+    Map<String, DataStore> dataStores = bpmnModel.getDataStores();
+    assertEquals(1, dataStores.size());
+    assertSame(dataStore, dataStores.get("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#addDataStore(String, DataStore)}.
+   *
+   * <ul>
+   *   <li>When empty string.
+   *   <li>Then {@link BpmnModel} (default constructor) DataStores Empty.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#addDataStore(String, DataStore)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addDataStore(String, DataStore)"})
+  public void testAddDataStore_whenEmptyString_thenBpmnModelDataStoresEmpty() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.setDataStores(new HashMap<>());
+
+    // Act
+    bpmnModel.addDataStore("", new DataStore());
+
+    // Assert that nothing has changed
+    assertTrue(bpmnModel.getDataStores().isEmpty());
+  }
+
+  /**
+   * Test {@link BpmnModel#addDataStore(String, DataStore)}.
+   *
+   * <ul>
+   *   <li>When {@code null}.
+   *   <li>Then {@link BpmnModel} (default constructor) DataStores Empty.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#addDataStore(String, DataStore)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addDataStore(String, DataStore)"})
+  public void testAddDataStore_whenNull_thenBpmnModelDataStoresEmpty() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.setDataStores(new HashMap<>());
+
+    // Act
+    bpmnModel.addDataStore(null, new DataStore());
+
+    // Assert that nothing has changed
+    assertTrue(bpmnModel.getDataStores().isEmpty());
+  }
+
+  /**
+   * Test {@link BpmnModel#containsDataStore(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor) addDataStore {@code 42} and {@link
+   *       DataStore} (default constructor).
+   *   <li>Then return {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#containsDataStore(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean BpmnModel.containsDataStore(String)"})
+  public void testContainsDataStore_givenBpmnModelAddDataStore42AndDataStore_thenReturnTrue() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addDataStore("42", new DataStore());
+
+    // Act and Assert
+    assertTrue(bpmnModel.containsDataStore("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#containsDataStore(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor).
+   *   <li>Then return {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#containsDataStore(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean BpmnModel.containsDataStore(String)"})
+  public void testContainsDataStore_givenBpmnModel_thenReturnFalse() {
+    // Arrange, Act and Assert
+    assertFalse(new BpmnModel().containsDataStore("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#addNamespace(String, String)}.
+   *
+   * <p>Method under test: {@link BpmnModel#addNamespace(String, String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnModel.addNamespace(String, String)"})
+  public void testAddNamespace() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+
+    // Act
+    bpmnModel.addNamespace("Prefix", "Uri");
+
+    // Assert
+    Map<String, String> namespaces = bpmnModel.getNamespaces();
+    assertEquals(1, namespaces.size());
+    assertEquals("Uri", namespaces.get("Prefix"));
+  }
+
+  /**
+   * Test {@link BpmnModel#containsNamespacePrefix(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link BpmnModel} (default constructor).
+   *   <li>Then return {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#containsNamespacePrefix(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean BpmnModel.containsNamespacePrefix(String)"})
+  public void testContainsNamespacePrefix_givenBpmnModel_thenReturnFalse() {
+    // Arrange, Act and Assert
+    assertFalse(new BpmnModel().containsNamespacePrefix("Prefix"));
+  }
+
+  /**
+   * Test {@link BpmnModel#containsNamespacePrefix(String)}.
+   *
+   * <ul>
+   *   <li>Then return {@code true}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#containsNamespacePrefix(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"boolean BpmnModel.containsNamespacePrefix(String)"})
+  public void testContainsNamespacePrefix_thenReturnTrue() {
+    // Arrange
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addNamespace("Prefix", "Uri");
+
+    // Act and Assert
+    assertTrue(bpmnModel.containsNamespacePrefix("Prefix"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getNamespace(String)}.
+   *
+   * <p>Method under test: {@link BpmnModel#getNamespace(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String BpmnModel.getNamespace(String)"})
+  public void testGetNamespace() {
+    // Arrange, Act and Assert
+    assertNull(new BpmnModel().getNamespace("Prefix"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getStartFormKey(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link Process} (default constructor) Id is {@code 42}.
+   *   <li>Then return {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getStartFormKey(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String BpmnModel.getStartFormKey(String)"})
+  public void testGetStartFormKey_givenProcessIdIs42_thenReturnNull() {
+    // Arrange
+    Process process = new Process();
+    process.setId("42");
+    process.setInitialFlowElement(new StartEvent());
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addProcess(process);
+
+    // Act and Assert
+    assertNull(bpmnModel.getStartFormKey("42"));
+  }
+
+  /**
+   * Test {@link BpmnModel#getStartFormKey(String)}.
+   *
+   * <ul>
+   *   <li>Given {@link Process} (default constructor) InitialFlowElement is {@link AdhocSubProcess}
+   *       (default constructor).
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnModel#getStartFormKey(String)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"String BpmnModel.getStartFormKey(String)"})
+  public void testGetStartFormKey_givenProcessInitialFlowElementIsAdhocSubProcess() {
+    // Arrange
+    Process process = new Process();
+    process.setId("42");
+    process.setInitialFlowElement(new AdhocSubProcess());
+
+    BpmnModel bpmnModel = new BpmnModel();
+    bpmnModel.addProcess(process);
+
+    // Act and Assert
+    assertNull(bpmnModel.getStartFormKey("42"));
+  }
+
+  /**
+   * Test getters and setters.
+   *
+   * <p>Methods under test:
+   *
+   * <ul>
+   *   <li>default or parameterless constructor of {@link BpmnModel}
+   *   <li>{@link BpmnModel#setDataStores(Map)}
+   *   <li>{@link BpmnModel#setDefinitionsAttributes(Map)}
+   *   <li>{@link BpmnModel#setErrors(Map)}
+   *   <li>{@link BpmnModel#setEventSupport(Object)}
+   *   <li>{@link BpmnModel#setGlobalArtifacts(List)}
+   *   <li>{@link BpmnModel#setImports(List)}
+   *   <li>{@link BpmnModel#setInterfaces(List)}
+   *   <li>{@link BpmnModel#setItemDefinitions(Map)}
+   *   <li>{@link BpmnModel#setMessageFlows(Map)}
+   *   <li>{@link BpmnModel#setPools(List)}
+   *   <li>{@link BpmnModel#setSourceSystemId(String)}
+   *   <li>{@link BpmnModel#setStartEventFormTypes(List)}
+   *   <li>{@link BpmnModel#setTargetNamespace(String)}
+   *   <li>{@link BpmnModel#setUserTaskFormTypes(List)}
+   *   <li>{@link BpmnModel#getDataStores()}
+   *   <li>{@link BpmnModel#getDefinitionsAttributes()}
+   *   <li>{@link BpmnModel#getErrors()}
+   *   <li>{@link BpmnModel#getEventSupport()}
+   *   <li>{@link BpmnModel#getFlowLocationMap()}
+   *   <li>{@link BpmnModel#getGlobalArtifacts()}
+   *   <li>{@link BpmnModel#getImports()}
+   *   <li>{@link BpmnModel#getInterfaces()}
+   *   <li>{@link BpmnModel#getItemDefinitions()}
+   *   <li>{@link BpmnModel#getLabelLocationMap()}
+   *   <li>{@link BpmnModel#getLocationMap()}
+   *   <li>{@link BpmnModel#getMessageFlows()}
+   *   <li>{@link BpmnModel#getNamespaces()}
+   *   <li>{@link BpmnModel#getPools()}
+   *   <li>{@link BpmnModel#getProcesses()}
+   *   <li>{@link BpmnModel#getResources()}
+   *   <li>{@link BpmnModel#getSignals()}
+   *   <li>{@link BpmnModel#getSourceSystemId()}
+   *   <li>{@link BpmnModel#getStartEventFormTypes()}
+   *   <li>{@link BpmnModel#getTargetNamespace()}
+   *   <li>{@link BpmnModel#getUserTaskFormTypes()}
+   * </ul>
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void BpmnModel.<init>()",
+    "Map BpmnModel.getDataStores()",
+    "Map BpmnModel.getDefinitionsAttributes()",
+    "Map BpmnModel.getErrors()",
+    "Object BpmnModel.getEventSupport()",
+    "Map BpmnModel.getFlowLocationMap()",
+    "List BpmnModel.getGlobalArtifacts()",
+    "List BpmnModel.getImports()",
+    "List BpmnModel.getInterfaces()",
+    "Map BpmnModel.getItemDefinitions()",
+    "Map BpmnModel.getLabelLocationMap()",
+    "Map BpmnModel.getLocationMap()",
+    "Map BpmnModel.getMessageFlows()",
+    "Map BpmnModel.getNamespaces()",
+    "List BpmnModel.getPools()",
+    "List BpmnModel.getProcesses()",
+    "Collection BpmnModel.getResources()",
+    "Collection BpmnModel.getSignals()",
+    "String BpmnModel.getSourceSystemId()",
+    "List BpmnModel.getStartEventFormTypes()",
+    "String BpmnModel.getTargetNamespace()",
+    "List BpmnModel.getUserTaskFormTypes()",
+    "void BpmnModel.setDataStores(Map)",
+    "void BpmnModel.setDefinitionsAttributes(Map)",
+    "void BpmnModel.setErrors(Map)",
+    "void BpmnModel.setEventSupport(Object)",
+    "void BpmnModel.setGlobalArtifacts(List)",
+    "void BpmnModel.setImports(List)",
+    "void BpmnModel.setInterfaces(List)",
+    "void BpmnModel.setItemDefinitions(Map)",
+    "void BpmnModel.setMessageFlows(Map)",
+    "void BpmnModel.setPools(List)",
+    "void BpmnModel.setSourceSystemId(String)",
+    "void BpmnModel.setStartEventFormTypes(List)",
+    "void BpmnModel.setTargetNamespace(String)",
+    "void BpmnModel.setUserTaskFormTypes(List)"
+  })
+  public void testGettersAndSetters() {
+    // Arrange and Act
+    BpmnModel actualBpmnModel = new BpmnModel();
+    HashMap<String, DataStore> dataStoreMap = new HashMap<>();
+    actualBpmnModel.setDataStores(dataStoreMap);
+    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
+    actualBpmnModel.setDefinitionsAttributes(attributes);
+    HashMap<String, Error> errorMap = new HashMap<>();
+    actualBpmnModel.setErrors(errorMap);
+    actualBpmnModel.setEventSupport("Event Support");
+    ArrayList<Artifact> globalArtifacts = new ArrayList<>();
+    actualBpmnModel.setGlobalArtifacts(globalArtifacts);
+    ArrayList<Import> imports = new ArrayList<>();
+    actualBpmnModel.setImports(imports);
+    ArrayList<Interface> interfaces = new ArrayList<>();
+    actualBpmnModel.setInterfaces(interfaces);
+    HashMap<String, ItemDefinition> itemDefinitionMap = new HashMap<>();
+    actualBpmnModel.setItemDefinitions(itemDefinitionMap);
+    HashMap<String, MessageFlow> messageFlows = new HashMap<>();
+    actualBpmnModel.setMessageFlows(messageFlows);
+    ArrayList<Pool> pools = new ArrayList<>();
+    actualBpmnModel.setPools(pools);
+    actualBpmnModel.setSourceSystemId("42");
+    ArrayList<String> startEventFormTypes = new ArrayList<>();
+    actualBpmnModel.setStartEventFormTypes(startEventFormTypes);
+    actualBpmnModel.setTargetNamespace("Target Namespace");
+    ArrayList<String> userTaskFormTypes = new ArrayList<>();
+    actualBpmnModel.setUserTaskFormTypes(userTaskFormTypes);
+    Map<String, DataStore> actualDataStores = actualBpmnModel.getDataStores();
+    Map<String, List<ExtensionAttribute>> actualDefinitionsAttributes =
+        actualBpmnModel.getDefinitionsAttributes();
+    Map<String, Error> actualErrors = actualBpmnModel.getErrors();
+    Object actualEventSupport = actualBpmnModel.getEventSupport();
+    Map<String, List<GraphicInfo>> actualFlowLocationMap = actualBpmnModel.getFlowLocationMap();
+    List<Artifact> actualGlobalArtifacts = actualBpmnModel.getGlobalArtifacts();
+    List<Import> actualImports = actualBpmnModel.getImports();
+    List<Interface> actualInterfaces = actualBpmnModel.getInterfaces();
+    Map<String, ItemDefinition> actualItemDefinitions = actualBpmnModel.getItemDefinitions();
+    Map<String, GraphicInfo> actualLabelLocationMap = actualBpmnModel.getLabelLocationMap();
+    Map<String, GraphicInfo> actualLocationMap = actualBpmnModel.getLocationMap();
+    Map<String, MessageFlow> actualMessageFlows = actualBpmnModel.getMessageFlows();
+    Map<String, String> actualNamespaces = actualBpmnModel.getNamespaces();
+    List<Pool> actualPools = actualBpmnModel.getPools();
+    List<Process> actualProcesses = actualBpmnModel.getProcesses();
+    Collection<Resource> actualResources = actualBpmnModel.getResources();
+    Collection<Signal> actualSignals = actualBpmnModel.getSignals();
+    String actualSourceSystemId = actualBpmnModel.getSourceSystemId();
+    List<String> actualStartEventFormTypes = actualBpmnModel.getStartEventFormTypes();
+    String actualTargetNamespace = actualBpmnModel.getTargetNamespace();
+    List<String> actualUserTaskFormTypes = actualBpmnModel.getUserTaskFormTypes();
+
+    // Assert
+    assertTrue(actualResources instanceof List);
+    assertTrue(actualSignals instanceof List);
+    assertEquals("42", actualSourceSystemId);
+    assertEquals("Event Support", actualEventSupport);
+    assertEquals("Target Namespace", actualTargetNamespace);
+    assertTrue(actualGlobalArtifacts.isEmpty());
+    assertTrue(actualImports.isEmpty());
+    assertTrue(actualInterfaces.isEmpty());
+    assertTrue(actualPools.isEmpty());
+    assertTrue(actualProcesses.isEmpty());
+    assertTrue(actualStartEventFormTypes.isEmpty());
+    assertTrue(actualUserTaskFormTypes.isEmpty());
+    assertTrue(actualDataStores.isEmpty());
+    assertTrue(actualDefinitionsAttributes.isEmpty());
+    assertTrue(actualErrors.isEmpty());
+    assertTrue(actualFlowLocationMap.isEmpty());
+    assertTrue(actualItemDefinitions.isEmpty());
+    assertTrue(actualLabelLocationMap.isEmpty());
+    assertTrue(actualLocationMap.isEmpty());
+    assertTrue(actualMessageFlows.isEmpty());
+    assertTrue(actualNamespaces.isEmpty());
+    assertTrue(actualBpmnModel.messageMap.isEmpty());
+    assertSame(globalArtifacts, actualGlobalArtifacts);
+    assertSame(imports, actualImports);
+    assertSame(interfaces, actualInterfaces);
+    assertSame(pools, actualPools);
+    assertSame(startEventFormTypes, actualStartEventFormTypes);
+    assertSame(userTaskFormTypes, actualUserTaskFormTypes);
+    assertSame(dataStoreMap, actualDataStores);
+    assertSame(attributes, actualDefinitionsAttributes);
+    assertSame(errorMap, actualErrors);
+    assertSame(itemDefinitionMap, actualItemDefinitions);
+    assertSame(messageFlows, actualMessageFlows);
+  }
+}

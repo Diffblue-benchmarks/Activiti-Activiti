@@ -1,0 +1,434 @@
+{
+  "meta" : {
+    "reportVersion" : "2.7"
+  },
+  "run" : {
+    "version" : "2025.09.01-44e352d-licensed",
+    "creationTimestamp" : "2025-09-26T16:42:02.920714336Z",
+    "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
+    "totalTime" : 242.334,
+    "environmentDetectionTime" : 0.032,
+    "indexingTime" : 0.495,
+    "entryPointsTime" : 0.025,
+    "generationTime" : 59324.601,
+    "timeToFirstTest" : 71001.923,
+    "timeToLastTest" : 62829.331,
+    "indexQueryTime" : 5.437,
+    "verificationTime" : 1231.363,
+    "validationTime" : 20.348
+  },
+  "codes" : {
+    "R000" : "Success",
+    "R013" : "No inputs found that don't throw a trivial exception",
+    "T000" : "Method eligible for test creation",
+    "T003" : "Private method",
+    "T004" : "In anonymous inner class",
+    "T005" : "Trivial constructor",
+    "T006" : "Main method",
+    "T012" : "Synthetic method",
+    "V000" : "Validated successfully",
+    "V003" : "Tests discarded during validation"
+  },
+  "summary" : {
+    "classesCount" : 4,
+    "methodsCount" : 24,
+    "cumulativeDiffblueTestCount" : 5,
+    "cumulativeManualTestCount" : 1,
+    "completeTestCount" : 5,
+    "incompleteTestCount" : 0,
+    "skeletonTestCount" : 0,
+    "totalPhysicalLineCount" : 224,
+    "perMethodTestability" : {
+      "T000" : 11,
+      "T003" : 1,
+      "T004" : 8,
+      "T006" : 1,
+      "T012" : 3
+    },
+    "perMethodOutcome" : {
+      "R000" : 3,
+      "R013" : 5,
+      "T003" : 1,
+      "T004" : 8,
+      "T005" : 3,
+      "T006" : 1,
+      "T012" : 3
+    },
+    "perTestOutcome" : {
+      "R000" : 5
+    },
+    "perTestValidation" : {
+      "V000" : 5,
+      "V003" : 1
+    }
+  },
+  "classes" : {
+    "org.activiti.examples.DemoApplication" : {
+      "methodsCount" : 10,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 6,
+        "T003" : 1,
+        "T006" : 1,
+        "T012" : 2
+      },
+      "perMethodOutcome" : {
+        "R013" : 5,
+        "T003" : 1,
+        "T005" : 1,
+        "T006" : 1,
+        "T012" : 2
+      }
+    },
+    "org.activiti.examples.DemoApplicationConfiguration" : {
+      "methodsCount" : 4,
+      "completeTestCount" : 4,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 3,
+        "T012" : 1
+      },
+      "perMethodOutcome" : {
+        "R000" : 2,
+        "T005" : 1,
+        "T012" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 4
+      }
+    },
+    "org.activiti.examples.SecurityUtil" : {
+      "methodsCount" : 2,
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T000" : 2
+      },
+      "perMethodOutcome" : {
+        "R000" : 1,
+        "T005" : 1
+      },
+      "perTestOutcome" : {
+        "R000" : 1
+      }
+    },
+    "org.activiti.examples.SecurityUtil$1" : {
+      "methodsCount" : 8,
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : {
+        "T004" : 8
+      },
+      "perMethodOutcome" : {
+        "T004" : 8
+      }
+    }
+  },
+  "methods" : {
+    "org.activiti.examples.DemoApplication.<init>:(Lorg/activiti/api/process/runtime/ProcessRuntime;Lorg/activiti/api/task/runtime/TaskRuntime;Lorg/activiti/examples/SecurityUtil;Lcom/fasterxml/jackson/databind/ObjectMapper;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        65,
+        52,
+        66,
+        67,
+        68,
+        69,
+        70
+      ]
+    },
+    "org.activiti.examples.DemoApplication.checkAndWorkOnTasksWhenAvailable:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        116,
+        118,
+        119,
+        120,
+        122,
+        123,
+        125,
+        126,
+        127,
+        128,
+        129,
+        131,
+        132,
+        133,
+        135,
+        136,
+        138,
+        139,
+        138,
+        143,
+        146,
+        149
+      ]
+    },
+    "org.activiti.examples.DemoApplication.discardTextConnector:()Lorg/activiti/api/process/runtime/connector/Connector;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        165
+      ]
+    },
+    "org.activiti.examples.DemoApplication.lambda$discardTextConnector$1:(Lorg/activiti/api/process/model/IntegrationContext;)Lorg/activiti/api/process/model/IntegrationContext;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        166,
+        167,
+        168,
+        169,
+        170
+      ]
+    },
+    "org.activiti.examples.DemoApplication.lambda$tagTextConnector$0:(Lorg/activiti/api/process/model/IntegrationContext;)Lorg/activiti/api/process/model/IntegrationContext;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        155,
+        156,
+        157,
+        158,
+        159
+      ]
+    },
+    "org.activiti.examples.DemoApplication.main:([Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T006",
+      "perMethodOutcome" : "T006",
+      "lineNumbers" : [
+        73,
+        75
+      ]
+    },
+    "org.activiti.examples.DemoApplication.pickRandomString:()Ljava/util/LinkedHashMap;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T003",
+      "perMethodOutcome" : "T003",
+      "lineNumbers" : [
+        176,
+        178,
+        179,
+        180
+      ]
+    },
+    "org.activiti.examples.DemoApplication.processText:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        92,
+        94,
+        99,
+        101,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        103,
+        109,
+        112
+      ]
+    },
+    "org.activiti.examples.DemoApplication.run:([Ljava/lang/String;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        79,
+        81,
+        82,
+        83,
+        84,
+        85,
+        87
+      ]
+    },
+    "org.activiti.examples.DemoApplication.tagTextConnector:()Lorg/activiti/api/process/runtime/connector/Connector;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R013",
+      "lineNumbers" : [
+        154
+      ]
+    },
+    "org.activiti.examples.DemoApplicationConfiguration.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        36,
+        38
+      ]
+    },
+    "org.activiti.examples.DemoApplicationConfiguration.lambda$myUserDetailsService$0:(Ljava/lang/String;)Lorg/springframework/security/core/authority/SimpleGrantedAuthority;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T012",
+      "perMethodOutcome" : "T012",
+      "lineNumbers" : [
+        58
+      ]
+    },
+    "org.activiti.examples.DemoApplicationConfiguration.myUserDetailsService:()Lorg/springframework/security/core/userdetails/UserDetailsService;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        43,
+        45,
+        54,
+        55,
+        56,
+        57,
+        58,
+        57,
+        54,
+        62
+      ]
+    },
+    "org.activiti.examples.DemoApplicationConfiguration.passwordEncoder:()Lorg/springframework/security/crypto/password/PasswordEncoder;" : {
+      "completeTestCount" : 2,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 2
+      },
+      "lineNumbers" : [
+        68
+      ]
+    },
+    "org.activiti.examples.SecurityUtil$1.<init>:(Lorg/activiti/examples/SecurityUtil;Lorg/springframework/security/core/userdetails/UserDetails;)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T004",
+      "perMethodOutcome" : "T004",
+      "lineNumbers" : [
+        46
+      ]
+    },
+    "org.activiti.examples.SecurityUtil$1.getAuthorities:()Ljava/util/Collection;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T004",
+      "perMethodOutcome" : "T004",
+      "lineNumbers" : [
+        49
+      ]
+    },
+    "org.activiti.examples.SecurityUtil$1.getCredentials:()Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T004",
+      "perMethodOutcome" : "T004",
+      "lineNumbers" : [
+        54
+      ]
+    },
+    "org.activiti.examples.SecurityUtil$1.getDetails:()Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T004",
+      "perMethodOutcome" : "T004",
+      "lineNumbers" : [
+        59
+      ]
+    },
+    "org.activiti.examples.SecurityUtil$1.getName:()Ljava/lang/String;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T004",
+      "perMethodOutcome" : "T004",
+      "lineNumbers" : [
+        79
+      ]
+    },
+    "org.activiti.examples.SecurityUtil$1.getPrincipal:()Ljava/lang/Object;" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T004",
+      "perMethodOutcome" : "T004",
+      "lineNumbers" : [
+        64
+      ]
+    },
+    "org.activiti.examples.SecurityUtil$1.isAuthenticated:()Z" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T004",
+      "perMethodOutcome" : "T004",
+      "lineNumbers" : [
+        69
+      ]
+    },
+    "org.activiti.examples.SecurityUtil$1.setAuthenticated:(Z)V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T004",
+      "perMethodOutcome" : "T004",
+      "lineNumbers" : [
+        75
+      ]
+    },
+    "org.activiti.examples.SecurityUtil.<init>:()V" : {
+      "completeTestCount" : 0,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "T005",
+      "lineNumbers" : [
+        32,
+        34
+      ]
+    },
+    "org.activiti.examples.SecurityUtil.logInAs:(Ljava/lang/String;)V" : {
+      "completeTestCount" : 1,
+      "incompleteTestCount" : 0,
+      "perMethodTestability" : "T000",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
+      "lineNumbers" : [
+        41,
+        42,
+        43,
+        45,
+        46,
+        82,
+        83
+      ]
+    }
+  },
+  "validationMetrics" : {
+    "failingTests" : [
+      "org.activiti.spring.boot.ShutdownListenerTest.should_MarkAsShutdown_when_CloseApplicationContext"
+    ]
+  }
+}
