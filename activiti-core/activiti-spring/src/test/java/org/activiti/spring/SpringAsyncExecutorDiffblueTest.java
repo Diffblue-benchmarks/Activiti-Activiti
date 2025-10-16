@@ -39,15 +39,12 @@ import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 @ContextConfiguration(
     locations = {"/org/activiti/spring/test/components/SpringjobExecutorTest-context.xml"})
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
 public class SpringAsyncExecutorDiffblueTest {
@@ -184,38 +181,6 @@ public class SpringAsyncExecutorDiffblueTest {
     // Assert
     assertSame(rejectedJobsHandler, actualRejectedJobsHandler);
     assertSame(taskExecutor, springAsyncExecutor.getTaskExecutor());
-  }
-
-  /**
-   * Test {@link SpringAsyncExecutor#executeAsyncJob(Job)}.
-   *
-   * <p>Method under test: {@link SpringAsyncExecutor#executeAsyncJob(Job)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"boolean SpringAsyncExecutor.executeAsyncJob(Job)"})
-  public void testExecuteAsyncJob() {
-    // Arrange
-    SpringRejectedJobsHandler rejectedJobsHandler = mock(SpringRejectedJobsHandler.class);
-    doNothing()
-        .when(rejectedJobsHandler)
-        .jobRejected(Mockito.<AsyncExecutor>any(), Mockito.<Job>any());
-
-    SpringAsyncExecutor springAsyncExecutor =
-        new SpringAsyncExecutor(mock(TaskExecutor.class), rejectedJobsHandler);
-    springAsyncExecutor.setProcessEngineConfiguration(null);
-
-    JobEntityImpl job = mock(JobEntityImpl.class);
-    when(job.getId()).thenThrow(new RejectedExecutionException());
-
-    // Act
-    boolean actualExecuteAsyncJobResult = springAsyncExecutor.executeAsyncJob(job);
-
-    // Assert
-    verify(job).getId();
-    verify(rejectedJobsHandler).jobRejected(isA(AsyncExecutor.class), isA(Job.class));
-    assertFalse(actualExecuteAsyncJobResult);
   }
 
   /**

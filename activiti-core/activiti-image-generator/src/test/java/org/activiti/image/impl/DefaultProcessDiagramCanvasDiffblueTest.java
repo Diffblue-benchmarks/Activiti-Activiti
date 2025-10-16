@@ -37,7 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.AssociationDirection;
-import org.activiti.bpmn.model.CompensateEventDefinition;
+import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.ExtensionAttribute;
 import org.activiti.bpmn.model.GraphicInfo;
 import org.activiti.bpmn.model.Message;
@@ -59,35 +59,6 @@ import org.w3c.dom.Node;
 
 public class DefaultProcessDiagramCanvasDiffblueTest {
   /**
-   * Test {@link DefaultProcessDiagramCanvas#DefaultProcessDiagramCanvas(int, int, int, int)}.
-   *
-   * <ul>
-   *   <li>Then {@link DefaultProcessDiagramCanvas#g} DOMFactory return {@link GenericDocument}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DefaultProcessDiagramCanvas#DefaultProcessDiagramCanvas(int, int,
-   * int, int)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DefaultProcessDiagramCanvas.<init>(int, int, int, int)"})
-  public void testNewDefaultProcessDiagramCanvas_thenGDOMFactoryReturnGenericDocument() {
-    // Arrange and Act
-    DefaultProcessDiagramCanvas actualDefaultProcessDiagramCanvas =
-        new DefaultProcessDiagramCanvas(-1, 1, 1, 1);
-
-    // Assert
-    ProcessDiagramSVGGraphics2D processDiagramSVGGraphics2D = actualDefaultProcessDiagramCanvas.g;
-    assertTrue(processDiagramSVGGraphics2D.getDOMFactory() instanceof GenericDocument);
-    assertTrue(processDiagramSVGGraphics2D.getRoot() instanceof GenericElementNS);
-    assertTrue(processDiagramSVGGraphics2D.getTopLevelGroup() instanceof GenericElementNS);
-    assertSame(
-        actualDefaultProcessDiagramCanvas.fontMetrics,
-        processDiagramSVGGraphics2D.getFontMetrics());
-  }
-
-  /**
    * Test {@link DefaultProcessDiagramCanvas#DefaultProcessDiagramCanvas(int, int, int, int, String,
    * String, String)}.
    *
@@ -104,7 +75,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   @MethodsUnderTest({
     "void DefaultProcessDiagramCanvas.<init>(int, int, int, int, String, String, String)"
   })
-  public void testNewDefaultProcessDiagramCanvas_thenGDOMFactoryReturnGenericDocument2() {
+  public void testNewDefaultProcessDiagramCanvas_thenGDOMFactoryReturnGenericDocument() {
     // Arrange and Act
     DefaultProcessDiagramCanvas actualDefaultProcessDiagramCanvas =
         new DefaultProcessDiagramCanvas(
@@ -124,8 +95,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
    * Test {@link DefaultProcessDiagramCanvas#DefaultProcessDiagramCanvas(int, int, int, int)}.
    *
    * <ul>
-   *   <li>When four.
-   *   <li>Then return {@link DefaultProcessDiagramCanvas#minY} is four.
+   *   <li>Then return {@link DefaultProcessDiagramCanvas#minX} is minus five.
    * </ul>
    *
    * <p>Method under test: {@link DefaultProcessDiagramCanvas#DefaultProcessDiagramCanvas(int, int,
@@ -135,42 +105,41 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"void DefaultProcessDiagramCanvas.<init>(int, int, int, int)"})
-  public void testNewDefaultProcessDiagramCanvas_whenFour_thenReturnMinYIsFour() {
+  public void testNewDefaultProcessDiagramCanvas_thenReturnMinXIsMinusFive() {
     // Arrange and Act
     DefaultProcessDiagramCanvas actualDefaultProcessDiagramCanvas =
-        new DefaultProcessDiagramCanvas(-1, 1, 1, 4);
+        new DefaultProcessDiagramCanvas(1, 255, -5, 1);
 
     // Assert
-    assertEquals(4, actualDefaultProcessDiagramCanvas.minY);
+    assertEquals(-5, actualDefaultProcessDiagramCanvas.minX);
+    assertEquals(1, actualDefaultProcessDiagramCanvas.canvasWidth);
+    assertEquals(255, actualDefaultProcessDiagramCanvas.canvasHeight);
     FontMetrics expectedFontMetrics = actualDefaultProcessDiagramCanvas.fontMetrics;
     assertSame(expectedFontMetrics, actualDefaultProcessDiagramCanvas.g.getFontMetrics());
   }
 
   /**
-   * Test {@link DefaultProcessDiagramCanvas#DefaultProcessDiagramCanvas(int, int, int, int, String,
-   * String, String)}.
+   * Test {@link DefaultProcessDiagramCanvas#DefaultProcessDiagramCanvas(int, int, int, int)}.
    *
    * <ul>
-   *   <li>When {@link Integer#MIN_VALUE}.
-   *   <li>Then return {@link DefaultProcessDiagramCanvas#minX} is {@link Integer#MIN_VALUE}.
+   *   <li>When minus one.
+   *   <li>Then return {@link DefaultProcessDiagramCanvas#canvasWidth} is minus one.
    * </ul>
    *
    * <p>Method under test: {@link DefaultProcessDiagramCanvas#DefaultProcessDiagramCanvas(int, int,
-   * int, int, String, String, String)}
+   * int, int)}
    */
   @Test
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefaultProcessDiagramCanvas.<init>(int, int, int, int, String, String, String)"
-  })
-  public void testNewDefaultProcessDiagramCanvas_whenMin_value_thenReturnMinXIsMin_value() {
+  @MethodsUnderTest({"void DefaultProcessDiagramCanvas.<init>(int, int, int, int)"})
+  public void testNewDefaultProcessDiagramCanvas_whenMinusOne_thenReturnCanvasWidthIsMinusOne() {
     // Arrange and Act
     DefaultProcessDiagramCanvas actualDefaultProcessDiagramCanvas =
-        new DefaultProcessDiagramCanvas(1, 1, Integer.MIN_VALUE, 1, null, "Label Font Name", null);
+        new DefaultProcessDiagramCanvas(-1, 1, 1, 1);
 
     // Assert
-    assertEquals(Integer.MIN_VALUE, actualDefaultProcessDiagramCanvas.minX);
+    assertEquals(-1, actualDefaultProcessDiagramCanvas.canvasWidth);
     FontMetrics expectedFontMetrics = actualDefaultProcessDiagramCanvas.fontMetrics;
     assertSame(expectedFontMetrics, actualDefaultProcessDiagramCanvas.g.getFontMetrics());
   }
@@ -193,7 +162,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   @MethodsUnderTest({
     "void DefaultProcessDiagramCanvas.<init>(int, int, int, int, String, String, String)"
   })
-  public void testNewDefaultProcessDiagramCanvas_whenMinusOne_thenReturnCanvasWidthIsMinusOne() {
+  public void testNewDefaultProcessDiagramCanvas_whenMinusOne_thenReturnCanvasWidthIsMinusOne2() {
     // Arrange and Act
     DefaultProcessDiagramCanvas actualDefaultProcessDiagramCanvas =
         new DefaultProcessDiagramCanvas(
@@ -211,7 +180,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
    *
    * <ul>
    *   <li>When {@code null}.
-   *   <li>Then {@link DefaultProcessDiagramCanvas#g} DOMFactory return {@link GenericDocument}.
+   *   <li>Then return {@link DefaultProcessDiagramCanvas#activityFontName} is {@code Arial}.
    * </ul>
    *
    * <p>Method under test: {@link DefaultProcessDiagramCanvas#DefaultProcessDiagramCanvas(int, int,
@@ -223,46 +192,15 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   @MethodsUnderTest({
     "void DefaultProcessDiagramCanvas.<init>(int, int, int, int, String, String, String)"
   })
-  public void testNewDefaultProcessDiagramCanvas_whenNull_thenGDOMFactoryReturnGenericDocument() {
+  public void testNewDefaultProcessDiagramCanvas_whenNull_thenReturnActivityFontNameIsArial() {
     // Arrange and Act
     DefaultProcessDiagramCanvas actualDefaultProcessDiagramCanvas =
         new DefaultProcessDiagramCanvas(1, 1, 1, 1, null, null, null);
 
     // Assert
-    ProcessDiagramSVGGraphics2D processDiagramSVGGraphics2D = actualDefaultProcessDiagramCanvas.g;
-    assertTrue(processDiagramSVGGraphics2D.getDOMFactory() instanceof GenericDocument);
-    assertTrue(processDiagramSVGGraphics2D.getRoot() instanceof GenericElementNS);
-    assertTrue(processDiagramSVGGraphics2D.getTopLevelGroup() instanceof GenericElementNS);
-    assertSame(
-        actualDefaultProcessDiagramCanvas.fontMetrics,
-        processDiagramSVGGraphics2D.getFontMetrics());
-  }
-
-  /**
-   * Test {@link DefaultProcessDiagramCanvas#DefaultProcessDiagramCanvas(int, int, int, int, String,
-   * String, String)}.
-   *
-   * <ul>
-   *   <li>When three.
-   *   <li>Then return {@link DefaultProcessDiagramCanvas#minX} is three.
-   * </ul>
-   *
-   * <p>Method under test: {@link DefaultProcessDiagramCanvas#DefaultProcessDiagramCanvas(int, int,
-   * int, int, String, String, String)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefaultProcessDiagramCanvas.<init>(int, int, int, int, String, String, String)"
-  })
-  public void testNewDefaultProcessDiagramCanvas_whenThree_thenReturnMinXIsThree() {
-    // Arrange and Act
-    DefaultProcessDiagramCanvas actualDefaultProcessDiagramCanvas =
-        new DefaultProcessDiagramCanvas(1, 1, 3, 1, null, null, "Annotation Font Name");
-
-    // Assert
-    assertEquals(3, actualDefaultProcessDiagramCanvas.minX);
+    assertEquals("Arial", actualDefaultProcessDiagramCanvas.activityFontName);
+    assertEquals("Arial", actualDefaultProcessDiagramCanvas.annotationFontName);
+    assertEquals("Arial", actualDefaultProcessDiagramCanvas.labelFontName);
     FontMetrics expectedFontMetrics = actualDefaultProcessDiagramCanvas.fontMetrics;
     assertSame(expectedFontMetrics, actualDefaultProcessDiagramCanvas.g.getFontMetrics());
   }
@@ -271,8 +209,8 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
    * Test {@link DefaultProcessDiagramCanvas#DefaultProcessDiagramCanvas(int, int, int, int)}.
    *
    * <ul>
-   *   <li>When two.
-   *   <li>Then return {@link DefaultProcessDiagramCanvas#canvasWidth} is two.
+   *   <li>When ten.
+   *   <li>Then return {@link DefaultProcessDiagramCanvas#minY} is minus five.
    * </ul>
    *
    * <p>Method under test: {@link DefaultProcessDiagramCanvas#DefaultProcessDiagramCanvas(int, int,
@@ -282,15 +220,46 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"void DefaultProcessDiagramCanvas.<init>(int, int, int, int)"})
-  public void testNewDefaultProcessDiagramCanvas_whenTwo_thenReturnCanvasWidthIsTwo() {
+  public void testNewDefaultProcessDiagramCanvas_whenTen_thenReturnMinYIsMinusFive() {
+    // Arrange and Act
+    DefaultProcessDiagramCanvas actualDefaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(2, 10, 1, -5);
+
+    // Assert
+    assertEquals(-5, actualDefaultProcessDiagramCanvas.minY);
+    assertEquals(10, actualDefaultProcessDiagramCanvas.canvasHeight);
+    FontMetrics expectedFontMetrics = actualDefaultProcessDiagramCanvas.fontMetrics;
+    assertSame(expectedFontMetrics, actualDefaultProcessDiagramCanvas.g.getFontMetrics());
+  }
+
+  /**
+   * Test {@link DefaultProcessDiagramCanvas#DefaultProcessDiagramCanvas(int, int, int, int)}.
+   *
+   * <ul>
+   *   <li>When two.
+   *   <li>Then {@link DefaultProcessDiagramCanvas#g} DOMFactory return {@link GenericDocument}.
+   * </ul>
+   *
+   * <p>Method under test: {@link DefaultProcessDiagramCanvas#DefaultProcessDiagramCanvas(int, int,
+   * int, int)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void DefaultProcessDiagramCanvas.<init>(int, int, int, int)"})
+  public void testNewDefaultProcessDiagramCanvas_whenTwo_thenGDOMFactoryReturnGenericDocument() {
     // Arrange and Act
     DefaultProcessDiagramCanvas actualDefaultProcessDiagramCanvas =
         new DefaultProcessDiagramCanvas(2, 1, 1, 1);
 
     // Assert
-    assertEquals(2, actualDefaultProcessDiagramCanvas.canvasWidth);
-    FontMetrics expectedFontMetrics = actualDefaultProcessDiagramCanvas.fontMetrics;
-    assertSame(expectedFontMetrics, actualDefaultProcessDiagramCanvas.g.getFontMetrics());
+    ProcessDiagramSVGGraphics2D processDiagramSVGGraphics2D = actualDefaultProcessDiagramCanvas.g;
+    assertTrue(processDiagramSVGGraphics2D.getDOMFactory() instanceof GenericDocument);
+    assertTrue(processDiagramSVGGraphics2D.getRoot() instanceof GenericElementNS);
+    assertTrue(processDiagramSVGGraphics2D.getTopLevelGroup() instanceof GenericElementNS);
+    assertSame(
+        actualDefaultProcessDiagramCanvas.fontMetrics,
+        processDiagramSVGGraphics2D.getFontMetrics());
   }
 
   /**
@@ -734,7 +703,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
    * Test {@link DefaultProcessDiagramCanvas#drawSignalStartEvent(String, GraphicInfo)}.
    *
    * <ul>
-   *   <li>When {@link GraphicInfo} (default constructor) Height is ten.
+   *   <li>When {@code 42}.
    * </ul>
    *
    * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawSignalStartEvent(String,
@@ -744,7 +713,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"void DefaultProcessDiagramCanvas.drawSignalStartEvent(String, GraphicInfo)"})
-  public void testDrawSignalStartEvent_whenGraphicInfoHeightIsTen() {
+  public void testDrawSignalStartEvent_when42() {
     // Arrange
     DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
         new DefaultProcessDiagramCanvas(1, 1, 1, 1);
@@ -763,6 +732,70 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     defaultProcessDiagramCanvas.drawSignalStartEvent("42", graphicInfo);
 
     // Assert
+    Element root = defaultProcessDiagramCanvas.g.getRoot();
+    assertTrue(root instanceof GenericElementNS);
+    Node lastChild = root.getLastChild();
+    assertTrue(lastChild instanceof GenericElementNS);
+    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
+    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
+  }
+
+  /**
+   * Test {@link DefaultProcessDiagramCanvas#drawSignalStartEvent(String, GraphicInfo)}.
+   *
+   * <ul>
+   *   <li>When {@code path}.
+   * </ul>
+   *
+   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawSignalStartEvent(String,
+   * GraphicInfo)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void DefaultProcessDiagramCanvas.drawSignalStartEvent(String, GraphicInfo)"})
+  public void testDrawSignalStartEvent_whenPath() {
+    // Arrange
+    GraphicInfo graphicInfo = new GraphicInfo();
+
+    Builder builderResult = Message.builder();
+
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
+    graphicInfo.setElement(
+        attributesResult
+            .extensionElements(new HashMap<>())
+            .id("42")
+            .itemRef("Item Ref")
+            .name("Name")
+            .xmlColumnNumber(10)
+            .xmlRowNumber(10)
+            .build());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(2.0d);
+    graphicInfo.setWidth(2.0d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(3.0d);
+
+    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
+    defaultProcessDiagramCanvas.drawTask("42", "g", graphicInfo, true);
+
+    GraphicInfo graphicInfo2 = new GraphicInfo();
+    graphicInfo2.setElement(new ActivitiListener());
+    graphicInfo2.setExpanded(true);
+    graphicInfo2.setHeight(10.0d);
+    graphicInfo2.setWidth(10.0d);
+    graphicInfo2.setX(2.0d);
+    graphicInfo2.setXmlColumnNumber(10);
+    graphicInfo2.setXmlRowNumber(10);
+    graphicInfo2.setY(3.0d);
+
+    // Act
+    defaultProcessDiagramCanvas.drawSignalStartEvent("path", graphicInfo2);
+
+    // Assert that nothing has changed
     Element root = defaultProcessDiagramCanvas.g.getRoot();
     assertTrue(root instanceof GenericElementNS);
     Node lastChild = root.getLastChild();
@@ -843,23 +876,46 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   @MethodsUnderTest({"void DefaultProcessDiagramCanvas.drawMessageStartEvent(String, GraphicInfo)"})
   public void testDrawMessageStartEvent2() {
     // Arrange
-    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
-        new DefaultProcessDiagramCanvas(1, 1, -1, 1);
-
     GraphicInfo graphicInfo = new GraphicInfo();
-    graphicInfo.setElement(new ActivitiListener());
+
+    Builder builderResult = Message.builder();
+
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
+    graphicInfo.setElement(
+        attributesResult
+            .extensionElements(new HashMap<>())
+            .id("42")
+            .itemRef("stroke")
+            .name("Name")
+            .xmlColumnNumber(10)
+            .xmlRowNumber(10)
+            .build());
     graphicInfo.setExpanded(true);
-    graphicInfo.setHeight(-0.5d);
-    graphicInfo.setWidth(10.0d);
+    graphicInfo.setHeight(2.0d);
+    graphicInfo.setWidth(2.0d);
     graphicInfo.setX(2.0d);
     graphicInfo.setXmlColumnNumber(10);
     graphicInfo.setXmlRowNumber(10);
     graphicInfo.setY(3.0d);
 
-    // Act
-    defaultProcessDiagramCanvas.drawMessageStartEvent("42", graphicInfo);
+    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
+    defaultProcessDiagramCanvas.drawTask("42", "g", graphicInfo, true);
 
-    // Assert
+    GraphicInfo graphicInfo2 = new GraphicInfo();
+    graphicInfo2.setElement(new ActivitiListener());
+    graphicInfo2.setExpanded(true);
+    graphicInfo2.setHeight(10.0d);
+    graphicInfo2.setWidth(10.0d);
+    graphicInfo2.setX(2.0d);
+    graphicInfo2.setXmlColumnNumber(10);
+    graphicInfo2.setXmlRowNumber(10);
+    graphicInfo2.setY(3.0d);
+
+    // Act
+    defaultProcessDiagramCanvas.drawMessageStartEvent("42", graphicInfo2);
+
+    // Assert that nothing has changed
     Element root = defaultProcessDiagramCanvas.g.getRoot();
     assertTrue(root instanceof GenericElementNS);
     Node lastChild = root.getLastChild();
@@ -1031,6 +1087,11 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   /**
    * Test {@link DefaultProcessDiagramCanvas#drawStartEvent(String, GraphicInfo, IconType)}.
    *
+   * <ul>
+   *   <li>Given {@code 0.5}.
+   *   <li>When {@link GraphicInfo} (default constructor) Width is {@code 0.5}.
+   * </ul>
+   *
    * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawStartEvent(String, GraphicInfo,
    * IconType)}
    */
@@ -1040,13 +1101,22 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   @MethodsUnderTest({
     "void DefaultProcessDiagramCanvas.drawStartEvent(String, GraphicInfo, IconType)"
   })
-  public void testDrawStartEvent3() {
+  public void testDrawStartEvent_given05_whenGraphicInfoWidthIs05() {
     // Arrange
-    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
-        new DefaultProcessDiagramCanvas(1, 1, Short.SIZE, 1);
-
     GraphicInfo graphicInfo = new GraphicInfo();
-    graphicInfo.setElement(new ActivitiListener());
+
+    Builder builderResult = Message.builder();
+
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
+    graphicInfo.setElement(
+        attributesResult
+            .extensionElements(new HashMap<>())
+            .id("42")
+            .itemRef("Item Ref")
+            .name("Name")
+            .xmlColumnNumber(10)
+            .xmlRowNumber(10)
+            .build());
     graphicInfo.setExpanded(true);
     graphicInfo.setHeight(10.0d);
     graphicInfo.setWidth(10.0d);
@@ -1055,10 +1125,24 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     graphicInfo.setXmlRowNumber(10);
     graphicInfo.setY(3.0d);
 
-    // Act
-    defaultProcessDiagramCanvas.drawStartEvent("42", graphicInfo, new CompensateIconType());
+    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
+    defaultProcessDiagramCanvas.drawTask("42", "id", graphicInfo, true);
 
-    // Assert
+    GraphicInfo graphicInfo2 = new GraphicInfo();
+    graphicInfo2.setElement(new ActivitiListener());
+    graphicInfo2.setExpanded(true);
+    graphicInfo2.setHeight(10.0d);
+    graphicInfo2.setWidth(0.5d);
+    graphicInfo2.setX(2.0d);
+    graphicInfo2.setXmlColumnNumber(10);
+    graphicInfo2.setXmlRowNumber(10);
+    graphicInfo2.setY(3.0d);
+
+    // Act
+    defaultProcessDiagramCanvas.drawStartEvent("42", graphicInfo2, null);
+
+    // Assert that nothing has changed
     Element root = defaultProcessDiagramCanvas.g.getRoot();
     assertTrue(root instanceof GenericElementNS);
     Node lastChild = root.getLastChild();
@@ -1290,68 +1374,6 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     "void DefaultProcessDiagramCanvas.drawNoneEndEvent(String, String, GraphicInfo)"
   })
   public void testDrawNoneEndEvent3() {
-    // Arrange
-    GraphicInfo graphicInfo = new GraphicInfo();
-
-    Builder builderResult = Message.builder();
-
-    Builder attributesResult = builderResult.attributes(new HashMap<>());
-    graphicInfo.setElement(
-        attributesResult
-            .extensionElements(new HashMap<>())
-            .id("42")
-            .itemRef("Item Ref")
-            .name("Name")
-            .xmlColumnNumber(10)
-            .xmlRowNumber(10)
-            .build());
-    graphicInfo.setExpanded(true);
-    graphicInfo.setHeight(2.0d);
-    graphicInfo.setWidth(2.0d);
-    graphicInfo.setX(2.0d);
-    graphicInfo.setXmlColumnNumber(10);
-    graphicInfo.setXmlRowNumber(10);
-    graphicInfo.setY(3.0d);
-
-    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
-        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
-    defaultProcessDiagramCanvas.drawParallelGateway("42", graphicInfo);
-
-    GraphicInfo graphicInfo2 = new GraphicInfo();
-    graphicInfo2.setElement(new ActivitiListener());
-    graphicInfo2.setExpanded(true);
-    graphicInfo2.setHeight(10.0d);
-    graphicInfo2.setWidth(10.0d);
-    graphicInfo2.setX(2.0d);
-    graphicInfo2.setXmlColumnNumber(10);
-    graphicInfo2.setXmlRowNumber(10);
-    graphicInfo2.setY(3.0d);
-
-    // Act
-    defaultProcessDiagramCanvas.drawNoneEndEvent("42", "Name", graphicInfo2);
-
-    // Assert
-    Element root = defaultProcessDiagramCanvas.g.getRoot();
-    assertTrue(root instanceof GenericElementNS);
-    Node lastChild = root.getLastChild();
-    assertTrue(lastChild instanceof GenericElementNS);
-    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
-    assertEquals(3, ((GenericElementNS) lastChild).getChildElementCount());
-  }
-
-  /**
-   * Test {@link DefaultProcessDiagramCanvas#drawNoneEndEvent(String, String, GraphicInfo)}.
-   *
-   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawNoneEndEvent(String, String,
-   * GraphicInfo)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefaultProcessDiagramCanvas.drawNoneEndEvent(String, String, GraphicInfo)"
-  })
-  public void testDrawNoneEndEvent4() {
     // Arrange
     GraphicInfo graphicInfo = new GraphicInfo();
 
@@ -1925,7 +1947,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
    * Test {@link DefaultProcessDiagramCanvas#drawErrorStartEvent(String, GraphicInfo)}.
    *
    * <ul>
-   *   <li>When {@link GraphicInfo} (default constructor) Height is ten.
+   *   <li>When {@code 42}.
    * </ul>
    *
    * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawErrorStartEvent(String,
@@ -1935,7 +1957,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"void DefaultProcessDiagramCanvas.drawErrorStartEvent(String, GraphicInfo)"})
-  public void testDrawErrorStartEvent_whenGraphicInfoHeightIsTen() {
+  public void testDrawErrorStartEvent_when42() {
     // Arrange
     DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
         new DefaultProcessDiagramCanvas(1, 1, 1, 1);
@@ -1952,6 +1974,47 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
 
     // Act
     defaultProcessDiagramCanvas.drawErrorStartEvent("42", graphicInfo);
+
+    // Assert
+    Element root = defaultProcessDiagramCanvas.g.getRoot();
+    assertTrue(root instanceof GenericElementNS);
+    Node lastChild = root.getLastChild();
+    assertTrue(lastChild instanceof GenericElementNS);
+    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
+    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
+  }
+
+  /**
+   * Test {@link DefaultProcessDiagramCanvas#drawErrorStartEvent(String, GraphicInfo)}.
+   *
+   * <ul>
+   *   <li>When {@code path}.
+   * </ul>
+   *
+   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawErrorStartEvent(String,
+   * GraphicInfo)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void DefaultProcessDiagramCanvas.drawErrorStartEvent(String, GraphicInfo)"})
+  public void testDrawErrorStartEvent_whenPath() {
+    // Arrange
+    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
+
+    GraphicInfo graphicInfo = new GraphicInfo();
+    graphicInfo.setElement(new ActivitiListener());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(10.0d);
+    graphicInfo.setWidth(10.0d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(3.0d);
+
+    // Act
+    defaultProcessDiagramCanvas.drawErrorStartEvent("path", graphicInfo);
 
     // Assert
     Element root = defaultProcessDiagramCanvas.g.getRoot();
@@ -2533,55 +2596,6 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
    * Test {@link DefaultProcessDiagramCanvas#drawCatchingCompensateEvent(String, GraphicInfo,
    * boolean)} with {@code id}, {@code graphicInfo}, {@code isInterrupting}.
    *
-   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawCatchingCompensateEvent(String,
-   * GraphicInfo, boolean)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefaultProcessDiagramCanvas.drawCatchingCompensateEvent(String, GraphicInfo, boolean)"
-  })
-  public void testDrawCatchingCompensateEventWithIdGraphicInfoIsInterrupting5() {
-    // Arrange
-    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
-        new DefaultProcessDiagramCanvas(-5, 1, 1, 1);
-
-    GraphicInfo graphicInfo = new GraphicInfo();
-    graphicInfo.setElement(new ActivitiListener());
-    graphicInfo.setExpanded(true);
-    graphicInfo.setHeight(10.0d);
-    graphicInfo.setWidth(10.0d);
-    graphicInfo.setX(2.0d);
-    graphicInfo.setXmlColumnNumber(10);
-    graphicInfo.setXmlRowNumber(10);
-    graphicInfo.setY(3.0d);
-
-    // Act
-    defaultProcessDiagramCanvas.drawCatchingCompensateEvent("42", graphicInfo, true);
-
-    // Assert
-    Element root = defaultProcessDiagramCanvas.g.getRoot();
-    assertTrue(root instanceof GenericElementNS);
-    Node lastChild = root.getLastChild();
-    Node firstChild = lastChild.getFirstChild();
-    assertTrue(firstChild instanceof GenericElementNS);
-    assertTrue(lastChild instanceof GenericElementNS);
-    assertEquals(1, ((GenericElementNS) lastChild).getChildElementCount());
-    assertTrue(lastChild.hasChildNodes());
-    assertSame(firstChild, ((GenericElementNS) lastChild).getFirstElementChild());
-    assertSame(firstChild, ((GenericElementNS) lastChild).getLastElementChild());
-    assertSame(firstChild, ((GenericElementNS) lastChild).getXblFirstChild());
-    assertSame(firstChild, ((GenericElementNS) lastChild).getXblFirstElementChild());
-    assertSame(firstChild, ((GenericElementNS) lastChild).getXblLastChild());
-    assertSame(firstChild, ((GenericElementNS) lastChild).getXblLastElementChild());
-    assertSame(firstChild, lastChild.getLastChild());
-  }
-
-  /**
-   * Test {@link DefaultProcessDiagramCanvas#drawCatchingCompensateEvent(String, GraphicInfo,
-   * boolean)} with {@code id}, {@code graphicInfo}, {@code isInterrupting}.
-   *
    * <ul>
    *   <li>Given {@code -0.5}.
    * </ul>
@@ -2612,6 +2626,51 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
 
     // Act
     defaultProcessDiagramCanvas.drawCatchingCompensateEvent("42", graphicInfo, true);
+
+    // Assert
+    Element root = defaultProcessDiagramCanvas.g.getRoot();
+    assertTrue(root instanceof GenericElementNS);
+    Node lastChild = root.getLastChild();
+    assertTrue(lastChild instanceof GenericElementNS);
+    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
+    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
+  }
+
+  /**
+   * Test {@link DefaultProcessDiagramCanvas#drawCatchingCompensateEvent(String, GraphicInfo,
+   * boolean)} with {@code id}, {@code graphicInfo}, {@code isInterrupting}.
+   *
+   * <ul>
+   *   <li>Given {@code -0.5}.
+   *   <li>When {@code null}.
+   * </ul>
+   *
+   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawCatchingCompensateEvent(String,
+   * GraphicInfo, boolean)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void DefaultProcessDiagramCanvas.drawCatchingCompensateEvent(String, GraphicInfo, boolean)"
+  })
+  public void testDrawCatchingCompensateEventWithIdGraphicInfoIsInterrupting_given05_whenNull() {
+    // Arrange
+    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
+
+    GraphicInfo graphicInfo = new GraphicInfo();
+    graphicInfo.setElement(new ActivitiListener());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(-0.5d);
+    graphicInfo.setWidth(10.0d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(3.0d);
+
+    // Act
+    defaultProcessDiagramCanvas.drawCatchingCompensateEvent(null, graphicInfo, true);
 
     // Assert
     Element root = defaultProcessDiagramCanvas.g.getRoot();
@@ -2659,7 +2718,6 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     assertTrue(root instanceof GenericElementNS);
     Node lastChild = root.getLastChild();
     assertTrue(lastChild instanceof GenericElementNS);
-    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
     assertEquals(3, ((GenericElementNS) lastChild).getChildElementCount());
   }
 
@@ -2700,7 +2758,6 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     assertTrue(root instanceof GenericElementNS);
     Node lastChild = root.getLastChild();
     assertTrue(lastChild instanceof GenericElementNS);
-    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
     assertEquals(4, ((GenericElementNS) lastChild).getChildElementCount());
   }
 
@@ -2741,7 +2798,6 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     assertTrue(root instanceof GenericElementNS);
     Node lastChild = root.getLastChild();
     assertTrue(lastChild instanceof GenericElementNS);
-    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
     assertEquals(3, ((GenericElementNS) lastChild).getChildElementCount());
   }
 
@@ -2803,9 +2859,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     // Assert that nothing has changed
     Element root = defaultProcessDiagramCanvas.g.getRoot();
     assertTrue(root instanceof GenericElementNS);
-    Node lastChild = root.getLastChild();
-    assertTrue(lastChild instanceof GenericElementNS);
-    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
+    assertTrue(root.getLastChild() instanceof GenericElementNS);
   }
 
   /**
@@ -2825,13 +2879,12 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   public void testDrawCatchingCompensateEventWithIdNameGraphicInfoIsInterrupting5() {
     // Arrange
     DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
-        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
-    defaultProcessDiagramCanvas.drawSequenceflowWithoutArrow(4, 4, 4, 4, true, true);
+        new DefaultProcessDiagramCanvas(8, 1, 1, 1);
 
     GraphicInfo graphicInfo = new GraphicInfo();
     graphicInfo.setElement(new ActivitiListener());
     graphicInfo.setExpanded(true);
-    graphicInfo.setHeight(2.0d);
+    graphicInfo.setHeight(10.0d);
     graphicInfo.setWidth(10.0d);
     graphicInfo.setX(2.0d);
     graphicInfo.setXmlColumnNumber(10);
@@ -2842,14 +2895,11 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     defaultProcessDiagramCanvas.drawCatchingCompensateEvent("42", "Name", graphicInfo, true);
 
     // Assert
-    ProcessDiagramSVGGraphics2D processDiagramSVGGraphics2D = defaultProcessDiagramCanvas.g;
-    Element root = processDiagramSVGGraphics2D.getRoot();
+    Element root = defaultProcessDiagramCanvas.g.getRoot();
     assertTrue(root instanceof GenericElementNS);
     Node lastChild = root.getLastChild();
     assertTrue(lastChild instanceof GenericElementNS);
-    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
-    assertEquals(5, ((GenericElementNS) lastChild).getChildElementCount());
-    assertTrue(processDiagramSVGGraphics2D.getGraphicContext().isTransformStackValid());
+    assertEquals(3, ((GenericElementNS) lastChild).getChildElementCount());
   }
 
   /**
@@ -2889,7 +2939,6 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     assertTrue(root instanceof GenericElementNS);
     Node lastChild = root.getLastChild();
     assertTrue(lastChild instanceof GenericElementNS);
-    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
     assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
   }
 
@@ -2934,7 +2983,6 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     assertTrue(root instanceof GenericElementNS);
     Node lastChild = root.getLastChild();
     assertTrue(lastChild instanceof GenericElementNS);
-    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
     assertEquals(3, ((GenericElementNS) lastChild).getChildElementCount());
   }
 
@@ -3073,6 +3121,46 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   })
   public void testDrawCatchingTimerEventWithIdGraphicInfoIsInterrupting4() {
     // Arrange
+    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
+
+    GraphicInfo graphicInfo = new GraphicInfo();
+    graphicInfo.setElement(new ActivitiListener());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(-0.5d);
+    graphicInfo.setWidth(10.0d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(3.0d);
+
+    // Act
+    defaultProcessDiagramCanvas.drawCatchingTimerEvent("42", graphicInfo, true);
+
+    // Assert
+    Element root = defaultProcessDiagramCanvas.g.getRoot();
+    assertTrue(root instanceof GenericElementNS);
+    Node lastChild = root.getLastChild();
+    assertTrue(lastChild instanceof GenericElementNS);
+    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
+    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
+  }
+
+  /**
+   * Test {@link DefaultProcessDiagramCanvas#drawCatchingTimerEvent(String, GraphicInfo, boolean)}
+   * with {@code id}, {@code graphicInfo}, {@code isInterrupting}.
+   *
+   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawCatchingTimerEvent(String,
+   * GraphicInfo, boolean)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void DefaultProcessDiagramCanvas.drawCatchingTimerEvent(String, GraphicInfo, boolean)"
+  })
+  public void testDrawCatchingTimerEventWithIdGraphicInfoIsInterrupting5() {
+    // Arrange
     GraphicInfo graphicInfo = new GraphicInfo();
 
     Builder builderResult = Message.builder();
@@ -3125,8 +3213,71 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
    * Test {@link DefaultProcessDiagramCanvas#drawCatchingTimerEvent(String, GraphicInfo, boolean)}
    * with {@code id}, {@code graphicInfo}, {@code isInterrupting}.
    *
+   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawCatchingTimerEvent(String,
+   * GraphicInfo, boolean)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void DefaultProcessDiagramCanvas.drawCatchingTimerEvent(String, GraphicInfo, boolean)"
+  })
+  public void testDrawCatchingTimerEventWithIdGraphicInfoIsInterrupting6() {
+    // Arrange
+    GraphicInfo graphicInfo = new GraphicInfo();
+
+    Builder builderResult = Message.builder();
+
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
+    graphicInfo.setElement(
+        attributesResult
+            .extensionElements(new HashMap<>())
+            .id("42")
+            .itemRef("Item Ref")
+            .name("Name")
+            .xmlColumnNumber(10)
+            .xmlRowNumber(10)
+            .build());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(2.0d);
+    graphicInfo.setWidth(2.0d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(3.0d);
+
+    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
+    defaultProcessDiagramCanvas.drawTask("42", "timer", graphicInfo, true);
+
+    GraphicInfo graphicInfo2 = new GraphicInfo();
+    graphicInfo2.setElement(new ActivitiListener());
+    graphicInfo2.setExpanded(true);
+    graphicInfo2.setHeight(10.0d);
+    graphicInfo2.setWidth(-0.5d);
+    graphicInfo2.setX(2.0d);
+    graphicInfo2.setXmlColumnNumber(10);
+    graphicInfo2.setXmlRowNumber(10);
+    graphicInfo2.setY(3.0d);
+
+    // Act
+    defaultProcessDiagramCanvas.drawCatchingTimerEvent("42", graphicInfo2, true);
+
+    // Assert that nothing has changed
+    Element root = defaultProcessDiagramCanvas.g.getRoot();
+    assertTrue(root instanceof GenericElementNS);
+    Node lastChild = root.getLastChild();
+    assertTrue(lastChild instanceof GenericElementNS);
+    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
+    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
+  }
+
+  /**
+   * Test {@link DefaultProcessDiagramCanvas#drawCatchingTimerEvent(String, GraphicInfo, boolean)}
+   * with {@code id}, {@code graphicInfo}, {@code isInterrupting}.
+   *
    * <ul>
-   *   <li>Given {@code -0.5}.
+   *   <li>When {@link GraphicInfo} (default constructor) Y is two.
    * </ul>
    *
    * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawCatchingTimerEvent(String,
@@ -3138,25 +3289,48 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   @MethodsUnderTest({
     "void DefaultProcessDiagramCanvas.drawCatchingTimerEvent(String, GraphicInfo, boolean)"
   })
-  public void testDrawCatchingTimerEventWithIdGraphicInfoIsInterrupting_given05() {
+  public void testDrawCatchingTimerEventWithIdGraphicInfoIsInterrupting_whenGraphicInfoYIsTwo() {
     // Arrange
-    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
-        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
-
     GraphicInfo graphicInfo = new GraphicInfo();
-    graphicInfo.setElement(new ActivitiListener());
+
+    Builder builderResult = Message.builder();
+
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
+    graphicInfo.setElement(
+        attributesResult
+            .extensionElements(new HashMap<>())
+            .id("42")
+            .itemRef("Item Ref")
+            .name("Name")
+            .xmlColumnNumber(10)
+            .xmlRowNumber(10)
+            .build());
     graphicInfo.setExpanded(true);
-    graphicInfo.setHeight(-0.5d);
-    graphicInfo.setWidth(10.0d);
+    graphicInfo.setHeight(2.0d);
+    graphicInfo.setWidth(2.0d);
     graphicInfo.setX(2.0d);
     graphicInfo.setXmlColumnNumber(10);
     graphicInfo.setXmlRowNumber(10);
     graphicInfo.setY(3.0d);
 
-    // Act
-    defaultProcessDiagramCanvas.drawCatchingTimerEvent("42", graphicInfo, true);
+    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
+    defaultProcessDiagramCanvas.drawTask("42", "timer", graphicInfo, true);
 
-    // Assert
+    GraphicInfo graphicInfo2 = new GraphicInfo();
+    graphicInfo2.setElement(new ActivitiListener());
+    graphicInfo2.setExpanded(true);
+    graphicInfo2.setHeight(10.0d);
+    graphicInfo2.setWidth(-0.5d);
+    graphicInfo2.setX(2.0d);
+    graphicInfo2.setXmlColumnNumber(10);
+    graphicInfo2.setXmlRowNumber(10);
+    graphicInfo2.setY(2.0d);
+
+    // Act
+    defaultProcessDiagramCanvas.drawCatchingTimerEvent("42", graphicInfo2, true);
+
+    // Assert that nothing has changed
     Element root = defaultProcessDiagramCanvas.g.getRoot();
     assertTrue(root instanceof GenericElementNS);
     Node lastChild = root.getLastChild();
@@ -3201,7 +3375,6 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     assertTrue(root instanceof GenericElementNS);
     Node lastChild = root.getLastChild();
     assertTrue(lastChild instanceof GenericElementNS);
-    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
     assertEquals(3, ((GenericElementNS) lastChild).getChildElementCount());
   }
 
@@ -3241,7 +3414,6 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     assertTrue(root instanceof GenericElementNS);
     Node lastChild = root.getLastChild();
     assertTrue(lastChild instanceof GenericElementNS);
-    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
     assertEquals(4, ((GenericElementNS) lastChild).getChildElementCount());
   }
 
@@ -3281,7 +3453,6 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     assertTrue(root instanceof GenericElementNS);
     Node lastChild = root.getLastChild();
     assertTrue(lastChild instanceof GenericElementNS);
-    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
     assertEquals(3, ((GenericElementNS) lastChild).getChildElementCount());
   }
 
@@ -3342,9 +3513,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     // Assert that nothing has changed
     Element root = defaultProcessDiagramCanvas.g.getRoot();
     assertTrue(root instanceof GenericElementNS);
-    Node lastChild = root.getLastChild();
-    assertTrue(lastChild instanceof GenericElementNS);
-    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
+    assertTrue(root.getLastChild() instanceof GenericElementNS);
   }
 
   /**
@@ -3361,6 +3530,46 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     "void DefaultProcessDiagramCanvas.drawCatchingTimerEvent(String, String, GraphicInfo, boolean)"
   })
   public void testDrawCatchingTimerEventWithIdNameGraphicInfoIsInterrupting5() {
+    // Arrange
+    DefaultProcessDiagramCanvas initProcessDiagramCanvasResult =
+        DefaultProcessDiagramGenerator.initProcessDiagramCanvas(
+            new BpmnModel(), "timer", "timer", "timer");
+
+    GraphicInfo graphicInfo = new GraphicInfo();
+    graphicInfo.setElement(new ActivitiListener());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(10.0d);
+    graphicInfo.setWidth(10.0d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(3.0d);
+
+    // Act
+    initProcessDiagramCanvasResult.drawCatchingTimerEvent("42", null, graphicInfo, false);
+
+    // Assert
+    Element root = initProcessDiagramCanvasResult.g.getRoot();
+    assertTrue(root instanceof GenericElementNS);
+    Node lastChild = root.getLastChild();
+    assertTrue(lastChild instanceof GenericElementNS);
+    assertEquals(4, ((GenericElementNS) lastChild).getChildElementCount());
+  }
+
+  /**
+   * Test {@link DefaultProcessDiagramCanvas#drawCatchingTimerEvent(String, String, GraphicInfo,
+   * boolean)} with {@code id}, {@code name}, {@code graphicInfo}, {@code isInterrupting}.
+   *
+   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawCatchingTimerEvent(String, String,
+   * GraphicInfo, boolean)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void DefaultProcessDiagramCanvas.drawCatchingTimerEvent(String, String, GraphicInfo, boolean)"
+  })
+  public void testDrawCatchingTimerEventWithIdNameGraphicInfoIsInterrupting6() {
     // Arrange
     DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
         new DefaultProcessDiagramCanvas(1, 1, 1, 1);
@@ -3383,7 +3592,6 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     assertTrue(root instanceof GenericElementNS);
     Node lastChild = root.getLastChild();
     assertTrue(lastChild instanceof GenericElementNS);
-    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
     assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
   }
 
@@ -3427,51 +3635,6 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     assertTrue(root instanceof GenericElementNS);
     Node lastChild = root.getLastChild();
     assertTrue(lastChild instanceof GenericElementNS);
-    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
-    assertEquals(3, ((GenericElementNS) lastChild).getChildElementCount());
-  }
-
-  /**
-   * Test {@link DefaultProcessDiagramCanvas#drawCatchingTimerEvent(String, String, GraphicInfo,
-   * boolean)} with {@code id}, {@code name}, {@code graphicInfo}, {@code isInterrupting}.
-   *
-   * <ul>
-   *   <li>When {@code UTF-8}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawCatchingTimerEvent(String, String,
-   * GraphicInfo, boolean)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefaultProcessDiagramCanvas.drawCatchingTimerEvent(String, String, GraphicInfo, boolean)"
-  })
-  public void testDrawCatchingTimerEventWithIdNameGraphicInfoIsInterrupting_whenUtf8() {
-    // Arrange
-    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
-        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
-
-    GraphicInfo graphicInfo = new GraphicInfo();
-    graphicInfo.setElement(new ActivitiListener());
-    graphicInfo.setExpanded(true);
-    graphicInfo.setHeight(2.0d);
-    graphicInfo.setWidth(10.0d);
-    graphicInfo.setX(2.0d);
-    graphicInfo.setXmlColumnNumber(10);
-    graphicInfo.setXmlRowNumber(10);
-    graphicInfo.setY(3.0d);
-
-    // Act
-    defaultProcessDiagramCanvas.drawCatchingTimerEvent("UTF-8", "Name", graphicInfo, true);
-
-    // Assert
-    Element root = defaultProcessDiagramCanvas.g.getRoot();
-    assertTrue(root instanceof GenericElementNS);
-    Node lastChild = root.getLastChild();
-    assertTrue(lastChild instanceof GenericElementNS);
-    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
     assertEquals(3, ((GenericElementNS) lastChild).getChildElementCount());
   }
 
@@ -3511,6 +3674,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     assertTrue(root instanceof GenericElementNS);
     Node lastChild = root.getLastChild();
     assertTrue(lastChild instanceof GenericElementNS);
+    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
     assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
   }
 
@@ -3550,6 +3714,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     assertTrue(root instanceof GenericElementNS);
     Node lastChild = root.getLastChild();
     assertTrue(lastChild instanceof GenericElementNS);
+    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
     assertEquals(4, ((GenericElementNS) lastChild).getChildElementCount());
   }
 
@@ -3589,6 +3754,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     assertTrue(root instanceof GenericElementNS);
     Node lastChild = root.getLastChild();
     assertTrue(lastChild instanceof GenericElementNS);
+    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
     assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
   }
 
@@ -3651,46 +3817,8 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     assertTrue(root instanceof GenericElementNS);
     Node lastChild = root.getLastChild();
     assertTrue(lastChild instanceof GenericElementNS);
+    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
     assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
-  }
-
-  /**
-   * Test {@link DefaultProcessDiagramCanvas#drawCatchingErrorEvent(String, GraphicInfo, boolean)}
-   * with {@code id}, {@code graphicInfo}, {@code isInterrupting}.
-   *
-   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawCatchingErrorEvent(String,
-   * GraphicInfo, boolean)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefaultProcessDiagramCanvas.drawCatchingErrorEvent(String, GraphicInfo, boolean)"
-  })
-  public void testDrawCatchingErrorEventWithIdGraphicInfoIsInterrupting5() {
-    // Arrange
-    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
-        new DefaultProcessDiagramCanvas(1, 1, 1, 4);
-
-    GraphicInfo graphicInfo = new GraphicInfo();
-    graphicInfo.setElement(new ActivitiListener());
-    graphicInfo.setExpanded(true);
-    graphicInfo.setHeight(10.0d);
-    graphicInfo.setWidth(10.0d);
-    graphicInfo.setX(2.0d);
-    graphicInfo.setXmlColumnNumber(10);
-    graphicInfo.setXmlRowNumber(10);
-    graphicInfo.setY(3.0d);
-
-    // Act
-    defaultProcessDiagramCanvas.drawCatchingErrorEvent("42", graphicInfo, false);
-
-    // Assert
-    Element root = defaultProcessDiagramCanvas.g.getRoot();
-    assertTrue(root instanceof GenericElementNS);
-    Node lastChild = root.getLastChild();
-    assertTrue(lastChild instanceof GenericElementNS);
-    assertEquals(4, ((GenericElementNS) lastChild).getChildElementCount());
   }
 
   /**
@@ -3733,6 +3861,51 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     assertTrue(root instanceof GenericElementNS);
     Node lastChild = root.getLastChild();
     assertTrue(lastChild instanceof GenericElementNS);
+    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
+    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
+  }
+
+  /**
+   * Test {@link DefaultProcessDiagramCanvas#drawCatchingErrorEvent(String, GraphicInfo, boolean)}
+   * with {@code id}, {@code graphicInfo}, {@code isInterrupting}.
+   *
+   * <ul>
+   *   <li>Given {@link Double#NaN}.
+   * </ul>
+   *
+   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawCatchingErrorEvent(String,
+   * GraphicInfo, boolean)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void DefaultProcessDiagramCanvas.drawCatchingErrorEvent(String, GraphicInfo, boolean)"
+  })
+  public void testDrawCatchingErrorEventWithIdGraphicInfoIsInterrupting_givenNaN() {
+    // Arrange
+    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
+
+    GraphicInfo graphicInfo = new GraphicInfo();
+    graphicInfo.setElement(new ActivitiListener());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(2.0d);
+    graphicInfo.setWidth(Double.NaN);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(3.0d);
+
+    // Act
+    defaultProcessDiagramCanvas.drawCatchingErrorEvent("42", graphicInfo, true);
+
+    // Assert
+    Element root = defaultProcessDiagramCanvas.g.getRoot();
+    assertTrue(root instanceof GenericElementNS);
+    Node lastChild = root.getLastChild();
+    assertTrue(lastChild instanceof GenericElementNS);
+    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
     assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
   }
 
@@ -4063,7 +4236,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     GraphicInfo graphicInfo = new GraphicInfo();
     graphicInfo.setElement(new ActivitiListener());
     graphicInfo.setExpanded(true);
-    graphicInfo.setHeight(10.0d);
+    graphicInfo.setHeight(2.0d);
     graphicInfo.setWidth(10.0d);
     graphicInfo.setX(2.0d);
     graphicInfo.setXmlColumnNumber(10);
@@ -4071,7 +4244,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     graphicInfo.setY(3.0d);
 
     // Act
-    defaultProcessDiagramCanvas.drawCatchingSignalEvent("42", graphicInfo, false);
+    defaultProcessDiagramCanvas.drawCatchingSignalEvent("42", graphicInfo, true);
 
     // Assert
     Element root = defaultProcessDiagramCanvas.g.getRoot();
@@ -4079,7 +4252,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     Node lastChild = root.getLastChild();
     assertTrue(lastChild instanceof GenericElementNS);
     assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
-    assertEquals(4, ((GenericElementNS) lastChild).getChildElementCount());
+    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
   }
 
   /**
@@ -4099,11 +4272,19 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     // Arrange
     DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
         new DefaultProcessDiagramCanvas(1, 1, 1, 1);
+    defaultProcessDiagramCanvas.drawConnection(
+        new int[] {4, 2, 4, 2},
+        new int[] {4, 2, 4, 2},
+        true,
+        true,
+        "signal",
+        AssociationDirection.NONE,
+        true);
 
     GraphicInfo graphicInfo = new GraphicInfo();
     graphicInfo.setElement(new ActivitiListener());
     graphicInfo.setExpanded(true);
-    graphicInfo.setHeight(2.0d);
+    graphicInfo.setHeight(10.0d);
     graphicInfo.setWidth(10.0d);
     graphicInfo.setX(2.0d);
     graphicInfo.setXmlColumnNumber(10);
@@ -4114,12 +4295,14 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     defaultProcessDiagramCanvas.drawCatchingSignalEvent("42", graphicInfo, true);
 
     // Assert
-    Element root = defaultProcessDiagramCanvas.g.getRoot();
+    ProcessDiagramSVGGraphics2D processDiagramSVGGraphics2D = defaultProcessDiagramCanvas.g;
+    Element root = processDiagramSVGGraphics2D.getRoot();
     assertTrue(root instanceof GenericElementNS);
     Node lastChild = root.getLastChild();
     assertTrue(lastChild instanceof GenericElementNS);
     assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
-    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
+    assertEquals(5, ((GenericElementNS) lastChild).getChildElementCount());
+    assertTrue(processDiagramSVGGraphics2D.getGraphicContext().isTransformStackValid());
   }
 
   /**
@@ -4202,12 +4385,12 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     // Arrange
     DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
         new DefaultProcessDiagramCanvas(1, 1, 1, 1);
-    defaultProcessDiagramCanvas.drawMultiInstanceMarker(true, 2, 3, 1, 4);
+    defaultProcessDiagramCanvas.drawSequenceflowWithoutArrow(4, 4, 4, 4, true, true);
 
     GraphicInfo graphicInfo = new GraphicInfo();
     graphicInfo.setElement(new ActivitiListener());
     graphicInfo.setExpanded(true);
-    graphicInfo.setHeight(2.0d);
+    graphicInfo.setHeight(-0.5d);
     graphicInfo.setWidth(10.0d);
     graphicInfo.setX(2.0d);
     graphicInfo.setXmlColumnNumber(10);
@@ -4217,13 +4400,15 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     // Act
     defaultProcessDiagramCanvas.drawCatchingSignalEvent("42", graphicInfo, true);
 
-    // Assert that nothing has changed
-    Element root = defaultProcessDiagramCanvas.g.getRoot();
+    // Assert
+    ProcessDiagramSVGGraphics2D processDiagramSVGGraphics2D = defaultProcessDiagramCanvas.g;
+    Element root = processDiagramSVGGraphics2D.getRoot();
     assertTrue(root instanceof GenericElementNS);
     Node lastChild = root.getLastChild();
     assertTrue(lastChild instanceof GenericElementNS);
     assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
-    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
+    assertEquals(4, ((GenericElementNS) lastChild).getChildElementCount());
+    assertTrue(processDiagramSVGGraphics2D.getGraphicContext().isTransformStackValid());
   }
 
   /**
@@ -4268,6 +4453,50 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     assertTrue(lastChild instanceof GenericElementNS);
     assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
     assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
+  }
+
+  /**
+   * Test {@link DefaultProcessDiagramCanvas#drawCatchingSignalEvent(String, GraphicInfo, boolean)}
+   * with {@code id}, {@code graphicInfo}, {@code isInterrupting}.
+   *
+   * <ul>
+   *   <li>When {@code false}.
+   * </ul>
+   *
+   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawCatchingSignalEvent(String,
+   * GraphicInfo, boolean)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void DefaultProcessDiagramCanvas.drawCatchingSignalEvent(String, GraphicInfo, boolean)"
+  })
+  public void testDrawCatchingSignalEventWithIdGraphicInfoIsInterrupting_whenFalse() {
+    // Arrange
+    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
+
+    GraphicInfo graphicInfo = new GraphicInfo();
+    graphicInfo.setElement(new ActivitiListener());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(10.0d);
+    graphicInfo.setWidth(10.0d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(3.0d);
+
+    // Act
+    defaultProcessDiagramCanvas.drawCatchingSignalEvent("42", graphicInfo, false);
+
+    // Assert
+    Element root = defaultProcessDiagramCanvas.g.getRoot();
+    assertTrue(root instanceof GenericElementNS);
+    Node lastChild = root.getLastChild();
+    assertTrue(lastChild instanceof GenericElementNS);
+    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
+    assertEquals(4, ((GenericElementNS) lastChild).getChildElementCount());
   }
 
   /**
@@ -5030,6 +5259,50 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   }
 
   /**
+   * Test {@link DefaultProcessDiagramCanvas#drawCatchingMessageEvent(String, String, GraphicInfo,
+   * boolean)} with {@code id}, {@code name}, {@code graphicInfo}, {@code isInterrupting}.
+   *
+   * <ul>
+   *   <li>Given four.
+   * </ul>
+   *
+   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawCatchingMessageEvent(String,
+   * String, GraphicInfo, boolean)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void DefaultProcessDiagramCanvas.drawCatchingMessageEvent(String, String, GraphicInfo, boolean)"
+  })
+  public void testDrawCatchingMessageEventWithIdNameGraphicInfoIsInterrupting_givenFour() {
+    // Arrange
+    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
+
+    GraphicInfo graphicInfo = new GraphicInfo();
+    graphicInfo.setElement(new ActivitiListener());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(10.0d);
+    graphicInfo.setWidth(10.0d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(4);
+    graphicInfo.setY(3.0d);
+
+    // Act
+    defaultProcessDiagramCanvas.drawCatchingMessageEvent("42", "Name", graphicInfo, true);
+
+    // Assert
+    Element root = defaultProcessDiagramCanvas.g.getRoot();
+    assertTrue(root instanceof GenericElementNS);
+    Node lastChild = root.getLastChild();
+    assertTrue(lastChild instanceof GenericElementNS);
+    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
+    assertEquals(3, ((GenericElementNS) lastChild).getChildElementCount());
+  }
+
+  /**
    * Test {@link DefaultProcessDiagramCanvas#drawThrowingCompensateEvent(String, GraphicInfo)}.
    *
    * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawThrowingCompensateEvent(String,
@@ -5094,54 +5367,6 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   /**
    * Test {@link DefaultProcessDiagramCanvas#drawThrowingCompensateEvent(String, GraphicInfo)}.
    *
-   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawThrowingCompensateEvent(String,
-   * GraphicInfo)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefaultProcessDiagramCanvas.drawThrowingCompensateEvent(String, GraphicInfo)"
-  })
-  public void testDrawThrowingCompensateEvent2() {
-    // Arrange
-    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
-        new DefaultProcessDiagramCanvas(Integer.MIN_VALUE, 1, 1, 1);
-
-    GraphicInfo graphicInfo = new GraphicInfo();
-    graphicInfo.setElement(new ActivitiListener());
-    graphicInfo.setExpanded(true);
-    graphicInfo.setHeight(2.0d);
-    graphicInfo.setWidth(10.0d);
-    graphicInfo.setX(2.0d);
-    graphicInfo.setXmlColumnNumber(10);
-    graphicInfo.setXmlRowNumber(10);
-    graphicInfo.setY(3.0d);
-
-    // Act
-    defaultProcessDiagramCanvas.drawThrowingCompensateEvent("42", graphicInfo);
-
-    // Assert
-    Element root = defaultProcessDiagramCanvas.g.getRoot();
-    assertTrue(root instanceof GenericElementNS);
-    Node lastChild = root.getLastChild();
-    Node firstChild = lastChild.getFirstChild();
-    assertTrue(firstChild instanceof GenericElementNS);
-    assertTrue(lastChild instanceof GenericElementNS);
-    assertEquals(1, ((GenericElementNS) lastChild).getChildElementCount());
-    assertTrue(lastChild.hasChildNodes());
-    assertSame(firstChild, ((GenericElementNS) lastChild).getFirstElementChild());
-    assertSame(firstChild, ((GenericElementNS) lastChild).getLastElementChild());
-    assertSame(firstChild, ((GenericElementNS) lastChild).getXblFirstChild());
-    assertSame(firstChild, ((GenericElementNS) lastChild).getXblFirstElementChild());
-    assertSame(firstChild, ((GenericElementNS) lastChild).getXblLastChild());
-    assertSame(firstChild, ((GenericElementNS) lastChild).getXblLastElementChild());
-    assertSame(firstChild, lastChild.getLastChild());
-  }
-
-  /**
-   * Test {@link DefaultProcessDiagramCanvas#drawThrowingCompensateEvent(String, GraphicInfo)}.
-   *
    * <ul>
    *   <li>Given {@code -0.5}.
    *   <li>When {@link GraphicInfo} (default constructor) Height is {@code -0.5}.
@@ -5168,6 +5393,50 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     graphicInfo.setWidth(10.0d);
     graphicInfo.setX(2.0d);
     graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(3.0d);
+
+    // Act
+    defaultProcessDiagramCanvas.drawThrowingCompensateEvent("42", graphicInfo);
+
+    // Assert
+    Element root = defaultProcessDiagramCanvas.g.getRoot();
+    assertTrue(root instanceof GenericElementNS);
+    Node lastChild = root.getLastChild();
+    assertTrue(lastChild instanceof GenericElementNS);
+    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
+    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
+  }
+
+  /**
+   * Test {@link DefaultProcessDiagramCanvas#drawThrowingCompensateEvent(String, GraphicInfo)}.
+   *
+   * <ul>
+   *   <li>Given zero.
+   *   <li>When {@link GraphicInfo} (default constructor) XmlColumnNumber is zero.
+   * </ul>
+   *
+   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawThrowingCompensateEvent(String,
+   * GraphicInfo)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void DefaultProcessDiagramCanvas.drawThrowingCompensateEvent(String, GraphicInfo)"
+  })
+  public void testDrawThrowingCompensateEvent_givenZero_whenGraphicInfoXmlColumnNumberIsZero() {
+    // Arrange
+    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
+
+    GraphicInfo graphicInfo = new GraphicInfo();
+    graphicInfo.setElement(new ActivitiListener());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(2.0d);
+    graphicInfo.setWidth(10.0d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(0);
     graphicInfo.setXmlRowNumber(10);
     graphicInfo.setY(3.0d);
 
@@ -5334,45 +5603,6 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   /**
    * Test {@link DefaultProcessDiagramCanvas#drawThrowingSignalEvent(String, GraphicInfo)}.
    *
-   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawThrowingSignalEvent(String,
-   * GraphicInfo)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefaultProcessDiagramCanvas.drawThrowingSignalEvent(String, GraphicInfo)"
-  })
-  public void testDrawThrowingSignalEvent2() {
-    // Arrange
-    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
-        new DefaultProcessDiagramCanvas(0, 1, 1, 1);
-
-    GraphicInfo graphicInfo = new GraphicInfo();
-    graphicInfo.setElement(new ActivitiListener());
-    graphicInfo.setExpanded(true);
-    graphicInfo.setHeight(10.0d);
-    graphicInfo.setWidth(10.0d);
-    graphicInfo.setX(2.0d);
-    graphicInfo.setXmlColumnNumber(10);
-    graphicInfo.setXmlRowNumber(10);
-    graphicInfo.setY(3.0d);
-
-    // Act
-    defaultProcessDiagramCanvas.drawThrowingSignalEvent("42", graphicInfo);
-
-    // Assert
-    Element root = defaultProcessDiagramCanvas.g.getRoot();
-    assertTrue(root instanceof GenericElementNS);
-    Node lastChild = root.getLastChild();
-    assertTrue(lastChild instanceof GenericElementNS);
-    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
-    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
-  }
-
-  /**
-   * Test {@link DefaultProcessDiagramCanvas#drawThrowingSignalEvent(String, GraphicInfo)}.
-   *
    * <ul>
    *   <li>Given {@code -0.5}.
    *   <li>When {@link GraphicInfo} (default constructor) Height is {@code -0.5}.
@@ -5400,6 +5630,50 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     graphicInfo.setX(2.0d);
     graphicInfo.setXmlColumnNumber(10);
     graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(3.0d);
+
+    // Act
+    defaultProcessDiagramCanvas.drawThrowingSignalEvent("42", graphicInfo);
+
+    // Assert
+    Element root = defaultProcessDiagramCanvas.g.getRoot();
+    assertTrue(root instanceof GenericElementNS);
+    Node lastChild = root.getLastChild();
+    assertTrue(lastChild instanceof GenericElementNS);
+    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
+    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
+  }
+
+  /**
+   * Test {@link DefaultProcessDiagramCanvas#drawThrowingSignalEvent(String, GraphicInfo)}.
+   *
+   * <ul>
+   *   <li>Given {@code -0.5}.
+   *   <li>When {@link GraphicInfo} (default constructor) XmlRowNumber is two.
+   * </ul>
+   *
+   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawThrowingSignalEvent(String,
+   * GraphicInfo)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void DefaultProcessDiagramCanvas.drawThrowingSignalEvent(String, GraphicInfo)"
+  })
+  public void testDrawThrowingSignalEvent_given05_whenGraphicInfoXmlRowNumberIsTwo() {
+    // Arrange
+    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
+
+    GraphicInfo graphicInfo = new GraphicInfo();
+    graphicInfo.setElement(new ActivitiListener());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(-0.5d);
+    graphicInfo.setWidth(10.0d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(2);
     graphicInfo.setY(3.0d);
 
     // Act
@@ -5762,6 +6036,58 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   }
 
   /**
+   * Test {@link DefaultProcessDiagramCanvas#drawSequenceflow(int, int, int, int, boolean)} with
+   * {@code srcX}, {@code srcY}, {@code targetX}, {@code targetY}, {@code conditional}.
+   *
+   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawSequenceflow(int, int, int, int,
+   * boolean)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void DefaultProcessDiagramCanvas.drawSequenceflow(int, int, int, int, boolean)"
+  })
+  public void testDrawSequenceflowWithSrcXSrcYTargetXTargetYConditional3() {
+    // Arrange
+    GraphicInfo graphicInfo = new GraphicInfo();
+
+    Builder builderResult = Message.builder();
+
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
+    graphicInfo.setElement(
+        attributesResult
+            .extensionElements(new HashMap<>())
+            .id("42")
+            .itemRef("Item Ref")
+            .name("Name")
+            .xmlColumnNumber(10)
+            .xmlRowNumber(10)
+            .build());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(-0.5d);
+    graphicInfo.setWidth(1.5707963267948966d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(3.0d);
+
+    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
+    defaultProcessDiagramCanvas.drawTask("42", "Name", graphicInfo, true);
+
+    // Act
+    defaultProcessDiagramCanvas.drawSequenceflow(1, 1, 1, 1, true);
+
+    // Assert that nothing has changed
+    Element root = defaultProcessDiagramCanvas.g.getRoot();
+    assertTrue(root instanceof GenericElementNS);
+    Node lastChild = root.getLastChild();
+    assertTrue(lastChild instanceof GenericElementNS);
+    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
+  }
+
+  /**
    * Test {@link DefaultProcessDiagramCanvas#drawSequenceflow(int, int, int, int, boolean, boolean)}
    * with {@code srcX}, {@code srcY}, {@code targetX}, {@code targetY}, {@code conditional}, {@code
    * highLighted}.
@@ -5881,62 +6207,6 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
    * {@code srcX}, {@code srcY}, {@code targetX}, {@code targetY}, {@code conditional}.
    *
    * <ul>
-   *   <li>When ten.
-   * </ul>
-   *
-   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawSequenceflow(int, int, int, int,
-   * boolean)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefaultProcessDiagramCanvas.drawSequenceflow(int, int, int, int, boolean)"
-  })
-  public void testDrawSequenceflowWithSrcXSrcYTargetXTargetYConditional_whenTen() {
-    // Arrange
-    GraphicInfo graphicInfo = new GraphicInfo();
-
-    Builder builderResult = Message.builder();
-
-    Builder attributesResult = builderResult.attributes(new HashMap<>());
-    graphicInfo.setElement(
-        attributesResult
-            .extensionElements(new HashMap<>())
-            .id("42")
-            .itemRef("Item Ref")
-            .name("Name")
-            .xmlColumnNumber(10)
-            .xmlRowNumber(10)
-            .build());
-    graphicInfo.setExpanded(true);
-    graphicInfo.setHeight(1.5707963267948966d);
-    graphicInfo.setWidth(1.5707963267948966d);
-    graphicInfo.setX(2.0d);
-    graphicInfo.setXmlColumnNumber(10);
-    graphicInfo.setXmlRowNumber(10);
-    graphicInfo.setY(3.0d);
-
-    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
-        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
-    defaultProcessDiagramCanvas.drawTask("42", "Name", graphicInfo, true);
-
-    // Act
-    defaultProcessDiagramCanvas.drawSequenceflow(10, 1, 1, 1, true);
-
-    // Assert that nothing has changed
-    Element root = defaultProcessDiagramCanvas.g.getRoot();
-    assertTrue(root instanceof GenericElementNS);
-    Node lastChild = root.getLastChild();
-    assertTrue(lastChild instanceof GenericElementNS);
-    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
-  }
-
-  /**
-   * Test {@link DefaultProcessDiagramCanvas#drawSequenceflow(int, int, int, int, boolean)} with
-   * {@code srcX}, {@code srcY}, {@code targetX}, {@code targetY}, {@code conditional}.
-   *
-   * <ul>
    *   <li>When {@code true}.
    * </ul>
    *
@@ -6025,7 +6295,6 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     assertTrue(root instanceof GenericElementNS);
     Node lastChild = root.getLastChild();
     assertTrue(lastChild instanceof GenericElementNS);
-    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
     assertEquals(3, ((GenericElementNS) lastChild).getChildElementCount());
   }
 
@@ -6044,6 +6313,38 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     "void DefaultProcessDiagramCanvas.drawSequenceflow(int[], int[], boolean, boolean, boolean)"
   })
   public void testDrawSequenceflowWithXPointsYPointsConditionalIsDefaultHighLighted3() {
+    // Arrange
+    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(1, 1, 1, 1, "sequenceFlow", "sequenceFlow", "sequenceFlow");
+
+    // Act
+    defaultProcessDiagramCanvas.drawSequenceflow(
+        new int[] {1, -5, 1, -5}, new int[] {1, -5, 1, -5}, true, true, true);
+
+    // Assert
+    Element root = defaultProcessDiagramCanvas.g.getRoot();
+    assertTrue(root instanceof GenericElementNS);
+    Node lastChild = root.getLastChild();
+    assertTrue(lastChild instanceof GenericElementNS);
+    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
+    assertEquals(5, ((GenericElementNS) lastChild).getChildElementCount());
+  }
+
+  /**
+   * Test {@link DefaultProcessDiagramCanvas#drawSequenceflow(int[], int[], boolean, boolean,
+   * boolean)} with {@code xPoints}, {@code yPoints}, {@code conditional}, {@code isDefault}, {@code
+   * highLighted}.
+   *
+   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawSequenceflow(int[], int[],
+   * boolean, boolean, boolean)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void DefaultProcessDiagramCanvas.drawSequenceflow(int[], int[], boolean, boolean, boolean)"
+  })
+  public void testDrawSequenceflowWithXPointsYPointsConditionalIsDefaultHighLighted4() {
     // Arrange
     GraphicInfo graphicInfo = new GraphicInfo();
 
@@ -6068,8 +6369,8 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     graphicInfo.setY(3.0d);
 
     DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
-        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
-    defaultProcessDiagramCanvas.drawExclusiveGateway("42", graphicInfo);
+        new DefaultProcessDiagramCanvas(1, 1, 1, 1, "sequenceFlow", "sequenceFlow", "sequenceFlow");
+    defaultProcessDiagramCanvas.drawInclusiveGateway("42", graphicInfo);
 
     // Act
     defaultProcessDiagramCanvas.drawSequenceflow(
@@ -6397,17 +6698,15 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
         new DefaultProcessDiagramCanvas(1, 1, 1, 1);
 
     // Act
-    defaultProcessDiagramCanvas.drawSequenceflowWithoutArrow(1, 1, 1, 1, true);
+    defaultProcessDiagramCanvas.drawSequenceflowWithoutArrow(1, 1, 1, 1, false);
 
     // Assert
-    ProcessDiagramSVGGraphics2D processDiagramSVGGraphics2D = defaultProcessDiagramCanvas.g;
-    Element root = processDiagramSVGGraphics2D.getRoot();
+    Element root = defaultProcessDiagramCanvas.g.getRoot();
     assertTrue(root instanceof GenericElementNS);
     Node lastChild = root.getLastChild();
     assertTrue(lastChild instanceof GenericElementNS);
     assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
-    assertEquals(3, ((GenericElementNS) lastChild).getChildElementCount());
-    assertFalse(processDiagramSVGGraphics2D.getGraphicContext().isTransformStackValid());
+    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
   }
 
   /**
@@ -6426,21 +6725,41 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   })
   public void testDrawSequenceflowWithoutArrowWithSrcXSrcYTargetXTargetYConditional2() {
     // Arrange
+    GraphicInfo graphicInfo = new GraphicInfo();
+
+    Builder builderResult = Message.builder();
+
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
+    graphicInfo.setElement(
+        attributesResult
+            .extensionElements(new HashMap<>())
+            .id("42")
+            .itemRef("Item Ref")
+            .name("Name")
+            .xmlColumnNumber(10)
+            .xmlRowNumber(10)
+            .build());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(1.5707963267948966d);
+    graphicInfo.setWidth(1.5707963267948966d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(3.0d);
+
     DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
         new DefaultProcessDiagramCanvas(1, 1, 1, 1);
+    defaultProcessDiagramCanvas.drawTask("42", "Name", graphicInfo, true);
 
     // Act
-    defaultProcessDiagramCanvas.drawSequenceflowWithoutArrow(1, 1, 1, 1, false);
+    defaultProcessDiagramCanvas.drawSequenceflowWithoutArrow(1, 1, 1, 1, true);
 
-    // Assert
-    ProcessDiagramSVGGraphics2D processDiagramSVGGraphics2D = defaultProcessDiagramCanvas.g;
-    Element root = processDiagramSVGGraphics2D.getRoot();
+    // Assert that nothing has changed
+    Element root = defaultProcessDiagramCanvas.g.getRoot();
     assertTrue(root instanceof GenericElementNS);
     Node lastChild = root.getLastChild();
     assertTrue(lastChild instanceof GenericElementNS);
     assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
-    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
-    assertTrue(processDiagramSVGGraphics2D.getGraphicContext().isTransformStackValid());
   }
 
   /**
@@ -6459,12 +6778,12 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   })
   public void testDrawSequenceflowWithoutArrowWithSrcXSrcYTargetXTargetYConditional3() {
     // Arrange
-    GraphicInfo graphicInfo = new GraphicInfo();
+    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
+    attributes.putAll(new HashMap<>());
+    attributes.putAll(new HashMap<>());
 
-    Builder builderResult = Message.builder();
-
-    Builder attributesResult = builderResult.attributes(new HashMap<>());
-    graphicInfo.setElement(
+    Builder attributesResult = Message.builder().attributes(attributes);
+    Message element =
         attributesResult
             .extensionElements(new HashMap<>())
             .id("42")
@@ -6472,7 +6791,10 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
             .name("Name")
             .xmlColumnNumber(10)
             .xmlRowNumber(10)
-            .build());
+            .build();
+
+    GraphicInfo graphicInfo = new GraphicInfo();
+    graphicInfo.setElement(element);
     graphicInfo.setExpanded(true);
     graphicInfo.setHeight(1.5707963267948966d);
     graphicInfo.setWidth(1.5707963267948966d);
@@ -6519,11 +6841,14 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     defaultProcessDiagramCanvas.drawSequenceflowWithoutArrow(1, 1, 1, 1, true, true);
 
     // Assert
-    Element root = defaultProcessDiagramCanvas.g.getRoot();
+    ProcessDiagramSVGGraphics2D processDiagramSVGGraphics2D = defaultProcessDiagramCanvas.g;
+    Element root = processDiagramSVGGraphics2D.getRoot();
     assertTrue(root instanceof GenericElementNS);
     Node lastChild = root.getLastChild();
     assertTrue(lastChild instanceof GenericElementNS);
     assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
+    assertEquals(3, ((GenericElementNS) lastChild).getChildElementCount());
+    assertFalse(processDiagramSVGGraphics2D.getGraphicContext().isTransformStackValid());
   }
 
   /**
@@ -6549,12 +6874,14 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     defaultProcessDiagramCanvas.drawSequenceflowWithoutArrow(1, 1, 1, 1, false, false);
 
     // Assert
-    Element root = defaultProcessDiagramCanvas.g.getRoot();
+    ProcessDiagramSVGGraphics2D processDiagramSVGGraphics2D = defaultProcessDiagramCanvas.g;
+    Element root = processDiagramSVGGraphics2D.getRoot();
     assertTrue(root instanceof GenericElementNS);
     Node lastChild = root.getLastChild();
     assertTrue(lastChild instanceof GenericElementNS);
     assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
     assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
+    assertTrue(processDiagramSVGGraphics2D.getGraphicContext().isTransformStackValid());
   }
 
   /**
@@ -6612,50 +6939,31 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
 
   /**
    * Test {@link DefaultProcessDiagramCanvas#drawSequenceflowWithoutArrow(int, int, int, int,
-   * boolean, boolean)} with {@code srcX}, {@code srcY}, {@code targetX}, {@code targetY}, {@code
-   * conditional}, {@code highLighted}.
+   * boolean)} with {@code srcX}, {@code srcY}, {@code targetX}, {@code targetY}, {@code
+   * conditional}.
+   *
+   * <ul>
+   *   <li>When {@code true}.
+   * </ul>
    *
    * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawSequenceflowWithoutArrow(int, int,
-   * int, int, boolean, boolean)}
+   * int, int, boolean)}
    */
   @Test
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({
-    "void DefaultProcessDiagramCanvas.drawSequenceflowWithoutArrow(int, int, int, int, boolean, boolean)"
+    "void DefaultProcessDiagramCanvas.drawSequenceflowWithoutArrow(int, int, int, int, boolean)"
   })
-  public void testDrawSequenceflowWithoutArrowWithSrcXSrcYTargetXTargetYConditionalHighLighted4() {
+  public void testDrawSequenceflowWithoutArrowWithSrcXSrcYTargetXTargetYConditional_whenTrue() {
     // Arrange
-    GraphicInfo graphicInfo = new GraphicInfo();
-
-    Builder builderResult = Message.builder();
-
-    Builder attributesResult = builderResult.attributes(new HashMap<>());
-    graphicInfo.setElement(
-        attributesResult
-            .extensionElements(new HashMap<>())
-            .id("42")
-            .itemRef(null)
-            .name("Name")
-            .xmlColumnNumber(10)
-            .xmlRowNumber(10)
-            .build());
-    graphicInfo.setExpanded(true);
-    graphicInfo.setHeight(1.5707963267948966d);
-    graphicInfo.setWidth(1.5707963267948966d);
-    graphicInfo.setX(2.0d);
-    graphicInfo.setXmlColumnNumber(10);
-    graphicInfo.setXmlRowNumber(10);
-    graphicInfo.setY(3.0d);
-
     DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
         new DefaultProcessDiagramCanvas(1, 1, 1, 1);
-    defaultProcessDiagramCanvas.drawTask("42", "Name", graphicInfo, true);
 
     // Act
-    defaultProcessDiagramCanvas.drawSequenceflowWithoutArrow(1, 1, 1, 1, true, true);
+    defaultProcessDiagramCanvas.drawSequenceflowWithoutArrow(1, 1, 1, 1, true);
 
-    // Assert that nothing has changed
+    // Assert
     Element root = defaultProcessDiagramCanvas.g.getRoot();
     assertTrue(root instanceof GenericElementNS);
     Node lastChild = root.getLastChild();
@@ -6719,59 +7027,6 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     defaultProcessDiagramCanvas.drawTask(icon, "42", "Name", graphicInfo2);
 
     // Assert that nothing has changed
-    Element root = defaultProcessDiagramCanvas.g.getRoot();
-    assertTrue(root instanceof GenericElementNS);
-    Node lastChild = root.getLastChild();
-    assertTrue(lastChild instanceof GenericElementNS);
-    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
-    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
-  }
-
-  /**
-   * Test {@link DefaultProcessDiagramCanvas#drawTask(TaskIconType, String, String, GraphicInfo)}
-   * with {@code icon}, {@code id}, {@code name}, {@code graphicInfo}.
-   *
-   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawTask(TaskIconType, String, String,
-   * GraphicInfo)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefaultProcessDiagramCanvas.drawTask(TaskIconType, String, String, GraphicInfo)"
-  })
-  public void testDrawTaskWithIconIdNameGraphicInfo2() {
-    // Arrange
-    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
-        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
-    BusinessRuleTaskIconType icon = new BusinessRuleTaskIconType();
-
-    GraphicInfo graphicInfo = new GraphicInfo();
-
-    Builder builderResult = Message.builder();
-
-    Builder attributesResult = builderResult.attributes(new HashMap<>());
-    graphicInfo.setElement(
-        attributesResult
-            .extensionElements(new HashMap<>())
-            .id("42")
-            .itemRef("Item Ref")
-            .name("Name")
-            .xmlColumnNumber(10)
-            .xmlRowNumber(10)
-            .build());
-    graphicInfo.setExpanded(true);
-    graphicInfo.setHeight(10.0d);
-    graphicInfo.setWidth(10.0d);
-    graphicInfo.setX(2.0d);
-    graphicInfo.setXmlColumnNumber(10);
-    graphicInfo.setXmlRowNumber(10);
-    graphicInfo.setY(Double.NaN);
-
-    // Act
-    defaultProcessDiagramCanvas.drawTask(icon, "42", "Name", graphicInfo);
-
-    // Assert
     Element root = defaultProcessDiagramCanvas.g.getRoot();
     assertTrue(root instanceof GenericElementNS);
     Node lastChild = root.getLastChild();
@@ -7022,6 +7277,68 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
 
     DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
         new DefaultProcessDiagramCanvas(1, 1, 1, 1);
+    Class<Object> type = Object.class;
+
+    defaultProcessDiagramCanvas.drawExpandedSubProcess("42", "id", graphicInfo, type);
+
+    GraphicInfo graphicInfo2 = new GraphicInfo();
+    graphicInfo2.setElement(new ActivitiListener());
+    graphicInfo2.setExpanded(true);
+    graphicInfo2.setHeight(10.0d);
+    graphicInfo2.setWidth(10.0d);
+    graphicInfo2.setX(2.0d);
+    graphicInfo2.setXmlColumnNumber(10);
+    graphicInfo2.setXmlRowNumber(10);
+    graphicInfo2.setY(3.0d);
+
+    // Act
+    defaultProcessDiagramCanvas.drawTask("42", "Name", graphicInfo2);
+
+    // Assert that nothing has changed
+    Element root = defaultProcessDiagramCanvas.g.getRoot();
+    assertTrue(root instanceof GenericElementNS);
+    Node lastChild = root.getLastChild();
+    assertTrue(lastChild instanceof GenericElementNS);
+    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
+    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
+  }
+
+  /**
+   * Test {@link DefaultProcessDiagramCanvas#drawTask(String, String, GraphicInfo)} with {@code id},
+   * {@code name}, {@code graphicInfo}.
+   *
+   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawTask(String, String, GraphicInfo)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void DefaultProcessDiagramCanvas.drawTask(String, String, GraphicInfo)"})
+  public void testDrawTaskWithIdNameGraphicInfo2() {
+    // Arrange
+    GraphicInfo graphicInfo = new GraphicInfo();
+
+    Builder builderResult = Message.builder();
+
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
+    graphicInfo.setElement(
+        attributesResult
+            .extensionElements(new HashMap<>())
+            .id("42")
+            .itemRef("Item Ref")
+            .name("Name")
+            .xmlColumnNumber(10)
+            .xmlRowNumber(10)
+            .build());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(10.0d);
+    graphicInfo.setWidth(10.0d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(3.0d);
+
+    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(0, 1, 1, 1);
     Class<Object> type = Object.class;
 
     defaultProcessDiagramCanvas.drawExpandedSubProcess("42", "id", graphicInfo, type);
@@ -7318,7 +7635,6 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
    * {@code name}, {@code graphicInfo}.
    *
    * <ul>
-   *   <li>Given {@link ActivitiListener} (default constructor).
    *   <li>When empty string.
    * </ul>
    *
@@ -7328,7 +7644,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"void DefaultProcessDiagramCanvas.drawTask(String, String, GraphicInfo)"})
-  public void testDrawTaskWithIdNameGraphicInfo_givenActivitiListener_whenEmptyString() {
+  public void testDrawTaskWithIdNameGraphicInfo_whenEmptyString() {
     // Arrange
     DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
         new DefaultProcessDiagramCanvas(1, 1, 1, 1);
@@ -7360,7 +7676,6 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
    * {@code name}, {@code graphicInfo}.
    *
    * <ul>
-   *   <li>Given {@link ActivitiListener} (default constructor).
    *   <li>When {@code Name}.
    * </ul>
    *
@@ -7370,7 +7685,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"void DefaultProcessDiagramCanvas.drawTask(String, String, GraphicInfo)"})
-  public void testDrawTaskWithIdNameGraphicInfo_givenActivitiListener_whenName() {
+  public void testDrawTaskWithIdNameGraphicInfo_whenName() {
     // Arrange
     DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
         new DefaultProcessDiagramCanvas(1, 1, 1, 1);
@@ -7402,7 +7717,6 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
    * {@code name}, {@code graphicInfo}.
    *
    * <ul>
-   *   <li>Given {@link ActivitiListener} (default constructor).
    *   <li>When {@code null}.
    * </ul>
    *
@@ -7412,54 +7726,13 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"void DefaultProcessDiagramCanvas.drawTask(String, String, GraphicInfo)"})
-  public void testDrawTaskWithIdNameGraphicInfo_givenActivitiListener_whenNull() {
+  public void testDrawTaskWithIdNameGraphicInfo_whenNull() {
     // Arrange
     DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
         new DefaultProcessDiagramCanvas(1, 1, 1, 1);
 
     GraphicInfo graphicInfo = new GraphicInfo();
     graphicInfo.setElement(new ActivitiListener());
-    graphicInfo.setExpanded(true);
-    graphicInfo.setHeight(10.0d);
-    graphicInfo.setWidth(10.0d);
-    graphicInfo.setX(2.0d);
-    graphicInfo.setXmlColumnNumber(10);
-    graphicInfo.setXmlRowNumber(10);
-    graphicInfo.setY(3.0d);
-
-    // Act
-    defaultProcessDiagramCanvas.drawTask("42", null, graphicInfo);
-
-    // Assert
-    Element root = defaultProcessDiagramCanvas.g.getRoot();
-    assertTrue(root instanceof GenericElementNS);
-    Node lastChild = root.getLastChild();
-    assertTrue(lastChild instanceof GenericElementNS);
-    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
-    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
-  }
-
-  /**
-   * Test {@link DefaultProcessDiagramCanvas#drawTask(String, String, GraphicInfo)} with {@code id},
-   * {@code name}, {@code graphicInfo}.
-   *
-   * <ul>
-   *   <li>Given {@link CompensateEventDefinition} (default constructor).
-   * </ul>
-   *
-   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawTask(String, String, GraphicInfo)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DefaultProcessDiagramCanvas.drawTask(String, String, GraphicInfo)"})
-  public void testDrawTaskWithIdNameGraphicInfo_givenCompensateEventDefinition() {
-    // Arrange
-    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
-        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
-
-    GraphicInfo graphicInfo = new GraphicInfo();
-    graphicInfo.setElement(new CompensateEventDefinition());
     graphicInfo.setExpanded(true);
     graphicInfo.setHeight(10.0d);
     graphicInfo.setWidth(10.0d);
@@ -7588,6 +7861,11 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   /**
    * Test {@link DefaultProcessDiagramCanvas#drawPoolOrLane(String, String, GraphicInfo)}.
    *
+   * <ul>
+   *   <li>Given {@link HashMap#HashMap()} IfAbsent empty string is {@link ArrayList#ArrayList()}.
+   *   <li>When {@code Name}.
+   * </ul>
+   *
    * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawPoolOrLane(String, String,
    * GraphicInfo)}
    */
@@ -7597,17 +7875,13 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   @MethodsUnderTest({
     "void DefaultProcessDiagramCanvas.drawPoolOrLane(String, String, GraphicInfo)"
   })
-  public void testDrawPoolOrLane3() throws DOMException {
+  public void testDrawPoolOrLane_givenHashMapIfAbsentEmptyStringIsArrayList_whenName() {
     // Arrange
-    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
-        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
+    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
+    attributes.putIfAbsent("", new ArrayList<>());
 
-    GraphicInfo graphicInfo = new GraphicInfo();
-
-    Builder builderResult = Message.builder();
-
-    Builder attributesResult = builderResult.attributes(new HashMap<>());
-    graphicInfo.setElement(
+    Builder attributesResult = Message.builder().attributes(attributes);
+    Message element =
         attributesResult
             .extensionElements(new HashMap<>())
             .id("42")
@@ -7615,29 +7889,42 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
             .name("Name")
             .xmlColumnNumber(10)
             .xmlRowNumber(10)
-            .build());
+            .build();
+
+    GraphicInfo graphicInfo = new GraphicInfo();
+    graphicInfo.setElement(element);
     graphicInfo.setExpanded(true);
-    graphicInfo.setHeight(0.5d);
-    graphicInfo.setWidth(10.0d);
+    graphicInfo.setHeight(4.71238898038469d);
+    graphicInfo.setWidth(4.71238898038469d);
     graphicInfo.setX(2.0d);
     graphicInfo.setXmlColumnNumber(10);
     graphicInfo.setXmlRowNumber(10);
     graphicInfo.setY(3.0d);
 
-    // Act
-    defaultProcessDiagramCanvas.drawPoolOrLane("42", "Name", graphicInfo);
+    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
+    defaultProcessDiagramCanvas.drawTask("42", "Name", graphicInfo, true);
 
-    // Assert
-    ProcessDiagramSVGGraphics2D processDiagramSVGGraphics2D = defaultProcessDiagramCanvas.g;
-    Element root = processDiagramSVGGraphics2D.getRoot();
+    GraphicInfo graphicInfo2 = new GraphicInfo();
+    graphicInfo2.setElement(new ActivitiListener());
+    graphicInfo2.setExpanded(true);
+    graphicInfo2.setHeight(10.0d);
+    graphicInfo2.setWidth(10.0d);
+    graphicInfo2.setX(2.0d);
+    graphicInfo2.setXmlColumnNumber(10);
+    graphicInfo2.setXmlRowNumber(10);
+    graphicInfo2.setY(3.0d);
+
+    // Act
+    defaultProcessDiagramCanvas.drawPoolOrLane("42", "Name", graphicInfo2);
+
+    // Assert that nothing has changed
+    Element root = defaultProcessDiagramCanvas.g.getRoot();
     assertTrue(root instanceof GenericElementNS);
     Node lastChild = root.getLastChild();
     assertTrue(lastChild instanceof GenericElementNS);
     assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
-    assertEquals("...", root.getTextContent());
-    assertEquals("...", lastChild.getTextContent());
     assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
-    assertFalse(processDiagramSVGGraphics2D.getGraphicContext().isTransformStackValid());
   }
 
   /**
@@ -7685,65 +7972,6 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     assertEquals("", lastChild.getTextContent());
     assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
     assertTrue(processDiagramSVGGraphics2D.getGraphicContext().isTransformStackValid());
-  }
-
-  /**
-   * Test {@link DefaultProcessDiagramCanvas#drawPoolOrLane(String, String, GraphicInfo)}.
-   *
-   * <ul>
-   *   <li>When {@link GraphicInfo} (default constructor) Width is {@code 0.5}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawPoolOrLane(String, String,
-   * GraphicInfo)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefaultProcessDiagramCanvas.drawPoolOrLane(String, String, GraphicInfo)"
-  })
-  public void testDrawPoolOrLane_whenGraphicInfoWidthIs05() throws DOMException {
-    // Arrange
-    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
-        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
-
-    GraphicInfo graphicInfo = new GraphicInfo();
-
-    Builder builderResult = Message.builder();
-
-    Builder attributesResult = builderResult.attributes(new HashMap<>());
-    graphicInfo.setElement(
-        attributesResult
-            .extensionElements(new HashMap<>())
-            .id("42")
-            .itemRef("Item Ref")
-            .name("Name")
-            .xmlColumnNumber(10)
-            .xmlRowNumber(10)
-            .build());
-    graphicInfo.setExpanded(true);
-    graphicInfo.setHeight(0.5d);
-    graphicInfo.setWidth(0.5d);
-    graphicInfo.setX(2.0d);
-    graphicInfo.setXmlColumnNumber(10);
-    graphicInfo.setXmlRowNumber(10);
-    graphicInfo.setY(3.0d);
-
-    // Act
-    defaultProcessDiagramCanvas.drawPoolOrLane("42", "Name", graphicInfo);
-
-    // Assert
-    ProcessDiagramSVGGraphics2D processDiagramSVGGraphics2D = defaultProcessDiagramCanvas.g;
-    Element root = processDiagramSVGGraphics2D.getRoot();
-    assertTrue(root instanceof GenericElementNS);
-    Node lastChild = root.getLastChild();
-    assertTrue(lastChild instanceof GenericElementNS);
-    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
-    assertEquals("...", root.getTextContent());
-    assertEquals("...", lastChild.getTextContent());
-    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
-    assertFalse(processDiagramSVGGraphics2D.getGraphicContext().isTransformStackValid());
   }
 
   /**
@@ -8965,7 +9193,53 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   public void testDrawServiceTask3() {
     // Arrange
     DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
-        new DefaultProcessDiagramCanvas(1, 3, 1, 1);
+        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
+
+    ActivitiListener element = new ActivitiListener();
+    element.addAttribute(new ExtensionAttribute("id"));
+
+    GraphicInfo graphicInfo = new GraphicInfo();
+    graphicInfo.setElement(element);
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(10.0d);
+    graphicInfo.setWidth(10.0d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(3.0d);
+
+    // Act
+    defaultProcessDiagramCanvas.drawServiceTask("42", "Name", graphicInfo);
+
+    // Assert
+    Element root = defaultProcessDiagramCanvas.g.getRoot();
+    assertTrue(root instanceof GenericElementNS);
+    Node lastChild = root.getLastChild();
+    assertTrue(lastChild instanceof GenericElementNS);
+    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
+    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
+  }
+
+  /**
+   * Test {@link DefaultProcessDiagramCanvas#drawServiceTask(String, String, GraphicInfo)}.
+   *
+   * <ul>
+   *   <li>When {@code Arial}.
+   * </ul>
+   *
+   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawServiceTask(String, String,
+   * GraphicInfo)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void DefaultProcessDiagramCanvas.drawServiceTask(String, String, GraphicInfo)"
+  })
+  public void testDrawServiceTask_whenArial() {
+    // Arrange
+    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
 
     GraphicInfo graphicInfo = new GraphicInfo();
     graphicInfo.setElement(new ActivitiListener());
@@ -8978,7 +9252,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     graphicInfo.setY(3.0d);
 
     // Act
-    defaultProcessDiagramCanvas.drawServiceTask("42", null, graphicInfo);
+    defaultProcessDiagramCanvas.drawServiceTask("Arial", "Name", graphicInfo);
 
     // Assert
     Element root = defaultProcessDiagramCanvas.g.getRoot();
@@ -9219,75 +9493,6 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
         new DefaultProcessDiagramCanvas(1, 1, 1, 1);
     defaultProcessDiagramCanvas.drawParallelGateway("42", graphicInfo);
-
-    GraphicInfo graphicInfo2 = new GraphicInfo();
-    graphicInfo2.setElement(new ActivitiListener());
-    graphicInfo2.setExpanded(true);
-    graphicInfo2.setHeight(10.0d);
-    graphicInfo2.setWidth(10.0d);
-    graphicInfo2.setX(2.0d);
-    graphicInfo2.setXmlColumnNumber(10);
-    graphicInfo2.setXmlRowNumber(10);
-    graphicInfo2.setY(3.0d);
-
-    // Act
-    defaultProcessDiagramCanvas.drawReceiveTask("42", "Name", graphicInfo2);
-
-    // Assert that nothing has changed
-    Element root = defaultProcessDiagramCanvas.g.getRoot();
-    assertTrue(root instanceof GenericElementNS);
-    Node lastChild = root.getLastChild();
-    assertTrue(lastChild instanceof GenericElementNS);
-    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
-    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
-  }
-
-  /**
-   * Test {@link DefaultProcessDiagramCanvas#drawReceiveTask(String, String, GraphicInfo)}.
-   *
-   * <ul>
-   *   <li>Given {@link HashMap#HashMap()} IfAbsent {@code 42} is {@link ArrayList#ArrayList()}.
-   *   <li>When {@code Name}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawReceiveTask(String, String,
-   * GraphicInfo)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefaultProcessDiagramCanvas.drawReceiveTask(String, String, GraphicInfo)"
-  })
-  public void testDrawReceiveTask_givenHashMapIfAbsent42IsArrayList_whenName() {
-    // Arrange
-    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
-    attributes.putIfAbsent("42", new ArrayList<>());
-
-    Builder attributesResult = Message.builder().attributes(attributes);
-    Message element =
-        attributesResult
-            .extensionElements(new HashMap<>())
-            .id("42")
-            .itemRef("Item Ref")
-            .name("Name")
-            .xmlColumnNumber(10)
-            .xmlRowNumber(10)
-            .build();
-
-    GraphicInfo graphicInfo = new GraphicInfo();
-    graphicInfo.setElement(element);
-    graphicInfo.setExpanded(true);
-    graphicInfo.setHeight(10.0d);
-    graphicInfo.setWidth(10.0d);
-    graphicInfo.setX(2.0d);
-    graphicInfo.setXmlColumnNumber(10);
-    graphicInfo.setXmlRowNumber(10);
-    graphicInfo.setY(3.0d);
-
-    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
-        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
-    defaultProcessDiagramCanvas.drawTask("42", "id", graphicInfo, true);
 
     GraphicInfo graphicInfo2 = new GraphicInfo();
     graphicInfo2.setElement(new ActivitiListener());
@@ -9697,45 +9902,6 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   })
   public void testDrawManualTask() {
     // Arrange
-    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
-        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
-
-    GraphicInfo graphicInfo = new GraphicInfo();
-    graphicInfo.setElement(new ActivitiListener());
-    graphicInfo.setExpanded(true);
-    graphicInfo.setHeight(10.0d);
-    graphicInfo.setWidth(10.0d);
-    graphicInfo.setX(2.0d);
-    graphicInfo.setXmlColumnNumber(10);
-    graphicInfo.setXmlRowNumber(10);
-    graphicInfo.setY(3.0d);
-
-    // Act
-    defaultProcessDiagramCanvas.drawManualTask("42", "Name", graphicInfo);
-
-    // Assert
-    Element root = defaultProcessDiagramCanvas.g.getRoot();
-    assertTrue(root instanceof GenericElementNS);
-    Node lastChild = root.getLastChild();
-    assertTrue(lastChild instanceof GenericElementNS);
-    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
-    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
-  }
-
-  /**
-   * Test {@link DefaultProcessDiagramCanvas#drawManualTask(String, String, GraphicInfo)}.
-   *
-   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawManualTask(String, String,
-   * GraphicInfo)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefaultProcessDiagramCanvas.drawManualTask(String, String, GraphicInfo)"
-  })
-  public void testDrawManualTask2() {
-    // Arrange
     GraphicInfo graphicInfo = new GraphicInfo();
 
     Builder builderResult = Message.builder();
@@ -9796,7 +9962,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   @MethodsUnderTest({
     "void DefaultProcessDiagramCanvas.drawManualTask(String, String, GraphicInfo)"
   })
-  public void testDrawManualTask3() {
+  public void testDrawManualTask2() {
     // Arrange
     GraphicInfo graphicInfo = new GraphicInfo();
 
@@ -9849,45 +10015,6 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   /**
    * Test {@link DefaultProcessDiagramCanvas#drawManualTask(String, String, GraphicInfo)}.
    *
-   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawManualTask(String, String,
-   * GraphicInfo)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefaultProcessDiagramCanvas.drawManualTask(String, String, GraphicInfo)"
-  })
-  public void testDrawManualTask4() {
-    // Arrange
-    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
-        new DefaultProcessDiagramCanvas(1, 4, 1, 1);
-
-    GraphicInfo graphicInfo = new GraphicInfo();
-    graphicInfo.setElement(new ActivitiListener());
-    graphicInfo.setExpanded(true);
-    graphicInfo.setHeight(10.0d);
-    graphicInfo.setWidth(10.0d);
-    graphicInfo.setX(2.0d);
-    graphicInfo.setXmlColumnNumber(10);
-    graphicInfo.setXmlRowNumber(10);
-    graphicInfo.setY(3.0d);
-
-    // Act
-    defaultProcessDiagramCanvas.drawManualTask("42", "Name", graphicInfo);
-
-    // Assert
-    Element root = defaultProcessDiagramCanvas.g.getRoot();
-    assertTrue(root instanceof GenericElementNS);
-    Node lastChild = root.getLastChild();
-    assertTrue(lastChild instanceof GenericElementNS);
-    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
-    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
-  }
-
-  /**
-   * Test {@link DefaultProcessDiagramCanvas#drawManualTask(String, String, GraphicInfo)}.
-   *
    * <ul>
    *   <li>When empty string.
    * </ul>
@@ -9918,6 +10045,49 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
 
     // Act
     defaultProcessDiagramCanvas.drawManualTask("42", "", graphicInfo);
+
+    // Assert
+    Element root = defaultProcessDiagramCanvas.g.getRoot();
+    assertTrue(root instanceof GenericElementNS);
+    Node lastChild = root.getLastChild();
+    assertTrue(lastChild instanceof GenericElementNS);
+    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
+    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
+  }
+
+  /**
+   * Test {@link DefaultProcessDiagramCanvas#drawManualTask(String, String, GraphicInfo)}.
+   *
+   * <ul>
+   *   <li>When {@code Name}.
+   * </ul>
+   *
+   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawManualTask(String, String,
+   * GraphicInfo)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void DefaultProcessDiagramCanvas.drawManualTask(String, String, GraphicInfo)"
+  })
+  public void testDrawManualTask_whenName() {
+    // Arrange
+    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
+
+    GraphicInfo graphicInfo = new GraphicInfo();
+    graphicInfo.setElement(new ActivitiListener());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(10.0d);
+    graphicInfo.setWidth(10.0d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(3.0d);
+
+    // Act
+    defaultProcessDiagramCanvas.drawManualTask("42", "Name", graphicInfo);
 
     // Assert
     Element root = defaultProcessDiagramCanvas.g.getRoot();
@@ -9985,6 +10155,45 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   })
   public void testDrawBusinessRuleTask() {
     // Arrange
+    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
+
+    GraphicInfo graphicInfo = new GraphicInfo();
+    graphicInfo.setElement(new ActivitiListener());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(10.0d);
+    graphicInfo.setWidth(10.0d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(3.0d);
+
+    // Act
+    defaultProcessDiagramCanvas.drawBusinessRuleTask("42", "Name", graphicInfo);
+
+    // Assert
+    Element root = defaultProcessDiagramCanvas.g.getRoot();
+    assertTrue(root instanceof GenericElementNS);
+    Node lastChild = root.getLastChild();
+    assertTrue(lastChild instanceof GenericElementNS);
+    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
+    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
+  }
+
+  /**
+   * Test {@link DefaultProcessDiagramCanvas#drawBusinessRuleTask(String, String, GraphicInfo)}.
+   *
+   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawBusinessRuleTask(String, String,
+   * GraphicInfo)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void DefaultProcessDiagramCanvas.drawBusinessRuleTask(String, String, GraphicInfo)"
+  })
+  public void testDrawBusinessRuleTask2() {
+    // Arrange
     GraphicInfo graphicInfo = new GraphicInfo();
 
     Builder builderResult = Message.builder();
@@ -10045,7 +10254,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   @MethodsUnderTest({
     "void DefaultProcessDiagramCanvas.drawBusinessRuleTask(String, String, GraphicInfo)"
   })
-  public void testDrawBusinessRuleTask2() {
+  public void testDrawBusinessRuleTask3() {
     // Arrange
     GraphicInfo graphicInfo = new GraphicInfo();
 
@@ -10099,6 +10308,140 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
    * Test {@link DefaultProcessDiagramCanvas#drawBusinessRuleTask(String, String, GraphicInfo)}.
    *
    * <ul>
+   *   <li>Given {@code 0.5}.
+   *   <li>When {@link GraphicInfo} (default constructor) Height is {@code 0.5}.
+   * </ul>
+   *
+   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawBusinessRuleTask(String, String,
+   * GraphicInfo)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void DefaultProcessDiagramCanvas.drawBusinessRuleTask(String, String, GraphicInfo)"
+  })
+  public void testDrawBusinessRuleTask_given05_whenGraphicInfoHeightIs05() {
+    // Arrange
+    GraphicInfo graphicInfo = new GraphicInfo();
+
+    Builder builderResult = Message.builder();
+
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
+    graphicInfo.setElement(
+        attributesResult
+            .extensionElements(new HashMap<>())
+            .id("42")
+            .itemRef("Item Ref")
+            .name("Name")
+            .xmlColumnNumber(10)
+            .xmlRowNumber(10)
+            .build());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(10.0d);
+    graphicInfo.setWidth(10.0d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(3.0d);
+
+    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
+    defaultProcessDiagramCanvas.drawParallelGateway("42", graphicInfo);
+
+    GraphicInfo graphicInfo2 = new GraphicInfo();
+    graphicInfo2.setElement(new ActivitiListener());
+    graphicInfo2.setExpanded(true);
+    graphicInfo2.setHeight(0.5d);
+    graphicInfo2.setWidth(-0.5d);
+    graphicInfo2.setX(2.0d);
+    graphicInfo2.setXmlColumnNumber(10);
+    graphicInfo2.setXmlRowNumber(10);
+    graphicInfo2.setY(3.0d);
+
+    // Act
+    defaultProcessDiagramCanvas.drawBusinessRuleTask("42", "Name", graphicInfo2);
+
+    // Assert that nothing has changed
+    Element root = defaultProcessDiagramCanvas.g.getRoot();
+    assertTrue(root instanceof GenericElementNS);
+    Node lastChild = root.getLastChild();
+    assertTrue(lastChild instanceof GenericElementNS);
+    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
+    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
+  }
+
+  /**
+   * Test {@link DefaultProcessDiagramCanvas#drawBusinessRuleTask(String, String, GraphicInfo)}.
+   *
+   * <ul>
+   *   <li>Given {@code -0.5}.
+   *   <li>When {@link GraphicInfo} (default constructor) Width is {@code -0.5}.
+   * </ul>
+   *
+   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawBusinessRuleTask(String, String,
+   * GraphicInfo)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void DefaultProcessDiagramCanvas.drawBusinessRuleTask(String, String, GraphicInfo)"
+  })
+  public void testDrawBusinessRuleTask_given05_whenGraphicInfoWidthIs05() {
+    // Arrange
+    GraphicInfo graphicInfo = new GraphicInfo();
+
+    Builder builderResult = Message.builder();
+
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
+    graphicInfo.setElement(
+        attributesResult
+            .extensionElements(new HashMap<>())
+            .id("42")
+            .itemRef("Item Ref")
+            .name("Name")
+            .xmlColumnNumber(10)
+            .xmlRowNumber(10)
+            .build());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(10.0d);
+    graphicInfo.setWidth(10.0d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(3.0d);
+
+    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
+    defaultProcessDiagramCanvas.drawParallelGateway("42", graphicInfo);
+
+    GraphicInfo graphicInfo2 = new GraphicInfo();
+    graphicInfo2.setElement(new ActivitiListener());
+    graphicInfo2.setExpanded(true);
+    graphicInfo2.setHeight(10.0d);
+    graphicInfo2.setWidth(-0.5d);
+    graphicInfo2.setX(2.0d);
+    graphicInfo2.setXmlColumnNumber(10);
+    graphicInfo2.setXmlRowNumber(10);
+    graphicInfo2.setY(3.0d);
+
+    // Act
+    defaultProcessDiagramCanvas.drawBusinessRuleTask("42", "Name", graphicInfo2);
+
+    // Assert that nothing has changed
+    Element root = defaultProcessDiagramCanvas.g.getRoot();
+    assertTrue(root instanceof GenericElementNS);
+    Node lastChild = root.getLastChild();
+    assertTrue(lastChild instanceof GenericElementNS);
+    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
+    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
+  }
+
+  /**
+   * Test {@link DefaultProcessDiagramCanvas#drawBusinessRuleTask(String, String, GraphicInfo)}.
+   *
+   * <ul>
    *   <li>When empty string.
    * </ul>
    *
@@ -10128,49 +10471,6 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
 
     // Act
     defaultProcessDiagramCanvas.drawBusinessRuleTask("42", "", graphicInfo);
-
-    // Assert
-    Element root = defaultProcessDiagramCanvas.g.getRoot();
-    assertTrue(root instanceof GenericElementNS);
-    Node lastChild = root.getLastChild();
-    assertTrue(lastChild instanceof GenericElementNS);
-    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
-    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
-  }
-
-  /**
-   * Test {@link DefaultProcessDiagramCanvas#drawBusinessRuleTask(String, String, GraphicInfo)}.
-   *
-   * <ul>
-   *   <li>When {@code Name}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawBusinessRuleTask(String, String,
-   * GraphicInfo)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefaultProcessDiagramCanvas.drawBusinessRuleTask(String, String, GraphicInfo)"
-  })
-  public void testDrawBusinessRuleTask_whenName() {
-    // Arrange
-    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
-        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
-
-    GraphicInfo graphicInfo = new GraphicInfo();
-    graphicInfo.setElement(new ActivitiListener());
-    graphicInfo.setExpanded(true);
-    graphicInfo.setHeight(10.0d);
-    graphicInfo.setWidth(10.0d);
-    graphicInfo.setX(2.0d);
-    graphicInfo.setXmlColumnNumber(10);
-    graphicInfo.setXmlRowNumber(10);
-    graphicInfo.setY(3.0d);
-
-    // Act
-    defaultProcessDiagramCanvas.drawBusinessRuleTask("42", "Name", graphicInfo);
 
     // Assert
     Element root = defaultProcessDiagramCanvas.g.getRoot();
@@ -10427,6 +10727,55 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
    * Class)}.
    *
    * <ul>
+   *   <li>Given zero.
+   *   <li>When {@link GraphicInfo} (default constructor) XmlColumnNumber is zero.
+   * </ul>
+   *
+   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawExpandedSubProcess(String, String,
+   * GraphicInfo, Class)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void DefaultProcessDiagramCanvas.drawExpandedSubProcess(String, String, GraphicInfo, Class)"
+  })
+  public void testDrawExpandedSubProcess_givenZero_whenGraphicInfoXmlColumnNumberIsZero()
+      throws DOMException {
+    // Arrange
+    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
+
+    GraphicInfo graphicInfo = new GraphicInfo();
+    graphicInfo.setElement(new ActivitiListener());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(10.0d);
+    graphicInfo.setWidth(10.0d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(0);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(3.0d);
+    Class<Object> type = Object.class;
+
+    // Act
+    defaultProcessDiagramCanvas.drawExpandedSubProcess("42", "Name", graphicInfo, type);
+
+    // Assert
+    Element root = defaultProcessDiagramCanvas.g.getRoot();
+    assertTrue(root instanceof GenericElementNS);
+    Node lastChild = root.getLastChild();
+    assertTrue(lastChild instanceof GenericElementNS);
+    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
+    assertEquals("...", root.getTextContent());
+    assertEquals("...", lastChild.getTextContent());
+    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
+  }
+
+  /**
+   * Test {@link DefaultProcessDiagramCanvas#drawExpandedSubProcess(String, String, GraphicInfo,
+   * Class)}.
+   *
+   * <ul>
    *   <li>When empty string.
    * </ul>
    *
@@ -10537,6 +10886,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
    * Boolean)}.
    *
    * <ul>
+   *   <li>Given three.
    *   <li>When empty string.
    * </ul>
    *
@@ -10549,7 +10899,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   @MethodsUnderTest({
     "void DefaultProcessDiagramCanvas.drawCollapsedSubProcess(String, String, GraphicInfo, Boolean)"
   })
-  public void testDrawCollapsedSubProcess_whenEmptyString() {
+  public void testDrawCollapsedSubProcess_givenThree_whenEmptyString() {
     // Arrange
     DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
         new DefaultProcessDiagramCanvas(1, 1, 1, 1);
@@ -10581,6 +10931,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
    * Boolean)}.
    *
    * <ul>
+   *   <li>Given three.
    *   <li>When {@code Name}.
    * </ul>
    *
@@ -10593,7 +10944,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   @MethodsUnderTest({
     "void DefaultProcessDiagramCanvas.drawCollapsedSubProcess(String, String, GraphicInfo, Boolean)"
   })
-  public void testDrawCollapsedSubProcess_whenName() {
+  public void testDrawCollapsedSubProcess_givenThree_whenName() {
     // Arrange
     DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
         new DefaultProcessDiagramCanvas(1, 1, 1, 1);
@@ -10625,6 +10976,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
    * Boolean)}.
    *
    * <ul>
+   *   <li>Given three.
    *   <li>When {@code null}.
    * </ul>
    *
@@ -10637,7 +10989,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   @MethodsUnderTest({
     "void DefaultProcessDiagramCanvas.drawCollapsedSubProcess(String, String, GraphicInfo, Boolean)"
   })
-  public void testDrawCollapsedSubProcess_whenNull() {
+  public void testDrawCollapsedSubProcess_givenThree_whenNull() {
     // Arrange
     DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
         new DefaultProcessDiagramCanvas(1, 1, 1, 1);
@@ -10651,6 +11003,50 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     graphicInfo.setXmlColumnNumber(10);
     graphicInfo.setXmlRowNumber(10);
     graphicInfo.setY(3.0d);
+
+    // Act
+    defaultProcessDiagramCanvas.drawCollapsedSubProcess("42", null, graphicInfo, true);
+
+    // Assert
+    Element root = defaultProcessDiagramCanvas.g.getRoot();
+    assertTrue(root instanceof GenericElementNS);
+    Node lastChild = root.getLastChild();
+    assertTrue(lastChild instanceof GenericElementNS);
+    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
+    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
+  }
+
+  /**
+   * Test {@link DefaultProcessDiagramCanvas#drawCollapsedSubProcess(String, String, GraphicInfo,
+   * Boolean)}.
+   *
+   * <ul>
+   *   <li>When {@link GraphicInfo} (default constructor) Y is ten.
+   * </ul>
+   *
+   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawCollapsedSubProcess(String,
+   * String, GraphicInfo, Boolean)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void DefaultProcessDiagramCanvas.drawCollapsedSubProcess(String, String, GraphicInfo, Boolean)"
+  })
+  public void testDrawCollapsedSubProcess_whenGraphicInfoYIsTen() {
+    // Arrange
+    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
+
+    GraphicInfo graphicInfo = new GraphicInfo();
+    graphicInfo.setElement(new ActivitiListener());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(10.0d);
+    graphicInfo.setWidth(10.0d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(10.0d);
 
     // Act
     defaultProcessDiagramCanvas.drawCollapsedSubProcess("42", null, graphicInfo, true);
@@ -11052,6 +11448,69 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
    * Test {@link DefaultProcessDiagramCanvas#drawCollapsedTask(String, String, GraphicInfo,
    * boolean)}.
    *
+   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawCollapsedTask(String, String,
+   * GraphicInfo, boolean)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void DefaultProcessDiagramCanvas.drawCollapsedTask(String, String, GraphicInfo, boolean)"
+  })
+  public void testDrawCollapsedTask3() {
+    // Arrange
+    GraphicInfo graphicInfo = new GraphicInfo();
+
+    Builder builderResult = Message.builder();
+
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
+    graphicInfo.setElement(
+        attributesResult
+            .extensionElements(new HashMap<>())
+            .id("42")
+            .itemRef("Item Ref")
+            .name("Name")
+            .xmlColumnNumber(10)
+            .xmlRowNumber(10)
+            .build());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(10.0d);
+    graphicInfo.setWidth(10.0d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(3.0d);
+
+    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
+    defaultProcessDiagramCanvas.drawNoneEndEvent("42", "id", graphicInfo);
+
+    GraphicInfo graphicInfo2 = new GraphicInfo();
+    graphicInfo2.setElement(new ActivitiListener());
+    graphicInfo2.setExpanded(true);
+    graphicInfo2.setHeight(10.0d);
+    graphicInfo2.setWidth(10.0d);
+    graphicInfo2.setX(2.0d);
+    graphicInfo2.setXmlColumnNumber(10);
+    graphicInfo2.setXmlRowNumber(10);
+    graphicInfo2.setY(3.0d);
+
+    // Act
+    defaultProcessDiagramCanvas.drawCollapsedTask("42", "", graphicInfo2, true);
+
+    // Assert
+    Element root = defaultProcessDiagramCanvas.g.getRoot();
+    assertTrue(root instanceof GenericElementNS);
+    Node lastChild = root.getLastChild();
+    assertTrue(lastChild instanceof GenericElementNS);
+    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
+    assertEquals(4, ((GenericElementNS) lastChild).getChildElementCount());
+  }
+
+  /**
+   * Test {@link DefaultProcessDiagramCanvas#drawCollapsedTask(String, String, GraphicInfo,
+   * boolean)}.
+   *
    * <ul>
    *   <li>When empty string.
    * </ul>
@@ -11342,36 +11801,6 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   public void testDrawActivityMarkers5() {
     // Arrange
     DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
-        new DefaultProcessDiagramCanvas(1, 6, 1, 1);
-
-    // Act
-    defaultProcessDiagramCanvas.drawActivityMarkers(2, 3, 1, 1, false, true, true);
-
-    // Assert
-    Element root = defaultProcessDiagramCanvas.g.getRoot();
-    assertTrue(root instanceof GenericElementNS);
-    Node lastChild = root.getLastChild();
-    assertTrue(lastChild instanceof GenericElementNS);
-    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
-    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
-  }
-
-  /**
-   * Test {@link DefaultProcessDiagramCanvas#drawActivityMarkers(int, int, int, int, boolean,
-   * boolean, boolean)}.
-   *
-   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawActivityMarkers(int, int, int,
-   * int, boolean, boolean, boolean)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DefaultProcessDiagramCanvas.drawActivityMarkers(int, int, int, int, boolean, boolean, boolean)"
-  })
-  public void testDrawActivityMarkers6() {
-    // Arrange
-    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
         new DefaultProcessDiagramCanvas(1, 1, 1, 1);
 
     // Act
@@ -11399,7 +11828,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   @MethodsUnderTest({
     "void DefaultProcessDiagramCanvas.drawActivityMarkers(int, int, int, int, boolean, boolean, boolean)"
   })
-  public void testDrawActivityMarkers7() {
+  public void testDrawActivityMarkers6() {
     // Arrange
     DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
         new DefaultProcessDiagramCanvas(1, 1, 1, 1);
@@ -11509,6 +11938,45 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
     assertTrue(lastChild instanceof GenericElementNS);
     assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
     assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
+  }
+
+  /**
+   * Test {@link DefaultProcessDiagramCanvas#drawGatewayHighLight(GraphicInfo, Color)}.
+   *
+   * <ul>
+   *   <li>Then throw {@link ActivitiImageException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawGatewayHighLight(GraphicInfo,
+   * Color)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void DefaultProcessDiagramCanvas.drawGatewayHighLight(GraphicInfo, Color)"})
+  public void testDrawGatewayHighLight_thenThrowActivitiImageException() {
+    // Arrange
+    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
+
+    GraphicInfo graphicInfo = new GraphicInfo();
+    graphicInfo.setElement(new ActivitiListener());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(10.0d);
+    graphicInfo.setWidth(10.0d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(3.0d);
+
+    ColorWithAlternatives color = mock(ColorWithAlternatives.class);
+    when(color.getRed()).thenThrow(new ActivitiImageException("An error occurred"));
+
+    // Act and Assert
+    assertThrows(
+        ActivitiImageException.class,
+        () -> defaultProcessDiagramCanvas.drawGatewayHighLight(graphicInfo, color));
+    verify(color).getRed();
   }
 
   /**
@@ -11803,72 +12271,6 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   }
 
   /**
-   * Test {@link DefaultProcessDiagramCanvas#drawParallelGateway(String, GraphicInfo)}.
-   *
-   * <ul>
-   *   <li>Given builder xmlRowNumber ten.
-   * </ul>
-   *
-   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawParallelGateway(String,
-   * GraphicInfo)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DefaultProcessDiagramCanvas.drawParallelGateway(String, GraphicInfo)"})
-  public void testDrawParallelGateway_givenBuilderXmlRowNumberTen() {
-    // Arrange
-    Builder builderResult = Message.builder();
-    builderResult.xmlRowNumber(10);
-
-    Builder attributesResult = builderResult.attributes(new HashMap<>());
-    Message element =
-        attributesResult
-            .extensionElements(new HashMap<>())
-            .id("42")
-            .itemRef("Item Ref")
-            .name("Name")
-            .xmlColumnNumber(10)
-            .xmlRowNumber(10)
-            .build();
-
-    GraphicInfo graphicInfo = new GraphicInfo();
-    graphicInfo.setElement(element);
-    graphicInfo.setExpanded(true);
-    graphicInfo.setHeight(10.0d);
-    graphicInfo.setWidth(10.0d);
-    graphicInfo.setX(2.0d);
-    graphicInfo.setXmlColumnNumber(10);
-    graphicInfo.setXmlRowNumber(10);
-    graphicInfo.setY(3.0d);
-
-    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
-        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
-    defaultProcessDiagramCanvas.drawTask("42", "id", graphicInfo, true);
-
-    GraphicInfo graphicInfo2 = new GraphicInfo();
-    graphicInfo2.setElement(new ActivitiListener());
-    graphicInfo2.setExpanded(true);
-    graphicInfo2.setHeight(10.0d);
-    graphicInfo2.setWidth(10.0d);
-    graphicInfo2.setX(2.0d);
-    graphicInfo2.setXmlColumnNumber(10);
-    graphicInfo2.setXmlRowNumber(10);
-    graphicInfo2.setY(3.0d);
-
-    // Act
-    defaultProcessDiagramCanvas.drawParallelGateway("42", graphicInfo2);
-
-    // Assert that nothing has changed
-    Element root = defaultProcessDiagramCanvas.g.getRoot();
-    assertTrue(root instanceof GenericElementNS);
-    Node lastChild = root.getLastChild();
-    assertTrue(lastChild instanceof GenericElementNS);
-    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
-    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
-  }
-
-  /**
    * Test {@link DefaultProcessDiagramCanvas#drawExclusiveGateway(String, GraphicInfo)}.
    *
    * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawExclusiveGateway(String,
@@ -12005,10 +12407,6 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   /**
    * Test {@link DefaultProcessDiagramCanvas#drawInclusiveGateway(String, GraphicInfo)}.
    *
-   * <ul>
-   *   <li>Given {@link GraphicInfo} (default constructor) X is {@code -0.5}.
-   * </ul>
-   *
    * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawInclusiveGateway(String,
    * GraphicInfo)}
    */
@@ -12016,71 +12414,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"void DefaultProcessDiagramCanvas.drawInclusiveGateway(String, GraphicInfo)"})
-  public void testDrawInclusiveGateway_givenGraphicInfoXIs05() {
-    // Arrange
-    GraphicInfo graphicInfo = new GraphicInfo();
-
-    Builder builderResult = Message.builder();
-
-    Builder attributesResult = builderResult.attributes(new HashMap<>());
-    graphicInfo.setElement(
-        attributesResult
-            .extensionElements(new HashMap<>())
-            .id("42")
-            .itemRef("Item Ref")
-            .name("Name")
-            .xmlColumnNumber(10)
-            .xmlRowNumber(10)
-            .build());
-    graphicInfo.setExpanded(true);
-    graphicInfo.setHeight(10.0d);
-    graphicInfo.setWidth(10.0d);
-    graphicInfo.setX(-0.5d);
-    graphicInfo.setXmlColumnNumber(10);
-    graphicInfo.setXmlRowNumber(10);
-    graphicInfo.setY(3.0d);
-
-    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
-        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
-    defaultProcessDiagramCanvas.drawTask("42", "id", graphicInfo, true);
-
-    GraphicInfo graphicInfo2 = new GraphicInfo();
-    graphicInfo2.setElement(new ActivitiListener());
-    graphicInfo2.setExpanded(true);
-    graphicInfo2.setHeight(10.0d);
-    graphicInfo2.setWidth(10.0d);
-    graphicInfo2.setX(2.0d);
-    graphicInfo2.setXmlColumnNumber(10);
-    graphicInfo2.setXmlRowNumber(10);
-    graphicInfo2.setY(3.0d);
-
-    // Act
-    defaultProcessDiagramCanvas.drawInclusiveGateway("42", graphicInfo2);
-
-    // Assert that nothing has changed
-    Element root = defaultProcessDiagramCanvas.g.getRoot();
-    assertTrue(root instanceof GenericElementNS);
-    Node lastChild = root.getLastChild();
-    assertTrue(lastChild instanceof GenericElementNS);
-    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
-    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
-  }
-
-  /**
-   * Test {@link DefaultProcessDiagramCanvas#drawInclusiveGateway(String, GraphicInfo)}.
-   *
-   * <ul>
-   *   <li>Given {@link GraphicInfo} (default constructor) X is two.
-   * </ul>
-   *
-   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawInclusiveGateway(String,
-   * GraphicInfo)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DefaultProcessDiagramCanvas.drawInclusiveGateway(String, GraphicInfo)"})
-  public void testDrawInclusiveGateway_givenGraphicInfoXIsTwo() {
+  public void testDrawInclusiveGateway2() {
     // Arrange
     GraphicInfo graphicInfo = new GraphicInfo();
 
@@ -12131,7 +12465,72 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   }
 
   /**
+   * Test {@link DefaultProcessDiagramCanvas#drawInclusiveGateway(String, GraphicInfo)}.
+   *
+   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawInclusiveGateway(String,
+   * GraphicInfo)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void DefaultProcessDiagramCanvas.drawInclusiveGateway(String, GraphicInfo)"})
+  public void testDrawInclusiveGateway3() {
+    // Arrange
+    GraphicInfo graphicInfo = new GraphicInfo();
+
+    Builder builderResult = Message.builder();
+
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
+    graphicInfo.setElement(
+        attributesResult
+            .extensionElements(new HashMap<>())
+            .id("42")
+            .itemRef("Item Ref")
+            .name("Name")
+            .xmlColumnNumber(10)
+            .xmlRowNumber(10)
+            .build());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(10.0d);
+    graphicInfo.setWidth(10.0d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(3.0d);
+
+    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(1, 0, 1, 1);
+    defaultProcessDiagramCanvas.drawTask("42", "id", graphicInfo, true);
+
+    GraphicInfo graphicInfo2 = new GraphicInfo();
+    graphicInfo2.setElement(new ActivitiListener());
+    graphicInfo2.setExpanded(true);
+    graphicInfo2.setHeight(10.0d);
+    graphicInfo2.setWidth(10.0d);
+    graphicInfo2.setX(2.0d);
+    graphicInfo2.setXmlColumnNumber(10);
+    graphicInfo2.setXmlRowNumber(10);
+    graphicInfo2.setY(3.0d);
+
+    // Act
+    defaultProcessDiagramCanvas.drawInclusiveGateway("42", graphicInfo2);
+
+    // Assert that nothing has changed
+    Element root = defaultProcessDiagramCanvas.g.getRoot();
+    assertTrue(root instanceof GenericElementNS);
+    Node lastChild = root.getLastChild();
+    assertTrue(lastChild instanceof GenericElementNS);
+    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
+    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
+  }
+
+  /**
    * Test {@link DefaultProcessDiagramCanvas#drawEventBasedGateway(String, GraphicInfo)}.
+   *
+   * <ul>
+   *   <li>Given {@code 0.6}.
+   *   <li>When {@link GraphicInfo} (default constructor) Height is {@code 0.6}.
+   * </ul>
    *
    * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawEventBasedGateway(String,
    * GraphicInfo)}
@@ -12140,7 +12539,49 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"void DefaultProcessDiagramCanvas.drawEventBasedGateway(String, GraphicInfo)"})
-  public void testDrawEventBasedGateway() {
+  public void testDrawEventBasedGateway_given06_whenGraphicInfoHeightIs06() {
+    // Arrange
+    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
+
+    GraphicInfo graphicInfo = new GraphicInfo();
+    graphicInfo.setElement(new ActivitiListener());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(0.6d);
+    graphicInfo.setWidth(10.0d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(10.0d);
+
+    // Act
+    defaultProcessDiagramCanvas.drawEventBasedGateway("42", graphicInfo);
+
+    // Assert
+    Element root = defaultProcessDiagramCanvas.g.getRoot();
+    assertTrue(root instanceof GenericElementNS);
+    Node lastChild = root.getLastChild();
+    assertTrue(lastChild instanceof GenericElementNS);
+    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
+    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
+  }
+
+  /**
+   * Test {@link DefaultProcessDiagramCanvas#drawEventBasedGateway(String, GraphicInfo)}.
+   *
+   * <ul>
+   *   <li>Given three.
+   *   <li>When {@link GraphicInfo} (default constructor) Height is ten.
+   * </ul>
+   *
+   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawEventBasedGateway(String,
+   * GraphicInfo)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void DefaultProcessDiagramCanvas.drawEventBasedGateway(String, GraphicInfo)"})
+  public void testDrawEventBasedGateway_givenThree_whenGraphicInfoHeightIsTen() {
     // Arrange
     DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
         new DefaultProcessDiagramCanvas(1, 1, 1, 1);
@@ -12244,42 +12685,6 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   @MethodsUnderTest({"void DefaultProcessDiagramCanvas.drawHighLightCurrent(GraphicInfo)"})
   public void testDrawHighLightCurrent() {
     // Arrange
-    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
-        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
-
-    GraphicInfo graphicInfo = new GraphicInfo();
-    graphicInfo.setElement(new ActivitiListener());
-    graphicInfo.setExpanded(true);
-    graphicInfo.setHeight(10.0d);
-    graphicInfo.setWidth(10.0d);
-    graphicInfo.setX(2.0d);
-    graphicInfo.setXmlColumnNumber(10);
-    graphicInfo.setXmlRowNumber(10);
-    graphicInfo.setY(3.0d);
-
-    // Act
-    defaultProcessDiagramCanvas.drawHighLightCurrent(graphicInfo);
-
-    // Assert
-    Element root = defaultProcessDiagramCanvas.g.getRoot();
-    assertTrue(root instanceof GenericElementNS);
-    Node lastChild = root.getLastChild();
-    assertTrue(lastChild instanceof GenericElementNS);
-    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
-    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
-  }
-
-  /**
-   * Test {@link DefaultProcessDiagramCanvas#drawHighLightCurrent(GraphicInfo)}.
-   *
-   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawHighLightCurrent(GraphicInfo)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DefaultProcessDiagramCanvas.drawHighLightCurrent(GraphicInfo)"})
-  public void testDrawHighLightCurrent2() {
-    // Arrange
     GraphicInfo graphicInfo = new GraphicInfo();
 
     Builder builderResult = Message.builder();
@@ -12332,7 +12737,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
    * Test {@link DefaultProcessDiagramCanvas#drawHighLightCurrent(GraphicInfo)}.
    *
    * <ul>
-   *   <li>Given {@link HashMap#HashMap()} All is {@link HashMap#HashMap()}.
+   *   <li>Given {@link ActivitiListener} (default constructor).
    * </ul>
    *
    * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawHighLightCurrent(GraphicInfo)}
@@ -12341,13 +12746,55 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"void DefaultProcessDiagramCanvas.drawHighLightCurrent(GraphicInfo)"})
-  public void testDrawHighLightCurrent_givenHashMapAllIsHashMap() {
+  public void testDrawHighLightCurrent_givenActivitiListener() {
     // Arrange
-    HashMap<String, List<ExtensionAttribute>> attributes = new HashMap<>();
-    attributes.putAll(new HashMap<>());
+    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
 
-    Builder attributesResult = Message.builder().attributes(attributes);
-    Message element =
+    GraphicInfo graphicInfo = new GraphicInfo();
+    graphicInfo.setElement(new ActivitiListener());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(10.0d);
+    graphicInfo.setWidth(10.0d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(3.0d);
+
+    // Act
+    defaultProcessDiagramCanvas.drawHighLightCurrent(graphicInfo);
+
+    // Assert
+    Element root = defaultProcessDiagramCanvas.g.getRoot();
+    assertTrue(root instanceof GenericElementNS);
+    Node lastChild = root.getLastChild();
+    assertTrue(lastChild instanceof GenericElementNS);
+    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
+    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
+  }
+
+  /**
+   * Test {@link DefaultProcessDiagramCanvas#drawHighLightCurrent(GraphicInfo)}.
+   *
+   * <ul>
+   *   <li>Given {@link ActivitiListener} (default constructor) Values is {@link ActivitiListener}
+   *       (default constructor).
+   * </ul>
+   *
+   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawHighLightCurrent(GraphicInfo)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void DefaultProcessDiagramCanvas.drawHighLightCurrent(GraphicInfo)"})
+  public void testDrawHighLightCurrent_givenActivitiListenerValuesIsActivitiListener() {
+    // Arrange
+    GraphicInfo graphicInfo = new GraphicInfo();
+
+    Builder builderResult = Message.builder();
+
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
+    graphicInfo.setElement(
         attributesResult
             .extensionElements(new HashMap<>())
             .id("42")
@@ -12355,10 +12802,7 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
             .name("Name")
             .xmlColumnNumber(10)
             .xmlRowNumber(10)
-            .build();
-
-    GraphicInfo graphicInfo = new GraphicInfo();
-    graphicInfo.setElement(element);
+            .build());
     graphicInfo.setExpanded(true);
     graphicInfo.setHeight(6.0d);
     graphicInfo.setWidth(6.0d);
@@ -12371,8 +12815,11 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
         new DefaultProcessDiagramCanvas(1, 1, 1, 1);
     defaultProcessDiagramCanvas.drawTask("42", "Name", graphicInfo, true);
 
+    ActivitiListener element = new ActivitiListener();
+    element.setValues(new ActivitiListener());
+
     GraphicInfo graphicInfo2 = new GraphicInfo();
-    graphicInfo2.setElement(new ActivitiListener());
+    graphicInfo2.setElement(element);
     graphicInfo2.setExpanded(true);
     graphicInfo2.setHeight(10.0d);
     graphicInfo2.setWidth(10.0d);
@@ -12547,6 +12994,65 @@ public class DefaultProcessDiagramCanvasDiffblueTest {
             .itemRef("Item Ref")
             .name("Name")
             .xmlColumnNumber(10)
+            .xmlRowNumber(10)
+            .build());
+    graphicInfo.setExpanded(true);
+    graphicInfo.setHeight(6.0d);
+    graphicInfo.setWidth(6.0d);
+    graphicInfo.setX(2.0d);
+    graphicInfo.setXmlColumnNumber(10);
+    graphicInfo.setXmlRowNumber(10);
+    graphicInfo.setY(3.0d);
+
+    DefaultProcessDiagramCanvas defaultProcessDiagramCanvas =
+        new DefaultProcessDiagramCanvas(1, 1, 1, 1);
+    defaultProcessDiagramCanvas.drawTask("42", "Name", graphicInfo, true);
+
+    GraphicInfo graphicInfo2 = new GraphicInfo();
+    graphicInfo2.setElement(new ActivitiListener());
+    graphicInfo2.setExpanded(true);
+    graphicInfo2.setHeight(10.0d);
+    graphicInfo2.setWidth(10.0d);
+    graphicInfo2.setX(2.0d);
+    graphicInfo2.setXmlColumnNumber(10);
+    graphicInfo2.setXmlRowNumber(10);
+    graphicInfo2.setY(3.0d);
+
+    // Act
+    defaultProcessDiagramCanvas.drawHighLightErrored(graphicInfo2);
+
+    // Assert that nothing has changed
+    Element root = defaultProcessDiagramCanvas.g.getRoot();
+    assertTrue(root instanceof GenericElementNS);
+    Node lastChild = root.getLastChild();
+    assertTrue(lastChild instanceof GenericElementNS);
+    assertTrue(lastChild.getLastChild() instanceof GenericElementNS);
+    assertEquals(2, ((GenericElementNS) lastChild).getChildElementCount());
+  }
+
+  /**
+   * Test {@link DefaultProcessDiagramCanvas#drawHighLightErrored(GraphicInfo)}.
+   *
+   * <p>Method under test: {@link DefaultProcessDiagramCanvas#drawHighLightErrored(GraphicInfo)}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void DefaultProcessDiagramCanvas.drawHighLightErrored(GraphicInfo)"})
+  public void testDrawHighLightErrored3() {
+    // Arrange
+    GraphicInfo graphicInfo = new GraphicInfo();
+
+    Builder builderResult = Message.builder();
+
+    Builder attributesResult = builderResult.attributes(new HashMap<>());
+    graphicInfo.setElement(
+        attributesResult
+            .extensionElements(new HashMap<>())
+            .id("42")
+            .itemRef("Item Ref")
+            .name("Name")
+            .xmlColumnNumber(0)
             .xmlRowNumber(10)
             .build());
     graphicInfo.setExpanded(true);

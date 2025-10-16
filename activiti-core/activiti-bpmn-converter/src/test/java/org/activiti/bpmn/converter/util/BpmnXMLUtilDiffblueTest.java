@@ -99,9 +99,9 @@ class BpmnXMLUtilDiffblueTest {
   @MethodsUnderTest({"void BpmnXMLUtil.writeQualifiedAttribute(String, String, XMLStreamWriter)"})
   void testWriteQualifiedAttribute_thenCallsWriteAttribute() throws Exception {
     // Arrange
-    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing()
-        .when(xtw)
+        .when(writer)
         .writeAttribute(
             Mockito.<String>any(),
             Mockito.<String>any(),
@@ -109,10 +109,11 @@ class BpmnXMLUtilDiffblueTest {
             Mockito.<String>any());
 
     // Act
-    BpmnXMLUtil.writeQualifiedAttribute("Attribute Name", "42", xtw);
+    BpmnXMLUtil.writeQualifiedAttribute(
+        "Attribute Name", "42", new IndentingXMLStreamWriter(writer));
 
     // Assert
-    verify(xtw).writeAttribute("activiti", "http://activiti.org/bpmn", "Attribute Name", "42");
+    verify(writer).writeAttribute("activiti", "http://activiti.org/bpmn", "Attribute Name", "42");
   }
 
   /**

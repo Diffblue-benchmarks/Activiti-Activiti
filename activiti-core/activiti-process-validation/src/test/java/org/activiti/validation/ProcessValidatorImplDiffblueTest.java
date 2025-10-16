@@ -100,7 +100,8 @@ class ProcessValidatorImplDiffblueTest {
         .when(validator)
         .validate(Mockito.<BpmnModel>any(), Mockito.<List<ValidationError>>any());
 
-    ValidatorSet validatorSet = new ValidatorSet("Name");
+    ValidatorSet validatorSet = new ValidatorSet("42");
+    validatorSet.addValidator(mock(Validator.class));
     validatorSet.addValidator(validator);
 
     ProcessValidatorImpl processValidatorImpl = new ProcessValidatorImpl();
@@ -150,21 +151,20 @@ class ProcessValidatorImplDiffblueTest {
    * Test {@link ProcessValidatorImpl#addValidatorSet(ValidatorSet)}.
    *
    * <ul>
-   *   <li>Given {@link ProcessValidatorImpl} (default constructor) ValidatorSets is {@code null}.
+   *   <li>Given {@link ProcessValidatorImpl} (default constructor).
    * </ul>
    *
    * <p>Method under test: {@link ProcessValidatorImpl#addValidatorSet(ValidatorSet)}
    */
   @Test
   @DisplayName(
-      "Test addValidatorSet(ValidatorSet); given ProcessValidatorImpl (default constructor) ValidatorSets is 'null'")
+      "Test addValidatorSet(ValidatorSet); given ProcessValidatorImpl (default constructor)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void ProcessValidatorImpl.addValidatorSet(ValidatorSet)"})
-  void testAddValidatorSet_givenProcessValidatorImplValidatorSetsIsNull() {
+  void testAddValidatorSet_givenProcessValidatorImpl() {
     // Arrange
     ProcessValidatorImpl processValidatorImpl = new ProcessValidatorImpl();
-    processValidatorImpl.setValidatorSets(null);
     ValidatorSet validatorSet = new ValidatorSet("Name");
 
     // Act

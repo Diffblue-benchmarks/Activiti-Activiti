@@ -204,6 +204,7 @@ class AbstractProcessEngineAutoConfigurationDiffblueTest {
     // Arrange and Act
     TaskExecutor actualTaskExecutorResult =
         new ProcessEngineAutoConfiguration(userGroupManager).taskExecutor();
+    actualTaskExecutorResult.execute(mock(Runnable.class));
 
     // Assert
     assertTrue(actualTaskExecutorResult instanceof SimpleAsyncTaskExecutor);

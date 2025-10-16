@@ -384,7 +384,7 @@ class TimerPayloadDiffblueTest {
         Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
     timerPayload.setEndDate(
         Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
-    timerPayload.setExceptionMessage("f7be3481-db75-438c-a3a3-da854405dda9");
+    timerPayload.setExceptionMessage("676701ba-3ca9-4fbf-8e8b-54e1ec174e9d");
     timerPayload.setMaxIterations(3);
     timerPayload.setRepeat("Repeat");
     timerPayload.setRetries(1);

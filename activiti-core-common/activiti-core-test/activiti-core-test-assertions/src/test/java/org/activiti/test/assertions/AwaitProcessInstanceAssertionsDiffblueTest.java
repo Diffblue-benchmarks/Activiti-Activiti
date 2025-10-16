@@ -115,6 +115,51 @@ class AwaitProcessInstanceAssertionsDiffblueTest {
   }
 
   /**
+   * Test {@link AwaitProcessInstanceAssertions#expectFields(ProcessResultMatcher[])}.
+   *
+   * <ul>
+   *   <li>Given {@link ArrayList#ArrayList()} add {@link TaskSource}.
+   * </ul>
+   *
+   * <p>Method under test: {@link
+   * AwaitProcessInstanceAssertions#expectFields(ProcessResultMatcher[])}
+   */
+  @Test
+  @DisplayName("Test expectFields(ProcessResultMatcher[]); given ArrayList() add TaskSource")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "ProcessInstanceAssertions AwaitProcessInstanceAssertions.expectFields(ProcessResultMatcher[])"
+  })
+  void testExpectFields_givenArrayListAddTaskSource() {
+    // Arrange
+    EventSource eventSource = mock(EventSource.class);
+    Mockito.<List<RuntimeEvent<?, ?>>>when(eventSource.getEvents()).thenReturn(new ArrayList<>());
+
+    ArrayList<TaskSource> taskSources = new ArrayList<>();
+    taskSources.add(mock(TaskSource.class));
+
+    ProcessInstanceAssertionsImpl processInstanceAssertions =
+        new ProcessInstanceAssertionsImpl(eventSource, taskSources, mock(ProcessInstance.class));
+    AwaitProcessInstanceAssertions awaitProcessInstanceAssertions =
+        new AwaitProcessInstanceAssertions(
+            new AwaitProcessInstanceAssertions(processInstanceAssertions));
+
+    ProcessResultMatcher processResultMatcher = mock(ProcessResultMatcher.class);
+    doNothing().when(processResultMatcher).match(Mockito.<ProcessInstance>any());
+
+    // Act
+    ProcessInstanceAssertions actualExpectFieldsResult =
+        awaitProcessInstanceAssertions.expectFields(processResultMatcher);
+
+    // Assert
+    verify(eventSource).getEvents();
+    verify(processResultMatcher).match(isA(ProcessInstance.class));
+    assertTrue(actualExpectFieldsResult instanceof AwaitProcessInstanceAssertions);
+    assertSame(awaitProcessInstanceAssertions, actualExpectFieldsResult);
+  }
+
+  /**
    * Test {@link AwaitProcessInstanceAssertions#expect(ProcessTaskMatcher[])}.
    *
    * <p>Method under test: {@link AwaitProcessInstanceAssertions#expect(ProcessTaskMatcher[])}
@@ -189,35 +234,6 @@ class AwaitProcessInstanceAssertionsDiffblueTest {
     // Assert
     verify(processInstance).getId();
     verify(processTaskMatcher).match(eq("42"), isA(List.class));
-    assertTrue(actualExpectResult instanceof AwaitProcessInstanceAssertions);
-    assertSame(awaitProcessInstanceAssertions, actualExpectResult);
-  }
-
-  /**
-   * Test {@link AwaitProcessInstanceAssertions#expect(ProcessTaskMatcher[])}.
-   *
-   * <p>Method under test: {@link AwaitProcessInstanceAssertions#expect(ProcessTaskMatcher[])}
-   */
-  @Test
-  @DisplayName("Test expect(ProcessTaskMatcher[])")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "ProcessInstanceAssertions AwaitProcessInstanceAssertions.expect(ProcessTaskMatcher[])"
-  })
-  void testExpect3() {
-    // Arrange
-    EventSource eventSource = mock(EventSource.class);
-    ProcessInstanceAssertionsImpl processInstanceAssertions =
-        new ProcessInstanceAssertionsImpl(
-            eventSource, new ArrayList<>(), mock(ProcessInstance.class));
-    AwaitProcessInstanceAssertions awaitProcessInstanceAssertions =
-        new AwaitProcessInstanceAssertions(processInstanceAssertions);
-
-    // Act
-    ProcessInstanceAssertions actualExpectResult = awaitProcessInstanceAssertions.expect();
-
-    // Assert
     assertTrue(actualExpectResult instanceof AwaitProcessInstanceAssertions);
     assertSame(awaitProcessInstanceAssertions, actualExpectResult);
   }

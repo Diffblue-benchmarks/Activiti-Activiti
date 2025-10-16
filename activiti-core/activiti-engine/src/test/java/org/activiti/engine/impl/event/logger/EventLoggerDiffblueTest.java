@@ -35,12 +35,13 @@ import org.activiti.engine.delegate.event.impl.ActivitiActivityCancelledEventImp
 import org.activiti.engine.delegate.event.impl.ActivitiActivityEventImpl;
 import org.activiti.engine.delegate.event.impl.ActivitiEntityEventImpl;
 import org.activiti.engine.delegate.event.impl.ActivitiVariableUpdatedEventImpl;
-import org.activiti.engine.impl.event.logger.handler.ActivityCompletedEventHandler;
-import org.activiti.engine.impl.event.logger.handler.ActivitySignaledEventHandler;
-import org.activiti.engine.impl.event.logger.handler.ActivityStartedEventHandler;
+import org.activiti.engine.impl.event.logger.handler.ActivityCompensatedEventHandler;
 import org.activiti.engine.impl.event.logger.handler.EventLoggerEventHandler;
+import org.activiti.engine.impl.event.logger.handler.SequenceFlowTakenEventHandler;
+import org.activiti.engine.impl.event.logger.handler.TaskCompletedEventHandler;
 import org.activiti.engine.impl.event.logger.handler.TaskCreatedEventHandler;
 import org.activiti.engine.impl.event.logger.handler.VariableCreatedEventHandler;
+import org.activiti.engine.impl.event.logger.handler.VariableDeletedEventHandler;
 import org.activiti.engine.impl.event.logger.handler.VariableUpdatedEventHandler;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntityImpl;
 import org.activiti.engine.impl.util.DefaultClockImpl;
@@ -70,18 +71,18 @@ public class EventLoggerDiffblueTest {
         activitiEventTypeResultClassMap = actualEventLogger.eventHandlers;
     assertEquals(13, activitiEventTypeResultClassMap.size());
     assertFalse(actualEventLogger.isFailOnException());
-    Class<ActivityCompletedEventHandler> expectedGetResult = ActivityCompletedEventHandler.class;
+    Class<ActivityCompensatedEventHandler> expectedGetResult =
+        ActivityCompensatedEventHandler.class;
     assertEquals(
         expectedGetResult,
-        activitiEventTypeResultClassMap.get(ActivitiEventType.ACTIVITY_COMPLETED));
-    Class<ActivitySignaledEventHandler> expectedGetResult2 = ActivitySignaledEventHandler.class;
+        activitiEventTypeResultClassMap.get(ActivitiEventType.ACTIVITY_COMPENSATE));
+    Class<SequenceFlowTakenEventHandler> expectedGetResult2 = SequenceFlowTakenEventHandler.class;
     assertEquals(
         expectedGetResult2,
-        activitiEventTypeResultClassMap.get(ActivitiEventType.ACTIVITY_SIGNALED));
-    Class<ActivityStartedEventHandler> expectedGetResult3 = ActivityStartedEventHandler.class;
+        activitiEventTypeResultClassMap.get(ActivitiEventType.SEQUENCEFLOW_TAKEN));
+    Class<TaskCompletedEventHandler> expectedGetResult3 = TaskCompletedEventHandler.class;
     assertEquals(
-        expectedGetResult3,
-        activitiEventTypeResultClassMap.get(ActivitiEventType.ACTIVITY_STARTED));
+        expectedGetResult3, activitiEventTypeResultClassMap.get(ActivitiEventType.TASK_COMPLETED));
     Class<TaskCreatedEventHandler> expectedGetResult4 = TaskCreatedEventHandler.class;
     assertEquals(
         expectedGetResult4, activitiEventTypeResultClassMap.get(ActivitiEventType.TASK_CREATED));
@@ -89,10 +90,10 @@ public class EventLoggerDiffblueTest {
     assertEquals(
         expectedGetResult5,
         activitiEventTypeResultClassMap.get(ActivitiEventType.VARIABLE_CREATED));
-    Class<VariableUpdatedEventHandler> expectedGetResult6 = VariableUpdatedEventHandler.class;
+    Class<VariableDeletedEventHandler> expectedGetResult6 = VariableDeletedEventHandler.class;
     assertEquals(
         expectedGetResult6,
-        activitiEventTypeResultClassMap.get(ActivitiEventType.VARIABLE_UPDATED));
+        activitiEventTypeResultClassMap.get(ActivitiEventType.VARIABLE_DELETED));
   }
 
   /**
@@ -122,12 +123,12 @@ public class EventLoggerDiffblueTest {
         activitiEventTypeResultClassMap = actualEventLogger.eventHandlers;
     assertEquals(13, activitiEventTypeResultClassMap.size());
     assertFalse(actualEventLogger.isFailOnException());
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.ACTIVITY_COMPLETED));
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.ACTIVITY_SIGNALED));
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.ACTIVITY_STARTED));
+    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.ACTIVITY_COMPENSATE));
+    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.SEQUENCEFLOW_TAKEN));
+    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.TASK_COMPLETED));
     assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.TASK_CREATED));
     assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.VARIABLE_CREATED));
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.VARIABLE_UPDATED));
+    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.VARIABLE_DELETED));
     assertSame(clock, clock2);
     assertSame(objectMapper, objectMapper2);
   }
@@ -303,17 +304,6 @@ public class EventLoggerDiffblueTest {
 
     // Act and Assert
     assertNull(eventLogger.instantiateEventHandler(event, eventHandlerClass));
-    Map<ActivitiEventType, Class<? extends EventLoggerEventHandler>>
-        activitiEventTypeResultClassMap = eventLogger.eventHandlers;
-    assertEquals(13, activitiEventTypeResultClassMap.size());
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.ACTIVITY_COMPLETED));
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.ACTIVITY_SIGNALED));
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.ACTIVITY_STARTED));
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.TASK_CREATED));
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.VARIABLE_CREATED));
-    Class<VariableUpdatedEventHandler> expectedGetResult = VariableUpdatedEventHandler.class;
-    assertEquals(
-        expectedGetResult, activitiEventTypeResultClassMap.get(ActivitiEventType.VARIABLE_UPDATED));
   }
 
   /**
@@ -335,17 +325,6 @@ public class EventLoggerDiffblueTest {
 
     // Act and Assert
     assertNull(eventLogger.instantiateEventHandler(event, eventHandlerClass));
-    Map<ActivitiEventType, Class<? extends EventLoggerEventHandler>>
-        activitiEventTypeResultClassMap = eventLogger.eventHandlers;
-    assertEquals(13, activitiEventTypeResultClassMap.size());
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.ACTIVITY_COMPLETED));
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.ACTIVITY_SIGNALED));
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.ACTIVITY_STARTED));
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.TASK_CREATED));
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.VARIABLE_CREATED));
-    Class<VariableUpdatedEventHandler> expectedGetResult = VariableUpdatedEventHandler.class;
-    assertEquals(
-        expectedGetResult, activitiEventTypeResultClassMap.get(ActivitiEventType.VARIABLE_UPDATED));
   }
 
   /**
@@ -374,17 +353,6 @@ public class EventLoggerDiffblueTest {
     assertTrue(
         eventLogger.instantiateEventHandler(event, eventHandlerClass)
             instanceof VariableUpdatedEventHandler);
-    Map<ActivitiEventType, Class<? extends EventLoggerEventHandler>>
-        activitiEventTypeResultClassMap = eventLogger.eventHandlers;
-    assertEquals(13, activitiEventTypeResultClassMap.size());
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.ACTIVITY_COMPLETED));
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.ACTIVITY_SIGNALED));
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.ACTIVITY_STARTED));
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.TASK_CREATED));
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.VARIABLE_CREATED));
-    Class<VariableUpdatedEventHandler> expectedGetResult = VariableUpdatedEventHandler.class;
-    assertEquals(
-        expectedGetResult, activitiEventTypeResultClassMap.get(ActivitiEventType.VARIABLE_UPDATED));
   }
 
   /**
@@ -408,11 +376,11 @@ public class EventLoggerDiffblueTest {
     Map<ActivitiEventType, Class<? extends EventLoggerEventHandler>>
         activitiEventTypeResultClassMap = eventLogger.eventHandlers;
     assertEquals(14, activitiEventTypeResultClassMap.size());
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.ACTIVITY_SIGNALED));
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.ACTIVITY_STARTED));
+    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.ACTIVITY_COMPENSATE));
+    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.SEQUENCEFLOW_TAKEN));
+    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.TASK_COMPLETED));
     assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.TASK_CREATED));
     assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.VARIABLE_CREATED));
-    assertTrue(activitiEventTypeResultClassMap.containsKey(ActivitiEventType.VARIABLE_UPDATED));
     Class<EventLoggerEventHandler> expectedGetResult = EventLoggerEventHandler.class;
     assertEquals(
         expectedGetResult, activitiEventTypeResultClassMap.get(ActivitiEventType.ENTITY_CREATED));

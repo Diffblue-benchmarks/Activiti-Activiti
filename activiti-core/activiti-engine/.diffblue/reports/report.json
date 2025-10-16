@@ -4,18 +4,18 @@
   },
   "run" : {
     "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-09-26T16:42:02.920714336Z",
+    "creationTimestamp" : "2025-10-15T18:17:05.474751764Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 51469.958,
-    "environmentDetectionTime" : 19.266,
-    "indexingTime" : 0.463,
-    "entryPointsTime" : 19.255,
-    "generationTime" : 56317.779,
-    "timeToFirstTest" : 66882.275,
-    "timeToLastTest" : 59213.266,
-    "indexQueryTime" : 34.762,
-    "verificationTime" : 1140.344,
-    "validationTime" : 5224.202
+    "totalTime" : 47414.191,
+    "environmentDetectionTime" : 19.531,
+    "indexingTime" : 0.543,
+    "entryPointsTime" : 19.519,
+    "generationTime" : 56434.891,
+    "timeToFirstTest" : 62988.413,
+    "timeToLastTest" : 59368.364,
+    "indexQueryTime" : 35.478,
+    "verificationTime" : 1164.867,
+    "validationTime" : 885.607
   },
   "codes" : {
     "F009" : "Internal error",
@@ -54,9 +54,9 @@
   "summary" : {
     "classesCount" : 1156,
     "methodsCount" : 11079,
-    "cumulativeDiffblueTestCount" : 7897,
+    "cumulativeDiffblueTestCount" : 7732,
     "cumulativeManualTestCount" : 1988,
-    "completeTestCount" : 7987,
+    "completeTestCount" : 7790,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 67343,
@@ -77,15 +77,15 @@
       "T023" : 153
     },
     "perMethodOutcome" : {
-      "F009" : 5,
-      "R000" : 5335,
+      "F009" : 6,
+      "R000" : 5328,
       "R002" : 105,
       "R004" : 62,
       "R008" : 20,
       "R010" : 2,
-      "R013" : 783,
+      "R013" : 788,
       "R015" : 134,
-      "R024" : 2,
+      "R024" : 3,
       "R026" : 428,
       "R031" : 1,
       "R034" : 7,
@@ -101,19 +101,19 @@
       "T010" : 2607,
       "T012" : 179,
       "T023" : 153,
-      "W002" : 14
+      "W002" : 13
     },
     "perTestOutcome" : {
-      "R000" : 7987
+      "R000" : 7790
     },
     "perTestValidation" : {
-      "V000" : 7897,
-      "V003" : 90
+      "V000" : 7732,
+      "V003" : 58
     },
     "warnings" : {
       "F009" : 18,
       "W001" : 17,
-      "W002" : 122
+      "W002" : 138
     }
   },
   "classes" : {
@@ -387,19 +387,16 @@
         "T023" : 1
       },
       "perMethodOutcome" : {
+        "F009" : 1,
         "R000" : 6,
         "R004" : 2,
         "T003" : 3,
         "T005" : 4,
         "T010" : 1,
-        "T023" : 1,
-        "W002" : 1
+        "T023" : 1
       },
       "perTestOutcome" : {
         "R000" : 6
-      },
-      "warnings" : {
-        "W002" : 1
       }
     },
     "org.activiti.engine.RepositoryService" : {
@@ -2865,7 +2862,7 @@
     },
     "org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor" : {
       "methodsCount" : 73,
-      "completeTestCount" : 46,
+      "completeTestCount" : 45,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 15,
@@ -2881,7 +2878,7 @@
         "T023" : 1
       },
       "perTestOutcome" : {
-        "R000" : 46
+        "R000" : 45
       }
     },
     "org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor$1" : {
@@ -2929,7 +2926,7 @@
     },
     "org.activiti.engine.impl.asyncexecutor.ExecuteAsyncRunnable" : {
       "methodsCount" : 10,
-      "completeTestCount" : 15,
+      "completeTestCount" : 16,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 8,
@@ -2942,7 +2939,7 @@
         "T023" : 1
       },
       "perTestOutcome" : {
-        "R000" : 15
+        "R000" : 16
       }
     },
     "org.activiti.engine.impl.asyncexecutor.ExecuteAsyncRunnable$1" : {
@@ -3057,7 +3054,7 @@
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.ExecutorPerTenantAsyncExecutor" : {
       "methodsCount" : 38,
-      "completeTestCount" : 337,
+      "completeTestCount" : 197,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 32,
@@ -3067,17 +3064,17 @@
         "T023" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 33,
-        "R013" : 4,
+        "R000" : 28,
+        "R013" : 9,
         "T023" : 1
       },
       "perTestOutcome" : {
-        "R000" : 337
+        "R000" : 197
       }
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.SharedExecutorServiceAsyncExecutor" : {
       "methodsCount" : 12,
-      "completeTestCount" : 96,
+      "completeTestCount" : 42,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 10,
@@ -3091,10 +3088,10 @@
         "T023" : 1
       },
       "perTestOutcome" : {
-        "R000" : 96
+        "R000" : 42
       },
       "warnings" : {
-        "W002" : 57
+        "W002" : 74
       }
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.SharedExecutorServiceAsyncExecutor$1" : {
@@ -14627,18 +14624,19 @@
       }
     },
     "org.activiti.engine.impl.persistence.entity.data.impl.util.ExecutionTreeStringBuilder" : {
-      "methodsCount" : 3,
-      "completeTestCount" : 5,
+      "methodsCount" : 2,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 2,
         "T005" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 3
+        "R000" : 1,
+        "R024" : 1
       },
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 2
       }
     },
     "org.activiti.engine.impl.persistence.entity.data.integration.MybatisIntegrationContextDataManager" : {
@@ -20376,10 +20374,7 @@
       "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "W002",
-      "warnings" : {
-        "W002" : 1
-      },
+      "perMethodOutcome" : "F009",
       "lineNumbers" : [
         216
       ]
@@ -51958,12 +51953,12 @@
       ]
     },
     "org.activiti.engine.impl.asyncexecutor.DefaultAsyncJobExecutor.createRunnableForJob:(Lorg/activiti/engine/runtime/Job;)Ljava/lang/Runnable;" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 5
       },
       "lineNumbers" : [
         160,
@@ -53682,12 +53677,12 @@
       ]
     },
     "org.activiti.engine.impl.asyncexecutor.ExecuteAsyncRunnable.run:()V" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 4
       },
       "lineNumbers" : [
         58,
@@ -54072,12 +54067,12 @@
       ]
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.ExecutorPerTenantAsyncExecutor.addTenantAsyncExecutor:(Ljava/lang/String;Z)V" : {
-      "completeTestCount" : 12,
+      "completeTestCount" : 14,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 12
+        "R000" : 14
       },
       "lineNumbers" : [
         67,
@@ -54098,48 +54093,48 @@
       ]
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.ExecutorPerTenantAsyncExecutor.determineAsyncExecutor:()Lorg/activiti/engine/impl/asyncexecutor/AsyncExecutor;" : {
-      "completeTestCount" : 26,
+      "completeTestCount" : 31,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 26
+        "R000" : 31
       },
       "lineNumbers" : [
         99
       ]
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.ExecutorPerTenantAsyncExecutor.executeAsyncJob:(Lorg/activiti/engine/runtime/Job;)Z" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
       },
       "lineNumbers" : [
         103
       ]
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.ExecutorPerTenantAsyncExecutor.getAsyncJobLockTimeInMillis:()I" : {
-      "completeTestCount" : 28,
+      "completeTestCount" : 27,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 28
+        "R000" : 27
       },
       "lineNumbers" : [
         170
       ]
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.ExecutorPerTenantAsyncExecutor.getDefaultAsyncJobAcquireWaitTimeInMillis:()I" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 6,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 6
       },
       "lineNumbers" : [
         190
@@ -54155,13 +54150,10 @@
       ]
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.ExecutorPerTenantAsyncExecutor.getDefaultTimerJobAcquireWaitTimeInMillis:()I" : {
-      "completeTestCount" : 22,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 22
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         180
       ]
@@ -54179,37 +54171,28 @@
       ]
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.ExecutorPerTenantAsyncExecutor.getLockOwner:()Ljava/lang/String;" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 4
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         156
       ]
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.ExecutorPerTenantAsyncExecutor.getMaxAsyncJobsDuePerAcquisition:()I" : {
-      "completeTestCount" : 27,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 27
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         210
       ]
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.ExecutorPerTenantAsyncExecutor.getMaxTimerJobsPerAcquisition:()I" : {
-      "completeTestCount" : 13,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 13
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         220
       ]
@@ -54266,13 +54249,10 @@
       ]
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.ExecutorPerTenantAsyncExecutor.getTimerLockTimeInMillis:()I" : {
-      "completeTestCount" : 11,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 11
-      },
+      "perMethodOutcome" : "R013",
       "lineNumbers" : [
         160
       ]
@@ -54302,12 +54282,12 @@
       ]
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.ExecutorPerTenantAsyncExecutor.removeTenantAsyncExecutor:(Ljava/lang/String;)V" : {
-      "completeTestCount" : 37,
+      "completeTestCount" : 11,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 37
+        "R000" : 11
       },
       "lineNumbers" : [
         94,
@@ -54316,12 +54296,12 @@
       ]
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.ExecutorPerTenantAsyncExecutor.setAsyncJobLockTimeInMillis:(I)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         174,
@@ -54359,12 +54339,12 @@
       ]
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.ExecutorPerTenantAsyncExecutor.setDefaultQueueSizeFullWaitTimeInMillis:(I)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 5
       },
       "lineNumbers" : [
         204,
@@ -54374,12 +54354,12 @@
       ]
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.ExecutorPerTenantAsyncExecutor.setDefaultTimerJobAcquireWaitTimeInMillis:(I)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         184,
@@ -54389,12 +54369,12 @@
       ]
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.ExecutorPerTenantAsyncExecutor.setMaxAsyncJobsDuePerAcquisition:(I)V" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 5
       },
       "lineNumbers" : [
         214,
@@ -54404,12 +54384,12 @@
       ]
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.ExecutorPerTenantAsyncExecutor.setMaxTimerJobsPerAcquisition:(I)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         224,
@@ -54435,12 +54415,12 @@
       ]
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.ExecutorPerTenantAsyncExecutor.setResetExpiredJobsInterval:(I)V" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 1
       },
       "lineNumbers" : [
         246,
@@ -54450,12 +54430,12 @@
       ]
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.ExecutorPerTenantAsyncExecutor.setResetExpiredJobsPageSize:(I)V" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 3
       },
       "lineNumbers" : [
         258,
@@ -54465,12 +54445,12 @@
       ]
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.ExecutorPerTenantAsyncExecutor.setRetryWaitTimeInMillis:(I)V" : {
-      "completeTestCount" : 9,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 1
       },
       "lineNumbers" : [
         234,
@@ -54480,12 +54460,12 @@
       ]
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.ExecutorPerTenantAsyncExecutor.setTimerLockTimeInMillis:(I)V" : {
-      "completeTestCount" : 8,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 8
+        "R000" : 1
       },
       "lineNumbers" : [
         164,
@@ -54495,12 +54475,12 @@
       ]
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.ExecutorPerTenantAsyncExecutor.shutdown:()V" : {
-      "completeTestCount" : 43,
+      "completeTestCount" : 40,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 43
+        "R000" : 40
       },
       "lineNumbers" : [
         144,
@@ -54511,12 +54491,12 @@
       ]
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.ExecutorPerTenantAsyncExecutor.shutdownTenantExecutor:(Ljava/lang/String;)V" : {
-      "completeTestCount" : 41,
+      "completeTestCount" : 15,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 41
+        "R000" : 15
       },
       "lineNumbers" : [
         151,
@@ -54525,12 +54505,12 @@
       ]
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.ExecutorPerTenantAsyncExecutor.start:()V" : {
-      "completeTestCount" : 22,
+      "completeTestCount" : 25,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 22
+        "R000" : 25
       },
       "lineNumbers" : [
         137,
@@ -54588,15 +54568,15 @@
       ]
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.SharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor:(Ljava/lang/String;Z)V" : {
-      "completeTestCount" : 11,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 11
+        "R000" : 7
       },
       "warnings" : {
-        "W002" : 5
+        "W002" : 4
       },
       "lineNumbers" : [
         85,
@@ -54614,27 +54594,27 @@
       ]
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.SharedExecutorServiceAsyncExecutor.getTenantIds:()Ljava/util/Set;" : {
-      "completeTestCount" : 52,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 52
+        "R000" : 1
       },
       "lineNumbers" : [
         80
       ]
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.SharedExecutorServiceAsyncExecutor.removeTenantAsyncExecutor:(Ljava/lang/String;)V" : {
-      "completeTestCount" : 9,
+      "completeTestCount" : 10,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 9
+        "R000" : 10
       },
       "warnings" : {
-        "W002" : 26
+        "W002" : 32
       },
       "lineNumbers" : [
         110,
@@ -54703,12 +54683,12 @@
       ]
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.SharedExecutorServiceAsyncExecutor.stopJobAcquisitionThread:()V" : {
-      "completeTestCount" : 16,
+      "completeTestCount" : 18,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 16
+        "R000" : 18
       },
       "warnings" : {
         "W002" : 16
@@ -54721,15 +54701,15 @@
       ]
     },
     "org.activiti.engine.impl.asyncexecutor.multitenant.SharedExecutorServiceAsyncExecutor.stopThreadsForTenant:(Ljava/lang/String;)V" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 4
       },
       "warnings" : {
-        "W002" : 10
+        "W002" : 22
       },
       "lineNumbers" : [
         148,
@@ -127054,13 +127034,10 @@
       ]
     },
     "org.activiti.engine.impl.persistence.entity.data.impl.util.ExecutionTreeStringBuilder.internalToString:(Lorg/activiti/engine/impl/persistence/entity/ExecutionEntity;Ljava/lang/StringBuilder;Ljava/lang/String;Z)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 0,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
-      "perTestOutcome" : {
-        "R000" : 2
-      },
+      "perMethodOutcome" : "F009",
       "lineNumbers" : [
         56,
         57,
@@ -127082,12 +127059,12 @@
       ]
     },
     "org.activiti.engine.impl.persistence.entity.data.impl.util.ExecutionTreeStringBuilder.toString:()Ljava/lang/String;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R000",
+      "perMethodOutcome" : "R024",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         39,

@@ -31,7 +31,6 @@ import org.activiti.engine.impl.cfg.multitenant.TenantInfoHolder;
 import org.activiti.engine.impl.interceptor.Command;
 import org.activiti.engine.impl.interceptor.CommandConfig;
 import org.activiti.engine.impl.interceptor.CommandContextInterceptor;
-import org.activiti.engine.impl.interceptor.CommandInterceptor;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.activiti.engine.runtime.Job;
 import org.activiti.engine.test.cfg.multitenant.DummyTenantInfoHolder;
@@ -148,8 +147,7 @@ public class TenantAwareExecuteAsyncRunnableDiffblueTest {
    * Test {@link TenantAwareExecuteAsyncRunnable#run()}.
    *
    * <ul>
-   *   <li>Given {@link CommandInterceptor} {@link CommandInterceptor#execute(CommandConfig,
-   *       Command)} return {@link JSONObject#NULL}.
+   *   <li>Given {@link Job} {@link Job#isExclusive()} return {@code false}.
    *   <li>Then calls {@link ProcessEngineConfigurationImpl#getCommandExecutor()}.
    * </ul>
    *
@@ -159,13 +157,13 @@ public class TenantAwareExecuteAsyncRunnableDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"void TenantAwareExecuteAsyncRunnable.run()"})
-  public void testRun_givenCommandInterceptorExecuteReturnNull_thenCallsGetCommandExecutor() {
+  public void testRun_givenJobIsExclusiveReturnFalse_thenCallsGetCommandExecutor() {
     // Arrange
     Job job = mock(Job.class);
     when(job.isExclusive()).thenReturn(false);
     when(job.getId()).thenReturn("42");
 
-    CommandInterceptor first = mock(CommandInterceptor.class);
+    CommandContextInterceptor first = mock(CommandContextInterceptor.class);
     when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
         .thenReturn(JSONObject.NULL);
     CommandExecutorImpl commandExecutorImpl = new CommandExecutorImpl(new CommandConfig(), first);
@@ -208,7 +206,7 @@ public class TenantAwareExecuteAsyncRunnableDiffblueTest {
     when(job.isExclusive()).thenReturn(true);
     when(job.getId()).thenReturn("42");
 
-    CommandInterceptor first = mock(CommandInterceptor.class);
+    CommandContextInterceptor first = mock(CommandContextInterceptor.class);
     when(first.execute(Mockito.<CommandConfig>any(), Mockito.<Command<Object>>any()))
         .thenReturn(JSONObject.NULL);
     CommandExecutorImpl commandExecutorImpl = new CommandExecutorImpl(new CommandConfig(), first);

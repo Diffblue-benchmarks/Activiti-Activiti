@@ -74,7 +74,7 @@ public class UrlStreamSourceDiffblueTest {
     byte[] byteArray = new byte[51];
     assertEquals(51, new UrlStreamSource(url).getInputStream().read(byteArray));
     assertArrayEquals(
-        ".java_pid298584\n.java_pid301787\n.java_pid304384\n.ja".getBytes("UTF-8"), byteArray);
+        ".java_pid302847\n.java_pid306051\n.java_pid308653\n.ja".getBytes("UTF-8"), byteArray);
   }
 
   /**

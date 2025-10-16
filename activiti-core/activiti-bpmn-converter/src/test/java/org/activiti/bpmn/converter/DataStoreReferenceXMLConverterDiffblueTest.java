@@ -79,7 +79,6 @@ class DataStoreReferenceXMLConverterDiffblueTest {
    * XMLStreamWriter)}.
    *
    * <ul>
-   *   <li>Given {@code dataState}.
    *   <li>Then calls {@link IndentingXMLStreamWriter#writeCharacters(String)}.
    * </ul>
    *
@@ -89,32 +88,33 @@ class DataStoreReferenceXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter); given 'dataState'; then calls writeCharacters(String)")
+      "Test writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter); then calls writeCharacters(String)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({
     "void DataStoreReferenceXMLConverter.writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)"
   })
-  void testWriteAdditionalChildElements_givenDataState_thenCallsWriteCharacters() throws Exception {
+  void testWriteAdditionalChildElements_thenCallsWriteCharacters() throws Exception {
     // Arrange
     DataStoreReferenceXMLConverter dataStoreReferenceXMLConverter =
         new DataStoreReferenceXMLConverter();
 
     DataStoreReference element = new DataStoreReference();
-    element.setDataState("dataState");
+    element.setDataState("not empty");
     BpmnModel model = new BpmnModel();
 
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeCharacters(Mockito.<String>any());
     doNothing().when(writer).writeEndElement();
     doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
 
     // Act
     dataStoreReferenceXMLConverter.writeAdditionalChildElements(
-        element, model, new IndentingXMLStreamWriter(writer));
+        element, model, new IndentingXMLStreamWriter(writer2));
 
     // Assert
-    verify(writer).writeCharacters("dataState");
+    verify(writer).writeCharacters("not empty");
     verify(writer).writeEndElement();
     verify(writer).writeStartElement("dataState");
   }

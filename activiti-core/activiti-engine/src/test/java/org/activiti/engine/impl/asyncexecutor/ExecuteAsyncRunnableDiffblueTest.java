@@ -87,6 +87,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.Set;
 import java.util.TimeZone;
@@ -747,7 +748,73 @@ public class ExecuteAsyncRunnableDiffblueTest {
     // Assert
     verify(commandExecutorImpl, atLeast(1)).execute(Mockito.<Command<Object>>any());
     verify(processEngineConfiguration, atLeast(1)).getCommandExecutor();
-    assertTrue(executeAsyncRunnable.job instanceof DeadLetterJobEntityImpl);
+    Job job = executeAsyncRunnable.job;
+    assertTrue(((DeadLetterJobEntityImpl) job).getPersistentState() instanceof Map);
+    assertTrue(job instanceof DeadLetterJobEntityImpl);
+    assertEquals("42", job.getExecutionId());
+    assertEquals("42", job.getId());
+    assertEquals("42", job.getProcessDefinitionId());
+    assertEquals("42", job.getProcessInstanceId());
+    assertEquals("42", job.getTenantId());
+    assertEquals("An error occurred", job.getExceptionMessage());
+    assertEquals("Job Handler Configuration", job.getJobHandlerConfiguration());
+    assertEquals("Job Handler Type", job.getJobHandlerType());
+    assertEquals("Job Type", job.getJobType());
+    assertEquals("Repeat", ((DeadLetterJobEntityImpl) job).getRepeat());
+    assertEquals(1, job.getRetries());
+    assertEquals(3, ((DeadLetterJobEntityImpl) job).getMaxIterations());
+    assertTrue(((DeadLetterJobEntityImpl) job).isDeleted());
+    assertTrue(((DeadLetterJobEntityImpl) job).isInserted());
+    assertTrue(((DeadLetterJobEntityImpl) job).isUpdated());
+  }
+
+  /**
+   * Test {@link ExecuteAsyncRunnable#run()}.
+   *
+   * <p>Method under test: {@link ExecuteAsyncRunnable#run()}
+   */
+  @Test
+  @Category(ContributionFromDiffblue.class)
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void ExecuteAsyncRunnable.run()"})
+  public void testRun2() {
+    // Arrange
+    CommandExecutorImpl commandExecutorImpl = mock(CommandExecutorImpl.class);
+    when(commandExecutorImpl.execute(Mockito.<Command<Object>>any()))
+        .thenReturn(new DeadLetterJobEntityImpl());
+
+    JtaProcessEngineConfiguration processEngineConfiguration =
+        mock(JtaProcessEngineConfiguration.class);
+    when(processEngineConfiguration.getCommandExecutor()).thenReturn(commandExecutorImpl);
+    ExecuteAsyncRunnable executeAsyncRunnable =
+        new ExecuteAsyncRunnable("42", processEngineConfiguration);
+
+    // Act
+    executeAsyncRunnable.run();
+
+    // Assert
+    verify(commandExecutorImpl, atLeast(1)).execute(Mockito.<Command<Object>>any());
+    verify(processEngineConfiguration, atLeast(1)).getCommandExecutor();
+    Job job = executeAsyncRunnable.job;
+    assertTrue(((DeadLetterJobEntityImpl) job).getPersistentState() instanceof Map);
+    assertTrue(job instanceof DeadLetterJobEntityImpl);
+    assertEquals("", job.getTenantId());
+    assertNull(((DeadLetterJobEntityImpl) job).getRepeat());
+    assertNull(job.getExceptionMessage());
+    assertNull(job.getExecutionId());
+    assertNull(job.getId());
+    assertNull(job.getJobHandlerConfiguration());
+    assertNull(job.getJobHandlerType());
+    assertNull(job.getJobType());
+    assertNull(job.getProcessDefinitionId());
+    assertNull(job.getProcessInstanceId());
+    assertNull(((DeadLetterJobEntityImpl) job).getEndDate());
+    assertNull(job.getDuedate());
+    assertEquals(0, ((DeadLetterJobEntityImpl) job).getMaxIterations());
+    assertEquals(0, job.getRetries());
+    assertFalse(((DeadLetterJobEntityImpl) job).isDeleted());
+    assertFalse(((DeadLetterJobEntityImpl) job).isInserted());
+    assertFalse(((DeadLetterJobEntityImpl) job).isUpdated());
   }
 
   /**

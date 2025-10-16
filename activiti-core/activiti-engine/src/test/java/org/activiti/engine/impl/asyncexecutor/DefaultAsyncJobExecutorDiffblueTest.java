@@ -31,7 +31,6 @@ import ch.qos.logback.classic.net.SimpleSSLSocketServer;
 import com.diffblue.cover.annotations.ContributionFromDiffblue;
 import com.diffblue.cover.annotations.ManagedByDiffblue;
 import com.diffblue.cover.annotations.MethodsUnderTest;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
@@ -41,26 +40,15 @@ import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import javax.enterprise.concurrent.ManagedThreadFactory;
-import javax.script.ScriptEngineManager;
-import org.activiti.core.el.CustomFunctionProvider;
-import org.activiti.engine.impl.ManagementServiceImpl;
+import org.activiti.api.runtime.shared.identity.UserGroupManager;
 import org.activiti.engine.impl.asyncexecutor.multitenant.SharedExecutorServiceAsyncExecutor;
 import org.activiti.engine.impl.asyncexecutor.multitenant.TenantAwareExecuteAsyncRunnable;
-import org.activiti.engine.impl.cfg.CommandExecutorImpl;
 import org.activiti.engine.impl.cfg.JtaProcessEngineConfiguration;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.impl.cfg.multitenant.MultiSchemaMultiTenantProcessEngineConfiguration;
-import org.activiti.engine.impl.interceptor.CommandConfig;
-import org.activiti.engine.impl.interceptor.CommandContextInterceptor;
 import org.activiti.engine.impl.persistence.entity.DeadLetterJobEntityImpl;
-import org.activiti.engine.impl.persistence.entity.DeadLetterJobEntityManagerImpl;
-import org.activiti.engine.impl.persistence.entity.data.impl.MybatisDeadLetterJobDataManager;
-import org.activiti.engine.impl.persistence.entity.data.impl.MybatisHistoricTaskInstanceDataManager;
-import org.activiti.engine.impl.persistence.entity.data.impl.MybatisPropertyDataManager;
-import org.activiti.engine.impl.scripting.ScriptingEngines;
 import org.activiti.engine.runtime.Job;
 import org.activiti.engine.test.cfg.multitenant.DummyTenantInfoHolder;
-import org.activiti.engine.test.impl.logger.ProcessExecutionLoggerConfigurator;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -177,41 +165,7 @@ public class DefaultAsyncJobExecutorDiffblueTest {
         .thenReturn(mock(Runnable.class));
 
     JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setManagementService(new ManagementServiceImpl());
-
-    SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor =
-        new SharedExecutorServiceAsyncExecutor(new DummyTenantInfoHolder());
-    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(processEngineConfiguration);
-    sharedExecutorServiceAsyncExecutor.addTenantAsyncExecutor("42", true);
-    sharedExecutorServiceAsyncExecutor.setExecuteAsyncRunnableFactory(executeAsyncRunnableFactory);
-
-    // Act
-    sharedExecutorServiceAsyncExecutor.createRunnableForJob(new DeadLetterJobEntityImpl());
-
-    // Assert
-    verify(executeAsyncRunnableFactory)
-        .createExecuteAsyncRunnable(isA(Job.class), isA(ProcessEngineConfigurationImpl.class));
-  }
-
-  /**
-   * Test {@link DefaultAsyncJobExecutor#createRunnableForJob(Job)}.
-   *
-   * <p>Method under test: {@link DefaultAsyncJobExecutor#createRunnableForJob(Job)}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"Runnable DefaultAsyncJobExecutor.createRunnableForJob(Job)"})
-  public void testCreateRunnableForJob3() {
-    // Arrange
-    ExecuteAsyncRunnableFactory executeAsyncRunnableFactory =
-        mock(ExecuteAsyncRunnableFactory.class);
-    when(executeAsyncRunnableFactory.createExecuteAsyncRunnable(
-            Mockito.<Job>any(), Mockito.<ProcessEngineConfigurationImpl>any()))
-        .thenReturn(mock(Runnable.class));
-
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setCustomDefaultBpmnParseHandlers(new ArrayList<>());
+    processEngineConfiguration.setUserGroupManager(mock(UserGroupManager.class));
 
     SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor =
         new SharedExecutorServiceAsyncExecutor(new DummyTenantInfoHolder());
@@ -335,236 +289,37 @@ public class DefaultAsyncJobExecutorDiffblueTest {
   @MethodsUnderTest({"void DefaultAsyncJobExecutor.start()"})
   public void testStart() {
     // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addConfigurator(new ProcessExecutionLoggerConfigurator());
-
-    DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
-    defaultAsyncJobExecutor.setProcessEngineConfiguration(processEngineConfiguration);
-
-    // Act
-    defaultAsyncJobExecutor.start();
-
-    // Assert
-    assertTrue(defaultAsyncJobExecutor.getExecutorService() instanceof ThreadPoolExecutor);
-    assertTrue(defaultAsyncJobExecutor.getThreadPoolQueue().isEmpty());
-    assertTrue(defaultAsyncJobExecutor.isActive());
-  }
-
-  /**
-   * Test {@link DefaultAsyncJobExecutor#start()}.
-   *
-   * <p>Method under test: {@link DefaultAsyncJobExecutor#start()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DefaultAsyncJobExecutor.start()"})
-  public void testStart2() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
-    DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
-    defaultAsyncJobExecutor.setProcessEngineConfiguration(processEngineConfiguration);
-
-    // Act
-    defaultAsyncJobExecutor.start();
-
-    // Assert
-    assertTrue(defaultAsyncJobExecutor.getExecutorService() instanceof ThreadPoolExecutor);
-    assertTrue(defaultAsyncJobExecutor.getThreadPoolQueue().isEmpty());
-    assertTrue(defaultAsyncJobExecutor.isActive());
-  }
-
-  /**
-   * Test {@link DefaultAsyncJobExecutor#start()}.
-   *
-   * <p>Method under test: {@link DefaultAsyncJobExecutor#start()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DefaultAsyncJobExecutor.start()"})
-  public void testStart3() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    CommandConfig defaultConfig = new CommandConfig();
-    CommandExecutorImpl commandExecutor =
-        new CommandExecutorImpl(defaultConfig, new CommandContextInterceptor());
-    processEngineConfiguration.setCommandExecutor(commandExecutor);
-    processEngineConfiguration.addConfigurator(new ProcessExecutionLoggerConfigurator());
-
-    DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
-    defaultAsyncJobExecutor.setProcessEngineConfiguration(processEngineConfiguration);
-
-    // Act
-    defaultAsyncJobExecutor.start();
-
-    // Assert
-    assertTrue(defaultAsyncJobExecutor.getExecutorService() instanceof ThreadPoolExecutor);
-    assertTrue(defaultAsyncJobExecutor.getThreadPoolQueue().isEmpty());
-    assertTrue(defaultAsyncJobExecutor.isActive());
-  }
-
-  /**
-   * Test {@link DefaultAsyncJobExecutor#start()}.
-   *
-   * <p>Method under test: {@link DefaultAsyncJobExecutor#start()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DefaultAsyncJobExecutor.start()"})
-  public void testStart4() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setScriptingEngines(new ScriptingEngines(new ScriptEngineManager()));
-    processEngineConfiguration.addConfigurator(new ProcessExecutionLoggerConfigurator());
-
-    DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
-    defaultAsyncJobExecutor.setProcessEngineConfiguration(processEngineConfiguration);
-
-    // Act
-    defaultAsyncJobExecutor.start();
-
-    // Assert
-    assertTrue(defaultAsyncJobExecutor.getExecutorService() instanceof ThreadPoolExecutor);
-    assertTrue(defaultAsyncJobExecutor.getThreadPoolQueue().isEmpty());
-    assertTrue(defaultAsyncJobExecutor.isActive());
-  }
-
-  /**
-   * Test {@link DefaultAsyncJobExecutor#start()}.
-   *
-   * <p>Method under test: {@link DefaultAsyncJobExecutor#start()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DefaultAsyncJobExecutor.start()"})
-  public void testStart5() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setHistoricTaskInstanceDataManager(
-        new MybatisHistoricTaskInstanceDataManager(new JtaProcessEngineConfiguration()));
-    processEngineConfiguration.addConfigurator(new ProcessExecutionLoggerConfigurator());
-
-    DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
-    defaultAsyncJobExecutor.setProcessEngineConfiguration(processEngineConfiguration);
-
-    // Act
-    defaultAsyncJobExecutor.start();
-
-    // Assert
-    assertTrue(defaultAsyncJobExecutor.getExecutorService() instanceof ThreadPoolExecutor);
-    assertTrue(defaultAsyncJobExecutor.getThreadPoolQueue().isEmpty());
-    assertTrue(defaultAsyncJobExecutor.isActive());
-  }
-
-  /**
-   * Test {@link DefaultAsyncJobExecutor#start()}.
-   *
-   * <p>Method under test: {@link DefaultAsyncJobExecutor#start()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DefaultAsyncJobExecutor.start()"})
-  public void testStart6() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    processEngineConfiguration.setPropertyDataManager(
-        new MybatisPropertyDataManager(new JtaProcessEngineConfiguration()));
-    processEngineConfiguration.addConfigurator(new ProcessExecutionLoggerConfigurator());
-
-    DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
-    defaultAsyncJobExecutor.setProcessEngineConfiguration(processEngineConfiguration);
-
-    // Act
-    defaultAsyncJobExecutor.start();
-
-    // Assert
-    assertTrue(defaultAsyncJobExecutor.getExecutorService() instanceof ThreadPoolExecutor);
-    assertTrue(defaultAsyncJobExecutor.getThreadPoolQueue().isEmpty());
-    assertTrue(defaultAsyncJobExecutor.isActive());
-  }
-
-  /**
-   * Test {@link DefaultAsyncJobExecutor#start()}.
-   *
-   * <p>Method under test: {@link DefaultAsyncJobExecutor#start()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DefaultAsyncJobExecutor.start()"})
-  public void testStart7() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration = new JtaProcessEngineConfiguration();
-    JtaProcessEngineConfiguration processEngineConfiguration2 = new JtaProcessEngineConfiguration();
-    DeadLetterJobEntityManagerImpl deadLetterJobEntityManager =
-        new DeadLetterJobEntityManagerImpl(
-            processEngineConfiguration2,
-            new MybatisDeadLetterJobDataManager(new JtaProcessEngineConfiguration()));
-    processEngineConfiguration.setDeadLetterJobEntityManager(deadLetterJobEntityManager);
-    processEngineConfiguration.addConfigurator(new ProcessExecutionLoggerConfigurator());
-
-    DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
-    defaultAsyncJobExecutor.setProcessEngineConfiguration(processEngineConfiguration);
-
-    // Act
-    defaultAsyncJobExecutor.start();
-
-    // Assert
-    assertTrue(defaultAsyncJobExecutor.getExecutorService() instanceof ThreadPoolExecutor);
-    assertTrue(defaultAsyncJobExecutor.getThreadPoolQueue().isEmpty());
-    assertTrue(defaultAsyncJobExecutor.isActive());
-  }
-
-  /**
-   * Test {@link DefaultAsyncJobExecutor#start()}.
-   *
-   * <p>Method under test: {@link DefaultAsyncJobExecutor#start()}
-   */
-  @Test
-  @Category(ContributionFromDiffblue.class)
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DefaultAsyncJobExecutor.start()"})
-  public void testStart8() {
-    // Arrange
-    JtaProcessEngineConfiguration processEngineConfiguration =
-        mock(JtaProcessEngineConfiguration.class);
-    when(processEngineConfiguration.addCustomFunctionProvider(
-            Mockito.<CustomFunctionProvider>any()))
-        .thenReturn(new JtaProcessEngineConfiguration());
-    processEngineConfiguration.addCustomFunctionProvider(mock(CustomFunctionProvider.class));
-
     SharedExecutorServiceAsyncExecutor sharedExecutorServiceAsyncExecutor =
         new SharedExecutorServiceAsyncExecutor(new DummyTenantInfoHolder());
-    sharedExecutorServiceAsyncExecutor.setProcessEngineConfiguration(processEngineConfiguration);
 
     // Act
     sharedExecutorServiceAsyncExecutor.start();
 
     // Assert
-    verify(processEngineConfiguration).addCustomFunctionProvider(isA(CustomFunctionProvider.class));
     ExecutorService executorService = sharedExecutorServiceAsyncExecutor.getExecutorService();
     assertTrue(executorService instanceof ThreadPoolExecutor);
-    ThreadFactory threadFactory = ((ThreadPoolExecutor) executorService).getThreadFactory();
-    assertTrue(threadFactory instanceof BasicThreadFactory);
+    assertTrue(
+        ((ThreadPoolExecutor) executorService).getThreadFactory() instanceof BasicThreadFactory);
+    assertEquals(0, ((ThreadPoolExecutor) executorService).getActiveCount());
     assertEquals(0, ((ThreadPoolExecutor) executorService).getLargestPoolSize());
+    assertEquals(0, ((ThreadPoolExecutor) executorService).getPoolSize());
     assertEquals(0L, ((ThreadPoolExecutor) executorService).getCompletedTaskCount());
     assertEquals(0L, ((ThreadPoolExecutor) executorService).getTaskCount());
-    assertEquals(0L, ((BasicThreadFactory) threadFactory).getThreadCount());
     assertEquals(10, ((ThreadPoolExecutor) executorService).getMaximumPoolSize());
+    assertEquals(2, ((ThreadPoolExecutor) executorService).getCorePoolSize());
+    BlockingQueue<Runnable> threadPoolQueue =
+        sharedExecutorServiceAsyncExecutor.getThreadPoolQueue();
+    assertTrue(threadPoolQueue.isEmpty());
+    assertSame(threadPoolQueue, ((ThreadPoolExecutor) executorService).getQueue());
   }
 
   /**
    * Test {@link DefaultAsyncJobExecutor#start()}.
    *
    * <ul>
-   *   <li>Then {@link DefaultAsyncJobExecutor} (default constructor) ExecutorService {@link
-   *       ThreadPoolExecutor}.
+   *   <li>Then {@link DefaultAsyncJobExecutor} (default constructor) {@link
+   *       DefaultAsyncJobExecutor#timerJobRunnable} {@link AcquireTimerJobsRunnable#jobManager}
+   *       {@link DefaultJobManager}.
    * </ul>
    *
    * <p>Method under test: {@link DefaultAsyncJobExecutor#start()}
@@ -573,18 +328,25 @@ public class DefaultAsyncJobExecutorDiffblueTest {
   @Category(ContributionFromDiffblue.class)
   @ManagedByDiffblue
   @MethodsUnderTest({"void DefaultAsyncJobExecutor.start()"})
-  public void testStart_thenDefaultAsyncJobExecutorExecutorServiceThreadPoolExecutor() {
+  public void testStart_thenDefaultAsyncJobExecutorTimerJobRunnableJobManagerDefaultJobManager() {
     // Arrange
     DefaultAsyncJobExecutor defaultAsyncJobExecutor = new DefaultAsyncJobExecutor();
-    defaultAsyncJobExecutor.setProcessEngineConfiguration(new JtaProcessEngineConfiguration());
+    DefaultAsyncJobExecutor asyncExecutor = new DefaultAsyncJobExecutor();
+    AcquireTimerJobsRunnable timerJobRunnable =
+        new AcquireTimerJobsRunnable(asyncExecutor, new DefaultJobManager());
+    defaultAsyncJobExecutor.setTimerJobRunnable(timerJobRunnable);
 
     // Act
     defaultAsyncJobExecutor.start();
 
     // Assert
-    assertTrue(defaultAsyncJobExecutor.getExecutorService() instanceof ThreadPoolExecutor);
-    assertTrue(defaultAsyncJobExecutor.getThreadPoolQueue().isEmpty());
-    assertTrue(defaultAsyncJobExecutor.isActive());
+    JobManager jobManager = defaultAsyncJobExecutor.timerJobRunnable.jobManager;
+    assertTrue(jobManager instanceof DefaultJobManager);
+    AcquireAsyncJobsDueRunnable acquireAsyncJobsDueRunnable =
+        defaultAsyncJobExecutor.asyncJobsDueRunnable;
+    assertEquals(0L, acquireAsyncJobsDueRunnable.getMillisToWait());
+    assertFalse(acquireAsyncJobsDueRunnable.isWaiting.get());
+    assertSame(timerJobRunnable.jobManager, jobManager);
   }
 
   /**

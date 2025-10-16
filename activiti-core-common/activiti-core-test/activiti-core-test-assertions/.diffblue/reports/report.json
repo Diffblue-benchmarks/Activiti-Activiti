@@ -4,18 +4,18 @@
   },
   "run" : {
     "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-09-26T16:42:02.920714336Z",
+    "creationTimestamp" : "2025-10-15T18:17:05.474751764Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 360.845,
-    "environmentDetectionTime" : 0.065,
-    "indexingTime" : 0.388,
-    "entryPointsTime" : 0.055,
-    "generationTime" : 1061.671,
-    "timeToFirstTest" : 2120.741,
-    "timeToLastTest" : 1811.391,
-    "indexQueryTime" : 2.954,
-    "verificationTime" : 51.587,
-    "validationTime" : 12.992
+    "totalTime" : 360.753,
+    "environmentDetectionTime" : 0.071,
+    "indexingTime" : 0.456,
+    "entryPointsTime" : 0.058,
+    "generationTime" : 1071.546,
+    "timeToFirstTest" : 2153.893,
+    "timeToLastTest" : 1837.838,
+    "indexQueryTime" : 3.0380000000000003,
+    "verificationTime" : 53.569,
+    "validationTime" : 13.379
   },
   "codes" : {
     "R000" : "Success",
@@ -68,7 +68,7 @@
       "V000" : 58
     },
     "warnings" : {
-      "W001" : 16
+      "W001" : 15
     }
   },
   "classes" : {
@@ -114,7 +114,7 @@
         "R000" : 5
       },
       "warnings" : {
-        "W001" : 3
+        "W001" : 2
       }
     },
     "org.activiti.test.assertions.AwaitSignalAssertions" : {
@@ -685,12 +685,12 @@
       ]
     },
     "org.activiti.test.assertions.AwaitProcessInstanceAssertions.expect:([Lorg/activiti/test/matchers/ProcessTaskMatcher;)Lorg/activiti/test/assertions/ProcessInstanceAssertions;" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
       },
       "lineNumbers" : [
         47,
@@ -703,7 +703,7 @@
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "W001",
       "warnings" : {
-        "W001" : 3
+        "W001" : 2
       },
       "lineNumbers" : [
         41,
@@ -711,12 +711,12 @@
       ]
     },
     "org.activiti.test.assertions.AwaitProcessInstanceAssertions.expectFields:([Lorg/activiti/test/matchers/ProcessResultMatcher;)Lorg/activiti/test/assertions/ProcessInstanceAssertions;" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 3
       },
       "lineNumbers" : [
         35,

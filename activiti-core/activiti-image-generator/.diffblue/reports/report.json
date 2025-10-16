@@ -4,18 +4,18 @@
   },
   "run" : {
     "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-09-26T16:42:02.920714336Z",
+    "creationTimestamp" : "2025-10-15T18:17:05.474751764Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 2336.896,
-    "environmentDetectionTime" : 0.787,
-    "indexingTime" : 0.453,
-    "entryPointsTime" : 0.777,
-    "generationTime" : 11498.884,
-    "timeToFirstTest" : 14425.736,
-    "timeToLastTest" : 13486.663,
-    "indexQueryTime" : 5.259,
-    "verificationTime" : 401.425,
-    "validationTime" : 20.055
+    "totalTime" : 2356.751,
+    "environmentDetectionTime" : 0.587,
+    "indexingTime" : 0.533,
+    "entryPointsTime" : 0.576,
+    "generationTime" : 11603.763,
+    "timeToFirstTest" : 14577.003,
+    "timeToLastTest" : 13618.056,
+    "indexQueryTime" : 5.26,
+    "verificationTime" : 415.684,
+    "validationTime" : 20.311
   },
   "codes" : {
     "F009" : "Internal error",
@@ -38,9 +38,9 @@
   "summary" : {
     "classesCount" : 50,
     "methodsCount" : 295,
-    "cumulativeDiffblueTestCount" : 472,
+    "cumulativeDiffblueTestCount" : 480,
     "cumulativeManualTestCount" : 6,
-    "completeTestCount" : 472,
+    "completeTestCount" : 480,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 3476,
@@ -57,10 +57,10 @@
     },
     "perMethodOutcome" : {
       "F009" : 1,
-      "R000" : 196,
+      "R000" : 197,
       "R002" : 1,
       "R004" : 3,
-      "R013" : 14,
+      "R013" : 13,
       "T003" : 6,
       "T004" : 46,
       "T010" : 23,
@@ -68,10 +68,10 @@
       "T023" : 2
     },
     "perTestOutcome" : {
-      "R000" : 472
+      "R000" : 480
     },
     "perTestValidation" : {
-      "V000" : 472,
+      "V000" : 480,
       "V003" : 20
     }
   },
@@ -117,7 +117,7 @@
     },
     "org.activiti.image.impl.DefaultProcessDiagramCanvas" : {
       "methodsCount" : 84,
-      "completeTestCount" : 308,
+      "completeTestCount" : 316,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 78,
@@ -125,14 +125,14 @@
         "T023" : 1
       },
       "perMethodOutcome" : {
-        "R000" : 73,
+        "R000" : 74,
         "R004" : 1,
-        "R013" : 4,
+        "R013" : 3,
         "T003" : 5,
         "T023" : 1
       },
       "perTestOutcome" : {
-        "R000" : 308
+        "R000" : 316
       }
     },
     "org.activiti.image.impl.DefaultProcessDiagramCanvas$SHAPE_TYPE" : {
@@ -892,12 +892,12 @@
       "perMethodOutcome" : "T023"
     },
     "org.activiti.image.impl.DefaultProcessDiagramCanvas.<init>:(IIII)V" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 4
       },
       "lineNumbers" : [
         251,
@@ -917,12 +917,12 @@
       ]
     },
     "org.activiti.image.impl.DefaultProcessDiagramCanvas.<init>:(IIIILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V" : {
-      "completeTestCount" : 5,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 3
       },
       "lineNumbers" : [
         218,
@@ -1044,12 +1044,12 @@
       ]
     },
     "org.activiti.image.impl.DefaultProcessDiagramCanvas.drawActivityMarkers:(IIIIZZZ)V" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 6,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 6
       },
       "lineNumbers" : [
         1351,
@@ -1113,12 +1113,12 @@
       ]
     },
     "org.activiti.image.impl.DefaultProcessDiagramCanvas.drawBusinessRuleTask:(Ljava/lang/String;Ljava/lang/String;Lorg/activiti/bpmn/model/GraphicInfo;)V" : {
-      "completeTestCount" : 5,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 7
       },
       "lineNumbers" : [
         1227,
@@ -1221,12 +1221,12 @@
       ]
     },
     "org.activiti.image.impl.DefaultProcessDiagramCanvas.drawCatchingMessageEvent:(Ljava/lang/String;Ljava/lang/String;Lorg/activiti/bpmn/model/GraphicInfo;Z)V" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 7
       },
       "lineNumbers" : [
         619,
@@ -1262,12 +1262,12 @@
       ]
     },
     "org.activiti.image.impl.DefaultProcessDiagramCanvas.drawCatchingSignalEvent:(Ljava/lang/String;Lorg/activiti/bpmn/model/GraphicInfo;Z)V" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 7
       },
       "lineNumbers" : [
         597,
@@ -1289,12 +1289,12 @@
       ]
     },
     "org.activiti.image.impl.DefaultProcessDiagramCanvas.drawCatchingTimerEvent:(Ljava/lang/String;Lorg/activiti/bpmn/model/GraphicInfo;Z)V" : {
-      "completeTestCount" : 5,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 7
       },
       "lineNumbers" : [
         554,
@@ -1341,12 +1341,12 @@
       ]
     },
     "org.activiti.image.impl.DefaultProcessDiagramCanvas.drawCollapsedSubProcess:(Ljava/lang/String;Ljava/lang/String;Lorg/activiti/bpmn/model/GraphicInfo;Ljava/lang/Boolean;)V" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 5
       },
       "lineNumbers" : [
         1292,
@@ -1354,12 +1354,12 @@
       ]
     },
     "org.activiti.image.impl.DefaultProcessDiagramCanvas.drawCollapsedTask:(Ljava/lang/String;Ljava/lang/String;Lorg/activiti/bpmn/model/GraphicInfo;Z)V" : {
-      "completeTestCount" : 5,
+      "completeTestCount" : 6,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 6
       },
       "lineNumbers" : [
         1312,
@@ -1484,12 +1484,12 @@
       ]
     },
     "org.activiti.image.impl.DefaultProcessDiagramCanvas.drawErrorStartEvent:(Ljava/lang/String;Lorg/activiti/bpmn/model/GraphicInfo;)V" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 4
       },
       "lineNumbers" : [
         452,
@@ -1500,12 +1500,12 @@
       ]
     },
     "org.activiti.image.impl.DefaultProcessDiagramCanvas.drawEventBasedGateway:(Ljava/lang/String;Lorg/activiti/bpmn/model/GraphicInfo;)V" : {
-      "completeTestCount" : 1,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 1
+        "R000" : 2
       },
       "lineNumbers" : [
         1518,
@@ -1611,12 +1611,12 @@
       ]
     },
     "org.activiti.image.impl.DefaultProcessDiagramCanvas.drawExpandedSubProcess:(Ljava/lang/String;Ljava/lang/String;Lorg/activiti/bpmn/model/GraphicInfo;Ljava/lang/Class;)V" : {
-      "completeTestCount" : 5,
+      "completeTestCount" : 6,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 5
+        "R000" : 6
       },
       "lineNumbers" : [
         1237,
@@ -1685,10 +1685,13 @@
       ]
     },
     "org.activiti.image.impl.DefaultProcessDiagramCanvas.drawGatewayHighLight:(Lorg/activiti/bpmn/model/GraphicInfo;Ljava/awt/Color;)V" : {
-      "completeTestCount" : 0,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
-      "perMethodOutcome" : "R013",
+      "perMethodOutcome" : "R000",
+      "perTestOutcome" : {
+        "R000" : 1
+      },
       "lineNumbers" : [
         1412,
         1413,
@@ -1776,12 +1779,12 @@
       ]
     },
     "org.activiti.image.impl.DefaultProcessDiagramCanvas.drawHighLightErrored:(Lorg/activiti/bpmn/model/GraphicInfo;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 3
       },
       "lineNumbers" : [
         1614,
@@ -1868,12 +1871,12 @@
       ]
     },
     "org.activiti.image.impl.DefaultProcessDiagramCanvas.drawManualTask:(Ljava/lang/String;Ljava/lang/String;Lorg/activiti/bpmn/model/GraphicInfo;)V" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 5
       },
       "lineNumbers" : [
         1218,
@@ -2002,12 +2005,12 @@
       ]
     },
     "org.activiti.image.impl.DefaultProcessDiagramCanvas.drawNoneEndEvent:(Ljava/lang/String;Ljava/lang/String;Lorg/activiti/bpmn/model/GraphicInfo;)V" : {
-      "completeTestCount" : 7,
+      "completeTestCount" : 6,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 7
+        "R000" : 6
       },
       "lineNumbers" : [
         413,
@@ -2042,12 +2045,12 @@
       ]
     },
     "org.activiti.image.impl.DefaultProcessDiagramCanvas.drawParallelGateway:(Ljava/lang/String;Lorg/activiti/bpmn/model/GraphicInfo;)V" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 2,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 2
       },
       "lineNumbers" : [
         1434,
@@ -2067,12 +2070,12 @@
       ]
     },
     "org.activiti.image.impl.DefaultProcessDiagramCanvas.drawPoolOrLane:(Ljava/lang/String;Ljava/lang/String;Lorg/activiti/bpmn/model/GraphicInfo;)V" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 5
       },
       "lineNumbers" : [
         954,
@@ -2099,12 +2102,12 @@
       ]
     },
     "org.activiti.image.impl.DefaultProcessDiagramCanvas.drawReceiveTask:(Ljava/lang/String;Ljava/lang/String;Lorg/activiti/bpmn/model/GraphicInfo;)V" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 5
       },
       "lineNumbers" : [
         1200,
@@ -2173,12 +2176,12 @@
       ]
     },
     "org.activiti.image.impl.DefaultProcessDiagramCanvas.drawSequenceflow:([I[IZZZ)V" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 4
       },
       "lineNumbers" : [
         716,
@@ -2186,12 +2189,12 @@
       ]
     },
     "org.activiti.image.impl.DefaultProcessDiagramCanvas.drawSequenceflowWithoutArrow:(IIIIZ)V" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 4
       },
       "lineNumbers" : [
         795,
@@ -2199,12 +2202,12 @@
       ]
     },
     "org.activiti.image.impl.DefaultProcessDiagramCanvas.drawSequenceflowWithoutArrow:(IIIIZZ)V" : {
-      "completeTestCount" : 4,
+      "completeTestCount" : 3,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 4
+        "R000" : 3
       },
       "lineNumbers" : [
         809,
@@ -2220,12 +2223,12 @@
       ]
     },
     "org.activiti.image.impl.DefaultProcessDiagramCanvas.drawServiceTask:(Ljava/lang/String;Ljava/lang/String;Lorg/activiti/bpmn/model/GraphicInfo;)V" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 7,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 7
       },
       "lineNumbers" : [
         1191,
@@ -2233,12 +2236,12 @@
       ]
     },
     "org.activiti.image.impl.DefaultProcessDiagramCanvas.drawSignalStartEvent:(Ljava/lang/String;Lorg/activiti/bpmn/model/GraphicInfo;)V" : {
-      "completeTestCount" : 3,
+      "completeTestCount" : 4,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 3
+        "R000" : 4
       },
       "lineNumbers" : [
         369,
@@ -2325,12 +2328,12 @@
       ]
     },
     "org.activiti.image.impl.DefaultProcessDiagramCanvas.drawTask:(Lorg/activiti/image/impl/icon/TaskIconType;Ljava/lang/String;Ljava/lang/String;Lorg/activiti/bpmn/model/GraphicInfo;)V" : {
-      "completeTestCount" : 6,
+      "completeTestCount" : 5,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 6
+        "R000" : 5
       },
       "lineNumbers" : [
         932,

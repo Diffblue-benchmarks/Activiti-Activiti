@@ -99,7 +99,6 @@ class TextAnnotationXMLConverterDiffblueTest {
    * XMLStreamWriter)}.
    *
    * <ul>
-   *   <li>Given {@code bpmn2}.
    *   <li>Then calls {@link IndentingXMLStreamWriter#writeCharacters(String)}.
    * </ul>
    *
@@ -109,18 +108,18 @@ class TextAnnotationXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter); given 'bpmn2'; then calls writeCharacters(String)")
+      "Test writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter); then calls writeCharacters(String)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({
     "void TextAnnotationXMLConverter.writeAdditionalChildElements(BaseElement, BpmnModel, XMLStreamWriter)"
   })
-  void testWriteAdditionalChildElements_givenBpmn2_thenCallsWriteCharacters() throws Exception {
+  void testWriteAdditionalChildElements_thenCallsWriteCharacters() throws Exception {
     // Arrange
     TextAnnotationXMLConverter textAnnotationXMLConverter = new TextAnnotationXMLConverter();
 
     TextAnnotation element = new TextAnnotation();
-    element.setText("bpmn2");
+    element.setText("not empty");
     BpmnModel model = new BpmnModel();
 
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
@@ -129,13 +128,14 @@ class TextAnnotationXMLConverterDiffblueTest {
     doNothing()
         .when(writer)
         .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
 
     // Act
     textAnnotationXMLConverter.writeAdditionalChildElements(
-        element, model, new IndentingXMLStreamWriter(writer));
+        element, model, new IndentingXMLStreamWriter(writer2));
 
     // Assert
-    verify(writer).writeCharacters("bpmn2");
+    verify(writer).writeCharacters("not empty");
     verify(writer).writeEndElement();
     verify(writer)
         .writeStartElement("bpmn2", "text", "http://www.omg.org/spec/BPMN/20100524/MODEL");

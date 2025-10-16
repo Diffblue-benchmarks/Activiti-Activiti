@@ -69,23 +69,26 @@ class ValidationErrorDecoratorDiffblueTest {
    * Test {@link ValidationErrorDecorator#resolveMessage(String, Map)}.
    *
    * <ul>
-   *   <li>When {@code Message}.
-   *   <li>Then return {@code Message}.
+   *   <li>When {@code Not all who wander are lost}.
+   *   <li>Then return {@code Not all who wander are lost}.
    * </ul>
    *
    * <p>Method under test: {@link ValidationErrorDecorator#resolveMessage(String, Map)}
    */
   @Test
-  @DisplayName("Test resolveMessage(String, Map); when 'Message'; then return 'Message'")
+  @DisplayName(
+      "Test resolveMessage(String, Map); when 'Not all who wander are lost'; then return 'Not all who wander are lost'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"String ValidationErrorDecorator.resolveMessage(String, Map)"})
-  void testResolveMessage_whenMessage_thenReturnMessage() {
+  void testResolveMessage_whenNotAllWhoWanderAreLost_thenReturnNotAllWhoWanderAreLost() {
     // Arrange
     ValidationErrorDecorator validationErrorDecorator = new ValidationErrorDecorator();
 
     // Act and Assert
-    assertEquals("Message", validationErrorDecorator.resolveMessage("Message", new HashMap<>()));
+    assertEquals(
+        "Not all who wander are lost",
+        validationErrorDecorator.resolveMessage("Not all who wander are lost", new HashMap<>()));
   }
 
   /**

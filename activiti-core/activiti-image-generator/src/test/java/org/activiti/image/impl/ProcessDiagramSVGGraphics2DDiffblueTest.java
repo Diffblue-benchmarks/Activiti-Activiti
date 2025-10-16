@@ -88,8 +88,7 @@ public class ProcessDiagramSVGGraphics2DDiffblueTest {
     GenericDocumentType dt = new GenericDocumentType("Qualified Name", "42", "42");
 
     SVG12OMDocument domFactory = new SVG12OMDocument(dt, new SVG12DOMImplementation());
-    domFactory.addEventListenerNS(
-        "Namespace URI", "Type", mock(EventListener.class), true, Integer.MIN_VALUE);
+    domFactory.addEventListenerNS("Namespace URI", "Type", mock(EventListener.class), true, 2);
 
     // Act
     ProcessDiagramSVGGraphics2D actualProcessDiagramSVGGraphics2D =

@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.anyBoolean;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.doNothing;
@@ -38,7 +39,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
-import javax.management.loading.MLet;
+import java.util.List;
+import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
 import javax.xml.stream.util.StreamReaderDelegate;
@@ -48,16 +50,24 @@ import org.activiti.bpmn.exceptions.XMLException;
 import org.activiti.bpmn.model.ActivitiListener;
 import org.activiti.bpmn.model.AdhocSubProcess;
 import org.activiti.bpmn.model.Artifact;
+import org.activiti.bpmn.model.Association;
+import org.activiti.bpmn.model.AssociationDirection;
 import org.activiti.bpmn.model.BaseElement;
+import org.activiti.bpmn.model.BooleanDataObject;
 import org.activiti.bpmn.model.BoundaryEvent;
 import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.bpmn.model.BusinessRuleTask;
+import org.activiti.bpmn.model.CallActivity;
+import org.activiti.bpmn.model.EventSubProcess;
 import org.activiti.bpmn.model.ExtensionAttribute;
-import org.activiti.bpmn.model.FieldExtension;
+import org.activiti.bpmn.model.ExtensionElement;
 import org.activiti.bpmn.model.FlowElement;
+import org.activiti.bpmn.model.MultiInstanceLoopCharacteristics;
 import org.activiti.bpmn.model.Process;
 import org.activiti.bpmn.model.SequenceFlow;
 import org.activiti.bpmn.model.SubProcess;
-import org.activiti.bpmn.model.UserTask;
+import org.activiti.bpmn.model.TextAnnotation;
+import org.activiti.bpmn.model.Transaction;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -1515,47 +1525,23 @@ class BpmnXMLConverterDiffblueTest {
   void testCreateXMLWithFlowElementModelXtw() throws Exception {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
-    bpmnXMLConverter.setClassloader(new MLet());
 
-    ActivitiListener activitiListener = mock(ActivitiListener.class);
-    when(activitiListener.getCustomPropertiesResolverImplementationType())
-        .thenReturn("Custom Properties Resolver Implementation Type");
-    when(activitiListener.getImplementationType()).thenReturn("Implementation Type");
-    when(activitiListener.getOnTransaction()).thenReturn("On Transaction");
-    when(activitiListener.getFieldExtensions()).thenReturn(new ArrayList<>());
-    when(activitiListener.getEvent()).thenReturn("Event");
-
-    ArrayList<ActivitiListener> taskListeners = new ArrayList<>();
-    taskListeners.add(activitiListener);
-
-    UserTask flowElement = new UserTask();
-    flowElement.setTaskListeners(taskListeners);
+    AdhocSubProcess flowElement = mock(AdhocSubProcess.class);
+    when(flowElement.getId()).thenThrow(new XMLException("An error occurred"));
     BpmnModel model = new BpmnModel();
 
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
     doNothing().when(writer).writeStartElement(Mockito.<String>any());
-    doNothing().when(writer).writeEndElement();
-    doNothing()
-        .when(writer)
-        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
+    IndentingXMLStreamWriter writer3 = new IndentingXMLStreamWriter(writer2);
 
-    // Act
-    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer));
-
-    // Assert
-    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
-    verify(writer, atLeast(1)).writeEndElement();
-    verify(writer).writeStartElement("extensionElements");
-    verify(writer, atLeast(1))
-        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-    verify(activitiListener, atLeast(1)).getCustomPropertiesResolverImplementationType();
-    verify(activitiListener, atLeast(1)).getEvent();
-    verify(activitiListener).getFieldExtensions();
-    verify(activitiListener, atLeast(1)).getImplementationType();
-    verify(activitiListener).getOnTransaction();
+    // Act and Assert
+    assertThrows(
+        XMLException.class,
+        () ->
+            bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer3)));
+    verify(writer).writeStartElement("adHocSubProcess");
+    verify(flowElement).getId();
   }
 
   /**
@@ -1574,34 +1560,35 @@ class BpmnXMLConverterDiffblueTest {
   void testCreateXMLWithFlowElementModelXtw2() throws Exception {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
-    bpmnXMLConverter.setClassloader(new MLet());
 
-    ActivitiListener activitiListener = mock(ActivitiListener.class);
-    when(activitiListener.getEvent()).thenReturn("Event");
-
-    ArrayList<ActivitiListener> taskListeners = new ArrayList<>();
-    taskListeners.add(activitiListener);
-
-    UserTask flowElement = new UserTask();
-    flowElement.setTaskListeners(taskListeners);
+    AdhocSubProcess flowElement = mock(AdhocSubProcess.class);
+    when(flowElement.isAsynchronous()).thenReturn(false);
+    when(flowElement.getDocumentation()).thenReturn("not empty");
+    when(flowElement.getId()).thenReturn("42");
+    when(flowElement.getName()).thenReturn("Name");
     BpmnModel model = new BpmnModel();
 
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doThrow(new XMLException("An error occurred"))
         .when(writer)
         .writeCharacters(Mockito.<String>any());
-    doNothing()
-        .when(writer)
-        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
+    IndentingXMLStreamWriter writer3 = new IndentingXMLStreamWriter(writer2);
 
     // Act and Assert
     assertThrows(
         XMLException.class,
-        () -> bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer)));
+        () ->
+            bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer3)));
+    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
     verify(writer).writeCharacters("\n");
-    verify(writer)
-        .writeStartElement("bpmn2", "userTask", "http://www.omg.org/spec/BPMN/20100524/MODEL");
-    verify(activitiListener).getEvent();
+    verify(writer).writeStartElement("adHocSubProcess");
+    verify(flowElement).getId();
+    verify(flowElement).getDocumentation();
+    verify(flowElement, atLeast(1)).getName();
+    verify(flowElement).isAsynchronous();
   }
 
   /**
@@ -1620,91 +1607,1461 @@ class BpmnXMLConverterDiffblueTest {
   void testCreateXMLWithFlowElementModelXtw3() throws Exception {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
-    bpmnXMLConverter.setClassloader(new MLet());
 
-    ActivitiListener activitiListener = mock(ActivitiListener.class);
-    when(activitiListener.getImplementationType()).thenThrow(new XMLException("An error occurred"));
-    when(activitiListener.getEvent()).thenReturn("Event");
+    Association association = mock(Association.class);
+    when(association.getId()).thenThrow(new XMLException("An error occurred"));
 
-    ArrayList<ActivitiListener> taskListeners = new ArrayList<>();
-    taskListeners.add(activitiListener);
+    LinkedHashSet<Artifact> artifactSet = new LinkedHashSet<>();
+    artifactSet.add(association);
 
-    UserTask flowElement = new UserTask();
-    flowElement.setTaskListeners(taskListeners);
+    SubProcess subProcess = new SubProcess();
+    subProcess.setName("not empty");
+    subProcess.setAsynchronous(false);
+    subProcess.setExclusive(false);
+    subProcess.setDocumentation("not empty");
+    subProcess.addFlowElement(new AdhocSubProcess());
+    subProcess.addArtifact(new Association());
+
+    LinkedHashSet<FlowElement> flowElementSet = new LinkedHashSet<>();
+    flowElementSet.add(subProcess);
+
+    AdhocSubProcess flowElement = mock(AdhocSubProcess.class);
+    when(flowElement.isAsynchronous()).thenReturn(false);
+    when(flowElement.getCompletionCondition()).thenReturn("not empty");
+    when(flowElement.getDocumentation()).thenReturn("not empty");
+    when(flowElement.getArtifacts()).thenReturn(artifactSet);
+    when(flowElement.getFlowElements()).thenReturn(flowElementSet);
+    when(flowElement.getLoopCharacteristics()).thenReturn(null);
+    when(flowElement.getId()).thenReturn("42");
+    when(flowElement.getName()).thenReturn("Name");
+    when(flowElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(flowElement.getExtensionElements()).thenReturn(new HashMap<>());
     BpmnModel model = new BpmnModel();
 
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeCData(Mockito.<String>any());
     doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeStartElement(Mockito.<String>any());
     doNothing()
         .when(writer)
         .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
+    IndentingXMLStreamWriter writer3 = new IndentingXMLStreamWriter(writer2);
 
     // Act and Assert
     assertThrows(
         XMLException.class,
-        () -> bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer)));
-    verify(writer).writeAttribute("event", "Event");
+        () ->
+            bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer3)));
+    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(writer).writeCData("not empty");
     verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
-    verify(writer).writeStartElement("extensionElements");
+    verify(writer, atLeast(1)).writeEndElement();
+    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
     verify(writer, atLeast(1))
-        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-    verify(activitiListener, atLeast(1)).getEvent();
-    verify(activitiListener).getImplementationType();
+        .writeStartElement(
+            eq("bpmn2"), Mockito.<String>any(), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(flowElement).getLoopCharacteristics();
+    verify(flowElement, atLeast(1)).getCompletionCondition();
+    verify(flowElement).getExtensionElements();
+    verify(flowElement).getId();
+    verify(association).getId();
+    verify(flowElement, atLeast(1)).getDocumentation();
+    verify(flowElement).getExecutionListeners();
+    verify(flowElement, atLeast(1)).getName();
+    verify(flowElement).isAsynchronous();
+    verify(flowElement).getArtifacts();
+    verify(flowElement).getFlowElements();
   }
 
   /**
    * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code
    * flowElement}, {@code model}, {@code xtw}.
    *
-   * <ul>
-   *   <li>Given {@link ActivitiListener} (default constructor) Event is {@code not empty}.
-   * </ul>
+   * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
+  void testCreateXMLWithFlowElementModelXtw4() throws Exception {
+    // Arrange
+    BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
+
+    Association association = mock(Association.class);
+    when(association.getSourceRef()).thenReturn("Source Ref");
+    when(association.getTargetRef()).thenReturn("Target Ref");
+    when(association.getId()).thenReturn("42");
+    when(association.getExtensionElements()).thenReturn(new HashMap<>());
+    when(association.getAssociationDirection()).thenReturn(null);
+
+    LinkedHashSet<Artifact> artifactSet = new LinkedHashSet<>();
+    artifactSet.add(association);
+
+    SubProcess subProcess = new SubProcess();
+    subProcess.setName("not empty");
+    subProcess.setAsynchronous(false);
+    subProcess.setExclusive(false);
+    subProcess.setDocumentation("not empty");
+    subProcess.addFlowElement(new AdhocSubProcess());
+    subProcess.addArtifact(new Association());
+
+    LinkedHashSet<FlowElement> flowElementSet = new LinkedHashSet<>();
+    flowElementSet.add(subProcess);
+
+    AdhocSubProcess flowElement = mock(AdhocSubProcess.class);
+    when(flowElement.isAsynchronous()).thenReturn(false);
+    when(flowElement.getCompletionCondition()).thenReturn("not empty");
+    when(flowElement.getDocumentation()).thenReturn("not empty");
+    when(flowElement.getArtifacts()).thenReturn(artifactSet);
+    when(flowElement.getFlowElements()).thenReturn(flowElementSet);
+    when(flowElement.getLoopCharacteristics()).thenReturn(null);
+    when(flowElement.getId()).thenReturn("42");
+    when(flowElement.getName()).thenReturn("Name");
+    when(flowElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(flowElement.getExtensionElements()).thenReturn(new HashMap<>());
+    BpmnModel model = new BpmnModel();
+
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer).writeCData(Mockito.<String>any());
+    doNothing().when(writer).writeCharacters(Mockito.<String>any());
+    doNothing()
+        .when(writer)
+        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
+    IndentingXMLStreamWriter writer3 = new IndentingXMLStreamWriter(writer2);
+
+    // Act
+    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer3));
+
+    // Assert
+    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(writer).writeCData("not empty");
+    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(writer, atLeast(1)).writeEndElement();
+    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(writer, atLeast(1))
+        .writeStartElement(
+            eq("bpmn2"), Mockito.<String>any(), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(flowElement).getLoopCharacteristics();
+    verify(flowElement, atLeast(1)).getCompletionCondition();
+    verify(association).getAssociationDirection();
+    verify(association).getSourceRef();
+    verify(association).getTargetRef();
+    verify(flowElement).getExtensionElements();
+    verify(association).getExtensionElements();
+    verify(flowElement).getId();
+    verify(association).getId();
+    verify(flowElement, atLeast(1)).getDocumentation();
+    verify(flowElement).getExecutionListeners();
+    verify(flowElement, atLeast(1)).getName();
+    verify(flowElement).isAsynchronous();
+    verify(flowElement).getArtifacts();
+    verify(flowElement).getFlowElements();
+  }
+
+  /**
+   * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code
+   * flowElement}, {@code model}, {@code xtw}.
    *
    * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
    * XMLStreamWriter)}
    */
   @Test
   @DisplayName(
-      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; given ActivitiListener (default constructor) Event is 'not empty'")
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
-  void testCreateXMLWithFlowElementModelXtw_givenActivitiListenerEventIsNotEmpty()
-      throws Exception {
+  void testCreateXMLWithFlowElementModelXtw5() throws Exception {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
 
-    ActivitiListener activitiListener = new ActivitiListener();
-    activitiListener.setEvent("not empty");
+    Association association = mock(Association.class);
+    when(association.getSourceRef()).thenReturn("Source Ref");
+    when(association.getTargetRef()).thenReturn("Target Ref");
+    when(association.getId()).thenReturn("42");
+    when(association.getExtensionElements()).thenReturn(new HashMap<>());
+    when(association.getAssociationDirection()).thenReturn(AssociationDirection.NONE);
 
-    ArrayList<ActivitiListener> taskListeners = new ArrayList<>();
-    taskListeners.add(activitiListener);
+    LinkedHashSet<Artifact> artifactSet = new LinkedHashSet<>();
+    artifactSet.add(association);
 
-    UserTask flowElement = new UserTask();
-    flowElement.setTaskListeners(taskListeners);
+    AdhocSubProcess adhocSubProcess = mock(AdhocSubProcess.class);
+    when(adhocSubProcess.isNotExclusive()).thenReturn(true);
+    when(adhocSubProcess.isAsynchronous()).thenReturn(true);
+    when(adhocSubProcess.getCompletionCondition()).thenReturn("Completion Condition");
+    when(adhocSubProcess.getId()).thenReturn("42");
+    when(adhocSubProcess.getDocumentation()).thenReturn("Documentation");
+    when(adhocSubProcess.getName()).thenReturn("Name");
+    when(adhocSubProcess.getArtifacts()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getFlowElements()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getExtensionElements()).thenReturn(new HashMap<>());
+    when(adhocSubProcess.getLoopCharacteristics())
+        .thenReturn(new MultiInstanceLoopCharacteristics());
+    doNothing().when(adhocSubProcess).setDocumentation(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setName(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setAsynchronous(anyBoolean());
+    doNothing().when(adhocSubProcess).setExclusive(anyBoolean());
+    doNothing().when(adhocSubProcess).addArtifact(Mockito.<Artifact>any());
+    doNothing().when(adhocSubProcess).addFlowElement(Mockito.<FlowElement>any());
+    adhocSubProcess.setName("not empty");
+    adhocSubProcess.setAsynchronous(false);
+    adhocSubProcess.setExclusive(false);
+    adhocSubProcess.setDocumentation("not empty");
+    adhocSubProcess.addFlowElement(new AdhocSubProcess());
+    adhocSubProcess.addArtifact(new Association());
+
+    LinkedHashSet<FlowElement> flowElementSet = new LinkedHashSet<>();
+    flowElementSet.add(adhocSubProcess);
+
+    AdhocSubProcess flowElement = mock(AdhocSubProcess.class);
+    when(flowElement.isAsynchronous()).thenReturn(false);
+    when(flowElement.getCompletionCondition()).thenReturn("not empty");
+    when(flowElement.getDocumentation()).thenReturn("not empty");
+    when(flowElement.getArtifacts()).thenReturn(artifactSet);
+    when(flowElement.getFlowElements()).thenReturn(flowElementSet);
+    when(flowElement.getLoopCharacteristics()).thenReturn(null);
+    when(flowElement.getId()).thenReturn("42");
+    when(flowElement.getName()).thenReturn("Name");
+    when(flowElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(flowElement.getExtensionElements()).thenReturn(new HashMap<>());
     BpmnModel model = new BpmnModel();
 
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing()
+        .when(writer)
+        .writeAttribute(
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    doNothing().when(writer).writeCData(Mockito.<String>any());
     doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeEndElement();
-    doNothing().when(writer).writeStartElement(Mockito.<String>any());
     doNothing()
         .when(writer)
         .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
+    IndentingXMLStreamWriter writer3 = new IndentingXMLStreamWriter(writer2);
 
     // Act
-    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer));
+    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer3));
 
     // Assert
-    verify(writer).writeAttribute("event", "not empty");
+    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(writer, atLeast(1))
+        .writeAttribute(
+            eq("activiti"),
+            eq("http://activiti.org/bpmn"),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    verify(writer, atLeast(1)).writeCData(Mockito.<String>any());
     verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
     verify(writer, atLeast(1)).writeEndElement();
-    verify(writer).writeStartElement("extensionElements");
+    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
     verify(writer, atLeast(1))
+        .writeStartElement(
+            eq("bpmn2"), Mockito.<String>any(), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(flowElement).getLoopCharacteristics();
+    verify(adhocSubProcess, atLeast(1)).getLoopCharacteristics();
+    verify(flowElement, atLeast(1)).getCompletionCondition();
+    verify(adhocSubProcess, atLeast(1)).getCompletionCondition();
+    verify(association).getAssociationDirection();
+    verify(association).getSourceRef();
+    verify(association).getTargetRef();
+    verify(flowElement).getExtensionElements();
+    verify(adhocSubProcess).getExtensionElements();
+    verify(association).getExtensionElements();
+    verify(flowElement).getId();
+    verify(adhocSubProcess).getId();
+    verify(association).getId();
+    verify(flowElement, atLeast(1)).getDocumentation();
+    verify(adhocSubProcess, atLeast(1)).getDocumentation();
+    verify(flowElement).getExecutionListeners();
+    verify(adhocSubProcess).getExecutionListeners();
+    verify(flowElement, atLeast(1)).getName();
+    verify(adhocSubProcess, atLeast(1)).getName();
+    verify(adhocSubProcess).setDocumentation("not empty");
+    verify(adhocSubProcess).setName("not empty");
+    verify(flowElement).isAsynchronous();
+    verify(adhocSubProcess).isAsynchronous();
+    verify(adhocSubProcess).isNotExclusive();
+    verify(adhocSubProcess).setAsynchronous(false);
+    verify(adhocSubProcess).setExclusive(false);
+    verify(adhocSubProcess).addArtifact(isA(Artifact.class));
+    verify(adhocSubProcess).addFlowElement(isA(FlowElement.class));
+    verify(flowElement).getArtifacts();
+    verify(adhocSubProcess).getArtifacts();
+    verify(flowElement).getFlowElements();
+    verify(adhocSubProcess).getFlowElements();
+  }
+
+  /**
+   * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code
+   * flowElement}, {@code model}, {@code xtw}.
+   *
+   * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
+  void testCreateXMLWithFlowElementModelXtw6() throws Exception {
+    // Arrange
+    BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
+
+    AdhocSubProcess adhocSubProcess = mock(AdhocSubProcess.class);
+    when(adhocSubProcess.isAsynchronous()).thenReturn(true);
+    when(adhocSubProcess.getId()).thenReturn("42");
+    when(adhocSubProcess.getName()).thenReturn("Name");
+    doNothing().when(adhocSubProcess).setDocumentation(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setName(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setAsynchronous(anyBoolean());
+    doNothing().when(adhocSubProcess).setExclusive(anyBoolean());
+    doNothing().when(adhocSubProcess).addArtifact(Mockito.<Artifact>any());
+    doNothing().when(adhocSubProcess).addFlowElement(Mockito.<FlowElement>any());
+    adhocSubProcess.setName("not empty");
+    adhocSubProcess.setAsynchronous(false);
+    adhocSubProcess.setExclusive(false);
+    adhocSubProcess.setDocumentation("not empty");
+    adhocSubProcess.addFlowElement(new AdhocSubProcess());
+    adhocSubProcess.addArtifact(new Association());
+
+    LinkedHashSet<FlowElement> flowElementSet = new LinkedHashSet<>();
+    flowElementSet.add(adhocSubProcess);
+
+    AdhocSubProcess flowElement = mock(AdhocSubProcess.class);
+    when(flowElement.isAsynchronous()).thenReturn(false);
+    when(flowElement.getCompletionCondition()).thenReturn("not empty");
+    when(flowElement.getDocumentation()).thenReturn("not empty");
+    when(flowElement.getFlowElements()).thenReturn(flowElementSet);
+    when(flowElement.getLoopCharacteristics()).thenReturn(null);
+    when(flowElement.getId()).thenReturn("42");
+    when(flowElement.getName()).thenReturn("Name");
+    when(flowElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(flowElement.getExtensionElements()).thenReturn(new HashMap<>());
+    BpmnModel model = new BpmnModel();
+
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doThrow(new XMLException("An error occurred"))
+        .when(writer)
+        .writeAttribute(
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    doNothing().when(writer).writeCData(Mockito.<String>any());
+    doNothing().when(writer).writeCharacters(Mockito.<String>any());
+    doNothing()
+        .when(writer)
         .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
+    IndentingXMLStreamWriter writer3 = new IndentingXMLStreamWriter(writer2);
+
+    // Act and Assert
+    assertThrows(
+        XMLException.class,
+        () ->
+            bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer3)));
+    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(writer).writeAttribute("activiti", "http://activiti.org/bpmn", "async", "true");
+    verify(writer).writeCData("not empty");
+    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(writer, atLeast(1)).writeEndElement();
+    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(writer)
+        .writeStartElement("bpmn2", "documentation", "http://www.omg.org/spec/BPMN/20100524/MODEL");
+    verify(flowElement).getLoopCharacteristics();
+    verify(flowElement, atLeast(1)).getCompletionCondition();
+    verify(flowElement).getExtensionElements();
+    verify(flowElement).getId();
+    verify(adhocSubProcess).getId();
+    verify(flowElement, atLeast(1)).getDocumentation();
+    verify(flowElement).getExecutionListeners();
+    verify(flowElement, atLeast(1)).getName();
+    verify(adhocSubProcess, atLeast(1)).getName();
+    verify(adhocSubProcess).setDocumentation("not empty");
+    verify(adhocSubProcess).setName("not empty");
+    verify(flowElement).isAsynchronous();
+    verify(adhocSubProcess).isAsynchronous();
+    verify(adhocSubProcess).setAsynchronous(false);
+    verify(adhocSubProcess).setExclusive(false);
+    verify(adhocSubProcess).addArtifact(isA(Artifact.class));
+    verify(adhocSubProcess).addFlowElement(isA(FlowElement.class));
+    verify(flowElement).getFlowElements();
+  }
+
+  /**
+   * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code
+   * flowElement}, {@code model}, {@code xtw}.
+   *
+   * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
+  void testCreateXMLWithFlowElementModelXtw7() throws Exception {
+    // Arrange
+    BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
+
+    Association association = mock(Association.class);
+    when(association.getSourceRef()).thenReturn("Source Ref");
+    when(association.getTargetRef()).thenReturn("Target Ref");
+    when(association.getId()).thenReturn("42");
+    when(association.getExtensionElements()).thenReturn(new HashMap<>());
+    when(association.getAssociationDirection()).thenReturn(AssociationDirection.NONE);
+
+    LinkedHashSet<Artifact> artifactSet = new LinkedHashSet<>();
+    artifactSet.add(association);
+
+    MultiInstanceLoopCharacteristics multiInstanceLoopCharacteristics =
+        new MultiInstanceLoopCharacteristics();
+    multiInstanceLoopCharacteristics.setInputDataItem("adHocSubProcess");
+
+    AdhocSubProcess adhocSubProcess = mock(AdhocSubProcess.class);
+    when(adhocSubProcess.isNotExclusive()).thenReturn(true);
+    when(adhocSubProcess.isAsynchronous()).thenReturn(true);
+    when(adhocSubProcess.getCompletionCondition()).thenReturn("Completion Condition");
+    when(adhocSubProcess.getId()).thenReturn("42");
+    when(adhocSubProcess.getDocumentation()).thenReturn("Documentation");
+    when(adhocSubProcess.getName()).thenReturn("Name");
+    when(adhocSubProcess.getArtifacts()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getFlowElements()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getExtensionElements()).thenReturn(new HashMap<>());
+    when(adhocSubProcess.getLoopCharacteristics()).thenReturn(multiInstanceLoopCharacteristics);
+    doNothing().when(adhocSubProcess).setDocumentation(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setName(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setAsynchronous(anyBoolean());
+    doNothing().when(adhocSubProcess).setExclusive(anyBoolean());
+    doNothing().when(adhocSubProcess).addArtifact(Mockito.<Artifact>any());
+    doNothing().when(adhocSubProcess).addFlowElement(Mockito.<FlowElement>any());
+    adhocSubProcess.setName("not empty");
+    adhocSubProcess.setAsynchronous(false);
+    adhocSubProcess.setExclusive(false);
+    adhocSubProcess.setDocumentation("not empty");
+    adhocSubProcess.addFlowElement(new AdhocSubProcess());
+    adhocSubProcess.addArtifact(new Association());
+
+    LinkedHashSet<FlowElement> flowElementSet = new LinkedHashSet<>();
+    flowElementSet.add(adhocSubProcess);
+
+    AdhocSubProcess flowElement = mock(AdhocSubProcess.class);
+    when(flowElement.isAsynchronous()).thenReturn(false);
+    when(flowElement.getCompletionCondition()).thenReturn("not empty");
+    when(flowElement.getDocumentation()).thenReturn("not empty");
+    when(flowElement.getArtifacts()).thenReturn(artifactSet);
+    when(flowElement.getFlowElements()).thenReturn(flowElementSet);
+    when(flowElement.getLoopCharacteristics()).thenReturn(null);
+    when(flowElement.getId()).thenReturn("42");
+    when(flowElement.getName()).thenReturn("Name");
+    when(flowElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(flowElement.getExtensionElements()).thenReturn(new HashMap<>());
+
+    BpmnModel model = mock(BpmnModel.class);
+    when(model.getNamespaces()).thenReturn(new HashMap<>());
+
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing()
+        .when(xtw)
+        .writeAttribute(
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    doNothing().when(xtw).writeCData(Mockito.<String>any());
+    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
+    doNothing()
+        .when(xtw)
+        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    bpmnXMLConverter.createXML(flowElement, model, xtw);
+
+    // Assert
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw, atLeast(1))
+        .writeAttribute(
+            eq("activiti"),
+            eq("http://activiti.org/bpmn"),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeCData(Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeEndElement();
+    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(xtw, atLeast(1))
+        .writeStartElement(
+            eq("bpmn2"), Mockito.<String>any(), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(flowElement).getLoopCharacteristics();
+    verify(adhocSubProcess, atLeast(1)).getLoopCharacteristics();
+    verify(flowElement, atLeast(1)).getCompletionCondition();
+    verify(adhocSubProcess, atLeast(1)).getCompletionCondition();
+    verify(association).getAssociationDirection();
+    verify(association).getSourceRef();
+    verify(association).getTargetRef();
+    verify(flowElement).getExtensionElements();
+    verify(adhocSubProcess).getExtensionElements();
+    verify(association).getExtensionElements();
+    verify(flowElement).getId();
+    verify(adhocSubProcess).getId();
+    verify(association).getId();
+    verify(model, atLeast(1)).getNamespaces();
+    verify(flowElement, atLeast(1)).getDocumentation();
+    verify(adhocSubProcess, atLeast(1)).getDocumentation();
+    verify(flowElement).getExecutionListeners();
+    verify(adhocSubProcess).getExecutionListeners();
+    verify(flowElement, atLeast(1)).getName();
+    verify(adhocSubProcess, atLeast(1)).getName();
+    verify(adhocSubProcess).setDocumentation("not empty");
+    verify(adhocSubProcess).setName("not empty");
+    verify(flowElement).isAsynchronous();
+    verify(adhocSubProcess).isAsynchronous();
+    verify(adhocSubProcess).isNotExclusive();
+    verify(adhocSubProcess).setAsynchronous(false);
+    verify(adhocSubProcess).setExclusive(false);
+    verify(adhocSubProcess).addArtifact(isA(Artifact.class));
+    verify(adhocSubProcess).addFlowElement(isA(FlowElement.class));
+    verify(flowElement).getArtifacts();
+    verify(adhocSubProcess).getArtifacts();
+    verify(flowElement).getFlowElements();
+    verify(adhocSubProcess).getFlowElements();
+  }
+
+  /**
+   * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code
+   * flowElement}, {@code model}, {@code xtw}.
+   *
+   * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
+  void testCreateXMLWithFlowElementModelXtw8() throws Exception {
+    // Arrange
+    BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
+
+    Association association = mock(Association.class);
+    when(association.getSourceRef()).thenReturn("Source Ref");
+    when(association.getTargetRef()).thenReturn("Target Ref");
+    when(association.getId()).thenReturn("42");
+    when(association.getExtensionElements()).thenReturn(new HashMap<>());
+    when(association.getAssociationDirection()).thenReturn(AssociationDirection.NONE);
+
+    LinkedHashSet<Artifact> artifactSet = new LinkedHashSet<>();
+    artifactSet.add(association);
+
+    MultiInstanceLoopCharacteristics multiInstanceLoopCharacteristics =
+        new MultiInstanceLoopCharacteristics();
+    multiInstanceLoopCharacteristics.setLoopCardinality("adHocSubProcess");
+
+    AdhocSubProcess adhocSubProcess = mock(AdhocSubProcess.class);
+    when(adhocSubProcess.isNotExclusive()).thenReturn(true);
+    when(adhocSubProcess.isAsynchronous()).thenReturn(true);
+    when(adhocSubProcess.getCompletionCondition()).thenReturn("Completion Condition");
+    when(adhocSubProcess.getId()).thenReturn("42");
+    when(adhocSubProcess.getDocumentation()).thenReturn("Documentation");
+    when(adhocSubProcess.getName()).thenReturn("Name");
+    when(adhocSubProcess.getArtifacts()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getFlowElements()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getExtensionElements()).thenReturn(new HashMap<>());
+    when(adhocSubProcess.getLoopCharacteristics()).thenReturn(multiInstanceLoopCharacteristics);
+    doNothing().when(adhocSubProcess).setDocumentation(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setName(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setAsynchronous(anyBoolean());
+    doNothing().when(adhocSubProcess).setExclusive(anyBoolean());
+    doNothing().when(adhocSubProcess).addArtifact(Mockito.<Artifact>any());
+    doNothing().when(adhocSubProcess).addFlowElement(Mockito.<FlowElement>any());
+    adhocSubProcess.setName("not empty");
+    adhocSubProcess.setAsynchronous(false);
+    adhocSubProcess.setExclusive(false);
+    adhocSubProcess.setDocumentation("not empty");
+    adhocSubProcess.addFlowElement(new AdhocSubProcess());
+    adhocSubProcess.addArtifact(new Association());
+
+    LinkedHashSet<FlowElement> flowElementSet = new LinkedHashSet<>();
+    flowElementSet.add(adhocSubProcess);
+
+    AdhocSubProcess flowElement = mock(AdhocSubProcess.class);
+    when(flowElement.isAsynchronous()).thenReturn(false);
+    when(flowElement.getCompletionCondition()).thenReturn("not empty");
+    when(flowElement.getDocumentation()).thenReturn("not empty");
+    when(flowElement.getArtifacts()).thenReturn(artifactSet);
+    when(flowElement.getFlowElements()).thenReturn(flowElementSet);
+    when(flowElement.getLoopCharacteristics()).thenReturn(null);
+    when(flowElement.getId()).thenReturn("42");
+    when(flowElement.getName()).thenReturn("Name");
+    when(flowElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(flowElement.getExtensionElements()).thenReturn(new HashMap<>());
+
+    BpmnModel model = mock(BpmnModel.class);
+    when(model.getNamespaces()).thenReturn(new HashMap<>());
+
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing()
+        .when(xtw)
+        .writeAttribute(
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    doNothing().when(xtw).writeCData(Mockito.<String>any());
+    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
+    doNothing()
+        .when(xtw)
+        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    bpmnXMLConverter.createXML(flowElement, model, xtw);
+
+    // Assert
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw, atLeast(1))
+        .writeAttribute(
+            eq("activiti"),
+            eq("http://activiti.org/bpmn"),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeCData(Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeEndElement();
+    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(xtw, atLeast(1))
+        .writeStartElement(
+            eq("bpmn2"), Mockito.<String>any(), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(flowElement).getLoopCharacteristics();
+    verify(adhocSubProcess, atLeast(1)).getLoopCharacteristics();
+    verify(flowElement, atLeast(1)).getCompletionCondition();
+    verify(adhocSubProcess, atLeast(1)).getCompletionCondition();
+    verify(association).getAssociationDirection();
+    verify(association).getSourceRef();
+    verify(association).getTargetRef();
+    verify(flowElement).getExtensionElements();
+    verify(adhocSubProcess).getExtensionElements();
+    verify(association).getExtensionElements();
+    verify(flowElement).getId();
+    verify(adhocSubProcess).getId();
+    verify(association).getId();
+    verify(model, atLeast(1)).getNamespaces();
+    verify(flowElement, atLeast(1)).getDocumentation();
+    verify(adhocSubProcess, atLeast(1)).getDocumentation();
+    verify(flowElement).getExecutionListeners();
+    verify(adhocSubProcess).getExecutionListeners();
+    verify(flowElement, atLeast(1)).getName();
+    verify(adhocSubProcess, atLeast(1)).getName();
+    verify(adhocSubProcess).setDocumentation("not empty");
+    verify(adhocSubProcess).setName("not empty");
+    verify(flowElement).isAsynchronous();
+    verify(adhocSubProcess).isAsynchronous();
+    verify(adhocSubProcess).isNotExclusive();
+    verify(adhocSubProcess).setAsynchronous(false);
+    verify(adhocSubProcess).setExclusive(false);
+    verify(adhocSubProcess).addArtifact(isA(Artifact.class));
+    verify(adhocSubProcess).addFlowElement(isA(FlowElement.class));
+    verify(flowElement).getArtifacts();
+    verify(adhocSubProcess).getArtifacts();
+    verify(flowElement).getFlowElements();
+    verify(adhocSubProcess).getFlowElements();
+  }
+
+  /**
+   * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code
+   * flowElement}, {@code model}, {@code xtw}.
+   *
+   * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
+  void testCreateXMLWithFlowElementModelXtw9() throws Exception {
+    // Arrange
+    BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
+
+    Association association = mock(Association.class);
+    when(association.getSourceRef()).thenReturn("Source Ref");
+    when(association.getTargetRef()).thenReturn("Target Ref");
+    when(association.getId()).thenReturn("42");
+    when(association.getExtensionElements()).thenReturn(new HashMap<>());
+    when(association.getAssociationDirection()).thenReturn(AssociationDirection.NONE);
+
+    LinkedHashSet<Artifact> artifactSet = new LinkedHashSet<>();
+    artifactSet.add(association);
+
+    MultiInstanceLoopCharacteristics multiInstanceLoopCharacteristics =
+        new MultiInstanceLoopCharacteristics();
+    multiInstanceLoopCharacteristics.setCompletionCondition("adHocSubProcess");
+
+    AdhocSubProcess adhocSubProcess = mock(AdhocSubProcess.class);
+    when(adhocSubProcess.isNotExclusive()).thenReturn(true);
+    when(adhocSubProcess.isAsynchronous()).thenReturn(true);
+    when(adhocSubProcess.getCompletionCondition()).thenReturn("Completion Condition");
+    when(adhocSubProcess.getId()).thenReturn("42");
+    when(adhocSubProcess.getDocumentation()).thenReturn("Documentation");
+    when(adhocSubProcess.getName()).thenReturn("Name");
+    when(adhocSubProcess.getArtifacts()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getFlowElements()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getExtensionElements()).thenReturn(new HashMap<>());
+    when(adhocSubProcess.getLoopCharacteristics()).thenReturn(multiInstanceLoopCharacteristics);
+    doNothing().when(adhocSubProcess).setDocumentation(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setName(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setAsynchronous(anyBoolean());
+    doNothing().when(adhocSubProcess).setExclusive(anyBoolean());
+    doNothing().when(adhocSubProcess).addArtifact(Mockito.<Artifact>any());
+    doNothing().when(adhocSubProcess).addFlowElement(Mockito.<FlowElement>any());
+    adhocSubProcess.setName("not empty");
+    adhocSubProcess.setAsynchronous(false);
+    adhocSubProcess.setExclusive(false);
+    adhocSubProcess.setDocumentation("not empty");
+    adhocSubProcess.addFlowElement(new AdhocSubProcess());
+    adhocSubProcess.addArtifact(new Association());
+
+    LinkedHashSet<FlowElement> flowElementSet = new LinkedHashSet<>();
+    flowElementSet.add(adhocSubProcess);
+
+    AdhocSubProcess flowElement = mock(AdhocSubProcess.class);
+    when(flowElement.isAsynchronous()).thenReturn(false);
+    when(flowElement.getCompletionCondition()).thenReturn("not empty");
+    when(flowElement.getDocumentation()).thenReturn("not empty");
+    when(flowElement.getArtifacts()).thenReturn(artifactSet);
+    when(flowElement.getFlowElements()).thenReturn(flowElementSet);
+    when(flowElement.getLoopCharacteristics()).thenReturn(null);
+    when(flowElement.getId()).thenReturn("42");
+    when(flowElement.getName()).thenReturn("Name");
+    when(flowElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(flowElement.getExtensionElements()).thenReturn(new HashMap<>());
+
+    BpmnModel model = mock(BpmnModel.class);
+    when(model.getNamespaces()).thenReturn(new HashMap<>());
+
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing()
+        .when(xtw)
+        .writeAttribute(
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    doNothing().when(xtw).writeCData(Mockito.<String>any());
+    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
+    doNothing()
+        .when(xtw)
+        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    bpmnXMLConverter.createXML(flowElement, model, xtw);
+
+    // Assert
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw, atLeast(1))
+        .writeAttribute(
+            eq("activiti"),
+            eq("http://activiti.org/bpmn"),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeCData(Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeEndElement();
+    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(xtw, atLeast(1))
+        .writeStartElement(
+            eq("bpmn2"), Mockito.<String>any(), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(flowElement).getLoopCharacteristics();
+    verify(adhocSubProcess, atLeast(1)).getLoopCharacteristics();
+    verify(flowElement, atLeast(1)).getCompletionCondition();
+    verify(adhocSubProcess, atLeast(1)).getCompletionCondition();
+    verify(association).getAssociationDirection();
+    verify(association).getSourceRef();
+    verify(association).getTargetRef();
+    verify(flowElement).getExtensionElements();
+    verify(adhocSubProcess).getExtensionElements();
+    verify(association).getExtensionElements();
+    verify(flowElement).getId();
+    verify(adhocSubProcess).getId();
+    verify(association).getId();
+    verify(model, atLeast(1)).getNamespaces();
+    verify(flowElement, atLeast(1)).getDocumentation();
+    verify(adhocSubProcess, atLeast(1)).getDocumentation();
+    verify(flowElement).getExecutionListeners();
+    verify(adhocSubProcess).getExecutionListeners();
+    verify(flowElement, atLeast(1)).getName();
+    verify(adhocSubProcess, atLeast(1)).getName();
+    verify(adhocSubProcess).setDocumentation("not empty");
+    verify(adhocSubProcess).setName("not empty");
+    verify(flowElement).isAsynchronous();
+    verify(adhocSubProcess).isAsynchronous();
+    verify(adhocSubProcess).isNotExclusive();
+    verify(adhocSubProcess).setAsynchronous(false);
+    verify(adhocSubProcess).setExclusive(false);
+    verify(adhocSubProcess).addArtifact(isA(Artifact.class));
+    verify(adhocSubProcess).addFlowElement(isA(FlowElement.class));
+    verify(flowElement).getArtifacts();
+    verify(adhocSubProcess).getArtifacts();
+    verify(flowElement).getFlowElements();
+    verify(adhocSubProcess).getFlowElements();
+  }
+
+  /**
+   * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code
+   * flowElement}, {@code model}, {@code xtw}.
+   *
+   * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
+  void testCreateXMLWithFlowElementModelXtw10() throws Exception {
+    // Arrange
+    BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
+
+    Association association = mock(Association.class);
+    when(association.getSourceRef()).thenReturn("Source Ref");
+    when(association.getTargetRef()).thenReturn("Target Ref");
+    when(association.getId()).thenReturn("42");
+    when(association.getExtensionElements()).thenReturn(new HashMap<>());
+    when(association.getAssociationDirection()).thenReturn(AssociationDirection.NONE);
+
+    LinkedHashSet<Artifact> artifactSet = new LinkedHashSet<>();
+    artifactSet.add(association);
+
+    MultiInstanceLoopCharacteristics multiInstanceLoopCharacteristics =
+        new MultiInstanceLoopCharacteristics();
+    multiInstanceLoopCharacteristics.setElementVariable("adHocSubProcess");
+
+    AdhocSubProcess adhocSubProcess = mock(AdhocSubProcess.class);
+    when(adhocSubProcess.isNotExclusive()).thenReturn(true);
+    when(adhocSubProcess.isAsynchronous()).thenReturn(true);
+    when(adhocSubProcess.getCompletionCondition()).thenReturn("Completion Condition");
+    when(adhocSubProcess.getId()).thenReturn("42");
+    when(adhocSubProcess.getDocumentation()).thenReturn("Documentation");
+    when(adhocSubProcess.getName()).thenReturn("Name");
+    when(adhocSubProcess.getArtifacts()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getFlowElements()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getExtensionElements()).thenReturn(new HashMap<>());
+    when(adhocSubProcess.getLoopCharacteristics()).thenReturn(multiInstanceLoopCharacteristics);
+    doNothing().when(adhocSubProcess).setDocumentation(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setName(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setAsynchronous(anyBoolean());
+    doNothing().when(adhocSubProcess).setExclusive(anyBoolean());
+    doNothing().when(adhocSubProcess).addArtifact(Mockito.<Artifact>any());
+    doNothing().when(adhocSubProcess).addFlowElement(Mockito.<FlowElement>any());
+    adhocSubProcess.setName("not empty");
+    adhocSubProcess.setAsynchronous(false);
+    adhocSubProcess.setExclusive(false);
+    adhocSubProcess.setDocumentation("not empty");
+    adhocSubProcess.addFlowElement(new AdhocSubProcess());
+    adhocSubProcess.addArtifact(new Association());
+
+    LinkedHashSet<FlowElement> flowElementSet = new LinkedHashSet<>();
+    flowElementSet.add(adhocSubProcess);
+
+    AdhocSubProcess flowElement = mock(AdhocSubProcess.class);
+    when(flowElement.isAsynchronous()).thenReturn(false);
+    when(flowElement.getCompletionCondition()).thenReturn("not empty");
+    when(flowElement.getDocumentation()).thenReturn("not empty");
+    when(flowElement.getArtifacts()).thenReturn(artifactSet);
+    when(flowElement.getFlowElements()).thenReturn(flowElementSet);
+    when(flowElement.getLoopCharacteristics()).thenReturn(null);
+    when(flowElement.getId()).thenReturn("42");
+    when(flowElement.getName()).thenReturn("Name");
+    when(flowElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(flowElement.getExtensionElements()).thenReturn(new HashMap<>());
+
+    BpmnModel model = mock(BpmnModel.class);
+    when(model.getNamespaces()).thenReturn(new HashMap<>());
+
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing()
+        .when(xtw)
+        .writeAttribute(
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    doNothing().when(xtw).writeCData(Mockito.<String>any());
+    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
+    doNothing()
+        .when(xtw)
+        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    bpmnXMLConverter.createXML(flowElement, model, xtw);
+
+    // Assert
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw, atLeast(1))
+        .writeAttribute(
+            eq("activiti"),
+            eq("http://activiti.org/bpmn"),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeCData(Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeEndElement();
+    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(xtw, atLeast(1))
+        .writeStartElement(
+            eq("bpmn2"), Mockito.<String>any(), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(flowElement).getLoopCharacteristics();
+    verify(adhocSubProcess, atLeast(1)).getLoopCharacteristics();
+    verify(flowElement, atLeast(1)).getCompletionCondition();
+    verify(adhocSubProcess, atLeast(1)).getCompletionCondition();
+    verify(association).getAssociationDirection();
+    verify(association).getSourceRef();
+    verify(association).getTargetRef();
+    verify(flowElement).getExtensionElements();
+    verify(adhocSubProcess).getExtensionElements();
+    verify(association).getExtensionElements();
+    verify(flowElement).getId();
+    verify(adhocSubProcess).getId();
+    verify(association).getId();
+    verify(model, atLeast(1)).getNamespaces();
+    verify(flowElement, atLeast(1)).getDocumentation();
+    verify(adhocSubProcess, atLeast(1)).getDocumentation();
+    verify(flowElement).getExecutionListeners();
+    verify(adhocSubProcess).getExecutionListeners();
+    verify(flowElement, atLeast(1)).getName();
+    verify(adhocSubProcess, atLeast(1)).getName();
+    verify(adhocSubProcess).setDocumentation("not empty");
+    verify(adhocSubProcess).setName("not empty");
+    verify(flowElement).isAsynchronous();
+    verify(adhocSubProcess).isAsynchronous();
+    verify(adhocSubProcess).isNotExclusive();
+    verify(adhocSubProcess).setAsynchronous(false);
+    verify(adhocSubProcess).setExclusive(false);
+    verify(adhocSubProcess).addArtifact(isA(Artifact.class));
+    verify(adhocSubProcess).addFlowElement(isA(FlowElement.class));
+    verify(flowElement).getArtifacts();
+    verify(adhocSubProcess).getArtifacts();
+    verify(flowElement).getFlowElements();
+    verify(adhocSubProcess).getFlowElements();
+  }
+
+  /**
+   * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code
+   * flowElement}, {@code model}, {@code xtw}.
+   *
+   * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
+  void testCreateXMLWithFlowElementModelXtw11() throws Exception {
+    // Arrange
+    BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
+
+    Association association = mock(Association.class);
+    when(association.getSourceRef()).thenReturn("Source Ref");
+    when(association.getTargetRef()).thenReturn("Target Ref");
+    when(association.getId()).thenReturn("42");
+    when(association.getExtensionElements()).thenReturn(new HashMap<>());
+    when(association.getAssociationDirection()).thenReturn(AssociationDirection.NONE);
+
+    LinkedHashSet<Artifact> artifactSet = new LinkedHashSet<>();
+    artifactSet.add(association);
+
+    MultiInstanceLoopCharacteristics multiInstanceLoopCharacteristics =
+        new MultiInstanceLoopCharacteristics();
+    multiInstanceLoopCharacteristics.setLoopDataOutputRef("adHocSubProcess");
+
+    AdhocSubProcess adhocSubProcess = mock(AdhocSubProcess.class);
+    when(adhocSubProcess.isNotExclusive()).thenReturn(true);
+    when(adhocSubProcess.isAsynchronous()).thenReturn(true);
+    when(adhocSubProcess.getCompletionCondition()).thenReturn("Completion Condition");
+    when(adhocSubProcess.getId()).thenReturn("42");
+    when(adhocSubProcess.getDocumentation()).thenReturn("Documentation");
+    when(adhocSubProcess.getName()).thenReturn("Name");
+    when(adhocSubProcess.getArtifacts()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getFlowElements()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getExtensionElements()).thenReturn(new HashMap<>());
+    when(adhocSubProcess.getLoopCharacteristics()).thenReturn(multiInstanceLoopCharacteristics);
+    doNothing().when(adhocSubProcess).setDocumentation(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setName(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setAsynchronous(anyBoolean());
+    doNothing().when(adhocSubProcess).setExclusive(anyBoolean());
+    doNothing().when(adhocSubProcess).addArtifact(Mockito.<Artifact>any());
+    doNothing().when(adhocSubProcess).addFlowElement(Mockito.<FlowElement>any());
+    adhocSubProcess.setName("not empty");
+    adhocSubProcess.setAsynchronous(false);
+    adhocSubProcess.setExclusive(false);
+    adhocSubProcess.setDocumentation("not empty");
+    adhocSubProcess.addFlowElement(new AdhocSubProcess());
+    adhocSubProcess.addArtifact(new Association());
+
+    LinkedHashSet<FlowElement> flowElementSet = new LinkedHashSet<>();
+    flowElementSet.add(adhocSubProcess);
+
+    AdhocSubProcess flowElement = mock(AdhocSubProcess.class);
+    when(flowElement.isAsynchronous()).thenReturn(false);
+    when(flowElement.getCompletionCondition()).thenReturn("not empty");
+    when(flowElement.getDocumentation()).thenReturn("not empty");
+    when(flowElement.getArtifacts()).thenReturn(artifactSet);
+    when(flowElement.getFlowElements()).thenReturn(flowElementSet);
+    when(flowElement.getLoopCharacteristics()).thenReturn(null);
+    when(flowElement.getId()).thenReturn("42");
+    when(flowElement.getName()).thenReturn("Name");
+    when(flowElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(flowElement.getExtensionElements()).thenReturn(new HashMap<>());
+
+    BpmnModel model = mock(BpmnModel.class);
+    when(model.getNamespaces()).thenReturn(new HashMap<>());
+
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing()
+        .when(xtw)
+        .writeAttribute(
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    doNothing().when(xtw).writeCData(Mockito.<String>any());
+    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
+    doNothing()
+        .when(xtw)
+        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    bpmnXMLConverter.createXML(flowElement, model, xtw);
+
+    // Assert
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw, atLeast(1))
+        .writeAttribute(
+            eq("activiti"),
+            eq("http://activiti.org/bpmn"),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeCData(Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeEndElement();
+    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(xtw, atLeast(1))
+        .writeStartElement(
+            eq("bpmn2"), Mockito.<String>any(), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(flowElement).getLoopCharacteristics();
+    verify(adhocSubProcess, atLeast(1)).getLoopCharacteristics();
+    verify(flowElement, atLeast(1)).getCompletionCondition();
+    verify(adhocSubProcess, atLeast(1)).getCompletionCondition();
+    verify(association).getAssociationDirection();
+    verify(association).getSourceRef();
+    verify(association).getTargetRef();
+    verify(flowElement).getExtensionElements();
+    verify(adhocSubProcess).getExtensionElements();
+    verify(association).getExtensionElements();
+    verify(flowElement).getId();
+    verify(adhocSubProcess).getId();
+    verify(association).getId();
+    verify(model, atLeast(1)).getNamespaces();
+    verify(flowElement, atLeast(1)).getDocumentation();
+    verify(adhocSubProcess, atLeast(1)).getDocumentation();
+    verify(flowElement).getExecutionListeners();
+    verify(adhocSubProcess).getExecutionListeners();
+    verify(flowElement, atLeast(1)).getName();
+    verify(adhocSubProcess, atLeast(1)).getName();
+    verify(adhocSubProcess).setDocumentation("not empty");
+    verify(adhocSubProcess).setName("not empty");
+    verify(flowElement).isAsynchronous();
+    verify(adhocSubProcess).isAsynchronous();
+    verify(adhocSubProcess).isNotExclusive();
+    verify(adhocSubProcess).setAsynchronous(false);
+    verify(adhocSubProcess).setExclusive(false);
+    verify(adhocSubProcess).addArtifact(isA(Artifact.class));
+    verify(adhocSubProcess).addFlowElement(isA(FlowElement.class));
+    verify(flowElement).getArtifacts();
+    verify(adhocSubProcess).getArtifacts();
+    verify(flowElement).getFlowElements();
+    verify(adhocSubProcess).getFlowElements();
+  }
+
+  /**
+   * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code
+   * flowElement}, {@code model}, {@code xtw}.
+   *
+   * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
+  void testCreateXMLWithFlowElementModelXtw12() throws Exception {
+    // Arrange
+    BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
+
+    Association association = mock(Association.class);
+    when(association.getSourceRef()).thenReturn("Source Ref");
+    when(association.getTargetRef()).thenReturn("Target Ref");
+    when(association.getId()).thenReturn("42");
+    when(association.getExtensionElements()).thenReturn(new HashMap<>());
+    when(association.getAssociationDirection()).thenReturn(AssociationDirection.NONE);
+
+    LinkedHashSet<Artifact> artifactSet = new LinkedHashSet<>();
+    artifactSet.add(association);
+
+    MultiInstanceLoopCharacteristics multiInstanceLoopCharacteristics =
+        new MultiInstanceLoopCharacteristics();
+    multiInstanceLoopCharacteristics.setOutputDataItem("adHocSubProcess");
+
+    AdhocSubProcess adhocSubProcess = mock(AdhocSubProcess.class);
+    when(adhocSubProcess.isNotExclusive()).thenReturn(true);
+    when(adhocSubProcess.isAsynchronous()).thenReturn(true);
+    when(adhocSubProcess.getCompletionCondition()).thenReturn("Completion Condition");
+    when(adhocSubProcess.getId()).thenReturn("42");
+    when(adhocSubProcess.getDocumentation()).thenReturn("Documentation");
+    when(adhocSubProcess.getName()).thenReturn("Name");
+    when(adhocSubProcess.getArtifacts()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getFlowElements()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getExtensionElements()).thenReturn(new HashMap<>());
+    when(adhocSubProcess.getLoopCharacteristics()).thenReturn(multiInstanceLoopCharacteristics);
+    doNothing().when(adhocSubProcess).setDocumentation(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setName(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setAsynchronous(anyBoolean());
+    doNothing().when(adhocSubProcess).setExclusive(anyBoolean());
+    doNothing().when(adhocSubProcess).addArtifact(Mockito.<Artifact>any());
+    doNothing().when(adhocSubProcess).addFlowElement(Mockito.<FlowElement>any());
+    adhocSubProcess.setName("not empty");
+    adhocSubProcess.setAsynchronous(false);
+    adhocSubProcess.setExclusive(false);
+    adhocSubProcess.setDocumentation("not empty");
+    adhocSubProcess.addFlowElement(new AdhocSubProcess());
+    adhocSubProcess.addArtifact(new Association());
+
+    LinkedHashSet<FlowElement> flowElementSet = new LinkedHashSet<>();
+    flowElementSet.add(adhocSubProcess);
+
+    AdhocSubProcess flowElement = mock(AdhocSubProcess.class);
+    when(flowElement.isAsynchronous()).thenReturn(false);
+    when(flowElement.getCompletionCondition()).thenReturn("not empty");
+    when(flowElement.getDocumentation()).thenReturn("not empty");
+    when(flowElement.getArtifacts()).thenReturn(artifactSet);
+    when(flowElement.getFlowElements()).thenReturn(flowElementSet);
+    when(flowElement.getLoopCharacteristics()).thenReturn(null);
+    when(flowElement.getId()).thenReturn("42");
+    when(flowElement.getName()).thenReturn("Name");
+    when(flowElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(flowElement.getExtensionElements()).thenReturn(new HashMap<>());
+
+    BpmnModel model = mock(BpmnModel.class);
+    when(model.getNamespaces()).thenReturn(new HashMap<>());
+
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing()
+        .when(xtw)
+        .writeAttribute(
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    doNothing().when(xtw).writeCData(Mockito.<String>any());
+    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
+    doNothing()
+        .when(xtw)
+        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    bpmnXMLConverter.createXML(flowElement, model, xtw);
+
+    // Assert
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw, atLeast(1))
+        .writeAttribute(
+            eq("activiti"),
+            eq("http://activiti.org/bpmn"),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeCData(Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeEndElement();
+    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(xtw, atLeast(1))
+        .writeStartElement(
+            eq("bpmn2"), Mockito.<String>any(), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(flowElement).getLoopCharacteristics();
+    verify(adhocSubProcess, atLeast(1)).getLoopCharacteristics();
+    verify(flowElement, atLeast(1)).getCompletionCondition();
+    verify(adhocSubProcess, atLeast(1)).getCompletionCondition();
+    verify(association).getAssociationDirection();
+    verify(association).getSourceRef();
+    verify(association).getTargetRef();
+    verify(flowElement).getExtensionElements();
+    verify(adhocSubProcess).getExtensionElements();
+    verify(association).getExtensionElements();
+    verify(flowElement).getId();
+    verify(adhocSubProcess).getId();
+    verify(association).getId();
+    verify(model, atLeast(1)).getNamespaces();
+    verify(flowElement, atLeast(1)).getDocumentation();
+    verify(adhocSubProcess, atLeast(1)).getDocumentation();
+    verify(flowElement).getExecutionListeners();
+    verify(adhocSubProcess).getExecutionListeners();
+    verify(flowElement, atLeast(1)).getName();
+    verify(adhocSubProcess, atLeast(1)).getName();
+    verify(adhocSubProcess).setDocumentation("not empty");
+    verify(adhocSubProcess).setName("not empty");
+    verify(flowElement).isAsynchronous();
+    verify(adhocSubProcess).isAsynchronous();
+    verify(adhocSubProcess).isNotExclusive();
+    verify(adhocSubProcess).setAsynchronous(false);
+    verify(adhocSubProcess).setExclusive(false);
+    verify(adhocSubProcess).addArtifact(isA(Artifact.class));
+    verify(adhocSubProcess).addFlowElement(isA(FlowElement.class));
+    verify(flowElement).getArtifacts();
+    verify(adhocSubProcess).getArtifacts();
+    verify(flowElement).getFlowElements();
+    verify(adhocSubProcess).getFlowElements();
+  }
+
+  /**
+   * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code
+   * flowElement}, {@code model}, {@code xtw}.
+   *
+   * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
+  void testCreateXMLWithFlowElementModelXtw13() throws Exception {
+    // Arrange
+    BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
+
+    MultiInstanceLoopCharacteristics multiInstanceLoopCharacteristics =
+        mock(MultiInstanceLoopCharacteristics.class);
+    when(multiInstanceLoopCharacteristics.isSequential())
+        .thenThrow(new XMLException("An error occurred"));
+
+    AdhocSubProcess adhocSubProcess = mock(AdhocSubProcess.class);
+    when(adhocSubProcess.isNotExclusive()).thenReturn(true);
+    when(adhocSubProcess.isAsynchronous()).thenReturn(true);
+    when(adhocSubProcess.getId()).thenReturn("42");
+    when(adhocSubProcess.getDocumentation()).thenReturn("Documentation");
+    when(adhocSubProcess.getName()).thenReturn("Name");
+    when(adhocSubProcess.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getExtensionElements()).thenReturn(new HashMap<>());
+    when(adhocSubProcess.getLoopCharacteristics()).thenReturn(multiInstanceLoopCharacteristics);
+    doNothing().when(adhocSubProcess).setDocumentation(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setName(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setAsynchronous(anyBoolean());
+    doNothing().when(adhocSubProcess).setExclusive(anyBoolean());
+    doNothing().when(adhocSubProcess).addArtifact(Mockito.<Artifact>any());
+    doNothing().when(adhocSubProcess).addFlowElement(Mockito.<FlowElement>any());
+    adhocSubProcess.setName("not empty");
+    adhocSubProcess.setAsynchronous(false);
+    adhocSubProcess.setExclusive(false);
+    adhocSubProcess.setDocumentation("not empty");
+    adhocSubProcess.addFlowElement(new AdhocSubProcess());
+    adhocSubProcess.addArtifact(new Association());
+
+    LinkedHashSet<FlowElement> flowElementSet = new LinkedHashSet<>();
+    flowElementSet.add(adhocSubProcess);
+
+    AdhocSubProcess flowElement = mock(AdhocSubProcess.class);
+    when(flowElement.isNotExclusive()).thenReturn(false);
+    when(flowElement.isAsynchronous()).thenReturn(true);
+    when(flowElement.getCompletionCondition()).thenReturn("not empty");
+    when(flowElement.getDocumentation()).thenReturn("not empty");
+    when(flowElement.getFlowElements()).thenReturn(flowElementSet);
+    when(flowElement.getLoopCharacteristics()).thenReturn(null);
+    when(flowElement.getId()).thenReturn("42");
+    when(flowElement.getName()).thenReturn("Name");
+    when(flowElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(flowElement.getExtensionElements()).thenReturn(new HashMap<>());
+
+    BpmnModel model = mock(BpmnModel.class);
+    when(model.getNamespaces()).thenReturn(new HashMap<>());
+
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing()
+        .when(xtw)
+        .writeAttribute(
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    doNothing().when(xtw).writeCData(Mockito.<String>any());
+    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
+    doNothing()
+        .when(xtw)
+        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act and Assert
+    assertThrows(XMLException.class, () -> bpmnXMLConverter.createXML(flowElement, model, xtw));
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw, atLeast(1))
+        .writeAttribute(
+            eq("activiti"),
+            eq("http://activiti.org/bpmn"),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    verify(xtw).writeCData("not empty");
+    verify(xtw, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeEndElement();
+    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(xtw, atLeast(1))
+        .writeStartElement("bpmn2", "documentation", "http://www.omg.org/spec/BPMN/20100524/MODEL");
+    verify(flowElement).getLoopCharacteristics();
+    verify(adhocSubProcess, atLeast(1)).getLoopCharacteristics();
+    verify(flowElement, atLeast(1)).getCompletionCondition();
+    verify(flowElement).getExtensionElements();
+    verify(adhocSubProcess).getExtensionElements();
+    verify(flowElement).getId();
+    verify(adhocSubProcess).getId();
+    verify(model, atLeast(1)).getNamespaces();
+    verify(flowElement, atLeast(1)).getDocumentation();
+    verify(adhocSubProcess, atLeast(1)).getDocumentation();
+    verify(flowElement).getExecutionListeners();
+    verify(adhocSubProcess).getExecutionListeners();
+    verify(flowElement, atLeast(1)).getName();
+    verify(adhocSubProcess, atLeast(1)).getName();
+    verify(adhocSubProcess).setDocumentation("not empty");
+    verify(adhocSubProcess).setName("not empty");
+    verify(flowElement).isAsynchronous();
+    verify(adhocSubProcess).isAsynchronous();
+    verify(flowElement).isNotExclusive();
+    verify(adhocSubProcess).isNotExclusive();
+    verify(adhocSubProcess).setAsynchronous(false);
+    verify(adhocSubProcess).setExclusive(false);
+    verify(multiInstanceLoopCharacteristics).isSequential();
+    verify(adhocSubProcess).addArtifact(isA(Artifact.class));
+    verify(adhocSubProcess).addFlowElement(isA(FlowElement.class));
+    verify(flowElement).getFlowElements();
+  }
+
+  /**
+   * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code
+   * flowElement}, {@code model}, {@code xtw}.
+   *
+   * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
+  void testCreateXMLWithFlowElementModelXtw14() throws Exception {
+    // Arrange
+    BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
+
+    AdhocSubProcess flowElement = mock(AdhocSubProcess.class);
+    when(flowElement.isNotExclusive()).thenThrow(new XMLException("An error occurred"));
+    when(flowElement.isAsynchronous()).thenReturn(true);
+    when(flowElement.getId()).thenReturn("42");
+    when(flowElement.getName()).thenReturn("Name");
+
+    AdhocSubProcess adhocSubProcess = mock(AdhocSubProcess.class);
+    doNothing().when(adhocSubProcess).setDocumentation(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setName(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setAsynchronous(anyBoolean());
+    doNothing().when(adhocSubProcess).setExclusive(anyBoolean());
+    doNothing().when(adhocSubProcess).addArtifact(Mockito.<Artifact>any());
+    doNothing().when(adhocSubProcess).addFlowElement(Mockito.<FlowElement>any());
+    adhocSubProcess.setName("not empty");
+    adhocSubProcess.setAsynchronous(false);
+    adhocSubProcess.setExclusive(false);
+    adhocSubProcess.setDocumentation("not empty");
+    adhocSubProcess.addFlowElement(new AdhocSubProcess());
+    adhocSubProcess.addArtifact(new Association());
+
+    LinkedHashSet<FlowElement> flowElementSet = new LinkedHashSet<>();
+    flowElementSet.add(adhocSubProcess);
+    BpmnModel model = mock(BpmnModel.class);
+
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing()
+        .when(xtw)
+        .writeAttribute(
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
+
+    // Act and Assert
+    assertThrows(XMLException.class, () -> bpmnXMLConverter.createXML(flowElement, model, xtw));
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw).writeAttribute("activiti", "http://activiti.org/bpmn", "async", "true");
+    verify(xtw).writeStartElement("adHocSubProcess");
+    verify(flowElement).getId();
+    verify(flowElement, atLeast(1)).getName();
+    verify(adhocSubProcess).setDocumentation("not empty");
+    verify(adhocSubProcess).setName("not empty");
+    verify(flowElement).isAsynchronous();
+    verify(flowElement).isNotExclusive();
+    verify(adhocSubProcess).setAsynchronous(false);
+    verify(adhocSubProcess).setExclusive(false);
+    verify(adhocSubProcess).addArtifact(isA(Artifact.class));
+    verify(adhocSubProcess).addFlowElement(isA(FlowElement.class));
   }
 
   /**
@@ -1727,28 +3084,131 @@ class BpmnXMLConverterDiffblueTest {
   void testCreateXMLWithFlowElementModelXtw_givenArrayListAddActivitiListener() throws Exception {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
-    bpmnXMLConverter.setClassloader(new MLet());
 
-    ArrayList<ActivitiListener> taskListeners = new ArrayList<>();
-    taskListeners.add(new ActivitiListener());
+    Association association = mock(Association.class);
+    when(association.getSourceRef()).thenReturn("Source Ref");
+    when(association.getTargetRef()).thenReturn("Target Ref");
+    when(association.getId()).thenReturn("42");
+    when(association.getExtensionElements()).thenReturn(new HashMap<>());
+    when(association.getAssociationDirection()).thenReturn(AssociationDirection.NONE);
 
-    UserTask flowElement = new UserTask();
-    flowElement.setTaskListeners(taskListeners);
+    LinkedHashSet<Artifact> artifactSet = new LinkedHashSet<>();
+    artifactSet.add(association);
+
+    ArrayList<ActivitiListener> activitiListenerList = new ArrayList<>();
+    activitiListenerList.add(new ActivitiListener());
+
+    AdhocSubProcess adhocSubProcess = mock(AdhocSubProcess.class);
+    when(adhocSubProcess.isNotExclusive()).thenReturn(true);
+    when(adhocSubProcess.isAsynchronous()).thenReturn(true);
+    when(adhocSubProcess.getCompletionCondition()).thenReturn("Completion Condition");
+    when(adhocSubProcess.getId()).thenReturn("42");
+    when(adhocSubProcess.getDocumentation()).thenReturn("Documentation");
+    when(adhocSubProcess.getName()).thenReturn("Name");
+    when(adhocSubProcess.getArtifacts()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getFlowElements()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getExecutionListeners()).thenReturn(activitiListenerList);
+    when(adhocSubProcess.getExtensionElements()).thenReturn(new HashMap<>());
+    when(adhocSubProcess.getLoopCharacteristics())
+        .thenReturn(new MultiInstanceLoopCharacteristics());
+    doNothing().when(adhocSubProcess).setDocumentation(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setName(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setAsynchronous(anyBoolean());
+    doNothing().when(adhocSubProcess).setExclusive(anyBoolean());
+    doNothing().when(adhocSubProcess).addArtifact(Mockito.<Artifact>any());
+    doNothing().when(adhocSubProcess).addFlowElement(Mockito.<FlowElement>any());
+    adhocSubProcess.setName("not empty");
+    adhocSubProcess.setAsynchronous(false);
+    adhocSubProcess.setExclusive(false);
+    adhocSubProcess.setDocumentation("not empty");
+    adhocSubProcess.addFlowElement(new AdhocSubProcess());
+    adhocSubProcess.addArtifact(new Association());
+
+    LinkedHashSet<FlowElement> flowElementSet = new LinkedHashSet<>();
+    flowElementSet.add(adhocSubProcess);
+
+    AdhocSubProcess flowElement = mock(AdhocSubProcess.class);
+    when(flowElement.isAsynchronous()).thenReturn(false);
+    when(flowElement.getCompletionCondition()).thenReturn("not empty");
+    when(flowElement.getDocumentation()).thenReturn("not empty");
+    when(flowElement.getArtifacts()).thenReturn(artifactSet);
+    when(flowElement.getFlowElements()).thenReturn(flowElementSet);
+    when(flowElement.getLoopCharacteristics()).thenReturn(null);
+    when(flowElement.getId()).thenReturn("42");
+    when(flowElement.getName()).thenReturn("Name");
+    when(flowElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(flowElement.getExtensionElements()).thenReturn(new HashMap<>());
     BpmnModel model = new BpmnModel();
 
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).writeEndElement();
+    doNothing()
+        .when(writer)
+        .writeAttribute(
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    doNothing().when(writer).writeCData(Mockito.<String>any());
+    doNothing().when(writer).writeCharacters(Mockito.<String>any());
     doNothing()
         .when(writer)
         .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
+    IndentingXMLStreamWriter writer3 = new IndentingXMLStreamWriter(writer2);
 
     // Act
-    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer));
+    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer3));
 
     // Assert
-    verify(writer).writeEndElement();
-    verify(writer)
-        .writeStartElement("bpmn2", "userTask", "http://www.omg.org/spec/BPMN/20100524/MODEL");
+    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(writer, atLeast(1))
+        .writeAttribute(
+            eq("activiti"),
+            eq("http://activiti.org/bpmn"),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    verify(writer, atLeast(1)).writeCData(Mockito.<String>any());
+    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(writer, atLeast(1)).writeEndElement();
+    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(writer, atLeast(1))
+        .writeStartElement(
+            eq("bpmn2"), Mockito.<String>any(), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(flowElement).getLoopCharacteristics();
+    verify(adhocSubProcess, atLeast(1)).getLoopCharacteristics();
+    verify(flowElement, atLeast(1)).getCompletionCondition();
+    verify(adhocSubProcess, atLeast(1)).getCompletionCondition();
+    verify(association).getAssociationDirection();
+    verify(association).getSourceRef();
+    verify(association).getTargetRef();
+    verify(flowElement).getExtensionElements();
+    verify(adhocSubProcess).getExtensionElements();
+    verify(association).getExtensionElements();
+    verify(flowElement).getId();
+    verify(adhocSubProcess).getId();
+    verify(association).getId();
+    verify(flowElement, atLeast(1)).getDocumentation();
+    verify(adhocSubProcess, atLeast(1)).getDocumentation();
+    verify(flowElement).getExecutionListeners();
+    verify(adhocSubProcess).getExecutionListeners();
+    verify(flowElement, atLeast(1)).getName();
+    verify(adhocSubProcess, atLeast(1)).getName();
+    verify(adhocSubProcess).setDocumentation("not empty");
+    verify(adhocSubProcess).setName("not empty");
+    verify(flowElement).isAsynchronous();
+    verify(adhocSubProcess).isAsynchronous();
+    verify(adhocSubProcess).isNotExclusive();
+    verify(adhocSubProcess).setAsynchronous(false);
+    verify(adhocSubProcess).setExclusive(false);
+    verify(adhocSubProcess).addArtifact(isA(Artifact.class));
+    verify(adhocSubProcess).addFlowElement(isA(FlowElement.class));
+    verify(flowElement).getArtifacts();
+    verify(adhocSubProcess).getArtifacts();
+    verify(flowElement).getFlowElements();
+    verify(adhocSubProcess).getFlowElements();
   }
 
   /**
@@ -1756,7 +3216,7 @@ class BpmnXMLConverterDiffblueTest {
    * flowElement}, {@code model}, {@code xtw}.
    *
    * <ul>
-   *   <li>Given {@link ArrayList#ArrayList()} add {@link FieldExtension} (default constructor).
+   *   <li>Given {@link EventSubProcess} (default constructor) Name is {@code not empty}.
    * </ul>
    *
    * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
@@ -1764,57 +3224,1378 @@ class BpmnXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; given ArrayList() add FieldExtension (default constructor)")
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; given EventSubProcess (default constructor) Name is 'not empty'")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
-  void testCreateXMLWithFlowElementModelXtw_givenArrayListAddFieldExtension() throws Exception {
+  void testCreateXMLWithFlowElementModelXtw_givenEventSubProcessNameIsNotEmpty() throws Exception {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
-    bpmnXMLConverter.setClassloader(new MLet());
 
-    ArrayList<FieldExtension> fieldExtensionList = new ArrayList<>();
-    fieldExtensionList.add(new FieldExtension());
+    Association association = mock(Association.class);
+    when(association.getSourceRef()).thenReturn("Source Ref");
+    when(association.getTargetRef()).thenReturn("Target Ref");
+    when(association.getId()).thenReturn("42");
+    when(association.getExtensionElements()).thenReturn(new HashMap<>());
+    when(association.getAssociationDirection()).thenReturn(AssociationDirection.NONE);
 
-    ActivitiListener activitiListener = mock(ActivitiListener.class);
-    when(activitiListener.getCustomPropertiesResolverImplementationType())
-        .thenReturn("Custom Properties Resolver Implementation Type");
-    when(activitiListener.getImplementationType()).thenReturn("Implementation Type");
-    when(activitiListener.getOnTransaction()).thenReturn("On Transaction");
-    when(activitiListener.getFieldExtensions()).thenReturn(fieldExtensionList);
-    when(activitiListener.getEvent()).thenReturn("Event");
+    LinkedHashSet<Artifact> artifactSet = new LinkedHashSet<>();
+    artifactSet.add(association);
 
-    ArrayList<ActivitiListener> taskListeners = new ArrayList<>();
-    taskListeners.add(activitiListener);
+    EventSubProcess eventSubProcess = new EventSubProcess();
+    eventSubProcess.setName("not empty");
+    eventSubProcess.setAsynchronous(false);
+    eventSubProcess.setExclusive(false);
+    eventSubProcess.setDocumentation("not empty");
+    eventSubProcess.addFlowElement(new AdhocSubProcess());
+    eventSubProcess.addArtifact(new Association());
 
-    UserTask flowElement = new UserTask();
-    flowElement.setTaskListeners(taskListeners);
+    LinkedHashSet<FlowElement> flowElementSet = new LinkedHashSet<>();
+    flowElementSet.add(eventSubProcess);
+
+    AdhocSubProcess flowElement = mock(AdhocSubProcess.class);
+    when(flowElement.isAsynchronous()).thenReturn(false);
+    when(flowElement.getCompletionCondition()).thenReturn("not empty");
+    when(flowElement.getDocumentation()).thenReturn("not empty");
+    when(flowElement.getArtifacts()).thenReturn(artifactSet);
+    when(flowElement.getFlowElements()).thenReturn(flowElementSet);
+    when(flowElement.getLoopCharacteristics()).thenReturn(null);
+    when(flowElement.getId()).thenReturn("42");
+    when(flowElement.getName()).thenReturn("Name");
+    when(flowElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(flowElement.getExtensionElements()).thenReturn(new HashMap<>());
+    BpmnModel model = new BpmnModel();
+
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer).writeCData(Mockito.<String>any());
+    doNothing().when(writer).writeCharacters(Mockito.<String>any());
+    doNothing()
+        .when(writer)
+        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
+    IndentingXMLStreamWriter writer3 = new IndentingXMLStreamWriter(writer2);
+
+    // Act
+    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer3));
+
+    // Assert
+    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(writer).writeCData("not empty");
+    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(writer, atLeast(1)).writeEndElement();
+    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(writer, atLeast(1))
+        .writeStartElement(
+            eq("bpmn2"), Mockito.<String>any(), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(flowElement).getLoopCharacteristics();
+    verify(flowElement, atLeast(1)).getCompletionCondition();
+    verify(association).getAssociationDirection();
+    verify(association).getSourceRef();
+    verify(association).getTargetRef();
+    verify(flowElement).getExtensionElements();
+    verify(association).getExtensionElements();
+    verify(flowElement).getId();
+    verify(association).getId();
+    verify(flowElement, atLeast(1)).getDocumentation();
+    verify(flowElement).getExecutionListeners();
+    verify(flowElement, atLeast(1)).getName();
+    verify(flowElement).isAsynchronous();
+    verify(flowElement).getArtifacts();
+    verify(flowElement).getFlowElements();
+  }
+
+  /**
+   * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code
+   * flowElement}, {@code model}, {@code xtw}.
+   *
+   * <ul>
+   *   <li>Given {@link HashMap#HashMap()} {@code adHocSubProcess} is {@link ArrayList#ArrayList()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; given HashMap() 'adHocSubProcess' is ArrayList()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
+  void testCreateXMLWithFlowElementModelXtw_givenHashMapAdHocSubProcessIsArrayList()
+      throws Exception {
+    // Arrange
+    BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
+
+    HashMap<String, List<ExtensionElement>> stringListMap = new HashMap<>();
+    stringListMap.put("adHocSubProcess", new ArrayList<>());
+
+    Association association = mock(Association.class);
+    when(association.getSourceRef()).thenReturn("Source Ref");
+    when(association.getTargetRef()).thenReturn("Target Ref");
+    when(association.getId()).thenReturn("42");
+    when(association.getExtensionElements()).thenReturn(stringListMap);
+    when(association.getAssociationDirection()).thenReturn(AssociationDirection.NONE);
+
+    LinkedHashSet<Artifact> artifactSet = new LinkedHashSet<>();
+    artifactSet.add(association);
+
+    SubProcess subProcess = new SubProcess();
+    subProcess.setName("not empty");
+    subProcess.setAsynchronous(false);
+    subProcess.setExclusive(false);
+    subProcess.setDocumentation("not empty");
+    subProcess.addFlowElement(new AdhocSubProcess());
+    subProcess.addArtifact(new Association());
+
+    LinkedHashSet<FlowElement> flowElementSet = new LinkedHashSet<>();
+    flowElementSet.add(subProcess);
+
+    AdhocSubProcess flowElement = mock(AdhocSubProcess.class);
+    when(flowElement.isAsynchronous()).thenReturn(false);
+    when(flowElement.getCompletionCondition()).thenReturn("not empty");
+    when(flowElement.getDocumentation()).thenReturn("not empty");
+    when(flowElement.getArtifacts()).thenReturn(artifactSet);
+    when(flowElement.getFlowElements()).thenReturn(flowElementSet);
+    when(flowElement.getLoopCharacteristics()).thenReturn(null);
+    when(flowElement.getId()).thenReturn("42");
+    when(flowElement.getName()).thenReturn("Name");
+    when(flowElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(flowElement.getExtensionElements()).thenReturn(new HashMap<>());
+    BpmnModel model = new BpmnModel();
+
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer).writeCData(Mockito.<String>any());
+    doNothing().when(writer).writeCharacters(Mockito.<String>any());
+    doNothing()
+        .when(writer)
+        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
+    IndentingXMLStreamWriter writer3 = new IndentingXMLStreamWriter(writer2);
+
+    // Act
+    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer3));
+
+    // Assert
+    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(writer).writeCData("not empty");
+    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(writer, atLeast(1)).writeEndElement();
+    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(writer, atLeast(1))
+        .writeStartElement(
+            eq("bpmn2"), Mockito.<String>any(), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(flowElement).getLoopCharacteristics();
+    verify(flowElement, atLeast(1)).getCompletionCondition();
+    verify(association).getAssociationDirection();
+    verify(association).getSourceRef();
+    verify(association).getTargetRef();
+    verify(flowElement).getExtensionElements();
+    verify(association, atLeast(1)).getExtensionElements();
+    verify(flowElement).getId();
+    verify(association).getId();
+    verify(flowElement, atLeast(1)).getDocumentation();
+    verify(flowElement).getExecutionListeners();
+    verify(flowElement, atLeast(1)).getName();
+    verify(flowElement).isAsynchronous();
+    verify(flowElement).getArtifacts();
+    verify(flowElement).getFlowElements();
+  }
+
+  /**
+   * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code
+   * flowElement}, {@code model}, {@code xtw}.
+   *
+   * <ul>
+   *   <li>Given {@link HashMap#HashMap()} {@code adHocSubProcess} is {@link ArrayList#ArrayList()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; given HashMap() 'adHocSubProcess' is ArrayList()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
+  void testCreateXMLWithFlowElementModelXtw_givenHashMapAdHocSubProcessIsArrayList2()
+      throws Exception {
+    // Arrange
+    BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
+
+    Association association = mock(Association.class);
+    when(association.getSourceRef()).thenReturn("Source Ref");
+    when(association.getTargetRef()).thenReturn("Target Ref");
+    when(association.getId()).thenReturn("42");
+    when(association.getExtensionElements()).thenReturn(new HashMap<>());
+    when(association.getAssociationDirection()).thenReturn(AssociationDirection.NONE);
+
+    LinkedHashSet<Artifact> artifactSet = new LinkedHashSet<>();
+    artifactSet.add(association);
+
+    HashMap<String, List<ExtensionElement>> stringListMap = new HashMap<>();
+    stringListMap.put("adHocSubProcess", new ArrayList<>());
+
+    AdhocSubProcess adhocSubProcess = mock(AdhocSubProcess.class);
+    when(adhocSubProcess.isNotExclusive()).thenReturn(true);
+    when(adhocSubProcess.isAsynchronous()).thenReturn(true);
+    when(adhocSubProcess.getCompletionCondition()).thenReturn("Completion Condition");
+    when(adhocSubProcess.getId()).thenReturn("42");
+    when(adhocSubProcess.getDocumentation()).thenReturn("Documentation");
+    when(adhocSubProcess.getName()).thenReturn("Name");
+    when(adhocSubProcess.getArtifacts()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getFlowElements()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getExtensionElements()).thenReturn(stringListMap);
+    when(adhocSubProcess.getLoopCharacteristics())
+        .thenReturn(new MultiInstanceLoopCharacteristics());
+    doNothing().when(adhocSubProcess).setDocumentation(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setName(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setAsynchronous(anyBoolean());
+    doNothing().when(adhocSubProcess).setExclusive(anyBoolean());
+    doNothing().when(adhocSubProcess).addArtifact(Mockito.<Artifact>any());
+    doNothing().when(adhocSubProcess).addFlowElement(Mockito.<FlowElement>any());
+    adhocSubProcess.setName("not empty");
+    adhocSubProcess.setAsynchronous(false);
+    adhocSubProcess.setExclusive(false);
+    adhocSubProcess.setDocumentation("not empty");
+    adhocSubProcess.addFlowElement(new AdhocSubProcess());
+    adhocSubProcess.addArtifact(new Association());
+
+    LinkedHashSet<FlowElement> flowElementSet = new LinkedHashSet<>();
+    flowElementSet.add(adhocSubProcess);
+
+    AdhocSubProcess flowElement = mock(AdhocSubProcess.class);
+    when(flowElement.isAsynchronous()).thenReturn(false);
+    when(flowElement.getCompletionCondition()).thenReturn("not empty");
+    when(flowElement.getDocumentation()).thenReturn("not empty");
+    when(flowElement.getArtifacts()).thenReturn(artifactSet);
+    when(flowElement.getFlowElements()).thenReturn(flowElementSet);
+    when(flowElement.getLoopCharacteristics()).thenReturn(null);
+    when(flowElement.getId()).thenReturn("42");
+    when(flowElement.getName()).thenReturn("Name");
+    when(flowElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(flowElement.getExtensionElements()).thenReturn(new HashMap<>());
+    BpmnModel model = new BpmnModel();
+
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing()
+        .when(writer)
+        .writeAttribute(
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    doNothing().when(writer).writeCData(Mockito.<String>any());
+    doNothing().when(writer).writeCharacters(Mockito.<String>any());
+    doNothing()
+        .when(writer)
+        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
+    IndentingXMLStreamWriter writer3 = new IndentingXMLStreamWriter(writer2);
+
+    // Act
+    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer3));
+
+    // Assert
+    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(writer, atLeast(1))
+        .writeAttribute(
+            eq("activiti"),
+            eq("http://activiti.org/bpmn"),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    verify(writer, atLeast(1)).writeCData(Mockito.<String>any());
+    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(writer, atLeast(1)).writeEndElement();
+    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(writer, atLeast(1))
+        .writeStartElement(
+            eq("bpmn2"), Mockito.<String>any(), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(flowElement).getLoopCharacteristics();
+    verify(adhocSubProcess, atLeast(1)).getLoopCharacteristics();
+    verify(flowElement, atLeast(1)).getCompletionCondition();
+    verify(adhocSubProcess, atLeast(1)).getCompletionCondition();
+    verify(association).getAssociationDirection();
+    verify(association).getSourceRef();
+    verify(association).getTargetRef();
+    verify(flowElement).getExtensionElements();
+    verify(association).getExtensionElements();
+    verify(adhocSubProcess, atLeast(1)).getExtensionElements();
+    verify(flowElement).getId();
+    verify(adhocSubProcess).getId();
+    verify(association).getId();
+    verify(flowElement, atLeast(1)).getDocumentation();
+    verify(adhocSubProcess, atLeast(1)).getDocumentation();
+    verify(flowElement).getExecutionListeners();
+    verify(adhocSubProcess).getExecutionListeners();
+    verify(flowElement, atLeast(1)).getName();
+    verify(adhocSubProcess, atLeast(1)).getName();
+    verify(adhocSubProcess).setDocumentation("not empty");
+    verify(adhocSubProcess).setName("not empty");
+    verify(flowElement).isAsynchronous();
+    verify(adhocSubProcess).isAsynchronous();
+    verify(adhocSubProcess).isNotExclusive();
+    verify(adhocSubProcess).setAsynchronous(false);
+    verify(adhocSubProcess).setExclusive(false);
+    verify(adhocSubProcess).addArtifact(isA(Artifact.class));
+    verify(adhocSubProcess).addFlowElement(isA(FlowElement.class));
+    verify(flowElement).getArtifacts();
+    verify(adhocSubProcess).getArtifacts();
+    verify(flowElement).getFlowElements();
+    verify(adhocSubProcess).getFlowElements();
+  }
+
+  /**
+   * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code
+   * flowElement}, {@code model}, {@code xtw}.
+   *
+   * <ul>
+   *   <li>Given {@link HashMap#HashMap()} {@code adHocSubProcess} is {@link ArrayList#ArrayList()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; given HashMap() 'adHocSubProcess' is ArrayList()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
+  void testCreateXMLWithFlowElementModelXtw_givenHashMapAdHocSubProcessIsArrayList3()
+      throws Exception {
+    // Arrange
+    BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
+
+    Association association = mock(Association.class);
+    when(association.getSourceRef()).thenReturn("Source Ref");
+    when(association.getTargetRef()).thenReturn("Target Ref");
+    when(association.getId()).thenReturn("42");
+    when(association.getExtensionElements()).thenReturn(new HashMap<>());
+    when(association.getAssociationDirection()).thenReturn(AssociationDirection.NONE);
+
+    LinkedHashSet<Artifact> artifactSet = new LinkedHashSet<>();
+    artifactSet.add(association);
+
+    HashMap<String, List<ExtensionElement>> stringListMap = new HashMap<>();
+    stringListMap.put("adHocSubProcess", new ArrayList<>());
+
+    AdhocSubProcess adhocSubProcess = mock(AdhocSubProcess.class);
+    when(adhocSubProcess.isNotExclusive()).thenReturn(true);
+    when(adhocSubProcess.isAsynchronous()).thenReturn(true);
+    when(adhocSubProcess.getCompletionCondition()).thenReturn("Completion Condition");
+    when(adhocSubProcess.getId()).thenReturn("42");
+    when(adhocSubProcess.getDocumentation()).thenReturn("Documentation");
+    when(adhocSubProcess.getName()).thenReturn("Name");
+    when(adhocSubProcess.getArtifacts()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getFlowElements()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getExtensionElements()).thenReturn(stringListMap);
+    when(adhocSubProcess.getLoopCharacteristics())
+        .thenReturn(new MultiInstanceLoopCharacteristics());
+    doNothing().when(adhocSubProcess).setDocumentation(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setName(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setAsynchronous(anyBoolean());
+    doNothing().when(adhocSubProcess).setExclusive(anyBoolean());
+    doNothing().when(adhocSubProcess).addArtifact(Mockito.<Artifact>any());
+    doNothing().when(adhocSubProcess).addFlowElement(Mockito.<FlowElement>any());
+    adhocSubProcess.setName("not empty");
+    adhocSubProcess.setAsynchronous(false);
+    adhocSubProcess.setExclusive(false);
+    adhocSubProcess.setDocumentation("not empty");
+    adhocSubProcess.addFlowElement(new AdhocSubProcess());
+    adhocSubProcess.addArtifact(new Association());
+
+    LinkedHashSet<FlowElement> flowElementSet = new LinkedHashSet<>();
+    flowElementSet.add(adhocSubProcess);
+
+    AdhocSubProcess flowElement = mock(AdhocSubProcess.class);
+    when(flowElement.isAsynchronous()).thenReturn(false);
+    when(flowElement.getCompletionCondition()).thenReturn("not empty");
+    when(flowElement.getDocumentation()).thenReturn("not empty");
+    when(flowElement.getArtifacts()).thenReturn(artifactSet);
+    when(flowElement.getFlowElements()).thenReturn(flowElementSet);
+    when(flowElement.getLoopCharacteristics()).thenReturn(null);
+    when(flowElement.getId()).thenReturn("42");
+    when(flowElement.getName()).thenReturn("Name");
+    when(flowElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(flowElement.getExtensionElements()).thenReturn(new HashMap<>());
+
+    BpmnModel model = mock(BpmnModel.class);
+    when(model.getNamespaces()).thenReturn(new HashMap<>());
+
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing()
+        .when(xtw)
+        .writeAttribute(
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    doNothing().when(xtw).writeCData(Mockito.<String>any());
+    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
+    doNothing()
+        .when(xtw)
+        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    bpmnXMLConverter.createXML(flowElement, model, xtw);
+
+    // Assert
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw, atLeast(1))
+        .writeAttribute(
+            eq("activiti"),
+            eq("http://activiti.org/bpmn"),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeCData(Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeEndElement();
+    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(xtw, atLeast(1))
+        .writeStartElement(
+            eq("bpmn2"), Mockito.<String>any(), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(flowElement).getLoopCharacteristics();
+    verify(adhocSubProcess, atLeast(1)).getLoopCharacteristics();
+    verify(flowElement, atLeast(1)).getCompletionCondition();
+    verify(adhocSubProcess, atLeast(1)).getCompletionCondition();
+    verify(association).getAssociationDirection();
+    verify(association).getSourceRef();
+    verify(association).getTargetRef();
+    verify(flowElement).getExtensionElements();
+    verify(association).getExtensionElements();
+    verify(adhocSubProcess, atLeast(1)).getExtensionElements();
+    verify(flowElement).getId();
+    verify(adhocSubProcess).getId();
+    verify(association).getId();
+    verify(model, atLeast(1)).getNamespaces();
+    verify(flowElement, atLeast(1)).getDocumentation();
+    verify(adhocSubProcess, atLeast(1)).getDocumentation();
+    verify(flowElement).getExecutionListeners();
+    verify(adhocSubProcess).getExecutionListeners();
+    verify(flowElement, atLeast(1)).getName();
+    verify(adhocSubProcess, atLeast(1)).getName();
+    verify(adhocSubProcess).setDocumentation("not empty");
+    verify(adhocSubProcess).setName("not empty");
+    verify(flowElement).isAsynchronous();
+    verify(adhocSubProcess).isAsynchronous();
+    verify(adhocSubProcess).isNotExclusive();
+    verify(adhocSubProcess).setAsynchronous(false);
+    verify(adhocSubProcess).setExclusive(false);
+    verify(adhocSubProcess).addArtifact(isA(Artifact.class));
+    verify(adhocSubProcess).addFlowElement(isA(FlowElement.class));
+    verify(flowElement).getArtifacts();
+    verify(adhocSubProcess).getArtifacts();
+    verify(flowElement).getFlowElements();
+    verify(adhocSubProcess).getFlowElements();
+  }
+
+  /**
+   * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code
+   * flowElement}, {@code model}, {@code xtw}.
+   *
+   * <ul>
+   *   <li>Given {@link HashMap#HashMap()} {@code id} is {@link ArrayList#ArrayList()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; given HashMap() 'id' is ArrayList()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
+  void testCreateXMLWithFlowElementModelXtw_givenHashMapIdIsArrayList() throws Exception {
+    // Arrange
+    BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
+
+    HashMap<String, List<ExtensionElement>> stringListMap = new HashMap<>();
+    stringListMap.put("id", new ArrayList<>());
+
+    Association association = mock(Association.class);
+    when(association.getSourceRef()).thenReturn("Source Ref");
+    when(association.getTargetRef()).thenReturn("Target Ref");
+    when(association.getId()).thenReturn("42");
+    when(association.getExtensionElements()).thenReturn(stringListMap);
+    when(association.getAssociationDirection()).thenReturn(AssociationDirection.NONE);
+
+    LinkedHashSet<Artifact> artifactSet = new LinkedHashSet<>();
+    artifactSet.add(association);
+
+    AdhocSubProcess adhocSubProcess = mock(AdhocSubProcess.class);
+    when(adhocSubProcess.isNotExclusive()).thenReturn(true);
+    when(adhocSubProcess.isAsynchronous()).thenReturn(true);
+    when(adhocSubProcess.getCompletionCondition()).thenReturn("Completion Condition");
+    when(adhocSubProcess.getId()).thenReturn("42");
+    when(adhocSubProcess.getDocumentation()).thenReturn("Documentation");
+    when(adhocSubProcess.getName()).thenReturn("Name");
+    when(adhocSubProcess.getArtifacts()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getFlowElements()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getExtensionElements()).thenReturn(new HashMap<>());
+    when(adhocSubProcess.getLoopCharacteristics())
+        .thenReturn(new MultiInstanceLoopCharacteristics());
+    doNothing().when(adhocSubProcess).setDocumentation(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setName(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setAsynchronous(anyBoolean());
+    doNothing().when(adhocSubProcess).setExclusive(anyBoolean());
+    doNothing().when(adhocSubProcess).addArtifact(Mockito.<Artifact>any());
+    doNothing().when(adhocSubProcess).addFlowElement(Mockito.<FlowElement>any());
+    adhocSubProcess.setName("not empty");
+    adhocSubProcess.setAsynchronous(false);
+    adhocSubProcess.setExclusive(false);
+    adhocSubProcess.setDocumentation("not empty");
+    adhocSubProcess.addFlowElement(new AdhocSubProcess());
+    adhocSubProcess.addArtifact(new Association());
+
+    LinkedHashSet<FlowElement> flowElementSet = new LinkedHashSet<>();
+    flowElementSet.add(adhocSubProcess);
+
+    AdhocSubProcess flowElement = mock(AdhocSubProcess.class);
+    when(flowElement.isAsynchronous()).thenReturn(false);
+    when(flowElement.getCompletionCondition()).thenReturn("not empty");
+    when(flowElement.getDocumentation()).thenReturn("not empty");
+    when(flowElement.getArtifacts()).thenReturn(artifactSet);
+    when(flowElement.getFlowElements()).thenReturn(flowElementSet);
+    when(flowElement.getLoopCharacteristics()).thenReturn(null);
+    when(flowElement.getId()).thenReturn("42");
+    when(flowElement.getName()).thenReturn("Name");
+    when(flowElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(flowElement.getExtensionElements()).thenReturn(new HashMap<>());
+
+    BpmnModel model = mock(BpmnModel.class);
+    when(model.getNamespaces()).thenReturn(new HashMap<>());
+
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing()
+        .when(xtw)
+        .writeAttribute(
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    doNothing().when(xtw).writeCData(Mockito.<String>any());
+    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
+    doNothing()
+        .when(xtw)
+        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    bpmnXMLConverter.createXML(flowElement, model, xtw);
+
+    // Assert
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw, atLeast(1))
+        .writeAttribute(
+            eq("activiti"),
+            eq("http://activiti.org/bpmn"),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeCData(Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeEndElement();
+    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(xtw, atLeast(1))
+        .writeStartElement(
+            eq("bpmn2"), Mockito.<String>any(), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(flowElement).getLoopCharacteristics();
+    verify(adhocSubProcess, atLeast(1)).getLoopCharacteristics();
+    verify(flowElement, atLeast(1)).getCompletionCondition();
+    verify(adhocSubProcess, atLeast(1)).getCompletionCondition();
+    verify(association).getAssociationDirection();
+    verify(association).getSourceRef();
+    verify(association).getTargetRef();
+    verify(flowElement).getExtensionElements();
+    verify(adhocSubProcess).getExtensionElements();
+    verify(association, atLeast(1)).getExtensionElements();
+    verify(flowElement).getId();
+    verify(adhocSubProcess).getId();
+    verify(association).getId();
+    verify(model, atLeast(1)).getNamespaces();
+    verify(flowElement, atLeast(1)).getDocumentation();
+    verify(adhocSubProcess, atLeast(1)).getDocumentation();
+    verify(flowElement).getExecutionListeners();
+    verify(adhocSubProcess).getExecutionListeners();
+    verify(flowElement, atLeast(1)).getName();
+    verify(adhocSubProcess, atLeast(1)).getName();
+    verify(adhocSubProcess).setDocumentation("not empty");
+    verify(adhocSubProcess).setName("not empty");
+    verify(flowElement).isAsynchronous();
+    verify(adhocSubProcess).isAsynchronous();
+    verify(adhocSubProcess).isNotExclusive();
+    verify(adhocSubProcess).setAsynchronous(false);
+    verify(adhocSubProcess).setExclusive(false);
+    verify(adhocSubProcess).addArtifact(isA(Artifact.class));
+    verify(adhocSubProcess).addFlowElement(isA(FlowElement.class));
+    verify(flowElement).getArtifacts();
+    verify(adhocSubProcess).getArtifacts();
+    verify(flowElement).getFlowElements();
+    verify(adhocSubProcess).getFlowElements();
+  }
+
+  /**
+   * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code
+   * flowElement}, {@code model}, {@code xtw}.
+   *
+   * <ul>
+   *   <li>Given {@link LinkedHashSet#LinkedHashSet()} add {@link Association} (default
+   *       constructor).
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; given LinkedHashSet() add Association (default constructor)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
+  void testCreateXMLWithFlowElementModelXtw_givenLinkedHashSetAddAssociation() throws Exception {
+    // Arrange
+    BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
+
+    LinkedHashSet<Artifact> artifactSet = new LinkedHashSet<>();
+    artifactSet.add(new Association());
+
+    SubProcess subProcess = new SubProcess();
+    subProcess.setName("not empty");
+    subProcess.setAsynchronous(false);
+    subProcess.setExclusive(false);
+    subProcess.setDocumentation("not empty");
+    subProcess.addFlowElement(new AdhocSubProcess());
+    subProcess.addArtifact(new Association());
+
+    LinkedHashSet<FlowElement> flowElementSet = new LinkedHashSet<>();
+    flowElementSet.add(subProcess);
+
+    AdhocSubProcess flowElement = mock(AdhocSubProcess.class);
+    when(flowElement.isAsynchronous()).thenReturn(false);
+    when(flowElement.getCompletionCondition()).thenReturn("not empty");
+    when(flowElement.getDocumentation()).thenReturn("not empty");
+    when(flowElement.getArtifacts()).thenReturn(artifactSet);
+    when(flowElement.getFlowElements()).thenReturn(flowElementSet);
+    when(flowElement.getLoopCharacteristics()).thenReturn(null);
+    when(flowElement.getId()).thenReturn("42");
+    when(flowElement.getName()).thenReturn("Name");
+    when(flowElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(flowElement.getExtensionElements()).thenReturn(new HashMap<>());
+    BpmnModel model = new BpmnModel();
+
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer).writeCData(Mockito.<String>any());
+    doNothing().when(writer).writeCharacters(Mockito.<String>any());
+    doNothing()
+        .when(writer)
+        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
+    IndentingXMLStreamWriter writer3 = new IndentingXMLStreamWriter(writer2);
+
+    // Act
+    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer3));
+
+    // Assert
+    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(writer).writeCData("not empty");
+    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(writer, atLeast(1)).writeEndElement();
+    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(writer, atLeast(1))
+        .writeStartElement(
+            eq("bpmn2"), Mockito.<String>any(), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(flowElement).getLoopCharacteristics();
+    verify(flowElement, atLeast(1)).getCompletionCondition();
+    verify(flowElement).getExtensionElements();
+    verify(flowElement).getId();
+    verify(flowElement, atLeast(1)).getDocumentation();
+    verify(flowElement).getExecutionListeners();
+    verify(flowElement, atLeast(1)).getName();
+    verify(flowElement).isAsynchronous();
+    verify(flowElement).getArtifacts();
+    verify(flowElement).getFlowElements();
+  }
+
+  /**
+   * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code
+   * flowElement}, {@code model}, {@code xtw}.
+   *
+   * <ul>
+   *   <li>Given {@link LinkedHashSet#LinkedHashSet()} add {@link SubProcess} (default constructor).
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; given LinkedHashSet() add SubProcess (default constructor)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
+  void testCreateXMLWithFlowElementModelXtw_givenLinkedHashSetAddSubProcess() throws Exception {
+    // Arrange
+    BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
+
+    Association association = mock(Association.class);
+    when(association.getSourceRef()).thenReturn("Source Ref");
+    when(association.getTargetRef()).thenReturn("Target Ref");
+    when(association.getId()).thenReturn("42");
+    when(association.getExtensionElements()).thenReturn(new HashMap<>());
+    when(association.getAssociationDirection()).thenReturn(AssociationDirection.NONE);
+
+    LinkedHashSet<Artifact> artifactSet = new LinkedHashSet<>();
+    artifactSet.add(association);
+
+    SubProcess subProcess = new SubProcess();
+    subProcess.setName("not empty");
+    subProcess.setAsynchronous(false);
+    subProcess.setExclusive(false);
+    subProcess.setDocumentation("not empty");
+    subProcess.addFlowElement(new AdhocSubProcess());
+    subProcess.addArtifact(new Association());
+
+    LinkedHashSet<FlowElement> flowElementSet = new LinkedHashSet<>();
+    flowElementSet.add(subProcess);
+
+    AdhocSubProcess flowElement = mock(AdhocSubProcess.class);
+    when(flowElement.isAsynchronous()).thenReturn(false);
+    when(flowElement.getCompletionCondition()).thenReturn("not empty");
+    when(flowElement.getDocumentation()).thenReturn("not empty");
+    when(flowElement.getArtifacts()).thenReturn(artifactSet);
+    when(flowElement.getFlowElements()).thenReturn(flowElementSet);
+    when(flowElement.getLoopCharacteristics()).thenReturn(null);
+    when(flowElement.getId()).thenReturn("42");
+    when(flowElement.getName()).thenReturn("Name");
+    when(flowElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(flowElement.getExtensionElements()).thenReturn(new HashMap<>());
+    BpmnModel model = new BpmnModel();
+
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer).writeCData(Mockito.<String>any());
+    doNothing().when(writer).writeCharacters(Mockito.<String>any());
+    doNothing()
+        .when(writer)
+        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
+    IndentingXMLStreamWriter writer3 = new IndentingXMLStreamWriter(writer2);
+
+    // Act
+    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer3));
+
+    // Assert
+    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(writer).writeCData("not empty");
+    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(writer, atLeast(1)).writeEndElement();
+    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(writer, atLeast(1))
+        .writeStartElement(
+            eq("bpmn2"), Mockito.<String>any(), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(flowElement).getLoopCharacteristics();
+    verify(flowElement, atLeast(1)).getCompletionCondition();
+    verify(association).getAssociationDirection();
+    verify(association).getSourceRef();
+    verify(association).getTargetRef();
+    verify(flowElement).getExtensionElements();
+    verify(association).getExtensionElements();
+    verify(flowElement).getId();
+    verify(association).getId();
+    verify(flowElement, atLeast(1)).getDocumentation();
+    verify(flowElement).getExecutionListeners();
+    verify(flowElement, atLeast(1)).getName();
+    verify(flowElement).isAsynchronous();
+    verify(flowElement).getArtifacts();
+    verify(flowElement).getFlowElements();
+  }
+
+  /**
+   * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code
+   * flowElement}, {@code model}, {@code xtw}.
+   *
+   * <ul>
+   *   <li>Given {@link LinkedHashSet#LinkedHashSet()} add {@link TextAnnotation} (default
+   *       constructor).
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; given LinkedHashSet() add TextAnnotation (default constructor)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
+  void testCreateXMLWithFlowElementModelXtw_givenLinkedHashSetAddTextAnnotation() throws Exception {
+    // Arrange
+    BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
+
+    LinkedHashSet<Artifact> artifactSet = new LinkedHashSet<>();
+    artifactSet.add(new TextAnnotation());
+
+    SubProcess subProcess = new SubProcess();
+    subProcess.setName("not empty");
+    subProcess.setAsynchronous(false);
+    subProcess.setExclusive(false);
+    subProcess.setDocumentation("not empty");
+    subProcess.addFlowElement(new AdhocSubProcess());
+    subProcess.addArtifact(new Association());
+
+    LinkedHashSet<FlowElement> flowElementSet = new LinkedHashSet<>();
+    flowElementSet.add(subProcess);
+
+    AdhocSubProcess flowElement = mock(AdhocSubProcess.class);
+    when(flowElement.isAsynchronous()).thenReturn(false);
+    when(flowElement.getCompletionCondition()).thenReturn("not empty");
+    when(flowElement.getDocumentation()).thenReturn("not empty");
+    when(flowElement.getArtifacts()).thenReturn(artifactSet);
+    when(flowElement.getFlowElements()).thenReturn(flowElementSet);
+    when(flowElement.getLoopCharacteristics()).thenReturn(null);
+    when(flowElement.getId()).thenReturn("42");
+    when(flowElement.getName()).thenReturn("Name");
+    when(flowElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(flowElement.getExtensionElements()).thenReturn(new HashMap<>());
+    BpmnModel model = new BpmnModel();
+
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer).writeCData(Mockito.<String>any());
+    doNothing().when(writer).writeCharacters(Mockito.<String>any());
+    doNothing()
+        .when(writer)
+        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
+    IndentingXMLStreamWriter writer3 = new IndentingXMLStreamWriter(writer2);
+
+    // Act
+    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer3));
+
+    // Assert
+    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(writer).writeCData("not empty");
+    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(writer, atLeast(1)).writeEndElement();
+    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(writer, atLeast(1))
+        .writeStartElement(
+            eq("bpmn2"), Mockito.<String>any(), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(flowElement).getLoopCharacteristics();
+    verify(flowElement, atLeast(1)).getCompletionCondition();
+    verify(flowElement).getExtensionElements();
+    verify(flowElement).getId();
+    verify(flowElement, atLeast(1)).getDocumentation();
+    verify(flowElement).getExecutionListeners();
+    verify(flowElement, atLeast(1)).getName();
+    verify(flowElement).isAsynchronous();
+    verify(flowElement).getArtifacts();
+    verify(flowElement).getFlowElements();
+  }
+
+  /**
+   * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code
+   * flowElement}, {@code model}, {@code xtw}.
+   *
+   * <ul>
+   *   <li>Given {@link Transaction} (default constructor) Name is {@code not empty}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; given Transaction (default constructor) Name is 'not empty'")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
+  void testCreateXMLWithFlowElementModelXtw_givenTransactionNameIsNotEmpty() throws Exception {
+    // Arrange
+    BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
+
+    Association association = mock(Association.class);
+    when(association.getSourceRef()).thenReturn("Source Ref");
+    when(association.getTargetRef()).thenReturn("Target Ref");
+    when(association.getId()).thenReturn("42");
+    when(association.getExtensionElements()).thenReturn(new HashMap<>());
+    when(association.getAssociationDirection()).thenReturn(AssociationDirection.NONE);
+
+    LinkedHashSet<Artifact> artifactSet = new LinkedHashSet<>();
+    artifactSet.add(association);
+
+    Transaction transaction = new Transaction();
+    transaction.setName("not empty");
+    transaction.setAsynchronous(false);
+    transaction.setExclusive(false);
+    transaction.setDocumentation("not empty");
+    transaction.addFlowElement(new AdhocSubProcess());
+    transaction.addArtifact(new Association());
+
+    LinkedHashSet<FlowElement> flowElementSet = new LinkedHashSet<>();
+    flowElementSet.add(transaction);
+
+    AdhocSubProcess flowElement = mock(AdhocSubProcess.class);
+    when(flowElement.isAsynchronous()).thenReturn(false);
+    when(flowElement.getCompletionCondition()).thenReturn("not empty");
+    when(flowElement.getDocumentation()).thenReturn("not empty");
+    when(flowElement.getArtifacts()).thenReturn(artifactSet);
+    when(flowElement.getFlowElements()).thenReturn(flowElementSet);
+    when(flowElement.getLoopCharacteristics()).thenReturn(null);
+    when(flowElement.getId()).thenReturn("42");
+    when(flowElement.getName()).thenReturn("Name");
+    when(flowElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(flowElement.getExtensionElements()).thenReturn(new HashMap<>());
+    BpmnModel model = new BpmnModel();
+
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer).writeCData(Mockito.<String>any());
+    doNothing().when(writer).writeCharacters(Mockito.<String>any());
+    doNothing()
+        .when(writer)
+        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
+    IndentingXMLStreamWriter writer3 = new IndentingXMLStreamWriter(writer2);
+
+    // Act
+    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer3));
+
+    // Assert
+    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(writer).writeCData("not empty");
+    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(writer, atLeast(1)).writeEndElement();
+    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(writer, atLeast(1))
+        .writeStartElement(
+            eq("bpmn2"), Mockito.<String>any(), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(flowElement).getLoopCharacteristics();
+    verify(flowElement, atLeast(1)).getCompletionCondition();
+    verify(association).getAssociationDirection();
+    verify(association).getSourceRef();
+    verify(association).getTargetRef();
+    verify(flowElement).getExtensionElements();
+    verify(association).getExtensionElements();
+    verify(flowElement).getId();
+    verify(association).getId();
+    verify(flowElement, atLeast(1)).getDocumentation();
+    verify(flowElement).getExecutionListeners();
+    verify(flowElement, atLeast(1)).getName();
+    verify(flowElement).isAsynchronous();
+    verify(flowElement).getArtifacts();
+    verify(flowElement).getFlowElements();
+  }
+
+  /**
+   * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code
+   * flowElement}, {@code model}, {@code xtw}.
+   *
+   * <ul>
+   *   <li>Then calls {@link MultiInstanceLoopCharacteristics#isSequential()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; then calls isSequential()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
+  void testCreateXMLWithFlowElementModelXtw_thenCallsIsSequential() throws Exception {
+    // Arrange
+    BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
+
+    MultiInstanceLoopCharacteristics multiInstanceLoopCharacteristics =
+        mock(MultiInstanceLoopCharacteristics.class);
+    when(multiInstanceLoopCharacteristics.isSequential())
+        .thenThrow(new XMLException("An error occurred"));
+
+    AdhocSubProcess adhocSubProcess = mock(AdhocSubProcess.class);
+    when(adhocSubProcess.isNotExclusive()).thenReturn(true);
+    when(adhocSubProcess.isAsynchronous()).thenReturn(true);
+    when(adhocSubProcess.getId()).thenReturn("42");
+    when(adhocSubProcess.getDocumentation()).thenReturn("Documentation");
+    when(adhocSubProcess.getName()).thenReturn("Name");
+    when(adhocSubProcess.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getExtensionElements()).thenReturn(new HashMap<>());
+    when(adhocSubProcess.getLoopCharacteristics()).thenReturn(multiInstanceLoopCharacteristics);
+    doNothing().when(adhocSubProcess).setDocumentation(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setName(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setAsynchronous(anyBoolean());
+    doNothing().when(adhocSubProcess).setExclusive(anyBoolean());
+    doNothing().when(adhocSubProcess).addArtifact(Mockito.<Artifact>any());
+    doNothing().when(adhocSubProcess).addFlowElement(Mockito.<FlowElement>any());
+    adhocSubProcess.setName("not empty");
+    adhocSubProcess.setAsynchronous(false);
+    adhocSubProcess.setExclusive(false);
+    adhocSubProcess.setDocumentation("not empty");
+    adhocSubProcess.addFlowElement(new AdhocSubProcess());
+    adhocSubProcess.addArtifact(new Association());
+
+    LinkedHashSet<FlowElement> flowElementSet = new LinkedHashSet<>();
+    flowElementSet.add(adhocSubProcess);
+
+    AdhocSubProcess flowElement = mock(AdhocSubProcess.class);
+    when(flowElement.isAsynchronous()).thenReturn(false);
+    when(flowElement.getCompletionCondition()).thenReturn("not empty");
+    when(flowElement.getDocumentation()).thenReturn("not empty");
+    when(flowElement.getFlowElements()).thenReturn(flowElementSet);
+    when(flowElement.getLoopCharacteristics()).thenReturn(null);
+    when(flowElement.getId()).thenReturn("42");
+    when(flowElement.getName()).thenReturn("Name");
+    when(flowElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(flowElement.getExtensionElements()).thenReturn(new HashMap<>());
+
+    BpmnModel model = mock(BpmnModel.class);
+    when(model.getNamespaces()).thenReturn(new HashMap<>());
+
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing()
+        .when(xtw)
+        .writeAttribute(
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    doNothing().when(xtw).writeCData(Mockito.<String>any());
+    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
+    doNothing()
+        .when(xtw)
+        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act and Assert
+    assertThrows(XMLException.class, () -> bpmnXMLConverter.createXML(flowElement, model, xtw));
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw, atLeast(1))
+        .writeAttribute(
+            eq("activiti"),
+            eq("http://activiti.org/bpmn"),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    verify(xtw).writeCData("not empty");
+    verify(xtw, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeEndElement();
+    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(xtw, atLeast(1))
+        .writeStartElement("bpmn2", "documentation", "http://www.omg.org/spec/BPMN/20100524/MODEL");
+    verify(flowElement).getLoopCharacteristics();
+    verify(adhocSubProcess, atLeast(1)).getLoopCharacteristics();
+    verify(flowElement, atLeast(1)).getCompletionCondition();
+    verify(flowElement).getExtensionElements();
+    verify(adhocSubProcess).getExtensionElements();
+    verify(flowElement).getId();
+    verify(adhocSubProcess).getId();
+    verify(model, atLeast(1)).getNamespaces();
+    verify(flowElement, atLeast(1)).getDocumentation();
+    verify(adhocSubProcess, atLeast(1)).getDocumentation();
+    verify(flowElement).getExecutionListeners();
+    verify(adhocSubProcess).getExecutionListeners();
+    verify(flowElement, atLeast(1)).getName();
+    verify(adhocSubProcess, atLeast(1)).getName();
+    verify(adhocSubProcess).setDocumentation("not empty");
+    verify(adhocSubProcess).setName("not empty");
+    verify(flowElement).isAsynchronous();
+    verify(adhocSubProcess).isAsynchronous();
+    verify(adhocSubProcess).isNotExclusive();
+    verify(adhocSubProcess).setAsynchronous(false);
+    verify(adhocSubProcess).setExclusive(false);
+    verify(multiInstanceLoopCharacteristics).isSequential();
+    verify(adhocSubProcess).addArtifact(isA(Artifact.class));
+    verify(adhocSubProcess).addFlowElement(isA(FlowElement.class));
+    verify(flowElement).getFlowElements();
+  }
+
+  /**
+   * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code
+   * flowElement}, {@code model}, {@code xtw}.
+   *
+   * <ul>
+   *   <li>Then throw {@link XMLStreamException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; then throw XMLStreamException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
+  void testCreateXMLWithFlowElementModelXtw_thenThrowXMLStreamException() throws Exception {
+    // Arrange
+    BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
+
+    AdhocSubProcess adhocSubProcess = mock(AdhocSubProcess.class);
+    when(adhocSubProcess.isAsynchronous()).thenReturn(true);
+    when(adhocSubProcess.getId()).thenReturn("42");
+    when(adhocSubProcess.getName()).thenReturn("Name");
+    doNothing().when(adhocSubProcess).setDocumentation(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setName(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setAsynchronous(anyBoolean());
+    doNothing().when(adhocSubProcess).setExclusive(anyBoolean());
+    doNothing().when(adhocSubProcess).addArtifact(Mockito.<Artifact>any());
+    doNothing().when(adhocSubProcess).addFlowElement(Mockito.<FlowElement>any());
+    adhocSubProcess.setName("not empty");
+    adhocSubProcess.setAsynchronous(false);
+    adhocSubProcess.setExclusive(false);
+    adhocSubProcess.setDocumentation("not empty");
+    adhocSubProcess.addFlowElement(new AdhocSubProcess());
+    adhocSubProcess.addArtifact(new Association());
+
+    LinkedHashSet<FlowElement> flowElementSet = new LinkedHashSet<>();
+    flowElementSet.add(adhocSubProcess);
+
+    AdhocSubProcess flowElement = mock(AdhocSubProcess.class);
+    when(flowElement.isAsynchronous()).thenReturn(false);
+    when(flowElement.getCompletionCondition()).thenReturn("not empty");
+    when(flowElement.getDocumentation()).thenReturn("not empty");
+    when(flowElement.getFlowElements()).thenReturn(flowElementSet);
+    when(flowElement.getLoopCharacteristics()).thenReturn(null);
+    when(flowElement.getId()).thenReturn("42");
+    when(flowElement.getName()).thenReturn("Name");
+    when(flowElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(flowElement.getExtensionElements()).thenReturn(new HashMap<>());
+
+    BpmnModel model = mock(BpmnModel.class);
+    when(model.getNamespaces()).thenReturn(null);
+
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doThrow(new XMLStreamException())
+        .when(writer)
+        .writeAttribute(
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    doNothing().when(writer).writeCData(Mockito.<String>any());
+    doNothing().when(writer).writeCharacters(Mockito.<String>any());
+    doNothing()
+        .when(writer)
+        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
+    IndentingXMLStreamWriter writer3 = new IndentingXMLStreamWriter(writer2);
+
+    // Act and Assert
+    assertThrows(
+        XMLStreamException.class,
+        () ->
+            bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer3)));
+    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(writer).writeAttribute("activiti", "http://activiti.org/bpmn", "async", "true");
+    verify(writer).writeCData("not empty");
+    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(writer, atLeast(1)).writeEndElement();
+    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(writer)
+        .writeStartElement("bpmn2", "documentation", "http://www.omg.org/spec/BPMN/20100524/MODEL");
+    verify(flowElement).getLoopCharacteristics();
+    verify(flowElement, atLeast(1)).getCompletionCondition();
+    verify(flowElement).getExtensionElements();
+    verify(flowElement).getId();
+    verify(adhocSubProcess).getId();
+    verify(model).getNamespaces();
+    verify(flowElement, atLeast(1)).getDocumentation();
+    verify(flowElement).getExecutionListeners();
+    verify(flowElement, atLeast(1)).getName();
+    verify(adhocSubProcess, atLeast(1)).getName();
+    verify(adhocSubProcess).setDocumentation("not empty");
+    verify(adhocSubProcess).setName("not empty");
+    verify(flowElement).isAsynchronous();
+    verify(adhocSubProcess).isAsynchronous();
+    verify(adhocSubProcess).setAsynchronous(false);
+    verify(adhocSubProcess).setExclusive(false);
+    verify(adhocSubProcess).addArtifact(isA(Artifact.class));
+    verify(adhocSubProcess).addFlowElement(isA(FlowElement.class));
+    verify(flowElement).getFlowElements();
+  }
+
+  /**
+   * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code
+   * flowElement}, {@code model}, {@code xtw}.
+   *
+   * <ul>
+   *   <li>Then throw {@link XMLStreamException}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; then throw XMLStreamException")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
+  void testCreateXMLWithFlowElementModelXtw_thenThrowXMLStreamException2() throws Exception {
+    // Arrange
+    BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
+
+    AdhocSubProcess adhocSubProcess = mock(AdhocSubProcess.class);
+    when(adhocSubProcess.isAsynchronous()).thenReturn(true);
+    when(adhocSubProcess.getId()).thenReturn("42");
+    when(adhocSubProcess.getName()).thenReturn("Name");
+    doNothing().when(adhocSubProcess).setDocumentation(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setName(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setAsynchronous(anyBoolean());
+    doNothing().when(adhocSubProcess).setExclusive(anyBoolean());
+    doNothing().when(adhocSubProcess).addArtifact(Mockito.<Artifact>any());
+    doNothing().when(adhocSubProcess).addFlowElement(Mockito.<FlowElement>any());
+    adhocSubProcess.setName("not empty");
+    adhocSubProcess.setAsynchronous(false);
+    adhocSubProcess.setExclusive(false);
+    adhocSubProcess.setDocumentation("not empty");
+    adhocSubProcess.addFlowElement(new AdhocSubProcess());
+    adhocSubProcess.addArtifact(new Association());
+
+    LinkedHashSet<FlowElement> flowElementSet = new LinkedHashSet<>();
+    flowElementSet.add(adhocSubProcess);
+
+    HashMap<String, List<ExtensionElement>> stringListMap = new HashMap<>();
+    stringListMap.put("adHocSubProcess", new ArrayList<>());
+
+    AdhocSubProcess flowElement = mock(AdhocSubProcess.class);
+    when(flowElement.isAsynchronous()).thenReturn(false);
+    when(flowElement.getCompletionCondition()).thenReturn("not empty");
+    when(flowElement.getDocumentation()).thenReturn("not empty");
+    when(flowElement.getFlowElements()).thenReturn(flowElementSet);
+    when(flowElement.getLoopCharacteristics()).thenReturn(null);
+    when(flowElement.getId()).thenReturn("42");
+    when(flowElement.getName()).thenReturn("Name");
+    when(flowElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(flowElement.getExtensionElements()).thenReturn(stringListMap);
+
+    BpmnModel model = mock(BpmnModel.class);
+    when(model.getNamespaces()).thenReturn(null);
+
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doThrow(new XMLStreamException())
+        .when(writer)
+        .writeAttribute(
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    doNothing().when(writer).writeCData(Mockito.<String>any());
+    doNothing().when(writer).writeCharacters(Mockito.<String>any());
+    doNothing()
+        .when(writer)
+        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
+    IndentingXMLStreamWriter writer3 = new IndentingXMLStreamWriter(writer2);
+
+    // Act and Assert
+    assertThrows(
+        XMLStreamException.class,
+        () ->
+            bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer3)));
+    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(writer).writeAttribute("activiti", "http://activiti.org/bpmn", "async", "true");
+    verify(writer).writeCData("not empty");
+    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(writer, atLeast(1)).writeEndElement();
+    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(writer)
+        .writeStartElement("bpmn2", "documentation", "http://www.omg.org/spec/BPMN/20100524/MODEL");
+    verify(flowElement).getLoopCharacteristics();
+    verify(flowElement, atLeast(1)).getCompletionCondition();
+    verify(flowElement, atLeast(1)).getExtensionElements();
+    verify(flowElement).getId();
+    verify(adhocSubProcess).getId();
+    verify(model).getNamespaces();
+    verify(flowElement, atLeast(1)).getDocumentation();
+    verify(flowElement).getExecutionListeners();
+    verify(flowElement, atLeast(1)).getName();
+    verify(adhocSubProcess, atLeast(1)).getName();
+    verify(adhocSubProcess).setDocumentation("not empty");
+    verify(adhocSubProcess).setName("not empty");
+    verify(flowElement).isAsynchronous();
+    verify(adhocSubProcess).isAsynchronous();
+    verify(adhocSubProcess).setAsynchronous(false);
+    verify(adhocSubProcess).setExclusive(false);
+    verify(adhocSubProcess).addArtifact(isA(Artifact.class));
+    verify(adhocSubProcess).addFlowElement(isA(FlowElement.class));
+    verify(flowElement).getFlowElements();
+  }
+
+  /**
+   * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code
+   * flowElement}, {@code model}, {@code xtw}.
+   *
+   * <ul>
+   *   <li>When {@link AdhocSubProcess} (default constructor).
+   *   <li>Then calls {@link IndentingXMLStreamWriter#writeAttribute(String, String)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; when AdhocSubProcess (default constructor); then calls writeAttribute(String, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
+  void testCreateXMLWithFlowElementModelXtw_whenAdhocSubProcess_thenCallsWriteAttribute()
+      throws Exception {
+    // Arrange
+    BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
+    AdhocSubProcess flowElement = new AdhocSubProcess();
     BpmnModel model = new BpmnModel();
 
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeStartElement(Mockito.<String>any());
     doNothing().when(writer).writeEndElement();
-    doNothing()
-        .when(writer)
-        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
+    IndentingXMLStreamWriter writer3 = new IndentingXMLStreamWriter(writer2);
 
     // Act
-    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer));
+    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer3));
 
     // Assert
     verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
-    verify(writer, atLeast(1)).writeEndElement();
-    verify(writer).writeStartElement("extensionElements");
-    verify(writer, atLeast(1))
-        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-    verify(activitiListener, atLeast(1)).getCustomPropertiesResolverImplementationType();
-    verify(activitiListener, atLeast(1)).getEvent();
-    verify(activitiListener).getFieldExtensions();
-    verify(activitiListener, atLeast(1)).getImplementationType();
-    verify(activitiListener).getOnTransaction();
+    verify(writer).writeEndElement();
+    verify(writer).writeStartElement("adHocSubProcess");
   }
 
   /**
@@ -1822,8 +4603,7 @@ class BpmnXMLConverterDiffblueTest {
    * flowElement}, {@code model}, {@code xtw}.
    *
    * <ul>
-   *   <li>Given {@code null}.
-   *   <li>When {@link UserTask} (default constructor) TaskListeners is {@code null}.
+   *   <li>When {@link BooleanDataObject} (default constructor).
    * </ul>
    *
    * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
@@ -1831,33 +4611,31 @@ class BpmnXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; given 'null'; when UserTask (default constructor) TaskListeners is 'null'")
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; when BooleanDataObject (default constructor)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
-  void testCreateXMLWithFlowElementModelXtw_givenNull_whenUserTaskTaskListenersIsNull()
-      throws Exception {
+  void testCreateXMLWithFlowElementModelXtw_whenBooleanDataObject() throws Exception {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
-    bpmnXMLConverter.setClassloader(new MLet());
-
-    UserTask flowElement = new UserTask();
-    flowElement.setTaskListeners(null);
+    BooleanDataObject flowElement = new BooleanDataObject();
     BpmnModel model = new BpmnModel();
 
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).writeEndElement();
     doNothing()
         .when(writer)
         .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
+    IndentingXMLStreamWriter writer3 = new IndentingXMLStreamWriter(writer2);
 
     // Act
-    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer));
+    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer3));
 
     // Assert
     verify(writer).writeEndElement();
     verify(writer)
-        .writeStartElement("bpmn2", "userTask", "http://www.omg.org/spec/BPMN/20100524/MODEL");
+        .writeStartElement("bpmn2", "dataObject", "http://www.omg.org/spec/BPMN/20100524/MODEL");
   }
 
   /**
@@ -1865,8 +4643,7 @@ class BpmnXMLConverterDiffblueTest {
    * flowElement}, {@code model}, {@code xtw}.
    *
    * <ul>
-   *   <li>When {@link FlowElement}.
-   *   <li>Then throw {@link XMLException}.
+   *   <li>When {@link BoundaryEvent} (default constructor).
    * </ul>
    *
    * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
@@ -1874,21 +4651,409 @@ class BpmnXMLConverterDiffblueTest {
    */
   @Test
   @DisplayName(
-      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; when FlowElement; then throw XMLException")
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; when BoundaryEvent (default constructor)")
   @Tag("ContributionFromDiffblue")
   @ManagedByDiffblue
   @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
-  void testCreateXMLWithFlowElementModelXtw_whenFlowElement_thenThrowXMLException()
+  void testCreateXMLWithFlowElementModelXtw_whenBoundaryEvent() throws Exception {
+    // Arrange
+    BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
+    BoundaryEvent flowElement = new BoundaryEvent();
+    BpmnModel model = new BpmnModel();
+
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing()
+        .when(writer)
+        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
+    IndentingXMLStreamWriter writer3 = new IndentingXMLStreamWriter(writer2);
+
+    // Act
+    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer3));
+
+    // Assert
+    verify(writer).writeEndElement();
+    verify(writer)
+        .writeStartElement("bpmn2", "boundaryEvent", "http://www.omg.org/spec/BPMN/20100524/MODEL");
+  }
+
+  /**
+   * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code
+   * flowElement}, {@code model}, {@code xtw}.
+   *
+   * <ul>
+   *   <li>When {@link BpmnModel} {@link BpmnModel#getNamespaces()} return {@link
+   *       HashMap#HashMap()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; when BpmnModel getNamespaces() return HashMap()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
+  void testCreateXMLWithFlowElementModelXtw_whenBpmnModelGetNamespacesReturnHashMap()
       throws Exception {
     // Arrange
     BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
-    FlowElement flowElement = mock(FlowElement.class);
+
+    Association association = mock(Association.class);
+    when(association.getSourceRef()).thenReturn("Source Ref");
+    when(association.getTargetRef()).thenReturn("Target Ref");
+    when(association.getId()).thenReturn("42");
+    when(association.getExtensionElements()).thenReturn(new HashMap<>());
+    when(association.getAssociationDirection()).thenReturn(AssociationDirection.NONE);
+
+    LinkedHashSet<Artifact> artifactSet = new LinkedHashSet<>();
+    artifactSet.add(association);
+
+    AdhocSubProcess adhocSubProcess = mock(AdhocSubProcess.class);
+    when(adhocSubProcess.isNotExclusive()).thenReturn(true);
+    when(adhocSubProcess.isAsynchronous()).thenReturn(true);
+    when(adhocSubProcess.getCompletionCondition()).thenReturn("Completion Condition");
+    when(adhocSubProcess.getId()).thenReturn("42");
+    when(adhocSubProcess.getDocumentation()).thenReturn("Documentation");
+    when(adhocSubProcess.getName()).thenReturn("Name");
+    when(adhocSubProcess.getArtifacts()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getFlowElements()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getExtensionElements()).thenReturn(new HashMap<>());
+    when(adhocSubProcess.getLoopCharacteristics())
+        .thenReturn(new MultiInstanceLoopCharacteristics());
+    doNothing().when(adhocSubProcess).setDocumentation(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setName(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setAsynchronous(anyBoolean());
+    doNothing().when(adhocSubProcess).setExclusive(anyBoolean());
+    doNothing().when(adhocSubProcess).addArtifact(Mockito.<Artifact>any());
+    doNothing().when(adhocSubProcess).addFlowElement(Mockito.<FlowElement>any());
+    adhocSubProcess.setName("not empty");
+    adhocSubProcess.setAsynchronous(false);
+    adhocSubProcess.setExclusive(false);
+    adhocSubProcess.setDocumentation("not empty");
+    adhocSubProcess.addFlowElement(new AdhocSubProcess());
+    adhocSubProcess.addArtifact(new Association());
+
+    LinkedHashSet<FlowElement> flowElementSet = new LinkedHashSet<>();
+    flowElementSet.add(adhocSubProcess);
+
+    AdhocSubProcess flowElement = mock(AdhocSubProcess.class);
+    when(flowElement.isAsynchronous()).thenReturn(false);
+    when(flowElement.getCompletionCondition()).thenReturn("not empty");
+    when(flowElement.getDocumentation()).thenReturn("not empty");
+    when(flowElement.getArtifacts()).thenReturn(artifactSet);
+    when(flowElement.getFlowElements()).thenReturn(flowElementSet);
+    when(flowElement.getLoopCharacteristics()).thenReturn(null);
+    when(flowElement.getId()).thenReturn("42");
+    when(flowElement.getName()).thenReturn("Name");
+    when(flowElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(flowElement.getExtensionElements()).thenReturn(new HashMap<>());
+
+    BpmnModel model = mock(BpmnModel.class);
+    when(model.getNamespaces()).thenReturn(new HashMap<>());
+
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing()
+        .when(writer)
+        .writeAttribute(
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    doNothing().when(writer).writeCData(Mockito.<String>any());
+    doNothing().when(writer).writeCharacters(Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    doNothing()
+        .when(writer)
+        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
+
+    // Act
+    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer2));
+
+    // Assert
+    verify(writer, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(writer, atLeast(1))
+        .writeAttribute(
+            eq("activiti"),
+            eq("http://activiti.org/bpmn"),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    verify(writer, atLeast(1)).writeCData(Mockito.<String>any());
+    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(writer, atLeast(1)).writeEndElement();
+    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(writer, atLeast(1))
+        .writeStartElement(
+            eq("bpmn2"), Mockito.<String>any(), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(flowElement).getLoopCharacteristics();
+    verify(adhocSubProcess, atLeast(1)).getLoopCharacteristics();
+    verify(flowElement, atLeast(1)).getCompletionCondition();
+    verify(adhocSubProcess, atLeast(1)).getCompletionCondition();
+    verify(association).getAssociationDirection();
+    verify(association).getSourceRef();
+    verify(association).getTargetRef();
+    verify(flowElement).getExtensionElements();
+    verify(adhocSubProcess).getExtensionElements();
+    verify(association).getExtensionElements();
+    verify(flowElement).getId();
+    verify(adhocSubProcess).getId();
+    verify(association).getId();
+    verify(model, atLeast(1)).getNamespaces();
+    verify(flowElement, atLeast(1)).getDocumentation();
+    verify(adhocSubProcess, atLeast(1)).getDocumentation();
+    verify(flowElement).getExecutionListeners();
+    verify(adhocSubProcess).getExecutionListeners();
+    verify(flowElement, atLeast(1)).getName();
+    verify(adhocSubProcess, atLeast(1)).getName();
+    verify(adhocSubProcess).setDocumentation("not empty");
+    verify(adhocSubProcess).setName("not empty");
+    verify(flowElement).isAsynchronous();
+    verify(adhocSubProcess).isAsynchronous();
+    verify(adhocSubProcess).isNotExclusive();
+    verify(adhocSubProcess).setAsynchronous(false);
+    verify(adhocSubProcess).setExclusive(false);
+    verify(adhocSubProcess).addArtifact(isA(Artifact.class));
+    verify(adhocSubProcess).addFlowElement(isA(FlowElement.class));
+    verify(flowElement).getArtifacts();
+    verify(adhocSubProcess).getArtifacts();
+    verify(flowElement).getFlowElements();
+    verify(adhocSubProcess).getFlowElements();
+  }
+
+  /**
+   * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code
+   * flowElement}, {@code model}, {@code xtw}.
+   *
+   * <ul>
+   *   <li>When {@link BpmnModel} {@link BpmnModel#getNamespaces()} return {@link
+   *       HashMap#HashMap()}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; when BpmnModel getNamespaces() return HashMap()")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
+  void testCreateXMLWithFlowElementModelXtw_whenBpmnModelGetNamespacesReturnHashMap2()
+      throws Exception {
+    // Arrange
+    BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
+
+    Association association = mock(Association.class);
+    when(association.getSourceRef()).thenReturn("Source Ref");
+    when(association.getTargetRef()).thenReturn("Target Ref");
+    when(association.getId()).thenReturn("42");
+    when(association.getExtensionElements()).thenReturn(new HashMap<>());
+    when(association.getAssociationDirection()).thenReturn(AssociationDirection.NONE);
+
+    LinkedHashSet<Artifact> artifactSet = new LinkedHashSet<>();
+    artifactSet.add(association);
+
+    AdhocSubProcess adhocSubProcess = mock(AdhocSubProcess.class);
+    when(adhocSubProcess.isNotExclusive()).thenReturn(true);
+    when(adhocSubProcess.isAsynchronous()).thenReturn(true);
+    when(adhocSubProcess.getCompletionCondition()).thenReturn("Completion Condition");
+    when(adhocSubProcess.getId()).thenReturn("42");
+    when(adhocSubProcess.getDocumentation()).thenReturn("Documentation");
+    when(adhocSubProcess.getName()).thenReturn("Name");
+    when(adhocSubProcess.getArtifacts()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getFlowElements()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(adhocSubProcess.getExtensionElements()).thenReturn(new HashMap<>());
+    when(adhocSubProcess.getLoopCharacteristics())
+        .thenReturn(new MultiInstanceLoopCharacteristics());
+    doNothing().when(adhocSubProcess).setDocumentation(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setName(Mockito.<String>any());
+    doNothing().when(adhocSubProcess).setAsynchronous(anyBoolean());
+    doNothing().when(adhocSubProcess).setExclusive(anyBoolean());
+    doNothing().when(adhocSubProcess).addArtifact(Mockito.<Artifact>any());
+    doNothing().when(adhocSubProcess).addFlowElement(Mockito.<FlowElement>any());
+    adhocSubProcess.setName("not empty");
+    adhocSubProcess.setAsynchronous(false);
+    adhocSubProcess.setExclusive(false);
+    adhocSubProcess.setDocumentation("not empty");
+    adhocSubProcess.addFlowElement(new AdhocSubProcess());
+    adhocSubProcess.addArtifact(new Association());
+
+    LinkedHashSet<FlowElement> flowElementSet = new LinkedHashSet<>();
+    flowElementSet.add(adhocSubProcess);
+
+    AdhocSubProcess flowElement = mock(AdhocSubProcess.class);
+    when(flowElement.isAsynchronous()).thenReturn(false);
+    when(flowElement.getCompletionCondition()).thenReturn("not empty");
+    when(flowElement.getDocumentation()).thenReturn("not empty");
+    when(flowElement.getArtifacts()).thenReturn(artifactSet);
+    when(flowElement.getFlowElements()).thenReturn(flowElementSet);
+    when(flowElement.getLoopCharacteristics()).thenReturn(null);
+    when(flowElement.getId()).thenReturn("42");
+    when(flowElement.getName()).thenReturn("Name");
+    when(flowElement.getExecutionListeners()).thenReturn(new ArrayList<>());
+    when(flowElement.getExtensionElements()).thenReturn(new HashMap<>());
+
+    BpmnModel model = mock(BpmnModel.class);
+    when(model.getNamespaces()).thenReturn(new HashMap<>());
+
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing()
+        .when(xtw)
+        .writeAttribute(
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    doNothing().when(xtw).writeCData(Mockito.<String>any());
+    doNothing().when(xtw).writeCharacters(Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
+    doNothing()
+        .when(xtw)
+        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+
+    // Act
+    bpmnXMLConverter.createXML(flowElement, model, xtw);
+
+    // Assert
+    verify(xtw, atLeast(1)).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    verify(xtw, atLeast(1))
+        .writeAttribute(
+            eq("activiti"),
+            eq("http://activiti.org/bpmn"),
+            Mockito.<String>any(),
+            Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeCData(Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeCharacters(Mockito.<String>any());
+    verify(xtw, atLeast(1)).writeEndElement();
+    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(xtw, atLeast(1))
+        .writeStartElement(
+            eq("bpmn2"), Mockito.<String>any(), eq("http://www.omg.org/spec/BPMN/20100524/MODEL"));
+    verify(flowElement).getLoopCharacteristics();
+    verify(adhocSubProcess, atLeast(1)).getLoopCharacteristics();
+    verify(flowElement, atLeast(1)).getCompletionCondition();
+    verify(adhocSubProcess, atLeast(1)).getCompletionCondition();
+    verify(association).getAssociationDirection();
+    verify(association).getSourceRef();
+    verify(association).getTargetRef();
+    verify(flowElement).getExtensionElements();
+    verify(adhocSubProcess).getExtensionElements();
+    verify(association).getExtensionElements();
+    verify(flowElement).getId();
+    verify(adhocSubProcess).getId();
+    verify(association).getId();
+    verify(model, atLeast(1)).getNamespaces();
+    verify(flowElement, atLeast(1)).getDocumentation();
+    verify(adhocSubProcess, atLeast(1)).getDocumentation();
+    verify(flowElement).getExecutionListeners();
+    verify(adhocSubProcess).getExecutionListeners();
+    verify(flowElement, atLeast(1)).getName();
+    verify(adhocSubProcess, atLeast(1)).getName();
+    verify(adhocSubProcess).setDocumentation("not empty");
+    verify(adhocSubProcess).setName("not empty");
+    verify(flowElement).isAsynchronous();
+    verify(adhocSubProcess).isAsynchronous();
+    verify(adhocSubProcess).isNotExclusive();
+    verify(adhocSubProcess).setAsynchronous(false);
+    verify(adhocSubProcess).setExclusive(false);
+    verify(adhocSubProcess).addArtifact(isA(Artifact.class));
+    verify(adhocSubProcess).addFlowElement(isA(FlowElement.class));
+    verify(flowElement).getArtifacts();
+    verify(adhocSubProcess).getArtifacts();
+    verify(flowElement).getFlowElements();
+    verify(adhocSubProcess).getFlowElements();
+  }
+
+  /**
+   * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code
+   * flowElement}, {@code model}, {@code xtw}.
+   *
+   * <ul>
+   *   <li>When {@link BusinessRuleTask} (default constructor).
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; when BusinessRuleTask (default constructor)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
+  void testCreateXMLWithFlowElementModelXtw_whenBusinessRuleTask() throws Exception {
+    // Arrange
+    BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
+    BusinessRuleTask flowElement = new BusinessRuleTask();
     BpmnModel model = new BpmnModel();
 
-    // Act and Assert
-    assertThrows(
-        XMLException.class,
-        () -> bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(null)));
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing()
+        .when(writer)
+        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
+    IndentingXMLStreamWriter writer3 = new IndentingXMLStreamWriter(writer2);
+
+    // Act
+    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer3));
+
+    // Assert
+    verify(writer).writeEndElement();
+    verify(writer)
+        .writeStartElement(
+            "bpmn2", "businessRuleTask", "http://www.omg.org/spec/BPMN/20100524/MODEL");
+  }
+
+  /**
+   * Test {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel, XMLStreamWriter)} with {@code
+   * flowElement}, {@code model}, {@code xtw}.
+   *
+   * <ul>
+   *   <li>When {@link CallActivity} (default constructor).
+   *   <li>Then calls {@link IndentingXMLStreamWriter#writeStartElement(String, String, String)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BpmnXMLConverter#createXML(FlowElement, BpmnModel,
+   * XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test createXML(FlowElement, BpmnModel, XMLStreamWriter) with 'flowElement', 'model', 'xtw'; when CallActivity (default constructor); then calls writeStartElement(String, String, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({"void BpmnXMLConverter.createXML(FlowElement, BpmnModel, XMLStreamWriter)"})
+  void testCreateXMLWithFlowElementModelXtw_whenCallActivity_thenCallsWriteStartElement()
+      throws Exception {
+    // Arrange
+    BpmnXMLConverter bpmnXMLConverter = new BpmnXMLConverter();
+    CallActivity flowElement = new CallActivity();
+    BpmnModel model = new BpmnModel();
+
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing()
+        .when(writer)
+        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(writer).writeEndElement();
+    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
+    IndentingXMLStreamWriter writer3 = new IndentingXMLStreamWriter(writer2);
+
+    // Act
+    bpmnXMLConverter.createXML(flowElement, model, new IndentingXMLStreamWriter(writer3));
+
+    // Assert
+    verify(writer).writeEndElement();
+    verify(writer)
+        .writeStartElement("bpmn2", "callActivity", "http://www.omg.org/spec/BPMN/20100524/MODEL");
   }
 
   /**

@@ -4,18 +4,18 @@
   },
   "run" : {
     "version" : "2025.09.01-44e352d-licensed",
-    "creationTimestamp" : "2025-09-26T16:42:02.920714336Z",
+    "creationTimestamp" : "2025-10-15T18:17:05.474751764Z",
     "command" : "dcover create --exclude-modules=org.activiti:activiti-dependency-check,org.activiti:activiti-api-dependencies,org.activiti:activiti-core-common-dependencies,org.activiti:activiti-core-dependencies,org.activiti:activiti-dependencies,org.activiti:activiti-spring-conformance-set0,org.activiti:activiti-spring-conformance-set1,org.activiti:activiti-spring-conformance-set2,org.activiti:activiti-spring-conformance-set3,org.activiti:activiti-spring-conformance-set4,org.activiti:activiti-spring-conformance-set5,org.activiti:activiti-spring-conformance-variables,org.activiti:activiti-spring-conformance-signals --coverage-reports --upload http://localhost:8080 --project-name Activiti-Activiti --name with-diffblue-tests",
-    "totalTime" : 1495.423,
-    "environmentDetectionTime" : 0.537,
-    "indexingTime" : 0.444,
-    "entryPointsTime" : 0.527,
-    "generationTime" : 8846.445,
-    "timeToFirstTest" : 11538.87,
-    "timeToLastTest" : 10682.517,
-    "indexQueryTime" : 3.608,
-    "verificationTime" : 340.208,
-    "validationTime" : 18.674
+    "totalTime" : 1541.536,
+    "environmentDetectionTime" : 0.553,
+    "indexingTime" : 0.524,
+    "entryPointsTime" : 0.542,
+    "generationTime" : 8925.317,
+    "timeToFirstTest" : 11660.406,
+    "timeToLastTest" : 10785.0,
+    "indexQueryTime" : 3.595,
+    "verificationTime" : 352.967,
+    "validationTime" : 20.036
   },
   "codes" : {
     "R000" : "Success",
@@ -37,9 +37,9 @@
   "summary" : {
     "classesCount" : 108,
     "methodsCount" : 539,
-    "cumulativeDiffblueTestCount" : 527,
+    "cumulativeDiffblueTestCount" : 551,
     "cumulativeManualTestCount" : 110,
-    "completeTestCount" : 527,
+    "completeTestCount" : 551,
     "incompleteTestCount" : 0,
     "skeletonTestCount" : 0,
     "totalPhysicalLineCount" : 5872,
@@ -66,10 +66,10 @@
       "T023" : 15
     },
     "perTestOutcome" : {
-      "R000" : 527
+      "R000" : 551
     },
     "perTestValidation" : {
-      "V000" : 527,
+      "V000" : 551,
       "V003" : 20
     }
   },
@@ -130,7 +130,7 @@
     },
     "org.activiti.bpmn.converter.BpmnXMLConverter" : {
       "methodsCount" : 20,
-      "completeTestCount" : 53,
+      "completeTestCount" : 79,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 16,
@@ -144,7 +144,7 @@
         "T023" : 1
       },
       "perTestOutcome" : {
-        "R000" : 53
+        "R000" : 79
       }
     },
     "org.activiti.bpmn.converter.BusinessRuleTaskXMLConverter" : {
@@ -274,7 +274,7 @@
     },
     "org.activiti.bpmn.converter.DelegatingXMLStreamWriter" : {
       "methodsCount" : 33,
-      "completeTestCount" : 60,
+      "completeTestCount" : 58,
       "incompleteTestCount" : 0,
       "perMethodTestability" : {
         "T000" : 32,
@@ -286,7 +286,7 @@
         "T010" : 1
       },
       "perTestOutcome" : {
-        "R000" : 60
+        "R000" : 58
       }
     },
     "org.activiti.bpmn.converter.EndEventXMLConverter" : {
@@ -2935,12 +2935,12 @@
       ]
     },
     "org.activiti.bpmn.converter.BpmnXMLConverter.createXML:(Lorg/activiti/bpmn/model/FlowElement;Lorg/activiti/bpmn/model/BpmnModel;Ljavax/xml/stream/XMLStreamWriter;)V" : {
-      "completeTestCount" : 8,
+      "completeTestCount" : 34,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 8
+        "R000" : 34
       },
       "lineNumbers" : [
         577,
@@ -3786,12 +3786,12 @@
       ]
     },
     "org.activiti.bpmn.converter.DelegatingXMLStreamWriter.writeAttribute:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         78,
@@ -4056,12 +4056,12 @@
       ]
     },
     "org.activiti.bpmn.converter.DelegatingXMLStreamWriter.writeStartElement:(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V" : {
-      "completeTestCount" : 2,
+      "completeTestCount" : 1,
       "incompleteTestCount" : 0,
       "perMethodTestability" : "T000",
       "perMethodOutcome" : "R000",
       "perTestOutcome" : {
-        "R000" : 2
+        "R000" : 1
       },
       "lineNumbers" : [
         42,

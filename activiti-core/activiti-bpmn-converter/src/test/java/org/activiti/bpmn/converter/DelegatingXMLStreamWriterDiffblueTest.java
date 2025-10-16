@@ -55,9 +55,10 @@ class DelegatingXMLStreamWriterDiffblueTest {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
     doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
 
     // Act
-    new IndentingXMLStreamWriter(writer).writeStartElement("Local Name");
+    new IndentingXMLStreamWriter(writer2).writeStartElement("Local Name");
 
     // Assert
     verify(writer).writeStartElement("Local Name");
@@ -140,38 +141,6 @@ class DelegatingXMLStreamWriterDiffblueTest {
   @ManagedByDiffblue
   @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeStartElement(String, String, String)"})
   void testWriteStartElementWithPrefixLocalNameNamespaceURI_thenCallsWriteStartElement()
-      throws XMLStreamException {
-    // Arrange
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing()
-        .when(writer)
-        .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-
-    // Act
-    new IndentingXMLStreamWriter(writer).writeStartElement("Prefix", "Local Name", "Namespace URI");
-
-    // Assert
-    verify(writer).writeStartElement("Prefix", "Local Name", "Namespace URI");
-  }
-
-  /**
-   * Test {@link DelegatingXMLStreamWriter#writeStartElement(String, String, String)} with {@code
-   * prefix}, {@code localName}, {@code namespaceURI}.
-   *
-   * <ul>
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeStartElement(String, String, String)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DelegatingXMLStreamWriter#writeStartElement(String, String,
-   * String)}
-   */
-  @Test
-  @DisplayName(
-      "Test writeStartElement(String, String, String) with 'prefix', 'localName', 'namespaceURI'; then calls writeStartElement(String, String, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({"void DelegatingXMLStreamWriter.writeStartElement(String, String, String)"})
-  void testWriteStartElementWithPrefixLocalNameNamespaceURI_thenCallsWriteStartElement2()
       throws XMLStreamException {
     // Arrange
     IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
@@ -697,47 +666,6 @@ class DelegatingXMLStreamWriterDiffblueTest {
 
     // Act
     new IndentingXMLStreamWriter(writer)
-        .writeAttribute("Prefix", "Namespace URI", "Local Name", "42");
-
-    // Assert
-    verify(writer).writeAttribute("Prefix", "Namespace URI", "Local Name", "42");
-  }
-
-  /**
-   * Test {@link DelegatingXMLStreamWriter#writeAttribute(String, String, String, String)} with
-   * {@code prefix}, {@code namespaceURI}, {@code localName}, {@code value}.
-   *
-   * <ul>
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeAttribute(String, String, String,
-   *       String)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link DelegatingXMLStreamWriter#writeAttribute(String, String, String,
-   * String)}
-   */
-  @Test
-  @DisplayName(
-      "Test writeAttribute(String, String, String, String) with 'prefix', 'namespaceURI', 'localName', 'value'; then calls writeAttribute(String, String, String, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void DelegatingXMLStreamWriter.writeAttribute(String, String, String, String)"
-  })
-  void testWriteAttributeWithPrefixNamespaceURILocalNameValue_thenCallsWriteAttribute2()
-      throws XMLStreamException {
-    // Arrange
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing()
-        .when(writer)
-        .writeAttribute(
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any(),
-            Mockito.<String>any());
-    IndentingXMLStreamWriter writer2 = new IndentingXMLStreamWriter(writer);
-
-    // Act
-    new IndentingXMLStreamWriter(writer2)
         .writeAttribute("Prefix", "Namespace URI", "Local Name", "42");
 
     // Assert

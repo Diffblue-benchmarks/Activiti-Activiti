@@ -3157,57 +3157,6 @@ class BaseBpmnXMLConverterDiffblueTest {
    * XMLStreamWriter)}.
    *
    * <ul>
-   *   <li>Given {@code An error occurred}.
-   *   <li>Then calls {@link IndentingXMLStreamWriter#writeAttribute(String, String)}.
-   * </ul>
-   *
-   * <p>Method under test: {@link BaseBpmnXMLConverter#writeErrorDefinition(Event,
-   * ErrorEventDefinition, XMLStreamWriter)}
-   */
-  @Test
-  @DisplayName(
-      "Test writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter); given 'An error occurred'; then calls writeAttribute(String, String)")
-  @Tag("ContributionFromDiffblue")
-  @ManagedByDiffblue
-  @MethodsUnderTest({
-    "void BaseBpmnXMLConverter.writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)"
-  })
-  void testWriteErrorDefinition_givenAnErrorOccurred_thenCallsWriteAttribute() throws Exception {
-    // Arrange
-    AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
-    BoundaryEvent parentEvent = new BoundaryEvent();
-
-    HashMap<String, List<ExtensionElement>> stringListMap = new HashMap<>();
-    stringListMap.put("errorEventDefinition", new ArrayList<>());
-
-    ErrorEventDefinition errorDefinition = mock(ErrorEventDefinition.class);
-    when(errorDefinition.getErrorRef()).thenReturn("An error occurred");
-    when(errorDefinition.getExtensionElements()).thenReturn(stringListMap);
-
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeEndElement();
-    doNothing().when(writer).writeStartElement(Mockito.<String>any());
-
-    // Act
-    associationXMLConverter.writeErrorDefinition(
-        parentEvent, errorDefinition, new IndentingXMLStreamWriter(writer));
-
-    // Assert
-    verify(writer).writeAttribute("errorRef", "An error occurred");
-    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
-    verify(writer, atLeast(1)).writeEndElement();
-    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
-    verify(errorDefinition, atLeast(1)).getExtensionElements();
-    verify(errorDefinition).getErrorRef();
-  }
-
-  /**
-   * Test {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition,
-   * XMLStreamWriter)}.
-   *
-   * <ul>
    *   <li>Given {@link ArrayList#ArrayList()} add {@link ExtensionElement} (default constructor).
    * </ul>
    *
@@ -3237,21 +3186,18 @@ class BaseBpmnXMLConverterDiffblueTest {
     when(errorDefinition.getErrorRef()).thenReturn("An error occurred");
     when(errorDefinition.getExtensionElements()).thenReturn(stringListMap);
 
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeEndElement();
-    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
 
     // Act
-    associationXMLConverter.writeErrorDefinition(
-        parentEvent, errorDefinition, new IndentingXMLStreamWriter(writer));
+    associationXMLConverter.writeErrorDefinition(parentEvent, errorDefinition, xtw);
 
     // Assert
-    verify(writer).writeAttribute("errorRef", "An error occurred");
-    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
-    verify(writer, atLeast(1)).writeEndElement();
-    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(xtw).writeAttribute("errorRef", "An error occurred");
+    verify(xtw, atLeast(1)).writeEndElement();
+    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any());
     verify(errorDefinition, atLeast(1)).getExtensionElements();
     verify(errorDefinition).getErrorRef();
   }
@@ -3280,27 +3226,21 @@ class BaseBpmnXMLConverterDiffblueTest {
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
     BoundaryEvent parentEvent = new BoundaryEvent();
 
-    HashMap<String, List<ExtensionElement>> stringListMap = new HashMap<>();
-    stringListMap.put("errorEventDefinition", new ArrayList<>());
-
     ErrorEventDefinition errorDefinition = mock(ErrorEventDefinition.class);
     when(errorDefinition.getErrorRef()).thenReturn("");
-    when(errorDefinition.getExtensionElements()).thenReturn(stringListMap);
+    when(errorDefinition.getExtensionElements()).thenReturn(new HashMap<>());
 
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeEndElement();
-    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
 
     // Act
-    associationXMLConverter.writeErrorDefinition(
-        parentEvent, errorDefinition, new IndentingXMLStreamWriter(writer));
+    associationXMLConverter.writeErrorDefinition(parentEvent, errorDefinition, xtw);
 
     // Assert
-    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
-    verify(writer, atLeast(1)).writeEndElement();
-    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
-    verify(errorDefinition, atLeast(1)).getExtensionElements();
+    verify(xtw).writeEndElement();
+    verify(xtw).writeStartElement("errorEventDefinition");
+    verify(errorDefinition).getExtensionElements();
     verify(errorDefinition).getErrorRef();
   }
 
@@ -3346,23 +3286,20 @@ class BaseBpmnXMLConverterDiffblueTest {
     when(errorDefinition.getErrorRef()).thenReturn("An error occurred");
     when(errorDefinition.getExtensionElements()).thenReturn(stringListMap);
 
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).writeCData(Mockito.<String>any());
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeEndElement();
-    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeCData(Mockito.<String>any());
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
 
     // Act
-    associationXMLConverter.writeErrorDefinition(
-        parentEvent, errorDefinition, new IndentingXMLStreamWriter(writer));
+    associationXMLConverter.writeErrorDefinition(parentEvent, errorDefinition, xtw);
 
     // Assert
-    verify(writer).writeAttribute("errorRef", "An error occurred");
-    verify(writer).writeCData("Element Text");
-    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
-    verify(writer, atLeast(1)).writeEndElement();
-    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(xtw).writeAttribute("errorRef", "An error occurred");
+    verify(xtw).writeCData("Element Text");
+    verify(xtw, atLeast(1)).writeEndElement();
+    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any());
     verify(extensionElement).getAttributes();
     verify(errorDefinition, atLeast(1)).getExtensionElements();
     verify(errorDefinition).getErrorRef();
@@ -3400,19 +3337,18 @@ class BaseBpmnXMLConverterDiffblueTest {
     when(errorDefinition.getErrorRef()).thenReturn("An error occurred");
     when(errorDefinition.getExtensionElements()).thenReturn(new HashMap<>());
 
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeEndElement();
-    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
 
     // Act
-    associationXMLConverter.writeErrorDefinition(
-        parentEvent, errorDefinition, new IndentingXMLStreamWriter(writer));
+    associationXMLConverter.writeErrorDefinition(parentEvent, errorDefinition, xtw);
 
     // Assert
-    verify(writer).writeAttribute("errorRef", "An error occurred");
-    verify(writer).writeEndElement();
-    verify(writer).writeStartElement("errorEventDefinition");
+    verify(xtw).writeAttribute("errorRef", "An error occurred");
+    verify(xtw).writeEndElement();
+    verify(xtw).writeStartElement("errorEventDefinition");
     verify(errorDefinition).getExtensionElements();
     verify(errorDefinition).getErrorRef();
   }
@@ -3444,26 +3380,67 @@ class BaseBpmnXMLConverterDiffblueTest {
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
     BoundaryEvent parentEvent = new BoundaryEvent();
 
+    ErrorEventDefinition errorDefinition = mock(ErrorEventDefinition.class);
+    when(errorDefinition.getErrorRef()).thenReturn("null");
+    when(errorDefinition.getExtensionElements()).thenReturn(new HashMap<>());
+
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
+
+    // Act
+    associationXMLConverter.writeErrorDefinition(parentEvent, errorDefinition, xtw);
+
+    // Assert
+    verify(xtw).writeEndElement();
+    verify(xtw).writeStartElement("errorEventDefinition");
+    verify(errorDefinition).getExtensionElements();
+    verify(errorDefinition).getErrorRef();
+  }
+
+  /**
+   * Test {@link BaseBpmnXMLConverter#writeErrorDefinition(Event, ErrorEventDefinition,
+   * XMLStreamWriter)}.
+   *
+   * <ul>
+   *   <li>Then calls {@link IndentingXMLStreamWriter#writeAttribute(String, String)}.
+   * </ul>
+   *
+   * <p>Method under test: {@link BaseBpmnXMLConverter#writeErrorDefinition(Event,
+   * ErrorEventDefinition, XMLStreamWriter)}
+   */
+  @Test
+  @DisplayName(
+      "Test writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter); then calls writeAttribute(String, String)")
+  @Tag("ContributionFromDiffblue")
+  @ManagedByDiffblue
+  @MethodsUnderTest({
+    "void BaseBpmnXMLConverter.writeErrorDefinition(Event, ErrorEventDefinition, XMLStreamWriter)"
+  })
+  void testWriteErrorDefinition_thenCallsWriteAttribute() throws Exception {
+    // Arrange
+    AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
+    BoundaryEvent parentEvent = new BoundaryEvent();
+
     HashMap<String, List<ExtensionElement>> stringListMap = new HashMap<>();
     stringListMap.put("errorEventDefinition", new ArrayList<>());
 
     ErrorEventDefinition errorDefinition = mock(ErrorEventDefinition.class);
-    when(errorDefinition.getErrorRef()).thenReturn("null");
+    when(errorDefinition.getErrorRef()).thenReturn("An error occurred");
     when(errorDefinition.getExtensionElements()).thenReturn(stringListMap);
 
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeEndElement();
-    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
 
     // Act
-    associationXMLConverter.writeErrorDefinition(
-        parentEvent, errorDefinition, new IndentingXMLStreamWriter(writer));
+    associationXMLConverter.writeErrorDefinition(parentEvent, errorDefinition, xtw);
 
     // Assert
-    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
-    verify(writer, atLeast(1)).writeEndElement();
-    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(xtw).writeAttribute("errorRef", "An error occurred");
+    verify(xtw, atLeast(1)).writeEndElement();
+    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any());
     verify(errorDefinition, atLeast(1)).getExtensionElements();
     verify(errorDefinition).getErrorRef();
   }
@@ -3509,29 +3486,26 @@ class BaseBpmnXMLConverterDiffblueTest {
     when(errorDefinition.getErrorRef()).thenReturn("An error occurred");
     when(errorDefinition.getExtensionElements()).thenReturn(stringListMap);
 
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeCData(Mockito.<String>any());
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeCData(Mockito.<String>any());
     doNothing()
-        .when(writer)
+        .when(xtw)
         .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeEndElement();
-    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
 
     // Act
-    associationXMLConverter.writeErrorDefinition(
-        parentEvent, errorDefinition, new IndentingXMLStreamWriter(writer));
+    associationXMLConverter.writeErrorDefinition(parentEvent, errorDefinition, xtw);
 
     // Assert
-    verify(writer).writeAttribute("errorRef", "An error occurred");
-    verify(writer).writeNamespace("Namespace Prefix", "Namespace");
-    verify(writer).writeCData("Element Text");
-    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
-    verify(writer, atLeast(1)).writeEndElement();
-    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
-    verify(writer).writeStartElement("Namespace Prefix", "Name", "Namespace");
+    verify(xtw).writeAttribute("errorRef", "An error occurred");
+    verify(xtw).writeNamespace("Namespace Prefix", "Namespace");
+    verify(xtw).writeCData("Element Text");
+    verify(xtw, atLeast(1)).writeEndElement();
+    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(xtw).writeStartElement("Namespace Prefix", "Name", "Namespace");
     verify(extensionElement).getAttributes();
     verify(errorDefinition, atLeast(1)).getExtensionElements();
     verify(errorDefinition).getErrorRef();
@@ -3585,29 +3559,26 @@ class BaseBpmnXMLConverterDiffblueTest {
     when(errorDefinition.getErrorRef()).thenReturn("An error occurred");
     when(errorDefinition.getExtensionElements()).thenReturn(stringListMap2);
 
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeCData(Mockito.<String>any());
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeNamespace(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeCData(Mockito.<String>any());
     doNothing()
-        .when(writer)
+        .when(xtw)
         .writeStartElement(Mockito.<String>any(), Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeEndElement();
-    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
 
     // Act
-    associationXMLConverter.writeErrorDefinition(
-        parentEvent, errorDefinition, new IndentingXMLStreamWriter(writer));
+    associationXMLConverter.writeErrorDefinition(parentEvent, errorDefinition, xtw);
 
     // Assert
-    verify(writer).writeAttribute("errorRef", "An error occurred");
-    verify(writer).writeNamespace("Namespace Prefix", "Namespace");
-    verify(writer).writeCData("Element Text");
-    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
-    verify(writer, atLeast(1)).writeEndElement();
-    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
-    verify(writer).writeStartElement("Namespace Prefix", "Name", "Namespace");
+    verify(xtw).writeAttribute("errorRef", "An error occurred");
+    verify(xtw).writeNamespace("Namespace Prefix", "Namespace");
+    verify(xtw).writeCData("Element Text");
+    verify(xtw, atLeast(1)).writeEndElement();
+    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(xtw).writeStartElement("Namespace Prefix", "Name", "Namespace");
     verify(extensionElement).getAttributes();
     verify(errorDefinition, atLeast(1)).getExtensionElements();
     verify(errorDefinition).getErrorRef();
@@ -3658,25 +3629,22 @@ class BaseBpmnXMLConverterDiffblueTest {
     when(errorDefinition.getErrorRef()).thenReturn("An error occurred");
     when(errorDefinition.getExtensionElements()).thenReturn(stringListMap);
 
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).writeStartElement(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeCData(Mockito.<String>any());
-    doNothing().when(writer).writeCharacters(Mockito.<String>any());
-    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
-    doNothing().when(writer).writeEndElement();
-    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeCData(Mockito.<String>any());
+    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
 
     // Act
-    associationXMLConverter.writeErrorDefinition(
-        parentEvent, errorDefinition, new IndentingXMLStreamWriter(writer));
+    associationXMLConverter.writeErrorDefinition(parentEvent, errorDefinition, xtw);
 
     // Assert
-    verify(writer).writeAttribute("errorRef", "An error occurred");
-    verify(writer).writeCData("Element Text");
-    verify(writer, atLeast(1)).writeCharacters(Mockito.<String>any());
-    verify(writer, atLeast(1)).writeEndElement();
-    verify(writer, atLeast(1)).writeStartElement(Mockito.<String>any());
-    verify(writer).writeStartElement("Namespace", "Name");
+    verify(xtw).writeAttribute("errorRef", "An error occurred");
+    verify(xtw).writeCData("Element Text");
+    verify(xtw, atLeast(1)).writeEndElement();
+    verify(xtw, atLeast(1)).writeStartElement(Mockito.<String>any());
+    verify(xtw).writeStartElement("Namespace", "Name");
     verify(extensionElement).getAttributes();
     verify(errorDefinition, atLeast(1)).getExtensionElements();
     verify(errorDefinition).getErrorRef();
@@ -3713,17 +3681,16 @@ class BaseBpmnXMLConverterDiffblueTest {
     BoundaryEvent parentEvent = new BoundaryEvent();
     ErrorEventDefinition errorDefinition = new ErrorEventDefinition();
 
-    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(writer).writeEndElement();
-    doNothing().when(writer).writeStartElement(Mockito.<String>any());
+    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(xtw).writeEndElement();
+    doNothing().when(xtw).writeStartElement(Mockito.<String>any());
 
     // Act
-    associationXMLConverter.writeErrorDefinition(
-        parentEvent, errorDefinition, new IndentingXMLStreamWriter(writer));
+    associationXMLConverter.writeErrorDefinition(parentEvent, errorDefinition, xtw);
 
     // Assert
-    verify(writer).writeEndElement();
-    verify(writer).writeStartElement("errorEventDefinition");
+    verify(xtw).writeEndElement();
+    verify(xtw).writeStartElement("errorEventDefinition");
   }
 
   /**
@@ -4273,14 +4240,15 @@ class BaseBpmnXMLConverterDiffblueTest {
     // Arrange
     AssociationXMLConverter associationXMLConverter = new AssociationXMLConverter();
 
-    IndentingXMLStreamWriter xtw = mock(IndentingXMLStreamWriter.class);
-    doNothing().when(xtw).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
+    IndentingXMLStreamWriter writer = mock(IndentingXMLStreamWriter.class);
+    doNothing().when(writer).writeAttribute(Mockito.<String>any(), Mockito.<String>any());
 
     // Act
-    associationXMLConverter.writeDefaultAttribute("Attribute Name", "42", xtw);
+    associationXMLConverter.writeDefaultAttribute(
+        "Attribute Name", "42", new IndentingXMLStreamWriter(writer));
 
     // Assert
-    verify(xtw).writeAttribute("Attribute Name", "42");
+    verify(writer).writeAttribute("Attribute Name", "42");
   }
 
   /**
